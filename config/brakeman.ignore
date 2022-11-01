@@ -1,44 +1,13 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "0b14d4ff3460aca1ffc72f3408993c9a20264f454f291c3cbd92e1f9ff7239bc",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/admin/organisations/features.html.erb",
-      "line": 8,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => Organisation.friendly.find(params[:id]).load_or_create_feature_list(params[:locale]), { :filter_by => ([:title, :type, :author, :organisation]) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::OrganisationsController",
-          "method": "features",
-          "line": 59,
-          "file": "app/controllers/admin/organisations_controller.rb",
-          "rendered": {
-            "name": "admin/organisations/features",
-            "file": "app/views/admin/organisations/features.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/organisations/features"
-      },
-      "user_input": "params[:locale]",
-      "confidence": "Weak",
-      "note": "We don't use the user data directly to find the template, it comes from the database."
-    },
-    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "0e9776bfe5aa3a08c65f6e280826474312b6d1bf9717a26c244aaabe77589ca4",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/email_signups_controller.rb",
-      "line": 10,
+      "line": 11,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(email_alert_frontend_signup_with_slug(WorldLocationEmailSignup.new(feed_url).slug))",
       "render_path": null,
@@ -49,6 +18,9 @@
       },
       "user_input": "WorldLocationEmailSignup.new(feed_url).slug",
       "confidence": "Weak",
+      "cwe_id": [
+        601
+      ],
       "note": "Ignore this warning as the query string for the URL being generated comes directly from email-alert-api and so is trusted not to be user inputted data"
     },
     {
@@ -80,6 +52,9 @@
       },
       "user_input": "Organisation.friendly.find(params[:id]).custom_jobs_url",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "We control the organisation URLs in the database."
     },
     {
@@ -100,6 +75,9 @@
       },
       "user_input": "Whitehall.system_binaries[:zipinfo]",
       "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
       "note": ""
     },
     {
@@ -117,7 +95,7 @@
           "type": "controller",
           "class": "Admin::EditionsController",
           "method": "show",
-          "line": 82,
+          "line": 86,
           "file": "app/controllers/admin/editions_controller.rb",
           "rendered": {
             "name": "admin/editions/show",
@@ -127,7 +105,7 @@
         {
           "type": "template",
           "name": "admin/editions/show",
-          "line": 78,
+          "line": 77,
           "file": "app/views/admin/editions/show.html.erb",
           "rendered": {
             "name": "admin/editions/_speed_tagging",
@@ -141,6 +119,9 @@
       },
       "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "This comes from a new model so we trust the data."
     },
     {
@@ -172,6 +153,9 @@
       },
       "user_input": "Organisation.friendly.find(params[:id])",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "We don't link directly to any unescaped model attribute."
     },
     {
@@ -203,6 +187,9 @@
       },
       "user_input": "Organisation.friendly.find(params[:id]).url",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "We control the organisation URLs in the database."
     },
     {
@@ -234,6 +221,9 @@
       },
       "user_input": "Organisation.friendly.find(params[:id])",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "We don't link directly to any unescaped model attribute."
     },
     {
@@ -243,7 +233,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/controllers/past_foreign_secretaries_controller.rb",
-      "line": 6,
+      "line": 287,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(template => \"past_foreign_secretaries/#{params[:id].underscore}\", {})",
       "render_path": null,
@@ -254,6 +244,9 @@
       },
       "user_input": "params[:id].underscore",
       "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
       "note": "We check that the params[:id] is valid before rendering the template."
     },
     {
@@ -274,6 +267,9 @@
       },
       "user_input": "pdf_thumbnail_command(width, height)",
       "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
       "note": ""
     },
     {
@@ -294,6 +290,9 @@
       },
       "user_input": "Whitehall.system_binaries[:zipinfo]",
       "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
       "note": ""
     },
     {
@@ -335,74 +334,10 @@
       },
       "user_input": "Organisation.friendly.find(params[:organisation_id])",
       "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Remote Code Execution",
-      "warning_code": 110,
-      "fingerprint": "9ae68e59cfee3e5256c0540dadfeb74e6b72c91997fdb60411063a6e8518144a",
-      "check_name": "CookieSerialization",
-      "message": "Use of unsafe cookie serialization strategy `:hybrid` might lead to remote code execution",
-      "file": "config/initializers/cookies_serializer.rb",
-      "line": 5,
-      "link": "https://brakemanscanner.org/docs/warning_types/unsafe_deserialization",
-      "code": "Rails.application.config.action_dispatch.cookies_serializer = :hybrid",
-      "render_path": null,
-      "location": null,
-      "user_input": null,
-      "confidence": "Medium",
-      "note": "We are migrating to :json via :hybrid . Ignore until 8/8/2019 and check again."
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "9babd9b58f8e6b7eefd8418ea20b8c96b1c7a2e4222448b9239b911b1a6d1e42",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/admin/world_locations/features.html.erb",
-      "line": 12,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => WorldLocation.friendly.find((params[:id] or params[:world_location_id])).load_or_create_feature_list(params[:locale]), { :filter_by => ([:title, :type, :world_location]) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::WorldLocationsController",
-          "method": "features",
-          "line": 32,
-          "file": "app/controllers/admin/world_locations_controller.rb",
-          "rendered": {
-            "name": "admin/world_locations/features",
-            "file": "app/views/admin/world_locations/features.html.erb"
-          }
-        }
+      "cwe_id": [
+        79
       ],
-      "location": {
-        "type": "template",
-        "template": "admin/world_locations/features"
-      },
-      "user_input": "params[:locale]",
-      "confidence": "Weak",
-      "note": "We don't use the user data directly to find the template, it comes from the database."
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "a80b1ada840e777530b7d268cb70246543b56fc30be5a06ba5f63ccf362e750e",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/edition/limited_access.rb",
-      "line": 44,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "where((\"access_limited = false OR EXISTS (\\n                 SELECT * FROM edition_organisations eo_accessibility_check\\n                 WHERE\\n                   eo_accessibility_check.edition_id = editions.id\\n                 AND eo_accessibility_check.organisation_id = :organisation_id) OR EXISTS (\\n                 SELECT * FROM edition_authors author_accessibility_check\\n                 WHERE\\n                   author_accessibility_check.edition_id = editions.id\\n                 AND author_accessibility_check.user_id = :user_id)\" or \"(#{\"access_limited = false OR EXISTS (\\n                 SELECT * FROM edition_organisations eo_accessibility_check\\n                 WHERE\\n                   eo_accessibility_check.edition_id = editions.id\\n                 AND eo_accessibility_check.organisation_id = :organisation_id) OR EXISTS (\\n                 SELECT * FROM edition_authors author_accessibility_check\\n                 WHERE\\n                   author_accessibility_check.edition_id = editions.id\\n                 AND author_accessibility_check.user_id = :user_id)\"}) AND (#{[\"EXISTS (\\n                 SELECT 1 FROM edition_world_locations location_accessibility_check\\n                  WHERE location_accessibility_check.edition_id = editions.id\\n                    AND location_accessibility_check.world_location_id IN (:user_location_ids))\"].join(\" OR \")})\"), :organisation_id => user.organisation.id, :user_id => user.id, :user_location_ids => ([0, *user.world_location_ids]))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Edition::LimitedAccess::ClassMethods",
-        "method": "accessible_to"
-      },
-      "user_input": "[\"EXISTS (\\n                 SELECT 1 FROM edition_world_locations location_accessibility_check\\n                  WHERE location_accessibility_check.edition_id = editions.id\\n                    AND location_accessibility_check.world_location_id IN (:user_location_ids))\"].join(\" OR \")",
-      "confidence": "Medium",
-      "note": "No user input is passed directly into this query, they are passed as parameters."
+      "note": ""
     },
     {
       "warning_type": "Denial of Service",
@@ -422,6 +357,10 @@
       },
       "user_input": "Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.map",
       "confidence": "Weak",
+      "cwe_id": [
+        20,
+        185
+      ],
       "note": ""
     },
     {
@@ -453,6 +392,9 @@
       },
       "user_input": "WorldwideOrganisation.friendly.find(params[:id])",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "We don't link directly to any unescaped model attribute."
     },
     {
@@ -484,6 +426,9 @@
       },
       "user_input": "Organisation.friendly.find(params[:id])",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "We don't link directly to any unescaped model attribute"
     },
     {
@@ -504,6 +449,9 @@
       },
       "user_input": "Whitehall.system_binaries[:unzip]",
       "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
       "note": ""
     },
     {
@@ -535,6 +483,9 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": "We don't use the user data directly to find the template, it comes from the database."
     },
     {
@@ -576,9 +527,12 @@
       },
       "user_input": "Organisation.friendly.find(params[:organisation_id])",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": ""
     }
   ],
-  "updated": "2021-06-14 17:25:26 +0100",
-  "brakeman_version": "5.0.4"
+  "updated": "2022-11-01 10:29:48 +0000",
+  "brakeman_version": "5.3.1"
 }
