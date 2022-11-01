@@ -1,11 +1,6 @@
 <% content_for :page_title, "Bulk upload for: #{@edition.title}" %>
 <% content_for :title, "Edit file attachments" %>
 <% content_for :context, "Attachments for publication" %>
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_attachments_path(@edition)
-  } %>
-<% end %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -26,6 +21,7 @@
                 text: "Title (required)"
               },
               name: "bulk_upload[attachments_attributes][#{i}][title]",
+              id: "bulk_upload_attachments_#{i}_title",
               autofocus: true,
               margin_top: 10,
               heading_level: 2,
@@ -38,11 +34,12 @@
             <% end %>
 
             <%= render "govuk_publishing_components/components/checkboxes", {
-              name: "Attachment is accessible",
+              name: "bulk_upload[attachments_attributes][#{i}][accessible]",
               items: [
                 {
                   label: "Attachment is accessible",
-                  value: true
+                  value: "1",
+                  checked: attachment.accessible
                 }
               ]
             } %>
@@ -56,9 +53,14 @@
             <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
           <% end %>
         <% end %>
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Save",
-        } %>
+
+        <div class="govuk-button-group">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Save",
+          } %>
+
+          <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link") %>
+        </div>
       <% end %>
     </div>
   </div>

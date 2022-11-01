@@ -1,11 +1,6 @@
 <% content_for :page_title, "Bulk upload for: #{@edition.title}" %>
 <% content_for :title, "Bulk upload" %>
 <% content_for :context, "Attachments for #{@edition.format_name}" %>
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_attachments_path(@edition)
-  } %>
-<% end %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -14,16 +9,20 @@
 
       <%= render "govuk_publishing_components/components/file_upload", {
         label: {
-          text: "Upload a zip file"
+          text: "Zip file"
         },
         name: "bulk_upload_zip_file[zip_file]",
         id: "zip_file_zip_file",
         error_items: errors_for(@zip_file.errors, :zip_file)
       } %>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Next",
-      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Upload zip",
+        } %>
+
+        <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link") %>
+      </div>
     <% end %>
   </div>
 </div>

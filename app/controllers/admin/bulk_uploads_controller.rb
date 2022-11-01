@@ -62,6 +62,7 @@ private
       :hoc_paper_number,
       :unnumbered_hoc_paper,
       :parliamentary_session,
+      :accessible,
     ])
   end
 end

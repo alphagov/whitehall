@@ -5,8 +5,14 @@ When(/^I upload a zip file containing several attachments and give them titles$/
   attach_file "Zip file", Rails.root.join("test/fixtures/two-pages-and-greenpaper.zip")
   click_button "Upload zip"
 
-  fill_in "bulk_upload_attachments_attributes_0_title", with: "Two pages title"
-  fill_in "bulk_upload_attachments_attributes_1_title", with: "Greenpaper title"
+  if using_design_system?
+    fill_in "bulk_upload_attachments_0_title", with: "Two pages title"
+    fill_in "bulk_upload_attachments_1_title", with: "Greenpaper title"
+  else
+    fill_in "bulk_upload_attachments_attributes_0_title", with: "Two pages title"
+    fill_in "bulk_upload_attachments_attributes_1_title", with: "Greenpaper title"
+  end
+
   click_button "Save"
 end
 
@@ -27,7 +33,11 @@ When(/^I upload a zip file that contains a file "(.*?)"$/) do |_file|
   click_link "Bulk upload from Zip file"
   attach_file "Zip file", Rails.root.join("test/fixtures/two-pages-and-greenpaper.zip")
   click_button "Upload zip"
-  fill_in "bulk_upload_attachments_attributes_0_title", with: "Two pages title"
+  if using_design_system?
+    fill_in "bulk_upload_attachments_0_title", with: "Two pages title"
+  else
+    fill_in "bulk_upload_attachments_attributes_0_title", with: "Two pages title"
+  end
   click_button "Save"
 end
 
