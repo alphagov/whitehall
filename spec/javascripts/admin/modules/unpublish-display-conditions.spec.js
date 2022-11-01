@@ -37,9 +37,8 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
               <label for="checkboxes-cb24c6f1-0" class="govuk-label govuk-checkboxes__label">Redirect to URL automatically?</label>
             </div>
           </div>
-          <div class="gem-c-textarea govuk-form-group govuk-!-margin-bottom-6">
-            <label for="published_in_error_explanation" class="gem-c-label govuk-label govuk-label--s">Public explanation</label>
-            <textarea name="unpublishing[explanation]" class="govuk-textarea" id="published_in_error_explanation" rows="5"></textarea>
+          <div class="app-c-govspeak-editor govuk-form-group">
+            This is the public explanation section
           </div>
         </div>
         <div class="unpublish-withdraw-form-wrapper js-unpublish-withdraw-form__consolidated">
@@ -108,7 +107,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
   })
 
   it('should hide public explanation section when "Redirect to URL automatically?" is pre-checked', function () {
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.gem-c-textarea').style.display).toEqual('none')
+    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('none')
   })
 
   it('should show/hide public explanation section when "Redirect to URL automatically?" is unchecked/checked', function () {
@@ -116,11 +115,11 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     checkbox.checked = false
     checkbox.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.gem-c-textarea').style.display).toEqual('block')
+    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('block')
 
     checkbox.checked = true
     checkbox.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.gem-c-textarea').style.display).toEqual('none')
+    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('none')
   })
 })
