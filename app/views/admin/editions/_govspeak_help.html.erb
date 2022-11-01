@@ -172,6 +172,12 @@
     <p class='govuk-body'>If it doesn’t exist you will have to add it (see your ‘Publishing explained’ guidance). </p>
   <% end %>
 
+  <%= render "govuk_publishing_components/components/details", {
+    title: "Email links"
+  } do %>
+    <p class='govuk-body'>Use ‘less than’ (<em>&lt</em>) and ‘greater than’ (<em>&gt;</em>) arrows around email addresses to make them a link.<p></p>
+  <% end %>
+
   <% if show_footnote_help %>
     <%= render "govuk_publishing_components/components/details", {
       title: "Footnotes"
