@@ -27,17 +27,19 @@
     },
   }
 
-  withdrawal_public_explanation_field = render("components/govspeak-editor", {
-    label: {
-      text: "Public explanation",
-      bold: true,
-    },
-    hint: "This is shown on the live site",
-    name: "unpublishing[explanation]",
-    id: "withdrawal_explanation",
-    value: @unpublishing.explanation,
-    error_items: errors_for(@unpublishing.errors, :explanation)
-  })
+  withdrawal_public_explanation_field = field_container(id: "withdrawal_explanation") do
+    render("components/govspeak-editor", {
+        label: {
+          text: "Public explanation",
+          bold: true,
+        },
+        hint: "This is shown on the live site",
+        name: "unpublishing[explanation]",
+        id: "withdrawal_explanation_field",
+        value: @unpublishing.explanation,
+        error_items: errors_for(@unpublishing.errors, :explanation)
+      })
+    end
 %>
 
 <div class="govuk-grid-row">
@@ -93,23 +95,28 @@
               checked: (params["previous_withdrawal_id"] == "new"),
             }
           %>
-          <%= render "govuk_publishing_components/components/radio", {
-            name: "previous_withdrawal_id",
-            heading: "Do you need to reuse a previous withdrawal?",
-            description: sanitize("
-              <p class=\"govuk-body\">You should only reuse a previous withdrawal date and public explanation if you have:</p>
-              <ul class=\"govuk-list govuk-list--bullet\">
-                <li>updated file attachments to mark them ‘withdrawn’</li>
-                <li>made a minor edit, for example fixing a broken link</li>
-                <li>fixed an error or mistake in the content which existed when it was originally withdrawn</li>
-              </ul>
-            "),
-            items: items,
-            error_items: errors_for(@unpublishing.errors, :previous_withdrawal_id)
-          } %>
+
+          <%= field_container(id: "previous_withdrawal_id") do %>
+            <%= render "govuk_publishing_components/components/radio", {
+              name: "previous_withdrawal_id",
+              id: "previous_withdrawal_id_field",
+              heading: "Do you need to reuse a previous withdrawal?",
+              description: sanitize("
+                <p class=\"govuk-body\">You should only reuse a previous withdrawal date and public explanation if you have:</p>
+                <ul class=\"govuk-list govuk-list--bullet\">
+                  <li>updated file attachments to mark them ‘withdrawn’</li>
+                  <li>made a minor edit, for example fixing a broken link</li>
+                  <li>fixed an error or mistake in the content which existed when it was originally withdrawn</li>
+                </ul>
+              "),
+              items: items,
+              error_items: errors_for(@unpublishing.errors, :previous_withdrawal_id)
+            } %>
+          <% end %>
         <% else %>
           <%= withdrawal_public_explanation_field %>
         <% end %>
+
         <%= render "govuk_publishing_components/components/button", {
           text: "Withdraw",
           destructive: true,
@@ -124,26 +131,29 @@
       } do |form| %>
         <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:published_in_error][:id] %>
 
-        <%= render "govuk_publishing_components/components/input", {
-          label: {
-            text: "Alternative URL",
-            bold: true,
-          },
-          name: "unpublishing[alternative_url]",
-          id: "published_in_error_alternative_url",
-          value: @unpublishing.alternative_url,
-          error_items: errors_for(@unpublishing.errors, :alternative_url)
-        } %>
-        <%= render "govuk_publishing_components/components/checkboxes", {
-          name: "unpublishing[redirect]",
-          items: [
-            {
-              label: "Redirect to URL automatically?",
-              value: 1,
-              checked: @unpublishing.redirect,
-            }
-          ]
-        } %>
+        <%= field_container(id: "published_in_error_alternative_url") do %>
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Alternative URL",
+              bold: true,
+            },
+            name: "unpublishing[alternative_url]",
+            id: "published_in_error_alternative_url_field",
+            value: @unpublishing.alternative_url,
+            error_items: errors_for(@unpublishing.errors, :alternative_url)
+          } %>
+
+          <%= render "govuk_publishing_components/components/checkboxes", {
+            name: "unpublishing[redirect]",
+            items: [
+              {
+                label: "Redirect to URL automatically?",
+                value: 1,
+                checked: @unpublishing.redirect,
+              }
+            ]
+          } %>
+        <% end %>
 
         <%= render "components/govspeak-editor", {
           label: {
@@ -171,17 +181,19 @@
       } do |form| %>
         <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:consolidated][:id] %>
 
-        <%= render "govuk_publishing_components/components/input", {
-          label: {
-            text: "Alternative URL",
-            bold: true,
-          },
-          id: "consolidated_alternative_url",
-          name: "unpublishing[alternative_url]",
-          hint: "This will be automatically redirected",
-          value: @unpublishing.alternative_url,
-          error_items: errors_for(@unpublishing.errors, :alternative_url)
-        } %>
+        <%= field_container(id: "consolidated_alternative_url") do %>
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Alternative URL",
+              bold: true,
+            },
+            id: "consolidated_alternative_url_field",
+            name: "unpublishing[alternative_url]",
+            hint: "This will be automatically redirected",
+            value: @unpublishing.alternative_url,
+            error_items: errors_for(@unpublishing.errors, :alternative_url)
+          } %>
+        <% end %>
 
         <%= render "govuk_publishing_components/components/button", {
           text: "Unpublish",

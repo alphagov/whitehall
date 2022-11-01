@@ -22,7 +22,7 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
                    end
 
   within form_container do
-    fill_in "consolidated_alternative_url", with: Whitehall.url_maker.publication_url(@existing_edition.document)
+    fill_in using_design_system? ? "consolidated_alternative_url_field" : "Alternative URL", with: Whitehall.url_maker.publication_url(@existing_edition.document)
     click_button "Unpublish"
   end
 end

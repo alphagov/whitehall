@@ -19,20 +19,22 @@
     <p class="govuk-body govuk-!-margin-bottom-6"><%= @unpublishing.unpublishing_reason.as_sentence.capitalize %></p>
 
     <%= form_for @unpublishing, url: admin_edition_unpublishing_path(@unpublishing.edition) do |f| %>
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
-          heading_size: "l",
-          text: "Public explanation",
-        },
-        hint: "This is shown on the live site",
-        name: "unpublishing[explanation]",
-        id: "unpublishing_explanation",
-        value: @unpublishing.explanation,
-        data: {
-          module: "paste-html-to-govspeak"
-        },
-        error_items: errors_for(@unpublishing.errors, :explanation)
-      } %>
+      <%= field_container(id: "unpublishing_explanation") do %>
+        <%= render "govuk_publishing_components/components/textarea", {
+          label: {
+            heading_size: "l",
+            text: "Public explanation",
+          },
+          hint: "This is shown on the live site",
+          name: "unpublishing[explanation]",
+          id: "unpublishing_explanation_field",
+          value: @unpublishing.explanation,
+          data: {
+            module: "paste-html-to-govspeak"
+          },
+          error_items: errors_for(@unpublishing.errors, :explanation)
+        } %>
+      <% end %>
 
       <%= render "govuk_publishing_components/components/button", {
         text: "Update #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation",
