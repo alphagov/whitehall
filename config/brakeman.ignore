@@ -1,29 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "0e9776bfe5aa3a08c65f6e280826474312b6d1bf9717a26c244aaabe77589ca4",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/email_signups_controller.rb",
-      "line": 11,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(email_alert_frontend_signup_with_slug(WorldLocationEmailSignup.new(feed_url).slug))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "EmailSignupsController",
-        "method": "new"
-      },
-      "user_input": "WorldLocationEmailSignup.new(feed_url).slug",
-      "confidence": "Weak",
-      "cwe_id": [
-        601
-      ],
-      "note": "Ignore this warning as the query string for the URL being generated comes directly from email-alert-api and so is trusted not to be user inputted data"
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "1cc573a78d6cc4fbcde77a4b472fc7095eea27e1135442d379dd20e64f08085c",
@@ -535,6 +512,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-11-22 17:52:43 +0000",
+  "updated": "2022-11-28 11:02:47 +0000",
   "brakeman_version": "5.3.1"
 }
