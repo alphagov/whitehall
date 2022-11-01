@@ -1,0 +1,92 @@
+.app-c-secondary-navigation {
+  @include govuk-font(19);
+  @include govuk-responsive-margin(6, "bottom");
+
+  @include govuk-media-query($from: tablet) {
+    box-shadow: inset 0 -1px 0 $govuk-border-colour;
+    display: flex;
+  }
+}
+
+.app-c-secondary-navigation__list {
+  list-style: none;
+  margin-bottom: govuk-spacing(4);
+  padding: 0;
+
+  @include govuk-media-query($from: tablet) {
+    box-shadow: none;
+    display: flex;
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+
+.app-c-secondary-navigation__list-item {
+  box-shadow: inset 0 -1px 0 $govuk-border-colour;
+
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &:last-child {
+    box-shadow: none;
+  }
+
+  .app-c-secondary-navigation__list-item-link,
+  .app-c-secondary-navigation__list-item-link:link,
+  .app-c-secondary-navigation__list-item-link:visited {
+    background-color: inherit;
+    border-left: 4px solid transparent;
+    color: govuk-colour("blue");
+    display: block;
+    padding: govuk-spacing(2);
+    text-decoration: none;
+
+    @include govuk-media-query($from: tablet) {
+      border-bottom: 4px solid transparent;
+      border-left: 0;
+      padding: govuk-spacing(2) 0;
+      padding-bottom: govuk-spacing(2) - 4px; // Compensate for 4px border
+    }
+  }
+
+  .app-c-secondary-navigation__list-item-link:hover {
+    color: $govuk-link-hover-colour;
+  }
+
+  .app-c-secondary-navigation__list-item-link:focus {
+    @include govuk-focused-text;
+
+    border-color: $govuk-focus-text-colour;
+    border-left-color: transparent;
+    position: relative;
+
+    @include govuk-media-query($from: tablet) {
+      box-shadow: none;
+    }
+  }
+}
+
+.app-c-secondary-navigation__list-item--current {
+  .app-c-secondary-navigation__list-item-link:link,
+  .app-c-secondary-navigation__list-item-link:visited {
+    border-color: govuk-colour("blue");
+    color: $govuk-text-colour;
+  }
+
+  .app-c-secondary-navigation__list-item-link:focus {
+    @include govuk-focused-text;
+
+    border-color: $govuk-focus-text-colour;
+    border-left-color: transparent;
+
+    @include govuk-media-query($from: tablet) {
+      box-shadow: none;
+    }
+  }
+}
