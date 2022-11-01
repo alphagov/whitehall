@@ -19,7 +19,7 @@
     <p class="govuk-body govuk-!-margin-bottom-6"><%= @unpublishing.unpublishing_reason.as_sentence.capitalize %></p>
 
     <%= form_for @unpublishing, url: admin_edition_unpublishing_path(@unpublishing.edition) do |f| %>
-      <%= render "govuk_publishing_components/components/textarea", {
+      <%= render "components/govspeak-editor", {
         label: {
           heading_size: "l",
           text: "Public explanation",
