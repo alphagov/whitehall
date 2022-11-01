@@ -49,7 +49,8 @@ module ApplicationHelper
 
     name = attachment.name_for_link
     name = truncate(name) if options[:truncate]
-    link_to name, attachment.url(options)
+    html_class = options[:class]
+    link_to name, attachment.url(options), class: html_class
   end
 
   def text_for_role_appointment(appointment)

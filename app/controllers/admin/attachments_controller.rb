@@ -6,7 +6,9 @@ class Admin::AttachmentsController < Admin::BaseController
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
 
-  def index; end
+  def index
+    render_design_system("index", "index_legacy", next_release: false)
+  end
 
   def reorder; end
 
@@ -90,6 +92,7 @@ private
 
   def get_layout
     design_system_actions = %w[edit update new create confirm_destroy reorder]
+    design_system_actions << "index" if preview_design_system?(next_release: false)
     if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
       "design_system"
     else

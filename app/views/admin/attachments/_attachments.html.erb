@@ -1,45 +1,38 @@
-<% initialise_script "GOVUK.ReorderableAttachmentsList", el: "ol.existing-attachments" if attachable.can_order_attachments? && attachable.attachments.many? %>
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Attachments",
+  font_size: "l",
+  margin_bottom: 3,
+} %>
 
 <% if attachable.can_order_attachments? && attachable.attachments.many? %>
-  <p class="alert alert-info">
-    To change the order of your attachments, drag them up or down and then click ‘Save attachment order’ at
-    the bottom of the page.
-  </p>
+<p class="govuk-body"><%= link_to 'Reorder attachments', reorder_admin_edition_attachments_path(@edition), class: "govuk-link govuk-link--no-visited-state" %></p>
 <% end %>
 
-<%= form_tag [:order, :admin, typecast_for_attachable_routing(attachable), Attachment], method: :put do %>
-  <ol class="existing-attachments list-unstyled">
-    <% attachable.attachments.includes(:attachment_data).each do |attachment| %>
-      <%= content_tag_for(:li, attachment.becomes(Attachment), class: "well") do %>
-        <strong><%= attachment.title %></strong>
-        <span class="file">
-          <%= attachment.is_a?(ExternalAttachment) ? 'Link' : 'File' %>: <%= link_to_attachment(attachment, preview: true, full_url: true) %>
-        </span>
-        <%= attachment_uploading_status(attachment) %>
-        <%= attachment_metadata_tag(attachment) %>
-
-        <% if attachable.can_order_attachments? %>
-          <%= label_tag "ordering-#{attachment.id}", "Order:" %>
-          <%= text_field_tag "ordering[#{attachment.id}]", attachment.ordering, id: "ordering-#{attachment.id}", class: "ordering" %>
-        <% end %>
-
-        <ul class="actions list-unstyled">
-          <li>
-            <%= link_to 'Edit', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)] %>
-          </li>
-          <li>
-            <%= link_to 'Delete',
-                  [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)],
-                  method: 'delete',
-                  data: { confirm: 'Are you sure you want to delete this attachment?' } %>
-          </li>
-        </ul>
-      <% end %>
-    <% end %>
-  </ol>
-
-  <% if attachable.can_order_attachments? && attachable.attachments.many? %>
-    <%= submit_tag 'Save attachment order', class: 'btn btn-primary' %>
-  <% end %>
-
-<% end %>
+<%= render "govuk_publishing_components/components/table", {
+  head: [
+    {
+      text: "Title"
+    },
+    {
+      text: "File"
+    },
+    {},
+    {}
+  ],
+  rows: attachable.attachments.includes(:attachment_data).map do |attachment|
+    [
+      {
+        text: attachment.title
+      },
+      {
+        text: link_to_attachment(attachment, preview: true, full_url: true, class: "govuk-link govuk-link--no-visited-state")
+      },
+      {
+        text: link_to('Edit', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state")
+      },
+      {
+        text: link_to("Delete", confirm_destroy_admin_edition_attachment_path(@edition, attachment.id), class: "govuk-link govuk-link--no-visited-state")
+      }
+    ]
+  end
+} %>
