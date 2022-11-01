@@ -11,7 +11,7 @@
         item_aria_attributes = { current: "page" } if item[:current]
       %>
       <%= tag.li class: item_classes do %>
-        <%= link_to item[:label], item[:href], class: "govuk-link govuk-link--no-visited-state", data: item[:data_attributes], aria: item_aria_attributes %>
+        <%= link_to item[:label], item[:href], class: "govuk-link govuk-link--no-visited-state app-c-secondary-navigation__list-item-link", data: item[:data_attributes], aria: item_aria_attributes %>
       <% end %>
     <% end %>
   <% end %>

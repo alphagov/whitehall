@@ -2,8 +2,6 @@
   @include govuk-font(19);
   @include govuk-responsive-margin(6, "bottom");
 
-  display: block;
-
   @include govuk-media-query($from: tablet) {
     box-shadow: inset 0 -1px 0 $govuk-border-colour;
     display: flex;
@@ -39,9 +37,9 @@
     box-shadow: none;
   }
 
-  a,
-  a:link,
-  a:visited {
+  .app-c-secondary-navigation__list-item-link,
+  .app-c-secondary-navigation__list-item-link:link,
+  .app-c-secondary-navigation__list-item-link:visited {
     background-color: inherit;
     border-left: 4px solid transparent;
     color: govuk-colour("blue");
@@ -57,11 +55,11 @@
     }
   }
 
-  a:hover {
+  .app-c-secondary-navigation__list-item-link:hover {
     color: $govuk-link-hover-colour;
   }
 
-  a:focus {
+  .app-c-secondary-navigation__list-item-link:focus {
     @include govuk-focused-text;
 
     border-color: $govuk-focus-text-colour;
@@ -75,13 +73,13 @@
 }
 
 .app-c-secondary-navigation__list-item--current {
-  a:link,
-  a:visited {
+  .app-c-secondary-navigation__list-item-link:link,
+  .app-c-secondary-navigation__list-item-link:visited {
     border-color: govuk-colour("blue");
     color: $govuk-text-colour;
   }
 
-  a:focus {
+  .app-c-secondary-navigation__list-item-link:focus {
     @include govuk-focused-text;
 
     border-color: $govuk-focus-text-colour;
