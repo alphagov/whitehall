@@ -101,13 +101,4 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
       assert_equal "/world/aardistan/news.fr", base_path
     end
   end
-
-  test "it uses whitehall as the rendering app for non-english locales" do
-    I18n.with_locale(:fr) do
-      presented_item = present(@world_location_news)
-      rendering_app = presented_item.content[:rendering_app]
-
-      assert_equal "whitehall-frontend", rendering_app
-    end
-  end
 end
