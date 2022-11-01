@@ -1,0 +1,49 @@
+# Pact verify workflow
+#
+# This workflow asserts that Pact contract tests are valid against this
+# codebase. It is trigged when changes are made to this project and it
+# is explicitly called by GDS API Adapters when changes are made there.
+on:
+  pull_request:
+  push:
+  workflow_call:
+    inputs:
+      # what branch or Git SHA to clone this app with, only applies when
+      # called as a workflow, so current commit applies to push/pull requests
+      commitish:
+        required: false
+        type: string
+        default: main
+      pact_consumer_version:
+        required: true
+        type: string
+
+jobs:
+  pact_verify:
+    name: Verify pact tests
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8
+        ports: ["3306:3306"]
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 5
+      redis:
+        image: redis
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version || 'branch-main' }}
+      TEST_DATABASE_URL: mysql2://root:root@127.0.0.1:3306/test-db
+      RAILS_ENV: test
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: alphagov/whitehall
+          ref: ${{ inputs.commitish || github.sha }}
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bundle exec rails db:setup
+      - run: bundle exec rake pact:verify
