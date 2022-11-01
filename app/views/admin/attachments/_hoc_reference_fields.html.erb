@@ -1,15 +1,17 @@
 <div class="govuk-!-margin-bottom-8">
-  <%= render("govuk_publishing_components/components/input", {
-    label: {
-      text: "House of Commons paper number",
-    },
-    name: "attachment[hoc_paper_number]",
-    id: "attachment_hoc_paper_number",
-    value: form.object.hoc_paper_number,
-    error_items: errors_for(attachment.errors, :unnumbered_hoc_paper),
-    heading_size: heading_size,
-    hint: "Fill in the command and House of Commons boxes to publish an official document which will appear in the list of official documents."
-  }) %>
+  <%= field_container(id: "attachment_hoc_paper_number") do %>
+    <%= render("govuk_publishing_components/components/input", {
+      label: {
+        text: "House of Commons paper number",
+      },
+      name: "attachment[hoc_paper_number]",
+      id: "attachment_hoc_paper_number_field",
+      value: form.object.hoc_paper_number,
+      error_items: errors_for(attachment.errors, :unnumbered_hoc_paper),
+      heading_size: heading_size,
+      hint: "Fill in the command and House of Commons boxes to publish an official document which will appear in the list of official documents."
+    }) %>
+  <% end %>
 
   <%= form.hidden_field :unnumbered_hoc_paper, value: "0" %>
 
@@ -38,14 +40,16 @@
 %>
 
 <div class="govuk-!-margin-bottom-8">
-  <%= render "govuk_publishing_components/components/select", {
-    label: "Parliamentary session",
-    name: "attachment[parliamentary_session]",
-    id: "attachment_parliamentary_session",
-    heading_level: 3,
-    heading_size: heading_size,
-    options: options,
-    hint: "Choose the right Parliamentary session",
-    error_message: errors_for_input(attachment.errors, :parliamentary_session)
-  } %>
+  <%= field_container(id: "attachment_parliamentary_session") do %>
+    <%= render "govuk_publishing_components/components/select", {
+      label: "Parliamentary session",
+      name: "attachment[parliamentary_session]",
+      id: "attachment_parliamentary_session_field",
+      heading_level: 3,
+      heading_size: heading_size,
+      options: options,
+      hint: "Choose the right Parliamentary session",
+      error_message: errors_for_input(attachment.errors, :parliamentary_session)
+    } %>
+  <% end %>
 </div>

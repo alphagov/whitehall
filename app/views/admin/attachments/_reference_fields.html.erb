@@ -11,7 +11,7 @@
 <% if attachable.respond_to?(:translated_locales) && attachable.translated_locales.many? %>
   <div class="govuk-!-margin-bottom-8">
     <%= render "govuk_publishing_components/components/select", {
-      id: "attachment_parliamentary_session",
+      id: "attachment_locale",
       label: "Display language",
       name: "attachment[locale]",
       heading_level: 2,
@@ -23,17 +23,19 @@
 <% end %>
 
 <div class="govuk-!-margin-bottom-8">
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: "ISBN"
-    },
-    name: "attachment[isbn]",
-    id: "attachment_isbn",
-    heading_level: 2,
-    heading_size: heading_size,
-    value: form.object.isbn,
-    error_items: errors_for(attachment.errors, :isbn)
-  } %>
+  <%= field_container(id: "attachment_isbn") do %>
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: "ISBN"
+      },
+      name: "attachment[isbn]",
+      id: "attachment_isbn_field",
+      heading_level: 2,
+      heading_size: heading_size,
+      value: form.object.isbn,
+      error_items: errors_for(attachment.errors, :isbn)
+    } %>
+  <% end %>
 </div>
 
 <div class="govuk-!-margin-bottom-8">
@@ -55,17 +57,19 @@
     <p class="govuk-body">Fill in the command or House of Commons box to publish an official document which will appear in the list of official documents.</p>
   <% end %>
 
-  <%= render("govuk_publishing_components/components/input", {
-    label: {
-      text: "Command paper number"
-    },
-    name: "attachment[command_paper_number]",
-    id: "attachment_command_paper_number",
-    value: form.object.command_paper_number,
-    error_items: errors_for(attachment.errors, :command_paper_number),
-    heading_size: attachable.can_have_attached_house_of_commons_papers? ? subheading_size : heading_size,
-    hint: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ') + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
-  }) %>
+  <%= field_container(id: "attachment_command_paper_number") do %>
+    <%= render("govuk_publishing_components/components/input", {
+      label: {
+        text: "Command paper number"
+      },
+      name: "attachment[command_paper_number]",
+      id: "attachment_command_paper_number_field",
+      value: form.object.command_paper_number,
+      error_items: errors_for(attachment.errors, :command_paper_number),
+      heading_size: attachable.can_have_attached_house_of_commons_papers? ? subheading_size : heading_size,
+      hint: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ') + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
+    }) %>
+  <% end %>
 
   <%= form.hidden_field :unnumbered_command_paper, value: "0" %>
 

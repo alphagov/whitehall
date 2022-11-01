@@ -4,17 +4,19 @@
   <% content_for :error_summary, render('shared/error_summary', object: attachment, parent_class: "attachment", class_name: @attachment.class.name.demodulize.underscore.humanize.downcase) %>
 
   <div class="govuk-!-margin-bottom-8">
-    <%= render "govuk_publishing_components/components/input", {
-      label: {
-        text: "Title (required)"
-      },
-      name: "attachment[title]",
-      id: "attachment_title",
-      heading_level: 2,
-      heading_size: "l",
-      value: form.object.title,
-      error_items: errors_for(attachment.errors, :title)
-    } %>
+    <%= field_container(id: "attachment_title") do %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Title (required)"
+        },
+        name: "attachment[title]",
+        id: "attachment_title_field",
+        heading_level: 2,
+        heading_size: "l",
+        value: form.object.title,
+        error_items: errors_for(attachment.errors, :title)
+      } %>
+    <% end %>
   </div>
 
   <% if attachable.allows_attachment_references? %>
@@ -42,32 +44,35 @@
           ]
         } %>
       </div>
-
-      <%= render "components/govspeak-editor", {
-        label: {
-          heading_size: "l",
-          text: "Body (required)"
-        },
-        name: "attachment[govspeak_content_attributes][body]",
-        rows: 20,
-        id: "attachment_govspeak_content_body",
-        value: form.object.govspeak_content.body,
-        error_items: errors_for(attachment.errors, :"govspeak_content.body"),
-      } %>
+      <%= field_container(id: "attachment_govspeak_content_body") do %>
+        <%= render "components/govspeak-editor", {
+          label: {
+            heading_size: "l",
+            text: "Body (required)"
+          },
+          name: "attachment[govspeak_content_attributes][body]",
+          rows: 20,
+          id: "attachment_govspeak_content_body_field",
+          value: form.object.govspeak_content.body,
+          error_items: errors_for(attachment.errors, :"govspeak_content.body"),
+        } %>
+      <% end %>
     <% end %>
   <% elsif attachment.is_a?(ExternalAttachment) %>
     <div class="govuk-!-margin-bottom-8">
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "External url (required)"
-        },
-        name: "attachment[external_url]",
-        id: "attachment_external_url",
-        heading_level: 2,
-        heading_size: "l",
-        value: form.object.external_url,
-        error_items: errors_for(attachment.errors, :external_url)
-      } %>
+      <%= field_container(id: "attachment_external_url_field") do %>
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "External url (required)"
+          },
+          name: "attachment[external_url]",
+          id: "attachment_external_url_field",
+          heading_level: 2,
+          heading_size: "l",
+          value: form.object.external_url,
+          error_items: errors_for(attachment.errors, :external_url)
+        } %>
+      <% end %>
     </div>
   <% else %>
     <%= render 'attachment_data_fields', form: form %>

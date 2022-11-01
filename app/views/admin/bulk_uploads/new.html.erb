@@ -7,14 +7,17 @@
     <%= form_for @zip_file, url: upload_zip_admin_edition_bulk_uploads_path(@edition), multipart: true do |form| %>
       <% content_for :error_summary, render('shared/error_summary', object: @zip_file, parent_class: "zip_file", class_name: @zip_file.class.name.demodulize.underscore.humanize.downcase) %>
 
-      <%= render "govuk_publishing_components/components/file_upload", {
-        label: {
-          text: "Zip file"
-        },
-        name: "bulk_upload_zip_file[zip_file]",
-        id: "zip_file_zip_file",
-        error_items: errors_for(@zip_file.errors, :zip_file)
-      } %>
+      <%= field_container(id: "zip_file_zip_file") do %>
+        <%= render "govuk_publishing_components/components/file_upload", {
+          label: {
+            text: "Zip file",
+            bold: true,
+          },
+          name: "bulk_upload_zip_file[zip_file]",
+          id: "zip_file_zip_file_field",
+          error_items: errors_for(@zip_file.errors, :zip_file)
+        } %>
+      <% end %>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
