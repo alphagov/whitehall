@@ -26,7 +26,8 @@
               margin_top: 10,
               heading_level: 2,
               heading_size: "m",
-              value: attachment_fields.object.title
+              value: attachment_fields.object.title,
+              error_message: errors_for_input(attachment.errors, :title)
             } %>
 
             <% if @edition.allows_attachment_references? %>
