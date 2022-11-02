@@ -4,6 +4,11 @@ namespace :search do
     Document.find_by(content_id: args[:content_id]).live_edition.update_in_search_index
   end
 
+  desc "resend an organisation to search. Do not use for e.g. reslugging where the existing entry needs to first be deleted from search"
+  task :resend_organisation, [:content_id] => [:environment] do |_, args|
+    Organisation.find_by(content_id: args[:content_id]).update_in_search_index
+  end
+
   desc "Re-index a collection of Documents with specified world location. Takes a `world_location_slug` as argument."
   task :resend_documents_in_world_location, [:world_location_slug] => [:environment] do |_, args|
     world_location = WorldLocation.find_by(slug: args[:world_location_slug])
