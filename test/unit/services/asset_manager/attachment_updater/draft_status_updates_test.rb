@@ -26,7 +26,7 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::T
 
       it "marks corresponding asset as draft" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, "draft" => true)
+          .with(attachment_data, attachment.file.asset_manager_path, { "draft" => true })
 
         updater.call(attachment_data, draft_status: true)
       end
@@ -48,9 +48,9 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::T
 
       it "marks asset for attachment & its thumbnail as draft" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, "draft" => true)
+          .with(attachment_data, attachment.file.asset_manager_path, { "draft" => true })
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, "draft" => true)
+          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, { "draft" => true })
 
         updater.call(attachment_data, draft_status: true)
       end
@@ -60,9 +60,9 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::T
 
         it "marks corresponding assets as not draft" do
           update_worker.expects(:call)
-            .with(attachment_data, attachment.file.asset_manager_path, "draft" => false)
+            .with(attachment_data, attachment.file.asset_manager_path, { "draft" => false })
           update_worker.expects(:call)
-            .with(attachment_data, attachment.file.thumbnail.asset_manager_path, "draft" => false)
+            .with(attachment_data, attachment.file.thumbnail.asset_manager_path, { "draft" => false })
 
           updater.call(attachment_data, draft_status: true)
         end
@@ -74,9 +74,9 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::T
         it "marks corresponding assets as not draft even though attachment is draft" do
           attachment_data.update!(present_at_unpublish: true)
           update_worker.expects(:call)
-            .with(attachment_data, attachment.file.asset_manager_path, "draft" => false)
+            .with(attachment_data, attachment.file.asset_manager_path, { "draft" => false })
           update_worker.expects(:call)
-            .with(attachment_data, attachment.file.thumbnail.asset_manager_path, "draft" => false)
+            .with(attachment_data, attachment.file.thumbnail.asset_manager_path, { "draft" => false })
 
           updater.call(attachment_data, draft_status: true)
         end
@@ -87,9 +87,9 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::T
 
         it "marks corresponding assets as not draft even though attachment is draft" do
           update_worker.expects(:call)
-            .with(attachment_data, attachment.file.asset_manager_path, "draft" => false)
+            .with(attachment_data, attachment.file.asset_manager_path, { "draft" => false })
           update_worker.expects(:call)
-            .with(attachment_data, attachment.file.thumbnail.asset_manager_path, "draft" => false)
+            .with(attachment_data, attachment.file.thumbnail.asset_manager_path, { "draft" => false })
 
           updater.call(attachment_data, draft_status: true)
         end

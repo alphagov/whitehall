@@ -10,7 +10,7 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
   test ".paginate returns a page presenter for the correct page of presented world locations" do
     stubs_helper_method(:params).returns(page: 1)
     page = [@location]
-    Api::Paginator.stubs(:paginate).with([@location], page: 1).returns(page)
+    Api::Paginator.stubs(:paginate).with([@location], { page: 1 }).returns(page)
 
     paginated = Api::WorldLocationPresenter.paginate([@location], @view_context)
 

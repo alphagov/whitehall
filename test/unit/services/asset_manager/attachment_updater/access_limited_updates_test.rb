@@ -30,7 +30,7 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
 
       it "updates the access limited state of the asset" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, "access_limited" => %w[user-uid])
+          .with(attachment_data, attachment.file.asset_manager_path, { "access_limited" => %w[user-uid] })
 
         updater.call(attachment_data, access_limited: true)
       end
@@ -52,9 +52,9 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
 
       it "updates the access limited state of the asset and it's thumbnail" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, "access_limited" => %w[user-uid])
+          .with(attachment_data, attachment.file.asset_manager_path, { "access_limited" => %w[user-uid] })
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, "access_limited" => %w[user-uid])
+          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, { "access_limited" => %w[user-uid] })
 
         updater.call(attachment_data, access_limited: true)
       end
@@ -70,7 +70,7 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
 
       it "updates the asset to have an empty access_limited array" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, "access_limited" => [])
+          .with(attachment_data, attachment.file.asset_manager_path, { "access_limited" => [] })
 
         updater.call(attachment_data, access_limited: true)
       end
@@ -86,9 +86,9 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
 
       it "updates the asset to have an empty access_limited array" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, "access_limited" => [])
+          .with(attachment_data, attachment.file.asset_manager_path, { "access_limited" => [] })
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, "access_limited" => [])
+          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, { "access_limited" => [] })
 
         updater.call(attachment_data, access_limited: true)
       end

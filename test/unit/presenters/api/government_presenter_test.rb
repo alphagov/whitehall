@@ -10,7 +10,7 @@ class Api::GovernmentPresenterTest < PresenterTestCase
   test ".paginate returns a page presenter for the correct page of presented governments" do
     stubs_helper_method(:params).returns(page: 1)
     page = [@government]
-    Api::Paginator.stubs(:paginate).with([@government], page: 1).returns(page)
+    Api::Paginator.stubs(:paginate).with([@government], { page: 1 }).returns(page)
 
     paginated = Api::GovernmentPresenter.paginate([@government], @view_context)
 

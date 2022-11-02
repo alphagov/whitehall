@@ -5,7 +5,7 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
     controller = FakeController.new(locale: "fr")
     object = stub("news article")
     object.stubs(:available_in_locale?).with("fr").returns(true)
-    controller.expects(:news_article_path_was_called).with(object, locale: "fr")
+    controller.expects(:news_article_path_was_called).with(object, { locale: "fr" })
     controller.news_article_path(object)
   end
 
@@ -30,7 +30,7 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
     parent = stub("parent resource")
     object = stub("coporate_information_page")
     object.stubs(:available_in_locale?).with("fr").returns(true)
-    controller.expects(:worldwide_organisation_corporate_information_page_path_was_called).with(parent, object, locale: "fr")
+    controller.expects(:worldwide_organisation_corporate_information_page_path_was_called).with(parent, object, { locale: "fr" })
     controller.worldwide_organisation_corporate_information_page_path(parent, object)
   end
 
@@ -40,7 +40,7 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
 
     object.expects(:available_in_locale?).with(:fr).returns(true)
     I18n.with_locale :fr do
-      controller.expects(:news_article_path_was_called).with(object, locale: :fr)
+      controller.expects(:news_article_path_was_called).with(object, { locale: :fr })
       controller.news_article_path(object)
     end
 
