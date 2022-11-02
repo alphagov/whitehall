@@ -53,7 +53,7 @@
   <%= render "govuk_publishing_components/components/details", {
     title: "Headings"
   } do %>
-    <pre class="govspeak_help__pre">## Top level heading – H2<br />### Second level heading – H3<br />#### Third level heading – H4<br />Don’t use a single # – this is H1 and is for the title only</pre>
+    <pre class="govspeak_help__pre">## Top level heading – H2<br />### Second level heading – H3<br />#### Third level heading – H4<br /><br />Don’t use a single # – this is H1 and is for the title only</pre>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
@@ -149,15 +149,15 @@
     title: "Abbreviations and acronyms"
   } do %>
     <p class='govuk-body'>The first time you use an abbreviation or acroynm, write it out in full.</p>
-    <p class='govuk-body'>Add the <a href='https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown#acronyms'>acronym Markdown</a> at the end of the body copy leaving one empty line space above it, as in the following example.</p>
-    <pre class='govspeak_help__pre'>Example content that includes a three-letter acronym (TLA).<br />*[TLA]: three-letter acronym</pre>
+    <p class='govuk-body'>Add the <a class="govuk-link" href='https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown#acronyms'>acronym Markdown</a> at the end of the body copy leaving one empty line space above it, as in the following example.</p>
+    <pre class='govspeak_help__pre'>Example content that includes a three-letter acronym (TLA).<br /><br />*[TLA]: three-letter acronym</pre>
     <p class='govuk-body'>When a user hovers their mouse over a <abbr title='three-letter acronym'>TLA</abbr>, they will see it written in full.</p>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
     title: "Blockquotes"
   } do %>
-    <pre class='govspeak_help__pre'>Introduction to the quote:<br />> First paragraph of the quote.<br />><br />> Second paragraph of the quote.</pre>
+    <pre class='govspeak_help__pre'>Introduction to the quote:<br /><br />> First paragraph of the quote.<br />><br />> Second paragraph of the quote.</pre>
     <p class='govuk-body'>The > in the line space is important. If you leave it out you will get 2 separate quotes, not 1 running quote.</p>
   <% end %>
 
@@ -168,22 +168,28 @@
     <p class='govuk-body'>You can also embed contact information:</p>
     <pre class='govspeak_help__pre'>[Contact:<em>n</em>]</pre>
     <p class='govuk-body'>(n is the ID of the contact you want to embed.)</p>
-    <p class='govuk-body'>You can find the ID on the list of contacts for an <%= link_to 'organisation', admin_organisations_path %> or <%= link_to 'worldwide organisation', admin_worldwide_organisations_path %> or you can type ‘[Contact: ’ and then type a keyword to find your contact (if it exists).</p>
+    <p class='govuk-body'>You can find the ID on the list of contacts for an <%= link_to 'organisation', admin_organisations_path, class: "govuk-link" %> or <%= link_to 'worldwide organisation', admin_worldwide_organisations_path, class: "govuk-link" %> or you can type ‘[Contact: ’ and then type a keyword to find your contact (if it exists).</p>
     <p class='govuk-body'>If it doesn’t exist you will have to add it (see your ‘Publishing explained’ guidance). </p>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/details", {
+    title: "Email links"
+  } do %>
+    <p class='govuk-body'>Use ‘less than’ (<em>&lt</em>) and ‘greater than’ (<em>&gt;</em>) arrows around email addresses to make them a link.<p></p>
   <% end %>
 
   <% if show_footnote_help %>
     <%= render "govuk_publishing_components/components/details", {
       title: "Footnotes"
     } do %>
-      <pre class='govspeak_help__pre'>Footnotes can be added[^1].< br/>[^1]: And then later defined.</pre>
+      <pre class='govspeak_help__pre'>Footnotes can be added[^1].<br /><br />[^1]: And then later defined.</pre>
       <p class='govuk-body'>
         You can add a footnote marker to a document using [^<em>i</em>] where <em>i</em> is the footnote number or label. Each of these tags should have corresponding footnote content, defined with [^<em>i</em>]: <em>The footnote content</em>. The footnote content will always appear at the end of the document regardless of where they are in the markdown.
       </p>
       <p class='govuk-body'>
         Footnote content can hold more than one paragraph by indenting the content 4 spaces:
       </p>
-      <pre class='govspeak_help__pre'>[^1]:<br />    This is some footnote content and is indented 4 spaces.<br />    This paragraph is also indented, so will be considered part of the footnote content.</pre>
+      <pre class='govspeak_help__pre'>[^1]:<br />    This is some footnote content and is indented 4 spaces.<br /><br />   This paragraph is also indented, so will be considered part of the footnote content.</pre>
     <% end %>
   <% end %>
 
