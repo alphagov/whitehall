@@ -226,11 +226,8 @@ module Admin::EditionsHelper
       if edition.change_note_required?
         concat render("change_notes", form:, edition:)
       end
-      if current_user.can_preview_design_system?
-        concat render("save_or_continue_or_cancel", form:, edition:)
-      else
-        concat form.save_or_continue_or_cancel
-      end
+
+      concat render("save_or_continue_or_cancel", form:, edition:)
     end
   end
 
