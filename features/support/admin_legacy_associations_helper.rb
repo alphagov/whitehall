@@ -1,7 +1,7 @@
 module AdminLegacyAssociationsHelper
   def set_all_legacy_associations
     tag_specialist_sectors
-    click_button "Save"
+    click_button using_design_system? ? "Update specialist topics" : "Save"
   end
 
   def check_associations_have_been_saved
@@ -15,9 +15,12 @@ module AdminLegacyAssociationsHelper
 private
 
   def tag_specialist_sectors
-    select "Oil and Gas: Wells", from: "Primary specialist topic tag"
-    select "Oil and Gas: Fields", from: "Additional specialist topics"
-    select "Oil and Gas: Offshore", from: "Additional specialist topics"
+    primary_select = using_design_system? ? "edition[primary_specialist_sector_tag]" : "Primary specialist topic tag"
+    secondary_select = using_design_system? ? "edition[secondary_specialist_sector_tags][]" : "Additional specialist topics"
+
+    select "Oil and Gas: Wells", from: primary_select
+    select "Oil and Gas: Fields", from: secondary_select
+    select "Oil and Gas: Offshore", from: secondary_select
   end
 
   def check_specialist_sectors

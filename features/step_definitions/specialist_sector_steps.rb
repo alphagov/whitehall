@@ -7,15 +7,15 @@ When(/^I start editing a draft document$/) do
 end
 
 Then(/^I can tag it to some specialist sectors$/) do
-  primary_select = @user.can_preview_design_system? ? "edition[primary_specialist_sector_tag]" : "Primary specialist topic tag"
-  secondary_select = @user.can_preview_design_system? ? "edition[secondary_specialist_sector_tags][]" : "Additional specialist topics"
+  primary_select = using_design_system? ? "edition[primary_specialist_sector_tag]" : "Primary specialist topic tag"
+  secondary_select = using_design_system? ? "edition[secondary_specialist_sector_tags][]" : "Additional specialist topics"
 
   select "Oil and Gas: Wells", from: primary_select
   select "Oil and Gas: Offshore", from: secondary_select
   select "Oil and Gas: Fields", from: secondary_select
   select "Oil and Gas: Distillation (draft)", from: secondary_select
 
-  click_button @user.can_preview_design_system? ? "Update specialist topics" : "Save"
+  click_button using_design_system? ? "Update specialist topics" : "Save"
 
   expect(page).to have_selector(".flash.notice")
 

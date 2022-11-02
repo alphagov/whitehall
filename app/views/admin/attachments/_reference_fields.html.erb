@@ -1,22 +1,21 @@
-<%
-  options = [{text: "All languages", value: ""}]
-  options.concat(attachable.translated_locales.map do |locale|
-    {
-      text: native_language_name_for(locale),
-      value: locale
-    }
-  end)
-%>
-
 <% if attachable.respond_to?(:translated_locales) && attachable.translated_locales.many? %>
+  <%
+    locale_options = [{text: "All languages", value: ""}]
+    locale_options.concat(attachable.translated_locales.map do |locale|
+      {
+        text: native_language_name_for(locale),
+        value: locale
+      }
+    end)
+  %>
   <div class="govuk-!-margin-bottom-8">
     <%= render "govuk_publishing_components/components/select", {
-      id: "attachment_parliamentary_session",
+      id: "attachment_locale",
       label: "Display language",
       name: "attachment[locale]",
       heading_level: 2,
       heading_size: heading_size,
-      options: options,
+      options: locale_options,
       hint: "This determines the translations of the publication that the attachment will appear in."
     } %>
   </div>
