@@ -10,11 +10,6 @@ When(/^I visit the attachments page$/) do
   first(:link, "Attachments").click
 end
 
-When(/^I visit the reorder attachments page$/) do
-  @edition = Edition.last
-  visit reorder_admin_edition_attachments_path(@edition)
-end
-
 When(/^the attachment has been uploaded to the asset-manager$/) do
   Attachment.last.attachment_data.uploaded_to_asset_manager!
 end

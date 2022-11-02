@@ -14,13 +14,6 @@ Feature: Providing translated content from gov.uk/government
     When I add a french translation "Échange officier de l'armée" to the "Military officer exchange" document
     Then I should see on the admin edition page that "Military officer exchange" has a french translation "Échange officier de l'armée"
 
-  Scenario: Adding a translation to a draft translatable document with design system permission
-    Given I am a GDS editor
-    And I have drafted a translatable document "Military officer exchange"
-    And I have the "Preview design system" permission
-    When I add a french translation "Échange officier de l'armée" to the "Military officer exchange" document
-    Then I should see on the admin edition page that "Military officer exchange" has a french translation "Échange officier de l'armée"
-
   Scenario: Adding a translation for contact details
     Given I am a GDS editor
     And the organisation "Wales Office" is translated into Welsh and has a contact "Wales Office, Cardiff"

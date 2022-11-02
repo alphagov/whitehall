@@ -1,19 +1,19 @@
 Feature: Administering worldwide organisation
-  As a citizen interested in UK gov activity around the world, I want there to
-  be profiles of the world organisation (eg embassies, DFID offices, UKTI
-  branches) in each worldwide location, so I can see which organisation are
-  active in each location and read more about them.
+    As a citizen interested in UK gov activity around the world, I want there to
+    be profiles of the world organisation (eg embassies, DFID offices, UKTI
+    branches) in each worldwide location, so I can see which organisation are
+    active in each location and read more about them.
 
-  Acceptance criteria:
+    Acceptance criteria:
 
-  * Each world organisation has:
+    * Each world organisation has:
     * a unique name e.g. "British Embassy in Madrid" and a URL "/world/offices/british-embassy-in-madrid" which is generated from the name
     * multiple social media links (like orgs)
     * multiple sets of office information (like orgs)
-      * with the addition of a list of services (chosen from a set) that the office provides
+    * with the addition of a list of services (chosen from a set) that the office provides
     * a logo formatted name (always using the standard HMG crest for now)
-  * Each world organisation can be associated with 1+ world locations, and shows on the world locations page to which they are associated (see mock up on the [ticket](https://www.pivotaltracker.com/story/show/41026113))
-  * Each can have corporate information pages (like orgs)
+    * Each world organisation can be associated with 1+ world locations, and shows on the world locations page to which they are associated (see mock up on the [ticket](https://www.pivotaltracker.com/story/show/41026113))
+    * Each can have corporate information pages (like orgs)
 
   Background:
     Given I am a GDS editor
@@ -89,28 +89,20 @@ Feature: Administering worldwide organisation
   Scenario: Adding a new translation
     Given a worldwide organisation "Department of Beards in France" exists for the world location "France" with translations into "Français"
     When I add a new translation to the worldwide organisation "Department of Beards in France" with:
-      | locale      | Français                                          |
-      | name        | Département des barbes en France                  |
+      | locale | Français                         |
+      | name   | Département des barbes en France |
     Then when viewing the worldwide organisation "Department of Beards in France" with the locale "fr" I should see:
-      | name        | Département des barbes en France                  |
+      | name | Département des barbes en France |
 
   Scenario: Editing an existing translation
     Given a worldwide organisation "Department of Beards in France" exists with a translation for the locale "Français"
     When I edit the "Français" translation for the worldwide organisation "Department of Beards in France" setting:
-      | name        | Le super département des barbes en France         |
+      | name | Le super département des barbes en France |
     Then when viewing the worldwide organisation "Department of Beards in France" with the locale "fr" I should see:
-      | name        | Le super département des barbes en France         |
+      | name | Le super département des barbes en France |
 
   Scenario: Translating a corporate information page for a worldwide organisation
     Given a worldwide organisation "Department of Beards in France"
-    And I add a "Terms of reference" corporate information page to the worldwide organisation
-    When I translate the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
-    And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
-    Then I should be able to read the translated "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France" on the site
-
-  Scenario: Translating a corporate information page for a worldwide organisation with design system permission
-    Given a worldwide organisation "Department of Beards in France"
-    And I have the "Preview design system" permission
     And I add a "Terms of reference" corporate information page to the worldwide organisation
     When I translate the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"

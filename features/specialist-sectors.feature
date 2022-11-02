@@ -10,12 +10,3 @@ Feature: Tagging content with specialist sectors
     And I continue to the tagging page
     And I continue to the legacy tagging page
     Then I can tag it to some specialist sectors
-
-  Scenario: writer can tag documents with specialist sectors
-    Given I am a writer
-    And I have the "Preview design system" permission
-    And there are some specialist sectors
-    When I start editing a draft document
-    And I continue to the tagging page
-    And I continue to the legacy tagging page
-    Then I can tag it to some specialist sectors
