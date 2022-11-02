@@ -1,36 +1,33 @@
 <div class="govuk-!-margin-bottom-8">
-  <%= render "govuk_publishing_components/components/radio", {
-    heading: "House of Commons paper number",
-    heading_level: 2,
+  <%= render("govuk_publishing_components/components/input", {
+    label: {
+      text: "House of Commons paper number",
+    },
+    name: "attachment[hoc_paper_number]",
+    id: "attachment_hoc_paper_number",
+    value: form.object.hoc_paper_number,
+    error_items: errors_for(attachment.errors, :unnumbered_hoc_paper),
     heading_size: heading_size,
+    hint: "Fill in the command and House of Commons boxes to publish an official document which will appear in the list of official documents."
+  }) %>
+
+  <%= form.hidden_field :unnumbered_hoc_paper, value: "0" %>
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
     name: "attachment[unnumbered_hoc_paper]",
-    id_prefix: "hoc_paper_number_conditional",
+    id: "attachment_unnumbered_hoc_paper",
     items: [
       {
-        value: "0",
-        text: "Numbered",
-        checked: form.object.unnumbered_hoc_paper.eql?(false),
-        conditional: render("govuk_publishing_components/components/input", {
-          label: {
-            text: "Fill in the command and House of Commons boxes to publish an official document which will appear in the list of official documents."
-          },
-          name: "attachment[hoc_paper_number]",
-          id: "attachment_hoc_paper_number",
-          value: form.object.hoc_paper_number,
-          error_items: errors_for(attachment.errors, :command_paper_number)
-        })
-      },
-      {
+        label: "Unnumbered act paper",
         value: "1",
-        text: "Unnumbered",
-        checked: form.object.unnumbered_hoc_paper
+        checked: attachment.unnumbered_hoc_paper
       }
     ]
   } %>
 </div>
 
 <%
-  options = [{text: "Choose the right Parliamentary session", value: ""}]
+  options = [{text: "", value: ""}]
   options.concat(Attachment.parliamentary_sessions.map do |session|
     {
       text: session,
@@ -45,9 +42,10 @@
     label: "Parliamentary session",
     name: "attachment[parliamentary_session]",
     id: "attachment_parliamentary_session",
-    heading_level: 2,
+    heading_level: 3,
     heading_size: heading_size,
     options: options,
+    hint: "Choose the right Parliamentary session",
     error_message: errors_for_input(attachment.errors, :parliamentary_session)
   } %>
 </div>
