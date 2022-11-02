@@ -399,7 +399,7 @@ GEM
     minitest-stub-const (0.6)
     mlanett-redis-lock (0.2.7)
       redis
-    mocha (1.16.0)
+    mocha (2.0.0)
     msgpack (1.5.6)
     multi_json (1.15.0)
     multi_test (1.1.0)
