@@ -3,8 +3,11 @@ rerun = File.file?('rerun.txt') ? IO.read('rerun.txt') : ""
 rerun = rerun.strip.gsub /\s/, ' '
 rerun_opts = rerun.empty? ? "--format #{ENV['CUCUMBER_FORMAT'] || 'progress'} features" : "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} #{rerun}"
 std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'progress'} --strict --tags 'not @wip'"
+
+default_tags = "--tags 'not @design-system-only'"
+design_system_tags = "--tags 'not (@design-system-wip or @bootstrap-only)'"
 %>
-default: <%= std_opts %> features --publish-quiet
-preview_design_system: <%= std_opts %> CUCUMBER_PREVIEW_DESIGN_SYSTEM=true features --publish-quiet
+default: <%= std_opts %> <%= default_tags %> features --publish-quiet
+preview_design_system: <%= std_opts %> <%= design_system_tags %> CUCUMBER_PREVIEW_DESIGN_SYSTEM=true features --publish-quiet
 wip: --tags @wip:3 --wip features --publish-quiet
 rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags 'not @wip' --publish-quiet
