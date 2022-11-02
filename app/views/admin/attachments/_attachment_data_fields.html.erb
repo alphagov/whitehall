@@ -11,7 +11,9 @@
       heading_size: "l",
     },
     name: "attachment[attachment_data_attributes][file]",
-    hint: raw("You must upload attachments in an <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>.")
+    id: "attachment_attachment_data_file",
+    hint: raw("You must upload attachments in an <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>."),
+    error_items: errors_for(attachment_data_fields.object.errors, :file),
   } %>
 
   <% form.hidden_field :accessible, value: "0" %>
