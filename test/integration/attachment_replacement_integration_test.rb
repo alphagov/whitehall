@@ -51,7 +51,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         it "updates replacement_id for attachment in Asset Manager" do
           Services.asset_manager.expects(:update_asset)
             .at_least_once
-            .with(asset_id, "replacement_id" => replacement_asset_id)
+            .with(asset_id, { "replacement_id" => replacement_asset_id })
           AssetManagerAttachmentMetadataWorker.drain
         end
       end
@@ -83,7 +83,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         it "updates replacement_id for attachment in Asset Manager" do
           Services.asset_manager.expects(:update_asset)
             .at_least_once
-            .with(asset_id, "replacement_id" => replacement_asset_id)
+            .with(asset_id, { "replacement_id" => replacement_asset_id })
           AssetManagerAttachmentMetadataWorker.drain
         end
       end

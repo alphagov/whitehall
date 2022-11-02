@@ -26,7 +26,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   test ".paginate returns a decorated page of results" do
     stubs_helper_method(:params).returns(page: 1)
     page = [@world_org]
-    Api::Paginator.stubs(:paginate).with([@world_org], page: 1).returns(page)
+    Api::Paginator.stubs(:paginate).with([@world_org], { page: 1 }).returns(page)
 
     paginated = Api::WorldwideOrganisationPresenter.paginate([@world_org], @view_context)
 
