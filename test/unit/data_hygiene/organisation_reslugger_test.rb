@@ -84,6 +84,20 @@ module OrganisationResluggerTest
       Whitehall::SearchIndex.expects(:add).with edition
       @reslugger.run!
     end
+
+    test "when an organisation has child and parent organisations, it also resends these to search api" do
+      child_organisation = create(:organisation, name: "child slug")
+      parent_organisation = create(:organisation, name: "parent slug")
+      organisation = create(:organisation, name: "ye olde slug", child_organisations: [child_organisation], parent_organisations: [parent_organisation])
+      reslugger = DataHygiene::OrganisationReslugger.new(organisation, "corrected-slug")
+
+      Whitehall::SearchIndex.expects(:delete).with(organisation)
+      Whitehall::SearchIndex.expects(:add).with { |org| org.slug == "corrected-slug" }
+      Whitehall::SearchIndex.expects(:add).with(child_organisation)
+      Whitehall::SearchIndex.expects(:add).with(parent_organisation)
+
+      reslugger.run!
+    end
   end
 
   class WorldwideOrganisationTest < ActiveSupport::TestCase
