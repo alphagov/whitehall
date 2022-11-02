@@ -3,22 +3,19 @@
 <% content_for :title, "Delete draft" %>
 <% content_for :title_margin_bottom, 6 %>
 
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@edition)
-  } %>
-<% end %>
-
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <%= form_tag admin_edition_path(@edition), method: :delete do %>
       <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete this draft?</p>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Delete",
-        destructive: true,
-        margin_bottom: 8,
-      } %>
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link") %>
+      </div>
     <% end %>
   </section>
 </div>

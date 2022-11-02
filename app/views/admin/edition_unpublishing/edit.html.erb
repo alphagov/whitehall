@@ -3,11 +3,6 @@
 <% content_for :title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation" %>
 <% content_for :title_margin_bottom, 6 %>
 <% content_for :error_summary, render('shared/error_summary', object: @unpublishing, parent_class: "edition", class_name: "#{withdrawal_or_unpublishing(@unpublishing.edition)} explanation") %>
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@unpublishing.edition)
-  } %>
-<% end %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
@@ -34,10 +29,13 @@
         error_items: errors_for(@unpublishing.errors, :explanation)
       } %>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Update #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation",
-        margin_bottom: 8
-      } %>
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation",
+        } %>
+
+        <%= link_to("Cancel", [:admin, @unpublishing.edition], class: "govuk-link") %>
+      </div>
     <% end %>
   </section>
 </div>

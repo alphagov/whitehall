@@ -3,22 +3,19 @@
 <% content_for :context, @edition.title %>
 <% content_for :title_margin_bottom, 6 %>
 
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@edition)
-  } %>
-<% end %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_tag unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
       <p class="govuk-body govuk-!-margin-bottom-7">This will create a new edition and publish it immediately. It won’t send an email alert to users.</p>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Unwithdraw",
-        destructive: true,
-        margin_bottom: 8,
-      } %>
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Unwithdraw",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link") %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -2,11 +2,6 @@
 <% content_for :title, "Withdraw or unpublish" %>
 <% content_for :context, @edition.title %>
 <% content_for :error_summary, render('shared/error_summary', object: @unpublishing, parent_class: @unpublishing.reason_as_class, class_name: @unpublishing.edition.format_name, verb: "withdraw or unpublish") %>
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@edition)
-  } %>
-<% end %>
 
 <%
   unpublish_reasons = {
@@ -110,10 +105,14 @@
         <% else %>
           <%= withdrawal_public_explanation_field %>
         <% end %>
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Withdraw",
-          destructive: true,
-        } %>
+        <div class="govuk-button-group govuk-!-margin-bottom-6">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Withdraw",
+            destructive: true,
+          } %>
+
+          <%= link_to("Cancel", [:admin, @edition], class: "govuk-link") %>
+        </div>
       <% end %>
     </div>
 
@@ -157,10 +156,14 @@
           error_items: errors_for(@unpublishing.errors, :explanation)
         } %>
 
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Unpublish",
-          destructive: true,
-        } %>
+        <div class="govuk-button-group govuk-!-margin-bottom-6">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Unpublish",
+            destructive: true,
+          } %>
+
+          <%= link_to("Cancel", [:admin, @edition], class: "govuk-link") %>
+        </div>
       <% end %>
     </div>
 
@@ -183,10 +186,14 @@
           error_items: errors_for(@unpublishing.errors, :alternative_url)
         } %>
 
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Unpublish",
-          destructive: true,
-        } %>
+        <div class="govuk-button-group govuk-!-margin-bottom-6">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Unpublish",
+            destructive: true,
+          } %>
+
+          <%= link_to("Cancel", [:admin, @edition], class: "govuk-link") %>
+        </div>
       <% end %>
     </div>
   </div>
