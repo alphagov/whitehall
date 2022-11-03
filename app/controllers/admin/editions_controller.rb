@@ -80,7 +80,7 @@ class Admin::EditionsController < Admin::BaseController
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
     end
 
-    render preview_design_system_user? ? :show : :show_legacy
+    render preview_design_system? ? :show : :show_legacy
   end
 
   def new
