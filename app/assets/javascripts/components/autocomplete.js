@@ -23,7 +23,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     new window.accessibleAutocomplete.enhanceSelectElement({ // eslint-disable-line no-new, new-cap
       selectElement: $select,
       minLength: 3,
-      showNoOptionsFound: true
+      showNoOptionsFound: true,
+      onConfirm: function (value) {
+        var category = $select.getAttribute('data-track-category')
+        var label = $select.getAttribute('data-track-label')
+        var action = value
+        if (category && label) {
+          window.GOVUK.analytics.trackEvent(category, action, { label: label })
+        }
+      }
     })
   }
 

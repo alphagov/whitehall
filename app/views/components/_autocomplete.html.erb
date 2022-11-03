@@ -7,6 +7,8 @@
   width ||= nil
   aria = error_id if error_items.any?
   data_attributes ||= {}
+  track_category ||= nil
+  track_label ||= nil
   select ||= {}
   input ||= {}
   search ||= false
@@ -44,7 +46,8 @@
       id: id,
       class: "govuk-select",
       size: select[:size],
-      multiple: select[:multiple]
+      multiple: select[:multiple],
+      data: { track_category:, track_label: }
     %>
   <% else %>
     <% options = Array(input[:options]) %>
