@@ -113,7 +113,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(@edition), notice: message
     else
       @unpublishing = @edition.unpublishing || @edition.build_unpublishing(unpublishing_params)
-      flash.now[:alert] = message unless preview_design_system?(next_release: true)
+      if preview_design_system?(next_release: true) && @unpublishing.errors.blank?
+        flash.now[:alert] = message
+      elsif !preview_design_system?
+        flash.now[:alert] = message
+      end
       render_design_system("confirm_unpublish", "confirm_unpublish_legacy", next_release: true)
     end
   end
