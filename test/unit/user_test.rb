@@ -84,16 +84,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.world_writer?
   end
 
-  test "should be be able to export data if has whitehall Export data role" do
-    user = build(:user, permissions: [User::Permissions::EXPORT_DATA])
-    assert user.can_export_data?
-  end
-
-  test "should not be able to export data if does not have whitehall Export data role" do
-    user = build(:user, permissions: [])
-    assert_not user.can_export_data?
-  end
-
   test "returns enabled users" do
     create(:disabled_user)
     user = create(:user)
