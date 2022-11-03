@@ -54,11 +54,11 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      # TODO: Add previewable functionality via JS and add this test in
-      # view_test "new form has previewable body" do
-      #   get :new
-      #   assert_select "textarea[name='edition[body]'].previewable"
-      # end
+      view_test "new form has previewable body" do
+        get :new
+
+        assert_select(".js-app-c-govspeak-editor__preview-button")
+      end
 
       view_test "new form has cancel link which takes the user to the list of drafts" do
         get :new
@@ -171,14 +171,13 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      # TODO: Uncomment this test and apply it to the new JS solution
-      # view_test "edit form has previewable body" do
-      #   edition = create(edition_type)
-      #
-      #   get :edit, params: { id: edition }
-      #
-      #   assert_select "textarea[name='edition[body]'].previewable"
-      # end
+      view_test "edit form has previewable body" do
+        edition = create(edition_type)
+
+        get :edit, params: { id: edition }
+
+        assert_select(".js-app-c-govspeak-editor__preview-button")
+      end
 
       view_test "edit form has cancel link which takes the user back to edition" do
         draft_edition = create("draft_#{edition_type}")
