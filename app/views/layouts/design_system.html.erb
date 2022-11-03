@@ -23,9 +23,11 @@
 
     <main class="govuk-main-wrapper<%= " govuk-main-wrapper--l" if yield(:back_link).blank? && yield(:breadcrumbs).blank?%>" id="main-content" role="main">
       <% if flash["notice"].present? %>
-        <%= render "govuk_publishing_components/components/success_alert", {
-          message: flash["notice"]
-        } %>
+        <div data-module="auto-track-event" data-track-category="flash-message" data-track-action="alert-success" data-track-label="<%= flash["notice"] %>">
+          <%= render "govuk_publishing_components/components/success_alert", {
+            message: flash["notice"]
+          } %>
+        </div>
       <% end %>
 
       <% if flash["alert"].present? %>
