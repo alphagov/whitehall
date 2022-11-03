@@ -25,7 +25,7 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
     assert_not edition.unpublishing.present?
   end
 
-  %w[published imported rejected superseded].each do |state|
+  %w[published rejected superseded].each do |state|
     test "#{state} editions cannot be force published" do
       edition = create(:"#{state}_edition")
       publisher = EditionForcePublisher.new(edition)

@@ -9,7 +9,6 @@ FactoryBot.define do
     end
   end
 
-  factory :imported_document_collection, parent: :document_collection, traits: [:imported]
   factory :draft_document_collection, parent: :document_collection, traits: [:draft]
   factory :submitted_document_collection, parent: :document_collection, traits: [:submitted]
   factory :rejected_document_collection, parent: :document_collection, traits: [:rejected]

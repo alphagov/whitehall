@@ -258,7 +258,6 @@ Whitehall::Application.routes.draw do
             post :schedule, to: "edition_workflow#schedule"
             post :force_schedule, to: "edition_workflow#force_schedule"
             post :unschedule, to: "edition_workflow#unschedule"
-            post :convert_to_draft, to: "edition_workflow#convert_to_draft"
             get  :audit_trail, to: "edition_audit_trail#index"
             patch :update_bypass_id
             get :history, to: "editions#history"

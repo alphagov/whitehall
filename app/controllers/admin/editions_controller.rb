@@ -113,19 +113,14 @@ class Admin::EditionsController < Admin::BaseController
         LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url)
       end
 
-      @edition.convert_to_draft! if params[:speed_save_convert]
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: false)
-      if speed_tagging?
-        render :show
-      else
-        @information = updater.failure_reason unless preview_design_system?(next_release: false)
-        build_edition_dependencies
-        fetch_version_and_remark_trails
-        construct_similar_slug_warning_error
-        render_design_system(:edit, :edit_legacy, next_release: false)
-      end
+      @information = updater.failure_reason unless preview_design_system?(next_release: false)
+      build_edition_dependencies
+      fetch_version_and_remark_trails
+      construct_similar_slug_warning_error
+      render_design_system(:edit, :edit_legacy, next_release: false)
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
@@ -206,10 +201,6 @@ private
     else
       "admin"
     end
-  end
-
-  def speed_tagging?
-    params[:speed_save_convert] || params[:speed_save]
   end
 
   def fetch_version_and_remark_trails

@@ -58,7 +58,7 @@ class Edition < ApplicationRecord
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
-  PRE_PUBLICATION_STATES = %w[imported draft submitted rejected scheduled].freeze
+  PRE_PUBLICATION_STATES = %w[draft submitted rejected scheduled].freeze
   POST_PUBLICATION_STATES = %w[published superseded withdrawn].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
@@ -589,36 +589,15 @@ EXISTS (
     nil
   end
 
-  def valid_as_draft?
-    errors_as_draft.empty?
-  end
-
   def editable?
-    imported? || draft? || submitted? || rejected?
+    draft? || submitted? || rejected?
   end
 
   def can_have_some_invalid_data?
-    imported? || deleted? || superseded?
+    deleted? || superseded?
   end
 
-  attr_accessor :trying_to_convert_to_draft, :has_previously_published_error
-
-  def errors_as_draft
-    if imported?
-      original_errors = errors.dup
-      begin
-        self.trying_to_convert_to_draft = true
-        try_draft
-        valid? ? [] : errors.dup
-      ensure
-        back_to_imported
-        self.trying_to_convert_to_draft = false
-        errors.initialize_dup(original_errors)
-      end
-    else
-      valid? ? [] : errors
-    end
-  end
+  attr_accessor :has_previously_published_error
 
   def set_public_timestamp
     self.public_timestamp = if first_published_version?
@@ -651,7 +630,6 @@ EXISTS (
 
   def previously_published
     return first_published_at.present? unless new_record?
-    return true if imported?
 
     @previously_published
   end

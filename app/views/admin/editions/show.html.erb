@@ -3,16 +3,12 @@
 <% initialise_script "GOVUK.adminEditionShow" %>
 
 <div class="row" data-module="track-button-click" data-track-category="button-pressed" data-track-action="<%= @edition.format_name.parameterize(separator: '-') %>-button">
-  <div class="<%= @edition.imported? ? "col-md-6" : "col-md-8" %> edition-metadata">
+  <div class="col-md-8 edition-metadata">
     <%= render partial: 'show_metadata' %>
   </div>
 
-  <div class="<%= @edition.imported? ? "col-md-6" : "col-md-4" %> edition-sidebar">
+  <div class="col-md-4 edition-sidebar">
     <section>
-      <% if @edition.imported? %>
-        <%= convert_to_draft_edition_form(@edition) %>
-      <% end %>
-
       <% if @edition.can_unschedule? && can?(:update, @edition) %>
         <%= unschedule_edition_button(@edition) %>
       <% end %>
@@ -73,48 +69,44 @@
 
     <%= render partial: "history_state", locals: { edition: @edition } %>
 
-    <% if @edition.imported? %>
-      <%= render partial: 'speed_tagging' %>
-    <% else %>
-      <%= sidebar_tabs edition_tabs(
-        @edition,
-        remarks_count: @document_remarks.total_count,
-        history_count: @document_history.total_count
-        ),
-        class: 'remarks-history' do |tabs| %>
+    <%= sidebar_tabs edition_tabs(
+      @edition,
+      remarks_count: @document_remarks.total_count,
+      history_count: @document_history.total_count
+      ),
+      class: 'remarks-history' do |tabs| %>
 
-        <%= tabs.pane class: "audit-trail", id: "notes" do %>
-          <h1>Notes</h1>
-          <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
-          <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
-          <%= render_editorial_remarks(@document_remarks, @edition) %>
-          <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
-        <% end %>
+      <%= tabs.pane class: "audit-trail", id: "notes" do %>
+        <h1>Notes</h1>
+        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
+        <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
+        <%= render_editorial_remarks(@document_remarks, @edition) %>
+        <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
+      <% end %>
 
-        <%= tabs.pane class: "audit-trail", id: "history" do %>
-          <div class="audit-trail-page">
-            <h1>Activity</h1>
-            <%= paginate @document_history.query, theme: 'audit_trail' %>
-            <ul class="list-unstyled">
-              <%= render partial: "audit_trail_entry", collection: @document_history.audit_trail %>
-            </ul>
-            <%= paginate @document_history.query, theme: 'audit_trail' %>
-          </div>
-        <% end %>
+      <%= tabs.pane class: "audit-trail", id: "history" do %>
+        <div class="audit-trail-page">
+          <h1>Activity</h1>
+          <%= paginate @document_history.query, theme: 'audit_trail' %>
+          <ul class="list-unstyled">
+            <%= render partial: "audit_trail_entry", collection: @document_history.audit_trail %>
+          </ul>
+          <%= paginate @document_history.query, theme: 'audit_trail' %>
+        </div>
+      <% end %>
 
-        <% if @edition.can_be_fact_checked? %>
-          <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
-            <h1>Fact checking</h1>
-            <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
-            <section class="request">
-              <h1>Send request</h1>
-              <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
-                <%= f.text_field :email_address %>
-                <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
-                <%= f.submit 'Send request', class: "btn btn-default" %>
-              <% end %>
-            </section>
-          <% end %>
+      <% if @edition.can_be_fact_checked? %>
+        <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
+          <h1>Fact checking</h1>
+          <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+          <section class="request">
+            <h1>Send request</h1>
+            <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
+              <%= f.text_field :email_address %>
+              <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
+              <%= f.submit 'Send request', class: "btn btn-default" %>
+            <% end %>
+          </section>
         <% end %>
       <% end %>
     <% end %>

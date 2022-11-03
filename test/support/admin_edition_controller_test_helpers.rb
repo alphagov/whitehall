@@ -343,26 +343,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_speed_tagging_of(edition_type)
-      test "update should convert #{edition_type} to draft when speed tagging" do
-        edition = create("imported_#{edition_type}")
-
-        put :update,
-            params: {
-              id: edition,
-              speed_save_convert: 1,
-              edition: {
-                title: "new-title",
-                body: "new-body",
-              },
-            }
-
-        edition.reload
-        assert_equal "draft", edition.state
-        assert_redirected_to edit_admin_edition_tags_path(edition.id)
-      end
-    end
-
     def should_allow_attached_images_for(edition_type)
       edition_class = class_for(edition_type)
 
@@ -1156,18 +1136,6 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal first_published_at, edition.first_published_at
-      end
-    end
-
-    def should_allow_setting_first_published_at_during_speed_tagging(edition_type)
-      view_test "show should display first_published_at fields when speed tagging" do
-        edition = create("imported_#{edition_type}")
-        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-        get :show, params: { id: edition }
-
-        assert_select "label[for=edition_first_published_at]", text: "First published *"
-        assert_select "select[name*='edition[first_published_at']", count: 5
       end
     end
 

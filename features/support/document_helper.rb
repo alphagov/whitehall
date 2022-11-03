@@ -168,26 +168,6 @@ module DocumentHelper
     refute_flash_alerts_exist unless options[:ignore_errors]
   end
 
-  def speed_tag_publication(title)
-    edition = Edition.find_by(title:)
-    visit admin_edition_path(edition)
-
-    expect(page).to have_selector(".speed-tag")
-    within ".speed-tag" do
-      select "Research and analysis", from: "Publication type"
-      click_on "Save"
-      expect(page).to_not have_selector(".speed-tag .alert")
-    end
-  end
-
-  def convert_to_draft(title)
-    edition = Edition.find_by(title:)
-    visit admin_edition_path(edition)
-
-    click_on "Convert to draft"
-    expect(page).to_not have_selector(".speed-tag")
-  end
-
   def preview_document_path(edition, options = {})
     query = { preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i }
     document_path(edition, options.merge(query))

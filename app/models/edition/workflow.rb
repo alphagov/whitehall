@@ -11,7 +11,7 @@ module Edition::Workflow
     end
 
     def valid_state?(state)
-      %w[active imported draft submitted rejected published scheduled force_published withdrawn not_published].include?(state)
+      %w[active draft submitted rejected published scheduled force_published withdrawn not_published].include?(state)
     end
   end
 
@@ -21,7 +21,6 @@ module Edition::Workflow
     default_scope -> { where(arel_table[:state].not_eq("deleted")) }
 
     state_machine auto_scopes: true do
-      state :imported
       state :draft
       state :submitted
       state :rejected
@@ -31,20 +30,8 @@ module Edition::Workflow
       state :deleted
       state :withdrawn
 
-      event :try_draft do
-        transitions from: :imported, to: :draft
-      end
-
-      event :back_to_imported do
-        transitions from: :draft, to: :imported
-      end
-
-      event :convert_to_draft do
-        transitions from: :imported, to: :draft, guard: ->(edition) { edition.valid_as_draft? }
-      end
-
       event :delete do
-        transitions from: %i[imported draft submitted rejected], to: :deleted
+        transitions from: %i[draft submitted rejected], to: :deleted
       end
 
       event :submit do

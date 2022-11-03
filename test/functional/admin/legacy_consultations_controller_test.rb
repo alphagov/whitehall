@@ -14,7 +14,6 @@ class Admin::LegacyConsultationsControllerTest < ActionController::TestCase
   legacy_should_allow_creating_of :consultation
   legacy_should_allow_editing_of :consultation
 
-  legacy_should_allow_speed_tagging_of :consultation
   legacy_should_allow_organisations_for :consultation
   legacy_should_allow_attached_images_for :consultation
   legacy_should_prevent_modification_of_unmodifiable :consultation

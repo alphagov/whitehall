@@ -64,11 +64,6 @@ FactoryBot.define do
       end
     end
 
-    trait(:imported) do
-      state { "imported" }
-      first_published_at { 1.year.ago }
-    end
-
     trait(:draft) { state { "draft" } }
 
     trait(:submitted) do
@@ -176,7 +171,6 @@ FactoryBot.define do
   factory :announcement, parent: :edition, class: Announcement, traits: %i[with_organisations]
 
   factory :edition_with_document, parent: :edition, traits: [:with_document]
-  factory :imported_edition, parent: :edition, traits: [:imported]
   factory :draft_edition, parent: :edition, traits: [:draft]
   factory :submitted_edition, parent: :edition, traits: [:submitted]
   factory :rejected_edition, parent: :edition, traits: [:rejected]

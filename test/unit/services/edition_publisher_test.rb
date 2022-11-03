@@ -19,7 +19,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_not edition.access_limited?
   end
 
-  %w[published draft imported rejected superseded].each do |state|
+  %w[published draft rejected superseded].each do |state|
     test "#{state} editions cannot be published" do
       edition = create(:"#{state}_edition")
       publisher = EditionPublisher.new(edition)
@@ -112,7 +112,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
   end
 
   test "#perform! does not notify if publishing is unsuccessful" do
-    edition  = build(:imported_edition)
+    edition  = build(:draft_edition)
     notifier = mock
     notifier.expects(:publish).never
     publisher = EditionPublisher.new(edition, notifier:)
