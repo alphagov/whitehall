@@ -31,7 +31,6 @@ class Edition < ApplicationRecord
   extend Edition::FindableByWorldwideOrganisation
 
   include Searchable
-  include LockedDocumentConcern
 
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
@@ -101,7 +100,6 @@ class Edition < ApplicationRecord
   # @!group Callbacks
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
-  before_save { check_if_locked_document(edition: self) }
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
   # @!endgroup

@@ -3,11 +3,7 @@ module Whitehall
   # Whitehall::SearchIndex.for returns a class that indexes content synchronously.
   #
   class SearchIndex
-    extend LockedDocumentConcern
-
     def self.add(instance)
-      check_if_locked_document(edition: instance) if instance.is_a?(Edition)
-
       # Note We delay the search index job to ensure that any transactions
       # around publishing will have had time to complete. Specifically,
       # EditionPublishingWorker publishes scheduled editions in a transaction

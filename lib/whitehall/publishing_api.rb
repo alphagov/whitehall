@@ -10,8 +10,6 @@ module Whitehall
   class UnpublishableInstanceError < StandardError; end
 
   class PublishingApi
-    extend LockedDocumentConcern
-
     def self.publish(model_instance, update_type_override = nil, bulk_publishing: false)
       assert_public_edition!(model_instance)
 
@@ -122,8 +120,6 @@ module Whitehall
     end
 
     def self.schedule_async(edition)
-      check_if_locked_document(edition:)
-
       publish_timestamp = edition.scheduled_publication.as_json
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale:)
@@ -132,8 +128,6 @@ module Whitehall
     end
 
     def self.unschedule_async(edition)
-      check_if_locked_document(edition:)
-
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale:)
         PublishingApiUnscheduleWorker.perform_async(base_path)

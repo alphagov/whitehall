@@ -77,12 +77,4 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
       end
     end
   end
-
-  test "raises an error if a document is locked" do
-    document = create(:document, locked: true)
-
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      PublishingApiGoneWorker.new.perform(document.content_id, "alternative_path", "*why?*", "de")
-    end
-  end
 end

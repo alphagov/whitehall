@@ -15,15 +15,6 @@ module Whitehall
       assert_equal 10.seconds.from_now.to_i, job["at"]
     end
 
-    test "SearchIndex.add does not queue a search index add job if a document is locked" do
-      edition = create(:unpublished_edition, :with_locked_document)
-      assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-        SearchIndex.add(edition)
-      end
-
-      assert_empty SearchIndexAddWorker.jobs
-    end
-
     test "SearchIndex.delete queues a search index removal job for the instance based on its slug and rummager index" do
       searchable_thing = stub(search_index: { "link" => "full_slug" }, rummager_index: :index_name)
 

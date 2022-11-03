@@ -89,20 +89,4 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
     assert_equal edition.document_id, Feature.last.document_id
   end
-
-  test "post :feature raises an error if the document is locked" do
-    organisation = create(:organisation)
-    document = create(:document, locked: true)
-    feature_list = create(:feature_list, featurable: organisation, locale: :en)
-
-    params = {
-      document_id: document.id,
-      image: upload_fixture("images/960x640_gif.gif"),
-      alt_text: "some text",
-    }
-
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      post :create, params: { feature_list_id: feature_list.id, feature: params }
-    end
-  end
 end

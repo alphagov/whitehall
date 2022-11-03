@@ -1,7 +1,5 @@
 class PublishingApiGoneWorker < PublishingApiWorker
   def perform(content_id, alternative_path, explanation, locale, allow_draft = false)
-    check_if_locked_document(content_id:)
-
     if explanation.present?
       rendered_explanation = Whitehall::GovspeakRenderer
         .new.govspeak_to_html(explanation)

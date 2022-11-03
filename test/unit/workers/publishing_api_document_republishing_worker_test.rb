@@ -173,12 +173,4 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
     end
   end
-
-  test "raises an error if an edition's document is locked" do
-    document = create(:document, locked: true)
-
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-    end
-  end
 end

@@ -1,6 +1,5 @@
 class DocumentCollectionGroupMembership < ApplicationRecord
   BANNED_DOCUMENT_TYPES = %w[DocumentCollection].freeze
-  include LockedDocumentConcern
 
   belongs_to :document,
              inverse_of: :document_collection_group_memberships,
@@ -12,8 +11,6 @@ class DocumentCollectionGroupMembership < ApplicationRecord
   belongs_to :document_collection_group, inverse_of: :memberships
 
   before_create :assign_ordering
-
-  before_save { check_if_locked_document(document:) if document }
 
   validates :document_collection_group, presence: true
   validate :document_is_of_allowed_type, if: -> { document.present? }

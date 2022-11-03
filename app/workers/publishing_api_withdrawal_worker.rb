@@ -4,8 +4,6 @@ class PublishingApiWithdrawalWorker < PublishingApiWorker
   # recent edition, we pass it in directly because the `unpublishing` isn't always
   # saved in the database yet when this worker runs.
   def perform(content_id, explanation, locale, allow_draft, unpublished_at)
-    check_if_locked_document(content_id:)
-
     Services.publishing_api.unpublish(
       content_id,
       type: "withdrawal",

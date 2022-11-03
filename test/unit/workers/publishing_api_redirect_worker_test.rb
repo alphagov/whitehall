@@ -77,12 +77,4 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
       end
     end
   end
-
-  test "raises an error if an edition's document is locked" do
-    document = create(:document, locked: true)
-
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      PublishingApiRedirectWorker.new.perform(document.content_id, @destination, "fr", true)
-    end
-  end
 end

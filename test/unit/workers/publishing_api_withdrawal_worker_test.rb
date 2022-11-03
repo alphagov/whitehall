@@ -25,16 +25,4 @@ class PublishingApiWithdrawalWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
-
-  test "raises an error if the document is locked" do
-    document = create(:document, locked: true)
-
-    unpublished_at = Time.zone.now
-
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      PublishingApiWithdrawalWorker.new.perform(
-        document.content_id, "*why?*", "en", false, unpublished_at
-      )
-    end
-  end
 end

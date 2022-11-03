@@ -190,14 +190,5 @@ module ServiceListeners
 
       PublishingApiPusher.new(edition).push(event: "update_draft")
     end
-
-    test "raises an error if an edition's document is locked" do
-      document = build(:document, locked: true)
-      edition = build(:edition, document:)
-
-      assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-        PublishingApiPusher.new(edition).push(event: "anything")
-      end
-    end
   end
 end

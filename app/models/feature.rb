@@ -1,11 +1,8 @@
 class Feature < ApplicationRecord
-  include LockedDocumentConcern
   belongs_to :document
   belongs_to :topical_event
   belongs_to :offsite_link
   belongs_to :feature_list
-
-  before_save { check_if_locked_document(document:) }
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
   validates :document, presence: true, unless: ->(feature) { feature.topical_event_id.present? || feature.offsite_link_id.present? }

@@ -1,6 +1,4 @@
 class Admin::FeaturesController < Admin::BaseController
-  include LockedDocumentConcern
-
   before_action :find_feature_list
   before_action :build_feature
   before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
@@ -8,10 +6,6 @@ class Admin::FeaturesController < Admin::BaseController
   def new; end
 
   def create
-    if @feature.document.present?
-      check_if_locked_document(document: @feature.document)
-    end
-
     if @feature.save
       @feature.republish_featurable_to_publishing_api
       PublishingApiDocumentRepublishingWorker.perform_async(@feature.document_id) if @feature.document_id.present?
