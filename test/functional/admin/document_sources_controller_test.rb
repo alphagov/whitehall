@@ -62,13 +62,4 @@ http://woo.example.com) }
     assert_equal ["http://www.example.com", "http://woo.example.com"], edition.document.document_sources.map(&:url)
     assert_redirected_to admin_publication_path(edition, anchor: "document-sources")
   end
-
-  test "update should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    put :update, params: { edition_id: edition.id, document_sources: "http://woo.example.com" }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
 end

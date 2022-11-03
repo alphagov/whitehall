@@ -1,7 +1,6 @@
 class Admin::DocumentSourcesController < Admin::BaseController
   before_action :require_import_permission!
   before_action :find_edition
-  before_action :forbid_editing_of_locked_documents
   layout :get_layout
 
   def edit

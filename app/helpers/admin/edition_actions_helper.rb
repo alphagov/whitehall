@@ -20,19 +20,6 @@ module Admin::EditionActionsHelper
             }
   end
 
-  def content_publisher_button(edition)
-    url = content_publisher_document_summary_url(edition)
-
-    link_to "Edit in Content Publisher",
-            url,
-            class: "btn btn-lg btn-primary public_version",
-            data: {
-              track_category: "external-link-clicked",
-              track_action: url,
-              track_label: "Edit in Content Publisher",
-            }
-  end
-
   def custom_track_dimensions(edition, edition_taxons)
     {
       1 => public_document_path(edition),

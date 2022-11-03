@@ -204,24 +204,6 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     )
   end
 
-  test "#update should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    put :update, params: { edition_id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
-  test "#edit should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    get :edit, params: { edition_id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
   view_test "should render design system layout when permission is applied" do
     login_as(:departmental_editor_with_preview_design_system)
     stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])

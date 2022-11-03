@@ -1,7 +1,6 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include TranslationControllerConcern
   layout :get_layout
-  before_action :forbid_editing_of_locked_documents
 
   def new
     render_design_system("new", "legacy_new", next_release: false)

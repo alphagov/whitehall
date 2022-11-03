@@ -91,15 +91,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_redirected_to admin_edition_attachments_url(attachable)
   end
 
-  test "POST :create should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    post :create, params: { edition_id: edition.id, attachment: valid_file_attachment_params }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
   view_test "GET :index shows html attachments" do
     create(:html_attachment, title: "An HTML attachment", attachable: @edition)
 
@@ -107,15 +98,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select ".existing-attachments li strong", text: "An HTML attachment"
-  end
-
-  test "GET :index should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    get :index, params: { edition_id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
   test "POST :create handles html attachments when attachable allows them" do
@@ -188,16 +170,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert Attachment.find(attachment.id).deleted?, "attachment should have been deleted"
   end
 
-  test "DELETE :destroy should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    attachment = create(:file_attachment, attachable: edition)
-
-    delete :destroy, params: { edition_id: edition.id, id: attachment.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
   view_test "GET :index shows external attachments" do
     create(:external_attachment, title: "An external attachment", attachable: @edition)
 
@@ -261,15 +233,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test "PUT :order should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    put :order, params: { edition_id: edition.id, order: {} }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
   test "GET :new raises an exception with an unknown parent type" do
     assert_raise(ActiveRecord::RecordNotFound) do
       get :new, params: { edition_id: 123 }
@@ -290,15 +253,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
-  end
-
-  test "GET :new should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    get :new, params: { edition_id: edition, type: "file" }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
@@ -324,16 +278,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:file_attachment, attachable: @edition, attachment_data: create(:attachment_data))
     get :edit, params: { edition_id: @edition, id: attachment }
     assert_select "input[type=file]"
-  end
-
-  test "GET :edit should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    attachment = create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data))
-
-    get :edit, params: { edition_id: edition.id, id: attachment }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
   test "PUT :update for HTML attachment updates the attachment" do
@@ -389,21 +333,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
             title: "New title",
           },
         }
-  end
-
-  test "PUT :update should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    attachment = create(:file_attachment, attachable: edition)
-
-    put :update,
-        params: {
-          edition_id: edition.id,
-          id: attachment,
-          attachment: { title: "New title" },
-        }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
   test "PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
@@ -489,22 +418,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     @edition.reload.attachments.each do |attachment|
       assert_match(/.+_$/, attachment.title)
     end
-  end
-
-  test "PUT :update_many should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    files = Dir.glob(Rails.root.join("test/fixtures/*.csv")).take(4)
-
-    files.each_with_index do |f, i|
-      create(:file_attachment, title: "attachment_#{i}", attachable: edition, file: File.open(f))
-    end
-    attachments = edition.reload.attachments
-
-    new_data = attachments.map { |a| [a.id.to_s, { title: "#{a.title}_" }] }
-    put :update_many, params: { edition_id: edition, attachments: Hash[new_data] }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
   test "update_many returns validation errors in JSON" do

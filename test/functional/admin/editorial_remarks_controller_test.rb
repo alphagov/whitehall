@@ -59,22 +59,4 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     get :create, params: { edition_id: protected_edition.id }
     assert_response :forbidden
   end
-
-  test "#create should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    post :create, params: { edition_id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
-  test "#new should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    get :new, params: { edition_id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
 end

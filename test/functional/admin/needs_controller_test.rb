@@ -47,26 +47,6 @@ class Admin::NeedsControllerTest < ActionController::TestCase
     assert_requested patch_links_request
   end
 
-  test "update should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    document = edition.document
-
-    post :update, params: { content_id: document.content_id, document_sources: "http://woo.example.com" }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
-  test "edit should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    document = edition.document
-
-    get :edit, params: { content_id: document.content_id, edition_id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
   view_test "should be possible to update needs for a published edition" do
     edition = create(:edition_with_document)
     document = edition.document

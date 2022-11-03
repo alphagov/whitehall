@@ -300,16 +300,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal "The document list is too large for export", flash[:alert]
   end
 
-  test "revise should redirect to index page if document is locked" do
-    edition = create(:published_news_article)
-    edition.document.locked = true
-    edition.document.save!
-
-    post :revise, params: { id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-  end
-
 private
 
   def stub_edition_filter(attributes = {})

@@ -1,6 +1,5 @@
 class Admin::NeedsController < Admin::BaseController
   before_action :find_latest_edition
-  before_action :forbid_editing_of_locked_documents
   layout :get_layout
 
   def edit
