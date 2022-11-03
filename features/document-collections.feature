@@ -39,14 +39,6 @@ Feature: Grouping documents into a collection
     Then I should be redirected to the "Rail statistics" document collection
 
   @javascript
-  Scenario:
-    Given a document titled "Wimbledon wombats and where to find them"
-    And the document is locked
-    When I draft a new document collection called "Wildlife of Wimbledon Common"
-    And I search for "Wimbledon wombats and where to find them" to add it to the document collection
-    Then the document does not appear in the search results
-
-  @javascript
   Scenario: Reordering documents in a document collection
     Given a published document "Wombats of Wimbledon" exists
     And a published document "Feeding Wombats" exists

@@ -12,10 +12,6 @@ module Admin
       @options = options
     end
 
-    def options_for_export
-      @options.merge(include_locked_documents: false)
-    end
-
     def editions(locale = nil)
       @editions ||= {}
       return @editions[locale] if @editions[locale]
@@ -116,7 +112,6 @@ module Admin
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
       editions = editions.only_broken_links if only_broken_links
-      editions = editions.without_locked_documents unless include_locked_documents?
 
       editions = editions.includes(:unpublishing) if include_unpublishing?
       editions = editions.includes(:link_check_reports) if include_link_check_reports?
@@ -235,10 +230,6 @@ module Admin
 
     def only_broken_links
       options[:only_broken_links].present?
-    end
-
-    def include_locked_documents?
-      options[:include_locked_documents]
     end
 
     def include_unpublishing?

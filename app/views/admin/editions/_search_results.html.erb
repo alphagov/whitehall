@@ -66,9 +66,6 @@
             <% if edition.access_limited? %>
               <span class="access_limited label label-danger">limited access</span>
             <% end %>
-            <% if edition.locked? %>
-              <span class="label label-info">Moved to Content Publisher</span>
-            <% end %>
             <% if edition.link_check_reports.any? && edition.link_check_reports.last.completed? %>
               <% if edition.link_check_reports.last.broken_links.any? %>
                 <span class="has-broken-links label label-primary">has broken links</span>
@@ -77,14 +74,10 @@
               <% end %>
             <% end %>
           </td>
-          <% if edition.locked? %>
-            <td class="migrated-notice" colspan="3">Moved to Content Publisher</td>
-          <% else %>
-            <td class="author"><%= linked_author(edition.last_author) %></td>
-            <td class="updated"><span title="<%= edition.updated_at %>"><%= time_ago_in_words edition.updated_at %> ago</span></td>
-            <% if viewing_all_active_editions? %>
-              <td class="state"><%= admin_edition_state_text(edition) %></td>
-            <% end %>
+          <td class="author"><%= linked_author(edition.last_author) %></td>
+          <td class="updated"><span title="<%= edition.updated_at %>"><%= time_ago_in_words edition.updated_at %> ago</span></td>
+          <% if viewing_all_active_editions? %>
+            <td class="state"><%= admin_edition_state_text(edition) %></td>
           <% end %>
         <% end %>
       <% end %>
@@ -97,7 +90,7 @@
     <div class="col-md-5">
       <% if show_export && can?(:export, Edition) %>
         <div class="publishing-stats">
-          <%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options_for_export.to_param}" %>
+          <%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}" %>
         </div>
       <% end %>
     </div>

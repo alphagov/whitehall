@@ -241,11 +241,6 @@ EXISTS (
     )
   end
 
-  def self.without_locked_documents
-    joins(:document)
-    .where.not("documents.locked = true")
-  end
-
   def self.search_format_type
     name.underscore.tr("_", "-")
   end
