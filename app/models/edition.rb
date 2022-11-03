@@ -704,8 +704,6 @@ EXISTS (
     PRE_PUBLICATION_STATES.include?(state)
   end
 
-  delegate :locked?, to: :document
-
   # TODO: this can be removed once rails/rails#44770 is released.
   def attribute_names
     @attributes.keys

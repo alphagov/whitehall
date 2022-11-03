@@ -46,6 +46,8 @@ class Document < ApplicationRecord
 
   after_create :ensure_document_has_a_slug
 
+  self.ignored_columns = %w[locked]
+
   attr_accessor :sluggable_string
 
   def self.live
