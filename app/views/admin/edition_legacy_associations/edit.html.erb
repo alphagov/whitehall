@@ -13,6 +13,11 @@
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
           text: "Update specialist topics",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "publication-button"
+          }
         } %>
 
         <%= link_to("Cancel", @path, class: "govuk-link") %>

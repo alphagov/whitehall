@@ -13,6 +13,8 @@
     options: [""] + specialist_sector_options_for_select,
     selected: @edition.primary_specialist_sector_tag,
   },
+  track_category: "taxonSelectionPrimarySpecialist",
+  track_label: request.path
 } %>
 
 <%= render "components/autocomplete", {
@@ -27,4 +29,6 @@
     multiple: true,
     selected: @edition.secondary_specialist_sector_tags,
   },
+  track_category: "taxonSelectionAdditionalSpecialist",
+  track_label: request.path
 } %>
