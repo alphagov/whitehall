@@ -42,10 +42,4 @@ class FeatureTest < ActiveSupport::TestCase
     assert feature.end!
     assert_equal Time.zone.now, feature.reload.ended_at
   end
-
-  test "should raise an exception when attempting to feature a locked document" do
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      create(:feature, document: create(:document, locked: true))
-    end
-  end
 end

@@ -5,7 +5,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show show_locked edit update revise diff confirm_destroy destroy update_bypass_id history]
+  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id history]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
@@ -18,7 +18,6 @@ class Admin::EditionsController < Admin::BaseController
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
-  before_action :forbid_editing_of_locked_documents, only: %i[edit update revise destroy]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
   layout :get_layout
 
@@ -26,7 +25,7 @@ class Admin::EditionsController < Admin::BaseController
     case action_name
     when "index", "topics", "history"
       enforce_permission!(:see, edition_class || Edition)
-    when "show", "show_locked"
+    when "show"
       enforce_permission!(:see, @edition)
     when "new"
       enforce_permission!(:create, edition_class || Edition)
@@ -73,11 +72,6 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def show
-    if @edition.locked?
-      redirect_to show_locked_admin_edition_path(@edition)
-      return
-    end
-
     fetch_version_and_remark_trails
 
     @edition_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch
@@ -86,8 +80,6 @@ class Admin::EditionsController < Admin::BaseController
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
     end
   end
-
-  def show_locked; end
 
   def new
     render_design_system(:new, :new_legacy, next_release: false)
@@ -435,7 +427,6 @@ private
         include_unpublishing: true,
         include_link_check_reports: true,
         include_last_author: true,
-        include_locked_documents: true,
       )
   end
 

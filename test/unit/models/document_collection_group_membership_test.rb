@@ -70,11 +70,4 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
     membership = build(:document_collection_group_membership, document: create(:document_collection).document)
     assert_not membership.valid?
   end
-
-  test "should raise an exception when attempting to add a locked document to a collection" do
-    document = create(:document, locked: true)
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      create(:document_collection_group_membership, document:)
-    end
-  end
 end

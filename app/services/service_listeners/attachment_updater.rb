@@ -1,12 +1,6 @@
 module ServiceListeners
   class AttachmentUpdater
-    extend LockedDocumentConcern
-
     def self.call(attachable: nil, attachment_data: nil)
-      if attachable.is_a?(Edition)
-        check_if_locked_document(edition: attachable)
-      end
-
       update_attachable! attachable if attachable
       update_attachment_data! attachment_data if attachment_data
     end

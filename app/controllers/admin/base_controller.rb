@@ -45,13 +45,6 @@ class Admin::BaseController < ApplicationController
     end
   end
 
-  def forbid_editing_of_locked_documents
-    if @edition.locked?
-      redirect_to show_locked_admin_edition_path(@edition),
-                  alert: %(This document is locked and cannot be edited)
-    end
-  end
-
   def preview_design_system?(next_release: false)
     current_user.can_preview_design_system? || (next_release && current_user.can_preview_next_release?)
   end

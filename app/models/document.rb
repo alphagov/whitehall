@@ -4,7 +4,6 @@ class Document < ApplicationRecord
   extend FriendlyId
 
   include Document::Needs
-  include LockedDocumentConcern
 
   friendly_id :sluggable_string, use: :scoped, scope: :document_type
 
@@ -43,11 +42,11 @@ class Document < ApplicationRecord
            -> { where(unpublishing_reason_id: UnpublishingReason::Withdrawn).order(unpublished_at: :asc, id: :asc) },
            through: :editions, source: :unpublishing
 
-  before_save { check_if_locked_document(document: self) unless locked_changed? }
-
   validates :content_id, presence: true
 
   after_create :ensure_document_has_a_slug
+
+  self.ignored_columns = %w[locked]
 
   attr_accessor :sluggable_string
 

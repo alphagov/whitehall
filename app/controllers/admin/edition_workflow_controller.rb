@@ -1,7 +1,6 @@
 class Admin::EditionWorkflowController < Admin::BaseController
   include HistoricContentConcern
   include PublicDocumentRoutesHelper
-  include LockedDocumentConcern
 
   layout :get_layout
 
@@ -13,7 +12,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
   before_action :set_change_note
   before_action :set_minor_change_flag
   before_action :ensure_reason_given_for_force_publishing, only: :force_publish
-  before_action { check_if_locked_document(edition: @edition) }
   before_action :set_previous_withdrawals, only: %i[confirm_unpublish unpublish]
 
   rescue_from ActiveRecord::StaleObjectError do
@@ -28,11 +26,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
   rescue_from Transitions::InvalidTransition do
     redirect_to admin_edition_path(@edition),
                 alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
-  end
-
-  rescue_from LockedDocumentConcern::LockedDocumentError do
-    redirect_to admin_edition_path(@edition),
-                alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is locked."
   end
 
   def enforce_permissions!

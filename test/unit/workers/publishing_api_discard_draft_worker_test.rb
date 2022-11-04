@@ -33,11 +33,4 @@ class PublishingApiDiscardDraftWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
-
-  test "raises an error if an edition's document is locked" do
-    edition = create(:unpublished_edition, :with_locked_document)
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      PublishingApiDiscardDraftWorker.new.perform(edition.content_id, "en")
-    end
-  end
 end

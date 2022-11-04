@@ -19,7 +19,6 @@ class Admin::DocumentSearchesController < Admin::BaseController
     def edition_scope
       Edition
         .with_translations(I18n.locale)
-        .without_locked_documents
         .limit(10)
     end
 

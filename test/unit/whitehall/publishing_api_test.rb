@@ -239,15 +239,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_equal timestamp, second_job[1]
   end
 
-  test ".schedule_async raises an error if the edition belongs to a locked document" do
-    document = create(:document, locked: true)
-    edition = build(:edition, document:)
-
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      Whitehall::PublishingApi.schedule_async(edition)
-    end
-  end
-
   test ".unschedule_async for a first edition served from the content store queues jobs to remove publish intents" do
     edition = create(:scheduled_publication)
 
@@ -281,15 +272,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]["args"].first
     assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]["args"].first
-  end
-
-  test ".unschedule_async raises an error if the edition belongs to a locked document" do
-    document = create(:document, locked: true)
-    edition = build(:edition, document:)
-
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      Whitehall::PublishingApi.unschedule_async(edition)
-    end
   end
 
   test ".save_draft publishes a draft edition" do

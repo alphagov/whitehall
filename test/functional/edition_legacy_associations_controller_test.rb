@@ -100,22 +100,4 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     assert_nil @edition.primary_specialist_sector_tag
     assert_equal [], @edition.secondary_specialist_sector_tags
   end
-
-  test "#update should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    put :update, params: { edition_id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
-
-  test "#edit should redirect to the document show page if the document is locked" do
-    edition = create(:news_article, :with_locked_document)
-
-    get :edit, params: { edition_id: edition.id }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-    assert_equal "This document is locked and cannot be edited", flash[:alert]
-  end
 end

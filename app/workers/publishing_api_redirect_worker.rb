@@ -1,7 +1,5 @@
 class PublishingApiRedirectWorker < PublishingApiWorker
   def perform(content_id, destination, locale, allow_draft = false)
-    check_if_locked_document(content_id:)
-
     Services.publishing_api.unpublish(
       content_id,
       type: "redirect",

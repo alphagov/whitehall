@@ -39,10 +39,7 @@ private
     Admin::EditionFilter.new(
       Edition,
       user,
-      filter_options.symbolize_keys.merge(
-        include_unpublishing: true,
-        include_locked_documents: false,
-      ),
+      filter_options.symbolize_keys.merge(include_unpublishing: true),
     )
   end
 

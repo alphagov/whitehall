@@ -143,16 +143,6 @@ Whitehall::Application.routes.draw do
       namespace :admin do
         root to: "dashboard#index", via: :get
 
-        namespace "export" do
-          resources :document, only: %i[show index], defaults: { format: :json } do
-            member do
-              post :lock
-              post :unlock
-              post :migrated
-            end
-          end
-        end
-
         get "find-in-admin-bookmarklet" => "find_in_admin_bookmarklet#index", as: :find_in_admin_bookmarklet_instructions_index
         get "find-in-admin-bookmarklet/:browser" => "find_in_admin_bookmarklet#show", as: :find_in_admin_bookmarklet_instructions
         get "by-content-id/:content_id" => "documents#by_content_id"
@@ -270,7 +260,6 @@ Whitehall::Application.routes.draw do
             post :unschedule, to: "edition_workflow#unschedule"
             post :convert_to_draft, to: "edition_workflow#convert_to_draft"
             get  :audit_trail, to: "edition_audit_trail#index"
-            get  :show_locked, to: "editions#show_locked"
             patch :update_bypass_id
             get :history, to: "editions#history"
             get :confirm_destroy

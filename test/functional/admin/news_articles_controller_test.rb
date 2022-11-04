@@ -41,27 +41,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".page-header .lead", text: "a-simple-summary"
   end
 
-  test "edit should redirect to index page if document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    get :edit, params: { id: edition }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-  end
-
-  test "update should redirect to index page if document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    put :update, params: { id: edition }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-  end
-
-  test "destroy should redirect to index page if document is locked" do
-    edition = create(:news_article, :with_locked_document)
-    delete :destroy, params: { id: edition }
-
-    assert_redirected_to show_locked_admin_edition_path(edition)
-  end
-
 private
 
   def controller_attributes_for(edition_type, attributes = {})

@@ -194,19 +194,4 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition.supporting_organisations = [organisation1]
     assert edition.valid?
   end
-
-  test "should raise an exception when attempting to modify an edition of a locked document" do
-    edition = create(:unpublished_edition, :with_locked_document)
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      edition.title = "hello world"
-      edition.save!
-    end
-  end
-
-  test "should raise an exception when attempting to create an edition for a locked document" do
-    document = create(:document, locked: true)
-    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      create(:edition, document:)
-    end
-  end
 end
