@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_16_144551) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_04_091720) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -201,7 +201,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_144551) do
     t.string "slug"
     t.string "document_type"
     t.string "content_id", null: false
-    t.boolean "locked", default: false, null: false
     t.integer "latest_edition_id"
     t.integer "live_edition_id"
     t.index ["document_type"], name: "index_documents_on_document_type"
