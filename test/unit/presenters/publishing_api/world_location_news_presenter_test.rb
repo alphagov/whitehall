@@ -101,4 +101,22 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
       assert_equal "/world/aardistan/news.fr", base_path
     end
   end
+
+  test "it does not include links to sponsoring organisations for world locations" do
+    world_location_news = build(:world_location_news)
+    create(:world_location, :with_worldwide_organisations, world_location_news:)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal [], presented_links[:organisations]
+  end
+
+  test "it includes a link to sponsoring organisations for international delegation" do
+    world_location_news = build(:world_location_news)
+    create(:international_delegation, :with_worldwide_organisations, world_location_news:)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal world_location_news.world_location.worldwide_organisations.map(&:sponsoring_organisations).flatten.pluck(:content_id), presented_links[:organisations]
+  end
 end
