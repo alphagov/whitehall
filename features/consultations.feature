@@ -1,5 +1,6 @@
 Feature: Consultations
 
+@design-system-wip
 Scenario: Creating a new draft consultation
   Given I am a writer
   When I draft a new "English" language consultation "Beard Length Review"
@@ -19,7 +20,7 @@ Scenario: Publishing a submitted consultation
   And I publish the consultation "Beard Length Review"
   Then I should see the consultation "Beard Length Review" in the list of published documents
 
-@disable-sidekiq-test-mode
+@disable-sidekiq-test-mode @design-system-wip
 Scenario: Adding an outcome to a closed consultation
   Given I am an editor
   And a closed consultation exists
@@ -27,7 +28,7 @@ Scenario: Adding an outcome to a closed consultation
   And I save and publish the amended consultation
   Then I can see that the consultation has been published
 
-@disable-sidekiq-test-mode
+@disable-sidekiq-test-mode @design-system-wip
 Scenario: Adding public feedback to a closed consultation
   Given I am an editor
   And a closed consultation exists
@@ -43,7 +44,7 @@ Scenario: Associating an offsite consultation with topical events
   And I mark the consultation as offsite
   Then the consultation can be associated with topical events
 
-@javascript
+@javascript @design-system-wip
 Scenario: Creating a new draft consultation in another language
   Given I am a writer
   When I draft a new "Cymraeg" language consultation "Beard Length Review"

@@ -1,3 +1,4 @@
+@design-system-wip
 Feature: New Tagging Workflow
   In order to get more publishers tagging to the new taxonomy
   Whitehall Needs to alter it's tagging workflow to remove editing

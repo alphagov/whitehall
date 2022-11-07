@@ -10,6 +10,7 @@ Scenario: Viewing only documents written by me
   Then I should see the publication "My Publication"
   And I should not see the publication "Another Publication"
 
+@design-system-wip
 Scenario: Viewing only publications written by me
   Given I am a writer
   And there is a user called "Janice"

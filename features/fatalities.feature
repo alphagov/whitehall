@@ -38,6 +38,7 @@ Feature: Fatalities
     When I create a new field of operation called "New Field" with description "Description"
     Then I am able to associate fatality notices with "New Field"
 
+  @design-system-wip
   Scenario: Writer manages casualty entries for a fatality shown on the field of operation page
     Given there is a fatality notice titled "Death of Joe" in the field "Iraq"
     When I add a casualty to the fatality notice

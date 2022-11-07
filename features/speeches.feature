@@ -11,6 +11,7 @@ Scenario: Editing an existing draft speech
   When I edit the speech "Outlaw Moustaches" changing the title to "Ban Moustaches"
   Then I should see the speech "Ban Moustaches" in the list of draft documents
 
+@design-system-wip
 Scenario: Trying to save a speech that has been changed by another user
   Given I am a writer
   And a draft speech "Outlaw Moustaches" exists
@@ -32,7 +33,7 @@ Scenario: Viewing a speech that's been submitted for review
   When I visit the list of speeches awaiting review
   Then I should see that "Legalise beards" is listed on the page
 
-@javascript
+@javascript @design-system-wip
 Scenario: Creating authored articles (originally published externally)
   Given I am an editor
   When I draft a new authored article "Colonel Mustard talks about beards to The Times"

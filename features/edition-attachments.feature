@@ -4,6 +4,7 @@ Feature: Managing attachments on editions
   I want to attach files and additional HTML content to publications and consultations
   In order to support the publications and consultations with statistics and other relevant documents
 
+  @design-system-wip
   Scenario: Adding and reordering attachments
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"
@@ -23,6 +24,7 @@ Feature: Managing attachments on editions
       | Beard Length Statistics 2014 |
       | Beard Length Illustrations   |
 
+  @design-system-wip
   Scenario: Previewing HTML attachment
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"
@@ -44,6 +46,7 @@ Feature: Managing attachments on editions
     When I try and upload an attachment but there are validation errors
     Then I should be able to submit the attachment without re-uploading the file
 
+  @design-system-wip
   Scenario: Attempting to publish attachment which is still being uploaded to the asset manager
     Given I am an editor
     And a published publication "Standard Beard Lengths" with a PDF attachment
