@@ -32,12 +32,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           window.GOVUK.analytics.trackEvent(category, action, { label: label })
         }
 
-        const options = $select.options
-        let matchingOption
+        var matchingOption
         if (query) {
-          matchingOption = [].filter.call(options, option => (option.textContent || option.innerText) === query)[0]
+          matchingOption = [].filter.call($select.options, function (option) {
+            return (option.textContent || option.innerText) === query
+          })[0]
         } else {
-          matchingOption = [].filter.call(options, option => option.value === '')[0]
+          matchingOption = [].filter.call($select.options, function (option) {
+            return option.value === ''
+          })[0]
         }
         if (matchingOption) { matchingOption.selected = true }
       }
