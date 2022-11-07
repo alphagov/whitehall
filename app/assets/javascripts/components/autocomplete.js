@@ -24,13 +24,22 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       selectElement: $select,
       minLength: 3,
       showNoOptionsFound: true,
-      onConfirm: function (value) {
+      onConfirm: function (query) {
         var category = $select.getAttribute('data-track-category')
         var label = $select.getAttribute('data-track-label')
-        var action = value
+        var action = query
         if (category && label) {
           window.GOVUK.analytics.trackEvent(category, action, { label: label })
         }
+
+        const options = $select.options
+        let matchingOption
+        if (query) {
+          matchingOption = [].filter.call(options, option => (option.textContent || option.innerText) === query)[0]
+        } else {
+          matchingOption = [].filter.call(options, option => option.value === '')[0]
+        }
+        if (matchingOption) { matchingOption.selected = true }
       }
     })
   }
