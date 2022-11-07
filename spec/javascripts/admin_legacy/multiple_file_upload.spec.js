@@ -93,6 +93,16 @@ describe('jquery.enableMultipleFileUploads', function () {
     expect(fieldset.find('.already_uploaded:last').text()).toEqual('')
   })
 
+  it('should send a tracking event when a file is chosen', function () {
+    spyOn(GOVUKAdmin, 'trackEvent')
+    fieldset.enableMultipleFileUploads()
+
+    // Emulate the 'change' event triggered when a user has browsed & chosen a file to upload
+    fieldset.find('input[type=file]').trigger('change')
+
+    expect(GOVUKAdmin.trackEvent).toHaveBeenCalledWith('UploadFile', 'ChooseImageFile', { label: 'Choose file' })
+  })
+
   describe('uploading files after a file field validation error', function () {
     beforeEach(function () {
       fieldset.remove()

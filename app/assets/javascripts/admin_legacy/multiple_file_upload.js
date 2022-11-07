@@ -27,6 +27,11 @@
         clone.find('.already_uploaded').text('')
         $(this).parents('.file_upload').after(clone)
       })
+
+      // Track when a user chooses a file to upload
+      $(this).on('change', '.js-upload-image-input', function () {
+        GOVUKAdmin.trackEvent('UploadFile', 'ChooseImageFile', { label: 'Choose file' })
+      })
     })
   }
 
