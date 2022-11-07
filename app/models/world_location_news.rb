@@ -61,6 +61,13 @@ class WorldLocationNews < ApplicationRecord
       .flatten
   end
 
+  def worldwide_organisations
+    return [] unless world_location.international_delegation?
+
+    world_location
+      .worldwide_organisations
+  end
+
   extend FriendlyId
   friendly_id
 end
