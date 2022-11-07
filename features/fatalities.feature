@@ -8,8 +8,8 @@ Feature: Fatalities
 
   See the following Examples:
 
-    http://www.mod.uk/DefenceInternet/FactSheets/OperationsFactsheets/OperationsInIraqBritishFatalities.htm
-    http://www.mod.uk/DefenceInternet/FactSheets/OperationsFactsheets/OperationsInAfghanistanBritishFatalities.htm
+  http://www.mod.uk/DefenceInternet/FactSheets/OperationsFactsheets/OperationsInIraqBritishFatalities.htm
+  http://www.mod.uk/DefenceInternet/FactSheets/OperationsFactsheets/OperationsInAfghanistanBritishFatalities.htm
 
   Detail (confirmed by MOD):
 

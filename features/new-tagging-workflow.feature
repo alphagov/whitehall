@@ -7,22 +7,22 @@ Feature: New Tagging Workflow
   The flow is now as follows:
 
   For a publication that uses the new taxonomy :
-    Edit Screen > Next > Taxonomy Tagging Screen > Save > Admin Screen
+  Edit Screen > Next > Taxonomy Tagging Screen > Save > Admin Screen
 
   For a publication that does not use the new taxonomy:
-    Edit Screen > Next > Legacy Tagging Screen > Save > Admin Screen
+  Edit Screen > Next > Legacy Tagging Screen > Save > Admin Screen
 
-Scenario: Publication that does not support the new taxonomy
-  Given I am a writer
-  When I start editing a draft document which cannot be tagged to the new taxonomy
-  And I continue to the tagging page
-  And I continue to the legacy tagging page
-  Then I should be on the legacy tagging page
-  And I should be able to update the legacy tags
+  Scenario: Publication that does not support the new taxonomy
+    Given I am a writer
+    When I start editing a draft document which cannot be tagged to the new taxonomy
+    And I continue to the tagging page
+    And I continue to the legacy tagging page
+    Then I should be on the legacy tagging page
+    And I should be able to update the legacy tags
 
-Scenario: Publication that supports the new taxonomy with the Preview design system permission
-  Given I am a writer
-  When I start editing a draft document which can be tagged to the new taxonomy
-  And I continue to the tagging page
-  Then I should be on the taxonomy tagging page
-  And I should be able to update the taxonomy and click the "Update tags" button
+  Scenario: Publication that supports the new taxonomy with the Preview design system permission
+    Given I am a writer
+    When I start editing a draft document which can be tagged to the new taxonomy
+    And I continue to the tagging page
+    Then I should be on the taxonomy tagging page
+    And I should be able to update the taxonomy and click the "Update tags" button

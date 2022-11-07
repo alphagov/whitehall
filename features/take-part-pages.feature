@@ -9,10 +9,10 @@ Feature: Administering take part pages
 
   It has:
 
-    title: string
-    summary: text
-    body: govspeak
-    image: image
+  title: string
+  summary: text
+  body: govspeak
+  image: image
 
   They can be reordered so the /get-involved index lists them in a pleasing manner
 
