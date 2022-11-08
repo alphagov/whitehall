@@ -373,7 +373,7 @@ GEM
       rack (>= 2.1.4.1)
     marcel (1.0.2)
     matrix (0.4.2)
-    maxitest (4.2.0)
+    maxitest (4.3.0)
       minitest (>= 5.0.0, < 5.17.0)
     mechanize (2.8.5)
       addressable (~> 2.8)
