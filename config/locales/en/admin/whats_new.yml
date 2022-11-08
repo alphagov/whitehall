@@ -18,19 +18,19 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
-          - heading:  Attachment, unpublishing and withdrawing, and specialist topic tagging pages move to the Design System
+          - heading: Attachment, unpublishing and withdrawing, and specialist topic tagging pages move to the Design System
             area: Creating and updating documents
             type: improved
-            date: November 2022
+            date: 8 November 2022
             body_govspeak: |
               The following pages have moved to the GOV.UK Design System:
               
-* adding bulk upload, external, HTML and file attachments
-* withdrawing or unpublishing an edition
-* unwithdrawing an edition
-* adding or changing specialist topic tagging
-
-To add a specialist topic tag, type the first 3 letters of the topic you want to apply. You’ll then get a list of tagging options on that topic.
+              * adding and editing external, HTML and file attachments (including bulk uploads)
+              * withdrawing or unpublishing an edition
+              * unwithdrawing an edition
+              * adding or changing specialist topic tagging
+              
+              To add a specialist topic tag, type the first 3 letters of the topic you want to apply. You’ll then get a list of tagging options on that topic.
           - heading: Change to saving documents
             area: Creating and updating documents
             type: change
