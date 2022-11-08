@@ -46,6 +46,9 @@ class Admin::BaseController < ApplicationController
   end
 
   def preview_design_system?(next_release: false)
+    # Temporarily override so that Release 1.3 is available to everyone
+    return true if next_release
+
     current_user.can_preview_design_system? || (next_release && current_user.can_preview_next_release?)
   end
 
