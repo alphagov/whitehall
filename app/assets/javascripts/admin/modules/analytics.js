@@ -9,4 +9,5 @@
   })
 
   GOVUK.analytics.trackPageview()
+  GOVUK.analyticsPlugins.externalLinkTracker()
 })(window.GOVUK)
