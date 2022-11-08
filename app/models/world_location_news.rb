@@ -42,6 +42,32 @@ class WorldLocationNews < ApplicationRecord
     Whitehall.url_maker.world_location_news_index_path(world_location)
   end
 
+  def contacts
+    return [] unless world_location.international_delegation?
+
+    world_location
+      .worldwide_organisations
+      .filter_map(&:main_office)
+      .map(&:contact)
+      .flatten
+  end
+
+  def organisations
+    return [] unless world_location.international_delegation?
+
+    world_location
+      .worldwide_organisations
+      .map(&:sponsoring_organisations)
+      .flatten
+  end
+
+  def worldwide_organisations
+    return [] unless world_location.international_delegation?
+
+    world_location
+      .worldwide_organisations
+  end
+
   extend FriendlyId
   friendly_id
 end

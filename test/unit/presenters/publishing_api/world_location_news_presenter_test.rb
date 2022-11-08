@@ -101,4 +101,69 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
       assert_equal "/world/aardistan/news.fr", base_path
     end
   end
+
+  test "it does not include contact details for world locations" do
+    world_location_news = build(:world_location_news)
+    create(:world_location, :with_worldwide_organisations, world_location_news:)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal [], presented_links[:ordered_contacts]
+  end
+
+  test "it does not include contact details for international delegation where location has no main office" do
+    world_location_news = build(:world_location_news)
+    create(:international_delegation, :with_worldwide_organisations, world_location_news:)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal [], presented_links[:ordered_contacts]
+  end
+
+  test "it includes contact details for international delegation" do
+    world_location_news = build(:world_location_news)
+    world_location = create(:international_delegation, :with_worldwide_organisations, world_location_news:)
+    create(:worldwide_office, worldwide_organisation: world_location.worldwide_organisations.first)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal world_location_news.world_location.worldwide_organisations.map(&:main_office).map(&:contact).flatten.pluck(:content_id), presented_links[:ordered_contacts]
+  end
+
+  test "it does not include links to sponsoring organisations for world locations" do
+    world_location_news = build(:world_location_news)
+    create(:world_location, :with_worldwide_organisations, world_location_news:)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal [], presented_links[:organisations]
+  end
+
+  test "it includes a link to sponsoring organisations for international delegation" do
+    world_location_news = build(:world_location_news)
+    create(:international_delegation, :with_worldwide_organisations, world_location_news:)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal world_location_news.world_location.worldwide_organisations.map(&:sponsoring_organisations).flatten.pluck(:content_id), presented_links[:organisations]
+  end
+
+  test "it does not include links to worldwide organisations for world locations" do
+    world_location_news = build(:world_location_news)
+    create(:world_location, :with_worldwide_organisations, world_location_news:)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal [], presented_links[:worldwide_organisations]
+  end
+
+  test "it includes a link to worldwide organisations for international delegation" do
+    world_location_news = build(:world_location_news)
+    world_location = create(:international_delegation, :with_worldwide_organisations, world_location_news:)
+    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: world_location.worldwide_organisations.first)
+
+    presented_links = present(world_location_news).links
+
+    assert_equal world_location.worldwide_organisations.map(&:content_id), presented_links[:worldwide_organisations]
+  end
 end

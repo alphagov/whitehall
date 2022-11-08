@@ -38,7 +38,11 @@ module PublishingApi
     end
 
     def links
-      {}
+      {
+        ordered_contacts: world_location_news.contacts.map(&:content_id),
+        organisations: world_location_news.organisations.map(&:content_id),
+        worldwide_organisations: world_location_news.worldwide_organisations.map(&:content_id),
+      }
     end
 
   private
