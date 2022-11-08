@@ -20,7 +20,7 @@ en:
         updates:
           - heading: Attachment, unpublishing and withdrawing, and specialist topic tagging pages move to the Design System
             area: Creating and updating documents
-            type: Improvement
+            type: improvement
             date: 8 November 2022
             body_govspeak: |
               The following pages have moved to the GOV.UK Design System:
