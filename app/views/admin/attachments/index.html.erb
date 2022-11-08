@@ -1,11 +1,6 @@
 <% content_for :page_title, "Attachments for #{attachment.attachable_model_name}" %>
 <% content_for :title, "Attachments for #{attachment.attachable_model_name}" %>
 <% content_for :context, "#{@edition.title}" %>
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_attachments_path(@edition)
-  } %>
-<% end %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "components/secondary_navigation", {
