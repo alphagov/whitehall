@@ -7,12 +7,12 @@
   } %>
 <% end %>
 <div class="govuk-grid-row">
-  <%= render "components/secondary_navigation", {
-    aria_label: "Document navigation tabs",
-    items: secondary_navigation_tabs_items(@edition, request.path)
-  } %>
-
   <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation tabs",
+      items: secondary_navigation_tabs_items(@edition, request.path)
+    } %>
+
     <p class="govuk-body">Note: <%= attachment_note(attachment.attachable_model_name) %></p>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Add new attachment",
