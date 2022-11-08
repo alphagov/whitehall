@@ -64,21 +64,22 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   view_test "POST :upload_zip with no zip file requests that zip file be specified" do
     post_to_upload_zip(nil)
-    assert_select "ul.errors", /file can't be blank/
+    assert_select ".gem-c-error-summary__list-item", /file can't be blank/
   end
 
   view_test "POST :upload_zip prompts for metadata for each file in the zip" do
     post_to_upload_zip("two-pages-and-greenpaper.zip")
     assert_response :success
-    assert_select "li input[name*=title]", count: 2
-    assert_select "li", /two-pages.pdf/
-    assert_select "li", /greenpaper.pdf/
+    assert_select "input[name='bulk_upload[attachments_attributes][0][title]']"
+    assert_select "input[name='bulk_upload[attachments_attributes][1][title]']"
+    assert_select ".gem-c-heading", /two-pages.pdf/
+    assert_select ".gem-c-heading", /greenpaper.pdf/
   end
 
   view_test "POST :upload_zip lists errors and re-renders form when zip invalid" do
     post_to_upload_zip("whitepaper.pdf")
     assert_response :success
-    assert_select ".errors", /not a zip file/
+    assert_select ".gem-c-error-summary__list-item", /not a zip file/
     assert_select "input[type=file]"
   end
 
@@ -93,7 +94,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
   view_test "POST :upload_zip with illegal zip contents shows an error" do
     post_to_upload_zip("sample_attachment_containing_exe.zip")
     assert_response :success
-    assert_select ".errors", /contains invalid files/
+    assert_select ".gem-c-error-summary__list-item", /contains invalid files/
     assert_select "input[type=file]"
   end
 
@@ -109,16 +110,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     post :create, params: { edition_id: @edition, bulk_upload: invalid_create_params }
 
     assert_response :success
-    assert_select ".form-errors", text: /enter missing fields/
-  end
-
-  view_test "POST :create with invalid attachments re-renders the bulk upload form with design system permission" do
-    @current_user.permissions << "Preview design system"
-
-    post :create, params: { edition_id: @edition, bulk_upload: invalid_create_params }
-
-    assert_response :success
-    assert_select ".govuk-error-summary", text: /enter missing fields/
+    assert_select ".gem-c-error-summary__list-item", text: /enter missing fields/
   end
 
   test "POST :create associates the attachment's attachment_data object with the edition" do

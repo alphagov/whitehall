@@ -259,7 +259,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
 
     def unpublish_document_published_in_error
       click_link "Withdraw or unpublish"
-      within "#js-published-in-error-form" do
+      within ".js-unpublish-withdraw-form__published-in-error" do
         click_button "Unpublish"
       end
       assert_text "This document has been unpublished"
@@ -267,7 +267,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
 
     def consolidate_document
       click_link "Withdraw or unpublish"
-      within "#js-consolidated-form" do
+      within ".js-unpublish-withdraw-form__consolidated" do
         fill_in "consolidated_alternative_url", with: "https://www.test.gov.uk/example"
         click_button "Unpublish"
       end
@@ -276,7 +276,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
 
     def withdraw_document
       click_link "Withdraw or unpublish"
-      within "#js-withdraw-form" do
+      within ".js-unpublish-withdraw-form__withdrawal" do
         fill_in "withdrawal_explanation", with: "testing"
         click_button "Withdraw"
       end
