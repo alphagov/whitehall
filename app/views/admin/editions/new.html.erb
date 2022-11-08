@@ -1,4 +1,5 @@
 <% content_for :page_title, "New #{@edition.type.titleize}" %>
+<% content_for :title, "New #{@edition.format_name}" %>
 <% content_for :back_link, (render "govuk_publishing_components/components/back_link", {
     href: admin_editions_path
   })
@@ -6,16 +7,12 @@
 <% content_for :error_summary, render('shared/error_summary', object: @edition, parent_class: "edition", class_name: @edition.format_name) %>
 
 <div class="govuk-grid-row">
-  <%= render "govuk_publishing_components/components/title", {
-    title: "New #{@edition.format_name}"
-  } %>
-
-  <%= render "components/secondary_navigation", {
-    aria_label: "Document navigation tabs",
-    items: secondary_navigation_tabs_items(@edition, request.path)
-  } %>
-
   <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation tabs",
+      items: secondary_navigation_tabs_items(@edition, request.path)
+    } %>
+
     <%= render "form", edition: @edition %>
   </div>
 </div>
