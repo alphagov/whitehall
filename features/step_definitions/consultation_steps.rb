@@ -82,3 +82,7 @@ And(/^I can see the primary locale for consultation "(.*?)" is "(.*?)"$/) do |ti
     expect(locale_code).to eq(consultation.primary_locale)
   end
 end
+
+Then(/^the consultation response should have (\d+) attachments$/) do |expected_number_of_attachments|
+  expect(expected_number_of_attachments.to_i).to eq(Response.last.attachments.count)
+end
