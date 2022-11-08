@@ -165,7 +165,7 @@ module Admin::EditionsHelper
   def tab_url_for_edition(edition)
     if edition.is_a? CorporateInformationPage
       if edition.new_record?
-        url_for([:new, :admin, @organisation, edition.class.model_name.param_key.to_sym]) # rubocop:disable Rails/HelperInstanceVariable
+        url_for([:new, :admin, edition.owning_organisation, edition.class.model_name.param_key.to_sym])
       else
         url_for([:edit, :admin, edition.owning_organisation, edition])
       end
@@ -205,6 +205,54 @@ module Admin::EditionsHelper
       tabs["Final outcome"] = admin_consultation_outcome_path(edition)
     end
     tab_navigation(tabs) { yield blk }
+  end
+
+  def secondary_navigation_tabs_items(edition, current_path)
+    nav_items = []
+    nav_items << standard_edition_nav_items(edition, current_path)
+    nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
+    nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
+    nav_items.flatten
+  end
+
+  def standard_edition_nav_items(edition, current_path)
+    [
+      {
+        label: "Document",
+        href: tab_url_for_edition(edition),
+        current: current_path == tab_url_for_edition(edition),
+      },
+      *(if edition.persisted? && edition.allows_attachments?
+          [{
+            label: "Attachments#{tag.span(edition.attachments.count, class: 'govuk-tag govuk-tag--grey') if edition.attachments.count.positive?}".html_safe,
+            href: admin_edition_attachments_path(edition),
+            current: current_path == admin_edition_attachments_path(edition),
+          }]
+        end),
+    ]
+  end
+
+  def consultation_nav_items(edition, current_path)
+    [
+      {
+        label: "Public feedback",
+        href: admin_consultation_public_feedback_path(edition),
+        current: current_path == admin_consultation_public_feedback_path(edition),
+      },
+      {
+        label: "Final outcome",
+        href: admin_consultation_outcome_path(edition),
+        current: current_path == admin_consultation_outcome_path(edition),
+      },
+    ]
+  end
+
+  def document_collection_nav_items(edition, current_path)
+    {
+      label: "Collection documents",
+      href: admin_document_collection_groups_path(edition),
+      current: current_path == admin_document_collection_groups_path(edition),
+    }
   end
 
   def edition_edit_headline(edition)
