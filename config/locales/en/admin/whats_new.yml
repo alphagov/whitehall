@@ -5,7 +5,7 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 20 October 2022
+      last_updated: Last updated 8 November 2022
       introduction:
         heading: Moving to the Design System
         body_govspeak: |
@@ -20,7 +20,7 @@ en:
         updates:
           - heading: Attachment, unpublishing and withdrawing, and specialist topic tagging pages move to the Design System
             area: Creating and updating documents
-            type: improved
+            type: Improvement
             date: 8 November 2022
             body_govspeak: |
               The following pages have moved to the GOV.UK Design System:
