@@ -29,13 +29,17 @@
   <%= render 'admin/link_check_reports/link_check_report', report: link_check_report %>
 <% end %>
 
-<div class="govspeak_help" data-module="gem-track-click" data-track-category="formatting-help" data-track-action="formatting-help-link" data-track-selector="a[data-toggle]">
+<div class="govspeak_help">
   <h2 class="govuk-heading-l">Formatting</h2>
 
   <p class="govuk-body">For details, read the <%=link_to("guide to using Markdown", "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown", class: "govuk-link") %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Paste and convert to Markdown"
+    title: "Paste and convert to Markdown",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Paste and convert to Markdown",
+    },
   } do %>
     <p class='govuk-body'>You can paste formatted text into the body field and Whitehall publisher will try to convert it into GOV.UK’s version of Markdown, Govspeak.</p>
     <p class='govuk-body'>This works best when copy and pasting from text editing software like Word or Google Docs. It is less likely to recognise formatting from PDFs.</p>
@@ -51,7 +55,11 @@
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Headings"
+    title: "Headings",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Headings",
+    },
   } do %>
     <pre class="govspeak_help__pre">## Top level heading – H2<br />### Second level heading – H3<br />#### Third level heading – H4<br /><br />Don’t use a single # – this is H1 and is for the title only</pre>
   <% end %>
@@ -76,19 +84,31 @@
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Bullets"
+    title: "Bullets",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Bullets",
+    },
   } do %>
     <pre class='govspeak_help__pre'>* item 1<br />* item 2<br />* item 3<br /></pre>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Numbered lists"
+    title: "Numbered lists",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Numbered lists",
+    },
   } do %>
     <pre class='govspeak_help__pre'>1. item 1<br />2. item 2<br />3. item 3<br /></pre>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Images"
+    title: "Images",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Images",
+    },
   } do %>
     <p class='govuk-body'>First upload your image(s), then:</p>
     <pre class='govspeak_help__pre'>!!<em>n</em></pre>
@@ -97,7 +117,11 @@
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Video links"
+    title: "Video links",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Video links",
+    },
   } do %>
     <p class='govuk-body'>Use the title of the video and the URL of the YouTube page that shows the video for watching. Don’t use the embed code or the ‘Share this video’ URL:</p>
     <pre class='govspeak_help__pre'>[title of video](youtube-video-url)</pre>
@@ -108,14 +132,22 @@
 
   <% unless hide_inline_attachments_help %>
     <%= render "govuk_publishing_components/components/details", {
-      title: "Attachments"
+      title: "Attachments",
+      data_attributes: {
+        track_category: "formatting-help",
+        track_action: "Attachments",
+      },
     } do %>
       <%= render "admin/editions/govspeak_attachments_help", show_attachments_tab_help: show_attachments_tab_help %>
     <% end %>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Tables"
+    title: "Tables",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Tables",
+    },
   } do %>
     <p class='govuk-body'>Insert tables by splitting your content into cells using the pipe (|) character. </p>
     <pre class='govspeak_help__pre'>|  name   |  colour |<br />|---------|---------|<br />| apple   | green   |<br />| banana  | yellow  |</pre>
@@ -126,7 +158,11 @@
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Charts"
+    title: "Charts",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Charts",
+    },
   } do %>
     <p class='govuk-body'>Numeric data can be shown as a simple bar chart. Grouped bars are used for multiple columns.</p>
     <pre class='govspeak_help__pre'>Department   | Short Speeches | Long Speeches<br />-|-|-<br />Department 1 | 6              | 6<br />Department 2 | 6              | 8<br />Department 3 | 18             | 2<br />{barchart}</pre>
@@ -140,13 +176,21 @@
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Call to action"
+    title: "Call to action",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Call to action",
+    },
   } do %>
     <pre class='govspeak_help__pre'>$CTA<br />[Use the trade tariff tool to find commodity codes.](https://www.gov.uk/trade-tariff)<br />$CTA</pre>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Abbreviations and acronyms"
+    title: "Abbreviations and acronyms",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Abbreviations and acronyms",
+    },
   } do %>
     <p class='govuk-body'>The first time you use an abbreviation or acroynm, write it out in full.</p>
     <p class='govuk-body'>Add the <a class="govuk-link" href='https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown#acronyms'>acronym Markdown</a> at the end of the body copy leaving one empty line space above it, as in the following example.</p>
@@ -155,14 +199,22 @@
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Blockquotes"
+    title: "Blockquotes",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Blockquotes",
+    },
   } do %>
     <pre class='govspeak_help__pre'>Introduction to the quote:<br /><br />> First paragraph of the quote.<br />><br />> Second paragraph of the quote.</pre>
     <p class='govuk-body'>The > in the line space is important. If you leave it out you will get 2 separate quotes, not 1 running quote.</p>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Addresses"
+    title: "Addresses",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Addresses",
+    },
   } do %>
     <pre class='govspeak_help__pre'>$A<br />Address<br />Only<br />Here<br />$A</pre>
     <p class='govuk-body'>You can also embed contact information:</p>
@@ -173,14 +225,22 @@
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Email links"
+    title: "Email links",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Email links",
+    },
   } do %>
     <p class='govuk-body'>Use ‘less than’ (<em>&lt</em>) and ‘greater than’ (<em>&gt;</em>) arrows around email addresses to make them a link.<p></p>
   <% end %>
 
   <% if show_footnote_help %>
     <%= render "govuk_publishing_components/components/details", {
-      title: "Footnotes"
+      title: "Footnotes",
+      data_attributes: {
+        track_category: "formatting-help",
+        track_action: "Footnotes",
+      },
     } do %>
       <pre class='govspeak_help__pre'>Footnotes can be added[^1].<br /><br />[^1]: And then later defined.</pre>
       <p class='govuk-body'>
@@ -195,7 +255,11 @@
 
   <% if show_stat_headline_help %>
     <%= render "govuk_publishing_components/components/details", {
-      title: "Statistic headlines"
+      title: "Statistic headlines",
+      data_attributes: {
+        track_category: "formatting-help",
+        track_action: "Statistic headlines",
+      },
     } do %>
       <p class='govuk-body'>Use statistic headlines to highlight important numbers in your content. Displays a statistic as a large number with a description. The statistic and description must make sense when read aloud.</p>
       <pre class='govspeak_help__pre'>{stat-headline}<br />*13.8bn* years since the big bang<br />{/stat-headline}</pre>
