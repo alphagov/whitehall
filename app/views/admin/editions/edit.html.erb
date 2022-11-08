@@ -1,10 +1,6 @@
 <% content_for :page_title, "Edit #{@edition.format_name}"%>
 <% content_for :title, "Editing #{@edition.format_name}" %>
 <% content_for :context, @edition.title %>
-<% content_for :back_link, (render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@edition)
-  })
-%>
 <% content_for :error_summary, render('shared/error_summary', object: @edition, parent_class: "edition", class_name: @edition.format_name) %>
 <% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
 

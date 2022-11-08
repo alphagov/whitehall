@@ -1,9 +1,5 @@
 <% content_for :page_title, "New #{@edition.type.titleize}" %>
 <% content_for :title, "New #{@edition.format_name}" %>
-<% content_for :back_link, (render "govuk_publishing_components/components/back_link", {
-    href: admin_editions_path
-  })
-%>
 <% content_for :error_summary, render('shared/error_summary', object: @edition, parent_class: "edition", class_name: @edition.format_name) %>
 
 <div class="govuk-grid-row">
