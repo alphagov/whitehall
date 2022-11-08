@@ -54,11 +54,11 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      # TODO: Add previewable functionality via JS and add this test in
-      # view_test "new form has previewable body" do
-      #   get :new
-      #   assert_select "textarea[name='edition[body]'].previewable"
-      # end
+      view_test "new form has previewable body" do
+        get :new
+
+        assert_select(".js-app-c-govspeak-editor__preview-button")
+      end
 
       view_test "new form has cancel link which takes the user to the list of drafts" do
         get :new
@@ -171,14 +171,13 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      # TODO: Uncomment this test and apply it to the new JS solution
-      # view_test "edit form has previewable body" do
-      #   edition = create(edition_type)
-      #
-      #   get :edit, params: { id: edition }
-      #
-      #   assert_select "textarea[name='edition[body]'].previewable"
-      # end
+      view_test "edit form has previewable body" do
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+
+        get :edit, params: { id: edition }
+
+        assert_select(".js-app-c-govspeak-editor__preview-button")
+      end
 
       view_test "edit form has cancel link which takes the user back to edition" do
         draft_edition = create("draft_#{edition_type}")
@@ -521,8 +520,9 @@ module AdminEditionControllerTestHelpers
                ),
              }
 
-        # TODO: Uncomment this line once the image partial is ported to the design system
-        # assert_select ".gem-c-error-message.govuk-error-message", text: "Images image data file must be 960px wide and 640px tall, but is 64px wide and 96px tall"
+        assert_select "div .gem-c-error-summary" do
+          assert_select "a", text: "Images image data file must be 960px wide and 640px tall, but is 64px wide and 96px tall"
+        end
       end
 
       view_test "edit displays edition image fields" do
@@ -586,8 +586,9 @@ module AdminEditionControllerTestHelpers
               },
             }
 
-        # TODO: uncomment this line once the images field is added in design system
-        # assert_select ".gem-c-error-message.govuk-error-message", text: "Images image data file can't be blank"
+        assert_select "div .gem-c-error-summary" do
+          assert_select "a", text: "Images image data file can't be blank"
+        end
 
         edition.reload
         assert_equal 0, edition.images.length
