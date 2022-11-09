@@ -3,12 +3,6 @@
 <% content_for :page_title, "Edit translation for: #{@edition.title}" %>
 <% content_for :title, "#{@translation_locale.native_language_name} (#{@translation_locale.english_language_name}) translation" %>
 
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@edition)
-  } %>
-<% end %>
-
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <%= form_for @translated_edition, as: :edition, url: admin_edition_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
@@ -60,9 +54,13 @@
       <h3 class="edit_edition__english-content govuk-heading-m govuk-!-margin-bottom-2">English body content:</h3>
       <p class="edit_edition__english-content govuk-body govuk-!-margin-bottom-8"><%= @edition.body %></p>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Save"
-      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save"
+        } %>
+
+        <%= link_to("Cancel", admin_cancel_path(@edition), class: "govuk-link") %>
+      </div>
     <% end %>
   </section>
 

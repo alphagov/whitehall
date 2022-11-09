@@ -18,7 +18,5 @@
     data_attributes: data_attributes
   } %>
 
-  <span class="govuk-body">
-    or <%= link_to "cancel", edition.persisted? ? admin_edition_path(edition) : admin_editions_path, class: "govuk-link", data_attributes: data_attributes %>
-  </span>
+  <%= link_to "Cancel", admin_cancel_path(edition), class: "govuk-link", data_attributes: data_attributes %>
 </div>
