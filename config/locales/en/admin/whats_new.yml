@@ -5,7 +5,7 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 8 November 2022
+      last_updated: Last updated 9 November 2022
       introduction:
         heading: Moving to the Design System
         body_govspeak: |
@@ -18,6 +18,12 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Search added to topic taxonomy tags page
+            area: Creating and updating documents
+            type: improvement
+            date: 9 November 2022
+            body_govspeak: |
+              You can now search taxonomy topic tags and select relevant tags for your content. The search will show all topic tags which include the search term you’ve put into the search box. You only need to start typing the first 3 letters to start getting suggested topics.
           - heading: Attachment, unpublishing and withdrawing, and specialist topic tagging pages move to the Design System
             area: Creating and updating documents
             type: improvement
