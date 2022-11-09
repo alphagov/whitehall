@@ -43,3 +43,17 @@ examples:
               items:
                 - label: Childcare vouchers
                   value: childcare-vouchers
+  with_search:
+    data:
+      searchable: true
+      items:
+        - label: Parenting, childcare and children's services
+          value: parenting-childcare-and-children-s-services
+          items:
+            - label: Divorce, separation and legal issues
+              value: divorce-separation-and-legal-issues
+            - label: Childcare and early years
+              value: childcare-and-early-years
+              items:
+                - label: Childcare vouchers
+                  value: childcare-vouchers
