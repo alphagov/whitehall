@@ -1,9 +1,7 @@
-<% initialise_script "GOVUK.AdminAttachmentsForm", selector: '.js-attachment-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
-
-<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" }, multipart: true do |form| %>
+<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "attachment-form", :"data-module" => "LocaleSwitcher", :"data-rtl-locales" => Locale.right_to_left.collect(&:to_param) }, multipart: true do |form| %>
   <% content_for :error_summary, render('shared/error_summary', object: attachment, parent_class: "attachment", class_name: @attachment.class.name.demodulize.underscore.humanize.downcase) %>
 
-  <div class="govuk-!-margin-bottom-8">
+  <div class="govuk-!-margin-bottom-8 attachment-form__title <%= "right-to-left" if form.object.rtl_locale? %>">
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Title (required)"
@@ -25,7 +23,7 @@
     <%= form.fields_for :govspeak_content do |govspeak_fields| %>
       <%= hidden_field_tag 'attachment[govspeak_content_attributes][manually_numbered_headings]', "0" %>
 
-      <div class="govuk-!-margin-bottom-8">
+      <div class="govuk-!-margin-bottom-8 attachment-form__manually-numbered-headings">
         <%= render "govuk_publishing_components/components/checkboxes", {
           name: "attachment[govspeak_content_attributes][manually_numbered_headings]",
           heading: "Manually numbered headings",
@@ -43,20 +41,22 @@
         } %>
       </div>
 
-      <%= render "components/govspeak-editor", {
-        label: {
-          heading_size: "l",
-          text: "Body (required)"
-        },
-        name: "attachment[govspeak_content_attributes][body]",
-        rows: 20,
-        id: "attachment_govspeak_content_body",
-        value: form.object.govspeak_content.body,
-        error_items: errors_for(attachment.errors, :"govspeak_content.body"),
-      } %>
+      <div class="govuk-!-margin-bottom-8 attachment-form__body <%= "right-to-left" if form.object.rtl_locale? %>">
+        <%= render "components/govspeak-editor", {
+          label: {
+            heading_size: "l",
+            text: "Body (required)"
+          },
+          name: "attachment[govspeak_content_attributes][body]",
+          rows: 20,
+          id: "attachment_govspeak_content_body",
+          value: form.object.govspeak_content.body,
+          error_items: errors_for(attachment.errors, :"govspeak_content.body"),
+        } %>
+      </div>
     <% end %>
   <% elsif attachment.is_a?(ExternalAttachment) %>
-    <div class="govuk-!-margin-bottom-8">
+    <div class="govuk-!-margin-bottom-8 attachment-form__external-url">
       <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "External url (required)"
@@ -70,7 +70,7 @@
       } %>
     </div>
   <% else %>
-    <div class="govuk-!-margin-bottom-8">
+    <div class="govuk-!-margin-bottom-8 attachment-form__attachment-data-attributes">
       <%= render 'attachment_data_fields', form: form %>
     </div>
   <% end %>
