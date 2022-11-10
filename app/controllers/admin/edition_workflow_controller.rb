@@ -95,8 +95,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def confirm_unpublish
     @unpublishing = @edition.build_unpublishing
-
-    render_design_system(:confirm_unpublish, :confirm_unpublish_legacy, next_release: true)
   end
 
   def unpublish
@@ -106,18 +104,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(@edition), notice: message
     else
       @unpublishing = @edition.unpublishing || @edition.build_unpublishing(unpublishing_params)
-      if preview_design_system?(next_release: true) && @unpublishing.errors.blank?
-        flash.now[:alert] = message
-      elsif !preview_design_system?
-        flash.now[:alert] = message
-      end
-      render_design_system("confirm_unpublish", "confirm_unpublish_legacy", next_release: true)
+      flash.now[:alert] = message if @unpublishing.errors.blank?
+      render :confirm_unpublish
     end
   end
 
-  def confirm_unwithdraw
-    render_design_system(:confirm_unwithdraw, :confirm_unwithdraw_legacy, next_release: true)
-  end
+  def confirm_unwithdraw; end
 
   def unwithdraw
     edition_unwithdrawer = Whitehall.edition_services.unwithdrawer(@edition, user: current_user)
@@ -126,7 +118,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(new_edition), notice: "This document has been unwithdrawn"
     else
       flash.now[:alert] = edition_unwithdrawer.failure_reason
-      render_design_system(:confirm_unwithdraw, :confirm_unwithdraw_legacy, next_release: true)
+      render :confirm_unwithdraw
     end
   end
 

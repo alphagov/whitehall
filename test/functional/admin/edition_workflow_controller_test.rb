@@ -335,7 +335,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
     assert_response :success
     assert_template :confirm_unpublish
-    assert_match %r{Alternative url must be provided}, flash[:alert]
+    assert_nil flash[:alert]
+    assert_equal "Alternative url must be provided to redirect the document", assigns(:unpublishing).errors.full_messages.to_sentence
     assert published_edition.reload.published?
   end
 
