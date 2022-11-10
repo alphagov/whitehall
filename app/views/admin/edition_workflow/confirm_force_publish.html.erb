@@ -1,13 +1,33 @@
-<% page_title "Force publish: #{@edition.title}"  %>
-<h1>Why are you force publishing this?</h1>
-<p class="lead"><%= @edition.title %></p>
-<p class="alert alert-warning">You should only force publish documents when no other editor is available to review and publish your work, for example out of hours or in an emergency.</p>
-<%= form_tag force_publish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: 'well force-publish-form' do %>
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Force publish: #{@edition.title}" %>
+<% content_for :title, "Force publish" %>
+<% content_for :title_margin_bottom, 6 %>
 
-  <div class="form-group">
-    <%= label_tag :reason, 'Reason for force publishing' %>
-    <%= text_field_tag :reason, nil, {class: 'form-control input-md-6'} %>
-  </div>
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag force_publish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: 'well force-publish-form' do %>
+      <%= render "govuk_publishing_components/components/warning_text", {
+        text: "You should only force publish documents when no other editor is available to review and publish your work, for example out of hours or in an emergency."
+      } %>
 
-  <%= submit_tag "Force publish", class: "btn btn-warning" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
-<% end %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Reason for force publishing",
+        },
+        name: "reason",
+        id: "reason",
+        heading_level: 2,
+        heading_size: "l",
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Force publish",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link") %>
+      </div>
+    <% end %>
+  </section>
+</div>
