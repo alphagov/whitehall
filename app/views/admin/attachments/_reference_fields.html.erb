@@ -4,7 +4,8 @@
     locale_options.concat(attachable.translated_locales.map do |locale|
       {
         text: native_language_name_for(locale),
-        value: locale
+        value: locale,
+        selected: attachment.locale == locale.to_s,
       }
     end)
   %>
