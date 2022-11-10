@@ -1,11 +1,3 @@
-def manually_numbered_headings
-  if using_design_system?
-    "Use manually numbered headings"
-  else
-    "Manually numbered headings"
-  end
-end
-
 When(/^I visit the attachments page$/) do
   first(:link, "Attachments").click
 end
@@ -29,7 +21,7 @@ When(/^I upload an html attachment with the title "(.*?)" and the body "(.*?)"$/
   click_on "Add new HTML attachment"
   fill_in "Title", with: title
   fill_in "Body", with: body
-  check manually_numbered_headings
+  check "Use manually numbered headings"
   click_on "Save"
 end
 
@@ -110,7 +102,7 @@ When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)"$/
   fill_in "Title", with: title
   fill_in "ISBN", with: isbn
   fill_in "Body", with: "Body"
-  check manually_numbered_headings
+  check "Use manually numbered headings"
   click_on "Save"
 end
 
