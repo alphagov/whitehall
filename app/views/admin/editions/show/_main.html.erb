@@ -142,6 +142,7 @@
 
       <% if @edition.attachments.any? %>
         <%= render "govuk_publishing_components/components/table", {
+          sortable: true,
           rows: @edition.attachments.map do | attachment |
             [
               { text: attachment[:title] },
@@ -181,6 +182,7 @@
           margin_bottom: 3,
         } %>
         <%= render "govuk_publishing_components/components/list", {
+          visible_counters: true,
           items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
         } %>
       <% end %>
@@ -202,6 +204,7 @@
 
       <% if @edition.non_english_translations.any? %>
         <%= render "govuk_publishing_components/components/table", {
+          sortable: true,
           rows: @edition.non_english_translations.map do | translation |
             [
               { text: Locale.new(translation.locale).english_language_name },
@@ -237,6 +240,7 @@
 
     <% if @edition.document.associated_needs.any? %>
       <%= render "govuk_publishing_components/components/table", {
+        sortable: true,
         rows: @edition.document.associated_needs.map do | need |
           [
             { text: need["title"] },
