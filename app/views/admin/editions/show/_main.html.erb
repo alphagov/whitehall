@@ -132,25 +132,41 @@
 
   <% if @edition.allows_attachments? %>
     <section class="app-view-edition-summary__section">
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Attachments",
-        padding: true
-      } %>
-
-      <p class="govuk-body">
-        <%= link_to("#{@edition.attachments.any? ? "Modify" : "Add"} attachments", admin_edition_attachments_path(@edition.id), class: "govuk-link") %>
-      </p>
-
-      <% if @edition.attachments.any? %>
-        <%= render "govuk_publishing_components/components/table", {
-          sortable: true,
-          rows: @edition.attachments.map do | attachment |
-            [
-              { text: attachment[:title] },
-              { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link"), format: "numeric" },
-            ]
-          end
-        } %>
+      <%= render "govuk_publishing_components/components/summary_list", {
+        title: "Attachments",
+        heading_level: 2,
+        heading_size: "m",
+        edit: {
+          href: admin_edition_attachments_path(@edition.id),
+          link_text: "#{@edition.attachments.any? ? "Modify" : "Add"} attachments"
+        }
+      } do %>
+        <% if @edition.attachments.any? %>
+          <%= render "govuk_publishing_components/components/table", {
+            sortable: true,
+            head: [
+              {
+                text: "Title"
+              },
+              {
+                text: "Filename"
+              },
+              {
+                text: "",
+                format: "numeric"
+              }
+            ],
+            rows: @edition.attachments.map do | attachment |
+              [
+                { text: attachment[:title] },
+                { text: link_to_attachment(attachment, preview: !@edition.published?, truncate: @edition.imported?, full_url: true) },
+                { text: (link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") unless @edition.published?) , format: "numeric" },
+              ].compact
+            end
+          } %>
+        <% else %>
+          <p class="govuk-body">No attachments for this document</p>
+        <% end %>
       <% end %>
     </section>
   <% end %>
