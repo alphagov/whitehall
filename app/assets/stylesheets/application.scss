@@ -8,10 +8,11 @@
 
 @import "./admin/modules/unpublish-display-conditions";
 
+@import "./admin/views/attachments";
+@import "./admin/views/edit-edition";
+@import "./admin/views/edition-summary";
 @import "./admin/views/edition-translations";
 @import "./admin/views/whats-new";
-@import "./admin/views/edit-edition";
-@import "./admin/views/attachments";
 
 .app-js-only {
   display: none;
