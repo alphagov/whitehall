@@ -163,7 +163,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_unpublish confirm_unwithdraw unpublish]
-    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
+    if design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
