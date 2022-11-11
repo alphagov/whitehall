@@ -43,58 +43,50 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test ".dequeue removes a job for a scheduled edition" do
-    control = create(:scheduled_edition)
     edition = create(:scheduled_edition)
 
-    with_real_sidekiq do
-      ScheduledPublishingWorker.queue(edition)
-      ScheduledPublishingWorker.queue(control)
+    edition_job = Sidekiq::SortedEntry.new({}, 1, "class" => "ScheduledPublishingWorker", "args" => [edition.id])
+    control_job = Sidekiq::SortedEntry.new({}, 1, "class" => "ScheduledPublishingWorker", "args" => [edition.id + 1])
+    Sidekiq::ScheduledSet.stubs(:new).returns([edition_job, control_job])
 
-      assert_equal 2, Sidekiq::ScheduledSet.new.size
+    edition_job.expects(:delete)
 
-      ScheduledPublishingWorker.dequeue(edition)
-
-      assert_equal 1, Sidekiq::ScheduledSet.new.size
-
-      assert Sidekiq::ScheduledSet.new.detect do |job|
-        control.id == job["args"].first &&
-          control.scheduled_publication.to_i == job.at.to_i
-      end
-    end
+    ScheduledPublishingWorker.dequeue(edition)
   end
 
   test ".dequeue_all removes all scheduled publishing jobs" do
     edition1 = create(:scheduled_edition)
     edition2 = create(:scheduled_edition)
 
-    with_real_sidekiq do
-      ScheduledPublishingWorker.queue(edition1)
-      ScheduledPublishingWorker.queue(edition2)
+    edition1_job = Sidekiq::SortedEntry.new({}, 1, "class" => "ScheduledPublishingWorker", "args" => [edition1.id])
+    edition2_job = Sidekiq::SortedEntry.new({}, 1, "class" => "ScheduledPublishingWorker", "args" => [edition2.id])
+    Sidekiq::ScheduledSet.stubs(:new).returns([edition1_job, edition2_job])
 
-      assert_equal 2, Sidekiq::ScheduledSet.new.size
+    edition1_job.expects(:delete)
+    edition2_job.expects(:delete)
 
-      ScheduledPublishingWorker.dequeue_all
-
-      assert_equal 0, Sidekiq::ScheduledSet.new.size
-    end
+    ScheduledPublishingWorker.dequeue_all
   end
 
   test ".queue_size returns the number of queued ScheduledPublishingWorker jobs" do
-    with_real_sidekiq do
-      ScheduledPublishingWorker.perform_at(1.day.from_now, "null")
-      assert_equal 1, ScheduledPublishingWorker.queue_size
+    edition1 = create(:scheduled_edition)
+    edition2 = create(:scheduled_edition)
 
-      ScheduledPublishingWorker.perform_at(2.days.from_now, "null")
-      assert_equal 2, ScheduledPublishingWorker.queue_size
-    end
+    edition1_job = Sidekiq::SortedEntry.new({}, 1, "class" => "ScheduledPublishingWorker", "args" => [edition1.id])
+    edition2_job = Sidekiq::SortedEntry.new({}, 1, "class" => "ScheduledPublishingWorker", "args" => [edition2.id])
+    Sidekiq::ScheduledSet.stubs(:new).returns([edition1_job, edition2_job])
+
+    assert_equal 2, ScheduledPublishingWorker.queue_size
   end
 
   test ".queued_edition_ids returns the edition ids of the currently queued jobs" do
-    with_real_sidekiq do
-      ScheduledPublishingWorker.perform_at(1.day.from_now, "3")
-      ScheduledPublishingWorker.perform_at(2.days.from_now, "6")
+    edition1 = create(:scheduled_edition)
+    edition2 = create(:scheduled_edition)
 
-      assert_same_elements %w[3 6], ScheduledPublishingWorker.queued_edition_ids
-    end
+    edition1_job = Sidekiq::SortedEntry.new({}, 1, "class" => "ScheduledPublishingWorker", "args" => [edition1.id])
+    edition2_job = Sidekiq::SortedEntry.new({}, 1, "class" => "ScheduledPublishingWorker", "args" => [edition2.id])
+    Sidekiq::ScheduledSet.stubs(:new).returns([edition1_job, edition2_job])
+
+    assert_same_elements [edition1.id, edition2.id], ScheduledPublishingWorker.queued_edition_ids
   end
 end
