@@ -13,7 +13,6 @@ class NewsArticle < Announcement
   validates :worldwide_organisations, absence: true, unless: :world_news_story?
   validate :non_english_primary_locale_only_for_world_news_story
   validate :organisations_are_not_associated, if: :world_news_story?
-  validates :first_published_at, presence: true, if: ->(e) { e.trying_to_convert_to_draft == true }
 
   def self.subtypes
     NewsArticleType.all

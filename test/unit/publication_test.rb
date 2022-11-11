@@ -8,26 +8,6 @@ class PublicationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :publication, :title, :body, :summary, :change_note
   should_allow_external_attachments
 
-  test "imported publications are valid when the publication_type is imported-awaiting-type" do
-    publication = build(
-      :publication,
-      state: "imported",
-      publication_type: PublicationType.find_by_slug("imported-awaiting-type"),
-      first_published_at: 1.year.ago,
-    )
-    assert publication.valid?
-  end
-
-  test "imported publications are not valid_as_draft? when the publcation_type is imported-awaiting-type" do
-    publication = build(:publication, state: "imported", publication_type: PublicationType.find_by_slug("imported-awaiting-type"))
-    assert_not publication.valid_as_draft?
-  end
-
-  test "imported publications are not valid_as_draft? if the first_published_at timestamp is blank" do
-    publication = build(:publication, state: "imported", first_published_at: nil)
-    assert_not publication.valid_as_draft?
-  end
-
   %w[submitted scheduled published].each do |state|
     test "A #{state} publication is not valid without an attachment" do
       publication = build("#{state}_publication", attachments: [])

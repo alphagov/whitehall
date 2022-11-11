@@ -39,3 +39,7 @@ Rails/LexicallyScopedActionFilter:
 Style/OptionalBooleanParameter:
   Exclude:
     - 'app/workers/*.rb'
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/components/*/*.rb'

@@ -16,7 +16,6 @@ class Admin::LegacyPublicationsControllerTest < ActionController::TestCase
   legacy_should_allow_creating_of :publication
   legacy_should_allow_editing_of :publication
 
-  legacy_should_allow_speed_tagging_of :publication
   legacy_should_allow_organisations_for :publication
   legacy_should_allow_references_to_statistical_data_sets_for :publication
   legacy_should_allow_attached_images_for :publication

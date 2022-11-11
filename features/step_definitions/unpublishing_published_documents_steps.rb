@@ -14,14 +14,7 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
   visit admin_edition_path(@duplicate_edition)
   click_on "Withdraw or unpublish"
   choose "Unpublish: consolidated into another GOV.UK page"
-
-  form_container = if using_design_system?
-                     ".js-unpublish-withdraw-form__consolidated"
-                   else
-                     "#js-consolidated-form"
-                   end
-
-  within form_container do
+  within ".js-unpublish-withdraw-form__consolidated" do
     fill_in "consolidated_alternative_url", with: Whitehall.url_maker.publication_url(@existing_edition.document)
     click_button "Unpublish"
   end
@@ -32,14 +25,7 @@ def withdraw_publication(explanation)
   visit admin_edition_path(@publication)
   click_on "Withdraw or unpublish"
   choose "Withdraw: no longer current government policy/activity"
-
-  form_container = if using_design_system?
-                     ".js-unpublish-withdraw-form__withdrawal"
-                   else
-                     "#js-withdraw-form"
-                   end
-
-  within form_container do
+  within ".js-unpublish-withdraw-form__withdrawal" do
     fill_in "Public explanation", with: explanation
     click_button "Withdraw"
   end

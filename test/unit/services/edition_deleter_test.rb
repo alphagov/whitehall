@@ -8,13 +8,6 @@ class EditionDeleterTest < ActiveSupport::TestCase
     assert edition.deleted?, "Edition should be deleted"
   end
 
-  test "#perform! with an imported edition deletes the edition" do
-    edition = create(:imported_edition)
-
-    assert EditionDeleter.new(edition).perform!
-    assert edition.deleted?, "Edition should be deleted"
-  end
-
   test "#perform! with a submitted edition deletes the edition" do
     edition = create(:submitted_edition)
 

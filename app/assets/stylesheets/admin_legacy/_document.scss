@@ -80,27 +80,6 @@ p.prompt {
   margin: $gutter-one-third 0 $gutter;
 }
 
-.paper-number {
-  .form-group {
-    margin-bottom: 0;
-  }
-
-  .checkbox {
-    margin-top: $default-label-margin;
-  }
-}
-
-ol.uploaded-attachments {
-  margin: $gutter 0;
-  list-style: none;
-
-  span.file {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-}
-
 ol.existing-attachments {
   margin: 0;
   list-style: none;

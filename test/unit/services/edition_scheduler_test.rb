@@ -12,7 +12,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     assert_equal edition.scheduled_publication.to_i, job["at"].to_i
   end
 
-  %w[published draft imported rejected superseded scheduled].each do |state|
+  %w[published draft rejected superseded scheduled].each do |state|
     test "#{state} editions cannot be scheduled" do
       edition = create(:"#{state}_edition", scheduled_publication: 1.day.from_now)
       scheduler = EditionScheduler.new(edition)

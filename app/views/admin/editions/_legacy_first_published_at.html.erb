@@ -3,28 +3,22 @@
   <p class="required">This document <span>*</span></p>
   <div class="radio">
     <%= form.label :previously_published_false, class: 'radio' do %>
-      <%= form.radio_button(:previously_published, false, disabled: edition.imported?) %>
+      <%= form.radio_button(:previously_published, false) %>
       has never been published before. It is new.
     <% end %>
   </div>
   <div class="radio">
     <%= form.label :previously_published_true, class: 'radio' do %>
-      <%= form.radio_button(:previously_published, true, disabled: edition.imported?) %>
+      <%= form.radio_button(:previously_published, true) %>
       has previously been published on another website.
     <% end %>
   </div>
   <div class="js-show-first-published show-first-published">
-    <% if edition.imported? %>
-      <%= form.label :first_published_at, "First published <span>*</span>".html_safe, class: 'required' %>
-    <% else %>
-      <%= form.label :first_published_at, "Its original publication date was <span>*</span>".html_safe, class: 'required' %>
-    <% end %>
+    <%= form.label :first_published_at, "Its original publication date was <span>*</span>".html_safe, class: 'required' %>
     <div class="form-inline">
       <%= form.datetime_select :first_published_at, { include_blank: true, start_year: Date.today.year, end_year: 1945 }, { class: 'date form-control' } %>
     </div>
-    <% if !edition.imported? %>
-      <span class="if-js-hide">Only complete this field if the document is not new.</span>
-    <% end %>
+    <span class="if-js-hide">Only complete this field if the document is not new.</span>
   </div>
   </fieldset>
 <% else %>

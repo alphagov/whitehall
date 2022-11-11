@@ -3,11 +3,10 @@ class Admin::BulkUploadsController < Admin::BaseController
   before_action :limit_edition_access!
   before_action :enforce_permissions!
   before_action :prevent_modification_of_unmodifiable_edition
-  layout :get_layout
+  layout "design_system"
 
   def new
     @zip_file = BulkUpload::ZipFile.new
-    render_design_system("new", "new_legacy", next_release: true)
   end
 
   def upload_zip
@@ -16,9 +15,9 @@ class Admin::BulkUploadsController < Admin::BaseController
     if @zip_file.valid?
       @bulk_upload = BulkUpload.from_files(@edition, @zip_file.extracted_file_paths)
       @zip_file.cleanup_extracted_files
-      render_design_system("set_titles", "set_titles_legacy", next_release: true)
+      render :set_titles
     else
-      render_design_system("new", "new_legacy", next_release: true)
+      render :new
     end
   end
 
@@ -31,15 +30,11 @@ class Admin::BulkUploadsController < Admin::BaseController
     if @bulk_upload.save_attachments
       redirect_to admin_edition_attachments_path(@edition)
     else
-      render_design_system("set_titles", "set_titles_legacy", next_release: true)
+      render :set_titles
     end
   end
 
 private
-
-  def get_layout
-    preview_design_system?(next_release: true) ? "design_system" : "admin"
-  end
 
   def find_edition
     @edition = Edition.find(params[:edition_id])

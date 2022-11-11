@@ -128,11 +128,7 @@
       <% end %>
     </h2>
     <% if @edition.attachments.any? %>
-      <% if @edition.imported? %>
-        <%= render partial: "edit_attachments", locals: { edition: @edition } %>
-      <% else %>
-        <%= render partial: "show_attachments", locals: { edition: @edition } %>
-      <% end %>
+      <%= render partial: "show_attachments", locals: { edition: @edition } %>
     <% else %>
       <p class="no-content no-content-bordered">
         No attachments

@@ -16,7 +16,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_creating_of :publication
   should_allow_editing_of :publication
 
-  should_allow_speed_tagging_of :publication
   should_allow_organisations_for :publication
   should_allow_references_to_statistical_data_sets_for :publication
   should_allow_attached_images_for :publication

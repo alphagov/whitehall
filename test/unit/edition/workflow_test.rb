@@ -10,7 +10,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
       end.pre_publication?
     end
 
-    assert_equal %i[imported draft submitted rejected scheduled], pre
+    assert_equal %i[draft submitted rejected scheduled], pre
     assert_equal %i[published superseded deleted withdrawn], post
   end
 

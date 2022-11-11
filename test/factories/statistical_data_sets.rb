@@ -5,9 +5,6 @@ FactoryBot.define do
     summary { "statistical-data-set-summary" }
   end
 
-  factory :imported_statistical_data_set, parent: :statistical_data_set, traits: [:imported] do
-    access_limited { false }
-  end
   factory :draft_statistical_data_set, parent: :statistical_data_set, traits: [:draft]
   factory :submitted_statistical_data_set, parent: :statistical_data_set, traits: [:submitted]
   factory :rejected_statistical_data_set, parent: :statistical_data_set, traits: [:rejected]

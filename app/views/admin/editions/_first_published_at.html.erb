@@ -1,4 +1,4 @@
-<% if edition.published_major_version.nil? && !edition.imported? %>
+<% if edition.published_major_version.nil? %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Document status (required)",
     heading_size: "l",

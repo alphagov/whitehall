@@ -4,10 +4,6 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
   class EditionWithAppointment < Edition
     include ::Edition::Appointment
 
-    def imported?
-      state == "imported"
-    end
-
     def search_link
       "link"
     end
@@ -48,10 +44,6 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
 
   test "editions with role appointment enabled but not set aren't valid" do
     assert_not EditionWithAppointment.new(valid_edition_attributes).valid?
-  end
-
-  test "editions allowed some invalid data don't have to have a role appointment" do
-    EditionWithAppointment.new(valid_edition_attributes.merge(state: "imported")).valid?
   end
 
   test "editions with appointment include them in their search info" do

@@ -52,13 +52,11 @@ class EditionTest < ActiveSupport::TestCase
 
   test "edition has shareable preview enabled if it is in the pre-publication state and the type is not excluded" do
     draft_edition = create(:draft_case_study)
-    imported_edition = create(:imported_case_study)
     submitted_edition = create(:submitted_case_study)
     rejected_edition = create(:rejected_case_study)
     scheduled_edition = create(:scheduled_case_study)
 
     assert_equal draft_edition.has_enabled_shareable_preview?, true
-    assert_equal imported_edition.has_enabled_shareable_preview?, true
     assert_equal submitted_edition.has_enabled_shareable_preview?, true
     assert_equal rejected_edition.has_enabled_shareable_preview?, true
     assert_equal scheduled_edition.has_enabled_shareable_preview?, true
@@ -645,13 +643,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 4.days.ago, e.public_timestamp
   end
 
-  %i[draft scheduled published superseded submitted rejected].each do |state|
-    test "valid_as_draft? is true for valid #{state} editions" do
-      edition = build("#{state}_edition")
-      assert edition.valid_as_draft?
-    end
-  end
-
   test "should store title in multiple languages" do
     edition = build(:edition)
     with_locale(:en) { edition.title = "english-title" }
@@ -788,11 +779,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.previously_published
 
     edition.first_published_at = Time.zone.now
-    assert edition.previously_published
-  end
-
-  test "previously_published always returns true for an imported edition" do
-    edition = create(:edition, state: :imported, first_published_at: 1.hour.ago)
     assert edition.previously_published
   end
 

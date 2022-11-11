@@ -12,8 +12,6 @@ class Admin::LegacyNewsArticlesControllerTest < ActionController::TestCase
   legacy_should_allow_creating_of :news_article
   legacy_should_allow_editing_of :news_article
 
-  legacy_should_allow_speed_tagging_of :news_article
-  legacy_should_allow_setting_first_published_at_during_speed_tagging :news_article
   legacy_should_allow_organisations_for :news_article
   legacy_should_allow_role_appointments_for :news_article
   legacy_should_allow_association_between_world_locations_and :news_article

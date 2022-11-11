@@ -30,7 +30,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def enforce_permissions!
     case action_name
-    when "submit", "unschedule", "convert_to_draft"
+    when "submit", "unschedule"
       enforce_permission!(:update, @edition)
     when "reject"
       enforce_permission!(:reject, @edition)
@@ -97,8 +97,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def confirm_unpublish
     @unpublishing = @edition.build_unpublishing
-
-    render_design_system(:confirm_unpublish, :confirm_unpublish_legacy, next_release: true)
   end
 
   def unpublish
@@ -108,18 +106,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(@edition), notice: message
     else
       @unpublishing = @edition.unpublishing || @edition.build_unpublishing(unpublishing_params)
-      if preview_design_system?(next_release: true) && @unpublishing.errors.blank?
-        flash.now[:alert] = message
-      elsif !preview_design_system?
-        flash.now[:alert] = message
-      end
-      render_design_system("confirm_unpublish", "confirm_unpublish_legacy", next_release: true)
+      flash.now[:alert] = message if @unpublishing.errors.blank?
+      render :confirm_unpublish
     end
   end
 
-  def confirm_unwithdraw
-    render_design_system(:confirm_unwithdraw, :confirm_unwithdraw_legacy, next_release: true)
-  end
+  def confirm_unwithdraw; end
 
   def unwithdraw
     edition_unwithdrawer = Whitehall.edition_services.unwithdrawer(@edition, user: current_user)
@@ -128,7 +120,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(new_edition), notice: "This document has been unwithdrawn"
     else
       flash.now[:alert] = edition_unwithdrawer.failure_reason
-      render_design_system(:confirm_unwithdraw, :confirm_unwithdraw_legacy, next_release: true)
+      render :confirm_unwithdraw
     end
   end
 
@@ -169,17 +161,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
-  def convert_to_draft
-    @edition.convert_to_draft!
-    redirect_to admin_editions_path(session_filters.merge(state: :imported)),
-                notice: "The imported document #{@edition.title} has been converted into a draft"
-  end
-
 private
 
   def get_layout
-    design_system_actions = %w[confirm_force_publish]
-    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
+    design_system_actions = %w[confirm_unpublish confirm_unwithdraw unpublish]
+    design_system_actions << "confirm_force_publish" if preview_design_system?(next_release: true)
+    if design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
@@ -298,8 +285,6 @@ private
 
   def action_name_as_human_interaction(action_name)
     case action_name.to_s
-    when "convert_to_draft"
-      "convert this imported edition to a draft"
     when "approve_retrospectively"
       "retrospectively approve this edition"
     when "confirm_unpublish"
