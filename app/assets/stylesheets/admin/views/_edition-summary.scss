@@ -7,6 +7,10 @@
   }
 }
 
+.app-view-edition-summary__topic-tag-list-item:last-child {
+  @include govuk-font($size: 16, $weight: bold);
+}
+
 .app-view-edition-summary__sidebar-actions {
   padding: govuk-spacing(3);
   background-color: govuk-colour("light-grey");
