@@ -2,11 +2,10 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
   before_action :limit_edition_access!
-  layout :get_layout
+  layout "design_system"
 
   def edit
     @path = get_path
-    render_design_system("edit", "edit_legacy", next_release: true)
   end
 
   def update
@@ -18,10 +17,6 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    preview_design_system?(next_release: true) ? "design_system" : "admin"
-  end
 
   def get_path
     paths = {

@@ -18,22 +18,18 @@ class Admin::AttachmentsController < Admin::BaseController
     redirect_to attachable_attachments_path(attachable), notice: "Attachments re-ordered"
   end
 
-  def new
-    render_design_system("new", "new_legacy", next_release: true)
-  end
+  def new; end
 
   def create
     if save_attachment
       attachment_updater(attachment.attachment_data)
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
-      render_design_system("new", "new_legacy", next_release: true)
+      render :new
     end
   end
 
-  def edit
-    render_design_system("edit", "edit_legacy", next_release: true)
-  end
+  def edit; end
 
   def update
     attachment.attributes = attachment_params
@@ -45,7 +41,7 @@ class Admin::AttachmentsController < Admin::BaseController
       message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
     else
-      render_design_system("edit", "edit_legacy", next_release: true)
+      render :edit
     end
   end
 
@@ -92,7 +88,7 @@ private
   def get_layout
     design_system_actions = %w[edit update new create confirm_destroy reorder]
     design_system_actions << "index" if preview_design_system?(next_release: false)
-    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
+    if design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
