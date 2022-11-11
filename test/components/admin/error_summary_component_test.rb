@@ -95,6 +95,15 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal third_link["data-track-action"], "error summary test object-error"
     assert_equal third_link["data-track-label"], "Date is invalid"
   end
+
+  test "when an errors attribute is base it renders the error as text not a link" do
+    object = ErrorSummaryTestObject.new("title", Time.zone.today)
+    object.errors.add(:base, "This is a top level error that is agnostic of model level validations. It has probably been added by an updater service or a controller and does not link to an input.")
+    render_inline(Admin::ErrorSummaryComponent.new(object:))
+
+    assert_selector ".gem-c-error-summary__list-item a", count: 0
+    assert_selector ".gem-c-error-summary__list-item span", text: "This is a top level error that is agnostic of model level validations. It has probably been added by an updater service or a controller and does not link to an input."
+  end
 end
 
 class ErrorSummaryTestObject

@@ -36,11 +36,13 @@ private
 
   def error_items
     object.errors.map do |error|
-      {
+      error_item = {
         text: error.full_message,
-        href: "##{parent_class}_#{error.attribute.to_s.gsub('.', '_')}",
-        data_attributes: track_analytics_data("form-error", analytics_action, error.full_message)
+        data_attributes: track_analytics_data("form-error", analytics_action, error.full_message),
       }
+
+      error_item[:href] = "##{parent_class}_#{error.attribute.to_s.gsub('.', '_')}" unless error.attribute == :base
+      error_item
     end
   end
 
