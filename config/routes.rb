@@ -198,6 +198,7 @@ Whitehall::Application.routes.draw do
         resources :policy_groups, path: "groups", except: [:show] do
           resources :attachments do
             put :order, on: :collection
+            get :confirm_destroy, on: :member
           end
         end
         resources :operational_fields, except: [:show]
@@ -309,6 +310,8 @@ Whitehall::Application.routes.draw do
         resources :responses, only: :none do
           resources :attachments do
             put :order, on: :collection
+            get :confirm_destroy, on: :member
+            get :reorder, on: :collection
           end
         end
 
