@@ -5,7 +5,6 @@ FactoryBot.define do
     body { "case-study-body" }
   end
 
-  factory :imported_case_study, parent: :case_study, traits: [:imported]
   factory :draft_case_study, parent: :case_study, traits: [:draft]
   factory :submitted_case_study, parent: :case_study, traits: [:submitted]
   factory :rejected_case_study, parent: :case_study, traits: [:rejected]

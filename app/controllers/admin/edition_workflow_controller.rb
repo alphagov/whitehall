@@ -30,7 +30,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def enforce_permissions!
     case action_name
-    when "submit", "unschedule", "convert_to_draft"
+    when "submit", "unschedule"
       enforce_permission!(:update, @edition)
     when "reject"
       enforce_permission!(:reject, @edition)
@@ -159,12 +159,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
-  def convert_to_draft
-    @edition.convert_to_draft!
-    redirect_to admin_editions_path(session_filters.merge(state: :imported)),
-                notice: "The imported document #{@edition.title} has been converted into a draft"
-  end
-
 private
 
   def get_layout
@@ -288,8 +282,6 @@ private
 
   def action_name_as_human_interaction(action_name)
     case action_name.to_s
-    when "convert_to_draft"
-      "convert this imported edition to a draft"
     when "approve_retrospectively"
       "retrospectively approve this edition"
     when "confirm_unpublish"

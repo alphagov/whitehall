@@ -64,7 +64,6 @@ FactoryBot.define do
     end
   end
 
-  factory :imported_publication, parent: :publication, traits: [:imported]
   factory :draft_publication, parent: :publication, traits: [:draft]
   factory :submitted_publication, parent: :publication, traits: [:submitted]
   factory :rejected_publication, parent: :publication, traits: [:rejected]

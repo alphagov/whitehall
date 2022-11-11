@@ -62,7 +62,6 @@ module Admin::EditionsHelper
   def admin_state_filter_options
     [
       ["All states", "active"],
-      ["Imported (pre-draft)", "imported"],
       %w[Draft draft],
       %w[Submitted submitted],
       %w[Rejected rejected],

@@ -48,7 +48,6 @@ module ApplicationHelper
     return unless attachment
 
     name = attachment.name_for_link
-    name = truncate(name) if options[:truncate]
     html_class = options[:class]
     link_to name, attachment.url(options), class: html_class
   end

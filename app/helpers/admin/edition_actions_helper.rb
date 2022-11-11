@@ -48,13 +48,6 @@ module Admin::EditionActionsHelper
     button_to "Reject", reject_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-warning"
   end
 
-  def convert_to_draft_edition_form(edition)
-    url = convert_to_draft_admin_edition_path(edition, lock_version: edition.lock_version)
-    options = { title: "Convert to draft #{edition.title}", class: "btn btn-success" }
-    options[:disabled] = "disabled" unless edition.valid_as_draft?
-    button_to "Convert to draft", url, options
-  end
-
   def publish_edition_form(edition, options = {})
     button_title = "Publish #{edition.title}"
 

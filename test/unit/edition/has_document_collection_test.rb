@@ -33,7 +33,7 @@ class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
   end
 
   test "allows assignment of document collection on a saved edition" do
-    edition = create(:imported_publication)
+    edition = create(:draft_publication)
     document_collection = create(:document_collection, :with_group)
     edition.document_collection_group_ids = [document_collection.groups.first.id]
     assert_equal [document_collection], edition.document.document_collections

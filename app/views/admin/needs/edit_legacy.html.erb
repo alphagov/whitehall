@@ -3,7 +3,7 @@
 <% initialise_script "GOVUK.adminEditionShow" %>
 
 <div class="row">
-  <div class="<%= @edition.imported? ? "col-md-6" : "col-md-8" %> edition-metadata">
+  <div class="col-md-8 edition-metadata">
     <h2>Associated user needs</h2>
     <fieldset class="document-user-needs">
       <%= form_tag admin_update_needs_path(content_id: @document.content_id), method: :patch do %>

@@ -348,21 +348,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal "All workflow actions require a lock version", response.body
   end
 
-  test "convert_to_draft turns the given edition into a draft and redirects back to the imported editions page" do
-    imported_edition = create(:imported_edition)
-    post :convert_to_draft, params: { id: imported_edition, lock_version: imported_edition.lock_version }
-
-    assert_equal "The imported document #{imported_edition.title} has been converted into a draft", flash[:notice]
-    assert_redirected_to admin_editions_path(state: :imported)
-  end
-
-  test "convert_to_draft responds with 422 if missing a lock version" do
-    post :convert_to_draft, params: { id: imported_edition }
-
-    assert_response :unprocessable_entity
-    assert_equal "All workflow actions require a lock version", response.body
-  end
-
   test "should prevent access to inaccessible editions" do
     protected_edition = create(:draft_publication, :access_limited)
 
@@ -400,10 +385,6 @@ private
 
   def published_edition(options = {})
     @published_edition ||= create(:published_publication, options)
-  end
-
-  def imported_edition
-    @imported_edition ||= create(:imported_edition)
   end
 
   def withdrawn_edition

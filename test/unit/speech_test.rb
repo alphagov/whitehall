@@ -44,17 +44,6 @@ class SpeechTest < ActiveSupport::TestCase
     assert_not speech.valid?
   end
 
-  test "does not require an organisation or role appointment when being imported" do
-    speech = build(
-      :speech,
-      role_appointment: nil,
-      create_default_organisation: false,
-      state: "imported",
-      first_published_at: 1.year.ago,
-    )
-    assert speech.valid?
-  end
-
   test "does not require an organisation or role appointment if a person_override is given" do
     speech = build(:speech, person_override: "The Queen", role_appointment: nil, create_default_organisation: false)
     assert speech.person_override?

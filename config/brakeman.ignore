@@ -82,50 +82,6 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "3c2dad0990dade4949a7b6978cd911fcea48b7989a3d0b44515ad1eddb03b19d",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/admin/editions/_speed_tagging.html.erb",
-      "line": 18,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(truncate((Unresolved Model).new.url, :length => 90), (Unresolved Model).new.url, :title => (Unresolved Model).new.url, :target => \"_new\")",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::EditionsController",
-          "method": "show",
-          "line": 86,
-          "file": "app/controllers/admin/editions_controller.rb",
-          "rendered": {
-            "name": "admin/editions/show",
-            "file": "app/views/admin/editions/show.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "admin/editions/show",
-          "line": 77,
-          "file": "app/views/admin/editions/show.html.erb",
-          "rendered": {
-            "name": "admin/editions/_speed_tagging",
-            "file": "app/views/admin/editions/_speed_tagging.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/editions/_speed_tagging"
-      },
-      "user_input": "(Unresolved Model).new.url",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": "This comes from a new model so we trust the data."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "4ab694e969b0cd5569812723ed4985088c9a4e2a8e241316bb97c26325cab992",
       "check_name": "CrossSiteScripting",
