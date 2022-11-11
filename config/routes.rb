@@ -106,7 +106,7 @@ Whitehall::Application.routes.draw do
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
     get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
-    get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }
+    # get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }
     get "/consultations/:consultation_id/:id" => "_#_", as: "consultation_html_attachment"
     get "/consultations/:consultation_id/outcome/:id" => "_#_", as: "consultation_outcome_html_attachment"
     get "/consultations/:consultation_id/public-feedback/:id" => "_#_", as: "consultation_public_feedback_html_attachment"

@@ -25,6 +25,7 @@ module PublicDocumentRoutesHelper
       build_url_for_corporate_information_page(edition, options)
     else
       polymorphic_url(edition.path_name, options.reverse_merge(id: edition.document))
+      # "/government/collections/#{edition.document.slug}"
     end
   end
 
@@ -142,6 +143,23 @@ module PublicDocumentRoutesHelper
            end
 
     append_url_options("/government/topical-events/#{slug}/about", options)
+  end
+
+  def document_collection_path(object, options = {})
+    slug = case object
+           when String
+             object
+           when Hash
+             object[:id].slug
+           else
+             raise ArgumentError, "Must provide a slug or DocumentCollection"
+           end
+
+    append_url_options("/government/collections/#{slug}", options)
+  end
+
+  def document_collection_url(object, options = {})
+    document_collection_path(object, options)
   end
 
 private

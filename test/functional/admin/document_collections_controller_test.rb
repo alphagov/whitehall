@@ -2,6 +2,7 @@ require "test_helper"
 
 class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   include TaxonomyHelper
+  include PublicDocumentRoutesHelper
 
   setup do
     @organisation = create(:organisation)
