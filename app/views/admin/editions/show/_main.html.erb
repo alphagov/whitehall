@@ -22,27 +22,23 @@
   </section>
 
   <section class="app-view-edition-summary__section">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Document",
-      padding: true
-    } %>
-
-    <%=
-      list_items = [
-        *(link_to("Edit draft", edit_admin_edition_path(@edition), class: "govuk-link") if @edition.editable?),
-        *(link_to("Create new edition", revise_admin_edition_path(@edition), class: "govuk-link") if @edition.is_latest_edition? and @edition.published?),
-        *(link_to("View data about page", content_data_page_data_url(@edition), class: "govuk-link", data: {
-          module: "gem-track-click",
-          track_category: "external-link-clicked",
-          track_action: content_data_page_data_url(@edition),
-          track_label: "View data about page",
-        }) if @edition.publicly_visible?),
-      ].compact
-
-      render "govuk_publishing_components/components/list", {
-        items: list_items
-      }
-    %>
+    <%= render "govuk_publishing_components/components/summary_list", {
+      title: "Document",
+      heading_level: 2,
+      heading_size: "m",
+      edit: ({
+        href: edit_admin_edition_path(@edition),
+        link_text: "Edit draft"
+      } if @edition.editable?),
+    } do %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Summary",
+        heading_level: 3,
+        font_size: 's',
+        margin_bottom: 3,
+      } %>
+      <p class="govuk-body"><%= @edition.summary %></p>
+    <% end %>
   </section>
 
   <section class="app-view-edition-summary__section">
@@ -92,14 +88,6 @@
         <% end %>
       <% end %>
     <% end %>
-  </section>
-
-  <section class="app-view-edition-summary__section">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Summary",
-      margin_bottom: 3,
-    } %>
-    <p class="govuk-body"><%= @edition.summary %></p>
   </section>
 
   <section class="app-view-edition-summary__section">
