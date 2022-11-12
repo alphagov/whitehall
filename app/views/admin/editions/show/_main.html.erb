@@ -130,6 +130,45 @@
     <% end %>
   </section>
 
+  <section class="app-view-edition-summary__section">
+    <%= render "govuk_publishing_components/components/summary_list", {
+      title: "Specialist Topic tags",
+      heading_level: 2,
+      heading_size: "m",
+      edit: {
+        href: edit_admin_edition_legacy_associations_path(@edition.id),
+        link_text: @edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags"
+      }
+    } do %>
+      <% if @edition.has_legacy_tags? %>
+        <% if @edition.has_primary_sector? %>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Primary specialist topics",
+            font_size: "s",
+            heading_level: 3,
+            margin_bottom: 3,
+          } %>
+          <%= render "govuk_publishing_components/components/list", {
+            visible_counters: true,
+            items: [specialist_sector_name(@edition.primary_specialist_sector_tag)]
+          } %>
+        <% end %>
+        <% if @edition.has_secondary_sectors? %>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Secondary specialist topics",
+            font_size: "s",
+            heading_level: 3,
+            margin_bottom: 3,
+          } %>
+          <%= render "govuk_publishing_components/components/list", {
+            visible_counters: true,
+            items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
+          } %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </section>
+
   <% if @edition.allows_attachments? %>
     <section class="app-view-edition-summary__section">
       <%= render "govuk_publishing_components/components/summary_list", {
@@ -171,74 +210,50 @@
     </section>
   <% end %>
 
-  <section class="app-view-edition-summary__section">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Specialist Topic tags",
-      padding: true
-    } %>
-
-    <p class="govuk-body">
-      <%= link_to((@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags"), edit_admin_edition_legacy_associations_path(@edition.id), class: "govuk-link") %>
-    </p>
-
-    <% if @edition.has_legacy_tags? %>
-      <% if @edition.has_primary_sector? %>
-        <%= render "govuk_publishing_components/components/heading", {
-          text: "Primary specialist topics",
-          font_size: "s",
-          heading_level: 3,
-          margin_bottom: 3,
-        } %>
-        <p class="govuk-body"><%= specialist_sector_name(@edition.primary_specialist_sector_tag) %></p>
-      <% end %>
-      <% if @edition.has_secondary_sectors? %>
-        <%= render "govuk_publishing_components/components/heading", {
-          text: "Secondary specialist topics",
-          font_size: "s",
-          heading_level: 3,
-          margin_bottom: 3,
-        } %>
-        <%= render "govuk_publishing_components/components/list", {
-          visible_counters: true,
-          items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
-        } %>
-      <% end %>
-    <% end %>
-  </section>
-
   <% if @edition.translatable? %>
     <section class="app-view-edition-summary__section">
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Translations",
-        padding: true
-      } %>
-
-      <% if @edition.editable? and @edition.missing_translations.any? %>
-        <p class="govuk-body">
-          <%= link_to("Add translation", new_admin_edition_translation_path(@edition.id), class: "govuk-link") %>
-        </p>
-      <% end %>
-
-      <% if @edition.non_english_translations.any? %>
-        <%= render "govuk_publishing_components/components/table", {
-          sortable: true,
-          rows: @edition.non_english_translations.map do | translation |
-            [
-              { text: Locale.new(translation.locale).english_language_name },
+      <%= render "govuk_publishing_components/components/summary_list", {
+        title: "Translations",
+        heading_level: 2,
+        heading_size: "m",
+        edit: ({
+          href: new_admin_edition_translation_path(@edition.id),
+          link_text: "Add translation"
+        } if @edition.editable? and @edition.missing_translations.any?)
+      } do %>
+        <% if @edition.non_english_translations.any? %>
+          <%= render "govuk_publishing_components/components/table", {
+            sortable: true,
+            head: [
               {
-                text: raw([
-                  *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link") if @edition.editable?),
-                  *(link_to("Delete",
-                      admin_edition_translation_path(@edition, translation.locale),
-                      method: :delete,
-                      class: "govuk-link",
-                      data: { confirm: "Are you sure you want to delete this translation?" }) if @edition.can_delete?)
-                ].compact().join(' ')),
+                text: "Locale"
+              },
+              {
+                text: "Title"
+              },
+              {
+                text: "",
                 format: "numeric"
               }
-            ]
-          end
-        } %>
+            ],
+            rows: @edition.non_english_translations.map do | translation |
+              [
+                { text: Locale.new(translation.locale).native_and_english_language_name },
+                { text: translation.title },
+                {
+                  text: raw([
+                    *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link") if @edition.editable?),
+                    *(link_to("Delete",
+                        admin_edition_translation_path(@edition, translation.locale),
+                        method: :delete,
+                        class: "govuk-link",
+                        data: { confirm: "Are you sure you want to delete this translation?" }) if @edition.can_delete?)
+                  ].compact().join(' '))
+                }
+              ]
+            end
+          } %>
+        <% end %>
       <% end %>
     </section>
   <% end %>
