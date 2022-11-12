@@ -186,8 +186,8 @@
               [
                 { text: attachment[:title] },
                 { text: link_to_attachment(attachment, preview: !@edition.published?, truncate: @edition.imported?, full_url: true) },
-                { text: (link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") unless @edition.published?) },
-              ].compact
+                { text: (link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") unless @edition.published?) } ,
+              ]
             end
           } %>
         <% else %>
@@ -229,11 +229,9 @@
                 {
                   text: raw([
                     *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link") if @edition.editable?),
-                    *(link_to("Delete",
-                        admin_edition_translation_path(@edition, translation.locale),
-                        method: :delete,
-                        class: "govuk-link",
-                        data: { confirm: "Are you sure you want to delete this translation?" }) if @edition.can_delete?)
+                    *(form_with(url: admin_edition_translation_path(@edition, translation.locale), method: :delete) do |f|
+                      link_to("Delete", "#", { class: "govuk-link gem-link--destructive", role: "button", data: { module: "form-submit-link" } })
+                    end if @edition.can_delete?),
                   ].compact().join(' '))
                 }
               ]
