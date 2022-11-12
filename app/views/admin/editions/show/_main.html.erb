@@ -191,15 +191,14 @@
                 text: "Filename"
               },
               {
-                text: "",
-                format: "numeric"
+                text: "Actions"
               }
             ],
             rows: @edition.attachments.map do | attachment |
               [
                 { text: attachment[:title] },
                 { text: link_to_attachment(attachment, preview: !@edition.published?, truncate: @edition.imported?, full_url: true) },
-                { text: (link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") unless @edition.published?) , format: "numeric" },
+                { text: (link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") unless @edition.published?) },
               ].compact
             end
           } %>
@@ -232,8 +231,7 @@
                 text: "Title"
               },
               {
-                text: "",
-                format: "numeric"
+                text: "Actions"
               }
             ],
             rows: @edition.non_english_translations.map do | translation |
@@ -259,30 +257,36 @@
   <% end %>
 
   <section class="app-view-edition-summary__section">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Associated user needs",
-      padding: true
-    } %>
-
-    <% if @edition.id == @edition.document.latest_edition.id %>
-      <p class="govuk-body">
-        <%= link_to("#{@edition.document.associated_needs.any? ? "Modify" : "Add"} associated user needs", admin_edit_needs_path(content_id: @edition.document.content_id), class: "govuk-link") %>
-      </p>
-    <% end %>
-
-    <% if @edition.document.associated_needs.any? %>
-      <%= render "govuk_publishing_components/components/table", {
-        sortable: true,
-        rows: @edition.document.associated_needs.map do | need |
-          [
-            { text: need["title"] },
+    <%= render "govuk_publishing_components/components/summary_list", {
+      title: "Associated user needs",
+      heading_level: 2,
+      heading_size: "m",
+      edit: ({
+        href: admin_edit_needs_path(content_id: @edition.document.content_id),
+        link_text: "#{@edition.document.associated_needs.any? ? "Modify" : "Add"} associated user needs"
+      } if @edition.id == @edition.document.latest_edition.id)
+    } do %>
+      <% if @edition.document.associated_needs.any? %>
+        <%= render "govuk_publishing_components/components/table", {
+          sortable: true,
+          head: [
             {
-              text: link_to("View need in Maslow", need["base_url"], class: "govuk-link"),
-              format: "numeric"
+              text: "User need"
+            },
+            {
+              text: "Actions"
             }
-          ]
-        end
-      } %>
+          ],
+          rows: @edition.document.associated_needs.map do | need |
+            [
+              { text: need["title"] },
+              {
+                text: link_to("View need in Maslow", need["base_url"], class: "govuk-link")
+              }
+            ]
+          end
+        } %>
+      <% end %>
     <% end %>
   </section>
 </div>
