@@ -2,6 +2,14 @@
   <%=
     items = []
 
+    if @edition.is_latest_edition? and @edition.published?
+      items << form_with(url: revise_admin_edition_path(@edition.id), method: :post) do |f|
+        render("govuk_publishing_components/components/button", {
+          text: "Create new edition"
+        })
+      end
+    end
+
     if @edition.can_submit?
       items << form_with(url: submit_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
         render("govuk_publishing_components/components/button", {
@@ -90,6 +98,15 @@
           class: "govuk-link"
         )
       end
+    end
+
+    if @edition.publicly_visible?
+      items << link_to("View data about page", content_data_page_data_url(@edition), class: "govuk-link", data: {
+        module: "gem-track-click",
+        track_category: "external-link-clicked",
+        track_action: content_data_page_data_url(@edition),
+        track_label: "View data about page",
+      })
     end
 
     render "govuk_publishing_components/components/list", {
