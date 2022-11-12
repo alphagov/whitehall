@@ -20,37 +20,42 @@
 
     if @edition.can_unschedule? && can?(:update, @edition)
       confirm = "Are you sure you want to unschedule this edition and return it to the submitted state?"
-      items << render("govuk_publishing_components/components/button", {
-        text: "Unschedule",
-        title: "Unschedule this edition to allow changes or prevent automatic publication on #{l edition.scheduled_publication, format: :long}",
-        href: unschedule_admin_edition_path(@edition, lock_version: @edition.lock_version),
-        data_attributes: { confirm: },
-        secondary_quiet: true,
-      })
+      items << form_with(url: unschedule_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+        render("govuk_publishing_components/components/button", {
+          text: "Unschedule",
+          title: "Unschedule this edition to allow changes or prevent automatic publication on #{l @edition.scheduled_publication, format: :long}",
+          data_attributes: { confirm: },
+          secondary_quiet: true,
+        })
+      end
     end
 
     if scheduler.can_perform? && can?(:publish, @edition)
-      items << render("govuk_publishing_components/components/button", {
-        text: "Schedule",
-        title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
-        href: schedule_admin_edition_path(@edition, lock_version: @edition.lock_version),
-      })
+      items << form_with(url: schedule_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+        render("govuk_publishing_components/components/button", {
+          text: "Schedule",
+          title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
+          secondary_quiet: true,
+        })
+      end
     elsif force_scheduler.can_perform? && can?(:force_publish, @edition)
-      items << render("govuk_publishing_components/components/button", {
-        text: "Force schedule",
-        title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
-        href: force_schedule_admin_edition_path(@edition, lock_version: @edition.lock_version),
-        data_attributes: { confirm: "Are you sure you want to force schedule this document for publication?" },
-        secondary_quiet: true,
-      })
+      items << form_with(url: force_schedule_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+        render("govuk_publishing_components/components/button", {
+          text: "Force schedule",
+          title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
+          data_attributes: { confirm: "Are you sure you want to force schedule this document for publication?" },
+          secondary_quiet: true,
+        })
+      end
     end
 
     if publisher.can_perform? && can?(:publish, @edition)
-      items << render("govuk_publishing_components/components/button", {
-        text: "Publish",
-        title: "Publish #{@edition.title}",
-        href: publish_admin_edition_path(@edition, lock_version: @edition.lock_version),
-      })
+      items << form_with(url: publish_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+        render("govuk_publishing_components/components/button", {
+          text: "Publish",
+          title: "Publish #{@edition.title}",
+        })
+      end
     elsif force_publisher.can_perform? && can?(:force_publish, @edition)
       items << render("govuk_publishing_components/components/button", {
         text: "Force publish",
@@ -61,11 +66,12 @@
     end
 
     if @edition.can_reject? && can?(:reject, @edition)
-      items << render("govuk_publishing_components/components/button", {
-        text: "Reject",
-        href: reject_admin_edition_path(@edition, lock_version: @edition.lock_version),
-        destructive: true,
-      })
+      items << form_with(url: reject_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+        render("govuk_publishing_components/components/button", {
+          text: "Reject",
+          destructive: true,
+        })
+      end
     end
 
     if @edition.can_delete? && @edition.unpublishing.nil?
