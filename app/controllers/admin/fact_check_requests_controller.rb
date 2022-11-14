@@ -5,6 +5,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   before_action :limit_edition_access!, only: %i[index new create]
   before_action :check_edition_availability, only: %i[show edit]
   skip_before_action :authenticate_user!, only: %i[show edit update]
+  layout :get_layout
 
   def show; end
 
@@ -39,6 +40,14 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    if preview_design_system?(next_release: true)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def fact_check_request_params
     params.require(:fact_check_request).permit(
