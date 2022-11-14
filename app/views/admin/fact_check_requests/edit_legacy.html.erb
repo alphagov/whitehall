@@ -12,7 +12,7 @@
       </ul>
       <div class="tab-content">
         <section class="document_page tab-pane active" id="document">
-          <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
+          <%= render partial: 'admin/editions/legacy_edition', locals: { edition: @edition } %>
         </section>
         <% if @edition.attachments.any? %>
           <section class="attachments_page tab-pane" id="attachments">
