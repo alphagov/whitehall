@@ -25,7 +25,9 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    render_design_system("edit", "edit_legacy", next_release: true)
+  end
 
   def update
     if @fact_check_request.update(fact_check_request_params)
