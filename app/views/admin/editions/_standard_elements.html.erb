@@ -1,0 +1,15 @@
+<% if edition.non_english_edition? %>
+  <p class="govuk-body"><em>(This document is <%= edition.primary_language_name %>-only)</em></p>
+<% end %>
+
+<h2 class="govuk-heading-m"><%= edition.title %></h2>
+
+<% unless edition.summary.blank? %>
+  <div class="summary">
+    <p class="govuk-body"><em><%= edition.summary %></em></p>
+  </div>
+<% end %>
+
+<div class="body">
+  <%= govspeak_edition_to_admin_html edition %>
+</div>
