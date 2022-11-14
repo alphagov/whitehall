@@ -11,6 +11,14 @@
   @include govuk-font($size: 16, $weight: bold);
 }
 
+/* Sidebar styles */
+
+.app-view-edition-summary__sidebar {
+  @include govuk-media-query($from: tablet) {
+    margin-top: govuk-spacing(5);
+  }
+}
+
 .app-view-edition-summary__sidebar-actions {
   padding: govuk-spacing(3);
   background-color: govuk-colour("light-grey");
@@ -18,4 +26,9 @@
 
 .app-view-edition-summary__sidebar-actions .gem-c-button {
   width: 100%;
+}
+
+.app-view-edition-summary__sidebar-actions .govuk-list--spaced,
+.app-view-edition-summary__sidebar-actions .govuk-list--spaced li:last-child {
+  margin-bottom: 0;
 }
