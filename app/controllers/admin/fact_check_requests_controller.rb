@@ -14,7 +14,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     fact_check_request = @edition.fact_check_requests.build(attributes)
 
     if @edition.deleted?
-      render "edition_unavailable"
+      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)
     elsif fact_check_request.save
       MailNotifications.fact_check_request(fact_check_request, mailer_url_options).deliver_now
       notice = "The document has been sent to #{fact_check_request.email_address}"
@@ -35,7 +35,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
       notice = "Your feedback has been saved"
       redirect_to admin_fact_check_request_path(@fact_check_request), notice:
     else
-      render "edition_unavailable"
+      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)
     end
   end
 
@@ -81,7 +81,7 @@ private
 
   def check_edition_availability
     if @edition.deleted?
-      render "edition_unavailable"
+      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)
     end
   end
 end
