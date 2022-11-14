@@ -157,6 +157,8 @@
             items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
           } %>
         <% end %>
+      <% else %>
+        <p class="govuk-body">No specialist topic tags for this document</p>
       <% end %>
     <% end %>
   </section>
