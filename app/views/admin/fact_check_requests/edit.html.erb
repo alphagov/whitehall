@@ -14,11 +14,13 @@
           label: "Document",
           content: render('admin/editions/edition', edition: @edition)
         },
-        {
-          id: "attachment_tab",
-          label: "Attachments",
-          content: render('admin/editions/show_attachments', edition: @edition)
-        }
+        *(if @edition.attachments.present?
+            [{
+              id: "attachment_tab",
+              label: "Attachments",
+              content: render('admin/editions/show_attachments', edition: @edition)
+            }]
+          end),
       ]
     } %>
   </div>

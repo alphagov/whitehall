@@ -1,0 +1,16 @@
+<%= render "govuk_publishing_components/components/table", {
+  head: [
+    {
+      text: "Title",
+    },
+    {
+      text: "Filename",
+    }
+  ],
+  rows: @edition.attachments.map do | attachment |
+    [
+      { text: attachment[:title] },
+      { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true, class: "govuk-link") },
+    ]
+  end
+} %>
