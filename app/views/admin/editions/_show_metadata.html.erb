@@ -128,7 +128,7 @@
       <% end %>
     </h2>
     <% if @edition.attachments.any? %>
-      <%= render partial: "show_attachments", locals: { edition: @edition } %>
+      <%= render "legacy_show_attachments", edition: @edition %>
     <% else %>
       <p class="no-content no-content-bordered">
         No attachments

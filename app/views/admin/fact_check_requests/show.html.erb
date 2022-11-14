@@ -6,7 +6,7 @@
       <%= render partial: 'admin/editions/legacy_edition', locals: { edition: @edition } %>
     </section>
     <% if @edition.attachments.any? %>
-      <%= render partial: 'admin/editions/show_attachments', locals: { edition: @edition } %>
+      <%= render partial: 'admin/editions/legacy_show_attachments', locals: { edition: @edition } %>
     <% end %>
   </div>
 

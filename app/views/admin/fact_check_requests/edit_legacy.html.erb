@@ -16,7 +16,7 @@
         </section>
         <% if @edition.attachments.any? %>
           <section class="attachments_page tab-pane" id="attachments">
-            <%= render partial: 'admin/editions/show_attachments', locals: { edition: @edition } %>
+            <%= render partial: 'admin/editions/legacy_show_attachments', locals: { edition: @edition } %>
           </section>
         <% end %>
       </div>
