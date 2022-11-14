@@ -191,7 +191,7 @@
             rows: @edition.attachments.map do | attachment |
               [
                 { text: attachment[:title] },
-                { text: link_to_attachment(attachment, preview: !@edition.published?, truncate: @edition.imported?, full_url: true) },
+                { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true) },
                 { text: (link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") unless @edition.published?) } ,
               ]
             end
