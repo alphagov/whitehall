@@ -1,9 +1,9 @@
 <div class="app-view-edition-summary__main">
   <section class="app-view-edition-summary__section">
     <%= render "govuk_publishing_components/components/heading", {
-      text: "Metadata",
+      text: "Document",
       heading_level: 2,
-      font_size: "m",
+      font_size: "l",
       margin_bottom: 3,
     } %>
     <%=
@@ -21,53 +21,43 @@
         ]
       }
     %>
-  </section>
 
-  <section class="app-view-edition-summary__section">
-    <%= render "govuk_publishing_components/components/summary_list", {
-      title: "Document",
-      heading_level: 2,
-      heading_size: "m",
-      edit: ({
-        href: edit_admin_edition_path(@edition),
-        link_text: "Edit draft"
-      } if @edition.editable?),
-    } do %>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Summary",
-        heading_level: 3,
-        font_size: 's',
-        margin_bottom: 3,
-      } %>
-      <p class="govuk-body"><%= @edition.summary %></p>
-    <% end %>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Summary",
+      heading_level: 3,
+      font_size: 'm',
+      margin_bottom: 3,
+    } %>
+    <p class="govuk-body"><%= @edition.summary %></p>
   </section>
 
   <section class="app-view-edition-summary__section">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Preview",
       heading_level: 2,
-      font_size: "m",
+      font_size: "l",
       margin_bottom: 3,
     } %>
-    <%=
-      list_items = [
+    <%= render "govuk_publishing_components/components/list", {
+      items: [
         *(link_to("View on website", public_document_url(@edition), class: "govuk-link") if @edition.publicly_visible?),
         *(link_to("Preview on website #{"- English" if @edition.translatable? && @edition.available_in_multiple_languages?}".strip,
-                  public_document_url(@edition), class: "govuk-link") + " (open in new tab)" if @edition.available_in_english?),
+                  public_document_url(@edition), class: "govuk-link", target: '_blank') + " (open in new tab)" if @edition.available_in_english?),
       ].compact
+    } %>
 
-      if @edition.translatable? && @edition.available_in_multiple_languages?
-        @edition.non_english_translated_locales.map do |locale|
-          list_items.push(link_to("Preview on website - #{locale.native_and_english_language_name}",
-                          public_document_url(@edition, locale:), class: 'govuk-link', target: '_blank') + " (open in new tab)")
-        end
-      end
-
-      render "govuk_publishing_components/components/list", {
-        items: list_items
-      }
-    %>
+    <% if @edition.translatable? && @edition.available_in_multiple_languages? %>
+      <%= render "govuk_publishing_components/components/details", {
+        title: "Preview translated pages"
+      } do %>
+        <%= render "govuk_publishing_components/components/list", {
+          items: @edition.non_english_translated_locales.map do |locale|
+            (link_to("Preview on website - #{locale.native_and_english_language_name}",
+                    public_document_url(@edition, locale:), class: 'govuk-link', target: '_blank') + " (open in new tab)")
+          end
+        } %>
+      <% end %>
+    <% end %>
 
     <% if @edition.has_enabled_shareable_preview? %>
       <%= render "govuk_publishing_components/components/details", {
@@ -85,10 +75,13 @@
 
         <% if !@edition.publicly_visible? %>
           <p class="govuk-body govuk-!-margin-top-7">Reset and generate a new preview link if you've shared the preview with the wrong person or if the link has expired. This will disable the previous preview link.</p>
-          <%= render "govuk_publishing_components/components/button", {
-            text: "Secondary quiet button",
-            secondary_quiet: true
-          } %>
+          <%= form_with(url: update_bypass_id_admin_edition_path(@edition), method: :patch) do |f| %>
+            <input type="hidden" name="_method" value="patch" />
+            <%= render "govuk_publishing_components/components/button", {
+              text: "Generate new link",
+              secondary_quiet: true
+            } %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
@@ -98,7 +91,7 @@
     <%= render "govuk_publishing_components/components/summary_list", {
       title: "Topic taxonomy tags",
       heading_level: 2,
-      heading_size: "m",
+      heading_size: "l",
       edit: {
         href: edit_admin_edition_tags_path(@edition.id),
         link_text: @edition_taxons.any? ? "Change tags" : "Add tags"
@@ -126,7 +119,7 @@
     <%= render "govuk_publishing_components/components/summary_list", {
       title: "Specialist Topic tags",
       heading_level: 2,
-      heading_size: "m",
+      heading_size: "l",
       edit: {
         href: edit_admin_edition_legacy_associations_path(@edition.id),
         link_text: @edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags"
@@ -136,7 +129,7 @@
         <% if @edition.has_primary_sector? %>
           <%= render "govuk_publishing_components/components/heading", {
             text: "Primary specialist topics",
-            font_size: "s",
+            font_size: "m",
             heading_level: 3,
             margin_bottom: 3,
           } %>
@@ -148,7 +141,7 @@
         <% if @edition.has_secondary_sectors? %>
           <%= render "govuk_publishing_components/components/heading", {
             text: "Secondary specialist topics",
-            font_size: "s",
+            font_size: "m",
             heading_level: 3,
             margin_bottom: 3,
           } %>
@@ -168,7 +161,7 @@
       <%= render "govuk_publishing_components/components/summary_list", {
         title: "Attachments",
         heading_level: 2,
-        heading_size: "m",
+        heading_size: "l",
         edit: {
           href: admin_edition_attachments_path(@edition.id),
           link_text: "#{@edition.attachments.any? ? "Modify" : "Add"} attachments"
@@ -208,7 +201,7 @@
       <%= render "govuk_publishing_components/components/summary_list", {
         title: "Translations",
         heading_level: 2,
-        heading_size: "m",
+        heading_size: "l",
         edit: ({
           href: new_admin_edition_translation_path(@edition.id),
           link_text: "Add translation"
@@ -254,7 +247,7 @@
     <%= render "govuk_publishing_components/components/summary_list", {
       title: "Associated user needs",
       heading_level: 2,
-      heading_size: "m",
+      heading_size: "l",
       edit: ({
         href: admin_edit_needs_path(content_id: @edition.document.content_id),
         link_text: "#{@edition.document.associated_needs.any? ? "Modify" : "Add"} associated user needs"

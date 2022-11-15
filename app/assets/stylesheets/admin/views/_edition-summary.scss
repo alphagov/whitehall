@@ -1,9 +1,9 @@
 .app-view-edition-summary__section {
-  padding: govuk-spacing(5) 0 govuk-spacing(4);
+  padding: govuk-spacing(6) 0;
+}
 
-  &:last-child {
-    border-bottom: none;
-  }
+.app-view-edition-summary__section:first-child {
+  padding-top: 0;
 }
 
 .app-view-edition-summary__topic-tag-list-item:last-child {
@@ -11,13 +11,6 @@
 }
 
 /* Sidebar styles */
-
-.app-view-edition-summary__sidebar {
-  @include govuk-media-query($from: tablet) {
-    margin-top: govuk-spacing(5);
-  }
-}
-
 .app-view-edition-summary__sidebar-actions {
   padding: govuk-spacing(3);
   background-color: govuk-colour("light-grey");

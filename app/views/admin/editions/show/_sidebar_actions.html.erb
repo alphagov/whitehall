@@ -18,6 +18,14 @@
       end
     end
 
+    if @edition.editable?
+      items << render("govuk_publishing_components/components/button", {
+        text: "Edit Draft",
+        href: edit_admin_edition_path(@edition),
+        secondary: true,
+      })
+    end
+
     if @edition.can_unschedule? && can?(:update, @edition)
       confirm = "Are you sure you want to unschedule this edition and return it to the submitted state?"
       items << form_with(url: unschedule_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
