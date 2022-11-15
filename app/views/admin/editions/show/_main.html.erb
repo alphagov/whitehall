@@ -22,6 +22,12 @@
       }
     %>
 
+    <% if @edition.non_english_edition? %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "This document is #{@edition.primary_language_name}-only"
+      } %>
+    <% end %>
+
     <%= render "govuk_publishing_components/components/heading", {
       text: "Summary",
       heading_level: 3,
