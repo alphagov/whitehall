@@ -75,9 +75,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def confirm_force_publish
-    unless @edition.valid?(:publish)
-      redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join(". ")
-    end
+    redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join(". ") and return unless @edition.valid?(:publish)
 
     render_design_system(:confirm_force_publish, :confirm_force_publish_legacy, next_release: true)
   end
