@@ -118,43 +118,45 @@
   </section>
 
   <section class="app-view-edition-summary__section">
-    <%= render "govuk_publishing_components/components/summary_list", {
-      title: "Specialist Topic tags",
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Specialist Topic tags",
       heading_level: 2,
-      heading_size: "l",
-      edit: {
-        href: edit_admin_edition_legacy_associations_path(@edition.id),
-        link_text: @edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags"
-      }
-    } do %>
-      <% if @edition.has_legacy_tags? %>
-        <% if @edition.has_primary_sector? %>
-          <%= render "govuk_publishing_components/components/heading", {
-            text: "Primary specialist topics",
-            font_size: "m",
-            heading_level: 3,
-            margin_bottom: 3,
-          } %>
-          <%= render "govuk_publishing_components/components/list", {
-            visible_counters: true,
-            items: [specialist_sector_name(@edition.primary_specialist_sector_tag)]
-          } %>
-        <% end %>
-        <% if @edition.has_secondary_sectors? %>
-          <%= render "govuk_publishing_components/components/heading", {
-            text: "Secondary specialist topics",
-            font_size: "m",
-            heading_level: 3,
-            margin_bottom: 3,
-          } %>
-          <%= render "govuk_publishing_components/components/list", {
-            visible_counters: true,
-            items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
-          } %>
-        <% end %>
-      <% else %>
-        <p class="govuk-body">No specialist topic tags for this document</p>
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
+
+    <p class="govuk-body">
+      <%= link_to(@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags",
+                  edit_admin_edition_legacy_associations_path(@edition.id), class: 'govuk-link') %>
+    </p>
+
+    <% if @edition.has_legacy_tags? %>
+      <% if @edition.has_primary_sector? %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Primary specialist topics",
+          font_size: "m",
+          heading_level: 3,
+          margin_bottom: 3,
+        } %>
+        <%= render "govuk_publishing_components/components/list", {
+          visible_counters: true,
+          items: [specialist_sector_name(@edition.primary_specialist_sector_tag)]
+        } %>
       <% end %>
+      <% if @edition.has_secondary_sectors? %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Secondary specialist topics",
+          font_size: "m",
+          heading_level: 3,
+          margin_bottom: 3,
+        } %>
+        <%= render "govuk_publishing_components/components/list", {
+          visible_counters: true,
+          items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
+        } %>
+      <% end %>
+    <% else %>
+      <p class="govuk-body">No specialist topic tags for this document</p>
     <% end %>
   </section>
 
