@@ -125,158 +125,82 @@ ko:
         speaker: 스피커
       written_on: '작성일시:'
     type:
-      about:
-        other: 소개
-      about_our_services:
-        other: 저희 서비스 소개
-      access_and_opening:
-        other: 액세스 및 운영
-      accessible_documents_policy:
-        other: 액세스 가능한 문서 정책
-      alert:
-        other: 알림
-      announcement:
-        other: 공지사항
-      authored_article:
-        other: 저작물
-      blog_post:
-        other: 블로그 포스트
-      campaign:
-        other: 캠페인
-      careers:
-        other: 커리어
-      case_study:
-        other: 사례 연구
-      closed_consultation:
-        other: 종결된 상담
-      complaints_procedure:
-        other: 불만처리절차
-      consultation:
-        other: 상담
-      consultation_outcome:
-        other: 상담 결과
-      corporate_report:
-        other: 기업 보고서
-      correspondence:
-        other: 통신
-      decision:
-        other: 판결
-      detailed_guidance:
-        other: 지침
-      document_collection:
-        other: 컬렉션
-      draft_text:
-        other: 초안 텍스트
-      edition:
-        other: 에디션
-      edition_with_appointment:
-        other: 예약판
-      equality_and_diversity:
-        other: 평등 및 다양성
-      fatality_notice:
-        other: 사망통지서
-      foi_release:
-        other: 였다 공개
-      form:
-        other: 양식
-      generic_edition:
-        other: 일반 에디션
-      government_response:
-        other: 정부 대응
-      guidance:
-        other: 지침
-      impact_assessment:
-        other: 영향 평가
-      imported:
-        other: 수입 - 대기 유형
-      independent_report:
-        other: 독립적 보고서
-      international_treaty:
-        other: 국제 조약
-      manual:
-        other: 매뉴얼
-      map:
-        other: 지도
-      media_enquiries:
-        other: 언론 문의
-      membership:
-        other: 멤버십
+      about: 소개
+      about_our_services: 저희 서비스 소개
+      access_and_opening: 액세스 및 운영
+      accessible_documents_policy: 액세스 가능한 문서 정책
+      alert: 알림
+      announcement: 공지사항
+      authored_article: 저작물
+      blog_post: 블로그 포스트
+      campaign: 캠페인
+      careers: 커리어
+      case_study: 사례 연구
+      closed_consultation: 종결된 상담
+      complaints_procedure: 불만처리절차
+      consultation: 상담
+      consultation_outcome: 상담 결과
+      corporate_report: 기업 보고서
+      correspondence: 통신
+      decision: 판결
+      detailed_guidance: 지침
+      document_collection: 컬렉션
+      draft_text: 초안 텍스트
+      edition: 에디션
+      edition_with_appointment: 예약판
+      equality_and_diversity: 평등 및 다양성
+      fatality_notice: 사망통지서
+      foi_release: 였다 공개
+      form: 양식
+      generic_edition: 일반 에디션
+      government_response: 정부 대응
+      guidance: 지침
+      impact_assessment: 영향 평가
+      imported: 수입 - 대기 유형
+      independent_report: 독립적 보고서
+      international_treaty: 국제 조약
+      manual: 매뉴얼
+      map: 지도
+      media_enquiries: 언론 문의
+      membership: 멤버십
       modern_slavery_statement:
-        other:
-      national_statistics:
-        other: 국내 통계
-      news_article:
-        other: 뉴스 기사
-      news_story:
-        other: 뉴스 스토리
-      nhs_content:
-        other: NHS 콘텐츠
-      notice:
-        other: 공지
-      official_statistics:
-        other: 공식 통계
-      open_consultation:
-        other: 공개 상담
-      oral_statement:
-        other: 의회로 구두 성명
-      our_energy_use:
-        other: 저희의 에너지 사용
-      our_governance:
-        other: 저희의 거버넌스
-      personal_information_charter:
-        other: 개인정보 규정
-      petitions_and_campaigns:
-        other: 청원 및 캠페인
-      policy_paper:
-        other: 정책 문서
-      press_release:
-        other: 보도자료
-      procurement:
-        other: 조달
-      promotional:
-        other: 홍보 자료
-      publication:
-        other: 발행
-      publication_scheme:
-        other: 발행 계획
-      recruitment:
-        other: 채용
-      regulation:
-        other: 규제
-      research:
-        other: 연구
-      service:
-        other: 서비스
-      social_media_use:
-        other: 소셜 미디어 사용
-      speaking_notes:
-        other: 연설문 메모
-      speech:
-        other: 연설문
-      staff_update:
-        other: 직원 업데이트
-      standard:
-        other: 표준
-      statement_to_parliament:
-        other: 의회로 성명
-      statistical_data_set:
-        other: 통계 데이터 세트
-      statistics:
-        other: 통계
-      statutory_guidance:
-        other: 법정 지도
-      terms_of_reference:
-        other: 참조 조건
-      transcript:
-        other: 녹취록
-      transparency:
-        other: 투명성 데이터
-      welsh_language_scheme:
-        other: 웨일스어 계획
-      world_news_story:
-        other: 전세계 뉴스 스토리
-      written_statement:
-        other: 국회로 서면 성명
+      national_statistics: 국내 통계
+      news_article: 뉴스 기사
+      news_story: 뉴스 스토리
+      nhs_content: NHS 콘텐츠
+      notice: 공지
+      official_statistics: 공식 통계
+      open_consultation: 공개 상담
+      oral_statement: 의회로 구두 성명
+      our_energy_use: 저희의 에너지 사용
+      our_governance: 저희의 거버넌스
+      personal_information_charter: 개인정보 규정
+      petitions_and_campaigns: 청원 및 캠페인
+      policy_paper: 정책 문서
+      press_release: 보도자료
+      procurement: 조달
+      promotional: 홍보 자료
+      publication: 발행
+      publication_scheme: 발행 계획
+      recruitment: 채용
+      regulation: 규제
+      research: 연구
+      service: 서비스
+      social_media_use: 소셜 미디어 사용
+      speaking_notes: 연설문 메모
+      speech: 연설문
+      staff_update: 직원 업데이트
+      standard: 표준
+      statement_to_parliament: 의회로 성명
+      statistical_data_set: 통계 데이터 세트
+      statistics: 통계
+      statutory_guidance: 법정 지도
+      terms_of_reference: 참조 조건
+      transcript: 녹취록
+      transparency: 투명성 데이터
+      welsh_language_scheme: 웨일스어 계획
+      world_news_story: 전세계 뉴스 스토리
+      written_statement: 국회로 서면 성명
     updated: 업데이트
   document_filters:
     description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
@@ -486,10 +410,8 @@ ko:
       international_delegation:
       world_location:
     type:
-      international_delegation:
-        other: 국제 대표단
-      world_location:
-        other: 월드 로케이션
+      international_delegation: 국제 대표단
+      world_location: 월드 로케이션
   world_news:
     uk_updates_in_country: UK 정부의 %{country} 내 업데이트, 뉴스 및 이벤트
   worldwide_organisation:

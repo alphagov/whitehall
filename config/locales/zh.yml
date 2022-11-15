@@ -125,158 +125,82 @@ zh:
         speaker: 演讲者
       written_on: 书写日期：
     type:
-      about:
-        other: 约
-      about_our_services:
-        other: 关于我们的服务
-      access_and_opening:
-        other: 访问和打开
-      accessible_documents_policy:
-        other: 可获取的文件政策
-      alert:
-        other: 警告
-      announcement:
-        other: 公告
-      authored_article:
-        other: 撰写文章
-      blog_post:
-        other: 博客帖子
-      campaign:
-        other: 活动
-      careers:
-        other: 招聘
-      case_study:
-        other: 案例研究
-      closed_consultation:
-        other: 封闭咨询
-      complaints_procedure:
-        other: 投诉程序
-      consultation:
-        other: 咨询
-      consultation_outcome:
-        other: 咨询结果
-      corporate_report:
-        other: 公司报告
-      correspondence:
-        other: 通信
-      decision:
-        other: 决策
-      detailed_guidance:
-        other: 指南
-      document_collection:
-        other: 待整理
-      draft_text:
-        other: 草拟文本
-      edition:
-        other: 功能版本
-      edition_with_appointment:
-        other: 版本和任命
-      equality_and_diversity:
-        other: 平等和多样性
-      fatality_notice:
-        other: 死亡通知
-      foi_release:
-        other: FOI 发布
-      form:
-        other: 表格
-      generic_edition:
-        other: 通用版本
-      government_response:
-        other: 政府回应
-      guidance:
-        other: 指南
-      impact_assessment:
-        other: 影响评估
-      imported:
-        other: 进口-等待型
-      independent_report:
-        other: 独立报告
-      international_treaty:
-        other: 国际条约
-      manual:
-        other: 手册
-      map:
-        other: 地图
-      media_enquiries:
-        other: 媒体疑问
-      membership:
-        other: 会员身份
+      about: 约
+      about_our_services: 关于我们的服务
+      access_and_opening: 访问和打开
+      accessible_documents_policy: 可获取的文件政策
+      alert: 警告
+      announcement: 公告
+      authored_article: 撰写文章
+      blog_post: 博客帖子
+      campaign: 活动
+      careers: 招聘
+      case_study: 案例研究
+      closed_consultation: 封闭咨询
+      complaints_procedure: 投诉程序
+      consultation: 咨询
+      consultation_outcome: 咨询结果
+      corporate_report: 公司报告
+      correspondence: 通信
+      decision: 决策
+      detailed_guidance: 指南
+      document_collection: 待整理
+      draft_text: 草拟文本
+      edition: 功能版本
+      edition_with_appointment: 版本和任命
+      equality_and_diversity: 平等和多样性
+      fatality_notice: 死亡通知
+      foi_release: FOI 发布
+      form: 表格
+      generic_edition: 通用版本
+      government_response: 政府回应
+      guidance: 指南
+      impact_assessment: 影响评估
+      imported: 进口-等待型
+      independent_report: 独立报告
+      international_treaty: 国际条约
+      manual: 手册
+      map: 地图
+      media_enquiries: 媒体疑问
+      membership: 会员身份
       modern_slavery_statement:
-        other:
-      national_statistics:
-        other: 国家统计局
-      news_article:
-        other: 新闻报道
-      news_story:
-        other: 新闻故事
-      nhs_content:
-        other: NHS内容
-      notice:
-        other: 通知
-      official_statistics:
-        other: 官方统计
-      open_consultation:
-        other: 公开协商
-      oral_statement:
-        other: 议会口头声明
-      our_energy_use:
-        other: 我们的能源使用
-      our_governance:
-        other: 我们的治理
-      personal_information_charter:
-        other: 个人信息宪章
-      petitions_and_campaigns:
-        other: 请愿书和活动
-      policy_paper:
-        other: 政策文件
-      press_release:
-        other: 新闻稿
-      procurement:
-        other: 采购
-      promotional:
-        other: 宣传资料
-      publication:
-        other: 公布
-      publication_scheme:
-        other: 发布计划
-      recruitment:
-        other: 招聘
-      regulation:
-        other: 条例
-      research:
-        other: 研究
-      service:
-        other: 服务
-      social_media_use:
-        other: 社交媒体使用
-      speaking_notes:
-        other: 发言讲稿
-      speech:
-        other: 演讲
-      staff_update:
-        other: 员工最新消息
-      standard:
-        other: 标准
-      statement_to_parliament:
-        other: 议会声明
-      statistical_data_set:
-        other: 统计数据集
-      statistics:
-        other: 统计数据
-      statutory_guidance:
-        other: 法定指南
-      terms_of_reference:
-        other: 职责范围
-      transcript:
-        other: 文字记录
-      transparency:
-        other: 透明度数据
-      welsh_language_scheme:
-        other: 威尔士语言计划
-      world_news_story:
-        other: 世界新闻故事
-      written_statement:
-        other: 议会口头声明
+      national_statistics: 国家统计局
+      news_article: 新闻报道
+      news_story: 新闻故事
+      nhs_content: NHS内容
+      notice: 通知
+      official_statistics: 官方统计
+      open_consultation: 公开协商
+      oral_statement: 议会口头声明
+      our_energy_use: 我们的能源使用
+      our_governance: 我们的治理
+      personal_information_charter: 个人信息宪章
+      petitions_and_campaigns: 请愿书和活动
+      policy_paper: 政策文件
+      press_release: 新闻稿
+      procurement: 采购
+      promotional: 宣传资料
+      publication: 公布
+      publication_scheme: 发布计划
+      recruitment: 招聘
+      regulation: 条例
+      research: 研究
+      service: 服务
+      social_media_use: 社交媒体使用
+      speaking_notes: 发言讲稿
+      speech: 演讲
+      staff_update: 员工最新消息
+      standard: 标准
+      statement_to_parliament: 议会声明
+      statistical_data_set: 统计数据集
+      statistics: 统计数据
+      statutory_guidance: 法定指南
+      terms_of_reference: 职责范围
+      transcript: 文字记录
+      transparency: 透明度数据
+      welsh_language_scheme: 威尔士语言计划
+      world_news_story: 世界新闻故事
+      written_statement: 议会口头声明
     updated: 已更新
   document_filters:
     description: 您可以使用过滤器，以只显示符合您兴趣的结果
@@ -486,10 +410,8 @@ zh:
       international_delegation:
       world_location:
     type:
-      international_delegation:
-        other: 国际代表处
-      world_location:
-        other: 世界地点
+      international_delegation: 国际代表处
+      world_location: 世界地点
   world_news:
     uk_updates_in_country: 英国政府在 %{country} 的更新、新闻和事件
   worldwide_organisation:

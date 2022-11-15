@@ -125,234 +125,82 @@ zh-tw:
         speaker: 講者
       written_on: 寫在：
     type:
-      about:
-        one: 關於
-        other: 關於
-      about_our_services:
-        one: 關於我們的服務
-        other: 關於我們的服務
-      access_and_opening:
-        one: 訪問與開啟
-        other: 訪問與開啟
-      accessible_documents_policy:
-        one: 訪問文檔策略
-        other: 訪問文檔策略
-      alert:
-        one: 警示
-        other: 警示
-      announcement:
-        one: 公告
-        other: 公告
-      authored_article:
-        one: 授權文章
-        other: 授權文章
-      blog_post:
-        one: 部落格文章
-        other: 部落格文章
-      campaign:
-        one: 活動
-        other: 活動
-      careers:
-        one: 職業
-        other: 職業
-      case_study:
-        one: 案例分析
-        other: 案例分析
-      closed_consultation:
-        one: 非公開協商
-        other: 非公開協商
-      complaints_procedure:
-        one: 投訴程序
-        other: 投訴程序
-      consultation:
-        one: 諮詢
-        other: 諮詢
-      consultation_outcome:
-        one: 協商結果
-        other: 協商結果
-      corporate_report:
-        one: 企業報告
-        other: 企業報告
-      correspondence:
-        one: 信函
-        other: 信函
-      decision:
-        one: 決定
-        other: 決定
-      detailed_guidance:
-        one: 指導
-        other: 指導
-      document_collection:
-        one: 收集
-        other: 收集
-      draft_text:
-        one: 草稿文本
-        other: 草稿文本
-      edition:
-        one: 版本
-        other: 版本
-      edition_with_appointment:
-        one: 預約版本
-        other: 預約版本
-      equality_and_diversity:
-        one: 平等和多元
-        other: 平等和多元
-      fatality_notice:
-        one: 死亡通知
-        other: 死亡通知
-      foi_release:
-        one: 資訊自由發布
-        other: 資訊自由發布
-      form:
-        one: 形式
-        other: 形式
-      generic_edition:
-        one: 通用版本
-        other: 通用版本
-      government_response:
-        one: 政府回應
-        other: 政府回應
-      guidance:
-        one: 指導
-        other: 指導
-      impact_assessment:
-        one: 影響評估
-        other: 影響評估
-      imported:
-        one: 進口－等待類型
-        other: 進口－等待類型
-      independent_report:
-        one: 獨立報告
-        other: 獨立報告
-      international_treaty:
-        one: 國際條約
-        other: 國際條約
-      manual:
-        one: 手冊
-        other: 手冊
-      map:
-        one: 地圖
-        other: 地圖
-      media_enquiries:
-        one: 媒體資料查詢
-        other: 媒體資料查詢
-      membership:
-        one: 會員資格
-        other: 會員資格
+      about: 關於
+      about_our_services: 關於我們的服務
+      access_and_opening: 訪問與開啟
+      accessible_documents_policy: 訪問文檔策略
+      alert: 警示
+      announcement: 公告
+      authored_article: 授權文章
+      blog_post: 部落格文章
+      campaign: 活動
+      careers: 職業
+      case_study: 案例分析
+      closed_consultation: 非公開協商
+      complaints_procedure: 投訴程序
+      consultation: 諮詢
+      consultation_outcome: 協商結果
+      corporate_report: 企業報告
+      correspondence: 信函
+      decision: 決定
+      detailed_guidance: 指導
+      document_collection: 收集
+      draft_text: 草稿文本
+      edition: 版本
+      edition_with_appointment: 預約版本
+      equality_and_diversity: 平等和多元
+      fatality_notice: 死亡通知
+      foi_release: 資訊自由發布
+      form: 形式
+      generic_edition: 通用版本
+      government_response: 政府回應
+      guidance: 指導
+      impact_assessment: 影響評估
+      imported: 進口－等待類型
+      independent_report: 獨立報告
+      international_treaty: 國際條約
+      manual: 手冊
+      map: 地圖
+      media_enquiries: 媒體資料查詢
+      membership: 會員資格
       modern_slavery_statement:
-        one:
-        other:
-      national_statistics:
-        one: 國家統計
-        other: 國家統計
-      news_article:
-        one: 新聞文章
-        other: 新聞文章
-      news_story:
-        one: 新聞報導
-        other: 新聞報導
-      nhs_content:
-        one: 免費醫療服務系統內容
-        other: 免費醫療服務系統內容
-      notice:
-        one: 通知
-        other: 通知
-      official_statistics:
-        one: 官方統計
-        other: 官方統計
-      open_consultation:
-        one: 公開諮詢
-        other: 公開諮詢
-      oral_statement:
-        one: 對議會的口頭聲明
-        other: 對議會的口頭聲明
-      our_energy_use:
-        one: 我們的能源使用
-        other: 我們的能源使用
-      our_governance:
-        one: 我們的治理
-        other: 我們的治理
-      personal_information_charter:
-        one: 個資憲章
-        other: 個資憲章
-      petitions_and_campaigns:
-        one: 請願和活動
-        other: 請願和活動
-      policy_paper:
-        one: 政策文件
-        other: 政策文件
-      press_release:
-        one: 新聞稿
-        other: 新聞稿
-      procurement:
-        one: 宣傳材料
-        other: 宣傳材料
-      promotional:
-        one: 宣傳資料
-        other: 宣傳資料
-      publication:
-        one: 出版
-        other: 出版
-      publication_scheme:
-        one: 出版格式
-        other: 出版格式
-      recruitment:
-        one: 招募
-        other: 招募
-      regulation:
-        one: 法規
-        other: 法規
-      research:
-        one: 研究
-        other: 研究
-      service:
-        one: 服務
-        other: 服務
-      social_media_use:
-        one: 使用社群媒體
-        other: 使用社群媒體
-      speaking_notes:
-        one: 發言筆記
-        other: 發言筆記
-      speech:
-        one: 演說
-        other: 演說
-      staff_update:
-        one: 雇員更新
-        other: 雇員更新
-      standard:
-        one: 標準
-        other: 標準
-      statement_to_parliament:
-        one: 向議會發表聲明
-        other: 向議會發表聲明
-      statistical_data_set:
-        one: 統計數據組
-        other: 統計數據組
-      statistics:
-        one: 統計數據
-        other: 統計數據
-      statutory_guidance:
-        one: 法令指導
-        other: 法令指導
-      terms_of_reference:
-        one: 職權範疇
-        other: 職權範疇
-      transcript:
-        one: 副本
-        other: 副本
-      transparency:
-        one: 透明數據
-        other: 透明數據
-      welsh_language_scheme:
-        one: 威爾斯語格式
-        other: 威爾斯語格式
-      world_news_story:
-        one: 世界新聞報導
-        other: 世界新聞報導
-      written_statement:
-        one: 對議會的書面聲明
-        other: 對議會的書面聲明
+      national_statistics: 國家統計
+      news_article: 新聞文章
+      news_story: 新聞報導
+      nhs_content: 免費醫療服務系統內容
+      notice: 通知
+      official_statistics: 官方統計
+      open_consultation: 公開諮詢
+      oral_statement: 對議會的口頭聲明
+      our_energy_use: 我們的能源使用
+      our_governance: 我們的治理
+      personal_information_charter: 個資憲章
+      petitions_and_campaigns: 請願和活動
+      policy_paper: 政策文件
+      press_release: 新聞稿
+      procurement: 宣傳材料
+      promotional: 宣傳資料
+      publication: 出版
+      publication_scheme: 出版格式
+      recruitment: 招募
+      regulation: 法規
+      research: 研究
+      service: 服務
+      social_media_use: 使用社群媒體
+      speaking_notes: 發言筆記
+      speech: 演說
+      staff_update: 雇員更新
+      standard: 標準
+      statement_to_parliament: 向議會發表聲明
+      statistical_data_set: 統計數據組
+      statistics: 統計數據
+      statutory_guidance: 法令指導
+      terms_of_reference: 職權範疇
+      transcript: 副本
+      transparency: 透明數據
+      welsh_language_scheme: 威爾斯語格式
+      world_news_story: 世界新聞報導
+      written_statement: 對議會的書面聲明
     updated: 更新
   document_filters:
     description: 可以使用過濾器僅顯示符合篩選的結果
@@ -562,12 +410,8 @@ zh-tw:
       international_delegation:
       world_location:
     type:
-      international_delegation:
-        one: 國際代表團
-        other: 國際代表團
-      world_location:
-        one: 世界地點
-        other: 世界地點
+      international_delegation: 國際代表團
+      world_location: 世界地點
   world_news:
     uk_updates_in_country: 來自 %{country} 的英國政府的更新、新聞和事件
   worldwide_organisation:
