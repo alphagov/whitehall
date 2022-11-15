@@ -75,9 +75,9 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def confirm_force_publish
-    unless @edition.valid?(:publish)
-      redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join(". ")
-    end
+    redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join(". ") and return unless @edition.valid?(:publish)
+
+    render_design_system(:confirm_force_publish, :confirm_force_publish_legacy, next_release: true)
   end
 
   def force_publish
@@ -163,6 +163,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_unpublish confirm_unwithdraw unpublish]
+    design_system_actions << "confirm_force_publish" if preview_design_system?(next_release: true)
     if design_system_actions.include?(action_name)
       "design_system"
     else
