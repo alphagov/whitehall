@@ -19,11 +19,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     form.querySelector('#attachment_locale').addEventListener('change', function () {
       if (rightToLeftLocales.indexOf(this.value) > -1) {
-        title.classList.add('right-to-left')
-        body.classList.add('right-to-left')
+        title.classList.add('attachment-form__title--right-to-left')
+        body.classList.add('attachment-form__body--right-to-left')
       } else {
-        title.classList.remove('right-to-left')
-        body.classList.remove('right-to-left')
+        title.classList.remove('attachment-form__title--right-to-left')
+        body.classList.remove('attachment-form__body--right-to-left')
       }
     })
   }
