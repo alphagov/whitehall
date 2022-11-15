@@ -9,7 +9,7 @@
       }
     end)
   %>
-  <div class="govuk-!-margin-bottom-8">
+  <div class="govuk-!-margin-bottom-8 attachment-form__language">
     <%= render "govuk_publishing_components/components/select", {
       id: "attachment_locale",
       label: "Display language",
@@ -22,7 +22,7 @@
   </div>
 <% end %>
 
-<div class="govuk-!-margin-bottom-8">
+<div class="govuk-!-margin-bottom-8 attachment-form__isbn">
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "ISBN"
@@ -36,7 +36,7 @@
   } %>
 </div>
 
-<div class="govuk-!-margin-bottom-8">
+<div class="govuk-!-margin-bottom-8 attachment-form__unique-reference">
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Unique reference"
@@ -48,7 +48,7 @@
   } %>
 </div>
 
-<div class="govuk-!-margin-bottom-8">
+<div class="govuk-!-margin-bottom-8 attachment-form__unique-command-paper-number">
   <% if attachable.can_have_attached_house_of_commons_papers? %>
     <h2 class="govuk-heading-<%= heading_size %>">Command and House of Commons papers</h2>
 
