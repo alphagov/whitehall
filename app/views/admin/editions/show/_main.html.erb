@@ -162,87 +162,93 @@
 
   <% if @edition.allows_attachments? %>
     <section class="app-view-edition-summary__section">
-      <%= render "govuk_publishing_components/components/summary_list", {
-        title: "Attachments",
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Attachments",
         heading_level: 2,
-        heading_size: "l",
-        edit: {
-          href: admin_edition_attachments_path(@edition.id),
-          link_text: "#{@edition.attachments.any? ? "Modify" : "Add"} attachments"
-        }
-      } do %>
-        <% if @edition.attachments.any? %>
-          <%= render "govuk_publishing_components/components/table", {
-            sortable: true,
-            head: [
-              {
-                text: "Title"
-              },
-              {
-                text: "Filename"
-              },
-              {
-                text: "Actions"
-              }
-            ],
-            rows: @edition.attachments.map do | attachment |
-              [
-                { text: attachment[:title] },
-                { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true) },
-                { text: (link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") unless @edition.published?) } ,
-              ]
-            end
-          } %>
-        <% else %>
-          <p class="govuk-body">No attachments for this document</p>
-        <% end %>
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <p class="govuk-body">
+        <%= link_to("#{@edition.attachments.any? ? "Modify" : "Add"} attachments",
+                    admin_edition_attachments_path(@edition.id), class: 'govuk-link') %>
+      </p>
+
+      <% if @edition.attachments.any? %>
+        <%= render "govuk_publishing_components/components/table", {
+          sortable: true,
+          head: [
+            {
+              text: "Title"
+            },
+            {
+              text: "Filename"
+            },
+            {
+              text: "Actions"
+            }
+          ],
+          rows: @edition.attachments.map do | attachment |
+            [
+              { text: attachment[:title] },
+              { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true) },
+              { text: (link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") unless @edition.published?) } ,
+            ]
+          end
+        } %>
+      <% else %>
+        <p class="govuk-body">No attachments for this document</p>
       <% end %>
     </section>
   <% end %>
 
   <% if @edition.translatable? %>
     <section class="app-view-edition-summary__section">
-      <%= render "govuk_publishing_components/components/summary_list", {
-        title: "Translations",
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Translations",
         heading_level: 2,
-        heading_size: "l",
-        edit: ({
-          href: new_admin_edition_translation_path(@edition.id),
-          link_text: "Add translation"
-        } if @edition.editable? and @edition.missing_translations.any?)
-      } do %>
-        <% if @edition.non_english_translations.any? %>
-          <%= render "govuk_publishing_components/components/table", {
-            sortable: true,
-            head: [
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <% if @edition.editable? and @edition.missing_translations.any? %>
+        <p class="govuk-body">
+          <%= link_to("Add translation",
+                      new_admin_edition_translation_path(@edition.id), class: 'govuk-link') %>
+        </p>
+      <% end %>
+
+      <% if @edition.non_english_translations.any? %>
+        <%= render "govuk_publishing_components/components/table", {
+          sortable: true,
+          head: [
+            {
+              text: "Locale"
+            },
+            {
+              text: "Title"
+            },
+            {
+              text: "Actions"
+            }
+          ],
+          rows: @edition.non_english_translations.map do | translation |
+            [
+              { text: Locale.new(translation.locale).native_and_english_language_name },
+              { text: translation.title },
               {
-                text: "Locale"
-              },
-              {
-                text: "Title"
-              },
-              {
-                text: "Actions"
+                text: raw([
+                  *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link") if @edition.editable?),
+                  *(form_with(url: admin_edition_translation_path(@edition, translation.locale), method: :delete) do |f|
+                    link_to("Delete", "#", { class: "govuk-link gem-link--destructive", role: "button", data: { module: "form-submit-link" } })
+                  end if @edition.can_delete?),
+                ].compact().join(' '))
               }
-            ],
-            rows: @edition.non_english_translations.map do | translation |
-              [
-                { text: Locale.new(translation.locale).native_and_english_language_name },
-                { text: translation.title },
-                {
-                  text: raw([
-                    *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link") if @edition.editable?),
-                    *(form_with(url: admin_edition_translation_path(@edition, translation.locale), method: :delete) do |f|
-                      link_to("Delete", "#", { class: "govuk-link gem-link--destructive", role: "button", data: { module: "form-submit-link" } })
-                    end if @edition.can_delete?),
-                  ].compact().join(' '))
-                }
-              ]
-            end
-          } %>
-        <% else %>
-          <p class="govuk-body">No additional translations to this document</p>
-        <% end %>
+            ]
+          end
+        } %>
+      <% else %>
+        <p class="govuk-body">No translations for this document</p>
       <% end %>
     </section>
   <% end %>
