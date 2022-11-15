@@ -28,7 +28,7 @@ jobs:
     name: Set automatic deploys
     uses: alphagov/govuk-infrastructure/.github/workflows/set-automatic-deploys.yaml@main
     with:
-      automaticDeploysEnabled: ${{ github.event.inputs.automaticDeploys == 'enabled' }}
+      automaticDeploysEnabled: ${{ github.event.inputs.setAutomaticDeploys == 'enabled' }}
       environment: ${{ github.event.inputs.environment }}
     secrets:
       WEBHOOK_TOKEN: ${{ secrets.GOVUK_ARGO_EVENTS_WEBHOOK_TOKEN }}
