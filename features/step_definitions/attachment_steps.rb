@@ -50,6 +50,7 @@ Then(/^the .* "(.*?)" should have (\d+) attachments$/) do |title, expected_numbe
 end
 
 When(/^I set the order of attachments to:$/) do |attachment_order|
+  click_link "Reorder attachments" if using_design_system?
   attachment_order.hashes.each do |attachment_info|
     attachment = Attachment.find_by(title: attachment_info[:title])
     fill_in "ordering[#{attachment.id}]", with: attachment_info[:order]
@@ -90,7 +91,11 @@ Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do
 end
 
 Then(/^I can see the attachment title "([^"]*)"$/) do |text|
-  expect(page).to have_selector("li.attachment", text:)
+  if using_design_system?
+    expect(page).to have_selector(".govuk-table__cell", text:)
+  else
+    expect(page).to have_selector("li.attachment", text:)
+  end
 end
 
 Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|

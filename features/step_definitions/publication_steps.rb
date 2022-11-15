@@ -66,10 +66,7 @@ When(/^I replace the data file of the attachment in a new draft of the publicati
   click_button "Create new edition"
   @new_edition = Publication.last
   click_on "Attachments"
-
-  within record_css_selector(@new_edition.attachments.first.becomes(Attachment)) do
-    click_on "Edit"
-  end
+  click_on "Edit", match: :first
   @new_file = pdf_attachment
   attach_file "Replace file", @new_file
   click_on "Save"
