@@ -1,4 +1,11 @@
 <div class="app-view-edition-summary__main">
+  <% if @edition.rejected? %>
+    <%= render "govuk_publishing_components/components/error_alert", {
+      message: "Document has been rejected",
+      description: sanitize("Rejected by #{linked_author(@edition.rejected_by, class: "govuk-link")}. See History and Notes.")
+    } %>
+  <% end %>
+
   <section class="app-view-edition-summary__section">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Document",
@@ -27,6 +34,8 @@
         text: "This document is #{@edition.primary_language_name}-only"
       } %>
     <% end %>
+
+
 
     <%= render "govuk_publishing_components/components/heading", {
       text: "Summary",
