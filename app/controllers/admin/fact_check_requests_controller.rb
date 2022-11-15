@@ -7,7 +7,9 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   skip_before_action :authenticate_user!, only: %i[show edit update]
   layout :get_layout
 
-  def show; end
+  def show
+    render_design_system("show", "show_legacy", next_release: true)
+  end
 
   def create
     attributes = fact_check_request_params.merge(requestor: current_user)
