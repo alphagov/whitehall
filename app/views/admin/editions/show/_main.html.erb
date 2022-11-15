@@ -176,7 +176,6 @@
 
       <% if @edition.attachments.any? %>
         <%= render "govuk_publishing_components/components/table", {
-          sortable: true,
           head: [
             {
               text: "Title"
@@ -220,7 +219,6 @@
 
       <% if @edition.non_english_translations.any? %>
         <%= render "govuk_publishing_components/components/table", {
-          sortable: true,
           head: [
             {
               text: "Locale"
@@ -270,7 +268,6 @@
 
     <% if @edition.document.associated_needs.any? %>
       <%= render "govuk_publishing_components/components/table", {
-        sortable: true,
         head: [
           {
             text: "User need"
