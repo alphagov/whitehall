@@ -1,9 +1,14 @@
 .app-view-edition-summary__section {
-  padding: govuk-spacing(6) 0;
+  padding: govuk-spacing(3) 0;
 }
 
 .app-view-edition-summary__section:first-child {
   padding-top: 0;
+}
+
+.app-view-edition-summary__topic-tag-list {
+  padding-bottom: govuk-spacing(2);
+  border-bottom: 1px solid govuk-colour("light-grey");
 }
 
 .app-view-edition-summary__topic-tag-list-item:last-child {

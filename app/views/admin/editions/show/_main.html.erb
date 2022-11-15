@@ -88,30 +88,32 @@
   </section>
 
   <section class="app-view-edition-summary__section">
-    <%= render "govuk_publishing_components/components/summary_list", {
-      title: "Topic taxonomy tags",
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Topic taxonomy tags",
       heading_level: 2,
-      heading_size: "l",
-      edit: {
-        href: edit_admin_edition_tags_path(@edition.id),
-        link_text: @edition_taxons.any? ? "Change tags" : "Add tags"
-      }
-    } do %>
-      <% @edition_taxons.map(&:full_path).each do | tag_path | %>
-        <div class="govuk-breadcrumbs">
-          <ol class="govuk-breadcrumbs__list">
-            <% tag_path.each do | path | %>
-              <li class="govuk-breadcrumbs__list-item app-view-edition-summary__topic-tag-list-item"><%= path[:title] %></li>
-            <% end %>
-          </ol>
-        </div>
-      <% end %>
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
 
-      <% unless @edition_taxons.any? %>
-        <%= render "govuk_publishing_components/components/warning_text", {
-          text: "Please add a tag before publishing"
-        } %>
-      <% end %>
+    <p class="govuk-body">
+      <%= link_to(@edition_taxons.any? ? "Change tags" : "Add tags",
+                  edit_admin_edition_tags_path(@edition.id), class: 'govuk-link') %>
+    </p>
+
+    <% @edition_taxons.map(&:full_path).each do | tag_path | %>
+      <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list app-view-edition-summary__topic-tag-list">
+          <% tag_path.each do | path | %>
+            <li class="govuk-breadcrumbs__list-item app-view-edition-summary__topic-tag-list-item"><%= path[:title] %></li>
+          <% end %>
+        </ol>
+      </div>
+    <% end %>
+
+    <% unless @edition_taxons.any? %>
+      <%= render "govuk_publishing_components/components/warning_text", {
+        text: "Please add a tag before publishing"
+      } %>
     <% end %>
   </section>
 
