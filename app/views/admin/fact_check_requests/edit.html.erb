@@ -1,12 +1,12 @@
-<% page_title "Fact Checking for " + @edition.title %>
-<% content_for :title, "Fact Check" %>
+<% page_title "Fact checking for " + @edition.title %>
+<% content_for :title, "Fact check request" %>
 <% content_for :context, @edition.title %>
 
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">Please review all content:</p>
-
+    
     <%= render "govuk_publishing_components/components/tabs", {
       tabs: [
         {
