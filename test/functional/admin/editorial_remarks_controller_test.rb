@@ -15,6 +15,15 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(edition)} .body", text: "edition-body"
   end
 
+  view_test "should render the edition title and body to give context to the person rejecting with preview next release flag" do
+    @logged_in_user.permissions << "Preview next release"
+    edition = create(:submitted_publication, title: "edition-title", body: "edition-body")
+    get :new, params: { edition_id: edition }
+
+    assert_select "#{record_css_selector(edition)} .title", text: "edition-title"
+    assert_select "#{record_css_selector(edition)} .body", text: "edition-body"
+  end
+
   view_test "should render the editorial remark form for a statistical data set" do
     StatisticalDataSet.stubs(access_limited_by_default?: false)
     edition = create(:draft_statistical_data_set, title: "edition-title", body: "edition-body")
@@ -47,8 +56,17 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   view_test "should explain why the editorial remark could not be saved" do
     edition = create(:submitted_consultation)
     post :create, params: { edition_id: edition, editorial_remark: { body: "" } }
-    assert_template "new"
+    assert_template "new_legacy"
     assert_select ".form-errors"
+  end
+
+  view_test "should explain why the editorial remark could not be saved with preview next release flag" do
+    @logged_in_user.permissions << "Preview next release"
+
+    edition = create(:submitted_consultation)
+    post :create, params: { edition_id: edition, editorial_remark: { body: "" } }
+    assert_template "new"
+    assert_select ".gem-c-error-summary"
   end
 
   test "should prevent access to inaccessible editions" do

@@ -1,0 +1,21 @@
+<% page_title "New Editorial Remark" %>
+
+<div class="row">
+  <div class="col-md-8">
+    <section class="document_page" id="<%= dom_id(@edition) %>">
+      <%= render partial: 'admin/editions/legacy_edition', locals: { edition: @edition } %>
+    </section>
+  </div>
+
+  <div class="col-md-4">
+    <span class="back">
+      back to <%= link_to 'document', admin_edition_path(@edition) %>
+    </span>
+
+    <%= form_for [:admin, @edition, @editorial_remark], url: admin_edition_editorial_remarks_path(@edition) do |feedback_form| %>
+      <%= feedback_form.errors %>
+      <%= feedback_form.text_area :body, rows: 20, label_text: "Remark" %>
+      <%= feedback_form.submit "Submit remark", class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>
