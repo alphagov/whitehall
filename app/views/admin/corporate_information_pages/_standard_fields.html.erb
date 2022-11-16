@@ -7,7 +7,8 @@
       id: "edition_corporate_information_page_type_id",
       name: "edition[corporate_information_page_type_id]",
       label: "Type",
-      error_items: errors_for(form.object.errors, :corporate_information_page_type_id),
+      heading_size: "s",
+      error_message: errors_for_input(edition.errors, :corporate_information_page_type_id),
       options: ([nil] + corporate_information_page_types(@organisation)).map do |type, value|
         {
           text: type,

@@ -1,13 +1,12 @@
 <% content_for :page_title, "Bulk upload for: #{@edition.title}" %>
 <% content_for :title, "Edit file attachments" %>
 <% content_for :context, "Attachments for publication" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @bulk_upload)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-!-margin-bottom-8">
       <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition) do |form| %>
-        <% content_for :error_summary, render('shared/error_summary', object: @bulk_upload, parent_class: "bulk_upload", class_name: @bulk_upload.class.name.demodulize.underscore.humanize.downcase) %>
-
         <% @bulk_upload.attachments.each.with_index do |attachment, i| %>
           <%= form.fields_for :attachments, attachment do |attachment_fields| %>
             <%= render "govuk_publishing_components/components/heading", {

@@ -1,6 +1,7 @@
 <% content_for :page_title, "Adding #{attachment.attachable_model_name} #{attachment.readable_type} attachment" %>
 <% content_for :title, "Add #{attachment.readable_type} attachment" %>
 <% content_for :context, "Attachments for #{attachment.attachable_model_name}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: attachment, parent_class: "attachment")) %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">

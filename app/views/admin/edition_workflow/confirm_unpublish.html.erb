@@ -1,7 +1,7 @@
 <% content_for :page_title, "#{@edition.title}: Withdraw or unpublish" %>
 <% content_for :title, "Withdraw or unpublish" %>
 <% content_for :context, @edition.title %>
-<% content_for :error_summary, render('shared/error_summary', object: @unpublishing, parent_class: @unpublishing.reason_as_class, class_name: @unpublishing.edition.format_name, verb: "withdraw or unpublish") %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @unpublishing, verb: "withdraw or unpublish", noun: @edition.format_name)) %>
 
 <%
   unpublish_reasons = {
