@@ -24,11 +24,3 @@ module AdminTaxonomyHelper
   end
 end
 World(AdminTaxonomyHelper)
-
-Around do |_, block|
-  redis = Redis.new
-  Redis.new = nil
-  block.call
-ensure
-  Redis.new = redis
-end
