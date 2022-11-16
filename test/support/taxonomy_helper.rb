@@ -58,6 +58,7 @@ module TaxonomyHelper
       .stubs(:get)
       .with(Taxonomy::RedisCacheAdapter::TAXONS_CACHE_KEY)
       .returns(JSON.dump(taxons))
+    Redis.stubs(:new).returns(redis_client)
   end
 
   def redis_cache_has_world_taxons(world_taxons)
@@ -65,6 +66,7 @@ module TaxonomyHelper
       .stubs(:get)
       .with(Taxonomy::RedisCacheAdapter::WORLD_TAXONS_CACHE_KEY)
       .returns(JSON.dump(world_taxons))
+    Redis.stubs(:new).returns(redis_client)
   end
 
   def stub_publishing_api_links_with_taxons(content_id, taxons)
@@ -106,7 +108,7 @@ module TaxonomyHelper
 private
 
   def redis_client
-    @redis_client ||= Redis.current = stub
+    @redis_client ||= stub
   end
 
   def child_taxon

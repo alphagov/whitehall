@@ -3,7 +3,7 @@ module Taxonomy
     TAXONS_CACHE_KEY = "topic_taxonomy_taxons".freeze
     WORLD_TAXONS_CACHE_KEY = "world_taxonomy_taxons".freeze
 
-    def initialize(redis_client: Redis.current, adapter: PublishingApiAdapter.new)
+    def initialize(redis_client: Redis.new, adapter: PublishingApiAdapter.new)
       @redis_client = redis_client
       @adapter = adapter
     end
