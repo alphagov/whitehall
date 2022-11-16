@@ -14,10 +14,16 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   LocaleSwitcher.prototype.setupLocaleSwitching = function () {
     var form = this.module
     var rightToLeftLocales = this.rightToLeftLocales
+
+    var select = form.querySelector('#attachment_locale')
+    if (!select) {
+      return
+    }
+
     var title = form.querySelector('.attachment-form__title')
     var body = form.querySelector('.attachment-form__body')
 
-    form.querySelector('#attachment_locale').addEventListener('change', function () {
+    select.addEventListener('change', function () {
       if (rightToLeftLocales.indexOf(this.value) > -1) {
         title.classList.add('right-to-left')
         body.classList.add('right-to-left')
