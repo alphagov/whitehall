@@ -1,10 +1,5 @@
 <div class="app-view-edition-summary__main">
-  <% if @edition.rejected? %>
-    <%= render "govuk_publishing_components/components/error_alert", {
-      message: "Document has been rejected",
-      description: sanitize("Rejected by #{linked_author(@edition.rejected_by, class: "govuk-link")}. See History and Notes.")
-    } %>
-  <% end %>
+  <%= render partial: 'admin/editions/show/main_notices', locals: { edition: @edition } %>
 
   <section class="app-view-edition-summary__section">
     <%= render "govuk_publishing_components/components/heading", {
