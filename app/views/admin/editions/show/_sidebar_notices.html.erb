@@ -1,0 +1,25 @@
+<div class="app-view-edition-summary__sidebar-notices">
+  <% if show_similar_slugs_warning?(@edition) %>
+    <%= render "govuk_publishing_components/components/error_alert", {
+      message: "This title is already used on GOV.UK. Please create a unique title."
+    } %>
+  <% end %>
+
+  <% if @edition.scheduled_publication %>
+    <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
+      <%= render "govuk_publishing_components/components/error_alert", {
+        message: "This edition cannot be scheduled because: #{force_scheduler.failure_reason}"
+      } %>
+    <% end %>
+  <% else %>
+    <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
+      <%= render "govuk_publishing_components/components/error_alert", {
+        message: "This edition cannot be force-published because:",
+        description: render("govuk_publishing_components/components/list", {
+          visible_counters: true,
+          items: force_publisher.failure_reasons
+        })
+      } %>
+    <% end %>
+  <% end %>
+</div>
