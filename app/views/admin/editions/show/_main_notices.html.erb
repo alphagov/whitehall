@@ -10,10 +10,19 @@
     message: "This edition was force published and has not yet been reviewed by a second pair of eyes",
     description: capture do %>
       <% if can?(:approve, edition) %>
-        <p><%= link_to "View this on the website", preview_document_url(edition), class: "govuk-link", target: '_blank' %> and check everything thoroughly.</p>
-        <p><%= approve_retrospectively_edition_button(edition) %></p>
+        <p class="govuk-body"><%= link_to "View this on the website", preview_document_url(edition), class: "govuk-link", target: '_blank' %> and check everything thoroughly.</p>
+        <%=
+          confirm = "Are you sure you want to retrospectively approve this document?"
+          form_for [:admin, edition], url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version), method: :post do |form|
+            render("govuk_publishing_components/components/button", {
+              text: "Looks good",
+              margin_bottom: true,
+              data_attributes: { confirm: }
+            })
+          end
+        %>
       <% else %>
-        <p> Please have an editor other than the original publisher review the document to clear this warning.</p>
+        <p class="govuk-body">Please have an editor other than the original publisher review the document to clear this warning.</p>
       <% end %>
     <% end
   } %>
