@@ -31,12 +31,12 @@
 <% if edition.pre_publication? %>
 
   <% if edition.is_a?(Publication) && edition.statistics_announcement.present? %>
-    <div class="alert alert-info announced-publication">
-      <p>
-        This publication has been announced for publication <%= edition.statistics_announcement.display_date %>.
-        <%= link_to 'View announcement', [:admin, edition.statistics_announcement] %>
-      </p>
-    </div>
+    <%= render "govuk_publishing_components/components/notice", {
+      description_govspeak: capture do %>
+        <p class="govuk-body">This publication has been announced for publication <%= edition.statistics_announcement.display_date %></p>
+        <p class="govuk-body"><%= link_to 'View announcement', [:admin, edition.statistics_announcement], class: "govuk-link" %></p>
+      <% end
+    } %>
   <% end %>
 
   <% if edition.scheduled_publication.present? %>
