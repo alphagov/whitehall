@@ -1,0 +1,72 @@
+<div class="broken-links-report">
+
+  <% if report.new_record? %>
+
+    <%= render "govuk_publishing_components/components/notice", {
+      description_govspeak: capture do %>
+        <p class="govuk-body">Check this document for broken links. The report will take a few moments to complete.</p>
+        <%= render 'admin/editions/show/sidebar_link_checker', reportable: report.link_reportable, button_text: 'Check for broken links' %>
+      <% end
+    } %>
+
+  <% elsif report.in_progress? %>
+
+    <%= render "govuk_publishing_components/components/notice", {
+      description_govspeak: capture do %>
+        <%= image_tag('admin/ajax_loader_blue_32.gif', width: 24, height: 24, class: 'pull-left add-right-margin') %>        <%= render 'admin/editions/show/sidebar_link_checker', reportable: report.link_reportable, button_text: 'Check for broken links' %>
+        <p class="govuk-body">Broken link report in progress.<br />Please refresh the page to check progress.</p>
+      <% end
+    } %>
+
+  <% elsif report.broken_links.any? || report.caution_links.any? %>
+
+    <%= render "govuk_publishing_components/components/error_alert", {
+      message: t("broken_links.title"),
+      description: capture do %>
+
+        <% report.links.sort_by(&:status).group_by(&:status).each do |status, links| %>
+          <% next unless %w(broken caution).include? status %>
+
+          <p class="govuk-body"><%= t "broken_links.#{status}.subheading" %></p>
+          <ul class="govuk-list">
+            <% links.each do |link| %>
+              <li>
+                <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: 'govuk-link' %>
+                <details class="govuk-details" data-module="govuk-details">
+                  <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                      See more details about this link
+                    </span>
+                  </summary>
+                  <div class="govuk-details__text">
+                    <p class="govuk-body"><%= link.problem_summary %></p>
+                    <% if link.suggested_fix %>
+                      <p class="govuk-body">Suggested fix: <%= link.suggested_fix %></p>
+                    <% end %>
+                  </div>
+                </details>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
+          <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
+        <% end %>
+
+        <%= render 'admin/editions/show/sidebar_link_checker', reportable: report.link_reportable, button_text: 'Check again' %>
+      <% end
+    } %>
+  <% else %>
+    <%= render "govuk_publishing_components/components/success_alert", {
+      message: "This document contains no broken links.",
+      description: capture do %>
+        <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
+          <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
+        <% end %>
+
+        <%= render 'admin/editions/show/sidebar_link_checker', reportable: report.link_reportable, button_text: 'Check again' %>
+      <% end
+    } %>
+  <% end %>
+</div>
