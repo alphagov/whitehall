@@ -20,7 +20,6 @@ class User < ApplicationRecord
     GDS_EDITOR = "GDS Editor".freeze
     VIP_EDITOR = "VIP Editor".freeze
     PUBLISH_SCHEDULED_EDITIONS = "Publish scheduled editions".freeze
-    IMPORT = "Import CSVs".freeze
     WORLD_WRITER = "World Writer".freeze
     WORLD_EDITOR = "World Editor".freeze
     FORCE_PUBLISH_ANYTHING = "Force publish anything".freeze
@@ -78,10 +77,6 @@ class User < ApplicationRecord
 
   def can_publish_scheduled_editions?
     has_permission?(Permissions::PUBLISH_SCHEDULED_EDITIONS)
-  end
-
-  def can_import?
-    has_permission?(Permissions::IMPORT)
   end
 
   def can_force_publish_anything?
