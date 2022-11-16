@@ -1,7 +1,7 @@
 en:
   admin:
     whats_new:
-      show_banner: true
+      show_banner: false
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
@@ -20,7 +20,7 @@ en:
         updates:
           - heading: Search added to topic taxonomy tags page
             area: Creating and updating documents
-            type: improvement
+            type: new
             date: 9 November 2022
             body_govspeak: |
               You can now search taxonomy topic tags and select relevant tags for your content. The search will show all topic tags which include the search term you’ve put into the search box. You only need to start typing the first 3 letters to start getting suggested topics.
