@@ -1,11 +1,13 @@
 <div class="broken-links-report">
-
   <% if report.new_record? %>
 
     <%= render "govuk_publishing_components/components/notice", {
       description_govspeak: capture do %>
         <p class="govuk-body">Check this document for broken links. The report will take a few moments to complete.</p>
-        <%= render 'admin/editions/show/sidebar_link_checker', reportable: report.link_reportable, button_text: 'Check for broken links' %>
+        <%= render partial: 'admin/editions/show/sidebar_link_checker_form', locals: {
+          reportable: report.link_reportable,
+          button_text: 'Check for broken links'
+        } %>
       <% end
     } %>
 
@@ -28,6 +30,7 @@
           <% next unless %w(broken caution).include? status %>
 
           <p class="govuk-body"><%= t "broken_links.#{status}.subheading" %></p>
+
           <ul class="govuk-list">
             <% links.each do |link| %>
               <li>
@@ -54,7 +57,10 @@
           <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
         <% end %>
 
-        <%= render 'admin/editions/show/sidebar_link_checker', reportable: report.link_reportable, button_text: 'Check again' %>
+        <%= render partial: 'admin/editions/show/sidebar_link_checker_form', locals: {
+          reportable: report.link_reportable,
+          button_text: 'Check again'
+        } %>
       <% end
     } %>
   <% else %>
@@ -65,7 +71,10 @@
           <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
         <% end %>
 
-        <%= render 'admin/editions/show/sidebar_link_checker', reportable: report.link_reportable, button_text: 'Check again' %>
+        <%= render partial: 'admin/editions/show/sidebar_link_checker_form', locals: {
+          reportable: report.link_reportable,
+          button_text: 'Check again'
+        } %>
       <% end
     } %>
   <% end %>
