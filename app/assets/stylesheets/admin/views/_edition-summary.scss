@@ -15,7 +15,8 @@
   @include govuk-font($size: 16, $weight: bold);
 }
 
-/* Sidebar styles */
+// Sidebar styles
+
 .app-view-edition-summary__sidebar-actions {
   padding: govuk-spacing(3);
   background-color: govuk-colour("light-grey");
