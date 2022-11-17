@@ -35,10 +35,6 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
     assert_equal "/government/collections/document-collection-title", @presented_en_content[:base_path]
   end
 
-  test "it presents the base_path with locale if non-english" do
-    assert_equal "/government/collections/document-collection-title.de", @presented_content[:base_path]
-  end
-
   test "it presents updated_at if public_timestamp is nil" do
     assert_equal @document_collection.updated_at, @presented_content[:public_updated_at]
   end
