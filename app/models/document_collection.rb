@@ -49,6 +49,40 @@ class DocumentCollection < Edition
     true
   end
 
+  def public_url(locale_context: I18n.locale)
+    Plek.new.website_root + public_path(locale_context:)
+  end
+
+  def preview_url(locale_context: I18n.locale, with_auth_bypass_token: false)
+    query_parameters = {}
+    if with_auth_bypass_token
+      query_parameters = {
+        token: auth_bypass_token,
+        utm_source: :share,
+        utm_medium: :preview,
+        utm_campaign: :govuk_publishing,
+      }
+    end
+
+    Plek.new.external_url_for("draft-origin") + public_path(locale_context:, query_parameters:)
+  end
+
+  def public_path(locale_context: I18n.locale, query_parameters: {})
+    locale = if non_english_edition?
+               primary_locale
+             elsif translatable? && available_in_locale?(locale_context)
+               locale_context
+             else
+               I18n.default_locale
+             end
+
+    locale_suffix = locale == I18n.default_locale ? "" : ".#{locale}"
+
+    query = query_parameters.any? ? "?#{query_parameters.to_query}" : ""
+
+    "/collections/#{slug}#{locale_suffix}" + query
+  end
+
 private
 
   def string_for_slug
