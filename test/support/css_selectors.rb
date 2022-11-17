@@ -82,19 +82,35 @@ module CssSelectors
   end
 
   def reject_button_selector(document)
-    "form[action='#{reject_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Reject]"
+    if current_user.can_preview_design_system?
+      "form[action='#{reject_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
+    else
+      "form[action='#{reject_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Reject]"
+    end
   end
 
   def schedule_button_selector(document)
-    "form[action='#{schedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Schedule]"
+    if current_user.can_preview_design_system?
+      "form[action='#{schedule_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
+    else
+      "form[action='#{schedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Schedule]"
+    end
   end
 
   def unschedule_button_selector(document)
-    "form[action='#{unschedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Unschedule]"
+    if current_user.can_preview_design_system?
+      "a[href='#{confirm_unschedule_admin_edition_path(document, lock_version: document.lock_version)}']"
+    else
+      "form[action='#{unschedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Unschedule]"
+    end
   end
 
   def force_schedule_button_selector(document)
-    "form[action='#{force_schedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value='Force schedule']"
+    if current_user.can_preview_design_system?
+      "form[action='#{force_schedule_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
+    else
+      "form[action='#{force_schedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value='Force schedule']"
+    end
   end
 
   def link_to_public_version_selector

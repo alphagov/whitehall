@@ -71,15 +71,15 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
     get :show, params: { id: detailed_guide.id }
 
-    assert_select "#user-needs-section" do |_section|
-      assert_select "#user-need-id-#{content_id_a}" do
-        assert_select ".description", text: "As a x,\n    I need to y,\n    So that z"
-        assert_select ".maslow-url[href*='#{content_id_a}']"
+    assert_select ".app-view-edition-summary__section-user-needs" do |_section|
+      assert_select ".govuk-table__row" do
+        assert_select ".govuk-table__cell", text: "As a x,\n I need to y,\n So that z"
+        assert_select ".govuk-link[href*='#{content_id_a}']"
       end
 
-      assert_select "#user-need-id-#{content_id_b}" do
-        assert_select ".description", text: "As a c,\n    I need to d,\n    So that e"
-        assert_select ".maslow-url[href*='#{content_id_b}']"
+      assert_select ".govuk-table__row" do
+        assert_select ".govuk-table__cell", text: "As a c,\n I need to d,\n So that e"
+        assert_select ".govuk-link[href*='#{content_id_b}']"
       end
     end
   end

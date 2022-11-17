@@ -72,7 +72,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
         get :show, params: { id: edition }
-        assert_select ".scheduled-publication", "Scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
+        assert_select ".app-view-edition-summary__scheduled-notice .app-c-inset-prompt__body", "Scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
       end
 
       view_test "should not indicate publishing schedule if published" do
@@ -80,7 +80,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
         get :show, params: { id: edition }
-        assert_select ".scheduled-publication", count: 0
+        assert_select ".app-view-edition-summary__scheduled-notice", count: 0
       end
 
       test "create should not set scheduled_publication if scheduled_publication_active is not checked" do
