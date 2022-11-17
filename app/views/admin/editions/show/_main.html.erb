@@ -30,15 +30,15 @@
       } %>
     <% end %>
 
-
-
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Summary",
-      heading_level: 3,
-      font_size: 'm',
-      margin_bottom: 3,
-    } %>
-    <p class="govuk-body"><%= @edition.summary %></p>
+    <div class="app-view-edition-summary__document-summary">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Summary",
+        heading_level: 3,
+        font_size: 'm',
+        margin_bottom: 3,
+      } %>
+      <p class="govuk-body"><%= @edition.summary %></p>
+    </div>
   </section>
 
   <section class="app-view-edition-summary__section">
