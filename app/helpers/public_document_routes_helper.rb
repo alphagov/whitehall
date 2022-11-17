@@ -1,60 +1,51 @@
 module PublicDocumentRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
-  def document_path(edition, options = {})
-    document_url(edition, options.merge(only_path: true))
-  end
+  def document_path(edition, query_parameters: {})
+    locale = if edition.non_english_edition?
+               edition.primary_locale
+             elsif edition.translatable? && edition.available_in_locale?(I18n.locale)
+               I18n.locale
+             else
+               I18n.default_locale
+             end
 
-  def public_document_path(edition, options = {})
-    document_path(edition, options)
-  end
+    locale_suffix = locale == I18n.default_locale ? "" : ".#{locale}"
+    query_suffix = query_parameters.any? ? "?#{query_parameters.to_query}" : ""
 
-  def document_url(edition, options = {}, _builder_options = {})
-    return edition.url if edition.is_a?(RummagerDocumentPresenter)
-
-    if edition.non_english_edition?
-      options[:locale] = edition.primary_locale
-    elsif edition.translatable?
-      options[:locale] ||= best_locale_for_edition(edition)
-    else
-      options.delete(:locale)
-    end
-
+    # could be better just asking an edition for this?
     case edition
-    when CorporateInformationPage
-      build_url_for_corporate_information_page(edition, options)
+    when DocumentCollection
+      "/collections/#{edition.slug}#{locale_suffix}#{query_suffix}"
+    # and the other edition types...
     else
-      polymorphic_url(edition.path_name, options.reverse_merge(id: edition.document))
+      raise "Unexpected edition type #{e.class}"
     end
   end
 
-  def public_document_url(edition, options = {}, builder_options = {})
-    document_url(
-      edition,
-      { host: Whitehall.public_host, protocol: Whitehall.public_protocol }.merge(options),
-      builder_options,
-    )
+  def public_document_url(edition)
+    Plek.new.website_root + document_path(edition)
   end
 
-  def preview_document_url(edition, options = {})
-    if edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-      options[:host] = URI(Plek.new.external_url_for("draft-origin")).host
+  def preview_document_url(edition, query_parameters: {})
+    if edition.rendering_app == Whitehall::RenderingApp::WHITEHALL_FRONTEND
+      # not sure what to do for Whitehall hosted ones still? is perhaps
+      # that we still have them for worldwide organisation corporate information
+      # pages and these seem broken?
+      # options[:preview] = edition.document.latest_edition_id
+      # options[:cachebust] = Time.zone.now.getutc.to_i
     else
-      options[:preview] = edition.document.latest_edition_id
-      options[:cachebust] = Time.zone.now.getutc.to_i
+      Plek.new.external_url_for("draft-origin") + document_path(edition, query_parameters:)
     end
-
-    document_url(edition, options)
   end
 
   def preview_document_url_with_auth_bypass_token(edition)
-    params = {
+    preview_document_url(edition, query_parameters: {
       token: edition.auth_bypass_token,
       utm_source: :share,
       utm_medium: :preview,
       utm_campaign: :govuk_publishing,
-    }.to_query
-    "#{preview_document_url(edition)}?#{params}"
+    })
   end
 
   def organisation_url(slug_or_organisation, options = {})
