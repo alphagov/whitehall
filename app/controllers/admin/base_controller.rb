@@ -18,10 +18,6 @@ class Admin::BaseController < ApplicationController
     forbidden! unless current_user.can_handle_fatalities?
   end
 
-  def require_import_permission!
-    authorise_user!(User::Permissions::IMPORT)
-  end
-
   def enforce_permission!(action, subject)
     unless can?(action, subject)
       raise Whitehall::Authority::Errors::PermissionDenied.new(action, subject)

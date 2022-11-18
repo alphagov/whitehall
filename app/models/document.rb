@@ -29,7 +29,6 @@ class Document < ApplicationRecord
            class_name: "Edition",
            inverse_of: :document
 
-  has_many :document_sources, dependent: :destroy
   has_many :document_collection_group_memberships, inverse_of: :document, dependent: :delete_all
   has_many :document_collection_groups, through: :document_collection_group_memberships
   has_many :document_collections, through: :document_collection_groups

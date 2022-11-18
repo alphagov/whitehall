@@ -137,20 +137,6 @@
   </section>
 <% end %>
 
-<% if @edition.document.document_sources.any? or current_user.can_import? %>
-  <section id="document-sources-section">
-    <h2>Legacy URL redirects</h2>
-    <ul>
-      <% @edition.document.document_sources.map(&:url).each do |url| %>
-        <li><%= url %></li>
-      <% end %>
-    </ul>
-    <% if current_user.can_import? %>
-      <%= link_to "Edit URL redirects", edit_admin_edition_document_sources_path(@edition), class: "btn btn-default" %>
-    <% end %>
-  </section>
-<% end %>
-
 <% if @edition.respond_to?(:published_related_editions) %>
   <section>
     <h2>Tagged to this document</h2>

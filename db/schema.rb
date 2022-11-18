@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_04_091720) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_17_134008) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -183,16 +183,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_091720) do
     t.string "publishing_app", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-  end
-
-  create_table "document_sources", id: :integer, charset: "utf8mb3", force: :cascade do |t|
-    t.integer "document_id"
-    t.string "url", null: false
-    t.integer "import_id"
-    t.integer "row_number"
-    t.string "locale", default: "en"
-    t.index ["document_id"], name: "index_document_sources_on_document_id"
-    t.index ["url"], name: "index_document_sources_on_url", unique: true
   end
 
   create_table "documents", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
@@ -1090,14 +1080,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_091720) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  create_table "world_location_news", charset: "utf8mb3", force: :cascade do |t|
+  create_table "world_location_news", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "world_location_id"
     t.string "content_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "world_location_news_translations", charset: "utf8mb3", force: :cascade do |t|
+  create_table "world_location_news_translations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "world_location_news_id"
     t.string "locale"
     t.string "title"
