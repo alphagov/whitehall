@@ -1,6 +1,12 @@
-.right-to-left {
-  input,
-  textarea {
+.attachment-form__title--right-to-left {
+  .gem-c-input {
+    direction: rtl;
+  }
+}
+
+.attachment-form__body--right-to-left {
+  .app-c-govspeak-editor__textarea,
+  .app-c-govspeak-editor__preview {
     direction: rtl;
   }
 }

@@ -1,11 +1,10 @@
 describe('GOVUK.Modules.LocaleSwitcher', function () {
-  var form, rtlClass, localeSwitcher
+  var form, localeSwitcher
 
   beforeEach(function () {
     form = document.createElement('form')
     form.setAttribute('data-module', 'LocaleSwitcher')
     form.setAttribute('data-rtl-locales', 'ar dr fa he pa-pk ps ur yi')
-    rtlClass = 'right-to-left'
 
     form.innerHTML = `
       <form>
@@ -18,10 +17,6 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
           <option value="ar">العربيَّة</option>
           <option value="en">English</option>
         </select>
-
-        <div class="attachment-form__isbn">
-          <input id="attachment_isbn">
-        </div>
 
         <div class="attachment-form__body">
           <textarea></textarea>
@@ -36,21 +31,18 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
   it('should add the correct class to the appropriate elements when the laguage select element is changed', function () {
     var select = form.querySelector('#attachment_locale')
     var title = form.querySelector('.attachment-form__title')
-    var isbn = form.querySelector('.attachment-form__isbn')
     var body = form.querySelector('.attachment-form__body')
 
     select.value = 'ar'
     select.dispatchEvent(new Event('change'))
 
-    expect(title.classList).toContain(rtlClass)
-    expect(isbn.classList).not.toContain(rtlClass)
-    expect(body.classList).toContain(rtlClass)
+    expect(title.classList).toContain('attachment-form__title--right-to-left')
+    expect(body.classList).toContain('attachment-form__body--right-to-left')
 
     select.value = 'en'
     select.dispatchEvent(new Event('change'))
 
-    expect(title.classList).not.toContain(rtlClass)
-    expect(isbn.classList).not.toContain(rtlClass)
-    expect(body.classList).not.toContain(rtlClass)
+    expect(title.classList).not.toContain('attachment-form__title--right-to-left')
+    expect(body.classList).not.toContain('attachment-form__body--right-to-left')
   })
 })
