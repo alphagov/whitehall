@@ -4,6 +4,6 @@ module LegacyUrlHelper
   end
 
   def atom_feed_url(_options)
-    "#{Plek.new.website_root}/government/feed"
+    "#{Plek.website_root}/government/feed"
   end
 end

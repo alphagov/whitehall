@@ -21,7 +21,7 @@
             <tr>
               <td class="locale">
                 <%= link_to locale.native_language_name, edit_admin_person_translation_path(@person, locale.code) %>
-                (<%= link_to "view", Plek.new.website_root + person_path(@person, locale: locale) %>)
+                (<%= link_to "view", Plek.website_root + person_path(@person, locale: locale) %>)
               </td>
               <td class="actions">
                 <%= button_to 'Delete', admin_person_translation_path(@person, locale.code),

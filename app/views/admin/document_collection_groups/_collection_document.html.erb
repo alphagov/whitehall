@@ -5,7 +5,7 @@
       <%= check_box_tag('memberships[]', membership.id, false, class: 'checkbox', id: nil) %>
       <%= non_whitehall_link.title %>
     </label>
-    (<%= link_to 'view on GOV.UK', Plek.new.website_root + non_whitehall_link.base_path %>)
+    (<%= link_to 'view on GOV.UK', Plek.website_root + non_whitehall_link.base_path %>)
     <ul class="metadata list-inline text-muted">
       <li>
         Document from: <%= non_whitehall_link.publishing_app.titleize %>

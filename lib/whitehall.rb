@@ -23,11 +23,11 @@ module Whitehall
   class NoConfigurationError < StandardError; end
 
   def self.public_protocol
-    Plek.new.website_uri.scheme
+    URI(Plek.website_root).scheme
   end
 
   def self.support_url
-    Plek.new.external_url_for("support")
+    Plek.external_url_for("support")
   end
 
   def self.available_locales
@@ -118,19 +118,19 @@ module Whitehall
 
   def self.internal_admin_host
     @internal_admin_host ||=
-      URI(Plek.new.find("whitehall-admin")).host
+      URI(Plek.find("whitehall-admin")).host
   end
 
   def self.public_host
-    @public_host ||= Plek.new.website_uri.host
+    @public_host ||= URI(public_root).host
   end
 
   def self.public_root
-    @public_root ||= Plek.new.website_root
+    @public_root ||= Plek.website_root
   end
 
   def self.admin_root
-    @admin_root ||= Plek.new.external_url_for("whitehall-admin")
+    @admin_root ||= Plek.external_url_for("whitehall-admin")
   end
 
   # The base folder where uploads live.

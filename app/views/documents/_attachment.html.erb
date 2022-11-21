@@ -57,7 +57,7 @@
       <% end %>
     </p>
     <% if attachment.is_official_document? %>
-      <%= link_to t('attachment.headings.order_a_copy'), "#{Plek.new.website_root}/guidance/how-to-buy-printed-copies-of-official-documents",
+      <%= link_to t('attachment.headings.order_a_copy'), "#{Plek.website_root}/guidance/how-to-buy-printed-copies-of-official-documents",
             class: "govuk-link order_url", title: t('attachment.headings.order_a_copy_full') %>
     <% end %>
 

@@ -24,7 +24,7 @@ private
   end
 
   def email_alert_frontend_signup_url(feed_uri)
-    "#{Plek.new.website_root}/email-signup?link=#{feed_uri.path.chomp('.atom')}"
+    "#{Plek.website_root}/email-signup?link=#{feed_uri.path.chomp('.atom')}"
   end
 
   def mhra_exists_for_atom_feed?(atom_feed_url)

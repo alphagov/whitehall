@@ -38,7 +38,7 @@ module PublicDocumentRoutesHelper
 
   def preview_document_url(edition, options = {})
     if edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-      options[:host] = URI(Plek.new.external_url_for("draft-origin")).host
+      options[:host] = URI(Plek.external_url_for("draft-origin")).host
     else
       options[:preview] = edition.document.latest_edition_id
       options[:cachebust] = Time.zone.now.getutc.to_i
@@ -84,7 +84,7 @@ module PublicDocumentRoutesHelper
   end
 
   def organisation_preview_url(organisation, options = {})
-    polymorphic_url(organisation, options.merge(host: URI(Plek.new.external_url_for("draft-origin")).host))
+    polymorphic_url(organisation, options.merge(host: URI(Plek.external_url_for("draft-origin")).host))
   end
 
   def get_involved_path(options = {})
@@ -92,7 +92,7 @@ module PublicDocumentRoutesHelper
   end
 
   def get_involved_url(options = {})
-    Plek.new.website_root + get_involved_path(options)
+    Plek.website_root + get_involved_path(options)
   end
 
   def take_part_page_path(object, options = {})
@@ -109,7 +109,7 @@ module PublicDocumentRoutesHelper
   end
 
   def take_part_page_url(object, options = {})
-    Plek.new.website_root + take_part_page_path(object, options)
+    Plek.website_root + take_part_page_path(object, options)
   end
 
   def topical_event_path(object, options = {})
@@ -126,7 +126,7 @@ module PublicDocumentRoutesHelper
   end
 
   def topical_event_url(object, options = {})
-    Plek.new.website_root + topical_event_path(object, options)
+    Plek.website_root + topical_event_path(object, options)
   end
 
   def topical_event_about_pages_path(object, options = {})
