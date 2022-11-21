@@ -36,7 +36,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
       if @fact_check_request.requestor_contactable?
         MailNotifications.fact_check_response(@fact_check_request, mailer_url_options).deliver_now
       end
-      notice = "Your feedback has been saved"
+      notice = "Thanks for submitting your response to this fact checking request. Your feedback has been saved."
       redirect_to admin_fact_check_request_path(@fact_check_request), notice:
     else
       render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)

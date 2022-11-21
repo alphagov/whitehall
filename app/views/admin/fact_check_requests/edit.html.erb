@@ -5,8 +5,10 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <p class="govuk-body">Please review all content:</p>
-    
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: "Please check this document for factual accuracy and comment in the form.",
+    } %>
+
     <%= render "govuk_publishing_components/components/tabs", {
       tabs: [
         {
@@ -26,16 +28,9 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-    <%= render "govuk_publishing_components/components/notice", {
-      title: "Please check this document for factual accuracy and comment in the form below."
-    } %>
-
     <% if @fact_check_request.instructions.present? %>
       <h2 class="govuk-heading-m">Extra instructions</h2>
-
-      <%= render "govuk_publishing_components/components/inset_text", {
-        text: @fact_check_request.instructions
-      } %>
+      <p class="govuk-body"><%= @fact_check_request.instructions %></p>
     <% end %>
 
     <%= form_for([:admin, @fact_check_request]) do |form| %>

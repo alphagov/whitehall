@@ -10,10 +10,6 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-    <p class="govuk-body">
-      back to <%= link_to 'document', admin_edition_path(@edition), class: "govuk-link" %>
-    </p>
-
     <%= form_for [:admin, @edition, @editorial_remark], url: admin_edition_editorial_remarks_path(@edition) do |feedback_form| %>
       <%= render "govuk_publishing_components/components/textarea", {
         label: {
@@ -26,9 +22,13 @@
         rows: 20,
       } %>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Submit remark"
-      } %>
-    <% end %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+            text: "Submit remark"
+          } %>
+        <% end %>
+
+        <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
   </div>
 </div>
