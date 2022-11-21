@@ -1,6 +1,6 @@
 module PublicHostHelper
   def public_url(path)
-    (Plek.new.website_uri + path).to_s
+    (URI(Plek.website_root) + path).to_s
   end
 end
 

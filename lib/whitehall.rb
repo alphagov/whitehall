@@ -23,7 +23,7 @@ module Whitehall
   class NoConfigurationError < StandardError; end
 
   def self.public_protocol
-    Plek.new.website_uri.scheme
+    URI(Plek.website_root).scheme
   end
 
   def self.support_url
@@ -122,7 +122,7 @@ module Whitehall
   end
 
   def self.public_host
-    @public_host ||= Plek.new.website_uri.host
+    @public_host ||= URI(Plek.website_root).host
   end
 
   def self.public_root
