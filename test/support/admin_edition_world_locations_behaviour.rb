@@ -75,8 +75,8 @@ module AdminEditionWorldLocationsBehaviour
 
         put :update, params: { id: document, edition: { lock_version: } }
 
-        assert_select ".document.conflict" do
-          assert_select "h1", "World locations"
+        assert_select ".conflict" do
+          assert_select "h2", "World locations"
         end
       end
     end

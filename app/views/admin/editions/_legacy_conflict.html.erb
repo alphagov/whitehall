@@ -15,7 +15,7 @@
     <section>
       <h1>Organisations</h1>
       <% if edition.organisations.any? %>
-        <%= render partial: "admin/organisations/organisations_name_list", locals: {organisations: edition.sorted_organisations} %>
+        <%= render partial: "admin/organisations/legacy_organisations_name_list", locals: {organisations: edition.sorted_organisations} %>
       <% else %>
         <p>This document isn’t assigned to any organisations.</p>
       <% end %>
@@ -26,7 +26,7 @@
     <section>
       <h1>World locations</h1>
       <% if edition.world_locations.any? %>
-        <%= render partial: "world_locations/list", locals: {world_locations: edition.world_locations} %>
+        <%= render partial: "world_locations/legacy_list", locals: {world_locations: edition.world_locations} %>
       <% else %>
         <p>This document isn’t assigned to any world locations.</p>
       <% end %>
@@ -37,7 +37,7 @@
     <section>
       <h1>Excluded nations</h1>
       <% if edition.nation_inapplicabilities.any? %>
-        <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: edition.nation_inapplicabilities} %>
+        <%= render partial: "nation_inapplicabilities/legacy_list", locals: {nation_inapplicabilities: edition.nation_inapplicabilities} %>
       <% else %>
         <p>This document is applicable to all nations.</p>
       <% end %>
