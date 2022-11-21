@@ -4,32 +4,32 @@
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 <% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= render "components/secondary_navigation", {
-      aria_label: "Document navigation tabs",
-      items: secondary_navigation_tabs_items(@edition, request.path)
+<% if @conflicting_edition %>
+  <div class="govuk-grid-row">
+    <%= render "govuk_publishing_components/components/error_alert", {
+      message: "This document has been updated by another user since you started editing it.",
+      description: "Please review conflicts between the two versions and incorporate any changes before pressing save again."
     } %>
 
-    <% if @conflicting_edition %>
-      <%= render "govuk_publishing_components/components/error_alert", {
-        message: "This document has been updated by another user since you started editing it.",
-        description: "Please review conflicts between the two versions and incorporate any changes before pressing save again."
-      } %>
-
+    <div class="govuk-grid-column-one-half">
       <h2 class="govuk-heading-l">Your version</h2>
       <%= render "form", edition: @edition %>
+    </div>
 
+    <div class="govuk-grid-column-one-half">
       <h2 class="govuk-heading-l">Current saved version</h2>
-      <%= render "legacy_conflict", edition: @conflicting_edition %>
-    <% else %>
-      <div class="row">
-        <div class="col-md-8">
-          <section>
-            <%= render "form", edition: @edition %>
-          </section>
-        </div>
-      </div>
-    <% end %>
+      <%= render "conflict", edition: @conflicting_edition %>
+    </div>
   </div>
-</div>
+<% else %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "components/secondary_navigation", {
+        aria_label: "Document navigation tabs",
+        items: secondary_navigation_tabs_items(@edition, request.path)
+      } %>
+
+      <%= render "form", edition: @edition %>
+    </div>
+  </div>
+<% end %>
