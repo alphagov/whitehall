@@ -61,9 +61,9 @@ class HtmlAttachment < Attachment
 
     if preview
       options[:preview] = id
-      options[:host] = URI(Plek.new.external_url_for("draft-origin")).host
+      options[:host] = URI(Plek.external_url_for("draft-origin")).host
     else
-      options[:host] = URI(Plek.new.website_root).host
+      options[:host] = URI(Plek.website_root).host
     end
 
     type = attachable.path_name

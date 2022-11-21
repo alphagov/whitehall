@@ -1,6 +1,6 @@
 module AttachmentsHelper
   def default_url_options
-    { host: Plek.new.website_root, protocol: "https" }
+    { host: Plek.website_root, protocol: "https" }
   end
 
   def previewable?(attachment)

@@ -9,7 +9,7 @@ class CsvPreviewController < ApplicationController
         if attachment_data.csv? && attachment_visible? && visible_or_draft_edition_present?
           expires_headers
           @csv_preview = CsvFileFromPublicHost.csv_preview_from(@csv_response)
-          @page_base_href = Plek.new.website_root
+          @page_base_href = Plek.website_root
 
           if draft_assets_request_and_draft_edition_present?
             @attachment = attachment_data.draft_attachment_for(current_user)

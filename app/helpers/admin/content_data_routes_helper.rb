@@ -10,6 +10,6 @@ module Admin::ContentDataRoutesHelper
 private
 
   def content_data_base_url
-    Plek.new.external_url_for("content-data")
+    Plek.external_url_for("content-data")
   end
 end

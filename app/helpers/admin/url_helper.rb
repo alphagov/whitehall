@@ -93,6 +93,6 @@ module Admin::UrlHelper
   end
 
   def signon_link
-    link_to "Switch app", Plek.new.external_url_for("signon")
+    link_to "Switch app", Plek.external_url_for("signon")
   end
 end

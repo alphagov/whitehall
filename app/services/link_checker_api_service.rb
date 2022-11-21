@@ -49,7 +49,7 @@ class LinkCheckerApiService
   end
 
   def self.website_root
-    @website_root ||= Plek.new.website_root
+    @website_root ||= Plek.website_root
   end
 
   private_class_method :webhook_secret_token, :website_root, :convert_admin_links

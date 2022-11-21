@@ -11,7 +11,7 @@ class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
   end
 
   test "publishes a services and information page for an eligible organisation" do
-    stub_request(:post, "#{Plek.new.find('publishing-api')}/lookup-by-base-path")
+    stub_request(:post, "#{Plek.find('publishing-api')}/lookup-by-base-path")
       .to_return(body: {}.to_json)
     Organisation.any_instance.stubs(:has_services_and_information_link?).returns(true)
 

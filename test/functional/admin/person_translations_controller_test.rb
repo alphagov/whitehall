@@ -77,7 +77,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     edit_translation_path = edit_admin_person_translation_path(person, "fr")
     view_person_path = person_path(person, locale: "fr")
     assert_select "a[href=?]", edit_translation_path, text: "Français"
-    assert_select "a[href=?]", Plek.new.website_root + view_person_path, text: "view"
+    assert_select "a[href=?]", Plek.website_root + view_person_path, text: "view"
   end
 
   view_test "index does not list the english translation" do

@@ -6,7 +6,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   # To avoid clashes between v1 and v2 helpers, we've reimplemented them here,
   # as `publish_intents` only exist in v1 and there's no plan to reimplement them
   # as their functionality will ultimately be included in `publishing-api`.
-  PUBLISHING_API_V1_ENDPOINT = Plek.new.find("publishing-api")
+  PUBLISHING_API_V1_ENDPOINT = Plek.find("publishing-api")
 
   def assert_publishing_api_put_intent(base_path, attributes = {}, times = 1)
     intent_url = "#{PUBLISHING_API_V1_ENDPOINT}/publish-intent#{base_path}"
