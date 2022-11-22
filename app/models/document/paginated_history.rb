@@ -41,6 +41,12 @@ class Document::PaginatedHistory
       @preloaded_previous_version = previous_version
     end
 
+    def ==(other)
+      self.class == other.class &&
+        version == other.version &&
+        action == other.action
+    end
+
     def actor
       version.user
     end
