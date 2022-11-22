@@ -1,7 +1,5 @@
-<ul class="organisations-name-list">
-  <% organisations.each do |organisation| %>
-    <%= content_tag_for(:li, organisation, class: 'organisation') do %>
-      <%= link_to organisation.name, organisation_path(organisation) %>
-    <% end %>
-  <% end %>
-</ul>
+<%= render "govuk_publishing_components/components/list", {
+  items: organisations.map do |organisation|
+    link_to organisation.name, organisation_path(organisation), class: "govuk-link"
+  end
+} %>

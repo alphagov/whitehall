@@ -1,0 +1,36 @@
+<h2 class="govuk-heading-m"><%= edition.title %></h2>
+<pre class="govspeak_help__pre"><%= edition.body %></pre>
+
+<% if edition.allows_attachments? %>
+  <h2 class="govuk-heading-m">Attachments</h2>
+  <% edition.attachments.each do |attachment| %>
+    <p class="govuk-body govuk-!-margin-bottom-1"><%= link_to_attachment(attachment, preview: true, class: "govuk-link") %></p>
+  <% end %>
+<% end %>
+
+<% if edition.can_be_related_to_organisations? %>
+  <h2 class="govuk-heading-m">Organisations</h2>
+  <% if edition.organisations.any? %>
+    <%= render "admin/organisations/organisations_name_list", organisations: edition.sorted_organisations %>
+  <% else %>
+    <p class="govuk-body">This document isn’t assigned to any organisations.</p>
+  <% end %>
+<% end %>
+
+<% if edition.can_be_associated_with_world_locations? %>
+  <h2 class="govuk-heading-m">World locations</h2>
+  <% if edition.world_locations.any? %>
+    <%= render "world_locations/list", world_locations: edition.world_locations %>
+  <% else %>
+    <p class="govuk-body">This document isn’t assigned to any world locations.</p>
+  <% end %>
+<% end %>
+
+<% if edition.can_apply_to_subset_of_nations? %>
+  <h2 class="govuk-heading-m">Excluded nations</h2>
+  <% if edition.nation_inapplicabilities.any? %>
+    <%= render "nation_inapplicabilities/list", nation_inapplicabilities: edition.nation_inapplicabilities %>
+  <% else %>
+    <p class="govuk-body">This document is applicable to all nations.</p>
+  <% end %>
+<% end %>
