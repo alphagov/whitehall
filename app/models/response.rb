@@ -2,6 +2,8 @@ class Response < ApplicationRecord
   include Attachable
 
   belongs_to :consultation, foreign_key: :edition_id
+  belongs_to :call_for_evidence, foreign_key: :edition_id
+
 
   validates :published_on, recent_date: true, presence: true
   validates :summary, presence: { unless: :has_attachments }

@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_01_19_093902) do
+
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -66,6 +67,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_19_093902) do
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id"
     t.index ["ordering"], name: "index_attachments_on_ordering"
+  end
+
+  create_table "call_for_evidence_participations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "edition_id"
+    t.string "link_url"
+    t.string "email"
+    t.integer "call_for_evidence_response_form_id"
+    t.text "postal_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["call_for_evidence_response_form_id"], name: "index_cfe_participations_on_cfe_response_form_id"
+    t.index ["edition_id"], name: "index_call_for_evidence_participations_on_edition_id"
+  end
+
+  create_table "call_for_evidence_response_form_data", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "carrierwave_file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "call_for_evidence_response_forms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title"
+    t.integer "call_for_evidence_response_form_data_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "consultation_participations", id: :integer, charset: "utf8mb3", force: :cascade do |t|
@@ -1191,8 +1217,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_19_093902) do
     t.datetime "updated_at", precision: nil
   end
 
-  add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
 end

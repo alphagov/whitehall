@@ -1,0 +1,58 @@
+<div class="format-advice">
+  <p><strong>Use this format for:</strong> Consultations (officially “documents requiring collective agreement across government”, including calls for evidence).</p>
+
+  <p>Check you have read the current <a href="https://www.gov.uk/government/publications/consultation-principles-guidance">consultation principles</a>.</p>
+</div>
+
+<%= call_for_evidence_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition, @information) do |form| %>
+    <fieldset>
+      <legend>Held on another website</legend>
+      <%= form.check_box :external, label_text: "This #{edition.class.name.humanize.downcase} is held on another website" %>
+      <div class="js-external-url">
+        <%= form.text_field :external_url, label_text: "External link URL" %>
+      </div>
+    </fieldset>
+
+    <div class="js-external-url-set">
+      <fieldset>
+        <legend>Ways to respond</legend>
+        <%= form.fields_for :call_for_evidence_participation, edition.call_for_evidence_participation || edition.build_call_for_evidence_participation do |participation_fields| %>
+          <%= participation_fields.text_field :link_url, label_text: 'Link URL' %>
+          <%= participation_fields.text_field :email %>
+          <%= participation_fields.text_area :postal_address, rows: "4", style: "width: auto" %>
+          <%= participation_fields.fields_for :call_for_evidence_response_form, participation_fields.object.call_for_evidence_response_form || participation_fields.object.build_call_for_evidence_response_form do |response_form_fields| %>
+            <%= response_form_fields.text_field :title, label_text: "Downloadable response form title", required: false %>
+            <% if response_form_fields.object.persisted? %>
+              <div class="attachment">
+                <p>Current data: <%= link_to File.basename(response_form_fields.object.call_for_evidence_response_form_data.file.path), response_form_fields.object.call_for_evidence_response_form_data.file.url %></p>
+                <p>Actions: <%= attachment_action_fields(response_form_fields, :call_for_evidence_response_form_data) %></p>
+                <%= call_for_evidence_response_form_data_fields(response_form_fields) %>
+              </div>
+            <% else %>
+              <%= call_for_evidence_response_form_data_fields(response_form_fields) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </fieldset>
+    </div>
+
+    <div class="js-external-url-set">
+      <%= render 'legacy_html_version_fields', form: form, edition: edition %>
+      <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
+    </div>
+
+    <fieldset>
+      <legend>Associations</legend>
+      <div class="js-external-url-set">
+        <%= render 'legacy_appointment_fields', form: form, edition: edition %>
+      </div>
+
+      <%= render 'legacy_topical_event_fields', form: form, edition: edition %>
+
+      <%= render 'legacy_nation_fields', form: form, edition: edition %>
+
+      <%= render 'legacy_organisation_fields', form: form, edition: edition %>
+    </fieldset>
+  <% end %>
+<% end %>

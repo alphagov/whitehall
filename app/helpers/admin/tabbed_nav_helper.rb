@@ -51,6 +51,21 @@ module Admin::TabbedNavHelper
     ]
   end
 
+  def call_for_evidence_nav_items(edition, current_path)
+    [
+      {
+        label: "Public feedback",
+        href: admin_call_for_evidence_public_feedback_path(edition),
+        current: current_path == admin_call_for_evidence_public_feedback_path(edition),
+      },
+      {
+        label: "Final outcome",
+        href: admin_call_for_evidence_outcome_path(edition),
+        current: current_path == admin_call_for_evidence_outcome_path(edition),
+      },
+    ]
+  end
+
   def document_collection_nav_items(edition, current_path)
     {
       label: "Collection documents",

@@ -69,6 +69,11 @@ en:
     caution:
       subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
     title: Broken links
+  call_for_evidence:
+    closed: Closed
+    closing_today: Closing today
+    closing_tomorrow: Closes tomorrow
+    days_left: "%{days_left} days left"
   consultation:
     closed: Closed
     closing_today: Closing today
@@ -148,6 +153,12 @@ en:
       blog_post:
         one: Blog post
         other: Blog posts
+      call_for_evidence:
+        one: Call for evidence
+        other: Call for evidence
+      call_for_evidence_outcome:
+        one: Call for evidence outcome
+        other: Call for evidence outcomes
       campaign:
         one: Campaign
         other: Campaigns
@@ -157,6 +168,9 @@ en:
       case_study:
         one: Case study
         other: Case studies
+      closed_call_for_evidence:
+        one: Closed call for evidence
+        other: Closed calls for evidence
       closed_consultation:
         one: Closed consultation
         other: Closed consultations
@@ -259,6 +273,9 @@ en:
       official_statistics:
         one: Official Statistics
         other: Official Statistics
+      open_call_for_evidence:
+        one: Open call for evidence
+        other: Open calls for evidence
       open_consultation:
         one: Open consultation
         other: Open consultations
@@ -475,7 +492,10 @@ en:
   see_all:
     announcement: See all our announcements
     authored_article: See all our authored articles
+    call_for_evidence: See all our calls for evidence
+    call_for_evidence_outcome: See all our call for evidence outcomes
     case_study: See all our case studies
+    closed_call_for_evidence: See all our closed calls for evidence
     closed_consultation: See all our closed consultations
     consultation: See all our consultations
     consultation_outcome: See all our consultation outcomes
@@ -498,6 +518,7 @@ en:
     news_article: See all our news articles
     news_story: See all our news stories
     notice: See all our notices
+    open_call_for_evidence: See all our open calls for evidence
     open_consultation: See all our open consultations
     oral_statement: See all our oral statements to Parliament
     policy: See all our policies

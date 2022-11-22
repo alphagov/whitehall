@@ -102,6 +102,19 @@ Whitehall::Application.routes.draw do
     get "/latest", as: "latest", to: rack_404
     get "/organisations", as: "organisations", to: rack_404
     get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
+
+    get "/call_for_evidence/:call_for_evidence_id/:id" => "_#_", as: "call_for_evidence_html_attachment"
+    get "/call_for_evidence/:call_for_evidence_id/outcome/:id" => "_#_", as: "call_for_evidence_outcome_html_attachment"
+    get "/call_for_evidence/:call_for_evidence_id/public-feedback/:id" => "_#_", as: "call_for_evidence_public_feedback_html_attachment"
+    get "/call_for_evidence/:id(.:locale)", as: "call_for_evidence", to: "call_for_evidence#show", constraints: { locale: valid_locales_regex }
+    resources :call_for_evidence, only: %i[index] do
+      collection do
+        get :open
+        get :closed
+        get :upcoming
+      end
+    end
+
     get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
     get "/statistics/announcements/:id", as: "statistics_announcement", to: rack_404
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
@@ -296,6 +309,10 @@ Whitehall::Application.routes.draw do
         resources :consultations, except: [:index] do
           resource :outcome, controller: "responses", type: "ConsultationOutcome", except: %i[new destroy]
           resource :public_feedback, controller: "responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
+        end
+        resources :call_for_evidence, except: [:index] do
+          resource :outcome, controller: "responses", type: "CallForEvidenceOutcome", except: %i[new destroy]
+          resource :public_feedback, controller: "responses", type: "CCallForEvidenceOutcomePublicFeedback", except: %i[new destroy]
         end
         resources :responses, only: :none do
           resources :attachments do

@@ -207,6 +207,15 @@ module Admin::EditionsHelper
     tab_navigation(tabs) { yield blk }
   end
 
+  def call_for_evidence_editing_tabs(edition, &blk)
+    tabs = default_edition_tabs(edition)
+    if edition.persisted?
+      tabs["Public feedback"] = admin_call_for_evidence_public_feedback_path(edition)
+      tabs["Final outcome"] = admin_call_for_evidence_outcome_path(edition)
+    end
+    tab_navigation(tabs) { yield blk }
+  end
+
   def edition_edit_headline(edition)
     if edition.is_a?(CorporateInformationPage)
       "Edit &lsquo;#{edition.title}&rsquo; page for #{link_to edition.owning_organisation.name, [:admin, edition.owning_organisation]}".html_safe

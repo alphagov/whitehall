@@ -12,6 +12,9 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 
   inflect.plural %r{^(Minister)}, '\0s'
   inflect.plural %r{^Chancellor}, '\0s'
+
+  inflect.uncountable "call_for_evidence"
+  # inflect.uncountable "CallForEvidence"
 end
 
 # These inflection rules are supported but not enabled by default:

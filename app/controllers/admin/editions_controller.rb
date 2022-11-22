@@ -294,6 +294,21 @@ private
             ],
           },
         ],
+        call_for_evidence_participation_attributes: [
+          :id,
+          :link_url,
+          :email,
+          :postal_address,
+          {
+            call_for_evidence_response_form_attributes: [
+              :id,
+              :title,
+              :_destroy,
+              :attachment_action,
+              { call_for_evidence_response_form_data_attributes: %i[id file file_cache] },
+            ],
+          },
+        ],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
       },

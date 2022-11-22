@@ -50,6 +50,26 @@ module Admin::AttachableHelper
     end
   end
 
+  def call_for_evidence_response_form_data_fields(response_form_fields)
+    object = response_form_fields.object.call_for_evidence_response_form_data
+    if object.nil? && !response_form_fields.object.persisted?
+      object = response_form_fields.object.build_call_for_evidence_response_form_data
+    end
+
+    response_form_fields.fields_for(:call_for_evidence_response_form_data, object) do |data_fields|
+      contents = []
+      contents << data_fields.label(:file, "Replacement") if response_form_fields.object.persisted?
+      contents << data_fields.file_field(:file)
+      if data_fields.object.file_cache.present?
+        text = "#{File.basename(data_fields.object.file_cache)} already uploaded"
+        text << " as replacement" if response_form_fields.object.persisted?
+        contents << tag.span(text, class: "already_uploaded")
+      end
+      contents << data_fields.hidden_field(:file_cache)
+      contents.join.html_safe
+    end
+  end
+
   def is_publication?(model_name)
     model_name == "publication"
   end
