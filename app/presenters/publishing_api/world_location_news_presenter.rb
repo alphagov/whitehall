@@ -10,7 +10,13 @@ module PublishingApi
       self.update_type = update_type || "major"
     end
 
-    delegate :content_id, to: :world_location_news
+    def content_id
+      if world_location.world_location?
+        world_location_news.content_id
+      elsif world_location.international_delegation?
+        world_location.content_id
+      end
+    end
 
     def content
       content = BaseItemPresenter.new(
@@ -57,7 +63,11 @@ module PublishingApi
     end
 
     def path_for_news_page
-      Whitehall.url_maker.world_location_news_index_path(world_location)
+      if world_location.world_location?
+        Whitehall.url_maker.world_location_news_index_path(world_location)
+      elsif world_location.international_delegation?
+        Whitehall.url_maker.world_location_path(world_location)
+      end
     end
   end
 end
