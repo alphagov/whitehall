@@ -208,8 +208,12 @@ private
   end
 
   def fetch_version_and_remark_trails
-    @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
-    @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
+    if preview_design_system?(next_release: false)
+      @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1)
+    else
+      @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
+      @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
+    end
   end
 
   def edition_class

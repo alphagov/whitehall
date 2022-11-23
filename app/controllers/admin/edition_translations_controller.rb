@@ -54,8 +54,12 @@ private
   end
 
   def load_translated_models
-    @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
-    @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
+    if preview_design_system?(next_release: false)
+      @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1)
+    else
+      @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
+      @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
+    end
     @translated_edition = LocalisedModel.new(@edition, translation_locale.code)
   end
 
