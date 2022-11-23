@@ -60,6 +60,7 @@ gem "uglifier"
 gem "validates_email_format_of"
 gem "view_component"
 gem "whenever", require: false
+gem "diffy"
 
 group :development, :test do
   gem "pact", require: false

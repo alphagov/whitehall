@@ -170,6 +170,7 @@ GEM
     database_cleaner-core (2.0.1)
     debug_inspector (1.1.0)
     diff-lcs (1.5.0)
+    diffy (3.4.2)
     dig_rb (1.0.1)
     docile (1.4.0)
     domain_name (0.5.20190701)
@@ -758,6 +759,7 @@ DEPENDENCIES
   cucumber-rails
   dalli
   database_cleaner-active_record
+  diffy
   equivalent-xml
   factory_bot
   faraday
