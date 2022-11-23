@@ -21,6 +21,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :news_article
   should_allow_access_limiting_of :news_article
   should_allow_association_with_topical_events :news_article
+  should_render_govspeak_history_and_fact_checking_tabs_for :news_article
 
   view_test "new displays news article fields" do
     get :new

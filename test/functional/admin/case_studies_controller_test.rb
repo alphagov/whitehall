@@ -18,6 +18,7 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_allow_association_with_worldwide_organisations :case_study
   should_allow_association_between_world_locations_and :case_study
   should_send_drafts_to_content_preview_environment_for :case_study
+  should_render_govspeak_history_and_fact_checking_tabs_for :case_study
 
   view_test "case studies show image display options radio buttons" do
     get :new
@@ -29,16 +30,5 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
       assert_select "textarea[name='edition[images_attributes][0][caption]']"
       assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
     end
-  end
-
-  view_test "GET :show renders a side nav bar with notes, history and fact checking" do
-    edition = create(:draft_case_study)
-    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-    get :show, params: { id: edition }
-
-    # @TODO to renable after adding in notes and history sections
-    # assert_select ".nav-tabs a", text: "Notes 0"
-    # assert_select ".nav-tabs a", text: "History 1"
   end
 end
