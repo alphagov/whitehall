@@ -1,0 +1,33 @@
+.app-view-edition-summary__section {
+  padding: govuk-spacing(3) 0;
+}
+
+.app-view-edition-summary__table-link {
+  margin-right: govuk-spacing(2);
+}
+
+.app-view-edition-summary__section:first-child {
+  padding-top: 0;
+}
+
+.app-view-edition-summary__topic-tag-list {
+  @include govuk-font($size: 19);
+  padding-bottom: govuk-spacing(2);
+  border-bottom: 1px solid govuk-colour("light-grey");
+}
+
+.app-view-edition-summary__topic-tag-list-item {
+  &:before {
+    width: 9px;
+    height: 9px;
+  }
+
+  &:last-child {
+    @include govuk-font($size: 19, $weight: bold);
+  }
+}
+
+.app-view-edition-summary__section--attachments .govuk-table__cell {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}

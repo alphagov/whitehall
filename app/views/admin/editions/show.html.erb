@@ -2,68 +2,7 @@
 <% content_for :title, @edition.title %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds" data-module="track-button-click" data-track-category="button-pressed" data-track-action="<%= @edition.format_name.parameterize(separator: '-') %>-button">
-    <%=
-      status_text = [@edition.state.capitalize]
-      # TODO: remove unpublishing information once we have a separate state for unpublished editions
-      status_text << "unpublished #{time_ago_in_words(@edition.unpublishing.created_at)} ago" if @edition.unpublishing.present?
-
-      render "govuk_publishing_components/components/summary_list", {
-        items: [
-          { field: "Type of document", value: edition_type(@edition) },
-          { field: "Status", value: status_text.join(', ') },
-          { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
-          { field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) },
-        ]
-      }
-    %>
-
-    <%=
-      list_items = [
-        link_to("Notes", admin_edition_editorial_remarks_path(@edition), class: "govuk-link"),
-        link_to("History", history_admin_edition_path(@edition), class: "govuk-link"),
-        *(link_to("Fact checking", admin_edition_fact_check_requests_path(@edition), class: "govuk-link") if @edition.can_be_fact_checked?),
-        *(link_to("View on website", public_document_url(@edition), class: "govuk-link") if @edition.publicly_visible?),
-        *(link_to("Preview on website #{"- English" if @edition.translatable? && @edition.available_in_multiple_languages?}".strip,
-                  public_document_url(@edition), class: "govuk-link") + " (open in new tab)" if @edition.available_in_english?),
-      ].compact
-
-      if @edition.translatable? && @edition.available_in_multiple_languages?
-        @edition.non_english_translated_locales.map do |locale|
-          list_items.push(link_to("Preview on website - #{locale.native_and_english_language_name}",
-                          public_document_url(@edition, locale:), class: 'govuk-link', target: '_blank') + " (open in new tab)")
-        end
-      end
-
-      render "govuk_publishing_components/components/list", {
-        items: list_items
-      }
-    %>
-
-    <% if @edition.has_enabled_shareable_preview? %>
-      <section>
-        <%= render "govuk_publishing_components/components/details", {
-          title: "Share document preview"
-        } do %>
-          <p class="govuk-body">Send this preview link to someone so they can see the content and how the document will appear on GOV.UK.</p>
-          <p class="govuk-body">No password is needed and anyone with the preview link can view it. You're responsible for who you share draft documents with. </p>
-          <p class="govuk-body">The preview link will expire on <%= Date.today.next_month.strftime('%-d %B %Y') %> or when the document is published.</p>
-
-          <%= render "govuk_publishing_components/components/copy_to_clipboard", {
-            label: "Copy and send this link to someone and they’ll be able to preview your draft on GOV.UK.",
-            copyable_content: preview_document_url_with_auth_bypass_token(@edition),
-            button_text: "Copy link"
-          } %>
-
-          <% if !@edition.publicly_visible? %>
-            <p class="govuk-body govuk-!-margin-top-7">Reset and generate a new preview link if you've shared the preview with the wrong person or if the link has expired. This will disable the previous preview link.</p>
-            <%= render "govuk_publishing_components/components/button", {
-              text: "Secondary quiet button",
-              secondary_quiet: true
-            } %>
-          <% end %>
-        <% end %>
-      </section>
-    <% end %>
+  <div class="govuk-grid-column-two-thirds">
+    <%= render partial: 'admin/editions/show/main' %>
   </div>
 </div>
