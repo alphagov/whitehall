@@ -34,7 +34,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
         assert_select force_schedule_button_selector(edition), count: 1
         refute_select force_publish_button_selector(edition)
-        assert_select ".scheduled-publication", "Scheduled publication proposed for #{I18n.localize edition.scheduled_publication, format: :long}."
+        assert_select ".app-view-edition-summary__scheduled-notice", "Scheduled publication proposed for #{I18n.localize edition.scheduled_publication, format: :long}."
       end
 
       view_test "should display the 'Schedule' button for a submitted scheduled edition when viewing as an editor" do
@@ -44,8 +44,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
         get :show, params: { id: edition }
 
-        assert_select schedule_button_selector(edition), count: 1
-        assert_select ".scheduled-publication", /Scheduled publication proposed for/
+        assert_select schedule_button_selector(edition, "button"), count: 1
+        assert_select ".app-view-edition-summary__scheduled-notice", /Scheduled publication proposed for/
       end
 
       view_test "should not display the 'Schedule' button if not schedulable" do
@@ -55,8 +55,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
         document_type_class.stubs(:find).with(edition.to_param).returns(edition)
         get :show, params: { id: edition }
-        refute_select schedule_button_selector(edition)
-        refute_select force_schedule_button_selector(edition)
+        refute_select schedule_button_selector(edition, "button")
+        refute_select force_schedule_button_selector(edition, "button")
       end
 
       view_test "should display the 'Unschedule' button for a scheduled publication" do
@@ -64,7 +64,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
         get :show, params: { id: edition }
-        assert_select unschedule_button_selector(edition)
+        assert_select unschedule_button_selector(edition, "button")
       end
 
       view_test "should indicate publishing schedule if scheduled" do
@@ -72,7 +72,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
         get :show, params: { id: edition }
-        assert_select ".scheduled-publication", "Scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
+        assert_select ".app-view-edition-summary__scheduled-notice .govuk-body", "Scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
       end
 
       view_test "should not indicate publishing schedule if published" do
@@ -80,7 +80,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
         get :show, params: { id: edition }
-        assert_select ".scheduled-publication", count: 0
+        assert_select ".app-view-edition-summary__scheduled-notice", count: 0
       end
 
       test "create should not set scheduled_publication if scheduled_publication_active is not checked" do

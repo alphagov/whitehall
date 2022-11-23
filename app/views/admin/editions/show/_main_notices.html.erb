@@ -40,15 +40,17 @@
   <% end %>
 
   <% if edition.scheduled_publication.present? %>
-    <%= render "govuk_publishing_components/components/notice", {
-      description_govspeak: capture do %>
-        <% if edition.scheduled? %>
-          <p class="govuk-body">Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>.</p>
-        <% else %>
-          <p class="govuk-body">Scheduled publication proposed for <%= l edition.scheduled_publication, format: :long %>.</p>
-        <% end %>
-      <% end
-    } %>
+    <div class="app-view-edition-summary__scheduled-notice">
+      <%= render "govuk_publishing_components/components/notice", {
+        description_govspeak: capture do %>
+          <% if edition.scheduled? %>
+            <p class="govuk-body">Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>.</p>
+          <% else %>
+            <p class="govuk-body">Scheduled publication proposed for <%= l edition.scheduled_publication, format: :long %>.</p>
+          <% end %>
+        <% end
+      } %>
+    </div>
   <% end %>
 
 <% end %>
