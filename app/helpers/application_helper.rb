@@ -32,11 +32,11 @@ module ApplicationHelper
     # rubocop:enable Rails/HelperInstanceVariable
   end
 
-  def format_in_paragraphs(string)
+  def format_in_paragraphs(string, options = {})
     safe_join(
       String(string)
         .split(/(?:\r?\n){2}/)
-        .map { |paragraph| tag.p(paragraph) },
+        .map { |paragraph| tag.p(paragraph, class: options[:class]) },
     )
   end
 

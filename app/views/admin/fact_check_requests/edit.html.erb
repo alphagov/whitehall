@@ -1,43 +1,52 @@
-<% page_title "Fact Checking for " + @edition.title %>
+<% page_title "Fact checking for " + @edition.title %>
+<% content_for :title, "Fact check request" %>
+<% content_for :context, @edition.title %>
 
-<div class="row">
-  <div class="col-md-8">
-    <p class="lead">Please review all content:</p>
-    <div class="tabbable">
-      <ul class="nav nav-tabs">
-        <li class="active"><a href="#document" data-toggle="tab">Document</a></li>
-        <% if @edition.attachments.any? %>
-          <li><a href="#attachments" data-toggle="tab">Attachments</a></li>
-        <% end %>
-      </ul>
-      <div class="tab-content">
-        <section class="document_page tab-pane active" id="document">
-          <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
-        </section>
-        <% if @edition.attachments.any? %>
-          <section class="attachments_page tab-pane" id="attachments">
-            <%= render partial: 'admin/editions/show_attachments', locals: { edition: @edition } %>
-          </section>
-        <% end %>
-      </div>
-    </div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: "Please check this document for factual accuracy and comment in the form.",
+    } %>
+
+    <%= render "govuk_publishing_components/components/tabs", {
+      tabs: [
+        {
+          id: "document_tab",
+          label: "Document",
+          content: render('admin/editions/edition', edition: @edition)
+        },
+        *(if @edition.attachments.present?
+            [{
+              id: "attachment_tab",
+              label: "Attachments",
+              content: render('admin/editions/show_attachments', edition: @edition)
+            }]
+          end),
+      ]
+    } %>
   </div>
 
-  <div class="col-md-4">
-    <div class="alert alert-info">
-      <p>Please check this document for factual accuracy and comment in the form below.</p>
-    </div>
-
+  <div class="govuk-grid-column-one-third">
     <% if @fact_check_request.instructions.present? %>
-    <section id="fact_check_request_instructions">
-      <h4 class="alert-heading">Extra instructions</h4>
-      <p class="well">&ldquo;<%= @fact_check_request.instructions %>&rdquo;</p>
-    </section>
+      <h2 class="govuk-heading-m">Extra instructions</h2>
+      <p class="govuk-body"><%= @fact_check_request.instructions %></p>
     <% end %>
 
-    <%= form_for([:admin, @fact_check_request]) do |fact_check_form| %>
-      <%= fact_check_form.text_area :comments, rows: 20 %>
-      <%= fact_check_form.submit "Submit", class: "btn btn-default" %>
+    <%= form_for([:admin, @fact_check_request]) do |form| %>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Comments",
+          bold: true,
+        },
+        name: "fact_check_request[comments]",
+        id: "fact_check_request_comments",
+        rows: 20,
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Submit"
+      } %>
     <% end %>
   </div>
 </div>

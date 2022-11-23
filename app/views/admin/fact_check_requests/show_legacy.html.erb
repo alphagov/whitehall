@@ -1,0 +1,30 @@
+<% page_title "Thanks for your fact check response" %>
+
+<div class="row">
+  <div class="col-md-8">
+    <section class="document_page" id="<%= dom_id(@edition) %>">
+      <%= render partial: 'admin/editions/legacy_edition', locals: { edition: @edition } %>
+    </section>
+    <% if @edition.attachments.any? %>
+      <%= render partial: 'admin/editions/legacy_show_attachments', locals: { edition: @edition } %>
+    <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <div class="alert alert-success">
+      <p>Thanks for submitting your response to this fact checking request.</p>
+    </div>
+
+    <div class="fact_check_request well">
+      <p class="details">
+        <span class="from"><%= @fact_check_request.email_address %></span>
+        on
+        <span class="time"><%= @fact_check_request.updated_at.to_fs(:long_ordinal) %></span>
+      </p>
+
+      <div class="comments">
+        <%= format_in_paragraphs @fact_check_request.comments %>
+      </div>
+    </div>
+  </div>
+</div>
