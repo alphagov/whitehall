@@ -1,0 +1,128 @@
+<%
+  items = []
+
+  if @edition.is_latest_edition? && @edition.published?
+    items << form_with(url: revise_admin_edition_path(@edition.id), method: :post) do |f|
+      render("govuk_publishing_components/components/button", {
+        text: "Create new edition"
+      })
+    end
+  end
+
+  if @edition.can_submit?
+    items << form_with(url: submit_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+      render("govuk_publishing_components/components/button", {
+        text: "Submit for 2nd eyes"
+      })
+    end
+  end
+
+  if @edition.editable?
+    items << render("govuk_publishing_components/components/button", {
+      text: "Edit draft",
+      href: edit_admin_edition_path(@edition),
+      secondary_quiet: true,
+    })
+  end
+
+  if @edition.can_unschedule? && can?(:update, @edition)
+    items << render("govuk_publishing_components/components/button", {
+      text: "Unschedule",
+      title: "Unschedule this edition to allow changes or prevent automatic publication on #{l @edition.scheduled_publication, format: :long}",
+      href: confirm_unschedule_admin_edition_path(@edition, lock_version: @edition.lock_version),
+      secondary_quiet: true,
+    })
+  end
+
+  if scheduler.can_perform? && can?(:publish, @edition)
+    items << form_with(url: schedule_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+      render("govuk_publishing_components/components/button", {
+        text: "Schedule",
+        title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
+        secondary_quiet: true,
+      })
+    end
+  elsif force_scheduler.can_perform? && can?(:force_publish, @edition)
+    items << render("govuk_publishing_components/components/button", {
+      text: "Force schedule",
+      title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
+      href: confirm_force_schedule_admin_edition_path(@edition, lock_version: @edition.lock_version),
+      secondary_quiet: true,
+    })
+  end
+
+  if publisher.can_perform? && can?(:publish, @edition)
+    items << form_with(url: publish_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+      render("govuk_publishing_components/components/button", {
+        text: "Publish",
+        title: "Publish #{@edition.title}",
+      })
+    end
+  elsif force_publisher.can_perform? && can?(:force_publish, @edition)
+    items << render("govuk_publishing_components/components/button", {
+      text: "Force publish",
+      title: "Publish #{@edition.title}",
+      href: confirm_force_publish_admin_edition_path(@edition, lock_version: @edition.lock_version),
+      secondary_quiet: true,
+    })
+  end
+
+  if @edition.can_reject? && can?(:reject, @edition)
+    items << form_with(url: reject_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do |f|
+      render("govuk_publishing_components/components/button", {
+        text: "Reject",
+        destructive: true,
+      })
+    end
+  end
+
+  if @edition.can_delete? && @edition.unpublishing.nil?
+    items << link_to(
+      "Discard draft",
+      confirm_destroy_admin_edition_path(@edition),
+      class: "govuk-link gem-link--destructive"
+    )
+  end
+
+  if can?(:unwithdraw, @edition) && @edition.can_unwithdraw?
+    items << render("govuk_publishing_components/components/button", {
+      text: "Unwithdraw",
+      href: confirm_unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version),
+      secondary_quiet: true,
+    })
+  end
+
+  if can?(:unpublish, @edition)
+    if @edition.published?
+      items << render("govuk_publishing_components/components/button", {
+        text: "Withdraw or unpublish",
+        href: confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
+        destructive: true,
+      })
+    elsif @edition.unpublishing.present? && @edition.unpublishing.explanation.present?
+      items << link_to(
+        "Edit #{withdrawal_or_unpublishing(@edition)} explanation",
+        edit_admin_edition_unpublishing_path(@edition),
+        class: "govuk-link"
+      )
+    end
+  end
+
+  if @edition.publicly_visible?
+    items << link_to("View on website (opens in new tab)", public_document_url(@edition), class: "govuk-link", target: "_blank")
+    items << link_to("View data about page", content_data_page_data_url(@edition), class: "govuk-link", data: {
+      module: "gem-track-click",
+      track_category: "external-link-clicked",
+      track_action: content_data_page_data_url(@edition),
+      track_label: "View data about page",
+    })
+  end
+%>
+<% if items.any? %>
+  <div class="app-view-edition-summary__sidebar-actions">
+    <%= render "govuk_publishing_components/components/list", {
+      extra_spacing: true,
+      items: items
+    }%>
+  </div>
+<% end %>

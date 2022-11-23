@@ -31,3 +31,30 @@
   overflow-wrap: break-word;
   word-break: break-word;
 }
+
+// Sidebar styles
+
+.app-view-edition-summary__sidebar-actions {
+  padding: govuk-spacing(3);
+  margin-bottom: govuk-spacing(6);
+  background-color: govuk-colour("light-grey");
+}
+
+.app-view-edition-summary__sidebar-actions .gem-c-button {
+  width: 100%;
+}
+
+.app-view-edition-summary__sidebar-actions .govuk-list--spaced,
+.app-view-edition-summary__sidebar-actions .govuk-list--spaced li:last-child {
+  margin-bottom: 0;
+}
+
+.app-view-edition-summary__sidebar-info + .app-view-edition-summary__sidebar-info {
+  border-top: 2px solid $govuk-border-colour;
+  padding-top: govuk-spacing(6);
+}
+
+.app-view-edition-summary__broken-links-report {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
