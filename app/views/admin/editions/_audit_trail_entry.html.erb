@@ -1,5 +1,5 @@
 <%= content_tag(:li, class: "version") do %>
-  <% if audit_trail_entry.action == "published" %>
+  <% if audit_trail_entry.action == "published" && @edition.id != audit_trail_entry.version.item_id %>
     <%= link_to "[Compare with previous version]", diff_admin_edition_path(@edition, audit_trail_entry_id: audit_trail_entry.version.item_id) %>
   <% end %>
 
