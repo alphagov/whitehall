@@ -322,7 +322,6 @@ class PublishingApiRake < ActiveSupport::TestCase
                             TakePartPage
                             TopicalEventAboutPage
                             TopicalEvent
-                            WorldLocation
                             WorldwideOrganisation]
 
         document_types.each do |document_type|

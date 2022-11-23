@@ -22,61 +22,18 @@ class WorldLocation < ApplicationRecord
 
   accepts_nested_attributes_for :edition_world_locations
 
+  include HasContentId
+
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WL"
 
   include TranslatableModel
   translates :name
 
-  include Searchable
-  searchable title: :title,
-             link: :search_link,
-             description: :search_description,
-             only: :active_international_delegation,
-             format: "world_location",
-             slug: :slug
-  include PublishesToPublishingApi
-
-  def publish_to_publishing_api
-    # WorldLocations no longer support translations
-    # but the current world news pages use the world location object
-    # to build their featured articles lists so we need to keep
-    # the translations but not publish them.
-    run_callbacks :published do
-      PublishingApiWorker.perform_async(
-        self.class.name,
-        id,
-        nil,
-        "en",
-      )
-    end
-  end
-
-  def search_link
-    Whitehall.url_maker.world_location_path(slug)
-  end
-
-  def search_description
-    if international_delegation?
-      I18n.t("world_location.search_description.international_delegation", name:)
-    else
-      I18n.t("world_location.search_description.world_location", name:)
-    end
-  end
-
-  after_update :remove_from_index_if_became_inactive
-  def remove_from_index_if_became_inactive
-    remove_from_search_index if saved_change_to_active? && !active
-  end
-
   scope :ordered_by_name, -> { with_translations(I18n.default_locale).order("world_location_translations.name") }
 
   def self.active
     where(active: true)
-  end
-
-  def self.active_international_delegation
-    where(active: true, world_location_type: "international_delegation")
   end
 
   def display_type

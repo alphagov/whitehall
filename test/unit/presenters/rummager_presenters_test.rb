@@ -13,11 +13,6 @@ class RummagerPresentersTest < ActiveSupport::TestCase
     assert_not RummagerPresenters.present_all_government_content.include?("a detailed guide")
   end
 
-  test "RummagerPresenters.present_all_government_content includes WorldLocations" do
-    WorldLocation.stubs(search_index: %w[world_locations_index])
-    assert RummagerPresenters.present_all_government_content.include?("world_locations_index")
-  end
-
   test "RummagerPresenters.present_all_government_content includes WorldwideOrganisations" do
     WorldwideOrganisation.stubs(search_index: %w[worldwide_organisations_index])
     assert RummagerPresenters.present_all_government_content.include?("worldwide_organisations_index")
