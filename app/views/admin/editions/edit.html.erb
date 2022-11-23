@@ -31,5 +31,31 @@
 
       <%= render "form", edition: @edition %>
     </div>
+
+    <div class="govuk-grid-column-one-third">
+      <%= render "govuk_publishing_components/components/tabs", {
+        tabs: [
+          {
+            id: "govspeak_tab",
+            label: "Help",
+            content: simple_formatting_sidebar(
+              hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+              show_attachments_tab_help: true,
+              link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_reports.last : nil,
+            )
+          },
+          {
+            id: "history_tab",
+            label: "History",
+            content: ""
+          },
+          {
+            id: "fact_checking_tab",
+            label: "Fact checking",
+            content: ""
+          }
+        ]
+      } %>
+    </div>
   </div>
 <% end %>
