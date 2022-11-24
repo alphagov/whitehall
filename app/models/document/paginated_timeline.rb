@@ -1,5 +1,5 @@
 class Document::PaginatedTimeline
-  PER_PAGE = 30
+  PER_PAGE = 10
 
   def initialize(document:, page:)
     @document = document
