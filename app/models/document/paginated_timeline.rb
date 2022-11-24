@@ -24,6 +24,36 @@ class Document::PaginatedTimeline
     end
   end
 
+  def entries_on_newer_editions(entries, edition)
+    @entries_on_newer_editions ||= entries.select do |entry|
+      if entry.is_a?(EditorialRemark)
+        entry.edition_id > edition.id
+      else
+        entry.version.item_id > edition.id
+      end
+    end
+  end
+
+  def entries_on_current_edition(entries, edition)
+    @entries_on_current_edition ||= entries.select do |entry|
+      if entry.is_a?(EditorialRemark)
+        entry.edition_id == edition.id
+      else
+        entry.version.item_id == edition.id
+      end
+    end
+  end
+
+  def entries_on_previous_editions(entries, edition)
+    @entries_on_previous_editions ||= entries.select do |entry|
+      if entry.is_a?(EditorialRemark)
+        entry.edition_id < edition.id
+      else
+        entry.version.item_id < edition.id
+      end
+    end
+  end
+
   def total_count
     @total_count ||= begin
       sql = "SELECT COUNT(*) FROM (#{union_query}) x"

@@ -93,6 +93,27 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     assert_equal expected_actors, entries.map(&:actor)
   end
 
+  test "#entries_on_newer_editions returns entries on newer editions than the one passed in" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+    expected_entries = timeline.entries.slice(1, 2)
+
+    assert_equal expected_entries, timeline.entries_on_newer_editions(timeline.entries, @first_edition)
+  end
+
+  test "#entries_on_current_edition returns entries for the edition passed in" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+    expected_entries = timeline.entries - timeline.entries.slice(1, 2)
+
+    assert_equal expected_entries, timeline.entries_on_current_edition(timeline.entries, @first_edition)
+  end
+
+  test "#entries_on_previous_editions returns entries on previous editions" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+    expected_entries = timeline.entries - timeline.entries.slice(1, 2)
+
+    assert_equal expected_entries, timeline.entries_on_previous_editions(timeline.entries, @newest_edition)
+  end
+
   def seed_document_event_history
     acting_as(@user) do
       @document = create(:document)
