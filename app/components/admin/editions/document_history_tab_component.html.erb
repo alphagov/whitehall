@@ -1,0 +1,43 @@
+<div class="history-nav-tab">
+
+<%= link_to("Add internal note", new_admin_edition_editorial_remark_path(edition), class: "govuk-body govuk-link") %>
+
+<%= render "govuk_publishing_components/components/inset_text", {
+  text: "History and notes have been merged. #{tag.a('Read more about the change', href: admin_whats_new_path)}".html_safe
+} %>
+
+<% if entries_on_newer_editions.present? %>
+  <div class="newer-edition-entries">
+    <h3 class="govuk-heading-m">On newer editions</h3>
+
+    <ul class="gem-c-list govuk-list">
+      <% entries_on_newer_editions.each do |entry| %>
+        <%= render_entry(entry) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if entries_on_current_edition.present? %>
+  <div class="current-edition-entries">
+    <h3 class="govuk-heading-m">On this edition</h3>
+
+    <ul class="gem-c-list govuk-list">
+      <% entries_on_current_edition.each do |entry| %>
+        <%= render_entry(entry) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if entries_on_previous_editions.present? %>
+  <div class="previous-edition-entries">
+    <h3 class="govuk-heading-m">On previous editions</h3>
+
+    <ul class="gem-c-list govuk-list">
+      <% entries_on_previous_editions.each do |entry| %>
+        <%= render_entry(entry) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
