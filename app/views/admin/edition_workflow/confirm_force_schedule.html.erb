@@ -1,0 +1,21 @@
+<% content_for :page_title, "Force schedule: #{@edition.title}" %>
+<% content_for :title, "Are you sure you want to force schedule?" %>
+<% content_for :context, @edition.title %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_tag force_schedule_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">This will force schedule this document for publication.</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Force schedule",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>
