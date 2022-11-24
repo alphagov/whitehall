@@ -73,6 +73,26 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :diff, params: { id: draft_publication, audit_trail_entry_id: Document::PaginatedHistory.new(draft_publication.document, 1).query.last.item_id }
 
     assert_response :success
+    assert_template :diff_legacy
+    assert_equal draft_publication, assigns(:edition)
+    assert_equal publication, assigns(:audit_trail_entry)
+  end
+
+  test "diffing against a previous version with next release permission" do
+    @current_user.permissions << "Preview next release"
+    publication = create(:draft_publication)
+    editor = create(:departmental_editor)
+    Edition::AuditTrail.whodunnit = editor
+    publication.first_published_at = Time.zone.now
+    publication.major_change_published_at = Time.zone.now
+    force_publish(publication)
+    draft_publication = Timecop.freeze 1.hour.from_now do
+      publication.reload.create_draft(editor)
+    end
+
+    get :diff, params: { id: draft_publication, audit_trail_entry_id: Document::PaginatedHistory.new(draft_publication.document, 1).query.last.item_id }
+
+    assert_response :success
     assert_template :diff
     assert_equal draft_publication, assigns(:edition)
     assert_equal publication, assigns(:audit_trail_entry)

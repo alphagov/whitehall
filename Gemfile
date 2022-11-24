@@ -11,6 +11,7 @@ gem "carrierwave"
 gem "carrierwave-i18n"
 gem "chronic"
 gem "dalli"
+gem "diffy"
 gem "faraday"
 gem "fog-aws"
 gem "friendly_id"
@@ -60,7 +61,6 @@ gem "uglifier"
 gem "validates_email_format_of"
 gem "view_component"
 gem "whenever", require: false
-gem "diffy"
 
 group :development, :test do
   gem "pact", require: false

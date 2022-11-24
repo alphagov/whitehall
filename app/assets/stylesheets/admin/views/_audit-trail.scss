@@ -1,0 +1,85 @@
+// stylelint-disable max-nesting-depth
+
+// Diff of two editions
+
+$added-color: #ddffdd;
+$strong-added-color: #77f177;
+$removed-color: #ffdddd;
+$strong-removed-color: #ffaaaa;
+$gray-lighter: govuk-colour("light-grey");
+$state-danger-text: govuk-colour("red");
+$state-success-text: govuk-colour("green");
+
+.audit-trail__history-comparison {
+  .diff {
+    border: 1px solid $gray-lighter;
+    border-left: 40px solid $gray-lighter;
+    border-radius: 3px;
+    padding: 15px;
+
+    ul {
+      padding-left: 0;
+
+      li {
+        min-height: 24px;
+        margin: 0 -15px;
+        padding: 0 15px;
+        word-wrap: break-word;
+        list-style: none;
+        position: relative;
+
+        del,
+        ins {
+          text-decoration: none;
+        }
+      }
+
+      .del,
+      .ins {
+        padding-top: 2px;
+      }
+
+      .del {
+        background-color: $removed-color;
+
+        strong {
+          font-weight: normal;
+          background-color: $strong-removed-color;
+        }
+      }
+
+      .ins {
+        background-color: $added-color;
+
+        strong {
+          font-weight: normal;
+          background-color: $strong-added-color;
+        }
+      }
+
+      .del:before,
+      .ins:before {
+        position: absolute;
+        font-weight: bold;
+        margin-left: -55px;
+        width: 40px;
+        text-align: center;
+        min-height: 24px;
+        top: 0;
+        bottom: 0;
+      }
+
+      .del:before {
+        color: $state-danger-text;
+        background-color: $removed-color;
+        content: "−";
+      }
+
+      .ins:before {
+        color: $state-success-text;
+        background-color: $added-color;
+        content: "+";
+      }
+    }
+  }
+}

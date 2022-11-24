@@ -1,28 +1,49 @@
-<% page_title @edition.title, @edition.format_name %>
-<% initialise_script "GOVUK.adminEditionsDiff" %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition)
+  } %>
+<% end %>
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Compare versions: #{@edition.title}" %>
+<% content_for :title, "Compare versions" %>
+<% content_for :title_margin_bottom, 6 %>
 
-<h1>Changes to &lsquo;<%= @edition.title %>&rsquo;</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
 
-<p>This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
+    <p class="govuk-body">This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
 
-<div id="diff">
-  <section id='title'>
-    <h2>Title</h2>
-    <p class='previous-version'><%= @audit_trail_entry.title %></p>
-    <p class='current-version'><%= @edition.title %></p>
-  </section>
+    <div class="govuk-!-margin-bottom-5">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Title",
+        margin_bottom: 3
+      } %>
 
-  <section id='summary'>
-    <h2>Summary</h2>
-    <p class='previous-version'><%= @audit_trail_entry.summary %></p>
-    <p class='current-version'><%= @edition.summary %></p>
-  </section>
+      <div class="govuk-body audit-trail__history-comparison">
+        <%= diff_html(@audit_trail_entry.title, @edition.title) %>
+      </div>
+    </div>
 
-  <section id='body'>
-    <h2>Body</h2>
-    <p class='previous-version'><%= @audit_trail_entry.body %></p>
-    <p class='current-version'><%= @edition.body %></p>
-  </section>
+    <div class="govuk-!-margin-bottom-5">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Summary",
+        margin_bottom: 3
+      } %>
+
+      <div class="govuk-body audit-trail__history-comparison">
+        <%= diff_html(@audit_trail_entry.summary, @edition.summary) %>
+      </div>
+    </div>
+
+    <div class="govuk-!-margin-bottom-5">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Body",
+        margin_bottom: 3
+      } %>
+
+      <div class="govuk-body audit-trail__history-comparison">
+        <%= diff_html(@audit_trail_entry.body, @edition.body) %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "Back to edition", admin_edition_path(@edition), class: "btn btn-default" %>

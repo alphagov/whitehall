@@ -14,6 +14,7 @@ $govuk-page-width: 1140px;
 @import "./admin/views/whats-new";
 @import "./admin/views/edit-edition";
 @import "./admin/views/attachments";
+@import "./admin/views/audit-trail";
 
 .app-js-only {
   display: none;
