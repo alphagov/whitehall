@@ -64,18 +64,20 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
   end
 
   test "AuditTrailEntry correctly determines actions" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedHistory::AuditTrailEntry) }
-    expected_actions = %w[updated
-                          editioned
-                          published
-                          submitted
-                          updated
-                          rejected
-                          submitted
-                          created]
+    mock_pagination(per_page: 30) do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedHistory::AuditTrailEntry) }
+      expected_actions = %w[updated
+                            editioned
+                            published
+                            submitted
+                            updated
+                            rejected
+                            submitted
+                            created]
 
-    assert_equal expected_actions, entries.map(&:action)
+      assert_equal expected_actions, entries.map(&:action)
+    end
   end
 
   test "AuditTrailEntry correctly determines actors" do
@@ -87,7 +89,6 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
                        @user,
                        @user,
                        @user2,
-                       @user,
                        @user]
 
     assert_equal expected_actors, entries.map(&:actor)
