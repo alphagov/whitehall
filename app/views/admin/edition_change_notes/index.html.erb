@@ -12,6 +12,7 @@
         {
           text: "Change note",
         },
+        {},
       ],
       rows: @change_notes.map do |change_note|
         [
@@ -20,6 +21,12 @@
           },
           {
             text: change_note.change_note,
+          },
+          {
+            text: render("govuk_publishing_components/components/button", {
+              text: "Edit",
+              href: url_for(controller: "edition_change_notes", action: "edit", id: change_note.id),
+            }),
           },
         ]
       end

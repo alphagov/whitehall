@@ -54,4 +54,57 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
     refute_select "td", text: "4 December 2022 12:00am"
     refute_select "td", text: "Draft edition change note"
   end
+
+  %i[edit update].each do |action_method|
+    test "GDS admin permission required to access #{action_method}" do
+      login_as :gds_editor
+
+      get action_method, params: { edition_id: @current_edition.id, id: @second_edition.id }
+
+      assert_response 403
+    end
+  end
+
+  view_test "edit includes the current change notes" do
+    login_as :gds_admin
+
+    get :edit, params: { edition_id: @current_edition.id, id: @second_edition.id }
+
+    assert_select "p", text: "Change published at:  2 December 2022  3:00pm"
+    assert_select "p", text: "Current change note: Second change note"
+  end
+
+  test "update changes the change note" do
+    login_as :gds_admin
+
+    patch :update, params: { edition_id: @current_edition.id, id: @second_edition.id, new_change_note: "Updated second change note" }
+    @second_edition.reload
+
+    assert_equal "Updated second change note", @second_edition.change_note
+  end
+
+  test "update adds an editorial remark" do
+    login_as :gds_admin
+
+    patch :update, params: { edition_id: @current_edition.id, id: @second_edition.id, new_change_note: "Updated second change note" }
+
+    assert_equal @second_edition.editorial_remarks.last.body, "Updated change note from Second change note to Updated second change note"
+  end
+
+  test "update republishes the document" do
+    login_as :gds_admin
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@second_edition.document_id)
+
+    patch :update, params: { edition_id: @current_edition.id, id: @second_edition.id, new_change_note: "Updated second change note" }
+  end
+
+  view_test "update redirects to the index" do
+    login_as :gds_admin
+
+    patch :update, params: { edition_id: @current_edition.id, id: @second_edition.id, new_change_note: "Updated second change note" }
+
+    assert_redirected_to admin_edition_change_notes_path
+    assert_equal "Change note updated", flash[:notice]
+  end
 end
