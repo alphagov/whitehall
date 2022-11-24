@@ -1,0 +1,8 @@
+<li class="audit-trail-entry govuk-!-margin-bottom-4">
+  <% if compare_with_previous_version? %>
+    <%= link_to "[Compare with previous version]", diff_admin_edition_path(@edition, audit_trail_entry_id: entry.version.item_id), class: "govuk-link" %>
+  <% end %>
+  <%= action %> <%= actor %>
+  <br>
+  <%= time %>
+</li>
