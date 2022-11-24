@@ -266,7 +266,9 @@ Whitehall::Application.routes.draw do
           end
           resources :link_check_reports
           resource :unpublishing, controller: "edition_unpublishing", only: %i[edit update]
-          resources :translations, controller: "edition_translations", except: %i[index show]
+          resources :translations, controller: "edition_translations", except: %i[index show] do
+            get :confirm_destroy, on: :member
+          end
           resources :editorial_remarks, only: %i[new create], shallow: true
           resources :fact_check_requests, only: %i[show create edit update], shallow: true
           resources :attachments, except: [:show] do
