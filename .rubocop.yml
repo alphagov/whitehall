@@ -42,4 +42,4 @@ Style/OptionalBooleanParameter:
 
 Lint/MissingSuper:
   Exclude:
-    - 'app/components/*/*.rb'
+    - 'app/components/**/*.rb'
