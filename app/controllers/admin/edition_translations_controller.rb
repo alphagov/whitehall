@@ -20,10 +20,12 @@ class Admin::EditionTranslationsController < Admin::BaseController
     end
   end
 
+  def confirm_destroy; end
+
 private
 
   def get_layout
-    design_system_actions = %w[edit update new]
+    design_system_actions = %w[edit update new confirm_destroy]
     if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else

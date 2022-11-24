@@ -42,6 +42,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
       enforce_permission!(:unpublish, @edition)
     when "unwithdraw", "confirm_unwithdraw"
       enforce_permission!(:unwithdraw, @edition)
+    when "confirm_approve_retrospectively"
+      enforce_permission!(:approve, @edition)
     when "approve_retrospectively"
       enforce_permission!(:approve, @edition)
     else
@@ -152,6 +154,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
+  def confirm_approve_retrospectively; end
+
   def approve_retrospectively
     if @edition.approve_retrospectively
       redirect_to admin_edition_path(@edition),
@@ -164,7 +168,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_force_publish confirm_unpublish confirm_unwithdraw unpublish confirm_unschedule]
+    design_system_actions = %w[confirm_approve_retrospectively confirm_force_publish confirm_unpublish confirm_unschedule confirm_unwithdraw unpublish]
     design_system_actions << "confirm_force_publish" if preview_design_system?(next_release: true)
     if design_system_actions.include?(action_name)
       "design_system"

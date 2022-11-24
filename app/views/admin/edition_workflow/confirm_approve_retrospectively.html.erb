@@ -1,0 +1,22 @@
+<% content_for :page_title, "Retrospectively approve: #{@edition.title}" %>
+<% content_for :title, "Retrospective approval" %>
+<% content_for :context, @edition.title %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_tag approve_retrospectively_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
+      <p class="govuk-body">Are you sure you want to retrospectively approve this document?</p>
+      <p class="govuk-body govuk-!-margin-bottom-7">This edition was force published and has not yet been reviewed by a second pair of eyes. <%= link_to "View this on the website (opens in new tab)", preview_document_url(@edition), class: "govuk-link", target: '_blank' %> and check everything thoroughly.</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Approve",
+        } %>
+
+        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
