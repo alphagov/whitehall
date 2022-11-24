@@ -234,6 +234,7 @@ Whitehall::Application.routes.draw do
           resource :tags, only: %i[edit update], controller: :edition_tags
           resource :legacy_associations, only: %i[edit update], controller: :edition_legacy_associations
           resource :world_tags, only: %i[edit update], controller: :edition_world_tags
+          resources :change_notes, controller: :edition_change_notes
 
           collection do
             post :export
