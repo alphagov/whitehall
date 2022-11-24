@@ -1,0 +1,28 @@
+<% content_for :page_title, "#{@edition.title}: Change notes" %>
+<% content_for :context, @edition.title %>
+<% content_for :title, "Change notes" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Date",
+        },
+        {
+          text: "Change note",
+        },
+      ],
+      rows: @change_notes.map do |change_note|
+        [
+          {
+            text: I18n.l(change_note.major_change_published_at, format: :long_ordinal),
+          },
+          {
+            text: change_note.change_note,
+          },
+        ]
+      end
+    } %>
+  </div>
+</div>
