@@ -72,7 +72,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def show
-    fetch_version_and_remark_trails(preview_design_system: preview_design_system?(next_release: true))
+    fetch_version_and_remark_trails(preview_design_system: false)
 
     @edition_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch
 
