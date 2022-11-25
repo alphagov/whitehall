@@ -56,7 +56,7 @@
          *([{
            id: "fact_checking_tab",
            label: "Fact checking",
-           content: ""
+           content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition))
          }] if @edition.can_be_fact_checked?)
        ]
       } %>

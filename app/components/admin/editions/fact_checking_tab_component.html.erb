@@ -1,0 +1,62 @@
+<h2 class="govuk-heading-l">Fact checking</h2>
+
+<section class="responses">
+  <% if edition.all_completed_fact_check_requests.any? %>
+    <h3 class="govuk-heading-m">Responses</h3>
+
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: completed_fact_check_requests.map do |fact_check_request|
+        "#{fact_check_request.email_address} #{distance_of_time_in_words_to_now(fact_check_request.updated_at)} ago" +
+        format_in_paragraphs(fact_check_request.comments) +
+        "#{'(This refers to an older edition.)' unless fact_check_request.edition == edition}"
+      end
+    } %>
+  <% else %>
+    <p class="govuk-body">Document doesn't have any fact checking responses yet.</p>
+  <% end %>
+</section>
+
+<section class="pending">
+  <% if pending_fact_check_requests.any? %>
+    <h3 class="govuk-heading-m">Pending requests</h3>
+
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: pending_fact_check_requests.map do |fact_check_request|
+        "#{fact_check_request.email_address} #{distance_of_time_in_words_to_now(fact_check_request.updated_at)} ago"
+      end
+    } %>
+  <% end %>
+</section>
+
+<section class="send-request">
+  <% if send_request_section %>
+    <h3 class="govuk-heading-m">Send request</h3>
+    <%= form_for FactCheckRequest.new, url: admin_edition_fact_check_requests_path(@edition) do |f| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Email address (required)",
+          bold: true,
+        },
+        name: "fact_check_request[email_address]",
+        id: "fact_check_request_email_address",
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Extra instructions",
+          bold: true,
+        },
+        name: "fact_check_request[instructions]",
+        id: "fact_check_request_instructions"
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Send request"
+      } %>
+    <% end %>
+  <% else %>
+    <p class="govuk-body">To send a fact check request, save your changes.</p>
+  <% end %>
+</section>
