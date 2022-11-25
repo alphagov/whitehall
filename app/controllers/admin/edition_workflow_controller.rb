@@ -36,7 +36,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       enforce_permission!(:reject, @edition)
     when "publish", "schedule"
       enforce_permission!(:publish, @edition)
-    when "force_publish", "confirm_force_publish", "force_schedule"
+    when "force_publish", "confirm_force_publish", "force_schedule", "confirm_force_schedule"
       enforce_permission!(:force_publish, @edition)
     when "unpublish", "confirm_unpublish"
       enforce_permission!(:unpublish, @edition)
@@ -134,6 +134,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
+  def confirm_force_schedule; end
+
   def force_schedule
     force_scheduler = Whitehall.edition_services.force_scheduler(@edition)
     if force_scheduler.perform!
@@ -168,7 +170,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_approve_retrospectively confirm_force_publish confirm_unpublish confirm_unschedule confirm_unwithdraw unpublish]
+    design_system_actions = %w[confirm_approve_retrospectively confirm_force_publish confirm_force_schedule confirm_unpublish confirm_unschedule confirm_unwithdraw unpublish]
     design_system_actions << "confirm_force_publish" if preview_design_system?(next_release: true)
     if design_system_actions.include?(action_name)
       "design_system"

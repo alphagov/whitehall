@@ -258,6 +258,7 @@ Whitehall::Application.routes.draw do
             get  :confirm_unwithdraw, to: "edition_workflow#confirm_unwithdraw"
             post :unwithdraw, to: "edition_workflow#unwithdraw"
             post :schedule, to: "edition_workflow#schedule"
+            get  :confirm_force_schedule, to: "edition_workflow#confirm_force_schedule"
             post :force_schedule, to: "edition_workflow#force_schedule"
             get :confirm_unschedule, to: "edition_workflow#confirm_unschedule"
             post :unschedule, to: "edition_workflow#unschedule"
