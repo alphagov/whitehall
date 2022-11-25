@@ -49,11 +49,11 @@
             label: "History",
             content: render(Admin::Editions::DocumentHistoryTabComponent.new(edition: @edition, document_history: @document_history, editing: true))
           },
-          {
+          *([{
             id: "fact_checking_tab",
             label: "Fact checking",
-            content: ""
-          }
+            content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition))
+          }] if @edition.can_be_fact_checked?)
         ]
       } %>
     </div>
