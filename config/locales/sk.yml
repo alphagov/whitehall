@@ -39,8 +39,6 @@ sk:
       title: Názov prílohy
       unique_reference: Jedinečný odkaz na prílohu
       unnumbered_hoc_paper: Nečíslovaný dokument Dolnej snemovne
-  announcements:
-    heading: Oznámenia
   attachment:
     accessibility:
       full_help_html: |
@@ -432,12 +430,6 @@ sk:
         other: Písomné vyhlásenia pre Parlament
     updated: aktualizované
   document_filters:
-    description: Pomocou filtrov môžete zobraziť len výsledky, ktoré zodpovedajú vašim záujmom
-    no_results:
-      description: Skúste rozšíriť vyhľadávanie a skúste to znova.
-      title: Neexistujú žiadne zodpovedajúce dokumenty.
-      tna_heading: Starší obsah
-      tna_link_html: Nie všetky publikácie ministerstva spred mája 2010 boli prenesené na GOV.UK. Ak chcete nájsť publikácie spred mája 2010, skúste vyhľadávanie <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link" >v Národnom archíve</a>.
     world_locations:
       all: Všetky lokality
       label: Svetové lokality
@@ -554,12 +546,6 @@ sk:
       works_with: Spolupracuje s
     type:
       courts_and_tribunals: Súdy a tribunály
-  publications:
-    heading: Publikácie
-    recent: Nedávne publikácie
-    statistics:
-      link_to_published_statistics: Zoznam zverejnených a pripravovaných vládnych štatistík nájdete v sekcii %{link} štatistiky.
-      moved_notice: Štatistické publikácie sa presunuli.
   roles:
     unassigned: Táto úloha nie je nikomu pridelená
   see_all:

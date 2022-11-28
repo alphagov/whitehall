@@ -77,10 +77,6 @@ class RoutingLocaleTest < ActionDispatch::IntegrationTest
                  worldwide_organisation_path(worldwide_organisation, locale: "cy", format: "json")
   end
 
-  test "#index for a non-localised resource with a format" do
-    assert_equal "/government/publications.json", publications_path(format: "json")
-  end
-
   test "#show for a non-localised resource" do
     topical_event = create(:topical_event)
     assert_equal "/government/topical-events/#{topical_event.slug}", topical_event_path(topical_event)

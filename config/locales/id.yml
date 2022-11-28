@@ -39,8 +39,6 @@ id:
       title: Judul lampiran
       unique_reference: Referensi unik lampiran
       unnumbered_hoc_paper: Surat House of Commons tidak bernomor
-  announcements:
-    heading: Pengumuman
   attachment:
     accessibility:
       full_help_html: |
@@ -279,12 +277,6 @@ id:
         other: Pernyataan tertulis kepada Parlemen
     updated: diperbarui
   document_filters:
-    description: Anda dapat menggunakan filter untuk hanya menampilkan hasil yang sesuai dengan minat Anda
-    no_results:
-      description: Cobalah membuat pencarian Anda lebih lebar dan coba lagi.
-      title: Tidak ada dokumen yang cocok.
-      tna_heading: Konten lebih tua
-      tna_link_html: Tidak semua publikasi departemen sebelum Mei 2010 dimigrasikan ke GOV.UK. Untuk menemukan publikasi sebelum Mei 2010, cobalah mencari di <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arsip Nasional</a>.
     world_locations:
       all: Semua lokasi
       label: Lokasi dunia
@@ -401,12 +393,6 @@ id:
       works_with: Bekerja bersama
     type:
       courts_and_tribunals: Pengadilan dan Persidangan
-  publications:
-    heading: Publikasi
-    recent: Publikasi terbaru
-    statistics:
-      link_to_published_statistics: Temukan daftar statistik pemerintah yang sudah atau akan diterbitkan pada bagian statistik %{link}.
-      moved_notice: Publikasi statistik sudah dipindah.
   roles:
     unassigned: Belum ada yang ditetapkan untuk peran ini
   see_all:

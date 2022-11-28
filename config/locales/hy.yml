@@ -39,8 +39,6 @@ hy:
       title: Կցորդի անվանումը
       unique_reference: Կցորդի հատուկ հղումը
       unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
-  announcements:
-    heading: Հայտարարություններ
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ hy:
         other: Խորհրդարանին ուղղված գրավոր հայտարարություններ
     updated: Թարմացված
   document_filters:
-    description: Դուք կարող եք օգտագործել ֆիլտրեր` միայն ձեր հետաքրքրություններին համապատասխանող արդյունքները տեսնելու համար
-    no_results:
-      description: 'Փորձեք ձեր որոնումն ավելի ընդլայնել և կրկին փորձեք:'
-      title: 'Համապատասխանող փաստաթղթեր չեն գտնվել:'
-      tna_heading: Ավելի հին բովանդակություն
-      tna_link_html: 'Մինչև 2010թ․ մայիս ամսվա ոչ բոլոր գերատեսչությունների հրապարակումներն են տեղափոխվել GOV.UK կայք: Մինչև 2010թ․ մայիս ամսվա հրապարակումները գտնելու համար փորձեք որոնել այս հղումով՝ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>'
     world_locations:
       all: Բոլոր վայրերը
       label: Գտնվելու վայրերը
@@ -478,12 +470,6 @@ hy:
       works_with: Համագործակցում է
     type:
       courts_and_tribunals: Դատարաններ և Տրիբունալներ
-  publications:
-    heading: Հրապարակումներ
-    recent: Վերջին հրապարակումները
-    statistics:
-      link_to_published_statistics: 'Գտնել հրապարակված և կառավարական առաջիկա ​​վիճակագրության ցանկը %{link} վիճակագրություն բաժնում:'
-      moved_notice: 'Վիճակագրության հրապարակումները տեղափոխվել են:'
   roles:
     unassigned: Այս պաշտոնին նշանակված մարդ չկա
   see_all:

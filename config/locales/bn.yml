@@ -39,8 +39,6 @@ bn:
       title: সংযুক্তির শিরোনাম
       unique_reference: সংযুক্তির অনন্য সূত্র
       unnumbered_hoc_paper: নম্বরবিহীন হাউজ অব কমন্সের পেপার
-  announcements:
-    heading: ঘোষণা
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ bn:
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: হালনাগাদ করা হয়েছে
   document_filters:
-    description: আপনার আগ্রহের সাথে মিলে যায় শুধুমাত্র সেই ফলাফলগুলো দেখাতে আপনি ফিল্টারগুলো ব্যবহার করতে পারেন
-    no_results:
-      description: অনুসন্ধানের ক্ষেত্র আরও বড় করে আবার চেষ্টা করুন।
-      title: মিলে যায় এমন কোনো নথি নেই।
-      tna_heading: পুরনো বিষয়বস্তু
-      tna_link_html: মে 2010-এর পূর্বের সকল বিভাগের নথিপত্র GOV.UK-তে মাইগ্রেট করা হয়নি। মে 2010-এর পূর্বের প্রকাশনাগুলো খুঁজে পেতে, <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">জাতীয় আর্কাইভ</a>-এ খোঁজার চেষ্টা করুন।
     world_locations:
       all: সকল স্থান
       label: বিশ্বের অবস্থানসমূহ
@@ -477,12 +469,6 @@ bn:
       works_with: যার সাথে কাজ করে
     type:
       courts_and_tribunals: আদালত ও ট্রাইব্যুনাল
-  publications:
-    heading: প্রকাশনাসমূহ
-    recent: সাম্প্রতিক প্রকাশনাসমূহ
-    statistics:
-      link_to_published_statistics: "%{link} পরিসংখ্যান অংশে সরকারি পরিসংখ্যানের একটি প্রকাশিত ও আসন্ন তালিকা খুঁজে দেখুন।"
-      moved_notice: পরিসংখ্যান প্রকাশনাগুলো সরিয়ে ফেলা হয়েছে।
   roles:
     unassigned: এই ভূমিকায় কাউকে দায়িত্ব দেওয়া হয়নি
   see_all:

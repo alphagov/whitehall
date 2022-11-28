@@ -39,8 +39,6 @@ th:
       title: ชื่อเอกสารแนบ
       unique_reference: รหัสอ้างอิงเฉพาะของเอกสารแนบ
       unnumbered_hoc_paper: เอกสารสภาสามัญที่ไม่มีเลขที่
-  announcements:
-    heading: ประกาศ
   attachment:
     accessibility:
       full_help_html: |
@@ -279,12 +277,6 @@ th:
         other: แถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภา
     updated: อัปเดตแล้ว
   document_filters:
-    description: คุณสามารถใช้ตัวกรองเพื่อแสดงเฉพาะผลลัพธ์ที่ตรงกับความสนใจของคุณ
-    no_results:
-      description: ลองขยายการค้นหาให้กว้างขึ้นและลองอีกครั้ง
-      title: ไม่มีเอกสารที่ตรงกัน
-      tna_heading: เนื้อหาเก่า
-      tna_link_html: สิ่งพิมพ์ของราชการก่อนเดือนพฤษภาคม 2010 บางส่วนไม่ได้รับการย้ายไปยัง GOV.UK หากต้องการค้นหาสิ่งพิมพ์ตั้งแต่ก่อนเดือนพฤษภาคม 2010 ให้ลองค้นหาที่ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>
     world_locations:
       all: สถานที่ตั้งทุกแห่ง
       label: สถานที่ทั่วโลก
@@ -401,12 +393,6 @@ th:
       works_with: ทำงานร่วมกับ
     type:
       courts_and_tribunals: ศาลและตุลาการ
-  publications:
-    heading: สิ่งพิมพ์
-    recent: สิ่งพิมพ์ล่าสุด
-    statistics:
-      link_to_published_statistics: ดูรายการสถิติของรัฐบาลที่เผยแพร่และที่กำลังจะเผยแพร่ได้ในส่วนสถิติ %{link}
-      moved_notice: เอกสารทางสถิติถูกย้ายไปแล้ว
   roles:
     unassigned: ไม่มีใครได้รับการแต่งตั้งในบทบาทนี้
   see_all:

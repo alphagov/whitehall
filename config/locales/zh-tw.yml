@@ -39,8 +39,6 @@ zh-tw:
       title: 附件標題
       unique_reference: 附件專用參考
       unnumbered_hoc_paper: 未編碼的下議院文件
-  announcements:
-    heading: 公告
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ zh-tw:
         other: 對議會的書面聲明
     updated: 更新
   document_filters:
-    description: 可以使用過濾器僅顯示符合篩選的結果
-    no_results:
-      description: 請試著擴大搜索範圍，然後再試一次。
-      title: 沒有符合文檔。
-      tna_heading: 較舊內容
-      tna_link_html: 並非 2010 年 5 月前的所有部會發佈都遷移到英國政府網站。要查找 2010 年 5 月之前的發佈，請嘗試搜索 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">國家檔案館</a>。
     world_locations:
       all: 所有地點
       label: 世界地點
@@ -477,12 +469,6 @@ zh-tw:
       works_with: 共事
     type:
       courts_and_tribunals: 法庭與審裁處
-  publications:
-    heading: 出版
-    recent: 近期發佈
-    statistics:
-      link_to_published_statistics: 在 %{link} 統計部分找到已發布和即將發布的政府統計數據列表。
-      moved_notice: 統計發佈已移除。
   roles:
     unassigned: 該角色未被指派
   see_all:

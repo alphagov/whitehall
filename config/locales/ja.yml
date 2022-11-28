@@ -39,8 +39,6 @@ ja:
       title: 添付タイトル
       unique_reference: 添付固有の参照
       unnumbered_hoc_paper: 番号のない庶民院書類
-  announcements:
-    heading: お知らせ
   attachment:
     accessibility:
       full_help_html: お客様が支援技術（スクリーンリーダーなど）を使用していて、このドキュメントよりアクセスしやすい形式のバージョンが必要な場合は、必要なフォーマットや使用している支援技術を添え％{email}にEメールをお送くりください。
@@ -277,12 +275,6 @@ ja:
         other: 議会への書面による声明
     updated: 更新済み
   document_filters:
-    description: フィルタを使用して、興味に一致する結果のみを表示できます
-    no_results:
-      description: 検索範囲を広げて、もう一度やり直してください。
-      title: 一致するドキュメントはありません。
-      tna_heading: 古いコンテンツ
-      tna_link_html: 2010年5月以前のすべての部門の出版物がGOV.UKに移行されたわけではありません。2010年5月より前の出版物を見つけるには、<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国立公文書館</a>を検索してみてください。
     world_locations:
       all: すべての場所
       label: 世界の場所
@@ -399,12 +391,6 @@ ja:
       works_with: 以下と働：
     type:
       courts_and_tribunals: 裁判所および審判
-  publications:
-    heading: 出版物
-    recent: 最近の出版物
-    statistics:
-      link_to_published_statistics: "％{link} 統計セクションで、公開済みおよび今後の政府統計のリストを検索します。"
-      moved_notice: 統計出版物は移動しました。
   roles:
     unassigned: この役割には誰も割り当てられていません
   see_all:

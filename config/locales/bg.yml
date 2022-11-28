@@ -39,8 +39,6 @@ bg:
       title: Заглавие на прикачения файл
       unique_reference: Уникална референция на прикачения файл
       unnumbered_hoc_paper: Документ без номер на Камарата на общините
-  announcements:
-    heading: Съобщения
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ bg:
         other: Писмени изявления в Парламента
     updated: актуализиран
   document_filters:
-    description: Можете да използвате филтрите, за да показвате само интересуващите ви резултати
-    no_results:
-      description: Опитайте да разширите търсенето си и опитайте отново.
-      title: Няма съответстващи документи.
-      tna_heading: По-старо съдържание
-      tna_link_html: Не всички публикации на министерствата отпреди май 2010 г. са прехвърлени в GOV.UK. За да намерите публикации отпреди май 2010 г., потърсете в <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Националния архив</a>.
     world_locations:
       all: Всички местоположения
       label: Местоположения по света
@@ -477,12 +469,6 @@ bg:
       works_with: Работи с
     type:
       courts_and_tribunals: Съдилища и арбитражи
-  publications:
-    heading: Публикации
-    recent: Скорошни публикации
-    statistics:
-      link_to_published_statistics: Намерете списък с публикувани и предстоящи правителствени статистики в раздела за статистика %{link}.
-      moved_notice: Статистическите публикации са преместени.
   roles:
     unassigned: Няма назначен на тази длъжност
   see_all:

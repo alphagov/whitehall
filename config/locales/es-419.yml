@@ -39,8 +39,6 @@ es-419:
       title: Título del anexo
       unique_reference: Referencia única del adjunto
       unnumbered_hoc_paper: Documento no numerado de la Cámara de los Comunes
-  announcements:
-    heading: Anuncios
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ es-419:
         other: Declaraciones escritas ante el Parlamento
     updated: actualizado
   document_filters:
-    description: Puedes utilizar los filtros para mostrar sólo los resultados que coincidan con sus intereses
-    no_results:
-      description: Intente realizar una búsqueda más amplia y vuelva a intentarlo.
-      title: No hay documentos que coincidan.
-      tna_heading: Contenido antiguo
-      tna_link_html: No todas las publicaciones de los departamentos, anteriores a mayo de 2010, se han migrado a GOV.UK. Para encontrar publicaciones anteriores a mayo de 2010, busque en <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Los Archivos Nacionales</a>.
     world_locations:
       all: Todas las ubicaciones
       label: Ubicaciones en el mundo
@@ -478,12 +470,6 @@ es-419:
       works_with: Trabaja con
     type:
       courts_and_tribunals: Juzgados y Tribunales
-  publications:
-    heading: Publicaciones
-    recent: Publicaciones recientes
-    statistics:
-      link_to_published_statistics: Encuentre una lista de las estadísticas gubernamentales publicadas y próximas publicaciones en la %{link} sección de estadísticas.
-      moved_notice: Las publicaciones de estadísticas se han movido.
   roles:
     unassigned: No hay nadie asignado a esta función
   see_all:

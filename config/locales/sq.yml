@@ -39,8 +39,6 @@ sq:
       title: Titulli i bashkëngjitjes
       unique_reference: Referenca unike e bashkëngjitjes
       unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
-  announcements:
-    heading: Lajmërime
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ sq:
         other: Deklarata me shkrim në Parlament
     updated: përditësuar
   document_filters:
-    description: Ju mund t'i përdorni filtrat për të shfaqur vetëm rezultate që përputhen me interesat tuaja
-    no_results:
-      description: Provoni ta bëni kërkimin tuaj më të gjerë dhe provoni përsëri.
-      title: Nuk ka dokumente që përputhen.
-      tna_heading: Përmbajtje më e vjetër
-      tna_link_html: Jo të gjitha publikimet e departamenteve para majit 2010 u migruan në GOV.UK. Për të gjetur botime para majit 2010 provoni të kërkoni <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arkivat Kombëtare</a>.
     world_locations:
       all: Të gjitha vendndodhjet
       label: Vendndodhjet globale
@@ -478,12 +470,6 @@ sq:
       works_with: Punon me
     type:
       courts_and_tribunals: Gjykatat dhe Tribunalet
-  publications:
-    heading: Publikime
-    recent: Publikimet e fundit
-    statistics:
-      link_to_published_statistics: Gjeni një listë të statistikave të publikuara dhe të ardhshme të qeverisë në seksionin e statistikave %{link}.
-      moved_notice: Publikimet e statistikave kanë lëvizur.
   roles:
     unassigned: Askush nuk është caktuar për këtë rol
   see_all:

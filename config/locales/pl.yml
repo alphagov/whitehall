@@ -39,8 +39,6 @@ pl:
       title: Tytuł załącznika
       unique_reference: Niepowtarzalny numer referencyjny załącznika
       unnumbered_hoc_paper: Nienumerowany dokument Izby Gmin
-  announcements:
-    heading: Ogłoszenia
   attachment:
     accessibility:
       full_help_html: "Aby otrzymać ten dokument w innym formacie, np. w alfabecie Braille'a. \nw formacie audio lub w innym rodzaju pliku prosimy wysłać email na adres %{email}.\n\n"
@@ -505,12 +503,6 @@ pl:
         other: Pisemne oświadczenia przed parlamentem
     updated: Zaktualizowany
   document_filters:
-    description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi są Państwo&nbsp;zainteresowani
-    no_results:
-      description: Spróbuj poszerzyc kryteria wyszukiwania i spróbuj ponownie.
-      title: Nie ma dokumentów odpowiadających kryteriom.
-      tna_heading: Starsza zawartość
-      tna_link_html: Nie wszystkie dokumenty departamentów opublikowane przed majem 2010 r. zostały przeniesione do GOV.UK. Aby znaleźć dokumenty opublikowane przed majem 2010 r. spróbuj przeszukać <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Archiwum Narodowe</a>.
     world_locations:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie
@@ -627,12 +619,6 @@ pl:
       works_with: Pracuje z
     type:
       courts_and_tribunals: Sądy i Trybunały
-  publications:
-    heading: Publikacje
-    recent: Ostatnie publikacje
-    statistics:
-      link_to_published_statistics: Znajdź listę opublikowanych i nadchodzących statystyk rządowych w sekcji %{link} statystyki.
-      moved_notice: Opublikowane statystyki zostały przeniesione.
   roles:
     unassigned: Nikt nie został przypisany do tej roli
   see_all:

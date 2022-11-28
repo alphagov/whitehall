@@ -2,7 +2,6 @@ module PublishingApi
   class OrganisationPresenter
     include Rails.application.routes.url_helpers
     include ApplicationHelper
-    include FilterRoutesHelper
     # This is so we can get the extra text for the summary field
     include OrganisationHelper
     # This is a hack to get the OrganisationHelper to work in this context

@@ -39,8 +39,6 @@ da:
       title: Titel på vedhæftede fil
       unique_reference: Entydig reference til vedhæftet fil
       unnumbered_hoc_paper: Unummereret dokument fra Underhuset
-  announcements:
-    heading: Meddelelser
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ da:
         other: Mundtlige erklæring til Parlamentet
     updated: Opdateret
   document_filters:
-    description: Du kan bruge filtrene til kun at vise resultater, der matcher dine interesser
-    no_results:
-      description: Prøv at gøre din søgning bredere og prøv igen.
-      title: Der er ingen matchende dokumenter.
-      tna_heading: Ældre indhold
-      tna_link_html: Ikke alle afdelingspublikationer fra før maj 2010 blev migreret til GOV.UK.Hvis du vil finde publikationer fra før maj 2010, kan du søge på <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">De Nationale Arkiver</a>.
     world_locations:
       all: Alle steder
       label: Verden Placeringer
@@ -478,12 +470,6 @@ da:
       works_with: Virker med
     type:
       courts_and_tribunals: Domstole og domstole
-  publications:
-    heading: Publikationer
-    recent: Seneste publikationer
-    statistics:
-      link_to_published_statistics: Du kan finde en liste over offentliggjorte og kommende offentlige statistikker i afsnittet %{link} statistik.
-      moved_notice: Statistiske publikationer er blevet flyttet.
   roles:
     unassigned: Der er ingen, der er tildelt denne rolle
   see_all:

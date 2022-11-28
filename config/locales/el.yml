@@ -39,8 +39,6 @@ el:
       title: Τίτλος συνημμένου
       unique_reference: Μοναδική αναφορά συνημμένου
       unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
-  announcements:
-    heading: Ανακοινώσεις
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ el:
         other: Γραπτές δηλώσεις στη Βουλή
     updated: ενημερωμένο
   document_filters:
-    description: Μπορείτε να χρησιμοποιήσετε τα φίλτρα για να εμφανίσετε μόνο αποτελέσματα που ταιριάζουν με τα ενδιαφέροντά σας
-    no_results:
-      description: Δοκιμάστε να διευρύνετε την αναζήτησή σας και δοκιμάστε ξανά.
-      title: Δεν βρέθηκαν έγγραφα.
-      tna_heading: Παλαιότερο περιεχόμενο
-      tna_link_html: Δεν μεταφέρθηκαν όλες οι δημοσιεύσεις του τμήματος πριν από τον Μάιο του 2010 στο GOV.UK. Για να βρείτε δημοσιεύσεις πριν από τον Μάιο του 2010, δοκιμάστε να αναζητήσετε στα <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Εθνικά αρχεία</a>.
     world_locations:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες
@@ -477,12 +469,6 @@ el:
       works_with: Δουλεύει με
     type:
       courts_and_tribunals: Δικαστήρια και Διαιτητικά όργανα
-  publications:
-    heading: Δημοσιεύσεις
-    recent: Πρόσφατες δημοσιεύσεις
-    statistics:
-      link_to_published_statistics: Βρείτε μια λίστα δημοσιευμένων και επερχόμενων κρατικών στατιστικών στοιχείων στην ενότητα στατιστικά %{link}.
-      moved_notice: Οι στατιστικές δημοσιεύσεις έχουν μετακινηθεί.
   roles:
     unassigned: Σε κανέναν δεν έχει ανατεθεί αυτός ο ρόλος
   see_all:

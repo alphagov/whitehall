@@ -39,8 +39,6 @@ ro:
       title: Titlu atașament
       unique_reference: Referință unică atașament
       unnumbered_hoc_paper: Document nenumerotat de la Camera Comunelor
-  announcements:
-    heading: Anunțuri
   attachment:
     accessibility:
       full_help_html: |
@@ -431,12 +429,6 @@ ro:
         other: Declarații scrise către Parlament
     updated: actualizat
   document_filters:
-    description: Puteți folosi filtrele pentru a afișa doar rezultatele care se potrivesc cu interesele dvs.
-    no_results:
-      description: Încercați să extindeți căutarea și încercați din nou.
-      title: Nu sunt documente corespunzătoare.
-      tna_heading: Conținut mai vechi
-      tna_link_html: Nu toate publicațiile departamentelor de dinainte de mai 2010 au migrat pe GOV.UK. Pentru a găsi publicații de dinainte de mai 2010, încercați să căutați în <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arhivele Naționale</a>.
     world_locations:
       all: Toate locațiile
       label: Locații pe glob
@@ -553,12 +545,6 @@ ro:
       works_with: Lucrează cu
     type:
       courts_and_tribunals: Instanțe și tribunale
-  publications:
-    heading: Publicații
-    recent: Publicații recente
-    statistics:
-      link_to_published_statistics: Găsiți o listă de statistici guvernamentale publicate și viitoare în secțiunea de statistică %{link}.
-      moved_notice: Publicațiile de statistică s-au mutat.
   roles:
     unassigned: În această funcție nu este repartizată nicio persoană
   see_all:

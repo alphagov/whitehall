@@ -39,8 +39,6 @@ uz:
       title: Илованинг сарлавҳаси
       unique_reference: Илованинг махсус ҳаволаси
       unnumbered_hoc_paper: Жамоат Палатасининг рақамсиз ҳужжати
-  announcements:
-    heading: Эълонлар
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ uz:
         other: Парламентга ёзма баёнотлар
     updated: янгиланди
   document_filters:
-    description: Сизни қизиқтирган натижаларни кўриш учун фильтрларни қўлланг
-    no_results:
-      description: Қидирувни кенгайтиринг ва яна бир бора уриниб кўринг.
-      title: Мос ҳужжатлар мавжуд эмас.
-      tna_heading: Олдинги мундарижа
-      tna_link_html: 2010 й. май ойигача барча нашрлар GOV.Ukга олиб ўтилмаган. 2010 й. май ойигача чиққан нашрларни топиш учун, <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Национальный архив</a>да излашни бажаришга уриниб кўринг.
     world_locations:
       all: Барча жойлашиш жойлари
       label: Дунёдаги жойлашиш жойлари
@@ -477,12 +469,6 @@ uz:
       works_with: билан ишлар
     type:
       courts_and_tribunals: Судлар ва трибуналлар
-  publications:
-    heading: Нашрлар
-    recent: Яқиндаги нашрлар
-    statistics:
-      link_to_published_statistics: "%{link} статистика бўлимида нашр қилинган ва кутилаётган давлат статистика маълумотлари рўйхатини топиш."
-      moved_notice: Статистика маълумотлари бўйича нашрлар бошқа жойга кўчирилган.
   roles:
     unassigned: Ушбу рольга ҳеч бир шахс тайинланмаган
   see_all:

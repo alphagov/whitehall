@@ -39,8 +39,6 @@ dr:
       title: عنوان ضمیمه
       unique_reference: رفرنس مخصوص ضمیمه
       unnumbered_hoc_paper: مجلس اوراق بدون شماره
-  announcements:
-    heading: اعلامیه ها
   attachment:
     accessibility:
       full_help_html: |-
@@ -358,14 +356,6 @@ dr:
         other: بیانیه هایی کتبی به پارلمان
     updated: آپدیت شد
   document_filters:
-    description: جهت دیدن نتایج مورد علاقهء تان از فلتر ها استفاده نمایید
-    no_results:
-      description: کوشش نمایید که جستجوی خودرا گسترده تر نمایید و دوباره کوشش نمایید
-      title: هیچ سند مرتبطی وجود ندارد
-      tna_heading: محتوای قدیمی تر
-      tna_link_html: |-
-        همه نشریات دیپارتمنت قبل از مام می سال 2010 به GOV.UK منتقل نشده اند.
-        جهت پیدا نمودن نشریه های قبل از ماه می سال 2010 جستجو نمایید<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">آرشیف ملی</a>.
     world_locations:
       all: تمام موقعیت ها
       label: موقعیت هایی جهان
@@ -482,12 +472,6 @@ dr:
       works_with: کار مینماید با
     type:
       courts_and_tribunals: محاکم و دادگاه ها
-  publications:
-    heading: نشریات
-    recent: نشریات جدید
-    statistics:
-      link_to_published_statistics: فهرستی از آمار هایی منتشر شده و آمار های آیندهء حکومت را دربخش آمار%{link} پیدا نمایید
-      moved_notice: انتشارات آمار تغییر کرده است
   roles:
     unassigned: هیچ کسی به این وظیفه گماشته نشده است
   see_all:

@@ -11,14 +11,6 @@ class DocumentsController < PublicFacingController
 
 private
 
-  def build_document_filter(filter_type = nil)
-    search_backend(filter_type).new(cleaned_document_filter_params)
-  end
-
-  def cleaned_document_filter_params
-    Whitehall::DocumentFilter::CleanedParams.new(params.except(:constraints, :format, :commit, :_))
-  end
-
   def preview?
     params[:preview]
   end

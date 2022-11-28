@@ -39,8 +39,6 @@ gd:
       title: Teideal astaithe
       unique_reference: Tagairt a bhaineann go sonrach le ceangaltán
       unnumbered_hoc_paper: Doiciméad gan uimhir Theach na dTeachtaí
-  announcements:
-    heading: Fógra
   attachment:
     accessibility:
       full_help_html: |
@@ -507,12 +505,6 @@ gd:
         two:
     updated: arna chur suas
   document_filters:
-    description: Tá a fhios agat conas scagairí a úsáid chun torthaí amháin a bhaineann le do réimse spéise a thaispeáint
-    no_results:
-      description: Déan iarracht do chuardach a chur in iúl ar bhonn níos leithne agus bain triail eile as.
-      title: Níl aon doiciméad comhfhreagrach ann faoi láthair.
-      tna_heading: Ábhar níos sine
-      tna_link_html: B’fhéidir nár uaslódáil ailt a d’fhoilsigh aireachtaí éagsúla roimh Bhealtaine 2010 chuig GOV.UK. Maidir le foilseacháin roimh Bhealtaine 2010, déan iarracht <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">An Chartlann Náisiúnta</a>chuardach.
     world_locations:
       all: Gach láthair
       label: Áit ar domhan
@@ -629,12 +621,6 @@ gd:
       works_with: Agus
     type:
       courts_and_tribunals: Cúirteanna agus binsí
-  publications:
-    heading: Foilseacháin
-    recent: Foilseacháin le déanaí
-    statistics:
-      link_to_published_statistics: Tá liosta de na staitisticí rialtais foilsithe agus le teacht agat sa rannán staitisticí %{link}.
-      moved_notice: Bogadh foilseacháin staidrimh.
   roles:
     unassigned: Níl aon duine i gceannas ar an ról seo
   see_all:

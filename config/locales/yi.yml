@@ -39,8 +39,6 @@ yi:
       title:
       unique_reference:
       unnumbered_hoc_paper:
-  announcements:
-    heading:
   attachment:
     accessibility:
       full_help_html:
@@ -353,12 +351,6 @@ yi:
         other:
     updated:
   document_filters:
-    description:
-    no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link_html:
     world_locations:
       all:
       label:
@@ -475,12 +467,6 @@ yi:
       works_with:
     type:
       courts_and_tribunals:
-  publications:
-    heading:
-    recent:
-    statistics:
-      link_to_published_statistics:
-      moved_notice:
   roles:
     unassigned:
   see_all:

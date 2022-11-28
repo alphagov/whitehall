@@ -39,8 +39,6 @@ sl:
       title: Naslov priloge
       unique_reference: Edinstvena referenca priloge
       unnumbered_hoc_paper: Neoštevilčen dokument britanskega parlamenta
-  announcements:
-    heading: Razglasi
   attachment:
     accessibility:
       full_help_html: |
@@ -508,12 +506,6 @@ sl:
         two:
     updated: posodobljeno
   document_filters:
-    description: S filtri lahko prikažete samo rezultate, ki ustrezajo vašim interesom
-    no_results:
-      description: Poskusite razširiti iskanje in poskusite znova.
-      title: Ni ustreznih dokumentov.
-      tna_heading: Starejša vsebina
-      tna_link_html: Vse publikacije ministrstev pred majem 2010 niso bile premeščene na GOV.UK. Če želite poiskati publikacije pred majem 2010, poskusite iskati ​po <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalnih arhivih</a>.
     world_locations:
       all: Vse lokacije
       label: Lokacije po svetu
@@ -630,12 +622,6 @@ sl:
       works_with: Sodeluje z
     type:
       courts_and_tribunals: Sodišča
-  publications:
-    heading: Publikacije
-    recent: Najnovejše publikacije
-    statistics:
-      link_to_published_statistics: Seznam objavljenih in prihajajočih vladnih statistik najdete na povezavi %{link} v razdelku statistika.
-      moved_notice: Statistične objave so bile premaknjene.
   roles:
     unassigned: Ta vloga ni dodeljena nikomur
   see_all:

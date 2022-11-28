@@ -39,8 +39,6 @@ ar:
       title: عنوان المرفق
       unique_reference: المرجع الفريد للمرفق
       unnumbered_hoc_paper: ورقة مجلس عموم غير مرقمة
-  announcements:
-    heading: إعلانات
   attachment:
     accessibility:
       full_help_html: "إذا كنت تستخدم تكنولوجيا مساعدة (مثل قارئ الشاشة) وكنت بحاجة لنسخة من هذا المستند بتنسيق أيسر استخدامًا، فيُرجى التواصل معنا على البريد الإلكتروني %{email}. \nمن فضلك أخبرنا بالتنسيق الذي تحتاجه. إذا أخبرتنا بالتكنولوجيا المساعدة التي تستخدمها، فهذا سيساعدنا.\n"
@@ -657,12 +655,6 @@ ar:
         zero:
     updated: تاريخ التحديث
   document_filters:
-    description: يمكنك استخدام عوامل التصفية لعرض النتائج التي تتطابق مع اهتماماتك فقط
-    no_results:
-      description: حاول توسعة نطاق بحثك ثم حاول مرة أخرى.
-      title: لا توجد مستندات مطابقة.
-      tna_heading: محتوى أقدم
-      tna_link_html: لم يتم ترحيل جميع منشورات الإدارة التي تعود إلى ما قبل مايو 2010 إلى GOV.UK. للعثور على المنشورات التي تعود إلى ما قبل مايو 2010، حاول البحث في <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The الأرشيف الوطني</a>.
     world_locations:
       all: جميع المواقع
       label: المواقع العالمية
@@ -779,12 +771,6 @@ ar:
       works_with: يعمل لدى
     type:
       courts_and_tribunals: المحاكم والهيئات القضائية
-  publications:
-    heading: منشورات
-    recent: المنشورات الحديثة
-    statistics:
-      link_to_published_statistics: ابحث عن قائمة بالإحصائيات الحكومية المنشورة والمرتقبة في قسم إحصائيات %{link}.
-      moved_notice: تم نقل المنشورات الإحصائية.
   roles:
     unassigned: لم يتم تعيين أي شخص لهذا الدور.
   see_all:

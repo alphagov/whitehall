@@ -39,8 +39,6 @@ de:
       title: Anhang Titel
       unique_reference: Anhang eindeutige Referenz
       unnumbered_hoc_paper: Nicht nummeriertes Unterhauspapier
-  announcements:
-    heading: Ankündigungen
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ de:
         other: Schriftliche Erklärungen vor dem Parlament
     updated: aktualisiert
   document_filters:
-    description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihren Interessen entsprechen
-    no_results:
-      description: Formulieren Sie Ihre Suche allgemeiner.
-      title: Ihre Suchanfrage hat keine Ergebnisse gebracht.
-      tna_heading: Älterer Inhalt
-      tna_link_html: Nicht alle Veröffentlichungen der Ministerien aus der Zeit vor Mai 2010 wurden auf GOV.UK übernommen. Um Veröffentlichungen vor Mai 2010 zu finden, suchen Sie im <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nationalarchiv</a>.
     world_locations:
       all: Alle Standorte
       label: Weltweite Standorte
@@ -477,12 +469,6 @@ de:
       works_with: Arbeitet mit
     type:
       courts_and_tribunals: Gerichte und Gerichtshöfe
-  publications:
-    heading: Veröffentlichungen
-    recent: Jüngste Veröffentlichungen
-    statistics:
-      link_to_published_statistics: Eine Liste der veröffentlichten und kommenden Regierungsstatistiken finden Sie in der Rubrik %{link} Statistiken.
-      moved_notice: Die statistischen Veröffentlichungen sind verlagert worden.
   roles:
     unassigned: Diese Funktion wurde niemandem zugewiesen
   see_all:

@@ -39,8 +39,6 @@ fr:
       title: Titre de la pièce jointe
       unique_reference: Référence unique de la pièce jointe
       unnumbered_hoc_paper: Document non numéroté de la Chambre des Communes
-  announcements:
-    heading: Annonces
   attachment:
     accessibility:
       full_help_html: |-
@@ -356,12 +354,6 @@ fr:
         other: Déclarations écrites au Parlement
     updated: mis à jour
   document_filters:
-    description: Vous pouvez recourir aux filtres pour n'afficher que les résultats qui répondent à vos intérêts
-    no_results:
-      description: Élargissez votre recherche et recommencez.
-      title: Aucun document ne correspond.
-      tna_heading: Contenu plus ancien
-      tna_link_html: Toutes les publications du ministère réalisées avant mai 2010 n'ont pas été migrées vers GOV.UK. Pour trouver des publications antérieures à mai 2010, essayez de rechercher <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Les Archives nationales</a>.
     world_locations:
       all: Tous les emplacements
       label: Emplacements dans le monde
@@ -478,12 +470,6 @@ fr:
       works_with: Travaille avec
     type:
       courts_and_tribunals: Cours et Tribunaux
-  publications:
-    heading: Publications
-    recent: Publications récentes
-    statistics:
-      link_to_published_statistics: Vous trouverez une liste des statistiques gouvernementales publiées et à venir dans la section %{link} statistiques.
-      moved_notice: Les publications de statistiques ont été transférées.
   roles:
     unassigned: Personne n'est affecté à ce rôle
   see_all:

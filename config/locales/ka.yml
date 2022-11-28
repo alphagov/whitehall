@@ -39,8 +39,6 @@ ka:
       title: დანართის სათაური
       unique_reference: დანართის უნიკალური მითითება
       unnumbered_hoc_paper: თემთა პალატის დაუნომრავი დოკუმენტი
-  announcements:
-    heading: განცხადებები
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ ka:
         other: წერილობითი განცხადებები პარლამენტში
     updated: განახლებულია
   document_filters:
-    description: თქვენ შეგიძლიათ გამოიყენოთ ფილტრები, რათა ნახოთ ის შედეგები, რომელბიც შეესაბამება თქვენს ინტერესებს
-    no_results:
-      description: შეეცადეთ ტქვენი ძიება გააფართოვოთ და ცადეთ ხელახლა.
-      title: არ მოიძებნა შესაბამისი დოკუმენტები.
-      tna_heading: ძველი კონტენტი
-      tna_link_html: დეპარტამენტის ყველა პუბლიკაცია 2010 წლის მაისამდე არ გადასულა GOV.UK-ზე. 2010 წლის მაისამდე პუბლიკაციების საპოვნელად ცადეთ მოძებნოთ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ეროვნული არქივები</a>.
     world_locations:
       all: ყველა ლოკაცია
       label: მსოფლიო ლოკაციები
@@ -478,12 +470,6 @@ ka:
       works_with: მუშაობს
     type:
       courts_and_tribunals: სასამართლოებთან და ტრიბუნალებთან
-  publications:
-    heading: პუბლიკაციები
-    recent: ბოლო პუბლიკაციები
-    statistics:
-      link_to_published_statistics: იპოვეთ გამოქვეყნებული და მომავალი მთავრობის სტატისტიკის სია %{link} სტატისტიკის განყოფილებაში.
-      moved_notice: სტატისტიკის პუბლიკაციები გადატანილია.
   roles:
     unassigned: არავისთვის არ მიუნიჭებიათ ეს როლი
   see_all:

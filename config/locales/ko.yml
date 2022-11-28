@@ -39,8 +39,6 @@ ko:
       title: 첨부 제목
       unique_reference: 첨부 고유 참조
       unnumbered_hoc_paper: 번호를 매기지 않은 하원 문서
-  announcements:
-    heading: 공지사항
   attachment:
     accessibility:
       full_help_html: |
@@ -279,12 +277,6 @@ ko:
         other: 국회로 서면 성명
     updated: 업데이트
   document_filters:
-    description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
-    no_results:
-      description: 다시 써치해주시기 바랍니다.
-      title: 매치되는 문서가 없습니다.
-      tna_heading: 기존 컨텐츠
-      tna_link_html: 2010년 5월 이전의 모든 부서 발행물이 GOV.UK로 마이그레이션되지는 않습니다. 2010년 5월 이전에 발행물을 찾으려면 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>를 찾아 보십시오.
     world_locations:
       all: 모든 로케이션
       label: 월드 로케이션
@@ -401,12 +393,6 @@ ko:
       works_with: 협업 대상
     type:
       courts_and_tribunals: 상위 법원 및 법원
-  publications:
-    heading: 출판물
-    recent: 최근 출판물
-    statistics:
-      link_to_published_statistics: "%{link} 통계 섹션에서 발행되거나 다가올 정부 통계의 목록을 찾아 보십시오."
-      moved_notice: 통계 출판물이 이동되었습니다.
   roles:
     unassigned: 이 역할에 아무도 할당되지 않았습니다
   see_all:

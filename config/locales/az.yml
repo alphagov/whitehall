@@ -39,8 +39,6 @@ az:
       title: Əlavənin başlığı
       unique_reference: Əlavə üçün unikal istinad
       unnumbered_hoc_paper: İcmalar palatasının nömrələnməmiş sənədi
-  announcements:
-    heading: Elanlar
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ az:
         other: Parlamentə yazılı müraciətlər
     updated: yenilənib
   document_filters:
-    description: Yalnız maraqlarınıza uyğun gələn nəticələrin göstərilməsi üçün süzgəclərdən istifadə edə bilərsiniz
-    no_results:
-      description: Axtarış sahənizi genişləndirməyə çalışın və yenidən cəhd edin.
-      title: Uyğun gələn sənədlər yoxdur.
-      tna_heading: Daha köhnə məzmun
-      tna_link_html: '2010-cu ilin may ayından əvvəlki departament nəşrlərinin hamısı GOV.UK-a köçürülməyib. 2010-cu ilin may ayından əvvəlki nəşrləri tapmaq üçün aşağıdakı ünvanda axtarış etməyə çalışın: <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Milli arxivlər</a>.'
     world_locations:
       all: Bütün yerlər
       label: Dünya üzrə yerləri
@@ -478,12 +470,6 @@ az:
       works_with: Məhkəmə və məhkəmə kollegiyaları
     type:
       courts_and_tribunals: ilə işlər
-  publications:
-    heading: Nəşrlər
-    recent: Sonuncu nəşrlər
-    statistics:
-      link_to_published_statistics: "%{link} statistika bölməsində dərc edilmiş və gözlənilən dövlət statistikasını tapın."
-      moved_notice: Statistika üzrə nəşrlər köçürülüb.
   roles:
     unassigned: Bu vəzifəyə heç kim təyin edilməyib
   see_all:

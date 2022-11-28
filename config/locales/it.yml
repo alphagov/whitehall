@@ -39,8 +39,6 @@ it:
       title: Titolo dell’allegato
       unique_reference: Riferimento univoco dell’allegato
       unnumbered_hoc_paper: Carta della Camera dei Comuni non numerata
-  announcements:
-    heading: Annunci
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ it:
         other: Dichiarazioni scritte al Parlamento
     updated: aggiornato
   document_filters:
-    description: Puoi utilizzare i filtri per mostrare solo i risultati che corrispondono ai tuoi interessi
-    no_results:
-      description: Prova ad ampliare la tua ricerca e riprova.
-      title: Non ci sono documenti corrispondenti.
-      tna_heading: Contenuto più vecchio
-      tna_link_html: Non tutte le pubblicazioni del dipartimento precedenti maggio 2010 sono state migrate a GOV.UK. Per trovare pubblicazioni precedenti maggio 2010 prova a cercare negli <a href=”http://webarchive.nationalarchives.gov.uk/adv_search/” class=”govuk-link”>Archivi Nazionali</a>.
     world_locations:
       all: Tutte le posizioni
       label: Località del mondo
@@ -478,12 +470,6 @@ it:
       works_with: Lavora con
     type:
       courts_and_tribunals: Corti e tribunali
-  publications:
-    heading: Pubblicazioni
-    recent: Pubblicazioni recenti
-    statistics:
-      link_to_published_statistics: Trova un elenco delle statistiche governative pubblicate e imminenti nella sezione delle statistiche %{link}.
-      moved_notice: Le pubblicazioni statistiche sono state spostate.
   roles:
     unassigned: Nessuno è assegnato a questo ruolo
   see_all:

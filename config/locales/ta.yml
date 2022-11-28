@@ -39,8 +39,6 @@ ta:
       title: இணைப்பு தலைப்பு
       unique_reference: தலைப்பு பிரத்யேகப் பார்வை
       unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
-  announcements:
-    heading: அறிவிப்புகள்
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ ta:
         other: பாராளுமன்றத்துக்கு எழுத்துப்பூர்வ அறிவிப்புகள்
     updated: புதுப்பிக்கப்பட்டது
   document_filters:
-    description: உங்கள் ஆர்வங்களுக்குப் பொருத்தமான முடிவுகளை மட்டும் காட்ட வடிகட்டிகளை நீங்கள் பயன்படுத்தலாம்
-    no_results:
-      description: உங்கள் தேடலை விரிவானதாக்கி மீண்டும் முயற்சிக்கவும்.
-      title: பொருந்தக்கூடிய ஆவணங்கள் ஏதுமில்லை.
-      tna_heading: பழைய உள்ளடக்கம்
-      tna_link_html: மே 2010க்கு முந்தைய சில துறை வெளியீடுகள் மட்டுமே GOV.UKவுக்குக் கொண்டுவரப்பட்டுள்ளன. மே 2010க்கு முந்தைய வெளியீடுகளைக் கண்டறிய <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">தேசிய ஆவணக் காப்பகத்தில் தேட முயற்சிக்கவும்</a>.
     world_locations:
       all: அனைத்து இருப்பிடங்கள்
       label: உலக இருப்பிடங்கள்
@@ -477,12 +469,6 @@ ta:
       works_with: இதனுடன் பணியாற்றுகிறது
     type:
       courts_and_tribunals: நீதிமன்றங்களும் தீர்ப்பாயங்களும்
-  publications:
-    heading: பிரசுரங்கள்
-    recent: சமீபத்திய பிரசுரங்கள்
-    statistics:
-      link_to_published_statistics: "%{link} புள்ளியியல் பிரிவில் வெளியிடப்பட்ட மற்றும் வரவிருக்கும் அரசு புள்ளியியலின் பட்டியலைக் காணுங்கள்."
-      moved_notice: புள்ளியியல் வெளியீடுகள் வேறிடத்திற்கு நகர்த்தப்பட்டுள்ளன.
   roles:
     unassigned: இந்தப் பதவிக்கு யாரும் நியமிக்கப்படவில்லை
   see_all:

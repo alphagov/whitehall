@@ -3,7 +3,6 @@ require "gds_api/test_helpers/search"
 
 class TopicalEventResluggerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::Search
-  include FeedHelper
 
   setup do
     @old_slug = "old-slug"
@@ -39,15 +38,5 @@ class TopicalEventResluggerTest < ActiveSupport::TestCase
     end
 
     @reslugger.run!
-  end
-
-  test "updates the topical_event's atom feed's url" do
-    base_url = "https://www.test.gov.uk"
-    old_atom_feed_url = "#{base_url}/government/topical-events/#{@old_slug}.atom"
-    new_atom_feed_url = "#{base_url}/government/topical-events/#{@new_slug}.atom"
-
-    assert_changes -> { atom_feed_url_for(@topical_event) }, from: old_atom_feed_url, to: new_atom_feed_url do
-      @reslugger.run!
-    end
   end
 end

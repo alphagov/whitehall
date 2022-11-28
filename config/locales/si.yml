@@ -39,8 +39,6 @@ si:
       title: ඇමුණුමේ මාතෘකාව
       unique_reference: ඇමුණුමේ අද්විතීය යොමුව
       unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
-  announcements:
-    heading: නිවේදන
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ si:
         other: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශ
     updated: යාවත්කාලීන කෙරිණි
   document_filters:
-    description: ඔබේ රුචිකත්වයට ගැලපෙන ප්රතිඵල පමණක් පෙන්වීමට ඔබට පෙරහන් භාවිතා කළ හැකිය
-    no_results:
-      description: ඔබගේ සෙවීම පුළුල් කිරීමට උත්සාහ කර නැවත උත්සාහ කරන්න.
-      title: ගැලපෙන ලේඛන නොමැත.
-      tna_heading: පැරණි අන්තර්ගතය
-      tna_link_html: 2010 මැයි මාසයට පෙර සිට සියලුම දෙපාර්තමේන්තු ප්රකාශන GOV.UK සංක්රමණය කර නොමැත. 2010 මැයි මසට කළින් වූ ප්‍රකාශන සොයා ගැනීමට <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ජාතික ලේඛනාගාරය</a> තුළ සෙවීමට උත්සාහ කරන්න.
     world_locations:
       all: සියලුම ස්ථාන
       label: ලෝක ස්ථාන
@@ -477,12 +469,6 @@ si:
       works_with: සමඟ වැඩ කරයි
     type:
       courts_and_tribunals: අධිකරණ හා විනිශ්චය මණ්ඩල
-  publications:
-    heading: ප්රකාශන
-    recent: මෑත කාලීන ප්රකාශන
-    statistics:
-      link_to_published_statistics: "%{link} සංඛ්යාලේඛන කොටසේ ඇති ප්රකාශිත සහ ඉදිරියට එ රජයේ සංඛ්යාලේඛන ලැයිස්තුවක් සොයා ගන්න."
-      moved_notice: සංඛ්යාලේඛන ප්රකාශන විතැන් කර ඇත.
   roles:
     unassigned: මෙම භූමිකාව කිසිවෙකුට පවරා නැත
   see_all:

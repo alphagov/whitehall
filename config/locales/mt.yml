@@ -39,8 +39,6 @@ mt:
       title: Titlu tal-anness
       unique_reference: Referenza unika tal-anness
       unnumbered_hoc_paper: Dokument mhux innumerat tal-House of Commons
-  announcements:
-    heading: Avviżi
   attachment:
     accessibility:
       full_help_html: "Jekk tuża teknoloġija assistiva (bħal qarrej ta' skrin) u għandek bżonn verżjoni ta' dan id-dokument f'format iktar aċċessibbli, jekk jogħġbok ibgħat imejl %{email}. \nJekk jogħġbok igħidilna x'format għandek bżonn.  Ser jgħinna jekk tgħidilna x'teknoloġija assistiva qed tuża'.\n"
@@ -505,12 +503,6 @@ mt:
         other: Dikjarazzjonijiet miktuba lill-Parlament
     updated: aġġornat
   document_filters:
-    description: Tista' tuża' l-filtri biex tara biss riżultati li jaqblu mal-interessi tiegħek
-    no_results:
-      description: Ipprova għamel it-tfittxija iktar wiegħsa u erġa' pprova.
-      title: M'hemm l-ebda dokumenti li jaqblu.
-      tna_heading: Kontenut iktar antik
-      tna_link_html: Mhux il-pubblikazzjonijiet kollha tad-dipartiment minn qabel Mejju 2010 ġew migrati lejn GOV.UK. Biex issib pubblikazzjonijiet minn qabel Mejju 2010, ipprova fittex <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">L-Arkivji Nazzjonali</a>.
     world_locations:
       all: Postijiet kollha
       label: Postijiet fid-dinja
@@ -627,12 +619,6 @@ mt:
       works_with: Jaħdem ma'
     type:
       courts_and_tribunals: Qorti u Tribunali
-  publications:
-    heading: Pubblikazzjonijiet
-    recent: Pubblikazzjonijiet riċenti
-    statistics:
-      link_to_published_statistics: Sib lista tal-istatistiċi tal-gvern ippubblikati u dawk li għad iridu jiġu pubblikati fis-sezzjoni %{link}tal-istatistika.
-      moved_notice: Il-pubblikazzjonijiet tal-istatistiċi imxew.
   roles:
     unassigned: Ħadd m'għandu dan ir-rwol
   see_all:

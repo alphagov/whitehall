@@ -65,7 +65,6 @@ Whitehall::Application.routes.draw do
 
     # Redirects rendered by Whitehall
     get "/collections" => redirect("/publications")
-    get "/email-signup", to: redirect("/")
     get "/fatalities" => redirect("/announcements"), as: "fatality_notices"
     get "/news" => redirect("/announcements"), as: "news_articles"
     get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
@@ -79,7 +78,6 @@ Whitehall::Application.routes.draw do
     # End of redirects rendered by Whitehall
 
     # Public facing routes still rendered by Whitehall
-    resource :email_signups, path: "email-signup", only: %i[create new]
     resources :fatality_notices, path: "fatalities", only: [:show]
     scope "/history" do
       get "/past-chancellors", to: "historic_appointments#past_chancellors"
@@ -96,11 +94,6 @@ Whitehall::Application.routes.draw do
     resources :operational_fields, path: "fields-of-operation", only: %i[index show]
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
     # End of public facing routes still rendered by Whitehall
-
-    # Routes that exist solely for the purpose of non-English finders
-    get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: valid_locales_regex }
-    get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
-    # End of routes solely for non-English finders
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
     get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }

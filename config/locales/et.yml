@@ -39,8 +39,6 @@ et:
       title: Manuse pealkiri
       unique_reference: Manuse unikaalne viide
       unnumbered_hoc_paper: Nummerdamata alamkoja dokument
-  announcements:
-    heading: Teadaanded
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ et:
         other: Kirjalikud avaldused parlamendile
     updated: uuendatud
   document_filters:
-    description: Filtrite abil saate kuvada ainult teie huvidele vastavaid tulemusi
-    no_results:
-      description: Proovige oma otsingut laiendada ja proovige uuesti.
-      title: Sobivaid dokumente pole.
-      tna_heading: Vanem sisu
-      tna_link_html: Mitte kõiki osakondade publikatsioone enne 2010. aasta maid ei viidud saidile GOV.UK. 2010 mai eelsete publikatsioonide leidmiseks proovige otsida saidilt <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">riiklikke arhiive</a>.
     world_locations:
       all: Kõik asukohad
       label: Maailma asukohad
@@ -477,12 +469,6 @@ et:
       works_with: Töötab koos
     type:
       courts_and_tribunals: Kohtud
-  publications:
-    heading: Publikatsioonid
-    recent: Hiljutised publikatsioonid
-    statistics:
-      link_to_published_statistics: Leia avaldatud ja eelseisev valitsuse statistika loend statistika jaotisest %{link}.
-      moved_notice: Statistikapublikatsioonid on kolinud.
   roles:
     unassigned: Sellesse rolli pole kedagi määratud
   see_all:

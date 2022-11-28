@@ -39,8 +39,6 @@ tk:
       title: Goşundy ady
       unique_reference: Goşundy ýeketäk salgylanmasy
       unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
-  announcements:
-    heading: Bildirişler
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ tk:
         other: Mejlise ýazmaça beýanlar
     updated: täzelenen
   document_filters:
-    description: Diňe sizi gyzyklandyrýan maglumatlary görmek üçin filtrleri ulanyp bilersiňiz
-    no_results:
-      description: Gözlegleriňizi has giň göwrümli etmeklige çalşyň we gaýtadan synanşyň.
-      title: Gabat gelýän resminamalar ýok.
-      tna_heading: Köneräk mazmun
-      tna_link_html: 2010-njy ýylyň maý aýyndan öňki bölüm neşirleriniň hemmesi GOV.UK-a göçürilmedi. 2010-njy ýylyň maý aýyndan öň neşirleri tapmak üçin <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Milli arhiwi</a> gözläp görüň.
     world_locations:
       all: Ähli ýerler
       label: Dünýä ýerleri
@@ -477,12 +469,6 @@ tk:
       works_with: Bilelikde işleýär
     type:
       courts_and_tribunals: Kazyýet we Kazylar
-  publications:
-    heading: Neşirler
-    recent: Soňky neşirler
-    statistics:
-      link_to_published_statistics: Neşirleriň we ýetip gelýän hökümet statistikasynyň sanawyny %{link} statisika bölüminden tapyp bilersiňiz.
-      moved_notice: Statistika neşirleri göçürildi.
   roles:
     unassigned: Bu wezipä hiç kim bellenmedi
   see_all:

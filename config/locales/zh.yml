@@ -39,8 +39,6 @@ zh:
       title: 附件标题
       unique_reference: 附件唯一参考
       unnumbered_hoc_paper: 未编号的下议院文件
-  announcements:
-    heading: 公告
   attachment:
     accessibility:
       full_help_html: |
@@ -279,12 +277,6 @@ zh:
         other: 议会口头声明
     updated: 已更新
   document_filters:
-    description: 您可以使用过滤器，以只显示符合您兴趣的结果
-    no_results:
-      description: 试着扩大您的搜索范围，然后再试一次。
-      title: 没有匹配的文件。
-      tna_heading: 较旧的内容
-      tna_link_html: 2010年5月之前，并不是所有部门的出版物都迁移到了GOV.UK。要查找2010年5月以前的出版物，请尝试搜索<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国家档案馆</a>。
     world_locations:
       all: 全部地点
       label: 世界地点
@@ -401,12 +393,6 @@ zh:
       works_with: 合作者
     type:
       courts_and_tribunals: 法院和法庭
-  publications:
-    heading: 公布
-    recent: 最近出版物
-    statistics:
-      link_to_published_statistics: 在 %{link} 统计数据部分中找到已发布和即将发布的政府统计数据列表。
-      moved_notice: 统计数据发布也发生迁移。
   roles:
     unassigned: 没有人被分配到这个职责
   see_all:

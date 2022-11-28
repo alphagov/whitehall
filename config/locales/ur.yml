@@ -39,8 +39,6 @@ ur:
       title: منسلہ کا عنوان
       unique_reference: منسلکہ کا منفرد حوالہ
       unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
-  announcements:
-    heading: اعلانات
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ ur:
         other: پالیمان کے لیے تحریری بیانات
     updated: اپ ڈیٹ کردہ
   document_filters:
-    description: آپ صرف وہ نتائج دیکھنے کے لیے فلٹرز کا استعمال کر سکتے ہیں جو آپ کی دلچسپیوں سے مماثلت رکھتے ہیں
-    no_results:
-      description: اپنی تلاش کو وسیع تر بنانے کی کوشش کریں اور دوبارہ کوشش کریں۔
-      title: کوئی میچ کرنے والی دستاویزات نہیں ہیں۔
-      tna_heading: پرانا مواد
-      tna_link_html: مئی 2010 سے پہلے کی تمام محکماتی پبلیکیشنز کو GOV.UK پر منتقل نہیں کیا گیا تھا۔ مئی 2010 سے پہلے کی پبلیکیشنز کو تلاش کرنے کے لیے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">قومی آرکائیوز (The National Archives)</a> کو تلاش کرنے کو آزمائیں۔
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات
@@ -477,12 +469,6 @@ ur:
       works_with: شریک کار
     type:
       courts_and_tribunals: عدالتیں اور ٹریبیونلز
-  publications:
-    heading: پبلیکیشنز
-    recent: حالیہ پبلیکیشنز
-    statistics:
-      link_to_published_statistics: "%{link} کے شماریات کے سیکشن میں حکومتی شماریات کی شائع شدہ اور آنے والی فہرست تلاش کریں۔"
-      moved_notice: شماریات کی پبلیکیشنز کو منتقل کر دیا گیا ہے۔
   roles:
     unassigned: کسی کو یہ کردار تفویض نہیں کیا گیا
   see_all:

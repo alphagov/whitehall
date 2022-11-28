@@ -39,8 +39,6 @@ uk:
       title: Назва додатку
       unique_reference: Унікальний номер додатку
       unnumbered_hoc_paper: Документ Палати громад без номеру
-  announcements:
-    heading: Оголошення
   attachment:
     accessibility:
       full_help_html: |
@@ -507,12 +505,6 @@ uk:
         other: Письмові заяви до Парламенту
     updated: оновлено
   document_filters:
-    description: Ви можете використовувати фільтри, щоб показувати лише результати, які відповідають вашим інтересам
-    no_results:
-      description: Спробуйте розширити пошук та повторіть спробу.
-      title: Немає відповідних документів.
-      tna_heading: Попередній вміст
-      tna_link_html: Не всі публікації відділу до травня 2010 р. були перенесені на GOV.UK. Щоб знайти публікації до травня 2010 року, спробуйте здійснити пошук у <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Національному архіві</a>.
     world_locations:
       all: Усі локації
       label: Світові локації
@@ -629,12 +621,6 @@ uk:
       works_with: Працює з
     type:
       courts_and_tribunals: Суди та арбітражні суди
-  publications:
-    heading: Публікації
-    recent: Недавні публікації
-    statistics:
-      link_to_published_statistics: Знайдіть список опублікованої та майбутньої урядової статистики у розділі статистики %{link}.
-      moved_notice: Статистичні публікації перенесені.
   roles:
     unassigned: На цю посаду ніхто не призначений
   see_all:

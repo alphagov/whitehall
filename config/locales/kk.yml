@@ -39,8 +39,6 @@ kk:
       title: Тіркеме тақырыбы
       unique_reference: Тіркеменің бірегей сілтемесі
       unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
-  announcements:
-    heading: Хабарландырулар
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ kk:
         other: Парламентке жазбаша мәлімдемелер
     updated: жаңартылды
   document_filters:
-    description: Сіз қызығушылықтарыңызға сәйкес келетін нәтижелерді көрсету үшін сүзгілерді пайдалана аласыз
-    no_results:
-      description: Іздеу шарттарын кеңейтуге тырысыңыз және әрекетті қайталап көріңіз.
-      title: Сәйкес құжаттар жоқ.
-      tna_heading: Ескірек мазмұн
-      tna_link_html: 2010 жылдың мамыр айына дейінгі барлық бөлім жарияланымдары GOV.UK сайтына көшірілмеген. 2010 жылдың мамыр айына дейінгі жарияланымдарды табу үшін <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Ұлттық мұрағаттардан</a> іздеп көріңіз.
     world_locations:
       all: Барлық орындар
       label: Әлемдегі орындар
@@ -477,12 +469,6 @@ kk:
       works_with: Мынамен жұмыс істейді
     type:
       courts_and_tribunals: Соттар мен сот орындары
-  publications:
-    heading: Жарияланымдар
-    recent: Жақын арадағы жарияланымдар
-    statistics:
-      link_to_published_statistics: "%{link} статистика бөлімінен жарияланған және алдағы мемлекеттік статистика тізімін табыңыз."
-      moved_notice: Статистикалық басылымдар көшті.
   roles:
     unassigned: Бұл рөлге ешкім тағайындалмаған
   see_all:

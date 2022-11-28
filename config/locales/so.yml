@@ -39,8 +39,6 @@ so:
       title: Cinwaanka lifaaqa
       unique_reference: Tixraaca gaarka ah ee lifaaqa
       unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
-  announcements:
-    heading: Ogeysiisyo
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ so:
         other: Bayaanada qoran ee loogu talogalay Baarlamaanka
     updated: la cusboonaysiiyay
   document_filters:
-    description: Waxaad isticmaali kartaa kala saarayaasha si aad u muujiso kaliya maxsuulka waafaqay danahaaga
-    no_results:
-      description: Isku day inaad baadhistaada balaadhiso oo isku day markale.
-      title: Ma jiraan dhokumantiyo is waafaqsan.
-      tna_heading: Qaybtii hore
-      tna_link_html: Maaha dhamaan qaybta daabacaadaha laga bilaabo kahor bisha May 2010 waxa loo wareejiyay GOV.UK. Si aad u raadiso daabacaadaha laga bilaabo bisha May 2010 isku day baadhista <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Kaydka Qaranka</a>.
     world_locations:
       all: Dhamaan goobaha
       label: Goobaha Dunida
@@ -477,12 +469,6 @@ so:
       works_with: Ee la shaqaysa
     type:
       courts_and_tribunals: Maxkamadaha iyo Xukunada
-  publications:
-    heading: Daabacaado
-    recent: Daabacadihii dhawaa
-    statistics:
-      link_to_published_statistics: Baadh liiska cusboonaysiinta iyo xog ururinta soo socota ee dawlada %{link} qaybta xog ururinta.
-      moved_notice: Daabacaadaha xog ururinaha waa laga saaray.
   roles:
     unassigned: Qofna looma qoondayn doorkan
   see_all:

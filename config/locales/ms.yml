@@ -39,8 +39,6 @@ ms:
       title: Tajuk lampiran
       unique_reference: Rujukan unik lampiran
       unnumbered_hoc_paper: Kertas Dewan Rakyat tidak bernombor
-  announcements:
-    heading: Pengumuman
   attachment:
     accessibility:
       full_help_html: |
@@ -280,12 +278,6 @@ ms:
         other: Kenyataan bertulis kepada Parlimen
     updated: dikemas kini
   document_filters:
-    description: Anda boleh menggunakan penapis untuk menunjukkan hasil yang hanya sepadan dengan minat anda
-    no_results:
-      description: Cuba buat carian anda lebih luas dan cuba lagi.
-      title: Tidak ada dokumen yang sepadan.
-      tna_heading: Kandungan lebih lama
-      tna_link_html: Tidak semua penerbitan jabatan dari sebelum Mei 2010 dipindahkan ke GOV.UK. Untuk mencari penerbitan sebelum Mei 2010 cuba cari <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arkib Negara</a>.
     world_locations:
       all: Semua lokasi
       label: Lokasi dunia
@@ -402,12 +394,6 @@ ms:
       works_with: Bekerja dengan
     type:
       courts_and_tribunals: Mahkamah dan Tribunal
-  publications:
-    heading: Penerbitan
-    recent: Penerbitan terbaharu
-    statistics:
-      link_to_published_statistics: Cari senarai statistik kerajaan yang telah diterbitkan dan akan datang di bahagian statistik %{link}.
-      moved_notice: Penerbitan statistik telah bergerak.
   roles:
     unassigned: Tiada siapa yang ditugaskan untuk peranan ini
   see_all:

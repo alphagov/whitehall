@@ -39,8 +39,6 @@ is:
       title: Titill viðhengis
       unique_reference: Einkvæmt auðkenni viðhengis
       unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
-  announcements:
-    heading: Tilkynningar
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ is:
         other: Skriflegar yfirlýsingar til Þingsins
     updated: uppfært
   document_filters:
-    description: Þú getur notað síur til að sýna bara niðurstöður sem henta þínum áhugsviðum
-    no_results:
-      description: Prófaðu að víkka leitina þína og reyna aftur.
-      title: Það eru engin skjöl sem passa.
-      tna_heading: Eldra efni
-      tna_link_html: Öll útgáfa ráðuneyta frá því fyrir Maí 2010 hefur verið færð yfir á GOV.UK. Til að finna útgáfu frá því fyrir Maí 2010 prófaðu að leita í <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Þjóðskjalasafnið</a>.
     world_locations:
       all: Allar staðsetningar
       label: Staðsetningar í heiminum
@@ -477,12 +469,6 @@ is:
       works_with: Starfar með
     type:
       courts_and_tribunals: Réttir og dómstólar
-  publications:
-    heading: Útgáfur
-    recent: Nýlegar útgáfur
-    statistics:
-      link_to_published_statistics: Þú finnur lista yfir útgefna og væntanlega opinbera tölfræði í %{link} tölfræði hlutanum.
-      moved_notice: Útgáfa tölfræði hefur verið færð.
   roles:
     unassigned: Enginn er settur í þetta hlutverk
   see_all:

@@ -39,8 +39,6 @@ sr:
       title: Naslov priloga
       unique_reference: Jedinstvena referenca priloga
       unnumbered_hoc_paper: Nenumerisani dokument Donjeg doma skupštine
-  announcements:
-    heading: Najave
   attachment:
     accessibility:
       full_help_html: |
@@ -432,12 +430,6 @@ sr:
         other: Pismene predstavke Parlamentu
     updated: ažurirano
   document_filters:
-    description: Možete koristiti ove filtere da biste prikazali samo rezultate koji se poklapaju sa vašim interesovanjima
-    no_results:
-      description: Pokušajte ponovo sa širim obimom pretrage.
-      title: Nema dokumenata koji se podudaraju.
-      tna_heading: Stariji sadržaj
-      tna_link_html: Nisu sve publikacije ministarstava iz perioda pre maja 2010. prebačene na GOV.UK. Da biste pronašli publikaciju iz perioda pre maja 2010. probajte da pretražite <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalne arhive</a>.
     world_locations:
       all: Sve lokacije
       label: Globalne lokacije
@@ -554,12 +546,6 @@ sr:
       works_with: Sarađuje sa
     type:
       courts_and_tribunals: Sudovi i tribunali
-  publications:
-    heading: Publikacije
-    recent: Nedavne publikacije
-    statistics:
-      link_to_published_statistics: Pronađite listu objavljenih i predstojećih vladinih statističkih podataka u odeljku %{link} statistički podaci.
-      moved_notice: Statističke publikacije su premeštene.
   roles:
     unassigned: Niko nije imenovan za ovu funkciju
   see_all:

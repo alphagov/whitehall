@@ -39,8 +39,6 @@ nl:
       title: Titel van de bijlage
       unique_reference: Unieke referentie bijvoegsel
       unnumbered_hoc_paper: Ongenummerd Lagerhuisdocument
-  announcements:
-    heading: Aankondigingen
   attachment:
     accessibility:
       full_help_html: "Als u ondersteunende technologie gebruikt (zoals een schermlezer) en een\r\nversie van dit document in een meer toegankelijk formaat nodig heeft, stuur dan een e-mail naar %{email}.\r\nVertel ons welk formaat u nodig hebt. Het zal ons helpen als u zegt welke ondersteunende technologie u gebruikt.\r\n"
@@ -353,12 +351,6 @@ nl:
         other: Schriftelijke verklaringen aan het Parlement
     updated: bijgewerkt
   document_filters:
-    description: U kunt de filters gebruiken om alleen resultaten te tonen die overeenkomen met uw interesses
-    no_results:
-      description: Probeer uw zoekopdracht breder te maken en probeer het opnieuw.
-      title: Er zijn geen overeenkomende documenten.
-      tna_heading: Oudere inhoud
-      tna_link_html: Niet alle afdelingspublicaties van voor mei 2010 zijn gemigreerd naar GOV.UK. Om publicaties te vinden van voor mei 2010 probeer dan te zoeken <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">De Nationale Archieven</a>.
     world_locations:
       all: Alle locaties
       label: Wereld locaties
@@ -475,12 +467,6 @@ nl:
       works_with: Werkt samen met
     type:
       courts_and_tribunals: Hoven en rechtbanken
-  publications:
-    heading: Publicaties
-    recent: Recente publicaties
-    statistics:
-      link_to_published_statistics: Een lijst van gepubliceerde en binnenkort te verschijnen overheidsstatistieken vindt u in de sectie %{link} statistieken.
-      moved_notice: Publicaties over statistieken zijn verplaatst.
   roles:
     unassigned: Er is niemand toegewezen aan deze functie
   see_all:

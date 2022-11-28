@@ -39,8 +39,6 @@ fa:
       title: عنوان پیوست
       unique_reference: شناسه مرجع یکتای پیوست
       unnumbered_hoc_paper: سند بدون شماره مجلس عوام
-  announcements:
-    heading: اطلاعیه‌ها
   attachment:
     accessibility:
       full_help_html: |
@@ -355,12 +353,6 @@ fa:
         other: بیانیه‌های کتبی به پارلمان
     updated: بروز شده
   document_filters:
-    description: می‌توانید از فیلترها استفاده کنید تا تنها نتایجی که مطابق با علایق شما هستند، نمایش داده شوند
-    no_results:
-      description: سعی کنید جستجوی خود را گسترده‌تر کرده و دوباره امتحان کنید.
-      title: هیچ سند مطابقی وجود ندارد.
-      tna_heading: محتوای قدیمی‌تر
-      tna_link_html: تمام موارد منتشر شده اداری از قبل از می 2010 به GOV.UK منتقل نشده‌اند برای یافتن موارد منتشر شده قبل از می 2010 عبارت <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives (آرشیوهای ملی)</a> را جستجو کنید.
     world_locations:
       all: تمام مکان‌ها
       label: مکان‌های جهانی
@@ -477,12 +469,6 @@ fa:
       works_with: همکاری می‌کند با
     type:
       courts_and_tribunals: دادگاه‌ها و محکمه‌ها
-  publications:
-    heading: موارد منتشر شده
-    recent: موارد اخیراً منتشر شده
-    statistics:
-      link_to_published_statistics: در بخش آماری %{link} می‌توانید لیستی از آمار دولتی منتشر شده و آتی را بیابید.
-      moved_notice: مطالب منتشر شده آماری جابجا شده است.
   roles:
     unassigned: هیچ فردی به این نقش تخصیص نیافته است
   see_all:

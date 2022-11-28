@@ -39,8 +39,6 @@ ps:
       title: د ضمیمې سرلیک
       unique_reference: ضمیمه ځانګړې حواله
       unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
-  announcements:
-    heading: اعلانونه
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ ps:
         other: پارلمان ته لیکلي بیانونه
     updated: تازه شوی
   document_filters:
-    description: تاسو کولی شئ فلټرونه وکاروئ یوازې هغه پایلې وښایاست چې ستاسو ګټو سره سمون خوري
-    no_results:
-      description: هڅه وکړئ خپله لټون پراخه کړئ او بیا هڅه وکړئ.
-      title: هیڅ ورته اسناد شتون نلري.
-      tna_heading: زوړ مواد
-      tna_link_html: د می 2010 څخه دمخه ټولې ډیپارټمنټ خپرونې GOV.UK ته مهاجر شوي ندي. د 2010 می څخه دمخه د خپرونو موندلو لپاره د <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ملي آرشیف</a> د لټون هڅه وکړئ.
     world_locations:
       all: ټول ځایونه
       label: د نړۍ موقعیتونه
@@ -478,12 +470,6 @@ ps:
       works_with: سره کار کوي
     type:
       courts_and_tribunals: محکمې او محکمې
-  publications:
-    heading: خپرونې
-    recent: وروستي خپرونې
-    statistics:
-      link_to_published_statistics: د %{link} احصایې برخې کې د خپاره شوي او راتلونکي حکومت احصایو لیست ومومئ.
-      moved_notice: د احصایوي خپرونو حرکت شوی.
   roles:
     unassigned: هیڅوک دې رول ته ندي ګمارل شوي
   see_all:

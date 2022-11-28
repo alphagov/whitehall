@@ -39,8 +39,6 @@ pa:
       title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
       unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
       unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
-  announcements:
-    heading: ਘੋਸ਼ਣਾਵਾਂ
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ pa:
         other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦਿੱਤੇ
     updated: ਅੱਪਡੇਟ ਕੀਤਾ
   document_filters:
-    description: ਤੁਸੀਂ ਫਿਲਟਰਸ ਦੀ ਵਰਤੋਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀ ਦਿਲਚਸਪੀ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ
-    no_results:
-      description: ਆਪਣੀ ਖੋਜ ਨੂੰ ਵਿਸ਼ਾਲ ਬਣਾਉਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
-      title: ਕੋਈ ਮੇਲ ਖਾਂਦੇ ਦਸਤਾਵੇਜ਼ ਨਹੀਂ ਹਨ.
-      tna_heading: ਪੁਰਾਣੀ ਸਮਗਰੀ
-      tna_link_html: ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਸਾਰੇ ਵਿਭਾਗ ਪ੍ਰਕਾਸ਼ਨ GOV.UK ਵਿੱਚ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤੇ ਗਏ ਸਨ। ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਪ੍ਰਕਾਸ਼ਨ ਲੱਭਣ ਲਈ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ਰਾਸ਼ਟਰੀ ਪੁਰਾਲੇਖ</a> ਖੋਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਸਥਾਨ
@@ -478,12 +470,6 @@ pa:
       works_with: ਨਾਲ ਕੰਮ ਕਰਦਾ ਹੈ
     type:
       courts_and_tribunals: ਅਦਾਲਤਾਂ ਅਤੇ ਟ੍ਰਿਬਿਊਨਲ
-  publications:
-    heading: ਪ੍ਰਕਾਸ਼ਨ
-    recent: ਹਾਲੀਆ ਪ੍ਰਕਾਸ਼ਨ
-    statistics:
-      link_to_published_statistics: "%{link} ਅੰਕੜੇ ਭਾਗ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਿਤ ਅਤੇ ਆਉਣ ਵਾਲੇ ਸਰਕਾਰੀ ਅੰਕੜਿਆਂ ਦੀ ਇੱਕ ਸੂਚੀ ਲੱਭੋ।"
-      moved_notice: ਅੰਕੜੇ ਪ੍ਰਕਾਸ਼ਨ ਬਦਲ ਗਏ ਹਨ।
   roles:
     unassigned: ਇਸ ਭੂਮਿਕਾ ਲਈ ਕਿਸੇ ਨੂੰ ਵੀ ਨਿਯੁਕਤ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ
   see_all:

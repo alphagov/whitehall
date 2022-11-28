@@ -39,8 +39,6 @@ pt:
       title: Título do anexo
       unique_reference: Referência única do anexo
       unnumbered_hoc_paper: Papel não numerado da Câmara dos Comuns
-  announcements:
-    heading: Anúncios
   attachment:
     accessibility:
       full_help_html: |
@@ -356,12 +354,6 @@ pt:
         other: Declarações escritas ao Parlamento
     updated: atualizado em
   document_filters:
-    description: Pode utilizar os filtros para mostrar apenas resultados que correspondam aos seus interesses
-    no_results:
-      description: Faça para tornar a sua pesquisa mais ampla e tente novamente.
-      title: Não existem documentos correspondentes.
-      tna_heading: Conteúdo mais antigo
-      tna_link_html: Nem todas as publicações do departamento anteriores a maio de 2010 migraram para GOV.UK. Para encontrar publicações anteriores a maio de 2010, tente pesquisar <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Os Arquivos Nacionais</a>.
     world_locations:
       all: Todos os locais
       label: Locais mundiais
@@ -478,12 +470,6 @@ pt:
       works_with: Trabalha com
     type:
       courts_and_tribunals: Tribunais
-  publications:
-    heading: Publicações
-    recent: Publicações recentes
-    statistics:
-      link_to_published_statistics: Encontre uma lista de estatísticas governamentais publicadas e futuras na secção de estatísticas %{link}.
-      moved_notice: As publicações de estatísticas mudaram de sítio.
   roles:
     unassigned: Ninguém está atribuído a esta função
   see_all:
