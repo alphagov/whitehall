@@ -27,7 +27,6 @@ module RummagerPresenters
       PolicyGroup,
       TakePartPage,
       StatisticsAnnouncement,
-      WorldLocation,
       WorldLocationNews,
       WorldwideOrganisation,
     ] + Whitehall.edition_classes

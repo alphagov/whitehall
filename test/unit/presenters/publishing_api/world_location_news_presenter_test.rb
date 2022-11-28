@@ -102,6 +102,25 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
     end
   end
 
+  test "it uses the correct content ID for International Delegation pages" do
+    world_location_news = build(:world_location_news)
+    world_location = create(:international_delegation, :with_worldwide_organisations, world_location_news:)
+
+    presented_item = present(world_location_news)
+
+    assert_equal world_location.content_id, presented_item.content_id
+  end
+
+  test "it uses the correct base path for International Delegation pages" do
+    world_location_news = build(:world_location_news)
+    create(:international_delegation, :with_worldwide_organisations, world_location_news:)
+
+    presented_item = present(world_location_news)
+    base_path = presented_item.content[:base_path]
+
+    assert_equal "/world/united-nations", base_path
+  end
+
   test "it does not include contact details for world locations" do
     world_location_news = build(:world_location_news)
     create(:world_location, :with_worldwide_organisations, world_location_news:)

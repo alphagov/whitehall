@@ -39,7 +39,11 @@ class WorldLocationNews < ApplicationRecord
   end
 
   def search_link
-    Whitehall.url_maker.world_location_news_index_path(world_location)
+    if world_location.world_location?
+      Whitehall.url_maker.world_location_news_index_path(world_location)
+    elsif world_location.international_delegation?
+      Whitehall.url_maker.world_location_path(world_location)
+    end
   end
 
   def contacts

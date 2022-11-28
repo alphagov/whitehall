@@ -115,7 +115,6 @@ namespace :reslug do
   desc "Change the slug of a WorldLocation"
   task :world_location, %i[old_slug new_slug] => :environment do |_task, args|
     world_location = WorldLocation.find_by!(slug: args.old_slug)
-    Whitehall::SearchIndex.delete(world_location)
     world_location.update!(slug: args.new_slug)
     world_location.editions.published.each(&:update_in_search_index)
   end
