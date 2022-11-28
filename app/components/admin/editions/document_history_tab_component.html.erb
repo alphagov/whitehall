@@ -10,6 +10,8 @@
   text: "History and notes have been merged. #{tag.a('Read more about the change', href: admin_whats_new_path)}".html_safe
 } %>
 
+<%= paginate @document_history, theme: 'history', param_name: 'history_page', editing: editing %>
+
 <% if entries_on_newer_editions.present? %>
   <div class="newer-edition-entries">
     <h3 class="govuk-heading-m">On newer editions</h3>
