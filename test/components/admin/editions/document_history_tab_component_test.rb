@@ -10,6 +10,12 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     @user2 = create(:departmental_editor)
     seed_document_event_history
     @timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+
+    pagination = "<nav class='govuk-grid-row govuk-!-margin-bottom-4' role='navigation'>
+                    <a class='govuk-body govuk-link app-component-document-history-tab__pagination-link' data-remote-pagination='/government/admin/editions/1321865/audit_trail?page=2' rel='next' href='/government/admin/consultations/1321865?page=2'>Older</a>
+                   </nav>".html_safe
+
+    Admin::Editions::DocumentHistoryTabComponent.any_instance.stubs(:paginate).returns(pagination)
   end
 
   test "it renders a link to the add remark page" do
@@ -31,6 +37,12 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     assert_selector ".gem-c-inset-text", text: "History and notes have been merged. Read more about the change"
     assert_equal page.all(".gem-c-inset-text a")[0].text, "Read more about the change"
     assert_equal page.all(".gem-c-inset-text a")[0][:href], admin_whats_new_path
+  end
+
+  test "it renders pagination links based on the pagination attribute" do
+    render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @first_edition, document_history: @timeline))
+
+    assert_selector ".app-component-document-history-tab__pagination-link", text: "Older"
   end
 
   test "it renders the timeline entries in the correct sections for, future, current and previous editions" do

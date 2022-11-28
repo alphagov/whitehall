@@ -10,6 +10,8 @@
   text: sanitize("History and notes have been merged. #{tag.a('Read more about the change', href: admin_whats_new_path)}")
 } %>
 
+<%= paginate(@document_history, theme: 'history') %>
+
 <% if entries_on_newer_editions.present? %>
   <div class="app-component-editions__newer-edition-entries">
     <h3 class="govuk-heading-m">On newer editions</h3>
