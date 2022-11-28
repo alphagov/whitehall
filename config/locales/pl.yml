@@ -699,15 +699,7 @@ pl:
       heading:
       list_link:
     headings:
-      announcements: Nasze ogłoszenia
-      documents: Dokumenty
-      featured:
-      mission: Nasza misja
-      news: Wiadomości ze świata
-      organisations: Organizacje
-      publications: Nasze publikacje
       search: Wyszukiwanie według kraju lub terytorium
-      statistics: Nasze statystyki
     search_description:
       international_delegation:
       world_location:

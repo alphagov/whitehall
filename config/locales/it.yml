@@ -550,15 +550,7 @@ it:
       heading:
       list_link:
     headings:
-      announcements: I nostri annunci
-      documents: Documenti
-      featured:
-      mission: La nostra missione
-      news: Notizie dai luoghi del mondo
-      organisations: Organizzazioni
-      publications: Le nostre pubblicazioni
       search: Cerca per stato o territorio
-      statistics: Le nostre statistiche
     search_description:
       international_delegation:
       world_location:

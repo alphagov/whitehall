@@ -853,15 +853,7 @@ cy:
       heading:
       list_link:
     headings:
-      announcements: Ein cyhoeddiadau
-      documents: Dogfennau
-      featured:
-      mission: Ein cenhadaeth
-      news: Newyddion am leoliadau byd-eang
-      organisations: Sefydliadau
-      publications: Ein cyhoeddiadau
       search: Chwilio yn ôl gwlad neu diriogaeth
-      statistics: Ein hystadegau
     search_description:
       international_delegation:
       world_location:

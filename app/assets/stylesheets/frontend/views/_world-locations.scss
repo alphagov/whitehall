@@ -116,43 +116,6 @@
     }
   }
 
-  .news-block {
-    .inner-block {
-      padding: 0;
-
-      @include media(tablet) {
-        padding: 0 $gutter-half;
-      }
-    }
-  }
-
-  .featured-news {
-    &.items-0,
-    &.items-3 {
-      .recently-updated {
-        @include media(tablet) {
-          width: $two-thirds;
-          clear: both;
-          @include right-to-left {
-            float: right;
-          }
-        }
-      }
-    }
-
-    .item-3 {
-      clear: both;
-    }
-  }
-
-  .our-mission {
-    margin-bottom: $gutter * 2;
-
-    p {
-      @include govuk-font($size: 24, $weight: bold);
-    }
-  }
-
   .world-organisations {
     h1 {
       margin-bottom: $gutter;

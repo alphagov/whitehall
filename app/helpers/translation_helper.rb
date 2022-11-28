@@ -5,16 +5,8 @@ module TranslationHelper
     end
   end
 
-  def t_world_location(world_location)
-    t("world_location.type.#{world_location.display_type_key}", count: 1)
-  end
-
   def t_display_type(document, count = 1)
     t("document.type.#{document.display_type_key}", count:)
-  end
-
-  def t_see_all_our(type)
-    t("see_all.#{type}")
   end
 
   def t_lang_translated_locales(object)

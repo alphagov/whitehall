@@ -473,15 +473,7 @@ ko:
       heading:
       list_link:
     headings:
-      announcements: 공지사항
-      documents: 자료
-      featured:
-      mission: 대사관 안내
-      news: 월드 로케이션 뉴스
-      organisations: 조직 안내
-      publications: 출판물
       search: 국가 또는 영토로 검색하기
-      statistics: 통계
     search_description:
       international_delegation:
       world_location:

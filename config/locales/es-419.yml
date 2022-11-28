@@ -550,15 +550,7 @@ es-419:
       heading:
       list_link:
     headings:
-      announcements: Nuestros comunicados
-      documents: Documentos
-      featured:
-      mission: Nuestra misión
-      news: Noticias sobre ubicaciones del mundo
-      organisations: Organizaciones
-      publications: Nuestras publicaciones
       search: Búsqueda por país o territorio
-      statistics: Nuestras estadísticas
     search_description:
       international_delegation:
       world_location:

@@ -547,15 +547,7 @@ lv:
       heading:
       list_link:
     headings:
-      announcements: Paziņojumi
-      documents: Dokumenti
-      featured:
-      mission: Misija
-      news: Pasaules ziņas
-      organisations: Organizācijas
-      publications: Publikācijas
       search: Meklēt pēc valsts vai teritorijas
-      statistics: Statistikas dati
     search_description:
       international_delegation:
       world_location:
