@@ -9,4 +9,19 @@
       ) if show_link_check_report?(@edition)
   %>
   <%= render partial: 'admin/editions/show/sidebar_history_state', locals: { edition: @edition } %>
+
+  <%= render "govuk_publishing_components/components/tabs", {
+    tabs: [
+      {
+        id: "history_tab",
+        label: "History",
+        content: render(Admin::Editions::DocumentHistoryTabComponent.new(edition: @edition, document_history: @document_history))
+      },
+      *([{
+        id: "fact_checking_tab",
+        label: "Fact checking",
+        content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition, send_request_section: true))
+      }] if @edition.can_be_fact_checked?)
+    ]
+  } %>
 </aside>
