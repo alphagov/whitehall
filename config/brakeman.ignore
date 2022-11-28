@@ -115,6 +115,29 @@
       "note": "We don't link directly to any unescaped model attribute."
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "4d250d3bacd4d7d123d789e58a4fbb381f1ddcdce341a292b5b368d826357a6a",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/document/paginated_timeline.rb",
+      "line": 109,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ApplicationRecord.connection.exec_query(\"#{union_query}\\nORDER BY created_at DESC\\nLIMIT ? OFFSET ?\\n\", \"SQL\", [ActiveRecord::Relation::QueryAttribute.new(\"\", 30, ActiveRecord::Type::Integer.new), ActiveRecord::Relation::QueryAttribute.new(\"\", ((@page - 1) * 30), ActiveRecord::Type::Integer.new)])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Document::PaginatedTimeline",
+        "method": "paginated_query"
+      },
+      "user_input": "union_query",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "6536a4d099ce4dde6f007e943e61dd078ba220703e0e0cab6ed152ac12b2abfc",
@@ -235,7 +258,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/models/bulk_upload.rb",
-      "line": 150,
+      "line": 149,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "Open3.popen3(\"#{Whitehall.system_binaries[:zipinfo]} -1 #{temp_location.shellescape} > /dev/null\")",
       "render_path": null,
@@ -250,6 +273,29 @@
         77
       ],
       "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "98d07a7d2e2f7b478703cc0ba74a555738457db31f40604488723216c5802724",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/document/paginated_timeline.rb",
+      "line": 30,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ApplicationRecord.connection.exec_query(\"SELECT COUNT(*) FROM (#{union_query}) x\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Document::PaginatedTimeline",
+        "method": "total_count"
+      },
+      "user_input": "union_query",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -394,7 +440,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/models/bulk_upload.rb",
-      "line": 139,
+      "line": 138,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(temp_dir, \"extracted\")} #{temp_location.shellescape}`",
       "render_path": null,
@@ -489,6 +535,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-11-01 10:29:48 +0000",
+  "updated": "2022-11-22 17:52:43 +0000",
   "brakeman_version": "5.3.1"
 }
