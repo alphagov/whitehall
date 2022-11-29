@@ -171,7 +171,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def confirm_destroy
-    render_design_system(:confirm_destroy, :confirm_destroy_legacy, next_release: false)
+    render_design_system(:confirm_destroy, :confirm_destroy_legacy, next_release: true)
   end
 
   def destroy
@@ -196,9 +196,9 @@ class Admin::EditionsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[edit update new create confirm_destroy]
-    design_system_actions << "diff" if preview_design_system?(next_release: true)
-    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
+    design_system_actions = %w[confirm_destroy diff]
+    design_system_actions += %w[edit update new create] if preview_design_system?(next_release: false)
+    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
