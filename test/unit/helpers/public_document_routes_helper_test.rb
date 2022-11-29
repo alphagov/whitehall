@@ -73,13 +73,11 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     assert_equal "/world/organisations/#{org.slug}.fr", public_document_path(cip, locale: :fr)
   end
 
-  test "returns the document URL using Whitehall public_host and protocol" do
-    Whitehall.stubs(public_host: "some.host")
-    Whitehall.stubs(public_protocol: "http")
+  test "returns the document URL always using the correct public site URL and protocol" do
     edition = create(:published_publication)
     uri = Addressable::URI.parse(public_document_url(edition))
-    assert_equal "some.host", uri.host
-    assert_equal "http", uri.scheme
+    assert_equal "www.test.gov.uk", uri.host
+    assert_equal "https", uri.scheme
     assert_equal public_document_path(edition), uri.path
   end
 
@@ -122,20 +120,20 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   test "Creates a preview URL with cachebust and edition parameters" do
     edition = create(:corporate_information_page)
     preview_url = preview_document_url(edition)
-    assert_equal "http://draft-origin.test.gov.uk/government/organisations/#{edition.organisation.slug}/about/publication-scheme", preview_url
+    assert_equal "https://draft-origin.test.gov.uk/government/organisations/#{edition.organisation.slug}/about/publication-scheme", preview_url
   end
 
   test "Creates a preview URL without parameters for edition formats that have migrated" do
     edition = create(:draft_case_study)
     preview_url = preview_document_url(edition)
-    assert_equal "http://draft-origin.test.gov.uk/government/case-studies/#{edition.slug}", preview_url
+    assert_equal "https://draft-origin.test.gov.uk/government/case-studies/#{edition.slug}", preview_url
   end
 
   test "Creates a preview URL with auth bypass token" do
     edition = create(:draft_case_study)
     token = edition.auth_bypass_token
     preview_url_with_auth_bypass_token = preview_document_url_with_auth_bypass_token(edition)
-    assert_equal "http://draft-origin.test.gov.uk/government/case-studies/case-study-title?token=#{token}&utm_campaign=govuk_publishing&utm_medium=preview&utm_source=share", preview_url_with_auth_bypass_token
+    assert_equal "https://draft-origin.test.gov.uk/government/case-studies/case-study-title?token=#{token}&utm_campaign=govuk_publishing&utm_medium=preview&utm_source=share", preview_url_with_auth_bypass_token
   end
 
   test "organisations have the correct path generated" do
