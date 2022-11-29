@@ -198,5 +198,25 @@ class TakePartPageTest < ActiveSupport::TestCase
     )
   end
 
+  test "public_path returns the correct path" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "/government/get-involved/take-part/foo", object.public_path
+  end
+
+  test "public_path returns the correct path with options" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "/government/get-involved/take-part/foo?cachebust=123", object.public_path(cachebust: "123")
+  end
+
+  test "public_url returns the correct path for a TakePart object" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo", object.public_url
+  end
+
+  test "public_url returns the correct path for a TakePart object with options" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo?cachebust=123", object.public_url(cachebust: "123")
+  end
+
   should_not_accept_footnotes_in :body
 end

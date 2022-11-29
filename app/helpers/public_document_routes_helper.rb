@@ -82,23 +82,6 @@ module PublicDocumentRoutesHelper
     Plek.website_root + get_involved_path(options)
   end
 
-  def take_part_page_path(object, options = {})
-    slug = case object
-           when String
-             object
-           when TakePartPage
-             object.slug
-           else
-             raise ArgumentError, "Must provide a slug or TakePartPage"
-           end
-
-    append_url_options("/government/get-involved/take-part/#{slug}", options)
-  end
-
-  def take_part_page_url(object, options = {})
-    Plek.website_root + take_part_page_path(object, options)
-  end
-
   def topical_event_path(object, options = {})
     slug = case object
            when String
