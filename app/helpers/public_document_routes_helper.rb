@@ -2,7 +2,8 @@ module PublicDocumentRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
   def document_path(edition, options = {})
-    document_url(edition, options.merge(only_path: true))
+    options = locale_options(edition, options)
+    edition.public_path(options)
   end
 
   def public_document_path(edition, options = {})
@@ -12,33 +13,19 @@ module PublicDocumentRoutesHelper
   def document_url(edition, options = {}, _builder_options = {})
     return edition.url if edition.is_a?(RummagerDocumentPresenter)
 
-    if edition.non_english_edition?
-      options[:locale] = edition.primary_locale
-    elsif edition.translatable?
-      options[:locale] ||= best_locale_for_edition(edition)
-    else
-      options.delete(:locale)
-    end
+    options = locale_options(edition, options)
 
-    case edition
-    when CorporateInformationPage
-      build_url_for_corporate_information_page(edition, options)
-    else
-      polymorphic_url(edition.path_name, options.reverse_merge(id: edition.document))
-    end
+    edition.public_url(options)
   end
 
-  def public_document_url(edition, options = {}, builder_options = {})
-    document_url(
-      edition,
-      { host: Whitehall.public_host, protocol: Whitehall.public_protocol }.merge(options),
-      builder_options,
-    )
+  def public_document_url(edition, options = {})
+    options = locale_options(edition, options)
+    edition.public_url(options)
   end
 
   def preview_document_url(edition, options = {})
     if edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-      options[:host] = URI(Plek.external_url_for("draft-origin")).host
+      options[:draft] = true
     else
       options[:preview] = edition.document.latest_edition_id
       options[:cachebust] = Time.zone.now.getutc.to_i
@@ -166,20 +153,16 @@ module PublicDocumentRoutesHelper
 
 private
 
-  def build_url_for_corporate_information_page(edition, options)
-    org = edition.owning_organisation
-
-    decorator = CorporateInfoPageDecorator.new(edition)
-    url = polymorphic_url([org, decorator], options)
-
-    # About pages are actually shown on the CIP index for an Organisation.
-    # We generate a unique path for them anyway, but this is always redirected.
-    case org
-    when Organisation
-      url.gsub("/about/about", "/about")
-    when WorldwideOrganisation
-      url.gsub("/about/about", "")
+  def locale_options(edition, options)
+    if edition.non_english_edition?
+      options[:locale] = edition.primary_locale
+    elsif edition.translatable?
+      options[:locale] ||= best_locale_for_edition(edition)
+    else
+      options.delete(:locale)
     end
+
+    options
   end
 
   def best_locale_for_edition(edition)

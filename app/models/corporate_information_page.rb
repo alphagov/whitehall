@@ -174,6 +174,16 @@ class CorporateInformationPage < Edition
     attachments.any? { |a| a.is_a?(FileAttachment) }
   end
 
+  def base_path
+    if worldwide_organisation.present?
+      url = edition_worldwide_organisation.worldwide_organisation.base_path.to_s + "/about/#{slug}"
+      url.gsub("/about/about", "")
+    else
+      url = edition_organisation.organisation.base_path.to_s + "/about/#{slug}"
+      url.gsub("/about/about", "/about")
+    end
+  end
+
 private
 
   def string_for_slug

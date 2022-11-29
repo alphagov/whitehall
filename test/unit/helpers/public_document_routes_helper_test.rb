@@ -3,39 +3,39 @@ require "test_helper"
 class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   test "uses the document to generate the route" do
     publication = create(:publication)
-    assert_equal publication_path(publication.document), public_document_path(publication)
+    assert_equal publication.public_path, public_document_path(publication)
   end
 
   test "respects additional path options" do
     publication = create(:publication)
-    assert_equal publication_path(publication.document, anchor: "additional"), public_document_path(publication, anchor: "additional")
+    assert_equal publication.public_path(anchor: "additional"), public_document_path(publication, anchor: "additional")
   end
 
-  test "returns the publication_path for Publication instances" do
+  test "returns the public_path for Publication instances" do
     publication = create(:publication)
-    assert_equal publication_path(publication.document), public_document_path(publication)
+    assert_equal publication.public_path, public_document_path(publication)
   end
 
-  test "returns the news_article_path for NewsArticle instances" do
+  test "returns the public_path for NewsArticle instances" do
     news_article = create(:news_article)
-    assert_equal news_article_path(news_article.document), public_document_path(news_article)
+    assert_equal news_article.public_path, public_document_path(news_article)
   end
 
-  test "returns the statistic_path for Publications which are Statistics or NationalStatistics" do
+  test "returns the public_path for Publications which are Statistics or NationalStatistics" do
     statistics = create(:publication, :statistics)
-    assert_equal statistic_path(statistics.document), public_document_path(statistics)
+    assert_equal statistics.public_path, public_document_path(statistics)
     national_statistics = create(:publication, :national_statistics)
-    assert_equal statistic_path(national_statistics.document), public_document_path(national_statistics)
+    assert_equal national_statistics.public_path, public_document_path(national_statistics)
   end
 
-  test "returns the speech_path for Speech instances" do
+  test "returns the public_path for Speech instances" do
     speech = create(:speech)
-    assert_equal speech_path(speech.document), public_document_path(speech)
+    assert_equal speech.public_path, public_document_path(speech)
   end
 
-  test "returns the consultation_path for Consultation instances" do
+  test "returns the public_path for Consultation instances" do
     consultation = create(:consultation)
-    assert_equal consultation_path(consultation.document), public_document_path(consultation)
+    assert_equal consultation.public_path, public_document_path(consultation)
   end
 
   test "returns the statistical_data_set_path for StatisticalDataSet instances" do
@@ -85,25 +85,25 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
 
   test "generates an appropriate path for non-English editions" do
     publication = create(:publication, primary_locale: "fr")
-    assert_equal publication_path(publication.document, locale: "fr"), public_document_path(publication)
+    assert_equal publication.public_path(locale: "fr"), public_document_path(publication)
   end
 
   test "generates an appropriate url for non-English editions" do
     publication = create(:publication, primary_locale: "fr")
-    assert_equal Whitehall.url_maker.publication_url(publication.document, locale: "fr"), public_document_url(publication)
+    assert_equal publication.public_url(locale: "fr"), public_document_url(publication)
   end
 
   test "When in a foreign locale, it generates a route to the foreign version if available" do
     publication = create(:publication, :translated, translated_into: [:fr])
     I18n.with_locale(:fr) do
-      assert_equal Whitehall.url_maker.publication_url(publication.document, locale: "fr"), public_document_url(publication)
+      assert_equal publication.public_url(locale: "fr"), public_document_url(publication)
     end
   end
 
   test "When in a foreign locale, it generates a route to the english version if no foreign version is available" do
     publication = create(:publication)
     I18n.with_locale(:fr) do
-      assert_equal Whitehall.url_maker.publication_url(publication.document, locale: "en"), public_document_url(publication)
+      assert_equal publication.public_url, public_document_url(publication)
     end
   end
 

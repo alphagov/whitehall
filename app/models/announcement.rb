@@ -21,6 +21,10 @@ class Announcement < Edition
   def presenter
     AnnouncementPresenter
   end
+
+  def base_path
+    "/government/news/#{slug}"
+  end
 end
 
 require_relative "news_article"

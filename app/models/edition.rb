@@ -688,6 +688,25 @@ EXISTS (
     @attributes.keys
   end
 
+  def base_path
+    url_slug = slug || id.to_param
+    "/government/generic-editions/#{url_slug}"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    website_root = if options[:draft]
+                     Plek.external_url_for("draft-origin")
+                   else
+                     Plek.website_root
+                   end
+
+    website_root + public_path(options)
+  end
+
 private
 
   def date_for_government

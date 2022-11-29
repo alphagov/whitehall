@@ -49,6 +49,10 @@ class DocumentCollection < Edition
     true
   end
 
+  def base_path
+    "/government/collections/#{slug}"
+  end
+
 private
 
   def string_for_slug

@@ -78,14 +78,14 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     LinkReporterCsvService.new(reports_dir:, organisation: hmrc).generate
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
     assert_equal 3, hmrc_csv.size
-    assert_equal ["https://www.gov.uk#{Whitehall.url_maker.detailed_guide_path(detailed_guide.slug)}",
+    assert_equal [detailed_guide.public_url,
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_detailed_guide_path(detailed_guide)}",
                   detailed_guide.public_timestamp.to_s,
                   "DetailedGuide",
                   "2",
                   "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"],
                  hmrc_csv[1]
-    assert_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
+    assert_equal [publication.public_url,
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
                   publication.public_timestamp.to_s,
                   "Publication",
@@ -159,7 +159,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   "2",
                   "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"],
                  hmrc_csv[1]
-    assert_not_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
+    assert_not_equal [publication.public_url,
                       "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
                       publication.public_timestamp.to_s,
                       "Publication",
@@ -189,7 +189,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     assert File.exist?(csv_test_file_path)
     assert_equal 2, csv.size
     assert_equal ["page", "admin link", "public timestamp", "format", "broken link count", "broken links"], csv[0]
-    assert_equal ["https://www.gov.uk#{Whitehall.url_maker.speech_path(speech.slug)}",
+    assert_equal [speech.public_url,
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_speech_path(speech)}",
                   speech.public_timestamp.to_s,
                   "Speech",
