@@ -4,12 +4,14 @@
 
 //= require jquery
 //= require bootstrap
+//= require rails-ujs
 
 //= require components/autocomplete
 //= require components/govspeak-editor
 //= require components/miller-columns
 
 //= require admin/modules/analytics
+//= require admin/modules/document-history
 //= require admin/modules/edition-form
 //= require admin/modules/locale-switcher
 //= require admin/modules/navbar-toggle

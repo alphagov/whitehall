@@ -15,7 +15,8 @@
       {
         id: "history_tab",
         label: "History",
-        content: render(Admin::Editions::DocumentHistoryTabComponent.new(edition: @edition, document_history: @document_history))
+        content: render(Admin::Editions::DocumentHistoryTabComponent.new(edition: @edition, document_history: @document_history)),
+        tab_data_attributes: { module: "document-history" }
       },
       *([{
         id: "fact_checking_tab",
