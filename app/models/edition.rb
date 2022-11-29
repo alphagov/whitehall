@@ -319,7 +319,7 @@ EXISTS (
   end
 
   def search_link
-    Whitehall.url_maker.public_document_path(self)
+    base_path
   end
 
   def search_format_types

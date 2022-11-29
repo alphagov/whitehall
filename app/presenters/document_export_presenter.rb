@@ -140,7 +140,7 @@ private
 
   def present_translations(edition)
     edition.translations.map do |translation|
-      base_path = Whitehall.url_maker.public_document_path(edition, locale: translation.locale)
+      base_path = edition.public_path(locale: translation.locale)
       translation.as_json(except: :edition_id).merge(base_path:)
     end
   end

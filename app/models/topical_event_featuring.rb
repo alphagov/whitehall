@@ -37,7 +37,7 @@ class TopicalEventFeaturing < ApplicationRecord
     if offsite?
       offsite_link.url
     else
-      Whitehall.url_maker.public_document_path(edition)
+      edition.base_path
     end
   end
 

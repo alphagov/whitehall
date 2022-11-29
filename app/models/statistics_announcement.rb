@@ -213,7 +213,7 @@ private
   end
 
   def publication_url
-    Whitehall.url_maker.public_document_path(publication)
+    publication.base_path
   end
 
   def last_major_change
