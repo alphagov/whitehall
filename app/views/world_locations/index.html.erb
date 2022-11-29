@@ -27,7 +27,7 @@
   <% @world_locations.each do |type, locations| %>
     <section id="<%= I18n.t("world_location.type.#{type}", count: 2).parameterize %>" class="world-location-type js-filter-block">
       <header class="type-heading">
-        <h2 class="world-locations__heading"><%= type.pluralize %></h2>
+        <h2 class="world-locations__heading"><%= I18n.t("world_location.type.#{type}", count: 2) %></h2>
         <p class="govuk-body"><span class="js-filter-count"><%= locations.length %></span> <span class="govuk-visually-hidden">locations</span></p>
       </header>
       <div class="content">
