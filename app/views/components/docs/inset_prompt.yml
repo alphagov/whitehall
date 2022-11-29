@@ -1,0 +1,38 @@
+name: Inset prompt
+description: A prompt to users represented as inset content
+body: |
+  This is similar to the [inset text][] component, however it has more of an
+  emphasis of informing a user they need to take an action.
+
+  [inset text]: https://design-system.service.gov.uk/components/inset-text/
+shared_accessibility_criteria:
+  - link
+examples:
+  default:
+    data:
+      title: Please meet these requirements before publishing
+      description: Document needs a summary before publishing (at least 10 characters)
+  with_items:
+    data:
+      title: Message to alert the user to a problem goes here
+      items:
+      - text: Document needs a title before publishing (at least 10 characters)
+        href: '#content'
+        data_attributes:
+          tracking: GTM-123AA
+      - text: Document needs a summary before publishing (at least 10 characters)
+        data_attributes:
+          tracking: GTM-123AB
+  error:
+    data:
+      error: true
+      title: There is a problem
+      description: |
+        <p class="govuk-body">&lsquo;Title here&rsquo; was not published</p>
+  with_data_attributes:
+    data:
+      title: Message to alert the user to a problem goes here
+      data_attributes:
+        tracking: GTM-123AB
+      items:
+      - text: Descriptive link to the question with an error 1
