@@ -36,7 +36,7 @@ class LinkCheckerApiService
     converted = links.map do |link|
       edition = Whitehall::AdminLinkLookup.find_edition(link)
       if edition
-        Whitehall.url_maker.public_document_url(edition) if edition.published?
+        edition.public_url if edition.published?
       else
         link
       end

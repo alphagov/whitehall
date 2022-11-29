@@ -215,7 +215,7 @@ private
         edition = Whitehall::AdminLinkLookup.find_edition(link)
         {
           whitehall_admin_url: link,
-          public_url: edition ? Whitehall.url_maker.public_document_url(edition) : nil,
+          public_url: edition ? edition.public_url : nil,
           content_id: edition&.content_id,
         }
       end

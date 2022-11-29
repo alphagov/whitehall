@@ -54,7 +54,7 @@ private
   end
 
   def public_url(edition)
-    Whitehall.url_maker.public_document_url(edition, host: public_host, protocol: "https")
+    edition.public_url(host: public_host, protocol: "https")
   end
 
   def admin_url(edition)

@@ -5,7 +5,7 @@ puts "Building ID/slug to URL mapping"
 policies_and_supporting_pages = Edition.unscoped.where(type: %w[Policy SupportingPage])
 
 id_to_url_mapping = policies_and_supporting_pages.inject({}) do |hash, edition|
-  url = Whitehall.url_maker.public_document_url(edition, {}, include_deleted_documents: true)
+  url = edition.public_url({}, include_deleted_documents: true)
 
   id = edition.id.to_s
   slug = edition.slug
