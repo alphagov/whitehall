@@ -47,20 +47,8 @@ module PublishingApi
       }
     end
 
-    def description
-      item.summary
-    end
-
-    def public_updated_at
-      item.updated_at
-    end
-
     def body
       Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body)
-    end
-
-    def rendering_app
-      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
     end
   end
 end
