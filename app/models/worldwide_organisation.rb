@@ -118,4 +118,8 @@ class WorldwideOrganisation < ApplicationRecord
   def office_staff_roles
     roles.occupied.where(type: OFFICE_ROLES.map(&:name))
   end
+
+  def base_path
+    "/world/organisations/#{slug}"
+  end
 end
