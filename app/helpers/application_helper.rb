@@ -198,4 +198,8 @@ module ApplicationHelper
       raw(Govspeak::Document.new(content, sanitize: true).to_html)
     end
   end
+
+  def diff_html(version1, version2)
+    Diffy::Diff.new(version1, version2, allow_empty_diff: false).to_s(:html).html_safe
+  end
 end

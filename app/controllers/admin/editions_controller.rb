@@ -167,6 +167,7 @@ class Admin::EditionsController < Admin::BaseController
   def diff
     audit_trail_entry = edition_class.find(params[:audit_trail_entry_id])
     @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.primary_locale)
+    render_design_system(:diff, :diff_legacy, next_release: true)
   end
 
   def confirm_destroy
@@ -196,6 +197,7 @@ private
 
   def get_layout
     design_system_actions = %w[edit update new create confirm_destroy]
+    design_system_actions << "diff" if preview_design_system?(next_release: true)
     if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
