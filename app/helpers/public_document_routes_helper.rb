@@ -124,16 +124,6 @@ module PublicDocumentRoutesHelper
     Plek.new.website_root + world_location_path(object, options)
   end
 
-  def world_location_news_index_path(object, options = {})
-    slug = world_location_slug(object)
-
-    append_url_options("/world/#{slug}/news", options)
-  end
-
-  def world_location_news_index_url(object, options = {})
-    Plek.new.website_root + world_location_news_index_path(object, options)
-  end
-
 private
 
   def locale_options(edition, options)

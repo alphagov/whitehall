@@ -285,36 +285,4 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   test "world_location_url returns the url and appends options" do
     assert_equal "https://www.test.gov.uk/world/foo?cachebust=123", world_location_url("foo", cachebust: "123")
   end
-
-  test "world_location_news_index_path returns the correct path for a slug" do
-    assert_equal "/world/foo/news", world_location_news_index_path("foo")
-  end
-
-  test "world_location_news_index_path returns the correct path for a slug with options" do
-    assert_equal "/world/foo/news?cachebust=123", world_location_news_index_path("foo", cachebust: "123")
-  end
-
-  test "world_location_news_index_path returns the correct path for a WorldLocation object" do
-    object = create(:world_location, slug: "foo")
-    assert_equal "/world/foo/news", world_location_news_index_path(object)
-  end
-
-  test "world_location_news_index_path returns the correct path for a WorldLocation object with options" do
-    object = create(:world_location, slug: "foo")
-    assert_equal "/world/foo/news?cachebust=123", world_location_news_index_path(object, cachebust: "123")
-  end
-
-  test "world_location_news_index_path returns the correct path for a WorldLocationNews object" do
-    object = create(:world_location_news, world_location: build(:world_location, slug: "foo"))
-    assert_equal "/world/foo/news", world_location_news_index_path(object)
-  end
-
-  test "world_location_news_index_path returns the correct path for a WorldLocationNews object with options" do
-    object = create(:world_location_news, world_location: build(:world_location, slug: "foo"))
-    assert_equal "/world/foo/news?cachebust=123", world_location_news_index_path(object, cachebust: "123")
-  end
-
-  test "world_location_news_index_url returns the url and appends options" do
-    assert_equal "https://www.test.gov.uk/world/foo/news?cachebust=123", world_location_news_index_url("foo", cachebust: "123")
-  end
 end
