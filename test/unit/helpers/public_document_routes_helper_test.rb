@@ -189,20 +189,4 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   test "append_url_options adds cachebust string, format and locale when all present" do
     assert_equal "/government/foo.cy.atom?cachebust=123", append_url_options("/government/foo", cachebust: "123", format: "atom", locale: "cy")
   end
-
-  test "get_involved_path returns the path" do
-    assert_equal "/government/get-involved", get_involved_path
-  end
-
-  test "get_involved_url returns the url" do
-    assert_equal "https://www.test.gov.uk/government/get-involved", get_involved_url
-  end
-
-  test "get_involved_path returns the path and appends options" do
-    assert_equal "/government/get-involved?cachebust=123", get_involved_path(cachebust: "123")
-  end
-
-  test "get_involved_url returns the url and appends options" do
-    assert_equal "https://www.test.gov.uk/government/get-involved?cachebust=123", get_involved_url(cachebust: "123")
-  end
 end

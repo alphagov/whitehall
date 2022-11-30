@@ -74,14 +74,6 @@ module PublicDocumentRoutesHelper
     polymorphic_url(organisation, options.merge(host: URI(Plek.external_url_for("draft-origin")).host))
   end
 
-  def get_involved_path(options = {})
-    append_url_options("/government/get-involved", options)
-  end
-
-  def get_involved_url(options = {})
-    Plek.website_root + get_involved_path(options)
-  end
-
 private
 
   def locale_options(edition, options)
