@@ -44,36 +44,6 @@ module PublicDocumentRoutesHelper
     "#{preview_document_url(edition)}?#{params}"
   end
 
-  def organisation_url(slug_or_organisation, options = {})
-    organisation_or_court = case slug_or_organisation
-                            when String
-                              Organisation.find_by(slug: slug_or_organisation)
-                            when Organisation
-                              slug_or_organisation
-                            else
-                              raise ArgumentError, "Must provide a slug or Organisation"
-                            end
-
-    if organisation_or_court.nil?
-      logger.warn "Generating a URL for a missing organisation: #{slug_or_organisation}"
-      return super(slug_or_organisation, options)
-    end
-
-    if organisation_or_court.court_or_hmcts_tribunal?
-      court_url(organisation_or_court, options)
-    else
-      super(organisation_or_court, options)
-    end
-  end
-
-  def organisation_path(organisation_or_court_or_slug, options = {})
-    organisation_url(organisation_or_court_or_slug, options.merge(only_path: true))
-  end
-
-  def organisation_preview_url(organisation, options = {})
-    polymorphic_url(organisation, options.merge(host: URI(Plek.external_url_for("draft-origin")).host))
-  end
-
 private
 
   def locale_options(edition, options)

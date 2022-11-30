@@ -135,38 +135,4 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     preview_url_with_auth_bypass_token = preview_document_url_with_auth_bypass_token(edition)
     assert_equal "https://draft-origin.test.gov.uk/government/case-studies/case-study-title?token=#{token}&utm_campaign=govuk_publishing&utm_medium=preview&utm_source=share", preview_url_with_auth_bypass_token
   end
-
-  test "organisations have the correct path generated" do
-    org = create(:organisation)
-
-    assert_equal "/government/organisations/#{org.slug}", organisation_path(org)
-    assert_equal "http://test.host/government/organisations/#{org.slug}", organisation_url(org)
-  end
-
-  test "courts have the correct path generated" do
-    court = create(:court)
-
-    assert_equal "/courts-tribunals/#{court.slug}", organisation_path(court)
-    assert_equal "http://test.host/courts-tribunals/#{court.slug}", organisation_url(court)
-  end
-
-  test "HMCTS tribunals have the correct path generated" do
-    tribunal = create(:hmcts_tribunal)
-
-    assert_equal "/courts-tribunals/#{tribunal.slug}", organisation_path(tribunal)
-    assert_equal "http://test.host/courts-tribunals/#{tribunal.slug}", organisation_url(tribunal)
-  end
-
-  test "organisation_path still works with slugs" do
-    court = create(:court)
-    org = create(:organisation)
-
-    assert_equal "/courts-tribunals/#{court.slug}", organisation_path(court.slug)
-    assert_equal "/government/organisations/#{org.slug}", organisation_path(org.slug)
-  end
-
-  test "organisation_path naively uses the slug in the path if the organisation is missing" do
-    assert_equal "/government/organisations/foobar", organisation_path("foobar")
-    assert_equal "http://test.host/government/organisations/foobar", organisation_url("foobar")
-  end
 end

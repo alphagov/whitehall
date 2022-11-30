@@ -417,10 +417,6 @@ class Organisation < ApplicationRecord
     end
   end
 
-  def base_path
-    Whitehall.url_maker.organisation_path(self)
-  end
-
   def search_link
     base_path
   end
@@ -519,6 +515,28 @@ class Organisation < ApplicationRecord
       natural-england
       planning-inspectorate
     ]
+  end
+
+  def base_path
+    if court_or_hmcts_tribunal?
+      "/courts-tribunals/#{slug}"
+    else
+      "/government/organisations/#{slug}"
+    end
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    website_root = if options[:draft]
+                     Plek.external_url_for("draft-origin")
+                   else
+                     Plek.website_root
+                   end
+
+    website_root + public_path(options)
   end
 
 private

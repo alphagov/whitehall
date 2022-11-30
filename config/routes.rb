@@ -372,9 +372,6 @@ Whitehall::Application.routes.draw do
     get "/placeholder" => "placeholder#show", as: :placeholder
   end
 
-  # TODO: the organisations controller has been removed but this route is still required to get the relevant helper methods. This can be removed once new helpers have been created.
-  get "/courts-tribunals/:id(.:locale)", as: "court", courts_only: true, constraints: { locale: valid_locales_regex }, to: rack_404
-
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
     GovukHealthcheck::ActiveRecord,
