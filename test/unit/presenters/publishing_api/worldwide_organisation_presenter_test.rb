@@ -13,7 +13,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       base_path: public_path,
       title: "Locationia Embassy",
       description: nil,
-      schema_name: "placeholder",
+      schema_name: "worldwide_organisation",
       document_type: "worldwide_organisation",
       locale: "en",
       publishing_app: "whitehall",
@@ -34,6 +34,6 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     assert_equal "major", presented_item.update_type
     assert_equal worldwide_org.content_id, presented_item.content_id
 
-    assert_valid_against_publisher_schema(presented_item.content, "placeholder")
+    assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
   end
 end

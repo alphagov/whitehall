@@ -22,7 +22,7 @@ module PublishingApi
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "placeholder",
+        schema_name: "worldwide_organisation",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
