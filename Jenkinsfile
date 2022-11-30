@@ -15,7 +15,7 @@ node {
           echo "Running a subset of the tests to check the content schema changes"
           govuk.runRakeTask("test:publishing_schemas --trace")
         } else {
-          sh("bundle exec rake")
+          sh("bundle exec rake lint test cucumber jasmine")
         }
       }
     }
