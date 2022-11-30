@@ -114,16 +114,6 @@ module PublicDocumentRoutesHelper
     append_url_options("/government/topical-events/#{slug}/about", options)
   end
 
-  def world_location_path(object, options = {})
-    slug = world_location_slug(object)
-
-    append_url_options("/world/#{slug}", options)
-  end
-
-  def world_location_url(object, options = {})
-    Plek.new.website_root + world_location_path(object, options)
-  end
-
 private
 
   def locale_options(edition, options)
@@ -177,18 +167,5 @@ private
     end
 
     path
-  end
-
-  def world_location_slug(object)
-    case object
-    when String
-      object
-    when WorldLocation
-      object.slug
-    when WorldLocationNews
-      object.world_location.slug
-    else
-      raise ArgumentError, "Must provide a slug, WorldLocation or WorldLocationNews"
-    end
   end
 end

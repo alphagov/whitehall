@@ -66,7 +66,7 @@ module PublishingApi
       if world_location.world_location?
         world_location_news.public_path(locale: I18n.locale)
       elsif world_location.international_delegation?
-        Whitehall.url_maker.world_location_path(world_location, locale: I18n.locale)
+        world_location.public_path(locale: I18n.locale)
       end
     end
   end

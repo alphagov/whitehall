@@ -254,13 +254,13 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "98d4e188042dbc97e4ef433f643ac633014de04f80a1d574fcfa68677aaeeeca",
+      "fingerprint": "ca449e74829c897de6b6b4c217afd5ab6f85cd738afd8079ba6ab25660f5de30",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/worldwide_organisations/_header.html.erb",
       "line": 29,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l, :class => \"govuk-link\")\n end.to_sentence",
+      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l.public_path, :class => \"govuk-link\")\n end.to_sentence",
       "render_path": [
         {
           "type": "controller",
@@ -512,6 +512,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-12-14 15:00:41 +0000",
+  "updated": "2022-12-19 10:14:34 +0000",
   "brakeman_version": "5.4.0"
 }

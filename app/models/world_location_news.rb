@@ -42,7 +42,7 @@ class WorldLocationNews < ApplicationRecord
     if world_location.world_location?
       public_path
     elsif world_location.international_delegation?
-      Whitehall.url_maker.world_location_path(world_location)
+      world_location.public_path
     end
   end
 
