@@ -82,21 +82,6 @@ module PublicDocumentRoutesHelper
     Plek.website_root + get_involved_path(options)
   end
 
-  def topical_event_about_pages_path(object, options = {})
-    slug = case object
-           when String
-             object
-           when TopicalEvent
-             object.slug
-           when TopicalEventAboutPage
-             object.topical_event.slug
-           else
-             raise ArgumentError, "Must provide a slug, TopicalEvent or TopicalEventAboutPage"
-           end
-
-    append_url_options("/government/topical-events/#{slug}/about", options)
-  end
-
 private
 
   def locale_options(edition, options)
