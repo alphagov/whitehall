@@ -169,24 +169,4 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     assert_equal "/government/organisations/foobar", organisation_path("foobar")
     assert_equal "http://test.host/government/organisations/foobar", organisation_url("foobar")
   end
-
-  test "append_url_options adds locale" do
-    assert_equal "/government/foo.cy", append_url_options("/government/foo", locale: "cy")
-  end
-
-  test "append_url_options adds format" do
-    assert_equal "/government/foo.atom", append_url_options("/government/foo", format: "atom")
-  end
-
-  test "append_url_options adds locale and format when both present" do
-    assert_equal "/government/foo.cy.atom", append_url_options("/government/foo", format: "atom", locale: "cy")
-  end
-
-  test "append_url_options adds cachebust string when present" do
-    assert_equal "/government/foo?cachebust=123", append_url_options("/government/foo", cachebust: "123")
-  end
-
-  test "append_url_options adds cachebust string, format and locale when all present" do
-    assert_equal "/government/foo.cy.atom?cachebust=123", append_url_options("/government/foo", cachebust: "123", format: "atom", locale: "cy")
-  end
 end
