@@ -47,7 +47,7 @@ FeaturePresenter = Struct.new(:feature) do
 
   def public_path
     if topical_event
-      Whitehall.url_maker.topical_event_path(topical_event)
+      topical_event.public_path
     elsif offsite_link
       offsite_link.url
     elsif edition.translatable?

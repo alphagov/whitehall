@@ -13,7 +13,11 @@ module Admin::UrlOptionsHelper
 
   def show_url_with_public_and_cachebusted_options(model, url_options = {})
     options = public_and_cachebusted_url_options.merge(url_options)
-    send("#{model.class.to_s.underscore}_url", model, options)
+    if model.respond_to?(:public_url)
+      model.public_url(options)
+    else
+      send("#{model.class.to_s.underscore}_url", model, options)
+    end
   end
 
   def view_on_website_link_for(model, options = {})

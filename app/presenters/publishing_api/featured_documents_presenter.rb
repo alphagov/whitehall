@@ -35,7 +35,7 @@ module PublishingApi
       topical_event = feature.topical_event
       {
         title: topical_event.name,
-        href: Whitehall.url_maker.polymorphic_path(topical_event),
+        href: topical_event.public_path,
         image: {
           url: feature.image.url,
           alt_text: feature.alt_text,

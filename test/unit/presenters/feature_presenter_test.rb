@@ -8,7 +8,7 @@ class FeaturePresenterTest < PresenterTestCase
     f = stub_record(:feature, topical_event: te, document: nil)
     fp = FeaturePresenter.new(f)
 
-    assert_equal topical_event_path(te), fp.public_path
+    assert_equal te.public_path, fp.public_path
   end
 
   test "#public_path doesn't localize links to topical events" do
@@ -17,7 +17,7 @@ class FeaturePresenterTest < PresenterTestCase
     f.stubs(:locale).returns("ar")
     fp = FeaturePresenter.new(f)
 
-    assert_equal topical_event_path(te), fp.public_path
+    assert_equal te.public_path, fp.public_path
   end
 
   test "#public_path generates a localized link to the edition" do

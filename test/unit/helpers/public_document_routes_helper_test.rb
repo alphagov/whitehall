@@ -206,34 +206,6 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     assert_equal "https://www.test.gov.uk/government/get-involved?cachebust=123", get_involved_url(cachebust: "123")
   end
 
-  test "topical_event_path returns the correct path for a TopicalEvent object" do
-    object = create(:topical_event, slug: "foo")
-    assert_equal "/government/topical-events/foo", topical_event_path(object)
-  end
-
-  test "topical_event_path returns the correct path for a TopicalEvent object with options" do
-    object = create(:topical_event, slug: "foo")
-    assert_equal "/government/topical-events/foo?cachebust=123", topical_event_path(object, cachebust: "123")
-  end
-
-  test "topical_event_url returns the correct path for a slug" do
-    assert_equal "https://www.test.gov.uk/government/topical-events/foo", topical_event_url("foo")
-  end
-
-  test "topical_event_url returns the correct path for a slug with options" do
-    assert_equal "https://www.test.gov.uk/government/topical-events/foo?cachebust=123", topical_event_url("foo", cachebust: "123")
-  end
-
-  test "topical_event_url returns the correct path for a TopicalEvent object" do
-    object = create(:topical_event, slug: "foo")
-    assert_equal "https://www.test.gov.uk/government/topical-events/foo", topical_event_url(object)
-  end
-
-  test "topical_event_url returns the correct path for a TopicalEvent object with options" do
-    object = create(:topical_event, slug: "foo")
-    assert_equal "https://www.test.gov.uk/government/topical-events/foo?cachebust=123", topical_event_url(object, cachebust: "123")
-  end
-
   test "topical_event_about_pages_path returns the correct path for a TopicalEvent object" do
     object = create(:topical_event, slug: "foo")
     assert_equal "/government/topical-events/foo/about", topical_event_about_pages_path(object)
