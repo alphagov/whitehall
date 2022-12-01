@@ -27,6 +27,8 @@ Whitehall::Application.routes.draw do
                       ::Whitehall.admin_host == request.host
                     }
 
+  rack_404 = proc { [404, {}, ["Not found"]] }
+
   # This API is documented here:
   # https://github.com/alphagov/whitehall/blob/master/docs/api.md
   namespace "api" do
@@ -53,7 +55,7 @@ Whitehall::Application.routes.draw do
     resources :worldwide_organisations, path: "organisations", only: [] do
       get "/:organisation_id/about" => redirect("/world/organisations/%{organisation_id}", prefix: "")
       get "/:organisation_id/office" => redirect("/world/organisations/%{organisation_id}", prefix: "")
-      get "/:organisation_id/about(.:locale)", as: "about", to: "_#_", constraints: { locale: valid_locales_regex }
+      get "/:organisation_id/about(.:locale)", as: "about", constraints: { locale: valid_locales_regex }, to: rack_404
       get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
       get "/office/:id(.:locale)", as: "worldwide_office", to: "worldwide_offices#show", constraints: { locale: valid_locales_regex }
     end
@@ -98,9 +100,9 @@ Whitehall::Application.routes.draw do
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
     get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
     get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }
-    get "/consultations/:consultation_id/:id" => "_#_", as: "consultation_html_attachment"
-    get "/consultations/:consultation_id/outcome/:id" => "_#_", as: "consultation_outcome_html_attachment"
-    get "/consultations/:consultation_id/public-feedback/:id" => "_#_", as: "consultation_public_feedback_html_attachment"
+    get "/consultations/:consultation_id/:id", as: "consultation_html_attachment", to: rack_404
+    get "/consultations/:consultation_id/outcome/:id", as: "consultation_outcome_html_attachment", to: rack_404
+    get "/consultations/:consultation_id/public-feedback/:id", as: "consultation_public_feedback_html_attachment", to: rack_404
     get "/consultations/:id(.:locale)", as: "consultation", to: "consultations#show", constraints: { locale: valid_locales_regex }
     resources :consultations, only: %i[index] do
       collection do
@@ -120,14 +122,14 @@ Whitehall::Application.routes.draw do
     get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup
     get "/people/:id(.:locale)", as: "person", to: "people#show", constraints: { locale: valid_locales_regex }
     resources :policy_groups, path: "groups", only: [:show]
-    get "/publications/:id(.:locale)", as: "publication", to: "_#_", constraints: { locale: valid_locales_regex }
-    get "/publications/:publication_id/:id" => "_#_", as: "publication_html_attachment"
+    get "/publications/:id(.:locale)", as: "publication", constraints: { locale: valid_locales_regex }, to: rack_404
+    get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
     get "/speeches/:id(.:locale)", as: "speech", to: "speeches#show", constraints: { locale: valid_locales_regex }
     resources :statistical_data_sets, path: "statistical-data-sets", only: [:show]
     resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
-    get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: valid_locales_regex }
-    get "/statistics/:statistics_id/:id" => "_#_", as: "statistic_html_attachment"
+    get "/statistics/:id(.:locale)", as: "statistic", constraints: { locale: valid_locales_regex }, to: rack_404
+    get "/statistics/:statistics_id/:id", as: "statistic_html_attachment", to: rack_404
     # End of routes no longer rendered by Whitehall
 
     constraints(AdminRequest) do
