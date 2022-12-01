@@ -9,7 +9,7 @@ Feature: Checking a document for broken links
     When I check the document for broken links
     Then I should see a list of the broken links
 
-  @javascript
+  @javascript @design-system-wip
   Scenario: correcting broken links on a document
     Given I am a writer
     And a draft document with broken links exists

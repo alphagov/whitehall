@@ -47,7 +47,7 @@ When(/^I add an editorial remark "([^"]*)" to the document "([^"]*)"$/) do |rema
   @edition = create(:draft_publication, title: document_title)
   @remark_text = remark_text
 
-  visit edit_admin_edition_path(@edition)
+  visit admin_edition_path(@edition)
   click_link "Add new remark"
   fill_in "Remark", with: @remark_text
   click_button "Submit remark"

@@ -10,17 +10,17 @@ Feature: Policy groups
   - multiple policy groups can be associated to a single policy
   - doing so results in a line of metadata on the policy page, below the one for a policy team, which reads "Groups: [Title of group as a link]" with the +others JavaScript behaviour for multiple items.
   - An group page comprises:
-    - Title
-    - Summary
-    - Description (markdown field)
-    - Contact email
-    - Attachments (placed inline using markdown)
+  - Title
+  - Summary
+  - Description (markdown field)
+  - Contact email
+  - Attachments (placed inline using markdown)
   - consistent with the policy teams design, the H2s are pulled out into a contents list as anchor links
 
   Background:
     Given I am an editor
 
-  @disable-sidekiq-test-mode
+  @disable-sidekiq-test-mode @design-system-wip
   Scenario:
     Given a policy group "Panel" exists
     Then I should be able to add attachments to the policy group "Panel"

@@ -41,7 +41,7 @@ module DocumentHelper
 
       case options[:previously_published]
       when false
-        choose "has never been published before. It is new."
+        choose "has never been published before."
       when true
         choose "has previously been published on another website."
       end
@@ -95,8 +95,21 @@ module DocumentHelper
     create(:role_appointment, person:, role:, started_at: Date.parse("2010-01-01"))
     begin_drafting_document options.merge(type: "speech", summary: "Some summary of the content", previously_published: false)
     select SpeechType::Transcript.singular_name, from: "Speech type"
-    select "Colonel Mustard, Attorney General", from: "Speaker"
-    select_date 1.day.ago.to_s, from: "Delivered on"
+
+    if using_design_system?
+      choose "Speaker has a profile on GOV.UK"
+      within_conditional_reveal "Speaker has a profile on GOV.UK" do
+        select "Colonel Mustard, Attorney General"
+      end
+
+      within_fieldset "Delivered on" do
+        select_date 1.day.ago.to_s, base_dom_id: "edition_delivered_on"
+      end
+    else
+      select "Colonel Mustard, Attorney General", from: "Speaker"
+      select_date 1.day.ago.to_s, from: "Delivered on"
+    end
+
     fill_in "Location", with: "The Drawing Room"
   end
 
@@ -110,15 +123,25 @@ module DocumentHelper
 
   def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")
     select announcement_type, from: "News article type"
-    choose "has previously been published on another website."
-    select_date first_published, from: "Its original publication date was *"
+
+    if using_design_system?
+      radio_label = "This document has previously been published on another website."
+      choose radio_label
+      within_conditional_reveal radio_label do
+        select_date first_published, base_dom_id: "edition_first_published_at"
+      end
+    else
+      choose "has previously been published on another website."
+      select_date first_published, from: "Its original publication date was *"
+    end
   end
 
   def fill_in_publication_fields(first_published: "2010-01-01", publication_type: "Research and analysis")
     if using_design_system?
-      within "#edition_first_published_at" do
-        choose "This document has previously been published on another website."
-        fill_in_datetime_field(first_published)
+      radio_label = "This document has previously been published on another website."
+      choose radio_label
+      within_conditional_reveal radio_label do
+        select_date first_published, base_dom_id: "edition_first_published_at"
       end
     else
       choose "has previously been published on another website."
@@ -171,22 +194,6 @@ module DocumentHelper
   def preview_document_path(edition, options = {})
     query = { preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i }
     document_path(edition, options.merge(query))
-  end
-
-  def fill_in_datetime_field(date)
-    date = Time.zone.parse(date)
-
-    select date.year, from: "Year"
-    select date.strftime("%B"), from: "Month"
-    select date.day, from: "Day"
-    select date.strftime("%H"), from: "Hour"
-    select date.strftime("%M"), from: "Minute"
-  end
-
-  def stub_content_item_from_content_store_for(base_path)
-    @content_item = content_item_for_base_path(base_path)
-
-    stub_content_store_has_item(base_path, @content_item)
   end
 end
 

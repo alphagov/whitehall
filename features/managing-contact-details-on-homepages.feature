@@ -1,9 +1,9 @@
 Feature: managing contact details on home pages
-  Editors need to be able to manage contact details on homepages, so that 
-  they can show important contact details first, and skip showing 
-  unimportant details. 
-  
-  Contact details comprise contact records on organisation pages, and 
+  Editors need to be able to manage contact details on homepages, so that
+  they can show important contact details first, and skip showing
+  unimportant details.
+
+  Contact details comprise contact records on organisation pages, and
   offices on world organisation pages.
 
   Contacts can also be marked with their type, and on organisation pages

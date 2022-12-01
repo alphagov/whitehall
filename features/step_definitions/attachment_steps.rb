@@ -50,29 +50,19 @@ Then(/^the .* "(.*?)" should have (\d+) attachments$/) do |title, expected_numbe
 end
 
 When(/^I set the order of attachments to:$/) do |attachment_order|
-  click_link "Reorder attachments" if using_design_system?
   attachment_order.hashes.each do |attachment_info|
     attachment = Attachment.find_by(title: attachment_info[:title])
     fill_in "ordering[#{attachment.id}]", with: attachment_info[:order]
   end
-  click_on using_design_system? ? "Update order" : "Save attachment order"
+  click_on "Save attachment order"
 end
 
 Then(/^the attachments should be in the following order:$/) do |attachment_list|
-  if using_design_system?
-    attachment_names = all("table td:first").map(&:text)
+  attachment_ids = all(".existing-attachments > li").map { |element| element[:id] }
 
-    attachment_list.hashes.each_with_index do |attachment_info, index|
-      attachment = Attachment.find_by(title: attachment_info[:title])
-      expect(attachment.title).to eq(attachment_names[index])
-    end
-  else
-    attachment_ids = all(".existing-attachments > li").map { |element| element[:id] }
-
-    attachment_list.hashes.each_with_index do |attachment_info, index|
-      attachment = Attachment.find_by(title: attachment_info[:title])
-      expect("attachment_#{attachment.id}").to eq(attachment_ids[index])
-    end
+  attachment_list.hashes.each_with_index do |attachment_info, index|
+    attachment = Attachment.find_by(title: attachment_info[:title])
+    expect("attachment_#{attachment.id}").to eq(attachment_ids[index])
   end
 end
 
