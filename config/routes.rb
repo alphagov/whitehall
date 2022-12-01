@@ -115,10 +115,6 @@ Whitehall::Application.routes.draw do
     get "/news/:id(.:locale)", as: "news_article", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/organisations/:id(.:locale)", as: "organisation", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/organisations", as: "organisations", to: rack_404
-    resources :organisations, only: [] do
-      get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }
-      get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
-    end
     get "/people/:id(.:locale)", as: "person", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/groups/:id", as: "policy_group", to: rack_404
     get "/publications/:id(.:locale)", as: "publication", constraints: { locale: valid_locales_regex }, to: rack_404
@@ -129,6 +125,12 @@ Whitehall::Application.routes.draw do
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
     get "/statistics/:id(.:locale)", as: "statistic", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/statistics/:statistics_id/:id", as: "statistic_html_attachment", to: rack_404
+
+    resources :organisations, only: [] do
+      # These aren't rendered but are coupled to Worldwide organisation corporate information pages
+      get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }
+      get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
+    end
     # End of routes no longer rendered by Whitehall
 
     constraints(AdminRequest) do
