@@ -95,6 +95,9 @@ Whitehall::Application.routes.draw do
     get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
     resources :operational_fields, path: "fields-of-operation", only: %i[index show]
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
+
+    get "/consultations", as: "consultations", to: "consultations#index" # used only for a redirect
+    get "/statistics/announcements", as: "statistics_announcements", to: "statistics_announcements#index" # used only for a redirect
     # End of public facing routes still rendered by Whitehall
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
@@ -104,17 +107,13 @@ Whitehall::Application.routes.draw do
     get "/consultations/:consultation_id/outcome/:id", as: "consultation_outcome_html_attachment", to: rack_404
     get "/consultations/:consultation_id/public-feedback/:id", as: "consultation_public_feedback_html_attachment", to: rack_404
     get "/consultations/:id(.:locale)", as: "consultation", constraints: { locale: valid_locales_regex }, to: rack_404
-    resources :consultations, only: %i[index] do # still rendered by Whitehall
-      collection do
-        get :open, to: rack_404
-        get :closed, to: rack_404
-        get :upcoming, to: rack_404
-      end
-    end
+    get "/consultations/open", as: "open_consultation", to: rack_404
+    get "/consultations/closed", as: "closed_consultation", to: rack_404
+    get "/consultations/upcoming", as: "upcoming_consultation", to: rack_404
     get "/latest", as: "latest", to: rack_404
     get "/news/:id(.:locale)", as: "news_article", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/organisations/:id(.:locale)", as: "organisation", constraints: { locale: valid_locales_regex }, to: rack_404
-    resources :organisations, only: [:index]
+    get "/organisations", as: "organisations", to: rack_404
     resources :organisations, only: [] do
       get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }
       get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
@@ -125,8 +124,8 @@ Whitehall::Application.routes.draw do
     get "/publications/:id(.:locale)", as: "publication", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
     get "/speeches/:id(.:locale)", as: "speech", constraints: { locale: valid_locales_regex }, to: rack_404
-    resources :statistical_data_sets, path: "statistical-data-sets", only: [:show]
-    resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
+    get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
+    get "/statistics/announcements/:id", as: "statistics_announcement", to: rack_404
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
     get "/statistics/:id(.:locale)", as: "statistic", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/statistics/:statistics_id/:id", as: "statistic_html_attachment", to: rack_404
