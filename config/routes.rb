@@ -98,33 +98,33 @@ Whitehall::Application.routes.draw do
     # End of public facing routes still rendered by Whitehall
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
-    get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
-    get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }
+    get "/case-studies/:id(.:locale)", as: "case_study", constraints: { locale: valid_locales_regex }, to: rack_404
+    get "/collections/:id(.:locale)", as: "document_collection", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/consultations/:consultation_id/:id", as: "consultation_html_attachment", to: rack_404
     get "/consultations/:consultation_id/outcome/:id", as: "consultation_outcome_html_attachment", to: rack_404
     get "/consultations/:consultation_id/public-feedback/:id", as: "consultation_public_feedback_html_attachment", to: rack_404
-    get "/consultations/:id(.:locale)", as: "consultation", to: "consultations#show", constraints: { locale: valid_locales_regex }
-    resources :consultations, only: %i[index] do
+    get "/consultations/:id(.:locale)", as: "consultation", constraints: { locale: valid_locales_regex }, to: rack_404
+    resources :consultations, only: %i[index] do # still rendered by Whitehall
       collection do
-        get :open
-        get :closed
-        get :upcoming
+        get :open, to: rack_404
+        get :closed, to: rack_404
+        get :upcoming, to: rack_404
       end
     end
-    get "/latest" => "latest#index", as: "latest"
-    get "/news/:id(.:locale)", as: "news_article", to: "news_articles#show", constraints: { locale: valid_locales_regex }
-    get "/organisations/:id(.:locale)", as: "organisation", to: "organisations#show", constraints: { locale: valid_locales_regex }
+    get "/latest", as: "latest", to: rack_404
+    get "/news/:id(.:locale)", as: "news_article", constraints: { locale: valid_locales_regex }, to: rack_404
+    get "/organisations/:id(.:locale)", as: "organisation", constraints: { locale: valid_locales_regex }, to: rack_404
     resources :organisations, only: [:index]
     resources :organisations, only: [] do
       get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }
       get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
     end
-    get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup
-    get "/people/:id(.:locale)", as: "person", to: "people#show", constraints: { locale: valid_locales_regex }
+    get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup # still rendered by Whitehall
+    get "/people/:id(.:locale)", as: "person", constraints: { locale: valid_locales_regex }, to: rack_404
     resources :policy_groups, path: "groups", only: [:show]
     get "/publications/:id(.:locale)", as: "publication", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
-    get "/speeches/:id(.:locale)", as: "speech", to: "speeches#show", constraints: { locale: valid_locales_regex }
+    get "/speeches/:id(.:locale)", as: "speech", constraints: { locale: valid_locales_regex }, to: rack_404
     resources :statistical_data_sets, path: "statistical-data-sets", only: [:show]
     resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
