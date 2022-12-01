@@ -98,6 +98,7 @@ Whitehall::Application.routes.draw do
 
     get "/consultations", as: "consultations", to: "consultations#index" # used only for a redirect
     get "/statistics/announcements", as: "statistics_announcements", to: "statistics_announcements#index" # used only for a redirect
+    get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup
     # End of public facing routes still rendered by Whitehall
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
@@ -118,7 +119,6 @@ Whitehall::Application.routes.draw do
       get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }
       get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
     end
-    get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup # still rendered by Whitehall
     get "/people/:id(.:locale)", as: "person", constraints: { locale: valid_locales_regex }, to: rack_404
     resources :policy_groups, path: "groups", only: [:show]
     get "/publications/:id(.:locale)", as: "publication", constraints: { locale: valid_locales_regex }, to: rack_404
