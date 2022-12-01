@@ -90,7 +90,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal "First published at can't be blank", assigns(:edition).errors.full_messages.last
   end
 
-  view_test "edit displays publication fields" do
+  view_test "edit displays publication fields and guidance" do
     publication = create(:publication)
 
     get :edit, params: { id: publication }
@@ -98,6 +98,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edit_edition" do
       assert_select "select[name='edition[publication_type_id]']"
       assert_select "select[name*='edition[first_published_at']", count: 5
+      assert_select ".edition-form__subtype-format-advice", text: "Use this subformat for… A policy paper explains the government's position on something. It doesn’t include instructions on how to carry out a task, only the policy itself and how it’ll be implemented.Read the policy papers guidance in full."
     end
   end
 
