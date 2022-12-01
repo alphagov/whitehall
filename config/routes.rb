@@ -120,7 +120,7 @@ Whitehall::Application.routes.draw do
       get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
     end
     get "/people/:id(.:locale)", as: "person", constraints: { locale: valid_locales_regex }, to: rack_404
-    resources :policy_groups, path: "groups", only: [:show]
+    get "/groups/:id", as: "policy_group", to: rack_404
     get "/publications/:id(.:locale)", as: "publication", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
     get "/speeches/:id(.:locale)", as: "speech", constraints: { locale: valid_locales_regex }, to: rack_404
