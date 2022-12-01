@@ -18,10 +18,10 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details:,
-        document_type: schema_name,
+        document_type: "take_part",
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
-        schema_name:,
+        schema_name: "take_part",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
@@ -32,35 +32,15 @@ module PublishingApi
 
   private
 
-    def schema_name
-      "take_part"
-    end
-
     def details
       {
-        body:,
+        body: Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body),
         image: {
           url: item.image_url(:s300),
           alt_text: item.image_alt_text,
         },
         ordering: item.ordering,
       }
-    end
-
-    def description
-      item.summary
-    end
-
-    def public_updated_at
-      item.updated_at
-    end
-
-    def body
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body)
-    end
-
-    def rendering_app
-      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
     end
   end
 end
