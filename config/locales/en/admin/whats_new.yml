@@ -1,7 +1,7 @@
 en:
   admin:
     whats_new:
-      show_banner: false
+      show_banner: true
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
@@ -13,6 +13,10 @@ en:
           This will make Whitehall Publisher more accessible, more user friendly and give you a consistent user experience throughout your publishing journey on GOV.UK.
 
           [Read more about the changes on the content community Basecamp](https://3.basecamp.com/4322319/buckets/15005645/messages/5287245970).
+          
+          ### Take part in user research
+          
+          You can [sign up to take part in Whitehall Publisher user research](https://docs.google.com/forms/d/e/1FAIpQLSci1Ff7YGLWnvDiuaoAVKzSO06q32kgjVYnSX9A5Kf7jliLaQ/viewform). If you cannot access Google Forms, email <publishing-service-research@digital.cabinet-office.gov.uk>. Once you’ve signed up, you could be invited to feedback on new features and designs, user interviews or test products.
       upcoming_changes:
         heading: Upcoming changes
       recent_changes:
