@@ -1,22 +1,24 @@
-<%= render "govuk_publishing_components/components/select", {
-  name: "edition[news_article_type_id]",
-  id: "edition_news_article_type_id",
-  label: "News article type",
-  heading_size: "s",
-  full_width: true,
-  value: edition.news_article_type_id,
-  error_message: errors_for(edition.errors, :news_article_type_id),
-  options: ([nil]+ NewsArticleType.all).map do |type|
-    {
-      text: type&.singular_name,
-      value: type&.id,
-      selected: edition.news_article_type_id == type&.id
-    }
-  end
-} %>
+<div class="edition-form__subtype-fields" data-format-advice="<%= NewsArticleType::FORMAT_ADVICE %>">
+  <%= render "govuk_publishing_components/components/select", {
+    name: "edition[news_article_type_id]",
+    id: "edition_news_article_type_id",
+    label: "News article type",
+    heading_size: "s",
+    full_width: true,
+    value: edition.news_article_type_id,
+    error_message: errors_for(edition.errors, :news_article_type_id),
+    options: ([nil]+ NewsArticleType.all).map do |type|
+      {
+        text: type&.singular_name,
+        value: type&.id,
+        selected: edition.news_article_type_id == type&.id
+      }
+    end
+  } %>
 
-<% if edition.news_article_type_id.present? %>
-  <div class="edition-form__subtype-format-advice govuk-body govuk-!-margin-top-4">
-    <strong>Use this subformat for…</strong> <%= JSON.parse(NewsArticleType::FORMAT_ADVICE)[edition.news_article_type_id.to_s].html_safe %>
-  </div>
-<% end %>
+  <% if edition.news_article_type_id.present? %>
+    <div class="edition-form__subtype-format-advice govuk-body govuk-!-margin-top-4">
+      <strong>Use this subformat for…</strong> <%= JSON.parse(NewsArticleType::FORMAT_ADVICE)[edition.news_article_type_id.to_s].html_safe %>
+    </div>
+  <% end %>
+</div>

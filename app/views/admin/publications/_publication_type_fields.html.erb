@@ -1,35 +1,37 @@
-<div class="govuk-form-group">
-  <label class="gem-c-label govuk-label govuk-!-font-weight-bold" for="edition_publication_type_id">
-    Publication type
-  </label>
-  <% if errors_for_input(edition.errors, :publication_type_id).present? %>
-    <p class="gem-c-error-message govuk-error-message">
-      <span class="govuk-visually-hidden">Error: <%= errors_for_input(edition.errors, :publication_type_id) %></span>
-    </p>
-  <% end %>
+<div class="edition-form__subtype-fields" data-format-advice="<%= PublicationType::FORMAT_ADVICE %>">
+  <div class="govuk-form-group">
+    <label class="gem-c-label govuk-label govuk-!-font-weight-bold" for="edition_publication_type_id">
+      Publication type
+    </label>
+    <% if errors_for_input(edition.errors, :publication_type_id).present? %>
+      <p class="gem-c-error-message govuk-error-message">
+        <span class="govuk-visually-hidden">Error: <%= errors_for_input(edition.errors, :publication_type_id) %></span>
+      </p>
+    <% end %>
 
-  <select class="govuk-select govuk-select gem-c-select__select--full-width" id="edition_publication_type_id" name="edition[publication_type_id]">
-    <option></option>
-    <optgroup label="Common types">
-      <% PublicationType.primary.each do |publication_type| %>
-        <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
-      <% end %>
-    <optgroup/>
-    <optgroup label="Less common types">
-      <% PublicationType.less_common.each do |publication_type| %>
-        <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
-      <% end %>
-    <optgroup/>
-    <optgroup label="Use discouraged">
-      <% PublicationType.use_discouraged.each do |publication_type| %>
-        <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
-      <% end %>
-    <optgroup/>
-  </select>
+    <select class="govuk-select govuk-select gem-c-select__select--full-width" id="edition_publication_type_id" name="edition[publication_type_id]">
+      <option></option>
+      <optgroup label="Common types">
+        <% PublicationType.primary.each do |publication_type| %>
+          <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
+        <% end %>
+      <optgroup/>
+      <optgroup label="Less common types">
+        <% PublicationType.less_common.each do |publication_type| %>
+          <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
+        <% end %>
+      <optgroup/>
+      <optgroup label="Use discouraged">
+        <% PublicationType.use_discouraged.each do |publication_type| %>
+          <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
+        <% end %>
+      <optgroup/>
+    </select>
 
-  <% if edition.publication_type_id.present? %>
-    <div class="edition-form__subtype-format-advice govuk-body govuk-!-margin-top-4">
-      <strong>Use this subformat for…</strong> <%= JSON.parse(PublicationType::FORMAT_ADVICE)[edition.publication_type_id.to_s].html_safe %>
-    </div>
-  <% end %>
+    <% if edition.publication_type_id.present? %>
+      <div class="edition-form__subtype-format-advice govuk-body govuk-!-margin-top-4">
+        <strong>Use this subformat for…</strong> <%= JSON.parse(PublicationType::FORMAT_ADVICE)[edition.publication_type_id.to_s].html_safe %>
+      </div>
+    <% end %>
+  </div>
 </div>

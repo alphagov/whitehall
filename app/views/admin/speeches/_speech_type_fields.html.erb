@@ -1,22 +1,24 @@
-<%= render "govuk_publishing_components/components/select", {
-  name: "edition[speech_type_id]",
-  id: "edition_speech_type_id",
-  label: "Speech type",
-  heading_size: "s",
-  full_width: true,
-  value: edition.speech_type_id,
-  error_message: errors_for(edition.errors, :speech_type_id),
-  options: ([nil] + SpeechType.primary).map do |type|
-    {
-      text: type&.singular_name,
-      value: type&.id,
-      selected: edition.speech_type_id == type&.id
-    }
-  end
-} %>
+<div class="edition-form__subtype-fields" data-format-advice="<%= SpeechType::FORMAT_ADVICE %>">
+  <%= render "govuk_publishing_components/components/select", {
+    name: "edition[speech_type_id]",
+    id: "edition_speech_type_id",
+    label: "Speech type",
+    heading_size: "s",
+    full_width: true,
+    value: edition.speech_type_id,
+    error_message: errors_for(edition.errors, :speech_type_id),
+    options: ([nil] + SpeechType.primary).map do |type|
+      {
+        text: type&.singular_name,
+        value: type&.id,
+        selected: edition.speech_type_id == type&.id
+      }
+    end
+  } %>
 
-<% if edition.speech_type_id.present? %>
-  <div class="edition-form__subtype-format-advice govuk-body govuk-!-margin-top-4">
-    <strong>Use this subformat for…</strong> <%= JSON.parse(SpeechType::FORMAT_ADVICE)[edition.speech_type_id.to_s].html_safe %>
-  </div>
-<% end %>
+  <% if edition.speech_type_id.present? %>
+    <div class="edition-form__subtype-format-advice govuk-body govuk-!-margin-top-4">
+      <strong>Use this subformat for…</strong> <%= JSON.parse(SpeechType::FORMAT_ADVICE)[edition.speech_type_id.to_s].html_safe %>
+    </div>
+  <% end %>
+</div>
