@@ -6,7 +6,7 @@
     heading_size: "s",
     full_width: true,
     value: edition.speech_type_id,
-    error_message: errors_for(edition.errors, :speech_type_id),
+    error_message: errors_for_input(edition.errors, :speech_type_id),
     options: ([nil] + SpeechType.primary).map do |type|
       {
         text: type&.singular_name,
