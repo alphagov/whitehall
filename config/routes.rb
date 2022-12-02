@@ -373,7 +373,7 @@ Whitehall::Application.routes.draw do
   end
 
   # TODO: the organisations controller has been removed but this route is still required to get the relevant helper methods. This can be removed once new helpers have been created.
-  get "/courts-tribunals/:id(.:locale)", as: "court", to: "organisations#show", courts_only: true, constraints: { locale: valid_locales_regex }
+  get "/courts-tribunals/:id(.:locale)", as: "court", courts_only: true, constraints: { locale: valid_locales_regex }, to: rack_404
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
@@ -387,7 +387,7 @@ Whitehall::Application.routes.draw do
   get "healthcheck/unenqueued_scheduled_editions" => "healthcheck#unenqueued_scheduled_editions"
 
   # TODO: Remove when paths for new content can be generated without a route helper
-  get "/guidance/:id(.:locale)", as: "detailed_guide", to: "detailed_guides#show", constraints: { id: /[A-z0-9-]+/, locale: valid_locales_regex }
+  get "/guidance/:id(.:locale)", as: "detailed_guide", constraints: { id: /[A-z0-9-]+/, locale: valid_locales_regex }, to: rack_404
 
   resources :broken_links_export_request, path: "/export/broken_link_reports", param: :export_id, only: [:show]
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
