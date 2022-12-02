@@ -137,7 +137,13 @@ end
 Then(/^I should see a link to the public version of the publication "([^"]*)"$/) do |publication_title|
   publication = Publication.published.find_by!(title: publication_title)
   visit admin_edition_path(publication)
-  expect(find("a.public_version")[:href]).to eq(
-    "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications/#{publication.document.slug}",
-  )
+  if using_design_system?
+    expect(find("a.govuk-link[target='_blank']")[:href]).to eq(
+      "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications/#{publication.document.slug}",
+    )
+  else
+    expect(find("a.public_version")[:href]).to eq(
+      "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications/#{publication.document.slug}",
+    )
+  end
 end

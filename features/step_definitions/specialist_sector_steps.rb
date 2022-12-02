@@ -17,7 +17,7 @@ Then(/^I can tag it to some specialist sectors$/) do
 
   click_button "Update specialist topics"
 
-  expect(page).to have_selector(".flash.notice")
+  expect(page).to have_selector("[data-track-category='flash-message']")
 
   click_on "Edit draft"
   check "Applies to all UK nations"

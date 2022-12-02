@@ -7,7 +7,11 @@ When(/^the attachment has been uploaded to the asset-manager$/) do
 end
 
 When(/^I start editing the attachments from the .*? page$/) do
-  click_on "Modify attachments"
+  if using_design_system?
+    click_on "Add attachment"
+  else
+    click_on "Modify attachments"
+  end
 end
 
 When(/^I upload a file attachment with the title "(.*?)" and the file "(.*?)"$/) do |title, fixture_file_name|

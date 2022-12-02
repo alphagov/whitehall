@@ -23,7 +23,11 @@ Then(/^I should see a link to the preview version of the publication "([^"]*)"$/
   visit admin_edition_path(publication)
   expected_preview_url = "http://draft-origin.test.gov.uk/government/publications/#{publication.slug}"
 
-  expect(expected_preview_url).to eq(find("a.preview_version")[:href])
+  if using_design_system?
+    expect(expected_preview_url).to eq(find("a[target='_blank']")[:href])
+  else
+    expect(expected_preview_url).to eq(find("a.preview_version")[:href])
+  end
 end
 
 Then(/^I should see that it was rejected by "([^"]*)"$/) do |rejected_by|

@@ -3,7 +3,12 @@ When(/^another editor retrospectively approves the "([^"]*)" publication$/) do |
   login_as user
   visit admin_editions_path(state: :published)
   click_link publication_title
-  click_button "Looks good"
+  if using_design_system?
+    click_link "Approve"
+    click_button "Approve"
+  else
+    click_button "Looks good"
+  end
 end
 
 Then(/^the "([^"]*)" publication should not be flagged as force-published any more$/) do |publication_title|
