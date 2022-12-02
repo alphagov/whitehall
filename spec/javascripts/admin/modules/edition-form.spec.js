@@ -17,6 +17,17 @@ describe('GOVUK.Modules.EditionForm', function () {
           <option value="4">World news story</option></select>
       </div>
     </div>
+
+    <div class="edition-form--locale-fields">
+      <input type="checkbox" name="edition[create_foreign_language_only]" id="edition_create_foreign_language_only-0" value="0" checked="checked">
+
+      <select name="edition[primary_locale]" id="edition_primary_locale" class="govuk-select gem-c-select__select--full-width">
+        <option value=""></option>
+        <option value="ar">العربيَّة (Arabic)</option>
+        <option value="az">Azeri (Azeri)</option>
+        <option value="be">Беларуская (Belarusian)</option>
+      </select>
+    </div>
     `
     var editionForm = new GOVUK.Modules.EditionForm(form)
     editionForm.init()
@@ -42,5 +53,41 @@ describe('GOVUK.Modules.EditionForm', function () {
 
     var subtypeAdvice = form.querySelector('.edition-form__subtype-format-advice')
     expect(subtypeAdvice).toBe(null)
+  })
+
+  it('should hide the locale fields when a NewsArticle is not a WorldNewsStory', function () {
+    var localeFields = form.querySelector('.edition-form--locale-fields')
+
+    expect(localeFields.style.display).toEqual('none')
+  })
+
+  it('should render the locale fields when the WorldNewsStory is selected', function () {
+    var select = form.querySelector('#edition_news_article_type_id')
+
+    select.value = '4'
+    select.dispatchEvent(new Event('change'))
+
+    var localeFields = form.querySelector('.edition-form--locale-fields')
+
+    expect(localeFields.style.display).toEqual('block')
+  })
+
+  it('should reset the locale checkbox and select values when WorldNewsStory is deselected', function () {
+    var select = form.querySelector('#edition_news_article_type_id')
+    var localeCheckbox = form.querySelector('#edition_create_foreign_language_only-0')
+    var localeSelect = form.querySelector('#edition_primary_locale')
+
+    select.value = '4'
+    select.dispatchEvent(new Event('change'))
+
+    localeCheckbox.checked = true
+    localeCheckbox.value = '1'
+    localeSelect.value = 'ar'
+    select.value = '1'
+    select.dispatchEvent(new Event('change'))
+
+    expect(localeCheckbox.value).toEqual('0')
+    expect(localeCheckbox.checked).toEqual(false)
+    expect(localeSelect.value).toEqual('')
   })
 })
