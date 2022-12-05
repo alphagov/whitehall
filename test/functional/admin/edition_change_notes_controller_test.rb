@@ -5,7 +5,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
     login_as :gds_admin
 
     @document = create(:document)
-    create(:edition, :superseded, change_note: "First change note", major_change_published_at: "2022-12-01 10:00:05", document: @document)
+    @first_edition = create(:edition, :superseded, change_note: "First change note", major_change_published_at: "2022-12-01 10:00:05", document: @document)
     @second_edition = create(:edition, :superseded, change_note: "Second change note", major_change_published_at: "2022-12-02 15:00:05", document: @document)
     @current_edition = create(:edition, :published, change_note: "Third change note", major_change_published_at: "2022-12-03 12:02:05", document: @document)
   end
@@ -106,5 +106,42 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_edition_change_notes_path
     assert_equal "Change note updated", flash[:notice]
+  end
+
+  view_test "confirm_destroy includes the current change notes" do
+    login_as :gds_admin
+
+    get :confirm_destroy, params: { edition_id: @current_edition.id, id: @second_edition.id }
+
+    assert_select "p", text: "Change published at:  2 December 2022  3:00pm"
+    assert_select "p", text: "Current change note: Second change note"
+  end
+
+  test "delete removes the major change" do
+    login_as :gds_admin
+
+    delete :destroy, params: { edition_id: @current_edition.id, id: @second_edition.id }
+    @second_edition.reload
+
+    assert_equal true, @second_edition.minor_change
+    assert_nil @second_edition.change_note
+    assert_equal @second_edition.major_change_published_at, @first_edition.major_change_published_at
+  end
+
+  test "delete republishes the document" do
+    login_as :gds_admin
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@second_edition.document_id)
+
+    delete :destroy, params: { edition_id: @current_edition.id, id: @second_edition.id }
+  end
+
+  view_test "delete redirects to the index" do
+    login_as :gds_admin
+
+    delete :destroy, params: { edition_id: @current_edition.id, id: @second_edition.id }
+
+    assert_redirected_to admin_edition_change_notes_path
+    assert_equal "Change note deleted", flash[:notice]
   end
 end
