@@ -10,7 +10,8 @@ ENV ASSETS_PREFIX=/assets/whitehall \
 
 WORKDIR /app
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN bundle install
+# TODO: remove chmod workaround once https://github.com/mikel/mail/issues/1489 is fixed.
+RUN bundle install && chmod -R o+r "${BUNDLE_PATH}"
 COPY package.json yarn.lock ./
 RUN yarn install --production --frozen-lockfile --non-interactive --link-duplicates
 COPY . ./
