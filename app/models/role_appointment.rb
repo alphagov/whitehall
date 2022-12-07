@@ -64,6 +64,7 @@ class RoleAppointment < ApplicationRecord
   scope :alphabetical_by_person, -> { includes(:person).order("people.surname", "people.forename") }
   scope :ascending_start_date, -> { order("started_at DESC") }
 
+  after_create :set_order
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
@@ -160,6 +161,10 @@ private
       oa.ended_at = started_at
       oa.save!
     end
+  end
+
+  def set_order
+    update!(order: person.role_appointments.count)
   end
 
   def prevent_destruction_unless_destroyable
