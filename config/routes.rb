@@ -266,7 +266,9 @@ Whitehall::Application.routes.draw do
           resources :translations, controller: "edition_translations", except: %i[index show] do
             get :confirm_destroy, on: :member
           end
-          resources :editorial_remarks, only: %i[new create], shallow: true
+          resources :editorial_remarks, only: %i[new create destroy], shallow: true do
+            get :confirm_destroy, on: :member
+          end
           resources :fact_check_requests, only: %i[show create edit update], shallow: true
           resources :attachments, except: [:show] do
             put :order, on: :collection

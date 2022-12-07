@@ -1,0 +1,21 @@
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Delete editorial remark" %>
+<% content_for :title, "Delete editorial remark" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag [:admin, @editorial_remark], method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete this editorial remark?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete editorial remark",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", admin_cancel_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>
