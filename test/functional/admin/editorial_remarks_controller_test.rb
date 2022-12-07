@@ -77,4 +77,18 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     get :create, params: { edition_id: protected_edition.id }
     assert_response :forbidden
   end
+
+  test "should redirect to the edition on deletion" do
+    @logged_in_user.permissions << "GDS Admin"
+    edition = build(:submitted_speech)
+    editorial_remark = create(:editorial_remark, edition:)
+    post :destroy, params: { id: editorial_remark }
+    assert_redirected_to admin_speech_path(editorial_remark.edition)
+  end
+
+  test "should forbid deletion without GDS Admin permission" do
+    editorial_remark = create(:editorial_remark)
+    post :destroy, params: { id: editorial_remark }
+    assert_response :forbidden
+  end
 end
