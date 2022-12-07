@@ -1,0 +1,37 @@
+<% content_for :page_title, "#{@published_edition.title}: Update slug" %>
+<% content_for :context, @published_edition.title %>
+<% content_for :title, "Update slug" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @document)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @document, method: :patch, url: admin_update_admin_document_slug_path(@document.id) do |form| %>
+
+      <p class="govuk-body">Updating the slug for a document performs the following steps:</p>
+
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "changes the documents slug",
+          "reindexes the document with it's new slug",
+          "republishes the document to Publishing API (automatically handles the redirect)",
+        ]
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Slug",
+          bold: true,
+        },
+        name: "document[slug]",
+        id: "document_slug",
+        value: params.dig("document", "slug") || @document.slug,
+        error_items: errors_for(@document.errors, :slug)
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Update"
+      } %>
+    <% end %>
+  </div>
+</div>
