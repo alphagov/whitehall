@@ -1,0 +1,27 @@
+<% content_for :page_title, "Reorder current role appointments"%>
+<% content_for :title, "Reorder current role appointments" %>
+<% content_for :context, @person.name %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <% if @role_appointments.many? %>
+      <%= form_for @person, url: update_order_role_appointments_admin_person_path(@person), method: :patch do |form| %>
+        <%= render "govuk_publishing_components/components/reorderable_list", {
+          items: @role_appointments.map do |role_appointment|
+            {
+              id: role_appointment.id,
+              title: role_appointment.role.name
+            }
+          end
+        } %>
+
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update order"
+        } %>
+      <% end %>
+    <% else %>
+      <p class="govuk-body">You can only reorder current role appointments if a person has 2 or more.</p>
+    <% end %>
+  </div>
+</div>

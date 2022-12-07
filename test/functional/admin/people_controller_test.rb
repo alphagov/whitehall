@@ -187,4 +187,69 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       assert_equal %("Nemo" destroyed.), flash[:notice]
     end
   end
+
+  test "GET on :reorder_role_appointments allowed if a GDS editor" do
+    person = create(:person)
+    role_appointment1 = create(:role_appointment, person:)
+    role_appointment2 = create(:role_appointment, person:)
+    role_appointment4 = create(:role_appointment, person:)
+    role_appointment5 = create(:role_appointment, person:)
+
+    login_as :gds_admin
+    get :reorder_role_appointments, params: { id: person.id }
+
+    assert_equal [role_appointment1, role_appointment2, role_appointment4, role_appointment5], assigns(:role_appointments)
+    assert_response :success
+  end
+
+  test "GET on :reorder_role_appointments not allowed if not a GDS editor" do
+    person = create(:person)
+
+    get :reorder_role_appointments, params: { id: person.id }
+    assert_response :forbidden
+  end
+
+  test "PATCH on :update_order_role_appointments allowed and reorders RoleAppointments if a GDS Editor" do
+    person = create(:person)
+    role_appointment1 = create(:role_appointment, person:)
+    role_appointment2 = create(:role_appointment, person:)
+    role_appointment3 = create(:role_appointment, person:, started_at: 2.years.ago, ended_at: 1.year.ago)
+    role_appointment4 = create(:role_appointment, person:)
+    role_appointment5 = create(:role_appointment, person:)
+
+    login_as :gds_admin
+
+    Whitehall::PublishingApi.expects(:republish_async).with(role_appointment1.organisations.first)
+    Whitehall::PublishingApi.expects(:republish_async).with(role_appointment2.organisations.first)
+    Whitehall::PublishingApi.expects(:republish_async).with(role_appointment4.organisations.first)
+    Whitehall::PublishingApi.expects(:republish_async).with(role_appointment5.organisations.first)
+
+    put :update_order_role_appointments, params: {
+      id: person.id,
+      ordering: {
+        "#{role_appointment5.id}": "1",
+        "#{role_appointment4.id}": "2",
+        "#{role_appointment2.id}": "3",
+        "#{role_appointment1.id}": "4",
+      },
+    }
+
+    assert_equal 1, role_appointment5.reload.order
+    assert_equal 2, role_appointment4.reload.order
+    assert_equal 3, role_appointment3.reload.order
+    assert_equal 4, role_appointment2.reload.order
+    assert_equal 5, role_appointment1.reload.order
+    assert_redirected_to admin_person_url(person)
+    assert_equal "Role appointments reordered successfully", flash[:notice]
+  end
+
+  test "PATCH on :update_order_role_appointments not allowed if not a GDS Editor" do
+    person = create(:person)
+
+    put :update_order_role_appointments, params: {
+      id: person.id,
+    }
+
+    assert_response :forbidden
+  end
 end
