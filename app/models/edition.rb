@@ -82,6 +82,7 @@ class Edition < ApplicationRecord
   scope :in_pre_publication_state,      -> { where(state: Edition::PRE_PUBLICATION_STATES) }
   scope :force_published,               -> { where(state: "published", force_published: true) }
   scope :not_published,                 -> { where(state: %w[draft submitted rejected]) }
+  scope :without_not_published,         -> { where.not(state: %w[draft submitted rejected]) }
 
   scope :announcements,                 -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
   scope :consultations,                 -> { where(type: "Consultation") }
