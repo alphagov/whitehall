@@ -5,7 +5,12 @@ class Admin::EditorialRemarksController < Admin::BaseController
   layout :get_layout
 
   def enforce_permissions!
-    enforce_permission!(:make_editorial_remark, @edition)
+    case action_name
+    when "confirm_destroy", "destroy"
+      enforce_permission!(:perform_administrative_tasks, @edition)
+    else
+      enforce_permission!(:make_editorial_remark, @edition)
+    end
   end
 
   def new
@@ -22,6 +27,13 @@ class Admin::EditorialRemarksController < Admin::BaseController
     end
   end
 
+  def confirm_destroy; end
+
+  def destroy
+    @editorial_remark.destroy!
+    redirect_to admin_edition_path(@edition), notice: "Editorial remark deleted successfully"
+  end
+
 private
 
   def get_layout
@@ -33,7 +45,12 @@ private
   end
 
   def find_edition
-    @edition = Edition.find(params[:edition_id])
+    if params[:id]
+      @editorial_remark = EditorialRemark.find(params[:id])
+      @edition = @editorial_remark.edition
+    else
+      @edition = Edition.find(params[:edition_id])
+    end
   end
 
   def editorial_remark_params
