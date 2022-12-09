@@ -407,4 +407,13 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     non_minister_appointment = create(:role_appointment, role: non_minister)
     assert_not non_minister_appointment.ministerial?
   end
+
+  test "sets the order value after creation" do
+    person = create(:person)
+    role_appointment1 = create(:role_appointment, person:)
+    role_appointment2 = create(:role_appointment, person:)
+
+    assert_equal 1, role_appointment1.reload.order
+    assert_equal 2, role_appointment2.reload.order
+  end
 end
