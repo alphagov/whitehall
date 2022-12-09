@@ -2,7 +2,7 @@ Feature: Edition update slug
   This feature allows GDS editors to update a documents slug
 
   Scenario: GDS editor updates a slug
-    Given I am a GDS editor
+    Given I am a GDS admin
     And a published news article "You will never guess" exists
     And I visit the edit slug page for "You will never guess"
     And I update the slug to "/new-slug"

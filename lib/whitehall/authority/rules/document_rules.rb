@@ -8,12 +8,7 @@ module Whitehall::Authority::Rules
     end
 
     def can?(action)
-      case action
-      when :perform_administrative_tasks
-        actor.gds_editor?
-      else
-        actor.gds_editor? || actor.departmental_editor? || action == :create
-      end
+      actor.gds_editor? || actor.departmental_editor? || action == :create
     end
   end
 end

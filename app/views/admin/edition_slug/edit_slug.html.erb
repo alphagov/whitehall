@@ -5,7 +5,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_for @document, method: :patch, url: admin_update_admin_document_slug_path(@document.id) do |form| %>
+    <%= form_for @document, url: update_slug_admin_edition_path(@document.id), method: :patch do |form| %>
 
       <p class="govuk-body">Updating the slug for a document performs the following steps:</p>
 
