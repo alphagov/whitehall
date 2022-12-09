@@ -32,7 +32,7 @@ class PublishingApi::RoleAppointmentPresenterTest < ActionView::TestCase
       details: {
         started_on: "2011-11-10T11:11:11+00:00",
         current: true,
-        person_appointment_order: role_appointment.id,
+        person_appointment_order: role_appointment.order,
       },
     }
     expected_links = {

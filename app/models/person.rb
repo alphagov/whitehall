@@ -3,9 +3,9 @@ class Person < ApplicationRecord
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
-  has_many :role_appointments
+  has_many :role_appointments, -> { order(:order) }
   has_many :current_role_appointments,
-           -> { where(RoleAppointment::CURRENT_CONDITION) },
+           -> { where(RoleAppointment::CURRENT_CONDITION).order(:order) },
            class_name: "RoleAppointment"
   has_many :speeches, through: :role_appointments
   has_many :news_articles, through: :role_appointments

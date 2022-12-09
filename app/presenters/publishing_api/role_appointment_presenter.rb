@@ -42,7 +42,7 @@ module PublishingApi
     def details
       {
         current: item.current?,
-        person_appointment_order: item.id,
+        person_appointment_order: item.order,
       }.tap do |details|
         details[:started_on] = item.started_at.rfc3339 if item.started_at.present?
         details[:ended_on] = item.ended_at.rfc3339 if item.ended_at.present?

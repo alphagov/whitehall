@@ -324,7 +324,10 @@ Whitehall::Application.routes.draw do
         resources :people do
           resources :translations, controller: "person_translations"
           resources :historical_accounts
+          get :reorder_role_appointments, on: :member
+          patch :update_order_role_appointments, on: :member
         end
+
         resource :cabinet_ministers, only: %i[show update]
         resources :roles, except: [:show] do
           resources :role_appointments, only: %i[new create edit update destroy], shallow: true
