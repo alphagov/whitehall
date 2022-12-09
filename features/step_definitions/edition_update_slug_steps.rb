@@ -1,6 +1,6 @@
 And(/^I visit the edit slug page for "([^"]*)"$/) do |edition_title|
   @edition = Edition.find_by!(title: edition_title)
-  visit admin_edit_admin_document_slug_path(@edition.document)
+  visit edit_slug_admin_edition_path(@edition)
 end
 
 And(/^I update the slug to "([^"]*)"$/) do |new_slug|

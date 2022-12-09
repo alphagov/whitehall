@@ -29,32 +29,6 @@ namespace :reslug do
     DataHygiene::RoleReslugger.new(role, args[:new_slug]).run!
   end
 
-  desc "Change a document's slug in whitehall (DANGER!).\n
-  It performs the following steps:
-  - changes the documents slug
-  - reindexes the document with it's new slug
-  - republishes the document to Publishing API (automatically handles the redirect)"
-  task :document, %i[old_slug new_slug] => :environment do |_task, args|
-    documents = Document.where(slug: args.old_slug)
-    if documents.count > 1
-      raise "There are multiple documents with the slug '#{args.old_slug}'. Consider writing a migration and fetching the document with a content_id or document_type to uniquely identify it."
-    end
-
-    document = documents.first
-    # remove the most recent edition from the search index
-    edition = document.editions.published.last
-    Whitehall::SearchIndex.delete(edition)
-
-    # change the slug of the document and create a redirect from the original
-    document.update!(slug: args.new_slug)
-
-    # send edition to publishing api
-    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-
-    # add edition to search index
-    Whitehall::SearchIndex.add(edition)
-  end
-
   desc "Change a topical_event's slug in whitehall (DANGER!).\n
   It performs the following steps:
   - changes the topical_events slug
