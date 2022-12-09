@@ -8,8 +8,6 @@ class Admin::EditionSlugController < Admin::BaseController
   def edit_slug; end
 
   def update_slug
-    @document.assign_attributes(slug: params.dig("document", "slug"))
-
     if DataHygiene::DocumentReslugger.new(@document, @published_edition, current_user, params.dig("document", "slug")).run!
       flash[:notice] = "Slug updated successfully"
       redirect_to admin_edition_path(@published_edition)
