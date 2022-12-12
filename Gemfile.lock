@@ -498,7 +498,7 @@ GEM
       pry (>= 0.13, < 0.15)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    ptools (1.4.3)
+    ptools (1.5.0)
     public_suffix (5.0.0)
     puma (6.0.0)
       nio4r (~> 2.0)
