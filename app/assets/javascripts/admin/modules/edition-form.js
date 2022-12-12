@@ -7,10 +7,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   EditionForm.prototype.init = function () {
-    this.setupFormatAdviceForSelectedSubtypeEventListener()
+    this.setupSubtypeFormatAdviceEventListener()
   }
 
-  EditionForm.prototype.setupFormatAdviceForSelectedSubtypeEventListener = function () {
+  EditionForm.prototype.setupSubtypeFormatAdviceEventListener = function () {
     var form = this.module
     var subtypeDiv = form.querySelector('.edition-form__subtype-fields')
 

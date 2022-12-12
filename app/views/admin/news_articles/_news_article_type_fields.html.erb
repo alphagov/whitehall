@@ -17,8 +17,6 @@
   } %>
 
   <% if edition.news_article_type_id.present? %>
-    <div class="edition-form__subtype-format-advice govuk-body govuk-!-margin-top-4">
-      <strong>Use this subformat for…</strong> <%= JSON.parse(NewsArticleType::FORMAT_ADVICE)[edition.news_article_type_id.to_s].html_safe %>
-    </div>
+    <%= render "subtype_format_advice", guidance: JSON.parse(NewsArticleType::FORMAT_ADVICE)[edition.news_article_type_id.to_s].html_safe %>
   <% end %>
 </div>
