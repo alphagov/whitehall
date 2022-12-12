@@ -1,0 +1,64 @@
+<% document = edition.document %>
+
+<% if edition.superseded? %>
+  <% if edition.is_latest_edition? %>
+    <div class="app-view-edition-summary__sidebar-info">
+      <p class="govuk-body">
+        This edition has been superseded, you can still create a
+        new draft edition for this document.
+      </p>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Create new edition to edit",
+        title: "Create new edition to edit",
+        href: revise_admin_edition_path(edition),
+        secondary_solid: true
+      } %>
+    </div>
+  <% else %>
+    <%= render "components/inset_prompt", {
+      title: "This edition has been superseded",
+      description: capture do %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Go to most recent edition",
+          href: admin_edition_path(document.latest_edition),
+          secondary_solid: true
+        } %>
+      <% end,
+      error: true
+    } %>
+  <% end %>
+<% elsif edition.pre_publication? && document.live_edition.present? %>
+  <div class="app-view-edition-summary__sidebar-info">
+    <p class="govuk-body">
+      This is a new draft of a document that has already been published.
+    </p>
+
+    <p class="govuk-body">
+      <%= link_to "Go to published edition", admin_edition_path(document.live_edition), class: "govuk-link" %>
+    </p>
+
+    <% if edition.previous_edition.present? %>
+      <p class="govuk-body">
+        <%= link_to "See what’s changed", diff_admin_edition_path(edition, audit_trail_entry_id: edition.previous_edition.id), class: "govuk-link" %>
+      </p>
+  <% end %>
+</div>
+<% elsif !edition.is_latest_edition? %>
+  <% if can?(:see, document.latest_edition) %>
+    <div class="app-view-edition-summary__sidebar-info">
+      <p class="govuk-body">
+        This document has a new draft. You are currently viewing the edition that is published on the website.
+      </p>
+      <p class="govuk-body">
+        <%= link_to "Go to draft", admin_edition_path(document.latest_edition), class: "govuk-link" %>
+      </p>
+    </div>
+  <% else %>
+    <%= render "components/inset_prompt", {
+      description: "This isn’t the most recent edition of this document – you are
+          unable to view the most recent edition because it can only be
+          accessed by members of the producing organisation."
+    } %>
+  <% end %>
+<% end %>

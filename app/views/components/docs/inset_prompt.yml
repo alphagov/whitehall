@@ -12,6 +12,9 @@ examples:
     data:
       title: Please meet these requirements before publishing
       description: Document needs a summary before publishing (at least 10 characters)
+  description_only:
+    data:
+      description: Document is a scheduled for publishing on the 1st of December 2022
   with_items:
     data:
       title: Message to alert the user to a problem goes here

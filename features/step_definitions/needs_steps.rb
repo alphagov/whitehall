@@ -1,5 +1,9 @@
 When(/^I start editing the needs from the .*? page$/) do
-  click_on "Add/remove needs"
+  if using_design_system?
+    click_link "Modify associated user needs"
+  else
+    click_on "Add/remove needs"
+  end
 end
 
 When(/^I choose the first need in the dropdown$/) do
@@ -10,5 +14,9 @@ end
 
 Then(/^I should see the first need in the list of associated needs$/) do
   find("h2:contains('Associated user needs')")
-  expect(first("td.description").text).to eq("As a x, I need to y, So that z")
+  if using_design_system?
+    expect(first(".app-view-edition-summary__section-user-needs .govuk-table__cell").text).to eq("As a x, I need to y, So that z")
+  else
+    expect(first("td.description").text).to eq("As a x, I need to y, So that z")
+  end
 end

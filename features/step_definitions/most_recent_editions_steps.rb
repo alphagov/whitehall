@@ -26,6 +26,6 @@ Then(/^I can click through to the most recent version of document "([^"]*)"$/) d
 end
 
 Then(/^I cannot click through to the most recent version of document "([^"]*)"$/) do |_title|
-  expect(page).to have_selector(".alert.access-limited-latest-edition")
+  expect(page).to have_content("This isn’t the most recent edition of this document – you are unable to view the most recent edition because it can only be accessed by members of the producing organisation.")
   expect(page).to_not have_content("Go to draft")
 end

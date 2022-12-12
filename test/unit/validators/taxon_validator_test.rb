@@ -29,7 +29,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
 
     assert_equal 1, edition.errors.count
     assert_equal(
-      "<b>This document has not been published.</b> You need to add a topic before publishing.",
+      "This document has not been published. You need to add a topic before publishing.",
       edition.errors[:base].first,
     )
   end

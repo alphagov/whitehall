@@ -1,0 +1,28 @@
+<div class="app-view-edition-summary__sidebar-notices">
+  <% if @edition.scheduled_publication %>
+    <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
+      <%= render "components/inset_prompt", {
+        title: "This edition cannot be scheduled",
+        description: "#{force_scheduler.failure_reason}",
+        error: true
+      } %>
+    <% end %>
+  <% else %>
+    <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
+      <%= render "components/inset_prompt", {
+        title: "This edition cannot be force-published",
+        description: render("govuk_publishing_components/components/list", {
+          visible_counters: true,
+          items: force_publisher.failure_reasons
+        }),
+        error: true
+      } %>
+    <% end %>
+  <% end %>
+  <% if show_similar_slugs_warning?(@edition) %>
+    <%= render "components/inset_prompt", {
+      description: "This title is already used on GOV.UK. Please create a unique title.",
+      error: true
+    } %>
+  <% end %>
+</div>

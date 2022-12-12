@@ -10,7 +10,9 @@
 %>
 
 <%= tag.div class: root_classes, id: id, data: data_attributes do %>
-  <%= tag.h3 title, class: "app-c-inset-prompt__title" %>
+  <% if title %>
+    <%= tag.h3 title, class: "app-c-inset-prompt__title" %>
+  <% end %>
 
   <%= tag.div class: "app-c-inset-prompt__body" do %>
     <%= description if description %>
