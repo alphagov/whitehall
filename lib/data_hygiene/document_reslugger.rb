@@ -36,7 +36,7 @@ module DataHygiene
 
       document.errors.add(:slug, "must be unique") and return if new_slug_is_a_duplicate
 
-      document.errors.add(:slug, "is invalid") unless new_slug.starts_with?("/") && new_slug !~ %r{//} && new_slug !~ %r{./\z}
+      document.errors.add(:slug, "should not start with a slash") if new_slug.starts_with?("/")
     end
 
     def new_slug_is_a_duplicate

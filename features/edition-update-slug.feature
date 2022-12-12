@@ -5,8 +5,8 @@ Feature: Edition update slug
     Given I am a GDS admin
     And a published news article "You will never guess" exists
     And I visit the edit slug page for "You will never guess"
-    And I update the slug to "/new-slug"
-    Then I can see the slug has been updated to "/new-slug"
+    And I update the slug to "new-slug"
+    Then I can see the slug has been updated to "new-slug"
 
   Scenario: Admin attempts to update a slug
     Given I am an admin
