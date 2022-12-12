@@ -10,7 +10,11 @@ end
 
 Then(/^I can see the slug has been updated to "([^"]*)"$/) do |new_slug|
   visit admin_edition_path(@edition)
-  click_button "Create new edition to edit"
+  if using_design_system?
+    click_button "Create new edition"
+  else
+    click_button "Create new edition to edit"
+  end
   expect(find("#edition_slug").value).to eq new_slug
 end
 
