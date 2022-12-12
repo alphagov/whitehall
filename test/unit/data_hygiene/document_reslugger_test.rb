@@ -38,9 +38,9 @@ class DocumentResluggerTest < ActiveSupport::TestCase
     assert_equal @document.errors.full_messages, ["Slug must be unique"]
   end
 
-  test "returns false and the adds an error to the document when new_slug is invalid" do
+  test "returns false and the adds an error to the document when new_slug starts with a slash" do
     reslugger = DataHygiene::DocumentReslugger.new(@document, @published_edition, @user, "/invalid slug")
     assert_equal false, reslugger.run!
-    assert_equal @document.errors.full_messages, ["Slug is invalid"]
+    assert_equal @document.errors.full_messages, ["Slug should not start with a slash"]
   end
 end
