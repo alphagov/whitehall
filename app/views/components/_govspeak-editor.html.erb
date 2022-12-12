@@ -1,5 +1,7 @@
 <%
   id ||= "#{name}-#{SecureRandom.hex(4)}"
+  preview_id = "#{id}-preview"
+  label_id = "#{id}-label"
   label[:bold] ||= false
   hint ||= nil
   hint_id ||= "#{id}-hint"
@@ -35,6 +37,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters ">
       <%= render "govuk_publishing_components/components/label", {
+        id: label_id,
         html_for: id,
         hint_id: hint_id,
         hint_text: hint,
@@ -47,7 +50,9 @@
         margin_bottom: hint ? 5 : 2,
         classes: "js-app-c-govspeak-editor__preview-button",
         data_attributes: preview_button_data_attributes,
-        type: "button"
+        aria_controls: preview_id,
+        aria_describedby: label_id,
+        type: "button",
       } %>
     </div>
   </div>
@@ -63,7 +68,7 @@
       describedby: hint_id,
     } %>
   </div>
-  <div class="app-c-govspeak-editor__preview">
+  <div class="app-c-govspeak-editor__preview" aria-live="polite" id="<%= preview_id %>">
     <p class="govuk-body">Generating preview, please wait.</p>
   </div>
 <% end %>
