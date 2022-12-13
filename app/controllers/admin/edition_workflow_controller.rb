@@ -170,7 +170,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_approve_retrospectively confirm_force_publish confirm_force_schedule confirm_unpublish confirm_unschedule confirm_unwithdraw unpublish]
+    design_system_actions = %w[confirm_approve_retrospectively confirm_force_schedule confirm_unpublish confirm_unschedule confirm_unwithdraw unpublish]
     design_system_actions << "confirm_force_publish" if preview_design_system?(next_release: true)
     if design_system_actions.include?(action_name)
       "design_system"
