@@ -30,6 +30,21 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "edit renders subtype guidance" do
+    speech = create(:speech)
+
+    get :edit, params: { id: speech }
+
+    assert_select "form#edit_edition" do
+      assert_select "select[name='edition[speech_type_id]']"
+      assert_select "select[name='edition[role_appointment_id]']"
+      assert_select "input[name='edition[person_override]']"
+      assert_select "select[name*='edition[delivered_on']", count: 5
+      assert_select "input[name='edition[location]'][type='text']"
+      assert_select ".edition-form__subtype-format-advice", text: "Use this subformat for… A verbatim report of exactly what the speaker said (checked against delivery)."
+    end
+  end
+
   test "create should create a new speech" do
     role_appointment = create(:role_appointment)
     speech_type = SpeechType::Transcript

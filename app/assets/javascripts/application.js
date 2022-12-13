@@ -10,6 +10,7 @@
 //= require components/miller-columns
 
 //= require admin/modules/analytics
+//= require admin/modules/edition-form
 //= require admin/modules/locale-switcher
 //= require admin/modules/navbar-toggle
 //= require admin/modules/paste-html-to-govspeak

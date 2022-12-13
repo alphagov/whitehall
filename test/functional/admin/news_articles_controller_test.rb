@@ -30,6 +30,17 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "edit displays news article field and guidance" do
+    news_article = create(:news_article)
+
+    get :edit, params: { id: news_article }
+
+    assert_select "form#edit_edition" do
+      assert_select "select[name*='edition[news_article_type_id']"
+      assert_select ".edition-form__subtype-format-advice", text: "Use this subformat for… Unedited press releases as sent to the media, and official statements from the organisation or a minister.Do not use for: statements to Parliament. Use the “Speech” format for those."
+    end
+  end
+
   view_test "show renders the summary" do
     draft_news_article = create(:draft_news_article, summary: "a-simple-summary")
     stub_publishing_api_expanded_links_with_taxons(draft_news_article.content_id, [])
