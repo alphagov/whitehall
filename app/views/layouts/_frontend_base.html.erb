@@ -17,7 +17,7 @@
       stylesheet_base = local_assigns[:stylesheet] || "base"
       stylesheet_base += "-rtl" if right_to_left?
     -%>
-    <%= stylesheet_link_tag "frontend/#{stylesheet_base}.css", integrity: false %>
+    <%= stylesheet_link_tag "frontend/#{stylesheet_base}.css", media: "all", integrity: false %>
     <%= stylesheet_link_tag "frontend/print.css", media: "print", integrity: false %>
     <%= csrf_meta_tags %>
     <%= atom_discovery_link_tag %>
