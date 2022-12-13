@@ -26,10 +26,10 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
             </div>
           </fieldset>
         </div>
-        <div class="unpublish-withdraw-form-wrapper js-unpublish-withdraw-form__withdrawal">
+        <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__withdrawal">
           this is the withdrawal section
         </div>
-        <div class="unpublish-withdraw-form-wrapper js-unpublish-withdraw-form__published-in-error">
+        <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__published-in-error">
           this is the error section
           <div class="gem-c-checkboxes govuk-form-group">
             <div class="govuk-checkboxes__item">
@@ -41,7 +41,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
             This is the public explanation section
           </div>
         </div>
-        <div class="unpublish-withdraw-form-wrapper js-unpublish-withdraw-form__consolidated">
+        <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__consolidated">
           this is the consolidated section
         </div>
       </div>
