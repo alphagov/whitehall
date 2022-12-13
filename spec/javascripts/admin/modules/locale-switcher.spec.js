@@ -8,7 +8,7 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
 
     form.innerHTML = `
       <form>
-        <div class="attachment-form__title">
+        <div class="app-view-attachments__form-title">
           <input id="attachment_title">
         </div>
 
@@ -18,7 +18,7 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
           <option value="en">English</option>
         </select>
 
-        <div class="attachment-form__body">
+        <div class="app-view-attachments__form-body">
           <textarea></textarea>
         </div>
       </form>
@@ -30,19 +30,19 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
 
   it('should add the correct class to the appropriate elements when the laguage select element is changed', function () {
     var select = form.querySelector('#attachment_locale')
-    var title = form.querySelector('.attachment-form__title')
-    var body = form.querySelector('.attachment-form__body')
+    var title = form.querySelector('.app-view-attachments__form-title')
+    var body = form.querySelector('.app-view-attachments__form-body')
 
     select.value = 'ar'
     select.dispatchEvent(new Event('change'))
 
-    expect(title.classList).toContain('attachment-form__title--right-to-left')
-    expect(body.classList).toContain('attachment-form__body--right-to-left')
+    expect(title.classList).toContain('app-view-attachments__form-title--right-to-left')
+    expect(body.classList).toContain('app-view-attachments__form-body--right-to-left')
 
     select.value = 'en'
     select.dispatchEvent(new Event('change'))
 
-    expect(title.classList).not.toContain('attachment-form__title--right-to-left')
-    expect(body.classList).not.toContain('attachment-form__body--right-to-left')
+    expect(title.classList).not.toContain('app-view-attachments__form-title--right-to-left')
+    expect(body.classList).not.toContain('app-view-attachments__form-body--right-to-left')
   })
 })

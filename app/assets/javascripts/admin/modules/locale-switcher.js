@@ -20,16 +20,16 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       return
     }
 
-    var title = form.querySelector('.attachment-form__title')
-    var body = form.querySelector('.attachment-form__body')
+    var title = form.querySelector('.app-view-attachments__form-title')
+    var body = form.querySelector('.app-view-attachments__form-body')
 
     select.addEventListener('change', function () {
       if (rightToLeftLocales.indexOf(this.value) > -1) {
-        title.classList.add('attachment-form__title--right-to-left')
-        body.classList.add('attachment-form__body--right-to-left')
+        title.classList.add('app-view-attachments__form-title--right-to-left')
+        body.classList.add('app-view-attachments__form-body--right-to-left')
       } else {
-        title.classList.remove('attachment-form__title--right-to-left')
-        body.classList.remove('attachment-form__body--right-to-left')
+        title.classList.remove('app-view-attachments__form-title--right-to-left')
+        body.classList.remove('app-view-attachments__form-body--right-to-left')
       }
     })
   }
