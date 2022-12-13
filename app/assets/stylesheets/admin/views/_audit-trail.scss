@@ -10,7 +10,7 @@ $gray-lighter: govuk-colour("light-grey");
 $state-danger-text: govuk-colour("red");
 $state-success-text: govuk-colour("green");
 
-.audit-trail__history-comparison {
+.app-view-audit-trail__history-comparison {
   .diff {
     border: 1px solid $gray-lighter;
     border-left: 40px solid $gray-lighter;

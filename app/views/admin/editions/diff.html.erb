@@ -19,7 +19,7 @@
         margin_bottom: 3
       } %>
 
-      <div class="govuk-body audit-trail__history-comparison">
+      <div class="govuk-body app-view-audit-trail__history-comparison">
         <%= diff_html(@audit_trail_entry.title, @edition.title) %>
       </div>
     </div>
@@ -30,7 +30,7 @@
         margin_bottom: 3
       } %>
 
-      <div class="govuk-body audit-trail__history-comparison">
+      <div class="govuk-body app-view-audit-trail__history-comparison">
         <%= diff_html(@audit_trail_entry.summary, @edition.summary) %>
       </div>
     </div>
@@ -41,7 +41,7 @@
         margin_bottom: 3
       } %>
 
-      <div class="govuk-body audit-trail__history-comparison">
+      <div class="govuk-body app-view-audit-trail__history-comparison">
         <%= diff_html(@audit_trail_entry.body, @edition.body) %>
       </div>
     </div>
