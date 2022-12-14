@@ -48,7 +48,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var container = form.querySelector('.edition-form--locale-fields')
     var localeCheckbox = container.querySelector('#edition_create_foreign_language_only-0')
     var localeSelect = container.querySelector('#edition_primary_locale')
-    const newArticleTypeId = '4'
+    var newArticleTypeId = '4'
 
     if (select.value !== newArticleTypeId) {
       container.style.display = 'none'
