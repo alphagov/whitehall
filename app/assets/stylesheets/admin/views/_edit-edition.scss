@@ -1,25 +1,22 @@
-%gem-c-select-width-4 {
+.app-view-edit-edition__date-time-wrapper {
+  display: inline-flex;
+}
+
+.app-view-edit-edition__date-time {
+  margin-right: govuk-spacing(2);
+}
+
+.app-view-edit-edition__date-time-input {
   max-width: 4.5em;
   min-width: 4.5em;
 }
 
-%gem-c-select-width-6 {
+.app-view-edit-edition__date-time-input--large {
   max-width: 6.5em;
   min-width: 6.5em;
 }
 
-.govuk-datetime {
-  select {
-    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
-    @extend .govuk-select;
-    max-width: 4.5em;
-    min-width: 4.5em;
-  }
-}
-
-.govuk-datetime-month {
-  select {
-    max-width: 6.5em;
-    min-width: 6.5em;
-  }
+.app-view-edit-edition__time-separator {
+  margin: govuk-spacing(6) + 5 govuk-spacing(2) 0 0;
+  margin-bottom: 0;
 }

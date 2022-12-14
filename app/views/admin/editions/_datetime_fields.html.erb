@@ -8,7 +8,7 @@
 <% start_year = start_year.presence %>
 <% end_year = end_year.presence %>
 
-<div class="gem-c-date-input govuk-date-input govuk-datetime <%= 'govuk-form-group--error' if errors_for_input(edition.errors, field_name).present? %>">
+<div class="<%= 'govuk-form-group--error' if errors_for_input(edition.errors, field_name).present? %>">
   <%= render "govuk_publishing_components/components/heading", {
     text: "Date",
     heading_level: 3,
@@ -26,35 +26,29 @@
     } %>
   <% end %>
 
-  <div class="govuk-!-margin-bottom-3">
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <%= render "govuk_publishing_components/components/label", {
-          text: "Day",
-          html_for: "edition_#{field_name}_3i"
-        } %>
-        <%= select_day edition.public_send(field_name)&.day || default_day, { include_blank: true, prefix: "edition", field_name: "#{field_name}(3i)" } %>
-      </div>
+  <div class="govuk-!-margin-bottom-3 app-view-edit-edition__date-time-wrapper">
+    <div class="app-view-edit-edition__date-time">
+      <%= render "govuk_publishing_components/components/label", {
+        text: "Day",
+        html_for: "edition_#{field_name}_3i"
+      } %>
+      <%= select_day edition.public_send(field_name)&.day || default_day, { include_blank: true, prefix: "edition", field_name: "#{field_name}(3i)" }, { class: "govuk-select app-view-edit-edition__date-time-input" } %>
     </div>
 
-    <div class="govuk-date-input__item govuk-datetime-month">
-      <div class="govuk-form-group">
-        <%= render "govuk_publishing_components/components/label", {
-          text: "Month",
-          html_for: "edition_#{field_name}_2i"
-        } %>
-        <%= select_month edition.public_send(field_name)&.month || default_month, { include_blank: true, prefix: "edition", field_name: "#{field_name}(2i)" } %>
-      </div>
+    <div class="app-view-edit-edition__date-time app-view-edit-edition__date-time--large">
+      <%= render "govuk_publishing_components/components/label", {
+        text: "Month",
+        html_for: "edition_#{field_name}_2i"
+      } %>
+      <%= select_month edition.public_send(field_name)&.month || default_month, { include_blank: true, prefix: "edition", field_name: "#{field_name}(2i)" }, { class: "govuk-select app-view-edit-edition__date-time-input--large" } %>
     </div>
 
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <%= render "govuk_publishing_components/components/label", {
-          text: "Year",
-          html_for: "edition_#{field_name}_1i"
-        } %>
-        <%= select_year edition.public_send(field_name)&.year || default_year, { include_blank: true, start_year: start_year, end_year: end_year, prefix: "edition", field_name: "#{field_name}(1i)" } %>
-      </div>
+    <div class="app-view-edit-edition__date-time">
+      <%= render "govuk_publishing_components/components/label", {
+        text: "Year",
+        html_for: "edition_#{field_name}_1i"
+      } %>
+      <%= select_year edition.public_send(field_name)&.year || default_year, { include_blank: true, start_year: start_year, end_year: end_year, prefix: "edition", field_name: "#{field_name}(1i)" }, { class: "govuk-select app-view-edit-edition__date-time-input" } %>
     </div>
   </div>
 
@@ -69,25 +63,23 @@
     text: "For example, 09:30 or 19:30"
   } %>
 
-  <div class="govuk-date-input__item">
-    <div class="govuk-form-group">
+  <div class="app-view-edit-edition__date-time-wrapper">
+    <div class="app-view-edit-edition__date-time">
       <%= render "govuk_publishing_components/components/label", {
         text: "Hour",
         html_for: "edition_#{field_name}_4i"
       } %>
-      <%= select_hour edition.public_send(field_name)&.hour || default_hour, { include_blank: true, prefix: "edition", field_name: "#{field_name}(4i)" } %>
+      <%= select_hour edition.public_send(field_name)&.hour || default_hour, { include_blank: true, prefix: "edition", field_name: "#{field_name}(4i)" }, { class: "govuk-select app-view-edit-edition__date-time-input" } %>
     </div>
-  </div>
 
-  <p class="govuk-body govuk-date-input__item"> :</p>
+    <p class="govuk-body app-view-edit-edition__time-separator">:</p>
 
-  <div class="govuk-date-input__item">
-    <div class="govuk-form-group">
+    <div class="app-view-edit-edition__date-time">
       <%= render "govuk_publishing_components/components/label", {
         text: "Minute",
         html_for: "edition_#{field_name}_5i"
       } %>
-      <%= select_minute edition.public_send(field_name)&.min || default_minute, { include_blank: true, prefix: "edition", field_name: "#{field_name}(5i)" } %>
+      <%= select_minute edition.public_send(field_name)&.min || default_minute, { include_blank: true, prefix: "edition", field_name: "#{field_name}(5i)" }, { class: "govuk-select app-view-edit-edition__date-time-input" } %>
     </div>
   </div>
 </div>
