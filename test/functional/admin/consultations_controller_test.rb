@@ -20,6 +20,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_alternative_format_provider_for :consultation
   should_allow_scheduled_publication_of :consultation
   should_allow_access_limiting_of :consultation
+  should_render_govspeak_history_and_fact_checking_tabs_for :consultation
 
   view_test "new displays consultation fields" do
     get :new

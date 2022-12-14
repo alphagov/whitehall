@@ -11,4 +11,8 @@
 
     <%= render "form", edition: @edition %>
   </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true %>
+  </div>
 </div>
