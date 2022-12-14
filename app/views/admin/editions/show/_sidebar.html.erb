@@ -1,5 +1,5 @@
 <aside class="app-view-edition-summary__sidebar">
-  <%= render partial: 'admin/editions/show/sidebar_actions' %>
+  <%= render(Admin::Editions::Show::SidebarActionsComponent.new(edition: @edition, current_user: current_user)) %>
   <%= render partial: 'admin/editions/show/sidebar_notices' %>
   <%= render(
         partial: 'admin/editions/show/sidebar_link_checker',
