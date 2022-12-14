@@ -8,7 +8,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   layout :get_layout
 
   def show
-    render_design_system("show", "show_legacy", next_release: true)
+    render_design_system("show", "show_legacy", next_release: false)
   end
 
   def create
@@ -16,7 +16,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     fact_check_request = @edition.fact_check_requests.build(attributes)
 
     if @edition.deleted?
-      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)
+      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: false)
     elsif fact_check_request.save
       MailNotifications.fact_check_request(fact_check_request, mailer_url_options).deliver_now
       notice = "The document has been sent to #{fact_check_request.email_address}"
@@ -28,7 +28,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def edit
-    render_design_system("edit", "edit_legacy", next_release: true)
+    render_design_system("edit", "edit_legacy", next_release: false)
   end
 
   def update
@@ -39,14 +39,14 @@ class Admin::FactCheckRequestsController < Admin::BaseController
       notice = "Thanks for submitting your response to this fact checking request. Your feedback has been saved."
       redirect_to admin_fact_check_request_path(@fact_check_request), notice:
     else
-      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)
+      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: false)
     end
   end
 
 private
 
   def get_layout
-    if preview_design_system?(next_release: true)
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"
@@ -85,7 +85,7 @@ private
 
   def check_edition_availability
     if @edition.deleted?
-      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)
+      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: false)
     end
   end
 end
