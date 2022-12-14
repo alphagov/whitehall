@@ -8,13 +8,38 @@ on:
   pull_request:
 
 jobs:
-  test:
-    name: Test Rails
-    uses: alphagov/govuk-infrastructure/.github/workflows/test-rails.yaml@main
+  cache-dependencies:
+    name: Cache dependencies
+    uses: alphagov/govuk-infrastructure/.github/workflows/ci-cache-dependencies.yaml@main
+
+  security-analysis-ruby:
+    name: Security Analysis Ruby
+    needs: cache-dependencies
+    uses: alphagov/govuk-infrastructure/.github/workflows/ci-security-analysis-ruby.yaml@main
+
+  lint-scss:
+    name: Lint SCSS
+    needs: cache-dependencies
+    uses: alphagov/govuk-infrastructure/.github/workflows/ci-lint-scss.yaml@main
+
+  lint-javascript:
+    name: Lint JavaScript
+    needs: cache-dependencies
+    uses: alphagov/govuk-infrastructure/.github/workflows/ci-lint-javascript.yaml@main
+
+  lint-ruby:
+    name: Lint Ruby
+    needs: cache-dependencies
+    uses: alphagov/govuk-infrastructure/.github/workflows/ci-lint-ruby.yaml@main
+
+  test-javascript:
+    name: Test JavaScript
+    needs: cache-dependencies
+    uses: alphagov/govuk-infrastructure/.github/workflows/ci-test-javascript.yaml@main
+
+  test-ruby:
+    name: Test Ruby
+    needs: cache-dependencies
+    uses: alphagov/govuk-infrastructure/.github/workflows/ci-test-ruby.yaml@main
     with:
-      requiresJavaScript: true
-      requiresRedis: true
-      requiresMySQL: true
-      mysqlUsername: whitehall
-      mysqlPassword: whitehall
       extraSystemDependencies: 'ghostscript'
