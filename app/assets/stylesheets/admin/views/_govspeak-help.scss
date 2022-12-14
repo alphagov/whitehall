@@ -1,7 +1,13 @@
-.govspeak_help__pre {
+.govspeak-help {
+  margin-bottom: govuk-spacing(6);
+}
+
+.govspeak-help__pre {
+  font-size: 13px;
   padding: govuk-spacing(2);
   background-color: govuk-colour("light-grey");
   word-break: normal;
   word-wrap: normal;
   overflow: auto;
+  white-space: pre-wrap;
 }

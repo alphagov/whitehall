@@ -61,7 +61,7 @@
       ],
     } %>
 
-    <div class="unpublish-withdraw-form-wrapper js-unpublish-withdraw-form__withdrawal">
+    <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__withdrawal">
       <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:withdrawn][:label],
@@ -116,7 +116,7 @@
       <% end %>
     </div>
 
-    <div class="unpublish-withdraw-form-wrapper js-unpublish-withdraw-form__published-in-error">
+    <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__published-in-error">
       <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:published_in_error][:label],
@@ -167,7 +167,7 @@
       <% end %>
     </div>
 
-    <div class="unpublish-withdraw-form-wrapper js-unpublish-withdraw-form__consolidated">
+    <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__consolidated">
       <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:consolidated][:label],

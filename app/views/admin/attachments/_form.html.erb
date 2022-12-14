@@ -1,5 +1,5 @@
-<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "attachment-form", :"data-module" => "LocaleSwitcher", :"data-rtl-locales" => Locale.right_to_left.collect(&:to_param) }, multipart: true do |form| %>
-  <div class="govuk-!-margin-bottom-8 attachment-form__title <%= "attachment-form__title--right-to-left" if form.object.rtl_locale? %>">
+<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "app-view-attachments__form", :"data-module" => "LocaleSwitcher", :"data-rtl-locales" => Locale.right_to_left.collect(&:to_param) }, multipart: true do |form| %>
+  <div class="govuk-!-margin-bottom-8 app-view-attachments__form-title <%= "app-view-attachments__form-title--right-to-left" if form.object.rtl_locale? %>">
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Title (required)"
@@ -21,7 +21,7 @@
     <%= form.fields_for :govspeak_content do |govspeak_fields| %>
       <%= hidden_field_tag 'attachment[govspeak_content_attributes][manually_numbered_headings]', "0" %>
 
-      <div class="govuk-!-margin-bottom-8 attachment-form__manually-numbered-headings">
+      <div class="govuk-!-margin-bottom-8">
         <%= render "govuk_publishing_components/components/checkboxes", {
           name: "attachment[govspeak_content_attributes][manually_numbered_headings]",
           heading: "Manually numbered headings",
@@ -39,7 +39,7 @@
         } %>
       </div>
 
-      <div class="govuk-!-margin-bottom-8 attachment-form__body <%= "attachment-form__body--right-to-left" if form.object.rtl_locale? %>">
+      <div class="govuk-!-margin-bottom-8 app-view-attachments__form-body <%= "app-view-attachments__form-body--right-to-left" if form.object.rtl_locale? %>">
         <%= render "components/govspeak-editor", {
           label: {
             heading_size: "l",
@@ -54,7 +54,7 @@
       </div>
     <% end %>
   <% elsif attachment.is_a?(ExternalAttachment) %>
-    <div class="govuk-!-margin-bottom-8 attachment-form__external-url">
+    <div class="govuk-!-margin-bottom-8">
       <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "External url (required)"
@@ -68,7 +68,7 @@
       } %>
     </div>
   <% else %>
-    <div class="govuk-!-margin-bottom-8 attachment-form__attachment-data-attributes">
+    <div class="govuk-!-margin-bottom-8">
       <%= render 'attachment_data_fields', form: form %>
     </div>
   <% end %>
