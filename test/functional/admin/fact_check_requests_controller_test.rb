@@ -37,8 +37,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_template "admin/fact_check_requests/edit_legacy"
   end
 
-  test "users with a valid.to_param and the next release flag should be able to access the publication" do
-    @current_user.permissions << "Preview next release"
+  test "users with a valid.to_param and the preview design system flag should be able to access the publication" do
+    @current_user.permissions << "Preview design system"
     fact_check_request = create(:fact_check_request)
 
     get :edit, params: { id: fact_check_request }
