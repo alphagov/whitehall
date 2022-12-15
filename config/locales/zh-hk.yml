@@ -130,135 +130,135 @@ zh-hk:
       access_and_opening:
         other: 訪問及開放
       accessible_documents_policy:
-        other: 其他無障礙文件政策
+        other: 無障礙文件政策
       alert:
-        other: 其他警示
+        other: 警示
       announcement:
-        other: 其他公告
+        other: 公告
       authored_article:
-        other: 其他撰寫文章
+        other: 撰寫文章
       blog_post:
-        other: 其他網誌發佈內容
+        other: 網誌發佈內容
       campaign:
-        other: 其他活動
+        other: 活動
       careers:
         other: 職位
       case_study:
-        other: 其他案例研究
+        other: 案例研究
       closed_consultation:
-        other: 其他專屬諮詢
+        other: 專屬諮詢
       complaints_procedure:
-        other: 其他投訴程序
+        other: 投訴程序
       consultation:
-        other: 其他諮詢
+        other: 諮詢
       consultation_outcome:
-        other: 其他諮詢結果
+        other: 諮詢結果
       corporate_report:
-        other: 其他政府報告
+        other: 政府報告
       correspondence:
-        other: 其他通信
+        other: 通信
       decision:
-        other: 其他決定
+        other: 決定
       detailed_guidance:
-        other: 其他詳細指引
+        other: 詳細指引
       document_collection:
-        other: 其他系列
+        other: 系列
       draft_text:
-        other: 其他內容
+        other: 內容
       edition:
-        other: 其他修訂
+        other: 修訂
       edition_with_appointment:
-        other: 其他有預約之修訂
+        other: 有預約之修訂
       equality_and_diversity:
         other: 平等及多元
       fatality_notice:
-        other: 其他死亡通知
+        other: 死亡通知
       foi_release:
-        other: 其他資訊自由(FOI)資訊發布
+        other: 資訊自由(FOI)資訊發布
       form:
-        other: 其他表格
+        other: 表格
       generic_edition:
-        other: 其他通用版本
+        other: 通用版本
       government_response:
-        other: 政府其他回應
+        other: 政府回應
       guidance:
-        other: 其他指引
+        other: 指引
       impact_assessment:
-        other: 其他影響評估
+        other: 影響評估
       imported:
         other: 輸入-等待類型中
       independent_report:
-        other: 其他獨立報告
+        other: 獨立報告
       international_treaty:
-        other: 其他國際條約
+        other: 國際條約
       manual:
-        other: 其他手冊
+        other: 手冊
       map:
-        other: 其他地圖
+        other: 地圖
       media_enquiries:
-        other: 其他媒體查詢
+        other: 媒體查詢
       membership:
         other: 會員資格
       modern_slavery_statement:
         other:
       national_statistics:
-        other: 其他國家統計數據
+        other: 國家統計數據
       news_article:
-        other: 其他新聞
+        other: 新聞
       news_story:
-        other: 其他新聞
+        other: 新聞
       nhs_content:
         other: NHS 內容
       notice:
-        other: 其他通知
+        other: 通知
       official_statistics:
-        other: 其他統計資料
+        other: 統計資料
       open_consultation:
-        other: 其他公開諮詢
+        other: 公開諮詢
       oral_statement:
-        other: 提交國會的其他口頭聲明
+        other: 提交國會的口頭聲明
       our_energy_use:
         other: 我們的能源使用
       our_governance:
         other: 我們的行政管理
       personal_information_charter:
-        other: 其他個人資訊章程
+        other: 個人資訊章程
       petitions_and_campaigns:
         other: 訴願及活動
       policy_paper:
-        other: 其他政策文件
+        other: 政策文件
       press_release:
-        other: 其他新聞稿
+        other: 新聞稿
       procurement:
         other: 採購
       promotional:
-        other: 其他宣傳資料
+        other: 宣傳資料
       publication:
-        other: 其他出版物
+        other: 出版物
       publication_scheme:
-        other: 其他出版計劃
+        other: 出版計劃
       recruitment:
         other: 招聘
       regulation:
-        other: 其他規定
+        other: 規定
       research:
-        other: 其他研究與分析
+        other: 研究與分析
       service:
-        other: 其他服務
+        other: 服務
       social_media_use:
         other: 社交媒體使用
       speaking_notes:
-        other: 其他演講稿
+        other: 演講稿
       speech:
-        other: 其他演講
+        other: 演講
       staff_update:
-        other: 其他員工更新
+        other: 員工更新
       standard:
-        other: 其他標準
+        other: 標準
       statement_to_parliament:
-        other: 提交國會的其他聲明
+        other: 提交國會的聲明
       statistical_data_set:
-        other: 其他統計數據資料
+        other: 統計數據資料
       statistics:
         other: 統計資料
       statutory_guidance:
@@ -266,15 +266,15 @@ zh-hk:
       terms_of_reference:
         other: 職權範圍
       transcript:
-        other: 其他談話副本
+        other: 談話副本
       transparency:
-        other: 其他透明化數據
+        other: 透明化數據
       welsh_language_scheme:
-        other: 其他威爾士語計劃
+        other: 威爾士語計劃
       world_news_story:
-        other: 其他世界範圍新聞故事
+        other: 世界範圍新聞故事
       written_statement:
-        other: 提交國會的其他書面聲明
+        other: 提交國會的書面聲明
     updated: 已更新
   document_filters:
     world_locations:
@@ -465,9 +465,9 @@ zh-hk:
       world_location:
     type:
       international_delegation:
-        other: 其他國際代表
+        other: 國際代表
       world_location:
-        other: 其他全球駐點
+        other: 全球駐點
   world_news:
     uk_updates_in_country: 英國政府關於 %{country} 的更新、新聞及活動
   worldwide_organisation:
