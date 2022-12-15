@@ -1,7 +1,7 @@
 en:
   admin:
     whats_new:
-      show_banner: true
+      show_banner: false
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
