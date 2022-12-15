@@ -14,7 +14,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: false,
       },
       {
-        label: "Attachments",
+        label: "Attachments ",
         href: admin_edition_attachments_path(consultation),
         current: false,
       },
@@ -44,7 +44,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: false,
       },
       {
-        label: "Attachments<span class=\"govuk-tag govuk-tag--grey\">2</span>",
+        label: "Attachments <span class=\"govuk-tag govuk-tag--grey\">2</span>",
         href: admin_edition_attachments_path(consultation),
         current: false,
       },
@@ -114,7 +114,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
           current: true,
         },
         {
-          label: "Attachments",
+          label: "Attachments ",
           href: admin_edition_attachments_path(edition),
           current: false,
         },
@@ -142,7 +142,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
           current: true,
         },
         {
-          label: "Attachments<span class=\"govuk-tag govuk-tag--grey\">2</span>",
+          label: "Attachments <span class=\"govuk-tag govuk-tag--grey\">2</span>",
           href: admin_edition_attachments_path(edition),
           current: false,
         },
@@ -183,7 +183,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: true,
       },
       {
-        label: "Attachments",
+        label: "Attachments ",
         href: admin_policy_group_attachments_path(policy_group),
         current: false,
       },
@@ -203,7 +203,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: false,
       },
       {
-        label: "Attachments<span class=\"govuk-tag govuk-tag--grey\">2</span>",
+        label: "Attachments <span class=\"govuk-tag govuk-tag--grey\">2</span>",
         href: admin_policy_group_attachments_path(policy_group),
         current: true,
       },
