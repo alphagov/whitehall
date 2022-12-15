@@ -14,6 +14,9 @@
       text: "Title"
     },
     {
+      text: "Type"
+    },
+    {
       text: "File"
     },
     {},
@@ -23,6 +26,9 @@
     [
       {
         text: attachment.title
+      },
+      {
+        text: attachment.is_a?(HtmlAttachment) ? attachment.readable_type : attachment.readable_type.capitalize
       },
       {
         text: link_to_attachment(attachment, preview: true, full_url: true, class: "govuk-link govuk-link--no-visited-state")
