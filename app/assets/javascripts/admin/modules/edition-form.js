@@ -45,23 +45,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     if (!select) { return }
 
-    var container = form.querySelector('.edition-form--locale-fields')
+    var container = form.querySelector('.app-view-edit-edition__locale-field')
     var localeCheckbox = container.querySelector('#edition_create_foreign_language_only-0')
     var localeSelect = container.querySelector('#edition_primary_locale')
     var newArticleTypeId = '4'
 
-    if (select.value !== newArticleTypeId) {
-      container.style.display = 'none'
-    }
-
     select.addEventListener('change', function () {
       if (select.value !== newArticleTypeId) {
-        container.style.display = 'none'
+        container.classList.add('app-view-edit-edition__locale-field--hidden')
         localeCheckbox.value = '0'
         localeCheckbox.checked = false
         localeSelect.value = ''
       } else {
-        container.style.display = 'block'
+        container.classList.remove('app-view-edit-edition__locale-field--hidden')
       }
     })
   }
