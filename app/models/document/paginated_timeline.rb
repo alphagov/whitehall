@@ -1,5 +1,5 @@
 class Document::PaginatedTimeline
-  PER_PAGE = 30
+  PER_PAGE = 10
 
   def initialize(document:, page:)
     @document = document
@@ -20,6 +20,36 @@ class Document::PaginatedTimeline
         when "EditorialRemark"
           remarks.fetch(entry.id)
         end
+      end
+    end
+  end
+
+  def entries_on_newer_editions(edition)
+    @entries_on_newer_editions ||= entries.select do |entry|
+      if entry.is_a?(EditorialRemark)
+        entry.edition_id > edition.id
+      else
+        entry.version.item_id > edition.id
+      end
+    end
+  end
+
+  def entries_on_current_edition(edition)
+    @entries_on_current_edition ||= entries.select do |entry|
+      if entry.is_a?(EditorialRemark)
+        entry.edition_id == edition.id
+      else
+        entry.version.item_id == edition.id
+      end
+    end
+  end
+
+  def entries_on_previous_editions(edition)
+    @entries_on_previous_editions ||= entries.select do |entry|
+      if entry.is_a?(EditorialRemark)
+        entry.edition_id < edition.id
+      else
+        entry.version.item_id < edition.id
       end
     end
   end

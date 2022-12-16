@@ -92,29 +92,6 @@
       "note": "We don't link directly to any unescaped model attribute."
     },
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "4d250d3bacd4d7d123d789e58a4fbb381f1ddcdce341a292b5b368d826357a6a",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/document/paginated_timeline.rb",
-      "line": 109,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.exec_query(\"#{union_query}\\nORDER BY created_at DESC\\nLIMIT ? OFFSET ?\\n\", \"SQL\", [ActiveRecord::Relation::QueryAttribute.new(\"\", 30, ActiveRecord::Type::Integer.new), ActiveRecord::Relation::QueryAttribute.new(\"\", ((@page - 1) * 30), ActiveRecord::Type::Integer.new)])",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Document::PaginatedTimeline",
-        "method": "paginated_query"
-      },
-      "user_input": "union_query",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "6536a4d099ce4dde6f007e943e61dd078ba220703e0e0cab6ed152ac12b2abfc",
@@ -258,7 +235,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/document/paginated_timeline.rb",
-      "line": 30,
+      "line": 60,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ApplicationRecord.connection.exec_query(\"SELECT COUNT(*) FROM (#{union_query}) x\")",
       "render_path": null,
@@ -468,6 +445,29 @@
       "note": "We don't use the user data directly to find the template, it comes from the database."
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "f44e782dd922feefbc469ef874ce7bfd100991912b8133363b822488e2c8f58c",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/document/paginated_timeline.rb",
+      "line": 139,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ApplicationRecord.connection.exec_query(\"#{union_query}\\nORDER BY created_at DESC\\nLIMIT ? OFFSET ?\\n\", \"SQL\", [ActiveRecord::Relation::QueryAttribute.new(\"\", 10, ActiveRecord::Type::Integer.new), ActiveRecord::Relation::QueryAttribute.new(\"\", ((@page - 1) * 10), ActiveRecord::Type::Integer.new)])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Document::PaginatedTimeline",
+        "method": "paginated_query"
+      },
+      "user_input": "union_query",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "f77ca1269299a6304017454456ff5d3a70c3434d8a643dae59f61b245da12fdb",
@@ -512,6 +512,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-11-28 11:02:47 +0000",
-  "brakeman_version": "5.3.1"
+  "updated": "2022-12-14 15:00:41 +0000",
+  "brakeman_version": "5.4.0"
 }

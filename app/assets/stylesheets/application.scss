@@ -6,6 +6,8 @@ $govuk-page-width: 1140px;
 @import "./components/govspeak-editor";
 @import "./components/inset-prompt";
 @import "./components/miller-columns";
+@import "./admin/components/editions/document-history-tab";
+@import "./admin/components/editions/editorial-remarks";
 @import "./components/secondary-navigation";
 
 @import "./admin/views/attachments";

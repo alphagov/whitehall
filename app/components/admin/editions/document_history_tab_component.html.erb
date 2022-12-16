@@ -1,0 +1,49 @@
+<h2 class="govuk-heading-l">History</h2>
+
+<% if editing %>
+  <p class="govuk-body">To add an internal note, save your changes.</p>
+<% end %>
+
+<p class="govuk-body"><%= link_to("Add internal note", new_admin_edition_editorial_remark_path(edition), class: "govuk-body govuk-link") %></p>
+
+<%= render "govuk_publishing_components/components/inset_text", {
+  text: sanitize("History and notes have been merged. #{tag.a('Read more about the change', href: admin_whats_new_path)}")
+} %>
+
+<%= paginate(@document_history, theme: 'history') %>
+
+<% if entries_on_newer_editions.present? %>
+  <div class="app-component-editions__newer-edition-entries">
+    <h3 class="govuk-heading-m">On newer editions</h3>
+
+    <ul class="gem-c-list govuk-list">
+      <% entries_on_newer_editions.each do |entry| %>
+        <%= render_entry(entry) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if entries_on_current_edition.present? %>
+  <div class="app-component-editions__current-edition-entries">
+    <h3 class="govuk-heading-m">On this edition</h3>
+
+    <ul class="gem-c-list govuk-list">
+      <% entries_on_current_edition.each do |entry| %>
+        <%= render_entry(entry) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if entries_on_previous_editions.present? %>
+  <div class="app-component-editions__previous-edition-entries">
+    <h3 class="govuk-heading-m">On previous editions</h3>
+
+    <ul class="gem-c-list govuk-list">
+      <% entries_on_previous_editions.each do |entry| %>
+        <%= render_entry(entry) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

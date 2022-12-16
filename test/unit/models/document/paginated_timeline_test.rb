@@ -64,18 +64,20 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
   end
 
   test "AuditTrailEntry correctly determines actions" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedHistory::AuditTrailEntry) }
-    expected_actions = %w[updated
-                          editioned
-                          published
-                          submitted
-                          updated
-                          rejected
-                          submitted
-                          created]
+    mock_pagination(per_page: 30) do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedHistory::AuditTrailEntry) }
+      expected_actions = %w[updated
+                            editioned
+                            published
+                            submitted
+                            updated
+                            rejected
+                            submitted
+                            created]
 
-    assert_equal expected_actions, entries.map(&:action)
+      assert_equal expected_actions, entries.map(&:action)
+    end
   end
 
   test "AuditTrailEntry correctly determines actors" do
@@ -87,10 +89,30 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
                        @user,
                        @user,
                        @user2,
-                       @user,
                        @user]
 
     assert_equal expected_actors, entries.map(&:actor)
+  end
+
+  test "#entries_on_newer_editions returns entries on newer editions than the one passed in" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+    expected_entries = timeline.entries.slice(1, 2)
+
+    assert_equal expected_entries, timeline.entries_on_newer_editions(@first_edition)
+  end
+
+  test "#entries_on_current_edition returns entries for the edition passed in" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+    expected_entries = timeline.entries - timeline.entries.slice(1, 2)
+
+    assert_equal expected_entries, timeline.entries_on_current_edition(@first_edition)
+  end
+
+  test "#entries_on_previous_editions returns entries on previous editions" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+    expected_entries = timeline.entries - timeline.entries.slice(1, 2)
+
+    assert_equal expected_entries, timeline.entries_on_previous_editions(@newest_edition)
   end
 
   def seed_document_event_history

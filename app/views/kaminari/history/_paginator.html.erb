@@ -1,0 +1,6 @@
+<%= paginator.render do -%>
+  <nav class="govuk-grid-row govuk-!-margin-bottom-4" role="navigation">
+    <%= prev_page_tag unless current_page.first? %>
+    <%= next_page_tag unless current_page.last? %>
+  </nav>
+<% end -%>
