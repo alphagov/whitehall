@@ -14,7 +14,10 @@
       text: "Title"
     },
     {
-      text: "File"
+      text: "Type"
+    },
+    {
+      text: "Attachment"
     },
     {},
     {}
@@ -22,7 +25,10 @@
   rows: attachable.attachments.includes(:attachment_data).map do |attachment|
     [
       {
-        text: attachment.title
+        text: sanitize("#{attachment.title} #{tag.span("Uploading", class: 'govuk-tag govuk-tag--green') unless attachment.attachment_data&.uploaded_to_asset_manager?}")
+      },
+      {
+        text: attachment.is_a?(HtmlAttachment) ? attachment.readable_type : attachment.readable_type.capitalize
       },
       {
         text: link_to_attachment(attachment, preview: true, full_url: true, class: "govuk-link govuk-link--no-visited-state")
