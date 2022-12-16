@@ -1,12 +1,12 @@
 <div class="edition-form__subtype-fields" data-format-advice="<%= PublicationType::FORMAT_ADVICE %>">
-  <div class="govuk-form-group">
+  <div class="govuk-form-group <%= "govuk-form-group--error" if errors_for_input(edition.errors, :publication_type_id).present? %>">
     <label class="gem-c-label govuk-label govuk-!-font-weight-bold" for="edition_publication_type_id">
       Publication type
     </label>
     <% if errors_for_input(edition.errors, :publication_type_id).present? %>
-      <p class="gem-c-error-message govuk-error-message">
-        <span class="govuk-visually-hidden">Error: <%= errors_for_input(edition.errors, :publication_type_id) %></span>
-      </p>
+      <%= render "govuk_publishing_components/components/error_message", {
+        text: errors_for_input(edition.errors, :publication_type_id),
+      } %>
     <% end %>
 
     <select class="govuk-select govuk-select gem-c-select__select--full-width" id="edition_publication_type_id" name="edition[publication_type_id]">
