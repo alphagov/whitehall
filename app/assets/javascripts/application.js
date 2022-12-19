@@ -12,6 +12,7 @@
 //= require admin/analytics
 
 //= require admin/modules/app-analytics
+//= require admin/modules/document-history-paginator
 //= require admin/modules/navbar-toggle
 //= require admin/modules/paste-html-to-govspeak
 
