@@ -100,6 +100,24 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select ".existing-attachments li strong", text: "An HTML attachment"
   end
 
+  view_test "GET :index renders the uploading banner when an attachment hasn't been uploaded to asset manager" do
+    @current_user.permissions << "Preview next release"
+
+    create(:html_attachment, title: "An HTML attachment", attachable: @edition)
+    create(:file_attachment, title: "An uploaded file attachment", attachable: @edition)
+    attachment_data = create(:attachment_data, uploaded_to_asset_manager_at: nil)
+    create(:file_attachment, title: "An uploading file attachment", attachable: @edition, attachment_data:)
+    create(:external_attachment, title: "An external attachment", attachable: @edition)
+
+    get :index, params: { edition_id: @edition }
+
+    assert_response :success
+    assert_select ".govuk-table__cell", text: "An HTML attachment"
+    assert_select ".govuk-table__cell", text: "An uploaded file attachment"
+    assert_select ".govuk-table__cell", text: "An uploading file attachment Uploading"
+    assert_select ".govuk-table__cell", text: "An external attachment"
+  end
+
   test "POST :create handles html attachments when attachable allows them" do
     post :create, params: { edition_id: @edition, type: "html", attachment: valid_html_attachment_params }
 

@@ -25,7 +25,7 @@
   rows: attachable.attachments.includes(:attachment_data).map do |attachment|
     [
       {
-        text: sanitize("#{attachment.title} #{tag.span("Uploading", class: 'govuk-tag govuk-tag--green') unless attachment.attachment_data&.uploaded_to_asset_manager?}")
+        text: sanitize("#{attachment.title} #{tag.span("Uploading", class: 'govuk-tag govuk-tag--green') unless attachment.attachment_data.blank? || attachment.attachment_data.uploaded_to_asset_manager?}")
       },
       {
         text: attachment.is_a?(HtmlAttachment) ? attachment.readable_type : attachment.readable_type.capitalize
