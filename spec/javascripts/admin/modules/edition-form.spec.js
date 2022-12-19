@@ -18,7 +18,7 @@ describe('GOVUK.Modules.EditionForm', function () {
       </div>
     </div>
 
-    <div class="edition-form--locale-fields">
+    <div class="app-view-edit-edition__locale-field app-view-edit-edition__locale-field--hidden">
       <input type="checkbox" name="edition[create_foreign_language_only]" id="edition_create_foreign_language_only-0" value="0" checked="checked">
 
       <select name="edition[primary_locale]" id="edition_primary_locale" class="govuk-select gem-c-select__select--full-width">
@@ -56,9 +56,9 @@ describe('GOVUK.Modules.EditionForm', function () {
   })
 
   it('should hide the locale fields when a NewsArticle is not a WorldNewsStory', function () {
-    var localeFields = form.querySelector('.edition-form--locale-fields')
+    var localeFields = form.querySelector('.app-view-edit-edition__locale-field')
 
-    expect(localeFields.style.display).toEqual('none')
+    expect(localeFields.classList).toContain('app-view-edit-edition__locale-field--hidden')
   })
 
   it('should render the locale fields when the WorldNewsStory is selected', function () {
@@ -67,9 +67,9 @@ describe('GOVUK.Modules.EditionForm', function () {
     select.value = '4'
     select.dispatchEvent(new Event('change'))
 
-    var localeFields = form.querySelector('.edition-form--locale-fields')
+    var localeFields = form.querySelector('.app-view-edit-edition__locale-field')
 
-    expect(localeFields.style.display).toEqual('block')
+    expect(localeFields.style.display).not.toContain('app-view-edit-edition__locale-field--hidden')
   })
 
   it('should reset the locale checkbox and select values when WorldNewsStory is deselected', function () {
