@@ -183,13 +183,6 @@
         <%= link_to(@edition_world_taxons.map(&:full_path).any? ? "Change tags" : "Add tags", edit_admin_edition_world_tags_path(@edition.id), class: 'govuk-link') %>
       </p>
 
-      
-      <% unless @edition_taxons.any? %>
-        <%= render "govuk_publishing_components/components/warning_text", {
-          text: "Please add a tag before publishing"
-        } %>
-      <% end %>
-
       <% if @edition_world_taxons.map(&:full_path).any? %>
         <% @edition_world_taxons.map(&:full_path).each do | tag_path | %>
           <div class="govuk-breadcrumbs">
