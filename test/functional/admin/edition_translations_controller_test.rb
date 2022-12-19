@@ -96,6 +96,22 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     refute_select "input#edition_title"
   end
 
+  view_test "renders the govspeak help, history and fact checking tabs with the 'Preview design system' permission" do
+    @writer.permissions << "Preview design system"
+    edition = create(:publication)
+
+    fact_checking_view_component = Admin::Editions::FactCheckingTabComponent.new(edition:)
+    Admin::Editions::FactCheckingTabComponent.expects(:new).with { |value|
+      value[:edition].title == edition.title
+    }.returns(fact_checking_view_component)
+
+    get :edit, params: { edition_id: edition, id: "cy" }
+
+    assert_select ".govuk-tabs__tab", text: "Help"
+    assert_select ".govuk-tabs__tab", text: "History"
+    assert_select ".govuk-tabs__tab", text: "Fact checking"
+  end
+
   test "update creates a translation for an edition that's yet to be published, and redirect back to the edition admin page" do
     edition = create(:draft_edition)
 
