@@ -1,4 +1,4 @@
-# Whitehall CSS Styleguide
+# Whitehall Legacy CSS Styleguide
 
 To be read in conjunction with the [GDS Way CSS styleguide](https://gds-way.cloudapps.digital/manuals/programming-languages/css.html)
 
