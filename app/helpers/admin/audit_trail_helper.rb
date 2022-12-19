@@ -18,10 +18,10 @@ module Admin::AuditTrailHelper
     html << absolute_time(entry.created_at, class: "created_at")
   end
 
-  def paginated_audit_trail_url(page)
+  def paginated_audit_trail_url(page, editing = nil)
     url_for(
       params.to_unsafe_hash
-            .merge(controller: "admin/edition_audit_trail", action: "index", page: (page <= 1 ? nil : page))
+            .merge(controller: "admin/edition_audit_trail", action: "index", page: (page <= 1 ? nil : page), editing:)
             .symbolize_keys,
     )
   end
