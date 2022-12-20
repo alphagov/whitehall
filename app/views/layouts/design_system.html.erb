@@ -1,5 +1,11 @@
 <% environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment %>
 
+<% if user_signed_in? %>
+  <% content_for :head do %>
+    <meta name="custom-dimension:8" content="<%= current_user.organisation_slug.presence || '(not set)' %>">
+  <% end %>
+<% end %>
+
 <%= render 'govuk_publishing_components/components/layout_for_admin',
   product_name: "Whitehall Publisher",
   environment: environment,
