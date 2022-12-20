@@ -12,7 +12,7 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     @timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
 
     pagination = "<nav class='govuk-grid-row govuk-!-margin-bottom-4' role='navigation'>
-                    <a class='govuk-body govuk-link app-component-document-history-tab__pagination-link' data-remote-pagination='/government/admin/editions/1321865/audit_trail?page=2' rel='next' href='/government/admin/consultations/1321865?page=2'>Older</a>
+                    <a class='govuk-body govuk-link app-view-document-history-tab__pagination-link' data-remote-pagination='/government/admin/editions/1321865/audit_trail?page=2' rel='next' href='/government/admin/consultations/1321865?page=2'>Older</a>
                    </nav>".html_safe
 
     Admin::Editions::DocumentHistoryTabComponent.any_instance.stubs(:paginate).returns(pagination)
@@ -42,23 +42,23 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
   test "it renders pagination links based on the pagination attribute" do
     render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @first_edition, document_history: @timeline))
 
-    assert_selector ".app-component-document-history-tab__pagination-link", text: "Older"
+    assert_selector ".app-view-document-history-tab__pagination-link", text: "Older"
   end
 
   test "it renders the timeline entries in the correct sections for, future, current and previous editions" do
     render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @second_edition, document_history: @timeline))
 
-    assert_selector ".app-component-editions__newer-edition-entries h3", text: "On newer editions"
-    assert_selector ".app-component-editions__newer-edition-entries li.app-component-editions-audit-trail-entry__list-item", count: 2
-    assert_selector ".app-component-editions__newer-edition-entries li.app-component-editions-editorial-remark__list-item", count: 1
+    assert_selector ".app-view-editions__newer-edition-entries h3", text: "On newer editions"
+    assert_selector ".app-view-editions__newer-edition-entries li.app-view-editions-audit-trail-entry__list-item", count: 2
+    assert_selector ".app-view-editions__newer-edition-entries li.app-view-editions-editorial-remark__list-item", count: 1
 
-    assert_selector ".app-component-editions__current-edition-entries h3", text: "On this edition"
-    assert_selector ".app-component-editions__current-edition-entries li.app-component-editions-audit-trail-entry__list-item", count: 4
-    assert_selector ".app-component-editions__current-edition-entries li.app-component-editions-editorial-remark__list-item", count: 1
+    assert_selector ".app-view-editions__current-edition-entries h3", text: "On this edition"
+    assert_selector ".app-view-editions__current-edition-entries li.app-view-editions-audit-trail-entry__list-item", count: 4
+    assert_selector ".app-view-editions__current-edition-entries li.app-view-editions-editorial-remark__list-item", count: 1
 
-    assert_selector ".app-component-editions__previous-edition-entries h3", text: "On previous editions"
-    assert_selector ".app-component-editions__previous-edition-entries li.app-component-editions-audit-trail-entry__list-item", count: 2
-    assert_selector ".app-component-editions__previous-edition-entries li.app-component-editions-editorial-remark__list-item", count: 0
+    assert_selector ".app-view-editions__previous-edition-entries h3", text: "On previous editions"
+    assert_selector ".app-view-editions__previous-edition-entries li.app-view-editions-audit-trail-entry__list-item", count: 2
+    assert_selector ".app-view-editions__previous-edition-entries li.app-view-editions-editorial-remark__list-item", count: 0
   end
 
   def seed_document_event_history

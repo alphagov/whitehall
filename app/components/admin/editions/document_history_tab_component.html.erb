@@ -13,7 +13,7 @@
 <%= paginate(@document_history, theme: 'history') %>
 
 <% if entries_on_newer_editions.present? %>
-  <div class="app-component-editions__newer-edition-entries">
+  <div class="app-view-editions__newer-edition-entries">
     <h3 class="govuk-heading-m">On newer editions</h3>
 
     <ul class="gem-c-list govuk-list">
@@ -25,7 +25,7 @@
 <% end %>
 
 <% if entries_on_current_edition.present? %>
-  <div class="app-component-editions__current-edition-entries">
+  <div class="app-view-editions__current-edition-entries">
     <h3 class="govuk-heading-m">On this edition</h3>
 
     <ul class="gem-c-list govuk-list">
@@ -37,7 +37,7 @@
 <% end %>
 
 <% if entries_on_previous_editions.present? %>
-  <div class="app-component-editions__previous-edition-entries">
+  <div class="app-view-editions__previous-edition-entries">
     <h3 class="govuk-heading-m">On previous editions</h3>
 
     <ul class="gem-c-list govuk-list">
