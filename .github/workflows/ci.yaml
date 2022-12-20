@@ -10,44 +10,46 @@ on:
 jobs:
   cache-dependencies:
     name: Cache dependencies
-    uses: alphagov/govuk-infrastructure/.github/workflows/ci-cache-dependencies.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/cache-dependencies.yaml@composite-actions
 
-  security-analysis-ruby:
-    name: Security Analysis Ruby
+  security-analysis:
+    name: Security Analysis
     needs: cache-dependencies
-    uses: alphagov/govuk-infrastructure/.github/workflows/ci-security-analysis-ruby.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yaml@composite-actions
 
   lint-scss:
     name: Lint SCSS
     needs: cache-dependencies
-    uses: alphagov/govuk-infrastructure/.github/workflows/ci-lint-scss.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/stylelint.yaml@composite-actions
 
   lint-javascript:
     name: Lint JavaScript
     needs: cache-dependencies
-    uses: alphagov/govuk-infrastructure/.github/workflows/ci-lint-javascript.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/standardx.yaml@composite-actions
 
   lint-ruby:
     name: Lint Ruby
     needs: cache-dependencies
-    uses: alphagov/govuk-infrastructure/.github/workflows/ci-lint-ruby.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yaml@composite-actions
 
   test-javascript:
     name: Test JavaScript
     needs: cache-dependencies
-    uses: alphagov/govuk-infrastructure/.github/workflows/ci-test-javascript.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/jasmine.yaml@composite-actions
+    with:
+      useWithRails: true
 
   test-ruby:
     name: Test Ruby
     needs: cache-dependencies
     runs-on: ubuntu-latest
-    env:
-      RAILS_ENV: test
-      GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
     steps:
       - name: Setup MySQL
         id: setup-mysql
         uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@composite-actions
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@composite-actions
 
       - name: Install additional system dependencies
         run: |
@@ -79,10 +81,13 @@ jobs:
 
       - name: Initialize database
         env:
+          RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
         run: bundle exec rails db:setup
 
       - name: Run tests
         env:
+          RAILS_ENV: test
+          GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
         run: bundle exec rake test
