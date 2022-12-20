@@ -15,27 +15,7 @@ jobs:
   precompile-assets:
     name: Precompile Rails assets
     needs: cache-dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-
-      - name: Install JavaScript dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Precompile Rails assets
-        uses: alphagov/govuk-infrastructure/.github/actions/precompile-rails-assets@composite-actions
+    uses: alphagov/govuk-infrastructure/.github/workflows/precompile-rails-assets.yaml@composite-actions
 
   security-analysis:
     name: Security Analysis
