@@ -20,7 +20,9 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:promotional_feature_item).links.size
   end
 
-  test "POST :create saves the new promotional item to the feature" do
+  test "POST :create saves the new promotional item to the feature and republishes the organisation to the PublishingApi" do
+    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+
     post :create,
          params: {
            organisation_id: @organisation,
@@ -64,9 +66,11 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert link.is_a?(PromotionalFeatureLink)
   end
 
-  test "PUT :update updates the item and redirects to the feature" do
+  test "PUT :update updates the item and redirects to the feature and republishes the organisation to the PublishingApi" do
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
+
+    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
 
     put :update,
         params: { organisation_id: @organisation,
@@ -90,9 +94,12 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal "Old summary", promotional_feature_item.reload.summary
   end
 
-  test "DELETE :destroy deletes the promotional item" do
+  test "DELETE :destroy deletes the promotional item and republishes the organisation to the PublishingApi" do
     Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
