@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_105634) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_20_162125) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -761,6 +761,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_105634) do
     t.string "title"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.integer "ordering"
     t.index ["organisation_id"], name: "index_promotional_features_on_organisation_id"
   end
 
