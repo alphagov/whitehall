@@ -1,6 +1,10 @@
-# Whitehall Legacy CSS Styleguide
+# Deprecated: Whitehall Legacy CSS Styleguide
 
 To be read in conjunction with the [GDS Way CSS styleguide](https://gds-way.cloudapps.digital/manuals/programming-languages/css.html)
+
+## Note
+
+Please note that this documentation is now deprecated and will be removed with the legacy css files once the migration has been completed.
 
 ## File structure and scope
 
@@ -21,11 +25,9 @@ Within the frontend folder the basic structure of the files looks like:
     ./resets/
     ./styleguide/
 
-
 The `base.scss` is the file that will be compiled with Sass.
 All other files should be referenced from it in the relevant sections.
 The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
-
 
 ### `./helpers`
 
