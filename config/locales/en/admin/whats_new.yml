@@ -1,11 +1,11 @@
 en:
   admin:
     whats_new:
-      show_banner: false
+      show_banner: true
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 9 November 2022
+      last_updated: Last updated 21 December 2022
       introduction:
         heading: Moving to the Design System
         body_govspeak: |
@@ -22,6 +22,20 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Attachments page, comparing editions and other pages move to the Design System
+            area: Creating and updating documents
+            type: improvement
+            date: 21 December 2022
+            body_govspeak: |
+              The following pages have moved to the GOV.UK Design System:
+              
+              * attachments page
+              * comparing previous versions
+              * force publishing
+              * deleting a draft
+              * adding or editing associated user needs
+              
+              To reorder attachments, select ‘reorder attachments’ on the attachments page. On the reorder attachments page, use the up and down buttons to reorder attachments, or select and hold on an attachment to reorder using drag and drop.
           - heading: Search added to topic taxonomy tags page
             area: Creating and updating documents
             type: new
