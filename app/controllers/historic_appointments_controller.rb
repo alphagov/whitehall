@@ -79,7 +79,7 @@ class HistoricAppointmentsController < PublicFacingController
       "Peter Thorneycroft" => {
         service: "1957 to 1958",
       },
-      "Harold Macmilla" => {
+      "Harold Macmillan" => {
         service: "1955 to 1957",
       },
       "Rab Butler" => {
