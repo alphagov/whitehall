@@ -19,4 +19,13 @@ class PromotionalFeatureTest < ActiveSupport::TestCase
     create(:promotional_feature_item, promotional_feature: feature)
     assert feature.has_reached_item_limit?
   end
+
+  test "it sets the ordering value before_save when ordering is blank" do
+    organisation = create(:executive_office)
+    feature1 = create(:promotional_feature, organisation:)
+    feature2 = create(:promotional_feature, organisation:)
+
+    assert_equal feature1.ordering, 1
+    assert_equal feature2.ordering, 2
+  end
 end
