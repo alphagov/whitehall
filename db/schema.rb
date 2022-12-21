@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_20_162125) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_21_100655) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -1189,8 +1189,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_162125) do
     t.datetime "updated_at", precision: nil
   end
 
-  add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "documents", "editions", column: "latest_edition_id"
+  add_foreign_key "documents", "editions", column: "live_edition_id"
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
 end
