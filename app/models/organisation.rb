@@ -123,7 +123,7 @@ class Organisation < ApplicationRecord
     contacts.where(contact_type_id: ContactType::FOI.id)
   end
 
-  has_many :promotional_features
+  has_many :promotional_features, -> { order(:ordering) }
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
   accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
