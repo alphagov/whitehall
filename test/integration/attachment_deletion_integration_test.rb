@@ -44,9 +44,10 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         before do
           visit admin_news_article_path(edition)
           click_link "Modify attachments"
-          within "#attachment_#{first_attachment.id}" do
+          within row_containing(first_attachment.title) do
             click_link "Delete"
           end
+          click_button "Delete attachment"
           assert_text "Attachment deleted"
         end
 
@@ -66,7 +67,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         before do
           visit admin_news_article_path(edition)
           click_link "Discard draft"
-          click_button "Discard"
+          click_button "Delete"
         end
 
         it "deletes all corresponding assets in Asset Manager" do

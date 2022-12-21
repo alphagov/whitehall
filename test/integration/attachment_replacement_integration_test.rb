@@ -34,7 +34,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
           visit admin_news_article_path(edition)
           click_link "Modify attachments"
-          within ".existing-attachments" do
+          within row_containing(filename) do
             click_link "Edit"
           end
           fill_in "Title", with: "Attachment Title"
@@ -67,7 +67,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           visit admin_news_article_path(edition)
           click_button "Create new edition to edit"
           click_link "Attachments 1"
-          within ".existing-attachments" do
+          within row_containing(filename) do
             click_link "Edit"
           end
           attach_file "Replace file", path_to_attachment(replacement_filename)

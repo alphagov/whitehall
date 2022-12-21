@@ -43,12 +43,12 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   supported_attachable_types.each do |type, param_name|
     view_test "GET :index handles #{type} as attachable" do
       attachable = create(type) # rubocop:disable Rails/SaveBang
-      create(:file_attachment, isbn: "817525766-0", attachable:)
+      create(:file_attachment, attachable:, title: "Lorem Ipsum")
 
       get :index, params: { param_name => attachable.id }
 
       assert_response :success
-      assert_select "p", text: /ISBN: 817525766-0/
+      assert_select "table td", "Lorem Ipsum"
     end
 
     view_test "GET :new handles #{type} as attachable" do
@@ -97,7 +97,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :index, params: { edition_id: @edition }
 
     assert_response :success
-    assert_select ".existing-attachments li strong", text: "An HTML attachment"
+    assert_select "table td", text: "An HTML attachment"
   end
 
   view_test "GET :index renders the uploading banner when an attachment hasn't been uploaded to asset manager" do
@@ -194,7 +194,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :index, params: { edition_id: @edition }
 
     assert_response :success
-    assert_select ".existing-attachments li strong", text: "An external attachment"
+    assert_select "table td", text: "An external attachment"
   end
 
   test "POST :create handles external attachments when attachable allows them" do
