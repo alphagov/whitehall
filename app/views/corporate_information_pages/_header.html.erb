@@ -16,7 +16,7 @@
         <%= t("organisation.support.part_of") %>
         <%=
           organisation.parent_organisations.map { |parent_org|
-            link_to parent_org.name, organisation_path(parent_org), class: "govuk-link"
+            link_to parent_org.name, parent_org.public_path, class: "govuk-link"
           }.to_sentence.html_safe
         %>
       </p>
@@ -25,7 +25,7 @@
         <%= t("organisation.support.administered_by") %>
         <%=
           organisation.parent_organisations.map { |parent_org|
-            link_to parent_org.name, organisation_path(parent_org), class: "govuk-link"
+            link_to parent_org.name, parent_org.public_path, class: "govuk-link"
           }.to_sentence.html_safe
         %>
       </p>

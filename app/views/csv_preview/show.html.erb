@@ -8,7 +8,7 @@
       <%= render "govuk_publishing_components/components/organisation_logo", {
         organisation: {
           name: organisation_logo_name(organisation),
-          url: organisation_path(organisation),
+          url: organisation.public_path,
           brand: organisation.organisation_brand_colour ? organisation.organisation_brand_colour.class_name : nil,
           crest: organisation.organisation_logo_type.class_name,
         }

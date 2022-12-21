@@ -13,8 +13,8 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     let(:attachment) { build(:file_attachment, attachable:, file:) }
     let(:attachable) { edition }
     let(:asset_id) { "asset-id" }
-    let(:redirect_path) { Whitehall.url_maker.public_document_path(edition) }
-    let(:redirect_url) { Whitehall.url_maker.public_document_url(edition) }
+    let(:redirect_path) { edition.public_path }
+    let(:redirect_url) { edition.public_url }
     let(:topic_taxon) { build(:taxon_hash) }
 
     before do

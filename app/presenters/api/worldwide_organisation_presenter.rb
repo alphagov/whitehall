@@ -28,7 +28,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
   def sponsor_as_json(sponsor)
     {
       title: sponsor.name,
-      web_url: Whitehall.url_maker.organisation_url(sponsor),
+      web_url: sponsor.public_url,
       details: {
         acronym: sponsor.acronym || "",
       },

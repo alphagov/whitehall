@@ -22,7 +22,7 @@ module LogoHelper
            else
              organisation_logo_name(organisation)
            end
-    linked_logo = link_to_if(options[:linked], logo, organisation_path(organisation))
+    linked_logo = link_to_if(options[:linked], logo, organisation.public_path)
     if organisation.custom_logo_selected?
       linked_logo
     else

@@ -41,7 +41,7 @@ module ServiceListeners
       destination = if edition.unpublishing.redirect?
                       Addressable::URI.parse(edition.unpublishing.alternative_url).path
                     else
-                      Whitehall.url_maker.public_document_path(edition)
+                      edition.public_path
                     end
 
       current_html_attachments.each do |html_attachment|
@@ -132,7 +132,7 @@ module ServiceListeners
       content_ids_to_remove.each do |content_id|
         PublishingApiRedirectWorker.new.perform(
           content_id,
-          Whitehall.url_maker.public_document_path(edition),
+          edition.public_path,
           I18n.default_locale.to_s,
         )
       end

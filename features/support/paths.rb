@@ -21,7 +21,7 @@ module NavigationHelpers
 
   def visit_organisation(name)
     organisation = Organisation.find_by!(name:)
-    visit organisation_path(organisation)
+    visit organisation.public_path
   end
 
   def visit_organisation_about_page(name)

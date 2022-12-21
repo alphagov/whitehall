@@ -102,28 +102,17 @@ Whitehall::Application.routes.draw do
     # End of public facing routes still rendered by Whitehall
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
-    get "/case-studies/:id(.:locale)", as: "case_study", constraints: { locale: valid_locales_regex }, to: rack_404
-    get "/collections/:id(.:locale)", as: "document_collection", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/consultations/:consultation_id/:id", as: "consultation_html_attachment", to: rack_404
     get "/consultations/:consultation_id/outcome/:id", as: "consultation_outcome_html_attachment", to: rack_404
     get "/consultations/:consultation_id/public-feedback/:id", as: "consultation_public_feedback_html_attachment", to: rack_404
-    get "/consultations/:id(.:locale)", as: "consultation", constraints: { locale: valid_locales_regex }, to: rack_404
-    get "/consultations/open", as: "open_consultation", to: rack_404
-    get "/consultations/closed", as: "closed_consultation", to: rack_404
-    get "/consultations/upcoming", as: "upcoming_consultation", to: rack_404
     get "/latest", as: "latest", to: rack_404
-    get "/news/:id(.:locale)", as: "news_article", constraints: { locale: valid_locales_regex }, to: rack_404
-    get "/organisations/:id(.:locale)", as: "organisation", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/organisations", as: "organisations", to: rack_404
     get "/people/:id(.:locale)", as: "person", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/groups/:id", as: "policy_group", to: rack_404
-    get "/publications/:id(.:locale)", as: "publication", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
-    get "/speeches/:id(.:locale)", as: "speech", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
     get "/statistics/announcements/:id", as: "statistics_announcement", to: rack_404
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
-    get "/statistics/:id(.:locale)", as: "statistic", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/statistics/:statistics_id/:id", as: "statistic_html_attachment", to: rack_404
 
     resources :organisations, only: [] do
@@ -382,9 +371,6 @@ Whitehall::Application.routes.draw do
 
     get "/placeholder" => "placeholder#show", as: :placeholder
   end
-
-  # TODO: the organisations controller has been removed but this route is still required to get the relevant helper methods. This can be removed once new helpers have been created.
-  get "/courts-tribunals/:id(.:locale)", as: "court", courts_only: true, constraints: { locale: valid_locales_regex }, to: rack_404
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(

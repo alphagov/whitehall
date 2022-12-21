@@ -23,4 +23,8 @@ class CaseStudy < Edition
   def translatable?
     !non_english_edition?
   end
+
+  def base_path
+    "/government/case-studies/#{slug}"
+  end
 end
