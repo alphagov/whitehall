@@ -178,7 +178,7 @@ class CorporateInformationPage < Edition
     if worldwide_organisation.present?
       url = edition_worldwide_organisation.worldwide_organisation.base_path.to_s + "/about/#{slug}"
       url.gsub("/about/about", "")
-    else
+    elsif organisation.present?
       url = edition_organisation.organisation.base_path.to_s + "/about/#{slug}"
       url.gsub("/about/about", "/about")
     end
