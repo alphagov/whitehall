@@ -1,0 +1,25 @@
+<% content_for :page_title, "Reorder promotional features"%>
+<% content_for :title, "Reorder promotional features" %>
+<% content_for :context, @organisation.name %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @organisation, url: update_order_admin_organisation_promotional_features_path(@organisation), method: :patch do |form| %>
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        items: @promotional_features.map do |promotional_feature|
+          {
+            id: promotional_feature.id,
+            title: promotional_feature.title
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save"
+        } %>
+        <%= link_to("Cancel", admin_organisation_promotional_features_path(@organisation), class: "govuk-link govuk-link--no-visited-state") %>
+    </div>
+    <% end %>
+  </div>
+</div>

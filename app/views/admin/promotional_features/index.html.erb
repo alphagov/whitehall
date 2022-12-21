@@ -10,6 +10,10 @@
 
     <p class="warning">Warning: changes to promotional features appear instantly on the live site.</p>
 
+    <% if @promotional_features.many? %>
+      <p><%= link_to "Reorder promotional features", reorder_admin_organisation_promotional_features_path(@organisation) %></p>
+    <% end %>
+
     <% if @promotional_features.present? %>
       <table class="table table-bordered">
         <thead>

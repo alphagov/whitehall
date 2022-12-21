@@ -1,6 +1,7 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
   before_action :load_promotional_feature, only: %i[show edit update destroy]
+  layout :get_layout
 
   def index
     @promotional_features = @organisation.promotional_features
@@ -41,7 +42,37 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     redirect_to [:admin, @organisation, PromotionalFeature], notice: "Promotional feature deleted."
   end
 
+  def reorder
+    redirect_to admin_organisation_promotional_features_path(@organisation) and return unless @organisation.promotional_features.many?
+
+    @promotional_features = @organisation.promotional_features
+  end
+
+  def update_order
+    promotional_features_orderings = @organisation.promotional_features.map(&:ordering)
+
+    params[:ordering].each do |promotional_feature_row|
+      id, ordering = promotional_feature_row
+      promotional_feature = @organisation.promotional_features.find(id)
+      promotional_feature.update!(ordering: promotional_features_orderings[ordering.to_i - 1])
+    end
+
+    Whitehall::PublishingApi.republish_async(@organisation)
+    flash[:notice] = "Promotional features reordered successfully"
+
+    redirect_to admin_organisation_promotional_features_path(@organisation)
+  end
+
 private
+
+  def get_layout
+    case action_name
+    when "reorder", "update_order"
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])
