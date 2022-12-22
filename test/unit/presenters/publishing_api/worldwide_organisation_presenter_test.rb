@@ -7,6 +7,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
 
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
     worldwide_org = create(:worldwide_organisation,
+                           :with_sponsorships,
                            :with_world_location,
                            name: "Locationia Embassy",
                            analytics_identifier: "WO123")
@@ -30,6 +31,9 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     }
 
     expected_links = {
+      sponsoring_organisations: [
+        worldwide_org.sponsoring_organisations.first.content_id,
+      ],
       world_locations: [
         worldwide_org.world_locations.first.content_id,
       ],

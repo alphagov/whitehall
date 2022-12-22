@@ -30,12 +30,19 @@ module PublishingApi
 
     def links
       {
+        sponsoring_organisations:,
         world_locations:,
       }
     end
 
     def description
       item.summary
+    end
+
+    def sponsoring_organisations
+      return [] unless item.sponsoring_organisations.any?
+
+      item.sponsoring_organisations.map(&:content_id)
     end
 
     def world_locations
