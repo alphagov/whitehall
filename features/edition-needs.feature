@@ -6,6 +6,7 @@ Feature: Managing needs on editions
   Background:
     Given I am an editor
 
+  @design-system-only
   Scenario: Adding and removing needs
     Given a submitted publication "Extended goatee for the modern man" with a PDF attachment
     When I visit the list of documents awaiting review
