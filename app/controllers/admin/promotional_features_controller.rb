@@ -49,14 +49,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   end
 
   def update_order
-    promotional_features_orderings = @organisation.promotional_features.map(&:ordering)
-
-    params[:ordering].each do |promotional_feature_row|
-      id, ordering = promotional_feature_row
-      promotional_feature = @organisation.promotional_features.find(id)
-      promotional_feature.update!(ordering: promotional_features_orderings[ordering.to_i - 1])
-    end
-
+    @organisation.reorder_promotional_features(params[:ordering])
     Whitehall::PublishingApi.republish_async(@organisation)
     flash[:notice] = "Promotional features reordered successfully"
 

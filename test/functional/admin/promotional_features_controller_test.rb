@@ -105,27 +105,21 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   end
 
   test "PATCH on :update_order reorders the promotional_features and republishes the organisation" do
-    promotional_feature1 = create(:promotional_feature, organisation: @organisation, ordering: 1)
-    promotional_feature2 = create(:promotional_feature, organisation: @organisation, ordering: 2)
-    promotional_feature3 = create(:promotional_feature, organisation: @organisation, ordering: 4)
-    promotional_feature4 = create(:promotional_feature, organisation: @organisation, ordering: 5)
-
+    Organisation.stubs(:allowed_promotional).returns(organisations_array = mock)
+    organisations_array.expects(:find).with(@organisation.slug).returns(@organisation)
+    @organisation.expects(:reorder_promotional_features).with do |value|
+      value["2"] == "1" && value["1"] == "2"
+    end
     Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
 
     put :update_order, params: {
       organisation_id: @organisation,
       ordering: {
-        "#{promotional_feature3.id}": "1",
-        "#{promotional_feature4.id}": "2",
-        "#{promotional_feature2.id}": "3",
-        "#{promotional_feature1.id}": "4",
+        "2": "1",
+        "1": "2",
       },
     }
 
-    assert_equal 1, promotional_feature3.reload.ordering
-    assert_equal 2, promotional_feature4.reload.ordering
-    assert_equal 4, promotional_feature2.reload.ordering
-    assert_equal 5, promotional_feature1.reload.ordering
     assert_redirected_to admin_organisation_promotional_features_path(@organisation)
     assert_equal "Promotional features reordered successfully", flash[:notice]
   end

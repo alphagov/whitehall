@@ -521,6 +521,16 @@ class Organisation < ApplicationRecord
     ]
   end
 
+  def reorder_promotional_features(new_order)
+    promotional_features_orderings = promotional_features.map(&:ordering)
+
+    new_order.each do |promotional_feature_row|
+      id, ordering = promotional_feature_row
+      promotional_feature = promotional_features.find(id)
+      promotional_feature.update!(ordering: promotional_features_orderings[ordering.to_i - 1])
+    end
+  end
+
 private
 
   def organisations_with_scoped_search

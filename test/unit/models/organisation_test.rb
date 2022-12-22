@@ -1079,4 +1079,29 @@ class OrganisationTest < ActiveSupport::TestCase
 
     organisation.update!(alternative_format_contact_email: "test@test.com")
   end
+
+  test "#reorder_promotional_features reorders a orgs promotional features ordering attribute" do
+    organisation = create(:organisation)
+
+    promotional_feature1 = create(:promotional_feature, organisation:, ordering: 1)
+    promotional_feature2 = create(:promotional_feature, organisation:, ordering: 2)
+    promotional_feature3 = create(:promotional_feature, organisation:, ordering: 4)
+    promotional_feature4 = create(:promotional_feature, organisation:, ordering: 5)
+
+    params = ActionController::Parameters.new({
+      ordering: {
+        "3": "1",
+        "4": "2",
+        "2": "3",
+        "1": "4",
+      },
+    })
+
+    organisation.reorder_promotional_features(params[:ordering])
+
+    assert_equal 1, promotional_feature3.reload.ordering
+    assert_equal 2, promotional_feature4.reload.ordering
+    assert_equal 4, promotional_feature2.reload.ordering
+    assert_equal 5, promotional_feature1.reload.ordering
+  end
 end
