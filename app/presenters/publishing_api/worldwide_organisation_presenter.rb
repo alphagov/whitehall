@@ -30,6 +30,7 @@ module PublishingApi
 
     def links
       {
+        ordered_contacts:,
         sponsoring_organisations:,
         world_locations:,
       }
@@ -37,6 +38,12 @@ module PublishingApi
 
     def description
       item.summary
+    end
+
+    def ordered_contacts
+      return [] unless item.offices.any?
+
+      item.offices.map(&:contact).map(&:content_id)
     end
 
     def sponsoring_organisations
