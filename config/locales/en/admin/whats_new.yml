@@ -22,7 +22,7 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
-          - heading: Attachments page, comparing editions and other pages move to the Design System
+          - heading: Attachments page, comparing previous editions and other pages move to the Design System
             area: Creating and updating documents
             type: improvement
             date: 22 December 2022
