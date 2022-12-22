@@ -21,7 +21,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves the new promotional item to the feature and republishes the organisation to the PublishingApi" do
-    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
 
     post :create,
          params: {
@@ -70,7 +70,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
 
-    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
 
     put :update,
         params: { organisation_id: @organisation,
@@ -98,7 +98,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
 
-    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
 
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 

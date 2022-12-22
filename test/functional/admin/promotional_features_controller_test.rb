@@ -35,7 +35,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves the new promotional feature, republishes the organisation to the PublishingApi and redirects to the show page" do
-    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
 
     post :create, params: { organisation_id: @organisation, promotional_feature: { title: "Promotional feature title" } }
 
@@ -65,7 +65,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   test "PUT :update saves the promotional feature, republishes the organisation to the PublishingApi and redirects to the show page" do
     promotional_feature = create(:promotional_feature, organisation: @organisation)
 
-    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
 
     put :update, params: { organisation_id: @organisation, id: promotional_feature, promotional_feature: { title: "New title" } }
 
@@ -76,7 +76,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   test "DELETE :destroy deletes the promotional feature and republishes the organisation to the PublishingApi" do
     promotional_feature = create(:promotional_feature, organisation: @organisation)
 
-    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
 
     delete :destroy, params: { organisation_id: @organisation, id: promotional_feature }
 
@@ -110,7 +110,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
     @organisation.expects(:reorder_promotional_features).with do |value|
       value["2"] == "1" && value["1"] == "2"
     end
-    Whitehall::PublishingApi.expects(:republish_async).with(@organisation)
+    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
 
     put :update_order, params: {
       organisation_id: @organisation,
