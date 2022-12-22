@@ -6,7 +6,10 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
   end
 
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
-    worldwide_org = create(:worldwide_organisation, name: "Locationia Embassy", analytics_identifier: "WO123")
+    worldwide_org = create(:worldwide_organisation,
+                           :with_world_location,
+                           name: "Locationia Embassy",
+                           analytics_identifier: "WO123")
     public_path = Whitehall.url_maker.worldwide_organisation_path(worldwide_org)
 
     expected_hash = {
@@ -25,7 +28,12 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       analytics_identifier: "WO123",
       update_type: "major",
     }
-    expected_links = {}
+
+    expected_links = {
+      world_locations: [
+        worldwide_org.world_locations.first.content_id,
+      ],
+    }
 
     presented_item = present(worldwide_org)
 

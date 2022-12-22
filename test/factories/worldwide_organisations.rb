@@ -7,5 +7,11 @@ FactoryBot.define do
         FactoryBot.create(:sponsorship, worldwide_organisation: organisation)
       end
     end
+
+    trait(:with_world_location) do
+      after :create do |worldwide_organisation, _evaluator|
+        worldwide_organisation.world_locations << FactoryBot.create(:world_location)
+      end
+    end
   end
 end

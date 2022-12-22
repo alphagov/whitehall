@@ -29,11 +29,19 @@ module PublishingApi
     end
 
     def links
-      {}
+      {
+        world_locations:,
+      }
     end
 
     def description
       item.summary
+    end
+
+    def world_locations
+      return [] unless item.world_locations.any?
+
+      item.world_locations.map(&:content_id)
     end
   end
 end
