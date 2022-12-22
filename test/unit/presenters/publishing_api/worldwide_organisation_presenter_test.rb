@@ -8,6 +8,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
     worldwide_org = create(:worldwide_organisation,
                            :with_office,
+                           :with_social_media_accounts,
                            :with_sponsorships,
                            :with_world_location,
                            name: "Locationia Embassy",
@@ -26,7 +27,15 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       public_updated_at: worldwide_org.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      details: {},
+      details: {
+        social_media_links: [
+          {
+            href: "https://www.facebook.com/UKgovernment",
+            service_type: "facebook",
+            title: "Our Facebook Page",
+          },
+        ],
+      },
       analytics_identifier: "WO123",
       update_type: "major",
     }

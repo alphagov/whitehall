@@ -8,6 +8,14 @@ FactoryBot.define do
       end
     end
 
+    trait(:with_social_media_accounts) do
+      after :create do |organisation, _evaluator|
+        social_media_service = create(:social_media_service, name: "Facebook")
+        social_media_account = create(:social_media_account, title: "Our Facebook Page", url: "https://www.facebook.com/UKgovernment", social_media_service:)
+        organisation.social_media_accounts << social_media_account
+      end
+    end
+
     trait(:with_sponsorships) do
       after :create do |organisation, _evaluator|
         FactoryBot.create(:sponsorship, worldwide_organisation: organisation)

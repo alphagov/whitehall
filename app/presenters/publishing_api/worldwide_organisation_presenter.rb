@@ -18,7 +18,9 @@ module PublishingApi
 
       content.merge!(
         description:,
-        details: {},
+        details: {
+          social_media_links:,
+        },
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
@@ -44,6 +46,18 @@ module PublishingApi
       return [] unless item.offices.any?
 
       item.offices.map(&:contact).map(&:content_id)
+    end
+
+    def social_media_links
+      return [] unless item.social_media_accounts.any?
+
+      item.social_media_accounts.map do |social_media_account|
+        {
+          href: social_media_account.url,
+          service_type: social_media_account.service_name.parameterize,
+          title: social_media_account.display_name,
+        }
+      end
     end
 
     def sponsoring_organisations
