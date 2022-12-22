@@ -16,7 +16,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   def create
     @promotional_feature = @organisation.promotional_features.build(promotional_feature_params)
     if @promotional_feature.save
-      Whitehall::PublishingApi.republish_async(@promotional_feature.organisation)
+      Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature created"
     else
       render :new
@@ -29,7 +29,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def update
     if @promotional_feature.update(promotional_feature_params)
-      Whitehall::PublishingApi.republish_async(@promotional_feature.organisation)
+      Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature updated"
     else
       render :edit
@@ -38,7 +38,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def destroy
     @promotional_feature.destroy!
-    Whitehall::PublishingApi.republish_async(@promotional_feature.organisation)
+    Whitehall::PublishingApi.republish_async(@organisation)
     redirect_to [:admin, @organisation, PromotionalFeature], notice: "Promotional feature deleted."
   end
 
