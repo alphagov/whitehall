@@ -35,6 +35,6 @@ class AuthorNotifierService
   end
 
   def public_document_url
-    edition.public_url
+    Whitehall.url_maker.public_document_url(edition)
   end
 end

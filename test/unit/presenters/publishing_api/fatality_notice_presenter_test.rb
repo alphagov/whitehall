@@ -32,7 +32,7 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the base_path" do
-    assert_equal "/government/fatalities/fatality-notice-title.de", @presented_content[:base_path]
+    assert_equal "/government/fatalities/fatality-notice-title", @presented_content[:base_path]
   end
 
   test "it presents updated_at if public_timestamp is nil" do

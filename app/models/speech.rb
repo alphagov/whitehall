@@ -59,10 +59,6 @@ class Speech < Announcement
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
-  def base_path
-    "/government/speeches/#{slug}"
-  end
-
 private
 
   def date_for_government

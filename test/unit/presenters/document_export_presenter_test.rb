@@ -78,7 +78,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
     expected_whitehall_admin_links = [{
       whitehall_admin_url: "/government/admin/news/2",
-      public_url: "https://www.test.gov.uk/government/generic-editions/some-article",
+      public_url: "www.test.gov.uk/government/generic-editions/some-article",
       content_id: linked_edition.content_id,
     }]
 
@@ -99,7 +99,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
     expected_whitehall_admin_links = [{
       whitehall_admin_url: "/government/admin/news/2",
-      public_url: "https://www.test.gov.uk/government/generic-editions/some-article",
+      public_url: "www.test.gov.uk/government/generic-editions/some-article",
       content_id: linked_edition.content_id,
     }]
 

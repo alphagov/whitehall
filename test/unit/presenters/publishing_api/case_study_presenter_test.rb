@@ -13,7 +13,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       summary: "The summary",
       body: "Some content",
     )
-    public_path = case_study.public_path
+    public_path = Whitehall.url_maker.public_document_path(case_study)
     expected_content = {
       base_path: public_path,
       title: "Case study title",

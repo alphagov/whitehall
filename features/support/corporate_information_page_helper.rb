@@ -19,7 +19,7 @@ module CorporateInformationPageHelper
   end
 
   def check_attachment_appears_on_corporate_information_page(attachment, page)
-    visit page.organisation.public_path
+    visit organisation_path(page.organisation)
     click_link page.title
 
     expect(page).to have_selector(".attachment-details .title", text: attachment.title)

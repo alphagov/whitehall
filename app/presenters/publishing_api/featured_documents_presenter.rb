@@ -19,7 +19,7 @@ module PublishingApi
       edition = feature.document.live_edition
       {
         title: edition.title,
-        href: edition.public_path,
+        href: Whitehall.url_maker.public_document_path(edition),
         image: {
           url: feature.image.url,
           alt_text: feature.alt_text,
@@ -35,7 +35,7 @@ module PublishingApi
       topical_event = feature.topical_event
       {
         title: topical_event.name,
-        href: topical_event.public_path,
+        href: Whitehall.url_maker.polymorphic_path(topical_event),
         image: {
           url: feature.image.url,
           alt_text: feature.alt_text,

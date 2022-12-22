@@ -1,7 +1,7 @@
 <%= render "govuk_publishing_components/components/list", {
   items: world_locations.map do |world_location|
     if world_location.active?
-      link_to world_location.name, world_location.public_path, class: 'location-link govuk-link'
+      link_to world_location.name, world_location_path(world_location), class: 'location-link govuk-link'
     else
       world_location.name
     end

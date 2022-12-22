@@ -39,7 +39,7 @@ module PublishingApi
     end
 
     def base_path
-      item.base_path
+      Whitehall.url_maker.topical_event_about_pages_path(item.topical_event)
     end
 
     def details

@@ -6,7 +6,7 @@ Unpublishing.where('alternative_url like "https://whitehall-admin%"').each do |u
   original_url.match('government/admin/[\w-]+/(\d+)$') do |m|
     # linked edition can be deleted, nothing we can do about that.
     edition = Edition.unscoped.find(m[1])
-    new_url = edition.public_url
+    new_url = Whitehall.url_maker.public_document_url(edition)
   end
 
   # otherwise it's a frontend URL, just substitute gov.uk

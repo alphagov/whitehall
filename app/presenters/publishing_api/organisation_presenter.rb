@@ -171,7 +171,7 @@ module PublishingApi
         if about_page.present?
           cips << {
             title: I18n.t("corporate_information_page.type.title.about"),
-            href: about_page.public_path,
+            href: Whitehall.url_maker.public_document_path(about_page),
           }
         end
       end
@@ -186,14 +186,14 @@ module PublishingApi
       item.corporate_information_pages.published.by_menu_heading(:our_information).each do |cip|
         cips << {
           title: cip.title,
-          href: cip.public_path,
+          href: Whitehall.url_maker.public_document_path(cip),
         }
       end
 
       item.corporate_information_pages.published.by_menu_heading(:jobs_and_contracts).each do |cip|
         cips << {
           title: cip.title,
-          href: cip.public_path,
+          href: Whitehall.url_maker.public_document_path(cip),
         }
       end
 
@@ -259,7 +259,7 @@ module PublishingApi
       page.extend(UseSlugAsParam)
       link_to(
         t_corporate_information_page_type_link_text(page),
-        page.public_path,
+        Whitehall.url_maker.public_document_path(page),
         class: "govuk-link brand__color",
       )
     end

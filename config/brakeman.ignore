@@ -254,13 +254,13 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "ca449e74829c897de6b6b4c217afd5ab6f85cd738afd8079ba6ab25660f5de30",
+      "fingerprint": "98d4e188042dbc97e4ef433f643ac633014de04f80a1d574fcfa68677aaeeeca",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/worldwide_organisations/_header.html.erb",
       "line": 29,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l.public_path, :class => \"govuk-link\")\n end.to_sentence",
+      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l, :class => \"govuk-link\")\n end.to_sentence",
       "render_path": [
         {
           "type": "controller",
@@ -470,13 +470,13 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "498c073dc7b4366a2817a1840933e5c409984ebded95ce90de0c784928d05a29",
+      "fingerprint": "f77ca1269299a6304017454456ff5d3a70c3434d8a643dae59f61b245da12fdb",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/worldwide_organisations/_header.html.erb",
       "line": 32,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o.public_path, :class => \"sponsoring-organisation govuk-link\")\n end.to_sentence",
+      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o, :class => \"sponsoring-organisation govuk-link\")\n end.to_sentence",
       "render_path": [
         {
           "type": "controller",
@@ -512,6 +512,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-12-19 10:53:50 +0000",
+  "updated": "2022-12-14 15:00:41 +0000",
   "brakeman_version": "5.4.0"
 }

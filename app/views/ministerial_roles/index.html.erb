@@ -85,7 +85,7 @@
           <%= render "govuk_publishing_components/components/organisation_logo", {
             organisation: {
               name: sanitize(format_with_html_line_breaks(organisation.logo_formatted_name)),
-              url: organisation.public_path,
+              url: organisation_path(organisation),
               brand: organisation[:slug],
               crest: organisation.organisation_crest,
             },

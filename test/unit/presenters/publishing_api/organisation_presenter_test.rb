@@ -37,7 +37,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     minister = create(:person)
     create(:ministerial_role_appointment, role:, person: minister)
 
-    public_path = organisation.public_path
+    public_path = Whitehall.url_maker.organisation_path(organisation)
     public_atom_path = "#{public_path}.atom"
 
     expected_hash = {

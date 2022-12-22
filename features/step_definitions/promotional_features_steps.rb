@@ -105,7 +105,7 @@ Then(/^I should not be able to add any further feature items$/) do
 end
 
 Then(/^I should see the promotional feature on the executive office page$/) do
-  visit @executive_office.public_path
+  visit organisation_path(@executive_office)
 
   within record_css_selector(@executive_office) do
     within "section.features" do

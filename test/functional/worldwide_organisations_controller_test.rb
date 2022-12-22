@@ -44,8 +44,8 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: organisation.id }
 
-    assert_select "a[href='#{location1.public_path}']"
-    assert_select "a[href='#{location2.public_path}']"
+    assert_select "a[href='#{world_location_path(location1)}']"
+    assert_select "a[href='#{world_location_path(location2)}']"
   end
 
   test "show redirects to the api worldwide organisation endpoint when json is requested" do

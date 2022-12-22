@@ -65,7 +65,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should rewrite admin links for editions" do
     speech = create(:published_speech)
     admin_path = admin_speech_path(speech)
-    public_url = speech.public_url
+    public_url = Whitehall.url_maker.public_document_url(speech)
 
     govspeak = "this and [that](#{admin_path}) yeah?"
     html = govspeak_to_html(govspeak)

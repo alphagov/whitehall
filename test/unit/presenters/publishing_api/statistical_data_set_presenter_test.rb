@@ -31,7 +31,7 @@ class PublishingApi::StatisticalDataSetPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the base_path" do
-    assert_equal "/government/statistical-data-sets/statistical-data-set-title.de", @presented_content[:base_path]
+    assert_equal "/government/statistical-data-sets/statistical-data-set-title", @presented_content[:base_path]
   end
 
   test "it presents updated_at if public_timestamp is nil" do

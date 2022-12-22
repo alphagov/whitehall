@@ -102,6 +102,10 @@ class TopicalEvent < ApplicationRecord
     end
   end
 
+  def base_path
+    Whitehall.url_maker.topical_event_path(slug)
+  end
+
   def search_link
     base_path
   end
@@ -183,18 +187,6 @@ class TopicalEvent < ApplicationRecord
 
   def to_s
     name
-  end
-
-  def base_path
-    "/government/topical-events/#{slug}"
-  end
-
-  def public_path(options = {})
-    append_url_options(base_path, options)
-  end
-
-  def public_url(options = {})
-    Plek.website_root + public_path(options)
   end
 
 private

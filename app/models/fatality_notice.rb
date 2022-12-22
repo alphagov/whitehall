@@ -39,8 +39,4 @@ class FatalityNotice < Announcement
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
-
-  def base_path
-    "/government/fatalities/#{slug}"
-  end
 end

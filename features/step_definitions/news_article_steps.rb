@@ -46,11 +46,11 @@ end
 
 Then(/^I should only see the news article on the French version of the public "([^"]*)" location page$/) do |world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
-  visit world_location.public_path(locale: :fr)
+  visit world_location_path(world_location, locale: :fr)
   within record_css_selector(@news_article) do
     expect(page).to have_content(@news_article.title)
   end
-  visit world_location.public_path
+  visit world_location_path(world_location)
   expect(page).to_not have_selector(record_css_selector(@news_article))
 end
 

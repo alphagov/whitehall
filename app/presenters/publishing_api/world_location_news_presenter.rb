@@ -64,9 +64,9 @@ module PublishingApi
 
     def path_for_news_page
       if world_location.world_location?
-        world_location_news.public_path(locale: I18n.locale)
+        Whitehall.url_maker.world_location_news_index_path(world_location, locale: I18n.locale)
       elsif world_location.international_delegation?
-        world_location.public_path(locale: I18n.locale)
+        Whitehall.url_maker.world_location_path(world_location, locale: I18n.locale)
       end
     end
   end
