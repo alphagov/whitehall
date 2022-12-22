@@ -56,11 +56,11 @@ class Unpublishing < ApplicationRecord
   end
 
   def document_path
-    edition.public_path.gsub(edition.slug, slug)
+    Whitehall.url_maker.public_document_path(edition, id: slug)
   end
 
   def document_url
-    edition.public_url.gsub(edition.slug, slug)
+    Whitehall.url_maker.public_document_url(edition, id: slug)
   end
 
   # Because the edition may have been deleted, we need to find it unscoped to

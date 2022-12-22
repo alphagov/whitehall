@@ -19,7 +19,7 @@
       <div class="govuk-grid-column-two-thirds">
         <%= render 'shared/available_languages', object: @corporate_information_page %>
         <%= content_tag :p, class: 'govuk-body homepage-link' do %>
-          <%= link_to "#{@organisation.name} homepage", @organisation.public_path, class: "govuk-link" %>
+          <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation), class: "govuk-link" %>
         <% end %>
         <%= render "govuk_publishing_components/components/title", {
           title: @corporate_information_page.title,

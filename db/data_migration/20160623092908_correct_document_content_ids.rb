@@ -39,7 +39,7 @@ end
 # correct IDs from the content store and set them accordingly:
 slugs_to_fix.each do |slug|
   document = Document.find_by(slug:)
-  base_path = document.live_edition.public_path
+  base_path = Whitehall.url_maker.public_document_path(document.live_edition)
   correct_content_id = Services.publishing_api.lookup_content_id(base_path:)
   if correct_content_id.blank?
     raise ArgumentError, "no content id found for #{base_path}"

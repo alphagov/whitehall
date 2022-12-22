@@ -319,7 +319,7 @@ EXISTS (
   end
 
   def search_link
-    base_path
+    Whitehall.url_maker.public_document_path(self)
   end
 
   def search_format_types
@@ -686,29 +686,6 @@ EXISTS (
   # TODO: this can be removed once rails/rails#44770 is released.
   def attribute_names
     @attributes.keys
-  end
-
-  def base_path
-    url_slug = slug || id.to_param
-    "/government/generic-editions/#{url_slug}"
-  end
-
-  def public_path(options = {})
-    return if base_path.nil?
-
-    append_url_options(base_path, options)
-  end
-
-  def public_url(options = {})
-    return if base_path.nil?
-
-    website_root = if options[:draft]
-                     Plek.external_url_for("draft-origin")
-                   else
-                     Plek.website_root
-                   end
-
-    website_root + public_path(options)
   end
 
 private

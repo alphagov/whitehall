@@ -234,24 +234,4 @@ class TopicalEventTest < ActiveSupport::TestCase
 
     topical_event.save!
   end
-
-  test "public_path returns the correct path" do
-    object = create(:topical_event, slug: "foo")
-    assert_equal "/government/topical-events/foo", object.public_path
-  end
-
-  test "public_path returns the correct path with options" do
-    object = create(:topical_event, slug: "foo")
-    assert_equal "/government/topical-events/foo?cachebust=123", object.public_path(cachebust: "123")
-  end
-
-  test "public_url returns the correct path" do
-    object = create(:topical_event, slug: "foo")
-    assert_equal "https://www.test.gov.uk/government/topical-events/foo", object.public_url
-  end
-
-  test "public_url returns the correct path with options" do
-    object = create(:topical_event, slug: "foo")
-    assert_equal "https://www.test.gov.uk/government/topical-events/foo?cachebust=123", object.public_url(cachebust: "123")
-  end
 end

@@ -87,7 +87,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public organisations url for sponsor in sponsors array as web_url" do
-    assert_equal @main_sponsor.public_url, @presenter.as_json[:sponsors].first[:web_url]
+    assert_equal Whitehall.url_maker.organisation_url(@main_sponsor), @presenter.as_json[:sponsors].first[:web_url]
   end
 
   test "json includes office contact title in offices as title" do

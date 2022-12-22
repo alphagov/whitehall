@@ -152,7 +152,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test "#document_path returns the URL path for the unpublished edition" do
     edition = create(:detailed_guide, :draft)
-    original_path = edition.public_path
+    original_path = Whitehall.url_maker.public_document_path(edition)
     unpublishing = create(
       :unpublishing,
       edition:,
@@ -176,7 +176,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test "#document_url returns the URL for the unpublished edition" do
     edition = create(:detailed_guide, :draft)
-    original_url = edition.public_url
+    original_url = Whitehall.url_maker.public_document_url(edition)
     unpublishing = create(
       :unpublishing,
       edition:,

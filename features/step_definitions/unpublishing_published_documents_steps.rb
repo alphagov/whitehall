@@ -15,7 +15,7 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
   click_on "Withdraw or unpublish"
   choose "Unpublish: consolidated into another GOV.UK page"
   within ".js-unpublish-withdraw-form__consolidated" do
-    fill_in "consolidated_alternative_url", with: @existing_edition.public_url
+    fill_in "consolidated_alternative_url", with: Whitehall.url_maker.publication_url(@existing_edition.document)
     click_button "Unpublish"
   end
 end
@@ -68,7 +68,7 @@ end
 
 Then(/^the unpublishing should redirect to the existing edition$/) do
   unpublishing = @duplicate_edition.unpublishing
-  path = @existing_edition.public_path
+  path = publication_path(@existing_edition.document)
   expect(unpublishing.alternative_url.end_with?(path)).to be(true)
 end
 

@@ -58,7 +58,7 @@ module DataHygiene
     def new_base_path
       case organisation
       when Organisation
-        new_slug.public_path
+        Whitehall.url_maker.organisation_path(new_slug)
       when WorldwideOrganisation
         Whitehall.url_maker.worldwide_organisation_path(new_slug)
       end

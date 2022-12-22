@@ -38,7 +38,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
           visit admin_news_article_path(edition)
           force_publish_document
 
-          parent_document_url = edition.public_url
+          parent_document_url = Whitehall.url_maker.public_document_url(edition)
 
           Services.asset_manager.expects(:update_asset)
             .at_least_once

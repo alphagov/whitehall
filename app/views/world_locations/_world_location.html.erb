@@ -1,7 +1,7 @@
 <% options ||= {} %>
 <%= content_tag_for(:li, world_location, options) do %>
   <% if world_location.active? %>
-    <%= link_to world_location.name, world_location.public_path, class: 'location-link govuk-link' %>
+    <%= link_to world_location.name, world_location_path(world_location), class: 'location-link govuk-link' %>
   <% else %>
     <span class="location-link"><%= world_location.name %></span>
   <% end %>

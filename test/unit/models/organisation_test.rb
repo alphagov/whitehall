@@ -1079,25 +1079,4 @@ class OrganisationTest < ActiveSupport::TestCase
 
     organisation.update!(alternative_format_contact_email: "test@test.com")
   end
-
-  test "organisations have the correct path generated" do
-    org = create(:organisation)
-
-    assert_equal "/government/organisations/#{org.slug}", org.public_path
-    assert_equal "https://www.test.gov.uk/government/organisations/#{org.slug}", org.public_url
-  end
-
-  test "courts have the correct path generated" do
-    court = create(:court)
-
-    assert_equal "/courts-tribunals/#{court.slug}", court.public_path
-    assert_equal "https://www.test.gov.uk/courts-tribunals/#{court.slug}", court.public_url
-  end
-
-  test "HMCTS tribunals have the correct path generated" do
-    tribunal = create(:hmcts_tribunal)
-
-    assert_equal "/courts-tribunals/#{tribunal.slug}", tribunal.public_path
-    assert_equal "https://www.test.gov.uk/courts-tribunals/#{tribunal.slug}", tribunal.public_url
-  end
 end

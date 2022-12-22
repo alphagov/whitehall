@@ -40,9 +40,9 @@ class WorldLocationNews < ApplicationRecord
 
   def search_link
     if world_location.world_location?
-      public_path
+      Whitehall.url_maker.world_location_news_index_path(world_location)
     elsif world_location.international_delegation?
-      world_location.public_path
+      Whitehall.url_maker.world_location_path(world_location)
     end
   end
 
@@ -70,18 +70,6 @@ class WorldLocationNews < ApplicationRecord
 
     world_location
       .worldwide_organisations
-  end
-
-  def base_path
-    "/world/#{slug}/news"
-  end
-
-  def public_path(options = {})
-    append_url_options(base_path, options)
-  end
-
-  def public_url(options = {})
-    Plek.website_root + public_path(options)
   end
 
   extend FriendlyId

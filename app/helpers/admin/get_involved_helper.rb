@@ -5,8 +5,4 @@ module Admin::GetInvolvedHelper
       "Take part pages" => admin_take_part_pages_path,
     )
   end
-
-  def get_involved_url
-    "#{Plek.website_root}/government/get-involved?#{cachebust_url_options.to_query}"
-  end
 end

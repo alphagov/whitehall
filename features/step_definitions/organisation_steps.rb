@@ -371,7 +371,7 @@ Given(/^a closed organisation with documents which has been superseded by anothe
 end
 
 When(/^I view the organisation$/) do
-  visit @organisation.public_path
+  visit organisation_path(@organisation)
 end
 
 Then(/^I can see that the organisation is closed$/) do

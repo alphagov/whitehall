@@ -21,11 +21,7 @@ module PublishingApi
     private
 
       def base_path
-        @base_path ||= if item.respond_to?(:public_path)
-                         item.public_path
-                       else
-                         Whitehall.url_maker.polymorphic_path(item)
-                       end
+        @base_path ||= Whitehall.url_maker.polymorphic_path(item)
       end
     end
   end

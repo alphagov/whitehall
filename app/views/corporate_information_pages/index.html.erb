@@ -21,7 +21,7 @@
 
       <div class="govuk-grid-column-two-thirds">
         <%= content_tag :p, class: 'govuk-body homepage-link' do %>
-          <%= link_to "#{@organisation.name} homepage", @organisation.public_path, class: "govuk-link" %>
+          <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation), class: "govuk-link" %>
         <% end %>
         <aside class="organisation-top-tasks">
           <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>

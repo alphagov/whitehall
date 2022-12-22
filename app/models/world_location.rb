@@ -75,18 +75,6 @@ class WorldLocation < ApplicationRecord
   validates_with SafeHtmlValidator
   validates :name, :world_location_type, presence: true
 
-  def base_path
-    "/world/#{slug}"
-  end
-
-  def public_path(options = {})
-    append_url_options(base_path, options)
-  end
-
-  def public_url(options = {})
-    Plek.website_root + public_path(options)
-  end
-
   extend FriendlyId
   friendly_id
 end

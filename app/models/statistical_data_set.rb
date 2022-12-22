@@ -25,8 +25,4 @@ class StatisticalDataSet < Publicationesque
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
-
-  def base_path
-    "/government/statistical-data-sets/#{slug}"
-  end
 end

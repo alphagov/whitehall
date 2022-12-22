@@ -21,11 +21,15 @@ class TakePartPage < ApplicationRecord
 
   include Searchable
   searchable title: :title,
-             link: :public_path,
+             link: :search_link,
              content: :body_without_markup,
              description: :summary,
              format: "take_part",
              ordering: :ordering
+
+  def search_link
+    Whitehall.url_maker.take_part_page_path(slug)
+  end
 
   def body_without_markup
     Govspeak::Document.new(body).to_text
@@ -45,18 +49,6 @@ class TakePartPage < ApplicationRecord
       end
       TakePartPage.where("id NOT IN (?)", ids_in_new_ordering).update_all(ordering: ids_in_new_ordering.size + 1)
     end
-  end
-
-  def base_path
-    "/government/get-involved/take-part/#{slug}"
-  end
-
-  def public_path(options = {})
-    append_url_options(base_path, options)
-  end
-
-  def public_url(options = {})
-    Plek.website_root + public_path(options)
   end
 
 protected
