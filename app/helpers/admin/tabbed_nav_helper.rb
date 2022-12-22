@@ -4,6 +4,8 @@ module Admin::TabbedNavHelper
   def secondary_navigation_tabs_items(model, current_path)
     if model.is_a?(Edition)
       edition_nav_items(model, current_path)
+    elsif model.respond_to? :consultation
+      edition_nav_items(model.consultation, current_path)
     else
       send("#{model.class.model_name.param_key}_nav_items", model, current_path)
     end

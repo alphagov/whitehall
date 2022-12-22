@@ -47,21 +47,12 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal "All workflow actions require a lock version", response.body
   end
 
-  test "GET #confirm_force_publish renders force publishing form with next release permission" do
+  test "GET #confirm_force_publish renders force publishing form" do
     stub_publishing_api_links_with_taxons(draft_edition.content_id, %w[a-taxon-content-id])
-    @current_user.permissions << "Preview next release"
     get :confirm_force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
     assert_response :success
     assert_template :confirm_force_publish
-  end
-
-  test "GET #confirm_force_publish renders legacy force publishing form" do
-    stub_publishing_api_links_with_taxons(draft_edition.content_id, %w[a-taxon-content-id])
-    get :confirm_force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
-
-    assert_response :success
-    assert_template :confirm_force_publish_legacy
   end
 
   test "GET #confirm_force_publish redirects when edition must tagged be taxons but is not" do

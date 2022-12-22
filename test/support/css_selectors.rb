@@ -124,4 +124,8 @@ module CssSelectors
   def policy_group_selector
     ".document-policy-groups"
   end
+
+  def row_containing(text)
+    page.find("tr", text:)
+  end
 end

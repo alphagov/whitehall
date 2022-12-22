@@ -50,6 +50,7 @@ Feature: Consultations
     When I draft a new "Cymraeg" language consultation "Beard Length Review"
     Then I can see the primary locale for consultation "Beard Length Review" is "cy"
 
+  @design-system-wip
   Scenario: Adding and reordering a responses attachments
     Given I am an writer
     And a closed consultation exists
@@ -57,10 +58,10 @@ Feature: Consultations
     And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example **Govspeak body**"
     Then the consultation response should have 2 attachments
     When I set the order of attachments to:
-      | title                        | order |
-      | Beard Length Graphs 2012     | 0     |
-      | Outcome attachment title   | 1     |
+      | title                    | order |
+      | Beard Length Graphs 2012 | 0     |
+      | Outcome attachment title | 1     |
     Then the attachments should be in the following order:
-      | title                        |
-      | Beard Length Graphs 2012     |
-      | Outcome attachment title   |
+      | title                    |
+      | Beard Length Graphs 2012 |
+      | Outcome attachment title |

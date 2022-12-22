@@ -56,15 +56,6 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   view_test "should explain why the editorial remark could not be saved" do
     edition = create(:submitted_consultation)
     post :create, params: { edition_id: edition, editorial_remark: { body: "" } }
-    assert_template "new_legacy"
-    assert_select ".form-errors"
-  end
-
-  view_test "should explain why the editorial remark could not be saved with preview next release flag" do
-    @logged_in_user.permissions << "Preview next release"
-
-    edition = create(:submitted_consultation)
-    post :create, params: { edition_id: edition, editorial_remark: { body: "" } }
     assert_template "new"
     assert_select ".gem-c-error-summary"
   end
