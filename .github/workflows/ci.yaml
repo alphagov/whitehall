@@ -44,55 +44,6 @@ jobs:
     with:
       useWithRails: true
 
-  integration-tests:
-    name: Integration test
-    needs: precompile-assets
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup MySQL
-        id: setup-mysql
-        uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@composite-actions
-
-      - name: Setup Redis
-        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@composite-actions
-
-      - name: Install additional system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ghostscript
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-
-      - name: Install JavaScript dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Precompile Rails assets
-        uses: alphagov/govuk-infrastructure/.github/actions/precompile-rails-assets@composite-actions
-
-      - name: Initialize database
-        env:
-          RAILS_ENV: test
-          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec rails db:setup
-
-      - name: Run Cucumber
-        env:
-          RAILS_ENV: test
-          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec rake cucumber
-
   test-ruby:
     name: Test Ruby
     needs: precompile-assets
@@ -126,13 +77,7 @@ jobs:
           bundler-cache: true
 
       - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-
-      - name: Install JavaScript dependencies
-        run: yarn install --frozen-lockfile
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@composite-actions
 
       - name: Initialize database
         env:
@@ -140,9 +85,53 @@ jobs:
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
         run: bundle exec rails db:setup
 
-      - name: Run tests
+      - name: Run Minitest
         env:
           RAILS_ENV: test
           GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
         run: bundle exec rake test
+
+  integration-tests:
+    name: Integration tests
+    needs: precompile-assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup MySQL
+        id: setup-mysql
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@composite-actions
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@composite-actions
+
+      - name: Install additional system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ghostscript
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@composite-actions
+
+      - name: Precompile Rails assets
+        uses: alphagov/govuk-infrastructure/.github/actions/precompile-rails-assets@composite-actions
+
+      - name: Initialize database
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
+        run: bundle exec rails db:setup
+
+      - name: Run Cucumber
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
+        run: bundle exec rake cucumber
+
