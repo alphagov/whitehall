@@ -12,8 +12,16 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     assert_select ".document .body h1", "gov speak"
   end
 
-  view_test "renders attached images if image_ids provided" do
+  view_test "renders attached images if image_ids provided using !!number as a markdown" do
     edition = create(:publication, body: "!!1")
+    image = create(:image, edition:)
+
+    post :preview, params: { body: edition.body, image_ids: edition.images.map(&:id) }
+    assert_select ".document .body figure.image.embedded img[src=?]", image.url
+  end
+
+  view_test "renders attached images if image_ids provided using filename as a markdown" do
+    edition = create(:publication, body: "[Image:minister-of-funk.960x640.jpg]")
     image = create(:image, edition:)
 
     post :preview, params: { body: edition.body, image_ids: edition.images.map(&:id) }
