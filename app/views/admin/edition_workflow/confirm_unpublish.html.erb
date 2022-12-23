@@ -31,7 +31,11 @@
     name: "unpublishing[explanation]",
     id: "withdrawal_explanation",
     value: @unpublishing.explanation,
-    error_items: errors_for(@unpublishing.errors, :explanation)
+    error_items: errors_for(@unpublishing.errors, :explanation),
+    data_attributes: {
+      image_ids: @edition.images.map { |img| img[:id] }.to_json,
+      alternative_format_provider_id: (@edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+    }
   })
 %>
 
@@ -153,7 +157,11 @@
           name: "unpublishing[explanation]",
           id: "published_in_error_explanation",
           value: @unpublishing.explanation,
-          error_items: errors_for(@unpublishing.errors, :explanation)
+          error_items: errors_for(@unpublishing.errors, :explanation),
+          data_attributes: {
+            image_ids: @edition.images.map { |img| img[:id] }.to_json,
+            alternative_format_provider_id: (@edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+          }
         } %>
 
         <div class="govuk-button-group govuk-!-margin-bottom-6">

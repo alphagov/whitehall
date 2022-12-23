@@ -41,6 +41,10 @@
     value: edition.body,
     rows: 20,
     error_items: errors_for(form.object.errors, :body),
+    data_attributes: {
+      image_ids: edition.images.map { |img| img[:id] }.to_json,
+      alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+    }
   } %>
 
   <%= render "additional_significant_fields", form: form, edition: form.object %>
