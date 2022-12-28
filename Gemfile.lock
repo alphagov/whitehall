@@ -353,8 +353,8 @@ GEM
     kgio (2.11.4)
     kramdown (2.4.0)
       rexml
-    launchy (2.5.0)
-      addressable (~> 2.7)
+    launchy (2.5.2)
+      addressable (~> 2.8)
     link_header (0.0.8)
     logstasher (2.1.5)
       activesupport (>= 5.2)
