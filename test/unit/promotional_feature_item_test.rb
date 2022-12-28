@@ -26,6 +26,24 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert_equal "Example link", item.links.first.text
   end
 
+  test "validates that an image or youtube_video_url is present on save" do
+    feature_item_with_image = build(:promotional_feature_item)
+    feature_item_with_youtube_url = build(:promotional_feature_item, image: nil, youtube_video_url: "https://www.youtube.com/watch?v=fFmDQn9Lbl4")
+    invalid_feature_item = build(:promotional_feature_item, image: nil, youtube_video_url: nil)
+
+    assert feature_item_with_image.valid?
+    assert feature_item_with_youtube_url.valid?
+    assert_not invalid_feature_item.valid?
+    assert_equal invalid_feature_item.errors.full_messages, ["Upload either an image or add a YouTube URL"]
+  end
+
+  test "validates that either an image and youtube_video_url can be provided" do
+    invalid_feature_item = build(:promotional_feature_item, youtube_video_url: "https://www.youtube.com/watch?v=fFmDQn9Lbl4")
+
+    assert_not invalid_feature_item.valid?
+    assert_equal invalid_feature_item.errors.full_messages, ["Upload either an image or add a YouTube URL"]
+  end
+
 private
 
   def string_of_length(length)
