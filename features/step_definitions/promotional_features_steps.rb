@@ -17,7 +17,7 @@ When(/^I view the promotional feature$/) do
   visit admin_organisation_promotional_feature_url(@executive_office, @promotional_feature)
 end
 
-When(/^I add a new promotional feature with a single item$/) do
+When(/^I add a new promotional feature with a single item which has an image$/) do
   visit admin_organisation_path(@executive_office)
   click_link "Promotional features"
   click_link "New promotional feature"
@@ -30,6 +30,24 @@ When(/^I add a new promotional feature with a single item$/) do
     fill_in "Item title url (optional)",    with: "http://big-cheese.co"
     attach_file :image, Rails.root.join("test/fixtures/big-cheese.960x640.jpg")
     fill_in "Image description (alt text)", with: "The Big Cheese"
+  end
+
+  click_button "Save"
+end
+
+When(/^I add a new promotional feature with a single item which has a YouTube URL$/) do
+  visit admin_organisation_path(@executive_office)
+  click_link "Promotional features"
+  click_link "New promotional feature"
+
+  fill_in "Feature title", with: "Big Cheese"
+
+  within "form.promotional_feature_item" do
+    fill_in "Summary",                      with: "The Big Cheese is coming."
+    fill_in "Item title (optional)",        with: "The Big Cheese"
+    fill_in "Item title url (optional)",    with: "http://big-cheese.co"
+    choose "YouTube video"
+    fill_in "YouTube video URL", with: "https://www.youtube.com/watch?v=fFmDQn9Lbl4"
   end
 
   click_button "Save"
@@ -76,7 +94,8 @@ Then(/^I should see the promotional feature on the organisation's page$/) do
     within record_css_selector(item) do
       expect(page).to have_content(item.summary)
       expect(page).to have_link(item.title, href: item.title_url)
-      expect(page).to have_selector("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']")
+      expect(page).to have_selector("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']") if item.image.present?
+      expect(page).to have_selector("a[href='#{item.youtube_video_url}']") if item.youtube_video_url.present?
     end
   end
 end

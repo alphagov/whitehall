@@ -4,11 +4,46 @@
 <%= form.check_box :double_width, label_text: "Display double-width?" %>
 <%= form.text_area :summary, rows: 4 %>
 
-<div class="form-group">
-  <%= image_tag(form.object.image.url(:s300)) if form.object.image_url %>
-</div>
-<%= form.upload :image, label_text: 'Item image (must be 960px by 640px)' %>
-<%= form.text_field :image_alt_text, label_text: "Image description (alt text)" %>
+<% if current_user.can_add_youtube_urls_to_promotional_features? %>
+  <div class="publishing-controls">
+    <fieldset>
+      <legend>Image or YouTube video</legend>
+
+      <p>Upload an image or input a YouTube video url for the promotional feature item</p>
+
+      <%= form.labelled_radio_button(
+        "Image",
+        :image_or_youtube_video_url,
+        "image",
+        checked: form.object.image.present? || params.dig("promotional_feature", "promotional_feature_items_attributes", "0", "image_or_youtube_video_url") == "image"
+      ) %>
+
+      <div class="form-group image-fields">
+        <%= image_tag(form.object.image.url(:s300)) if form.object.image_url %>
+        <%= form.upload :image, label_text: 'Item image (must be 960px by 640px)' %>
+        <%= form.text_field :image_alt_text, label_text: "Image description (alt text)" %>
+      </div>
+
+      <%= form.labelled_radio_button(
+        "YouTube video",
+        :image_or_youtube_video_url,
+        "youtube_video_url",
+        checked: form.object.youtube_video_url.present? || params.dig("promotional_feature", "promotional_feature_items_attributes", "0", "image_or_youtube_video_url") == "youtube_video_url"
+      ) %>
+
+      <div class="youtube-video-url-fields form-group">
+        <%= form.text_field :youtube_video_url, label_text: "YouTube video URL" %>
+        <p class="hint add-bottom-margin">For example https://www.youtube.com/watch?v=MSmotCRFFMc</p>
+      </div>
+    </fieldset>
+  </div>
+<% else %>
+  <div class="form-group">
+    <%= image_tag(form.object.image.url(:s300)) if form.object.image_url %>
+  </div>
+  <%= form.upload :image, label_text: 'Item image (must be 960px by 640px)' %>
+  <%= form.text_field :image_alt_text, label_text: "Image description (alt text)" %>
+<% end %>
 
 <div class="js-duplicate-fields">
   <legend>Feature item links</legend>

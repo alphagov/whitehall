@@ -1,6 +1,7 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
   before_action :load_promotional_feature, only: %i[show edit update destroy]
+  before_action :clean_image_or_youtube_video_url_param, only: %i[create]
   layout :get_layout
 
   def index
@@ -76,7 +77,7 @@ private
   end
 
   def promotional_feature_params
-    params.require(:promotional_feature).permit(
+    @promotional_feature_params ||= params.require(:promotional_feature).permit(
       :title,
       promotional_feature_items_attributes: [
         :summary,
@@ -86,8 +87,27 @@ private
         :title_url,
         :double_width,
         :image_cache,
+        :youtube_video_url,
+        :image_or_youtube_video_url,
         { links_attributes: %i[url text _destroy] },
       ],
     )
+  end
+
+  def clean_image_or_youtube_video_url_param
+    return if first_promotional_feature_item_params.blank?
+
+    feature_item_type = first_promotional_feature_item_params.delete(:image_or_youtube_video_url)
+
+    if feature_item_type == "youtube_video_url" && current_user.can_add_youtube_urls_to_promotional_features?
+      first_promotional_feature_item_params["image"] = nil
+      first_promotional_feature_item_params["image_alt_text"] = nil
+    else
+      first_promotional_feature_item_params["youtube_video_url"] = nil
+    end
+  end
+
+  def first_promotional_feature_item_params
+    @first_promotional_feature_item_params ||= promotional_feature_params.dig("promotional_feature_items_attributes", "0")
   end
 end
