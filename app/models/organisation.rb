@@ -123,7 +123,7 @@ class Organisation < ApplicationRecord
     contacts.where(contact_type_id: ContactType::FOI.id)
   end
 
-  has_many :promotional_features
+  has_many :promotional_features, -> { order(:ordering) }
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
   accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
@@ -519,6 +519,16 @@ class Organisation < ApplicationRecord
       natural-england
       planning-inspectorate
     ]
+  end
+
+  def reorder_promotional_features(new_order)
+    promotional_features_orderings = promotional_features.map(&:ordering)
+
+    new_order.each do |promotional_feature_row|
+      id, ordering = promotional_feature_row
+      promotional_feature = promotional_features.find(id)
+      promotional_feature.update!(ordering: promotional_features_orderings[ordering.to_i - 1])
+    end
   end
 
 private

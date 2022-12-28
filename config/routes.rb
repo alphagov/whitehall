@@ -175,6 +175,8 @@ Whitehall::Application.routes.draw do
           resources :social_media_accounts
           resources :translations, controller: "organisation_translations"
           resources :promotional_features do
+            get :reorder, on: :collection
+            patch :update_order, on: :collection
             resources :promotional_feature_items, as: :items, path: "items", except: [:index]
           end
           member do

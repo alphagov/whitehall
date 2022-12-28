@@ -120,3 +120,27 @@ Then(/^I should see the promotional feature on the executive office page$/) do
     end
   end
 end
+
+And(/^the executive office has the promotional feature "([^"]*)"$/) do |title|
+  @executive_office.promotional_features.create!(title:)
+end
+
+When(/^I set the order of the promotional features to:$/) do |promotional_feature_order|
+  visit admin_organisation_promotional_features_path(@executive_office)
+  click_link "Reorder promotional features"
+
+  promotional_feature_order.hashes.each do |promotional_feature_info|
+    promotional_feature = PromotionalFeature.find_by(title: promotional_feature_info[:title])
+    fill_in "ordering[#{promotional_feature.id}]", with: promotional_feature_info[:order]
+  end
+  click_button "Save"
+end
+
+Then(/^the promotional features should be in the following order:$/) do |promotional_feature_list|
+  promotion_feature_ids = all(".promotional_feature").map { |element| element[:id] }
+
+  promotional_feature_list.hashes.each_with_index do |feature_info, index|
+    promotional_feature = PromotionalFeature.find_by(title: feature_info[:title])
+    expect("promotional_feature_#{promotional_feature.id}").to eq(promotion_feature_ids[index])
+  end
+end

@@ -27,3 +27,18 @@ Feature: Promotional features for executive offices
     And the executive office has a promotional feature with the maximum number of items
     When I view the promotional feature
     Then I should not be able to add any further feature items
+
+  Scenario: Reordering promotional features
+    And the executive office has the promotional feature "Feature 1"
+    And the executive office has the promotional feature "Feature 2"
+    And the executive office has the promotional feature "Feature 3"
+    When I set the order of the promotional features to:
+      | title       | order |
+      | Feature 2   | 1     |
+      | Feature 3   | 2     |
+      | Feature 1   | 3     |
+    Then the promotional features should be in the following order:
+      | title       |
+      | Feature 2   |
+      | Feature 3   |
+      | Feature 1   |

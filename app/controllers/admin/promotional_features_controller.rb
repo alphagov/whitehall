@@ -1,6 +1,7 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
   before_action :load_promotional_feature, only: %i[show edit update destroy]
+  layout :get_layout
 
   def index
     @promotional_features = @organisation.promotional_features
@@ -15,7 +16,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   def create
     @promotional_feature = @organisation.promotional_features.build(promotional_feature_params)
     if @promotional_feature.save
-      Whitehall::PublishingApi.republish_async(@promotional_feature.organisation)
+      Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature created"
     else
       render :new
@@ -28,7 +29,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def update
     if @promotional_feature.update(promotional_feature_params)
-      Whitehall::PublishingApi.republish_async(@promotional_feature.organisation)
+      Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature updated"
     else
       render :edit
@@ -37,11 +38,34 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def destroy
     @promotional_feature.destroy!
-    Whitehall::PublishingApi.republish_async(@promotional_feature.organisation)
+    Whitehall::PublishingApi.republish_async(@organisation)
     redirect_to [:admin, @organisation, PromotionalFeature], notice: "Promotional feature deleted."
   end
 
+  def reorder
+    redirect_to admin_organisation_promotional_features_path(@organisation) and return unless @organisation.promotional_features.many?
+
+    @promotional_features = @organisation.promotional_features
+  end
+
+  def update_order
+    @organisation.reorder_promotional_features(params[:ordering])
+    Whitehall::PublishingApi.republish_async(@organisation)
+    flash[:notice] = "Promotional features reordered successfully"
+
+    redirect_to admin_organisation_promotional_features_path(@organisation)
+  end
+
 private
+
+  def get_layout
+    case action_name
+    when "reorder", "update_order"
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])
