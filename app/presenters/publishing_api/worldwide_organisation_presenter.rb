@@ -19,6 +19,10 @@ module PublishingApi
       content.merge!(
         description:,
         details: {
+          logo: {
+            crest: "single-identity",
+            formatted_title: item.logo_formatted_name,
+          },
           ordered_corporate_information_pages:,
           social_media_links:,
         },

@@ -29,6 +29,10 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
       details: {
+        logo: {
+          crest: "single-identity",
+          formatted_title: "Locationia\nEmbassy",
+        },
         ordered_corporate_information_pages: [
           {
             content_id: worldwide_org.corporate_information_pages[0].content_id,
