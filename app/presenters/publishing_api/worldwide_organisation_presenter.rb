@@ -19,6 +19,7 @@ module PublishingApi
       content.merge!(
         description:,
         details: {
+          ordered_corporate_information_pages:,
           social_media_links:,
         },
         document_type: item.class.name.underscore,
@@ -32,6 +33,7 @@ module PublishingApi
 
     def links
       {
+        corporate_information_pages:,
         ordered_contacts:,
         sponsoring_organisations:,
         world_locations:,
@@ -46,6 +48,58 @@ module PublishingApi
       return [] unless item.offices.any?
 
       item.offices.map(&:contact).map(&:content_id)
+    end
+
+    def corporate_information_pages
+      return [] unless item.corporate_information_pages.any?
+
+      item.corporate_information_pages.map(&:content_id)
+    end
+
+    def ordered_corporate_information_pages
+      corporate_information_pages = item.corporate_information_pages&.published
+      return [] unless corporate_information_pages
+
+      links = []
+
+      %i[our_information jobs_and_contracts].each do |page_type|
+        corporate_information_pages.by_menu_heading(page_type).each do |corporate_information_page|
+          links << {
+            content_id: corporate_information_page.content_id,
+            title: corporate_information_page.title,
+          }
+        end
+      end
+
+      publication_scheme = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::PublicationScheme.id)
+      if publication_scheme.present?
+        links << {
+          content_id: publication_scheme.content_id,
+          title: I18n.t("worldwide_organisation.corporate_information.publication_scheme_html", link: corporate_information_page_link_text("publication_scheme")),
+        }
+      end
+
+      welsh_language_scheme = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::WelshLanguageScheme.id)
+      if welsh_language_scheme.present?
+        links << {
+          content_id: welsh_language_scheme.content_id,
+          title: I18n.t("worldwide_organisation.corporate_information.welsh_language_scheme_html", link: corporate_information_page_link_text("welsh_language_scheme")),
+        }
+      end
+
+      personal_information_charter = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::PersonalInformationCharter.id)
+      if personal_information_charter.present?
+        links << {
+          content_id: personal_information_charter.content_id,
+          title: I18n.t("worldwide_organisation.corporate_information.personal_information_charter_html", link: corporate_information_page_link_text("personal_information_charter")),
+        }
+      end
+
+      links
+    end
+
+    def corporate_information_page_link_text(key)
+      I18n.t("corporate_information_page.type.link_text.#{key}", default: I18n.t("corporate_information_page.type.title.#{key}"))
     end
 
     def social_media_links

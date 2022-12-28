@@ -2,6 +2,16 @@ FactoryBot.define do
   factory :worldwide_organisation, traits: [:translated] do
     sequence(:name) { |index| "worldwide-organisation-#{index}" }
 
+    trait(:with_corporate_information_pages) do
+      after :create do |organisation, _evaluator|
+        FactoryBot.create(:complaints_procedure_corporate_information_page, organisation: nil, worldwide_organisation: organisation)
+        FactoryBot.create(:personal_information_charter_corporate_information_page, organisation: nil, worldwide_organisation: organisation)
+        FactoryBot.create(:publication_scheme_corporate_information_page, organisation: nil, worldwide_organisation: organisation)
+        FactoryBot.create(:recruitment_corporate_information_page, organisation: nil, worldwide_organisation: organisation)
+        FactoryBot.create(:welsh_language_scheme_corporate_information_page, organisation: nil, worldwide_organisation: organisation)
+      end
+    end
+
     trait(:with_office) do
       after :create do |organisation, _evaluator|
         FactoryBot.create(:worldwide_office, worldwide_organisation: organisation)
