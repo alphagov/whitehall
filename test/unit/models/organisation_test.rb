@@ -1090,10 +1090,10 @@ class OrganisationTest < ActiveSupport::TestCase
 
     params = ActionController::Parameters.new({
       ordering: {
-        "3": "1",
-        "4": "2",
-        "2": "3",
-        "1": "4",
+        "#{promotional_feature3.id}": "1",
+        "#{promotional_feature4.id}": "2",
+        "#{promotional_feature2.id}": "3",
+        "#{promotional_feature1.id}": "4",
       },
     })
 
