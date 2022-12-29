@@ -1,6 +1,11 @@
 require "test_helper"
 
 class PromotionalFeatureItemTest < ActiveSupport::TestCase
+  VALID_YOUTUBE_URLS = [
+    "https://youtu.be/fFmDQn9Lbl4",
+    "https://www.youtube.com/watch?v=fFmDQn9Lbl4",
+  ].freeze
+
   test "invalid without a summary" do
     assert_not build(:promotional_feature_item, summary: nil).valid?
   end
@@ -42,6 +47,19 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
 
     assert_not invalid_feature_item.valid?
     assert_equal invalid_feature_item.errors.full_messages, ["Upload either an image or add a YouTube URL"]
+  end
+
+  VALID_YOUTUBE_URLS.each do |url|
+    test "validates that a youtube_video_url of `#{url}` is valid" do
+      assert build(:promotional_feature_item, image: nil, youtube_video_url: url).valid?
+    end
+  end
+
+  test "validates that a youtube_video_url of `https://www.gov.uk/government/organisations/government-digital-service` is invalid" do
+    promotional_feature_item = build(:promotional_feature_item, youtube_video_url: "https://www.gov.uk/government/organisations/government-digital-service")
+
+    assert_not promotional_feature_item.valid?
+    assert_equal promotional_feature_item.errors[:youtube_video_url], ["Did not match expected format, please use a https://www.youtube.com/watch?v=MSmotCRFFMc or https://youtu.be/MSmotCRFFMc URL"]
   end
 
 private
