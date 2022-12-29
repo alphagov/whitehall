@@ -661,7 +661,7 @@ GEM
     sidekiq-statsd (2.1.0)
       activesupport
       sidekiq (>= 3.3.1)
-    simplecov (0.21.2)
+    simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
