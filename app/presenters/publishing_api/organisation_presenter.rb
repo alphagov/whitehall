@@ -280,25 +280,44 @@ module PublishingApi
         {
           title: promotional_feature.title,
           items: promotional_feature.items.map do |promotional_feature_item|
-            {
-              title: promotional_feature_item.title,
-              href: promotional_feature_item.title_url,
-              summary: promotional_feature_item.summary,
-              image: {
-                url: promotional_feature_item.image_url,
-                alt_text: promotional_feature_item.image_alt_text,
-              },
-              double_width: promotional_feature_item.double_width,
-              links: promotional_feature_item.links.map do |link|
-                {
-                  title: link.text,
-                  href: link.url,
-                }
-              end,
-            }
+            if promotional_feature_item.youtube_video_id.present?
+              promotional_feature_item_youtube_hash(promotional_feature_item)
+            else
+              promotional_feature_item_image_hash(promotional_feature_item)
+            end
           end,
         }
       end
+    end
+
+    def promotional_feature_item_youtube_hash(promotional_feature_item)
+      promotional_feature_item_hash_common(promotional_feature_item).merge(
+        { youtube_video_id: promotional_feature_item.youtube_video_id },
+      )
+    end
+
+    def promotional_feature_item_image_hash(promotional_feature_item)
+      promotional_feature_item_hash_common(promotional_feature_item).merge({
+        image: {
+          url: promotional_feature_item.image_url,
+          alt_text: promotional_feature_item.image_alt_text,
+        },
+      })
+    end
+
+    def promotional_feature_item_hash_common(promotional_feature_item)
+      {
+        title: promotional_feature_item.title,
+        href: promotional_feature_item.title_url,
+        summary: promotional_feature_item.summary,
+        double_width: promotional_feature_item.double_width,
+        links: promotional_feature_item.links.map do |link|
+          {
+            title: link.text,
+            href: link.url,
+          }
+        end,
+      }.compact
     end
 
     def people_content_ids(role:)

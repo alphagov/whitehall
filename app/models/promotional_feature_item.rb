@@ -19,6 +19,16 @@ class PromotionalFeatureItem < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  def youtube_video_id
+    return if youtube_video_url.blank?
+
+    youtube_video_url =~ VALID_YOUTUBE_URL_FORMAT
+    youtube_video_id = ::Regexp.last_match(1) || ::Regexp.last_match(2)
+    raise "youtube_video_url: #{youtube_video_url} is invalid for PromotionalFeatureItem id: #{id}" if youtube_video_id.blank?
+
+    youtube_video_id
+  end
+
 private
 
   def image_or_youtube_url_is_present

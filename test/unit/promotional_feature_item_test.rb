@@ -62,6 +62,20 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert_equal promotional_feature_item.errors[:youtube_video_url], ["Did not match expected format, please use a https://www.youtube.com/watch?v=MSmotCRFFMc or https://youtu.be/MSmotCRFFMc URL"]
   end
 
+  VALID_YOUTUBE_URLS.each do |url|
+    test "#youtube_video_id returns the youtube_video_id for `#{url}`" do
+      assert_equal build(:promotional_feature_item, youtube_video_url: url).youtube_video_id, "fFmDQn9Lbl4"
+    end
+  end
+
+  test "#youtube_video_id raises an exception when an youtube_video_id cannot be parsed form the youtube_video_url" do
+    promotional_feature_item = build(:promotional_feature_item, youtube_video_url: "https://www.gov.uk/government/organisations/government-digital-service")
+
+    assert_raises "youtube_video_url: #{promotional_feature_item.youtube_video_url} is invalid for PromotionalFeatureItem id: #{promotional_feature_item.id}" do
+      promotional_feature_item.youtube_video_id
+    end
+  end
+
 private
 
   def string_of_length(length)

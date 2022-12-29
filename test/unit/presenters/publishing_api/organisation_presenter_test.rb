@@ -181,24 +181,44 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   end
 
   test "presents an eligible organisation with promotional features" do
-    promotional_feature = create(:promotional_feature)
+    promotional_feature1 = create(:promotional_feature)
+    promotional_feature_item1 = create(:promotional_feature_item, promotional_feature: promotional_feature1)
+    promotional_feature2 = create(:promotional_feature)
+    promotional_feature_item2 = create(:promotional_feature_item, :with_youtube_video_url, promotional_feature: promotional_feature2)
+
     organisation = create(
       :organisation,
       name: "Organisation of Things",
       organisation_type: OrganisationType.executive_office,
-      promotional_features: [promotional_feature],
+      promotional_features: [
+        promotional_feature1,
+        promotional_feature2,
+      ],
     )
     presented_item = present(organisation)
 
-    assert_equal(
-      [
-        {
-          title: promotional_feature.title,
-          items: [],
-        },
-      ],
-      presented_item.content[:details][:ordered_promotional_features],
-    )
+    expected_output = [
+      {
+        title: promotional_feature1.title,
+        items: [
+          summary: promotional_feature_item1.summary,
+          image: { url: promotional_feature_item1.image.url, alt_text: promotional_feature_item1.image_alt_text },
+          double_width: promotional_feature_item1.double_width,
+          links: promotional_feature_item2.links,
+        ],
+      },
+      {
+        title: promotional_feature2.title,
+        items: [
+          summary: promotional_feature_item2.summary,
+          youtube_video_id: promotional_feature_item2.youtube_video_id,
+          double_width: promotional_feature_item2.double_width,
+          links: promotional_feature_item2.links,
+        ],
+      },
+    ]
+
+    assert_equal(expected_output, presented_item.content[:details][:ordered_promotional_features])
   end
 
   test "does not present an ineligible organisation with promotional features" do
