@@ -47,7 +47,7 @@
                   <p>This image is shown automatically, and is not available for use inline in the body.</p>
                 <% else %>
                   <p>Markdown to use:
-                    <input type="text" readonly="readonly" value="!!<%= i %>" />
+                    <input type="text" readonly="readonly" value="[Image:<%= images_fields.object.image_data.carrierwave_image %>]" />
                   </p>
                 <% end %>
               </div>
