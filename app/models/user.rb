@@ -26,6 +26,7 @@ class User < ApplicationRecord
     GDS_ADMIN = "GDS Admin".freeze
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
     PREVIEW_NEXT_RELEASE = "Preview next release".freeze
+    ADD_YOUTUBE_URLS_TO_PROMOTIONAL_FEATURES = "Add youtube urls to promotional features".freeze
   end
 
   def role
@@ -89,6 +90,10 @@ class User < ApplicationRecord
 
   def can_preview_next_release?
     has_permission?(Permissions::PREVIEW_NEXT_RELEASE)
+  end
+
+  def can_add_youtube_urls_to_promotional_features?
+    has_permission?(Permissions::ADD_YOUTUBE_URLS_TO_PROMOTIONAL_FEATURES)
   end
 
   def organisation_name
