@@ -59,9 +59,7 @@ class DocumentListExportPresenter
     ]
   end
 
-  def public_url
-    Whitehall.url_maker.public_document_url(edition)
-  end
+  delegate :public_url, to: :edition
 
   def admin_url
     Whitehall.url_maker.admin_edition_url(edition)

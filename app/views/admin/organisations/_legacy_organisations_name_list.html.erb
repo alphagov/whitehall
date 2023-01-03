@@ -1,7 +1,7 @@
 <ul class="organisations-name-list">
   <% organisations.each do |organisation| %>
     <%= content_tag_for(:li, organisation, class: 'organisation') do %>
-      <%= link_to organisation.name, organisation_path(organisation) %>
+      <%= link_to organisation.name, organisation.public_path %>
     <% end %>
   <% end %>
 </ul>

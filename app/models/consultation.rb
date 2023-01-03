@@ -176,6 +176,10 @@ class Consultation < Publicationesque
     title
   end
 
+  def base_path
+    "/government/consultations/#{slug}"
+  end
+
 private
 
   def validate_closes_after_opens
