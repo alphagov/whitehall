@@ -6,6 +6,8 @@
 on:
   pull_request:
   push:
+    branches:
+      - main
   workflow_call:
     inputs:
       # what branch or Git SHA to clone this app with, only applies when
