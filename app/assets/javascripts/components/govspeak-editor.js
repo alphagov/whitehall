@@ -14,15 +14,28 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     return document.querySelector('meta[name="csrf-token"]').content
   }
 
-  GovspeakEditor.prototype.getRenderedGovspeak = function (content, callback) {
-    var body = new FormData()
-    body.append('body', content)
+  GovspeakEditor.prototype.getRenderedGovspeak = function (body, callback) {
+    var data = this.generateFormData(body)
 
     var request = new XMLHttpRequest()
     request.open('POST', '/government/admin/preview', false)
     request.setRequestHeader('X-CSRF-Token', this.getCsrfToken())
     request.onreadystatechange = callback
-    request.send(body)
+    request.send(data)
+  }
+
+  GovspeakEditor.prototype.generateFormData = function (body) {
+    var data = new FormData()
+    data.append('body', body)
+    data.append('authenticity_token', this.getCsrfToken())
+    data.append('alternative_format_provider_id', this.alternativeFormatProviderId())
+
+    var imageIds = this.getImageIds()
+    for (var index = 0; index < imageIds.length; index++) {
+      data.append('image_ids[]', imageIds[index])
+    }
+
+    return data
   }
 
   GovspeakEditor.prototype.initPreview = function () {
@@ -59,6 +72,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         )
       }
     }.bind(this))
+  }
+
+  GovspeakEditor.prototype.getImageIds = function () {
+    var imagesIds = this.module.getAttribute('data-image-ids')
+    imagesIds = imagesIds ? JSON.parse(imagesIds) : []
+
+    return imagesIds.filter(function (id) { return id })
+  }
+
+  GovspeakEditor.prototype.alternativeFormatProviderId = function () {
+    return this.module.getAttribute('data-alternative-format-provider-id')
   }
 
   Modules.GovspeakEditor = GovspeakEditor

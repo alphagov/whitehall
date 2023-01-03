@@ -50,6 +50,10 @@
           id: "attachment_govspeak_content_body",
           value: form.object.govspeak_content.body,
           error_items: errors_for(attachment.errors, :"govspeak_content.body"),
+          data_attributes: {
+            image_ids: @edition && @edition.images.any? ? @edition.images.map { |img| img[:id] } : [],
+            alternative_format_provider_id: @edition && @edition.alternative_format_provider_id ? @edition.alternative_format_provider_id : current_user.organisation.try(:id),
+          }
         } %>
       </div>
     <% end %>

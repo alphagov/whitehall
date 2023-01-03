@@ -3,7 +3,10 @@ describe('GOVUK.Modules.GovspekEditor', function () {
 
   beforeEach(function () {
     component = document.createElement('div')
+    component.setAttribute('data-image-ids', JSON.stringify([1, 2, 3, 4]))
+    component.setAttribute('data-alternative-format-provider-id', 11)
 
+    // Preview Button
     var previewButton = document.createElement('button')
     previewButton.classList.add('js-app-c-govspeak-editor__preview-button')
     previewButton.setAttribute('data-preview-toggle-tracking', true)
@@ -12,6 +15,7 @@ describe('GOVUK.Modules.GovspekEditor', function () {
     previewButton.setAttribute('data-content-target', '#textarea_id')
     previewButton.innerText = 'Preview'
 
+    // Textarea
     var textareaSection = document.createElement('div')
     textareaSection.classList.add('app-c-govspeak-editor__textarea')
 
@@ -20,9 +24,11 @@ describe('GOVUK.Modules.GovspekEditor', function () {
     textarea.innerText = '## Hello'
     textareaSection.appendChild(textarea)
 
+    // Preview section
     var previewSection = document.createElement('div')
     previewSection.classList.add('app-c-govspeak-editor__preview')
 
+    // Append to component
     component.appendChild(previewButton)
     component.appendChild(textareaSection)
     component.appendChild(previewSection)
@@ -186,5 +192,19 @@ describe('GOVUK.Modules.GovspekEditor', function () {
       'pressed-preview-button',
       { label: 'edit' }
     )
+  })
+
+  it('generates form data correctly', function () {
+    var formData = module.generateFormData('some text')
+
+    expect(Array.from(formData.entries())).toEqual([
+      ['body', 'some text'],
+      ['authenticity_token', 'a-csrf-token'],
+      ['alternative_format_provider_id', '11'],
+      ['image_ids[]', '1'],
+      ['image_ids[]', '2'],
+      ['image_ids[]', '3'],
+      ['image_ids[]', '4']
+    ])
   })
 })
