@@ -1,12 +1,13 @@
-<% page_title "Edit topics: " + @edition.title %>
+<% content_for :page_title, "#{@edition.title}: Worldwide tags" %>
+<% content_for :context, @edition.title %>
+<% content_for :title, "Worldwide tags" %>
 
-<div class="row">
-  <h1><%= @edition.title %></h1>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <h2>Worldwide</h2>
-    <hr>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Selected topics",
+      margin_bottom: 2,
+    } %>
 
     <%= form_for(
       @tag_form,
@@ -16,34 +17,24 @@
     ) do |form| %>
       <%= form.hidden_field :previous_version %>
 
-      <div class="form-group"
-        data-module="taxonomy-tree-checkboxes"
-        data-content-id="<%= @edition.content_id %>"
-        data-content-format="<%= @edition.content_store_document_type %>"
-        data-content-public-path="<%= public_document_path(@edition) %>">
+      <%= render partial: "/components/miller-columns", locals: {
+        id: "taxonomy_tag_form[taxons]",
+        searchable: true,
+        items: @world_taxonomy.all_world_taxons_transformed(@tag_form.selected_taxons),
+      } %>
 
-        <%= render(
-          partial: "/admin/shared/tagging/taxonomy",
-          locals: {
-            selected_taxons: @tag_form.selected_taxons,
-            level_one_taxons: @world_taxonomy.all_world_taxons
-          }
-        ) %>
-      </div>
+      <%= render "govuk_publishing_components/components/details", {
+        title: "Changes are applied to a live page as soon as you update the tags"
+      } do %>
+        If this content has already been published and you add new topics, then the last published edition will appear on those topic pages immediately, before you publish a new edition.
+      <% end %>
 
-      <h2>Selected topics</h2>
-      <div class="content content-bordered hidden" data-module="breadcrumb-preview">
-      </div>
+      <div class="govuk-button-group govuk-!-margin-top-7">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save topic changes",
+        } %>
 
-      <p class="warning">
-        Warning: topic changes to published content appear instantly on the live site.
-      </p>
-
-      <div class="publishing-controls well">
-        <%= form.form_actions(
-          buttons: { save: 'Save topic changes' },
-          cancel: admin_edition_path(@edition)
-        ) %>
+        <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </div>
