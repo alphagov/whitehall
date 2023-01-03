@@ -5,6 +5,7 @@ FactoryBot.define do
 
     trait(:with_corporate_information_pages) do
       after :create do |organisation, _evaluator|
+        FactoryBot.create(:about_corporate_information_page, organisation: nil, worldwide_organisation: organisation)
         FactoryBot.create(:complaints_procedure_corporate_information_page, organisation: nil, worldwide_organisation: organisation)
         FactoryBot.create(:personal_information_charter_corporate_information_page, organisation: nil, worldwide_organisation: organisation)
         FactoryBot.create(:publication_scheme_corporate_information_page, organisation: nil, worldwide_organisation: organisation)

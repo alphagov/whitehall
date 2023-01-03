@@ -14,12 +14,13 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
                            :with_world_location,
                            name: "Locationia Embassy",
                            analytics_identifier: "WO123")
+
     public_path = worldwide_org.public_path
 
     expected_hash = {
       base_path: public_path,
       title: "Locationia Embassy",
-      description: nil,
+      description: "edition-summary",
       schema_name: "worldwide_organisation",
       document_type: "worldwide_organisation",
       locale: "en",
@@ -29,29 +30,30 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
       details: {
+        body: "<div class=\"govspeak\"><p>Some stuff</p>\n</div>",
         logo: {
           crest: "single-identity",
           formatted_title: "Locationia\nEmbassy",
         },
         ordered_corporate_information_pages: [
           {
-            content_id: worldwide_org.corporate_information_pages[0].content_id,
+            content_id: worldwide_org.corporate_information_pages[1].content_id,
             title: "Complaints procedure",
           },
           {
-            content_id: worldwide_org.corporate_information_pages[3].content_id,
+            content_id: worldwide_org.corporate_information_pages[4].content_id,
             title: "Working for Locationia Embassy",
           },
           {
-            content_id: worldwide_org.corporate_information_pages[2].content_id,
+            content_id: worldwide_org.corporate_information_pages[3].content_id,
             title: "Read about the types of information we routinely publish in our Publication scheme.",
           },
           {
-            content_id: worldwide_org.corporate_information_pages[4].content_id,
+            content_id: worldwide_org.corporate_information_pages[5].content_id,
             title: "Find out about our commitment to publishing in Welsh.",
           },
           {
-            content_id: worldwide_org.corporate_information_pages[1].content_id,
+            content_id: worldwide_org.corporate_information_pages[2].content_id,
             title: "Our Personal information charter explains how we treat your personal information.",
           },
         ],
@@ -74,6 +76,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         worldwide_org.corporate_information_pages[2].content_id,
         worldwide_org.corporate_information_pages[3].content_id,
         worldwide_org.corporate_information_pages[4].content_id,
+        worldwide_org.corporate_information_pages[5].content_id,
       ],
       ordered_contacts: [
         worldwide_org.offices.first.contact.content_id,
