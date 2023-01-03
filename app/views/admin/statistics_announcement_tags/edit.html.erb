@@ -15,7 +15,7 @@
         data-module="taxonomy-tree-checkboxes"
         data-content-id="<%= @statistics_announcement.content_id %>"
         data-content-format="statistics_announcement"
-        data-content-public-path="<%= @statistics_announcement.public_path %>">
+        data-content-public-path="<%= @statistics_announcement.base_path %>">
 
         <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.ordered_taxons } %>
 
