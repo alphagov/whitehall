@@ -3,3 +3,8 @@
 .app-c-miller-columns__search {
   margin-bottom: govuk-spacing(6);
 }
+
+.miller-columns__column {
+  position: sticky;
+  top: 0;
+}
