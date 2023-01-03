@@ -22,7 +22,7 @@ module PublishingApi
 
       def base_path
         @base_path ||= if item.respond_to?(:public_path)
-                         item.public_path
+                         item.public_path(locale: I18n.locale)
                        else
                          Whitehall.url_maker.polymorphic_path(item)
                        end
