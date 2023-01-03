@@ -8,6 +8,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      commitish:
+        required: false
+        type: string
+        default: main
+      pact_consumer_version:
+        required: false
+        type: string
+        default: branch-main
   workflow_call:
     inputs:
       # what branch or Git SHA to clone this app with, only applies when
