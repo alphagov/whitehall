@@ -6,7 +6,14 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
   end
 
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
-    worldwide_org = create(:worldwide_organisation, name: "Locationia Embassy", analytics_identifier: "WO123")
+    worldwide_org = create(:worldwide_organisation,
+                           :with_corporate_information_pages,
+                           :with_office,
+                           :with_social_media_accounts,
+                           :with_sponsorships,
+                           :with_world_location,
+                           name: "Locationia Embassy",
+                           analytics_identifier: "WO123")
     public_path = Whitehall.url_maker.worldwide_organisation_path(worldwide_org)
 
     expected_hash = {
@@ -21,11 +28,63 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       public_updated_at: worldwide_org.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      details: {},
+      details: {
+        logo: {
+          crest: "single-identity",
+          formatted_title: "Locationia\nEmbassy",
+        },
+        ordered_corporate_information_pages: [
+          {
+            content_id: worldwide_org.corporate_information_pages[0].content_id,
+            title: "Complaints procedure",
+          },
+          {
+            content_id: worldwide_org.corporate_information_pages[3].content_id,
+            title: "Working for Locationia Embassy",
+          },
+          {
+            content_id: worldwide_org.corporate_information_pages[2].content_id,
+            title: "Read about the types of information we routinely publish in our Publication scheme.",
+          },
+          {
+            content_id: worldwide_org.corporate_information_pages[4].content_id,
+            title: "Find out about our commitment to publishing in Welsh.",
+          },
+          {
+            content_id: worldwide_org.corporate_information_pages[1].content_id,
+            title: "Our Personal information charter explains how we treat your personal information.",
+          },
+        ],
+        social_media_links: [
+          {
+            href: "https://www.facebook.com/UKgovernment",
+            service_type: "facebook",
+            title: "Our Facebook Page",
+          },
+        ],
+      },
       analytics_identifier: "WO123",
       update_type: "major",
     }
-    expected_links = {}
+
+    expected_links = {
+      corporate_information_pages: [
+        worldwide_org.corporate_information_pages[0].content_id,
+        worldwide_org.corporate_information_pages[1].content_id,
+        worldwide_org.corporate_information_pages[2].content_id,
+        worldwide_org.corporate_information_pages[3].content_id,
+        worldwide_org.corporate_information_pages[4].content_id,
+      ],
+      ordered_contacts: [
+        worldwide_org.offices.first.contact.content_id,
+      ],
+      sponsoring_organisations: [
+        worldwide_org.sponsoring_organisations.first.content_id,
+      ],
+      world_locations: [
+        worldwide_org.world_locations.first.content_id,
+      ],
+    }
 
     presented_item = present(worldwide_org)
 
