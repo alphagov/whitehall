@@ -34,26 +34,11 @@ class PublishStaticPages
         base_path: "/government/get-involved",
       },
       {
-        content_id: "b13317e9-3753-47b2-95da-c173071e621d",
-        title: "All publications",
-        document_type: "finder",
-        description: "Find publications from across government including policy papers, consultations, statistics, research, transparency data and Freedom of Information responses.",
-        base_path: "/government/publications",
-      },
-      {
         content_id: "a34e9bb6-f4af-4e4f-a21c-8127e3d2edbf",
         title: "Statistics",
         document_type: "finder",
         description: "Find statistics publications from across government, including statistical releases, live data tables, and National Statistics.",
         base_path: "/government/statistics",
-        locales: Locale.non_english.map(&:code),
-      },
-      {
-        content_id: "88936763-df8a-441f-8b96-9ea0dc0758a1",
-        title: "Government announcements",
-        document_type: "finder",
-        description: "Find news articles, speeches and statements from government organisations",
-        base_path: "/government/announcements",
         locales: Locale.non_english.map(&:code),
       },
       {
