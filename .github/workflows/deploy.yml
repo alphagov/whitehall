@@ -28,7 +28,7 @@ jobs:
   build-and-publish-image:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     name: Build and publish image
-    uses: alphagov/govuk-infrastructure/.github/workflows/build-and-push-image.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/build-and-push-image.yml@main
     with:
       gitRef: ${{ inputs.gitRef || github.ref }}
     secrets:
@@ -37,7 +37,7 @@ jobs:
   trigger-deploy:
     name: Trigger deploy to ${{ inputs.environment || 'integration' }}
     needs: build-and-publish-image
-    uses: alphagov/govuk-infrastructure/.github/workflows/deploy.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/deploy.yml@main
     with:
       imageTag: ${{ needs.build-and-publish-image.outputs.imageTag }}
       environment: ${{ inputs.environment || 'integration' }}
