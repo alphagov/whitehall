@@ -37,7 +37,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     detailed_guide.topical_event_memberships.create!(topical_event_id: topical_event.id)
 
-    public_path = Whitehall.url_maker.public_document_path(detailed_guide)
+    public_path = detailed_guide.public_path
     expected_content = {
       base_path: public_path,
       title: "Some detailed guide",

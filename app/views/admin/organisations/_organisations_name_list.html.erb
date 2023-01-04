@@ -1,5 +1,5 @@
 <%= render "govuk_publishing_components/components/list", {
   items: organisations.map do |organisation|
-    link_to organisation.name, organisation_path(organisation), class: "govuk-link"
+    link_to organisation.name, organisation.public_path, class: "govuk-link"
   end
 } %>

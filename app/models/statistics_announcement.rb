@@ -66,7 +66,7 @@ class StatisticsAnnouncement < ApplicationRecord
   include Searchable
   searchable  only: :without_published_publication,
               title: :title,
-              link: :public_path,
+              link: :base_path,
               description: :summary,
               display_date: :display_date,
               display_type: :display_type,
@@ -142,12 +142,11 @@ class StatisticsAnnouncement < ApplicationRecord
     PublicationType.find_by_id(publication_type_id)
   end
 
-  def public_path
+  def base_path
     Whitehall.url_maker.statistics_announcement_path(self)
   end
 
-  alias_method :base_path, :public_path
-  alias_method :search_link, :public_path
+  alias_method :search_link, :base_path
 
   def organisations_slugs
     organisations.map(&:slug)
@@ -213,7 +212,7 @@ private
   end
 
   def publication_url
-    Whitehall.url_maker.public_document_path(publication)
+    publication.base_path
   end
 
   def last_major_change
@@ -234,7 +233,7 @@ private
   end
 
   def redirect_not_circular
-    if redirect_url.present? && (public_path == redirect_url)
+    if redirect_url.present? && (base_path == redirect_url)
       errors.add(:redirect_url, "cannot redirect to itself")
     end
   end

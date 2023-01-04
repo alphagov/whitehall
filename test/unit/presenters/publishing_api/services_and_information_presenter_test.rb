@@ -7,7 +7,7 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
 
   test "presents a Services and Information page ready for adding to the publishing API" do
     organisation = create(:organisation, name: "Organisation of Things")
-    public_path = "#{Whitehall.url_maker.organisation_path(organisation)}/services-information"
+    public_path = "#{organisation.public_path}/services-information"
 
     expected_hash = {
       base_path: public_path,

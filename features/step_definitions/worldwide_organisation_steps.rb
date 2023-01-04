@@ -56,7 +56,7 @@ end
 Then(/^I should see the worldwide organisation "([^"]*)" on the "([^"]*)" world location page$/) do |worldwide_organisation_name, location_name|
   location = WorldLocation.find_by(name: location_name)
   worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_organisation_name)
-  visit world_location_path(location)
+  visit location.public_path
   within record_css_selector(worldwide_organisation) do
     expect(page).to have_content(worldwide_organisation_name)
   end

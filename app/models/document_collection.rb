@@ -25,7 +25,7 @@ class DocumentCollection < Edition
   end
 
   def search_link
-    Whitehall.url_maker.public_document_path(self)
+    base_path
   end
 
   def indexable_content
@@ -47,6 +47,10 @@ class DocumentCollection < Edition
 
   def locale_can_be_changed?
     true
+  end
+
+  def base_path
+    "/government/collections/#{slug}"
   end
 
 private

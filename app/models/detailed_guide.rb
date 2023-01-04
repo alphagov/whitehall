@@ -124,6 +124,10 @@ class DetailedGuide < Edition
     newly_created ? false : all_nation_applicability
   end
 
+  def base_path
+    "/guidance/#{slug}"
+  end
+
 private
 
   def date_for_government

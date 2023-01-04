@@ -74,7 +74,7 @@ module OrganisationHelper
   def superseding_organisations_text(organisation)
     if organisation.superseding_organisations.any?
       organisation_links = organisation.superseding_organisations.map do |org|
-        link_to(org.name, organisation_path(org))
+        link_to(org.name, org.public_path)
       end
       organisation_links.to_sentence.html_safe
     end
@@ -134,7 +134,7 @@ module OrganisationHelper
 
   def organisation_relationship_html(organisation)
     prefix = needs_definite_article?(organisation.name) ? "the " : ""
-    (prefix + link_to(organisation.name, organisation_path(organisation), class: "brand__color"))
+    (prefix + link_to(organisation.name, organisation.public_path, class: "brand__color"))
   end
 
   def needs_definite_article?(phrase)

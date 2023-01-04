@@ -25,4 +25,9 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "corporate information pages cannot be previously published" do
     assert_not build(:corporate_information_page).previously_published
   end
+
+  test "base path is nil when neither organisation or worldwide organisation is present" do
+    corporate_information_page = create(:corporate_information_page, organisation: nil, worldwide_organisation: nil)
+    assert_nil corporate_information_page.base_path
+  end
 end

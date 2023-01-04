@@ -26,7 +26,7 @@ namespace :export do
             document.slug,
             document.display_type,
             document.latest_edition.state,
-            document.live? ? Whitehall.url_maker.public_document_url(edition) : nil,
+            document.live? ? edition.public_url : nil,
             edition.id,
             edition.title,
             edition.state,
@@ -68,7 +68,7 @@ namespace :export do
         org.published_editions.each do |edition|
           csv << [
             org.display_name,
-            Whitehall.url_maker.public_document_url(edition),
+            edition.public_url,
             Whitehall.url_maker.admin_edition_url(edition),
             edition.title,
             edition.display_type,

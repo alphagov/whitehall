@@ -157,6 +157,12 @@ class Publication < Publicationesque
     end
   end
 
+  def base_path
+    return "/government/statistics/#{slug}" if statistics? || national_statistic?
+
+    "/government/publications/#{slug}"
+  end
+
 private
 
   def attachment_required_before_moving_out_of_draft

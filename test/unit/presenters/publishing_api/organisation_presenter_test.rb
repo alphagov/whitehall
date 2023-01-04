@@ -37,7 +37,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     minister = create(:person)
     create(:ministerial_role_appointment, role:, person: minister)
 
-    public_path = Whitehall.url_maker.organisation_path(organisation)
+    public_path = organisation.public_path
     public_atom_path = "#{public_path}.atom"
 
     expected_hash = {
@@ -311,5 +311,34 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     organisation_political = presented_item.content.dig(:details, :organisation_political)
 
     assert organisation_political
+  end
+
+  test "presents the correct routes for an organisation with a translation" do
+    organisation = create(
+      :organisation,
+      translated_into: %i[en cy],
+    )
+
+    I18n.with_locale(:en) do
+      presented_item = present(organisation)
+
+      assert_equal organisation.base_path, presented_item.content[:base_path]
+
+      assert_equal [
+        { path: organisation.base_path, type: "exact" },
+        { path: "#{organisation.base_path}.atom", type: "exact" },
+      ], presented_item.content[:routes]
+    end
+
+    I18n.with_locale(:cy) do
+      presented_item = present(organisation)
+
+      assert_equal "#{organisation.base_path}.cy", presented_item.content[:base_path]
+
+      assert_equal [
+        { path: "#{organisation.base_path}.cy", type: "exact" },
+        { path: "#{organisation.base_path}.cy.atom", type: "exact" },
+      ], presented_item.content[:routes]
+    end
   end
 end

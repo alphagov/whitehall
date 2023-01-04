@@ -6,7 +6,7 @@
     <h1>
       <span class="name"><%= @world_location_news.name %></span>
     </h1>
-    <p><%= link_to "View on website", Whitehall.url_maker.world_location_news_index_url(@world_location_news, cachebust_url_options) %></p>
+    <p><%= link_to "View on website", @world_location_news.public_url(cachebust_url_options) %></p>
   </div>
   <section class="world-location-details">
     <%= tab_navigation_for(@world_location_news) %>
@@ -23,7 +23,7 @@
           <% @world_location_news.non_english_translated_locales.each do |locale| %>
             <tr>
               <td class="locale">
-                <%= link_to locale.native_language_name, edit_admin_world_location_news_translation_path(@world_location_news, locale.code) %> (<%= link_to "view", Whitehall.url_maker.world_location_news_index_url(@world_location_news, locale: locale.code) %>)
+                <%= link_to locale.native_language_name, edit_admin_world_location_news_translation_path(@world_location_news, locale.code) %> (<%= link_to "view", @world_location_news.public_url(locale: locale.code) %>)
               </td>
               <td class="actions">
                 <%= button_to 'Delete',

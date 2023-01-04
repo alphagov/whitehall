@@ -33,7 +33,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
   test "when unpublished, it cannot redirect to itself" do
     announcement = build(:unpublished_statistics_announcement, slug: "dummy")
-    announcement.redirect_url = announcement.public_path
+    announcement.redirect_url = announcement.base_path
     assert_not announcement.valid?
 
     assert_match %r{cannot redirect to itself}, announcement.errors[:redirect_url].first
@@ -54,7 +54,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     expected_indexed_content = {
       "content_id" => announcement.content_id,
       "title" => announcement.title,
-      "link" => announcement.public_path,
+      "link" => announcement.base_path,
       "format" => "statistics_announcement",
       "description" => announcement.summary,
       "organisations" => announcement.organisations.map(&:slug),
