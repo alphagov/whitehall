@@ -33,6 +33,7 @@ gem "jbuilder"
 gem "jquery-ui-rails"
 gem "kaminari"
 gem "link_header"
+gem "mail", "~> 2.7.1" # TODO: remove once https://www.github.com/mikel/mail/issues/1489 is fixed.
 gem "mail-notify"
 gem "mime-types"
 gem "mini_magick"

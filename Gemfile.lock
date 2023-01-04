@@ -167,7 +167,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.1)
+    date (3.3.3)
     debug_inspector (1.1.0)
     diff-lcs (1.5.0)
     diffy (3.4.2)
@@ -362,11 +362,8 @@ GEM
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.8.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
-      net-imap
-      net-pop
-      net-smtp
     mail-notify (1.1.0)
       actionmailer (>= 5.2.4.6)
       actionpack (>= 5.2.7.1)
@@ -412,7 +409,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
-    net-imap (0.3.2)
+    net-imap (0.3.4)
       date
       net-protocol
     net-pop (0.1.2)
@@ -790,6 +787,7 @@ DEPENDENCIES
   kaminari
   launchy
   link_header
+  mail (~> 2.7.1)
   mail-notify
   maxitest
   mechanize
