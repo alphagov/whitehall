@@ -66,11 +66,13 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert link.is_a?(PromotionalFeatureLink)
   end
 
-  test "PUT :update updates the item and redirects to the feature and republishes the organisation to the PublishingApi" do
+  test "PUT :update updates the item, deletes the old image from the asset store and redirects to the feature and republishes the organisation to the PublishingApi" do
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
+    legacy_url_path = promotional_feature_item.image.file&.instance_variable_get("@legacy_url_path")
 
     Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
+    AssetManager::AssetDeleter.expects(:call).once.with(legacy_url_path)
 
     put :update,
         params: { organisation_id: @organisation,
@@ -78,12 +80,34 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
                   id: promotional_feature_item,
                   promotional_feature_item: {
                     summary: "Updated summary",
+                    image_alt_text: "Alt text",
+                    image: upload_fixture("big-cheese.960x640.jpg", "image/jpg"),
                     links_attributes: { "0" => { url: link.url, text: link.text, id: link.id, _destroy: false } },
                   } }
 
     assert_equal "Updated summary", promotional_feature_item.reload.summary
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
     assert_equal "Feature item updated.", flash[:notice]
+  end
+
+  test "PUT :update on a successful update it deletes the image from the asset store when a YouTube URL is provided and the user has the 'Add youtube urls to promotional features'" do
+    @current_user.permissions << "Add youtube urls to promotional features"
+    link = create(:promotional_feature_link)
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
+    legacy_url_path = promotional_feature_item.image.file&.instance_variable_get("@legacy_url_path")
+
+    AssetManager::AssetDeleter.expects(:call).once.with(legacy_url_path)
+
+    put :update,
+        params: { organisation_id: @organisation,
+                  promotional_feature_id: @promotional_feature,
+                  id: promotional_feature_item,
+                  promotional_feature_item: {
+                    summary: "Updated summary",
+                    youtube_video_url: "https://www.youtube.com/watch?v=fFmDQn9Lbl4",
+                    image_or_youtube_video_url: "youtube_video_url",
+                    links_attributes: { "0" => { url: link.url, text: link.text, id: link.id, _destroy: false } },
+                  } }
   end
 
   test "PUT :update re-renders edit if the feature item does not save" do

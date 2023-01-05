@@ -24,8 +24,15 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   end
 
   def update
+    legacy_image_url = @promotional_feature_item.image.file&.instance_variable_get("@legacy_url_path")
+
     if @promotional_feature_item.update(promotional_feature_item_params)
       Whitehall::PublishingApi.republish_async(@organisation)
+      if legacy_image_url.present?
+        current_legacy_image_url = @promotional_feature_item.image.file&.instance_variable_get("@legacy_url_path")
+        AssetManager::AssetDeleter.call(legacy_image_url) if legacy_image_url != current_legacy_image_url
+      end
+
       redirect_to_feature "Feature item updated."
     else
       render :edit
