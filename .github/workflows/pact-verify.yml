@@ -3,6 +3,9 @@
 # This workflow asserts that Pact contract tests are valid against this
 # codebase. It is trigged when changes are made to this project and it
 # is explicitly called by GDS API Adapters when changes are made there.
+
+name: Run Pact tests
+
 on:
   pull_request:
   push:
