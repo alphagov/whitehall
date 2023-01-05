@@ -82,9 +82,6 @@ Whitehall::Application.routes.draw do
     # Public facing routes still rendered by Whitehall
     resources :fatality_notices, path: "fatalities", only: [:show]
     scope "/history" do
-      get "/past-foreign-secretaries", to: "past_foreign_secretaries#index"
-      get "/past-foreign-secretaries/:id", to: "past_foreign_secretaries#show"
-
       get "/past-prime-ministers", to: "historic_appointments#index"
       get "/past-prime-ministers/:id", to: "historic_appointments#show", as: :historic_appointment
     end
