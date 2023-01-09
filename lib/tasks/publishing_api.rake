@@ -31,11 +31,6 @@ namespace :publishing_api do
 
     [
       {
-        base_path: "/government/history/past-chancellors",
-        content_id: "ac47f738-b6c3-4369-8d22-ce143c947442",
-        title: "Past Chancellors of the Exchequer",
-      },
-      {
         base_path: "/government/history/past-prime-ministers",
         content_id: "a258e45a-acbe-4d70-ad2c-a2a20761536a",
         title: "Past Prime Ministers",

@@ -3,14 +3,6 @@ require "test_helper"
 class HistoricAppointmentsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
-  test "routing for static chancellors page" do
-    assert_routing(
-      { path: "government/history/past-chancellors", method: :get },
-      controller: "historic_appointments",
-      action: "past_chancellors",
-    )
-  end
-
   test "routing for :show action" do
     assert_routing(
       { path: "government/history/past-prime-ministers/barry", method: :get },
@@ -36,13 +28,6 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
 
     assert_equal_role_presenters [repeat_pm1, previous_pm2], assigns(:recent_appointments)
     assert_equal_role_presenters [eighteenth_and_nineteenth_century_appointments], assigns(:eighteenth_and_nineteenth_century_appointments)
-  end
-
-  test "GET on :past_chancellors renders the template" do
-    get :past_chancellors
-
-    assert_response :success
-    assert_template :past_chancellors
   end
 
   test "GET on :show loads the person, appointment and historical account for previous Prime Ministers" do
