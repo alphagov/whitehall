@@ -11,6 +11,9 @@
   environment: environment,
   browser_title: yield(:page_title).presence || yield(:title) do %>
 
+  <!-- This element exists to initialise the JS module that configures custom Analytics behaviour -->
+  <div data-module="app-analytics"></div>
+
   <%= render "govuk_publishing_components/components/skip_link" %>
 
   <div class="legacy-whitehall">

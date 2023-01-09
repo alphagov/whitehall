@@ -80,6 +80,10 @@ describe('copyToClipboard', function () {
     $(document.body).append(container)
   })
 
+  afterEach(function () {
+    $(container).remove()
+  })
+
   it('copy the links to the clipboard', function () {
     spyOn(document, 'execCommand')
 
