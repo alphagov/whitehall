@@ -160,7 +160,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       translated_into: [:cy],
     )
 
-    expected_base_path = Whitehall.url_maker.ministerial_role_path(role)
+    expected_base_path = role.public_path
 
     I18n.with_locale(:en) do
       presented_item = PublishingApi::RolePresenter.new(role)

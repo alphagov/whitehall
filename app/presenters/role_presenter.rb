@@ -19,7 +19,7 @@ class RolePresenter < Whitehall::Decorators::Decorator
 
   def path
     if ministerial?
-      context.ministerial_role_path model
+      model.public_path
     end
   end
 

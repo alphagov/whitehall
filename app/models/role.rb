@@ -157,6 +157,18 @@ class Role < ApplicationRecord
     Govspeak::Document.new(responsibilities).to_text
   end
 
+  def base_path
+    "/government/ministers/#{slug}" if type == "MinisterialRole"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options)
+  end
+
 private
 
   def prevent_destruction_unless_destroyable

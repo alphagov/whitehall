@@ -87,7 +87,6 @@ Whitehall::Application.routes.draw do
     end
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
-    get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
     resources :operational_fields, path: "fields-of-operation", only: %i[index show]
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
 
