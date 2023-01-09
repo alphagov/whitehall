@@ -38,7 +38,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     assert_select "form#edit_edition" do
       assert_select "select[name*='edition[news_article_type_id']"
-      assert_select ".edition-form__subtype-format-advice", text: "Use this subformat for… Unedited press releases as sent to the media, and official statements from the organisation or a minister.Do not use for: statements to Parliament. Use the “Speech” format for those."
+      assert_select ".js-app-view-edition-form__subtype-format-advice", text: "Use this subformat for… Unedited press releases as sent to the media, and official statements from the organisation or a minister.Do not use for: statements to Parliament. Use the “Speech” format for those."
     end
   end
 
