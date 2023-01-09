@@ -10,6 +10,7 @@
   rows ||= 12
   image_ids ||= []
   alternative_format_provider_id ||= nil
+  form ||= nil
 
   track_preview_toggle ||= false
   track_category ||= false
@@ -33,6 +34,9 @@
 
   classes = "app-c-govspeak-editor govuk-form-group"
   classes << " govuk-form-group--error" if error_items
+
+  right_to_left = form ? form.object.rtl_locale? : nil
+  dir = right_to_left ? "rtl" : nil
 %>
 
 <%= tag.div class: classes, data: data_attributes do %>
@@ -68,9 +72,11 @@
       data: textarea_data_attributes,
       margin_bottom: 0,
       describedby: hint_id,
+      right_to_left: right_to_left
     } %>
   </div>
-  <div class="app-c-govspeak-editor__preview" aria-live="polite" id="<%= preview_id %>">
+
+  <%= tag.div class: "app-c-govspeak-editor__preview", 'aria-live': "polite", id: preview_id, dir: dir do %>
     <p class="govuk-body">Generating preview, please wait.</p>
-  </div>
+  <% end %>
 <% end %>

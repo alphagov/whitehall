@@ -1,5 +1,5 @@
 <%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "app-view-attachments__form", :"data-module" => "LocaleSwitcher", :"data-rtl-locales" => Locale.right_to_left.collect(&:to_param) }, multipart: true do |form| %>
-  <div class="govuk-!-margin-bottom-8 app-view-attachments__form-title <%= "app-view-attachments__form-title--right-to-left" if form.object.rtl_locale? %>">
+  <div class="govuk-!-margin-bottom-8 app-view-attachments__form-title">
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Title (required)"
@@ -9,7 +9,9 @@
       heading_level: 2,
       heading_size: "l",
       value: form.object.title,
-      error_items: errors_for(attachment.errors, :title)
+      error_items: errors_for(attachment.errors, :title),
+      right_to_left: (true if form.object.rtl_locale?),
+      right_to_left_help: false
     } %>
   </div>
 
@@ -39,8 +41,9 @@
         } %>
       </div>
 
-      <div class="govuk-!-margin-bottom-8 app-view-attachments__form-body <%= "app-view-attachments__form-body--right-to-left" if form.object.rtl_locale? %>">
+      <div class="govuk-!-margin-bottom-8 app-view-attachments__form-body">
         <%= render "components/govspeak-editor", {
+          form: form,
           label: {
             heading_size: "l",
             text: "Body (required)"
