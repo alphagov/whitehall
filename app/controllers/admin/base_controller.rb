@@ -42,10 +42,6 @@ class Admin::BaseController < ApplicationController
   end
 
   def preview_design_system?(next_release: false)
-    # Temporarily force the 'next release' of Design System to be shown to everybody.
-    # This will be tidied up alongside the removal of now-defunct Bootstrap code for affected features.
-    return true if next_release
-
     current_user.can_preview_design_system? || (next_release && current_user.can_preview_next_release?)
   end
 
