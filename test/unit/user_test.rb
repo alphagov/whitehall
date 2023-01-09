@@ -145,6 +145,16 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_preview_next_release?
   end
 
+  test "cannot add youtube urls to promotional features by default" do
+    user = build(:user)
+    assert_not user.can_add_youtube_urls_to_promotional_features?
+  end
+
+  test "can add youtube urls to promotional features" do
+    user = build(:user, permissions: [User::Permissions::ADD_YOUTUBE_URLS_TO_PROMOTIONAL_FEATURES])
+    assert user.can_add_youtube_urls_to_promotional_features?
+  end
+
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?

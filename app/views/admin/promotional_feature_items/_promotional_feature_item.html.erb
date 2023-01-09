@@ -3,6 +3,12 @@
     <%= image_tag promotional_feature_item.image.s300.url, alt: promotional_feature_item.image_alt_text %>
   <% end %>
 
+  <% if promotional_feature_item.youtube_video_url.present? %>
+    <p>
+      <%= link_to promotional_feature_item.youtube_video_url, promotional_feature_item.youtube_video_url %>
+    </p>
+  <% end %>
+
   <% if promotional_feature_item.title.present? %>
     <p><%= link_to_unless promotional_feature_item.title_url.blank?, promotional_feature_item.title, promotional_feature_item.title_url %></p>
   <% end %>
