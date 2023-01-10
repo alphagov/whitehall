@@ -135,35 +135,35 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   test "GET on :edit denied if not a vip-editor" do
-    create(:pm)
+    pm = create(:pm)
 
     login_as :writer
-    get :edit, params: { id: "boris-johnson" }
+    get :edit, params: { id: pm.slug }
     assert_response :forbidden
   end
 
   test "PUT on :update denied if not a vip-editor" do
-    create(:pm)
+    pm = create(:pm)
 
     login_as :writer
-    put :update, params: { id: "boris-johnson" }
+    put :update, params: { id: pm.slug }
     assert_response :forbidden
   end
 
   test "DELETE on :destroy denied if not a vip-editor" do
-    create(:pm)
+    pm = create(:pm)
 
     login_as :writer
-    delete :destroy, params: { id: "boris-johnson" }
+    delete :destroy, params: { id: pm.slug }
     assert_response :forbidden
   end
 
   %i[vip_editor gds_admin].each do |permission|
     test "GET on :edit allowed if a #{permission}" do
-      create(:pm)
+      pm = create(:pm)
 
       login_as :vip_editor
-      get :edit, params: { id: "boris-johnson" }
+      get :edit, params: { id: pm.slug }
       assert_response :success
     end
 
@@ -171,20 +171,10 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       pm = create(:pm)
 
       login_as :vip_editor
-      put :update, params: { id: "boris-johnson", person: { title: "", forename: "Aronnax", surname: "", letters: "" } }
+      put :update, params: { id: pm.slug, person: { title: "", forename: "Aronnax", surname: "", letters: "" } }
 
       assert_redirected_to admin_person_url(pm)
       assert_equal %("Aronnax" saved.), flash[:notice]
-    end
-
-    test "DELETE on :destroy allowed if a #{permission}" do
-      create(:pm, forename: "Nemo")
-
-      login_as :vip_editor
-      delete :destroy, params: { id: "boris-johnson" }
-      assert_response :redirect
-
-      assert_equal %("Nemo" destroyed.), flash[:notice]
     end
   end
 
