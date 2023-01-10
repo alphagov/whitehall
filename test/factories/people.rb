@@ -4,6 +4,9 @@ FactoryBot.define do
   end
 
   factory :pm, parent: :person do
-    slug { "boris-johnson" }
+    after :create do |person, _evaluator|
+      role = create(:ministerial_role, slug: "prime-minister")
+      create(:ministerial_role_appointment, person:, role:)
+    end
   end
 end
