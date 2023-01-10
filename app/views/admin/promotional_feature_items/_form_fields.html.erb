@@ -1,7 +1,6 @@
 
 <%= form.text_field :title, label_text: 'Item title (optional)' %>
 <%= form.text_field :title_url, label_text: 'Item title url (optional)' %>
-<%= form.check_box :double_width, label_text: "Display double-width?" %>
 <%= form.text_area :summary, rows: 4 %>
 
 <% if current_user.can_add_youtube_urls_to_promotional_features? %>
