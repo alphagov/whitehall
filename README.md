@@ -16,10 +16,6 @@ Whitehall is deployed in two modes:
 
 - CSV Preview pages: [https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview)
 
-### Finders
-
-- Non-English finders: [https://www.gov.uk/government/publications.de](https://www.gov.uk/government/publications.de)
-
 ### Fields of Operation
 
 - Fields of Operation list: [https://www.gov.uk/government/fields-of-operation](https://www.gov.uk/government/fields-of-operation)
@@ -37,8 +33,6 @@ Whitehall is deployed in two modes:
 ### World Information
 
 - Help and services around the world: [https://www.gov.uk/world](https://www.gov.uk/world)
-- Non-English World Location News pages: [https://www.gov.uk/world/brazil/news.pt](https://www.gov.uk/world/brazil/news.pt)
-- UK International Delegation pages: [https://www.gov.uk/world/uk-delegation-to-council-of-europe](https://www.gov.uk/world/uk-delegation-to-council-of-europe)
 - World Embassies list: [https://www.gov.uk/world/embassies](https://www.gov.uk/world/embassies)
 - Worldwide Organisation pages: [https://www.gov.uk/world/organisations/british-embassy-paris](https://www.gov.uk/world/organisations/british-embassy-paris)
 
