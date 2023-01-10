@@ -85,7 +85,6 @@ private
         :image_alt_text,
         :title,
         :title_url,
-        :double_width,
         :image_cache,
         :youtube_video_url,
         :image_or_youtube_video_url,

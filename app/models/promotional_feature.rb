@@ -13,14 +13,10 @@ class PromotionalFeature < ApplicationRecord
   end
 
   def has_reached_item_limit?
-    items.count == 3 || has_one_small_and_one_large_item?
+    items.count == 3
   end
 
 private
-
-  def has_one_small_and_one_large_item?
-    items.count == 2 && items.one?(&:double_width?)
-  end
 
   def set_ordering
     self.ordering = (organisation.promotional_features.maximum(:ordering) || 0) + 1
