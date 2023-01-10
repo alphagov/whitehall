@@ -1,12 +1,8 @@
 class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   delegate_instance_methods_of PromotionalFeatureItem
 
-  def css_classes
-    ["feature", ("large" if double_width?)].compact.join(" ")
-  end
-
   def image_url
-    double_width? ? image.s630.url : image.s300.url
+    image.s300.url
   end
 
   def display_image
@@ -25,12 +21,8 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
     context.image_tag(image_url, alt: image_alt_text)
   end
 
-  def link_list_class
-    "dash-list" unless double_width?
-  end
-
   def width
-    double_width? ? 2 : 1
+    1
   end
 
   def summary
