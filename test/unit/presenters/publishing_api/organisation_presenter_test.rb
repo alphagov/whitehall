@@ -203,7 +203,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         items: [
           summary: promotional_feature_item1.summary,
           image: { url: promotional_feature_item1.image.url, alt_text: promotional_feature_item1.image_alt_text },
-          double_width: promotional_feature_item1.double_width,
           links: promotional_feature_item2.links,
         ],
       },
@@ -212,7 +211,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         items: [
           summary: promotional_feature_item2.summary,
           youtube_video_id: promotional_feature_item2.youtube_video_id,
-          double_width: promotional_feature_item2.double_width,
           links: promotional_feature_item2.links,
         ],
       },
