@@ -11,7 +11,6 @@ module Whitehall
   mattr_accessor :default_cache_max_age
   mattr_accessor :default_api_cache_max_age
   mattr_accessor :document_collections_cache_max_age
-  mattr_accessor :government_search_client
   mattr_accessor :link_checker_api_client
   mattr_accessor :maslow
   mattr_accessor :publishing_api_client
