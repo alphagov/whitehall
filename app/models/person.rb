@@ -90,6 +90,10 @@ class Person < ApplicationRecord
     [name, role_name, organisation].compact.join(" – ")
   end
 
+  def current_or_previous_prime_minister?
+    ministerial_roles.map(&:slug).include?("prime-minister")
+  end
+
 private
 
   def name_as_words(*elements)
