@@ -1,13 +1,11 @@
 class Admin::AttachmentsController < Admin::BaseController
   before_action :limit_attachable_access, if: :attachable_is_an_edition?
   before_action :check_attachable_allows_attachment_type
-  layout :get_layout
+  layout "design_system"
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
 
-  def index
-    render_design_system("index", "index_legacy", next_release: true)
-  end
+  def index; end
 
   def reorder; end
 
@@ -84,16 +82,6 @@ class Admin::AttachmentsController < Admin::BaseController
   helper_method :attachable_attachments_path
 
 private
-
-  def get_layout
-    design_system_actions = %w[edit update new create confirm_destroy reorder]
-    design_system_actions << "index" if preview_design_system?(next_release: true)
-    if design_system_actions.include?(action_name)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def attachment
     @attachment ||= find_attachment || build_attachment

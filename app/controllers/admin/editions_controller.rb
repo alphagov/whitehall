@@ -169,12 +169,9 @@ class Admin::EditionsController < Admin::BaseController
   def diff
     audit_trail_entry = edition_class.find(params[:audit_trail_entry_id])
     @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.primary_locale)
-    render_design_system(:diff, :diff_legacy, next_release: true)
   end
 
-  def confirm_destroy
-    render_design_system(:confirm_destroy, :confirm_destroy_legacy, next_release: true)
-  end
+  def confirm_destroy; end
 
   def destroy
     edition_deleter = Whitehall.edition_services.deleter(@edition)
@@ -200,7 +197,7 @@ private
   def get_layout
     design_system_actions = %w[confirm_destroy diff]
     design_system_actions += %w[edit update new create show] if preview_design_system?(next_release: false)
-    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
+    if design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
