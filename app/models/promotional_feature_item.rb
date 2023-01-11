@@ -14,6 +14,7 @@ class PromotionalFeatureItem < ApplicationRecord
     message: "Did not match expected format, please use a https://www.youtube.com/watch?v=MSmotCRFFMc or https://youtu.be/MSmotCRFFMc URL",
     allow_blank: true,
   }
+  validates :youtube_video_alt_text, presence: true, if: -> { youtube_video_url.present? }
 
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: ->(attributes) { attributes["url"].blank? }
 

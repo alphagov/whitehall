@@ -291,9 +291,12 @@ module PublishingApi
     end
 
     def promotional_feature_item_youtube_hash(promotional_feature_item)
-      promotional_feature_item_hash_common(promotional_feature_item).merge(
-        { youtube_video_id: promotional_feature_item.youtube_video_id },
-      )
+      promotional_feature_item_hash_common(promotional_feature_item).merge({
+        youtube_video: {
+          id: promotional_feature_item.youtube_video_id,
+          alt_text: promotional_feature_item.youtube_video_alt_text,
+        },
+      })
     end
 
     def promotional_feature_item_image_hash(promotional_feature_item)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_161456) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_11_131609) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -744,6 +744,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_161456) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "youtube_video_url"
+    t.string "youtube_video_alt_text"
     t.index ["promotional_feature_id"], name: "index_promotional_feature_items_on_promotional_feature_id"
   end
 

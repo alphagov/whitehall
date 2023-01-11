@@ -9,6 +9,7 @@ FactoryBot.define do
       image { nil }
       image_alt_text { nil }
       youtube_video_url { "https://www.youtube.com/watch?v=fFmDQn9Lbl4" }
+      youtube_video_alt_text { "YouTube alt text." }
     end
   end
 end

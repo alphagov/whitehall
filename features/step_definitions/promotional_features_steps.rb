@@ -48,6 +48,7 @@ When(/^I add a new promotional feature with a single item which has a YouTube UR
     fill_in "Item title url (optional)",    with: "http://big-cheese.co"
     choose "YouTube video"
     fill_in "YouTube video URL", with: "https://www.youtube.com/watch?v=fFmDQn9Lbl4"
+    fill_in "YouTube video description (alt text)", with: "Description of video."
   end
 
   click_button "Save"

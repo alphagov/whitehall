@@ -33,7 +33,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
 
   test "validates that an image or youtube_video_url is present on save" do
     feature_item_with_image = build(:promotional_feature_item)
-    feature_item_with_youtube_url = build(:promotional_feature_item, image: nil, youtube_video_url: "https://www.youtube.com/watch?v=fFmDQn9Lbl4")
+    feature_item_with_youtube_url = build(:promotional_feature_item, :with_youtube_video_url)
     invalid_feature_item = build(:promotional_feature_item, image: nil, youtube_video_url: nil)
 
     assert feature_item_with_image.valid?
@@ -43,7 +43,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
   end
 
   test "validates that either an image and youtube_video_url can be provided" do
-    invalid_feature_item = build(:promotional_feature_item, youtube_video_url: "https://www.youtube.com/watch?v=fFmDQn9Lbl4")
+    invalid_feature_item = build(:promotional_feature_item, youtube_video_url: "https://www.youtube.com/watch?v=fFmDQn9Lbl4", youtube_video_alt_text: "Alt text.")
 
     assert_not invalid_feature_item.valid?
     assert_equal invalid_feature_item.errors.full_messages, ["Upload either an image or add a YouTube URL"]
@@ -51,12 +51,12 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
 
   VALID_YOUTUBE_URLS.each do |url|
     test "validates that a youtube_video_url of `#{url}` is valid" do
-      assert build(:promotional_feature_item, image: nil, youtube_video_url: url).valid?
+      assert build(:promotional_feature_item, :with_youtube_video_url, youtube_video_url: url).valid?
     end
   end
 
   test "validates that a youtube_video_url of `https://www.gov.uk/government/organisations/government-digital-service` is invalid" do
-    promotional_feature_item = build(:promotional_feature_item, youtube_video_url: "https://www.gov.uk/government/organisations/government-digital-service")
+    promotional_feature_item = build(:promotional_feature_item, :with_youtube_video_url, youtube_video_url: "https://www.gov.uk/government/organisations/government-digital-service")
 
     assert_not promotional_feature_item.valid?
     assert_equal promotional_feature_item.errors[:youtube_video_url], ["Did not match expected format, please use a https://www.youtube.com/watch?v=MSmotCRFFMc or https://youtu.be/MSmotCRFFMc URL"]
@@ -64,7 +64,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
 
   VALID_YOUTUBE_URLS.each do |url|
     test "#youtube_video_id returns the youtube_video_id for `#{url}`" do
-      assert_equal build(:promotional_feature_item, youtube_video_url: url).youtube_video_id, "fFmDQn9Lbl4"
+      assert_equal build(:promotional_feature_item, :with_youtube_video_url, youtube_video_url: url).youtube_video_id, "fFmDQn9Lbl4"
     end
   end
 
