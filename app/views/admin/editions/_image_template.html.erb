@@ -58,7 +58,7 @@
         } %>
       <% end %>
 
-      <% if edition.image_disallowed_in_body_text?(index) %>
+      <% if edition.image_disallowed_in_body_text?(index + 1) %>
         <p class="govuk-body">This image is shown automatically, and is not available for use inline in the body.</p>
       <% elsif image.persisted? %>
         <%= render "govuk_publishing_components/components/input", {
