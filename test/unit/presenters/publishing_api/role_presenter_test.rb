@@ -153,4 +153,33 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
 
     assert_equal expected_hash, presented_item.content
   end
+
+  test "presents the correct routes for a role with a translation" do
+    role = create(
+      :role,
+      translated_into: [:cy],
+    )
+
+    expected_base_path = Whitehall.url_maker.ministerial_role_path(role)
+
+    I18n.with_locale(:en) do
+      presented_item = PublishingApi::RolePresenter.new(role)
+
+      assert_equal expected_base_path, presented_item.content[:base_path]
+
+      assert_equal [
+        { path: expected_base_path, type: "exact" },
+      ], presented_item.content[:routes]
+    end
+
+    I18n.with_locale(:cy) do
+      presented_item = PublishingApi::RolePresenter.new(role)
+
+      assert_equal "#{expected_base_path}.cy", presented_item.content[:base_path]
+
+      assert_equal [
+        { path: "#{expected_base_path}.cy", type: "exact" },
+      ], presented_item.content[:routes]
+    end
+  end
 end
