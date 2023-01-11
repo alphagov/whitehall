@@ -7,10 +7,6 @@ class PersonPresenterTest < ActionView::TestCase
     @presenter = PersonPresenter.new(@person, @view_context)
   end
 
-  test "path is generated using person_path" do
-    assert_equal person_path(@person), @presenter.path
-  end
-
   test "link links name to path" do
     @presenter.stubs(:path).returns("http://example.com/person/a-person")
     assert_select_within_html @presenter.link, 'a[href="http://example.com/person/a-person"]', text: @person.name

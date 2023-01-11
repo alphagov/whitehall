@@ -94,6 +94,18 @@ class Person < ApplicationRecord
     ministerial_roles.map(&:slug).include?("prime-minister")
   end
 
+  def base_path
+    "/government/people/#{slug}"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options)
+  end
+
 private
 
   def name_as_words(*elements)

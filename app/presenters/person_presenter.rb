@@ -19,6 +19,6 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def path
-    context.person_path model
+    model.public_path
   end
 end

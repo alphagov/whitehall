@@ -101,7 +101,6 @@ Whitehall::Application.routes.draw do
     get "/consultations/:consultation_id/public-feedback/:id", as: "consultation_public_feedback_html_attachment", to: rack_404
     get "/latest", as: "latest", to: rack_404
     get "/organisations", as: "organisations", to: rack_404
-    get "/people/:id(.:locale)", as: "person", constraints: { locale: valid_locales_regex }, to: rack_404
     get "/groups/:id", as: "policy_group", to: rack_404
     get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
     get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
