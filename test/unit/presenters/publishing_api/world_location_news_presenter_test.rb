@@ -93,12 +93,27 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
     assert_equal "", presented_content.dig(:details, :mission_statement)
   end
 
-  test "it builds localised base paths correctly" do
+  test "presents the correct routes for a world location news with a translation" do
+    expected_base_path = "/world/aardistan/news"
+
+    I18n.with_locale(:en) do
+      presented_item = present(@world_location_news)
+
+      assert_equal expected_base_path, presented_item.content[:base_path]
+
+      assert_equal [
+        { path: expected_base_path, type: "exact" },
+      ], presented_item.content[:routes]
+    end
+
     I18n.with_locale(:fr) do
       presented_item = present(@world_location_news)
-      base_path = presented_item.content[:base_path]
 
-      assert_equal "/world/aardistan/news.fr", base_path
+      assert_equal "#{expected_base_path}.fr", presented_item.content[:base_path]
+
+      assert_equal [
+        { path: "#{expected_base_path}.fr", type: "exact" },
+      ], presented_item.content[:routes]
     end
   end
 
