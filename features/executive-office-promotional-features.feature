@@ -9,7 +9,6 @@ Feature: Promotional features for executive offices
     Then I should see the promotional feature on the organisation's page
 
   Scenario: Add a promotional feature with a youtube url to an executive office
-    And I have the "Add youtube urls to promotional features" permission
     When I add a new promotional feature with a single item which has a YouTube URL
     Then I should see the promotional feature on the organisation's page
 

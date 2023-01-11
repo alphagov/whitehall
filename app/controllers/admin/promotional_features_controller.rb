@@ -99,7 +99,7 @@ private
 
     feature_item_type = first_promotional_feature_item_params.delete(:image_or_youtube_video_url)
 
-    if feature_item_type == "youtube_video_url" && current_user.can_add_youtube_urls_to_promotional_features?
+    if feature_item_type == "youtube_video_url"
       first_promotional_feature_item_params["image"] = nil
       first_promotional_feature_item_params["image_alt_text"] = nil
     else
