@@ -27,9 +27,9 @@
         <% end %>
       <optgroup/>
     </select>
-
-    <% if edition.publication_type_id.present? %>
-      <%= render "subtype_format_advice", guidance: JSON.parse(PublicationType::FORMAT_ADVICE)[edition.publication_type_id.to_s].html_safe %>
-    <% end %>
   </div>
+
+  <% if edition.publication_type_id.present? %>
+    <%= render "subtype_format_advice", guidance: JSON.parse(PublicationType::FORMAT_ADVICE)[edition.publication_type_id.to_s].html_safe %>
+  <% end %>
 </div>
