@@ -210,7 +210,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         title: promotional_feature2.title,
         items: [
           summary: promotional_feature_item2.summary,
-          youtube_video_id: promotional_feature_item2.youtube_video_id,
+          youtube_video: { id: promotional_feature_item2.youtube_video_id, alt_text: promotional_feature_item2.youtube_video_alt_text },
           links: promotional_feature_item2.links,
         ],
       },
