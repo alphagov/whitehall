@@ -105,6 +105,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
                   promotional_feature_item: {
                     summary: "Updated summary",
                     youtube_video_url: "https://www.youtube.com/watch?v=fFmDQn9Lbl4",
+                    youtube_video_alt_text: "YouTube alt text.",
                     image_or_youtube_video_url: "youtube_video_url",
                     links_attributes: { "0" => { url: link.url, text: link.text, id: link.id, _destroy: false } },
                   } }

@@ -87,6 +87,7 @@ private
         :title_url,
         :image_cache,
         :youtube_video_url,
+        :youtube_video_alt_text,
         :image_or_youtube_video_url,
         { links_attributes: %i[url text _destroy] },
       ],
@@ -103,6 +104,7 @@ private
       first_promotional_feature_item_params["image_alt_text"] = nil
     else
       first_promotional_feature_item_params["youtube_video_url"] = nil
+      first_promotional_feature_item_params["youtube_video_alt_text"] = nil
     end
   end
 
