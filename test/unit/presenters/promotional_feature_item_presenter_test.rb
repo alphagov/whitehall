@@ -12,19 +12,9 @@ class PromotionalFeatureItemPresenterTest < ActionView::TestCase
     end
   end
 
-  test '#css_classes returns "large" for double-width items' do
-    assert_equal "feature", item_presenter.css_classes
-    assert_equal "feature large", item_presenter(double_width: true).css_classes
-  end
-
   test "#image_url returns 300px width images for single-width items" do
     item = item_presenter
     assert_equal item.image.s300.url, item.image_url
-  end
-
-  test "#image_url returns 630px width image path for double-width items" do
-    item = item_presenter(double_width: true)
-    assert_equal item.image.s630.url, item.image_url
   end
 
   test "#display_image returns a normal image tag if no link" do
@@ -43,14 +33,8 @@ class PromotionalFeatureItemPresenterTest < ActionView::TestCase
     assert_equal "", item.display_image
   end
 
-  test '#link_list_class returns "dash-list" for single-width items' do
-    assert_equal "dash-list", item_presenter.link_list_class
-    assert_nil item_presenter(double_width: true).link_list_class
-  end
-
   test "#width returns the width as an integer" do
     assert_equal 1, item_presenter.width
-    assert_equal 2, item_presenter(double_width: true).width
   end
 
   test "#title returns nil if feature item has no title" do

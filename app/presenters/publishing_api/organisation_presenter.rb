@@ -310,7 +310,6 @@ module PublishingApi
         title: promotional_feature_item.title,
         href: promotional_feature_item.title_url,
         summary: promotional_feature_item.summary,
-        double_width: promotional_feature_item.double_width,
         links: promotional_feature_item.links.map do |link|
           {
             title: link.text,

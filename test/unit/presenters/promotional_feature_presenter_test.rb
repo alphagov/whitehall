@@ -9,13 +9,11 @@ class PromotionalFeaturePresenterTest < ActionView::TestCase
     assert_equal 0, feature_presenter.width
     assert_equal 1, feature_presenter([build(:promotional_feature_item)]).width
     assert_equal 2, feature_presenter([build(:promotional_feature_item), build(:promotional_feature_item)]).width
-    assert_equal 3, feature_presenter([build(:promotional_feature_item), build(:promotional_feature_item, double_width: true)]).width
   end
 
   test "#width_class returns the appropriate class based on the feature's width" do
     assert_equal "features-1", feature_presenter([build(:promotional_feature_item)]).width_class
     assert_equal "features-2", feature_presenter([build(:promotional_feature_item), build(:promotional_feature_item)]).width_class
-    assert_equal "features-3", feature_presenter([build(:promotional_feature_item), build(:promotional_feature_item, double_width: true)]).width_class
   end
 
   test "can be initialized with the position" do
