@@ -7,7 +7,7 @@ class Admin::EditionWorldTagsController < Admin::BaseController
   def edit
     @world_taxonomy = Taxonomy::WorldTaxonomy.new
     @tag_form = WorldTaxonomyTagForm.load(@edition.content_id)
-    render_design_system("edit", "edit_legacy", next_release: false)
+    render_design_system("edit", "edit_legacy", next_release: true)
   end
 
   def update
