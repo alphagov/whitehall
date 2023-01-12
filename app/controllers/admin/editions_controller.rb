@@ -80,7 +80,7 @@ class Admin::EditionsController < Admin::BaseController
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
     end
 
-    render_design_system(:show, :show_legacy, next_release: false)
+    render_design_system(:show, :show_legacy, next_release: true)
   end
 
   def new
@@ -205,7 +205,7 @@ private
   end
 
   def fetch_version_and_remark_trails
-    if preview_design_system?(next_release: false)
+    if preview_design_system?(next_release: true)
       @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1)
     else
       @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
