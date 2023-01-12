@@ -35,11 +35,6 @@ namespace :publishing_api do
         content_id: "a258e45a-acbe-4d70-ad2c-a2a20761536a",
         title: "Past Prime Ministers",
       },
-      {
-        base_path: "/government/history/past-foreign-secretaries",
-        content_id: "e46b25e9-d47f-4b93-8466-682b73627db3",
-        title: "Past Foreign Secretaries",
-      },
     ].each do |route|
       publisher.publish(
         {
