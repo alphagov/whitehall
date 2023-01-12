@@ -73,9 +73,9 @@ class OperationalFieldsControllerTest < ActionController::TestCase
 
   view_test "index displays a rudimentary index of fields (for url hackers)" do
     fields = [
-      stub_record(:operational_field),
-      stub_record(:operational_field),
-      stub_record(:operational_field),
+      stub_record(:operational_field, slug: "test-1"),
+      stub_record(:operational_field, slug: "test-2"),
+      stub_record(:operational_field, slug: "test-3"),
     ]
     OperationalField.stubs(:all).returns(fields)
 
@@ -84,7 +84,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_select "ul.govuk-list" do
       fields.each do |field|
         assert_select_object field do
-          assert_select "a[href=?]", operational_field_path(field)
+          assert_select "a[href=?]", field.public_path
         end
       end
     end
