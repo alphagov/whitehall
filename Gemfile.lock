@@ -714,7 +714,7 @@ GEM
     validates_email_format_of (1.7.2)
       i18n
     version_gem (1.1.1)
-    view_component (2.80.0)
+    view_component (2.82.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
