@@ -14,36 +14,38 @@
 
 <% if entries_on_newer_editions.present? %>
   <div class="app-view-editions__newer-edition-entries">
-    <h3 class="govuk-heading-m">On newer editions</h3>
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">On newer editions</h3>
 
-    <ul class="gem-c-list govuk-list">
-      <% entries_on_newer_editions.each do |entry| %>
-        <%= render_entry(entry) %>
-      <% end %>
-    </ul>
+    <%= render "govuk_publishing_components/components/list", {
+      margin_bottom: entries_on_previous_editions.present? ? 8 : 0,
+      items: entries_on_newer_editions.map do |entry|
+        render_entry(entry)
+      end
+    } %>
   </div>
 <% end %>
 
 <% if entries_on_current_edition.present? %>
   <div class="app-view-editions__current-edition-entries">
-    <h3 class="govuk-heading-m">On this edition</h3>
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">On this edition</h3>
 
-    <ul class="gem-c-list govuk-list">
-      <% entries_on_current_edition.each do |entry| %>
-        <%= render_entry(entry) %>
-      <% end %>
-    </ul>
+    <%= render "govuk_publishing_components/components/list", {
+      margin_bottom: entries_on_previous_editions.present? ? 8 : 0,
+      items: entries_on_current_edition.map do |entry|
+        render_entry(entry)
+      end
+    } %>
   </div>
 <% end %>
 
 <% if entries_on_previous_editions.present? %>
   <div class="app-view-editions__previous-edition-entries">
-    <h3 class="govuk-heading-m">On previous editions</h3>
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">On previous editions</h3>
 
-    <ul class="gem-c-list govuk-list">
-      <% entries_on_previous_editions.each do |entry| %>
-        <%= render_entry(entry) %>
-      <% end %>
-    </ul>
+    <%= render "govuk_publishing_components/components/list", {
+      items: entries_on_previous_editions.map do |entry|
+        render_entry(entry)
+      end
+    } %>
   </div>
 <% end %>
