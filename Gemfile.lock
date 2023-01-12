@@ -251,7 +251,7 @@ GEM
       jquery-rails (~> 4.3)
       plek (>= 2.1)
       rails (>= 6)
-    govuk_app_config (4.12.0)
+    govuk_app_config (4.13.0)
       logstasher (~> 2.1)
       plek (>= 4, < 6)
       prometheus_exporter (~> 2.0)
