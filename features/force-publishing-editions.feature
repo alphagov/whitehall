@@ -3,7 +3,7 @@ Feature: Force Publishing editions
   Background:
     Given I am an editor
 
-  @not-quite-as-fake-search @design-system-wip
+  @not-quite-as-fake-search
   Scenario: Force-publishing a submitted edition
     Given I draft a new publication "Ban Beards"
     When I force publish the publication "Ban Beards"

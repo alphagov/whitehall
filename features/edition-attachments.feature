@@ -46,7 +46,6 @@ Feature: Managing attachments on editions
     When I try and upload an attachment but there are validation errors
     Then I should be able to submit the attachment without re-uploading the file
 
-  @design-system-wip
   Scenario: Attempting to publish attachment which is still being uploaded to the asset manager
     Given I am an editor
     And a published publication "Standard Beard Lengths" with a PDF attachment

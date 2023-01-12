@@ -20,7 +20,13 @@ When(/^I link the minister "([^"]*)" to the fatality notice$/) do |minister_name
   create(:ministerial_role_appointment, person: @person)
   begin_new_draft_document FatalityNotice.last.title
   select minister_name, from: "Ministers"
-  choose "edition_minor_change_true"
+
+  if using_design_system?
+    choose "No – it’s a minor edit that does not change the meaning"
+  else
+    choose "edition_minor_change_true"
+  end
+
   click_button "Save"
   publish(force: true)
 end
@@ -46,7 +52,13 @@ end
 When(/^I add a casualty to the fatality notice$/) do
   begin_new_draft_document FatalityNotice.last.title
   fill_in "Personal details", with: "Causualty"
-  choose "edition_minor_change_true"
+
+  if using_design_system?
+    choose "No – it’s a minor edit that does not change the meaning"
+  else
+    choose "edition_minor_change_true"
+  end
+
   click_button "Save"
 end
 
