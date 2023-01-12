@@ -160,29 +160,6 @@
       "note": "We don't link directly to any unescaped model attribute."
     },
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "747304befb46c303981c417146f3119a6356e90d97e01b61cef01dde596c3c86",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/past_foreign_secretaries_controller.rb",
-      "line": 287,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(template => \"past_foreign_secretaries/#{params[:id].underscore}\", {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "PastForeignSecretariesController",
-        "method": "show"
-      },
-      "user_input": "params[:id].underscore",
-      "confidence": "Medium",
-      "cwe_id": [
-        22
-      ],
-      "note": "We check that the params[:id] is valid before rendering the template."
-    },
-    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "82dea23cb472eca9cd5c4217767e59cab37e956a57572095a7f225d47aff2db8",
