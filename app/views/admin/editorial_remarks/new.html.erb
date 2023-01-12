@@ -1,5 +1,5 @@
-<% content_for :page_title, "New editorial remark" %>
-<% content_for :title, "New editorial remark" %>
+<% content_for :page_title, "New internal note" %>
+<% content_for :title, "New internal note" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @editorial_remark)) %>
 
 <div class="govuk-grid-row">
@@ -13,7 +13,7 @@
     <%= form_for [:admin, @edition, @editorial_remark], url: admin_edition_editorial_remarks_path(@edition) do |feedback_form| %>
       <%= render "govuk_publishing_components/components/textarea", {
         label: {
-          text: "Remark",
+          text: "Internal note",
           bold: true,
         },
         name: "editorial_remark[body]",
@@ -24,7 +24,7 @@
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
-            text: "Submit remark"
+            text: "Submit internal note"
           } %>
         <% end %>
 

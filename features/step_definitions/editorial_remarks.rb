@@ -50,7 +50,7 @@ When(/^I add an editorial remark "([^"]*)" to the document "([^"]*)"$/) do |rema
   visit admin_edition_path(@edition)
   click_link "Add new remark"
   fill_in "Remark", with: @remark_text
-  click_button "Submit remark"
+  click_button "Submit internal note"
 end
 
 Then(/^my editorial remark should be visible with the document$/) do
