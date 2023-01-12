@@ -52,13 +52,14 @@ class AdminAnalyticsTest < ActionDispatch::IntegrationTest
   end
 
   test "does not send GA event for logged in users on non admin pages" do
+    organisation = create(:worldwide_organisation)
+
     with_ga_enabled do
       login_as(create(:user, name: "user-name", email: "user@example.com", organisation_slug: "ministry-of-lindy-hop"))
       visit admin_root_path
       assert_dimension_is_set(8)
 
-      # this is a public page that requires no db setup
-      visit past_foreign_secretaries_path
+      visit worldwide_organisation_path(organisation)
       refute_dimension_is_set(8)
     end
   end
