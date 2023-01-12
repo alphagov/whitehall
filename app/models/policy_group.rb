@@ -60,6 +60,18 @@ class PolicyGroup < ApplicationRecord
     true
   end
 
+  def base_path
+    "/government/groups/#{slug}"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options)
+  end
+
   extend FriendlyId
   friendly_id
 
@@ -68,11 +80,7 @@ class PolicyGroup < ApplicationRecord
   end
 
   searchable title: :name,
-             link: :search_link,
+             link: :public_path,
              content: :summary_or_name,
              description: :summary
-
-  def search_link
-    Whitehall.url_maker.policy_group_path(slug)
-  end
 end
