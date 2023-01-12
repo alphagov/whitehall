@@ -7,19 +7,16 @@
 name: Run Pact tests
 
 on:
-  pull_request:
-  push:
   workflow_call:
     inputs:
-      # what branch or Git SHA to clone this app with, only applies when
-      # called as a workflow, so current commit applies to push/pull requests
       commitish:
         required: false
         type: string
         default: main
       pact_consumer_version:
-        required: true
+        required: false
         type: string
+        default: branch-main
 
 jobs:
   pact_verify:
@@ -37,14 +34,14 @@ jobs:
         ports: ["6379:6379"]
         options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version || 'branch-main' }}
+      PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version }}
       TEST_DATABASE_URL: mysql2://root:root@127.0.0.1:3306/test-db
       RAILS_ENV: test
     steps:
       - uses: actions/checkout@v3
         with:
           repository: alphagov/whitehall
-          ref: ${{ inputs.commitish || github.sha }}
+          ref: ${{ inputs.commitish }}
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true

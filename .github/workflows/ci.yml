@@ -37,6 +37,12 @@ jobs:
     with:
       useWithRails: true
 
+  pact-tests:
+    name: Run Pact tests
+    uses: ./.github/workflows/pact-verify.yml
+    with:
+      commitish: ${{ github.ref }}
+
   test-ruby:
     name: Test Ruby
     uses: ./.github/workflows/minitest.yml
