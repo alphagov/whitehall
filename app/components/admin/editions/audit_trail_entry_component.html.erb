@@ -1,8 +1,13 @@
-<li class="app-view-editions-audit-trail-entry__list-item govuk-!-margin-bottom-4">
+<div class="app-view-editions-audit-trail-entry__list-item govuk-!-margin-bottom-4">
+  <h4 class="govuk-heading-s govuk-!-margin-bottom-0"><%= action %></h4>
+
   <% if compare_with_previous_version? %>
-    <%= link_to "[Compare with previous version]", diff_admin_edition_path(@edition, audit_trail_entry_id: entry.version.item_id), class: "govuk-link" %>
+    <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-0">
+      <%= link_to "[Compare with previous version]", diff_admin_edition_path(@edition, audit_trail_entry_id: entry.version.item_id), class: "govuk-link" %>
+    </p>
   <% end %>
-  <%= action %> <%= actor %>
-  <br>
-  <%= time %>
-</li>
+
+  <p class="app-view-editions-audit-trail-entry__list-item-datetime govuk-body-s govuk-!-margin-bottom-0 govuk-!-margin-top-0">
+    <%= time %> by <%= actor %>
+  </p>
+</div>

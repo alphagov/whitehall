@@ -83,3 +83,7 @@ $state-success-text: govuk-colour("green");
     }
   }
 }
+
+.app-view-editions-audit-trail-entry__list-item-datetime {
+  color: $govuk-secondary-text-colour;
+}
