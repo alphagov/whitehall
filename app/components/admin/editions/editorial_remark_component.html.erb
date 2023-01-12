@@ -1,4 +1,11 @@
-<li class="app-view-editions-editorial-remark__list-item govuk-!-margin-bottom-4">
-  <p><%= editorial_remark.body %></p>
-  <%= actor %> <%= time %>
-</li>
+<div class="app-view-editions-editorial-remark__list-item govuk-!-margin-bottom-4">
+  <h4 class="govuk-heading-s govuk-!-margin-bottom-1">Internal note</h4>
+
+  <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-0">
+    <%= editorial_remark.body %>
+  </p>
+
+  <p class="app-view-editions-editorial-remark__list-item-datetime govuk-body govuk-body-s govuk-!-margin-bottom-0 govuk-!-margin-top-0">
+    <%= time %> by <%= actor %>
+  </p>
+</div>
