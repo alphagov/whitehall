@@ -49,16 +49,16 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @second_edition, document_history: @timeline))
 
     assert_selector ".app-view-editions__newer-edition-entries h3", text: "On newer editions"
-    assert_selector ".app-view-editions__newer-edition-entries li.app-view-editions-audit-trail-entry__list-item", count: 2
-    assert_selector ".app-view-editions__newer-edition-entries li.app-view-editions-editorial-remark__list-item", count: 1
+    assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 2
+    assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-editorial-remark__list-item", count: 1
 
     assert_selector ".app-view-editions__current-edition-entries h3", text: "On this edition"
-    assert_selector ".app-view-editions__current-edition-entries li.app-view-editions-audit-trail-entry__list-item", count: 4
-    assert_selector ".app-view-editions__current-edition-entries li.app-view-editions-editorial-remark__list-item", count: 1
+    assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 4
+    assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-editorial-remark__list-item", count: 1
 
     assert_selector ".app-view-editions__previous-edition-entries h3", text: "On previous editions"
-    assert_selector ".app-view-editions__previous-edition-entries li.app-view-editions-audit-trail-entry__list-item", count: 2
-    assert_selector ".app-view-editions__previous-edition-entries li.app-view-editions-editorial-remark__list-item", count: 0
+    assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 2
+    assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-editorial-remark__list-item", count: 0
   end
 
   def seed_document_event_history
