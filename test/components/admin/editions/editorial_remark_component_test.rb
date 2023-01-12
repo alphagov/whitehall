@@ -8,9 +8,9 @@ class Admin::Editions::EditorialRemarkComponentTest < ViewComponent::TestCase
     author = editorial_remark.author
     render_inline(Admin::Editions::EditorialRemarkComponent.new(editorial_remark:))
 
-    assert_equal page.text.strip, "#{editorial_remark.body}\n  #{author.name}  1 January 2020 11:11am"
-    assert_equal page.find("li a").text, author.name
-    assert_equal page.find("li a")[:href], "/government/admin/authors/#{author.id}"
+    assert_equal page.find("h4").text, "Internal note"
+    assert_equal page.all("p")[0].text.strip, editorial_remark.body
+    assert_equal page.all("p")[1].text.strip, "1 January 2020 11:11am by #{author.name}"
   end
 
   test "it constructs output based on the editorial remark when an author is absent" do
@@ -18,6 +18,8 @@ class Admin::Editions::EditorialRemarkComponentTest < ViewComponent::TestCase
 
     render_inline(Admin::Editions::EditorialRemarkComponent.new(editorial_remark:))
 
-    assert_equal page.text.strip, "#{editorial_remark.body}\n  User (removed)  1 January 2020 11:11am"
+    assert_equal page.find("h4").text, "Internal note"
+    assert_equal page.all("p")[0].text.strip, editorial_remark.body
+    assert_equal page.all("p")[1].text.strip, "1 January 2020 11:11am by User (removed)"
   end
 end

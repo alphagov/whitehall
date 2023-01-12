@@ -13,7 +13,7 @@ class Admin::Editions::AuditTrailEntryComponent < ViewComponent::Base
 private
 
   def action
-    "#{entry.action.capitalize} by "
+    "Document #{entry.action}"
   end
 
   def actor
