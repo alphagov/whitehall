@@ -25,7 +25,6 @@ Whitehall is deployed in two modes:
 
 - How government works page: [https://www.gov.uk/government/how-government-works](https://www.gov.uk/government/how-government-works)
 - Current ministers list: [https://www.gov.uk/government/ministers](https://www.gov.uk/government/ministers)
-- Past Foreign Secretaries list: [https://www.gov.uk/government/history/past-foreign-secretaries](https://www.gov.uk/government/history/past-foreign-secretaries)
 - Past Prime Ministers list: [https://www.gov.uk/government/history/past-prime-ministers](https://www.gov.uk/government/history/past-prime-ministers)
 - Past Prime Minister pages: [https://www.gov.uk/government/history/past-prime-ministers/clement-attlee](https://www.gov.uk/government/history/past-prime-ministers/clement-attlee)
 
