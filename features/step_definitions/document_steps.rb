@@ -209,8 +209,14 @@ Then("{edition} should no longer be listed on the public site") do |edition|
 end
 
 Then(/^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
-  expect(new_title).to eq(find(".conflicting.new #edition_title").value)
-  expect(page).to have_selector(".conflicting.latest .document .title", text: latest_title)
+  if using_design_system?
+    expect(new_title).to eq(find(".gem-c-title__context").text)
+    expect(page).to have_selector(".conflict h2", text: latest_title)
+  else
+    expect(new_title).to eq(find(".conflicting.new #edition_title").value)
+    expect(page).to have_selector(".conflicting.latest .document .title", text: latest_title)
+
+  end
 end
 
 Then(/^my attempt to publish "([^"]*)" should fail$/) do |title|

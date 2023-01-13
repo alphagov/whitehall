@@ -11,7 +11,6 @@ Feature: Speeches
     When I edit the speech "Outlaw Moustaches" changing the title to "Ban Moustaches"
     Then I should see the speech "Ban Moustaches" in the list of draft documents
 
-  @design-system-wip
   Scenario: Trying to save a speech that has been changed by another user
     Given I am a writer
     And a draft speech "Outlaw Moustaches" exists

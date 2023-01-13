@@ -37,7 +37,13 @@ end
 
 When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/) do |title, data_set_name|
   begin_drafting_publication(title)
-  select data_set_name, from: "Related statistical data sets"
+
+  if using_design_system?
+    select data_set_name, from: "Statistical data sets"
+  else
+    select data_set_name, from: "Related statistical data sets"
+  end
+
   click_button "Save and continue"
   click_button "Update tags"
   add_external_attachment

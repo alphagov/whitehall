@@ -159,7 +159,13 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
-  click_on "Create new edition to edit"
+
+  if using_design_system?
+    click_on "Create new edition"
+  else
+    click_on "Create new edition to edit"
+  end
+
   fill_in_change_note_if_required
   click_button "Save and continue"
   click_button "Update tags"

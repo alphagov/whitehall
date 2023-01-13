@@ -1,4 +1,3 @@
-@design-system-wip
 Feature: Grouping documents into a collection
   As an organisation,
   I want to present regularly published documents as collection

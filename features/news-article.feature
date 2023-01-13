@@ -18,7 +18,6 @@ Feature: News articles
     When I draft a valid news article of type "World news story" with title "A thing happened in X"
     Then the news article "A thing happened in X" should have been created
 
-  @design-system-wip
   Scenario: Create a news article of type 'World news story', then changing its locale from en
     When I draft a valid news article of type "World news story" with title "A thing happened in X"
     Then the news article "A thing happened in X" should have been created

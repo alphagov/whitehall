@@ -59,7 +59,11 @@ module DocumentHelper
 
   def begin_new_draft_document(title)
     visit_edition_admin title
-    click_button "Create new edition to edit"
+    if using_design_system?
+      click_button "Create new edition"
+    else
+      click_button "Create new edition to edit"
+    end
   end
 
   def begin_drafting_news_article(options)
@@ -98,9 +102,7 @@ module DocumentHelper
 
     if using_design_system?
       choose "Speaker has a profile on GOV.UK"
-      within_conditional_reveal "Speaker has a profile on GOV.UK" do
-        select "Colonel Mustard, Attorney General"
-      end
+      select "Colonel Mustard, Attorney General"
 
       within_fieldset "Delivered on" do
         select_date 1.day.ago.to_s, base_dom_id: "edition_delivered_on"
@@ -194,6 +196,16 @@ module DocumentHelper
   def preview_document_path(edition, options = {})
     query = { preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i }
     document_path(edition, options.merge(query))
+  end
+
+  def fill_in_datetime_field(date)
+    date = Time.zone.parse(date)
+
+    select date.year, from: "Year"
+    select date.strftime("%B"), from: "Month"
+    select date.day, from: "Day"
+    select date.strftime("%H"), from: "Hour"
+    select date.strftime("%M"), from: "Minute"
   end
 end
 

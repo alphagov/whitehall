@@ -3,7 +3,6 @@ Feature: Adding stastical data set references to a publication
   In order to reference relevant stastics
   I want to be able to add those references to a publication
 
-  @design-system-wip
   Scenario: Creating a new draft publication that references statistical data sets
     Given I am an editor
     And a published statistical data set "Historical Beard Lengths"
