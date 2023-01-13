@@ -39,6 +39,10 @@ class Speech < Announcement
     self.speech_type_id = speech_type.id if speech_type
   end
 
+  def authored_article?
+    speech_type == SpeechType::AuthoredArticle
+  end
+
   def display_type
     if speech_type.statement_to_parliament?
       I18n.t("document.type.statement_to_parliament", count: 1)
