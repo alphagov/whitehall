@@ -1,19 +1,19 @@
 <%= render "govuk_publishing_components/components/radio", {
   name: "speaker_radios",
   id: "edition_role_appointment",
-  heading: "Speaker (required)",
+  heading: edition.authored_article? ? "Writer (required)" : "Speaker (required)",
   heading_size: "s",
   error_items: errors_for(edition.errors, :role_appointment),
   items: [
     {
       value: "yes",
-      text: "Speaker has a profile on GOV.UK",
+      text: "#{edition.authored_article? ? "Writer" : 'Speaker'} has a profile on GOV.UK",
       checked: edition.role_appointment_id.present?,
       conditional: render("speaker_select_field", form:, edition:)
     },
     {
       value: "no",
-      text: "Speaker does not have a profile on GOV.UK",
+      text: "#{edition.authored_article? ? "Writer" : 'Speaker'} does not have a profile on GOV.UK",
       checked: edition.person_override.present?,
       conditional: render("govuk_publishing_components/components/input", {
         name: "edition[person_override]",

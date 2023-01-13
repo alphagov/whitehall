@@ -1,5 +1,5 @@
-<%= render partial: 'delivered_by_fields', locals: { form: form, edition: edition } %>
-<%= render partial: 'delivered_on_fields', locals: { form: form, edition: edition } %>
+<%= render 'delivered_by_fields', form: form, edition: edition %>
+<%= render 'delivered_on_fields', form: form, edition: edition %>
 
 <%= render "govuk_publishing_components/components/input", {
   label: {
