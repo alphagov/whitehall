@@ -14,22 +14,24 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   LocaleSwitcher.prototype.setupLocaleSwitching = function () {
     var form = this.module
     var rightToLeftLocales = this.rightToLeftLocales
-
     var select = form.querySelector('#attachment_locale')
+    var title = form.querySelector('.app-view-attachments__form-title input')
+    var body = form.querySelector('.app-view-attachments__form-body .app-c-govspeak-editor__textarea textarea')
+    var preview = form.querySelector('.app-view-attachments__form-body .app-c-govspeak-editor__preview')
+
     if (!select) {
       return
     }
 
-    var title = form.querySelector('.app-view-attachments__form-title')
-    var body = form.querySelector('.app-view-attachments__form-body')
-
     select.addEventListener('change', function () {
       if (rightToLeftLocales.indexOf(this.value) > -1) {
-        title.classList.add('app-view-attachments__form-title--right-to-left')
-        body.classList.add('app-view-attachments__form-body--right-to-left')
+        title.setAttribute('dir', 'rtl')
+        body.setAttribute('dir', 'rtl')
+        preview.setAttribute('dir', 'rtl')
       } else {
-        title.classList.remove('app-view-attachments__form-title--right-to-left')
-        body.classList.remove('app-view-attachments__form-body--right-to-left')
+        title.removeAttribute('dir')
+        body.removeAttribute('dir')
+        preview.removeAttribute('dir')
       }
     })
   }

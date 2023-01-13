@@ -19,7 +19,10 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
         </select>
 
         <div class="app-view-attachments__form-body">
-          <textarea></textarea>
+          <div class="app-c-govspeak-editor__textarea">
+            <textarea></textarea>
+          </div>
+          <div class="app-c-govspeak-editor__preview"></div>
         </div>
       </form>
     `
@@ -28,21 +31,24 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
     localeSwitcher.init()
   })
 
-  it('should add the correct class to the appropriate elements when the laguage select element is changed', function () {
+  it('should add the correct value for the `dir` attribute on the appropriate elements when the laguage select element is changed', function () {
     var select = form.querySelector('#attachment_locale')
-    var title = form.querySelector('.app-view-attachments__form-title')
-    var body = form.querySelector('.app-view-attachments__form-body')
+    var title = form.querySelector('.app-view-attachments__form-title input')
+    var body = form.querySelector('.app-view-attachments__form-body .app-c-govspeak-editor__textarea textarea')
+    var preview = form.querySelector('.app-view-attachments__form-body .app-c-govspeak-editor__preview')
 
     select.value = 'ar'
     select.dispatchEvent(new Event('change'))
 
-    expect(title.classList).toContain('app-view-attachments__form-title--right-to-left')
-    expect(body.classList).toContain('app-view-attachments__form-body--right-to-left')
+    expect(title.getAttribute('dir')).toEqual('rtl')
+    expect(body.getAttribute('dir')).toEqual('rtl')
+    expect(preview.getAttribute('dir')).toEqual('rtl')
 
     select.value = 'en'
     select.dispatchEvent(new Event('change'))
 
-    expect(title.classList).not.toContain('app-view-attachments__form-title--right-to-left')
-    expect(body.classList).not.toContain('app-view-attachments__form-body--right-to-left')
+    expect(title.getAttribute('dir')).toBeNull()
+    expect(body.getAttribute('dir')).toBeNull()
+    expect(preview.getAttribute('dir')).toBeNull()
   })
 })
