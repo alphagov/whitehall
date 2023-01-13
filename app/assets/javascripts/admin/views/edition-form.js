@@ -9,6 +9,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   EditionForm.prototype.init = function () {
     this.setupSubtypeFormatAdviceEventListener()
     this.setupWorldNewsStoryVisibilityToggle()
+    this.setupSpeechSubtypeEventListeners()
   }
 
   EditionForm.prototype.setupSubtypeFormatAdviceEventListener = function () {
@@ -41,6 +42,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   EditionForm.prototype.setupWorldNewsStoryVisibilityToggle = function () {
     var form = this.module
 
+
     var select = form.querySelector('#edition_news_article_type_id')
 
     if (!select) { return }
@@ -61,6 +63,39 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }
     })
   }
+
+  EditionForm.prototype.setupSpeechSubtypeEventListeners = function () {
+    var form = this.module
+
+    var select = form.querySelector('#edition_speech_type_id')
+
+    if (!select) { return }
+
+    var deliveredByLabel = form.querySelector('#edition_role_appointment .govuk-fieldset__heading')
+    var hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
+    var noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
+    var deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
+    var locationDiv = form.querySelector('.edition-form__speech-location')
+    var locationInput = locationDiv.querySelector('input[name="edition[location]"]')
+
+    select.addEventListener('change', function (event) {
+      if (event.currentTarget.selectedOptions[0].text === "Authored article") {
+        locationDiv.classList.add('govuk-visually-hidden')
+        deliveredByLabel.textContent = 'Writer (required)'
+        hasProfileRadioLabel.textContent = 'Writer has a profile on GOV.UK'
+        noProfileRadioLabel.textContent = 'Writer does not have a profile on GOV.UK'
+        deliveredOnLabel.textContent = 'Written on (required)'
+        locationInput.value = ''
+      } else {
+        locationDiv.classList.remove('govuk-visually-hidden')
+        deliveredByLabel.textContent = 'Speaker (required)'
+        hasProfileRadioLabel.textContent = 'Speaker has a profile on GOV.UK'
+        noProfileRadioLabel.textContent = 'Speaker does not have a profile on GOV.UK'
+        deliveredOnLabel.textContent = 'Delivered on (required)'
+      }
+    })
+  }
+
 
   Modules.EditionForm = EditionForm
 })(window.GOVUK.Modules)
