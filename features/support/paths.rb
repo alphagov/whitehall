@@ -31,7 +31,7 @@ module NavigationHelpers
 
   def visit_worldwide_organisation_page(name)
     worldwide_organisation = WorldwideOrganisation.find_by!(name:)
-    visit worldwide_organisation_path(worldwide_organisation)
+    visit worldwide_organisation.public_path
   end
 
   def public_path_for(edition)

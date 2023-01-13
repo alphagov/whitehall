@@ -79,13 +79,9 @@ class WorldwideOrganisation < ApplicationRecord
   include Searchable
   searchable title: :name,
              description: :summary,
-             link: :search_link,
+             link: :public_path,
              content: :summary,
              format: "worldwide_organisation"
-
-  def search_link
-    Whitehall.url_maker.worldwide_organisation_path(slug)
-  end
 
   def display_name
     name
@@ -121,5 +117,13 @@ class WorldwideOrganisation < ApplicationRecord
 
   def base_path
     "/world/organisations/#{slug}"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options)
   end
 end

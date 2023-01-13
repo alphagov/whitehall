@@ -16,7 +16,7 @@ Given(/^a worldwide organisation that is translated exists$/) do
 end
 
 When(/^I visit the world organisation that is translated$/) do
-  visit worldwide_organisation_path(WorldwideOrganisation.last, locale: "fr")
+  visit WorldwideOrganisation.last.public_path(locale: "fr")
 end
 
 Then(/^I should see the translation of that world organisation$/) do

@@ -60,7 +60,7 @@ module DataHygiene
       when Organisation
         new_slug.public_path
       when WorldwideOrganisation
-        Whitehall.url_maker.worldwide_organisation_path(new_slug)
+        new_slug.public_path
       end
     end
   end

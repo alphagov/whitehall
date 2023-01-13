@@ -14,7 +14,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
                            :with_world_location,
                            name: "Locationia Embassy",
                            analytics_identifier: "WO123")
-    public_path = Whitehall.url_maker.worldwide_organisation_path(worldwide_org)
+    public_path = worldwide_org.public_path
 
     expected_hash = {
       base_path: public_path,
