@@ -1,12 +1,14 @@
 <%= render 'delivered_by_fields', form: form, edition: edition %>
 <%= render 'delivered_on_fields', form: form, edition: edition %>
 
-<%= render "govuk_publishing_components/components/input", {
-  label: {
-    text: "Location",
-    bold: true,
-  },
-  name: "edition[location]",
-  id: "edition_location",
-  value: edition.location
-} %>
+<div class="js-app-view-edition-form__speech-location <%= "govuk-visually-hidden" if edition.authored_article? %>">
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Location",
+      bold: true,
+    },
+    name: "edition[location]",
+    id: "edition_location",
+    value: edition.location
+  } %>
+</div>
