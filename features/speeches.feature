@@ -32,7 +32,7 @@ Feature: Speeches
     When I visit the list of speeches awaiting review
     Then I should see that "Legalise beards" is listed on the page
 
-  @javascript @design-system-wip
+  @javascript
   Scenario: Creating authored articles (originally published externally)
     Given I am an editor
     When I draft a new authored article "Colonel Mustard talks about beards to The Times"
