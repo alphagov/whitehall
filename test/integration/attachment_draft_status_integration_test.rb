@@ -172,7 +172,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
     def unpublish_document_published_in_error
       click_link "Withdraw or unpublish"
-      within ".js-unpublish-withdraw-form__published-in-error" do
+      within ".js-app-view-unpublish-withdraw-form__published-in-error" do
         click_button "Unpublish"
       end
       assert_text "This document has been unpublished"

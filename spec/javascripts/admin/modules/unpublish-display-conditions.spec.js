@@ -26,10 +26,10 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
             </div>
           </fieldset>
         </div>
-        <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__withdrawal">
+        <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__withdrawal">
           this is the withdrawal section
         </div>
-        <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__published-in-error">
+        <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__published-in-error">
           this is the error section
           <div class="gem-c-checkboxes govuk-form-group">
             <div class="govuk-checkboxes__item">
@@ -41,7 +41,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
             This is the public explanation section
           </div>
         </div>
-        <div class="app-view-unpublish-withdrawal__form-wrapper js-unpublish-withdraw-form__consolidated">
+        <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__consolidated">
           this is the consolidated section
         </div>
       </div>
@@ -53,9 +53,9 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
   })
 
   it('should not show any section if nothing is selected', function () {
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
   })
 
   it('should only show publish in error section when selecting unpublish: published in error', function () {
@@ -63,9 +63,9 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error').style.display).toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
   })
 
   it('should only show consolidated section when selecting unpublish: consolidated', function () {
@@ -73,9 +73,9 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__consolidated').style.display).toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
   })
 
   it('should only show withdrawal section when selecting withdrawal', function () {
@@ -83,9 +83,9 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__withdrawal').style.display).toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).toEqual('block')
   })
 
   it('should show last chosen option if user changes their selected option', function () {
@@ -93,21 +93,21 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__withdrawal').style.display).toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).toEqual('block')
 
     var radio2 = body.querySelector('#radio-published-consolidated')
     radio2.checked = true
     radio2.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__consolidated').style.display).toEqual('block')
-    expect(body.querySelector('.js-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
   })
 
   it('should hide public explanation section when "Redirect to URL automatically?" is pre-checked', function () {
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('none')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('none')
   })
 
   it('should show/hide public explanation section when "Redirect to URL automatically?" is unchecked/checked', function () {
@@ -115,11 +115,11 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     checkbox.checked = false
     checkbox.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('block')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('block')
 
     checkbox.checked = true
     checkbox.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('none')
+    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('none')
   })
 })
