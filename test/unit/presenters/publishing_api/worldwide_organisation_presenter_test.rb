@@ -95,4 +95,31 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
 
     assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
   end
+
+  test "presents the correct routes for a worldwide organisation with a translation" do
+    worldwide_organisation = create(
+      :worldwide_organisation,
+      translated_into: %i[en cy],
+    )
+
+    I18n.with_locale(:en) do
+      presented_item = present(worldwide_organisation)
+
+      assert_equal worldwide_organisation.base_path, presented_item.content[:base_path]
+
+      assert_equal [
+        { path: worldwide_organisation.base_path, type: "exact" },
+      ], presented_item.content[:routes]
+    end
+
+    I18n.with_locale(:cy) do
+      presented_item = present(worldwide_organisation)
+
+      assert_equal "#{worldwide_organisation.base_path}.cy", presented_item.content[:base_path]
+
+      assert_equal [
+        { path: "#{worldwide_organisation.base_path}.cy", type: "exact" },
+      ], presented_item.content[:routes]
+    end
+  end
 end
