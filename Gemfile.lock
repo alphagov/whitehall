@@ -792,7 +792,6 @@ DEPENDENCIES
   kaminari
   launchy
   link_header
-  mail (~> 2.8.0)
   mail-notify
   maxitest
   mechanize
