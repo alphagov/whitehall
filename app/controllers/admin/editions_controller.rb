@@ -176,7 +176,7 @@ class Admin::EditionsController < Admin::BaseController
   def destroy
     edition_deleter = Whitehall.edition_services.deleter(@edition)
     if edition_deleter.perform!
-      redirect_to admin_editions_path, notice: "The document '#{@edition.title}' has been deleted"
+      redirect_to admin_editions_path, notice: "The draft of '#{@edition.title}' has been deleted"
     else
       redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
     end
