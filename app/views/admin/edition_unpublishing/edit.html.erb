@@ -3,6 +3,7 @@
 <% content_for :title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation" %>
 <% content_for :title_margin_bottom, 6 %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @unpublishing, noun: "#{withdrawal_or_unpublishing(@unpublishing.edition)} explanation")) %>
+<% render "admin/tracking/subtype_tracking", document_type: @unpublishing.edition.type, document: @unpublishing.edition %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
