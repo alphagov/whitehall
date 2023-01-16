@@ -2,6 +2,7 @@
 <% content_for :title, "Are you sure you want to unwithdraw?" %>
 <% content_for :context, @edition.title %>
 <% content_for :title_margin_bottom, 6 %>
+<% render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
