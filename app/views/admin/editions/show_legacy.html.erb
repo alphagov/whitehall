@@ -64,7 +64,7 @@
     <% end %>
 
     <% if show_link_check_report?(@edition) %>
-      <%= render 'admin/link_check_reports/link_check_report', report: (@edition.link_check_reports.last || @edition.link_check_reports.build) %>
+      <%= render 'admin/link_check_reports/link_check_report_legacy', report: (@edition.link_check_reports.last || @edition.link_check_reports.build) %>
     <% end %>
 
     <%= render partial: "history_state", locals: { edition: @edition } %>
