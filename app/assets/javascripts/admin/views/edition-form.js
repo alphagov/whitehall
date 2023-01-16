@@ -13,7 +13,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   EditionForm.prototype.setupSubtypeFormatAdviceEventListener = function () {
     var form = this.module
-    var subtypeDiv = form.querySelector('.edition-form__subtype-fields')
+    var subtypeDiv = form.querySelector('.js-app-view-edition-form__subtype-fields')
 
     if (!subtypeDiv) { return }
 
@@ -21,7 +21,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     subtypeSelect.addEventListener('change', function () {
       var formatAdviceMap = JSON.parse(subtypeDiv.dataset.formatAdvice)
-      var subtypeFormatAdvice = form.querySelector('.edition-form__subtype-format-advice')
+      var subtypeFormatAdvice = form.querySelector('.js-app-view-edition-form__subtype-format-advice')
 
       if (subtypeFormatAdvice) {
         subtypeDiv.removeChild(subtypeFormatAdvice)
@@ -31,7 +31,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       if (adviceText) {
         var div = document.createElement('div')
-        div.classList.add('edition-form__subtype-format-advice', 'govuk-body', 'govuk-!-margin-top-4')
+        div.classList.add('js-app-view-edition-form__subtype-format-advice', 'govuk-body', 'govuk-!-margin-top-4')
         div.innerHTML = '<strong>Use this subformat for…</strong> ' + adviceText
         subtypeDiv.append(div)
       }

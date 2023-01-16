@@ -14,7 +14,7 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
   visit admin_edition_path(@duplicate_edition)
   click_on "Withdraw or unpublish"
   choose "Unpublish: consolidated into another GOV.UK page"
-  within ".js-unpublish-withdraw-form__consolidated" do
+  within ".js-app-view-unpublish-withdraw-form__consolidated" do
     fill_in "consolidated_alternative_url", with: @existing_edition.public_url
     click_button "Unpublish"
   end
@@ -25,7 +25,7 @@ def withdraw_publication(explanation)
   visit admin_edition_path(@publication)
   click_on "Withdraw or unpublish"
   choose "Withdraw: no longer current government policy/activity"
-  within ".js-unpublish-withdraw-form__withdrawal" do
+  within ".js-app-view-unpublish-withdraw-form__withdrawal" do
     fill_in "Public explanation", with: explanation
     click_button "Withdraw"
   end

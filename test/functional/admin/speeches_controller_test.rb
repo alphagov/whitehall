@@ -41,7 +41,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
       assert_select "input[name='edition[person_override]']"
       assert_select "select[name*='edition[delivered_on']", count: 5
       assert_select "input[name='edition[location]'][type='text']"
-      assert_select ".edition-form__subtype-format-advice", text: "Use this subformat for… A verbatim report of exactly what the speaker said (checked against delivery)."
+      assert_select ".js-app-view-edition-form__subtype-format-advice", text: "Use this subformat for… A verbatim report of exactly what the speaker said (checked against delivery)."
     end
   end
 
