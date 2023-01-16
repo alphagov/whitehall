@@ -196,7 +196,8 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy diff]
-    design_system_actions += %w[edit update new create show] if preview_design_system?(next_release: false)
+    design_system_actions += %w[show] if preview_design_system?(next_release: true)
+    design_system_actions += %w[edit update new create] if preview_design_system?(next_release: false)
     if design_system_actions.include?(action_name)
       "design_system"
     else
