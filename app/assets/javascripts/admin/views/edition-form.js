@@ -74,20 +74,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
     var noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
     var deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
-    var locationDiv = form.querySelector('.js-app-view-edition-form__speech-location')
+    var locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
     var locationInput = locationDiv.querySelector('input[name="edition[location]"]')
     var authoredArticleId = '6'
 
     select.addEventListener('change', function (event) {
       if (event.currentTarget.value === authoredArticleId) {
-        locationDiv.classList.add('govuk-visually-hidden')
+        locationDiv.classList.add('app-view-edit-edition__speech-location--hidden')
         deliveredByLabel.textContent = 'Writer (required)'
         hasProfileRadioLabel.textContent = 'Writer has a profile on GOV.UK'
         noProfileRadioLabel.textContent = 'Writer does not have a profile on GOV.UK'
         deliveredOnLabel.textContent = 'Written on (required)'
         locationInput.value = ''
       } else {
-        locationDiv.classList.remove('govuk-visually-hidden')
+        locationDiv.classList.remove('app-view-edit-edition__speech-location--hidden')
         deliveredByLabel.textContent = 'Speaker (required)'
         hasProfileRadioLabel.textContent = 'Speaker has a profile on GOV.UK'
         noProfileRadioLabel.textContent = 'Speaker does not have a profile on GOV.UK'

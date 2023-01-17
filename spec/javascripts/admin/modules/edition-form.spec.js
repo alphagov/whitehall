@@ -93,7 +93,7 @@ describe('GOVUK.Modules.EditionForm', function () {
       var hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
       var noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
       var deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
-      var locationDiv = form.querySelector('.js-app-view-edition-form__speech-location')
+      var locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
       var locationInput = locationDiv.querySelector('input[name="edition[location]"]')
 
       select.value = '6'
@@ -104,7 +104,7 @@ describe('GOVUK.Modules.EditionForm', function () {
       expect(hasProfileRadioLabel.textContent).toEqual('Writer has a profile on GOV.UK')
       expect(noProfileRadioLabel.textContent).toEqual('Writer does not have a profile on GOV.UK')
       expect(deliveredOnLabel.textContent).toEqual('Written on (required)')
-      expect(locationDiv.classList[1]).toEqual('govuk-visually-hidden')
+      expect(locationDiv.classList[1]).toEqual('app-view-edit-edition__speech-location--hidden')
       expect(locationInput.value).toEqual('')
     })
 
@@ -114,7 +114,7 @@ describe('GOVUK.Modules.EditionForm', function () {
       var hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
       var noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
       var deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
-      var locationDiv = form.querySelector('.js-app-view-edition-form__speech-location')
+      var locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
       var locationInput = locationDiv.querySelector('input[name="edition[location]"]')
 
       select.value = '6'
@@ -129,7 +129,7 @@ describe('GOVUK.Modules.EditionForm', function () {
       expect(noProfileRadioLabel.textContent).toEqual('Speaker does not have a profile on GOV.UK')
       expect(deliveredOnLabel.textContent).toEqual('Delivered on (required)')
       expect(locationDiv.classList.length).toEqual(1)
-      expect(locationDiv.classList[0]).toEqual('js-app-view-edition-form__speech-location')
+      expect(locationDiv.classList[0]).toEqual('js-app-view-edit-edition__speech-location-field')
     })
   })
 
@@ -198,7 +198,7 @@ describe('GOVUK.Modules.EditionForm', function () {
         '<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">Delivered on (required)</legend>' +
       '</fieldset>' +
 
-      '<div class="js-app-view-edition-form__speech-location">' +
+      '<div class="js-app-view-edit-edition__speech-location-field">' +
         '<input name="edition[location]" type="text">' +
       '</div>'
     )
