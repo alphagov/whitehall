@@ -67,7 +67,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
   test "destroy displays a notice indicating the edition has been deleted" do
     draft_edition = create(:draft_edition, title: "edition-title")
     delete :destroy, params: { id: draft_edition }
-    assert_equal "The document 'edition-title' has been deleted", flash[:notice]
+    assert_equal "The draft of 'edition-title' has been deleted", flash[:notice]
   end
 
   test "destroy notifies the publishing API of the deleted document" do
