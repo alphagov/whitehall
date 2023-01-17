@@ -74,4 +74,37 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
 
     assert_valid_against_publisher_schema(presented_item.content, "person")
   end
+
+  test "presents the correct routes for a person with a translation" do
+    person = create(
+      :person,
+      translated_into: {
+        cy: {
+          biography: "Some text",
+        },
+      },
+    )
+
+    expected_base_path = Whitehall.url_maker.person_path(person)
+
+    I18n.with_locale(:en) do
+      presented_item = PublishingApi::PersonPresenter.new(person)
+
+      assert_equal expected_base_path, presented_item.content[:base_path]
+
+      assert_equal [
+        { path: expected_base_path, type: "exact" },
+      ], presented_item.content[:routes]
+    end
+
+    I18n.with_locale(:cy) do
+      presented_item = PublishingApi::PersonPresenter.new(person)
+
+      assert_equal "#{expected_base_path}.cy", presented_item.content[:base_path]
+
+      assert_equal [
+        { path: "#{expected_base_path}.cy", type: "exact" },
+      ], presented_item.content[:routes]
+    end
+  end
 end

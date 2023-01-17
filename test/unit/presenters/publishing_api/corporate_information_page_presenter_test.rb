@@ -333,6 +333,33 @@ module PublishingApi::CorporateInformationPagePresenterTest
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "corporate_information_page"
     end
+
+    test "presents the correct routes for a corporate information page with a translation" do
+      corporate_information_page = create(
+        :corporate_information_page,
+        translated_into: %i[en cy],
+      )
+
+      I18n.with_locale(:en) do
+        presented_item = PublishingApi::CorporateInformationPagePresenter.new(corporate_information_page)
+
+        assert_equal corporate_information_page.base_path, presented_item.content[:base_path]
+
+        assert_equal [
+          { path: corporate_information_page.base_path, type: "exact" },
+        ], presented_item.content[:routes]
+      end
+
+      I18n.with_locale(:cy) do
+        presented_item = PublishingApi::CorporateInformationPagePresenter.new(corporate_information_page)
+
+        assert_equal "#{corporate_information_page.base_path}.cy", presented_item.content[:base_path]
+
+        assert_equal [
+          { path: "#{corporate_information_page.base_path}.cy", type: "exact" },
+        ], presented_item.content[:routes]
+      end
+    end
   end
 
   class ComplaintsProcedureCorporateInformationPage < TestCase
