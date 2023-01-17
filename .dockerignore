@@ -1,11 +1,12 @@
 .dockerignore
 .git
-.github
 .gitignore
 Dockerfile
 Jenkinsfile
 Procfile
 README.md
+CONTRIBUTING.md
+adr
 asset-manager-tmp
 attachment-cache
 bulk-upload-zip-file-tmp
@@ -18,7 +19,6 @@ incoming-uploads
 infected-uploads
 log
 node_modules
-script/cucumber
 spec
 test
 tmp
