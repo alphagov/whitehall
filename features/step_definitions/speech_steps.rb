@@ -65,11 +65,22 @@ When(/^I draft a new authored article "([^"]*)"$/) do |title|
 end
 
 Then(/^I should be able to choose who wrote the article$/) do
-  select "Colonel Mustard, Attorney General", from: "Writer"
+  if using_design_system?
+    choose "Writer has a profile on GOV.UK"
+    select "Colonel Mustard, Attorney General", from: "edition[role_appointment_id]"
+  else
+    select "Colonel Mustard, Attorney General", from: "Writer"
+  end
 end
 
 Then(/^I should be able to choose the date it was written on$/) do
-  select_date 1.day.ago.to_s, from: "Written on"
+  if using_design_system?
+    within "#edition_delivered_on" do
+      fill_in_datetime_field(1.day.ago.to_s)
+    end
+  else
+    select_date 1.day.ago.to_s, from: "Written on"
+  end
 end
 
 Then(/^I cannot choose a location for the article$/) do
