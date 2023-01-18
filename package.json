@@ -33,7 +33,7 @@
     }
   },
   "dependencies": {
-    "accessible-autocomplete": "kevindew/accessible-autocomplete",
+    "accessible-autocomplete": "alphagov/accessible-autocomplete-multiselect",
     "jquery": "3.6.3",
     "miller-columns-element": "^2.0.0",
     "paste-html-to-govspeak": "^0.3.0"
