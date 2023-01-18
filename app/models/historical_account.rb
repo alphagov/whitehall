@@ -73,7 +73,23 @@ class HistoricalAccount < ApplicationRecord
          .join(", ")
   end
 
+  def base_path
+    "/government/history/past-prime-ministers/#{person.slug}" if previous_prime_minister?
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options) if previous_prime_minister?
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options) if previous_prime_minister?
+  end
+
 private
+
+  def previous_prime_minister?
+    roles.map(&:slug).include?("prime-minister")
+  end
 
   def roles_support_historical_accounts
     unless roles.all?(&:supports_historical_accounts?)
