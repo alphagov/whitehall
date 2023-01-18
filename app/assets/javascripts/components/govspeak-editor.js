@@ -35,6 +35,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       data.append('image_ids[]', imageIds[index])
     }
 
+    var attachmentIds = this.getAttachmentIds()
+    for (var i = 0; i < attachmentIds.length; i++) {
+      data.append('attachment_ids[]', attachmentIds[i])
+    }
+
     return data
   }
 
@@ -79,6 +84,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     imagesIds = imagesIds ? JSON.parse(imagesIds) : []
 
     return imagesIds.filter(function (id) { return id })
+  }
+
+  GovspeakEditor.prototype.getAttachmentIds = function () {
+    var attachmentIds = this.module.getAttribute('data-attachment-ids')
+    attachmentIds = attachmentIds ? JSON.parse(attachmentIds) : []
+
+    return attachmentIds.filter(function (id) { return id })
   }
 
   GovspeakEditor.prototype.alternativeFormatProviderId = function () {
