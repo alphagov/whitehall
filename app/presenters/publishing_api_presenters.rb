@@ -46,6 +46,8 @@ module PublishingApiPresenters
         PublishingApi::ContactPresenter
       when OperationalField
         PublishingApi::OperationalFieldPresenter
+      when HistoricalAccount
+        PublishingApi::HistoricalAccountPresenter
       else
         raise UndefinedPresenterError, "Could not find presenter class for: #{model.inspect}"
       end

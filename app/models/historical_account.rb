@@ -1,4 +1,6 @@
 class HistoricalAccount < ApplicationRecord
+  include PublishesToPublishingApi
+
   belongs_to :person, inverse_of: :historical_accounts
   has_many   :historical_account_roles
   has_many   :roles, through: :historical_account_roles
@@ -83,6 +85,10 @@ class HistoricalAccount < ApplicationRecord
 
   def public_url(options = {})
     Plek.website_root + public_path(options) if previous_prime_minister?
+  end
+
+  def can_publish_to_publishing_api?
+    super && previous_prime_minister?
   end
 
 private
