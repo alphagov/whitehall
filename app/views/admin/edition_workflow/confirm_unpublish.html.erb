@@ -34,6 +34,7 @@
     error_items: errors_for(@unpublishing.errors, :explanation),
     data_attributes: {
       image_ids: @edition.images.map { |img| img[:id] }.to_json,
+      attachment_ids: @edition.allows_attachments? ? @edition.attachments.map(&:id) : [],
       alternative_format_provider_id: (@edition.alternative_format_provider_id || current_user.organisation.try(:id)),
     }
   })
@@ -160,6 +161,7 @@
           error_items: errors_for(@unpublishing.errors, :explanation),
           data_attributes: {
             image_ids: @edition.images.map { |img| img[:id] }.to_json,
+            attachment_ids: @edition.allows_attachments? ? @edition.attachments.map(&:id) : [],
             alternative_format_provider_id: (@edition.alternative_format_provider_id || current_user.organisation.try(:id)),
           }
         } %>
