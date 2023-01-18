@@ -30,5 +30,6 @@ FactoryBot.define do
     name { "Prime Minister" }
     slug { "prime-minister" }
     role_type { "minister" }
+    supports_historical_accounts { true }
   end
 end
