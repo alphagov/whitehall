@@ -3,7 +3,7 @@ Feature: Audit trail information on a document
   Background:
     Given I am a GDS editor
 
-  @javascript @design-system-wip
+  @javascript @bootstrap-only
   Scenario: Audit trail is paginated
     Given a document that has gone through many changes
     When I visit the document to see the audit trail
