@@ -1,13 +1,14 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
-  def append_url_options(path, options = {})
-    locale = normalise_locale(options[:locale])
+  # TODO: remove default for locale
+  def append_url_options(path, locale = :en, options = {})
+    locale = normalise_locale(locale)
 
-    if options[:format] && options[:locale] && locale != I18n.default_locale
-      path = "#{path}.#{options[:locale]}.#{options[:format]}"
-    elsif options[:locale] && locale != I18n.default_locale
-      path = "#{path}.#{options[:locale]}"
+    if options[:format] && locale != I18n.default_locale
+      path = "#{path}.#{locale}.#{options[:format]}"
+    elsif locale != I18n.default_locale
+      path = "#{path}.#{locale}"
     elsif options[:format]
       path = "#{path}.#{options[:format]}"
     end
