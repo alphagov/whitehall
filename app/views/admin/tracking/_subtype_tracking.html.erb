@@ -1,0 +1,9 @@
+<% if document_type == "Publication" || document_type == "NewsArticle" %>
+  <% content_for :head do %>
+    <meta name="custom-dimension:5" content="<%= document.display_type %>">
+  <% end %>
+<% elsif document_type == "Speech" %>
+  <% content_for :head do %>
+    <meta name="custom-dimension:5" content="<%= document.speech_type.singular_name %>">
+  <% end %>
+<% end %>
