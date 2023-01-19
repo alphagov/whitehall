@@ -7,8 +7,10 @@
 
 class RemoveRoleAppointmentForSpeech < ActiveRecord::Migration[7.0]
   def change
-    speech = Speech.find(1_216_085)
-    speech.role_appointment_id = nil
-    speech.save!(validate: false)
+    speech = Speech.find_by(id: 1_216_085)
+    if speech
+      speech.role_appointment_id = nil
+      speech.save!(validate: false)
+    end
   end
 end
