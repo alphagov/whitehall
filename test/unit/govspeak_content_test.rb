@@ -1,6 +1,10 @@
 require "test_helper"
 
 class GovspeakContentTest < ActiveSupport::TestCase
+  def setup
+    Whitehall.stubs(:skip_safe_html_validation).returns(false)
+  end
+
   test "queues a job to compute the HTML on creation" do
     govspeak_content = create(:html_attachment).govspeak_content
 
@@ -141,6 +145,17 @@ class GovspeakContentTest < ActiveSupport::TestCase
     post_updated_at = govspeak_content.reload.updated_at
 
     assert_equal pre_updated_at, post_updated_at
+  end
+
+  test "validate user input for HTML safety, but not the computed HTML output" do
+    govspeak_content = create(:html_attachment).govspeak_content
+
+    bad_html = '<script>alert("hax!")</script>'
+    govspeak_content.body = bad_html
+    govspeak_content.computed_body_html = bad_html
+
+    assert_equal false, govspeak_content.valid?
+    assert_equal %i[body], govspeak_content.errors.group_by_attribute.keys
   end
 
 private

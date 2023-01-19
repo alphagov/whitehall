@@ -20,4 +20,25 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
     SafeHtmlValidator.new({}).validate(test_model)
     assert test_model.errors.empty?, test_model.errors.full_messages.inspect
   end
+
+  test "only applies to specific attributes, when specified" do
+    bad_html = '<script>alert("hax!")</script>'
+    test_model = GovspeakContent.new(
+      body: bad_html,
+      computed_body_html: bad_html,
+      computed_headers_html: bad_html,
+    )
+
+    # only validate body attribute
+    SafeHtmlValidator.new(attribute: :body).validate(test_model)
+    assert_equal %i[body], test_model.errors.group_by_attribute.keys
+
+    # validate body and computed_body_html attributes
+    SafeHtmlValidator.new(attributes: %i[body computed_body_html]).validate(test_model)
+    assert_equal %i[body computed_body_html], test_model.errors.group_by_attribute.keys
+
+    # no attributes specified - so validate all changed attributes
+    SafeHtmlValidator.new.validate(test_model)
+    assert_equal %i[body computed_body_html computed_headers_html], test_model.errors.group_by_attribute.keys
+  end
 end
