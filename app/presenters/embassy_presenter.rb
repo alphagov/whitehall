@@ -20,7 +20,7 @@ class EmbassyPresenter < SimpleDelegator
     elsif organisation
       link_to(
         organisation.name,
-        worldwide_organisation_path(organisation.slug),
+        organisation.public_path,
         class: "govuk-link",
       )
     end

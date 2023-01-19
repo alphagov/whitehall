@@ -75,7 +75,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     get :index, params: { person_id: person }
 
     edit_translation_path = edit_admin_person_translation_path(person, "fr")
-    view_person_path = person_path(person, locale: "fr")
+    view_person_path = person.public_path(locale: "fr")
     assert_select "a[href=?]", edit_translation_path, text: "Français"
     assert_select "a[href=?]", Plek.website_root + view_person_path, text: "view"
   end

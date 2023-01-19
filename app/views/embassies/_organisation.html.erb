@@ -6,6 +6,6 @@
       heading_level: 3,
       margin_bottom: 1
     } %>
-    <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug), class: "govuk-link") %>
+    <%= link_to(organisation.name, organisation.public_path, class: "govuk-link") %>
   </li>
 <% end %>

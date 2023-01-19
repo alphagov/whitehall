@@ -98,7 +98,7 @@
           } %>
 
           <% if @prime_minister.present? %>
-            <p class="govuk-body">The Prime Minister is <%= link_to @prime_minister.name, url_for(@prime_minister), class: "govuk-link" %>.</p>
+            <p class="govuk-body">The Prime Minister is <%= link_to @prime_minister.name, @prime_minister.public_url, class: "govuk-link" %>.</p>
           <% end %>
 
           <p class="govuk-body govuk-!-margin-bottom-8">

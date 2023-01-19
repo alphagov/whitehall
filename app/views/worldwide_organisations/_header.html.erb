@@ -8,7 +8,7 @@
     <%= render "govuk_publishing_components/components/organisation_logo", {
       organisation: {
         name: translated_organisation_logo_name(organisation),
-        url: link_to_organisation ? worldwide_organisation_path(organisation) : nil,
+        url: link_to_organisation ? organisation.public_path : nil,
         crest: "single-identity",
       },
       heading_level: 1,

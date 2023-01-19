@@ -43,34 +43,31 @@ When(/^I edit a "([^"]*)" social media link "([^"]*)" with the title "([^"]+)" i
 end
 
 Then(/^the "([^"]*)" social link should be shown on the public website for the (worldwide organisation|organisation)$/) do |social_service, social_container|
-  if social_container == "worldwide organisation"
-    social_container = WorldwideOrganisation.last
-    visit worldwide_organisation_path(social_container)
-  else
-    social_container = Organisation.last
-    visit social_container.public_path
-  end
+  social_container = if social_container == "worldwide organisation"
+                       WorldwideOrganisation.last
+                     else
+                       Organisation.last
+                     end
+  visit social_container.public_path
   expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: social_service)
 end
 
 Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public website for the (worldwide organisation|organisation)$/) do |social_service, title, social_container|
-  if social_container == "worldwide organisation"
-    social_container = WorldwideOrganisation.last
-    visit worldwide_organisation_path(social_container)
-  else
-    social_container = Organisation.last
-    visit social_container.public_path
-  end
+  social_container = if social_container == "worldwide organisation"
+                       WorldwideOrganisation.last
+                     else
+                       Organisation.last
+                     end
+  visit social_container.public_path
   expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title)
 end
 
 Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public website with locale "([^"]*)" for the (worldwide organisation|organisation)$/) do |social_service, title, locale, social_container|
-  if social_container == "worldwide organisation"
-    social_container = WorldwideOrganisation.last
-    visit worldwide_organisation_path(social_container, locale:)
-  else
-    social_container = Organisation.last
-    visit social_container.public_path(locale:)
-  end
+  social_container = if social_container == "worldwide organisation"
+                       WorldwideOrganisation.last
+                     else
+                       Organisation.last
+                     end
+  visit social_container.public_path(locale:)
   expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title)
 end

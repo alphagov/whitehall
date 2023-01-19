@@ -87,7 +87,6 @@ Whitehall::Application.routes.draw do
     end
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
-    get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
     resources :operational_fields, path: "fields-of-operation", only: %i[index show]
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
 
@@ -102,8 +101,6 @@ Whitehall::Application.routes.draw do
     get "/consultations/:consultation_id/public-feedback/:id", as: "consultation_public_feedback_html_attachment", to: rack_404
     get "/latest", as: "latest", to: rack_404
     get "/organisations", as: "organisations", to: rack_404
-    get "/people/:id(.:locale)", as: "person", constraints: { locale: valid_locales_regex }, to: rack_404
-    get "/groups/:id", as: "policy_group", to: rack_404
     get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
     get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
     get "/statistics/announcements/:id", as: "statistics_announcement", to: rack_404

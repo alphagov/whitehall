@@ -18,6 +18,26 @@ class PersonTest < ActiveSupport::TestCase
     assert_not person.valid?
   end
 
+  test "public_path returns the correct path for person" do
+    person = create(:person, forename: " forename ", surname: " surname ")
+    assert_equal "/government/people/forename-surname", person.public_path
+  end
+
+  test "public_path returns the correct path with options" do
+    person = create(:person, forename: " forename ", surname: " surname ")
+    assert_equal "/government/people/forename-surname?cachebust=123", person.public_path(cachebust: "123")
+  end
+
+  test "public_url returns the correct path for a Person object" do
+    person = create(:person, forename: " forename ", surname: " surname ")
+    assert_equal "https://www.test.gov.uk/government/people/forename-surname", person.public_url
+  end
+
+  test "public_url returns the correct path for a TakePart object with options" do
+    person = create(:person, forename: " forename ", surname: " surname ")
+    assert_equal "https://www.test.gov.uk/government/people/forename-surname?cachebust=123", person.public_url(cachebust: "123")
+  end
+
   test "should be valid if legacy image isn't 960x640px" do
     person = build(
       :person,

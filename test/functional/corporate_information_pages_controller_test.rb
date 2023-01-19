@@ -27,7 +27,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
 
     get :show, params: { organisation: nil, worldwide_organisation_id: worldwide_organisation, id: corporate_information_page.slug }
 
-    assert_select "a[href=?]", worldwide_organisation_path(worldwide_organisation)
+    assert_select "a[href=?]", worldwide_organisation.public_path
     assert_select "a[href=?]", world_location.public_path
   end
 

@@ -7,11 +7,6 @@ class RolePresenterTest < ActionView::TestCase
     @presenter = RolePresenter.new(@role, @view_context)
   end
 
-  test "path is the ministerial_role_path if role is ministerial" do
-    @role.stubs(:ministerial?).returns(true)
-    assert_equal ministerial_role_path(@role), @presenter.path
-  end
-
   test "path is nil if appointed role is not ministerial" do
     @role.stubs(:ministerial?).returns(false)
     assert_nil @presenter.path

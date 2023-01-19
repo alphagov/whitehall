@@ -43,7 +43,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr])
     get :index, params: { worldwide_organisation_id: worldwide_organisation }
     edit_translation_path = edit_admin_worldwide_organisation_translation_path(worldwide_organisation, "fr")
-    view_worldwide_organisation_path = worldwide_organisation_path(worldwide_organisation, locale: "fr")
+    view_worldwide_organisation_path = worldwide_organisation.public_path(locale: "fr")
     assert_select "a[href=?]", edit_translation_path, text: "Français"
     assert_select "a[href=?]", view_worldwide_organisation_path, text: "view"
   end

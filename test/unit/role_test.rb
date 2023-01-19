@@ -196,9 +196,28 @@ class RoleTest < ActiveSupport::TestCase
     assert_not_includes Role.occupied, vacant
   end
 
+  test "public_path returns the correct path for ministerial role" do
+    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
+    assert_equal "/government/ministers/prime-minister-cabinet-office", role.public_path
+  end
+
+  test "public_path returns the correct path with options" do
+    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
+    assert_equal "/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_path(cachebust: "123")
+  end
+
+  test "public_url returns the correct path for a Ministerial role" do
+    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
+    assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office", role.public_url
+  end
+
+  test "public_url returns the correct path for a Ministerial Role with options" do
+    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
+    assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_url(cachebust: "123")
+  end
+
   test "has removeable translations" do
     stub_any_publishing_api_call
-
     role = create(:role, translated_into: %i[fr es])
     role.remove_translations_for(:fr)
     assert_not role.translated_locales.include?(:fr)
