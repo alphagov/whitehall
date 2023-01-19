@@ -230,7 +230,7 @@ GEM
       rails (>= 6)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     globalize (6.2.1)
       activemodel (>= 4.2, < 7.1)
