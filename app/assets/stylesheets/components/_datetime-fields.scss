@@ -1,0 +1,22 @@
+.app-c-datetime-fields__date-time-wrapper {
+  display: inline-flex;
+}
+
+.app-c-datetime-fields__date-time {
+  margin-right: govuk-spacing(2);
+}
+
+.app-c-datetime-fields__date-time-input {
+  max-width: 4.5em;
+  min-width: 4.5em;
+}
+
+.app-c-datetime-fields__date-time-input--large {
+  max-width: 7.5em;
+  min-width: 7.5em;
+}
+
+.app-c-datetime-fields__time-separator {
+  margin: govuk-spacing(6) + 5 govuk-spacing(2) 0 0;
+  margin-bottom: 0;
+}
