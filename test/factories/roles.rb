@@ -25,4 +25,11 @@ FactoryBot.define do
       role.role_appointments = [FactoryBot.create(:role_appointment, :ended)]
     end
   end
+
+  factory :prime_minister_role, class: MinisterialRole do
+    name { "Prime Minister" }
+    slug { "prime-minister" }
+    role_type { "minister" }
+    supports_historical_accounts { true }
+  end
 end

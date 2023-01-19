@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :historical_account do
     association :person
+    content_id { SecureRandom.uuid }
     summary { "Some summary text" }
     body { "Some body text" }
     political_parties { [PoliticalParty::Labour] }

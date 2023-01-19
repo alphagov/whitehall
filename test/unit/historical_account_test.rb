@@ -1,6 +1,8 @@
 require_relative "../test_helper"
 
 class HistoricalAccountTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   test "is invalid without a summary, body, political party or person" do
     %w[summary body person political_parties].each do |attribute|
       assert_not build(:historical_account, attribute => nil).valid?
@@ -74,4 +76,43 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   end
 
   should_not_accept_footnotes_in(:body)
+
+  context "for a previous prime minister" do
+    let(:object) do
+      build(:historical_account,
+            roles: [create(:prime_minister_role)],
+            person: create(:person, slug: "foo"))
+    end
+
+    test "public_path returns the correct path" do
+      assert_equal "/government/history/past-prime-ministers/foo", object.public_path
+    end
+
+    test "public_path returns the correct path with options" do
+      assert_equal "/government/history/past-prime-ministers/foo?cachebust=123", object.public_path(cachebust: "123")
+    end
+
+    test "public_url returns the correct path" do
+      assert_equal "https://www.test.gov.uk/government/history/past-prime-ministers/foo", object.public_url
+    end
+
+    test "public_url returns the correct path with options" do
+      assert_equal "https://www.test.gov.uk/government/history/past-prime-ministers/foo?cachebust=123", object.public_url(cachebust: "123")
+    end
+  end
+
+  context "for a person who was not a prime minister" do
+    let(:object) do
+      build(:historical_account,
+            roles: [create(:historic_role, slug: "chancellor")])
+    end
+
+    test "public_path returns nil" do
+      assert_nil object.public_path
+    end
+
+    test "public_url returns nil" do
+      assert_nil object.public_url
+    end
+  end
 end
