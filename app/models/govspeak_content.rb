@@ -2,7 +2,7 @@ class GovspeakContent < ApplicationRecord
   belongs_to :html_attachment, inverse_of: :govspeak_content
 
   validates :body, :html_attachment, presence: true
-  validates_with SafeHtmlValidator
+  validates_with SafeHtmlValidator, attribute: :body
 
   before_save :reset_computed_html, if: :body_or_numbering_scheme_changed?
   after_save :queue_html_compute_job, if: :saved_change_to_body_or_numbering_scheme?
