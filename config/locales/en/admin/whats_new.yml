@@ -94,11 +94,14 @@ en:
             body_govspeak: |
               When you paste text into the body field Whitehall Publisher will try to convert it to markdown. It will recognise headings, links, and lists. Other formatting will be removed and only plain text pasted.
       guidance:
-        heading: Publisher guidance, updates to GOV.UK and previous changes to Whitehall Publisher
+        heading: Publishing guidance, updates and support
         body_govspeak: |
-          You can find out more:
+          For support using Whitehall Publisher, read the guidance about:
 
-          - [How to publish content on GOV.UK guidance](https://www.gov.uk/guidance/how-to-publish-on-gov-uk)
-          - [Planning, writing and managing content guidance](https://www.gov.uk/guidance/content-design)
-          - [Style guide](https://www.gov.uk/guidance/style-guide)
-          - [Inside GOV.UK blog](https://insidegovuk.blog.gov.uk/)
+          - [how to publish content on GOV.UK](https://www.gov.uk/guidance/how-to-publish-on-gov-uk)
+          - [planning, writing and managing content](https://www.gov.uk/guidance/content-design)
+          - [how to contact the Government Digital Service (GDS) to request or report something](https://www.gov.uk/guidance/contact-the-government-digital-service)
+          
+          The [GOV.UK style guide](https://www.gov.uk/guidance/style-guide) covers style, spelling and grammar conventions for content published on GOV.UK.
+          
+          Read the [Inside GOV.UK blog](https://insidegovuk.blog.gov.uk/) for updates about GOV.UK.
