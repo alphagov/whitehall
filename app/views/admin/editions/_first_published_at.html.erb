@@ -1,3 +1,34 @@
+<% first_published_at_fields = render("components/datetime_fields", {
+      field_name: "first_published_at",
+      prefix: "edition",
+      date_hint: "For example, 01 August 2022",
+      time_hint: "For example, 09:30 or 19:30",
+      id: "edition_first_published_at_1i",
+      year: {
+        value: edition.first_published_at&.year,
+        start_year: Date.today.year,
+        end_year: 1945,
+        id: "edition_first_published_at_1i",
+      },
+      month: {
+        value: edition.first_published_at&.month,
+        id: "edition_first_published_at_2i",
+      },
+      day: {
+        value: edition.first_published_at&.day,
+        id: "edition_first_published_at_3i",
+      },
+      hour: {
+        value: edition.first_published_at&.hour,
+        id: "edition_first_published_at_4i",
+      },
+      minute: {
+        value: edition.first_published_at&.min,
+        id: "edition_first_published_at_5i",
+      },
+    })
+%>
+
 <% if edition.published_major_version.nil? %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Document status (required)",
@@ -18,7 +49,7 @@
           value: true,
           text: "This document has previously been published on another website.",
           checked: edition.previously_published,
-          conditional: render("datetime_fields", form: form, edition: edition, field_name: "first_published_at", start_year: Date.today.year, end_year: 1945)
+          conditional: first_published_at_fields
         }
       ]
     } %>
@@ -29,6 +60,6 @@
     heading_size: "l",
     hint: "For example, 31 3 2000",
   } do %>
-    <%= render "datetime_fields", form: form, edition: edition, field_name: "first_published_at", start_year: Date.today.year, end_year: 1945 %>
+    <%= first_published_at_fields %>
   <% end %>
 <% end %>

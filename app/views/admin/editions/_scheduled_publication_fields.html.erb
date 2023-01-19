@@ -12,7 +12,33 @@
       label: "Schedule for publication",
       value: 1,
       checked: edition.scheduled_publication.present?,
-      conditional: render("datetime_fields", form: form, edition: edition, field_name: "scheduled_publication", default_date: Time.zone.parse(Time.zone.now.strftime("%Y-%m-%d 09:30")))
+      conditional: render("components/datetime_fields", {
+            field_name: "scheduled_publication",
+            prefix: "edition",
+            error_items: errors_for(edition.errors, :scheduled_publication),
+            date_hint: "For example, 01 August 2022",
+            time_hint: "For example, 09:30 or 19:30",
+            year: {
+              value: edition.scheduled_publication&.year || Time.zone.today.year,
+              id: "edition_scheduled_publication_1i",
+            },
+            month: {
+              value: edition.scheduled_publication&.month || Time.zone.today.month,
+              id: "edition_scheduled_publication_2i",
+            },
+            day: {
+              value: edition.scheduled_publication&.day || Time.zone.today.day,
+              id: "edition_scheduled_publication_3i",
+            },
+            hour: {
+              value: edition.scheduled_publication&.hour || 9,
+              id: "edition_scheduled_publication_4i",
+            },
+            minute: {
+              value: edition.scheduled_publication&.min || 30,
+              id: "edition_scheduled_publication_5i",
+            },
+          })
     }
   ]
 } %>
