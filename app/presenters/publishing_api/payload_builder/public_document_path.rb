@@ -18,7 +18,7 @@ module PublishingApi
     private
 
       def base_path
-        @base_path ||= item.public_path(locale: I18n.locale)
+        @base_path ||= item.public_path(I18n.locale)
       end
     end
   end

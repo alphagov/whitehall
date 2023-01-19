@@ -189,7 +189,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     assert File.exist?(csv_test_file_path)
     assert_equal 2, csv.size
     assert_equal ["page", "admin link", "public timestamp", "format", "broken link count", "broken links"], csv[0]
-    assert_equal [speech.public_url,
+    assert_equal [speech.public_url(:en),
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_speech_path(speech)}",
                   speech.public_timestamp.to_s,
                   "Speech",

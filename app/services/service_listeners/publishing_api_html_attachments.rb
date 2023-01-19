@@ -41,7 +41,7 @@ module ServiceListeners
       destination = if edition.unpublishing.redirect?
                       Addressable::URI.parse(edition.unpublishing.alternative_url).path
                     else
-                      edition.public_path
+                      edition.public_path(I18n.locale)
                     end
 
       current_html_attachments.each do |html_attachment|

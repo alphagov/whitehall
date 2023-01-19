@@ -56,11 +56,11 @@ class Unpublishing < ApplicationRecord
   end
 
   def document_path
-    edition.public_path.gsub(edition.slug, slug)
+    edition.public_path(I18n.locale).gsub(edition.slug, slug)
   end
 
   def document_url
-    edition.public_url.gsub(edition.slug, slug)
+    edition.public_url(I18n.locale).gsub(edition.slug, slug)
   end
 
   # Because the edition may have been deleted, we need to find it unscoped to

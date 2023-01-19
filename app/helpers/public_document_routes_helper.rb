@@ -2,8 +2,7 @@ module PublicDocumentRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
   def document_path(edition, options = {})
-    options = locale_options(edition, options)
-    edition.public_path(options)
+    edition.public_path(locale(edition), options)
   end
 
   def public_document_path(edition, options = {})
@@ -13,14 +12,11 @@ module PublicDocumentRoutesHelper
   def document_url(edition, options = {}, _builder_options = {})
     return edition.url if edition.is_a?(RummagerDocumentPresenter)
 
-    options = locale_options(edition, options)
-
-    edition.public_url(options)
+    edition.public_url(locale(edition), options)
   end
 
   def public_document_url(edition, options = {})
-    options = locale_options(edition, options)
-    edition.public_url(options)
+    edition.public_url(locale(edition), options)
   end
 
   def preview_document_url(edition, options = {})
@@ -46,16 +42,14 @@ module PublicDocumentRoutesHelper
 
 private
 
-  def locale_options(edition, options)
+  def locale(edition)
     if edition.non_english_edition?
-      options[:locale] = edition.primary_locale
+      edition.primary_locale
     elsif edition.translatable?
-      options[:locale] ||= best_locale_for_edition(edition)
+      best_locale_for_edition(edition)
     else
-      options.delete(:locale)
+      :en
     end
-
-    options
   end
 
   def best_locale_for_edition(edition)

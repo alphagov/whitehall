@@ -19,7 +19,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       statistical_data_sets: [statistical_data_set],
     )
 
-    public_path = publication.public_path
+    public_path = publication.public_path(:en)
     expected_content = {
       base_path: public_path,
       title: "Publication title",

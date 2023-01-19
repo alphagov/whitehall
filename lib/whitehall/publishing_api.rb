@@ -122,14 +122,14 @@ module Whitehall
     def self.schedule_async(edition)
       publish_timestamp = edition.scheduled_publication.as_json
       locales_for(edition).each do |locale|
-        base_path = edition.public_path(locale:)
+        base_path = edition.public_path(locale)
         PublishingApiScheduleWorker.perform_async(base_path, publish_timestamp)
       end
     end
 
     def self.unschedule_async(edition)
       locales_for(edition).each do |locale|
-        base_path = edition.public_path(locale:)
+        base_path = edition.public_path(locale)
         PublishingApiUnscheduleWorker.perform_async(base_path)
       end
     end
