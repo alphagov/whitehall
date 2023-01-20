@@ -282,7 +282,7 @@ module Admin::EditionsHelper
     end
 
     links + edition.non_english_translated_locales.map do |locale|
-      [preview_document_url(edition, locale:),
+      [preview_document_url(edition, locale: locale.code),
        "Language: #{locale.native_and_english_language_name}"]
     end
   end
