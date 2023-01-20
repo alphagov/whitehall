@@ -2,6 +2,7 @@
 <% content_for :page_title, "Force publish: #{@edition.title}" %>
 <% content_for :title, "Force publish" %>
 <% content_for :title_margin_bottom, 6 %>
+<% render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">

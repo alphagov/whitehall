@@ -2,6 +2,10 @@
 <% content_for :title, "Add #{attachment.readable_type} attachment" %>
 <% content_for :context, "Attachments for #{attachment.attachable_model_name}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: attachment, parent_class: "attachment")) %>
+<% render "admin/tracking/subtype_tracking", 
+      document_type: attachment.attachable_model_name.titleize.delete(' '), 
+      document: attachable
+%>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
