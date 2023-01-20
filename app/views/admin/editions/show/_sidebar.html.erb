@@ -15,10 +15,13 @@
    {
      id: "history_tab",
      label: "History",
-     content: render(Admin::Editions::DocumentHistoryTabComponent.new(
-       edition: @edition,
-       document_history: @document_history,
-     ))
+     content: tag.div(
+       render(Admin::Editions::DocumentHistoryTabComponent.new(
+         edition: @edition,
+         document_history: @document_history,
+       )),
+       data: { module: "document-history-paginator" },
+     )
    },
      *([{
        id: "fact_checking_tab",

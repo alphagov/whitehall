@@ -1,8 +1,8 @@
-.app-view-document-history-tab__pagination-link {
-  margin-left: govuk-spacing(3);
-}
-
-.app-view-document-history-tab__pagination-link:last-child {
+.app-view-document-history-tab__older-pagination-link {
   float: right;
   margin-right: govuk-spacing(3);
+}
+
+.app-view-document-history-tab__newer-pagination-link {
+  margin-left: govuk-spacing(3);
 }
