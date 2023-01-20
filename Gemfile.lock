@@ -335,7 +335,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.6.2)
+    json (2.6.3)
     json-schema (3.0.0)
       addressable (>= 2.8)
     jwt (2.5.0)
@@ -668,7 +668,7 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    slimmer (18.0.0)
+    slimmer (18.1.0)
       json
       nokogiri (~> 1.7)
       null_logger
