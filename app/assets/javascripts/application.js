@@ -22,6 +22,7 @@
 //= require admin/modules/navbar-toggle
 //= require admin/modules/paste-html-to-govspeak
 
+//= require admin/views/broken-links-report
 //= require admin/views/edition-form
 //= require admin/views/locale-switcher
 //= require admin/views/track-selected-taxons
