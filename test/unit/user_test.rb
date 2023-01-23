@@ -145,6 +145,16 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_preview_next_release?
   end
 
+  test "cannot preview the upcoming images workflow update" do
+    user = build(:user)
+    assert_not user.can_preview_images_update?
+  end
+
+  test "can preview the upcoming images workflow update" do
+    user = build(:user, permissions: [User::Permissions::PREVIEW_IMAGES_UPDATE])
+    assert user.can_preview_images_update?
+  end
+
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?
