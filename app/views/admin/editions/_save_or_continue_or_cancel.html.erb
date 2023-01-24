@@ -1,22 +1,26 @@
 <div class="govuk-button-group">
-  <% data_attributes = {
-      module: "track-button-click",
-      "tracking-category": "form-button",
-      "tracking-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
-    }
-  %>
   <%= render "govuk_publishing_components/components/button", {
     text: "Save",
     value: "save",
     name: "save",
-    data_attributes: data_attributes
+    data_attributes: {
+      module: "gem-track-click",
+      "track-category": "form-button",
+      "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
+      "track-label": "Save"
+    }
   } %>
 
   <%= render "govuk_publishing_components/components/button", {
     text: "Save and continue",
     secondary_solid: true,
-    data_attributes: data_attributes
+    data_attributes: {
+      module: "gem-track-click",
+      "track-category": "form-button",
+      "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
+      "track-label": "Save and continue"
+    }
   } %>
 
-  <%= link_to "Cancel", admin_cancel_path(edition), class: "govuk-link govuk-link--no-visited-state", data_attributes: data_attributes %>
+  <%= link_to "Cancel", admin_cancel_path(edition), class: "govuk-link govuk-link--no-visited-state" %>
 </div>
