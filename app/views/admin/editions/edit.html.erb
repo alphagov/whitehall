@@ -3,6 +3,7 @@
 <% content_for :context, @edition.title %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 <% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
+<%= render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 
 <% if @conflicting_edition %>
   <div class="govuk-grid-row">
