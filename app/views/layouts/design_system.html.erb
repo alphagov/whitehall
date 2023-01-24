@@ -40,9 +40,11 @@
       <% end %>
 
       <% if flash["alert"].present? %>
-        <%= render "govuk_publishing_components/components/error_alert", {
-          message: flash["alert"]
-        } %>
+        <div data-module="auto-track-event" data-track-category="flash-message" data-track-action="alert-danger" data-track-label="<%= flash["alert"] %>">
+          <%= render "govuk_publishing_components/components/error_alert", {
+            message: flash["alert"]
+          } %>
+        </div>
       <% end %>
 
       <%= yield(:error_summary) %>
