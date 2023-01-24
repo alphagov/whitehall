@@ -101,7 +101,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def edit
     @edition.open_for_editing_as(current_user)
-    fetch_version_and_remark_trails
+    fetch_version_and_remark_trails(next_release: false)
     render_design_system(:edit, :edit_legacy, next_release: false)
   end
 
@@ -205,8 +205,8 @@ private
     end
   end
 
-  def fetch_version_and_remark_trails
-    if preview_design_system?(next_release: true)
+  def fetch_version_and_remark_trails(next_release: true)
+    if preview_design_system?(next_release:)
       @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1)
     else
       @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
