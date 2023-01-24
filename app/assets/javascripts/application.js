@@ -2,6 +2,12 @@
 //= require govuk_publishing_components/all_components
 //= require govuk_publishing_components/analytics
 
+// support ES6 (promises, functions, etc. - see docs)
+//= require core-js-bundle/index.js
+
+// support ES6 custom elements
+//= require @webcomponents/custom-elements/custom-elements.min.js
+
 //= require jquery
 //= require bootstrap
 
