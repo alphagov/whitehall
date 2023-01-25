@@ -1,8 +1,9 @@
 class AssetManagerUpdateWhitehallAssetWorker < WorkerBase
   sidekiq_options queue: "asset_manager_updater"
 
-  def perform(attachment_data_global_id, attributes)
-    asset_data = GlobalID::Locator.locate(attachment_data_global_id)
+  def perform(klass, id, attributes)
+    model = klass.constantize.find(id)
+    asset_data = GlobalID::Locator.locate(model.to_global_id)
     path = asset_data.file.asset_manager_path
     AssetManager::AssetUpdater.call(asset_data, path, attributes)
 
