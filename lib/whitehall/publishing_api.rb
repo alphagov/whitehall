@@ -135,19 +135,19 @@ module Whitehall
     end
 
     def self.publish_redirect_async(content_id, destination, locale = I18n.default_locale.to_s)
-      PublishingApiRedirectWorker.perform_async(content_id, destination, locale)
+      PublishingApiRedirectWorker.perform_async(content_id, destination, locale.to_s)
     end
 
     def self.publish_gone_async(content_id, alternative_path, explanation, locale = I18n.default_locale.to_s)
-      PublishingApiGoneWorker.perform_async(content_id, alternative_path, explanation, locale)
+      PublishingApiGoneWorker.perform_async(content_id, alternative_path, explanation, locale.to_s)
     end
 
     def self.publish_vanish_async(document_content_id, locale = I18n.default_locale.to_s)
-      PublishingApiVanishWorker.perform_async(document_content_id, locale)
+      PublishingApiVanishWorker.perform_async(document_content_id, locale.to_s)
     end
 
     def self.publish_withdrawal_async(document_content_id, explanation, unpublished_at, locale = I18n.default_locale.to_s)
-      PublishingApiWithdrawalWorker.perform_async(document_content_id, explanation, locale, false, unpublished_at.to_s)
+      PublishingApiWithdrawalWorker.perform_async(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
     end
 
     def self.unpublish_async(unpublishing)
@@ -158,7 +158,7 @@ module Whitehall
       PublishingApiRedirectWorker.perform_async(
         base_path,
         redirects,
-        locale,
+        locale.to_s,
         draft: true,
       )
     end
@@ -169,12 +169,12 @@ module Whitehall
 
     def self.discard_draft_async(edition)
       locales_for(edition).each do |locale|
-        PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale)
+        PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale.to_s)
       end
     end
 
     def self.discard_translation_async(edition, locale:)
-      PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale)
+      PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale.to_s)
     end
 
     def self.publish_services_and_information_async(organisation_id)
@@ -192,7 +192,7 @@ module Whitehall
     def self.push_live(model_instance, update_type_override = nil, queue_override = nil)
       assert_public_edition!(model_instance)
       locales_for(model_instance).each do |locale|
-        PublishingApiWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
+        PublishingApiWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale.to_s)
       end
     end
 

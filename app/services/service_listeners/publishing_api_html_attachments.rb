@@ -59,7 +59,7 @@ module ServiceListeners
         PublishingApiWithdrawalWorker.new.perform(
           html_attachment.content_id,
           edition.unpublishing.explanation,
-          edition.primary_locale,
+          edition.primary_locale.to_s,
           false,
           edition.unpublishing.unpublished_at.to_s,
         )

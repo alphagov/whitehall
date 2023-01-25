@@ -166,7 +166,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
         "TakePartPage",
         take_part_page.id,
         "republish",
-        :en,
+        "en",
       )
     Whitehall::PublishingApi.bulk_republish_async(take_part_page)
   end

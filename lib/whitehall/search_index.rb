@@ -14,7 +14,7 @@ module Whitehall
     end
 
     def self.delete(instance)
-      SearchIndexDeleteWorker.perform_async(instance.search_index["link"], instance.rummager_index)
+      SearchIndexDeleteWorker.perform_async(instance.search_index["link"], instance.rummager_index.to_s)
     end
 
     def self.for(type, options = {})
