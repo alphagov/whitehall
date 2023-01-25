@@ -104,7 +104,7 @@ class StatisticsAnnouncement < ApplicationRecord
     if unpublished? || cancelled?
       PublishingApiUnscheduleWorker.perform_async(base_path)
     else
-      PublishingApiScheduleWorker.perform_async(base_path, statistics_announcement_dates.last.release_date)
+      PublishingApiScheduleWorker.perform_async(base_path, statistics_announcement_dates.last.release_date.to_s)
     end
   end
 

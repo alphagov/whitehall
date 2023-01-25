@@ -61,7 +61,7 @@ module ServiceListeners
           edition.unpublishing.explanation,
           edition.primary_locale,
           false,
-          edition.unpublishing.unpublished_at,
+          edition.unpublishing.unpublished_at.to_s,
         )
       end
     end

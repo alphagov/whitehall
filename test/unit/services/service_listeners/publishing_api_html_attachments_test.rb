@@ -341,7 +341,7 @@ module ServiceListeners
             "content was withdrawn",
             "en",
             false,
-            publication.unpublishing.unpublished_at,
+            publication.unpublishing.unpublished_at.to_s,
           )
           call(publication)
         end
@@ -432,7 +432,7 @@ module ServiceListeners
           "content was withdrawn",
           "en",
           false,
-          publication.unpublishing.unpublished_at,
+          publication.unpublishing.unpublished_at.to_s,
         )
         call(publication)
       end
