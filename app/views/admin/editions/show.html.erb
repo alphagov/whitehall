@@ -1,5 +1,12 @@
 <% content_for :page_title, "#{@edition.title} - #{@edition.format_name}" %>
 <% content_for :title, @edition.title %>
+<% content_for :head do %>
+  <% custom_track_dimensions(@edition, @edition_taxons).each do |key, value| %>
+    <meta name="custom-dimension:<%= key %>" content="<%= value %>">
+  <% end %>
+<% end %>
+
+<%= render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

@@ -39,7 +39,18 @@
         font_size: "l",
         margin_bottom: 3,
       } %>
-      <p class="govuk-body"><%= link_to("Preview on website #{"- English" if @edition.translatable? && @edition.available_in_multiple_languages?} (opens in new tab)".strip, preview_document_url(@edition), class: "govuk-link", target: "_blank") if @edition.available_in_english? %></p>
+      <p class="govuk-body">
+        <%= link_to("Preview on website #{"- English" if @edition.translatable? && @edition.available_in_multiple_languages?} (opens in new tab)".strip,
+        preview_document_url(@edition),
+        class: "govuk-link",
+        target: "_blank",
+        data: {
+          module: "gem-track-click",
+          "track-category": "button-clicked",
+          "track-action": "#{@edition.model_name.singular.dasherize}-button",
+          "track-label": "Preview on website",
+        }) if @edition.available_in_english? %>
+      </p>
       <% if @edition.translatable? && @edition.available_in_multiple_languages? %>
         <%= render "govuk_publishing_components/components/details", {
           title: "Preview translated pages"
@@ -47,7 +58,15 @@
           <%= render "govuk_publishing_components/components/list", {
             items: @edition.non_english_translated_locales.map do |locale|
               (link_to("Preview on website - #{locale.native_and_english_language_name}",
-                      public_document_url(@edition, locale:), class: 'govuk-link', target: '_blank') + "")
+                      public_document_url(@edition, locale:),
+                      class: 'govuk-link',
+                      target: '_blank',
+                      data: {
+                        module: "gem-track-click",
+                        "track-category": "button-clicked",
+                        "track-action": "#{@edition.model_name.singular.dasherize}-button",
+                        "track-label": "Preview on website - #{locale.native_and_english_language_name}",
+                      }) + "")
             end
           } %>
         <% end %>
@@ -211,7 +230,14 @@
       <% if @edition.editable? %>
         <p class="govuk-body">
           <%= link_to("#{@edition.attachments.any? ? "Modify" : "Add"} attachments",
-                      admin_edition_attachments_path(@edition.id), class: 'govuk-link') %>
+                      admin_edition_attachments_path(@edition.id),
+                      class: 'govuk-link',
+                      data: {
+                        module: "gem-track-click",
+                        "track-category": "button-clicked",
+                        "track-action": "#{@edition.model_name.singular.dasherize}-button",
+                        "track-label": "Modify attachments",
+                      }) %>
         </p>
       <% end %>
 
