@@ -1,0 +1,86 @@
+name: Datetime fields
+description: Use the datetime fields component to help users enter a datetime for a specific event.
+body: |
+  This differs from the [Date fields][] component in a few notable ways:
+    1. In addition, to day, month and year, it also takes hour and minute
+    2. It generates select fields in place of inputs
+    3. As this uses the `ActionView::Helpers::DateHelper` helpers you must
+    provide a prefix and field_name to constuct the fields
+     - the prefix must be the downcased and underscored model name
+     - the field_name is the attribute for the model
+
+  [Date fields]: https://design-system.service.gov.uk/components/date-input/
+accessibility_criteria: |
+  The component must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when they have focus
+  - be recognisable as form select elements
+  - have correctly associated labels
+examples:
+  default:
+    data:
+      prefix: edition
+      field_name: first_published_at
+  with_heading_level_and_size:
+    data:
+      prefix: edition
+      field_name: first_published_at
+      heading_level: 1
+      heading_size: l
+  with_hint_text:
+    data:
+      prefix: edition
+      date_hint: For example, 01 August 2022
+      time_hint: For example, 09:30 or 19:30
+  with_custom_ids:
+    data:
+      prefix: edition
+      field_name: first_published_at
+      year:
+        id: edition_first_published_year
+      month:
+        id: edition_first_published_month
+      day:
+        id: edition_first_published_day
+      hour:
+        id: edition_first_published_hour
+      minute:
+        id: edition_first_published_minute
+  with_values:
+    data:
+      prefix: edition
+      field_name: first_published_at
+      year:
+        value: 2022
+      month:
+        value: 1
+      day:
+        value: 1
+      hour:
+        value: 9
+      minute:
+        value: 30
+  with_start_and_end_year:
+    data:
+      prefix: edition
+      field_name: first_published_at
+      year:
+        start_year: 2000
+        end_year: 2025
+  with_error_items:
+    data:
+      prefix: edition
+      field_name: first_published_at
+      error_items:
+      - text: Descriptive error 1
+      - text: Descriptive error 2
+  with_data_attributes:
+    data:
+      prefix: edition
+      field_name: first_published_at
+      data_attributes:
+        tracking: GTM-123AB
