@@ -1,1 +1,1 @@
-<%= link_to_next_page @document_history, 'Older', class: "govuk-body govuk-link app-view-document-history-tab__older-pagination-link", data: {'remote-pagination' => paginated_audit_trail_url(current_page + 1) } %>
+<%= link_to_next_page @document_history, 'Older', class: "govuk-body govuk-link app-view-document-history-tab__older-pagination-link", data: {'remote-pagination' => paginated_audit_trail_url(current_page + 1, editing) } %>

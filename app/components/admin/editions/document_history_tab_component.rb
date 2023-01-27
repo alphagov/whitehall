@@ -3,7 +3,7 @@
 class Admin::Editions::DocumentHistoryTabComponent < ViewComponent::Base
   attr_reader :edition, :document_history, :editing
 
-  def initialize(edition:, document_history:, editing: false)
+  def initialize(edition:, document_history:, editing: nil)
     @edition = edition
     @document_history = document_history
     @editing = editing
