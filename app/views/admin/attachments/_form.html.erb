@@ -55,6 +55,7 @@
           error_items: errors_for(attachment.errors, :"govspeak_content.body"),
           data_attributes: {
             image_ids: @edition && @edition.images.any? ? @edition.images.map { |img| img[:id] } : [],
+            attachment_ids: @edition && @edition.allows_attachments? ? @edition.attachments.map(&:id) : [],
             alternative_format_provider_id: @edition && @edition.alternative_format_provider_id ? @edition.alternative_format_provider_id : current_user.organisation.try(:id),
           }
         } %>

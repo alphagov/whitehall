@@ -4,6 +4,7 @@ describe('GOVUK.Modules.GovspekEditor', function () {
   beforeEach(function () {
     component = document.createElement('div')
     component.setAttribute('data-image-ids', JSON.stringify([1, 2, 3, 4]))
+    component.setAttribute('data-attachment-ids', JSON.stringify([5, 6, 7, 8]))
     component.setAttribute('data-alternative-format-provider-id', 11)
 
     // Preview Button
@@ -204,7 +205,11 @@ describe('GOVUK.Modules.GovspekEditor', function () {
       ['image_ids[]', '1'],
       ['image_ids[]', '2'],
       ['image_ids[]', '3'],
-      ['image_ids[]', '4']
+      ['image_ids[]', '4'],
+      ['attachment_ids[]', '5'],
+      ['attachment_ids[]', '6'],
+      ['attachment_ids[]', '7'],
+      ['attachment_ids[]', '8']
     ])
   })
 })
