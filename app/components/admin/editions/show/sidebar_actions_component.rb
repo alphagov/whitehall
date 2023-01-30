@@ -183,14 +183,14 @@ private
   def add_destroy_action
     if @edition.can_delete? && @edition.unpublishing.nil?
       actions << link_to(
-        "Discard draft",
+        "Delete draft",
         confirm_destroy_admin_edition_path(@edition),
         class: "govuk-link gem-link--destructive",
         data: {
           module: "gem-track-click",
           "track-category": "button-clicked",
           "track-action": "#{dasherized_class_name}-button",
-          "track-label": "Discard draft",
+          "track-label": "Delete draft",
         },
       )
     end

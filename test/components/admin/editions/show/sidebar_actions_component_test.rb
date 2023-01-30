@@ -11,7 +11,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "li", count: 3
     assert_selector "button", text: "Submit for 2nd eyes"
     assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Discard draft"
+    assert_selector "a", text: "Delete draft"
   end
 
   test "actions for published edition" do
@@ -32,7 +32,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
 
     assert_selector "li", count: 2
     assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Discard draft"
+    assert_selector "a", text: "Delete draft"
   end
 
   test "actions for rejected edition" do
@@ -42,7 +42,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
 
     assert_selector "li", count: 3
     assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Discard draft"
+    assert_selector "a", text: "Delete draft"
     assert_selector "button", text: "Submit for 2nd eyes"
   end
 
@@ -93,7 +93,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "button", text: "Submit for 2nd eyes"
     assert_selector "a", text: "Force publish"
     assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Discard draft"
+    assert_selector "a", text: "Delete draft"
   end
 
   test "actions for draft edition with a scheduled date as managing editor" do
@@ -105,7 +105,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "button", text: "Submit for 2nd eyes"
     assert_selector "a", text: "Force schedule"
     assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Discard draft"
+    assert_selector "a", text: "Delete draft"
   end
 
   test "actions for published edition as managing editor" do
@@ -129,7 +129,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "button", text: "Publish"
     assert_selector "button", text: "Reject"
     assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Discard draft"
+    assert_selector "a", text: "Delete draft"
   end
 
   test "actions for submitted edition with a scheduled date as managing editor" do
@@ -141,7 +141,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "button", text: "Schedule"
     assert_selector "button", text: "Reject"
     assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Discard draft"
+    assert_selector "a", text: "Delete draft"
   end
 
   test "actions for rejected edition as managing editor" do
@@ -151,7 +151,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
 
     assert_selector "li", count: 3
     assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Discard draft"
+    assert_selector "a", text: "Delete draft"
     assert_selector "button", text: "Submit for 2nd eyes"
   end
 
