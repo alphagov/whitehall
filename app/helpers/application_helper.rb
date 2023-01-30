@@ -48,7 +48,7 @@ module ApplicationHelper
     return unless attachment
 
     name = attachment.name_for_link
-    html_class = options[:class]
+    html_class = options.delete(:class)
     link_to name, attachment.url(options), class: html_class
   end
 
