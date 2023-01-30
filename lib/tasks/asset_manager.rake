@@ -9,8 +9,8 @@ namespace :asset_manager do
 
       edition.attachments.files.each do |file_attachment|
         new_attributes = { auth_bypass_ids: [edition.auth_bypass_id] }
-        attachment_data_id = file_attachment.attachment_data.to_global_id
-        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", attachment_data_id, new_attributes)
+        attachment_data_id = file_attachment.attachment_data.id
+        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data_id, new_attributes)
       end
     end
   end
@@ -22,17 +22,22 @@ namespace :asset_manager do
     latest_draft_consultations.find_each do |consultation|
       if consultation.consultation_participation&.consultation_response_form.present?
         response_form = consultation.consultation_participation.consultation_response_form
-        response_form_data_id = response_form.consultation_response_form_data.to_global_id
+        response_form_data_id = response_form.consultation_response_form_data.id
         new_attributes = { auth_bypass_ids: [consultation.auth_bypass_id] }
 
-        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", response_form_data_id, new_attributes)
+        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue(
+          "asset_manager_updater",
+          "ConsultationResponseFormData",
+          response_form_data_id,
+          new_attributes,
+        )
       end
 
       if consultation.outcome.present?
         consultation.outcome.attachments.files.each do |file_attachment|
           new_attributes = { auth_bypass_ids: [consultation.auth_bypass_id] }
-          attachment_data_id = file_attachment.attachment_data.to_global_id
-          AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", attachment_data_id, new_attributes)
+          attachment_data_id = file_attachment.attachment_data.id
+          AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data_id, new_attributes)
         end
       end
 
@@ -40,8 +45,8 @@ namespace :asset_manager do
 
       consultation.public_feedback.attachments.files.each do |file_attachment|
         new_attributes = { auth_bypass_ids: [consultation.auth_bypass_id] }
-        attachment_data_id = file_attachment.attachment_data.to_global_id
-        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", attachment_data_id, new_attributes)
+        attachment_data_id = file_attachment.attachment_data.id
+        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data_id, new_attributes)
       end
     end
   end
@@ -52,9 +57,9 @@ namespace :asset_manager do
 
     latest_draft_editions.find_each do |edition|
       edition.images.each do |image|
-        image_data_id = image.image_data.to_global_id
+        image_data_id = image.image_data.id
         new_attributes = { auth_bypass_ids: [edition.auth_bypass_id] }
-        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", image_data_id, new_attributes)
+        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ImageData", image_data_id, new_attributes)
       end
     end
   end

@@ -18,7 +18,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
       unpublishing.explanation,
-      :en,
+      "en",
       false,
     )
 
@@ -38,7 +38,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     redirect_worker.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
-      :en,
+      "en",
       false,
     )
 
@@ -58,7 +58,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     redirect_worker.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
-      :en,
+      "en",
       false,
     )
 
@@ -77,9 +77,9 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     withdrawal_worker.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.explanation,
-      :en,
+      "en",
       false,
-      unpublishing.unpublished_at,
+      unpublishing.unpublished_at.to_s,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -115,9 +115,9 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     withdrawal_worker.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.explanation,
-      :en,
+      "en",
       true,
-      unpublishing.unpublished_at,
+      unpublishing.unpublished_at.to_s,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id, true)

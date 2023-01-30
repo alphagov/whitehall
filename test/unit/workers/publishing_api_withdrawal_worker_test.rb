@@ -20,7 +20,7 @@ class PublishingApiWithdrawalWorkerTest < ActiveSupport::TestCase
     )
 
     PublishingApiWithdrawalWorker.new.perform(
-      publication.document.content_id, "*why?*", "en", false, unpublished_at
+      publication.document.content_id, "*why?*", "en", false, unpublished_at.to_s
     )
 
     assert_requested request

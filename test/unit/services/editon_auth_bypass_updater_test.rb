@@ -45,7 +45,8 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
-        file_attachment.attachment_data.to_global_id,
+        "AttachmentData",
+        file_attachment.attachment_data.id,
         expected_attributes,
       )
 
@@ -67,7 +68,8 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
-        image.image_data.to_global_id,
+        "ImageData",
+        image.image_data.id,
         expected_attributes,
       )
 
@@ -107,7 +109,8 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
-        consultation_response_form.consultation_response_form_data.to_global_id,
+        "ConsultationResponseFormData",
+        consultation_response_form.consultation_response_form_data.id,
         expected_attributes,
       )
 
@@ -130,7 +133,8 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
-        file_attachment.attachment_data.to_global_id,
+        "AttachmentData",
+        file_attachment.attachment_data.id,
         expected_attributes,
       )
 
@@ -153,7 +157,8 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
-        file_attachment.attachment_data.to_global_id,
+        "AttachmentData",
+        file_attachment.attachment_data.id,
         expected_attributes,
       )
 

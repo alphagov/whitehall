@@ -14,7 +14,7 @@ class PublishingApiUnpublishingWorker < WorkerBase
           PublishingApiRedirectWorker.new.perform(
             content_id,
             unpublishing.alternative_path,
-            locale,
+            locale.to_s,
             allow_draft,
           )
         else
@@ -22,7 +22,7 @@ class PublishingApiUnpublishingWorker < WorkerBase
             content_id,
             unpublishing.alternative_path,
             unpublishing.explanation,
-            locale,
+            locale.to_s,
             allow_draft,
           )
         end
@@ -31,7 +31,7 @@ class PublishingApiUnpublishingWorker < WorkerBase
         PublishingApiRedirectWorker.new.perform(
           content_id,
           unpublishing.alternative_path,
-          locale,
+          locale.to_s,
           allow_draft,
         )
         Whitehall::PublishingApi.save_draft(edition)
@@ -39,9 +39,9 @@ class PublishingApiUnpublishingWorker < WorkerBase
         PublishingApiWithdrawalWorker.new.perform(
           content_id,
           unpublishing.explanation,
-          locale,
+          locale.to_s,
           allow_draft,
-          unpublishing.unpublished_at,
+          unpublishing.unpublished_at.to_s,
         )
       end
     end

@@ -13,7 +13,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     AssetManager::AssetUpdater.expects(:call).with(attachment_data, expected_legacy_url_path, @auth_bypass_id_attributes)
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", attachment_data.to_global_id, @auth_bypass_id_attributes)
+    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
   end
 
@@ -25,7 +25,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     AssetManager::AssetUpdater.expects(:call).with(attachment_data, expected_legacy_url_path, @auth_bypass_id_attributes)
     AssetManager::AssetUpdater.expects(:call).with(attachment_data, expected_legacy_url_thumbnail_path, @auth_bypass_id_attributes)
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", attachment_data.to_global_id, @auth_bypass_id_attributes)
+    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
   end
 
@@ -44,7 +44,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
       AssetManager::AssetUpdater.expects(:call).with(image_data, path, @auth_bypass_id_attributes).once
     end
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", image_data.to_global_id, @auth_bypass_id_attributes)
+    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ImageData", image_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
   end
 
@@ -54,7 +54,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     expected_legacy_url_path = expected_legacy_url("consultation_response_form_data", form_data.id, "two-pages.pdf")
     AssetManager::AssetUpdater.expects(:call).with(form_data, expected_legacy_url_path, @auth_bypass_id_attributes)
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", form_data.to_global_id, @auth_bypass_id_attributes)
+    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ConsultationResponseFormData", form_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
   end
 
@@ -65,7 +65,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     AssetManager::AssetUpdater.expects(:call).once.raises(expected_error)
     Logger.any_instance.stubs(:error).once # suppress log output
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", attachment_data.to_global_id, @auth_bypass_id_attributes)
+    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
   end
 
@@ -76,18 +76,18 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     AssetManager::AssetUpdater.expects(:call).once.raises(expected_error)
     Logger.any_instance.stubs(:error).once # suppress log output
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", attachment_data.to_global_id, @auth_bypass_id_attributes)
+    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
   end
 
   test "ignores assets that have been deleted in Whitehall" do
     attachment_data = FactoryBot.create(:attachment_data)
-    global_id = attachment_data.to_global_id
+    attachment_data_id = attachment_data.id
 
     Logger.any_instance.stubs(:error).once # suppress log output
     attachment_data.destroy!
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", global_id, @auth_bypass_id_attributes)
+    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data_id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
   end
 end
