@@ -70,7 +70,7 @@
     <div class="app-c-datetime-fields__date-time">
       <%= render "govuk_publishing_components/components/label", {
         text: "Day",
-        html_for: year_select_id,
+        html_for: day_select_id,
         id: day_label_id,
       } %>
 
@@ -81,7 +81,7 @@
           field_name: "#{field_name}(3i)"
         },
         {
-          id: year_select_id,
+          id: day_select_id,
           class: "govuk-select app-c-datetime-fields__date-time-input",
           "aria-describedby": "#{day_label_id} #{date_hint_id if date_hint.present?}".strip
         } %>
@@ -110,7 +110,7 @@
     <div class="app-c-datetime-fields__date-time">
       <%= render "govuk_publishing_components/components/label", {
         text: "Year",
-        html_for: day_select_id,
+        html_for: year_select_id,
         id: year_label_id,
       } %>
 
@@ -123,7 +123,7 @@
           field_name: "#{field_name}(1i)"
         },
         {
-          id: day_select_id,
+          id: year_select_id,
           class: "govuk-select app-c-datetime-fields__date-time-input",
           "aria-describedby": "#{year_label_id} #{date_hint_id if date_hint.present?}".strip
         } %>

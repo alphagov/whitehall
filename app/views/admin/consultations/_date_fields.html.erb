@@ -3,7 +3,36 @@
   heading_size: "s",
   id: "edition_opening_at",
 } do %>
-  <%= render "datetime_fields", form: form, edition: edition, field_name: "opening_at", start_year: 1997, end_year: Date.today.year + 5 %>
+  <%= render "components/datetime_fields", {
+      field_name: "opening_at",
+      prefix: "edition",
+      error_items: errors_for(edition.errors, :opening_at),
+      date_hint: "For example, 01 August 2022",
+      time_hint: "For example, 09:30 or 19:30",
+      year: {
+        value: edition.opening_at&.year,
+        start_year: 1997,
+        end_year: Date.today.year + 5,
+        id: "edition_opening_at_1i",
+      },
+      month: {
+        value: edition.opening_at&.month,
+        id: "edition_opening_at_2i",
+      },
+      day: {
+        value: edition.opening_at&.day,
+        id: "edition_opening_at_3i",
+      },
+      hour: {
+        value: edition.opening_at&.hour,
+        id: "edition_opening_at_4i",
+      },
+      minute: {
+        value: edition.opening_at&.min,
+        id: "edition_opening_at_5i",
+      },
+    }
+  %>
 <% end %>
 
 <%= render "govuk_publishing_components/components/fieldset", {
@@ -11,5 +40,34 @@
   heading_size: "s",
   id: "edition_closing_at",
 } do %>
-  <%= render "datetime_fields", form: form, edition: edition, field_name: "closing_at", start_year: 1997, end_year: Date.today.year + 5 %>
+  <%= render "components/datetime_fields", {
+      field_name: "closing_at",
+      prefix: "edition",
+      error_items: errors_for(edition.errors, :closing_at),
+      date_hint: "For example, 01 August 2022",
+      time_hint: "For example, 09:30 or 19:30",
+      year: {
+        value: edition.closing_at&.year,
+        start_year: 1997,
+        end_year: Date.today.year + 5,
+        id: "edition_closing_at_1i",
+      },
+      month: {
+        value: edition.closing_at&.month,
+        id: "edition_closing_at_2i",
+      },
+      day: {
+        value: edition.closing_at&.day,
+        id: "edition_closing_at_3i",
+      },
+      hour: {
+        value: edition.closing_at&.hour,
+        id: "edition_closing_at_4i",
+      },
+      minute: {
+        value: edition.closing_at&.min,
+        id: "edition_closing_at_5i",
+      },
+    }
+  %>
 <% end %>
