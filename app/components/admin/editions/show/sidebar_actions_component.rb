@@ -20,8 +20,8 @@ class Admin::Editions::Show::SidebarActionsComponent < ViewComponent::Base
     unless @actions
       @actions = []
       add_create_action
-      add_submit_action
       add_edit_action
+      add_submit_action
       add_unschedule_action
       add_schedule_action
       add_publish_action
@@ -108,7 +108,6 @@ private
         render("govuk_publishing_components/components/button", {
           text: "Schedule",
           title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
-          secondary_quiet: true,
           data_attributes: {
             module: "gem-track-click",
             "track-category": "button-pressed",
