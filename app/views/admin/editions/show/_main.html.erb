@@ -58,7 +58,7 @@
           <%= render "govuk_publishing_components/components/list", {
             items: @edition.non_english_translated_locales.map do |locale|
               (link_to("Preview on website - #{locale.native_and_english_language_name}",
-                      public_document_url(@edition, locale:),
+                      preview_document_url(@edition, locale: locale.code),
                       class: 'govuk-link',
                       target: '_blank',
                       data: {
