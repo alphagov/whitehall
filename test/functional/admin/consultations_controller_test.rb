@@ -136,7 +136,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     stub_publishing_api_expanded_links_with_taxons(draft_consultation.content_id, [])
 
     get :show, params: { id: draft_consultation }
-    assert_select ".page-header .lead", text: "a-simple-summary"
+    assert_select ".page-header .govuk-body-lead", text: "a-simple-summary"
   end
 
   view_test "edit displays consultation fields" do
