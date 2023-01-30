@@ -63,7 +63,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       MailNotifications.edition_rejected(user, @edition, admin_edition_url(@edition)).deliver_now
     end
     redirect_to new_admin_edition_editorial_remark_path(@edition),
-                notice: "Document rejected; please explain why in an editorial remark"
+                notice: "Document rejected; please explain why in an #{preview_design_system?(next_release: true) ? 'internal note' : 'editorial remark'}"
   end
 
   def publish

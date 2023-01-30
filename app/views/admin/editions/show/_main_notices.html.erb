@@ -1,6 +1,6 @@
 <% if edition.rejected? %>
   <%= render "/components/inset_prompt", {
-    description: sanitize("Rejected by #{linked_author(edition.rejected_by, class: "govuk-link")}. See History and Notes."),
+    description: sanitize("Rejected by #{linked_author(edition.rejected_by, class: "govuk-link")} - check the internal note in the document history for the reason."),
     error: true
   } %>
 <% end %>
