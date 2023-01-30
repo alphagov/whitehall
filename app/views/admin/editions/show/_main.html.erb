@@ -99,7 +99,7 @@
     <% end %>
   </section>
 
-  <% if @edition.change_note_required? && @edition.change_note %>
+  <% if @edition.change_note_required? %>
     <section class="app-view-edition-summary__section">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Public change note",
@@ -107,8 +107,15 @@
         font_size: "l",
         margin_bottom: 3,
       } %>
-      <p class="govuk-body">
-        <%= @edition.change_note %>
+
+      <p class="govuk-body-lead">
+        <% if @edition.minor_change? %>
+          Minor change
+        <% elsif @edition.change_note.blank? %>
+          No change note
+        <% else %>
+          <%= @edition.change_note %>
+        <% end %>
       </p>
     </section>
   <% end %>
