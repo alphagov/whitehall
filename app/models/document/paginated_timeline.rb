@@ -102,7 +102,7 @@ private
   private_constant :RawEntry
 
   def document_versions
-    @document.edition_versions
+    @document.edition_versions.where.not(state: "superseded")
   end
 
   def document_remarks
