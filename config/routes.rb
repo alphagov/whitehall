@@ -245,7 +245,8 @@ Whitehall::Application.routes.draw do
             post :force_schedule, to: "edition_workflow#force_schedule"
             get :confirm_unschedule, to: "edition_workflow#confirm_unschedule"
             post :unschedule, to: "edition_workflow#unschedule"
-            get  :audit_trail, to: "edition_audit_trail#index"
+            get :audit_trail, to: "edition_audit_trail#index"
+            get :document_history, to: "edition_document_history#index"
             patch :update_bypass_id
             get :history, to: "editions#history"
             get :confirm_destroy
