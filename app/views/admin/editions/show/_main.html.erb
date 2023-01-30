@@ -157,10 +157,12 @@
       margin_bottom: 3,
     } %>
 
-    <p class="govuk-body">
-      <%= link_to(@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags",
-                  edit_admin_edition_legacy_associations_path(@edition.id), class: 'govuk-link') %>
-    </p>
+    <% if @edition.editable? %>
+      <p class="govuk-body">
+        <%= link_to(@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags",
+                    edit_admin_edition_legacy_associations_path(@edition.id), class: 'govuk-link') %>
+      </p>
+    <% end %>
 
     <% if @edition.has_legacy_tags? %>
       <% if @edition.has_primary_sector? %>
