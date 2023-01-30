@@ -257,7 +257,7 @@
             {
               text: "Filename"
             },
-            @edition.published? ? {
+            @edition.editable? ? {
               text: "Actions"
             } : nil
           ].compact,
@@ -265,7 +265,7 @@
             [
               { text: attachment[:title] },
               { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true, class: "govuk-link") },
-              @edition.published? ? { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") } : nil,
+              @edition.editable? ? { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") } : nil,
             ].compact
           end
         } %>
