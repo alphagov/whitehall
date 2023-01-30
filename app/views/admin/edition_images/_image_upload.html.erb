@@ -1,0 +1,27 @@
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Upload an image",
+  font_size: "l",
+} %>
+
+<%= form_tag admin_edition_images_path(@edition.document) do %>
+  <%= render "govuk_publishing_components/components/file_upload", {
+    name: "edition[images_attributes][image_data_attributes][file]",
+    id: "edition_images_image_data_file",
+    hint: "Images can be JPEG, PNG, SVG or GIF files.",
+  } %>
+
+   <%= render "govuk_publishing_components/components/details", {
+      title: "You must use an SVG for charts and diagrams",
+    } do %>
+      SVGs allow users to magnify images without losing quality.
+      Find out <%= link_to "how to create an SVG file (opens in new tab)",
+      "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos#creating-an-svg-file",
+      class: "govuk-link",
+      target: "_blank" %>.
+    <% end %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Upload",
+    margin_bottom: 10
+  } %>
+<% end %>

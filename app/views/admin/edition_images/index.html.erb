@@ -1,2 +1,11 @@
-<h1>Admin::EditionImages#index</h1>
-<p>Find me in app/views/admin/edition_images/index.html.erb</p>
+<% content_for :context, "#{@edition.title}" %>
+<% content_for :page_title, "Images for #{@edition.format_name}" %>
+<% content_for :title, "Images for #{@edition.format_name}" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "image_upload", edition: @edition %>
+    <%= render "uploaded_images", edition: @edition %>
+  </div>
+</div>
+
