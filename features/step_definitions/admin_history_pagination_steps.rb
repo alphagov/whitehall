@@ -19,8 +19,11 @@ Then(/^I can see the first ten items in the History tab$/) do
   expect(all(".app-view-editions-editorial-remark__list-item").count).to eq 10
 end
 
-When(/^I click the "([^"]*)" link$/) do |link|
-  click_link link
+When(/^I click the "([^"]*)" history link$/) do |link|
+  within "#history_tab" do
+    # Randomly click one of the two matching links
+    all("a", text: link, count: 2).sample.click
+  end
 end
 
 Then(/^I can see the second page of history$/) do

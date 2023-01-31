@@ -42,7 +42,7 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
   test "it renders pagination links based on the pagination attribute" do
     render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @first_edition, document_history: @timeline))
 
-    assert_selector ".app-view-document-history-tab__pagination-link", text: "Older"
+    assert_selector ".app-view-document-history-tab__pagination-link", text: "Older", count: 2
   end
 
   test "it renders the timeline entries in the correct sections for, future, current and previous editions" do

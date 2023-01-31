@@ -1,4 +1,4 @@
-Feature: Viewing a documents history
+Feature: Viewing a document's history
 
   Background:
     Given I am a writer
@@ -9,10 +9,10 @@ Feature: Viewing a documents history
     When "Stubble to be Outlawed" has two pages of history
     Then I can see the first ten items in the History tab
 
-    When I click the "Older" link
+    When I click the "Older" history link
     Then I can see the second page of history
 
-    When I click the "Newer" link
+    When I click the "Newer" history link
     Then I can see the first ten items in the History tab
 
   @javascript @design-system-only
@@ -21,10 +21,10 @@ Feature: Viewing a documents history
     When "Stubble to be Outlawed" has two pages of history
     Then I can see the first ten items in the History tab
 
-    When I click the "Older" link
+    When I click the "Older" history link
     Then I can see the second page of history
     And the History tab is still showing
 
-    When I click the "Newer" link
+    When I click the "Newer" history link
     Then I can see the first ten items in the History tab
     And the History tab is still showing
