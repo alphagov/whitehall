@@ -13,7 +13,8 @@
       @tag_form,
       url: admin_edition_world_tags_path(@edition),
       method: :put,
-      as: :taxonomy_tag_form
+      as: :taxonomy_tag_form,
+      data: { module: "track-selected-taxons" },
     ) do |form| %>
       <%= form.hidden_field :previous_version %>
 
@@ -32,6 +33,12 @@
       <div class="govuk-button-group govuk-!-margin-top-7">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save topic changes",
+          data_attributes: {
+              module: 'gem-track-click',
+              track_category: 'form-button',
+              track_label: "Save topic changes",
+              track_action: "world-taxonomy-tag-form-button",
+          }
         } %>
 
         <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
