@@ -1,7 +1,10 @@
+<% secondary_solid ||= false %>
+<% secondary_quiet ||= false %>
 <%= form_tag admin_edition_link_check_reports_path(reportable), class: 'js-broken-links-form' do %>
   <%= render "govuk_publishing_components/components/button", {
     text: button_text,
-    margin_bottom: margin_bottom,
-    secondary_solid: true
+    margin_bottom: 0,
+    secondary_solid: secondary_solid,
+    secondary_quiet: secondary_quiet
   } %>
 <% end %>

@@ -1,18 +1,26 @@
-<div data-module="broken-links-report" class="<%= "app-view-edition-summary__sidebar-info" unless report.broken_links.any? || report.caution_links.any?%>">
+<div data-module="broken-links-report">
   <% if report.new_record? %>
-    <p class="govuk-body">Check this document for broken links. The report will take a few moments to complete.</p>
-    <%= render partial: 'admin/link_check_reports/form', locals: {
-      reportable: report.link_reportable,
-      button_text: 'Check for broken links',
-      margin_bottom: 6
+    <%= render "components/inset_prompt", {
+      description: capture do %>
+        <p class="govuk-body">Check this document for broken links. The report will take a few moments to complete.</p>
+        <%= render partial: 'admin/link_check_reports/form', locals: {
+          reportable: report.link_reportable,
+          button_text: 'Check for broken links',
+          secondary_quiet: true
+        } %>
+      <% end
     } %>
   <% elsif report.in_progress? %>
-    <p class="govuk-body">Broken link report in progress.</p>
-    <p class="govuk-body">
-      <%= link_to "Check progress",
-        admin_edition_link_check_report_path(report.link_reportable, report),
-        class: 'govuk-link js-broken-links-refresh' %>
-    </p>
+    <%= render "components/inset_prompt", {
+      description: capture do %>
+        <p class="govuk-body">Broken link report in progress.</p>
+        <p class="govuk-body">
+          <%= link_to "Check progress",
+            admin_edition_link_check_report_path(report.link_reportable, report),
+            class: 'govuk-link js-broken-links-refresh' %>
+        </p>
+      <% end
+    } %>
   <% elsif report.broken_links.any? || report.caution_links.any? %>
     <%= render "components/inset_prompt", {
       title: t("broken_links.title"),
@@ -48,25 +56,28 @@
         <% end %>
         <%= render partial: 'admin/link_check_reports/form', locals: {
           reportable: report.link_reportable,
-          button_text: 'Check again',
-          margin_bottom: 0
+          button_text: 'Check again'
         } %>
       <% end,
       error: true
     } %>
   <% else %>
-    <p class="govuk-body">
-      This document contains no broken links.
-    </p>
-    <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
-      <p class="govuk-body">
-        It contains links to draft documents that weren't checked.
-      </p>
-    <% end %>
-    <%= render partial: 'admin/link_check_reports/form', locals: {
-      reportable: report.link_reportable,
-      button_text: 'Check again',
-      margin_bottom: 6
+    <%= render "components/inset_prompt", {
+      description: capture do %>
+        <p class="govuk-body">
+          This document contains no broken links.
+        </p>
+        <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
+          <p class="govuk-body">
+            It contains links to draft documents that weren't checked.
+          </p>
+        <% end %>
+        <%= render partial: 'admin/link_check_reports/form', locals: {
+          reportable: report.link_reportable,
+          button_text: 'Check again',
+          secondary_quiet: true
+        } %>
+      <% end
     } %>
   <% end %>
 </div>

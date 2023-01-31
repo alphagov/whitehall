@@ -28,7 +28,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }).then(function (response) { return response.json() })
         .catch(function () { location.reload() })
         .then(function (json) {
-          this.replaceContentsAndCopyClasses(json.html)
+          this.replaceContents(json.html)
           this.init()
         }.bind(this))
     }.bind(this))
@@ -66,9 +66,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       .catch(function () { retry() })
   }
 
-  BrokenLinksReport.prototype.replaceContentsAndCopyClasses = function (html) {
+  BrokenLinksReport.prototype.replaceContents = function (html) {
     this.module.innerHTML = html
-    this.module.classList = this.module.firstChild.classList
     this.module.firstChild.outerHTML = this.module.firstChild.innerHTML
   }
 
