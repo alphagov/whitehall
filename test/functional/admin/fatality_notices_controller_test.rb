@@ -30,7 +30,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
 
     get :show, params: { id: draft_fatality_notice }
 
-    assert_select ".page-header .lead", text: "a-simple-summary"
+    assert_select ".page-header .govuk-body-lead", text: "a-simple-summary"
   end
 
   view_test "when creating allows assignment to operational field" do

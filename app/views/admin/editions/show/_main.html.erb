@@ -1,7 +1,7 @@
 <div class="app-view-edition-summary__main">
   <section class="app-view-edition-summary__section page-header">
     <div class="app-view-edition-summary__document-summary">
-      <p class="govuk-body lead"><%= @edition.summary %></p>
+      <p class="govuk-body-lead"><%= @edition.summary %></p>
     </div>
 
     <div>
@@ -13,10 +13,10 @@
         render "govuk_publishing_components/components/summary_list", {
           borderless: true,
           items: [
+            { field: "Type of document", value: edition_type(@edition) },
             { field: "Status", value: status_text.join(' ') },
             { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
             { field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) },
-            { field: "Type of document", value: edition_type(@edition) },
           ]
         }
       %>
@@ -58,7 +58,7 @@
           <%= render "govuk_publishing_components/components/list", {
             items: @edition.non_english_translated_locales.map do |locale|
               (link_to("Preview on website - #{locale.native_and_english_language_name}",
-                      public_document_url(@edition, locale:),
+                      preview_document_url(@edition, locale: locale.code),
                       class: 'govuk-link',
                       target: '_blank',
                       data: {
@@ -99,7 +99,7 @@
     <% end %>
   </section>
 
-  <% if @edition.change_note_required? && @edition.change_note %>
+  <% if @edition.change_note_required? %>
     <section class="app-view-edition-summary__section">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Public change note",
@@ -107,8 +107,15 @@
         font_size: "l",
         margin_bottom: 3,
       } %>
-      <p class="govuk-body">
-        <%= @edition.change_note %>
+
+      <p class="govuk-body-lead">
+        <% if @edition.minor_change? %>
+          Minor change
+        <% elsif @edition.change_note.blank? %>
+          No change note
+        <% else %>
+          <%= @edition.change_note %>
+        <% end %>
       </p>
     </section>
   <% end %>
@@ -144,16 +151,18 @@
 
   <section class="app-view-edition-summary__section">
     <%= render "govuk_publishing_components/components/heading", {
-      text: "Specialist Topic tags",
+      text: "Specialist topic tags",
       heading_level: 2,
       font_size: "l",
       margin_bottom: 3,
     } %>
 
-    <p class="govuk-body">
-      <%= link_to(@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags",
-                  edit_admin_edition_legacy_associations_path(@edition.id), class: 'govuk-link') %>
-    </p>
+    <% if @edition.editable? %>
+      <p class="govuk-body">
+        <%= link_to(@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags",
+                    edit_admin_edition_legacy_associations_path(@edition.id), class: 'govuk-link') %>
+      </p>
+    <% end %>
 
     <% if @edition.has_legacy_tags? %>
       <% if @edition.has_primary_sector? %>
@@ -250,7 +259,7 @@
             {
               text: "Filename"
             },
-            @edition.published? ? {
+            @edition.editable? ? {
               text: "Actions"
             } : nil
           ].compact,
@@ -258,7 +267,7 @@
             [
               { text: attachment[:title] },
               { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true, class: "govuk-link") },
-              @edition.published? ? { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") } : nil,
+              @edition.editable? ? { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") } : nil,
             ].compact
           end
         } %>
