@@ -7,3 +7,12 @@ When(/^I select an image for the (?:detailed guide|publication)$/) do
     fill_in "Alt text", with: "minister of funk", match: :first
   end
 end
+
+Then(/^the page should not have an images tab$/) do
+  expect(page).to_not have_link("li.app-c-secondary-navigation__list-item a", text: "Images")
+end
+
+Then(/^I can navigate to the images tab$/) do
+  find("li.app-c-secondary-navigation__list-item a", text: "Images").click
+  expect(page).to have_content("Upload an image")
+end
