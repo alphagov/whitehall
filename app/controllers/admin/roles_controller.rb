@@ -34,7 +34,7 @@ class Admin::RolesController < Admin::BaseController
   def destroy
     notice = %("#{@role.name}" destroyed.)
     if @role.destroy
-      redirect_to admin_roles_path, notice: notice
+      redirect_to(admin_roles_path, notice:)
     else
       message = "Cannot destroy a role with appointments, organisations, or documents"
       redirect_to admin_roles_path, alert: message

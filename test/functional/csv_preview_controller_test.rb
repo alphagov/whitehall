@@ -27,7 +27,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(deleted?: true, unpublished?: true, unpublished_edition:)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to unpublished_edition.unpublishing.document_path
@@ -37,7 +37,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(file_state: :unscanned, unpublished?: true, unpublished_edition:)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to unpublished_edition.unpublishing.document_path
@@ -47,7 +47,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(file_state: :infected, unpublished?: true, unpublished_edition:)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to unpublished_edition.unpublishing.document_path
@@ -57,7 +57,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(file_state: :missing, unpublished?: true, unpublished_edition:)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to unpublished_edition.unpublishing.document_path
@@ -67,7 +67,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(csv?: false, unpublished?: true, unpublished_edition:)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to unpublished_edition.unpublishing.document_path
@@ -77,7 +77,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(draft?: true, accessible_to?: false, unpublished?: true, unpublished_edition:)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to unpublished_edition.unpublishing.document_path
@@ -88,7 +88,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(deleted?: true, unpublished?: true, unpublished_edition:, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to unpublished_edition.unpublishing.document_path
@@ -100,7 +100,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(deleted?: true, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :moved_permanently
     assert_redirected_to replacement.url
@@ -110,7 +110,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(file_state: :unscanned, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :moved_permanently
     assert_redirected_to replacement.url
@@ -120,7 +120,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(file_state: :infected, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :moved_permanently
     assert_redirected_to replacement.url
@@ -130,7 +130,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(file_state: :missing, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :moved_permanently
     assert_redirected_to replacement.url
@@ -140,7 +140,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(csv?: false, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :moved_permanently
     assert_redirected_to replacement.url
@@ -150,7 +150,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(draft?: true, accessible_to?: false, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :moved_permanently
     assert_redirected_to replacement.url
@@ -160,7 +160,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(deleted?: true, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_cache_control "no-cache"
   end
@@ -169,7 +169,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(current_user: nil, deleted?: true, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_cache_control "max-age=14400"
     assert_cache_control "public"
@@ -180,7 +180,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "redirects to placeholder page if file is unscanned non-image" do
     setup_stubs(file_state: :unscanned)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to placeholder_url
@@ -189,7 +189,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "sets Cache-Control header max-age & public directives if unscanned non-image" do
     setup_stubs(file_state: :unscanned)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_cache_control "max-age=60"
     assert_cache_control "public"
@@ -198,7 +198,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "redirects to placeholder page if file is unscanned non-image even if deleted" do
     setup_stubs(file_state: :unscanned, deleted?: true)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to placeholder_url
@@ -207,7 +207,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "redirects to placeholder page if file is unscanned non-image even if not CSV" do
     setup_stubs(file_state: :unscanned, csv?: false)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to placeholder_url
@@ -216,7 +216,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "redirects to placeholder page if file is unscanned non-image even if draft & not accessible" do
     setup_stubs(file_state: :unscanned, draft?: true, accessible_to?: false)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :found
     assert_redirected_to placeholder_url
@@ -234,7 +234,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "responds with 404 Not Found if file does not exist" do
     setup_stubs(file_state: :missing)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :not_found
   end
@@ -242,7 +242,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "responds with 404 Not Found if file is infected" do
     setup_stubs(file_state: :infected)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :not_found
   end
@@ -250,7 +250,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "responds with 404 Not Found if attachment data is deleted" do
     setup_stubs(deleted?: true)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :not_found
   end
@@ -258,7 +258,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "responds with 404 Not Found if attachment data is draft and not accessible to user" do
     setup_stubs(draft?: true, accessible?: false)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :not_found
   end
@@ -266,7 +266,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "responds with 404 Not Found if attachment data is not CSV" do
     setup_stubs(csv?: false)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :not_found
   end
@@ -274,7 +274,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "responds with 404 Not Found if no parent edition" do
     setup_stubs(visible_edition: nil)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :not_found
   end
@@ -284,7 +284,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "responds with 200 OK if attachment data is draft and accessible to user" do
     setup_stubs(draft?: true, accessible?: true)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :ok
   end
@@ -292,7 +292,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "responds with 200 OK if not draft" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :ok
   end
@@ -301,7 +301,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(draft?: true, accessible?: true, unpublished?: true, unpublished_edition:)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :ok
   end
@@ -310,7 +310,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(draft?: false, unpublished?: true, unpublished_edition:)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :ok
   end
@@ -319,7 +319,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(draft?: true, accessible?: true, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :ok
   end
@@ -328,7 +328,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     replacement = create(:attachment_data)
     setup_stubs(draft?: false, replaced?: true, replaced_by: replacement)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :ok
   end
@@ -336,7 +336,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "sets Cache-Control header to no-cache if user is signed in" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_cache_control "no-cache"
   end
@@ -344,7 +344,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "sets Cache-Control header max-age directive if user is not signed in" do
     setup_stubs(current_user: nil)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_cache_control "max-age=14400"
   end
@@ -352,7 +352,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "sets Cache-Control header public directive if user is not signed in" do
     setup_stubs(current_user: nil)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_cache_control "public"
   end
@@ -360,7 +360,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "sets slimmer template to chromeless" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_equal "chromeless", response.headers["X-Slimmer-Template"]
   end
@@ -368,7 +368,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "renders show template with html attachments layout" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_template "show", layout: "html_attachments"
   end
@@ -392,7 +392,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "assigns edition for template" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_equal edition, assigns(:edition)
   end
@@ -400,7 +400,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "assigns attachment for template" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_equal attachment, assigns(:attachment)
   end
@@ -408,7 +408,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "assigns csv preview for template" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_instance_of CsvPreview, assigns(:csv_preview)
   end
@@ -416,7 +416,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   view_test "renders attachment title as heading" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_select ".gem-c-title__text", attachment.title
   end
@@ -424,7 +424,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   view_test "renders links to edition organisations" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_select "a[href=?]", organisation1.public_path
     assert_select "a[href=?]", organisation2.public_path
@@ -433,7 +433,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   view_test "renders CSV column headings" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_select "div.csv-preview th:nth-child(1)", text: "Department"
     assert_select "div.csv-preview th:nth-child(2)", text: "Budget"
@@ -443,7 +443,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   view_test "renders CSV cell values" do
     setup_stubs
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_select "div.csv-preview td:nth-child(1)", text: "Office for Facial Hair Studies"
     assert_select "div.csv-preview td:nth-child(2)", text: "£12000000"
@@ -453,7 +453,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   view_test "renders error message if csv_preview is nil" do
     setup_stubs(csv_preview: nil)
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_select ".govuk-body:last-child", text: /This file could not be previewed/
   end
@@ -466,7 +466,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     setup_stubs(accessible?: true)
     ActionController::TestRequest.any_instance.stubs(:hostname).returns("draft-assets.integration.publishing.service.gov.uk")
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :ok
     assert_equal draft_edition, assigns(:edition)
@@ -480,7 +480,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     setup_stubs(accessible?: true, visible_edition: nil)
     ActionController::TestRequest.any_instance.stubs(:hostname).returns("draft-assets.integration.publishing.service.gov.uk")
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :not_found
   end
@@ -492,7 +492,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     setup_stubs(accessible?: true, visible_edition: nil)
     ActionController::TestRequest.any_instance.stubs(:hostname).returns("draft-assets.integration.publishing.service.gov.uk")
 
-    get :show, params: params
+    get(:show, params:)
 
     assert_response :not_found
   end

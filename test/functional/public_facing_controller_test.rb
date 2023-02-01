@@ -81,7 +81,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   test "non-HTML requests are rejected by default" do
     with_routing_for_test_controller do
       %i[json xml atom].each do |format|
-        get :test, format: format
+        get(:test, format:)
 
         assert_response :not_acceptable
       end

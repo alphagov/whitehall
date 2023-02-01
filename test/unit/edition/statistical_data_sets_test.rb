@@ -37,7 +37,7 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
   end
 
   test "copies the data sets over to a create draft" do
-    published = create :published_publication, statistical_data_sets: statistical_data_sets
+    published = create(:published_publication, statistical_data_sets:)
     assert_equal statistical_data_sets, published.create_draft(create(:user)).statistical_data_sets
   end
 

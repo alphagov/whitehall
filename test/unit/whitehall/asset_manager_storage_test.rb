@@ -24,7 +24,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
     AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with do |actual_path, _|
       uploaded_file_name = File.basename(@file.path)
-      expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9\-]+/#{uploaded_file_name}}
+      expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9-]+/#{uploaded_file_name}}
       actual_path =~ expected_path
     end
 
