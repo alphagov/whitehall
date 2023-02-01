@@ -4,10 +4,10 @@
   <p class="govuk-body">To add an internal note, save your changes.</p>
 <% end %>
 
-<p class="govuk-body"><%= link_to("Add internal note", new_admin_edition_editorial_remark_path(edition), class: "govuk-body govuk-link") %></p>
+<p class="govuk-body"><%= link_to("Add internal note", new_admin_edition_editorial_remark_path(edition), class: "govuk-body govuk-link govuk-link--no-visited-state") %></p>
 
 <%= render "govuk_publishing_components/components/inset_text", {
-  text: sanitize("History and notes have been merged. #{tag.a('Read more about the change', href: admin_whats_new_path)}")
+  text: sanitize("History and notes have been merged. #{link_to('Read more about the change', admin_whats_new_path, class: "govuk-link")}")
 } %>
 
 <%= paginate(@document_history, theme: 'history', editing:) %>
