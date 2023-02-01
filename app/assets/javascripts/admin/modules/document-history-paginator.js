@@ -7,24 +7,22 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   DocumentHistoryPaginator.prototype.init = function () {
-    var fetch = window.fetch
-    if (!fetch) { return }
+    if (!window.fetch) { return }
 
     this.setupEventListeners()
   }
 
   DocumentHistoryPaginator.prototype.setupEventListeners = function () {
-    var module = this.module
-    var newerLink = module.querySelector('.app-view-document-history-tab__newer-pagination-link')
-    var olderLink = module.querySelector('.app-view-document-history-tab__older-pagination-link')
+    var _this = this
 
-    if (newerLink) {
-      this.addLinkEventListener(newerLink)
-    }
+    var linkSelectors = [
+      '.app-view-document-history-tab__newer-pagination-link',
+      '.app-view-document-history-tab__older-pagination-link'
+    ]
 
-    if (olderLink) {
-      this.addLinkEventListener(olderLink)
-    }
+    this.module.querySelectorAll(linkSelectors.join()).forEach(function (link) {
+      _this.addLinkEventListener(link)
+    })
   }
 
   DocumentHistoryPaginator.prototype.addLinkEventListener = function (link) {
