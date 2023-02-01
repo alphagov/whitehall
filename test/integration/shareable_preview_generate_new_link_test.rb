@@ -23,17 +23,21 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
       test "it revokes the previous links and generates a new one" do
         get admin_case_study_path(edition)
 
+        find(".govuk-details__summary", text: "Share document preview").click
+
         current_preview_url = all("input").first.value
         current_query_string = Rack::Utils.parse_query URI(current_preview_url).query
         current_token = current_query_string["token"]
 
-        click_link "Generate new link"
+        click_button "Generate new link"
+
+        find(".govuk-details__summary", text: "Share document preview").click
 
         new_preview_url = all("input").first.value
         new_query_string = Rack::Utils.parse_query URI(new_preview_url).query
         new_token = new_query_string["token"]
 
-        assert_selector ".flash.notice", text: "New document preview link generated"
+        assert_selector ".gem-c-success-alert__message", text: "New document preview link generated"
         assert_not_equal current_token, new_token
       end
     end
