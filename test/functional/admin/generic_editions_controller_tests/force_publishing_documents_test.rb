@@ -37,7 +37,7 @@ class Admin::GenericEditionsController::ForcePublishingDocumentsTest < ActionCon
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
     get :show, params: { id: edition }
-    assert_select ".force_published"
+    assert_select ".govuk-body", text: "Please have an editor other than the original publisher review the document to clear this warning."
   end
 
   view_test "show should not display the approve_retrospectively form for the creator" do
@@ -47,7 +47,7 @@ class Admin::GenericEditionsController::ForcePublishingDocumentsTest < ActionCon
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
     get :show, params: { id: edition }
-    refute_select ".force_published form input"
+    refute_select ".govuk-button", text: "Approve"
   end
 
   view_test "show should display the approve_retrospectively form for a departmental editor who wasn't the creator" do
@@ -58,6 +58,6 @@ class Admin::GenericEditionsController::ForcePublishingDocumentsTest < ActionCon
 
     login_as(create(:departmental_editor, name: "Another Editor"))
     get :show, params: { id: edition }
-    assert_select ".force_published form input"
+    assert_select ".govuk-button", text: "Approve"
   end
 end

@@ -16,7 +16,7 @@
             { field: "Type of document", value: edition_type(@edition) },
             { field: "Status", value: status_text.join(' ') },
             { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
-            { field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) },
+            *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
           ]
         }
       %>
