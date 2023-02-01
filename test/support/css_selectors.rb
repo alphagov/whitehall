@@ -94,7 +94,7 @@ module CssSelectors
   end
 
   def force_schedule_button_selector(document)
-    "form[action='#{force_schedule_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
+    "a[href='#{confirm_force_schedule_admin_edition_path(document, lock_version: document.lock_version)}']"
   end
 
   def link_to_public_version_selector(document)
