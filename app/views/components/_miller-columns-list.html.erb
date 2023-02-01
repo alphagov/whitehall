@@ -3,7 +3,7 @@
     <li>
       <div class="govuk-checkboxes__item">
         <input class="govuk-checkboxes__input" type="checkbox" name="<%= name %>" value="<%= item[:value] %>" id="<%= id %>-<%= index %>"
-          <% if item[:checked].present? && item[:checked] %> checked <% end %>
+          <% if check_item?(item) %> checked <% end %>
         >
         <label class="govuk-label govuk-checkboxes__label" for="<%= id %>-<%= index %>">
           <%= item[:label] %>
