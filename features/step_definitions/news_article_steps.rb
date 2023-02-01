@@ -76,17 +76,9 @@ end
 
 Then("I subsequently change the primary locale") do
   visit admin_edition_path(@news_article)
-
-  if using_design_system?
-    click_button "Create new edition"
-    select "Deutsch (German)", from: "edition[primary_locale]"
-    choose "No – it’s a minor edit that does not change the meaning"
-  else
-    click_button "Create new edition to edit"
-    select "Deutsch (German)", from: "edition[primary_locale]"
-    choose "edition_minor_change_true"
-  end
-
+  click_button "Create new edition"
+  select "Deutsch (German)", from: "edition[primary_locale]"
+  choose "No – it’s a minor edit that does not change the meaning"
   click_button "Save"
 end
 

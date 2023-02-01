@@ -59,11 +59,7 @@ module DocumentHelper
 
   def begin_new_draft_document(title)
     visit_edition_admin title
-    if using_design_system?
-      click_button "Create new edition"
-    else
-      click_button "Create new edition to edit"
-    end
+    click_button "Create new edition"
   end
 
   def begin_drafting_news_article(options)

@@ -48,21 +48,12 @@ When(/^I add an editorial remark "([^"]*)" to the document "([^"]*)"$/) do |rema
   @remark_text = remark_text
 
   visit admin_edition_path(@edition)
-  if using_design_system?
-    click_link "Add internal note"
-  else
-    click_link "Add new remark"
-  end
-
+  click_link "Add internal note"
   fill_in "Internal note", with: @remark_text
   click_button "Submit internal note"
 end
 
 Then(/^my editorial remark should be visible with the document$/) do
   ensure_path admin_edition_path(@edition)
-  if using_design_system?
-    expect(page).to have_selector(".app-view-editions-editorial-remark__list-item", text: @remark_text)
-  else
-    expect(page).to have_selector(".editorial_remark .body", text: @remark_text)
-  end
+  expect(page).to have_selector(".app-view-editions-editorial-remark__list-item", text: @remark_text)
 end
