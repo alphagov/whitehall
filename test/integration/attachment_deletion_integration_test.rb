@@ -66,7 +66,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       context "when draft document is discarded" do
         before do
           visit admin_news_article_path(edition)
-          click_link "Discard draft"
+          click_link "Delete draft"
           click_button "Delete"
         end
 

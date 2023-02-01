@@ -86,7 +86,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       context "when an attachment is added to the draft document" do
         before do
           visit admin_news_article_path(edition)
-          click_link "Modify attachments"
+          click_link "Add attachments"
           click_link "Upload new file attachment"
           fill_in "Title", with: "asset-title"
           attach_file "File", path_to_attachment("logo.png")
@@ -137,7 +137,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       context "when bulk uploaded to draft document" do
         before do
           visit admin_news_article_path(edition)
-          click_link "Modify attachments"
+          click_link "Add attachments"
           click_link "Bulk upload from Zip file"
           attach_file "Zip file", path_to_attachment("sample_attachment.zip")
           click_button "Upload zip"
