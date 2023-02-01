@@ -1,3 +1,7 @@
-<%= form_tag admin_edition_link_check_reports_path(reportable), remote: true do %>
-  <%= submit_tag button_text, class: 'btn btn-default add-top-margin remove-bottom-margin' %>
+<%= form_tag admin_edition_link_check_reports_path(reportable), class: 'js-broken-links-form' do %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: button_text,
+    margin_bottom: margin_bottom,
+    secondary_solid: true
+  } %>
 <% end %>
