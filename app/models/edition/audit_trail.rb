@@ -40,14 +40,14 @@ private
 
   def record_create
     user = Edition::AuditTrail.whodunnit
-    versions.create! event: "create", user: user, state: state
+    versions.create!(event: "create", user:, state:)
     alert!(user)
   end
 
   def record_update
     if changed.any?
       user = Edition::AuditTrail.whodunnit
-      versions.build event: "update", user: user, state: state
+      versions.build(event: "update", user:, state:)
       alert!(user)
     end
   end

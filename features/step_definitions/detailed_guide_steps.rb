@@ -6,7 +6,7 @@ end
 
 When(/^I draft a new detailed guide "([^"]*)"$/) do |title|
   create(:government)
-  begin_drafting_document type: "detailed_guide", title: title, previously_published: false, all_nation_applicability: true
+  begin_drafting_document type: "detailed_guide", title:, previously_published: false, all_nation_applicability: true
   click_button "Save"
 end
 

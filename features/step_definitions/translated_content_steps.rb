@@ -24,7 +24,7 @@ Then(/^I should see the translation of that world organisation$/) do
 end
 
 Given(/^I have drafted a translatable document "([^"]*)"$/) do |title|
-  begin_drafting_document type: "case_study", title: title, previously_published: false
+  begin_drafting_document type: "case_study", title:, previously_published: false
   click_button "Save"
 end
 

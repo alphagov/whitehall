@@ -6,7 +6,7 @@ end
 Given(/^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/) do |author, title, body|
   step %(I am a writer called "#{author}")
   visit new_admin_speech_path
-  begin_drafting_speech title: title, body: body
+  begin_drafting_speech(title:, body:)
   click_button "Save and continue"
   click_button "Update tags"
   click_button "Submit"
@@ -45,7 +45,7 @@ When(/^I create a new edition of the published speech$/) do
 end
 
 When(/^I draft a new speech "([^"]*)"$/) do |title|
-  begin_drafting_speech title: title
+  begin_drafting_speech(title:)
   click_button "Save"
 end
 
@@ -60,7 +60,7 @@ Then(/^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/) do |de
 end
 
 When(/^I draft a new authored article "([^"]*)"$/) do |title|
-  begin_drafting_speech title: title
+  begin_drafting_speech(title:)
   select "Authored article", from: "Speech type"
 end
 
