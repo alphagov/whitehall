@@ -13,6 +13,6 @@ class Admin::GenericEditionsController::LinkingToPreviewOfDocumentOnPublicSiteTe
     stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
 
     get :show, params: { id: draft_edition }
-    assert_select link_to_preview_version_selector
+    assert_select link_to_preview_version_selector(draft_edition)
   end
 end

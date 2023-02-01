@@ -17,8 +17,8 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     get :show, params: { id: draft_edition }
 
-    assert_select ".edition-sidebar" do
-      assert_select "a[href=?]", confirm_destroy_admin_edition_path(draft_edition), text: "Discard draft"
+    assert_select ".app-view-edition-summary__sidebar-actions" do
+      assert_select "a[href=?]", confirm_destroy_admin_edition_path(draft_edition), text: "Delete draft"
     end
   end
 
@@ -28,8 +28,8 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     get :show, params: { id: submitted_edition }
 
-    assert_select ".edition-sidebar" do
-      assert_select "a[href=?]", confirm_destroy_admin_edition_path(submitted_edition), text: "Discard draft"
+    assert_select ".app-view-edition-summary__sidebar-actions" do
+      assert_select "a[href=?]", confirm_destroy_admin_edition_path(submitted_edition), text: "Delete draft"
     end
   end
 
@@ -39,7 +39,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     get :show, params: { id: published_edition }
 
-    refute_select ".edition-sidebar input[name='_method'][type='hidden'][value='delete']"
+    refute_select ".app-view-edition-summary__sidebar-actions input[name='_method'][type='hidden'][value='delete']"
   end
 
   view_test "show does not display the delete button for superseded editions" do

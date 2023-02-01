@@ -42,7 +42,7 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
 
     get :show, params: { id: new_draft }
 
-    assert_select ".alert a", href: Whitehall.url_maker.admin_edition_path(original_edition)
+    assert_select ".app-c-inset-prompt a", text: "Go to published edition", href: Whitehall.url_maker.admin_edition_path(original_edition)
   end
 
   view_test "show for a published edition links to a new draft" do
@@ -52,6 +52,6 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
 
     get :show, params: { id: original_edition }
 
-    assert_select ".alert a", href: Whitehall.url_maker.admin_edition_path(new_draft)
+    assert_select ".app-c-inset-prompt a", text: "Go to draft", href: Whitehall.url_maker.admin_edition_path(new_draft)
   end
 end

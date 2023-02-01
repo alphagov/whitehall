@@ -49,9 +49,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
     get :show, params: { id: edition }
 
-    assert_select "form[action=?]", admin_edition_translation_path(edition, "fr") do
-      assert_select "input[type='submit'][value=?]", "Delete"
-    end
+    assert_select ".govuk-table__row .govuk-table__cell:last-child a", text: "Delete"
   end
 
   view_test "show displays the language of the translation on published editions" do
@@ -65,9 +63,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
     get :show, params: { id: edition }
 
-    assert_select "#translations" do
-      assert_select "td", text: "French"
-    end
+    assert_select ".govuk-table__cell", text: "Français (French)"
   end
 
   view_test "show omits the link to edit an existing translation unless the edition is editable" do
@@ -105,9 +101,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
       get :show, params: { id: edition }
     end
 
-    assert_select "#translations" do
-      refute_select "td", text: "english-title"
-      assert_select "td", text: "french-title"
-    end
+    refute_select ".govuk-table__row .govuk-table__cell:nth-child(2)", text: "english-title"
+    assert_select ".govuk-table__row .govuk-table__cell:nth-child(2)", text: "french-title"
   end
 end

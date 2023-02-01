@@ -13,7 +13,7 @@ class Admin::GenericEditionsController::LinkingToDocumentOnPublicSiteTest < Acti
     stub_publishing_api_expanded_links_with_taxons(published_edition.content_id, [])
 
     get :show, params: { id: published_edition }
-    assert_select link_to_public_version_selector, count: 1
+    assert_select link_to_public_version_selector(published_edition), count: 1
   end
 
   view_test "should not link to public version when not published" do
@@ -21,6 +21,6 @@ class Admin::GenericEditionsController::LinkingToDocumentOnPublicSiteTest < Acti
     stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
 
     get :show, params: { id: draft_edition }
-    refute_select link_to_public_version_selector
+    refute_select link_to_public_version_selector(draft_edition)
   end
 end
