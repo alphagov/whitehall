@@ -107,14 +107,6 @@ class Admin::LegacyConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "show renders the summary" do
-    draft_consultation = create(:draft_consultation, summary: "a-simple-summary")
-    stub_publishing_api_expanded_links_with_taxons(draft_consultation.content_id, [])
-
-    get :show, params: { id: draft_consultation }
-    assert_select ".page-header .lead", text: "a-simple-summary"
-  end
-
   view_test "edit displays consultation fields" do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)

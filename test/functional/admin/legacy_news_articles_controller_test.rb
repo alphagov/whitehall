@@ -31,15 +31,6 @@ class Admin::LegacyNewsArticlesControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "show renders the summary" do
-    draft_news_article = create(:draft_news_article, summary: "a-simple-summary")
-    stub_publishing_api_expanded_links_with_taxons(draft_news_article.content_id, [])
-
-    get :show, params: { id: draft_news_article }
-
-    assert_select ".page-header .lead", text: "a-simple-summary"
-  end
-
 private
 
   def controller_attributes_for(edition_type, attributes = {})

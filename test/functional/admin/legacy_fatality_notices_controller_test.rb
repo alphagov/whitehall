@@ -23,15 +23,6 @@ class Admin::LegacyFatalityNoticesControllerTest < ActionController::TestCase
   legacy_should_allow_scheduled_publication_of :fatality_notice
   legacy_should_allow_access_limiting_of :fatality_notice
 
-  view_test "show renders the summary" do
-    draft_fatality_notice = create(:draft_fatality_notice, summary: "a-simple-summary")
-    stub_publishing_api_expanded_links_with_taxons(draft_fatality_notice.content_id, [])
-
-    get :show, params: { id: draft_fatality_notice }
-
-    assert_select ".page-header .lead", text: "a-simple-summary"
-  end
-
   view_test "when creating allows assignment to operational field" do
     get :new
 

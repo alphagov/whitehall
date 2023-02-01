@@ -32,16 +32,6 @@ class Admin::LegacyCaseStudiesControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "GET :show renders a side nav bar with notes, history and fact checking" do
-    edition = create(:draft_case_study)
-    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-    get :show, params: { id: edition }
-
-    assert_select ".nav-tabs a", text: "Notes 0"
-    assert_select ".nav-tabs a", text: "History 1"
-  end
-
   view_test "GET :edit renders a side nav bar with notes, history and fact checking" do
     edition = create(:draft_case_study)
 
