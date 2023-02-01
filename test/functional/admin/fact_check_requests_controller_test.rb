@@ -34,16 +34,6 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     get :edit, params: { id: fact_check_request }
 
     assert_response :success
-    assert_template "admin/fact_check_requests/edit_legacy"
-  end
-
-  test "users with a valid.to_param and the preview design system flag should be able to access the publication" do
-    @current_user.permissions << "Preview design system"
-    fact_check_request = create(:fact_check_request)
-
-    get :edit, params: { id: fact_check_request }
-
-    assert_response :success
     assert_template "admin/fact_check_requests/edit"
   end
 
@@ -88,7 +78,10 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     get :edit, params: { id: fact_check_request }
 
-    assert_select "#fact_check_request_instructions", text: /Please concentrate on the content/
+    assert_select ".govuk-grid-column-one-third" do
+      assert_select "h2", text: "Extra instructions"
+      assert_select ".govuk-body", text: /Please concentrate on the content/
+    end
   end
 
   view_test "should not display the extra instructions section" do
@@ -96,7 +89,9 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     get :edit, params: { id: fact_check_request }
 
-    refute_select "#fact_check_request_instructions"
+    assert_select ".govuk-grid-column-one-third" do
+      refute_select "h2", text: "Extra instructions"
+    end
   end
 
   test "save the fact checkers comment" do
@@ -169,7 +164,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     put :update, params: { id: fact_check_request, fact_check_request: attributes }
 
-    assert_select ".fact_check_request .apology", text: "We’re sorry, but this document is no longer available for fact checking."
+    assert_select ".apology", text: "We’re sorry, but this document is no longer available for fact checking."
   end
 end
 
@@ -276,7 +271,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     edition = create(:deleted_publication)
     post :create, params: { edition_id: edition.id, fact_check_request: @attributes }
 
-    assert_select ".fact_check_request .apology", text: "We’re sorry, but this document is no longer available for fact checking."
+    assert_select ".apology", text: "We’re sorry, but this document is no longer available for fact checking."
   end
 
 private
