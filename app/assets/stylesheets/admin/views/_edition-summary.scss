@@ -49,11 +49,6 @@
   margin-bottom: 0;
 }
 
-.app-view-edition-summary__sidebar-info + .app-view-edition-summary__sidebar-info {
-  border-top: 2px solid $govuk-border-colour;
-  padding-top: govuk-spacing(6);
-}
-
 .app-view-edition-summary__broken-links-report {
   overflow-wrap: break-word;
   word-break: break-word;

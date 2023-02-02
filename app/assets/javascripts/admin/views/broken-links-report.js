@@ -28,20 +28,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }).then(function (response) { return response.json() })
         .catch(function () { location.reload() })
         .then(function (json) {
-          this.replaceContentsAndCopyClasses(json.html)
+          this.replaceContents(json.html)
           this.init()
         }.bind(this))
     }.bind(this))
   }
 
   BrokenLinksReport.prototype.setupPolling = function (refreshLink) {
-    refreshLink.hidden = true
+    refreshLink.parentElement.remove()
 
     var retries = 10
     var retry = function () {
       retries -= 1
       if (retries === 0) {
-        refreshLink.hidden = false
+        this.module.addChild(refreshLink.parentElement)
         return
       }
 
@@ -59,16 +59,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         if (json.inProgress) {
           retry()
         } else {
-          this.replaceContentsAndCopyClasses(json.html)
+          this.replaceContents(json.html)
           this.init()
         }
       }.bind(this))
       .catch(function () { retry() })
   }
 
-  BrokenLinksReport.prototype.replaceContentsAndCopyClasses = function (html) {
+  BrokenLinksReport.prototype.replaceContents = function (html) {
     this.module.innerHTML = html
-    this.module.classList = this.module.firstChild.classList
     this.module.firstChild.outerHTML = this.module.firstChild.innerHTML
   }
 

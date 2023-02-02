@@ -2,19 +2,21 @@
 
 <% if edition.superseded? %>
   <% if edition.is_latest_edition? %>
-    <div class="app-view-edition-summary__sidebar-info">
-      <p class="govuk-body">
-        This edition has been superseded, you can still create a
-        new draft edition for this document.
-      </p>
+    <%= render "components/inset_prompt", {
+      description: capture do %>
+        <p class="govuk-body">
+          This edition has been superseded, you can still create a
+          new draft edition for this document.
+        </p>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Create new edition to edit",
-        title: "Create new edition to edit",
-        href: revise_admin_edition_path(edition),
-        secondary_solid: true
-      } %>
-    </div>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Create new edition to edit",
+          title: "Create new edition to edit",
+          href: revise_admin_edition_path(edition),
+          secondary_quiet: true
+        } %>
+      <% end
+    } %>
   <% else %>
     <%= render "components/inset_prompt", {
       title: "This edition has been superseded",
@@ -29,31 +31,35 @@
     } %>
   <% end %>
 <% elsif edition.pre_publication? && document.live_edition.present? %>
-  <div class="app-view-edition-summary__sidebar-info">
-    <p class="govuk-body">
-      This is a new draft of a document that has already been published.
-    </p>
-
-    <p class="govuk-body">
-      <%= link_to "Go to published edition", admin_edition_path(document.live_edition), class: "govuk-link" %>
-    </p>
-
-    <% if edition.previous_edition.present? %>
+  <%= render "components/inset_prompt", {
+    description: capture do %>
       <p class="govuk-body">
-        <%= link_to "See what’s changed", diff_admin_edition_path(edition, audit_trail_entry_id: edition.previous_edition.id), class: "govuk-link" %>
+        This is a new draft of a document that has already been published.
       </p>
-  <% end %>
-</div>
+
+      <p class="govuk-body">
+        <%= link_to "Go to published edition", admin_edition_path(document.live_edition), class: "govuk-link" %>
+      </p>
+
+      <% if edition.previous_edition.present? %>
+        <p class="govuk-body">
+          <%= link_to "See what’s changed", diff_admin_edition_path(edition, audit_trail_entry_id: edition.previous_edition.id), class: "govuk-link" %>
+        </p>
+      <% end %>
+    <% end
+  } %>
 <% elsif !edition.is_latest_edition? %>
   <% if can?(:see, document.latest_edition) %>
-    <div class="app-view-edition-summary__sidebar-info">
-      <p class="govuk-body">
-        This document has a new draft. You are currently viewing the edition that is published on the website.
-      </p>
-      <p class="govuk-body">
-        <%= link_to "Go to draft", admin_edition_path(document.latest_edition), class: "govuk-link" %>
-      </p>
-    </div>
+    <%= render "components/inset_prompt", {
+      description: capture do %>
+        <p class="govuk-body">
+          This document has a new draft. You are currently viewing the edition that is published on the website.
+        </p>
+        <p class="govuk-body">
+          <%= link_to "Go to draft", admin_edition_path(document.latest_edition), class: "govuk-link" %>
+        </p>
+      <% end
+    } %>
   <% else %>
     <%= render "components/inset_prompt", {
       description: "This isn’t the most recent edition of this document – you are
