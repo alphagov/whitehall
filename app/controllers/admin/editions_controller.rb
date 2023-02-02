@@ -120,7 +120,7 @@ class Admin::EditionsController < Admin::BaseController
       flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: false)
       @information = updater.failure_reason unless preview_design_system?(next_release: false)
       build_edition_dependencies
-      fetch_version_and_remark_trails
+      fetch_version_and_remark_trails(next_release: false)
       construct_similar_slug_warning_error
       render_design_system(:edit, :edit_legacy, next_release: false)
     end

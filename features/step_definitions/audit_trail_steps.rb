@@ -13,7 +13,7 @@ Given(/^a document that has gone through many changes$/) do
 end
 
 When(/^I visit the document to see the audit trail$/) do
-  visit admin_publication_path(@the_publication)
+  visit edit_admin_publication_path(@the_publication)
 end
 
 Then(/^I can traverse the audit trail with newer and older navigation$/) do

@@ -29,62 +29,6 @@ class Admin::LegacyDetailedGuidesControllerTest < ActionController::TestCase
   legacy_should_allow_overriding_of_first_published_at_for :detailed_guide
   legacy_should_allow_access_limiting_of :detailed_guide
 
-  view_test "user needs associated with a detailed guide" do
-    content_id_a = SecureRandom.uuid
-    content_id_b = SecureRandom.uuid
-
-    detailed_guide = create(:detailed_guide)
-    stub_publishing_api_has_links(
-      {
-        content_id: detailed_guide.document.content_id,
-        links: {
-          meets_user_needs: [content_id_a, content_id_b],
-        },
-      },
-    )
-    stub_publishing_api_has_expanded_links(
-      {
-        content_id: detailed_guide.document.content_id,
-        expanded_links: {
-          taxons: [],
-          meets_user_needs: [
-            {
-              content_id: content_id_a,
-              details: {
-                role: "x",
-                goal: "y",
-                benefit: "z",
-              },
-            },
-            {
-              content_id: content_id_b,
-              details: {
-                role: "c",
-                goal: "d",
-                benefit: "e",
-              },
-            },
-          ],
-        },
-        version: 1,
-      },
-    )
-
-    get :show, params: { id: detailed_guide.id }
-
-    assert_select "#user-needs-section" do |_section|
-      assert_select "#user-need-id-#{content_id_a}" do
-        assert_select ".description", text: "As a x,\n    I need to y,\n    So that z"
-        assert_select ".maslow-url[href*='#{content_id_a}']"
-      end
-
-      assert_select "#user-need-id-#{content_id_b}" do
-        assert_select ".description", text: "As a c,\n    I need to d,\n    So that e"
-        assert_select ".maslow-url[href*='#{content_id_b}']"
-      end
-    end
-  end
-
 private
 
   def controller_attributes_for(edition_type, attributes = {})

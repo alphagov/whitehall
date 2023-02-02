@@ -25,64 +25,6 @@ module AdminEditionControllerLegacyScheduledPublishingTestHelpers
         end
       end
 
-      view_test "GET :show with a draft scheduled edition displays the 'Force schedule', but not the 'Force publish' button" do
-        login_as :gds_editor
-        edition = create(edition_type, :draft, scheduled_publication: 1.day.from_now)
-        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-        get :show, params: { id: edition }
-
-        assert_select force_schedule_button_selector(edition), count: 1
-        refute_select force_publish_button_selector(edition)
-        assert_select ".scheduled-publication", "Scheduled publication proposed for #{I18n.localize edition.scheduled_publication, format: :long}."
-      end
-
-      view_test "should display the 'Schedule' button for a submitted scheduled edition when viewing as an editor" do
-        login_as :gds_editor
-        edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
-        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-        get :show, params: { id: edition }
-
-        assert_select schedule_button_selector(edition), count: 1
-        assert_select ".scheduled-publication", /Scheduled publication proposed for/
-      end
-
-      view_test "should not display the 'Schedule' button if not schedulable" do
-        edition = create(edition_type, :published)
-        redis_cache_has_world_taxons([build(:taxon_hash, content_id: "world-taxon")])
-        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
-        get :show, params: { id: edition }
-        refute_select schedule_button_selector(edition)
-        refute_select force_schedule_button_selector(edition)
-      end
-
-      view_test "should display the 'Unschedule' button for a scheduled publication" do
-        edition = create(edition_type, :scheduled)
-        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-        get :show, params: { id: edition }
-        assert_select unschedule_button_selector(edition)
-      end
-
-      view_test "should indicate publishing schedule if scheduled" do
-        edition = create(edition_type, :scheduled)
-        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-        get :show, params: { id: edition }
-        assert_select ".scheduled-publication", "Scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
-      end
-
-      view_test "should not indicate publishing schedule if published" do
-        edition = create(edition_type, :published, scheduled_publication: 1.day.ago)
-        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-        get :show, params: { id: edition }
-        assert_select ".scheduled-publication", count: 0
-      end
-
       test "create should not set scheduled_publication if scheduled_publication_active is not checked" do
         edition_attributes = controller_attributes_for(
           edition_type,

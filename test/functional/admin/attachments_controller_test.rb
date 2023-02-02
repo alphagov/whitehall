@@ -101,8 +101,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :index renders the uploading banner when an attachment hasn't been uploaded to asset manager" do
-    @current_user.permissions << "Preview next release"
-
     create(:html_attachment, title: "An HTML attachment", attachable: @edition)
     create(:file_attachment, title: "An uploaded file attachment", attachable: @edition)
     attachment_data = create(:attachment_data, uploaded_to_asset_manager_at: nil)

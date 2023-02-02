@@ -114,32 +114,11 @@ class Admin::LegacyPublicationsControllerTest < ActionController::TestCase
     assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.first_published_at
   end
 
-  view_test "should remove the publish buttons if the edition breaks the rules permitting publishing" do
-    # This applies to all editions but can't be tested in the editions controller test due to redirects.
-    # After conversation with DH I picked publications arbitrarily.
-    login_as(create(:departmental_editor))
-    publication = create(:draft_publication)
-    stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
-
-    [EditionPublisher, EditionForcePublisher].each do |publisher|
-      publisher.any_instance.stubs(:failure_reasons).returns(["This edition is not dope enough"])
-    end
-
-    get :show, params: { id: publication.id }
-
-    assert_response :success
-    refute_select ".publish"
-    refute_select ".force-publish"
-  end
-
   test "prevents CRUD operations on access-limited publications" do
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
-
-    get :show, params: { id: inaccessible }
-    assert_response :forbidden
 
     get :edit, params: { id: inaccessible }
     assert_response :forbidden
@@ -149,100 +128,6 @@ class Admin::LegacyPublicationsControllerTest < ActionController::TestCase
 
     delete :destroy, params: { id: inaccessible }
     assert_response :forbidden
-  end
-
-  view_test "show a button to tag to the topic taxonomy" do
-    publication = create(:publication)
-
-    publication_has_no_expanded_links(publication.content_id)
-    get :show, params: { id: publication }
-
-    assert_select ".taxonomy-topics .btn", "Add tag"
-  end
-
-  view_test "when edition is tagged to the new taxonomy" do
-    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
-
-    publication = create(
-      :publication,
-      publication_type: PublicationType::Guidance,
-      organisations: [world_tagging_organisation],
-    )
-
-    login_as(create(:user, organisation: world_tagging_organisation))
-
-    publication_has_expanded_links(publication.content_id)
-
-    get :show, params: { id: publication }
-
-    refute_select ".taxonomy-topics#topic-new-taxonomy .no-content"
-    assert_select ".taxonomy-topics .content li", "Education, Training and Skills"
-    assert_select ".taxonomy-topics .content li", "Primary Education"
-    assert_select ".taxonomy-topics#world-taxonomy .no-content"
-  end
-
-  view_test "when edition is tagged to the world taxonomy" do
-    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
-
-    publication = create(
-      :publication,
-      publication_type: PublicationType::Guidance,
-      organisations: [world_tagging_organisation],
-    )
-
-    login_as(create(:user, organisation: world_tagging_organisation))
-
-    publication_has_world_expanded_links(publication.content_id)
-
-    get :show, params: { id: publication }
-
-    refute_select ".taxonomy-topics#world-taxonomy .no-content"
-    assert_select ".taxonomy-topics .content li", "World Child Taxon"
-    assert_select ".taxonomy-topics .content li", "World Grandchild Taxon"
-    assert_select ".taxonomy-topics#topic-new-taxonomy .no-content"
-  end
-
-  view_test "shows summary when edition is tagged to all legacy associations" do
-    stub_specialist_sectors
-    organisation = create(:organisation)
-    publication = create(
-      :publication,
-      organisations: [organisation],
-      primary_specialist_sector_tag: "WELLS",
-      secondary_specialist_sector_tags: %w[FIELDS OFFSHORE],
-    )
-
-    stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
-
-    login_as(create(:user, organisation:))
-
-    get :show, params: { id: publication }
-
-    assert_selected_specialist_sectors_are_displayed
-    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change specialist topic tags/
-    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-edit"
-  end
-
-  view_test "shows message when edition is not tagged to any legacy associations" do
-    stub_specialist_sectors
-    organisation = create(:organisation)
-    publication = create(
-      :publication,
-      organisations: [organisation],
-    )
-
-    stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
-
-    login_as(create(:user, organisation:))
-    get :show, params: { id: publication }
-
-    refute_select ".policies"
-    refute_select ".policy-areas"
-    refute_select ".primary-specialist-sector"
-    refute_select ".secondary-specialist-sectors"
-    assert_select ".no-content.no-content-bordered", "No specialist topic tags"
-    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Add specialist topic tags/
-    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-plus-sign"
   end
 
 private

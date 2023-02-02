@@ -82,43 +82,27 @@ module CssSelectors
   end
 
   def reject_button_selector(document)
-    if current_user.can_preview_design_system?
-      "form[action='#{reject_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
-    else
-      "form[action='#{reject_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Reject]"
-    end
+    "form[action='#{reject_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
   end
 
   def schedule_button_selector(document)
-    if current_user.can_preview_design_system?
-      "form[action='#{schedule_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
-    else
-      "form[action='#{schedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Schedule]"
-    end
+    "form[action='#{schedule_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
   end
 
   def unschedule_button_selector(document)
-    if current_user.can_preview_design_system?
-      "a[href='#{confirm_unschedule_admin_edition_path(document, lock_version: document.lock_version)}']"
-    else
-      "form[action='#{unschedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Unschedule]"
-    end
+    "a[href='#{confirm_unschedule_admin_edition_path(document, lock_version: document.lock_version)}']"
   end
 
   def force_schedule_button_selector(document)
-    if current_user.can_preview_design_system?
-      "form[action='#{force_schedule_admin_edition_path(document, lock_version: document.lock_version)}'] button[type=submit]"
-    else
-      "form[action='#{force_schedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value='Force schedule']"
-    end
+    "a[href='#{confirm_force_schedule_admin_edition_path(document, lock_version: document.lock_version)}']"
   end
 
-  def link_to_public_version_selector
-    ".public_version"
+  def link_to_public_version_selector(document)
+    "a[href='#{public_document_url(document)}']"
   end
 
-  def link_to_preview_version_selector
-    ".preview_version"
+  def link_to_preview_version_selector(document)
+    "a[href='#{preview_document_url(document)}']"
   end
 
   def policy_group_selector

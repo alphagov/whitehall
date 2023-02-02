@@ -15,15 +15,6 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(edition)} .body", text: "edition-body"
   end
 
-  view_test "should render the edition title and body to give context to the person rejecting with preview next release flag" do
-    @logged_in_user.permissions << "Preview next release"
-    edition = create(:submitted_publication, title: "edition-title", body: "edition-body")
-    get :new, params: { edition_id: edition }
-
-    assert_select "#{record_css_selector(edition)} .title", text: "edition-title"
-    assert_select "#{record_css_selector(edition)} .body", text: "edition-body"
-  end
-
   view_test "should render the editorial remark form for a statistical data set" do
     StatisticalDataSet.stubs(access_limited_by_default?: false)
     edition = create(:draft_statistical_data_set, title: "edition-title", body: "edition-body")

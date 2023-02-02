@@ -65,7 +65,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
           stub_publishing_api_has_linkables([], document_type: "topic")
           visit admin_news_article_path(edition)
-          click_button "Create new edition to edit"
+          click_button "Create new edition"
           click_link "Attachments 1"
           within row_containing(filename) do
             click_link "Edit"
