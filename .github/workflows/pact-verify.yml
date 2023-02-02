@@ -9,10 +9,25 @@ name: Run Pact tests
 on:
   workflow_call:
     inputs:
-      commitish:
+      # The commit / tag of this repo to test against
+      ref:
         required: false
         type: string
         default: main
+      # A GitHub Action artifact which contains the pact definition files
+      # Publishing API calls this action to test new pacts against this
+      # workflow
+      pact_artifact:
+        required: false
+        type: string
+      # When using an artifact this is the file path to the pact that is verified
+      # against
+      pact_artifact_file_to_verify:
+        required: false
+        type: string
+        default: gds_api_adapters-whitehall_api.json
+      # Which version of the pacts to use from the Pact Broker service
+      # This option will be ignored if pact_artifact is set
       pact_consumer_version:
         required: false
         type: string
@@ -34,16 +49,25 @@ jobs:
         ports: ["6379:6379"]
         options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version }}
       TEST_DATABASE_URL: mysql2://root:root@127.0.0.1:3306/test-db
       RAILS_ENV: test
     steps:
       - uses: actions/checkout@v3
         with:
           repository: alphagov/whitehall
-          ref: ${{ inputs.commitish }}
+          ref: ${{ inputs.ref }}
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
       - run: bundle exec rails db:setup
-      - run: bundle exec rake pact:verify
+      - if: inputs.pact_artifact == ''
+        run: bundle exec rake pact:verify
+        env:
+          PACT_CONSUMER_VERSION: ${{ inputs.pact_consumer_version }}
+      - if: inputs.pact_artifact != ''
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.pact_artifact }}
+          path: tmp/pacts
+      - if: inputs.pact_artifact != ''
+        run: bundle exec rake pact:verify:at[tmp/pacts/${{ inputs.pact_artifact_file_to_verify }}]
