@@ -12,22 +12,25 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
     world_location = create(:world_location)
 
-    locales = %i[en fr]
+    locales = [
+      { code: "en", suffix: "" },
+      { code: "fr", suffix: ".fr" },
+    ]
 
     locales.each do |locale|
-      I18n.with_locale(locale) do
-        create(:feature_list, locale:, featurable: world_location.world_location_news, features: [second_feature, first_feature])
+      I18n.with_locale(locale[:code]) do
+        create(:feature_list, locale: locale[:code], featurable: world_location.world_location_news, features: [second_feature, first_feature])
 
         expected_ordered_featured_documents = [
           { title: case_study.title,
-            href: "/government/case-studies/case-study-title",
+            href: "/government/case-studies/case-study-title#{locale[:suffix]}",
             image: { url: first_feature.image.url,
                      alt_text: first_feature.alt_text },
             summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(case_study.summary),
             public_updated_at: case_study.public_timestamp,
             document_type: I18n.t("document.type.case_study.one") },
           { title: news_article.title,
-            href: "/government/news/news-title",
+            href: "/government/news/news-title#{locale[:suffix]}",
             image: { url: second_feature.image.url,
                      alt_text: second_feature.alt_text },
             summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(news_article.summary),
@@ -47,15 +50,18 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
     organisation = create(:organisation)
 
-    locales = %i[en fr]
+    locales = [
+      { code: "en", suffix: "" },
+      { code: "fr", suffix: ".fr" },
+    ]
 
     locales.each do |locale|
-      I18n.with_locale(locale) do
-        create(:feature_list, locale:, featurable: organisation, features: [feature])
+      I18n.with_locale(locale[:code]) do
+        create(:feature_list, locale: locale[:code], featurable: organisation, features: [feature])
 
         expected_ordered_featured_documents = [
           { title: topical_event.name,
-            href: "/government/topical-events/topical_event_1",
+            href: "/government/topical-events/topical_event_1#{locale[:suffix]}",
             image: { url: feature.image.url,
                      alt_text: feature.alt_text },
             summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
