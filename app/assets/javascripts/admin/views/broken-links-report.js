@@ -35,13 +35,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   BrokenLinksReport.prototype.setupPolling = function (refreshLink) {
-    refreshLink.hidden = true
+    refreshLink.parentElement.remove()
 
     var retries = 10
     var retry = function () {
       retries -= 1
       if (retries === 0) {
-        refreshLink.hidden = false
+        this.module.addChild(refreshLink.parentElement)
         return
       }
 
@@ -59,7 +59,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         if (json.inProgress) {
           retry()
         } else {
-          this.replaceContentsAndCopyClasses(json.html)
+          this.replaceContents(json.html)
           this.init()
         }
       }.bind(this))
