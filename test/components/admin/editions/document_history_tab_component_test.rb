@@ -34,7 +34,7 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
   test "it renders a inset component which links to the whats new page" do
     render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @first_edition, document_history: @timeline))
 
-    assert_selector ".gem-c-inset-text", text: "History and notes have been merged. Read more about the change"
+    assert_selector ".gem-c-inset-text", text: "History and notes have been merged. Read more about the change."
     assert_equal page.all(".gem-c-inset-text a")[0].text, "Read more about the change"
     assert_equal page.all(".gem-c-inset-text a")[0][:href], admin_whats_new_path
   end
