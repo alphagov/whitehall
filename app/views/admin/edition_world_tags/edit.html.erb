@@ -1,6 +1,7 @@
 <% content_for :page_title, "#{@edition.title}: Worldwide tags" %>
 <% content_for :context, @edition.title %>
 <% content_for :title, "Worldwide tags" %>
+<%= render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
