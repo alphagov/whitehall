@@ -1,6 +1,12 @@
 <% content_for :page_title, "#{@edition.title}: Worldwide tags" %>
 <% content_for :context, @edition.title %>
 <% content_for :title, "Worldwide tags" %>
+<% content_for :head do %>
+  <% custom_track_dimensions(@edition, @edition_taxons).each do |key, value| %>
+    <meta name="custom-dimension:<%= key %>" content="<%= value %>">
+  <% end %>
+<% end %>
+
 <%= render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 
 <div class="govuk-grid-row">

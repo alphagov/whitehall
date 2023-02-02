@@ -9,7 +9,9 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
     @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT
     @organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
     @edition = create(:publication, publication_type: PublicationType::Guidance, organisations: [@organisation])
+    stub_taxonomy_with_all_taxons
     stub_taxonomy_with_world_taxons
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [child_taxon])
   end
 
   test "should return an error on a version conflict" do
