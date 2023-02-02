@@ -18,6 +18,8 @@
           heading_size: "l",
           value: @translated_edition.title,
           error_items: errors_for(form.object.errors, :title),
+          right_to_left: form.object.translation_rtl?,
+          right_to_left_help: false
         } %>
 
         <h3 class="app-view-edition-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English title content:</h3>
@@ -34,6 +36,8 @@
         value: @translated_edition.summary,
         rows: 2,
         error_items: errors_for(form.object.errors, :summary),
+        right_to_left: form.object.translation_rtl?,
+        right_to_left_help: false
       } %>
 
       <h3 class="app-view-edition-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English summary content:</h3>
@@ -49,6 +53,8 @@
         value: @translated_edition.body,
         rows: 20,
         error_items: errors_for(form.object.errors, :body),
+        right_to_left: form.object.translation_rtl?,
+        right_to_left_help: false
       } %>
 
       <h3 class="app-view-edition-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English body content:</h3>
