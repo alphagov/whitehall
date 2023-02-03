@@ -13,7 +13,7 @@ class EditionTaxonsFetcher
 
   def fetch_world_taxons
     taxons.select do |taxon|
-      visible?(taxon) && world_taxon?(taxon.content_id)
+      world_taxon?(taxon.content_id)
     end
   end
 
