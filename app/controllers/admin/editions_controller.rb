@@ -90,10 +90,10 @@ class Admin::EditionsController < Admin::BaseController
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: false)
-      @information = updater.failure_reason unless preview_design_system?(next_release: false)
+      flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: true)
+      @information = updater.failure_reason unless preview_design_system?(next_release: true)
       build_edition_dependencies
-      render_design_system(:new, :new_legacy, next_release: false)
+      render_design_system(:new, :new_legacy, next_release: true)
     end
   end
 
@@ -115,19 +115,19 @@ class Admin::EditionsController < Admin::BaseController
 
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: false)
-      @information = updater.failure_reason unless preview_design_system?(next_release: false)
+      flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: true)
+      @information = updater.failure_reason unless preview_design_system?(next_release: true)
       build_edition_dependencies
       fetch_version_and_remark_trails
       construct_similar_slug_warning_error
-      render_design_system(:edit, :edit_legacy, next_release: false)
+      render_design_system(:edit, :edit_legacy, next_release: true)
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
     build_edition_dependencies
-    render_design_system(:edit, :edit_legacy, next_release: false)
+    render_design_system(:edit, :edit_legacy, next_release: true)
   end
 
   def revise
@@ -194,7 +194,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy diff show]
-    design_system_actions += %w[edit update new create] if preview_design_system?(next_release: false)
+    design_system_actions += %w[edit update new create] if preview_design_system?(next_release: true)
     if design_system_actions.include?(action_name)
       "design_system"
     else
@@ -335,7 +335,7 @@ private
 
   def build_national_exclusion_params
     design_system_controllers = %w[consultations detailed_guides publications]
-    return unless design_system_controllers.include?(controller_name) && preview_design_system?(next_release: false)
+    return unless design_system_controllers.include?(controller_name) && preview_design_system?(next_release: true)
 
     exclusion_params = edition_params["all_nation_applicability"]
     return if exclusion_params.blank? || edition_params["nation_inapplicabilities_attributes"].blank?
@@ -437,7 +437,7 @@ private
     return if edition_params.empty?
 
     edition_params[:title].strip! if edition_params[:title]
-    edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank? || (preview_design_system?(next_release: false) && edition_params[:create_foreign_language_only].blank?)
+    edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank? || (preview_design_system?(next_release: true) && edition_params[:create_foreign_language_only].blank?)
     edition_params.delete(:create_foreign_language_only)
     edition_params[:external_url] = nil if edition_params[:external] == "0"
     edition_params[:change_note] = nil if edition_params[:minor_change] == "true"
