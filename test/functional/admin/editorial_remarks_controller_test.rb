@@ -11,8 +11,8 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     edition = create(:submitted_publication, title: "edition-title", body: "edition-body")
     get :new, params: { edition_id: edition }
 
-    assert_select "#{record_css_selector(edition)} .title", text: "edition-title"
-    assert_select "#{record_css_selector(edition)} .body", text: "edition-body"
+    assert_select "#{record_css_selector(edition)} .app-view-editions-edition__document__title", text: "edition-title"
+    assert_select "#{record_css_selector(edition)} .app-view-editions-edition__document__body", text: "edition-body"
   end
 
   view_test "should render the editorial remark form for a statistical data set" do
