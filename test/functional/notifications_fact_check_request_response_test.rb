@@ -15,10 +15,6 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     @mail = MailNotifications.fact_check_request(@request, host: "example.com")
   end
 
-  teardown do
-    Fog::Mock.reset
-  end
-
   test "email should be sent to the fact checker email address" do
     assert_equal ["fact-checker@example.com"], @mail.to
   end
@@ -63,13 +59,13 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   include Admin::EditionRoutesHelper
 
   setup do
-    @publication = build(:publication, title: "<publication-title>")
-    @requestor = build(
+    @publication = create(:publication, title: "<publication-title>")
+    @requestor = create(
       :fact_check_requestor,
       name: "<requestor-name>",
       email: "fact-check-requestor@example.com",
     )
-    @request = build(
+    @request = create(
       :fact_check_request,
       email_address: "fact-checker@example.com",
       edition: @publication,
@@ -87,7 +83,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "email body should contain a link to the comment on the edition page" do
-    url = admin_edition_url(@request.edition, anchor: dom_id(@request), host: "example.com")
+    url = admin_edition_url(@request.edition, anchor: "fact_checking_tab", host: "example.com")
     assert_match Regexp.new(url), @mail.body.to_s
   end
 
