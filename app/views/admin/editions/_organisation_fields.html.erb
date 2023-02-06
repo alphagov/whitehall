@@ -2,38 +2,35 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Organisations",
     heading_level: 3,
-    heading_size: "l",
+    heading_size: "m",
     id: "edition_organisations",
     error_message: errors_for_input(edition.errors, :organisations)
     } do %>
-
-    <h4 class="govuk-heading-m">Lead organisations</h4>
-
-    <% 0.upto(3) do |index| %>
-      <% lead_organisation_id = lead_organisation_id_at_index(edition, index) %>
-      <% cache_if lead_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
-        <%= render "govuk_publishing_components/components/select", {
-            id: "edition_lead_organisation_ids_#{index + 1}",
-            name: "edition[lead_organisation_ids][]",
-            label: "Lead organisation #{index + 1}",
-            heading_size: "s",
-            data: {
-                module: 'track-select-click',
-                track_category: 'leadOrgSelection',
-                track_label: request.path
-            },
-            options: ([""] + taggable_organisations_container).map do |name, id|
-            {
-              text: name,
-              value: id,
-              selected: id == lead_organisation_id
-            }
-           end
-        } %>
+    <div class="govuk-!-margin-bottom-8">
+      <% 0.upto(3) do |index| %>
+        <% lead_organisation_id = lead_organisation_id_at_index(edition, index) %>
+        <% cache_if lead_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
+          <%= render "govuk_publishing_components/components/select", {
+              id: "edition_lead_organisation_ids_#{index + 1}",
+              name: "edition[lead_organisation_ids][]",
+              label: "Lead organisation #{index + 1}",
+              heading_size: "s",
+              data: {
+                  module: 'track-select-click',
+                  track_category: 'leadOrgSelection',
+                  track_label: request.path
+              },
+              options: ([""] + taggable_organisations_container).map do |name, id|
+              {
+                text: name,
+                value: id,
+                selected: id == lead_organisation_id
+              }
+             end
+          } %>
+        <% end %>
       <% end %>
-    <% end %>
-
-    <h4 class="govuk-heading-m">Supporting organisations</h4>
+    </div>
 
     <% 0.upto(5) do |index| %>
       <% supporting_organisation_id = supporting_organisation_id_at_index(edition, index) %>

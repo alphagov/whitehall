@@ -4,25 +4,30 @@
   <%= form.hidden_field :lock_version %>
 
   <% if edition.document&.slug.present? %>
-    <label for="edition_slug" class="gem-c-label govuk-label govuk-!-font-weight-bold">Slug (read only)</label>
-    <input disabled="disabled" class="gem-c-input govuk-input govuk-body govuk-!-margin-bottom-4" id="edition_slug" name="edition[slug]" readonly="readonly" spellcheck="false" type="text" value=<%= edition.slug %>>
+    <div class="govuk-!-margin-bottom-8">
+      <label for="edition_slug" class="gem-c-label govuk-label govuk-label--l govuk-!-font-weight-bold">Slug (read only)</label>
+      <input disabled="disabled" class="gem-c-input govuk-input govuk-body" id="edition_slug" name="edition[slug]" readonly="readonly" spellcheck="false" type="text" value=<%= edition.slug %>>
+    </div>
   <% end %>
 
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: "Title (required)",
-      bold: true
-    },
-    name: "edition[title]",
-    id: "edition_title",
-    value: edition.title,
-    hint: "Title text should be 65 characters or fewer",
-    error_items: errors_for(edition.errors, :title),
-  } %>
+  <div class="govuk-!-margin-bottom-8">
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: "Title (required)",
+      },
+      name: "edition[title]",
+      id: "edition_title",
+      heading_size: "l",
+      value: edition.title,
+      hint: "Title text should be 65 characters or fewer",
+      error_items: errors_for(edition.errors, :title),
+    } %>
+  </div>
+
   <%= render "govuk_publishing_components/components/textarea", {
     label: {
       text: "Summary" + "#{' (required)' if form.object.summary_required?}",
-       bold: true
+      heading_size: "l",
     },
     name: "edition[summary]",
     id: "edition_summary",
@@ -30,44 +35,52 @@
     rows: 4,
     hint: "Summary text should be 160 characters or fewer.",
     error_items: errors_for(edition.errors, :summary),
+    margin_bottom: 8,
   } %>
 
-  <%= render "components/govspeak-editor", {
-    label: {
-      text: "Body" + "#{' (required)' if form.object.body_required?}",
-        bold: true
-    },
-    name: "edition[body]",
-    id: "edition_body",
-    value: edition.body,
-    rows: 20,
-    error_items: errors_for(edition.errors, :body),
-    data_attributes: {
-      image_ids: edition.images.map { |img| img[:id] }.to_json,
-      attachment_ids: edition.allows_attachments? ? edition.attachments.map(&:id) : [],
-      alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-    }
-  } %>
+  <div class="govuk-!-margin-bottom-8">
+    <%= render "components/govspeak-editor", {
+      label: {
+        text: "Body" + "#{' (required)' if form.object.body_required?}",
+        heading_size: "l",
+      },
+      name: "edition[body]",
+      id: "edition_body",
+      value: edition.body,
+      rows: 20,
+      error_items: errors_for(edition.errors, :body),
+      data_attributes: {
+        image_ids: edition.images.map { |img| img[:id] }.to_json,
+        attachment_ids: edition.allows_attachments? ? edition.attachments.map(&:id) : [],
+        alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+      }
+    } %>
+  </div>
 
   <%= render "additional_significant_fields", form: form, edition: form.object %>
 
   <% if edition.document && edition.document.live? && can?(:mark_political, edition) %>
-    <%= form.hidden_field :political, value: "0" %>
+    <div class="govuk-!-margin-bottom-8">
+      <%= form.hidden_field :political, value: "0" %>
 
-    <%= render "govuk_publishing_components/components/checkboxes", {
-      name: "edition[political]",
-      id: "edition_political",
-      error: errors_for_input(edition.errors, :political),
-      items: [
-        {
-          label: "Associate with government of the time (currently set to #{edition.government&.name}).",
-          value: "1",
-          checked: edition.political
-        }
-      ]
-    } %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "edition[political]",
+        id: "edition_political",
+        heading: "Political",
+        heading_size: "l",
+        no_hint_text: true,
+        error: errors_for_input(edition.errors, :political),
+        items: [
+          {
+            label: "Associate with government of the time (currently set to #{edition.government&.name}).",
+            value: "1",
+            checked: edition.political
+          }
+        ]
+      } %>
 
-    <p class="govuk-body"><%= link_to "Read the history mode guidance", 'https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode', class: "govuk-link" %> for more information as to what this means.</p>
+      <p class="govuk-body"><%= link_to "Read the history mode guidance", 'https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode', class: "govuk-link" %> for more information as to what this means.</p>
+    </div>
   <% end %>
 </div>
 

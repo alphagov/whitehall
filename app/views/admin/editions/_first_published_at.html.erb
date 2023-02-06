@@ -30,36 +30,40 @@
 %>
 
 <% if edition.published_major_version.nil? %>
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Document status (required)",
-    heading_size: "l",
-    id: "edition_first_published_at"
-  } do %>
-    <%= render "govuk_publishing_components/components/radio", {
-      name: "edition[previously_published]",
-      id: "edition_previously_published",
-      error_items: errors_for(edition.errors, :previously_published),
-      items: [
-        {
-          value: false,
-          text: "This document has never been published before.",
-          checked: edition.previously_published == false
-        },
-        {
-          value: true,
-          text: "This document has previously been published on another website.",
-          checked: edition.previously_published,
-          conditional: first_published_at_fields
-        }
-      ]
-    } %>
+  <div class="govuk-!-margin-bottom-4">
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "Document status (required)",
+      heading_size: "l",
+      id: "edition_first_published_at"
+    } do %>
+      <%= render "govuk_publishing_components/components/radio", {
+        name: "edition[previously_published]",
+        id: "edition_previously_published",
+        error_items: errors_for(edition.errors, :previously_published),
+        items: [
+          {
+            value: false,
+            text: "This document has never been published before.",
+            checked: edition.previously_published == false
+          },
+          {
+            value: true,
+            text: "This document has previously been published on another website.",
+            checked: edition.previously_published,
+            conditional: first_published_at_fields
+          }
+        ]
+      } %>
+  </div>
   <% end %>
 <% else %>
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "First published (required)",
-    heading_size: "l",
-    hint: "For example, 31 3 2000",
-  } do %>
-    <%= first_published_at_fields %>
-  <% end %>
+  <div class="govuk-!-margin-bottom-4">
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "First published (required)",
+      heading_size: "l",
+      hint: "For example, 31 3 2000",
+    } do %>
+      <%= first_published_at_fields %>
+    <% end %>
+  </div>
 <% end %>
