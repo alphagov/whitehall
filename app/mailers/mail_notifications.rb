@@ -1,5 +1,3 @@
-require "zip"
-
 class MailNotifications < ApplicationMailer
   include ActionView::RecordIdentifier
   include ActionView::Helpers::TextHelper

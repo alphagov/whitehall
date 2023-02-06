@@ -22,6 +22,6 @@ class FactCheckRequest < ApplicationRecord
   delegate :title, to: :edition, prefix: true
 
   def edition_type
-    edition.type.downcase
+    edition.format_name
   end
 end
