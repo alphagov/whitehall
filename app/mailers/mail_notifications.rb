@@ -20,7 +20,7 @@ class MailNotifications < ApplicationMailer
   def fact_check_response(request, url_options)
     @fact_check_request = request
     @url_options = url_options
-    @comment_url = admin_edition_url(request.edition, url_options.merge(anchor: dom_id(request)))
+    @comment_url = admin_edition_url(request.edition, url_options.merge(anchor: "fact_checking_tab"))
 
     to_address = request.requestor.email
     subject = "Fact check comment added by #{request.email_address}: #{request.edition_title}"
