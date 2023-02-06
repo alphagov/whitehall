@@ -1,11 +1,11 @@
 <%= render 'delivered_by_fields', form: form, edition: edition %>
 <%= render 'delivered_on_fields', form: form, edition: edition %>
 
-<div class="js-app-view-edit-edition__speech-location-field <%= "app-view-edit-edition__speech-location-field--hidden" if edition.authored_article? %>">
+<div class="js-app-view-edit-edition__speech-location-field <%= "app-view-edit-edition__speech-location-field--hidden" if edition.authored_article? %> govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Location",
-      bold: true,
+      heading_size: "l",
     },
     name: "edition[location]",
     id: "edition_location",
