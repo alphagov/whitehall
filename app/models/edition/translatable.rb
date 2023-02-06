@@ -52,6 +52,10 @@ module Edition::Translatable
     Locale.find_by_code(primary_locale).rtl?
   end
 
+  def translation_rtl?
+    Locale.new(translation_locale.code).rtl?
+  end
+
   def primary_language_name
     Locale.find_by_code(primary_locale).english_language_name
   end
