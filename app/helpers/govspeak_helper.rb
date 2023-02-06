@@ -259,7 +259,7 @@ private
         "\n\n"
       end
     end
-    return govspeak
+    # return govspeak
     hosts = [Whitehall.admin_host, Whitehall.public_host]
 
     govspeak = Govspeak::Document.new(govspeak, { document_domains: hosts, attachments: }).tap do |document|
