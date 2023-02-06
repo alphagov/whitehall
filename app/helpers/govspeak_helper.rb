@@ -259,6 +259,14 @@ private
         "\n\n"
       end
     end
+    return govspeak
+    hosts = [Whitehall.admin_host, Whitehall.public_host]
+
+    govspeak = Govspeak::Document.new(govspeak, { document_domains: hosts, attachments: }).tap do |document|
+      # document.images = images
+    end
+    return govspeak.to_html.html_safe
+
     govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
       if (attachment = attachments[Regexp.last_match(1).to_i - 1])
         render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: }).chomp

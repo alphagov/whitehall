@@ -58,9 +58,7 @@ private
   def update_publishing_api!
     return if is_whitehall_corp_info_page?
 
-    ServiceListeners::PublishingApiPusher
-      .new(edition.reload)
-      .push(event: verb, options:)
+    ServiceListeners::PublishingApiPusher.new(edition.reload).push(event: verb, options:)
   end
 
   def prepare_edition

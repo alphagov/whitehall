@@ -3,6 +3,7 @@ class Admin::PreviewController < Admin::BaseController
   before_action :limit_attachment_access!
 
   def preview
+    # binding.pry
     if Govspeak::HtmlValidator.new(params[:body]).valid?
       @images = Image.find(params.fetch(:image_ids, []))
       @alternative_format_contact_email = alternative_format_contact_email

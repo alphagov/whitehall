@@ -2,6 +2,23 @@ module Admin::AdminGovspeakHelper
   include GovspeakHelper
 
   def govspeak_to_admin_html(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
+    # hosts = [Whitehall.admin_host, Whitehall.public_host]
+    #
+    # attachments.map! do |a|
+    #   {
+    #     id: a.filename,
+    #     title: a.title,
+    #     url: a.url,
+    #     filename: a.filename,
+    #     file_size: a.file_size,
+    #   }
+    # end
+    #
+    # govspeak = Govspeak::Document.new(govspeak, { document_domains: hosts, attachments: }).tap do |document|
+    #   document.images = images
+    # end
+    # govspeak.to_html.html_safe
+
     partially_processed_govspeak = govspeak_with_attachments_and_alt_format_information(govspeak, attachments, alternative_format_contact_email)
     wrapped_in_govspeak_div(bare_govspeak_to_admin_html(partially_processed_govspeak, images))
   end

@@ -8,9 +8,12 @@ default: &default
 development:
   <<: *default
   database: whitehall_development
-  username: whitehall
-  password: whitehall
-  url: <%= ENV["DATABASE_URL"] %>
+  username: root
+  password: root
+  host: 0.0.0.0
+  port: 3306
+  # url: <%= ENV["DATABASE_URL"] %>
+  <% puts ENV["DATABASE_URL"] %>
   # Note that there is also a 'whitehall_fe' user, used
   # by the 'whitehall_frontend' machines. It should have
   # only 'SELECT' privileges on the database.

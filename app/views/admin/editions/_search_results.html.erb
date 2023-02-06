@@ -49,7 +49,7 @@
       <% @filter.editions.each do |edition| %>
         <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
           <% unless @filter.hide_type %>
-            <td class="type"><%= edition_type(edition) %></td>
+            # <td class="type">%# = edition_type(edition) %></td>
           <% end %>
           <td class="title">
             <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>

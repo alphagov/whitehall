@@ -19,8 +19,8 @@ class Admin::EditionsController < Admin::BaseController
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
-  layout :get_layout
-
+  # layout :get_layout
+  layout "design_system"
   def enforce_permissions!
     case action_name
     when "index", "topics", "history"
@@ -102,7 +102,7 @@ class Admin::EditionsController < Admin::BaseController
   def edit
     @edition.open_for_editing_as(current_user)
     fetch_version_and_remark_trails(next_release: false)
-    render_design_system(:edit, :edit_legacy, next_release: false)
+    render_design_system(:edit, :edit, next_release: true)
   end
 
   def update
