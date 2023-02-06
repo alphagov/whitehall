@@ -3,11 +3,11 @@ class Admin::EditionTranslationsController < Admin::BaseController
   layout :get_layout
 
   def new
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new", next_release: true)
   end
 
   def edit
-    render_design_system("edit", "edit_legacy", next_release: false)
+    render_design_system("edit", "edit_legacy", next_release: true)
   end
 
   def update
@@ -16,7 +16,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
       save_draft_translation if send_downstream?
       redirect_to update_redirect_path, notice: notice_message("saved")
     else
-      render_design_system("edit", "edit_legacy", next_release: false)
+      render_design_system("edit", "edit_legacy", next_release: true)
     end
   end
 
@@ -26,7 +26,7 @@ private
 
   def get_layout
     design_system_actions = %w[edit update new confirm_destroy]
-    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
@@ -54,7 +54,7 @@ private
   end
 
   def load_translated_models
-    if preview_design_system?(next_release: false)
+    if preview_design_system?(next_release: true)
       @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1)
     else
       @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
