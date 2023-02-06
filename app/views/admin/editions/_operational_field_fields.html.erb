@@ -2,7 +2,7 @@
   id: "edition_operational_field_id",
   label: "Field of operation (required)",
   name: "edition[operational_field_id]",
-  heading_size: "s",
+  heading_size: "l",
   error_message: errors_for_input(edition.errors, :operational_field_id),
   options: ([nil] + OperationalField.all).map do |operation|
     {
