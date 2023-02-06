@@ -11,25 +11,29 @@
     heading_size: "l",
     id: "associations"
   } do %>
-    <%= render 'organisation_fields', form: form, edition: edition %>
-    <%= render "topical_event_fields", form: form, edition: edition %>
+    <div class="govuk-!-margin-bottom-4">
+      <%= render 'organisation_fields', form: form, edition: edition %>
+      <%= render "topical_event_fields", form: form, edition: edition %>
 
-    <% cache_if edition.related_detailed_guide_ids.empty?, "#{taggable_detailed_guides_cache_digest}-design-system" do %>
-      <%= render "components/autocomplete", {
-        id: "edition_related_detailed_guide_ids",
-        name: "edition[related_detailed_guide_ids][]",
-        error_items: errors_for(edition.errors, :related_detailed_guide_ids),
-        label: {
-          text: "Related guides",
-          bold: true,
-        },
-        select: {
-          options: [""] + taggable_detailed_guides_container,
-          multiple: true,
-          selected: edition.related_detailed_guide_ids,
-        },
-      } %>
-    <% end %>
+      <% cache_if edition.related_detailed_guide_ids.empty?, "#{taggable_detailed_guides_cache_digest}-design-system" do %>
+        <%= render "components/autocomplete", {
+          id: "edition_related_detailed_guide_ids",
+          name: "edition[related_detailed_guide_ids][]",
+          error_items: errors_for(edition.errors, :related_detailed_guide_ids),
+          label: {
+            text: "Related guides",
+            heading_size: "m",
+          },
+          select: {
+            options: [""] + taggable_detailed_guides_container,
+            multiple: true,
+            selected: edition.related_detailed_guide_ids,
+          },
+        } %>
+      <% end %>
+
+      <%= render 'nation_fields', form: form, edition: edition %>        
+    </div>
   <% end %>
 
   <%= render 'inline_attachments_info', form: form, edition: edition %>
@@ -42,7 +46,7 @@
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Related mainstream content url",
-        bold: true,
+        heading_size: "m",
       },
       hint: "Link to the top-level URL for mainstream content - not a specific chapter.",
       name: "edition[related_mainstream_content_url]",
@@ -53,7 +57,7 @@
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Additional related mainstream content url",
-        bold: true,
+        heading_size: "m",
       },
       name: "edition[additional_related_mainstream_content_url]",
       id: "edition_additional_related_mainstream_content_url",
@@ -61,6 +65,4 @@
       error_items: errors_for(edition.errors, :additional_related_mainstream_content_url),
     } %>
   <% end %>
-
-  <%= render 'nation_fields', form: form, edition: edition %>
 <% end %>
