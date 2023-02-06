@@ -1,3 +1,5 @@
+<% render_broken_links_button ||= true %>
+
 <div data-module="broken-links-report">
   <% if report.new_record? %>
     <%= render "components/inset_prompt", {
@@ -54,10 +56,12 @@
         <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
           <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
         <% end %>
-        <%= render partial: 'admin/link_check_reports/form', locals: {
-          reportable: report.link_reportable,
-          button_text: 'Check again'
-        } %>
+        <% if render_broken_links_button %>
+          <%= render partial: 'admin/link_check_reports/form', locals: {
+            reportable: report.link_reportable,
+            button_text: 'Check again'
+          } %>
+        <% end %>
       <% end,
       error: true
     } %>
