@@ -1,3 +1,3 @@
-<%= content_tag :article, class: "app-view-editions-edition__document#{' right-to-left' if edition.rtl?}" do %>
-  <%= render partial: "admin/editions/standard_elements", locals: { edition: edition } %>
+<%= content_tag :article, class: "app-view-editions-edition__document" do %>
+  <%= render "admin/editions/standard_elements", edition: edition %>
 <% end %>

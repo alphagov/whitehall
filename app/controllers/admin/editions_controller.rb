@@ -79,8 +79,6 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_tagged_to_worldwide_taxonomy?
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
     end
-
-    render_design_system(:show, :show_legacy, next_release: true)
   end
 
   def new
@@ -101,7 +99,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def edit
     @edition.open_for_editing_as(current_user)
-    fetch_version_and_remark_trails(next_release: false)
+    fetch_version_and_remark_trails
     render_design_system(:edit, :edit_legacy, next_release: false)
   end
 
@@ -120,7 +118,7 @@ class Admin::EditionsController < Admin::BaseController
       flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: false)
       @information = updater.failure_reason unless preview_design_system?(next_release: false)
       build_edition_dependencies
-      fetch_version_and_remark_trails(next_release: false)
+      fetch_version_and_remark_trails
       construct_similar_slug_warning_error
       render_design_system(:edit, :edit_legacy, next_release: false)
     end
@@ -195,8 +193,7 @@ class Admin::EditionsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_destroy diff]
-    design_system_actions += %w[show] if preview_design_system?(next_release: true)
+    design_system_actions = %w[confirm_destroy diff show]
     design_system_actions += %w[edit update new create] if preview_design_system?(next_release: false)
     if design_system_actions.include?(action_name)
       "design_system"
@@ -205,8 +202,8 @@ private
     end
   end
 
-  def fetch_version_and_remark_trails(next_release: true)
-    if preview_design_system?(next_release:)
+  def fetch_version_and_remark_trails
+    if get_layout == "design_system"
       @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1)
     else
       @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])

@@ -2,13 +2,12 @@ class Admin::EditionWorldTagsController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
   before_action :limit_edition_access!
-  layout :get_layout
+  layout "design_system"
 
   def edit
     @world_taxonomy = Taxonomy::WorldTaxonomy.new
     @tag_form = WorldTaxonomyTagForm.load(@edition.content_id)
     @edition_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch
-    render_design_system("edit", "edit_legacy", next_release: true)
   end
 
   def update
@@ -26,14 +25,6 @@ class Admin::EditionWorldTagsController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def enforce_permissions!
     unless @edition.can_be_tagged_to_worldwide_taxonomy?

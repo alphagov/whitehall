@@ -5,18 +5,16 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   before_action :limit_edition_access!, only: %i[index new create]
   before_action :check_edition_availability, only: %i[show edit]
   skip_before_action :authenticate_user!, only: %i[show edit update]
-  layout :get_layout
+  layout "design_system"
 
-  def show
-    render_design_system("show", "show_legacy", next_release: true)
-  end
+  def show; end
 
   def create
     attributes = fact_check_request_params.merge(requestor: current_user)
     fact_check_request = @edition.fact_check_requests.build(attributes)
 
     if @edition.deleted?
-      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)
+      render "edition_unavailable"
     elsif fact_check_request.save
       MailNotifications.fact_check_request(fact_check_request, mailer_url_options).deliver_now
       notice = "The document has been sent to #{fact_check_request.email_address}"
@@ -27,9 +25,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     end
   end
 
-  def edit
-    render_design_system("edit", "edit_legacy", next_release: true)
-  end
+  def edit; end
 
   def update
     if @fact_check_request.update(fact_check_request_params)
@@ -39,19 +35,11 @@ class Admin::FactCheckRequestsController < Admin::BaseController
       notice = "Thanks for submitting your response to this fact checking request. Your feedback has been saved."
       redirect_to admin_fact_check_request_path(@fact_check_request), notice:
     else
-      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: true)
+      render "edition_unavailable"
     end
   end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def fact_check_request_params
     params.require(:fact_check_request).permit(
@@ -85,7 +73,7 @@ private
 
   def check_edition_availability
     if @edition.deleted?
-      render_design_system("edition_unavailable", "legacy_edition_unavailable", next_release: false)
+      render "edition_unavailable"
     end
   end
 end
