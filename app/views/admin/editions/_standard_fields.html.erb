@@ -10,7 +10,7 @@
     </div>
   <% end %>
 
-  <div class="govuk-!-margin-bottom-8">
+  <div class="govuk-!-margin-bottom-8 js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Title (required)",
@@ -21,24 +21,30 @@
       value: edition.title,
       hint: "Title text should be 65 characters or fewer",
       error_items: errors_for(edition.errors, :title),
+      right_to_left: form.object.translation_rtl?,
+      right_to_left_help: false
     } %>
   </div>
 
-  <%= render "govuk_publishing_components/components/textarea", {
-    label: {
-      text: "Summary" + "#{' (required)' if form.object.summary_required?}",
-      heading_size: "l",
-    },
-    name: "edition[summary]",
-    id: "edition_summary",
-    value: edition.summary,
-    rows: 4,
-    hint: "Summary text should be 160 characters or fewer.",
-    error_items: errors_for(edition.errors, :summary),
-    margin_bottom: 8,
-  } %>
+  <div class="js-locale-switcher-field">
+    <%= render "govuk_publishing_components/components/textarea", {
+      label: {
+        text: "Summary" + "#{' (required)' if form.object.summary_required?}",
+        heading_size: "l",
+      },
+      name: "edition[summary]",
+      id: "edition_summary",
+      value: edition.summary,
+      rows: 4,
+      hint: "Summary text should be 160 characters or fewer.",
+      error_items: errors_for(edition.errors, :summary),
+      right_to_left: form.object.translation_rtl?,
+      right_to_left_help: false,
+      margin_bottom: 8,
+    } %>
+  </div>
 
-  <div class="govuk-!-margin-bottom-8">
+  <div class="govuk-!-margin-bottom-8 js-locale-switcher-field">
     <%= render "components/govspeak-editor", {
       label: {
         text: "Body" + "#{' (required)' if form.object.body_required?}",
@@ -49,6 +55,7 @@
       value: edition.body,
       rows: 20,
       error_items: errors_for(edition.errors, :body),
+      right_to_left: form.object.translation_rtl?,
       data_attributes: {
         image_ids: edition.images.map { |img| img[:id] }.to_json,
         attachment_ids: edition.allows_attachments? ? edition.attachments.map(&:id) : [],

@@ -1,4 +1,4 @@
-<div class="govuk-!-margin-bottom-8 app-view-edit-edition__locale-field <%= "app-view-edit-edition__locale-field--hidden" unless edition.locale_can_be_changed? && (edition.is_a?(Consultation) || edition.is_a?(DocumentCollection) || edition.is_a?(NewsArticle) && edition.world_news_story?) %>">
+<div class="govuk-!-margin-bottom-8 app-view-edit-edition__locale-field js-locale-switcher-selector <%= "app-view-edit-edition__locale-field--hidden" unless edition.locale_can_be_changed? && (edition.is_a?(Consultation) || edition.is_a?(DocumentCollection) || edition.is_a?(NewsArticle) && edition.world_news_story?) %>">
   <%= render "govuk_publishing_components/components/checkboxes", {
     name: "edition[create_foreign_language_only]",
     id: "edition_create_foreign_language_only",
