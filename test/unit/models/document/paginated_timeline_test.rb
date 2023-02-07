@@ -13,10 +13,15 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     assert_equal entry_timestamps.sort.reverse, entry_timestamps
   end
 
-  test "#entries is a list of AuditTrailEntry and EditorialRemark objects" do
+  test "#entries is a list of AuditTrailEntry and EditorialRemark objects when no 'only' argument is passed in" do
     timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
     assert_equal [Document::PaginatedHistory::AuditTrailEntry, EditorialRemark].to_set,
                  timeline.entries.map(&:class).to_set
+  end
+
+  test "#total_count counts the list of AuditTrailEntry and EditorialRemark objects when no 'only' argument is passed in" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+    assert_equal 11, timeline.total_count
   end
 
   test "#entries are paginated correctly" do
@@ -39,6 +44,48 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
 
     # Compare unpaginated results to paginated results
     assert_equal unpaginated_results.each_slice(results_per_page).to_a, paginated_results
+  end
+
+  test "#entries is a list of EditorialRemark objects when 'internal_notes' is passed into the 'only' argument" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
+    expected_entries = [@editorial_remark3, @editorial_remark2, @editorial_remark1]
+
+    assert_equal expected_entries, timeline.entries
+  end
+
+  test "#total_count counts the total EditorialRemark objects when 'internal_notes' is passed into the 'only' argument" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
+    assert_equal 3, timeline.total_count
+  end
+
+  test "#entries is a list of AuditTrailEntry objects when 'history' is passed in as a 'only' argument" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
+    expected_actions = %w[updated
+                          editioned
+                          published
+                          submitted
+                          updated
+                          rejected
+                          submitted
+                          created]
+
+    assert_equal expected_actions, timeline.entries.map(&:action)
+  end
+
+  test "#total_count counts the total AuditTrailEntry objects when 'history' is passed into the 'only' argument" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
+    assert_equal 8, timeline.total_count
+  end
+
+  test "#only is the 'only' constructor argument" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+    assert_nil timeline.only
+
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
+    assert_equal "history", timeline.only
+
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
+    assert_equal "internal_notes", timeline.only
   end
 
   test "it implements methods required by Kaminari for pagination" do
@@ -126,7 +173,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     some_time_passes
 
     acting_as(@user2) do
-      create(:editorial_remark, edition: @first_edition, author: @user2, body: "This is terrible. Make it better!")
+      @editorial_remark1 = create(:editorial_remark, edition: @first_edition, author: @user2, body: "This is terrible. Make it better!")
       some_time_passes
       @first_edition.reject!
     end
@@ -136,7 +183,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     acting_as(@user) do
       @first_edition.update!(body: "New and improved")
       some_time_passes
-      create(:editorial_remark, edition: @first_edition, author: @user, body: "I've made it better.")
+      @editorial_remark2 = create(:editorial_remark, edition: @first_edition, author: @user, body: "I've made it better.")
       some_time_passes
       @first_edition.submit!
     end
@@ -154,7 +201,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
       some_time_passes
       @newest_edition.update!(body: "New draft changes")
       some_time_passes
-      create(:editorial_remark, edition: @first_edition, author: @user, body: "Drafted to include new changes.")
+      @editorial_remark3 = create(:editorial_remark, edition: @first_edition, author: @user, body: "Drafted to include new changes.")
     end
   end
 
