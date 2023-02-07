@@ -10,9 +10,11 @@
   } do %>
     <p class="govuk-body">You'll be able to specialist sectors later.</p>
 
-    <%= render 'organisation_fields', form: form, edition: edition %>
-    <%= render 'appointment_fields', form: form, edition: edition %>
-    <%= render 'operational_field_fields', form: form, edition: edition %>
+    <div class="govuk-!-margin-bottom-4">
+      <%= render 'organisation_fields', form: form, edition: edition %>
+      <%= render 'appointment_fields', form: form, edition: edition %>
+      <%= render 'operational_field_fields', form: form, edition: edition %>
+    </div>
   <% end %>
 
   <%= render "govuk_publishing_components/components/fieldset", {
@@ -23,7 +25,7 @@
     <%= render "govuk_publishing_components/components/textarea", {
       label: {
         text: "Introduction (required)",
-        bold: true,
+        heading_size: "m",
         value: edition.roll_call_introduction,
       },
       name: "edition[roll_call_introduction]",

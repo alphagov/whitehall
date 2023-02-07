@@ -1,34 +1,36 @@
-<%= render "govuk_publishing_components/components/fieldset", {
-  legend_text: edition.authored_article? ? "Written on (required)" : "Delivered on (required)",
-  heading_size: "l",
-  id: "edition_delivered_on",
-} do %>
-  <%= render "components/datetime_fields", {
-      field_name: "delivered_on",
-      prefix: "edition",
-      error_items: errors_for(edition.errors, :delivered_on),
-      date_hint: "For example, 01 August 2022",
-      time_hint: "For example, 09:30 or 19:30",
-      year: {
-        value: edition.delivered_on&.year,
-        id: "edition_delivered_on_1i",
-      },
-      month: {
-        value: edition.delivered_on&.month,
-        id: "edition_delivered_on_2i",
-      },
-      day: {
-        value: edition.delivered_on&.day,
-        id: "edition_delivered_on_3i",
-      },
-      hour: {
-        value: edition.delivered_on&.hour,
-        id: "edition_delivered_on_4i",
-      },
-      minute: {
-        value: edition.delivered_on&.min,
-        id: "edition_delivered_on_5i",
-      },
-    }
-  %>
-<% end %>
+<div class="govuk-!-margin-bottom-8">
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: edition.authored_article? ? "Written on (required)" : "Delivered on (required)",
+    heading_size: "l",
+    id: "edition_delivered_on",
+  } do %>
+    <%= render "components/datetime_fields", {
+        field_name: "delivered_on",
+        prefix: "edition",
+        error_items: errors_for(edition.errors, :delivered_on),
+        date_hint: "For example, 01 August 2022",
+        time_hint: "For example, 09:30 or 19:30",
+        year: {
+          value: edition.delivered_on&.year,
+          id: "edition_delivered_on_1i",
+        },
+        month: {
+          value: edition.delivered_on&.month,
+          id: "edition_delivered_on_2i",
+        },
+        day: {
+          value: edition.delivered_on&.day,
+          id: "edition_delivered_on_3i",
+        },
+        hour: {
+          value: edition.delivered_on&.hour,
+          id: "edition_delivered_on_4i",
+        },
+        minute: {
+          value: edition.delivered_on&.min,
+          id: "edition_delivered_on_5i",
+        },
+      }
+    %>
+  <% end %>
+</div>

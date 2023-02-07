@@ -12,10 +12,12 @@
     heading_size: "l",
     id: "associations"
   } do %>
-    <%= render 'appointment_fields', form: form, edition: edition %>
-    <%= render 'topical_event_fields', form: form, edition: edition %>
-    <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
-    <%= render 'world_location_fields', form: form, edition: edition %>
-    <%= render 'organisation_fields', form: form, edition: edition %>
+    <div class="govuk-!-margin-bottom-4">
+      <%= render 'appointment_fields', form: form, edition: edition %>
+      <%= render 'topical_event_fields', form: form, edition: edition %>
+      <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
+      <%= render 'world_location_fields', form: form, edition: edition %>
+      <%= render 'organisation_fields', form: form, edition: edition %>
+    </div>
   <% end %>
 <% end %>

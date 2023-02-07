@@ -1,6 +1,6 @@
 <div class="app-view-edition-form__subtype-fields js-app-view-edition-form__subtype-fields" data-format-advice="<%= PublicationType::FORMAT_ADVICE %>">
-  <div class="govuk-form-group <%= "govuk-form-group--error" if errors_for_input(edition.errors, :publication_type_id).present? %>">
-    <label class="gem-c-label govuk-label govuk-!-font-weight-bold" for="edition_publication_type_id">
+  <div class="govuk-!-margin-bottom-8 govuk-form-group <%= "govuk-form-group--error" if errors_for_input(edition.errors, :publication_type_id).present? %>">
+    <label class="gem-c-label govuk-label govuk-label--l govuk-!-font-weight-bold" for="edition_publication_type_id">
       Publication type
     </label>
     <% if errors_for_input(edition.errors, :publication_type_id).present? %>

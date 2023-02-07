@@ -1,44 +1,46 @@
-<%= hidden_field_tag :scheduled_publication_active, 0, id: "" %>
+<div class="govuk-!-margin-bottom-8">
+  <%= hidden_field_tag :scheduled_publication_active, 0, id: "" %>
 
-<%= render "govuk_publishing_components/components/checkboxes", {
-  name: "scheduled_publication_active",
-  id: "scheduled_publication_active",
-  heading: "Scheduled publication",
-  heading_size: 'l',
-  error_items: errors_for(edition.errors, :scheduled_publication_active),
-  no_hint_text: true,
-  items: [
-    {
-      label: "Schedule for publication",
-      value: 1,
-      checked: edition.scheduled_publication.present?,
-      conditional: render("components/datetime_fields", {
-            field_name: "scheduled_publication",
-            prefix: "edition",
-            error_items: errors_for(edition.errors, :scheduled_publication),
-            date_hint: "For example, 01 August 2022",
-            time_hint: "For example, 09:30 or 19:30",
-            year: {
-              value: edition.scheduled_publication&.year || Time.zone.today.year,
-              id: "edition_scheduled_publication_1i",
-            },
-            month: {
-              value: edition.scheduled_publication&.month || Time.zone.today.month,
-              id: "edition_scheduled_publication_2i",
-            },
-            day: {
-              value: edition.scheduled_publication&.day || Time.zone.today.day,
-              id: "edition_scheduled_publication_3i",
-            },
-            hour: {
-              value: edition.scheduled_publication&.hour || 9,
-              id: "edition_scheduled_publication_4i",
-            },
-            minute: {
-              value: edition.scheduled_publication&.min || 30,
-              id: "edition_scheduled_publication_5i",
-            },
-          })
-    }
-  ]
-} %>
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "scheduled_publication_active",
+    id: "scheduled_publication_active",
+    heading: "Scheduled publication",
+    heading_size: 'l',
+    error_items: errors_for(edition.errors, :scheduled_publication_active),
+    no_hint_text: true,
+    items: [
+      {
+        label: "Schedule for publication",
+        value: 1,
+        checked: edition.scheduled_publication.present?,
+        conditional: render("components/datetime_fields", {
+              field_name: "scheduled_publication",
+              prefix: "edition",
+              error_items: errors_for(edition.errors, :scheduled_publication),
+              date_hint: "For example, 01 August 2022",
+              time_hint: "For example, 09:30 or 19:30",
+              year: {
+                value: edition.scheduled_publication&.year || Time.zone.today.year,
+                id: "edition_scheduled_publication_1i",
+              },
+              month: {
+                value: edition.scheduled_publication&.month || Time.zone.today.month,
+                id: "edition_scheduled_publication_2i",
+              },
+              day: {
+                value: edition.scheduled_publication&.day || Time.zone.today.day,
+                id: "edition_scheduled_publication_3i",
+              },
+              hour: {
+                value: edition.scheduled_publication&.hour || 9,
+                id: "edition_scheduled_publication_4i",
+              },
+              minute: {
+                value: edition.scheduled_publication&.min || 30,
+                id: "edition_scheduled_publication_5i",
+              },
+            })
+      }
+    ]
+  } %>
+</div>

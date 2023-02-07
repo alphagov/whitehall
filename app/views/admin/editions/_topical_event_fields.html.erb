@@ -4,7 +4,7 @@
     name: "edition[topical_event_ids][]",
     label: {
       text: "Topical events",
-      bold: true,
+      heading_size: "m",
     },
     select: {
       options: [""] + TopicalEvent.order(:name).map { |topical_event| [topical_event.name, topical_event.id]},
