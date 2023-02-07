@@ -46,7 +46,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }
 
       setTimeout(function () {
-        this.poll(refreshLink.href, retry)
+        this.poll(refreshLink.dataset.jsonHref, retry)
       }.bind(this), 2000)
     }.bind(this)
 
@@ -54,12 +54,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   BrokenLinksReport.prototype.poll = function (href, retry) {
-    if (href.includes('?')) {
-      href = href.split('?').join('.json?')
-    } else {
-      href = href + '.json'
-    }
-
     fetch(href).then(function (response) { return response.json() })
       .then(function (json) {
         if (json.inProgress) {

@@ -15,9 +15,7 @@
       description: capture do %>
         <p class="govuk-body">Broken link report in progress.</p>
         <p class="govuk-body">
-          <%= link_to "Check progress",
-            admin_edition_link_check_report_path(report.link_reportable, report, allow_new_report: allow_new_report.present? ? true : nil),
-            class: 'govuk-link js-broken-links-refresh' %>
+          <%= link_to "Check progress", "", class: 'govuk-link js-broken-links-refresh', data: { json_href: url_for(admin_edition_link_check_report_path(report.link_reportable, report, format: :json, allow_new_report: allow_new_report.present? ? true : nil)) } %>
         </p>
       <% end
     } %>
