@@ -4,7 +4,8 @@
   <%= render(
         partial: 'admin/link_check_reports/link_check_report',
         locals: {
-          report: (@edition.link_check_reports.last || @edition.link_check_reports.build)
+          report: (@edition.link_check_reports.last || @edition.link_check_reports.build),
+          allow_new_report: true,
         }
       ) if show_link_check_report?(@edition)
   %>

@@ -54,7 +54,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   BrokenLinksReport.prototype.poll = function (href, retry) {
-    fetch(href + '.json').then(function (response) { return response.json() })
+    if (href.includes('?')) {
+      href = href.split('?').join('.json?')
+    } else {
+      href = href + '.json'
+    }
+
+    fetch(href).then(function (response) { return response.json() })
       .then(function (json) {
         if (json.inProgress) {
           retry()
