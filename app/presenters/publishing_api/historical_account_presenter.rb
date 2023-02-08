@@ -1,5 +1,7 @@
 module PublishingApi
   class HistoricalAccountPresenter
+    NUMBER_OF_RELATED_LINKS = 5
+
     attr_accessor :historical_account, :update_type
 
     def initialize(historical_account, update_type: nil)
@@ -41,7 +43,40 @@ module PublishingApi
         person: [
           historical_account.person.content_id,
         ],
+        ordered_related_items: related_pms,
       }
+    end
+
+    def related_pms
+      role = Role.friendly.find("prime-minister")
+      all_appointees = role
+        .role_appointments
+        .distinct(&:person)
+        .order(:started_at)
+        .map(&:person)
+
+      person_to_present = historical_account.person
+
+      neighbouring_role_holders(all_appointees, person_to_present).map do |person|
+        {
+          "title" => person.name,
+          "base_path" => person.historical_accounts.present? ? person.historical_accounts.for_role(role.id).first.public_path : HistoricalAccountsIndexPresenter.base_path,
+        }
+      end
+    end
+
+    def neighbouring_role_holders(neighboring_people, person)
+      person_index = neighboring_people.index(person)
+      other_people = neighboring_people - [person]
+      starting_index = person_index - 3
+
+      if starting_index.negative?
+        other_people.first(NUMBER_OF_RELATED_LINKS)
+      elsif starting_index + NUMBER_OF_RELATED_LINKS >= neighboring_people.length
+        other_people.last(NUMBER_OF_RELATED_LINKS)
+      else
+        other_people[starting_index...starting_index + NUMBER_OF_RELATED_LINKS]
+      end
     end
   end
 end
