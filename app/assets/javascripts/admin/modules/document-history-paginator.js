@@ -9,10 +9,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   DocumentHistoryPaginator.prototype.init = function () {
     if (!window.fetch) { return }
 
-    this.setupEventListeners()
+    this.setupLinkEventListeners()
+    this.setupFormChangeListener()
   }
 
-  DocumentHistoryPaginator.prototype.setupEventListeners = function () {
+  DocumentHistoryPaginator.prototype.setupLinkEventListeners = function () {
     var _this = this
 
     var linkSelectors = [
@@ -33,7 +34,35 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       window.fetch(new URL(document.location.origin + link.dataset.remotePagination))
         .then(function (response) { return response.text() })
-        .catch(function () { window.location.replace(new URL(link.href)) })
+        .catch(function () { window.location.href = link.href })
+        .then(function (html) {
+          module.innerHTML = html
+
+          var documentHistoryModule = new GOVUK.Modules.DocumentHistoryPaginator(module)
+          documentHistoryModule.init()
+        })
+    })
+  }
+
+  DocumentHistoryPaginator.prototype.setupFormChangeListener = function () {
+    var module = this.module
+
+    var form = module.querySelector('form.js-filter-form')
+    var select = form.querySelector('select')
+
+    // Hide the submit <button>
+    form.querySelector('button').hidden = true // this doesn't hide it for some reason 😢
+    form.querySelector('button').style.display = 'none'
+
+    var queryParameters = function () {
+      var formData = new FormData(form)
+      return new URLSearchParams(formData).toString()
+    }
+
+    select.addEventListener('change', function () {
+      window.fetch(form.dataset.remotePagination + '?' + queryParameters())
+        .then(function (response) { return response.text() })
+        .catch(function () { window.location.search = queryParameters() })
         .then(function (html) {
           module.innerHTML = html
 

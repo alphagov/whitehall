@@ -55,7 +55,7 @@ private
 
   def load_translated_models
     if preview_design_system?(next_release: true)
-      @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1)
+      @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
     else
       @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
       @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])

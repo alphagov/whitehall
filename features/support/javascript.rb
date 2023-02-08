@@ -16,6 +16,23 @@ After("@javascript") do
   end
 end
 
+module JavascriptHelper
+  def running_javascript?
+    Capybara.current_driver == Capybara.javascript_driver
+  end
+
+  def wait_for(max_wait_time = Capybara.default_max_wait_time, &block)
+    Selenium::WebDriver::Wait.new(timeout: max_wait_time).until(&block)
+  end
+
+  def wait_for_change_to(element)
+    original_html = element["innerHTML"]
+    wait_for { element["innerHTML"] != original_html }
+  end
+end
+
+World(JavascriptHelper)
+
 # Capybara 2 is a lot stricter with the elements that it finds. Not only does it complain if your
 # selector matches more than one element, but it also doesn't like interacting with invisible elements.
 # And because we use the chosen jQuery extension to enhance admin form select fields, we need some
