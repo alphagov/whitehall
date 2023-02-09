@@ -4,6 +4,10 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   include Rails.application.routes.url_helpers
   include Admin::EditionRoutesHelper
 
+  setup do
+    @current_user = build(:gds_editor)
+  end
+
   test "#secondary_navigation_tabs_items for persisted consultations with no attachments" do
     consultation = build_stubbed(:consultation)
 
@@ -30,7 +34,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     ]
 
-    assert_equal expected_output, secondary_navigation_tabs_items(consultation, admin_consultation_public_feedback_path(consultation))
+    assert_equal expected_output, secondary_navigation_tabs_items(@current_user, consultation, admin_consultation_public_feedback_path(consultation))
   end
 
   test "#secondary_navigation_tabs_items for persisted consultations with attachments" do
@@ -60,7 +64,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     ]
 
-    assert_equal expected_output, secondary_navigation_tabs_items(consultation, admin_consultation_outcome_path(consultation))
+    assert_equal expected_output, secondary_navigation_tabs_items(@current_user, consultation, admin_consultation_outcome_path(consultation))
   end
 
   test "#secondary_navigation_tabs_items for persisted document collections" do
@@ -79,7 +83,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     ]
 
-    assert_equal expected_output, secondary_navigation_tabs_items(document_collection, admin_document_collection_groups_path(document_collection))
+    assert_equal expected_output, secondary_navigation_tabs_items(@current_user, document_collection, admin_document_collection_groups_path(document_collection))
   end
 
   test "#secondary_navigation_tabs_items for persisted editions which do not allow attachments" do
@@ -94,7 +98,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         },
       ]
 
-      assert_equal expected_output, secondary_navigation_tabs_items(edition, edit_admin_edition_path(edition))
+      assert_equal expected_output, secondary_navigation_tabs_items(@current_user, edition, edit_admin_edition_path(edition))
     end
   end
 
@@ -120,7 +124,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         },
       ]
 
-      assert_equal expected_output, secondary_navigation_tabs_items(edition, tab_url_for_edition(edition))
+      assert_equal expected_output, secondary_navigation_tabs_items(@current_user, edition, tab_url_for_edition(edition))
     end
   end
 
@@ -148,7 +152,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         },
       ]
 
-      assert_equal expected_output, secondary_navigation_tabs_items(edition, tab_url_for_edition(edition))
+      assert_equal expected_output, secondary_navigation_tabs_items(@current_user, edition, tab_url_for_edition(edition))
     end
   end
 
@@ -169,7 +173,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         },
       ]
 
-      assert_equal expected_output, secondary_navigation_tabs_items(edition, tab_url_for_edition(edition))
+      assert_equal expected_output, secondary_navigation_tabs_items(@current_user, edition, tab_url_for_edition(edition))
     end
   end
 
@@ -189,7 +193,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     ]
 
-    assert_equal expected_output, secondary_navigation_tabs_items(policy_group, edit_admin_policy_group_path(policy_group))
+    assert_equal expected_output, secondary_navigation_tabs_items(@current_user, policy_group, edit_admin_policy_group_path(policy_group))
   end
 
   test "#secondary_navigation_tabs_items for policy groups with attachments" do
@@ -209,6 +213,6 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     ]
 
-    assert_equal expected_output, secondary_navigation_tabs_items(policy_group, admin_policy_group_attachments_path(policy_group))
+    assert_equal expected_output, secondary_navigation_tabs_items(@current_user, policy_group, admin_policy_group_attachments_path(policy_group))
   end
 end

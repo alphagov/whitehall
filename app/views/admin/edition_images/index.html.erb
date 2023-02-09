@@ -1,0 +1,16 @@
+<% content_for :context, "#{@edition.title}" %>
+<% content_for :page_title, "Images for #{@edition.format_name}" %>
+<% content_for :title, "Images for #{@edition.format_name}" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation tabs",
+      items: secondary_navigation_tabs_items(current_user, @edition, request.path)
+    } %>
+
+    <%= render "image_upload", edition: @edition %>
+    <%= render "uploaded_images", edition: @edition %>
+  </div>
+</div>
+

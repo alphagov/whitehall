@@ -86,10 +86,12 @@
 
 <%= render 'first_published_at', form: form, edition: edition %>
 
-<% if form.object.allows_image_attachments? %>
-  <% if edition.type == "CaseStudy" %>
-    <%= render partial: "image_fields_case_studies", locals: { form: form, edition: form.object } %>
-  <% else %>
-    <%= render partial: "image_fields", locals: { form: form, edition: form.object } %>
+<% unless current_user.can_preview_images_update? %> 
+  <% if form.object.allows_image_attachments? %>
+    <% if edition.type == "CaseStudy" %>
+      <%= render partial: "image_fields_case_studies", locals: { form: form, edition: form.object } %>
+    <% else %>
+      <%= render partial: "image_fields", locals: { form: form, edition: form.object } %> 
+    <% end %>
   <% end %>
 <% end %>

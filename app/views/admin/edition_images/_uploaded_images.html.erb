@@ -1,0 +1,40 @@
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Uploaded images",
+  font_size: "l",
+} %>
+<div>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Lead image",
+    font_size: "m",
+    padding: true
+  } %>
+
+  <%= render "govuk_publishing_components/components/details", {
+        title: "Using a lead image",
+      } do %>
+    <p class="govuk-body">Using a lead image is optional. To use a lead image either select the
+    default image for your organisation or upload an image and select it as
+    the lead image.</p>
+    <p class="govuk-body">The lead image appears at the top of the document. It cannot be used
+    in the document body.</p>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Use default image",
+    secondary_solid: true,
+    margin_bottom: 4
+  } %>
+</div>
+
+<div>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Images available to use in document",
+    font_size: "m",
+    padding: true
+  } %>
+
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "Use the 'Insert image' button in the document tab to add images to body copy.",
+    margin_top: 0
+  } %>
+</div>

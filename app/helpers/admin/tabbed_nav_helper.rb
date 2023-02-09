@@ -1,19 +1,20 @@
 module Admin::TabbedNavHelper
   include Admin::EditionsHelper
 
-  def secondary_navigation_tabs_items(model, current_path)
+  def secondary_navigation_tabs_items(user, model, current_path)
     if model.is_a?(Edition)
-      edition_nav_items(model, current_path)
+      edition_nav_items(user, model, current_path)
     elsif model.respond_to? :consultation
-      edition_nav_items(model.consultation, current_path)
+      edition_nav_items(user, model.consultation, current_path)
     else
       send("#{model.class.model_name.param_key}_nav_items", model, current_path)
     end
   end
 
-  def edition_nav_items(edition, current_path)
+  def edition_nav_items(user, edition, current_path)
     nav_items = []
     nav_items << standard_edition_nav_items(edition, current_path)
+    nav_items << images_nav_items(edition, current_path) if user.can_preview_images_update?
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
     nav_items.flatten
@@ -31,6 +32,18 @@ module Admin::TabbedNavHelper
             label: sanitize("Attachments #{tag.span(edition.attachments.count, class: 'govuk-tag govuk-tag--grey') if edition.attachments.count.positive?}"),
             href: admin_edition_attachments_path(edition),
             current: current_path == admin_edition_attachments_path(edition),
+          }]
+        end),
+    ]
+  end
+
+  def images_nav_items(edition, current_path)
+    [
+      *(if edition.persisted? && edition.allows_image_attachments?
+          [{
+            label: sanitize("Images #{tag.span(edition.images.count, class: 'govuk-tag govuk-tag--grey') if edition.images.count.positive?}"),
+            href: admin_edition_images_path(edition),
+            current: current_path == admin_edition_images_path(edition),
           }]
         end),
     ]
