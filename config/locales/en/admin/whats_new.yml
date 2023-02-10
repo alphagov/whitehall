@@ -22,6 +22,12 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Document history and notes can now be filtered
+            area: Creating and updating documents
+            type: change
+            date: 13 February 2023
+            body_govspeak: |
+              Based on feedback from publishers, we’ve added a filter for history and internal notes on the edition summary page.
           - heading: Document history and notes have been merged
             area: Creating and updating documents
             type: change
