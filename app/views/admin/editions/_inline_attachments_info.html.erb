@@ -1,18 +1,32 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Attachments",
+    legend_text: current_user.can_preview_images_update? && edition.allows_image_attachments? ? "Images and Attachments" : "Attachments",
     heading_size: "l",
     id: "edition_alternative_format_provider",
     error_message: errors_for_input(edition.errors, :alternative_format_provider)
   } do %>
     <% if edition.new_record? %>
       <p class="govuk-body">
-        If you’d like to add an attachment to this document, please save
-        it first. You’ll then find a new tab at the top of the page that you
-        can use to upload, edit and delete attachments.
+        <% if current_user.can_preview_images_update? && edition.allows_image_attachments? %>
+          To add images and attachments you must save the document first. After
+          saving, use the new tabs at the top of the page to upload, edit and
+          delete images and attachments.
+        <% else %>
+          If you’d like to add an attachment to this document, please save
+          it first. You’ll then find a new tab at the top of the page that you
+          can use to upload, edit and delete attachments.
+        <% end %>
       </p>
-    <% elsif edition.allows_inline_attachments? %>
-      <%= render 'admin/attachments/markdown_codes', attachable: edition %>
+    <% else %>
+      <% if current_user.can_preview_images_update? && edition.allows_image_attachments? %>
+        <p class="govuk-body">
+          Use the tabs at the top of the page to upload, edit and delete images
+          and attachments.
+        </p>
+      <% end %>
+      <% if edition.allows_inline_attachments? %>
+        <%= render 'admin/attachments/markdown_codes', attachable: edition %>
+      <% end %>
     <% end %>
     <% if edition.respond_to?(:alternative_format_provider) %>
       <div class="govuk-form-group gem-c-select">
