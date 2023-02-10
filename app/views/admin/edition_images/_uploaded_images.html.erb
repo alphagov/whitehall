@@ -53,6 +53,9 @@
           <% if image.alt_text %><li><strong>Alt text: </strong><%= image.alt_text.blank? ? "None" : image.alt_text %></li><% end %>
           <li><strong>Markdown code: </strong><span>[Image:&nbsp;<%=image.image_data.carrierwave_image %>]</span></li>
         </ul>
+        <div class="app-view-edition-images__actions govuk-grid-column-full">
+          <%= link_to("Delete image", confirm_destroy_admin_edition_image_path(@edition, image), class: "govuk-link gem-link--destructive") %>
+        </div>
       </li>
       <% if image != edition.images.last %>
         <li aria-hidden="true"><hr class="app-view-edition-images__section-break govuk-section-break govuk-section-break--m govuk-section-break--visible"></li>
