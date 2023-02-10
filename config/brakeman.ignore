@@ -35,6 +35,29 @@
       "note": "We control the organisation URLs in the database."
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1cd0d52207c30fa69ab870b4a189ac2dec884f294d35319c8204160aba69d577",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/document/paginated_timeline.rb",
+      "line": 63,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ApplicationRecord.connection.exec_query(\"SELECT COUNT(*) FROM (#{timeline_sql}) x\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Document::PaginatedTimeline",
+        "method": "total_count"
+      },
+      "user_input": "timeline_sql",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "2077ddd55d2cec15aa57aea698c801daa599019d9664dadbf36fe974da8826ac",
@@ -54,6 +77,50 @@
       "confidence": "Medium",
       "cwe_id": [
         77
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "498c073dc7b4366a2817a1840933e5c409984ebded95ce90de0c784928d05a29",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/worldwide_organisations/_header.html.erb",
+      "line": 32,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o.public_path, :class => \"sponsoring-organisation govuk-link\")\n end.to_sentence",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "CorporateInformationPagesController",
+          "method": "show",
+          "line": 9,
+          "file": "app/controllers/corporate_information_pages_controller.rb",
+          "rendered": {
+            "name": "corporate_information_pages/show_worldwide_organisation",
+            "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "corporate_information_pages/show_worldwide_organisation",
+          "line": 4,
+          "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb",
+          "rendered": {
+            "name": "worldwide_organisations/_header",
+            "file": "app/views/worldwide_organisations/_header.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "worldwide_organisations/_header"
+      },
+      "user_input": "Organisation.friendly.find(params[:organisation_id])",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
       ],
       "note": ""
     },
@@ -206,27 +273,85 @@
       "note": ""
     },
     {
+      "warning_type": "Denial of Service",
+      "warning_code": 76,
+      "fingerprint": "b6466a4be2585936be59e23c913700d4803fa9ba911c133dfcbf9c8353f3c923",
+      "check_name": "RegexDoS",
+      "message": "Model attribute used in regular expression",
+      "file": "app/validators/attachment_validator.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/denial_of_service/",
+      "code": "/\n      \\A        # beginning of string\n      (#{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.map do\n Regexp.escape(prefix)\n end.join(\"|\")}) # all allowed prefixes\n      \\s        # single space\n      \\d+       # number\n      (-[IV]+)? # optional Roman numeral suffix\n      \\z        # end of string\n    /x",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AttachmentValidator",
+        "method": "command_paper_number_valid?"
+      },
+      "user_input": "Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.map",
+      "confidence": "Weak",
+      "cwe_id": [
+        20,
+        185
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "98d07a7d2e2f7b478703cc0ba74a555738457db31f40604488723216c5802724",
+      "fingerprint": "b89cebdbb22d112483e8b53f35c626063221fe6b3d58f7ac8f84a0d4c8844ba8",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/document/paginated_timeline.rb",
-      "line": 60,
+      "line": 149,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.exec_query(\"SELECT COUNT(*) FROM (#{union_query}) x\")",
+      "code": "ApplicationRecord.connection.exec_query(\"#{timeline_sql}\\nORDER BY created_at DESC\\nLIMIT ? OFFSET ?\\n\", \"SQL\", [ActiveRecord::Relation::QueryAttribute.new(\"\", 10, ActiveRecord::Type::Integer.new), ActiveRecord::Relation::QueryAttribute.new(\"\", ((@page - 1) * 10), ActiveRecord::Type::Integer.new)])",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Document::PaginatedTimeline",
-        "method": "total_count"
+        "method": "paginated_query"
       },
-      "user_input": "union_query",
+      "user_input": "timeline_sql",
       "confidence": "Medium",
       "cwe_id": [
         89
       ],
       "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "c4b40274a6e6d5a420ea1cf02c2a29e14817c60e5d3d4b870ce2e2a8b868754f",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/worldwide_organisations/show.html.erb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "WorldwideOrganisation.friendly.find(params[:id]).sponsoring_organisations.map do\n link_to(o.name, [:admin, o])\n end.to_sentence",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::WorldwideOrganisationsController",
+          "method": "show",
+          "line": 32,
+          "file": "app/controllers/admin/worldwide_organisations_controller.rb",
+          "rendered": {
+            "name": "admin/worldwide_organisations/show",
+            "file": "app/views/admin/worldwide_organisations/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/worldwide_organisations/show"
+      },
+      "user_input": "WorldwideOrganisation.friendly.find(params[:id])",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "We don't link directly to any unescaped model attribute."
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -271,64 +396,6 @@
         79
       ],
       "note": ""
-    },
-    {
-      "warning_type": "Denial of Service",
-      "warning_code": 76,
-      "fingerprint": "b6466a4be2585936be59e23c913700d4803fa9ba911c133dfcbf9c8353f3c923",
-      "check_name": "RegexDoS",
-      "message": "Model attribute used in regular expression",
-      "file": "app/validators/attachment_validator.rb",
-      "line": 17,
-      "link": "https://brakemanscanner.org/docs/warning_types/denial_of_service/",
-      "code": "/\n      \\A        # beginning of string\n      (#{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.map do\n Regexp.escape(prefix)\n end.join(\"|\")}) # all allowed prefixes\n      \\s        # single space\n      \\d+       # number\n      (-[IV]+)? # optional Roman numeral suffix\n      \\z        # end of string\n    /x",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "AttachmentValidator",
-        "method": "command_paper_number_valid?"
-      },
-      "user_input": "Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.map",
-      "confidence": "Weak",
-      "cwe_id": [
-        20,
-        185
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "c4b40274a6e6d5a420ea1cf02c2a29e14817c60e5d3d4b870ce2e2a8b868754f",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/admin/worldwide_organisations/show.html.erb",
-      "line": 14,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "WorldwideOrganisation.friendly.find(params[:id]).sponsoring_organisations.map do\n link_to(o.name, [:admin, o])\n end.to_sentence",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::WorldwideOrganisationsController",
-          "method": "show",
-          "line": 32,
-          "file": "app/controllers/admin/worldwide_organisations_controller.rb",
-          "rendered": {
-            "name": "admin/worldwide_organisations/show",
-            "file": "app/views/admin/worldwide_organisations/show.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/worldwide_organisations/show"
-      },
-      "user_input": "WorldwideOrganisation.friendly.find(params[:id])",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": "We don't link directly to any unescaped model attribute."
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -402,7 +469,7 @@
           "type": "controller",
           "class": "Admin::PromotionalFeaturesController",
           "method": "show",
-          "line": 25,
+          "line": 28,
           "file": "app/controllers/admin/promotional_features_controller.rb",
           "rendered": {
             "name": "admin/promotional_features/show",
@@ -420,75 +487,8 @@
         22
       ],
       "note": "We don't use the user data directly to find the template, it comes from the database."
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "f44e782dd922feefbc469ef874ce7bfd100991912b8133363b822488e2c8f58c",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/document/paginated_timeline.rb",
-      "line": 139,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.exec_query(\"#{union_query}\\nORDER BY created_at DESC\\nLIMIT ? OFFSET ?\\n\", \"SQL\", [ActiveRecord::Relation::QueryAttribute.new(\"\", 10, ActiveRecord::Type::Integer.new), ActiveRecord::Relation::QueryAttribute.new(\"\", ((@page - 1) * 10), ActiveRecord::Type::Integer.new)])",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Document::PaginatedTimeline",
-        "method": "paginated_query"
-      },
-      "user_input": "union_query",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "498c073dc7b4366a2817a1840933e5c409984ebded95ce90de0c784928d05a29",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 32,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o.public_path, :class => \"sponsoring-organisation govuk-link\")\n end.to_sentence",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "CorporateInformationPagesController",
-          "method": "show",
-          "line": 9,
-          "file": "app/controllers/corporate_information_pages_controller.rb",
-          "rendered": {
-            "name": "corporate_information_pages/show_worldwide_organisation",
-            "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "corporate_information_pages/show_worldwide_organisation",
-          "line": 4,
-          "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb",
-          "rendered": {
-            "name": "worldwide_organisations/_header",
-            "file": "app/views/worldwide_organisations/_header.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "worldwide_organisations/_header"
-      },
-      "user_input": "Organisation.friendly.find(params[:organisation_id])",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
     }
   ],
-  "updated": "2022-12-19 10:53:50 +0000",
-  "brakeman_version": "5.4.0"
+  "updated": "2023-02-10 16:01:35 +0000",
+  "brakeman_version": "5.3.1"
 }
