@@ -63,6 +63,7 @@ class RoleAppointment < ApplicationRecord
   scope :for_ministerial_roles, -> { includes(role: :organisations).merge(Role.ministerial).references(:roles) }
   scope :alphabetical_by_person, -> { includes(:person).order("people.surname", "people.forename") }
   scope :ascending_start_date, -> { order("started_at DESC") }
+  scope :historic, -> { where.not(CURRENT_CONDITION) }
 
   after_create :set_order
   after_create :make_other_current_appointments_non_current

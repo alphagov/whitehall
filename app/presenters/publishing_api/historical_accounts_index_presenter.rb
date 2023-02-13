@@ -19,7 +19,9 @@ module PublishingApi
 
       content.merge!(
         base_path:,
-        details: {},
+        details: {
+          appointments_without_historical_accounts:,
+        },
         document_type: "historic_appointments",
         public_updated_at: Time.zone.now,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
@@ -27,6 +29,22 @@ module PublishingApi
       )
 
       content.merge!(PayloadBuilder::Routes.for(base_path))
+    end
+
+    def appointments_without_historical_accounts
+      role = Role.friendly.find("prime-minister")
+      people_to_present = (role.role_appointments.historic.map(&:person) - HistoricalAccount.all.map(&:person)).uniq
+      people_to_present.map do |person|
+        { title: person.name,
+          dates_in_office:
+            person.role_appointments.historic.map do |appointment|
+              {
+                start_year: appointment.started_at.year,
+                end_year: appointment.ended_at.year,
+              }
+            end,
+          image_url: person.image_url }
+      end
     end
 
     def base_path
