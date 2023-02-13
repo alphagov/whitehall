@@ -204,7 +204,7 @@ private
 
   def fetch_version_and_remark_trails
     if get_layout == "design_system"
-      @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1)
+      @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
     else
       @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
       @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])

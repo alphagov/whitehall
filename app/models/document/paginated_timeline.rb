@@ -1,9 +1,12 @@
 class Document::PaginatedTimeline
   PER_PAGE = 10
 
-  def initialize(document:, page:)
+  attr_reader :only
+
+  def initialize(document:, page:, only: nil)
     @document = document
     @page = page.to_i
+    @only = only
   end
 
   def entries
@@ -56,7 +59,7 @@ class Document::PaginatedTimeline
 
   def total_count
     @total_count ||= begin
-      sql = "SELECT COUNT(*) FROM (#{union_query}) x"
+      sql = "SELECT COUNT(*) FROM (#{timeline_sql}) x"
       ApplicationRecord.connection.exec_query(sql).rows[0][0]
     end
   end
@@ -113,17 +116,24 @@ private
     @first_edition_id ||= @document.editions.pick(:id)
   end
 
-  def union_query
+  def timeline_sql
     common_fields = %i[id created_at]
     versions_query = document_versions.select("'#{document_versions.class_name}' AS model_name", *common_fields)
     remarks_query = document_remarks.select("'#{document_remarks.class_name}' AS model_name", *common_fields)
 
-    "(#{versions_query.to_sql}) UNION (#{remarks_query.to_sql})"
+    case @only
+    when "history"
+      "(#{versions_query.to_sql})"
+    when "internal_notes"
+      "(#{remarks_query.to_sql})"
+    else
+      "(#{versions_query.to_sql}) UNION (#{remarks_query.to_sql})"
+    end
   end
 
   def paginated_query
     sql = <<~SQL
-      #{union_query}
+      #{timeline_sql}
       ORDER BY created_at DESC
       LIMIT ? OFFSET ?
     SQL

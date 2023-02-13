@@ -6,9 +6,34 @@
 
 <p class="govuk-body"><%= link_to("Add internal note", new_admin_edition_editorial_remark_path(edition), class: "govuk-body govuk-link govuk-link--no-visited-state") %></p>
 
-<%= render "govuk_publishing_components/components/inset_text", {
-  text: sanitize("History and notes have been merged. #{link_to('Read more about the change', admin_whats_new_path, class: "govuk-link")}.")
-} %>
+<%= form_with url: false, method: :get, class: 'js-filter-form', data: {'remote-pagination' => document_history_admin_edition_path(edition)} do |form| %>
+  <%= form.hidden_field :editing, value: editing %>
+  <%= render "govuk_publishing_components/components/select", {
+    id: "document_history_filter",
+    name: "only",
+    label: "Show",
+    heading_size: "s",
+    full_width: true,
+    options: [
+      {
+        text: "Everything",
+        value: "",
+        selected: document_history.only.blank?,
+      },
+      {
+        text: "Internal notes",
+        value: "internal_notes",
+        selected: document_history.only == "internal_notes",
+      },
+      {
+        text: "Document history",
+        value: "history",
+        selected: document_history.only == "history",
+      }
+    ],
+  } %>
+  <%= render "govuk_publishing_components/components/button", { text: "Filter" } %>
+<% end %>
 
 <%= paginate(@document_history, theme: 'history', editing:) %>
 

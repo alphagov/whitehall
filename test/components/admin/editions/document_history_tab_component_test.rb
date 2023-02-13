@@ -31,12 +31,15 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     assert_selector "p", text: "To add an internal note, save your changes."
   end
 
-  test "it renders a inset component which links to the whats new page" do
+  test "it renders a select which can be used to filter the history and notes" do
     render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @first_edition, document_history: @timeline))
 
-    assert_selector ".gem-c-inset-text", text: "History and notes have been merged. Read more about the change."
-    assert_equal page.all(".gem-c-inset-text a")[0].text, "Read more about the change"
-    assert_equal page.all(".gem-c-inset-text a")[0][:href], admin_whats_new_path
+    assert_selector "select#document_history_filter"
+    assert_selector "#document_history_filter" do
+      assert_selector "option[value='']", text: "Everything"
+      assert_selector "option[value=history]", text: "Document history"
+      assert_selector "option[value=internal_notes]", text: "Internal notes"
+    end
   end
 
   test "it renders pagination links based on the pagination attribute" do
