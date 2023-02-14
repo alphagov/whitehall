@@ -1,5 +1,3 @@
-<% render_broken_links_button ||= true %>
-
 <div data-module="broken-links-report">
   <% if report.new_record? %>
     <%= render "components/inset_prompt", {
@@ -17,9 +15,7 @@
       description: capture do %>
         <p class="govuk-body">Broken link report in progress.</p>
         <p class="govuk-body">
-          <%= link_to "Check progress",
-            admin_edition_link_check_report_path(report.link_reportable, report),
-            class: 'govuk-link js-broken-links-refresh' %>
+          <%= link_to "Check progress", "", class: 'govuk-link js-broken-links-refresh', data: { json_href: url_for(admin_edition_link_check_report_path(report.link_reportable, report, format: :json, allow_new_report: allow_new_report.present? ? true : nil)) } %>
         </p>
       <% end
     } %>
@@ -56,7 +52,7 @@
         <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
           <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
         <% end %>
-        <% if render_broken_links_button %>
+        <% if allow_new_report %>
           <%= render partial: 'admin/link_check_reports/form', locals: {
             reportable: report.link_reportable,
             button_text: 'Check again'
@@ -76,11 +72,13 @@
             It contains links to draft documents that weren't checked.
           </p>
         <% end %>
-        <%= render partial: 'admin/link_check_reports/form', locals: {
-          reportable: report.link_reportable,
-          button_text: 'Check again',
-          secondary_quiet: true
-        } %>
+        <% if allow_new_report %>
+          <%= render partial: 'admin/link_check_reports/form', locals: {
+            reportable: report.link_reportable,
+            button_text: 'Check again',
+            secondary_quiet: true
+          } %>
+        <% end %>
       <% end
     } %>
   <% end %>

@@ -6,7 +6,7 @@
   link_check_report ||= nil
 %>
 
-<%= render('admin/link_check_reports/link_check_report', report: link_check_report, render_broken_links_button: false) if link_check_report %>
+<%= render('admin/link_check_reports/link_check_report', report: link_check_report, allow_new_report: false) if link_check_report %>
 
 <div class="govspeak-help">
   <h2 class="govuk-heading-l">Formatting</h2>
