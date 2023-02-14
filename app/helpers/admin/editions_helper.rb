@@ -126,7 +126,7 @@ module Admin::EditionsHelper
 
   def standard_edition_form(edition, information = nil, preview_design_system: false)
     if preview_design_system
-      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm" } do |form|
+      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
         concat render("standard_fields", form:, edition:)
         yield(form)
         concat render("access_limiting_fields", form:, edition:)

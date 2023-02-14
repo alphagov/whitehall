@@ -1,5 +1,5 @@
-<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "app-view-attachments__form", :"data-module" => "LocaleSwitcher", :"data-rtl-locales" => Locale.right_to_left.collect(&:to_param) }, multipart: true do |form| %>
-  <div class="govuk-!-margin-bottom-8 app-view-attachments__form-title">
+<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "app-view-attachments__form", data: { module: "LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) }}, multipart: true do |form| %>
+  <div class="govuk-!-margin-bottom-8 app-view-attachments__form-title js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Title (required)"
@@ -41,9 +41,8 @@
         } %>
       </div>
 
-      <div class="govuk-!-margin-bottom-8 app-view-attachments__form-body">
+      <div class="govuk-!-margin-bottom-8 app-view-attachments__form-body js-locale-switcher-field">
         <%= render "components/govspeak-editor", {
-          form: form,
           label: {
             heading_size: "l",
             text: "Body (required)"
@@ -53,6 +52,7 @@
           id: "attachment_govspeak_content_body",
           value: form.object.govspeak_content.body,
           error_items: errors_for(attachment.errors, :"govspeak_content.body"),
+          right_to_left: form.object.rtl_locale?,
           data_attributes: {
             image_ids: @edition && @edition.images.any? ? @edition.images.map { |img| img[:id] } : [],
             attachment_ids: @edition && @edition.allows_attachments? ? @edition.attachments.map(&:id) : [],

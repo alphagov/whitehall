@@ -4,25 +4,28 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
   beforeEach(function () {
     form = document.createElement('form')
     form.setAttribute('data-module', 'LocaleSwitcher')
-    form.setAttribute('data-rtl-locales', 'ar dr fa he pa-pk ps ur yi')
+    form.setAttribute('data-rtl-locales', '["ar", "dr", "fa", "he", "pa-pk", "ps", "ur", "yi"]')
 
     form.innerHTML = `
       <form>
-        <div class="app-view-attachments__form-title">
-          <input id="attachment_title">
+        <div class="js-locale-switcher-selector">
+          <select>
+            <option value="">All languages</option>
+            <option value="ar">العربيَّة</option>
+            <option value="en">English</option>
+          </select>
         </div>
 
-        <select id="attachment_locale">
-          <option value="">All languages</option>
-          <option value="ar">العربيَّة</option>
-          <option value="en">English</option>
-        </select>
+        <div class="js-locale-switcher-field">
+          <input id="input"></input>
+        </div>
 
-        <div class="app-view-attachments__form-body">
-          <div class="app-c-govspeak-editor__textarea">
-            <textarea></textarea>
-          </div>
-          <div class="app-c-govspeak-editor__preview"></div>
+        <div class="js-locale-switcher-field">
+          <textarea id="textarea"></textarea>
+        </div>
+
+        <div>
+          <div id="customElement" class="js-locale-switcher-custom"></div>
         </div>
       </form>
     `
@@ -32,23 +35,23 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
   })
 
   it('should add the correct value for the `dir` attribute on the appropriate elements when the laguage select element is changed', function () {
-    var select = form.querySelector('#attachment_locale')
-    var title = form.querySelector('.app-view-attachments__form-title input')
-    var body = form.querySelector('.app-view-attachments__form-body .app-c-govspeak-editor__textarea textarea')
-    var preview = form.querySelector('.app-view-attachments__form-body .app-c-govspeak-editor__preview')
+    var select = form.querySelector('.js-locale-switcher-selector')
+    var input = form.querySelector('#input')
+    var textarea = form.querySelector('#textarea')
+    var customElement = form.querySelector('#customElement')
 
     select.value = 'ar'
     select.dispatchEvent(new Event('change'))
 
-    expect(title.getAttribute('dir')).toEqual('rtl')
-    expect(body.getAttribute('dir')).toEqual('rtl')
-    expect(preview.getAttribute('dir')).toEqual('rtl')
+    expect(input.getAttribute('dir')).toEqual('rtl')
+    expect(textarea.getAttribute('dir')).toEqual('rtl')
+    expect(customElement.getAttribute('dir')).toEqual('rtl')
 
     select.value = 'en'
     select.dispatchEvent(new Event('change'))
 
-    expect(title.getAttribute('dir')).toBeNull()
-    expect(body.getAttribute('dir')).toBeNull()
-    expect(preview.getAttribute('dir')).toBeNull()
+    expect(input.getAttribute('dir')).toBeNull()
+    expect(textarea.getAttribute('dir')).toBeNull()
+    expect(customElement.getAttribute('dir')).toBeNull()
   })
 })

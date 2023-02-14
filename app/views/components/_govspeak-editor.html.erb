@@ -8,7 +8,7 @@
   value ||= nil
   error_items ||= nil
   rows ||= 12
-  form ||= nil
+  right_to_left ||= false
 
   track_preview_toggle ||= false
   track_category ||= false
@@ -33,7 +33,6 @@
   classes = "app-c-govspeak-editor govuk-form-group"
   classes << " govuk-form-group--error" if error_items
 
-  right_to_left = form ? form.object.rtl_locale? : nil
   dir = right_to_left ? "rtl" : nil
 %>
 
@@ -70,11 +69,12 @@
       data: textarea_data_attributes,
       margin_bottom: 0,
       describedby: hint_id,
-      right_to_left: right_to_left
+      right_to_left: right_to_left,
+      right_to_left_help: false
     } %>
   </div>
 
-  <%= tag.div class: "app-c-govspeak-editor__preview", 'aria-live': "polite", id: preview_id, dir: dir do %>
-    <p class="govuk-body">Generating preview, please wait.</p>
+  <%= tag.div class: "app-c-govspeak-editor__preview js-locale-switcher-custom", 'aria-live': "polite", id: preview_id, dir: dir do %>
+    <p class="govuk-body" dir="ltr">Generating preview, please wait.</p>
   <% end %>
 <% end %>
