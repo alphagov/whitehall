@@ -12,7 +12,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         historical_account,
-        title: historical_account.person.name, # TODO
+        title: historical_account.person.name,
         update_type:,
       ).base_attributes
 
