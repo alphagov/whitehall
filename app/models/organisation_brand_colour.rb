@@ -162,4 +162,9 @@ class OrganisationBrandColour
     title: "Department for Levelling Up, Housing & Communities",
     class_name: "department-for-levelling-up-housing-and-communities",
   )
+  DepartmentForEnergySecurityAndNetZero = create!(
+    id: 32,
+    title: "Department for Energy Security and Net Zero",
+    class_name: "department-for-energy-security-and-net-zero",
+  )
 end
