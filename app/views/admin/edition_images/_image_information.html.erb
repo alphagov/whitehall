@@ -1,0 +1,11 @@
+<section class="govuk-grid-column-one-third">
+  <img src="<%= image.url %>" alt="Image preview" class="app-view-edition-images__image govuk-!-margin-bottom-4">
+  <h2 class="govuk-heading-m">Image information</h2>
+  <ul class="govuk-list">
+    <li><strong>Width: </strong>960px</li>
+    <li><strong>Height: </strong>640px</li>
+    <li><strong>Format: </strong><%= image.image_data.file.content_type %></li>
+    <li><strong>File size: </strong><%= number_to_human_size image.image_data.file.size %></li>
+    <li><strong>File name: </strong><%= image.image_data.file.file.filename %></li>
+  </ul>
+</section>
