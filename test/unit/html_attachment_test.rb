@@ -1,16 +1,6 @@
 require "test_helper"
 
 class HtmlAttachmentTest < ActiveSupport::TestCase
-  test "#govspeak_content_body_html returns the computed HTML as an HTML safe string" do
-    Sidekiq::Testing.inline! do
-      attachment = create(:html_attachment, body: "Some govspeak")
-
-      assert attachment.reload.govspeak_content_body_html.html_safe?
-      assert_equivalent_html "<div class=\"govspeak\"><p>Some govspeak</p></div>",
-                             attachment.govspeak_content_body_html
-    end
-  end
-
   test "associated govspeak content is deleted with the html attachment" do
     attachment = create(:html_attachment)
     govspeak_content = attachment.govspeak_content
@@ -28,7 +18,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert attachment.id != clone.id
     assert clone.new_record?
     assert_equal attachment.title, clone.title
-    assert_equal attachment.govspeak_content_body, clone.govspeak_content_body
+    assert_equal attachment.body, clone.body
     assert_equal attachment.slug, clone.slug
     assert_equal attachment.content_id, clone.content_id
   end

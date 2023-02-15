@@ -14,17 +14,13 @@ class HtmlAttachment < Attachment
 
   accepts_nested_attributes_for :govspeak_content
   delegate :body,
-           :body_html,
-           :headers_html,
+           :manually_numbered_headings?,
            to: :govspeak_content,
-           allow_nil: true,
-           prefix: true
+           allow_nil: true
 
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
-
-  delegate :manually_numbered_headings?, to: :govspeak_content
 
   def accessible?
     true
