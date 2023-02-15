@@ -38,3 +38,25 @@
     margin_top: 0
   } %>
 </div>
+
+<% if edition.images %>
+  <ul class="govuk-list">
+    <% edition.images.each_with_index do |image, index| %>
+      <li class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <% if image.url.present? %>
+            <img src="<%= image.url %>" alt="Image <%= index + 1 %>" class="app-view-edition-images__image">
+          <% end %>
+        </div>
+        <ul class="app-view-edition-images__details govuk-grid-column-two-thirds govuk-list govuk-list--bullet">
+          <li><strong>Caption: </strong><%= image.caption.blank? ? "None" : image.caption %></li>
+          <% if image.alt_text %><li><strong>Alt text: </strong><%= image.alt_text.blank? ? "None" : image.alt_text %></li><% end %>
+          <li><strong>Markdown code: </strong><span>[Image:&nbsp;<%=image.image_data.carrierwave_image %>]</span></li>
+        </ul>
+      </li>
+      <% if image != edition.images.last %>
+        <li aria-hidden="true"><hr class="app-view-edition-images__section-break govuk-section-break govuk-section-break--m govuk-section-break--visible"></li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
