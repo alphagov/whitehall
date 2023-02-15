@@ -68,6 +68,11 @@ namespace :publishing_api do
       document = Document.find_by!(slug: args[:slug])
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
     end
+
+    desc "Republish the past prime ministers index page to Publishing API"
+    task republish_past_prime_ministers: :environment do
+      PublishPrimeMinistersIndexPage.new.publish
+    end
   end
 
   namespace :patch_links do
