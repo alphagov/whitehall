@@ -5,7 +5,6 @@ module PublishingApi
     def initialize(item, update_type: nil)
       self.item = item
       self.update_type = update_type || "major"
-      item.govspeak_content.try(:render_govspeak!)
     end
 
     delegate :content_id, to: :item
@@ -72,8 +71,18 @@ module PublishingApi
       details_hash.merge(national_applicability: item.attachable.national_applicability)
     end
 
+    def govspeak_options
+      method = item.manually_numbered_headings? ? :manual : :auto
+      { heading_numbering: method, contact_heading_tag: "h4" }
+    end
+
     def body
-      govspeak_content.try(:computed_body_html) || ""
+      # Is this guard clause really necessary?
+      # I don't think it is. But there's a unit test which needs it for now.
+      return "" if item.body.blank?
+
+      images = item.attachable.try(:images) || []
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body, images, govspeak_options)
     end
 
     def first_published_version?
@@ -106,10 +115,6 @@ module PublishingApi
 
     def parent_content_ids
       [parent.document.content_id]
-    end
-
-    def govspeak_content
-      item.govspeak_content
     end
 
     def locale

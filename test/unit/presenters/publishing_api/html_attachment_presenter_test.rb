@@ -5,12 +5,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     PublishingApi::HtmlAttachmentPresenter.new(record)
   end
 
-  test "the constructor calls HtmlAttachment#render_govspeak!" do
-    html_attachment = build(:html_attachment)
-    html_attachment.govspeak_content.expects(:render_govspeak!)
-    PublishingApi::HtmlAttachmentPresenter.new(html_attachment)
-  end
-
   test "HtmlAttachment presentation includes the correct values" do
     government = create(:government)
     edition = create(
@@ -74,6 +68,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     assert_equal "cy", present(html_attachment).content[:locale]
   end
 
+  # Is this really useful?
   test "HtmlAttachment presentations sends an empty body if there's no govspeak" do
     create(:publication, :with_html_attachment, :published)
 
