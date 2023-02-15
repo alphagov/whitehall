@@ -29,5 +29,15 @@ Feature: Images tab on edit edition
     Then I should see a list with 2 images
     When I click to delete an image
     And I confirm the deletion
-    Then I should see a success banner
+    Then I should see a successfully deleted banner
     And I should see a list with 1 image
+
+  Scenario: Images details can be updated from the images tab
+    Given I am a writer
+    And I have the "Preview images update" permission
+    And a draft document with images exists
+    When I visit the images tab of the document with images
+    And I click to edit the details of an image
+    And I update the image details and save
+    Then I should see a updated banner
+    Then I should see the updated image details

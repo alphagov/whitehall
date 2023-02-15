@@ -34,10 +34,27 @@ When("I click to delete an image") do
   first("a", text: "Delete image").click
 end
 
+When("I click to edit the details of an image") do
+  first("a", text: "Edit details").click
+end
+
 When("I confirm the deletion") do
   find("button", text: "Delete image").click
 end
 
-Then "I should see a success banner" do
+When("I update the image details and save") do
+  fill_in "image[caption]", with: "Test caption"
+  find("button", text: "Save").click
+end
+
+Then "I should see a successfully deleted banner" do
   expect(page).to have_content("has been deleted")
+end
+
+Then "I should see a updated banner" do
+  expect(page).to have_content("details updated")
+end
+
+Then "I should see the updated image details" do
+  expect(page).to have_content("Test caption")
 end
