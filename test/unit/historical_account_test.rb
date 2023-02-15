@@ -114,5 +114,47 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     test "public_url returns nil" do
       assert_nil object.public_url
     end
+
+    test "does not republish the past prime ministers page on create" do
+      PublishPrimeMinistersIndexPage.any_instance.expects(:publish).never
+
+      object.save!
+    end
+  end
+
+  context "for a person who was a prime minister" do
+    setup do
+      @pm_role = create(:prime_minister_role)
+    end
+
+    test "republishes the past prime ministers page on create" do
+      PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+
+      create(:historical_account, roles: [@pm_role])
+    end
+
+    test "republishes the past prime ministers page on update" do
+      account = create(:historical_account, roles: [@pm_role])
+
+      PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+
+      account.update!(roles: [@pm_role, create(:historic_role)])
+    end
+
+    test "republishes the past prime ministers page on update removing the prime minister role" do
+      account = create(:historical_account, roles: [@pm_role])
+
+      PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+
+      account.update!(born: "2000")
+    end
+
+    test "republishes the past prime ministers page on destroy" do
+      account = create(:historical_account, roles: [@pm_role])
+
+      PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+
+      account.destroy!
+    end
   end
 end

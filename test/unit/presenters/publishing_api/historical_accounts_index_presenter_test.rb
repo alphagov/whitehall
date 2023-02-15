@@ -2,8 +2,8 @@ require "test_helper"
 
 class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCase
   setup do
-    @role = create(:prime_minister_role)
     person = create(:person, forename: "Some", surname: "Person")
+    @role = create(:prime_minister_role)
     create(:historic_role_appointment, person:, role: @role, started_at: Date.civil(1950), ended_at: Date.civil(1960))
     @historical_account = create(:historical_account,
                                  person:,

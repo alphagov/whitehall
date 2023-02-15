@@ -79,7 +79,7 @@ class RoleAppointment < ApplicationRecord
   end
 
   def republish_prime_ministers_index_page_to_publishing_api
-    PublishPrimeMinistersIndexPage.new.publish unless current? || role.slug != "prime-minister"
+    PublishPrimeMinistersIndexPage.new.publish unless current? || role.slug != "prime-minister" || has_historical_account?
   end
 
   def self.between(start_time, end_time)
