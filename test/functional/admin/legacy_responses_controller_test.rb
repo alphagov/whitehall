@@ -1,10 +1,12 @@
 require "test_helper"
 
-class Admin::ResponsesControllerTest < ActionController::TestCase
-  should_be_an_admin_controller
+class Admin::LegacyResponsesControllerTest < ActionController::TestCase
+  tests Admin::ResponsesController
+
+  legacy_should_be_an_admin_controller
 
   setup do
-    login_as_preview_design_system_user(:writer)
+    login_as :writer
     @consultation = create(:draft_consultation, opening_at: 2.days.ago, closing_at: 1.day.ago)
   end
 
