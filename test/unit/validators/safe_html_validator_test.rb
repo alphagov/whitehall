@@ -6,7 +6,11 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
   end
 
   test "it marks HTML-unsafe attributes as such" do
-    test_model = build(:publication, body: '<script>alert("hax!")</script>', title: "Safe title")
+    test_model = build(
+      :publication,
+      body: '<script>alert("hax!")</script>',
+      title: "Safe title",
+    )
 
     SafeHtmlValidator.new({}).validate(test_model)
 
@@ -15,7 +19,11 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
   end
 
   test "span and div elements are considered safe" do
-    test_model = GovspeakContent.new(computed_body_html: '<div class="govspeak"><span class="number">1</span></div>')
+    test_model = build(
+      :publication,
+      body: '<div class="govspeak"><span class="number">1</span></div>',
+      title: "Safe title",
+    )
 
     SafeHtmlValidator.new({}).validate(test_model)
     assert test_model.errors.empty?, test_model.errors.full_messages.inspect
@@ -23,22 +31,23 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
 
   test "only applies to specific attributes, when specified" do
     bad_html = '<script>alert("hax!")</script>'
-    test_model = GovspeakContent.new(
+    test_model = build(
+      :publication,
       body: bad_html,
-      computed_body_html: bad_html,
-      computed_headers_html: bad_html,
+      summary: bad_html,
+      title: bad_html,
     )
 
     # only validate body attribute
     SafeHtmlValidator.new(attribute: :body).validate(test_model)
     assert_equal %i[body], test_model.errors.group_by_attribute.keys
 
-    # validate body and computed_body_html attributes
-    SafeHtmlValidator.new(attributes: %i[body computed_body_html]).validate(test_model)
-    assert_equal %i[body computed_body_html], test_model.errors.group_by_attribute.keys
+    # validate body and title attributes
+    SafeHtmlValidator.new(attributes: %i[body title]).validate(test_model)
+    assert_equal %i[body title], test_model.errors.group_by_attribute.keys
 
     # no attributes specified - so validate all changed attributes
     SafeHtmlValidator.new.validate(test_model)
-    assert_equal %i[body computed_body_html computed_headers_html], test_model.errors.group_by_attribute.keys
+    assert_equal %i[body title summary], test_model.errors.group_by_attribute.keys
   end
 end

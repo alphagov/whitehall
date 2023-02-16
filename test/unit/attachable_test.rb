@@ -374,13 +374,6 @@ class AttachableTest < ActiveSupport::TestCase
     publication.attachments << new_file = build(:file_attachment, file: another_pdf_file)
     publication.attachments << new_html = build(:html_attachment)
 
-    # Govspeak is converted to HTML in an asynchronous job (called GovspeakContentWorker)
-    # which runs _a few_ seconds after the HTML Attachment has been created/updated.
-    # In the real world, this means the updated_at timestamp is always > created_at,
-    # so we emulate this here with time travel.
-    Timecop.travel 1.second.from_now
-    new_html.govspeak_content.update!(computed_body_html: "Generated HTML from async GovspeakContentWorker")
-
     # Replace the file on an attachment
     changed_file.update!(attachment_data: build(:attachment_data, file: rtf_file))
 
@@ -389,7 +382,6 @@ class AttachableTest < ActiveSupport::TestCase
 
     # Change body of a HTML attachment
     changed_html.govspeak_content.update!(body: "This HTML attachment's body has been changed")
-    changed_html.govspeak_content.render_govspeak!
 
     # Delete an attachment
     deleted_html.destroy!
