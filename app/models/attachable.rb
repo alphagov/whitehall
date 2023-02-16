@@ -1,5 +1,14 @@
 module Attachable
   extend ActiveSupport::Concern
+
+  # This 'grace period' reflects the fact that an Edition will end up with a
+  # slightly earlier `created_at` timestamp compared to Attachments belonging to
+  # that Edition. This is because Attachments are created after the Edition
+  # itself has been created (see the `process_associations_after_save` method).
+  #
+  # This needs to be taken into account when trying to identify whether an
+  # Attachment is 'new' on this Edition, or if it was copied across from the
+  # previous Edition of a Document (see the `changed_attachments` method).
   EDITION_CREATE_GRACE_PERIOD = 20.seconds
 
   included do
