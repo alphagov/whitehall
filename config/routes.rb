@@ -270,7 +270,9 @@ Whitehall::Application.routes.draw do
             post :upload_zip, on: :collection
             get :set_titles, on: :member
           end
-          resources :images, controller: "edition_images", only: %i[index]
+          resources :images, controller: "edition_images", only: %i[destroy index] do
+            get :confirm_destroy, on: :member
+          end
         end
 
         get "/editions/:id" => "editions#show"

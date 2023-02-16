@@ -6,7 +6,24 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def index; end
 
+  def confirm_destroy; end
+
+  def destroy
+    filename = image.image_data.carrierwave_image
+    image.destroy!
+    redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
+  end
+
 private
+
+  def image
+    @image ||= find_image
+  end
+  helper_method :image
+
+  def find_image
+    @edition.images.find(params[:id]) if params[:id]
+  end
 
   def find_edition
     edition = Edition.find(params[:edition_id])
@@ -21,6 +38,8 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
+    when "destroy", "confirm_destroy"
+      enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
     end
