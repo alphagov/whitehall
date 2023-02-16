@@ -1,4 +1,4 @@
-<% content_for :context, attachable.title %>
+<% content_for :context, attachable.try(:title) %>
 <% content_for :page_title, "Reorder attachments" %>
 <% content_for :title, "Reorder attachments" %>
 <% content_for :title_margin_bottom, 6 %>

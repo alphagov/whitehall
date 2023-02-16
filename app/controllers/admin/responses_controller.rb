@@ -8,6 +8,7 @@ class Admin::ResponsesController < Admin::BaseController
 
   def show
     @response = response_class.find_by(edition_id: @edition) || response_class.new(published_on: Time.zone.today)
+    render_design_system("show", "show_legacy", next_release: false)
   end
 
   def create
@@ -16,7 +17,7 @@ class Admin::ResponsesController < Admin::BaseController
     if @response.save
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} saved"
     else
-      render :show
+      render_design_system("show", "show_legacy", next_release: false)
     end
   end
 
@@ -36,7 +37,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[edit update] if preview_design_system?(next_release: false)
+    design_system_actions += %w[show create edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

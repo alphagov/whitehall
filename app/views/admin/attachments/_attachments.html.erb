@@ -1,11 +1,5 @@
-<%= render "govuk_publishing_components/components/heading", {
-  text: "Attachments",
-  font_size: "l",
-  margin_bottom: 3,
-} %>
-
 <% if attachable.can_order_attachments? && attachable.attachments.many? %>
-<p class="govuk-body"><%= link_to 'Reorder attachments', reorder_admin_edition_attachments_path(@edition), class: "govuk-link govuk-link--no-visited-state" %></p>
+<p class="govuk-body"><%= link_to 'Reorder attachments', [:reorder, :admin, typecast_for_attachable_routing(attachable), Attachment], class: "govuk-link govuk-link--no-visited-state" %></p>
 <% end %>
 
 <%= render "govuk_publishing_components/components/table", {
