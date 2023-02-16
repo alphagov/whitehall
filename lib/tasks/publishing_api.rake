@@ -22,33 +22,6 @@ namespace :publishing_api do
     end
   end
 
-  desc "Publish past holders of some of the Great Offices of State"
-  task publish_past_post_holders: :environment do
-    publisher = GdsApi::PublishingApi::SpecialRoutePublisher.new(
-      logger: Logger.new($stdout),
-      publishing_api: Services.publishing_api,
-    )
-
-    [
-      {
-        base_path: "/government/history/past-prime-ministers",
-        content_id: "a258e45a-acbe-4d70-ad2c-a2a20761536a",
-        title: "Past Prime Ministers",
-      },
-    ].each do |route|
-      publisher.publish(
-        {
-          format: "special_route",
-          publishing_app: "whitehall",
-          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-          update_type: "major",
-          type: "exact",
-          public_updated_at: Time.zone.now.iso8601,
-        }.merge(route),
-      )
-    end
-  end
-
   desc "Publish redirect routes (eg /government/world)"
   task publish_redirect_routes: :environment do
     RedirectRoute.all.each do |route|
@@ -94,6 +67,11 @@ namespace :publishing_api do
     task :document_by_slug, [:slug] => :environment do |_, args|
       document = Document.find_by!(slug: args[:slug])
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    end
+
+    desc "Republish the past prime ministers index page to Publishing API"
+    task republish_past_prime_ministers: :environment do
+      PublishPrimeMinistersIndexPage.new.publish
     end
   end
 

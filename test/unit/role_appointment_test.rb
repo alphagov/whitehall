@@ -416,4 +416,63 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal 1, role_appointment1.reload.order
     assert_equal 2, role_appointment2.reload.order
   end
+
+  test "should send the prime ministers index page to publishing api when the role created is a past prime minister" do
+    role = create(:prime_minister_role)
+
+    PublishPrimeMinistersIndexPage.any_instance.expects(:publish).at_least_once
+
+    create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+  end
+
+  test "should send the prime ministers index page to publishing api when a destroyed role is a past prime minister" do
+    role = create(:prime_minister_role)
+    past_pm_appointment = create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+
+    PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+
+    past_pm_appointment.destroy!
+  end
+
+  test "should send the prime ministers index page to publishing api when the role updated to be a past prime minister" do
+    role = create(:prime_minister_role)
+    role_appointment = create(:role_appointment, person: create(:person), role:)
+
+    PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+
+    role_appointment.update!(ended_at: Time.zone.now)
+  end
+
+  test "should not send the prime ministers index page to publishing api when the role created is a current prime minister" do
+    role = create(:prime_minister_role)
+
+    PublishPrimeMinistersIndexPage.any_instance.expects(:publish).never
+
+    create(:role_appointment, person: create(:person), role:)
+  end
+
+  test "should not send the prime ministers index page to publishing api when a historical account exists" do
+    role = create(:prime_minister_role)
+    person = create(:person)
+    @historical_account = create(:historical_account,
+                                 person:,
+                                 born: "1900",
+                                 died: "1975",
+                                 interesting_facts: "They were a very interesting person",
+                                 major_acts: "Significant legislation changes",
+                                 roles: [role])
+
+    PublishPrimeMinistersIndexPage.any_instance.expects(:publish).never
+
+    create(:historic_role_appointment, person:, role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+  end
+
+  test "should not send the prime ministers index page to publishing api when the role created is not a prime minister" do
+    role = create(:role)
+    create(:prime_minister_role)
+
+    PublishPrimeMinistersIndexPage.any_instance.expects(:publish).never
+
+    create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+  end
 end
