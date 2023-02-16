@@ -31,8 +31,10 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   end
 
   test "GET on :show loads the person, appointment and historical account for previous Prime Ministers" do
-    pm_account = create(:historical_account, roles: [pm_role])
-    create(:role_appointment, person: pm_account.person, role: pm_role)
+    person = create(:person)
+    create(:historic_role_appointment, person:, role: pm_role)
+    pm_account = create(:historical_account, person:, roles: [pm_role])
+
     get :show, params: { role: "past-prime-ministers", id: pm_account.person.slug }
 
     assert_response :success
@@ -53,7 +55,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
 private
 
   def pm_role
-    @pm_role ||= create(:historic_role, name: "Prime Minister", slug: "prime-minister")
+    @pm_role ||= create(:prime_minister_role)
   end
 
   def chancellor_role
