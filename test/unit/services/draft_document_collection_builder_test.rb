@@ -8,11 +8,19 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     stub_publishing_api_has_item(specialist_topic_content_item)
   end
 
-  test "perform! builds basic document collection" do
+  test "perform! builds a document collection" do
     DraftDocumentCollectionBuilder.call(specialist_topic_base_path, assignee_email_address)
+
+    # Adds basic attriubutes
     assert_equal 1, DocumentCollection.count
     assert_equal "Specialist topic import: #{specialist_topic_title}", DocumentCollection.last.title
     assert_equal specialist_topic_description, DocumentCollection.last.summary
+
+    # Adds groups
+    specialist_topic_group_names = specialist_topic_content_item[:details][:groups].map { |group| group[:name] }
+    document_collection_group_names = DocumentCollection.last.groups.map(&:heading)
+
+    assert_equal specialist_topic_group_names, document_collection_group_names
   end
 
   def assignee_email_address

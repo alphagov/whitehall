@@ -12,7 +12,10 @@ class DraftDocumentCollectionBuilder
     raise "No user could be found for that email address" unless user
     raise "You can only convert a curated specialist topic" unless curated_specialist_topic?
 
-    initialise_document_collection
+    ActiveRecord::Base.transaction do
+      dc = initialise_document_collection
+      add_groups_to_document_collection(dc)
+    end
   end
 
 private
@@ -30,6 +33,19 @@ private
       document_collection.previously_published = false
       document_collection.state = "draft"
     end
+  end
+
+  def add_groups_to_document_collection(document_collection)
+    groups =
+      specialist_topic_groups.map.with_index do |group, i|
+        DocumentCollectionGroup.create!(
+          document_collection_id: document_collection.id,
+          heading: group[:name],
+          body: "",
+          ordering: i,
+        )
+      end
+    document_collection.groups.replace(groups)
   end
 
   def user
@@ -59,6 +75,10 @@ private
   end
 
   def curated_specialist_topic?
-    specialist_topic.dig(:details, :groups).present?
+    specialist_topic_groups.present?
+  end
+
+  def specialist_topic_groups
+    specialist_topic.dig(:details, :groups)
   end
 end
