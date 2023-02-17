@@ -77,10 +77,6 @@ module PublishingApi
     end
 
     def body
-      # Is this guard clause really necessary?
-      # I don't think it is. But there's a unit test which needs it for now.
-      return "" if item.body.blank?
-
       images = item.attachable.try(:images) || []
       Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body, images, govspeak_options)
     end

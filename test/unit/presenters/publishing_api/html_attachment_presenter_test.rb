@@ -68,16 +68,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     assert_equal "cy", present(html_attachment).content[:locale]
   end
 
-  # Is this really useful?
-  test "HtmlAttachment presentations sends an empty body if there's no govspeak" do
-    create(:publication, :with_html_attachment, :published)
-
-    GovspeakContent.delete_all
-    html_attachment = HtmlAttachment.last
-
-    assert_equal "", present(html_attachment).content[:details][:body]
-  end
-
   test "HtmlAttachment presentations sends the parent updated_at if it has no public_timestamp" do
     Timecop.freeze do
       create(:publication, :with_html_attachment, :draft)
