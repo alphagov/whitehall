@@ -37,7 +37,7 @@ module PublishingApi
       people_to_present.map do |person|
         { title: person.name,
           dates_in_office:
-            person.role_appointments.historic.map do |appointment|
+            person.role_appointments.where(role_id: role.id).historic.map do |appointment|
               {
                 start_year: appointment.started_at.year,
                 end_year: appointment.ended_at.year,

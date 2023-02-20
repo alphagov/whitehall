@@ -52,6 +52,7 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
     person_without_historic_account = create(:person, forename: "A", surname: "Person without a historic account yet", image: File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
     create(:historic_role_appointment, person: person_without_historic_account, role: @role, started_at: Date.civil(1960), ended_at: Date.civil(1970))
     create(:historic_role_appointment, person: person_without_historic_account, role: @role, started_at: Date.civil(1990), ended_at: Date.civil(2000))
+    create(:historic_role_appointment, person: person_without_historic_account, role: create(:role), started_at: Date.civil(1970), ended_at: Date.civil(1980))
     create(:role_appointment, person: person_without_historic_account, role: @role, started_at: Date.civil(2001), ended_at: nil)
 
     expected_links = {
