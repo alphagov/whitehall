@@ -1,5 +1,14 @@
 module Attachable
   extend ActiveSupport::Concern
+
+  # This 'grace period' reflects the fact that an Edition will end up with a
+  # slightly earlier `created_at` timestamp compared to Attachments belonging to
+  # that Edition. This is because Attachments are created after the Edition
+  # itself has been created (see the `process_associations_after_save` method).
+  #
+  # This needs to be taken into account when trying to identify whether an
+  # Attachment is 'new' on this Edition, or if it was copied across from the
+  # previous Edition of a Document (see the `changed_attachments` method).
   EDITION_CREATE_GRACE_PERIOD = 20.seconds
 
   included do
@@ -73,11 +82,7 @@ module Attachable
     created = attachments.where("created_at > ?", created_at + EDITION_CREATE_GRACE_PERIOD)
 
     updated_attachments = attachments.where("updated_at > created_at")
-
-    # Using a 30 second grace period because GovspeakContent#render_govspeak! historically used to change the updated_at timestamp
-    # when running in an async worker to convert body to HTML. This meant that all HTML attachments ended up with
-    # (updated_at > created_at) so would show as 'changed'.
-    updated_html_attachments = html_attachments.joins(:govspeak_content).where("govspeak_contents.updated_at > DATE_ADD(govspeak_contents.created_at,  INTERVAL 20 SECOND)")
+    updated_html_attachments = html_attachments.joins(:govspeak_content).where("govspeak_contents.updated_at > govspeak_contents.created_at")
     updated = (updated_attachments + updated_html_attachments) - created
 
     created.map { |a| ChangedAttachment.new(a, :created) } +

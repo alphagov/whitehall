@@ -41,29 +41,6 @@ module GovspeakHelper
     end
   end
 
-  def html_attachment_govspeak_headers(attachment)
-    govspeak_headers(attachment.govspeak_content_body).tap do |headers|
-      if attachment.manually_numbered_headings?
-        headers.each do |header|
-          header.text = header.text.gsub(/^(\d+.?[^\s]*)\s*/, '<span class="heading-number">\1</span> ').html_safe
-        end
-      end
-    end
-  end
-
-  def html_attachment_govspeak_headers_html(attachment)
-    tag.ol(class: ("unnumbered" if attachment.manually_numbered_headings?)) do
-      html_attachment_govspeak_headers(attachment).reduce("") { |html, header|
-        css_class = header_contains_manual_numbering?(header) ? "numbered" : nil
-        html << tag.li(link_to(header.text, "##{header.id}"), class: css_class)
-      }.html_safe
-    end
-  end
-
-  def header_contains_manual_numbering?(header)
-    header.text.include?('<span class="heading-number">')
-  end
-
   def govspeak_header_hierarchy(govspeak)
     headers = []
     govspeak_headers(govspeak, 2..3).each do |header|
@@ -90,11 +67,6 @@ module GovspeakHelper
     if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
       asset_path("fractions/#{numerator}_#{denominator}.png", host: Whitehall.public_root)
     end
-  end
-
-  def govspeak_options_for_html_attachment(attachment)
-    numbering_method = attachment.manually_numbered_headings? ? :manual : :auto
-    { heading_numbering: numbering_method, contact_heading_tag: "h4" }
   end
 
   def whitehall_admin_links(body)

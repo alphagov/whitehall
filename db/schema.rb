@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_19_093902) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_14_162401) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -466,8 +466,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_19_093902) do
     t.integer "html_attachment_id"
     t.text "body", size: :medium
     t.boolean "manually_numbered_headings"
-    t.text "computed_body_html", size: :medium
-    t.text "computed_headers_html"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["html_attachment_id"], name: "index_govspeak_contents_on_html_attachment_id"

@@ -115,7 +115,7 @@ namespace :export do
     result = edition.html_attachments.map do |a|
       {
         title: a.title,
-        body: a.govspeak_content_body,
+        body: a.body,
         issued_date: a.created_at.strftime("%Y-%m-%d"),
         summary: edition.summary,
         slug: a.slug,

@@ -122,7 +122,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_equal 1, @edition.reload.attachments.size
     assert_equal "Attachment title", @edition.attachments.first.title
-    assert_equal "Some **govspeak** body", @edition.attachments.first.govspeak_content_body
+    assert_equal "Some **govspeak** body", @edition.attachments.first.body
   end
 
   test "POST :create saves an attachment on the draft edition" do
@@ -302,7 +302,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
           },
         }
     assert_equal "New title", attachment.reload.title
-    assert_equal "New body", attachment.reload.govspeak_content_body
+    assert_equal "New body", attachment.reload.body
   end
 
   test "PUT :update for HTML attachment updates the publishing api" do
