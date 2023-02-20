@@ -26,11 +26,7 @@
 
     <% if filter_by.include?(:organisation) %>
       <div id="organisation_filter">
-        <% if filter_by.include?(:author) %>
-          <%= label_tag :organisation, 'or organisation' %>
-        <% else %>
-          <%= label_tag :organisation, 'organisation' %>
-        <% end %>
+        <%= label_tag :organisation, 'Organisation' %>
         <%= select_tag  :organisation, admin_organisation_filter_options(current_user, @filter.options[:organisation]), class: 'chzn-select form-control' %>
       </div>
     <% end %>
