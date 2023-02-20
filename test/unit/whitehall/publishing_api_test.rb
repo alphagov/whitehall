@@ -329,7 +329,33 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.unpublish_async(unpublishing)
   end
 
-  test ".publish handles specific exceptions" do
+  test ".publish handles the specific exception for a worldwide organisation" do
+    raises_exception = lambda { |_, _, _|
+      body = {
+        "error" => {
+          "code" => 422,
+          "message" => "base path=/world/organisations/uk-science-innovation-network-in-belgium conflicts with content_id=9bb528b1-743c-4ea2-a323-5b1aaf41818b and locale=en",
+          "fields" => {
+            "base" => [
+              "base path=/world/organisations/uk-science-innovation-network-in-belgium conflicts with content_id=9bb528b1-743c-4ea2-a323-5b1aaf41818b and locale=en",
+            ],
+          },
+        },
+      }.to_json
+      raise GdsApi::HTTPUnprocessableEntity.new(422, body)
+    }
+
+    document = create(:worldwide_organisation)
+    destination = "/world/organisations/uk-science-innovation-network-in-belgium"
+
+    Services.publishing_api.stub(:publish, raises_exception) do
+      assert_nothing_raised do
+        Whitehall::PublishingApi.publish(document, destination)
+      end
+    end
+  end
+
+  test ".publish handles the specific exception for an object that isn't a worldwide organisation" do
     raises_exception = lambda { |_, _, _|
       body = {
         "error" => {
