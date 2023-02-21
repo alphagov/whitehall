@@ -254,7 +254,7 @@ private
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if (attachment = attachments[Regexp.last_match(1).to_i - 1])
-        "\n\n#{render(partial: 'documents/attachment', formats: :html, object: attachment, locals: { alternative_format_contact_email: })}\n\n"
+        attachment = "\n\n[Attachment:#{attachment[:filename]}]\n\n"
       else
         "\n\n"
       end
