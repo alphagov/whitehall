@@ -64,7 +64,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
             href: "/government/topical-events/topical_event_1#{locale[:suffix]}",
             image: { url: feature.image.url,
                      alt_text: feature.alt_text },
-            summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
+            summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.summary),
             public_updated_at: topical_event.start_date,
             document_type: nil },
         ]
