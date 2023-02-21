@@ -82,7 +82,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def new
-    render_design_system(:new, :new_legacy, next_release: false)
+    render_design_system(:new, :new_legacy, next_release: true)
   end
 
   def create
