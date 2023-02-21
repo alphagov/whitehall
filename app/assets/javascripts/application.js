@@ -21,6 +21,7 @@
 //= require admin/modules/document-history-paginator
 //= require admin/modules/navbar-toggle
 //= require admin/modules/paste-html-to-govspeak
+//= require admin/modules/prevent-multiple-form-submissions
 
 //= require admin/views/broken-links-report
 //= require admin/views/edition-form
