@@ -13,6 +13,13 @@ module Admin::AdminGovspeakHelper
         file_size: a.file_size,
       }
     end
+    govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
+      if (attachment = attachments[Regexp.last_match(1).to_i - 1])
+        attachment = "\n\n[Attachment:#{attachment[:filename]}]\n\n"
+      else
+        "\n\n"
+      end
+    end
 
     govspeak = Govspeak::Document.new(govspeak, { document_domains: hosts, attachments: }).tap do |document|
       document.images = images
