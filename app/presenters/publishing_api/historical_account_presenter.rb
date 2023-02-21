@@ -21,11 +21,11 @@ module PublishingApi
         details: {
           body: Whitehall::GovspeakRenderer.new.govspeak_to_html(historical_account.body),
           born: historical_account.born,
+          dates_in_office: historical_account.person.previous_dates_in_office_for_role(historical_account.role),
           died: historical_account.died,
           interesting_facts: historical_account.interesting_facts,
           major_acts: historical_account.major_acts,
           political_party: historical_account.political_membership,
-          previous_dates_in_office: historical_account.previous_dates_in_office,
         },
         document_type: "historic_appointment",
         public_updated_at: historical_account.updated_at,

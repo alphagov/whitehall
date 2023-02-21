@@ -106,6 +106,15 @@ class Person < ApplicationRecord
     Plek.website_root + public_path(options)
   end
 
+  def previous_dates_in_office_for_role(role)
+    role_appointments.where(role:).historic.map do |appointment|
+      {
+        start_year: appointment.started_at.year,
+        end_year: appointment.ended_at.year,
+      }
+    end
+  end
+
 private
 
   def name_as_words(*elements)

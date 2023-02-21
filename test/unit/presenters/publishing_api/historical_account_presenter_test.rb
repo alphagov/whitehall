@@ -5,6 +5,8 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
     person = create(:person, forename: "Some", surname: "Person")
     role = create(:prime_minister_role)
     create(:historic_role_appointment, person:, role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+    create(:historic_role_appointment, person:, role: create(:role), started_at: Date.civil(1960), ended_at: Date.civil(1965))
+    create(:historic_role_appointment, person:, role:, started_at: Date.civil(1965), ended_at: Date.civil(1970))
     historical_account = create(:historical_account,
                                 person:,
                                 born: "1900",
@@ -36,11 +38,20 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
       details: {
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html("Some body text"),
         born: "1900",
+        dates_in_office: [
+          {
+            start_year: 1950,
+            end_year: 1960,
+          },
+          {
+            start_year: 1965,
+            end_year: 1970,
+          },
+        ],
         died: "1975",
         interesting_facts: "They were a very interesting person",
         major_acts: "Significant legislation changes",
         political_party: "Labour",
-        previous_dates_in_office: "1950 to 1960",
       },
     }
 

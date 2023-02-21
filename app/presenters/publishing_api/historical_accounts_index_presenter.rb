@@ -36,13 +36,7 @@ module PublishingApi
       people_to_present = (role.role_appointments.historic.map(&:person) - HistoricalAccount.all.map(&:person)).uniq
       people_to_present.map do |person|
         { title: person.name,
-          dates_in_office:
-            person.role_appointments.where(role_id: role.id).historic.map do |appointment|
-              {
-                start_year: appointment.started_at.year,
-                end_year: appointment.ended_at.year,
-              }
-            end,
+          dates_in_office: person.previous_dates_in_office_for_role(role),
           image_url: person.image_url }
       end
     end
