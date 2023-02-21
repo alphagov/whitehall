@@ -37,6 +37,8 @@
 
   <% if select.any? %>
     <% if select[:multiple] %>
+      <%= hidden_field_tag name, [""] %>
+
       <%= tag.span "To select multiple items in a list, hold down Ctrl (PC) or Command (Mac) key.",
                    class: "govuk-hint app-c-autocomplete__multiselect-instructions" %>
     <% end %>
