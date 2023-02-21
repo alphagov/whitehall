@@ -40,7 +40,7 @@ module PublishingApi
           url: feature.image.url,
           alt_text: feature.alt_text,
         },
-        summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
+        summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.summary),
         public_updated_at: topical_event.start_date,
         document_type: nil, # We don't want a type for topical events
       }
