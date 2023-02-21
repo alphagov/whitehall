@@ -1,4 +1,13 @@
-<%= render "govuk_publishing_components/components/error_summary", {
-  title: title,
-  items: error_items,
-} %>
+<% if flash["alert"].present? %>
+  <div data-module="auto-track-event" data-track-category="flash-message" data-track-action="alert-danger" data-track-label="<%= flash["alert"] %>">
+    <%= render "govuk_publishing_components/components/error_summary", {
+      title: title,
+      items: error_items,
+    } %>
+  </div>
+<% else %>
+  <%= render "govuk_publishing_components/components/error_summary", {
+    title: title,
+    items: error_items,
+  } %>
+<% end %>
