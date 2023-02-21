@@ -125,16 +125,18 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   context "for a person who was a prime minister" do
     setup do
       @pm_role = create(:prime_minister_role)
+      @person = create(:person)
+      create(:historic_role_appointment, person: @person, role: @pm_role)
     end
 
     test "republishes the past prime ministers page on create" do
       PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
 
-      create(:historical_account, roles: [@pm_role])
+      create(:historical_account, person: @person, roles: [@pm_role])
     end
 
     test "republishes the past prime ministers page on update" do
-      account = create(:historical_account, roles: [@pm_role])
+      account = create(:historical_account, person: @person, roles: [@pm_role])
 
       PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
 
@@ -142,7 +144,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     end
 
     test "republishes the past prime ministers page on update removing the prime minister role" do
-      account = create(:historical_account, roles: [@pm_role])
+      account = create(:historical_account, person: @person, roles: [@pm_role])
 
       PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
 
@@ -150,7 +152,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     end
 
     test "republishes the past prime ministers page on destroy" do
-      account = create(:historical_account, roles: [@pm_role])
+      account = create(:historical_account, person: @person, roles: [@pm_role])
 
       PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
 
