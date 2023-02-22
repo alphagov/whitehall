@@ -9,6 +9,7 @@
 
 //= require components/autocomplete
 //= require components/govspeak-editor
+//= require components/image-cropper
 //= require components/miller-columns
 //= require components/select-with-search
 
