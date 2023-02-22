@@ -68,7 +68,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   end
 
   view_test "should render design system layout when permission is applied" do
-    login_as(:departmental_editor_with_preview_design_system)
+    login_as_preview_design_system_user(:departmental_editor)
     stub_publishing_api_links_with_taxons(@edition.content_id, [world_child_taxon_content_id])
 
     get :edit, params: { edition_id: @edition }
@@ -78,7 +78,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   end
 
   view_test "should render miller columns when user has design system layout" do
-    login_as(:departmental_editor_with_preview_design_system)
+    login_as_preview_design_system_user(:departmental_editor)
     stub_publishing_api_links_with_taxons(@edition.content_id, [world_child_taxon_content_id])
 
     get :edit, params: { edition_id: @edition }

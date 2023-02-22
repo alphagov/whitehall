@@ -244,6 +244,10 @@ class ActionController::TestCase
     login_as(create(:user, name: "user-name", email: "user@example.com"))
   end
 
+  def login_as_preview_design_system_user(role)
+    login_as(create(role, :with_preview_design_system, name: "user-name", email: "user@example.com"))
+  end
+
   def assert_login_required
     assert_redirected_to login_path
   end
