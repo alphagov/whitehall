@@ -14,6 +14,14 @@ class Admin::EditionImagesController < Admin::BaseController
     redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
   end
 
+  def update
+    if image.update(params.require(:image).permit(:caption, :alt_text))
+      redirect_to admin_edition_images_path(@edition), notice: "#{image.image_data.carrierwave_image} details updated"
+    else
+      render :edit
+    end
+  end
+
 private
 
   def image
@@ -38,7 +46,7 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "destroy", "confirm_destroy"
+    when "edit", "update", "destroy", "confirm_destroy"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
