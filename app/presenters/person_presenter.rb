@@ -19,6 +19,6 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def path
-    model.public_path
+    model.public_path(locale: I18n.default_locale)
   end
 end

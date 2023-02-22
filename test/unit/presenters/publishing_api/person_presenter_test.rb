@@ -19,7 +19,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       biography: "Sir Winston Churchill was a Prime Minister.",
     )
 
-    public_path = person.public_path
+    public_path = person.public_path(locale: :en)
 
     expected_hash = {
       base_path: public_path,
@@ -85,7 +85,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       },
     )
 
-    expected_base_path = person.public_path
+    expected_base_path = person.public_path(locale: :en)
 
     I18n.with_locale(:en) do
       presented_item = PublishingApi::PersonPresenter.new(person)

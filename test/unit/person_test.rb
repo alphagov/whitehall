@@ -20,22 +20,22 @@ class PersonTest < ActiveSupport::TestCase
 
   test "public_path returns the correct path for person" do
     person = create(:person, forename: " forename ", surname: " surname ")
-    assert_equal "/government/people/forename-surname", person.public_path
+    assert_equal "/government/people/forename-surname", person.public_path(locale: :en)
   end
 
   test "public_path returns the correct path with options" do
     person = create(:person, forename: " forename ", surname: " surname ")
-    assert_equal "/government/people/forename-surname?cachebust=123", person.public_path(cachebust: "123")
+    assert_equal "/government/people/forename-surname?cachebust=123", person.public_path({ cachebust: "123" }, locale: :en)
   end
 
   test "public_url returns the correct path for a Person object" do
     person = create(:person, forename: " forename ", surname: " surname ")
-    assert_equal "https://www.test.gov.uk/government/people/forename-surname", person.public_url
+    assert_equal "https://www.test.gov.uk/government/people/forename-surname", person.public_url(locale: :en)
   end
 
   test "public_url returns the correct path for a TakePart object with options" do
     person = create(:person, forename: " forename ", surname: " surname ")
-    assert_equal "https://www.test.gov.uk/government/people/forename-surname?cachebust=123", person.public_url(cachebust: "123")
+    assert_equal "https://www.test.gov.uk/government/people/forename-surname?cachebust=123", person.public_url({ cachebust: "123" }, locale: :en)
   end
 
   test "should be valid if legacy image isn't 960x640px" do

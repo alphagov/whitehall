@@ -16,7 +16,7 @@
     <% unless hide_image %>
       <% if person.image %>
         <div class="app-person__image-holder">
-          <%= link_to person.image, person.public_path, class: "aspect-ratio-3:2", tabindex: '-1', aria: { hidden: true } %>
+          <%= link_to person.image, person.public_path(locale: I18n.default_locale), class: "aspect-ratio-3:2", tabindex: '-1', aria: { hidden: true } %>
         </div>
       <% else %>
         <div class="blank-person">
