@@ -65,9 +65,7 @@ class PolicyGroup < ApplicationRecord
   end
 
   def public_path(options = {})
-    locale = options[:locale] || "en"
-
-    append_url_options(base_path, options, locale:)
+    append_url_options(base_path, options, locale: I18n.default_locale)
   end
 
   def public_url(options = {})
