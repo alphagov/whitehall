@@ -86,7 +86,9 @@ class HistoricalAccount < ApplicationRecord
   end
 
   def public_path(options = {})
-    append_url_options(base_path, options) if previous_prime_minister?
+    locale = options[:locale] || "en"
+
+    append_url_options(base_path, options, locale:) if previous_prime_minister?
   end
 
   def public_url(options = {})

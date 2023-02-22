@@ -77,7 +77,9 @@ class WorldLocationNews < ApplicationRecord
   end
 
   def public_path(options = {})
-    append_url_options(base_path, options)
+    locale = options[:locale] || "en"
+
+    append_url_options(base_path, options, locale:)
   end
 
   def public_url(options = {})
