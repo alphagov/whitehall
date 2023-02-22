@@ -160,7 +160,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       translated_into: [:cy],
     )
 
-    expected_base_path = role.public_path
+    expected_base_path = role.public_path(locale: :en)
 
     I18n.with_locale(:en) do
       presented_item = PublishingApi::RolePresenter.new(role)

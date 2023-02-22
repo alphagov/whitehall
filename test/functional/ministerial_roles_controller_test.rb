@@ -224,6 +224,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 private
 
   def assert_minister_role_links_to_their_role(role)
-    assert_select ".app-person__roles a[href='#{role.public_path}']", text: role.name
+    assert_select ".app-person__roles a[href='#{role.public_path(locale: :en)}']", text: role.name
   end
 end

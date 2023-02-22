@@ -19,7 +19,7 @@ class RolePresenter < Whitehall::Decorators::Decorator
 
   def path
     if ministerial?
-      model.public_path
+      model.public_path(locale: I18n.default_locale)
     end
   end
 

@@ -198,22 +198,22 @@ class RoleTest < ActiveSupport::TestCase
 
   test "public_path returns the correct path for ministerial role" do
     role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
-    assert_equal "/government/ministers/prime-minister-cabinet-office", role.public_path
+    assert_equal "/government/ministers/prime-minister-cabinet-office", role.public_path(locale: :en)
   end
 
   test "public_path returns the correct path with options" do
     role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
-    assert_equal "/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_path(cachebust: "123")
+    assert_equal "/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_path({ cachebust: "123" }, locale: :en)
   end
 
   test "public_url returns the correct path for a Ministerial role" do
     role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
-    assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office", role.public_url
+    assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office", role.public_url(locale: :en)
   end
 
   test "public_url returns the correct path for a Ministerial Role with options" do
     role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
-    assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_url(cachebust: "123")
+    assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_url({ cachebust: "123" }, locale: :en)
   end
 
   test "has removeable translations" do
