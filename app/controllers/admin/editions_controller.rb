@@ -82,7 +82,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def new
-    render_design_system(:new, :new_legacy, next_release: false)
+    render_design_system(:new, :new_legacy, next_release: true)
   end
 
   def create
@@ -115,7 +115,7 @@ class Admin::EditionsController < Admin::BaseController
 
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: true)
+      flash.now[:alert] = "There are some problems with the document"
       @information = updater.failure_reason unless preview_design_system?(next_release: true)
       build_edition_dependencies
       fetch_version_and_remark_trails
