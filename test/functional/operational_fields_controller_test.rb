@@ -84,7 +84,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_select "ul.govuk-list" do
       fields.each do |field|
         assert_select_object field do
-          assert_select "a[href=?]", field.public_path
+          assert_select "a[href=?]", field.public_path(locale: :en)
         end
       end
     end
