@@ -1,0 +1,102 @@
+<% content_for :page_title, "Organisations" %>
+<% content_for :title, "Organisations" %>
+<% if can?(:create, Organisation) %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Create organisation",
+    href: new_admin_organisation_path,
+    secondary_solid: true,
+    margin_bottom: 6
+  } %>
+<% end %>
+
+<% if @organisations.present? %>
+  <div class="app-view-organisation-index__table">
+    <%= render "govuk_publishing_components/components/table", {
+      filterable: true,
+      label: "Filter organisations",
+      head: [
+        {
+          text: "Acronym"
+        },
+        {
+          text: "Name",
+        },
+        {
+          text: "Type",
+        },
+        {
+          text: "Status",
+        },
+        {
+          text: "Link",
+        }
+      ],
+      rows: [
+        if @user_organisation.present?
+          [
+            {
+              text: (link_to(
+                  @user_organisation.acronym,
+                  admin_organisation_path(@user_organisation),
+                  class: "govuk-link govuk-!-font-weight-bold"
+                ) if @user_organisation.acronym.present?) || "",
+            },
+            {
+              text: link_to(
+                  @user_organisation.name,
+                  admin_organisation_path(@user_organisation),
+                  class: "govuk-link govuk-!-font-weight-bold"
+                ),
+            },
+            {
+              text: tag.p(
+                @user_organisation.organisation_type.name,
+                class: "govuk-!-font-weight-bold govuk-!-margin-bottom-0 govuk-!-margin-top-0"
+              ),
+            },
+            {
+              text: tag.p(
+                @user_organisation.govuk_status,
+                class: "govuk-!-font-weight-bold govuk-!-margin-bottom-0 govuk-!-margin-top-0"
+                ),
+            },
+            {
+              text: link_to('[gov.uk]', @user_organisation.public_path, class: "govuk-link govuk-!-font-weight-bold") +
+                      (link_to('[current site]', @user_organisation.url, class: "govuk-link govuk-!-font-weight-bold") if @user_organisation.govuk_status != 'live'),
+            },
+          ]
+        end
+      ].compact +
+        @organisations.map do |organisation|
+          [
+            {
+              text: (link_to(
+                  organisation.acronym,
+                  admin_organisation_path(organisation),
+                  class: "govuk-link"
+                ) if organisation.acronym.present?) || "",
+            },
+            {
+              text: link_to(
+                  organisation.name,
+                  admin_organisation_path(organisation),
+                  class: "govuk-link",
+                ),
+            },
+            {
+              text: organisation.organisation_type.name,
+            },
+            {
+              text: organisation.govuk_status,
+            },
+            {
+              text: link_to('[gov.uk]', organisation.public_path, class: "govuk-link") +
+                      (link_to('[current site]', organisation.url, class: "govuk-link") if organisation.govuk_status != 'live'),
+            }
+          ]
+        end
+    } %>
+  </div>
+<% else %>
+  <p class="govuk-body">No organisation have been created.</p>
+<% end %>
