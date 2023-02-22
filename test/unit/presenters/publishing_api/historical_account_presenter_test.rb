@@ -15,6 +15,10 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
                                 major_acts: "Significant legislation changes",
                                 roles: [role])
 
+    person2 = create(:person, forename: "Some Other", surname: "Person")
+    create(:historic_role_appointment, person: person2, role:, started_at: Date.civil(1940), ended_at: Date.civil(1950))
+    historical_account2 = create(:historical_account, person: person2, roles: [role])
+
     public_path = "/government/history/past-prime-ministers/some-person"
 
     expected_hash = {
@@ -59,12 +63,48 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
       person: [
         historical_account.person.content_id,
       ],
+      ordered_related_items: [
+        {
+          "title" => "Some Other Person",
+          "base_path" => "/government/history/past-prime-ministers/some-other-person",
+        },
+      ],
     }
 
+    PublishingApi::HistoricalAccountPresenter.new(historical_account2)
     presenter = PublishingApi::HistoricalAccountPresenter.new(historical_account)
 
     assert_equal expected_hash, presenter.content
     assert_hash_includes presenter.links, expected_links
     assert_valid_against_publisher_schema(presenter.content, "historic_appointment")
+  end
+
+  test "correctly determines the surrounding historical accounts to present, sorted in descending order" do
+    role = create(:prime_minister_role)
+
+    historical_accounts_in_descending_order = (0..7).to_a.map do |i|
+      person = create(:person, forename: "Prime Minister #{i}")
+      create(:historic_role_appointment, person:, role:, started_at: Date.civil(1950 - i), ended_at: Date.civil(1950 - i))
+      create(:historical_account, person:, roles: [role])
+    end
+
+    # Related prime ministers for each individual prime minister should be based on a sliding window of the surrounding historical accounts
+    expected_indices_of_surrounding_prime_ministers = {
+      0 => [1, 2, 3, 4, 5],
+      1 => [0, 2, 3, 4, 5],
+      2 => [0, 1, 3, 4, 5],
+      3 => [0, 1, 2, 4, 5],
+      4 => [1, 2, 3, 5, 6],
+      5 => [2, 3, 4, 6, 7],
+      6 => [2, 3, 4, 5, 7],
+      7 => [2, 3, 4, 5, 6],
+    }
+
+    historical_accounts_in_descending_order.each_with_index do |historical_account, index|
+      links = PublishingApi::HistoricalAccountPresenter.new(historical_account).links
+      actual_names_of_related_people = links[:ordered_related_items].map { |person_hash| person_hash["title"] }
+      expected_names_of_related_people = expected_indices_of_surrounding_prime_ministers[index].map { |i| "Prime Minister #{i}" }
+      assert_equal expected_names_of_related_people, actual_names_of_related_people
+    end
   end
 end
