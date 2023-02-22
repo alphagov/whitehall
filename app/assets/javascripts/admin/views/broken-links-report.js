@@ -7,7 +7,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   BrokenLinksReport.prototype.init = function () {
-    if (!fetch) return
     var button = this.module.querySelector('button')
     var authenticityTokenField = this.module.querySelector('[name="authenticity_token"]')
     if (button && authenticityTokenField) this.setupEventListener(button, authenticityTokenField.value)

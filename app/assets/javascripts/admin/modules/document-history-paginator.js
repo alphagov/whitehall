@@ -7,8 +7,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   DocumentHistoryPaginator.prototype.init = function () {
-    if (!window.fetch) { return }
-
     this.setupLinkEventListeners()
     this.setupFormChangeListener()
   }
