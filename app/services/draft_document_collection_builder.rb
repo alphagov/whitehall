@@ -64,6 +64,8 @@ private
       next if topic_group[:name] != group.heading
 
       topic_group[:content_ids].each.with_index do |content_id, i|
+        next if dead_link?(content_id)
+
         if permissable_whitehall_document(content_id).present?
           DocumentCollectionGroupMembership.create!(
             document_id: permissable_whitehall_document(content_id).id,
@@ -91,6 +93,10 @@ private
     link.save
     # rubocop:enable Rails/SaveBang
     raise link.errors.messages.to_s if link.errors.any?
+  end
+
+  def dead_link?(content_id)
+    content_item(content_id)[:unpublishing].present?
   end
 
   def permissable_whitehall_document(content_id)
