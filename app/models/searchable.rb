@@ -109,7 +109,11 @@ module Searchable
     # Build the payload to pass to the search index
     def search_index
       SEARCH_FIELDS.each_with_object({}) do |name, result|
-        value = searchable_options[name].call(self)
+        value = begin
+          searchable_options[name].call(self)
+        rescue StandardError
+          searchable_options[name].call(self, locale: I18n.default_locale)
+        end
         key = KEY_MAPPING[name] || name.to_s
         result[key] = value unless value.nil?
       end
