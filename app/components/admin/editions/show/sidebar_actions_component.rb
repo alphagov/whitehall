@@ -39,7 +39,9 @@ private
 
   def add_create_action
     if @edition.is_latest_edition? && @edition.published?
-      actions << form_with(url: revise_admin_edition_path(@edition.id), method: :post) do
+      actions << form_with(url: revise_admin_edition_path(@edition.id), method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
         render("govuk_publishing_components/components/button", {
           text: "Create new edition",
           data_attributes: {
@@ -55,7 +57,9 @@ private
 
   def add_submit_action
     if @edition.can_submit?
-      actions << form_with(url: submit_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do
+      actions << form_with(url: submit_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
         render("govuk_publishing_components/components/button", {
           text: "Submit for 2nd eyes",
           data_attributes: {
@@ -104,7 +108,9 @@ private
 
   def add_schedule_action
     if @scheduler.can_perform? && @enforcer.can?(:publish)
-      actions << form_with(url: schedule_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do
+      actions << form_with(url: schedule_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
         render("govuk_publishing_components/components/button", {
           text: "Schedule",
           title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
@@ -134,7 +140,9 @@ private
 
   def add_publish_action
     if @publisher.can_perform? && @enforcer.can?(:publish)
-      actions << form_with(url: publish_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do
+      actions << form_with(url: publish_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
         render("govuk_publishing_components/components/button", {
           text: "Publish",
           title: "Publish #{@edition.title}",
@@ -164,7 +172,9 @@ private
 
   def add_reject_action
     if @edition.can_reject? && @enforcer.can?(:reject)
-      actions << form_with(url: reject_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post) do
+      actions << form_with(url: reject_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
         render("govuk_publishing_components/components/button", {
           text: "Reject",
           destructive: true,
