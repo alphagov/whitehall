@@ -267,7 +267,7 @@ GEM
     govuk_personalisation (0.13.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (34.10.1)
+    govuk_publishing_components (34.11.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -697,7 +697,7 @@ GEM
     thor (1.2.1)
     tilt (2.0.11)
     timecop (0.9.6)
-    timeout (0.3.1)
+    timeout (0.3.2)
     tins (1.32.1)
       sync
     transitions (1.3.0)
