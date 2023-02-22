@@ -1,0 +1,21 @@
+name: Image cropper
+description: Displays an image with resizable crop function
+body: |
+ This component uses Cropper.js - a JavaScript library for cropping image.
+ Users can select an specific area of an image, and then upload the coordinates data to server-side to crop the image, or crop the image on browser-side directly.
+accessibility_criteria: |
+  Images in this component must:
+
+  * have alt text
+examples:
+  default:
+    data:
+      src: https://www.gov.uk/assets/government-frontend/history/buildings/larry-the-cat-12a0929c06ef6fe7045460346724cec8fc6eeda45dd96f87d7c6e638fb714ccf.jpg
+      no_js_src: https://www.gov.uk/assets/government-frontend/history/buildings/larry-the-cat-12a0929c06ef6fe7045460346724cec8fc6eeda45dd96f87d7c6e638fb714ccf.jpg
+      alt_text: Larry the cat
+      caption: Larry, Chief Mouser to the Cabinet Office
+      credit: His Majesty's Government
+      crop_x: 0
+      crop_y: 0
+      crop_width: 400
+      crop_height: 300
