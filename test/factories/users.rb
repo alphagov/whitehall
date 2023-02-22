@@ -16,6 +16,10 @@ FactoryBot.define do
     email
     uid
     permissions { [User::Permissions::SIGNIN] }
+
+    trait(:with_preview_design_system) do
+      permissions { [User::Permissions::SIGNIN, User::Permissions::PREVIEW_DESIGN_SYSTEM] }
+    end
   end
 
   factory :disabled_user, parent: :user do
@@ -27,14 +31,45 @@ FactoryBot.define do
 
   factory :vip_editor, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::VIP_EDITOR] }
+
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::VIP_EDITOR,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
+    end
   end
 
   factory :departmental_editor, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::DEPARTMENTAL_EDITOR] }
+
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::GDS_EDITOR,
+          User::Permissions::DEPARTMENTAL_EDITOR,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
+    end
   end
 
   factory :managing_editor, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::MANAGING_EDITOR] }
+
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::MANAGING_EDITOR,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
+    end
   end
 
   factory :scheduled_publishing_robot, parent: :user do
@@ -45,26 +80,79 @@ FactoryBot.define do
 
   factory :gds_admin, parent: :user do
     permissions do
-      [User::Permissions::SIGNIN,
-       User::Permissions::GDS_EDITOR,
-       User::Permissions::GDS_ADMIN]
+      [
+        User::Permissions::SIGNIN,
+        User::Permissions::GDS_EDITOR,
+        User::Permissions::GDS_ADMIN,
+      ]
+    end
+
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::GDS_EDITOR,
+          User::Permissions::GDS_ADMIN,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
     end
   end
 
   factory :gds_editor, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR] }
+
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::GDS_EDITOR,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
+    end
   end
 
   factory :world_editor, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::WORLD_EDITOR] }
+
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::WORLD_EDITOR,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
+    end
   end
 
   factory :world_writer, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::WORLD_WRITER] }
+
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::WORLD_WRITER,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
+    end
   end
 
   factory :export_data_user, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::EXPORT_DATA] }
+
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::EXPORT_DATA,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
+    end
   end
 
   factory :gds_team_user, parent: :user do
@@ -78,16 +166,17 @@ FactoryBot.define do
         User::Permissions::FORCE_PUBLISH_ANYTHING,
       ]
     end
-  end
 
-  factory :departmental_editor_with_preview_design_system, parent: :user do
-    permissions do
-      [
-        User::Permissions::SIGNIN,
-        User::Permissions::GDS_EDITOR,
-        User::Permissions::DEPARTMENTAL_EDITOR,
-        User::Permissions::PREVIEW_DESIGN_SYSTEM,
-      ]
+    trait(:with_preview_design_system) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::DEPARTMENTAL_EDITOR,
+          User::Permissions::GDS_EDITOR,
+          User::Permissions::FORCE_PUBLISH_ANYTHING,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+        ]
+      end
     end
   end
 end
