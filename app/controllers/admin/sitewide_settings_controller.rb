@@ -7,6 +7,8 @@ class Admin::SitewideSettingsController < Admin::BaseController
 
   def index
     @sitewide_settings = SitewideSetting.all
+
+    render "index_legacy"
   end
 
   def edit
