@@ -1,6 +1,10 @@
 <% content_for :page_title, "Sitewide settings" %>
 <% content_for :title, "Sitewide settings" %>
 
+<% unless @sitewide_settings.present? %>
+  <p class="govuk-body">No sitewide settings available to configure.</p>
+<% end %>
+
 <%= render "govuk_publishing_components/components/table", {
   head: [
     {
@@ -26,4 +30,4 @@
       },
     ]
   end
-} %>
+} if @sitewide_settings.present? %>
