@@ -48,7 +48,7 @@ Then(/^the "([^"]*)" social link should be shown on the public website for the (
                      else
                        Organisation.last
                      end
-  visit social_container.public_path
+  visit social_container.public_path(locale: :en)
   expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: social_service)
 end
 
@@ -58,7 +58,7 @@ Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public 
                      else
                        Organisation.last
                      end
-  visit social_container.public_path
+  visit social_container.public_path(locale: :en)
   expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title)
 end
 

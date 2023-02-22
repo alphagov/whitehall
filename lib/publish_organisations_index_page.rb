@@ -51,7 +51,7 @@ private
     presented_organisations.send(organisation_type_key).map do |organisation|
       {
         title: organisation.name,
-        href: organisation.public_path,
+        href: organisation.public_path(locale: I18n.default_locale),
         brand: organisation.organisation_brand,
         logo: organisation_logo(organisation),
         separate_website: organisation.exempt?,
@@ -120,7 +120,7 @@ private
   def summary_organisation(organisation)
     {
       title: organisation.name,
-      href: organisation.public_path,
+      href: organisation.public_path(locale: I18n.default_locale),
     }
   end
 

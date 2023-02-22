@@ -426,8 +426,8 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
     get(:show, params:)
 
-    assert_select "a[href=?]", organisation1.public_path
-    assert_select "a[href=?]", organisation2.public_path
+    assert_select "a[href=?]", organisation1.public_path(locale: :en)
+    assert_select "a[href=?]", organisation2.public_path(locale: :en)
   end
 
   view_test "renders CSV column headings" do

@@ -57,25 +57,25 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "redirects organisation groups index URL to organisation page" do
     organisation = create(:organisation)
     get "/government/organisations/#{organisation.to_param}/groups"
-    assert_redirected_to organisation.public_path
+    assert_redirected_to organisation.public_path(locale: :en)
   end
 
   test "redirects organisation groups show URL to organisation page" do
     organisation = create(:organisation)
     get "/government/organisations/#{organisation.to_param}/groups/some-group"
-    assert_redirected_to organisation.public_path
+    assert_redirected_to organisation.public_path(locale: :en)
   end
 
   test "redirects organisation chiefs-of-staff URL to organisation page" do
     organisation = create(:organisation)
     get "/government/organisations/#{organisation.to_param}/chiefs-of-staff"
-    assert_redirected_to organisation.public_path
+    assert_redirected_to organisation.public_path(locale: :en)
   end
 
   test "redirects organisation consultations URL to organisation page" do
     organisation = create(:organisation)
     get "/government/organisations/#{organisation.to_param}/consultations"
-    assert_redirected_to organisation.public_path
+    assert_redirected_to organisation.public_path(locale: :en)
   end
 
   test "redirects organisation series URL to publications page" do

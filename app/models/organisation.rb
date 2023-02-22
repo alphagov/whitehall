@@ -535,20 +535,18 @@ class Organisation < ApplicationRecord
     end
   end
 
-  def public_path(options = {})
-    locale = options[:locale] || "en"
-
+  def public_path(options = {}, locale:)
     append_url_options(base_path, options, locale:)
   end
 
-  def public_url(options = {})
+  def public_url(options = {}, locale:)
     website_root = if options[:draft]
                      Plek.external_url_for("draft-origin")
                    else
                      Plek.website_root
                    end
 
-    website_root + public_path(options)
+    website_root + public_path(options, locale:)
   end
 
 private

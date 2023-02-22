@@ -87,7 +87,7 @@ Then(/^I should be able to appoint "([^"]*)" to the new role$/) do |person_name|
 end
 
 Then(/^I should see him listed as "([^"]*)" on the worldwide organisation page$/) do |role_name|
-  visit WorldwideOrganisation.last.public_path
+  visit WorldwideOrganisation.last.public_path(locale: :en)
   person = Person.last
   role = Role.find_by!(name: role_name)
 

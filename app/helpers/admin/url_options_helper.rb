@@ -13,8 +13,14 @@ module Admin::UrlOptionsHelper
 
   def show_url_with_public_and_cachebusted_options(model, url_options = {})
     options = public_and_cachebusted_url_options.merge(url_options)
+    locale = options[:locale] || :en # FIXME
     if model.respond_to?(:public_url)
-      model.public_url(options)
+      # FIXME: remove and always call with locale
+      begin
+        model.public_url(options, locale:)
+      rescue StandardError
+        model.public_url(options)
+      end
     else
       send("#{model.class.to_s.underscore}_url", model, options)
     end

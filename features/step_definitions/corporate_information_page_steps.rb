@@ -31,7 +31,7 @@ end
 Then(/^I should see the corporate information on the public worldwide organisation page$/) do
   worldwide_organisation = WorldwideOrganisation.last
   info_page = worldwide_organisation.corporate_information_pages.last
-  visit worldwide_organisation.public_path
+  visit worldwide_organisation.public_path(locale: :en)
   expect(page).to have_content(info_page.title)
   click_link info_page.title
   expect(page).to have_content(info_page.body)
@@ -61,7 +61,7 @@ end
 
 Then(/^I should be able to read the translated "([^"]*)" corporate information page for the worldwide organisation "([^"]*)" on the site$/) do |corp_page, worldwide_org|
   worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_org)
-  visit worldwide_organisation.public_path
+  visit worldwide_organisation.public_path(locale: :en)
 
   click_link corp_page
   click_link "Français"

@@ -11,7 +11,7 @@
   <td><%= organisation.organisation_type.name %></td>
   <td><%= organisation.govuk_status %></td>
   <td>
-    <%= link_to '[gov.uk]', organisation.public_path %>
+    <%= link_to '[gov.uk]', organisation.public_path(locale: I18n.default_locale) %>
     <% if organisation.govuk_status != 'live' %>
       <%= link_to '[current site]', organisation.url %>
     <% end %>

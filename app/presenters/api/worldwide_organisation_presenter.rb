@@ -28,7 +28,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
   def sponsor_as_json(sponsor)
     {
       title: sponsor.name,
-      web_url: sponsor.public_url,
+      web_url: sponsor.public_url(locale: I18n.default_locale),
       details: {
         acronym: sponsor.acronym || "",
       },

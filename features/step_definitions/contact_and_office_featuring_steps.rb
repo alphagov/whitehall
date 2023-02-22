@@ -41,7 +41,7 @@ When(/^I reorder the offices to highlight my new office$/) do
 end
 
 Then(/^I see the offices in my specified order including the new one under the main office on the home page of the worldwide organisation$/) do
-  visit @the_organisation.public_path
+  visit @the_organisation.public_path(locale: :en)
 
   contact_headings = all(".contact-section .gem-c-heading").map(&:text)
 
@@ -64,7 +64,7 @@ When(/^I decide that one of the offices no longer belongs on the home page$/) do
 end
 
 Then(/^that office is no longer visible on the home page of the worldwide organisation$/) do
-  visit @the_organisation.public_path
+  visit @the_organisation.public_path(locale: :en)
 
   within ".contact-section:first-of-type" do
     expect(page).to_not have_selector("h2", text: @the_removed_office.title)

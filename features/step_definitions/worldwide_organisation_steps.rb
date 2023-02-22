@@ -25,7 +25,7 @@ end
 
 Then(/^I should see the(?: updated)? worldwide organisation information on the public website$/) do
   worldwide_organisation = WorldwideOrganisation.last
-  visit worldwide_organisation.public_path
+  visit worldwide_organisation.public_path(locale: :en)
   expect(page).to have_title(worldwide_organisation.name)
 end
 
@@ -75,7 +75,7 @@ When(/^I delete the worldwide organisation$/) do
 end
 
 Then(/^the worldwide organisation should not be visible from the public website$/) do
-  expect { visit @worldwide_organisation.public_path }
+  expect { visit @worldwide_organisation.public_path(locale: :en) }
     .to raise_error(ActiveRecord::RecordNotFound)
 end
 
@@ -107,7 +107,7 @@ end
 
 Then(/^the "([^"]*)" office details should be shown on the public website$/) do |description|
   worldwide_org = WorldwideOrganisation.last
-  visit worldwide_org.public_path
+  visit worldwide_org.public_path(locale: :en)
   worldwide_office = worldwide_org.offices.joins(contact: :translations).where(contact_translations: { title: description }).first
 
   within record_css_selector(worldwide_office) do
@@ -158,14 +158,14 @@ end
 Then(/^the "([^"]*)" should be shown as the main office on the public website$/) do |contact_title|
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
-  visit worldwide_organisation.public_path
+  visit worldwide_organisation.public_path(locale: :en)
   within record_css_selector(worldwide_office) do
     expect(page).to have_content(contact_title)
   end
 end
 
 Then(/^I should see his name on the worldwide organisation page$/) do
-  visit WorldwideOrganisation.last.public_path
+  visit WorldwideOrganisation.last.public_path(locale: :en)
   person = Person.last
 
   within record_css_selector(person) do
@@ -174,7 +174,7 @@ Then(/^I should see his name on the worldwide organisation page$/) do
 end
 
 Then(/^I should not see his name on the worldwide organisation page$/) do
-  visit WorldwideOrganisation.last.public_path
+  visit WorldwideOrganisation.last.public_path(locale: :en)
   person = Person.last
 
   within record_css_selector(person) do
@@ -193,7 +193,7 @@ end
 Then(/^I should see the default access information on the public "([^"]*)" office page$/) do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
-  visit worldwide_organisation.public_path
+  visit worldwide_organisation.public_path(locale: :en)
   within record_css_selector(worldwide_office) do
     click_link "Access and opening times"
   end
@@ -239,7 +239,7 @@ end
 Then(/^I should see the custom access information on the public "([^"]*)" office page$/) do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
-  visit worldwide_organisation.public_path
+  visit worldwide_organisation.public_path(locale: :en)
   within record_css_selector(worldwide_office) do
     click_link "Access and opening times"
   end
