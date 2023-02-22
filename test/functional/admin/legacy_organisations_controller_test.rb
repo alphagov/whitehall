@@ -1,6 +1,8 @@
 require "test_helper"
 
-class Admin::OrganisationsControllerTest < ActionController::TestCase
+class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
+  tests Admin::OrganisationsController
+
   setup do
     login_as :gds_admin
   end
@@ -17,7 +19,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_template :index
+    assert_template :legacy_index
     assert_equal [organisation1, organisation2], assigns(:organisations)
   end
 
