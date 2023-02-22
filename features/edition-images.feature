@@ -41,3 +41,13 @@ Feature: Images tab on edit edition
     And I update the image details and save
     Then I should see a updated banner
     Then I should see the updated image details
+    
+  Scenario: Image uploaded with no cropping required
+    Given I am a writer
+    And I have the "Preview images update" permission
+    And I start drafting a new publication "Standard Beard Lengths"
+    When I am on the edit page for publication "Standard Beard Lengths"
+    And I navigate to the images tab
+    And I upload a 960x640 image
+    And I update the image details and save
+    Then the publication "Standard Beard Lengths" should have 1 image attachment

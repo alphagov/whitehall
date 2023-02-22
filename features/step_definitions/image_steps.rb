@@ -58,3 +58,26 @@ end
 Then "I should see the updated image details" do
   expect(page).to have_content("Test caption")
 end
+
+And(/^I navigate to the images tab$/) do
+  find("li.app-c-secondary-navigation__list-item a", text: "Images").click
+end
+
+And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
+  within "input.gem-c-file-upload" do
+    if width == 960 && height == 640
+      attach_file jpg_image
+    elsif width == 64 && height == 96
+      attach_file Rails.root.join("test/fixtures/horrible-image.64x96.jpg")
+    end
+  end
+  click_on "Upload"
+end
+
+And(/^I click the "Save and continue" button on the preview page$/) do
+  click_on "Save and continue"
+end
+
+Then(/^the publication "(.*?)" should have (\d+) image attachments?$/) do |title, expected_number_of_images|
+  expect(expected_number_of_images.to_i).to eq(Edition.find_by(title:).images.count)
+end
