@@ -5,6 +5,8 @@ class Admin::OrganisationsController < Admin::BaseController
   def index
     @organisations = Organisation.alphabetical
     @user_organisation = current_user.organisation
+
+    render :legacy_index
   end
 
   def new

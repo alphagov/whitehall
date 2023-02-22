@@ -17,11 +17,11 @@
   </thead>
   <tbody>
     <% if @user_organisation %>
-      <%= render partial: 'organisation_row',
+      <%= render partial: 'legacy_organisation_row',
                 locals: { organisation: @user_organisation, prefix: 'user' } %>
     <% end %>
     <% @organisations.each do |organisation| %>
-      <%= render partial: 'organisation_row',
+      <%= render partial: 'legacy_organisation_row',
                 locals: { organisation: organisation } %>
     <% end %>
     <% if @organisations.empty? %>
