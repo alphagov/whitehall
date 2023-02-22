@@ -6,7 +6,7 @@
     <h1>
       <span class="name"><%= @world_location_news.name %></span>
     </h1>
-    <p><%= link_to "View on website", @world_location_news.public_url(cachebust_url_options) %></p>
+    <p><%= link_to "View on website", @world_location_news.public_url(cachebust_url_options, locale: :en) %></p>
   </div>
   <section class="world-location-details">
     <%= tab_navigation_for(@world_location_news) %>

@@ -40,7 +40,7 @@ class WorldLocationNews < ApplicationRecord
 
   def search_link
     if world_location.world_location?
-      public_path
+      public_path(locale: I18n.default_locale)
     elsif world_location.international_delegation?
       world_location.public_path
     end
@@ -76,14 +76,14 @@ class WorldLocationNews < ApplicationRecord
     "/world/#{slug}/news"
   end
 
-  def public_path(options = {})
-    locale = options[:locale] || "en"
+  def public_path(options = {}, locale:)
+    # locale = options[:locale] || "en"
 
     append_url_options(base_path, options, locale:)
   end
 
-  def public_url(options = {})
-    Plek.website_root + public_path(options)
+  def public_url(options = {}, locale:)
+    Plek.website_root + public_path(options, locale:)
   end
 
   extend FriendlyId

@@ -7,7 +7,7 @@
       <span class="name"><%= @world_location_news.name %></span>
     </h1>
     <p>
-    <%= link_to "View on website", @world_location_news.public_url(cachebust_url_options) %>
+    <%= link_to "View on website", @world_location_news.public_url(cachebust_url_options, locale: :en) %>
   </div>
 
   <section class="world-location-details">
