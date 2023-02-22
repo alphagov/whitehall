@@ -54,16 +54,14 @@ module PublishingApi
         .distinct(&:person)
         .order(:started_at)
         .map(&:person)
+        .select { |person| person.historical_accounts.present? }
 
       person_to_present = historical_account.person
 
       return [] unless all_appointees.include?(person_to_present)
 
       neighbouring_role_holders(all_appointees, person_to_present).map do |person|
-        {
-          "title" => person.name,
-          "base_path" => person.historical_accounts.present? ? person.historical_accounts.for_role(role.id).first.public_path : HistoricalAccountsIndexPresenter.base_path,
-        }
+        person.historical_accounts.for_role(role.id).first.content_id
       end
     end
 
