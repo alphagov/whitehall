@@ -1,27 +1,18 @@
 <%
   id ||= "autocomplete-#{SecureRandom.hex(4)}"
-  type ||= nil
   error_id = "error-#{SecureRandom.hex(4)}"
   error_items ||= []
-  hint ||= nil
-  width ||= nil
   aria = error_id if error_items.any?
   data_attributes ||= {}
   track_category ||= nil
   track_label ||= nil
   select ||= {}
-  input ||= {}
-  search ||= false
-  jsonly ||= false
 
   root_classes = %w(app-c-autocomplete govuk-form-group)
-  root_classes << "app-c-autocomplete--#{width}" if width
-  root_classes << "app-c-autocomplete--search" if search
-  root_classes << "app-js-only" if jsonly
   root_classes << "govuk-form-group--error" if error_items.any?
 %>
 
-<%= tag.div class: root_classes, data: data_attributes.merge(module: "autocomplete", "autocomplete-type": type) do %>
+<%= tag.div class: root_classes, data: data_attributes.merge(module: "autocomplete") do %>
   <%= render "govuk_publishing_components/components/label", {
     html_for: id
   }.merge(label.symbolize_keys) %>
@@ -33,40 +24,19 @@
     } %>
   <% end %>
 
-  <%= tag.span hint, class: "govuk-hint" if hint %>
+  <% if select[:multiple] %>
+    <%= hidden_field_tag name, [""] %>
 
-  <% if select.any? %>
-    <% if select[:multiple] %>
-      <%= hidden_field_tag name, [""] %>
-
-      <%= tag.span "To select multiple items in a list, hold down Ctrl (PC) or Command (Mac) key.",
-                   class: "govuk-hint app-c-autocomplete__multiselect-instructions" %>
-    <% end %>
-
-    <%= select_tag name,
-      options_for_select(select[:options], select[:selected]),
-      id: id,
-      class: "govuk-select",
-      size: select[:size],
-      multiple: select[:multiple],
-      data: { track_category:, track_label: }
-    %>
-  <% else %>
-    <% options = Array(input[:options]) %>
-
-    <%= tag.input name: name,
-                  value: input[:value],
-                  class: "govuk-input",
-                  id: id,
-                  list: options.any? ? "#{id}-list" : nil,
-                  type: search ? "search" : "text" %>
-
-    <% if options.any? %>
-      <%= tag.datalist id: "#{id}-list" do %>
-        <% options.each do |option| %>
-          <%= tag.option(value: option) %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= tag.span "To select multiple items in a list, hold down Ctrl (PC) or Command (Mac) key.",
+                 class: "govuk-hint app-c-autocomplete__multiselect-instructions" %>
   <% end %>
+
+  <%= select_tag name,
+    options_for_select(select[:options], select[:selected]),
+    id: id,
+    class: "govuk-select",
+    size: select[:size],
+    multiple: select[:multiple],
+    data: { track_category:, track_label: }
+  %>
 <% end %>
