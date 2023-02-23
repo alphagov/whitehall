@@ -1,0 +1,45 @@
+<% content_for :page_title, "Feature document" %>
+<% content_for :title, "Feature ‘#{@feature}’ within ‘#{@feature_list}’" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @feature)) %>
+
+<%= render "govuk_publishing_components/components/warning_text", {
+  text: "Warning: changes to features appear instantly on the live site."
+} %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @feature, url: [:admin, @featurable, @feature_list, @feature], multipart: true do |form| %>
+      <%= form.hidden_field :document_id %>
+      <%= form.hidden_field :topical_event_id %>
+      <%= form.hidden_field :offsite_link_id %>
+
+      <%= render "govuk_publishing_components/components/file_upload", {
+        label: {
+          text: "Image (required)",
+          heading_size: "l"
+        },
+        hint: "Select a 960px wide and 640px tall image to be shown when featuring",
+        name: "feature[image]",
+        id: "feature_image",
+        error_items: errors_for(@feature.errors, :image)
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Image description (alt text) (required)",
+        },
+        heading_size: "l",
+        name: "feature[alt_text]",
+        id: "feature_alt_text",
+        value: @feature.alt_text,
+        error_message: errors_for_input(@feature.errors, :alt_text)
+      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save"
+        } %>
+        <%= link_to "Cancel", admin_feature_list_path(@feature_list), class:"govuk-link govuk-link--no-visited-state" %>
+      </div>
+    <% end %>
+  </div>
+</div>
