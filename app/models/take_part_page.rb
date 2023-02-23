@@ -51,14 +51,12 @@ class TakePartPage < ApplicationRecord
     "/government/get-involved/take-part/#{slug}"
   end
 
-  def public_path(options = {})
-    locale = options[:locale] || "en"
-
+  def public_path(options = {}, locale:)
     append_url_options(base_path, options, locale:)
   end
 
-  def public_url(options = {})
-    Plek.website_root + public_path(options)
+  def public_url(options = {}, locale:)
+    Plek.website_root + public_path(options, locale:)
   end
 
 protected
