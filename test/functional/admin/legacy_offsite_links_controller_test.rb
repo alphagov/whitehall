@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::OffsiteLinksControllerTest < ActionController::TestCase
+class Admin::LegacyOffsiteLinksControllerTest < ActionController::TestCase
+  tests Admin::OffsiteLinksController
+
   setup do
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
     @world_location_news = build(:world_location_news)
     create(:world_location, world_location_news: @world_location_news)
     @offsite_link = create(:offsite_link, parent_type: "WorldLocationNews", parent: @world_location_news)
