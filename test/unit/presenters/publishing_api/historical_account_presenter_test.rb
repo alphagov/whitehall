@@ -63,12 +63,7 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
       person: [
         historical_account.person.content_id,
       ],
-      ordered_related_items: [
-        {
-          "title" => "Some Other Person",
-          "base_path" => "/government/history/past-prime-ministers/some-other-person",
-        },
-      ],
+      ordered_related_items: [person2.historical_accounts.first.content_id],
     }
 
     PublishingApi::HistoricalAccountPresenter.new(historical_account2)
@@ -102,9 +97,11 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
 
     historical_accounts_in_descending_order.each_with_index do |historical_account, index|
       links = PublishingApi::HistoricalAccountPresenter.new(historical_account).links
-      actual_names_of_related_people = links[:ordered_related_items].map { |person_hash| person_hash["title"] }
-      expected_names_of_related_people = expected_indices_of_surrounding_prime_ministers[index].map { |i| "Prime Minister #{i}" }
-      assert_equal expected_names_of_related_people, actual_names_of_related_people
+      actual_content_ids_of_related_people = links[:ordered_related_items]
+      expected_content_ids_of_related_people = expected_indices_of_surrounding_prime_ministers[index].map do |i|
+        historical_accounts_in_descending_order[i].content_id
+      end
+      assert_equal expected_content_ids_of_related_people, actual_content_ids_of_related_people
     end
   end
 end
