@@ -26,7 +26,7 @@
         <dl>
           <% if world_locations.any? %>
             <dt><%= t('worldwide_organisation.location') %>:</dt>
-            <dd class="js-hide-other-links"><%= world_locations.map {|l| link_to(l.name, l.public_path, class: "govuk-link") }.to_sentence.html_safe %></dd>
+            <dd class="js-hide-other-links"><%= world_locations.map {|l| link_to(l.name, l.public_path(locale: I18n.default_locale), class: "govuk-link") }.to_sentence.html_safe %></dd>
           <% end %>
           <dt><%= t('worldwide_organisation.part_of') %>:</dt>
           <dd lang="en"><%= organisation.sponsoring_organisations.map {|o| link_to(o.name, o.public_path(locale: I18n.default_locale), class: "sponsoring-organisation govuk-link") }.to_sentence.html_safe %></dd>

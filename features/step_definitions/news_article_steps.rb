@@ -50,7 +50,7 @@ Then(/^I should only see the news article on the French version of the public "(
   within record_css_selector(@news_article) do
     expect(page).to have_content(@news_article.title)
   end
-  visit world_location.public_path
+  visit world_location.public_path(locale: :en)
   expect(page).to_not have_selector(record_css_selector(@news_article))
 end
 

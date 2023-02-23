@@ -42,7 +42,7 @@ class WorldLocationNews < ApplicationRecord
     if world_location.world_location?
       public_path(locale: I18n.default_locale)
     elsif world_location.international_delegation?
-      world_location.public_path
+      world_location.public_path(locale: I18n.default_locale)
     end
   end
 

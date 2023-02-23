@@ -106,16 +106,16 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test "public_path returns the correct path" do
     object = create(:world_location, slug: "foo")
-    assert_equal "/world/foo", object.public_path
+    assert_equal "/world/foo", object.public_path(locale: :en)
   end
 
   test "public_path returns the correct path with options" do
     object = create(:world_location, slug: "foo")
-    assert_equal "/world/foo?cachebust=123", object.public_path(cachebust: "123")
+    assert_equal "/world/foo?cachebust=123", object.public_path({ cachebust: "123" }, locale: :en)
   end
 
   test "public_url returns the url and appends options" do
     object = create(:world_location, slug: "foo")
-    assert_equal "https://www.test.gov.uk/world/foo?cachebust=123", object.public_url(cachebust: "123")
+    assert_equal "https://www.test.gov.uk/world/foo?cachebust=123", object.public_url({ cachebust: "123" }, locale: :en)
   end
 end

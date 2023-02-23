@@ -68,7 +68,7 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
   end
 
   test "json includes public location url as web_url" do
-    assert_equal @location.public_url, @presenter.as_json[:web_url]
+    assert_equal @location.public_url(locale: :en), @presenter.as_json[:web_url]
   end
 
   test "json includes request-relative api organisations url as organisations id" do
@@ -76,6 +76,6 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
   end
 
   test "json includes public location url (anchored on organisations) organisations web_url" do
-    assert_equal @location.public_url(anchor: "organisations"), @presenter.as_json[:organisations][:web_url]
+    assert_equal @location.public_url({ anchor: "organisations" }, locale: :en), @presenter.as_json[:organisations][:web_url]
   end
 end
