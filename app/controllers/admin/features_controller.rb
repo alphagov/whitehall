@@ -3,7 +3,9 @@ class Admin::FeaturesController < Admin::BaseController
   before_action :build_feature
   before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
 
-  def new; end
+  def new
+    render :legacy_new
+  end
 
   def create
     if @feature.save
@@ -12,7 +14,7 @@ class Admin::FeaturesController < Admin::BaseController
       redirect_to admin_feature_list_path(@feature_list), notice: "The document has been saved"
     else
       flash.now[:alert] = "Unable to create feature"
-      render action: "new"
+      render :legacy_new
     end
   end
 
