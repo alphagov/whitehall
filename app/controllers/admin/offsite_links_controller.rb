@@ -4,6 +4,8 @@ class Admin::OffsiteLinksController < Admin::BaseController
 
   def new
     @offsite_link = OffsiteLink.new
+
+    render :legacy_new
   end
 
   def create
@@ -13,7 +15,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
       flash[:notice] = "An offsite link has been created for #{@parent.name}"
       redirect_to offsite_links_path
     else
-      render :new
+      render :legacy_new
     end
   end
 
