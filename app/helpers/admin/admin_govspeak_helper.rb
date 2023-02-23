@@ -11,6 +11,7 @@ module Admin::AdminGovspeakHelper
         url: a.url,
         filename: a.filename,
         file_size: a.file_size,
+        thumbnail_html: attachment_thumbnail(a),
       }
     end
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do

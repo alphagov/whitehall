@@ -254,13 +254,14 @@ private
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
     hosts = [Whitehall.admin_host, Whitehall.public_host]
 
-    attachments.to_a.map! do |a|
+    attachments = attachments.to_a.map do |a|
       {
         id: a.filename,
         title: a.title,
         url: a.url,
         filename: a.filename,
         file_size: a.file_size,
+        thumbnail_html: attachment_thumbnail(a),
       }
     end
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
@@ -274,7 +275,7 @@ private
     # hosts = [Whitehall.admin_host, Whitehall.public_host]
 
     govspeak = Govspeak::Document.new(govspeak, { document_domains: hosts, attachments: }).tap do |document|
-      document.images = images
+      # document.images = images
     end
     return govspeak.to_html.html_safe
 

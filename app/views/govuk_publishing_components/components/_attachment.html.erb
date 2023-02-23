@@ -1,0 +1,99 @@
+<%
+  attachment = GovukPublishingComponents::Presenters::AttachmentHelper.new(attachment)
+  target ||= "_self"
+  hide_opendocument_metadata ||= false
+  hide_order_copy_link ||= false
+  attributes = []
+  data_attributes ||= {}
+  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
+
+  if attachment.content_type_name
+    content = if attachment.content_type_abbr
+                raw tag.abbr(attachment.content_type.abbr,
+                             title: attachment.content_type_name,
+                             class: "gem-c-attachment__abbr")
+              else
+                attachment.content_type_name
+              end
+    attributes << tag.span(content, class: "gem-c-attachment__attribute")
+  end
+
+  if attachment.file_size
+    attributes << tag.span(
+      number_to_human_size(attachment.file_size),
+      class: "gem-c-attachment__attribute",
+      )
+  end
+
+  if attachment.number_of_pages
+    attributes << tag.span(
+      t("components.attachment.page", count: attachment.number_of_pages),
+      class: "gem-c-attachment__attribute",
+      )
+  end
+%>
+<%= tag.section class: "gem-c-attachment govuk-!-display-none-print" do %>
+  <%= tag.div class: "gem-c-attachment__thumbnail" do %>
+    <%= link_to attachment.url,
+                class: "govuk-link",
+                target: target,
+                tabindex: "-1",
+                "aria-hidden": true,
+                data: data_attributes do %>
+      <% if attachment.attachment_data[:thumbnail_html] %>
+        <%= attachment.attachment_data[:thumbnail_html].html_safe %>
+      <% elsif attachment.document?%>
+        <%= render "govuk_publishing_components/components/attachment/thumbnail_document" %>
+      <% elsif attachment.spreadsheet? %>
+        <%= render "govuk_publishing_components/components/attachment/thumbnail_spreadsheet" %>
+      <% else %>
+        <%= render "govuk_publishing_components/components/attachment/thumbnail_generic" %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: "gem-c-attachment__details" do %>
+    <%= content_tag(shared_helper.get_heading_level, class: "gem-c-attachment__title") do %>
+      <%= link_to attachment.title, attachment.url,
+                  class: "govuk-link gem-c-attachment__link",
+                  target: target,
+                  data: data_attributes %>
+    <% end %>
+
+    <% if attachment.reference.present? %>
+      <%= tag.p t("components.attachment.reference", reference: attachment.reference), class: "gem-c-attachment__metadata gem-c-attachment__metadata--compact" %>
+    <% end %>
+
+    <% if attachment.unnumbered_reference.present? %>
+      <%= tag.p attachment.unnumbered_reference, class: "gem-c-attachment__metadata gem-c-attachment__metadata--compact" %>
+    <% end %>
+
+    <% if attributes.any? %>
+      <%= tag.p raw(attributes.join(', ')), class: "gem-c-attachment__metadata" %>
+    <% end %>
+
+    <% if attachment.is_official_document && !hide_order_copy_link %>
+      <%= tag.p link_to(t("components.attachment.order_a_copy"), "https://www.gov.uk/guidance/how-to-buy-printed-copies-of-official-documents", class: "govuk-link govuk-link--no-visited-state", target: "_blank"),
+                class: "gem-c-attachment__metadata" %>
+    <% end %>
+
+    <% unless hide_opendocument_metadata %>
+      <% if attachment.opendocument? %>
+        <%= tag.p class: "gem-c-attachment__metadata" do %>
+          <%= t("components.attachment.opendocument_html", target: target) %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if false %>
+      <%= link_to "Request an accessible format of this document", "/contact/govuk/request-accessible-format?content_id=#{attachment.owning_document_content_id}&attachment_id=#{attachment.attachment_id}", class: "govuk-link" %>
+    <% elsif attachment.alternative_format_contact_email %>
+      <%= tag.p t("components.attachment.request_format_text"), class: "gem-c-attachment__metadata" %>
+      <%= render "govuk_publishing_components/components/details", {
+        title: t("components.attachment.request_format_cta")
+      } do %>
+        <%= t("components.attachment.request_format_details_html", alternative_format_contact_email: attachment.alternative_format_contact_email) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
