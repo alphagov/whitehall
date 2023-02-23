@@ -47,7 +47,7 @@ FeaturePresenter = Struct.new(:feature) do
 
   def public_path
     if topical_event
-      topical_event.public_path
+      topical_event.public_path(locale: I18n.default_locale)
     elsif offsite_link
       offsite_link.url
     elsif edition.translatable?
