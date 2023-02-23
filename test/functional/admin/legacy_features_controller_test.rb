@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::FeaturesControllerTest < ActionController::TestCase
+class Admin::LegacyFeaturesControllerTest < ActionController::TestCase
+  tests Admin::FeaturesController
+
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   test "get :new loads the given edition" do
