@@ -10,17 +10,17 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
 
   test "public_path returns the correct path" do
     object = create(:topical_event, slug: "foo", topical_event_about_page: create(:topical_event_about_page))
-    assert_equal "/government/topical-events/foo/about", object.topical_event_about_page.public_path
+    assert_equal "/government/topical-events/foo/about", object.topical_event_about_page.public_path(locale: :en)
   end
 
   test "public_path returns the correct path with options" do
     object = create(:topical_event, slug: "foo", topical_event_about_page: create(:topical_event_about_page))
-    assert_equal "/government/topical-events/foo/about?cachebust=123", object.topical_event_about_page.public_path(cachebust: "123")
+    assert_equal "/government/topical-events/foo/about?cachebust=123", object.topical_event_about_page.public_path({ cachebust: "123" }, locale: :en)
   end
 
   test "public_url returns the correct path with options" do
     object = create(:topical_event, slug: "foo", topical_event_about_page: create(:topical_event_about_page))
-    assert_equal "https://www.test.gov.uk/government/topical-events/foo/about?cachebust=123", object.topical_event_about_page.public_url(cachebust: "123")
+    assert_equal "https://www.test.gov.uk/government/topical-events/foo/about?cachebust=123", object.topical_event_about_page.public_url({ cachebust: "123" }, locale: :en)
   end
 
   should_not_accept_footnotes_in :body
