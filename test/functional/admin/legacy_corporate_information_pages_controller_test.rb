@@ -14,7 +14,7 @@ class Admin::LegacyCorporateInformationPagesControllerTest < ActionController::T
     get :index, params: { organisation_id: @organisation }
 
     assert_response :success
-    assert_template :index
+    assert_template :legacy_index
     assert_equal @organisation, assigns(:organisation)
     assert_equal [corporate_information_page], assigns(:filter).editions
     assert_equal "Corporate information pages", assigns(:filter).page_title
