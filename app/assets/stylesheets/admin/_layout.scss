@@ -1,0 +1,23 @@
+// These styles ensure that appropriate padding is added to the top of the page
+// to display the uncollapsed menu for users without javascript.
+$collapse-tabs-width: 710px;
+
+.legacy-whitehall .navbar-wrapper:after {
+  content: "";
+  display: block;
+  height: 400px;
+  margin-top: -20%;
+
+  @media (max-width: $collapse-tabs-width) {
+    height: 320px;
+  }
+
+  @media (min-width: $govuk-page-width) {
+    height: 150px;
+    margin-top: 0;
+  }
+}
+
+.js-enabled .legacy-whitehall .navbar-wrapper:after {
+  display: none;
+}
