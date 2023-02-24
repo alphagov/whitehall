@@ -7,6 +7,7 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
     params[:state] = "active" # Ensure that state column is displayed.
     paginator = @organisation.corporate_information_pages.where("state != ?", "superseded").order("corporate_information_page_type_id").page(1).per(100)
     @filter = FakeEditionFilter.new paginator, "Corporate information pages", false, true
+    render :legacy_index
   end
 
   def destroy

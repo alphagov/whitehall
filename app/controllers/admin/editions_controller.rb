@@ -46,7 +46,7 @@ class Admin::EditionsController < Admin::BaseController
     if filter && filter.valid?
       session[:document_filters] = params_filters
       if request.xhr?
-        render partial: "search_results"
+        render partial: "legacy_search_results"
       else
         render :index
       end

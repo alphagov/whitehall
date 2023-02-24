@@ -6,7 +6,7 @@
 
 <section class="organisation-details">
   <%= tab_navigation_for(@organisation) do %>
-    <%= render partial: 'search_results', locals: { show_export: false } %>
+    <%= render partial: 'legacy_search_results', locals: { show_export: false } %>
     <% if @organisation.unused_corporate_information_page_types.any? %>
       <div><%= link_to "New corporate information page", new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]), class: "btn btn-default" %></div>
     <% end %>
