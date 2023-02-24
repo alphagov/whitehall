@@ -1,0 +1,25 @@
+<%= link_to(edition.title, admin_edition_path(edition), title: "View document #{edition.title}", class: "govuk-link") %>
+
+<% if edition.non_english_edition? %>
+  (<%= edition.primary_locale %>)
+<% end %>
+
+<% if edition.unpublishing.present? %>
+  unpublished <%= time_ago_in_words(edition.unpublishing.created_at) %> ago
+<% end %>
+
+<% if edition.force_published? %>
+  <span class="govuk-!-margin-left-1 govuk-tag govuk-tag--s govuk-tag--red">not reviewed</span>
+<% end %>
+
+<% if edition.access_limited? %>
+  <span class="govuk-!-margin-left-1 govuk-tag govuk-tag--s govuk-tag--red">limited access</span>
+<% end %>
+
+<% if edition.link_check_reports.any? && edition.link_check_reports.last.completed? %>
+  <% if edition.link_check_reports.last.broken_links.any? %>
+    <span class="govuk-!-margin-left-1 govuk-tag govuk-tag--s govuk-tag--blue">has broken links</span>
+  <% elsif edition.link_check_reports.last.caution_links.any? %>
+    <span class="govuk-!-margin-left-1 govuk-tag govuk-tag--s govuk-tag--yellow">has link warnings</span>
+  <% end %>
+<% end %>

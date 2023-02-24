@@ -1,0 +1,60 @@
+<% content_for :page_title, @organisation.name %>
+<% content_for :title, @organisation.name %>
+<% content_for :title_margin_bottom, 2 %>
+
+<p class="govuk-body govuk-!-margin-bottom-8"><%= view_on_website_link_for @organisation, class: "govuk-link" %></p>
+
+<h2 class="govuk-heading-l">Corporate information pages</h2>
+
+<% if @organisation.unused_corporate_information_page_types.any? %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "New corporate information page",
+    href: new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]),
+    secondary_solid: true,
+    margin_bottom: 6,
+  } %>
+<% end %>
+
+<div class="app-view-corporate-information-index__pagination govuk-body">
+  <%= paginate @filter.editions, theme: 'twitter-bootstrap-3' %>
+</div>
+
+<p class="govuk-body"><%= @paginator.total_count %> documents</p>
+
+<% if @filter.editions.blank? %>
+  <p class="govuk-body">No documents found</p>
+<% else %>
+  <%= render "govuk_publishing_components/components/table", {
+    head: [
+      {
+        text: "Title"
+      },
+      {
+        text: "Updated by"
+      },
+      {
+        text: "Updated"
+      },
+      {
+        text: "State"
+      }
+    ],
+    rows:
+      @filter.editions.map do |edition|
+        [
+           {
+             text: render('title_row', edition: edition)
+           },
+           {
+             text: linked_author(edition.last_author, class: "govuk-link")
+           },
+           {
+             text: "#{time_ago_in_words edition.updated_at} ago",
+           },
+           {
+             text: admin_edition_state_text(edition),
+           }
+        ]
+      end
+  } %>
+<% end %>
