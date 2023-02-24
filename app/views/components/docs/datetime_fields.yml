@@ -84,3 +84,11 @@ examples:
       field_name: first_published_at
       data_attributes:
         tracking: GTM-123AB
+  with_date_only_option:
+    description: |
+      This is used to render the component to display only the date input fields.
+    data:
+      prefix: edition
+      field_name: first_published_at
+      date_heading: "An optional heading for the date fields"
+      date_only: true
