@@ -2,8 +2,7 @@ require "test_helper"
 
 class Admin::CorporateInformationPagesControllerTest < ActionController::TestCase
   setup do
-    login_as :writer
-    @current_user.permissions << "Preview design system"
+    login_as_preview_design_system_user :writer
     @organisation = create(:organisation)
   end
 
