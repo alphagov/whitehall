@@ -7,12 +7,13 @@
   track_category ||= nil
   track_label ||= nil
   select ||= {}
+  autocomplete_configuration_options ||= {}
 
   root_classes = %w(app-c-autocomplete govuk-form-group)
   root_classes << "govuk-form-group--error" if error_items.any?
 %>
 
-<%= tag.div class: root_classes, data: data_attributes.merge(module: "autocomplete") do %>
+<%= tag.div class: root_classes, data: data_attributes.merge(module: "autocomplete",autocomplete_configuration_options:) do %>
   <%= render "govuk_publishing_components/components/label", {
     html_for: id
   }.merge(label.symbolize_keys) %>

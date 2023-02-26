@@ -105,3 +105,24 @@ examples:
             - Published
           -
             - Removed
+
+  autocomplete_with_configuration_options:
+    data:
+      id: autocomplete-configuration-options
+      name: autocomplete-configuration-options
+      label:
+        text: Status
+      select:
+        multiple: true
+        options:
+          -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+      autocomplete_configuration_options:
+        showAllValues: true
