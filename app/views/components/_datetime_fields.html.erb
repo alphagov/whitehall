@@ -42,7 +42,7 @@
  minute_select_id = minute[:id] || "select-minute-#{SecureRandom.hex(4)}"
  minute_label_id = "minute-#{SecureRandom.hex(4)}"
 
- root_classes = %w[app-c-datetime-fields]
+ root_classes = %w[app-c-datetime-fields govuk-form-group]
  root_classes << "govuk-form-group--error" if error_items.present?
  data_attributes ||= {}
 %>
