@@ -17,14 +17,13 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
 
     assert_offsite_links_form(
       admin_world_location_news_offsite_links_path,
-      design_system: true,
     )
   end
 
   view_test "GET :edit should render existing offside links form" do
     get :edit, params: { world_location_news_id: @world_location_news.slug, id: @offsite_link.id }
 
-    assert_select "h2", text: "Edit the offsite link within ‘#{@world_location_news.name}’"
+    assert_select "h1", text: "Edit the offsite link within ‘#{@world_location_news.name}’"
 
     assert_offsite_links_form(
       admin_world_location_news_offsite_link_path(id: @offsite_link.id),
@@ -54,7 +53,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  def assert_offsite_links_form(path, design_system: false)
+  def assert_offsite_links_form(path)
     assert_select "form[action=?] div", path do
       assert_select "div input[id=offsite_link_title]"
       assert_select "div textarea[id=offsite_link_summary]"
@@ -62,7 +61,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
       (1..3).each { |n| assert_select "div select[id=offsite_link_date_#{n}i]" }
       assert_select "div input[id=offsite_link_url]"
 
-      assert_select design_system ? "button[type=submit]" : "input[type=submit]"
+      assert_select "button[type=submit]"
     end
   end
 end
