@@ -4,6 +4,11 @@
 
 <p class="govuk-body govuk-!-margin-bottom-8"><%= view_on_website_link_for @organisation, class: "govuk-link" %></p>
 
+<%= render "components/secondary_navigation", {
+  aria_label: "Document navigation tabs",
+  items: secondary_navigation_tabs_items(current_user, @organisation, request.path)
+} %>
+
 <h2 class="govuk-heading-l">Corporate information pages</h2>
 
 <% if @organisation.unused_corporate_information_page_types.any? %>
@@ -16,12 +21,6 @@
 <% end %>
 
 <%= paginate(@paginator, theme: "govuk_paginator") %>
-
-<p class="govuk-body"><%= @paginator.total_count %> documents</p>
-
-<div class="app-view-corporate-information-index__pagination govuk-body">
-  <%= paginate @filter.editions, theme: 'twitter-bootstrap-3' %>
-</div>
 
 <p class="govuk-body"><%= @paginator.total_count %> documents</p>
 

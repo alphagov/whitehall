@@ -38,6 +38,75 @@ module Admin::OrganisationHelper
     tabs
   end
 
+  def organisation_nav_items(organisation, current_path)
+    tabs = [
+      {
+        label: "Details",
+        href: admin_organisation_path(organisation),
+        current: current_path == admin_organisation_path(organisation),
+      },
+      {
+        label: "Contacts",
+        href: admin_organisation_contacts_path(organisation),
+        current: current_path == admin_organisation_contacts_path(organisation),
+      },
+    ]
+
+    if organisation.type.allowed_promotional?
+      tabs << {
+        label: "Promotional features",
+        href: admin_organisation_promotional_features_path(organisation),
+        current: current_path == admin_organisation_promotional_features_path(organisation),
+      }
+    end
+
+    tabs << {
+      label: "Features",
+      href: features_admin_organisation_path(organisation, locale: I18n.default_locale),
+      current: current_path == features_admin_organisation_path(organisation, locale: I18n.default_locale),
+    }
+
+    organisation.non_english_translated_locales.each do |locale|
+      tabs << {
+        label: "Features (#{locale.native_language_name})",
+        href: features_admin_organisation_path(organisation, locale: locale.code),
+        current: current_path == features_admin_organisation_path(organisation, locale: locale.code),
+      }
+    end
+
+    tabs << {
+      label: "Corporate information pages",
+      href: admin_organisation_corporate_information_pages_path(organisation),
+      current: current_path == admin_organisation_corporate_information_pages_path(organisation),
+    }
+
+    tabs << {
+      label: "Social media accounts",
+      href: admin_organisation_social_media_accounts_path(organisation),
+      current: current_path == admin_organisation_social_media_accounts_path(organisation),
+    }
+
+    tabs << {
+      label: "People",
+      href: people_admin_organisation_path(organisation),
+      current: current_path == people_admin_organisation_path(organisation),
+    }
+
+    tabs << {
+      label: "Translations",
+      href: admin_organisation_translations_path(organisation),
+      current: current_path == admin_organisation_translations_path(organisation),
+    }
+
+    tabs << {
+      label: "Financial Reports",
+      href: admin_organisation_financial_reports_path(organisation),
+      current: current_path == admin_organisation_financial_reports_path(organisation),
+    }
+
+    tabs
+  end
+
   def contact_shown_on_home_page_text(organisation, contact)
     if contact.foi?
       "Yes (in FOI section)"
