@@ -1,6 +1,7 @@
 module PublishingApi
   class HistoricalAccountPresenter
     NUMBER_OF_RELATED_LINKS = 5
+    CONTENT_ID_OF_GOVERNMENT_HISTORY_PAGE = "db95a864-874f-4f50-a483-352a5bc7ba18".freeze
 
     attr_accessor :historical_account, :update_type
 
@@ -40,10 +41,9 @@ module PublishingApi
 
     def links
       {
-        person: [
-          historical_account.person.content_id,
-        ],
+        person: [historical_account.person.content_id],
         ordered_related_items: related_pms,
+        parent: [CONTENT_ID_OF_GOVERNMENT_HISTORY_PAGE],
       }
     end
 
