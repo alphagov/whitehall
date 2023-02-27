@@ -206,4 +206,47 @@ module OrganisationHelper
     organisation.live? && (!organisation.court_or_hmcts_tribunal? ||
       organisation.corporate_information_pages.published.reject { |cip| cip.slug == "about" }.any?)
   end
+
+  def organisation_index_rows(user_organisation, organisations)
+    organisations = ([user_organisation] + organisations).compact
+
+    organisations.each_with_index.map do |organisation, index|
+      font_weight_bold = user_organisation && index.zero? ? "govuk-!-font-weight-bold" : nil
+
+      [
+        {
+          text: (if organisation.acronym.present?
+                   link_to(
+                     organisation.acronym,
+                     admin_organisation_path(organisation),
+                     class: "govuk-link #{font_weight_bold}".strip,
+                   )
+                 end) || "",
+        },
+        {
+          text: link_to(
+            organisation.name,
+            admin_organisation_path(organisation),
+            class: "govuk-link #{font_weight_bold}".strip,
+          ),
+        },
+        {
+          text: tag.p(
+            organisation.organisation_type.name,
+            class: "#{font_weight_bold} govuk-!-margin-bottom-0 govuk-!-margin-top-0".strip,
+          ),
+        },
+        {
+          text: tag.p(
+            organisation.govuk_status,
+            class: "#{font_weight_bold} govuk-!-margin-bottom-0 govuk-!-margin-top-0".strip,
+          ),
+        },
+        {
+          text: link_to("[gov.uk]", organisation.public_path, class: "govuk-link #{font_weight_bold}".strip) +
+            (link_to("[current site]", organisation.url, class: "govuk-link #{font_weight_bold}".strip) if organisation.govuk_status != "live"),
+        },
+      ]
+    end
+  end
 end
