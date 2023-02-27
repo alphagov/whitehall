@@ -1,3 +1,7 @@
+require_relative "../models/application_record"
+require_relative "../models/document_collection_non_whitehall_link"
+require_relative "../models/document_collection_non_whitehall_link/govuk_url"
+
 class DraftDocumentCollectionBuilder
   def initialize(base_path, assignee_email_address)
     @base_path = base_path
@@ -58,16 +62,35 @@ private
   def add_documents_to_group(group)
     specialist_topic_groups.each do |topic_group|
       next if topic_group[:name] != group.heading
-      next if whitehall_document(content_id).blank?
 
       topic_group[:content_ids].each.with_index do |content_id, i|
-        DocumentCollectionGroupMembership.create!(
-          document_id: whitehall_document(content_id).id,
-          document_collection_group_id: group.id,
-          ordering: i,
-        )
+        if whitehall_document(content_id).present?
+          DocumentCollectionGroupMembership.create!(
+            document_id: whitehall_document(content_id).id,
+            document_collection_group_id: group.id,
+            ordering: i,
+          )
+        else
+          build_non_whitehall_link(group, content_id)
+        end
       end
     end
+  end
+
+  def build_non_whitehall_link(group, content_id)
+    # only govuk pages can be tagged to a specialist topic. So we can safely
+    # assume that any non-whitehall links present in a specialist topic will
+    # be internal URLs.
+
+    base_path = content_item(content_id)[:base_path]
+    link = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk#{base_path}",
+      document_collection_group: group,
+    )
+    # rubocop:disable Rails/SaveBang
+    link.save
+    # rubocop:enable Rails/SaveBang
+    raise link.errors.messages.to_s if link.errors.any?
   end
 
   def whitehall_document(content_id)

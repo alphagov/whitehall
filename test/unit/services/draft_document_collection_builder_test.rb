@@ -5,12 +5,14 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     create(:user, email: assignee_email_address)
     create(:organisation, name: "Government Digital Service")
 
-    # stub specialist topic
-    stub_publishing_api_has_lookups({ specialist_topic_base_path => specialist_topic_content_id })
-    stub_publishing_api_has_item(specialist_topic_content_item)
+    stub_publishing_api_has_lookups({
+      specialist_topic_base_path => specialist_topic_content_id,
+      "/i-am-not-a-whitehall-document" => non_whitehall_document_content_id,
+    })
 
-    # stub documents in specialist topic groups
+    stub_publishing_api_has_item(specialist_topic_content_item)
     stub_publishing_api_has_item(whitehall_document_content_item)
+    stub_publishing_api_has_item(non_whitehall_document_content_item)
 
     create(:document, content_id: whitehall_document_content_id, document_type: "detailed_guide")
   end
@@ -35,6 +37,11 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     # documents that already exist in the whitehall database
     whitehall_document_member = document_collection_group_memberships.first
     assert_equal whitehall_document_member.document.content_id, whitehall_document_content_id
+
+    # documents not published by whitehall
+    non_whitehall_document_member = document_collection_group_memberships.second
+    non_whitehall_link = DocumentCollectionNonWhitehallLink.find_by(base_path: non_whitehall_document_content_item[:base_path])
+    assert_equal non_whitehall_document_member.non_whitehall_link_id, non_whitehall_link.id
   end
 
   def assignee_email_address
@@ -61,12 +68,24 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     "aed2cee3-7ca8-4f00-ab17-9193fff516ae"
   end
 
+  def non_whitehall_document_content_id
+    "0e1de8f1-9909-4e45-a6a3-bffe95470275"
+  end
+
   def whitehall_document_content_item
     { "title": "I am a whitehall document",
       "base_path": "/guidance/i-am-a-whitehall-document",
       "content_id": whitehall_document_content_id,
       "document_type": "detailed_guide",
       "publishing_app": "whitehall" }
+  end
+
+  def non_whitehall_document_content_item
+    { "title": "I am not a whitehall document",
+      "base_path": "/i-am-not-a-whitehall-document",
+      "content_id": non_whitehall_document_content_id,
+      "document_type": "guide",
+      "publishing_app": "publisher" }
   end
 
   def specialist_topic_content_item
@@ -92,6 +111,12 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
             "name": "How to claim",
             "content_ids": [
               whitehall_document_content_id,
+            ],
+          },
+          {
+            "name": "Payments",
+            "content_ids": [
+              non_whitehall_document_content_id,
             ],
           },
         ],
