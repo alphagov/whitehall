@@ -136,8 +136,14 @@ end
 
 Then(/^I should be able to see "([^"]*)" in the list of organisations$/) do |organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
-  within record_css_selector(organisation) do
-    expect(page).to have_content(organisation_name)
+  if using_design_system?
+    within ".govuk-table" do
+      expect(page).to have_content(organisation_name)
+    end
+  else
+    within record_css_selector(organisation) do
+      expect(page).to have_content(organisation_name)
+    end
   end
 end
 

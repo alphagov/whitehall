@@ -1,33 +1,39 @@
-<% page_title "Organisations" %>
-<h1>Organisations</h1>
-
+<% content_for :page_title, "Organisations" %>
+<% content_for :title, "Organisations" %>
 <% if can?(:create, Organisation) %>
-  <%= link_to "Create organisation", new_admin_organisation_path, class: "btn btn-default new_resource add-top-margin", title: "Create an organisation" %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Create organisation",
+    href: new_admin_organisation_path,
+    secondary_solid: true,
+    margin_bottom: 6
+  } %>
 <% end %>
 
-<table class="organisations table table-striped table-bordered add-top-margin">
-  <thead>
-    <tr class="table-header">
-      <th width="10%">Acronym</th>
-      <th width="30%">Name</th>
-      <th width="30%">Type</th>
-      <th width="15%">Status</th>
-      <th width="15%">Link</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if @user_organisation %>
-      <%= render partial: 'organisation_row',
-                locals: { organisation: @user_organisation, prefix: 'user' } %>
-    <% end %>
-    <% @organisations.each do |organisation| %>
-      <%= render partial: 'organisation_row',
-                locals: { organisation: organisation } %>
-    <% end %>
-    <% if @organisations.empty? %>
-      <tr>
-        <td colspan="3">No organisation have been created.</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if @organisations.present? %>
+  <div class="app-view-organisation-index__table">
+    <%= render "govuk_publishing_components/components/table", {
+      filterable: true,
+      label: "Filter organisations",
+      head: [
+        {
+          text: "Acronym"
+        },
+        {
+          text: "Name",
+        },
+        {
+          text: "Type",
+        },
+        {
+          text: "Status",
+        },
+        {
+          text: "Link",
+        }
+      ],
+      rows: organisation_index_rows(@user_organisation, @organisations)
+    } %>
+  </div>
+<% else %>
+  <p class="govuk-body">No organisation have been created.</p>
+<% end %>
