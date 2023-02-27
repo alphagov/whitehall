@@ -20,13 +20,15 @@ class Admin::OffsiteLinksController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    render_design_system(:edit, :legacy_edit, next_release: false)
+  end
 
   def update
     if @offsite_link.update(offsite_link_params)
       redirect_to offsite_link_path(@offsite_link)
     else
-      render :edit
+      render_design_system(:edit, :legacy_edit, next_release: false)
     end
   end
 
@@ -39,10 +41,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[new create] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"
