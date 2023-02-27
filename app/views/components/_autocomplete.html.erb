@@ -3,17 +3,22 @@
   error_id = "error-#{SecureRandom.hex(4)}"
   error_items ||= []
   aria = error_id if error_items.any?
-  data_attributes ||= {}
   track_category ||= nil
   track_label ||= nil
   select ||= {}
   autocomplete_configuration_options ||= {}
 
+  data_attributes ||= {}
+  data_attributes[:module] ||= ""
+  data_attributes[:module] << " autocomplete"
+  data_attributes[:module].strip!
+  data_attributes.merge!(autocomplete_configuration_options:)
+
   root_classes = %w(app-c-autocomplete govuk-form-group)
   root_classes << "govuk-form-group--error" if error_items.any?
 %>
 
-<%= tag.div class: root_classes, data: data_attributes.merge(module: "autocomplete",autocomplete_configuration_options:) do %>
+<%= tag.div class: root_classes, data: data_attributes do %>
   <%= render "govuk_publishing_components/components/label", {
     html_for: id
   }.merge(label.symbolize_keys) %>
