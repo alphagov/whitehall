@@ -8,11 +8,13 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     stub_publishing_api_has_lookups({
       specialist_topic_base_path => specialist_topic_content_id,
       "/i-am-not-a-whitehall-document" => non_whitehall_document_content_id,
+      "/government/collections/i_am_document_collection" => document_collection_content_id,
     })
 
     stub_publishing_api_has_item(specialist_topic_content_item)
     stub_publishing_api_has_item(whitehall_document_content_item)
     stub_publishing_api_has_item(non_whitehall_document_content_item)
+    stub_publishing_api_has_item(document_collection_content_item)
 
     create(:document, content_id: whitehall_document_content_id, document_type: "detailed_guide")
   end
@@ -42,6 +44,11 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     non_whitehall_document_member = document_collection_group_memberships.second
     non_whitehall_link = DocumentCollectionNonWhitehallLink.find_by(base_path: non_whitehall_document_content_item[:base_path])
     assert_equal non_whitehall_document_member.non_whitehall_link_id, non_whitehall_link.id
+
+    # document collections published by whitehall
+    document_collection_member = document_collection_group_memberships.third
+    document_collection_link = DocumentCollectionNonWhitehallLink.find_by(base_path: document_collection_content_item[:base_path])
+    assert_equal document_collection_member.non_whitehall_link_id, document_collection_link.id
   end
 
   def assignee_email_address
@@ -72,6 +79,10 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     "0e1de8f1-9909-4e45-a6a3-bffe95470275"
   end
 
+  def document_collection_content_id
+    "10e436e5-26e0-4462-913f-9a497f7e793e"
+  end
+
   def whitehall_document_content_item
     { "title": "I am a whitehall document",
       "base_path": "/guidance/i-am-a-whitehall-document",
@@ -86,6 +97,14 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
       "content_id": non_whitehall_document_content_id,
       "document_type": "guide",
       "publishing_app": "publisher" }
+  end
+
+  def document_collection_content_item
+    { "title": "I am a document collection",
+      "base_path": "/government/collections/i_am_document_collection",
+      "content_id": document_collection_content_id,
+      "document_type": "document_collection",
+      "publishing_app": "whitehall" }
   end
 
   def specialist_topic_content_item
@@ -117,6 +136,12 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
             "name": "Payments",
             "content_ids": [
               non_whitehall_document_content_id,
+            ],
+          },
+          {
+            "name": "Report changes",
+            "content_ids": [
+              document_collection_content_id,
             ],
           },
         ],

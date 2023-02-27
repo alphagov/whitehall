@@ -64,9 +64,9 @@ private
       next if topic_group[:name] != group.heading
 
       topic_group[:content_ids].each.with_index do |content_id, i|
-        if whitehall_document(content_id).present?
+        if permissable_whitehall_document(content_id).present?
           DocumentCollectionGroupMembership.create!(
-            document_id: whitehall_document(content_id).id,
+            document_id: permissable_whitehall_document(content_id).id,
             document_collection_group_id: group.id,
             ordering: i,
           )
@@ -93,7 +93,9 @@ private
     raise link.errors.messages.to_s if link.errors.any?
   end
 
-  def whitehall_document(content_id)
+  def permissable_whitehall_document(content_id)
+    return if content_item(content_id)[:document_type] == "document_collection"
+
     Document.find_by(content_id:)
   end
 
