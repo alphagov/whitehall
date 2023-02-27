@@ -11,6 +11,7 @@
     name: "image[image_data][file]",
     id: "edition_images_image_data_file",
     hint: "Images can be JPEG, PNG, SVG or GIF files.",
+    error_items: @new_image.present? ? errors_for(@new_image.errors, :"image_data.file") : nil,
   } %>
 
    <%= render "govuk_publishing_components/components/details", {

@@ -78,6 +78,14 @@ And(/^I click the "Save and continue" button on the preview page$/) do
   click_on "Save and continue"
 end
 
+And(/^I click upload without attaching a file$/) do
+  click_on "Upload"
+end
+
 Then(/^the publication "(.*?)" should have (\d+) image attachments?$/) do |title, expected_number_of_images|
   expect(expected_number_of_images.to_i).to eq(Edition.find_by(title:).images.count)
+end
+
+Then(/^I should get the error message "(.*?)"$/) do |error_message|
+  expect(page).to have_content(error_message)
 end
