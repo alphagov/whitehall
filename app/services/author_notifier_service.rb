@@ -35,6 +35,6 @@ class AuthorNotifierService
   end
 
   def public_document_url
-    edition.public_url
+    edition.public_url(locale: I18n.default_locale)
   end
 end

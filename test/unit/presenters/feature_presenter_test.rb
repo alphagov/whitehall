@@ -39,7 +39,7 @@ class FeaturePresenterTest < PresenterTestCase
     f.stubs(:locale).returns("ar")
     fp = FeaturePresenter.new(f)
 
-    assert_equal p.public_path, fp.public_path
+    assert_equal p.public_path(locale: :en), fp.public_path
   end
 
   test "#public_path respects the locale of the feature when generating localized edition links" do
@@ -64,7 +64,7 @@ class FeaturePresenterTest < PresenterTestCase
     fp = FeaturePresenter.new(f)
 
     ::I18n.with_locale "fr" do
-      assert_equal p.public_path, fp.public_path
+      assert_equal p.public_path(locale: :en), fp.public_path
       assert_no_match(/locale=fr/, fp.public_path)
       assert_no_match(/\.fr/, fp.public_path)
     end

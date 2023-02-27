@@ -1,29 +1,29 @@
 module PublicDocumentRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
-  def document_path(edition, options = {})
-    options = locale_options(edition, options)
-    edition.public_path(options)
+  def document_path(edition, options = {}, locale: nil)
+    if options[:locale]
+      throw new RuntimeError("passed through locale in #{options}")
+    end
+
+    edition.public_path(options, locale: locale(edition, locale:))
   end
 
-  def public_document_path(edition, options = {})
-    document_path(edition, options)
+  def public_document_path(edition, options = {}, locale: nil)
+    document_path(edition, options, locale:)
   end
 
-  def document_url(edition, options = {}, _builder_options = {})
+  def document_url(edition, options = {}, _builder_options = {}, locale: nil)
     return edition.url if edition.is_a?(RummagerDocumentPresenter)
 
-    options = locale_options(edition, options)
-
-    edition.public_url(options)
+    edition.public_url(options, locale: locale(edition, locale:))
   end
 
-  def public_document_url(edition, options = {})
-    options = locale_options(edition, options)
-    edition.public_url(options)
+  def public_document_url(edition, options = {}, locale: nil)
+    edition.public_url(options, locale: locale(edition, locale:))
   end
 
-  def preview_document_url(edition, options = {})
+  def preview_document_url(edition, options = {}, locale:)
     if edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
       options[:draft] = true
     else
@@ -31,7 +31,7 @@ module PublicDocumentRoutesHelper
       options[:cachebust] = Time.zone.now.getutc.to_i
     end
 
-    document_url(edition, options)
+    document_url(edition, options, locale:)
   end
 
   def preview_document_url_with_auth_bypass_token(edition)
@@ -41,21 +41,19 @@ module PublicDocumentRoutesHelper
       utm_medium: :preview,
       utm_campaign: :govuk_publishing,
     }.to_query
-    "#{preview_document_url(edition)}?#{params}"
+    "#{preview_document_url(edition, locale: I18n.default_locale)}?#{params}"
   end
 
 private
 
-  def locale_options(edition, options)
+  def locale(edition, locale:)
     if edition.non_english_edition?
-      options[:locale] = edition.primary_locale
+      edition.primary_locale
     elsif edition.translatable?
-      options[:locale] ||= best_locale_for_edition(edition)
+      locale || best_locale_for_edition(edition)
     else
-      options.delete(:locale)
+      I18n.default_locale
     end
-
-    options
   end
 
   def best_locale_for_edition(edition)

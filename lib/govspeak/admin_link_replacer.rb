@@ -21,7 +21,7 @@ module Govspeak
       edition = Whitehall::AdminLinkLookup.find_edition(anchor["href"])
 
       if edition.present? && edition.linkable?
-        public_url = edition.public_url
+        public_url = edition.public_url(locale: I18n.default_locale)
         new_html = convert_link(anchor, public_url)
       else
         new_html = anchor.inner_text

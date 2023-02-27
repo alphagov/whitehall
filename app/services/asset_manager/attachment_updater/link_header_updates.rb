@@ -3,7 +3,7 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdates
     visible_edition = attachment_data.visible_edition_for(nil)
     return [] if visible_edition.blank?
 
-    parent_document_url = visible_edition.public_url
+    parent_document_url = visible_edition.public_url(locale: I18n.default_locale)
 
     Enumerator.new do |enum|
       enum.yield AssetManager::AttachmentUpdater::Update.new(

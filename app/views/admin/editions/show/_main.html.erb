@@ -41,7 +41,7 @@
       } %>
       <p class="govuk-body">
         <%= link_to("Preview on website #{"- English" if @edition.translatable? && @edition.available_in_multiple_languages?} (opens in new tab)".strip,
-        preview_document_url(@edition),
+        preview_document_url(@edition, locale: I18n.default_locale),
         class: "govuk-link",
         target: "_blank",
         data: {

@@ -55,7 +55,7 @@
                         <% if fatality_notice.fatality_notice_casualties.any? %>
                           <% fatality_notice.fatality_notice_casualties.each do |casualty| %>
                             <%= content_tag_for :li, casualty, class: 'govuk-list--bullet' do %>
-                              <%= link_to casualty.personal_details, public_document_url(fatality_notice), class: "govuk-link" %>
+                              <%= link_to casualty.personal_details, public_document_url(fatality_notice, locale: I18n.default_locale), class: "govuk-link" %>
                             <% end %>
                           <% end %>
                         <% else %>

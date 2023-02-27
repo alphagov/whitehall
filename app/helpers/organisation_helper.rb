@@ -243,7 +243,7 @@ module OrganisationHelper
           ),
         },
         {
-          text: link_to("[gov.uk]", organisation.public_path, class: "govuk-link #{font_weight_bold}".strip) +
+          text: link_to("[gov.uk]", organisation.public_path(locale: I18n.default_locale), class: "govuk-link #{font_weight_bold}".strip) +
             (link_to("[current site]", organisation.url, class: "govuk-link #{font_weight_bold}".strip) if organisation.govuk_status != "live"),
         },
       ]

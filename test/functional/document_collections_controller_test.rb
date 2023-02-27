@@ -7,6 +7,6 @@ class DocumentCollectionControllerRedirectsTest < ActionDispatch::IntegrationTes
     get "/government/organisations/ministry-of-defence/series/firing-notice"
 
     assert response.redirect?
-    assert response.location = document_collection.public_url
+    assert response.location = document_collection.public_url(locale: :en)
   end
 end

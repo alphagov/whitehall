@@ -53,7 +53,7 @@ class LinkCheckerApiServiceTest < ActiveSupport::TestCase
 
   test "converts a Whitehall admin URL to its public URL" do
     speech = create(:published_speech)
-    expected_url = speech.public_url
+    expected_url = speech.public_url(locale: :en)
 
     edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
 
@@ -68,7 +68,7 @@ class LinkCheckerApiServiceTest < ActiveSupport::TestCase
 
   test "doesn't check the links of unpublished Whitehall admin URLs" do
     speech = create(:draft_speech)
-    expected_url = speech.public_url
+    expected_url = speech.public_url(locale: :en)
 
     edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
 

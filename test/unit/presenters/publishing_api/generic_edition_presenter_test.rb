@@ -18,7 +18,7 @@ module PublishingApi
         secondary_specialist_sector_tags: ["oil-and-gas/licensing"],
       )
 
-      public_path = edition.public_path
+      public_path = edition.public_path(locale: :en)
 
       expected_hash = {
         base_path: public_path,

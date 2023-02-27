@@ -102,7 +102,7 @@ module CssSelectors
   end
 
   def link_to_preview_version_selector(document)
-    "a[href='#{preview_document_url(document)}']"
+    "a[href='#{preview_document_url(document, locale: I18n.default_locale)}']"
   end
 
   def policy_group_selector

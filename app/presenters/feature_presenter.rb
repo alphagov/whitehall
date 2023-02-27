@@ -54,7 +54,7 @@ FeaturePresenter = Struct.new(:feature) do
       edition.public_path(locale: feature.locale)
     else
       ::I18n.with_locale ENGLISH_LOCALE_CODE do
-        edition.public_path
+        edition.public_path(locale: I18n.locale)
       end
     end
   end

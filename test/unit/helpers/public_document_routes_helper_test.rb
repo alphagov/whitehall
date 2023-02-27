@@ -3,39 +3,39 @@ require "test_helper"
 class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   test "uses the document to generate the route" do
     publication = create(:publication)
-    assert_equal publication.public_path, public_document_path(publication)
+    assert_equal publication.public_path(locale: :en), public_document_path(publication)
   end
 
   test "respects additional path options" do
     publication = create(:publication)
-    assert_equal publication.public_path(anchor: "additional"), public_document_path(publication, anchor: "additional")
+    assert_equal publication.public_path({ anchor: "additional" }, locale: :en), public_document_path(publication, { anchor: "additional" })
   end
 
   test "returns the public_path for Publication instances" do
     publication = create(:publication)
-    assert_equal publication.public_path, public_document_path(publication)
+    assert_equal publication.public_path(locale: :en), public_document_path(publication)
   end
 
   test "returns the public_path for NewsArticle instances" do
     news_article = create(:news_article)
-    assert_equal news_article.public_path, public_document_path(news_article)
+    assert_equal news_article.public_path(locale: :en), public_document_path(news_article)
   end
 
   test "returns the public_path for Publications which are Statistics or NationalStatistics" do
     statistics = create(:publication, :statistics)
-    assert_equal statistics.public_path, public_document_path(statistics)
+    assert_equal statistics.public_path(locale: :en), public_document_path(statistics)
     national_statistics = create(:publication, :national_statistics)
-    assert_equal national_statistics.public_path, public_document_path(national_statistics)
+    assert_equal national_statistics.public_path(locale: :en), public_document_path(national_statistics)
   end
 
   test "returns the public_path for Speech instances" do
     speech = create(:speech)
-    assert_equal speech.public_path, public_document_path(speech)
+    assert_equal speech.public_path(locale: :en), public_document_path(speech)
   end
 
   test "returns the public_path for Consultation instances" do
     consultation = create(:consultation)
-    assert_equal consultation.public_path, public_document_path(consultation)
+    assert_equal consultation.public_path(locale: :en), public_document_path(consultation)
   end
 
   test "returns the statistical_data_set_path for StatisticalDataSet instances" do
@@ -101,7 +101,7 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   test "When in a foreign locale, it generates a route to the english version if no foreign version is available" do
     publication = create(:publication)
     I18n.with_locale(:fr) do
-      assert_equal publication.public_url, public_document_url(publication)
+      assert_equal publication.public_url(locale: :en), public_document_url(publication)
     end
   end
 
@@ -119,13 +119,13 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
 
   test "Creates a preview URL with cachebust and edition parameters" do
     edition = create(:corporate_information_page)
-    preview_url = preview_document_url(edition)
+    preview_url = preview_document_url(edition, locale: :en)
     assert_equal "https://draft-origin.test.gov.uk/government/organisations/#{edition.organisation.slug}/about/publication-scheme", preview_url
   end
 
   test "Creates a preview URL without parameters for edition formats that have migrated" do
     edition = create(:draft_case_study)
-    preview_url = preview_document_url(edition)
+    preview_url = preview_document_url(edition, locale: :en)
     assert_equal "https://draft-origin.test.gov.uk/government/case-studies/#{edition.slug}", preview_url
   end
 

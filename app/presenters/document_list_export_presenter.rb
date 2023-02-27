@@ -36,7 +36,7 @@ class DocumentListExportPresenter
 
   def row_data
     [
-      public_url,
+      edition.public_url(locale: I18n.default_locale),
       admin_url,
       edition.title,
       lead_organisations,
@@ -58,8 +58,6 @@ class DocumentListExportPresenter
       edition.summary,
     ]
   end
-
-  delegate :public_url, to: :edition
 
   def admin_url
     Whitehall.url_maker.admin_edition_url(edition)

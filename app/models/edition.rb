@@ -693,15 +693,13 @@ EXISTS (
     "/government/generic-editions/#{url_slug}"
   end
 
-  def public_path(options = {})
+  def public_path(options = {}, locale:)
     return if base_path.nil?
-
-    locale = options[:locale] || "en"
 
     append_url_options(base_path, options, locale:)
   end
 
-  def public_url(options = {})
+  def public_url(options = {}, locale:)
     return if base_path.nil?
 
     website_root = if options[:draft]
@@ -710,7 +708,7 @@ EXISTS (
                      Plek.website_root
                    end
 
-    website_root + public_path(options)
+    website_root + public_path(options, locale:)
   end
 
 private

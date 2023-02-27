@@ -9,7 +9,7 @@ class AssetManager::AttachmentUpdater::RedirectUrlUpdatesTest < ActiveSupport::T
     let(:updater) { AssetManager::AttachmentUpdater }
     let(:attachment_data) { attachment.attachment_data }
     let(:unpublished_edition) { FactoryBot.create(:unpublished_edition) }
-    let(:redirect_url) { unpublished_edition.public_url }
+    let(:redirect_url) { unpublished_edition.public_url(locale: :en) }
     let(:unpublished) { true }
     let(:update_worker) { mock("asset-manager-update-asset-worker") }
 

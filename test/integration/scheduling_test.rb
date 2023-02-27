@@ -18,7 +18,7 @@ class SchedulingTest < ActiveSupport::TestCase
 
   test "scheduling a first-edition publishes a publish intent" do
     Sidekiq::Testing.inline! do
-      path = @submitted_edition.public_path
+      path = @submitted_edition.public_path(locale: :en)
       schedule(@submitted_edition)
       assert_publishing_api_put_intent(
         path,
@@ -44,7 +44,7 @@ class SchedulingTest < ActiveSupport::TestCase
         user = create(:user)
       end
 
-      path = new_draft.public_path
+      path = new_draft.public_path(locale: :en)
 
       acting_as(user) { schedule(new_draft) }
 
@@ -60,7 +60,7 @@ class SchedulingTest < ActiveSupport::TestCase
         @submitted_edition.save!
       end
 
-      english_path = @submitted_edition.public_path
+      english_path = @submitted_edition.public_path(locale: :en)
       french_path  = @submitted_edition.public_path(locale: :fr)
       publish_time = @submitted_edition.scheduled_publication.as_json
 
@@ -77,7 +77,7 @@ class SchedulingTest < ActiveSupport::TestCase
       SecureRandom.stubs(uuid: gone_uuid)
       scheduled_edition = create(:scheduled_case_study)
       unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
-      base_path         = scheduled_edition.public_path
+      base_path         = scheduled_edition.public_path(locale: :en)
 
       destroy_intent_request = stub_publishing_api_destroy_intent(base_path)
       unscheduler.perform!
@@ -92,7 +92,7 @@ class SchedulingTest < ActiveSupport::TestCase
       scheduled_edition = create(:scheduled_case_study, document: published_edition.document)
 
       unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
-      base_path         = scheduled_edition.public_path
+      base_path         = scheduled_edition.public_path(locale: :en)
 
       destroy_intent_request = stub_publishing_api_destroy_intent(base_path)
 

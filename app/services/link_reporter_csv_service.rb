@@ -54,7 +54,7 @@ private
   end
 
   def public_url(edition)
-    edition.public_url(host: public_host, protocol: "https")
+    edition.public_url({ host: public_host, protocol: "https" }, locale: I18n.default_locale)
   end
 
   def admin_url(edition)

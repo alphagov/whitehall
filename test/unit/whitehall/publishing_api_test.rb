@@ -199,7 +199,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       edition.save!
     end
 
-    english_path = edition.public_path
+    english_path = edition.public_path(locale: :en)
     french_path  = edition.public_path(locale: :fr)
 
     Whitehall::PublishingApi.schedule_async(edition)
@@ -224,7 +224,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       updated_edition.save!
     end
 
-    english_path = updated_edition.public_path
+    english_path = updated_edition.public_path(locale: :en)
     spanish_path = updated_edition.public_path(locale: :es)
 
     Whitehall::PublishingApi.schedule_async(updated_edition)
@@ -247,7 +247,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       edition.save!(validate: false)
     end
 
-    english_path = edition.public_path
+    english_path = edition.public_path(locale: :en)
     german_path = edition.public_path(locale: :de)
 
     Whitehall::PublishingApi.unschedule_async(edition)
@@ -265,7 +265,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       updated_edition.save!(validate: false)
     end
 
-    english_path = updated_edition.public_path
+    english_path = updated_edition.public_path(locale: :en)
     german_path = updated_edition.public_path(locale: :de)
 
     Whitehall::PublishingApi.unschedule_async(updated_edition)
