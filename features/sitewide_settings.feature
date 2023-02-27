@@ -20,3 +20,9 @@ Feature: Sitewide settings
     Given we are not during a reshuffle
     When I visit the ministers page
     Then I should not see a reshuffle warning message
+
+  Scenario: There are no sitewide settings available to edit
+    Given that there no sidewide settings available to edit
+    And I am an admin
+    When I visit the sitewide settings page
+    Then I should see an empty status message

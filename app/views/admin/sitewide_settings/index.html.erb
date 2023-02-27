@@ -1,28 +1,33 @@
-<% page_title "Sitewide settings" %>
+<% content_for :page_title, "Sitewide settings" %>
+<% content_for :title, "Sitewide settings" %>
 
-<h1>Sitewide settings</h1>
+<% unless @sitewide_settings.present? %>
+  <p class="govuk-body">No sitewide settings available to configure.</p>
+<% end %>
 
-<table class="table table-bordered table-striped add-top-margin">
-  <thead>
-    <tr class="table-header">
-      <th>Name</th>
-      <th>On/Off</th>
-      <th>Edit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @sitewide_settings.each do |sitewide_setting| %>
-      <%= content_tag_for(:tr, sitewide_setting) do %>
-        <td>
-          <%= link_to sitewide_setting.name, edit_admin_sitewide_setting_path(sitewide_setting), title: "View #{sitewide_setting.name}" %><br/>
-        </td>
-        <td>
-          <%= sitewide_setting.human_status %>
-        </td>
-        <td>
-          <%= link_to icon("Edit"), edit_admin_sitewide_setting_path(sitewide_setting), title: "Edit #{sitewide_setting.name}", class: "btn btn-sm btn-default" %>
-        </td>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%= render "govuk_publishing_components/components/table", {
+  head: [
+    {
+      text: "Name"
+    },
+    {
+      text: "On/Off"
+    },
+    {
+      text: "Edit"
+    }
+  ],
+  rows: @sitewide_settings.map do |sitewide_setting|
+    [
+      {
+        text: link_to(sitewide_setting.name, edit_admin_sitewide_setting_path(sitewide_setting), title: "View #{sitewide_setting.name}", class: "govuk-link")
+      },
+      {
+        text: sitewide_setting.human_status
+      },
+      {
+        text: link_to("Edit", edit_admin_sitewide_setting_path(sitewide_setting), title: "Edit #{sitewide_setting.name}", class: "govuk-link")
+      },
+    ]
+  end
+} if @sitewide_settings.present? %>

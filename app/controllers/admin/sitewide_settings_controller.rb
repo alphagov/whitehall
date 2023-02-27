@@ -1,5 +1,6 @@
 class Admin::SitewideSettingsController < Admin::BaseController
   before_action :enforce_permissions!
+  layout :get_layout
 
   def enforce_permissions!
     enforce_permission!(:administer, :sitewide_settings_section)
@@ -7,6 +8,8 @@ class Admin::SitewideSettingsController < Admin::BaseController
 
   def index
     @sitewide_settings = SitewideSetting.all
+
+    render_design_system("index", "index_legacy", next_release: false)
   end
 
   def edit
@@ -23,6 +26,15 @@ class Admin::SitewideSettingsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = %w[index]
+    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def sitewide_settings_params
     params.require(:sitewide_setting).permit(:on, :govspeak)

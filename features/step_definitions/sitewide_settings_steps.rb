@@ -9,11 +9,19 @@ Given(/^we are (not )?during a reshuffle$/) do |negate|
   end
 end
 
+Given(/^that there no sidewide settings available to edit$/) do
+  SitewideSetting.delete_all
+end
+
 When(/^I visit the How Government Works page$/) do
   pm_person = create(:person, forename: "Firstname", surname: "Lastname")
   pm_role = create(:ministerial_role_without_organisation, name: "Prime Minister", cabinet_member: true)
   create(:ministerial_role_appointment, role: pm_role, person: pm_person)
   visit "/government/how-government-works"
+end
+
+When(/^I visit the sitewide settings page$/) do
+  visit admin_sitewide_settings_path
 end
 
 Then(/^I should see the minister counts$/) do
@@ -36,4 +44,8 @@ Then(/^I should not see the ministers and cabinet$/) do
   expect(page).to_not have_selector("h2", text: "Cabinet ministers")
   expect(page).to_not have_selector("h2", text: "Also attends Cabinet")
   expect(page).to_not have_selector("h2", text: "Ministers by department")
+end
+
+Then(/^I should see an empty status message$/) do
+  expect(page).to_not have_selector("p", text: "No sitewide settings available to configure.")
 end
