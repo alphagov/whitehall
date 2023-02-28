@@ -24,7 +24,9 @@ class Admin::OrganisationsController < Admin::BaseController
     end
   end
 
-  def show; end
+  def show
+    render_design_system(:show, :legacy_show, next_release: false)
+  end
 
   def people
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role)
@@ -86,7 +88,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

@@ -118,7 +118,7 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: organisation }
 
     assert_response :success
-    assert_template :show
+    assert_template :legacy_show
   end
 
   test "GET on :edit loads the organisation and renders the edit template" do
