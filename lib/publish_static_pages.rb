@@ -56,6 +56,14 @@ class PublishStaticPages
         document_type: "finder",
         description: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
       },
+      {
+        content_id: "aba937eb-51df-4c8a-8884-81137fd99df0",
+        title: "MHRA email alerts",
+        base_path: "/government/organisations/medicines-and-healthcare-products-regulatory-agency/email-signup",
+        document_type: "special_route",
+        description: "Email alerts from the MHRA (Medicines and Healthcare products Regulatory Agency).",
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+      },
     ]
   end
 
