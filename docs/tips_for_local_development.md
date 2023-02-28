@@ -18,3 +18,14 @@ BUNDLE_BUILD__MYSQL2: "--with-opt-dir=/opt/homebrew/opt/openssl@3 --with-ldflags
 1. `bundle install` should now succeed.
 
 **Note:** this assumes you’re on an M1 Mac, where `brew --prefix` is `/opt/homebrew`. The paths will be different on Intel Macs, but hopefully the logic is the same.
+
+## Running an individual test file
+
+```
+govuk-docker-run bundle exec rake test TEST=path/to/test/file
+```
+
+```
+govuk-docker-run cucumber path/to/cucumber/test
+```
+
