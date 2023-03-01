@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for [:admin, @parent, @offsite_link], builder: Whitehall::FormBuilder do |form| %>
+      <div class="well">
+        <%= form.errors %>
+        <%= form.text_field :title, label_text: "Title", required: true %>
+        <%= form.text_area  :summary, label_text: "Summary", rows: 3, required: true %>
+        <%= form.label :link_type, "Type", required: true %>
+
+        <div class="form-group">
+          <%= form.select :link_type, OffsiteLink::LinkTypes.as_select_options, {}, {class: 'form-control input-md-3'} %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :date, "Date"%>
+          <div class="form-inline">
+            <%= form.date_select :date, { include_blank: true, start_year: Date.today.year - 2, end_year: Date.today.year + 2 }, { class: 'date form-control' } %>
+          </div>
+        </div>
+        <%= form.text_field :url, label_text: "URL", required: true %>
+        <% if @parent.is_a?(Organisation) || @parent.is_a?(WorldLocationNews) %>
+          <%= form.save_or_cancel cancel: polymorphic_path([:features, :admin, @parent]) %>
+        <% else %>
+          <%= form.save_or_cancel cancel: polymorphic_path([:admin, @parent, :topical_event_featurings]) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

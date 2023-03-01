@@ -1,29 +1,86 @@
-<div class="row">
-  <div class="col-md-8">
-    <%= form_for [:admin, @parent, @offsite_link], builder: Whitehall::FormBuilder do |form| %>
-      <div class="well">
-        <%= form.errors %>
-        <%= form.text_field :title, label_text: "Title", required: true %>
-        <%= form.text_area  :summary, label_text: "Summary", rows: 3, required: true %>
-        <%= form.label :link_type, "Type", required: true %>
+<%= form_for [:admin, parent, offsite_link] do |form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Title (required)",
+    },
+    heading_size: "l",
+    id: "offsite_link_title",
+    name: "offsite_link[title]",
+    value: offsite_link.title,
+    error_message: errors_for_input(offsite_link.errors, :title),
+  } %>
 
-        <div class="form-group">
-          <%= form.select :link_type, OffsiteLink::LinkTypes.as_select_options, {}, {class: 'form-control input-md-3'} %>
-        </div>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Summary (required)",
+      heading_size: "l",
+    },
+    id: "offsite_link_summary",
+    name: "offsite_link[summary]",
+    value: offsite_link.summary,
+    rows: 3,
+    error_message: errors_for_input(offsite_link.errors, :summary),
+  } %>
 
-        <div class="form-group">
-          <%= form.label :date, "Date"%>
-          <div class="form-inline">
-            <%= form.date_select :date, { include_blank: true, start_year: Date.today.year - 2, end_year: Date.today.year + 2 }, { class: 'date form-control' } %>
-          </div>
-        </div>
-        <%= form.text_field :url, label_text: "URL", required: true %>
-        <% if @parent.is_a?(Organisation) || @parent.is_a?(WorldLocationNews) %>
-          <%= form.save_or_cancel cancel: polymorphic_path([:features, :admin, @parent]) %>
-        <% else %>
-          <%= form.save_or_cancel cancel: polymorphic_path([:admin, @parent, :topical_event_featurings]) %>
-        <% end %>
-      </div>
+
+  <%= render "govuk_publishing_components/components/select", {
+    id: "offsite_link_link_type",
+    name: "offsite_link[link_type]",
+    label: "Type (required)",
+    error_message: errors_for_input(offsite_link.errors, :link_type),
+    heading_size: "l",
+    options:  OffsiteLink::LinkTypes.all.map do |type|
+      {
+        text: type.humanize,
+        value: type,
+        selected: type == offsite_link.link_type,
+      }
+    end
+  } %>
+
+  <%= render "components/datetime_fields", {
+    prefix: "offsite_link",
+    field_name: "date",
+    date_heading: "Date",
+    heading_size: "l",
+    date_only: true,
+    error_items: errors_for(offsite_link.errors, :date),
+    year: {
+      id: "offsite_link_date_1i",
+      value: offsite_link.date&.year,
+      start_year: Date.today.year - 2,
+      end_year: Date.today.year + 2,
+    },
+    month: {
+      id: "offsite_link_date_2i",
+      value: offsite_link.date&.month,
+    },
+    day: {
+      id: "offsite_link_date_3i",
+      value: offsite_link.date&.day,
+    },
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "URL (required)",
+    },
+    heading_size: "l",
+    id: "offsite_link_url",
+    name: "offsite_link[url]",
+    value: offsite_link.url,
+    error_message: errors_for_input(offsite_link.errors, :url),
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save"
+    } %>
+
+    <% if parent.is_a?(Organisation) || parent.is_a?(WorldLocationNews) %>
+      <%= link_to "Cancel", polymorphic_path([:features, :admin, parent]), class: "govuk-link govuk-link--no-visited-state" %>
+    <% else %>
+      <%= link_to "Cancel", polymorphic_path([:admin, parent, :topical_event_featurings]), class: "govuk-link govuk-link--no-visited-state" %>
     <% end %>
   </div>
-</div>
+<% end %>

@@ -18,7 +18,7 @@ class ErrorsHelperTest < ActionView::TestCase
   end
 
   test "#errors_for_input formats the error message when there are multiple errors on a field" do
-    assert_equal errors_for_input(@object_with_errors.errors, :date), "Date can't be blank\nDate is invalid"
+    assert_equal errors_for_input(@object_with_errors.errors, :date), "Date can't be blank<br>Date is invalid"
   end
 
   test "#errors_for_input does not return an empty string when object has unrelated error" do

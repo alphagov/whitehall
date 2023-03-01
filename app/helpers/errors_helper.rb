@@ -7,7 +7,8 @@ module ErrorsHelper
         error.full_message
       end
     }
-    .join("\n")
+    .join(tag.br)
+    .html_safe
     .presence
   end
 
