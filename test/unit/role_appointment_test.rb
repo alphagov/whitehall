@@ -475,4 +475,12 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
   end
+
+  test "should send the how government works page to publishing api when the role created is a current prime minister" do
+    role = create(:prime_minister_role)
+
+    PublishHowGovernmentWorksPage.any_instance.expects(:publish)
+
+    create(:role_appointment, person: create(:person), role:)
+  end
 end
