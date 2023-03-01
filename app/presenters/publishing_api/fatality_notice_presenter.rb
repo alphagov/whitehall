@@ -63,6 +63,7 @@ module PublishingApi
         body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
+        roll_call_introduction: item.roll_call_introduction,
       }
       details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
     end

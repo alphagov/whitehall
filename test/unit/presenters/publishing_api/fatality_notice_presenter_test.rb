@@ -132,6 +132,10 @@ class PublishingApi::FatalityNoticePresenterDetailsTest < ActiveSupport::TestCas
   test "it presents first_public_at as nil for draft" do
     assert_nil @presented_details[:first_published_at]
   end
+
+  test "it presents the roll call introduction" do
+    assert_equal(@fatality_notice.roll_call_introduction, @presented_details[:roll_call_introduction])
+  end
 end
 
 class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport::TestCase
