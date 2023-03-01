@@ -483,4 +483,20 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     create(:role_appointment, person: create(:person), role:)
   end
+
+  test "should send the how government works page to publishing api when someone is appointed to a ministerial role" do
+    role = create(:ministerial_role)
+
+    PublishHowGovernmentWorksPage.any_instance.expects(:publish)
+
+    create(:role_appointment, person: create(:person), role:)
+  end
+
+  test "should not send the how government works page to publishing api when someone is appointed to a non-ministerial role" do
+    role = create(:non_ministerial_role_without_organisations)
+
+    PublishHowGovernmentWorksPage.any_instance.expects(:publish).never
+
+    create(:role_appointment, person: create(:person), role:)
+  end
 end
