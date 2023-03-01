@@ -32,5 +32,11 @@ module PublishingApi
     def base_path
       "/government/how-government-works"
     end
+
+    def links
+      {
+        current_prime_minister: [MinisterialRole.find_by(slug: "prime-minister")&.current_person&.content_id],
+      }
+    end
   end
 end

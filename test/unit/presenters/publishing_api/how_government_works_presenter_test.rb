@@ -1,6 +1,12 @@
 require "test_helper"
 
 class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
+  setup do
+    @current_pm = create(:person)
+    pm_role = create(:prime_minister_role)
+    create(:role_appointment, person: @current_pm, role: pm_role)
+  end
+
   test "presents a valid content item" do
     expected_hash = {
       base_path: "/government/how-government-works",
@@ -22,9 +28,18 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
       public_updated_at: Time.zone.now,
     }
 
+    expected_links = {
+      current_prime_minister: [
+        @current_pm.content_id,
+      ],
+    }
+
     presenter = PublishingApi::HowGovernmentWorksPresenter.new
 
     assert_equal expected_hash, presenter.content
     assert_valid_against_publisher_schema(presenter.content, "how_government_works")
+
+    assert_equal expected_links, presenter.links
+    assert_valid_against_links_schema({ links: presenter.links }, "how_government_works")
   end
 end
