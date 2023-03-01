@@ -125,4 +125,4 @@ examples:
             - United Kingdom
             - uk
       autocomplete_configuration_options:
-        showAllValues: true
+        showAllValues: false

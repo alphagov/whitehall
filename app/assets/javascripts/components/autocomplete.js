@@ -13,6 +13,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var defaultOptions = {
       selectElement: $select,
       minLength: 3,
+      showAllValues: $select.multiple,
       showNoOptionsFound: true,
       onConfirm: function (query) {
         var category = $select.getAttribute('data-track-category')
