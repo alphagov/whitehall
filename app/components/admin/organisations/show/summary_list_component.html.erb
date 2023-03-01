@@ -1,0 +1,11 @@
+<%= render "govuk_publishing_components/components/summary_list", {
+  title: "Details",
+  heading_level: 2,
+  heading_size: "l",
+  edit: ({
+    href: edit_admin_organisation_path(organisation),
+    link_text: "Edit",
+    link_text_no_enhance: true
+  } if editable),
+  items: rows
+} %>

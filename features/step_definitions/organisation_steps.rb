@@ -364,7 +364,11 @@ Then(/^I can see that the organisation "(.*?)" has been superseded with the orga
   organisation = Organisation.find_by!(name: org_name)
   visit admin_organisation_path(organisation)
 
-  expect(page).to have_xpath("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
+  if using_design_system?
+    expect(page).to have_xpath("//dt[.='Superseded by']/following-sibling::dd[.='#{superseding_org_name}']")
+  else
+    expect(page).to have_xpath("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
+  end
 end
 
 Given(/^a closed organisation with documents which has been superseded by another$/) do
