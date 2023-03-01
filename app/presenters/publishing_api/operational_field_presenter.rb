@@ -20,7 +20,7 @@ module PublishingApi
           locale: "en",
           publishing_app: "whitehall",
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-          schema_name: "placeholder",
+          schema_name: "field_of_operation",
           title: operational_field.name,
           update_type:,
         )
