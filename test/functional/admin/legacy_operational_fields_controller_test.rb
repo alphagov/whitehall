@@ -64,7 +64,7 @@ class Admin::LegacyOperationalFieldsControllerTest < ActionController::TestCase
 
     post :create, params: { operational_field: { name: "field-a" } }
 
-    assert_template "new"
+    assert_template "legacy_new"
     assert_select ".errors"
   end
 

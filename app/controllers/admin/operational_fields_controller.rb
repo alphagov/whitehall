@@ -9,6 +9,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
 
   def new
     @operational_field = OperationalField.new
+    render :legacy_new
   end
 
   def create
@@ -16,12 +17,13 @@ class Admin::OperationalFieldsController < Admin::BaseController
     if @operational_field.save
       redirect_to admin_operational_fields_path, notice: %("#{@operational_field.name}" created.)
     else
-      render action: "new"
+      render :legacy_new
     end
   end
 
   def edit
     @operational_field = OperationalField.friendly.find(params[:id])
+    render :legacy_edit
   end
 
   def update
@@ -29,7 +31,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
     if @operational_field.update(operational_field_params)
       redirect_to admin_operational_fields_path, notice: %("#{@operational_field.name}" saved.)
     else
-      render action: "edit"
+      render :legacy_edit
     end
   end
 
