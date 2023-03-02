@@ -1,0 +1,111 @@
+name: Pagination
+description: |
+  Help users navigate forwards and backwards through a series of pages. For example, search results or guidance that’s divided into multiple website pages.
+accessibility_criteria: |
+  The component must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when they have focus
+  - be recognisable as form select elements
+  - have correctly associated labels
+
+shared_accessibility_criteria:
+  - link
+examples:
+  default:
+    data:
+      previous_href: /page/1
+      next_href: /page/3
+      items:
+        - href: /page/1
+        - href: /page/2
+          current: true
+        - href: /page/3
+  without_previous_or_next_links:
+    data:
+      items:
+        - href: /page/1
+        - href: /page/2
+        - href: /page/3
+  with_selected_item:
+    data:
+      items:
+        - href: /page/1
+          current: true
+        - href: /page/2
+        - href: /page/3
+  without_previous_link:
+    data:
+      next_href: /page/3
+      items:
+        - label: 1
+          href: /page/1
+          current: true
+        - label: 2
+          href: /page/2
+        - label: 3
+          href: /page/3
+  without_next_link:
+    data:
+      previous_href: /page/2
+      items:
+        - href: /page/1
+        - href: /page/2
+        - href: /page/3
+          current: true
+  with_labels:
+    data:
+      previous_href: /page/1
+      next_href: /page/3
+      items:
+        - label: 1.1
+          href: /page/1
+        - label: 1.2
+          href: /page/2
+          current: true
+        - label: 1.3
+          href: /page/3
+  with_custom_aria_label:
+    data:
+      aria_label: Search results
+      previous_href: /page/1
+      next_href: /page/3
+      items:
+        - href: /page/1
+        - href: /page/2
+          current: true
+        - href: /page/3
+  with_custom_aria_label_for_element:
+    data:
+      aria_label: Search results with aria labels
+      previous_href: /page/1.1
+      next_href: /page/3.1
+      items:
+        - href: /page/1.1
+          aria_label: Page 1.1
+        - href: /page/2.1
+          current: true
+          aria_label: Page 2.1
+        - href: /page/3.1
+          aria_label: Page 3.1
+  with_ellipses_items:
+    data:
+      previous_href: /page/1
+      next_href: /page/3
+      items:
+        - label: 1
+          href: /page/1
+        - ellipses: true
+        - label: 20
+          href: /page/20
+        - label: 21
+          href: /page/21
+          current: true
+        - label: 22
+          href: /page/22
+        - ellipses: true
+        - label: 100
+          href: /page/100
