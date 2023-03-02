@@ -23,7 +23,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
 
   def edit
     @operational_field = OperationalField.friendly.find(params[:id])
-    render :legacy_edit
+    render_design_system(:edit, :legacy_edit, next_release: false)
   end
 
   def update
@@ -31,17 +31,14 @@ class Admin::OperationalFieldsController < Admin::BaseController
     if @operational_field.update(operational_field_params)
       redirect_to admin_operational_fields_path, notice: %("#{@operational_field.name}" saved.)
     else
-      render :legacy_edit
+      render_design_system(:edit, :legacy_edit, next_release: false)
     end
   end
 
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index new create] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"
