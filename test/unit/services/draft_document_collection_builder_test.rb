@@ -32,6 +32,11 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     # Documents that already exist in the Whitehall database
     whitehall_document_member = document_collection_group_memberships.first
     assert_equal whitehall_document_member.document.content_id, whitehall_document_content_id
+
+    # Documents that were not published by Whitehall
+    non_whitehall_document_member = document_collection_group_memberships.second
+    non_whitehall_link = DocumentCollectionNonWhitehallLink.find_by(base_path: non_whitehall_document_content_item[:base_path])
+    assert_equal non_whitehall_document_member.non_whitehall_link_id, non_whitehall_link.id
   end
 
   test "#perform! fails unless a user is present" do

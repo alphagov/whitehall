@@ -2,6 +2,7 @@ module SpecialistTopicHelper
   def stub_valid_specialist_topic
     stub_publishing_api_has_lookups({
       specialist_topic_base_path => specialist_topic_content_id,
+      non_whitehall_document_base_path => non_whitehall_document_content_id,
     })
 
     stub_publishing_api_has_links({
@@ -10,6 +11,7 @@ module SpecialistTopicHelper
     })
 
     stub_publishing_api_has_item(specialist_topic_content_item)
+    stub_publishing_api_has_item(non_whitehall_document_content_item)
   end
 
   def stub_level_one_specialist_topic
@@ -58,6 +60,22 @@ module SpecialistTopicHelper
     "aed2cee3-7ca8-4f00-ab17-9193fff516ae"
   end
 
+  def non_whitehall_document_content_id
+    "0e1de8f1-9909-4e45-a6a3-bffe95470275"
+  end
+
+  def non_whitehall_document_base_path
+    "/i-am-not-a-whitehall-document"
+  end
+
+  def non_whitehall_document_content_item
+    { "title": "I am not a whitehall document",
+      "base_path": non_whitehall_document_base_path,
+      "content_id": non_whitehall_document_content_id,
+      "document_type": "guide",
+      "publishing_app": "publisher" }
+  end
+
   def specialist_topic_content_item
     {
       "base_path": specialist_topic_base_path,
@@ -73,6 +91,10 @@ module SpecialistTopicHelper
           {
             "name": "How to claim",
             "content_ids": [whitehall_document_content_id],
+          },
+          {
+            "name": "Payments",
+            "content_ids": [non_whitehall_document_content_id],
           },
         ],
         "internal_name": "Benefits / Child Benefit",

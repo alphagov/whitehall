@@ -65,6 +65,8 @@ private
             document_id: whitehall_document(content_id).id,
             document_collection_group_id: group.id,
           )
+        else
+          build_non_whitehall_link(group, content_id)
         end
       end
     end
@@ -78,11 +80,29 @@ private
     Document.find_by(content_id:)
   end
 
+  # only govuk pages can be tagged to a specialist topic. So we can safely
+  # assume that any non-whitehall links present in a specialist topic will
+  # be internal URLs.
+  def build_non_whitehall_link(group, content_id)
+    base_path = content_item(content_id)[:base_path]
+    link = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk#{base_path}",
+      document_collection_group: group,
+    )
+    if !link.save && link.errors.any?
+      raise link.errors.messages.to_s
+    end
+  end
+
   def user
     @user ||= User.find_by(email: assignee_email_address)
   end
 
   def gds
     @gds ||= Organisation.find_by(name: "Government Digital Service")
+  end
+
+  def content_item(content_id)
+    Services.publishing_api.get_content(content_id).to_h.deep_symbolize_keys
   end
 end
