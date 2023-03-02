@@ -24,6 +24,9 @@ module PublishingApi
         public_updated_at: Time.zone.now,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: "how_government_works",
+        details: {
+          ministerial_role_counts:,
+        },
       )
 
       content.merge!(PayloadBuilder::Routes.for(base_path))
@@ -37,6 +40,29 @@ module PublishingApi
       {
         current_prime_minister: [MinisterialRole.find_by(slug: "prime-minister")&.current_person&.content_id],
       }
+    end
+
+    def ministerial_role_counts
+      {
+        prime_minister:,
+        cabinet_ministers:,
+        other_ministers: total_ministers - cabinet_ministers - prime_minister,
+        total_ministers:,
+      }
+    end
+
+  private
+
+    def prime_minister
+      1
+    end
+
+    def cabinet_ministers
+      MinisterialRole.cabinet.occupied.where(cabinet_member: true).map(&:current_role_appointment).map(&:person).uniq.count
+    end
+
+    def total_ministers
+      MinisterialRole.occupied.map(&:current_role_appointment).map(&:person).uniq.count
     end
   end
 end

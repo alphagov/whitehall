@@ -5,6 +5,12 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
     @current_pm = create(:person)
     pm_role = create(:prime_minister_role)
     create(:role_appointment, person: @current_pm, role: pm_role)
+
+    create(:role_appointment, person: create(:person), role: create(:ministerial_role, cabinet_member: true))
+    create(:role_appointment, person: create(:person), role: create(:ministerial_role, cabinet_member: true))
+    create(:role_appointment, person: create(:person), role: create(:ministerial_role))
+    create(:role_appointment, person: create(:person), role: create(:ministerial_role))
+    create(:role_appointment, person: create(:person), role: create(:ministerial_role))
   end
 
   test "presents a valid content item" do
@@ -26,6 +32,14 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
       update_type: "major",
       redirects: [],
       public_updated_at: Time.zone.now,
+      details: {
+        ministerial_role_counts: {
+          prime_minister: 1,
+          cabinet_ministers: 2,
+          other_ministers: 3,
+          total_ministers: 6,
+        },
+      },
     }
 
     expected_links = {
