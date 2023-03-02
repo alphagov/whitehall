@@ -63,7 +63,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
     post :create, params: { operational_field: { name: "field-a" } }
 
     assert_template "new"
-    assert_select ".errors"
+    assert_select ".govuk-error-summary"
   end
 
   view_test "edit should display operational field form" do
