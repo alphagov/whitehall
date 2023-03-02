@@ -7,9 +7,20 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
       name: "Operational Field name",
       description: "Operational Field description",
     )
+    @fatality_notices_for_operational_field = (0..4).map { |_i| create(:published_fatality_notice, operational_field: @operational_field) }
+    create(:published_fatality_notice, operational_field: create(:operational_field))
+    %i[draft_fatality_notice
+       submitted_fatality_notice
+       rejected_fatality_notice
+       deleted_fatality_notice
+       superseded_fatality_notice
+       scheduled_fatality_notice].map do |non_published_type|
+      create(non_published_type, operational_field: @operational_field)
+    end
 
     @presented_operational_field = PublishingApi::OperationalFieldPresenter.new(@operational_field)
     @presented_content = @presented_operational_field.content
+    @links = @presented_operational_field.links
   end
 
   test "presents an operational field" do
@@ -38,5 +49,13 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
 
   test "it delegates the content id" do
     assert_equal @operational_field.content_id, @presented_operational_field.content_id
+  end
+
+  test "it presents the expected links" do
+    expected_links = {
+      fatality_notices: @fatality_notices_for_operational_field.map(&:content_id),
+    }
+    assert_equal expected_links, @links
+    assert_valid_against_links_schema({ links: @links }, "field_of_operation")
   end
 end

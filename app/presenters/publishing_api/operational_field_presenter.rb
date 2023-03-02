@@ -1,10 +1,9 @@
 module PublishingApi
   class OperationalFieldPresenter
-    attr_reader :links, :update_type
+    attr_reader :update_type
 
     def initialize(operational_field, _options = {})
       @operational_field = operational_field
-      @links = {}
       @update_type = "major"
     end
 
@@ -25,6 +24,12 @@ module PublishingApi
           update_type:,
         )
       end
+    end
+
+    def links
+      {
+        fatality_notices: operational_field.published_fatality_notices.order("first_published_at desc").map(&:content_id),
+      }
     end
 
   private
