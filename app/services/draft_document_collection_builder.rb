@@ -11,7 +11,10 @@ class DraftDocumentCollectionBuilder
   def perform!
     raise "No user could be found for that email address" unless user
 
-    initialise_document_collection
+    ActiveRecord::Base.transaction do
+      dc = initialise_document_collection
+      add_groups_to_document_collection(dc)
+    end
   end
 
 private
@@ -30,6 +33,22 @@ private
       document_collection.previously_published = false
       document_collection.state = "draft"
     end
+  end
+
+  def add_groups_to_document_collection(document_collection)
+    groups =
+      specialist_topic_groups.map do |group|
+        DocumentCollectionGroup.find_or_create_by!(
+          document_collection_id: document_collection.id,
+          heading: group[:name],
+          body: "",
+        )
+      end
+    document_collection.groups.replace(groups)
+  end
+
+  def specialist_topic_groups
+    specialist_topic.dig(:details, :groups)
   end
 
   def user

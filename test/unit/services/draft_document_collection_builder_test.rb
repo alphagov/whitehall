@@ -18,6 +18,12 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     assert_equal specialist_topic_content_item[:content_id], DocumentCollection.last.mapped_specialist_topic_content_id
     assert_equal DocumentCollection.last.title, "Specialist topic import: #{specialist_topic_title}"
     assert_equal specialist_topic_description, DocumentCollection.last.summary
+
+    # Adds groups
+    specialist_topic_group_names = specialist_topic_content_item[:details][:groups].map { |group| group[:name] }
+    document_collection_group_names = DocumentCollection.last.groups.map(&:heading)
+
+    assert_equal specialist_topic_group_names, document_collection_group_names
   end
 
   test "#perform! fails unless a user is present" do
