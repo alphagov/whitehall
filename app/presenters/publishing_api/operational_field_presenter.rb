@@ -2,6 +2,8 @@ module PublishingApi
   class OperationalFieldPresenter
     attr_reader :update_type
 
+    MINISTRY_OF_DEFENCE_CONTENT_ID = "d994e55c-48c9-4795-b872-58d8ec98af12".freeze
+
     def initialize(operational_field, _options = {})
       @operational_field = operational_field
       @update_type = "major"
@@ -29,6 +31,7 @@ module PublishingApi
     def links
       {
         fatality_notices: operational_field.published_fatality_notices.order("first_published_at desc").map(&:content_id),
+        primary_publishing_organisation: [MINISTRY_OF_DEFENCE_CONTENT_ID],
       }
     end
 

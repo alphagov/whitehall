@@ -54,7 +54,9 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
   test "it presents the expected links" do
     expected_links = {
       fatality_notices: @fatality_notices_for_operational_field.map(&:content_id),
+      primary_publishing_organisation: [PublishingApi::OperationalFieldPresenter::MINISTRY_OF_DEFENCE_CONTENT_ID],
     }
+
     assert_equal expected_links, @links
     assert_valid_against_links_schema({ links: @links }, "field_of_operation")
   end
