@@ -54,6 +54,10 @@ module SpecialistTopicHelper
     "List of information about Child Benefit."
   end
 
+  def whitehall_document_content_id
+    "aed2cee3-7ca8-4f00-ab17-9193fff516ae"
+  end
+
   def specialist_topic_content_item
     {
       "base_path": specialist_topic_base_path,
@@ -68,7 +72,7 @@ module SpecialistTopicHelper
         "groups": [
           {
             "name": "How to claim",
-            "content_ids": %w[],
+            "content_ids": [whitehall_document_content_id],
           },
         ],
         "internal_name": "Benefits / Child Benefit",

@@ -6,11 +6,12 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
   setup do
     create(:user, email: assignee_email_address)
     create(:organisation, name: "Government Digital Service")
+    document = create(:document, content_id: whitehall_document_content_id, document_type: "DetailedGuide")
+    create(:published_detailed_guide, document_id: document.id, type: "DetailedGuide")
   end
 
   test "#perform! builds basic document collection" do
     stub_valid_specialist_topic
-
     DraftDocumentCollectionBuilder.call(specialist_topic_content_item, assignee_email_address)
 
     # Adds basic attributes
@@ -24,6 +25,13 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     document_collection_group_names = DocumentCollection.last.groups.map(&:heading)
 
     assert_equal specialist_topic_group_names, document_collection_group_names
+
+    # Adds documents to the groups
+    document_collection_group_memberships = DocumentCollection.last.groups.flat_map(&:memberships)
+
+    # Documents that already exist in the Whitehall database
+    whitehall_document_member = document_collection_group_memberships.first
+    assert_equal whitehall_document_member.document.content_id, whitehall_document_content_id
   end
 
   test "#perform! fails unless a user is present" do
