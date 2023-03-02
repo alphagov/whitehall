@@ -11,6 +11,10 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
     create(:role_appointment, person: create(:person), role: create(:ministerial_role))
     create(:role_appointment, person: create(:person), role: create(:ministerial_role))
     create(:role_appointment, person: create(:person), role: create(:ministerial_role))
+
+    create(:ministerial_department)
+    create(:non_ministerial_department)
+    create(:executive_agency)
   end
 
   test "presents a valid content item" do
@@ -33,6 +37,11 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
       redirects: [],
       public_updated_at: Time.zone.now,
       details: {
+        department_counts: {
+          ministerial_departments: 6,
+          non_ministerial_departments: 1,
+          agencies_and_public_bodies: 1,
+        },
         ministerial_role_counts: {
           prime_minister: 1,
           cabinet_ministers: 2,

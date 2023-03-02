@@ -25,6 +25,7 @@ module PublishingApi
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: "how_government_works",
         details: {
+          department_counts:,
           ministerial_role_counts:,
         },
       )
@@ -39,6 +40,14 @@ module PublishingApi
     def links
       {
         current_prime_minister: [MinisterialRole.find_by(slug: "prime-minister")&.current_person&.content_id],
+      }
+    end
+
+    def department_counts
+      {
+        ministerial_departments: Organisation.listable.ministerial_departments.count,
+        non_ministerial_departments: Organisation.listable.non_ministerial_departments.count,
+        agencies_and_public_bodies: Organisation.listable.select { |o| o.type.agency_or_public_body? }.count,
       }
     end
 
