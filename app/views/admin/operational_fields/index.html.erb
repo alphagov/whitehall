@@ -1,0 +1,30 @@
+<% content_for :page_title, "Fields of operation" %>
+<% content_for :title, "Fields of operation" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Add field of operation",
+      href: new_admin_operational_field_path,
+      secondary_solid: true,
+      margin_bottom: 8,
+    } %>
+
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Name"
+        },
+      ],
+      rows:
+        @operational_fields.map do |operational_field|
+          [
+            {
+              text: tag.span("Edit field of operation", class: "govuk-visually-hidden") +
+              link_to(operational_field.name, edit_admin_operational_field_path(operational_field), class:"govuk-link")
+            }
+          ]
+        end
+    } %>
+  </div>
+</div>

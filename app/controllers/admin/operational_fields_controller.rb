@@ -4,7 +4,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
 
   def index
     @operational_fields = OperationalField.order(:name)
-    render :legacy_index
+    render_design_system(:index, :legacy_index, next_release: false)
   end
 
   def new
