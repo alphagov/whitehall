@@ -1,8 +1,10 @@
 class Admin::OperationalFieldsController < Admin::BaseController
   before_action :require_fatality_handling_permission!
+  layout :get_layout
 
   def index
     @operational_fields = OperationalField.order(:name)
+    render :legacy_index
   end
 
   def new
