@@ -617,7 +617,7 @@ GEM
       rubocop-capybara (~> 2.17)
     ruby-graphviz (1.2.5)
       rexml
-    ruby-progressbar (1.11.0)
+    ruby-progressbar (1.12.0)
     ruby-rc4 (0.1.5)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
