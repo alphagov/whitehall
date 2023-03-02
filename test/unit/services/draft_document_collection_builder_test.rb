@@ -6,8 +6,12 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
   setup do
     create(:user, email: assignee_email_address)
     create(:organisation, name: "Government Digital Service")
+
     document = create(:document, content_id: whitehall_document_content_id, document_type: "DetailedGuide")
     create(:published_detailed_guide, document_id: document.id, type: "DetailedGuide")
+
+    collection = create(:document, content_id: document_collection_content_id, document_type: "DocumentCollection")
+    create(:published_document_collection, document_id: collection.id, type: "DocumentCollection")
   end
 
   test "#perform! builds basic document collection" do
@@ -15,7 +19,7 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     DraftDocumentCollectionBuilder.call(specialist_topic_content_item, assignee_email_address)
 
     # Adds basic attributes
-    assert_equal 1, DocumentCollection.count
+    assert_equal 2, DocumentCollection.count
     assert_equal specialist_topic_content_item[:content_id], DocumentCollection.last.mapped_specialist_topic_content_id
     assert_equal DocumentCollection.last.title, "Specialist topic import: #{specialist_topic_title}"
     assert_equal specialist_topic_description, DocumentCollection.last.summary
@@ -37,6 +41,11 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     non_whitehall_document_member = document_collection_group_memberships.second
     non_whitehall_link = DocumentCollectionNonWhitehallLink.find_by(base_path: non_whitehall_document_content_item[:base_path])
     assert_equal non_whitehall_document_member.non_whitehall_link_id, non_whitehall_link.id
+
+    # Document collections
+    document_collection_member = document_collection_group_memberships.third
+    document_collection_link = DocumentCollectionNonWhitehallLink.find_by(base_path: document_collection_content_item[:base_path])
+    assert_equal document_collection_member.non_whitehall_link_id, document_collection_link.id
   end
 
   test "#perform! fails unless a user is present" do
