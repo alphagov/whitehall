@@ -35,6 +35,17 @@ class Admin::OperationalFieldsController < Admin::BaseController
 
 private
 
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
+
   def operational_field_params
     params.require(:operational_field).permit(:name, :description)
   end
