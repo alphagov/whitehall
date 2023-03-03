@@ -147,10 +147,10 @@ class OrganisationBrandColour
     title: "Civil Service",
     class_name: "civil-service",
   )
-  DepartmentForInternationalTrade = create!(
+  DepartmentForBusinessAndTrade = create!(
     id: 29,
-    title: "Department for International Trade",
-    class_name: "department-for-international-trade",
+    title: "Department for Business and Trade",
+    class_name: "department-for-business-and-trade",
   )
   ForeignCommonwealthDevelopmentOffice = create!(
     id: 30,
