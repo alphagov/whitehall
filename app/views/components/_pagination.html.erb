@@ -1,0 +1,60 @@
+<%
+  id ||= "pagination-#{SecureRandom.hex(4)}"
+  aria_label ||= "results"
+  items ||= []
+  previous_href ||= false
+  next_href ||= false
+%>
+
+<nav id="<% id %>" class="app-c-pagination govuk-pagination" role="navigation" aria-label="<%= aria_label %>">
+  <% if previous_href %>
+    <div class="govuk-pagination__prev">
+      <a class="govuk-link govuk-pagination__link" href="<%= previous_href %>" rel="prev">
+        <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+          <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+        </svg>
+        <span class="govuk-pagination__link-title">Previous</span>
+      </a>
+    </div>
+  <% end %>
+
+  <ul class="govuk-pagination__list">
+    <% items.each_with_index do | item, index | %>
+      <%
+        item_label = item[:label] ? item[:label] : index + 1
+        item_aria_label = item[:label] ? item[:label] : "Page #{item_label}"
+        item_aria_label = item[:aria_label].present? ? item[:aria_label] : item_aria_label
+        list_item_classes = ["govuk-pagination__item"]
+        list_item_classes << "govuk-pagination__item--current" if item[:current]
+        list_item_classes << "govuk-pagination__item--ellipses" if item[:ellipses]
+      %>
+
+      <%= tag.li class: list_item_classes do %>
+        <% if item[:ellipses] %>
+          &ctdot;
+        <% else %>
+          <%= tag.a(
+            item_label,
+            class: "govuk-link govuk-pagination__link",
+            href: item[:href],
+            aria: {
+              label: item_aria_label,
+              current: item[:current] ? "page" : nil,
+            }
+          ) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% if next_href %>
+    <div class="govuk-pagination__next">
+      <a class="govuk-link govuk-pagination__link" href="<%= next_href %>" rel="next">
+        <span class="govuk-pagination__link-title">Next</span>
+        <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+          <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+        </svg>
+      </a>
+    </div>
+  <% end %>
+</nav>
