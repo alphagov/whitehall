@@ -23,7 +23,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".govuk-table__cell" do
-      assert_select "a[href='#{edit_admin_operational_field_path(operational_field)}']", text: operational_field.name
+      assert_select "a[href='#{edit_admin_operational_field_path(operational_field)}']", text: "Edit field of operation #{operational_field.name}"
     end
   end
 

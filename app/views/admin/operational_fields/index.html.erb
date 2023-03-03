@@ -20,8 +20,7 @@
         @operational_fields.map do |operational_field|
           [
             {
-              text: tag.span("Edit field of operation", class: "govuk-visually-hidden") +
-              link_to(operational_field.name, edit_admin_operational_field_path(operational_field), class:"govuk-link")
+              text: sanitize("<a href='#{edit_admin_operational_field_path(operational_field)}' class='govuk-link'><span class='govuk-visually-hidden'>Edit field of operation </span>#{operational_field.name}</a>")
             }
           ]
         end
