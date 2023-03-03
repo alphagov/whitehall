@@ -4,6 +4,7 @@ class Admin::ResponsesController < Admin::BaseController
   before_action :enforce_edition_permissions!
   before_action :prevent_modification_of_unmodifiable_edition
   before_action :find_response, only: %i[edit update]
+  layout :get_layout
 
   def show
     @response = response_class.find_by(edition_id: @edition) || response_class.new(published_on: Time.zone.today)
@@ -20,18 +21,29 @@ class Admin::ResponsesController < Admin::BaseController
   end
 
   def edit
-    render :edit_legacy
+    render_design_system("edit", "edit_legacy", next_release: false)
   end
 
   def update
     if @response.update(response_params)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} updated"
     else
-      render :edit_legacy
+      render_design_system("edit", "edit_legacy", next_release: false)
     end
   end
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[edit update] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def find_consultation
     @edition = Consultation.find(params[:consultation_id])

@@ -1,0 +1,48 @@
+<%= form_for [:admin, consultation, consultation_response], url: [:admin, consultation, consultation_response.singular_routing_symbol] do |form| %>
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Published on",
+    heading_size: "l"
+  } do %>
+    <%= render "components/datetime_fields", {
+      prefix: "consultation_#{consultation_response.singular_routing_symbol}",
+      field_name: "published_on",
+      date_only: true,
+      error_items: errors_for(consultation_response.errors, :published_on),
+      year: {
+        value: consultation_response.published_on&.year,
+        start_year: 1997,
+        end_year: Date.today.year + 5
+      },
+      month: {
+        value: consultation_response.published_on&.month
+      },
+      day: {
+        id: "consultation_#{consultation_response.singular_routing_symbol}_published_on",
+        value: consultation_response.published_on&.day
+      }
+    } %>
+  <% end %>
+
+  <%= render "components/govspeak-editor", {
+    label: {
+      heading_size: "l",
+      text: "Detail/Summary"
+    },
+    name: "consultation_#{consultation_response.singular_routing_symbol}[summary]",
+    rows: 20,
+    id: "consultation_#{consultation_response.singular_routing_symbol}_summary",
+    value: consultation_response.summary,
+    error_items: errors_for(form.object.errors, :summary),
+    data_attributes: {
+      alternative_format_provider_id: @edition && @edition.alternative_format_provider_id ? @edition.alternative_format_provider_id : current_user.organisation.try(:id)
+    }
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save"
+    } %>
+
+    <%= link_to("Cancel", "#{admin_edition_path(consultation)}/public_feedback", class: "govuk-link govuk-link--no-visited-state") %>
+  </div>
+<% end %>
