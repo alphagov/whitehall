@@ -1,0 +1,135 @@
+name: Select with search
+description: A dropdown select with search
+body: |
+  Use this component to create a JavaScript-enhanced dropdown select.
+
+  It's powered by [Choices.js][], which is similar to [Select2][] but without the jQuery dependency.
+  And it's styled to look like [Accessible Autocomplete][], or any other [GOV.UK Design System][] component.
+
+  [Choices.js]: https://choices-js.github.io/Choices/
+  [Select2]: https://select2.org/
+  [Accessible Autocomplete]: https://alphagov.github.io/accessible-autocomplete/examples/
+  [GOV.UK Design System]: https://design-system.service.gov.uk/
+accessibility_criteria: |
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - indicate when it has focus
+examples:
+  default:
+    data:
+      id: dropdown-default
+      label: My Dropdown
+      options:
+      - text: Option one
+        value: option1
+      - text: Option two
+        value: option2
+      - text: Option three
+        value: option3
+  with_grouped_options:
+    description: Options can be grouped
+    data:
+      id: dropdown-with-grouped-options
+      label: Select a city
+      grouped_options:
+      - - England
+        - - text: Bath
+            value: bath
+          - text: Bristol
+            value: bristol
+          - text: London
+            value: london
+          - text: Manchester
+            value: manchester
+      - - Northern Ireland
+        - - text: Bangor
+            value: bangor
+          - text: Belfast
+            value: belfast
+      - - Scotland
+        - - text: Dundee
+            value: dundee
+          - text: Edinburgh
+            value: edinburgh
+          - text: Glasgow
+            value: glasgow
+      - - Wales
+        - - text: Cardiff
+            value: cardiff
+          - text: Swansea
+            value: swansea
+  with_different_id_and_name:
+    description: If no name is provided, name defaults to the (required) value of id.
+    data:
+      id: dropdown-with-different-id-and-name
+      label: My Dropdown
+      name: dropdown[1]
+      options:
+      - text: Option one
+        value: option1
+      - text: Option two
+        value: option2
+  with_preselect:
+    data:
+      id: dropdown-with-preselect
+      label: Option 2 preselected
+      options:
+      - text: Option one
+        value: option1
+      - text: Option two
+        value: option2
+        selected: true
+      - text: Option three
+        value: option3
+  with_hint:
+    description: When a hint is included the `aria-describedby` attribute of the select is included to point to the hint. When an error and a hint are present, that attribute includes the IDs of both the hint and the error.
+    data:
+      id: dropdown-with-hint
+      label: Choose your preferred thing
+      hint: You might need some more information here
+      hint_id: optional-hint-id
+      options:
+      - text: Something
+        value: option1
+      - text: Something else
+        value: option2
+  with_error:
+    description: If the user has to select an option, it is recommended that a radio button is used instead of a select, but this is not always possible. Note that `error_id` is optional, if it is not passed one will be generated automatically.
+    data:
+      id: dropdown-with-error
+      label: How will you be travelling to the conference?
+      error_message: Please choose an option
+      error_id: error_id
+      options:
+      - text: ""
+        value: ""
+      - text: Public transport
+        value: option1
+      - text: Will make own arrangements
+        value: option2
+  with_custom_label_size:
+    description: Make the label different sizes. Valid options are `s`, `m`, `l` and `xl`.
+    data:
+      id: dropdown-with-custom-label-size
+      label: Bigger!
+      heading_size: xl
+      options:
+      - text: Option one
+        value: option1
+      - text: Option two
+        value: option2
+      - text: Option three
+        value: option3
+  with_page_heading:
+    description: This adds a `h1` element with a label element inside containing the text supplied.
+    data:
+      id: select-with-page-heading
+      label: This is a page heading
+      heading_size: xl
+      is_page_heading: true
+      options:
+      - text: Option one
+        value: option1
+      - text: Option two
+        value: option2

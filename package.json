@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "accessible-autocomplete": "alphagov/accessible-autocomplete-multiselect",
+    "choices.js": "^10.2.0",
     "jquery": "3.6.4",
     "miller-columns-element": "^2.0.0",
     "paste-html-to-govspeak": "^0.3.0"
