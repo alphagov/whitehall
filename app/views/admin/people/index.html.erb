@@ -1,0 +1,37 @@
+<% content_for :page_title, "People" %>
+<% content_for :title, "People" %>
+
+<%= render "govuk_publishing_components/components/warning_text", {
+  text: "Do not create ministerial people without consulting GDS.",
+  highlight_text: true
+} %>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: "Create person",
+  href: new_admin_person_path,
+  secondary_solid: true,
+  margin_bottom: 8
+} %>
+
+<%= render "govuk_publishing_components/components/table", {
+  filterable: true,
+  label: "Filter people",
+  head: [
+    {
+      text: "Name"
+    },
+    {
+      text: "Biography",
+    },
+  ],
+  rows: @people.map do |person|
+    [
+      {
+        text: link_to(person.name, [:admin, person], title: "View #{person.name}", class: "govuk-link"),
+      },
+      {
+        text: truncate(person.biography, length: 60),
+      }
+    ]
+  end
+} %>

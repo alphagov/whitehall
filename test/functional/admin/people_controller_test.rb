@@ -131,7 +131,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".people .person .biography", text: %r{^Hathi is head of the elephant troop}
+    assert_select ".govuk-table__cell", text: %r{^Hathi is head of the elephant troop}
   end
 
   test "GET on :edit denied if not a vip-editor" do

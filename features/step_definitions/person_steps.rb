@@ -58,7 +58,11 @@ end
 
 Then(/^I should be able to see "([^"]*)" in the list of people$/) do |name|
   visit_people_admin
-  expect(page).to have_selector(".person .name", text: name)
+  if using_design_system?
+    expect(page).to have_selector(".govuk-table__row:nth-child(1)", text: name)
+  else
+    expect(page).to have_selector(".person .name", text: name)
+  end
 end
 
 Then(/^I should not be able to see "([^"]*)" in the list of people$/) do |name|
