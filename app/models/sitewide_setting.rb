@@ -4,7 +4,7 @@ class SitewideSetting < ApplicationRecord
   validates :key, uniqueness: { case_sensitive: false } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates_with SafeHtmlValidator
 
-  after_save :republish_ministers_if_reshuffle
+  after_save :republish_downstream_if_reshuffle
 
   def human_status
     on ? "On" : "Off"
@@ -14,12 +14,14 @@ class SitewideSetting < ApplicationRecord
     key.humanize
   end
 
-  def republish_ministers_if_reshuffle
+  def republish_downstream_if_reshuffle
     return unless key == "minister_reshuffle_mode"
 
     payload = PublishingApi::MinistersIndexPresenter.new
 
     Services.publishing_api.put_content(payload.content_id, payload.content)
     Services.publishing_api.publish(payload.content_id, nil, locale: "en")
+
+    PublishHowGovernmentWorksPage.new.publish
   end
 end
