@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::OperationalFieldsControllerTest < ActionController::TestCase
+class Admin::LegacyOperationalFieldsControllerTest < ActionController::TestCase
+  tests Admin::OperationalFieldsController
+
   setup do
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
   end
 
   should_be_an_admin_controller
@@ -22,8 +24,8 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".govuk-table__cell" do
-      assert_select "a[href='#{edit_admin_operational_field_path(operational_field)}']", text: "Edit field of operation #{operational_field.name}"
+    assert_select_object(operational_field) do
+      assert_select "a[href='#{edit_admin_operational_field_path(operational_field)}']"
     end
   end
 
