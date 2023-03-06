@@ -49,7 +49,7 @@ class OrganisationLogoType
   CustomLogo = create!(
     id: 14, title: "Use custom logo for organisations exempt from the single identity", class_name: "custom",
   )
-  DepartmentForBusinessAndTrade = create!(
-    id: 15, title: "Department for Business and Trade", class_name: "dbt",
+  DepartmentInternationalTrade = create!(
+    id: 15, title: "Department for International Trade", class_name: "dit",
   )
 end
