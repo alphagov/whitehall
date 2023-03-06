@@ -358,20 +358,6 @@ zh-hk:
   latest_feed:
     no_updates: 目前暫無更新。
     title: 最新消息
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   organisation:
     corporate_information:
       access_our_info: 閱讀我們的資訊

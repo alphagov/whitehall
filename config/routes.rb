@@ -92,7 +92,6 @@ Whitehall::Application.routes.draw do
 
     get "/consultations", as: "consultations", to: "consultations#index" # used only for a redirect
     get "/statistics/announcements", as: "statistics_announcements", to: "statistics_announcements#index" # used only for a redirect
-    get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup
     # End of public facing routes still rendered by Whitehall
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers

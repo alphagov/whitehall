@@ -435,20 +435,6 @@ en:
   latest_feed:
     no_updates: There are no updates yet.
     title: Latest
-  mhra_email_signup:
-    context: Email alert subscription
-    pages:
-      drug_alerts:
-        description_html: Subscribe to <a href='/drug-device-alerts/email-signup'>MHRA's alerts and recalls for drugs and medical devices</a>.
-        title: Drug alerts and medical device alerts
-      drug_safety:
-        description_html: Subscribe to the <a href='https://public.govdelivery.com/accounts/UKMHRA/subscriber/new?topic_id=UKMHRA_0044'>Drug Safety Update</a>, the monthly newsletter for healthcare professionals, with clinical advice on the safe use of medicines.
-        title: Drug Safety Update
-      news_and_publications:
-        description_html: Subscribe to <a href='/government/email-signup/new?email_signup%5Bfeed%5D=https%3A%2F%2Fwww.gov.uk%2Fgovernment%2Forganisations%2Fmedicines-and-healthcare-products-regulatory-agency.atom'>MHRA's new publications, statistics, consultations and announcements</a>.
-        title: News and publications from the MHRA
-    summary: Email alerts from the %{acronym} (%{name}).
-    title: "%{acronym} email alerts"
   organisation:
     corporate_information:
       access_our_info: Access our information

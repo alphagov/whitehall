@@ -435,20 +435,6 @@ es-419:
   latest_feed:
     no_updates: Aún no hay actualizaciones.
     title: Más reciente
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   organisation:
     corporate_information:
       access_our_info: Acceda a nuestra información

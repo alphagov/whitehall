@@ -359,20 +359,6 @@ ms:
   latest_feed:
     no_updates: Belum ada kemas kini.
     title: Terkini
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   organisation:
     corporate_information:
       access_our_info: Akses maklumat kami
