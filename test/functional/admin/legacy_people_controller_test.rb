@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::PeopleControllerTest < ActionController::TestCase
+class Admin::LegacyPeopleControllerTest < ActionController::TestCase
+  tests Admin::PeopleController
+
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   should_be_an_admin_controller
@@ -137,7 +139,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   test "GET on :edit denied if not a vip-editor" do
     pm = create(:pm)
 
-    login_as_preview_design_system_user :writer
+    login_as :writer
     get :edit, params: { id: pm.slug }
     assert_response :forbidden
   end
@@ -145,7 +147,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   test "PUT on :update denied if not a vip-editor" do
     pm = create(:pm)
 
-    login_as_preview_design_system_user :writer
+    login_as :writer
     put :update, params: { id: pm.slug }
     assert_response :forbidden
   end
@@ -153,7 +155,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   test "DELETE on :destroy denied if not a vip-editor" do
     pm = create(:pm)
 
-    login_as_preview_design_system_user :writer
+    login_as :writer
     delete :destroy, params: { id: pm.slug }
     assert_response :forbidden
   end
@@ -162,7 +164,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     test "GET on :edit allowed if a #{permission}" do
       pm = create(:pm)
 
-      login_as_preview_design_system_user :vip_editor
+      login_as :vip_editor
       get :edit, params: { id: pm.slug }
       assert_response :success
     end
@@ -170,7 +172,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     test "PUT on :update allowed if a #{permission}" do
       pm = create(:pm)
 
-      login_as_preview_design_system_user :vip_editor
+      login_as :vip_editor
       put :update, params: { id: pm.slug, person: { title: "", forename: "Aronnax", surname: "", letters: "" } }
 
       assert_redirected_to admin_person_url(pm)
@@ -185,7 +187,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     role_appointment4 = create(:role_appointment, person:)
     role_appointment5 = create(:role_appointment, person:)
 
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
     get :reorder_role_appointments, params: { id: person.id }
 
     assert_equal [role_appointment1, role_appointment2, role_appointment4, role_appointment5], assigns(:role_appointments)
@@ -207,7 +209,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     role_appointment4 = create(:role_appointment, person:)
     role_appointment5 = create(:role_appointment, person:)
 
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
 
     Whitehall::PublishingApi.expects(:republish_async).with(role_appointment1.organisations.first)
     Whitehall::PublishingApi.expects(:republish_async).with(role_appointment2.organisations.first)
