@@ -5,6 +5,7 @@ class Admin::PeopleController < Admin::BaseController
 
   def index
     @people = Person.order(:surname, :forename).includes(:translations)
+    render :legacy_index
   end
 
   def new
