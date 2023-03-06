@@ -28,7 +28,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var data = new FormData()
     data.append('body', body)
     data.append('authenticity_token', this.getCsrfToken())
-    data.append('alternative_format_provider_id', this.alternativeFormatProviderId())
+    if (this.alternativeFormatProviderId()) {
+      data.append('alternative_format_provider_id', this.alternativeFormatProviderId())
+    }
 
     var imageIds = this.getImageIds()
     for (var index = 0; index < imageIds.length; index++) {

@@ -1,9 +1,14 @@
-<% page_title "Edit " + @operational_field.name %>
+<% content_for :page_title, "Edit #{@operational_field.name}" %>
+<% content_for :title, "Edit #{@operational_field.name}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @operational_field)) %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>Edit field of operation</h1>
-    <p class="warning">Warning: changes to fields of operation appear instantly on the live site.</p>
-    <%= render partial: "form", locals: {operational_field: @operational_field} %>
-  </section>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Warning: changes to fields of operation appear instantly on the live site.",
+      highlight_text: true
+    } %>
+
+    <%= render "form", operational_field: @operational_field %>
+  </div>
 </div>

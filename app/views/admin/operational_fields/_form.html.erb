@@ -1,12 +1,33 @@
-<%= form_for [:admin, operational_field] do |operational_field_form| %>
-  <%= operational_field_form.errors %>
+<%= form_for [:admin, operational_field] do |form| %>
 
-  <fieldset>
-    <%= operational_field_form.text_field :name %>
-    <%= operational_field_form.text_area :description, rows: 20, class: "previewable", data: {
-      module: "paste-html-to-govspeak"
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Name (required)"
+    },
+    name: "operational_field[name]",
+    id: "operational_field_name",
+    heading_size: "l",
+    value: operational_field.name,
+    error_items: errors_for(operational_field.errors, :name)
+  } %>
+
+  <%= render "components/govspeak-editor", {
+    label: {
+      text: "Description",
+      heading_size: "l",
+    },
+    name: "operational_field[description]",
+    id: "operational_field_description",
+    value: operational_field.description,
+    rows: 20,
+    error_items: errors_for(operational_field.errors, :description),
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
     } %>
-  </fieldset>
-  <p class="warning">Warning: changes to fields of operation appear instantly on the live site.</p>
-  <%= operational_field_form.save_or_cancel cancel: admin_operational_fields_path %>
+
+    <%= link_to "Cancel", admin_operational_fields_path, class: "govuk-link" %>
+  </div>
 <% end %>

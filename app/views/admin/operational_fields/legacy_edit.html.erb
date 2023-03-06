@@ -1,0 +1,9 @@
+<% page_title "Edit " + @operational_field.name %>
+
+<div class="row">
+  <section class="col-md-8">
+    <h1>Edit field of operation</h1>
+    <p class="warning">Warning: changes to fields of operation appear instantly on the live site.</p>
+    <%= render partial: "legacy_form", locals: {operational_field: @operational_field} %>
+  </section>
+</div>

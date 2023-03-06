@@ -9,6 +9,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
 
   def new
     @operational_field = OperationalField.new
+    render_design_system(:new, :legacy_new, next_release: false)
   end
 
   def create
@@ -16,12 +17,13 @@ class Admin::OperationalFieldsController < Admin::BaseController
     if @operational_field.save
       redirect_to admin_operational_fields_path, notice: %("#{@operational_field.name}" created.)
     else
-      render action: "new"
+      render_design_system(:new, :legacy_new, next_release: false)
     end
   end
 
   def edit
     @operational_field = OperationalField.friendly.find(params[:id])
+    render_design_system(:edit, :legacy_edit, next_release: false)
   end
 
   def update
@@ -29,17 +31,14 @@ class Admin::OperationalFieldsController < Admin::BaseController
     if @operational_field.update(operational_field_params)
       redirect_to admin_operational_fields_path, notice: %("#{@operational_field.name}" saved.)
     else
-      render action: "edit"
+      render_design_system(:edit, :legacy_edit, next_release: false)
     end
   end
 
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"
