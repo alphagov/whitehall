@@ -9,7 +9,8 @@
       organisation: {
         name: translated_organisation_logo_name(organisation),
         url: link_to_organisation ? organisation.public_path : nil,
-        crest: "single-identity",
+        crest: organisation.sponsoring_organisations.first&.organisation_crest || "single-identity",
+        brand: organisation.sponsoring_organisations.first&.organisation_brand || "single-identity",
       },
       heading_level: 1,
       inline: true,
