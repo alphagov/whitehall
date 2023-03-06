@@ -6,8 +6,8 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
       base_path: "/government/how-government-works",
       publishing_app: "whitehall",
       rendering_app: "whitehall-frontend",
-      schema_name: "special_route",
-      document_type: "special_route",
+      schema_name: "how_government_works",
+      document_type: "how_government_works",
       title: "How government works",
       description: "About the UK system of government. Understand who runs government, and how government is run.",
       locale: "en",
@@ -25,6 +25,6 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::HowGovernmentWorksPresenter.new
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_publisher_schema(presenter.content, "special_route")
+    assert_valid_against_publisher_schema(presenter.content, "how_government_works")
   end
 end

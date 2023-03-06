@@ -20,10 +20,10 @@ module PublishingApi
       content.merge!(
         base_path:,
         description: "About the UK system of government. Understand who runs government, and how government is run.",
-        document_type: "special_route",
+        document_type: "how_government_works",
         public_updated_at: Time.zone.now,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "special_route",
+        schema_name: "how_government_works",
       )
 
       content.merge!(PayloadBuilder::Routes.for(base_path))
