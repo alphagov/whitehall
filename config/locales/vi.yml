@@ -358,20 +358,6 @@ vi:
   latest_feed:
     no_updates: Chưa có cập nhật.
     title: Mới nhất
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   organisation:
     corporate_information:
       access_our_info: Truy cập thông tin của chúng tôi

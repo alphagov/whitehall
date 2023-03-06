@@ -435,20 +435,6 @@ pa:
   latest_feed:
     no_updates: ਅਜੇ ਕੋਈ ਅਪਡੇਟ ਨਹੀਂ ਹਨ।
     title: ਨਵੀਨਤਮ
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   organisation:
     corporate_information:
       access_our_info: ਸਾਡੀ ਜਾਣਕਾਰੀ ਤੱਕ ਪਹੁੰਚ ਕਰੋ
