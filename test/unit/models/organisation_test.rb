@@ -1125,4 +1125,18 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "/courts-tribunals/#{tribunal.slug}", tribunal.public_path
     assert_equal "https://www.test.gov.uk/courts-tribunals/#{tribunal.slug}", tribunal.public_url
   end
+
+  test "should send the how government works page to publishing api when an organisation is created" do
+    PublishHowGovernmentWorksPage.any_instance.expects(:publish)
+
+    create(:organisation)
+  end
+
+  test "should send the how government works page to publishing api when an organisation is updated" do
+    organisation = create(:organisation)
+
+    PublishHowGovernmentWorksPage.any_instance.expects(:publish)
+
+    organisation.update!(name: "New department name")
+  end
 end
