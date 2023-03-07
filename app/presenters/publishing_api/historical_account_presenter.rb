@@ -32,7 +32,7 @@ module PublishingApi
         },
         document_type: "historic_appointment",
         public_updated_at: historical_account.updated_at,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: "historic_appointment",
       )
 
