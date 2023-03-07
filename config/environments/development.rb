@@ -97,4 +97,9 @@ Whitehall::Application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # Uncomment if you want to diagnose Javascript compression/mangling issues
+  # config.assets.js_compressor = :terser
+  # or
+  # config.assets.js_compressor = Terser.new(mangle: false)
 end

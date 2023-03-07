@@ -25,7 +25,8 @@ Whitehall::Application.configure do
   config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  # Can just use `:terser` for default settings
+  config.assets.js_compressor = Terser.new(mangle: false)
 
   # Rather than use a CSS compressor, use the SASS style to perform compression
   config.sass.style = :compressed

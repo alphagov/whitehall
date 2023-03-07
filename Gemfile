@@ -57,7 +57,6 @@ gem "sidekiq-scheduler"
 gem "slimmer"
 gem "sprockets-rails"
 gem "transitions", require: ["transitions", "active_record/transitions"]
-gem "uglifier"
 gem "validates_email_format_of"
 gem "view_component"
 gem "whenever", require: false
@@ -102,3 +101,5 @@ group :cucumber, :test do
   gem "govuk_test"
   gem "launchy"
 end
+
+gem "terser", "~> 1.1"

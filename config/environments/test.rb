@@ -68,6 +68,11 @@ Whitehall::Application.configure do
   ENV["GOVUK_ASSET_ROOT"] ||= "https://static.test.gov.uk"
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+  #
+  # Uncomment if you want to diagnose Javascript compression/mangling issues
+  # config.assets.js_compressor = :terser
+  # or
+  # config.assets.js_compressor = Terser.new(mangle: false)
 end
 
 require Rails.root.join("test/support/skip_slimmer")
