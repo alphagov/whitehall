@@ -22,6 +22,21 @@ class Admin::EditionImagesController < Admin::BaseController
     end
   end
 
+  def create
+    @new_image = @edition.images.build
+    @new_image.build_image_data(image_params["image_data"])
+
+    if @new_image.save
+      redirect_to edit_admin_edition_image_path(@edition, @new_image.id)
+    else
+      # Removes @new_image from the edition, otherwise the index page will attempt to render it and error
+      @edition.images.delete(@new_image)
+      render :index
+    end
+  end
+
+  def edit; end
+
 private
 
   def image
@@ -46,10 +61,14 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "edit", "update", "destroy", "confirm_destroy"
+    when "edit", "update", "destroy", "confirm_destroy", "create"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
     end
+  end
+
+  def image_params
+    params.fetch(:image, {}).permit(image_data: [:file])
   end
 end
