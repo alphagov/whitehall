@@ -13,6 +13,7 @@ class DraftDocumentCollectionBuilder
 
     ActiveRecord::Base.transaction do
       dc = initialise_document_collection
+      confirm_valid_for_conversion(dc)
       add_groups_to_document_collection(dc)
       add_documents_to_groups(dc)
     end
@@ -21,6 +22,23 @@ class DraftDocumentCollectionBuilder
 private
 
   attr_reader :specialist_topic, :assignee_email_address
+
+  def confirm_valid_for_conversion(edition)
+    message = "Specialist topic has already been converted and published"
+
+    confirm_latest_edition(edition, message)
+    confirm_draft(edition, message)
+  end
+
+  def confirm_latest_edition(edition, message)
+    parent_document = edition.document
+
+    raise message unless parent_document.latest_edition.id == edition.id
+  end
+
+  def confirm_draft(edition, message)
+    raise message if edition.document.live?
+  end
 
   def initialise_document_collection
     DocumentCollection.find_or_create_by!(

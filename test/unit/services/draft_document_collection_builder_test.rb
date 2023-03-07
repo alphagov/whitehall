@@ -67,6 +67,12 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     assert_not_requested stub_publishing_api_has_item(unpublished_document_content_item)
   end
 
+  test "#perform! will not update a document collection that has been published" do
+    create(:published_document_collection, mapped_specialist_topic_content_id: specialist_topic_content_id)
+    exception = assert_raises(Exception) { DraftDocumentCollectionBuilder.call(specialist_topic_content_item, assignee_email_address) }
+    assert_equal("Specialist topic has already been converted and published", exception.message)
+  end
+
   test "#perform! fails unless a user is present" do
     exception = assert_raises(Exception) { DraftDocumentCollectionBuilder.call(specialist_topic_content_item, "no-one@email.co.uk") }
     assert_equal("No user could be found for that email address", exception.message)
