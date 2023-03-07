@@ -1,0 +1,111 @@
+<%= form_for [:admin, person] do |form| %>
+  <%= hidden_field_tag 'person[privy_counsellor]', "0" %>
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    id: "person_privy_counsellor",
+    name: "person[privy_counsellor]",
+    items: [
+      {
+        label: "Add the prefix Rt Hon",
+        value: "1",
+        checked: person.privy_counsellor
+      }
+    ]
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Title",
+      heading_size: "l",
+    },
+    name: "person[title]",
+    id: "person_title",
+    value: person.title,
+    error_items: errors_for(person.errors, :title)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Forename",
+      heading_size: "l",
+    },
+    name: "person[forename]",
+    id: "person_forename",
+    value: person.forename,
+    error_items: errors_for(person.errors, :forename)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Surname",
+      heading_size: "l",
+    },
+    name: "person[surname]",
+    id: "person_surname",
+    value: person.surname,
+    error_items: errors_for(person.errors, :surname)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Letters",
+      heading_size: "l",
+    },
+    name: "person[letters]",
+    id: "person_letters",
+    value: person.letters,
+    error_items: errors_for(person.errors, :letters)
+  } %>
+
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Image",
+    heading_size: "l"
+  } do %>
+    <% if person.image_url %>
+      <div class="app-view-edit-person__image">
+        <%= image_tag person.image_url %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= render "govuk_publishing_components/components/file_upload", {
+        label: {
+          text: "Upload a file",
+          heading_size: "m"
+        },
+        name: "person[image]",
+        id: "person_image",
+        error_items: errors_for(person.errors, :image)
+      } %>
+    </div>
+  <% end %>
+
+  <%= render "components/govspeak-editor", {
+    label: {
+      text: "Biography",
+      heading_size: "l",
+    },
+    name: "person[biography]",
+    id: "person_biography",
+    value: person.biography,
+    rows: 20,
+    error_items: errors_for(person.errors, :biography),
+    data_mod: {
+      module: "paste-html-to-govspeak"
+    }
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+         module: "gem-track-click",
+         "track-category": "form-button",
+         "track-action": "person-button",
+         "track-label": "Save"
+       }
+    } %>
+
+    <%= link_to "Cancel", admin_people_path, class: "govuk-link" %>
+  </div>
+<% end %>

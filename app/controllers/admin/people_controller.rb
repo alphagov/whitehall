@@ -10,7 +10,7 @@ class Admin::PeopleController < Admin::BaseController
 
   def new
     @person = Person.new
-    render :legacy_new
+    render_design_system(:new, :legacy_new, next_release: false)
   end
 
   def create
@@ -18,7 +18,7 @@ class Admin::PeopleController < Admin::BaseController
     if @person.save
       redirect_to [:admin, @person], notice: %("#{@person.name}" created.)
     else
-      render :legacy_new
+      render_design_system(:new, :legacy_new, next_release: false)
     end
   end
 
@@ -27,14 +27,14 @@ class Admin::PeopleController < Admin::BaseController
   end
 
   def edit
-    render :legacy_edit
+    render_design_system(:edit, :legacy_edit, next_release: false)
   end
 
   def update
     if @person.update(person_params)
       redirect_to [:admin, @person], notice: %("#{@person.name}" saved.)
     else
-      render :legacy_edit
+      render_design_system(:edit, :legacy_edit, next_release: false)
     end
   end
 
@@ -71,7 +71,7 @@ private
 
   def get_layout
     design_system_actions = %w[reorder_role_appointments update_order_role_appointments]
-    design_system_actions += %w[index show confirm_destroy] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show confirm_destroy new create edit update] if preview_design_system?(next_release: false)
 
     if action_name.in?(design_system_actions)
       "design_system"
