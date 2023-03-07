@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_162401) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_07_101416) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -335,6 +335,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_162401) do
     t.boolean "all_nation_applicability", default: true
     t.string "image_display_option"
     t.string "auth_bypass_id", null: false
+    t.string "mapped_specialist_topic_content_id"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
