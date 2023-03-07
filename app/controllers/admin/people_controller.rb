@@ -10,6 +10,7 @@ class Admin::PeopleController < Admin::BaseController
 
   def new
     @person = Person.new
+    render :legacy_new
   end
 
   def create
@@ -17,7 +18,7 @@ class Admin::PeopleController < Admin::BaseController
     if @person.save
       redirect_to [:admin, @person], notice: %("#{@person.name}" created.)
     else
-      render action: "new"
+      render :legacy_new
     end
   end
 
@@ -25,13 +26,15 @@ class Admin::PeopleController < Admin::BaseController
     render_design_system(:show, :legacy_show, next_release: false)
   end
 
-  def edit; end
+  def edit
+    render :legacy_edit
+  end
 
   def update
     if @person.update(person_params)
       redirect_to [:admin, @person], notice: %("#{@person.name}" saved.)
     else
-      render action: "edit"
+      render :legacy_edit
     end
   end
 
