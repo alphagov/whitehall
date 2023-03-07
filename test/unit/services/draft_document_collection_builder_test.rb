@@ -16,7 +16,8 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
 
   test "#perform! builds basic document collection" do
     stub_valid_specialist_topic
-    DraftDocumentCollectionBuilder.call(specialist_topic_content_item, assignee_email_address)
+    builder = DraftDocumentCollectionBuilder.new(specialist_topic_content_item, assignee_email_address)
+    builder.perform!
 
     # Adds basic attributes
     assert_equal 2, DocumentCollection.count
@@ -54,7 +55,7 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     document = create(:document, content_id: unpublished_document_content_id, document_type: "Publication")
     create(:edition, :unpublished, type: "Publication", document_id: document.id)
 
-    DraftDocumentCollectionBuilder.call(specialist_topic_with_unpublished_links_content_item, assignee_email_address)
+    DraftDocumentCollectionBuilder.new(specialist_topic_with_unpublished_links_content_item, assignee_email_address).perform!
 
     group = DocumentCollection.last.groups.first
     members = group.memberships
@@ -69,12 +70,14 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
 
   test "#perform! will not update a document collection that has been published" do
     create(:published_document_collection, mapped_specialist_topic_content_id: specialist_topic_content_id)
-    exception = assert_raises(Exception) { DraftDocumentCollectionBuilder.call(specialist_topic_content_item, assignee_email_address) }
+    builder = DraftDocumentCollectionBuilder.new(specialist_topic_content_item, assignee_email_address)
+    exception = assert_raises(Exception) { builder.perform! }
     assert_equal("Specialist topic has already been converted and published", exception.message)
   end
 
   test "#perform! fails unless a user is present" do
-    exception = assert_raises(Exception) { DraftDocumentCollectionBuilder.call(specialist_topic_content_item, "no-one@email.co.uk") }
+    builder = DraftDocumentCollectionBuilder.new(specialist_topic_content_item, "no-one@email.co.uk")
+    exception = assert_raises(Exception) { builder.perform! }
     assert_equal("No user could be found for that email address", exception.message)
   end
 

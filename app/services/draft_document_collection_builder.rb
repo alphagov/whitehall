@@ -1,11 +1,9 @@
 class DraftDocumentCollectionBuilder
+  attr_reader :message
+
   def initialize(specialist_topic, assignee_email_address)
     @specialist_topic = specialist_topic
     @assignee_email_address = assignee_email_address
-  end
-
-  def self.call(*args)
-    new(*args).perform!
   end
 
   def perform!
@@ -16,6 +14,7 @@ class DraftDocumentCollectionBuilder
       confirm_valid_for_conversion(dc)
       add_groups_to_document_collection(dc)
       add_documents_to_groups(dc)
+      @message = build_completion_message(dc)
     end
   end
 
@@ -138,5 +137,16 @@ private
 
   def content_item(content_id)
     Services.publishing_api.get_content(content_id).to_h.deep_symbolize_keys
+  end
+
+  def build_completion_message(collection)
+    format = "%d-%m-%Y at %H:%M:%S"
+    created = collection.created_at
+    updated = collection.updated_at
+
+    creation_message = "#{collection.title} was created #{created.strftime(format)}"
+    updated_message =  "#{collection.title} has been updated"
+
+    created == updated ? creation_message : updated_message
   end
 end
