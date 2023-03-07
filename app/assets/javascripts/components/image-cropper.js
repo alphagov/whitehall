@@ -6,6 +6,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   function ImageCropper ($imageCropper) {
     this.$imageCropper = $imageCropper
     this.$image = this.$imageCropper.querySelector('.app-c-image-cropper__image')
+    this.$targetWidth = 960
+    this.$targetHeight = 640
   }
 
   ImageCropper.prototype.init = function () {
@@ -18,6 +20,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     if (this.$image.complete) {
       this.initCropper()
     }
+
+    this.setupFormListener()
   }
 
   ImageCropper.prototype.initCropper = function () {
@@ -25,50 +29,16 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       return
     }
 
-    var $inputX = this.$imageCropper.querySelector('.js-image-cropper-x')
-    var $inputY = this.$imageCropper.querySelector('.js-image-cropper-y')
-    var $inputWidth = this.$imageCropper.querySelector('.js-image-cropper-width')
-    var $inputHeight = this.$imageCropper.querySelector('.js-image-cropper-height')
-
     var width = this.$image.clientWidth
-    var height = this.$image.clientHeight
     var naturalWidth = this.$image.naturalWidth
-    var naturalHeight = this.$image.naturalHeight
-    var scaledRatio = 1
-    var minCropWidth = 960
-    var minCropHeight = 640
+    var scaledRatio = width / naturalWidth
 
-    // Set the crop box limits
-    var minCropBoxWidth = minCropWidth
-    var minCropBoxHeight = minCropHeight
-
-    // Read existing crop box data
-    var cropBoxX = $inputX.value
-    var cropBoxY = $inputY.value
-    var cropBoxWidth = $inputWidth.value
-    var cropBoxHeight = $inputHeight.value
-
-    if (width < naturalWidth || height < naturalHeight) {
-      // Determine the scale ratio of the resized image
-      scaledRatio = width / naturalWidth
-
-      // Adjust the crop box limits to the scaled image
-      minCropBoxWidth = Math.round(minCropBoxWidth * scaledRatio)
-      minCropBoxHeight = Math.round(minCropBoxHeight * scaledRatio)
-
-      // Adjust the crop box to the scaled image
-      cropBoxX = cropBoxX * scaledRatio
-      cropBoxY = cropBoxY * scaledRatio
-      cropBoxWidth = cropBoxWidth * scaledRatio
-      cropBoxHeight = cropBoxHeight * scaledRatio
-
-      // Ensure the cropbox doesn't exceed the canvas
-      if (cropBoxWidth + cropBoxX > width) cropBoxX = width - cropBoxWidth
-      if (cropBoxHeight + cropBoxY > height) cropBoxY = height - cropBoxHeight
-    }
+    // Adjust the crop box limits to the scaled image
+    var minCropBoxWidth = Math.ceil(this.$targetWidth * scaledRatio)
+    var minCropBoxHeight = Math.ceil(this.$targetHeight * scaledRatio)
 
     if (this.$image) {
-      new window.Cropper(this.$image, { // eslint-disable-line
+      this.cropper = new window.Cropper(this.$image, { // eslint-disable-line
         viewMode: 2,
         aspectRatio: 3 / 2,
         autoCrop: true,
@@ -79,41 +49,32 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         minCropBoxWidth: minCropBoxWidth,
         minCropBoxHeight: minCropBoxHeight,
         rotatable: false,
-        scalable: false,
-        ready: function () {
-          // Get canvas data
-          var canvasData = this.cropper.getCanvasData()
-
-          // Set crop box data
-          this.cropper.setCropBoxData({
-            left: cropBoxX + canvasData.left,
-            top: cropBoxY + canvasData.top,
-            width: cropBoxWidth,
-            height: cropBoxHeight
-          })
-        },
-        crop: function () {
-          // Get crop data
-          var cropData = this.cropper.getData({ rounded: true })
-
-          // Ensure the crop size is not smaller than the minimum values
-          if (cropData.width < minCropWidth) {
-            cropData.width = minCropWidth
-            cropData.x -= minCropWidth - cropData.width
-          }
-          if (cropData.height < minCropHeight) {
-            cropData.height = minCropHeight
-            cropData.y -= minCropHeight - cropData.height
-          }
-
-          // Set crop data in inputs
-          $inputX.value = cropData.x
-          $inputY.value = cropData.y
-          $inputWidth.value = cropData.width
-          $inputHeight.value = cropData.height
-        }
+        scalable: false
       })
     }
+  }
+
+  ImageCropper.prototype.setupFormListener = function () {
+    var input = this.$imageCropper.querySelector('.js-cropped-image-input')
+    input.form.addEventListener('submit', function (event) {
+      event.preventDefault()
+      this.cropper.getCroppedCanvas({
+        width: this.$targetWidth,
+        height: this.$targetHeight
+      }).toBlob(function (blob) {
+        var file = new File(
+          [blob],
+          this.$imageCropper.dataset.filename,
+          {
+            type: this.$imageCropper.dataset.type,
+            lastModified: new Date().getTime()
+          })
+        var container = new DataTransfer()
+        container.items.add(file)
+        input.files = container.files
+        input.form.submit()
+      }.bind(this), this.$imageCropper.dataset.type)
+    }.bind(this))
   }
 
   Modules.ImageCropper = ImageCropper

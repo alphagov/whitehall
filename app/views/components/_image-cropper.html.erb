@@ -1,41 +1,8 @@
-<%
-  id ||= nil
-  alt_text ||= nil
-  exact_dimensions ||= false
-  data_attributes ||= {}
-  data_attributes[:module] = "image-cropper" unless exact_dimensions
-%>
-
-<%= tag.div class: "app-c-image-cropper", id: id, data: data_attributes do %>
-
-  <%= tag.p class: "app-c-image-cropper__no-js-description" do %>
-    The image you selected has been automatically resized to fit on GOV.UK. If you have JavaScript enabled in your browser you will be able to manually crop and resize the image.
-  <% end %>
-
-  <%= tag.img class: "app-c-image-cropper__no-js-image",
-    src: no_js_src,
-    alt: alt_text
-  %>
-
-  <% if exact_dimensions %>
-    <%= tag.p class: "app-c-image-cropper__description" do %>
-      The image you selected has exactly the required dimensions. The whole image will be used.
-    <% end %>
-  <% else %>
-    <%= tag.p class: "app-c-image-cropper__description" do %>
-      The part you select will be resized for GOV.UK. The shape is fixed.
-    <% end %>
-  <% end %>
-
+<%= tag.div class: "app-c-image-cropper", data: {module: "image-cropper", filename:, type:} do %>
+  <input type="file" class="js-cropped-image-input" name="<%= name %>" hidden>
   <%= tag.div class: "app-c-image-cropper__container" do %>
     <%= tag.img class: "app-c-image-cropper__image",
-      src: src,
-      alt: alt_text
+      src: src
     %>
   <% end%>
-
-  <%= hidden_field_tag 'image_revision[crop_x]', crop_x, class: "js-image-cropper-x" %>
-  <%= hidden_field_tag 'image_revision[crop_y]', crop_y, class: "js-image-cropper-y" %>
-  <%= hidden_field_tag 'image_revision[crop_width]', crop_width, class: "js-image-cropper-width" %>
-  <%= hidden_field_tag 'image_revision[crop_height]', crop_height, class: "js-image-cropper-height" %>
 <% end %>
