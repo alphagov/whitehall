@@ -194,6 +194,7 @@ class Organisation < ApplicationRecord
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
   after_save :update_organisations_index_page
+  after_save :republish_how_government_works_page_to_publishing_api
   after_destroy :update_organisations_index_page
 
   after_save do
@@ -222,6 +223,10 @@ class Organisation < ApplicationRecord
       documents = Document.live.where(editions: { alternative_format_provider_id: self })
       documents.find_each { |d| Whitehall::PublishingApi.republish_document_async(d, bulk: true) }
     end
+  end
+
+  def republish_how_government_works_page_to_publishing_api
+    PublishHowGovernmentWorksPage.new.publish
   end
 
   def update_organisations_index_page

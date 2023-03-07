@@ -73,6 +73,11 @@ namespace :publishing_api do
     task republish_past_prime_ministers: :environment do
       PublishPrimeMinistersIndexPage.new.publish
     end
+
+    desc "Republish the how government works page to Publishing API"
+    task republish_how_government_works: :environment do
+      PublishHowGovernmentWorksPage.new.publish
+    end
   end
 
   namespace :patch_links do

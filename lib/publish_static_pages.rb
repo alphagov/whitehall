@@ -17,14 +17,6 @@ class PublishStaticPages
   def pages
     [
       {
-        content_id: "f56cfe74-8e5c-432d-bfcf-fd2521c5919c",
-        title: "How government works",
-        document_type: "special_route",
-        description: "About the UK system of government. Understand who runs government, and how government is run.",
-        indexable_content: TemplateContent.new("home/how_government_works").indexable_content,
-        base_path: "/government/how-government-works",
-      },
-      {
         content_id: "dbe329f1-359c-43f7-8944-580d4742aa91",
         title: "Get involved",
         document_type: "get_involved",

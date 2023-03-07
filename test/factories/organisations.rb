@@ -61,6 +61,10 @@ FactoryBot.define do
     organisation_type_key { :sub_organisation }
   end
 
+  factory :executive_agency, parent: :organisation do
+    organisation_type_key { :executive_agency }
+  end
+
   factory :executive_office, parent: :organisation do
     organisation_type_key { :executive_office }
   end
