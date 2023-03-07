@@ -148,4 +148,9 @@ class DocumentCollectionTest < ActiveSupport::TestCase
 
     assert_equal doc_collection.content_ids, [doc.content_id, non_whitehall_link.content_id]
   end
+
+  test "#specialist_topic_conversion? returns true if mapped_specialist_topic_content_id is present" do
+    doc = create(:document_collection, mapped_specialist_topic_content_id: "123")
+    assert doc.specialist_topic_conversion?
+  end
 end
