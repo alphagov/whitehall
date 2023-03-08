@@ -78,6 +78,11 @@ namespace :publishing_api do
     task republish_how_government_works: :environment do
       PublishHowGovernmentWorksPage.new.publish
     end
+
+    desc "Republish the fields of operation index page to Publishing API"
+    task republish_operational_fields_index: :environment do
+      PublishOperationalFieldsIndexPage.new.publish
+    end
   end
 
   namespace :patch_links do
