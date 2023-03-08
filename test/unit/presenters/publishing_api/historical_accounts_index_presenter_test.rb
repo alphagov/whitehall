@@ -85,9 +85,10 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
 
     presenter = PublishingApi::HistoricalAccountsIndexPresenter.new
 
-    assert_equal presenter.links, expected_links
     assert_equal expected_details, presenter.content[:details]
     assert_valid_against_publisher_schema(presenter.content, "historic_appointments")
+    assert_equal presenter.links, expected_links
+    assert_valid_against_links_schema({ links: presenter.links }, "historic_appointments")
   end
 
   test "when a role appointment is current, does not present these in the details hash" do
