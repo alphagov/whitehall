@@ -25,8 +25,8 @@ Whitehall::Application.configure do
   config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS.
-  # Can just use `:terser` for default settings
-  config.assets.js_compressor = Terser.new(mangle: false)
+  # Can also use `Terser.new(mangle: false)` to disable name mangling
+  config.assets.js_compressor = :terser
 
   # Rather than use a CSS compressor, use the SASS style to perform compression
   config.sass.style = :compressed
