@@ -23,11 +23,13 @@
       "GOVUKAdmin"
     ],
     "ignore": [
-      "app/assets/javascripts/templates.js",
       "app/assets/javascripts/vendor/"
     ]
   },
   "eslintConfig": {
+    "env": {
+      "es6": true
+    },
     "rules": {
       "no-var": 0
     }
