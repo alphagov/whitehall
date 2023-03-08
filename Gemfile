@@ -102,4 +102,3 @@ group :cucumber, :test do
   gem "govuk_test"
   gem "launchy"
 end
-
