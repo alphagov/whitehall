@@ -56,6 +56,7 @@ gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
 gem "slimmer"
 gem "sprockets-rails"
+gem "terser"
 gem "transitions", require: ["transitions", "active_record/transitions"]
 gem "validates_email_format_of"
 gem "view_component"
@@ -102,4 +103,3 @@ group :cucumber, :test do
   gem "launchy"
 end
 
-gem "terser", "~> 1.1"

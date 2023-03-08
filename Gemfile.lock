@@ -828,7 +828,7 @@ DEPENDENCIES
   simplecov
   slimmer
   sprockets-rails
-  terser (~> 1.1)
+  terser
   timecop
   transitions
   validates_email_format_of
