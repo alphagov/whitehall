@@ -22,7 +22,9 @@
     <div class="govuk-grid-column-two-thirds">
       <div class="govuk-!-margin-bottom-9">
         <%= render "govuk_publishing_components/components/contents_list", {
-          aria_label: "Pages in this guide",
+          aria: {
+            label: "Pages in this guide",
+          },
           contents: [
             {
               href: "#who-runs-government",
