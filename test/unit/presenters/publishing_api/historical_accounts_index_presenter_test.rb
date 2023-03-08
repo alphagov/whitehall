@@ -57,6 +57,7 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
 
     expected_links = {
       historical_accounts: [@historical_account.content_id],
+      parent: [PublishingApi::HistoricalAccountsIndexPresenter::HISTORY_OF_THE_UK_GOVERNMENT_CONTENT_ID],
     }
 
     expected_details = {

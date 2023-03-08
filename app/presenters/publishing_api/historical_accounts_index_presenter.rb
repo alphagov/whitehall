@@ -2,6 +2,8 @@ module PublishingApi
   class HistoricalAccountsIndexPresenter
     attr_accessor :update_type
 
+    HISTORY_OF_THE_UK_GOVERNMENT_CONTENT_ID = "db95a864-874f-4f50-a483-352a5bc7ba18".freeze
+
     def initialize(update_type: nil)
       self.update_type = update_type || "major"
     end
@@ -51,6 +53,7 @@ module PublishingApi
     def links
       {
         historical_accounts: HistoricalAccount.all.map(&:content_id),
+        parent: [HISTORY_OF_THE_UK_GOVERNMENT_CONTENT_ID],
       }
     end
   end
