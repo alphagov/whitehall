@@ -70,7 +70,7 @@ namespace :publishing_api do
     end
 
     desc "Republish the past prime ministers index page to Publishing API"
-    task republish_past_prime_ministers: :environment do
+    task republish_past_prime_ministers_index: :environment do
       PublishPrimeMinistersIndexPage.new.publish
     end
 
