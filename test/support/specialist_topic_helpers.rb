@@ -16,6 +16,16 @@ module SpecialistTopicHelper
     stub_publishing_api_has_item(document_collection_content_item)
   end
 
+  def stub_valid_specialist_topic_with_unpublished_links
+    stub_publishing_api_has_lookups({
+      specialist_topic_with_unpublished_links_base_path => specialist_topic_with_unpublished_links_content_id,
+      unpublished_non_whitehall_document_base_path => unpublished_non_whitehall_document_content_id,
+    })
+
+    stub_publishing_api_has_item(specialist_topic_with_unpublished_links_content_item)
+    stub_publishing_api_has_item(unpublished_non_whitehall_document_content_item)
+  end
+
   def stub_level_one_specialist_topic
     stub_publishing_api_has_lookups({
       specialist_topic_base_path => specialist_topic_content_id,
@@ -161,5 +171,76 @@ module SpecialistTopicHelper
     specialist_topic_content_item[:base_path] = uncurated_specialist_topic_base_path
     specialist_topic_content_item[:content_id] = uncurated_specialist_topic_content_id
     specialist_topic_content_item.merge(details: {})
+  end
+
+  def specialist_topic_with_unpublished_links_base_path
+    "/topic/benefits-credits/tax"
+  end
+
+  def specialist_topic_with_unpublished_links_content_id
+    "e2644b6d-abcd-47e3-89b7-bf69be25465b"
+  end
+
+  def specialist_topic_with_unpublished_links_content_item
+    specialist_topic_content_item.deep_merge(
+      content_id: specialist_topic_with_unpublished_links_content_id,
+      base_path: specialist_topic_with_unpublished_links_base_path,
+      details: {
+        groups: [
+          {
+            name: "foo",
+            content_ids: [
+              unpublished_non_whitehall_document_content_id,
+            ],
+          },
+          {
+            name: "bar",
+            content_ids: [
+              unpublished_document_content_id,
+            ],
+          },
+        ],
+      },
+    )
+  end
+
+  def unpublished_non_whitehall_document_content_id
+    "f9528877-2f3a-402a-9e38-cffb94ad7386"
+  end
+
+  def unpublished_non_whitehall_document_base_path
+    "/i-am-a-redirect"
+  end
+
+  def unpublished_non_whitehall_document_content_item
+    {
+      content_id: unpublished_non_whitehall_document_content_id,
+      base_path: unpublished_non_whitehall_document_base_path,
+      unpublishing: {
+        type: "redirect",
+        redirects: [
+          {
+            path: "/qualify-tax-credits",
+            type: "prefix",
+            destination: "/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries",
+          },
+        ],
+      },
+    }
+  end
+
+  def unpublished_document_content_id
+    "b32c8ee2-4bec-42d7-81e8-b03cb536ffb8"
+  end
+
+  def unpublished_document_base_path
+    "/government/publications/guidance"
+  end
+
+  def unpublished_document_content_item
+    unpublished_non_whitehall_document_content_item.deep_merge(
+      content_id: unpublished_document_content_id,
+      base_path: unpublished_document_base_path,
+    )
   end
 end

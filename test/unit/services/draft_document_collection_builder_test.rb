@@ -48,6 +48,25 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     assert_equal document_collection_member.non_whitehall_link_id, document_collection_link.id
   end
 
+  test "#perform! will not add unpublished documents to a document collection group membership" do
+    stub_valid_specialist_topic_with_unpublished_links
+
+    document = create(:document, content_id: unpublished_document_content_id, document_type: "Publication")
+    create(:edition, :unpublished, type: "Publication", document_id: document.id)
+
+    DraftDocumentCollectionBuilder.call(specialist_topic_with_unpublished_links_content_item, assignee_email_address)
+
+    group = DocumentCollection.last.groups.first
+    members = group.memberships
+    assert_equal 0, members.count
+
+    # And will not query publishing api about the state of Whitehall documents
+    @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT
+
+    assert_publishing_api(:get, "#{@publishing_api_endpoint}/content/#{unpublished_non_whitehall_document_content_id}")
+    assert_not_requested stub_publishing_api_has_item(unpublished_document_content_item)
+  end
+
   test "#perform! fails unless a user is present" do
     exception = assert_raises(Exception) { DraftDocumentCollectionBuilder.call(specialist_topic_content_item, "no-one@email.co.uk") }
     assert_equal("No user could be found for that email address", exception.message)

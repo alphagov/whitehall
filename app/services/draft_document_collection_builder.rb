@@ -60,10 +60,7 @@ private
 
       topic_group[:content_ids].each do |content_id|
         if permissable_whitehall_document(content_id).present?
-          DocumentCollectionGroupMembership.find_or_create_by!(
-            document_id: permissable_whitehall_document(content_id).id,
-            document_collection_group_id: group.id,
-          )
+          build_document_group_membership(permissable_whitehall_document(content_id), group)
         else
           build_non_whitehall_link(group, content_id)
         end
@@ -83,13 +80,29 @@ private
     document
   end
 
+  def build_document_group_membership(document, group)
+    return unless document.live?
+
+    DocumentCollectionGroupMembership.find_or_create_by!(
+      document_id: document.id,
+      document_collection_group_id: group.id,
+    )
+  end
+
+  def dead_link?(content_item)
+    content_item[:unpublishing].present?
+  end
+
   # only govuk pages can be tagged to a specialist topic. So we can safely
   # assume that any non-whitehall links present in a specialist topic will
   # be internal URLs.
   def build_non_whitehall_link(group, content_id)
-    base_path = content_item(content_id)[:base_path]
+    content_item_hash = content_item(content_id)
+
+    return if dead_link?(content_item_hash)
+
     link = DocumentCollectionNonWhitehallLink::GovukUrl.new(
-      url: "https://www.gov.uk#{base_path}",
+      url: "https://www.gov.uk#{content_item_hash[:base_path]}",
       document_collection_group: group,
     )
     if !link.save && link.errors.any?
