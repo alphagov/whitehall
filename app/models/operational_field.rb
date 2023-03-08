@@ -13,6 +13,12 @@ class OperationalField < ApplicationRecord
   extend FriendlyId
   friendly_id
 
+  after_commit :republish_operational_fields_index_page_to_publishing_api
+
+  def republish_operational_fields_index_page_to_publishing_api
+    PublishOperationalFieldsIndexPage.new.publish
+  end
+
   def search_link
     Whitehall.url_maker.operational_field_path(slug)
   end
