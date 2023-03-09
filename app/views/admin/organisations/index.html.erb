@@ -10,7 +10,7 @@
 <% end %>
 
 <% if @organisations.present? %>
-  <div class="app-view-organisation-index__table">
+  <div class="app-c-govuk-table--filterable app-view-organisation-index__table">
     <%= render "govuk_publishing_components/components/table", {
       filterable: true,
       label: "Filter organisations",

@@ -5,6 +5,7 @@ class Admin::PeopleController < Admin::BaseController
 
   def index
     @people = Person.order(:surname, :forename).includes(:translations)
+    render_design_system(:index, :legacy_index, next_release: false)
   end
 
   def new
@@ -60,7 +61,10 @@ class Admin::PeopleController < Admin::BaseController
 private
 
   def get_layout
-    if action_name.in?(%w[reorder_role_appointments update_order_role_appointments])
+    design_system_actions = %w[reorder_role_appointments update_order_role_appointments]
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if action_name.in?(design_system_actions)
       "design_system"
     else
       "admin"
