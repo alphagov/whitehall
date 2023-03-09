@@ -56,8 +56,8 @@ gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
 gem "slimmer"
 gem "sprockets-rails"
+gem "terser"
 gem "transitions", require: ["transitions", "active_record/transitions"]
-gem "uglifier"
 gem "validates_email_format_of"
 gem "view_component"
 gem "whenever", require: false
