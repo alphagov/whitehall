@@ -45,6 +45,13 @@
         <p>Read more about <%= link_to "open standards formats", "https://www.gov.uk/guidance/content-design/planning-content#open-formats", class: "govuk-link govuk-link--no-visited-state" %>.</p>
       <% end %>
     </div>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Attachments",
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
+
     <%= render('attachments', attachable: attachable) if attachable.attachments.any? %>
   </div>
 </div>
