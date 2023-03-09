@@ -31,4 +31,26 @@ class OperationalFieldTest < ActiveSupport::TestCase
     field.update!(name: "New Field Name")
     assert_equal "field-name", field.slug
   end
+
+  test "should send the fields of operation index page to publishing api when a field of operation is created" do
+    PublishOperationalFieldsIndexPage.any_instance.expects(:publish)
+
+    create(:operational_field)
+  end
+
+  test "should send the fields of operation index page to publishing api when a field of operation is updated" do
+    field = create(:operational_field, name: "Field Name")
+
+    PublishOperationalFieldsIndexPage.any_instance.expects(:publish)
+
+    field.update!(name: "New Field Name")
+  end
+
+  test "should send the fields of operation index page to publishing api when a field of operation is destroyed" do
+    field = create(:operational_field, name: "Field Name")
+
+    PublishOperationalFieldsIndexPage.any_instance.expects(:publish)
+
+    field.destroy!
+  end
 end
