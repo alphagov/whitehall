@@ -5,41 +5,44 @@
 <%= form_for [:admin, sitewide_setting], as: :sitewide_setting do |form| %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <p class="govuk-body"><%= govspeak_to_html sitewide_setting.description%></p>
+      <p class="govuk-body"><%= govspeak_to_html sitewide_setting.description %></p>
       <%= render "govuk_publishing_components/components/radio", {
-    heading: "Enable re-shuffle mode?",
-    heading_size: "l",
-    name: "sitewide_setting[on]",
-    id: "sitewide_setting_on",
-    items: [
-      {
-        value: "1",
-        checked: sitewide_setting.on,
-        text: "Yes"
-      },
-      {
-        value: "0",
-        checked: !sitewide_setting.on,
-        text: "No"
-      }
-    ]
-  } %>
-      <%= render "govuk_publishing_components/components/textarea", 
-    label: {
-      heading_size: "l",
-      text: "Can you provide more detail in Govspeak?"
-    },
-    name: "sitewide_setting[govspeak]", 
-    id: "sitewide_setting_govspeak",
-    error_message: errors_for_input(sitewide_setting.errors, :govspeak),
-    hint: "Please check this is valid govspeak.",
-    value: sitewide_setting.govspeak
-    %>
+        heading: "Enable re-shuffle mode?",
+        heading_size: "l",
+        name: "sitewide_setting[on]",
+        id: "sitewide_setting_on",
+        items: [
+          {
+            value: "1",
+            checked: sitewide_setting.on,
+            text: "Yes"
+          },
+          {
+            value: "0",
+            checked: !sitewide_setting.on,
+            text: "No"
+          }
+        ]
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea",
+                 label: {
+                   heading_size: "l",
+                   text: "Can you provide more detail in Govspeak?"
+                 },
+                 name: "sitewide_setting[govspeak]",
+                 id: "sitewide_setting_govspeak",
+                 error_message: errors_for_input(sitewide_setting.errors, :govspeak),
+                 hint: "Please check this is valid govspeak.",
+                 value: sitewide_setting.govspeak
+      %>
+
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
-      text: "Save"
-    } %>
+          text: "Save"
+        } %>
+
         <%= link_to("cancel", admin_sitewide_settings_path(), class: "govuk-link") %>
       </div>
     </div>
-  <% end %>
+<% end %>

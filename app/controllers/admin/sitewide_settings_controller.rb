@@ -9,13 +9,13 @@ class Admin::SitewideSettingsController < Admin::BaseController
   def index
     @sitewide_settings = SitewideSetting.all
 
-    render_design_system("index", "index_legacy", next_release: false)
+    render_design_system("index", "legacy_index", next_release: false)
   end
 
   def edit
     @sitewide_setting = SitewideSetting.find(params[:id])
 
-    render_design_system("edit", "edit_legacy", next_release: false)
+    render_design_system("edit", "legacy_edit", next_release: false)
   end
 
   def update
@@ -23,7 +23,7 @@ class Admin::SitewideSettingsController < Admin::BaseController
     if @sitewide_setting.update(sitewide_settings_params)
       redirect_to admin_sitewide_settings_path, notice: %("#{@sitewide_setting.name}" updated.)
     else
-      render_design_system("edit", "edit_legacy", next_release: false)
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
 

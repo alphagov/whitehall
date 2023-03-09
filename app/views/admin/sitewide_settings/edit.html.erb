@@ -1,4 +1,4 @@
 <% content_for :title, "Edit Sitewide Setting #{@sitewide_setting.name}" %>
 <% content_for :page_title, "Edit Sitewide Setting #{@sitewide_setting.name}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @sitewide_setting)) %>
-<%= render partial: "form", locals: {sitewide_setting: @sitewide_setting} %>
+<%= render partial: "form", locals: { sitewide_setting: @sitewide_setting } %>
