@@ -69,8 +69,9 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::HistoricalAccountPresenter.new(historical_account)
 
     assert_equal expected_hash, presenter.content
-    assert_hash_includes presenter.links, expected_links
     assert_valid_against_publisher_schema(presenter.content, "historic_appointment")
+    assert_hash_includes presenter.links, expected_links
+    assert_valid_against_links_schema({ links: presenter.links }, "historic_appointment")
   end
 
   test "correctly determines the surrounding historical accounts to present, sorted in descending order" do
