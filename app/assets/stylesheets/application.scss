@@ -9,12 +9,10 @@ $govuk-page-width: 1140px;
 @import "./components/miller-columns";
 @import "./components/secondary-navigation";
 
+@import "./admin/overrides";
 @import "./admin/layout";
 
-@import "./admin/components/govuk-table";
-
 @import "./admin/views/audit-trail";
-@import "./admin/views/corporate-information-index";
 @import "./admin/views/document-history-tab";
 @import "./admin/views/edit-edition";
 @import "./admin/views/edition-images";
