@@ -1,12 +1,15 @@
 class Admin::CorporateInformationPagesController < Admin::EditionsController
   prepend_before_action :find_organisation
+  layout :get_layout
 
   FakeEditionFilter = Struct.new(:editions, :page_title, :show_stats, :hide_type)
 
   def index
     params[:state] = "active" # Ensure that state column is displayed.
-    paginator = @organisation.corporate_information_pages.where("state != ?", "superseded").order("corporate_information_page_type_id").page(1).per(100)
-    @filter = FakeEditionFilter.new paginator, "Corporate information pages", false, true
+    @paginator = @organisation.corporate_information_pages.where("state != ?", "superseded").order("corporate_information_page_type_id").page(params["page"].to_i || 1).per(100)
+    @filter = FakeEditionFilter.new @paginator, "Corporate information pages", false, true
+
+    render_design_system(:index, :legacy_index, next_release: false)
   end
 
   def destroy
@@ -23,6 +26,14 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   end
 
 private
+
+  def get_layout
+    if action_name == "index" && preview_design_system?(next_release: false)
+      "design_system"
+    else
+      super
+    end
+  end
 
   def edition_class
     CorporateInformationPage

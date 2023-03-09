@@ -1,0 +1,7 @@
+.app-c-govuk-table--filterable .govuk-table {
+  table-layout: fixed;
+}
+
+.govuk-tag--s {
+  @include govuk-font(14, $weight: bold, $line-height: 1);
+}

@@ -1,0 +1,9 @@
+<% if total_pages > 1 %>
+  <% Admin::PaginationHelper.pagination_hash(current_page: current_page.to_i, total_pages:, path: request.path).tap do |hash| %>
+    <%= render "components/pagination", {
+      previous_href: hash[:previous_href],
+      next_href: hash[:next_href],
+      items: hash[:items],
+      } %>
+  <% end %>
+<% end %>
