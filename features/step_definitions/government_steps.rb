@@ -47,3 +47,15 @@ end
 Then(/^there should be no active ministerial role appointments$/) do
   expect(0).to eq(count_active_ministerial_role_appointments)
 end
+
+Given(/^that there no governments available to view$/) do
+  Government.delete_all
+end
+
+When(/^I visit the governments page$/) do
+  visit admin_governments_path
+end
+
+Then(/^I should see no governments message$/) do
+  expect(page).to have_selector("p", text: "No governments have been created.")
+end
