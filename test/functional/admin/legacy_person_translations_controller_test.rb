@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::PersonTranslationsControllerTest < ActionController::TestCase
+class Admin::LegacyPersonTranslationsControllerTest < ActionController::TestCase
+  tests Admin::PersonTranslationsController
+
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     @person = create(:person, biography: "She was born. She lived. She died.")
 
     Locale.stubs(:non_english).returns([Locale.new(:fr), Locale.new(:es)])
