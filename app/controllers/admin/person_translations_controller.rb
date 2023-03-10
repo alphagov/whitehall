@@ -1,7 +1,19 @@
 class Admin::PersonTranslationsController < Admin::BaseController
   include TranslationControllerConcern
+  layout :get_layout
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[edit update] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def create_redirect_path
     edit_admin_person_translation_path(@person, id: translation_locale)
