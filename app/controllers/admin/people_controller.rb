@@ -1,6 +1,6 @@
 class Admin::PeopleController < Admin::BaseController
-  before_action :load_person, only: %i[show edit update destroy reorder_role_appointments update_order_role_appointments]
-  before_action :enforce_permissions!, only: %i[edit update destroy reorder_role_appointments update_order_role_appointments]
+  before_action :load_person, only: %i[show edit update destroy reorder_role_appointments update_order_role_appointments confirm_destroy]
+  before_action :enforce_permissions!, only: %i[edit update destroy reorder_role_appointments update_order_role_appointments confirm_destroy]
   layout :get_layout
 
   def index
@@ -35,6 +35,10 @@ class Admin::PeopleController < Admin::BaseController
     end
   end
 
+  def confirm_destroy
+    redirect_to [:admin, @person], alert: "Cannot destroy a person with appointments" unless @person.destroyable?
+  end
+
   def destroy
     if @person.destroy
       redirect_to admin_people_path, notice: %("#{@person.name}" destroyed.)
@@ -64,7 +68,7 @@ private
 
   def get_layout
     design_system_actions = %w[reorder_role_appointments update_order_role_appointments]
-    design_system_actions += %w[index show] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show confirm_destroy] if preview_design_system?(next_release: false)
 
     if action_name.in?(design_system_actions)
       "design_system"

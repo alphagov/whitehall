@@ -38,6 +38,7 @@ end
 When(/^I remove the person "([^"]*)"$/) do |name|
   visit_people_admin
   click_link name
+  click_link "Delete" if using_design_system?
   click_button "Delete"
 end
 
