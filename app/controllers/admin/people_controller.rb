@@ -22,7 +22,7 @@ class Admin::PeopleController < Admin::BaseController
   end
 
   def show
-    render :legacy_show
+    render_design_system(:show, :legacy_show, next_release: false)
   end
 
   def edit; end
@@ -64,7 +64,7 @@ private
 
   def get_layout
     design_system_actions = %w[reorder_role_appointments update_order_role_appointments]
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show] if preview_design_system?(next_release: false)
 
     if action_name.in?(design_system_actions)
       "design_system"
