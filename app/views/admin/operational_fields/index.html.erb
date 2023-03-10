@@ -4,10 +4,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/button", {
-      text: "Add field of operation",
+      text: "Create field of operation",
       href: new_admin_operational_field_path,
-      secondary_solid: true,
-      margin_bottom: 8,
+      margin_bottom: 6,
     } %>
 
     <%= render "govuk_publishing_components/components/table", {
@@ -15,13 +14,20 @@
         {
           text: "Name"
         },
+        {
+          text: tag.span("Actions", class: "govuk-visually-hidden"),
+        }
       ],
       rows:
         @operational_fields.map do |operational_field|
           [
             {
-              text: sanitize("<a href='#{edit_admin_operational_field_path(operational_field)}' class='govuk-link'><span class='govuk-visually-hidden'>Edit field of operation </span>#{operational_field.name}</a>")
-            }
+              text: operational_field.name,
+            },
+            {
+              text: sanitize("<a href='#{edit_admin_operational_field_path(operational_field)}' class='govuk-link'>Edit<span class='govuk-visually-hidden'> #{operational_field.name}</span></a>"),
+              format: "numeric",
+            },
           ]
         end
     } %>
