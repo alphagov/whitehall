@@ -30,7 +30,7 @@ module PublishingApi
 
     def links
       {
-        fatality_notices: operational_field.published_fatality_notices.order("first_published_at desc").map(&:content_id),
+        fatality_notices: operational_field.published_fatality_notices.order("first_published_at desc").map { |notice| presentation_info(notice) },
         primary_publishing_organisation: [MINISTRY_OF_DEFENCE_CONTENT_ID],
       }
     end
@@ -38,5 +38,17 @@ module PublishingApi
   private
 
     attr_reader :operational_field
+
+    def presentation_info(notice)
+      {
+        intro: notice.roll_call_introduction,
+        links: notice.fatality_notice_casualties.map do |casualty|
+          {
+            title: casualty.personal_details,
+            href: notice.base_path,
+          }
+        end,
+      }
+    end
   end
 end

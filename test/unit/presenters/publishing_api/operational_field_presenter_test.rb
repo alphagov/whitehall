@@ -7,7 +7,12 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
       name: "Operational Field name",
       description: "Operational Field description",
     )
-    @fatality_notices_for_operational_field = (0..4).map { |_i| create(:published_fatality_notice, operational_field: @operational_field) }
+    @fatality_notices_for_operational_field = []
+    2.times do |i|
+      notice = create(:published_fatality_notice, roll_call_introduction: "Fatality Notice #{i}", operational_field: @operational_field)
+      2.times { |j| create(:fatality_notice_casualty, fatality_notice: notice, personal_details: "personal details #{i} - #{j}") }
+      @fatality_notices_for_operational_field << notice
+    end
     create(:published_fatality_notice, operational_field: create(:operational_field))
     %i[draft_fatality_notice
        submitted_fatality_notice
@@ -52,8 +57,25 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the expected links" do
+    fatality_notices = [
+      {
+        intro: "Fatality Notice 0",
+        links: [
+          { title: "personal details 0 - 0", href: "/government/fatalities/fatality-title" },
+          { title: "personal details 0 - 1", href: "/government/fatalities/fatality-title" },
+        ],
+      },
+      {
+        intro: "Fatality Notice 1",
+        links: [
+          { title: "personal details 1 - 0", href: "/government/fatalities/fatality-title--2" },
+          { title: "personal details 1 - 1", href: "/government/fatalities/fatality-title--2" },
+        ],
+      },
+    ]
+
     expected_links = {
-      fatality_notices: @fatality_notices_for_operational_field.map(&:content_id),
+      fatality_notices:,
       primary_publishing_organisation: [PublishingApi::OperationalFieldPresenter::MINISTRY_OF_DEFENCE_CONTENT_ID],
     }
 
