@@ -1,5 +1,6 @@
 class Admin::WorldLocationNewsTranslationsController < Admin::BaseController
   include TranslationControllerConcern
+  layout :get_layout
 
   def destroy
     translatable_item.world_location.remove_translations_for(translation_locale.code)
@@ -7,6 +8,10 @@ class Admin::WorldLocationNewsTranslationsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    "admin"
+  end
 
   def create_redirect_path
     edit_admin_world_location_news_translation_path(@world_location_news, id: translation_locale)
