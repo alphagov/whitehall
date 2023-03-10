@@ -1,8 +1,11 @@
 class Admin::GovernmentsController < Admin::BaseController
   before_action :enforce_permissions!, except: :index
+  layout :get_layout
 
   def index
     @governments = Government.order(start_date: :desc)
+
+    render_design_system("index", "legacy_index", next_release: false)
   end
 
   def new
@@ -66,4 +69,15 @@ private
     RoleAppointment.current.for_ministerial_roles
   end
   helper_method :current_active_ministerial_appointments
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 end
