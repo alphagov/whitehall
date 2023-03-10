@@ -1,0 +1,41 @@
+<% content_for :page_title, "Edit translation for: #{@english_person.name}" %>
+<% content_for :title, "Edit ‘#{@translation_locale.native_language_name}(#{@translation_locale.english_language_name})’ translation for: #{@english_person.name}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @translated_person)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @translated_person, url: admin_person_translation_path(@translated_person, translation_locale), method: :put do |form| %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          heading_size: "l",
+          text: "Biography",
+        },
+        name: "person[biography]",
+        id: "person_biography",
+        value: @translated_person.biography,
+        rows: 20,
+        error_items: errors_for(form.object.errors, :biography),
+        right_to_left: @translated_person.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English biography content:</h2>
+      <p class="app-view-translation__english-content govuk-body"><%= @person.biography %></p>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "person-button",
+            "track-label": "Save"
+          }
+        } %>
+
+        <%= link_to "Cancel", admin_person_translations_path(@translated_person), class: "govuk-link govuk-link--no-visited-state" %>
+      </div>
+    <% end %>
+  </div>
+</div>
