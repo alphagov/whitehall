@@ -172,4 +172,48 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
   end
+
+  test "it processes Statistics Announcements" do
+    csv_file = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      this-is-a-slug,StatisticsAnnouncement,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
+    CSV
+
+    announcement = create(:statistics_announcement, slug: "this-is-a-slug")
+
+    lead_organisation = create(:organisation, slug: "lead-organisation")
+    supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
+    supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
+
+    Whitehall::PublishingApi.expects(:patch_links).with(announcement).once
+    Whitehall::PublishingApi.expects(:publish).with(announcement).once
+
+    process_silently(csv_file)
+
+    assert_equal [lead_organisation, supporting_organisation1, supporting_organisation2], announcement.reload.organisations
+  end
+
+  test "it doesn't change a Statistics Announcement which has already changed" do
+    csv_file = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      this-is-a-slug,StatisticsAnnouncement,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
+    CSV
+
+    lead_organisation = create(:organisation, slug: "lead-organisation")
+    supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
+    supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
+
+    create(
+      :statistics_announcement,
+      slug: "this-is-a-slug",
+      organisations: [lead_organisation, supporting_organisation1, supporting_organisation2],
+    )
+
+    Whitehall::PublishingApi.expects(:patch_links).never
+    Whitehall::PublishingApi.expects(:publish).never
+
+    assert_output(/no update required/) do
+      process(csv_file)
+    end
+  end
 end
