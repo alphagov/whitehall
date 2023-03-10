@@ -15,6 +15,11 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     end
   end
 
+  # Stubs stdout to avoid noise in tests
+  def process_silently(csv_file)
+    assert_output { process(csv_file) }
+  end
+
   test "it fails with invalid CSV data" do
     csv_file = <<~CSV
       document slug,document type,new lead organisation,supporting organisations
@@ -59,7 +64,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     edition = create(:published_publication, document:)
     organisation = create(:organisation, slug: "lead-organisation")
 
-    process(csv_file)
+    process_silently(csv_file)
 
     assert_equal edition.lead_organisations, [organisation]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
@@ -77,7 +82,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
-    process(csv_file)
+    process_silently(csv_file)
 
     assert_equal edition.supporting_organisations, [organisation1, organisation2]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
@@ -104,7 +109,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:save_draft).once
 
-    process(csv_file)
+    process_silently(csv_file)
 
     assert_equal draft_edition.lead_organisations, [organisation]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
@@ -127,7 +132,9 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       supporting_organisations: [supporting_organisation1, supporting_organisation2],
     )
 
-    process(csv_file)
+    assert_output(/no update required/) do
+      process(csv_file)
+    end
 
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
   end
