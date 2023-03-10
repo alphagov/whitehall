@@ -39,23 +39,16 @@ module DataHygiene
 
       return if slug.blank?
 
-      if document_type.blank?
-        documents = Document.where(slug: slug.strip).to_a
+      documents = Document.where(slug:)
+      documents = Document.where(slug:, document_type:) if documents.many? && document_type.present?
 
-        if documents.length > 1
-          puts "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
-        else
-          document = documents.first
-        end
+      if documents.many?
+        puts "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
+      elsif documents.any?
+        documents.first
       else
-        document = Document.find_by(slug:, document_type:)
-      end
-
-      if document.nil?
         puts "error: #{slug}: could not find document"
       end
-
-      document
     end
 
     def find_organisations(row, column)

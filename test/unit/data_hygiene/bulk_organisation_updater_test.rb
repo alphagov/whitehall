@@ -54,6 +54,40 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     end
   end
 
+  test "it ignores the 'document type' field unless the 'slug' field is ambiguous" do
+    csv_with_bad_document_type = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      shared-slug,"THIS DOCUMENT TYPE DOES NOT EXIST",lead-organisation,
+    CSV
+
+    csv_with_valid_document_type = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      shared-slug,CaseStudy,lead-organisation,
+    CSV
+
+    slug = "shared-slug"
+    publication = create(:publication, document: build(:document, slug:))
+    organisation = create(:organisation, slug: "lead-organisation")
+
+    # it works when slug is unique, despite the invalid document type
+    process_silently(csv_with_bad_document_type)
+    assert_equal publication.lead_organisations, [organisation]
+
+    # create two more documents with the same slug but different types
+    case_study = create(:case_study, document: build(:document, slug:))
+    news_article = create(:news_article, document: build(:document, slug:))
+
+    # cannot find document with the specified document_type now that the slug is ambiguous
+    assert_output(/could not find document/) do
+      process(csv_with_bad_document_type)
+    end
+
+    # it works when the CSV specifies a valid document type
+    process_silently(csv_with_valid_document_type)
+    assert_equal case_study.lead_organisations, [organisation]
+    assert_not_equal news_article.lead_organisations, [organisation]
+  end
+
   test "it changes the lead organisations" do
     csv_file = <<~CSV
       Slug,Document type,New lead organisations,New supporting organisations
