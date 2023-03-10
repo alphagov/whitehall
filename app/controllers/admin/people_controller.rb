@@ -21,7 +21,9 @@ class Admin::PeopleController < Admin::BaseController
     end
   end
 
-  def show; end
+  def show
+    render :legacy_show
+  end
 
   def edit; end
 

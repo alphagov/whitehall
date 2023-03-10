@@ -62,7 +62,7 @@ class Admin::LegacyPeopleControllerTest < ActionController::TestCase
 
     assert_equal person, assigns(:person)
     assert_response :success
-    assert_template :show
+    assert_template :legacy_show
   end
 
   view_test "editing shows form for editing a person" do
