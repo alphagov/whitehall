@@ -114,7 +114,8 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   view_test "edit indicates which language is being translated to" do
     create(:person, translated_into: [:fr])
     get :edit, params: { person_id: @person, id: "fr" }
-    assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
+
+    assert_select "h1", text: "Edit ‘Français(French)’ translation for: #{@person.name}"
   end
 
   view_test "edit presents a form to update an existing translation" do
@@ -132,7 +133,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     translation_path = admin_person_translation_path(person, "fr")
     assert_select "form[action=?]", translation_path do
       assert_select "textarea[name='person[biography]']", text: "Elle est née. Elle a vécu. Elle est morte."
-      assert_select "input[type=submit][value=Save]"
+      assert_select "button[type=submit]", text: "Save"
     end
   end
 
@@ -150,10 +151,8 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
     translation_path = admin_person_translation_path(person, "ar")
     assert_select "form[action=?]", translation_path do
-      assert_select "fieldset[class='right-to-left']" do
-        assert_select "textarea[name='person[biography]'][dir='rtl']", text: "ولدت. عاشت. توفيت."
-      end
-      assert_select "input[type=submit][value=Save]"
+      assert_select "textarea[name='person[biography]'][dir='rtl']", text: "ولدت. عاشت. توفيت."
+      assert_select "button[type=submit]", text: "Save"
     end
   end
 
