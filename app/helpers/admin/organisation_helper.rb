@@ -75,7 +75,7 @@ module Admin::OrganisationHelper
     end
 
     tabs << {
-      label: "Corporate information pages",
+      label: "Pages",
       href: admin_organisation_corporate_information_pages_path(organisation),
       current: current_path == admin_organisation_corporate_information_pages_path(organisation),
     }
