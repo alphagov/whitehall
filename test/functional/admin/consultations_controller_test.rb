@@ -139,6 +139,16 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select ".page-header .govuk-body-lead", text: "a-simple-summary"
   end
 
+  view_test "show renders the preview link for foreign only consultations" do
+    french_consultation = create(:draft_consultation, primary_locale: "fr")
+    french_consultation.translations.first.update!(locale: "fr")
+
+    stub_publishing_api_expanded_links_with_taxons(french_consultation.content_id, [])
+
+    get :show, params: { id: french_consultation }
+    assert_select ".app-view-edition-summary__section a", text: "Preview on website  (opens in new tab)", href: preview_document_url(french_consultation)
+  end
+
   view_test "edit displays consultation fields" do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)

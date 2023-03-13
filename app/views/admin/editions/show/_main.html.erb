@@ -49,7 +49,7 @@
           "track-category": "button-clicked",
           "track-action": "#{@edition.model_name.singular.dasherize}-button",
           "track-label": "Preview on website",
-        }) if @edition.available_in_english? %>
+        }) if @edition.available_in_english? || @edition.non_english_edition? %>
       </p>
       <% if @edition.translatable? && @edition.available_in_multiple_languages? %>
         <%= render "govuk_publishing_components/components/details", {
