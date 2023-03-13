@@ -38,7 +38,7 @@ module Admin::WorldwideOrganisationsHelper
         current: current_path == admin_worldwide_organisation_social_media_accounts_path(worldwide_organisation),
       },
       {
-        label: "Corporate information pages",
+        label: "Pages",
         href: admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation),
         current: current_path == admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation),
       },

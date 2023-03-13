@@ -1,8 +1,9 @@
 <% content_for :page_title, @organisation.name %>
+<% content_for :context, current_user.organisation == @organisation ? "My organisation" : "Organisation" %>
 <% content_for :title, @organisation.name %>
-<% content_for :title_margin_bottom, 2 %>
+<% content_for :title_margin_bottom, 4 %>
 
-<p class="govuk-body govuk-!-margin-bottom-8"><%= view_on_website_link_for @organisation, class: "govuk-link", target: "blank" %></p>
+<p class="govuk-body"><%= view_on_website_link_for @organisation, class: "govuk-link", target: "blank" %></p>
 
 <div class="govuk-!-margin-bottom-8">
   <%= render "components/secondary_navigation", {

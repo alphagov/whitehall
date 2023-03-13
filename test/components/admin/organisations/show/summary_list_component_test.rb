@@ -9,14 +9,14 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
     organisation = build_stubbed(:organisation, url: "http://parrot.org")
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:, editable: true))
 
-    assert_link("Edit", href: edit_admin_organisation_path(organisation))
+    assert_link("Edit details", href: edit_admin_organisation_path(organisation))
   end
 
   test "does not render edit link when editable is false" do
     organisation = build_stubbed(:organisation, url: "http://parrot.org")
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_no_link("Edit", href: edit_admin_organisation_path(organisation))
+    assert_no_link("Edit details", href: edit_admin_organisation_path(organisation))
   end
 
   test "renders the default rows" do
