@@ -18,7 +18,7 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
     expected_hash = {
       base_path: "/government/history/past-prime-ministers",
       publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
+      rendering_app: "collections",
       schema_name: "historic_appointments",
       document_type: "historic_appointments",
       title: "Past Prime Ministers",

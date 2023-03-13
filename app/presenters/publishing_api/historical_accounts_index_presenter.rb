@@ -26,7 +26,7 @@ module PublishingApi
         },
         document_type: "historic_appointments",
         public_updated_at: Time.zone.now,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: "historic_appointments",
       )
 
