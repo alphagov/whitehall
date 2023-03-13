@@ -30,7 +30,11 @@ module DataHygiene
       new_lead_organisations = find_new_lead_organisations(row)
       new_supporting_organisations = find_new_supporting_organisations(row)
 
-      update_document(document, new_lead_organisations, new_supporting_organisations)
+      if document.is_a?(StatisticsAnnouncement)
+        update_statistics_announcement(document, new_lead_organisations + new_supporting_organisations)
+      else
+        update_document(document, new_lead_organisations, new_supporting_organisations)
+      end
     end
 
     def find_document(row)
@@ -39,23 +43,19 @@ module DataHygiene
 
       return if slug.blank?
 
-      if document_type.blank?
-        documents = Document.where(slug: slug.strip).to_a
+      documents = Document.where(slug:)
+      documents = Document.where(slug:, document_type:) if documents.many? && document_type.present?
+      statistics_announcements = StatisticsAnnouncement.where(slug:)
 
-        if documents.length > 1
-          puts "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
-        else
-          document = documents.first
-        end
+      if documents.many?
+        puts "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
+      elsif documents.any?
+        documents.first
+      elsif statistics_announcements.any?
+        statistics_announcements.first
       else
-        document = Document.find_by(slug:, document_type:)
-      end
-
-      if document.nil?
         puts "error: #{slug}: could not find document"
       end
-
-      document
     end
 
     def find_organisations(row, column)
@@ -143,6 +143,15 @@ module DataHygiene
       )
 
       true
+    end
+
+    def update_statistics_announcement(document, new_organisations)
+      if document.organisations == new_organisations
+        puts "#{document.slug}: no update required"
+      else
+        document.update(organisations: new_organisations) # rubocop:disable Rails/SaveBang
+        puts "#{document.slug}: #{new_organisations.map(&:slug).join(', ')}"
+      end
     end
   end
 end

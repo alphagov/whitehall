@@ -15,6 +15,11 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     end
   end
 
+  # Stubs stdout to avoid noise in tests
+  def process_silently(csv_file)
+    assert_output { process(csv_file) }
+  end
+
   test "it fails with invalid CSV data" do
     csv_file = <<~CSV
       document slug,document type,new lead organisation,supporting organisations
@@ -49,6 +54,40 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     end
   end
 
+  test "it ignores the 'document type' field unless the 'slug' field is ambiguous" do
+    csv_with_bad_document_type = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      shared-slug,"THIS DOCUMENT TYPE DOES NOT EXIST",lead-organisation,
+    CSV
+
+    csv_with_valid_document_type = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      shared-slug,CaseStudy,lead-organisation,
+    CSV
+
+    slug = "shared-slug"
+    publication = create(:publication, document: build(:document, slug:))
+    organisation = create(:organisation, slug: "lead-organisation")
+
+    # it works when slug is unique, despite the invalid document type
+    process_silently(csv_with_bad_document_type)
+    assert_equal publication.lead_organisations, [organisation]
+
+    # create two more documents with the same slug but different types
+    case_study = create(:case_study, document: build(:document, slug:))
+    news_article = create(:news_article, document: build(:document, slug:))
+
+    # cannot find document with the specified document_type now that the slug is ambiguous
+    assert_output(/could not find document/) do
+      process(csv_with_bad_document_type)
+    end
+
+    # it works when the CSV specifies a valid document type
+    process_silently(csv_with_valid_document_type)
+    assert_equal case_study.lead_organisations, [organisation]
+    assert_not_equal news_article.lead_organisations, [organisation]
+  end
+
   test "it changes the lead organisations" do
     csv_file = <<~CSV
       Slug,Document type,New lead organisations,New supporting organisations
@@ -59,7 +98,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     edition = create(:published_publication, document:)
     organisation = create(:organisation, slug: "lead-organisation")
 
-    process(csv_file)
+    process_silently(csv_file)
 
     assert_equal edition.lead_organisations, [organisation]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
@@ -77,7 +116,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
-    process(csv_file)
+    process_silently(csv_file)
 
     assert_equal edition.supporting_organisations, [organisation1, organisation2]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
@@ -104,7 +143,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:save_draft).once
 
-    process(csv_file)
+    process_silently(csv_file)
 
     assert_equal draft_edition.lead_organisations, [organisation]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
@@ -127,8 +166,54 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       supporting_organisations: [supporting_organisation1, supporting_organisation2],
     )
 
-    process(csv_file)
+    assert_output(/no update required/) do
+      process(csv_file)
+    end
 
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
+  end
+
+  test "it processes Statistics Announcements" do
+    csv_file = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      this-is-a-slug,StatisticsAnnouncement,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
+    CSV
+
+    announcement = create(:statistics_announcement, slug: "this-is-a-slug")
+
+    lead_organisation = create(:organisation, slug: "lead-organisation")
+    supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
+    supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
+
+    Whitehall::PublishingApi.expects(:patch_links).with(announcement).once
+    Whitehall::PublishingApi.expects(:publish).with(announcement).once
+
+    process_silently(csv_file)
+
+    assert_equal [lead_organisation, supporting_organisation1, supporting_organisation2], announcement.reload.organisations
+  end
+
+  test "it doesn't change a Statistics Announcement which has already changed" do
+    csv_file = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      this-is-a-slug,StatisticsAnnouncement,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
+    CSV
+
+    lead_organisation = create(:organisation, slug: "lead-organisation")
+    supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
+    supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
+
+    create(
+      :statistics_announcement,
+      slug: "this-is-a-slug",
+      organisations: [lead_organisation, supporting_organisation1, supporting_organisation2],
+    )
+
+    Whitehall::PublishingApi.expects(:patch_links).never
+    Whitehall::PublishingApi.expects(:publish).never
+
+    assert_output(/no update required/) do
+      process(csv_file)
+    end
   end
 end
