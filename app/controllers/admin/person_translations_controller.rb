@@ -2,6 +2,10 @@ class Admin::PersonTranslationsController < Admin::BaseController
   include TranslationControllerConcern
   layout :get_layout
 
+  def index
+    render :legacy_index
+  end
+
 private
 
   def get_layout
