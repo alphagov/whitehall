@@ -7,7 +7,17 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
       name: "Operational Field name",
       description: "Operational Field description",
     )
-    @fatality_notices_for_operational_field = (0..4).map { |_i| create(:published_fatality_notice, operational_field: @operational_field) }
+    @fatality_notices_for_operational_field = []
+    @casualty_hash = {}
+    2.times do |i|
+      notice = create(:published_fatality_notice, roll_call_introduction: "Fatality Notice #{i}", operational_field: @operational_field)
+      @casualty_hash[notice.id] = []
+      2.times do |j|
+        casualty = create(:fatality_notice_casualty, fatality_notice: notice, personal_details: "personal details #{i} - #{j}")
+        @casualty_hash[notice.id] << casualty.personal_details
+      end
+      @fatality_notices_for_operational_field << notice
+    end
     create(:published_fatality_notice, operational_field: create(:operational_field))
     %i[draft_fatality_notice
        submitted_fatality_notice
@@ -30,7 +40,7 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
       publishing_app: "whitehall",
       update_type: "major",
       base_path: "/government/fields-of-operation/operational-field-name",
-      details: {},
+      details: { casualties: @casualty_hash },
       document_type: "field_of_operation",
       rendering_app: "whitehall-frontend",
       schema_name: "field_of_operation",

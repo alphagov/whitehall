@@ -16,7 +16,9 @@ module PublishingApi
         content.merge!(PayloadBuilder::PolymorphicPath.for(operational_field))
         content.merge!(
           description: operational_field.description,
-          details: {},
+          details: {
+            casualties:,
+          },
           document_type: "field_of_operation",
           locale: "en",
           publishing_app: "whitehall",
@@ -26,6 +28,11 @@ module PublishingApi
           update_type:,
         )
       end
+    end
+
+    def casualties
+      notices = operational_field.published_fatality_notices.order("first_published_at desc")
+      Hash[notices.map { |notice| [notice.id, notice.fatality_notice_casualties.map(&:personal_details)] }]
     end
 
     def links
