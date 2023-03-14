@@ -1,10 +1,11 @@
 class Admin::HistoricalAccountsController < Admin::BaseController
   before_action :load_person
   before_action :load_historical_account, only: %i[edit update destroy]
+  layout :get_layout
 
   def index
     @historical_accounts = @person.historical_accounts.includes(roles: :translations)
-    render :legacy_index
+    render_design_system(:index, :legacy_index, next_release: false)
   end
 
   def new
@@ -36,6 +37,17 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if action_name.in?(design_system_actions)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def load_person
     @person = Person.friendly.find(params[:person_id])
