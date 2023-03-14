@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
+class Admin::LegacyHistoricalAccountsControllerTest < ActionController::TestCase
+  tests Admin::HistoricalAccountsController
+
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     @person = create(:person)
     @role = create(:historic_role)
     @historical_account = create(:historical_account, person: @person, roles: [@role])
