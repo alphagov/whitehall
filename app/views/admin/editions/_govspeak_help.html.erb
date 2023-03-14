@@ -44,7 +44,11 @@
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {
-    title: "Links"
+    title: "Links",
+    data_attributes: {
+      track_category: "formatting-help",
+      track_action: "Links",
+    },
   } do %>
     <p class='govuk-body'>All documents created in the publisher – publications, news, speeches, detailed guides etc – should be linked to using absolute admin paths or full public URLs:</p>
     <pre class='govspeak-help__pre'>[an admin path](/government/admin/policies/12345)<br />[a public URL](https://www.gov.uk/government/policies/example-policy)</pre>
