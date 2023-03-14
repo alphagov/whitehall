@@ -14,7 +14,7 @@ class Admin::LegacyHistoricalAccountsControllerTest < ActionController::TestCase
     get :index, params: { person_id: @person }
 
     assert_response :success
-    assert_template :index
+    assert_template :legacy_index
     assert_equal @person, assigns(:person)
     assert_equal @person.historical_accounts, assigns(:historical_accounts)
   end

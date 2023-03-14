@@ -4,6 +4,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
 
   def index
     @historical_accounts = @person.historical_accounts.includes(roles: :translations)
+    render :legacy_index
   end
 
   def new
