@@ -48,7 +48,7 @@
               {
                 text: sanitize("<a class='govuk-link' href='#{historical_account.public_path}'>View <span class='govuk-visually-hidden'>#{roles}</span></a>" +
                   "<a class='govuk-link govuk-!-margin-left-2' href='#{edit_admin_person_historical_account_path(@person, historical_account)}'>Edit <span class='govuk-visually-hidden'>#{roles}</span></a>" +
-                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#'>Delete <span class='govuk-visually-hidden'>#{roles}</span></a>"),
+                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_historical_account_path(@person, historical_account)}'>Delete <span class='govuk-visually-hidden'>#{roles}</span></a>"),
                 format: "numeric"
               }
             ]

@@ -1,0 +1,20 @@
+<% content_for :context, @person.name %>
+<% content_for :page_title, "Delete historical account" %>
+<% content_for :title, "Delete #{@roles}" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag admin_person_historical_account_path(@person, @historical_account), method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-6">Are you sure you want to delete the "<%= @roles %>" historical account for "<%= @person.name %>"?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+        <%= link_to("Cancel", admin_person_translations_path(@person), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

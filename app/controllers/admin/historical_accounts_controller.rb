@@ -1,6 +1,6 @@
 class Admin::HistoricalAccountsController < Admin::BaseController
   before_action :load_person
-  before_action :load_historical_account, only: %i[edit update destroy]
+  before_action :load_historical_account, only: %i[edit update confirm_destroy destroy]
   layout :get_layout
 
   def index
@@ -31,6 +31,10 @@ class Admin::HistoricalAccountsController < Admin::BaseController
     end
   end
 
+  def confirm_destroy
+    @roles = @historical_account.roles.collect(&:name).to_sentence
+  end
+
   def destroy
     @historical_account.destroy!
     redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account deleted"
@@ -40,7 +44,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
 
     if action_name.in?(design_system_actions)
       "design_system"
