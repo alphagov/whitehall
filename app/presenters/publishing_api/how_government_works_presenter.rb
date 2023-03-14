@@ -22,7 +22,7 @@ module PublishingApi
         description: "About the UK system of government. Understand who runs government, and how government is run.",
         document_type: "how_government_works",
         public_updated_at: Time.zone.now,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "how_government_works",
         details:,
       )
