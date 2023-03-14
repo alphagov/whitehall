@@ -11,7 +11,7 @@ class PublishingApi::OperationalFieldsIndexPresenterTest < ActiveSupport::TestCa
       base_path: "/government/fields-of-operation",
       details: {},
       publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
+      rendering_app: "government-frontend",
       schema_name: "fields_of_operation",
       document_type: "fields_of_operation",
       title: "Fields of operation",
