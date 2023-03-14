@@ -74,7 +74,13 @@
 
   <div class="govuk-button-group">
     <%= render "govuk_publishing_components/components/button", {
-      text: "Save"
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "offsite-link-button",
+        "track-label": "Save"
+      }
     } %>
 
     <% if parent.is_a?(Organisation) || parent.is_a?(WorldLocationNews) %>
