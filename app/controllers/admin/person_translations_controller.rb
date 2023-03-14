@@ -2,6 +2,8 @@ class Admin::PersonTranslationsController < Admin::BaseController
   include TranslationControllerConcern
   layout :get_layout
 
+  before_action :build_translation_locale, only: %i[confirm_destroy]
+
   def index
     render :legacy_index
   end
@@ -9,7 +11,7 @@ class Admin::PersonTranslationsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
+    design_system_actions = %w[confirm_destroy]
     design_system_actions += %w[edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
@@ -50,5 +52,9 @@ private
 
   def translation_params
     params.require(:person).permit(:biography)
+  end
+
+  def build_translation_locale
+    @translation_locale = Locale.coerce(params[:id])
   end
 end
