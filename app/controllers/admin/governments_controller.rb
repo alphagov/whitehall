@@ -18,6 +18,8 @@ class Admin::GovernmentsController < Admin::BaseController
     @government = Government.find(params[:id])
 
     render_design_system("edit", "legacy_edit", next_release: false)
+
+    render_design_system("edit", "legacy_edit", next_release: false)
   end
 
   def create
