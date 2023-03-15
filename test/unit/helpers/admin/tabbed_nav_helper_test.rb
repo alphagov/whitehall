@@ -215,4 +215,28 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
 
     assert_equal expected_output, secondary_navigation_tabs_items(@current_user, policy_group, admin_policy_group_attachments_path(policy_group))
   end
+
+  test "#secondary_navigation_tabs_items for people" do
+    person = build_stubbed(:person)
+
+    expected_output = [
+      {
+        label: "Details",
+        href: admin_person_path(person),
+        current: false,
+      },
+      {
+        label: "Translations",
+        href: admin_person_translations_path(person),
+        current: false,
+      },
+      {
+        label: "Historical accounts",
+        href: admin_person_historical_accounts_path(person),
+        current: true,
+      },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(@current_user, person, admin_person_historical_accounts_path(person))
+  end
 end

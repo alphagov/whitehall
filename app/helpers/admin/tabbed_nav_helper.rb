@@ -87,6 +87,26 @@ module Admin::TabbedNavHelper
     ]
   end
 
+  def person_nav_items(person, current_path)
+    [
+      {
+        label: "Details",
+        href: admin_person_path(person),
+        current: current_path == admin_person_path(person),
+      },
+      {
+        label: "Translations",
+        href: admin_person_translations_path(person),
+        current: current_path == admin_person_translations_path(person),
+      },
+      {
+        label: "Historical accounts",
+        href: admin_person_historical_accounts_path(person),
+        current: current_path == admin_person_historical_accounts_path(person),
+      },
+    ]
+  end
+
   def tab_navigation_for(model, *extra_classes, &block)
     tabs = send("#{model.class.model_name.param_key}_tabs", model)
     tab_navigation(tabs, *extra_classes, &block)

@@ -1,45 +1,52 @@
-<% page_title @person.name %>
+<% content_for :page_title, @person.name %>
+<% content_for :title, @person.name %>
+<% content_for :context, "Details" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<%= content_tag_for(:div, @person) do %>
-  <div class="person-header">
-    <h1><%= @person.name %></h1>
-    <%= view_on_website_link_for @person %>
-  </div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body"><%= view_on_website_link_for @person, class: "govuk-link", target: "blank" %></p>
 
-  <section class="person-details">
-    <%= tab_navigation_for(@person) %>
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation tabs",
+      items: secondary_navigation_tabs_items(current_user, @person, request.path)
+    } %>
 
-    <article class="person">
+    <% if @person.image_url %>
+      <%= image_tag @person.image.url(:s300) %>
+    <% end %>
 
-      <% if @person.image_url %>
-        <%= image_tag @person.image.url(:s300) %>
-      <% end %>
+    <%= render "govuk_publishing_components/components/heading", {
+       text: @person.current_role_appointments.collect(&:role_name).to_sentence,
+       font_size: "l",
+       margin_bottom: 4,
+     } %>
 
-      <div class="roles">
-        <h2><%= @person.current_role_appointments.collect(&:role_name).to_sentence %></h2>
-      </div>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Biography",
+      font_size: "l",
+      margin_bottom: 4,
+    } %>
 
-      <div class="biography">
-        <h2>Biography</h2>
-        <div class="content row add-bottom-margin">
-          <div class="col-md-8">
-            <pre><%= @person.biography %></pre>
-          </div>
-        </div>
-      </div>
-    </article>
+    <div class="govuk-button-group govuk-!-margin-bottom-4">
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Edit",
+        href: [:edit, :admin, @person],
+        secondary_solid: true,
+        margin_bottom: 0,
+      } %>
 
-    <div class="form-actions">
-      <%= link_to "Edit", [:edit, :admin, @person], class: "btn btn-lg btn-primary"%>
       <% if @person.destroyable? %>
-        <%= button_to 'Delete',
-              admin_person_path(@person),
-              method: :delete,
-              class: "btn btn-lg btn-danger",
-              data: { confirm: 'Are you sure you want to delete this person?' } %>
-      <% else %>
-        <span><em>Note: This person cannot be deleted as they are currently assigned to a role</em></span>
+        <%= link_to "Delete", confirm_destroy_admin_person_path(@person), class: "govuk-link gem-link--destructive" %>
       <% end %>
     </div>
-  </section>
-<% end %>
+
+    <% unless @person.destroyable? %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "Note: This person cannot be deleted as they are currently assigned to a role"
+      } %>
+    <% end %>
+
+    <p class="govuk-body"><%= @person.biography %></p>
+  </div>
+</div>

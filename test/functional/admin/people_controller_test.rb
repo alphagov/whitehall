@@ -116,6 +116,24 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_equal "Cannot destroy a person with appointments", flash[:alert]
   end
 
+  test "should be able to visit the confirm destroy page for a destroyable person" do
+    person = create(:person, forename: "Dave")
+    get :confirm_destroy, params: { id: person.id }
+
+    assert_response :success
+    assert_equal person, assigns(:person)
+  end
+
+  test "visiting confirm destroy for a person which has an appointment" do
+    person = create(:person)
+    create(:role_appointment, person:)
+
+    get :confirm_destroy, params: { id: person.id }
+
+    assert_redirected_to admin_person_url(person)
+    assert_equal "Cannot destroy a person with appointments", flash[:alert]
+  end
+
   test "lists people in alphabetical name order" do
     create(:person, forename: "B")
     create(:person, forename: "A")
