@@ -2,7 +2,9 @@ module GovernmentsHelper
   def create_government(name:, start_date: nil, end_date: nil)
     visit admin_governments_path
 
-    click_on "Create new government"
+    button_text = using_design_system? ? "Create new government" : "Create a government"
+
+    click_on button_text
 
     fill_in "Name", with: name
     fill_in "Start date", with: start_date if start_date
