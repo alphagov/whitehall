@@ -18,7 +18,7 @@ module PublishingApi
         details: {},
         document_type: "fields_of_operation",
         public_updated_at: Time.zone.now,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "fields_of_operation",
       )
 

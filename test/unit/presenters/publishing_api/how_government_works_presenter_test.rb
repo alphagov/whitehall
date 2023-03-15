@@ -24,7 +24,7 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
       expected_hash = {
         base_path: "/government/how-government-works",
         publishing_app: "whitehall",
-        rendering_app: "whitehall-frontend",
+        rendering_app: "government-frontend",
         schema_name: "how_government_works",
         document_type: "how_government_works",
         title: "How government works",
@@ -80,7 +80,7 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
       expected_hash = {
         base_path: "/government/how-government-works",
         publishing_app: "whitehall",
-        rendering_app: "whitehall-frontend",
+        rendering_app: "government-frontend",
         schema_name: "how_government_works",
         document_type: "how_government_works",
         title: "How government works",
