@@ -13,8 +13,4 @@ class HomeController < PublicFacingController
     @non_ministerial_department_count = Organisation.listable.non_ministerial_departments.count
     set_meta_description("In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out who runs government and how government is run, as well as learning about the history of government.")
   end
-
-  def history_king_charles_street; end
-
-  def history_lancaster_house; end
 end
