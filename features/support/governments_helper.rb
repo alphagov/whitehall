@@ -1,9 +1,25 @@
 module GovernmentsHelper
 	def create_government(name:, start_date: nil, end_date: nil)
 		visit admin_governments_path
+	def create_government(name:, start_date: nil, end_date: nil)
+		visit admin_governments_path
 
 		click_on using_design_system? ? "Create new government" : "Create a government"
 
+		fill_in "Name", with: name
+
+		if using_design_system?
+			within "#government_start_date" do
+				fill_in_date_fields(start_date) if start_date
+			end
+
+			within "#government_end_date" do
+				fill_in_date_fields(end_date) if end_date
+			end
+		else
+			fill_in "Start date", with: start_date if start_date
+			fill_in "End date", with: end_date if end_date
+		end
 		fill_in "Name", with: name
 
 		if using_design_system?
