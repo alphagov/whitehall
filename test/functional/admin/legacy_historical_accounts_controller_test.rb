@@ -23,7 +23,7 @@ class Admin::LegacyHistoricalAccountsControllerTest < ActionController::TestCase
     get :new, params: { person_id: @person }
 
     assert_response :success
-    assert_template :new
+    assert_template :legacy_new
     assert_equal @person, assigns(:person)
     assert assigns(:historical_account).is_a?(HistoricalAccount)
     assert assigns(:historical_account).new_record?
@@ -58,7 +58,7 @@ class Admin::LegacyHistoricalAccountsControllerTest < ActionController::TestCase
     assert_no_difference("@person.historical_accounts.count") do
       post :create, params: { person_id: @person, historical_account: { summary: "Only summary" } }
     end
-    assert_template :new
+    assert_template :legacy_new
     assert_equal "Only summary", assigns(:historical_account).summary
   end
 
@@ -66,7 +66,7 @@ class Admin::LegacyHistoricalAccountsControllerTest < ActionController::TestCase
     get :edit, params: { person_id: @person, id: @historical_account }
 
     assert_response :success
-    assert_template :edit
+    assert_template :legacy_edit
     assert_equal @person, assigns(:person)
     assert_equal @historical_account, assigns(:historical_account)
   end
@@ -81,7 +81,7 @@ class Admin::LegacyHistoricalAccountsControllerTest < ActionController::TestCase
   test "PUT on :update with invalid paramters re-renders the :edit template" do
     summary_before = @historical_account.summary
     put :update, params: { person_id: @person, id: @historical_account, historical_account: { summary: "" } }
-    assert_template :edit
+    assert_template :legacy_edit
     assert_equal summary_before, @historical_account.reload.summary
     assert_equal "", assigns(:historical_account).summary
   end

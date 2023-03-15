@@ -10,6 +10,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
 
   def new
     @historical_account = @person.historical_accounts.build
+    render :legacy_new
   end
 
   def create
@@ -17,17 +18,19 @@ class Admin::HistoricalAccountsController < Admin::BaseController
     if @historical_account.save
       redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account created"
     else
-      render :new
+      render :legacy_new
     end
   end
 
-  def edit; end
+  def edit
+    render :legacy_edit
+  end
 
   def update
     if @historical_account.update(historical_account_params)
       redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account updated"
     else
-      render :edit
+      render :legacy_edit
     end
   end
 
