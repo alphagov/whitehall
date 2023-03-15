@@ -40,6 +40,8 @@ class Admin::GovernmentsController < Admin::BaseController
 
   def prepare_to_close
     @government = Government.find(params[:id])
+
+    render_design_system("prepare_to_close", "legacy_prepare_to_close", next_release: false)
   end
 
   def close
@@ -72,7 +74,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index prepare_to_close] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
