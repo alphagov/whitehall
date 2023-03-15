@@ -4,7 +4,6 @@ Feature: governments
   I want to be able to associate content with a specific government
   So that we can appropriately identify less relevant content after elections.
 
-  @design-system-only
   Scenario: creating a government
     Given I am a GDS admin
     When I create a government called "2005 to 2010 Labour government" starting on "06/05/2005"

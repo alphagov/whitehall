@@ -10,6 +10,8 @@ class Admin::GovernmentsController < Admin::BaseController
 
   def new
     @government = Government.new(start_date: Time.zone.today)
+    render_design_system("new", "legacy_new", next_release: false)
+
   end
 
   def edit
@@ -26,7 +28,7 @@ class Admin::GovernmentsController < Admin::BaseController
     if @government.save
       redirect_to admin_governments_path, notice: "Created government information"
     else
-      render action: "new"
+      render_design_system("new", "legacy_new", next_release: false)
     end
   end
 
@@ -74,7 +76,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index edit] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index edit new create update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

@@ -1,6 +1,7 @@
 <%
  prefix = prefix
  field_name = field_name
+ id = id
  date_only ||= false
  date_heading ||= nil
 
@@ -47,7 +48,7 @@
  data_attributes ||= {}
 %>
 
-<%= tag.div class: root_classes, data: data_attributes do %>
+<%= tag.div class: root_classes, data: data_attributes, id: id do %>
   <% unless date_only && !date_heading %>
     <%= render "govuk_publishing_components/components/heading", {
       text: date_heading || "Date",
