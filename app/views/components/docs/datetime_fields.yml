@@ -5,7 +5,7 @@ body: |
     1. In addition, to day, month and year, it also takes hour and minute
     2. It generates select fields in place of inputs
     3. As this uses the `ActionView::Helpers::DateHelper` helpers you must
-    provide a prefix and field_name to constuct the fields
+    provide a prefix and field_name to construct the fields
      - the prefix must be the downcased and underscored model name
      - the field_name is the attribute for the model
 
