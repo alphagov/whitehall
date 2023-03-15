@@ -90,6 +90,16 @@ FactoryBot.define do
       after :create, &:refresh_index_if_required
     end
 
+    trait(:force_published) do
+      state { "published" }
+      first_published_at { 2.days.ago }
+      major_change_published_at { 1.day.ago }
+      force_published { true }
+      published_major_version { 1 }
+      published_minor_version { 0 }
+      after :create, &:refresh_index_if_required
+    end
+
     trait(:deleted) { state { "deleted" } }
 
     trait(:superseded) do
