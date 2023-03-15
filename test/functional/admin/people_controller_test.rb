@@ -24,7 +24,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   view_test "creating with invalid data shows errors" do
     post :create, params: { person: { title: "", forename: "", surname: "", letters: "" } }
 
-    assert_select ".form-errors"
+    assert_select ".govuk-error-summary"
   end
 
   test "creating with valid data creates a new person" do
@@ -89,7 +89,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     put :update, params: { id: person.id, person: { title: "", forename: "", surname: "", letters: "" } }
 
-    assert_select ".form-errors"
+    assert_select ".govuk-error-summary"
   end
 
   test "updating with valid data redirects to the index" do

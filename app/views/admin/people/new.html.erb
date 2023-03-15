@@ -1,12 +1,16 @@
-<% page_title "New person" %>
+<% content_for :page_title, "New person" %>
+<% content_for :title, "New person" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @person)) %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>New person</h1>
-    <p class="warning">Do not create ministerial people without consulting GDS.</p>
-    <%= render partial: "form", locals: {person: @person, show_consult_gds_warning: true} %>
-  </section>
-  <div class="col-md-4">
-    <%= legacy_simple_formatting_sidebar %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Do not create ministerial people without consulting GDS.",
+    } %>
+
+    <%= render "form", person: @person %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar %>
   </div>
 </div>

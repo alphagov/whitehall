@@ -22,7 +22,7 @@ When(/^I add a new person called "([^"]*)"$/) do |name|
   click_link "Create person"
   fill_in_person_name name
   fill_in "Biography", with: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  attach_file "Image", jpg_image
+  attach_file using_design_system? ? "Upload a file" : "Image", jpg_image
   click_button "Save"
 end
 
