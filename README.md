@@ -18,15 +18,11 @@ Whitehall is deployed in two modes:
 
 ### Fields of Operation
 
-- Fields of Operation list: [https://www.gov.uk/government/fields-of-operation](https://www.gov.uk/government/fields-of-operation)
 - Field of Operation pages: [https://www.gov.uk/government/fields-of-operation/iraq](https://www.gov.uk/government/fields-of-operation/iraq)
 
 ### Government Information
 
-- How government works page: [https://www.gov.uk/government/how-government-works](https://www.gov.uk/government/how-government-works)
 - Current ministers list: [https://www.gov.uk/government/ministers](https://www.gov.uk/government/ministers)
-- Past Prime Ministers list: [https://www.gov.uk/government/history/past-prime-ministers](https://www.gov.uk/government/history/past-prime-ministers)
-- Past Prime Minister pages: [https://www.gov.uk/government/history/past-prime-ministers/clement-attlee](https://www.gov.uk/government/history/past-prime-ministers/clement-attlee)
 
 ### World Information
 
