@@ -2,7 +2,7 @@ module GovernmentsHelper
   def create_government(name:, start_date: nil, end_date: nil)
     visit admin_governments_path
 
-    click_on "Create a government"
+    click_on "Create new government"
 
     fill_in "Name", with: name
     fill_in "Start date", with: start_date if start_date
@@ -23,16 +23,19 @@ module GovernmentsHelper
     click_on "Save"
   end
 
-  def check_for_government(name:, start_date: nil, end_date: nil, current: false) # rubocop:disable Lint/UnusedMethodArgument
+  def check_for_government(name:, start_date: nil, end_date: nil, current: false)
     visit admin_governments_path
 
-    government = Government.find_by_name(name)
+    rows = all("table tr")
 
-    within("#government_#{government.id}") do
-      expect(page).to have_content(name)
-      expect(page).to have_content(start_date)
-      expect(page).to have_content(end_date) if end_date
+    matching_row = rows.find do |row|
+      row.has_content?(name) &&
+        (start_date.nil? || row.has_content?(start_date)) &&
+        (end_date.nil? || row.has_content?(end_date)) &&
+        (current.nil? || current == row.has_content?("Yes"))
     end
+
+    expect(matching_row).to be_present
   end
 
   def check_for_current_government(name:)
