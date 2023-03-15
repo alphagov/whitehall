@@ -47,8 +47,11 @@
         </div>
       <% end %>
 
-      <%= yield(:error_summary) %>
-
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <%= yield(:error_summary) %>
+        </div>
+      </div>
 
       <% if yield(:error_summary).blank? %>
         <div class="govuk-grid-row">
