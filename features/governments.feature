@@ -22,7 +22,6 @@ Feature: governments
     When I edit the government called "2005 to 2010 Labour government" to have dates "06/05/2005" and "11/05/2010"
     Then there should be a government called "2005 to 2010 Labour government" between dates "6 May 2005" and "11 May 2010"
 
-  @design-system-only
   Scenario: changing government after an election
     Given there is a current government
     And I am a GDS admin
@@ -30,7 +29,6 @@ Feature: governments
     And I create a government called "Robo-alien Overlords"
     Then the current government should be "Robo-alien Overlords"
 
-  @design-system-only
   Scenario: appointing a minister to the new government
     Given I am a GDS admin
     And a person called "Fred Fancy"
