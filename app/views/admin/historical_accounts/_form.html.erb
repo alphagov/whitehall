@@ -1,0 +1,130 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for [:admin, person, historical_account] do |form| %>
+      <%= render "components/autocomplete", {
+        id: "historical_account_roles",
+        name: "historical_account[role_ids][]",
+        error_items: errors_for(historical_account.errors, :roles),
+        label: {
+          text: "Role(s) (required)",
+          heading_size: "l",
+        },
+        select: {
+          options: (person.roles.where(supports_historical_accounts: true).distinct.map do |role|
+            [
+              role.name,
+              role.id,
+            ]
+          end),
+          multiple: true,
+          selected: historical_account.role_ids,
+        },
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Summary (required)",
+          heading_size: "l",
+        },
+        id: "historical_account_summary",
+        name: "historical_account[summary]",
+        value: historical_account.summary,
+        rows: 2,
+        hint: "Summary text should be 160 characters or fewer.",
+        error_items: errors_for(historical_account.errors, :summary),
+      } %>
+
+      <%= render "components/autocomplete", {
+        id: "historical_account_political_party",
+        name: "historical_account[political_party_ids][]",
+        error_items: errors_for(historical_account.errors, :political_party),
+        label: {
+          text: "Political parties (required)",
+          heading_size: "l",
+        },
+        select: {
+          options: PoliticalParty.all.map do |party|
+            [
+              party.name,
+              party.id,
+            ]
+          end,
+          multiple: true,
+          selected: historical_account.political_party_ids,
+        },
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Born"
+        },
+        id: "historical_account_born",
+        name: "historical_account[born]",
+        value: historical_account.born,
+        heading_size: "l",
+        error_items: errors_for_input(historical_account.errors, :born),
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Died"
+        },
+        id: "historical_account_died",
+        name: "historical_account[died]",
+        value: historical_account.died,
+        heading_size: "l",
+        error_items: errors_for_input(historical_account.errors, :died),
+      } %>
+
+      <%= render "components/govspeak-editor", {
+        label: {
+          heading_size: "l",
+          text: "Body (required)"
+        },
+        id: "historical_account_body",
+        name: "historical_account[body]",
+        rows: 20,
+        value: historical_account.body,
+        error_items: errors_for(historical_account.errors, :body),
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Major acts",
+          heading_size: "l",
+        },
+        id: "historical_account_major_acts",
+        name: "historical_account[major_acts]",
+        value: historical_account.major_acts,
+        rows: 2,
+        error_items: errors_for(historical_account.errors, :major_acts),
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Interesting facts",
+          heading_size: "l",
+        },
+        id: "historical_account_interesting_facts",
+        name: "historical_account[interesting_facts]",
+        value: historical_account.interesting_facts,
+        rows: 2,
+        error_items: errors_for(historical_account.errors, :interesting_facts),
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "historical-account-button",
+            "track-label": "Save"
+          }
+        } %>
+
+        <%= link_to("Cancel", admin_person_historical_accounts_path(person), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>
