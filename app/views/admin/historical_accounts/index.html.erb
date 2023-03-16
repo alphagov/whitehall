@@ -1,37 +1,70 @@
-<% page_title @person.name + " historical accounts" %>
+<% content_for :page_title, "#{@person.name} historical accounts" %>
+<% content_for :title, @person.name %>
+<% content_for :context, "Historical accounts" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<%= content_tag_for(:div, @person) do %>
-  <div class="organisation-header">
-    <h1><%= @person.name %></h1>
-    <%= view_on_website_link_for @person %>
-  </div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">
+      <%= view_on_website_link_for @person, class: "govuk-link" %>
+    </p>
 
-  <section class="organisation-details">
-    <%= tab_navigation_for(@person) %>
+    <%= render "components/secondary_navigation", {
+     aria_label: "Document navigation tabs",
+     items: secondary_navigation_tabs_items(current_user, @person, request.path)
+    } %>
 
-    <% if @historical_accounts.present? %>
-    <table id="person-historical-accounts" class="table table-bordered table-striped">
-      <thead>
-        <tr class="table-header">
-          <th>Role</th>
-          <th>Summary</th>
-          <th width="20%">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @historical_accounts, { person: @person } %>
-      </tbody>
-    </table>
+    <% if @person.can_have_historical_accounts? && @historical_accounts.present? %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Create historical account",
+        href: new_admin_person_historical_account_path,
+        margin_bottom: 4,
+      } %>
+
+      <div class="app-view-historical-accounts-index__table">
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
+            {
+              text: "Role"
+            },
+            {
+              text: "Summary"
+            },
+            {
+              text: tag.span("Actions", class: "govuk-visually-hidden"),
+              format: "numeric",
+            }
+          ],
+          rows: @historical_accounts.map do |historical_account|
+            roles = historical_account.roles.collect(&:name).to_sentence
+
+            [
+              {
+                text: roles,
+              },
+              {
+                text: historical_account.summary,
+              },
+              {
+                text: sanitize("<a class='govuk-link' href='#{historical_account.public_path}'>View <span class='govuk-visually-hidden'>#{roles}</span></a>" +
+                  "<a class='govuk-link govuk-!-margin-left-2' href='#{edit_admin_person_historical_account_path(@person, historical_account)}'>Edit <span class='govuk-visually-hidden'>#{roles}</span></a>" +
+                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_historical_account_path(@person, historical_account)}'>Delete <span class='govuk-visually-hidden'>#{roles}</span></a>"),
+                format: "numeric"
+              }
+            ]
+          end
+        } %>
+      </div>
+    <% elsif @person.can_have_historical_accounts? %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Create historical account",
+        href: new_admin_person_historical_account_path,
+        margin_bottom: 4,
+      } %>
+
+      <p class="govuk-body">No historical accounts</p>
     <% else %>
-      <p class="no-content no-content-bordered">No historical accounts</p>
+      <p class="govuk-body">This person does not have any role appointments in roles that support historical accounts.</p>
     <% end %>
-
-    <nav class="form-actions">
-      <% if @person.can_have_historical_accounts? %>
-        <%= link_to 'Add an historical account', new_admin_person_historical_account_path, class: "btn btn-primary"  %>
-      <% else %>
-        <em>Note: (This person does not have any role appointments in roles that support historical accounts)</em>
-      <% end %>
-    </nav>
-  </section>
-<% end %>
+  </div>
+</div>

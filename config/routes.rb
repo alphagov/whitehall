@@ -307,7 +307,9 @@ Whitehall::Application.routes.draw do
         resources :detailed_guides, path: "detailed-guides", except: [:index]
         resources :people do
           resources :translations, controller: "person_translations"
-          resources :historical_accounts
+          resources :historical_accounts do
+            get :confirm_destroy, on: :member
+          end
           get :reorder_role_appointments, on: :member
           patch :update_order_role_appointments, on: :member
           get :confirm_destroy, on: :member
