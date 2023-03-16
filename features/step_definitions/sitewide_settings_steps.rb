@@ -13,13 +13,6 @@ Given(/^that there no sidewide settings available to edit$/) do
   SitewideSetting.delete_all
 end
 
-When(/^I visit the How Government Works page$/) do
-  pm_person = create(:person, forename: "Firstname", surname: "Lastname")
-  pm_role = create(:ministerial_role_without_organisation, name: "Prime Minister", cabinet_member: true)
-  create(:ministerial_role_appointment, role: pm_role, person: pm_person)
-  visit "/government/how-government-works"
-end
-
 When(/^I visit the sitewide settings page$/) do
   visit admin_sitewide_settings_path
 end
