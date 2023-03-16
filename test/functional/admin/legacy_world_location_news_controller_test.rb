@@ -1,8 +1,7 @@
 require "test_helper"
 
 class Admin::LegacyWorldLocationNewsControllerTest < ActionController::TestCase
-  tests Admin::WorldLocationNewsController
-
+  tests(Admin::WorldLocationNewsController)
   setup do
     login_as :writer
   end
