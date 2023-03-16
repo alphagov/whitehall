@@ -50,7 +50,8 @@ module GovernmentsHelper
     click_on name
 
     click_on "Prepare to close this government"
-    click_on "Yes, close this government"
+
+    click_on using_design_system? ? "Close this government" : "Yes, close this government"
   end
 
   def count_active_ministerial_role_appointments
