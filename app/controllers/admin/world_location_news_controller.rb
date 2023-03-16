@@ -1,5 +1,6 @@
 class Admin::WorldLocationNewsController < Admin::BaseController
   before_action :load_world_location, only: %i[edit update show features]
+  layout :get_layout
 
   def edit; end
 
@@ -7,6 +8,8 @@ class Admin::WorldLocationNewsController < Admin::BaseController
 
   def index
     @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition(&:active?)
+
+    render_design_system("index", "legacy_index", next_release: false)
   end
 
   def update
@@ -57,5 +60,16 @@ private
       featured_links_attributes: %i[url title id _destroy],
       world_location_attributes: %i[active id world_location_type],
     )
+  end
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 end
