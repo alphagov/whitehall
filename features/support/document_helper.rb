@@ -193,16 +193,6 @@ module DocumentHelper
     query = { preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i }
     document_path(edition, options.merge(query))
   end
-
-  def fill_in_datetime_field(date)
-    date = Time.zone.parse(date)
-
-    select date.year, from: "Year"
-    select date.strftime("%B"), from: "Month"
-    select date.day, from: "Day"
-    select date.strftime("%H"), from: "Hour"
-    select date.strftime("%M"), from: "Minute"
-  end
 end
 
 World(DocumentHelper)
