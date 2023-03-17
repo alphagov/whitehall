@@ -10,6 +10,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
 
   def new
     @historical_account = @person.historical_accounts.build
+    render_design_system(:new, :legacy_new, next_release: false)
   end
 
   def create
@@ -17,17 +18,19 @@ class Admin::HistoricalAccountsController < Admin::BaseController
     if @historical_account.save
       redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account created"
     else
-      render :new
+      render_design_system(:new, :legacy_new, next_release: false)
     end
   end
 
-  def edit; end
+  def edit
+    render_design_system(:edit, :legacy_edit, next_release: false)
+  end
 
   def update
     if @historical_account.update(historical_account_params)
       redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account updated"
     else
-      render :edit
+      render_design_system(:edit, :legacy_edit, next_release: false)
     end
   end
 
@@ -43,10 +46,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
-
-    if action_name.in?(design_system_actions)
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"

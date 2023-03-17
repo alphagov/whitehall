@@ -1,5 +1,6 @@
-<% page_title "Historical account for: #{@person.name}" %>
+<% content_for :page_title, "New historical account for: #{@person.name}" %>
+<% content_for :title, "New historical account" %>
+<% content_for :context, @person.name %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @historical_account)) %>
 
-<h1>Historical account for <%= @person.name %></h1>
-
-<%= render 'form', { person: @person, historical_account: @historical_account } %>
+<%= render 'form', person: @person, historical_account: @historical_account %>

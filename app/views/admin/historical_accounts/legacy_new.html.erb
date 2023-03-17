@@ -1,0 +1,5 @@
+<% page_title "Historical account for: #{@person.name}" %>
+
+<h1>Historical account for <%= @person.name %></h1>
+
+<%= render 'legacy_form', { person: @person, historical_account: @historical_account } %>

@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for [:admin, person, historical_account] do |form| %>
+      <%= form.errors %>
+
+      <fieldset>
+        <div class="form-group">
+          <%= form.label :role_ids, 'Role(s)' %>
+          <%= form.select :role_ids, options_from_collection_for_select(person.roles.where(supports_historical_accounts: true).distinct, :id, :name, historical_account.role_ids),
+                        { include_blank: true },
+                        multiple: true,
+                        class: 'chzn-select form-control',
+                        data: { placeholder: "Role(s) this account is for…"} %>
+        </div>
+        <%= form.text_area :summary , rows: 2 %>
+        <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
+
+        <div class="form-group">
+          <%= form.label :political_party_ids, 'Political parties' %>
+          <%= form.select :political_party_ids,
+                        options_from_collection_for_select(PoliticalParty.all, :id, :name, historical_account.political_party_ids),
+                        { include_blank: true },
+                        multiple: true,
+                        class: 'chzn-select form-control',
+                        data: { placeholder: "Political affiliation" } %>
+        </div>
+        <%= form.text_field :born %>
+        <%= form.text_field :died %>
+        <%= form.text_area :body, rows: 20, class: "previewable", required: true, data: {
+          module: "paste-html-to-govspeak"
+        } %>
+        <%= form.text_area :major_acts, rows: 2 %>
+        <%= form.text_area :interesting_facts, rows: 2 %>
+
+      <%= form.save_or_cancel cancel: admin_person_historical_accounts_path(person) %>
+    <% end %>
+  </div>
+</div>
