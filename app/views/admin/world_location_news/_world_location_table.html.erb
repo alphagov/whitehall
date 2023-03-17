@@ -1,7 +1,3 @@
-<%= render "govuk_publishing_components/components/heading", {
-  text: title
-} %>
-
 <%= render "govuk_publishing_components/components/table", {
   head: [
     {
@@ -11,10 +7,13 @@
       text: "Location"
     },
     {
-      text: "Status"
+      text: "Details"
     },
     {
       text: "Translations"
+    },
+    {
+      text: "Edit"
     }
   ],
   rows:
@@ -24,28 +23,29 @@
           text: world_location.display_type
         },
         {
-          text:
-            tag.p(link_to(world_location.name, [:admin, world_location.world_location_news], class: "govuk-link"), class: "govuk-body govuk-!-margin-bottom-4") +
-              if world_location.world_location_news.mission_statement.present?
-                format_with_html_line_breaks(world_location.world_location_news.mission_statement)
-              else
-                sanitize(tag.span(tag.em("No mission statement yet, ") + link_to("create one", edit_admin_world_location_news_path(world_location.world_location_news), class: "govuk-link")+ "."))
-              end
-        },
-        {
-          text: world_location.active? ? "active" : "inactive"
+          text: world_location.name
         },
         {
           text:
-            sanitize(if world_location.non_english_translated_locales.any?
-              world_location.non_english_translated_locales.map do |locale|
+            if world_location.world_location_news.mission_statement.present?
+              format_with_html_line_breaks(world_location.world_location_news.mission_statement)
+            else
+              "No mission statement yet."
+            end
+        },
+        {
+          text:
+            if world_location.non_english_translated_locales.any?
+              sanitize(world_location.non_english_translated_locales.map do |locale|
                 link_to("#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_world_location_news_translation_path(world_location, locale.code), class: "govuk-link")
-              end.to_sentence.html_safe
+              end.to_sentence)
             else
               "none"
-            end)
+            end
+        },
+        {
+          text: link_to(sanitize("Edit#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link")
         }
       ]
     end
 } %>
-
