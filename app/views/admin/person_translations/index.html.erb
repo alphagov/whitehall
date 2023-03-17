@@ -1,51 +1,67 @@
-<% page_title "#{@person.name} translations" %>
+<% content_for :page_title, "#{@person.name}" %>
+<% content_for :title, @person.name %>
+<% content_for :context, "Translations" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<%= content_tag_for(:div, @person) do %>
-  <div class="person-header">
-    <h1><%= @person.name %></h1>
-    <%= view_on_website_link_for @person %>
-  </div>
-  <section class="person-details">
-    <%= tab_navigation_for(@person) %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">
+        <%= view_on_website_link_for @person, class: "govuk-link" %>
+      </p>
 
-    <% if @person.non_english_translated_locales.present? %>
-      <table id="person-translations" class="table table-bordered table-striped">
-        <thead>
-          <tr class="table-header">
-            <th>Locale</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @person.non_english_translated_locales.each do |locale| %>
-            <tr>
-              <td class="locale">
-                <%= link_to locale.native_language_name, edit_admin_person_translation_path(@person, locale.code) %>
-                (<%= link_to "view", @person.public_url(locale: locale.code) %>)
-              </td>
-              <td class="actions">
-                <%= button_to 'Delete', admin_person_translation_path(@person, locale.code),
-                      method: :delete, class: "btn btn-danger",
-                      data: { confirm: "Are you sure you want to delete this translation?" } %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p class="no-content no-content-bordered">No translations</p>
-    <% end %>
+      <%= render "components/secondary_navigation", {
+        aria_label: "Document navigation tabs",
+        items: secondary_navigation_tabs_items(current_user, @person, request.path)
+      } %>
 
-    <nav class="form-actions">
+      <% if @person.non_english_translated_locales.present? %>
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
+            {
+              text: "Locale"
+            },
+            {
+              text: tag.span("Actions", class: "govuk-visually-hidden"),
+              format: "numeric",
+            }
+          ],
+          rows: @person.non_english_translated_locales.map do |locale|
+            native_language_name = Locale.coerce(locale).native_language_name
+            [
+              {
+                text: sanitize("#{locale.native_language_name} " + link_to("(view)", @person.public_url(locale: locale.code), class: "govuk-link"))
+              },
+              {
+                text: sanitize("<a class='govuk-link' href='#{edit_admin_person_translation_path(@person, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{native_language_name}</span></a>" +
+                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_translation_path(@person, locale.code)}'>Delete <span class='govuk-visually-hidden'>#{native_language_name}</span></a>"),
+                format: "numeric"
+              }
+            ]
+          end
+        } %>
+      <% else %>
+        <p class="govuk-body">No translations</p>
+      <% end %>
+
       <% if @person.missing_translations.any? %>
-        <%= form_tag admin_person_translations_path(@person), class: 'well' do %>
-          <div class="form-group">
-            <%= label_tag :translation_locale, 'Locale' %>
-            <%= select_locale :translation_locale, @person.missing_translations, class: 'form-control input-md-3' %>
-          </div>
-          <%= submit_tag "Create translation", class: "btn btn-primary" %>
+        <%= form_tag admin_person_translations_path(@person) do %>
+          <%= render "govuk_publishing_components/components/select", {
+            id: "translation_locale",
+            name: "translation_locale",
+            label: "Locale",
+            heading_size: "l",
+            options: @person.missing_translations.map do |locale|
+              {
+                value: locale.code,
+                text: Locale.coerce(locale).native_and_english_language_name,
+              }
+            end
+          } %>
+
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Create translation"
+          } %>
         <% end %>
       <% end %>
-    </nav>
-  </section>
-<% end %>
+  </div>
+</div>

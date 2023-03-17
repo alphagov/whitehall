@@ -306,7 +306,9 @@ Whitehall::Application.routes.draw do
         resources :statistical_data_sets, path: "statistical-data-sets", except: [:index]
         resources :detailed_guides, path: "detailed-guides", except: [:index]
         resources :people do
-          resources :translations, controller: "person_translations"
+          resources :translations, controller: "person_translations" do
+            get :confirm_destroy, on: :member
+          end
           resources :historical_accounts do
             get :confirm_destroy, on: :member
           end

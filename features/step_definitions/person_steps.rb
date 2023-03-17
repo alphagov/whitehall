@@ -52,7 +52,7 @@ When(/^I edit the "([^"]*)" translation for the person "([^"]*)" updating the bi
 
   visit admin_person_path(person)
   click_link "Translations"
-  click_link locale
+  click_link using_design_system? ? "Edit #{locale}" : locale
   fill_in "Biography", with: text
   click_on "Save"
 end
@@ -71,9 +71,16 @@ Then(/^I should not be able to see "([^"]*)" in the list of people$/) do |name|
 end
 
 Then(/^I should see the translation "([^"]*)" and body text "([^"]*)"$/) do |locale, text|
-  within "#person-translations" do
-    expect(page).to have_selector(".locale", text: locale)
-    click_on locale
+  if using_design_system?
+    within ".govuk-table" do
+      expect(page).to have_content(locale)
+      click_link "Edit #{locale}"
+    end
+  else
+    within "#person-translations" do
+      expect(page).to have_selector(".locale", text: locale)
+      click_on locale
+    end
   end
 
   expect(page).to have_content(text)

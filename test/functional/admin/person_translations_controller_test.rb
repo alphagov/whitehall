@@ -20,7 +20,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
         assert_select "option[value=es]", text: "Español (Spanish)"
       end
 
-      assert_select "input[type=submit]"
+      assert_select "button[type=submit]"
     end
   end
 
@@ -76,8 +76,8 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
     edit_translation_path = edit_admin_person_translation_path(person, "fr")
     view_person_path = person.public_path(locale: "fr")
-    assert_select "a[href=?]", edit_translation_path, text: "Français"
-    assert_select "a[href=?]", Plek.website_root + view_person_path, text: "view"
+    assert_select "a[href=?]", edit_translation_path, text: "Edit Français"
+    assert_select "a[href=?]", Plek.website_root + view_person_path, text: "(view)"
   end
 
   view_test "index does not list the english translation" do
@@ -100,9 +100,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
     get :index, params: { person_id: person }
 
-    assert_select "form[action=?]", admin_person_translation_path(person, :fr) do
-      assert_select "input[type='submit'][value=?]", "Delete"
-    end
+    assert_select ".gem-link--destructive", text: "Delete Français", href: confirm_destroy_admin_person_translation_path(@person, :fr)
   end
 
   test "create redirects to edit for the chosen language" do
