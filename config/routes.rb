@@ -90,16 +90,11 @@ Whitehall::Application.routes.draw do
     # End of public facing routes still rendered by Whitehall
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
-    get "/consultations/:consultation_id/:id", as: "consultation_html_attachment", to: rack_404
-    get "/consultations/:consultation_id/outcome/:id", as: "consultation_outcome_html_attachment", to: rack_404
-    get "/consultations/:consultation_id/public-feedback/:id", as: "consultation_public_feedback_html_attachment", to: rack_404
     get "/latest", as: "latest", to: rack_404
     get "/organisations", as: "organisations", to: rack_404
-    get "/publications/:publication_id/:id", as: "publication_html_attachment", to: rack_404
     get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
     get "/statistics/announcements/:id", as: "statistics_announcement", to: rack_404
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
-    get "/statistics/:statistics_id/:id", as: "statistic_html_attachment", to: rack_404
 
     resources :organisations, only: [] do
       # These aren't rendered but are coupled to Worldwide organisation corporate information pages
