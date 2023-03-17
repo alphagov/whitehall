@@ -90,7 +90,7 @@ Whitehall::Application.routes.draw do
     # End of public facing routes still rendered by Whitehall
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
-    get "/consultations/:consultation_id/:id", as: "consultation_html_attachment", to: rack_404
+    # get "/consultations/:consultation_id/:id", as: "consultation_html_attachment", to: rack_404
     get "/consultations/:consultation_id/outcome/:id", as: "consultation_outcome_html_attachment", to: rack_404
     get "/consultations/:consultation_id/public-feedback/:id", as: "consultation_public_feedback_html_attachment", to: rack_404
     get "/latest", as: "latest", to: rack_404

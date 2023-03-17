@@ -52,6 +52,7 @@ class HtmlAttachment < Attachment
   end
 
   def url(options = {})
+    debugger
     preview = options.delete(:preview)
     full_url = options.delete(:full_url)
 
@@ -64,14 +65,18 @@ class HtmlAttachment < Attachment
 
     type = attachable.path_name
     path_or_url = full_url ? "url" : "path"
-    path_helper = "#{type}_html_attachment_#{path_or_url}"
 
     # This depends on the rails url helpers to construct a url based on config/routes.rb:
     # composed of document type, slug for the parent document, and identifier for the attachment;
     # for non-english attachments the identifier is the content_id, for english
     # attachments it is self i.e. the slug
-    identifier = sluggable_locale? ? self : content_id
-    Whitehall.url_maker.public_send(path_helper, attachable.slug, identifier, options)
+    # identifier = sluggable_locale? ? self.slug : content_id
+
+    if full_url
+      public_url(options)
+    else
+      public_path
+    end
   end
 
   def should_generate_new_friendly_id?
@@ -96,7 +101,23 @@ class HtmlAttachment < Attachment
     [locale || I18n.default_locale.to_s]
   end
 
+  def identifier
+    sluggable_locale? ? self.slug : content_id
+  end
+
+  def base_path
+    "/government/#{attachable.path_name.pluralize}/#{attachable.slug}/#{identifier}"
+  end
+
 private
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    options[:host] + public_path
+  end
 
   def sluggable_locale?
     locale.blank? || (locale == "en")
