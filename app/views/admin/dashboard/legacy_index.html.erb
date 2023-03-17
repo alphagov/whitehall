@@ -47,7 +47,7 @@
 <div class="row">
   <div class="col-md-6 draft-documents">
     <h2>My draft documents</h2>
-    <%= render partial: 'document_table', locals: { documents: @draft_documents, title: 'draft documents' } %>
+    <%= render partial: 'legacy_document_table', locals: { documents: @draft_documents, title: 'draft documents' } %>
   </div>
   <% if current_user.organisation %>
     <div class="col-md-6 force-published-documents">
@@ -55,7 +55,7 @@
         <%= organisation_acronym_or_name(current_user.organisation) %>’s
         force-published documents
       </h2>
-      <%= render partial: 'document_table', locals: { documents: @force_published_documents, title: 'force published documents' } %>
+      <%= render partial: 'legacy_document_table', locals: { documents: @force_published_documents, title: 'force published documents' } %>
       <p><%= link_to "See all", admin_editions_path(state: :force_published, organisation: current_user.organisation) %></p>
     </div>
   <% end %>

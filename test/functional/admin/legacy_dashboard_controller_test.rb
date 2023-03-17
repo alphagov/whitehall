@@ -31,7 +31,7 @@ class Admin::LegacyDashboardControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_template :index
+    assert_template :legacy_index
     assert_equal [@draft_edition2, @draft_edition1], assigns(:draft_documents)
     assert_equal [@force_published_edition2, @force_published_edition1], assigns(:force_published_documents)
   end

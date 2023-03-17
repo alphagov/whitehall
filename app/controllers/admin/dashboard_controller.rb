@@ -9,5 +9,7 @@ class Admin::DashboardController < Admin::BaseController
         edition.respond_to?(:owning_organisation) && edition.owning_organisation.nil?
       end
     end
+
+    render :legacy_index
   end
 end
