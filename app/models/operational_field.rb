@@ -20,7 +20,7 @@ class OperationalField < ApplicationRecord
   end
 
   def search_link
-    Whitehall.url_maker.operational_field_path(slug)
+    public_path
   end
 
   def description_without_markup
