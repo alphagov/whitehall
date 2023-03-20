@@ -10,6 +10,7 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
       create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
 
       assert_valid_against_publisher_schema(presented_item.content, "ministers_index")
+      assert_valid_against_links_schema({ links: presented_item.links }, "ministers_index")
     end
   end
 

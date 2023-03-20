@@ -28,6 +28,10 @@ module PublishingApi
       content.merge!(PayloadBuilder::Routes.for(base_path))
     end
 
+    def links
+      {}
+    end
+
   private
 
     def details
