@@ -13,10 +13,12 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
     @presented_en_content = @presented_document_collection.content
     @presented_content = I18n.with_locale("de") { @presented_document_collection.content }
+    @presented_links = I18n.with_locale("de") { @presented_document_collection.links }
   end
 
   test "it presents a valid document_collection content item" do
     assert_valid_against_publisher_schema @presented_content, "document_collection"
+    assert_valid_against_links_schema({ links: @presented_links }, "document_collection")
   end
 
   test "it delegates the content id" do
@@ -432,5 +434,6 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
 
   test "is valid against content schemas" do
     assert_valid_against_publisher_schema @presented_document_collection.content, "document_collection"
+    assert_valid_against_links_schema({ links: @presented_document_collection.links }, "document_collection")
   end
 end
