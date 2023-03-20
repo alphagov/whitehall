@@ -58,11 +58,12 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
       update_type: "major",
     }
 
-    presented_content = present(@world_location_news).content
+    presented_item = present(@world_location_news)
 
-    assert_equal expected, presented_content
+    assert_equal expected, presented_item.content
 
-    assert_valid_against_publisher_schema(presented_content, "world_location_news")
+    assert_valid_against_publisher_schema(presented_item.content, "world_location_news")
+    assert_valid_against_links_schema({ links: presented_item.links }, "world_location_news")
   end
 
   test "caps number of featured links at 5" do
