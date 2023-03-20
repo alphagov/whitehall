@@ -6,7 +6,7 @@ class AdminRequest
   end
 
   def self.valid_admin_host?(host)
-    [Whitehall.admin_host, Whitehall.internal_admin_host].include? host
+    host.starts_with?("whitehall-admin")
   end
 end
 
@@ -23,9 +23,7 @@ Whitehall::Application.routes.draw do
   end
 
   root to: redirect("/admin/"),
-       constraints: lambda { |request|
-                      ::Whitehall.admin_host == request.host
-                    }
+       constraints: ->(request) { AdminRequest.valid_admin_host?(request.host) }
 
   rack_404 = proc { [404, {}, ["Not found"]] }
 
