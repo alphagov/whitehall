@@ -94,6 +94,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     assert_equal worldwide_org.content_id, presented_item.content_id
 
     assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
+    assert_valid_against_links_schema({ links: presented_item.links }, "worldwide_organisation")
   end
 
   test "presents the correct routes for a worldwide organisation with a translation" do
