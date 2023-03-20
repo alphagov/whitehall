@@ -112,6 +112,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal organisation.content_id, presented_item.content_id
 
     assert_valid_against_publisher_schema(presented_item.content, "organisation")
+    assert_valid_against_links_schema({ links: presented_item.links }, "organisation")
   end
 
   test "caps number of featured documents at 6" do
