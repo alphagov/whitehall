@@ -79,6 +79,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
 
     assert_equal expected_content, @presented.content
     assert_valid_against_publisher_schema(@presented.content, "contact")
+    assert_valid_against_links_schema({ links: @presented.links }, "contact")
   end
 
   test "links hash includes organisations" do

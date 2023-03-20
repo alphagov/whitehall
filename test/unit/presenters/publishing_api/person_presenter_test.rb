@@ -58,6 +58,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
     assert_equal person.content_id, presented_item.content_id
 
     assert_valid_against_publisher_schema(presented_item.content, "person")
+    assert_valid_against_links_schema({ links: presented_item.links }, "person")
   end
 
   test "accepts people without an image" do
@@ -73,6 +74,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
     presented_item = present(person)
 
     assert_valid_against_publisher_schema(presented_item.content, "person")
+    assert_valid_against_links_schema({ links: presented_item.links }, "person")
   end
 
   test "presents the correct routes for a person with a translation" do

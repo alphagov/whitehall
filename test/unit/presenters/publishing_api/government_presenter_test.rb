@@ -1,28 +1,35 @@
 require "test_helper"
 
-class GovernmentPresenterTest < PresenterTestCase
+class PublishingApi::GovernmentPresenterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe PublishingApi::GovernmentPresenter do
-    setup do
-      @government = build(:government)
-      @presenter = PublishingApi::GovernmentPresenter.new(@government)
-    end
+    context "given a government" do
+      setup do
+        @government = create(:government)
+        @presenter = PublishingApi::GovernmentPresenter.new(@government)
+      end
 
-    test "the presenter has the content_id" do
-      assert_equal @government.content_id, @presenter.content_id
-    end
+      test "the presenter has the content_id" do
+        assert_equal @government.content_id, @presenter.content_id
+      end
 
-    test "the details has started_on" do
-      assert_equal(
-        @government.start_date.rfc3339,
-        @presenter.content.dig(:details, :started_on),
-      )
+      test "the details has started_on" do
+        assert_equal(
+          @government.start_date.rfc3339,
+          @presenter.content.dig(:details, :started_on),
+        )
+      end
+
+      test "the presented item is valid against the schema" do
+        assert_valid_against_publisher_schema @presenter.content, "government"
+        assert_valid_against_links_schema({ links: @presenter.links }, "government")
+      end
     end
 
     context "given a previous government" do
       setup do
-        @government = build(:previous_government, slug: "foo")
+        @government = create(:previous_government, slug: "foo")
         @presenter = PublishingApi::GovernmentPresenter.new(@government)
       end
 
@@ -36,11 +43,16 @@ class GovernmentPresenterTest < PresenterTestCase
       test "current is false" do
         assert_not @presenter.content.dig(:details, :current)
       end
+
+      test "the presented item is valid against the schema" do
+        assert_valid_against_publisher_schema @presenter.content, "government"
+        assert_valid_against_links_schema({ links: @presenter.links }, "government")
+      end
     end
 
     context "given a current government" do
       setup do
-        @government = build(:current_government)
+        @government = create(:current_government)
         @presenter = PublishingApi::GovernmentPresenter.new(@government)
       end
 
@@ -50,6 +62,11 @@ class GovernmentPresenterTest < PresenterTestCase
 
       test "current is true" do
         assert @presenter.content.dig(:details, :current)
+      end
+
+      test "the presented item is valid against the schema" do
+        assert_valid_against_publisher_schema @presenter.content, "government"
+        assert_valid_against_links_schema({ links: @presenter.links }, "government")
       end
     end
   end

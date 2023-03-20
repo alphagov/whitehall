@@ -196,6 +196,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "corporate_information_page"
+      assert_valid_against_links_schema({ links: presented_links }, "corporate_information_page")
     end
   end
 
@@ -332,6 +333,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "corporate_information_page"
+      assert_valid_against_links_schema({ links: presented_links }, "corporate_information_page")
     end
 
     test "presents the correct routes for a corporate information page with a translation" do
@@ -374,6 +376,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "corporate_information_page"
+      assert_valid_against_links_schema({ links: presented_links }, "corporate_information_page")
     end
   end
 
@@ -451,6 +454,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "corporate_information_page"
+      assert_valid_against_links_schema({ links: presented_links }, "corporate_information_page")
     end
   end
 
@@ -471,6 +475,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "corporate_information_page"
+      assert_valid_against_links_schema({ links: presented_links }, "corporate_information_page")
     end
   end
 
@@ -490,6 +495,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "corporate_information_page"
+      assert_valid_against_links_schema({ links: presented_links }, "corporate_information_page")
     end
   end
 end

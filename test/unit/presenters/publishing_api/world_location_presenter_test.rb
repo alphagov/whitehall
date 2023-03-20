@@ -32,6 +32,7 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
     assert_equal world_location.content_id, presented_item.content_id
 
     assert_valid_against_publisher_schema(presented_item.content, "world_location")
+    assert_valid_against_links_schema({ links: presented_item.links }, "world_location")
   end
 
   test "presents the correct routes for an international delegation with a translation" do
