@@ -41,5 +41,6 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
     assert_equal expected_update_type, presented_item.update_type
 
     assert_valid_against_publisher_schema(presented_item.content, "generic")
+    assert_valid_against_links_schema({ links: presented_item.links }, "generic")
   end
 end
