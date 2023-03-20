@@ -1,11 +1,11 @@
 require "test_helper"
 
-class GovernmentPresenterTest < PresenterTestCase
+class PublishingApi::GovernmentPresenterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe PublishingApi::GovernmentPresenter do
     setup do
-      @government = build(:government)
+      @government = create(:government)
       @presenter = PublishingApi::GovernmentPresenter.new(@government)
     end
 
@@ -22,7 +22,7 @@ class GovernmentPresenterTest < PresenterTestCase
 
     context "given a previous government" do
       setup do
-        @government = build(:previous_government, slug: "foo")
+        @government = create(:previous_government, slug: "foo")
         @presenter = PublishingApi::GovernmentPresenter.new(@government)
       end
 
@@ -40,7 +40,7 @@ class GovernmentPresenterTest < PresenterTestCase
 
     context "given a current government" do
       setup do
-        @government = build(:current_government)
+        @government = create(:current_government)
         @presenter = PublishingApi::GovernmentPresenter.new(@government)
       end
 
