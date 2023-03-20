@@ -184,6 +184,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
 
     test "it presents the base_path if locale is :en" do
@@ -240,6 +241,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -299,6 +301,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -313,6 +316,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -389,6 +393,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -452,6 +457,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -497,6 +503,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -517,6 +524,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -537,6 +545,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -556,6 +565,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -596,6 +606,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
@@ -617,6 +628,7 @@ module PublishingApi::ConsultationPresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "consultation"
+      assert_valid_against_links_schema({ links: presented_links }, "consultation")
     end
   end
 
