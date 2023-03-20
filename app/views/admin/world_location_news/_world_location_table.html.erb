@@ -1,51 +1,55 @@
-<%= render "govuk_publishing_components/components/table", {
-  head: [
-    {
-      text: "Type"
-    },
-    {
-      text: "Location"
-    },
-    {
-      text: "Details"
-    },
-    {
-      text: "Translations"
-    },
-    {
-      text: "Edit"
-    }
-  ],
-  rows:
-    world_locations.map do |world_location|
-      [
-        {
-          text: world_location.display_type
-        },
-        {
-          text: world_location.name
-        },
-        {
-          text:
-            if world_location.world_location_news.mission_statement.present?
-              format_with_html_line_breaks(world_location.world_location_news.mission_statement)
-            else
-              "No mission statement yet."
-            end
-        },
-        {
-          text:
-            if world_location.non_english_translated_locales.any?
-              sanitize(world_location.non_english_translated_locales.map do |locale|
-                link_to("#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_world_location_news_translation_path(world_location, locale.code), class: "govuk-link")
-              end.to_sentence)
-            else
-              "none"
-            end
-        },
-        {
-          text: link_to(sanitize("Edit#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link")
-        }
-      ]
-    end
-} %>
+<% if world_locations.blank? %>
+  <p class="govuk-body"><%= error_message %></p>
+<% else %>
+  <%= render "govuk_publishing_components/components/table", {
+    head: [
+      {
+        text: "Type"
+      },
+      {
+        text: "Location"
+      },
+      {
+        text: "Details"
+      },
+      {
+        text: "Translations"
+      },
+      {
+        text: "Edit"
+      }
+    ],
+    rows:
+      world_locations.map do |world_location|
+        [
+          {
+            text: world_location.display_type
+          },
+          {
+            text: world_location.name
+          },
+          {
+            text:
+              if world_location.world_location_news.mission_statement.present?
+                format_with_html_line_breaks(world_location.world_location_news.mission_statement)
+              else
+                "No mission statement yet."
+              end
+          },
+          {
+            text:
+              if world_location.non_english_translated_locales.any?
+                sanitize(world_location.non_english_translated_locales.map do |locale|
+                  link_to("#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_world_location_news_translation_path(world_location, locale.code), class: "govuk-link")
+                end.to_sentence)
+              else
+                "none"
+              end
+          },
+          {
+            text: link_to(sanitize("Edit#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link")
+          }
+        ]
+      end
+  } %>
+<% end %>
