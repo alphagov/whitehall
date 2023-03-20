@@ -175,6 +175,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
 
     test "auth bypass id" do
@@ -193,6 +194,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
   end
 
@@ -207,6 +209,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
   end
 
@@ -221,6 +224,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
   end
 
@@ -285,6 +289,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
   end
 
@@ -305,6 +310,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
   end
 
@@ -325,6 +331,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
   end
 
@@ -346,6 +353,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
   end
 
@@ -392,6 +400,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "news_article"
+      assert_valid_against_links_schema({ links: presented_links }, "news_article")
     end
   end
 end
