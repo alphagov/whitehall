@@ -13,10 +13,12 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
 
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
     @presented_content = I18n.with_locale("de") { @presented_fatality_notice.content }
+    @presented_links = I18n.with_locale("de") { @presented_fatality_notice.links }
   end
 
   test "it presents a valid fatality_notice content item" do
     assert_valid_against_publisher_schema @presented_content, "fatality_notice"
+    assert_valid_against_links_schema({ links: @presented_links }, "fatality_notice")
   end
 
   test "it delegates the content id" do
