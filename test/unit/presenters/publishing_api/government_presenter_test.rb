@@ -20,6 +20,11 @@ class PublishingApi::GovernmentPresenterTest < ActiveSupport::TestCase
       )
     end
 
+    test "the presented item is valid against the schema" do
+      assert_valid_against_publisher_schema @presenter.content, "government"
+      assert_valid_against_links_schema({ links: @presenter.links }, "government")
+    end
+
     context "given a previous government" do
       setup do
         @government = create(:previous_government, slug: "foo")
@@ -36,6 +41,11 @@ class PublishingApi::GovernmentPresenterTest < ActiveSupport::TestCase
       test "current is false" do
         assert_not @presenter.content.dig(:details, :current)
       end
+
+      test "the presented item is valid against the schema" do
+        assert_valid_against_publisher_schema @presenter.content, "government"
+        assert_valid_against_links_schema({ links: @presenter.links }, "government")
+      end
     end
 
     context "given a current government" do
@@ -50,6 +60,11 @@ class PublishingApi::GovernmentPresenterTest < ActiveSupport::TestCase
 
       test "current is true" do
         assert @presenter.content.dig(:details, :current)
+      end
+
+      test "the presented item is valid against the schema" do
+        assert_valid_against_publisher_schema @presenter.content, "government"
+        assert_valid_against_links_schema({ links: @presenter.links }, "government")
       end
     end
   end
