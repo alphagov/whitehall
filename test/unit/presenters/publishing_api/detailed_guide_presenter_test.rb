@@ -229,6 +229,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     }
 
     assert_valid_against_publisher_schema(presented_item.content, "detailed_guide")
+    assert_valid_against_links_schema({ links: presented_item.links }, "detailed_guide")
     assert_equal expected_national_applicability, details[:national_applicability]
   end
 
@@ -250,6 +251,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
 
     presented_item = present(detailed_guide)
     assert_valid_against_publisher_schema(presented_item.content, "detailed_guide")
+    assert_valid_against_links_schema({ links: presented_item.links }, "detailed_guide")
     assert_equal presented_item.content.dig(:details, :attachments, 0, :id),
                  detailed_guide.attachments.first.id.to_s
   end
