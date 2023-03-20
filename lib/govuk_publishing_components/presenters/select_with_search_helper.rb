@@ -22,6 +22,7 @@ module GovukPublishingComponents
         @select_helper = SelectHelper.new(local_assigns.except(:options, :grouped_options))
         @options = local_assigns[:options]
         @grouped_options = local_assigns[:grouped_options]
+        @local_assigns = local_assigns
       end
 
       def css_classes
@@ -42,6 +43,14 @@ module GovukPublishingComponents
             selected_option,
           )
         end
+      end
+
+      def data_attributes
+        {
+          "module": "select-with-search",
+          "track-category": @local_assigns[:track_category],
+          "track-label": @local_assigns[:track_label],
+        }.compact
       end
 
     private

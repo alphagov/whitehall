@@ -11,7 +11,7 @@
   aria_describedby = { describedby: select_helper.describedby }
 %>
 
-<%= content_tag :div, class: select_helper.css_classes, data: { module: "select-with-search" } do %>
+<%= content_tag :div, class: select_helper.css_classes, data: select_helper.data_attributes do %>
   <% if is_page_heading %>
     <%= tag.h1 label_tag(id, label, class: select_helper.label_classes), class: "gem-c-title__text" %>
   <% else %>

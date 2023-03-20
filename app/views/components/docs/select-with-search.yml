@@ -94,6 +94,31 @@ examples:
         value: option1
       - text: Something else
         value: option2
+  with_tracking:
+    description: |
+      Enable tracking by passing `track_category`, and optionally `track_label`. Tracking events will fire when the user selects an option. The tracked `action` will be the text label of the selected option.
+
+      For example, an event tracked to Google Analytics might look like:
+
+      ```
+      {
+        category: "DocumentTypeSelection",
+        action: "News article",
+        label: "(optional)"
+      }
+      ```
+    data:
+      id: dropdown-with-tracking
+      label: Document type
+      track_category: DocumentTypeSelection
+      track_label: (optional)
+      options:
+      - text: News article
+        value: news-article
+      - text: Press release
+        value: press-release
+      - text: Government response
+        value: government-response
   with_error:
     description: If the user has to select an option, it is recommended that a radio button is used instead of a select, but this is not always possible. Note that `error_id` is optional, if it is not passed one will be generated automatically.
     data:
