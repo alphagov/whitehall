@@ -12,10 +12,12 @@ class PublishingApi::StatisticalDataSetPresenterTest < ActiveSupport::TestCase
 
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(@statistical_data_set)
     @presented_content = I18n.with_locale("de") { @presented_statistical_data_set.content }
+    @presented_links = I18n.with_locale("de") { @presented_statistical_data_set.links }
   end
 
   test "it presents a valid statistical_data_set content item" do
     assert_valid_against_publisher_schema @presented_content, "statistical_data_set"
+    assert_valid_against_links_schema({ links: @presented_links }, "statistical_data_set")
   end
 
   test "it delegates the content id" do
@@ -197,6 +199,7 @@ class PublishingApi::StatisticalDataSetPresenterAttachmentTest < ActiveSupport::
 
   test "its attachments are valid against the schema" do
     assert_valid_against_publisher_schema @presented_statistical_data_set.content, "statistical_data_set"
+    assert_valid_against_links_schema({ links: @presented_statistical_data_set.links }, "statistical_data_set")
   end
 end
 
@@ -296,5 +299,6 @@ class PublishingApi::StatisticalDataSetAccessLimitedTest < ActiveSupport::TestCa
 
   test "is valid against content schemas" do
     assert_valid_against_publisher_schema @presented_statistical_data_set.content, "statistical_data_set"
+    assert_valid_against_links_schema({ links: @presented_statistical_data_set.links }, "statistical_data_set")
   end
 end
