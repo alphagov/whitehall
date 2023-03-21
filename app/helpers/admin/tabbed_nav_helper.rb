@@ -14,7 +14,7 @@ module Admin::TabbedNavHelper
   def edition_nav_items(user, edition, current_path)
     nav_items = []
     nav_items << standard_edition_nav_items(edition, current_path)
-    nav_items << images_nav_items(edition, current_path) if user.can_preview_images_update?
+    nav_items << images_nav_items(edition, current_path) if user.can_preview_next_release?
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
     nav_items.flatten
