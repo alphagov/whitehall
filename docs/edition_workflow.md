@@ -1,8 +1,12 @@
 # Edition Workflow
 
+(See also [Edition model](edition_model.md) for more on the model objects involved)
+
 Editions will be in one of a number of states. The state machine for them is located in [workflow.rb](/app/models/edition/workflow.rb). This configures the possible transitions between states, resulting in this:
 
-![Transitions graph](misc/edition_transitions.png)
+![Transitions graph](diagrams/edition_state_transitions.png)
+
+Note that a `Document` has no state, there is just state inferred by the various `Edition`s.  This diagram doesn't show the effect of multiple editions - sometimes a state transition involves superseding an existing edition and replacing it with a new one, with its own state.
 
 ## Unpublishing / Withdrawal
 
