@@ -27,7 +27,7 @@ class Admin::EditionImagesController < Admin::BaseController
     @new_image.build_image_data(image_params["image_data"])
 
     if @new_image.save
-      redirect_to edit_admin_edition_image_path(@edition, @new_image.id)
+      redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.image_data.carrierwave_image} successfully uploaded"
     else
       # Removes @new_image from the edition, otherwise the index page will attempt to render it and error
       @edition.images.delete(@new_image)
