@@ -19,6 +19,8 @@ class ApplicationRecord < ActiveRecord::Base
       path = "#{path}?#{query_params.to_query}"
     end
 
+    path = "#{path}?preview=#{options[:preview]}" if options[:preview]
+
     path = "#{path}##{options[:anchor]}" if options[:anchor]
 
     path

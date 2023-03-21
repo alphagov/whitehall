@@ -52,30 +52,20 @@ class HtmlAttachment < Attachment
   end
 
   def url(options = {})
-    debugger
     preview = options.delete(:preview)
     full_url = options.delete(:full_url)
 
     if preview
       options[:preview] = id
-      options[:host] = URI(Plek.external_url_for("draft-origin")).host
+      options[:root] = Plek.external_url_for("draft-origin")
     else
-      options[:host] = URI(Plek.website_root).host
+      options[:root] = Plek.website_root
     end
-
-    type = attachable.path_name
-    path_or_url = full_url ? "url" : "path"
-
-    # This depends on the rails url helpers to construct a url based on config/routes.rb:
-    # composed of document type, slug for the parent document, and identifier for the attachment;
-    # for non-english attachments the identifier is the content_id, for english
-    # attachments it is self i.e. the slug
-    # identifier = sluggable_locale? ? self.slug : content_id
 
     if full_url
       public_url(options)
     else
-      public_path
+      public_path(options)
     end
   end
 
@@ -102,11 +92,18 @@ class HtmlAttachment < Attachment
   end
 
   def identifier
-    sluggable_locale? ? self.slug : content_id
+    sluggable_locale? ? slug : content_id
   end
 
   def base_path
-    "/government/#{attachable.path_name.pluralize}/#{attachable.slug}/#{identifier}"
+    case attachable.path_name
+    when "consultation_outcome"
+      "/government/consultations/#{attachable.slug}/outcome/#{identifier}"
+    when "consultation_public_feedback"
+      "/government/consultations/#{attachable.slug}/public-feedback/#{identifier}"
+    else
+      "/government/#{attachable.path_name.pluralize}/#{attachable.slug}/#{identifier}"
+    end
   end
 
 private
@@ -116,7 +113,7 @@ private
   end
 
   def public_url(options = {})
-    options[:host] + public_path
+    options[:root] + public_path(options)
   end
 
   def sluggable_locale?
