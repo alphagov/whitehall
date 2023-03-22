@@ -143,7 +143,15 @@ class StatisticsAnnouncement < ApplicationRecord
   end
 
   def base_path
-    Whitehall.url_maker.statistics_announcement_path(self)
+    "/government/statistics/announcements/#{slug}"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options)
   end
 
   alias_method :search_link, :base_path

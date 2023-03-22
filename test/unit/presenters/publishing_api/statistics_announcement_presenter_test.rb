@@ -8,7 +8,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
   test "a scheduled statistics announcement presents the correct values" do
     statistics_announcement = create(:statistics_announcement)
 
-    public_path = Whitehall.url_maker.statistics_announcement_path(statistics_announcement)
+    public_path = statistics_announcement.public_path
 
     expected_content = {
       base_path: public_path,
@@ -52,7 +52,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
   test "a cancelled statistics announcement presents the correct values" do
     statistics_announcement = create(:cancelled_statistics_announcement)
 
-    public_path = Whitehall.url_maker.statistics_announcement_path(statistics_announcement)
+    public_path = statistics_announcement.public_path
 
     expected_content = {
       base_path: public_path,
@@ -102,7 +102,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       change_note: "Reasons",
     )
 
-    public_path = Whitehall.url_maker.statistics_announcement_path(statistics_announcement)
+    public_path = statistics_announcement.public_path
 
     expected_content = {
       base_path: public_path,
