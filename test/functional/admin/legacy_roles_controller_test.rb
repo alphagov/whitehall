@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::RolesControllerTest < ActionController::TestCase
+class Admin::LegacyRolesControllerTest < ActionController::TestCase
+  tests Admin::RolesController
+
   setup do
-    login_as_preview_design_system_user(:gds_editor)
+    login_as :writer
   end
 
   should_be_an_admin_controller

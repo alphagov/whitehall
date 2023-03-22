@@ -1,5 +1,6 @@
 class Admin::RolesController < Admin::BaseController
   before_action :load_role, only: %i[edit update destroy]
+  layout :get_layout
 
   def index
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])
@@ -70,5 +71,16 @@ private
 
   def sti_type
     RoleTypePresenter.role_attributes_from(params[:role][:role_type])[:type]
+  end
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 end
