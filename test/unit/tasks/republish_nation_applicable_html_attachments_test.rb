@@ -53,6 +53,8 @@ class RepublishNationApplicableHtmlAttachmentsRake < ActiveSupport::TestCase
       true,
     ).never
 
-    Rake.application.invoke_task "republish_nation_inapplicable_html_attachments"
+    capture_io do
+      Rake.application.invoke_task "republish_nation_inapplicable_html_attachments"
+    end
   end
 end
