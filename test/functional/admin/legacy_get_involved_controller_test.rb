@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::GetInvolvedControllerTest < ActionController::TestCase
+class Admin::LegacyGetInvolvedControllerTest < ActionController::TestCase
+  tests Admin::GetInvolvedController
+
   setup do
-    login_as_preview_design_system_user(:gds_editor)
+    login_as :gds_editor
   end
 
   should_be_an_admin_controller
