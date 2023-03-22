@@ -83,6 +83,11 @@ namespace :publishing_api do
     task republish_operational_fields_index: :environment do
       PublishOperationalFieldsIndexPage.new.publish
     end
+
+    desc "Republish the world index page to Publishing API"
+    task republish_world_index: :environment do
+      PublishWorldIndexPage.new.publish
+    end
   end
 
   namespace :patch_links do
