@@ -52,26 +52,13 @@ class HtmlAttachment < Attachment
   end
 
   def url(options = {})
-    preview = options.delete(:preview)
-    full_url = options.delete(:full_url)
+    options[:preview] = id if options[:preview]
 
-    if preview
-      options[:preview] = id
-      options[:host] = URI(Plek.external_url_for("draft-origin")).host
+    if options[:full_url]
+      public_url(options)
     else
-      options[:host] = URI(Plek.website_root).host
+      public_path(options)
     end
-
-    type = attachable.path_name
-    path_or_url = full_url ? "url" : "path"
-    path_helper = "#{type}_html_attachment_#{path_or_url}"
-
-    # This depends on the rails url helpers to construct a url based on config/routes.rb:
-    # composed of document type, slug for the parent document, and identifier for the attachment;
-    # for non-english attachments the identifier is the content_id, for english
-    # attachments it is self i.e. the slug
-    identifier = sluggable_locale? ? self : content_id
-    Whitehall.url_maker.public_send(path_helper, attachable.slug, identifier, options)
   end
 
   def should_generate_new_friendly_id?
@@ -96,7 +83,36 @@ class HtmlAttachment < Attachment
     [locale || I18n.default_locale.to_s]
   end
 
+  def identifier
+    sluggable_locale? ? slug : content_id
+  end
+
+  def base_path
+    case attachable.path_name
+    when "consultation_outcome"
+      "/government/consultations/#{attachable.slug}/outcome/#{identifier}"
+    when "consultation_public_feedback"
+      "/government/consultations/#{attachable.slug}/public-feedback/#{identifier}"
+    else
+      "/government/#{attachable.path_name.pluralize}/#{attachable.slug}/#{identifier}"
+    end
+  end
+
 private
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    root = if options[:preview]
+             Plek.external_url_for("draft-origin")
+           else
+             Plek.website_root
+           end
+
+    root + public_path(options)
+  end
 
   def sluggable_locale?
     locale.blank? || (locale == "en")
