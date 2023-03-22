@@ -118,4 +118,26 @@ class WorldLocationTest < ActiveSupport::TestCase
     object = create(:world_location, slug: "foo")
     assert_equal "https://www.test.gov.uk/world/foo?cachebust=123", object.public_url(cachebust: "123")
   end
+
+  test "should send the world index page to publishing api when a world location is created" do
+    PublishWorldIndexPage.any_instance.expects(:publish)
+
+    create(:world_location)
+  end
+
+  test "should send the world index page to publishing api when a world location is updated" do
+    field = create(:world_location, name: "Field Name")
+
+    PublishWorldIndexPage.any_instance.expects(:publish)
+
+    field.update!(name: "New Field Name")
+  end
+
+  test "should send the world index page to publishing api when a world location is destroyed" do
+    field = create(:world_location, name: "Field Name")
+
+    PublishWorldIndexPage.any_instance.expects(:publish)
+
+    field.destroy!
+  end
 end

@@ -32,6 +32,8 @@ class WorldLocation < ApplicationRecord
 
   scope :ordered_by_name, -> { with_translations(I18n.default_locale).order("world_location_translations.name") }
 
+  after_commit :republish_world_index_page_to_publishing_api
+
   def self.active
     where(active: true)
   end
@@ -85,6 +87,10 @@ class WorldLocation < ApplicationRecord
 
   def public_url(options = {})
     Plek.website_root + public_path(options)
+  end
+
+  def republish_world_index_page_to_publishing_api
+    PublishWorldIndexPage.new.publish if I18n.locale == :en
   end
 
   extend FriendlyId
