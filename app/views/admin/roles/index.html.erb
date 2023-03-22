@@ -1,42 +1,72 @@
-<% page_title "Roles" %>
-<h1>Roles</h1>
-<p class="warning remove-top-margin">Do not create ministerial roles without consulting GDS.</p>
+<% content_for :page_title, "Roles" %>
+<% content_for :title, "Roles" %>
 
-<%= link_to "Create role", new_admin_role_path, class: "btn btn-default new_resource", title: "Create a Role" %>
+<%= render "govuk_publishing_components/components/warning_text", {
+  text: "Do not create ministerial roles without consulting GDS.",
+  highlight_text: true
+} %>
 
-<table class="roles table table-striped table-bordered add-top-margin">
-  <thead>
-    <tr class="table-header">
-      <th width="30%">Name</th>
-      <th width="15%">Organisations</th>
-      <th>Role type</th>
-      <th>Currently appointed</th>
-      <th>Translations</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @roles.each do |role| %>
-      <%= content_tag_for(:tr, role) do %>
-        <td class="name"><%= link_to role.name, edit_admin_role_path(role), title: "Edit role #{role.name}" %></td>
-        <td class="organisations"><%= role.organisation_names %></td>
-        <td class="role_type"><%= role.role_type.humanize %></td>
-        <td class="person"><%= role.current_person_name %></td>
-        <td class="translations">
-            <%= link_to "Manage translations", admin_role_translations_path(role), title: "Manage translations of #{role.name}" %>
-        </td>
-        <td class="delete">
-          <% if role.destroyable? %>
-            <%= button_to 'delete',
-                  admin_role_path(role),
-                  method: :delete,
-                  class: 'btn btn-danger',
-                  data: { confirm: "Are you sure you wish to remove this role?" } %>
-          <% else %>
-            <span>Cannot delete</span>
-          <% end %>
-        </td>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%= render "govuk_publishing_components/components/button", {
+  title: "Create a role",
+  text: "Create role",
+  secondary_solid: true,
+  href: new_admin_role_path
+} %>
+
+<%= render "govuk_publishing_components/components/table", {
+  head: [
+    {
+      text: "Name"
+    },
+    {
+      text: "Organistions"
+    },
+    {
+      text: "Role type"
+    },
+    {
+      text: "Currently appointed"
+    },
+    {
+      text: "Translations"
+    },
+    {
+      text: "Actions"
+    }
+  ],
+  rows: @roles.map do |role|
+    [
+      {
+        text: link_to(role.name, edit_admin_role_path(role), title: "Edit role #{role.name}", class: "govuk-link")
+      },
+      {
+        text: role.organisation_names
+      },
+      {
+        text: role.role_type.humanize
+      },
+      {
+        text: role.current_person_name
+      },
+      {
+        text:
+          content_tag_for(:div, role) do
+            link_to(sanitize("Manage translations#{tag.span(role.name, class: "govuk-visually-hidden")}"), admin_role_translations_path(role), title: "Manage translations of #{role.name}", class: "govuk-link")
+          end
+      },
+      {
+        text:
+            if role.destroyable?
+                form_tag admin_role_path(role), method: :delete  do
+                  render "govuk_publishing_components/components/button", {
+                    text: "delete",
+                    destructive: true
+                  }
+                end
+            else
+              tag.span("Cannot delete")
+            end
+      }
+    ]
+    end
+} %>

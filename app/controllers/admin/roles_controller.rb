@@ -5,6 +5,8 @@ class Admin::RolesController < Admin::BaseController
   def index
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])
                   .order("organisation_translations.name, roles.type DESC, roles.permanent_secretary DESC, role_translations.name")
+
+    render_design_system("index", "legacy_index", next_release: false)
   end
 
   def new
@@ -75,7 +77,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
