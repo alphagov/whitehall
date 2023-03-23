@@ -13,8 +13,20 @@
   # to bust cache and view a specific edition, isn't applicable when publishing
   # to publishing-api.
   preview = controller.nil? ? nil : params[:preview]
+
+  attachment_data = {}
+  if attachment.html?
+    attachment_data = {
+      module: "ga4-link-tracker",
+      ga4_track_links_only: "",
+      ga4_link: {
+        event_name: "navigation",
+        type: "html attachment",
+      }.to_json,
+    }
+  end
 %>
-<%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded") do %>
+<%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded", data: attachment_data) do %>
   <div class="attachment-thumb">
     <% unless defined?(hide_thumbnail) && hide_thumbnail %>
       <%= link_to_unless previewable?(attachment), attachment_thumbnail(attachment), attachment.url(preview: preview), thumbnail_link_options %>
