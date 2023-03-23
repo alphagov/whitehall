@@ -148,7 +148,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "provides delete buttons for destroyable roles" do
+  view_test "provides delete link for destroyable roles" do
     destroyable_role = create(:role_without_organisations)
     edition = create(:edition)
     indestructable_role = create(:ministerial_role)
@@ -158,13 +158,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     assert_select ".govuk-table__body" do
       assert_select "tr:nth-child(1)" do
-        assert_select "form[action='#{admin_role_path(destroyable_role)}']" do
-          assert_select "input[name='_method'][value='delete']"
-          assert_select "button[type='submit']", "delete"
-        end
+        assert_select "a[href=?]", confirm_destroy_admin_role_path(destroyable_role), text: "Delete#{destroyable_role.name}"
       end
       assert_select "tr:nth-child(2)" do
-        refute_select "form[action='#{admin_role_path(indestructable_role)}']"
+        refute_select "a[href=?]", confirm_destroy_admin_role_path(indestructable_role), text: "Delete#{destroyable_role.name}"
       end
     end
   end
@@ -326,6 +323,17 @@ class Admin::RolesControllerTest < ActionController::TestCase
     put :update, params: { id: role, role: attributes_for(:role, name: nil) }
 
     assert_select ".form-errors"
+  end
+
+  view_test "confirm_destroy should display form for deleting an existing role" do
+    role = create(:role_without_organisations, name: "Prime Minister")
+
+    get :confirm_destroy, params: { id: role }
+
+    assert_select "form[action='#{admin_role_path(role)}']" do
+      assert_select "button[type='submit']", "Delete"
+      assert_select "a[href=?]", "/government/admin/roles", "Cancel"
+    end
   end
 
   test "should be able to destroy a destroyable role" do

@@ -60,8 +60,8 @@ end
 
 When(/^I appoint "(.*?)" as the "(.*?)"$/) do |person_name, role_name|
   visit admin_roles_path
-  role = Role.find_by(name: role_name)
-  click_on role.name
+
+  click_on using_design_system? ? "Edit#{role_name}" : role_name
   click_on "New appointment"
   select person_name, from: "Person"
   click_on "Save"
@@ -79,7 +79,7 @@ end
 
 Then(/^I should be able to appoint "([^"]*)" to the new role$/) do |person_name|
   role = Role.last
-  click_on role.name
+  click_on using_design_system? ? "Edit#{role.name}" : role.name
   click_on "New appointment"
   select person_name, from: "Person"
   select_date 1.day.ago.to_s, from: "Started at"

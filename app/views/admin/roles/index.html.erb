@@ -1,17 +1,19 @@
 <% content_for :page_title, "Roles" %>
 <% content_for :title, "Roles" %>
-
-<%= render "govuk_publishing_components/components/warning_text", {
-  text: "Do not create ministerial roles without consulting GDS.",
-  highlight_text: true
-} %>
+<% content_for :title_margin_bottom, 6 %>
 
 <%= render "govuk_publishing_components/components/button", {
-  title: "Create a role",
-  text: "Create role",
-  secondary_solid: true,
-  href: new_admin_role_path
+  title: "Create new role",
+  text: "Create new role",
+  href: new_admin_role_path,
+  margin_bottom: 6
 } %>
+
+<div class="govuk-!-margin-bottom-6">
+  <%= render "govuk_publishing_components/components/warning_text", {
+    text: "Do not create ministerial roles without consulting GDS."
+  } %>
+</div>
 
 <%= render "govuk_publishing_components/components/table", {
   head: [
@@ -31,13 +33,16 @@
       text: "Translations"
     },
     {
-      text: "Actions"
+      text: "Edit"
+    },
+    {
+      text: "Delete"
     }
   ],
   rows: @roles.map do |role|
     [
       {
-        text: link_to(role.name, edit_admin_role_path(role), title: "Edit role #{role.name}", class: "govuk-link")
+        text: role.name
       },
       {
         text: role.organisation_names
@@ -55,16 +60,14 @@
           end
       },
       {
+        text: link_to(sanitize("Edit#{tag.span(role.name, class: "govuk-visually-hidden")}"), edit_admin_role_path(role), title: "Edit role #{role.name}", class: "govuk-link")
+      },
+      {
         text:
             if role.destroyable?
-                form_tag admin_role_path(role), method: :delete  do
-                  render "govuk_publishing_components/components/button", {
-                    text: "delete",
-                    destructive: true
-                  }
-                end
+                link_to(sanitize("Delete#{tag.span(role.name, class: "govuk-visually-hidden")}"), confirm_destroy_admin_role_path(role), class: "govuk-link govuk-link--no-visited-state gem-link--destructive")
             else
-              tag.span("Cannot delete")
+              ""
             end
       }
     ]
