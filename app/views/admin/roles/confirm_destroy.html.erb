@@ -1,0 +1,19 @@
+<% content_for :page_title, "Delete role" %>
+<% content_for :title, "Delete #{@role}" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag admin_role_path(@role), method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-6">Are you sure you want to delete the "<%= @role %>" role?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+        <%= link_to("Cancel", admin_roles_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

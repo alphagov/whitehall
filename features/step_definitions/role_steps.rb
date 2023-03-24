@@ -25,7 +25,7 @@ When(/^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)"$/) do |role_t
   @role_name = role_name
 
   visit admin_roles_path
-  click_on "Create role"
+  click_on using_design_system? ? "Create new role" : "Create role"
   fill_in "Role title", with: role_name
   select role_type, from: "Role type"
   select organisation_name, from: "Organisations"
@@ -34,7 +34,7 @@ end
 
 When(/^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" worldwide organisation$/) do |role_type, role_name, worldwide_organisation_name|
   visit admin_roles_path
-  click_on "Create role"
+  click_on using_design_system? ? "Create new role" : "Create role"
   fill_in "Role title", with: role_name
   select role_type, from: "Role type"
   select worldwide_organisation_name, from: "Worldwide organisations"

@@ -34,6 +34,10 @@ class Admin::RolesController < Admin::BaseController
     end
   end
 
+  def confirm_destroy
+    @role = Role.find(params[:id])
+  end
+
   def destroy
     notice = %("#{@role.name}" destroyed.)
     if @role.destroy
@@ -77,7 +81,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
