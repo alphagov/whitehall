@@ -24,13 +24,15 @@ class Admin::RolesController < Admin::BaseController
 
   def edit
     @role = Role.find(params[:id])
+
+    render_design_system("edit", "legacy_edit", next_release: false)
   end
 
   def update
     if @role.update(role_params)
       redirect_to index_or_edit_path, notice: %("#{@role.name}" updated.)
     else
-      render action: "edit"
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
 
@@ -81,7 +83,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

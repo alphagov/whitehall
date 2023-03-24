@@ -1,21 +1,33 @@
-<% page_title "Edit #{@role.name}"  %>
-<div class="row">
-  <section class="col-md-8">
-    <h1>Edit role</h1>
-    <p class="warning">Warning: changes to roles appear instantly on the live site.</p>
-    <%= render partial: "form", locals: {role: @role, show_instantly_live_warning: true} %>
-  </section>
-  <div class="col-md-4">
-    <%= sidebar_tabs appointments: "Appointments", govspeak_help: "Help" do |tabs| %>
-      <%= tabs.pane id: "appointments" do %>
-        <h1>Appointments</h1>
-        <p><%= link_to "New appointment", new_admin_role_role_appointment_path(@role, make_current: true), class: "btn btn-default" %></p>
-        <%= render partial: "admin/role_appointments/list", locals: {role_appointments: @role.role_appointments} %>
-        <p><%= link_to "Add previous appointment", new_admin_role_role_appointment_path(@role), class: "btn btn-default" %></p>
-      <% end %>
-      <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
-        <%= render partial: "admin/editions/legacy_govspeak_help" %>
-      <% end %>
-    <% end %>
+<% content_for :page_title, "Edit #{@role.name}" %>
+<% content_for :title, "Edit role" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @role, parent_class: "role")) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Changes to roles appear instantly on the live site."
+    } %>
+    <%= render "form", {
+       role: @role,
+       show_instantly_live_warning: true
+    } %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/tabs", {
+      tabs: [
+        {
+          id: "appointments",
+          label: "Appointments",
+          content:
+            render("admin/roles/appointments_tab", role: @role )
+        },
+        {
+          id: "help",
+          label: "Help",
+          content: simple_formatting_sidebar
+        }
+      ]
+    } %>
   </div>
 </div>

@@ -277,7 +277,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "select[name*='role[organisation_ids]']" do
         assert_select "option[selected='selected']", text: "org-name"
       end
-      assert_select "input[type='submit']"
+      assert_select "button[type='submit']"
     end
   end
 
@@ -322,7 +322,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     put :update, params: { id: role, role: attributes_for(:role, name: nil) }
 
-    assert_select ".form-errors"
+    assert_select ".govuk-error-summary"
   end
 
   view_test "confirm_destroy should display form for deleting an existing role" do

@@ -1,0 +1,11 @@
+<%= render "govuk_publishing_components/components/button", {
+  text: "New appointment",
+  href: new_admin_role_role_appointment_path(role, make_current: true)
+} %>
+
+<%= render "admin/role_appointments/list", role_appointments: role.role_appointments %>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: "Add previous appointment",
+  href: new_admin_role_role_appointment_path(role)
+} %>
