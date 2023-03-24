@@ -6,7 +6,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <p class="govuk-body">
-        <%= link_to "View on website", @world_location_news.public_url(cachebust_url_options), class: "govuk-link" %>
+        <%= link_to "View on website", @world_location_news.public_url(cachebust_url_options), class: "govuk-link", target: "_blank" %>
       </p>
       <%= render "components/secondary_navigation", {
         aria_label: "Document tabs",
