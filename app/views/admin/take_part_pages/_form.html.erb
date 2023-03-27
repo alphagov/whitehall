@@ -1,24 +1,83 @@
-<div class="row">
-  <div class="col-md-8">
-    <p class="warning">
-      Warning: changes to take part pages appears instantly on the live site.
-    </p>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/inset_prompt", {
+      title: "Warning",
+      description: "Changes to take part pages appears instantly on the live site.",
+      error: true
+    } %>
+  </div>
+</div>
 
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
     <%= form_for take_part_page, url: [:admin, take_part_page] do |form| %>
-      <%= form.errors %>
-      <%= form.text_field :title %>
-      <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 160, 'count-message-selector' => '.summary-length-info' } %>
-      <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
-      <%= form.text_area :body, rows: 20, class: "previewable", required: true, data: {
-        module: "paste-html-to-govspeak"
+      <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: form.object)) %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Title"
+        },
+        name: "take_part_page[title]",
+        id: "take_part_page_title",
+        value: form.object.title,
+        error_items: errors_for(form.object.errors, :title),
       } %>
-      <%= form.upload :image %>
-      <%= form.text_field :image_alt_text, label_text: "Image description (alt text)" %>
-      <%= form.save_or_cancel cancel: admin_take_part_pages_path %>
+
+      <%= render "govuk_publishing_components/components/character_count", {
+        textarea: {
+          label: {
+            text: "Summary"
+          },
+          name: "take_part_page[summary]",
+          id: "take_part_page_summary",
+          value: form.object.summary,
+          error_items: errors_for(form.object.errors, :summary),
+        },
+        maxlength: 160
+      } %>
+
+      <%= render "components/govspeak-editor", {
+        label: {
+          text: "Body (required)",
+            bold: true
+        },
+        name: "take_part_page[body]",
+        id: "take_part_page_body",
+        value: form.object.body,
+        rows: 20,
+        error_items: errors_for(form.object.errors, :body),
+      } %>
+
+      <%= render "govuk_publishing_components/components/file_upload", {
+        label: {
+          text: "Image"
+        },
+        name: "take_part_page[image]",
+        id: "take_part_page_image",
+        hint: "Image must be 960px wide and 640px tall",
+        error_items: errors_for(form.object.errors, :image),
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Image description (alt text)"
+        },
+        name: "take_part_page[image_alt_text]",
+        id: "take_part_page_image_alt_text",
+        error_items: errors_for(form.object.errors, :image_alt_text),
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save"
+        } %>
+
+        <%= link_to("Cancel", admin_take_part_pages_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
     <% end %>
   </div>
 
-  <div class="col-md-4">
-    <%= legacy_simple_formatting_sidebar %>
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar %>
   </div>
 </div>
