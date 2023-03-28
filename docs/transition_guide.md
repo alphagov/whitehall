@@ -245,6 +245,7 @@ OR at the top of the page
 
 ---
 ## Text area with preview or Govspeak
+Data mod is included by default
 Old:
 ![Old Gov speak textarea with preview](transition-guide-pics/old/old_preview_textarea_entry.png)
 New:
@@ -260,15 +261,12 @@ Code:
     id: "$EXSISTING_ID", #E.G world_location_news_mission_statement from inspect on Intergration
     value: $@INSTACE.VALUE, #E.G @world_location_news.mission_statement
     rows: $INT_SIZE,
-    data_mod: {
-      module: "paste-html-to-govspeak"
-    }
   } %>
 ```
 
 ---
 ## Text Input
-Should be wrapped in [Two Thirds Div](#gird--two-thirds-row). Heading size should always be `l`, only pages with many fields should use `m` or smaller.
+Should be wrapped in [Two Thirds Div](#gird--two-thirds-row). Heading size should always be `l`, only pages with many fields should use `m` or smaller. They defualt have `type: text` as a param so no need to add this
 Old:
 ![Old Input](transition-guide-pics/old/old_input.png)
 New:
@@ -285,6 +283,16 @@ New:
 ![New select](transition-guide-pics/new/new_select.png)
 Code:
 https://components.publishing.service.gov.uk/component-guide/select
+
+---
+## Checkboxes
+Checkboxes should have a 1 & 0(hidden) passed into them  
+Old:
+![Old Checkbox](transition-guide-pics/old/old_checkbox.png)
+New:
+![New Checkbox](transition-guide-pics/new/new_checkbox.png)
+Code:
+
 
 ---
 ## Datetimefields
