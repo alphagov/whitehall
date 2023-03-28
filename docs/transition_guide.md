@@ -334,3 +334,18 @@ Code:
 ```
 
 ---
+## View on website link
+View on website links should always open to a new tab, if under a title the title should have spacing underneath. Links should have spacing below. 
+Old:
+![Old View on Website link](transition-guide-pics/old/old_view_on_website_link.png)
+New:
+![Alt text](transition-guide-pics/new/new_view_on_website_link.png)
+Code:
+```ruby
+<% content_for :title_margin_bottom, 4 %>
+  <p class="govuk-body">
+    <%= link_to "View on website", $@INSTANCE.public_url(cachebust_url_options), class: "govuk-link", target: "_blank" %>
+  </p>
+```
+
+---
