@@ -1,6 +1,7 @@
 <%= render "govuk_publishing_components/components/button", {
   text: "New appointment",
-  href: new_admin_role_role_appointment_path(role, make_current: true)
+  href: new_admin_role_role_appointment_path(role, make_current: true),
+  margin_bottom: 4
 } %>
 
 <%= render "admin/role_appointments/list", role_appointments: role.role_appointments %>

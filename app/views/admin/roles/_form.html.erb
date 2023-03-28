@@ -7,7 +7,7 @@
     <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "Role title (required)",
-          heading_size: "l"
+          heading_size: "m"
         },
         value: role.name,
         name: "role[name]",
@@ -20,7 +20,7 @@
     <%= render "govuk_publishing_components/components/select", {
       id: "role_type",
       label: "Role type (required)",
-      heading_size: "l",
+      heading_size: "m",
       name: "role[role_type]",
       options:
         [{ value: nil, text: nil }] + role_type_options.map do |group, name_vs_type|
@@ -39,7 +39,7 @@
       id: "role_organisation_ids",
       label: {
         text: "Organisations",
-        heading_size: "l"
+        heading_size: "m"
       },
       name: "role[organisation_ids][]",
       select: {
@@ -51,7 +51,7 @@
     <%= render "govuk_publishing_components/components/select", {
       id: "role_whip_organisation_id",
       label: "Whip Organisation",
-      heading_size: "l",
+      heading_size: "m",
       name: "role[whip_organisation_id]",
       options: ([nil] + Whitehall::WhipOrganisation.all).map do |whip_organisation|
           {
@@ -65,7 +65,7 @@
     <%= render "govuk_publishing_components/components/select", {
       id: "role_role_payment_type_id",
       label: "Payment options",
-      heading_size: "l",
+      heading_size: "m",
       name: "role[role_payment_type_id]",
       options: ([nil] + RolePaymentType.all).map do |role_payment_type|
         {
@@ -79,7 +79,7 @@
     <%= render "govuk_publishing_components/components/select", {
       id: "role_attends_cabinet_type_id",
       label: "Attends cabinet options",
-      heading_size: "l",
+      heading_size: "m",
       name: "role[attends_cabinet_type_id]",
       options: ([nil] + RoleAttendsCabinetType.all).map do |role_attends_cabinet_type|
         {
@@ -94,7 +94,7 @@
       id: "role_worldwide_organisation_ids",
       label: {
         text: "Worldwide organisations",
-        heading_size: "l"
+        heading_size: "m"
       },
       name: "role[worldwide_organisation_ids][]",
       select: {
@@ -106,7 +106,7 @@
     <%= render "components/govspeak-editor", {
       label: {
         text: "Responsibilities",
-        heading_size: "l"
+        heading_size: "m"
       },
       id: "role_responsibilities",
       name: "role[responsibilities]",
