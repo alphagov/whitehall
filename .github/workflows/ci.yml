@@ -88,3 +88,23 @@ jobs:
           RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
         run: bundle exec rails cucumber
+
+  # This job exists to satisfy branch protection rules enforced by govuk-saas-config.
+  # It must be called "test" because that's what govuk-saas-config expects. [1]
+  # It depends on all the preceeding CI jobs, so PRs can only be merged once everything else has passed.
+  # This workaround should only be needed short-term because it's on the #govuk-replatforming team's radar to fix. [2]
+  # [1]: https://github.com/alphagov/govuk-saas-config/blob/7879273/github/lib/configure_repo.rb#L106
+  # [2]: https://gds.slack.com/archives/CD6JUFXML/p1680003969135179?thread_ts=1680003113.239669&cid=CD6JUFXML
+  test:
+    needs:
+      - security-analysis
+      - lint-scss
+      - lint-javascript
+      - lint-ruby
+      - test-javascript
+      - pact-tests
+      - test-ruby
+      - integration-tests
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All CI tests have passed 🚀"
