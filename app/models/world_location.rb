@@ -90,7 +90,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def republish_world_index_page_to_publishing_api
-    PublishWorldIndexPage.new.publish if I18n.locale == :en
+    PresentPageToPublishingApi.new.publish(PublishingApi::WorldIndexPresenter) if I18n.locale == :en
   end
 
   extend FriendlyId

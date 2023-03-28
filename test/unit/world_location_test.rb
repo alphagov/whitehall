@@ -120,7 +120,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "should send the world index page to publishing api when a world location is created" do
-    PublishWorldIndexPage.any_instance.expects(:publish)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     create(:world_location)
   end
@@ -128,7 +128,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "should send the world index page to publishing api when a world location is updated" do
     field = create(:world_location, name: "Field Name")
 
-    PublishWorldIndexPage.any_instance.expects(:publish)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     field.update!(name: "New Field Name")
   end
@@ -136,7 +136,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "should send the world index page to publishing api when a world location is destroyed" do
     field = create(:world_location, name: "Field Name")
 
-    PublishWorldIndexPage.any_instance.expects(:publish)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     field.destroy!
   end

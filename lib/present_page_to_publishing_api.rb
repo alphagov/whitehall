@@ -1,6 +1,6 @@
-class PublishWorldIndexPage
-  def publish
-    payload = PublishingApi::WorldIndexPresenter.new
+class PresentPageToPublishingApi
+  def publish(presenter_class)
+    payload = presenter_class.new
 
     Services.publishing_api.put_content(payload.content_id, payload.content)
     Services.publishing_api.patch_links(payload.content_id, links: payload.links)

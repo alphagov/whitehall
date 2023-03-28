@@ -116,7 +116,8 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     end
 
     test "does not republish the past prime ministers page on create" do
-      PublishPrimeMinistersIndexPage.any_instance.expects(:publish).never
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
       object.save!
     end
@@ -130,7 +131,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     end
 
     test "republishes the past prime ministers page on create" do
-      PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
       create(:historical_account, person: @person, roles: [@pm_role])
     end
@@ -138,7 +139,8 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     test "republishes the past prime ministers page on update" do
       account = create(:historical_account, person: @person, roles: [@pm_role])
 
-      PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
       account.update!(roles: [@pm_role, create(:historic_role)])
     end
@@ -146,7 +148,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     test "republishes the past prime ministers page on update removing the prime minister role" do
       account = create(:historical_account, person: @person, roles: [@pm_role])
 
-      PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
       account.update!(born: "2000")
     end
@@ -154,7 +156,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     test "republishes the past prime ministers page on destroy" do
       account = create(:historical_account, person: @person, roles: [@pm_role])
 
-      PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
       account.destroy!
     end
