@@ -425,7 +425,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should send the prime ministers index page to publishing api when the role created is a past prime minister" do
     role = create(:prime_minister_role)
 
-    PublishPrimeMinistersIndexPage.any_instance.expects(:publish).at_least_once
+    PresentPageToPublishingApi.any_instance.expects(:publish).at_least_once
 
     create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
   end
@@ -434,7 +434,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:prime_minister_role)
     past_pm_appointment = create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
 
-    PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+    PresentPageToPublishingApi.any_instance.expects(:publish)
 
     past_pm_appointment.destroy!
   end
@@ -443,7 +443,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:prime_minister_role)
     role_appointment = create(:role_appointment, person: create(:person), role:)
 
-    PublishPrimeMinistersIndexPage.any_instance.expects(:publish)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
     role_appointment.update!(ended_at: Time.zone.now)
   end
@@ -451,7 +452,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should not send the prime ministers index page to publishing api when the role created is a current prime minister" do
     role = create(:prime_minister_role)
 
-    PublishPrimeMinistersIndexPage.any_instance.expects(:publish).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
     create(:role_appointment, person: create(:person), role:)
   end
@@ -467,7 +469,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
                                  major_acts: "Significant legislation changes",
                                  roles: [role])
 
-    PublishPrimeMinistersIndexPage.any_instance.expects(:publish).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
     create(:historic_role_appointment, person:, role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
   end
@@ -476,7 +479,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:role)
     create(:prime_minister_role)
 
-    PublishPrimeMinistersIndexPage.any_instance.expects(:publish).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
     create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
   end
@@ -484,7 +488,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should send the how government works page to publishing api when the role created is a current prime minister" do
     role = create(:prime_minister_role)
 
-    PublishHowGovernmentWorksPage.any_instance.expects(:publish)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
 
     create(:role_appointment, person: create(:person), role:)
   end
@@ -492,7 +496,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should send the how government works page to publishing api when someone is appointed to a ministerial role" do
     role = create(:ministerial_role)
 
-    PublishHowGovernmentWorksPage.any_instance.expects(:publish)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
 
     create(:role_appointment, person: create(:person), role:)
   end
@@ -500,7 +504,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should not send the how government works page to publishing api when someone is appointed to a non-ministerial role" do
     role = create(:non_ministerial_role_without_organisations)
 
-    PublishHowGovernmentWorksPage.any_instance.expects(:publish).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter).never
 
     create(:role_appointment, person: create(:person), role:)
   end

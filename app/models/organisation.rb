@@ -226,7 +226,7 @@ class Organisation < ApplicationRecord
   end
 
   def republish_how_government_works_page_to_publishing_api
-    PublishHowGovernmentWorksPage.new.publish
+    PresentPageToPublishingApi.new.publish(PublishingApi::HowGovernmentWorksPresenter)
   end
 
   def update_organisations_index_page
