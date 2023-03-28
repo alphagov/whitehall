@@ -34,6 +34,17 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
+  test "#url returns absolute path to the draft stack when previewing with a cachebust" do
+    edition = create(:draft_publication, :with_html_attachment)
+    attachment = edition.attachments.first
+
+    expected = "https://draft-origin.test.gov.uk/government/publications/"
+    expected += "#{edition.slug}/#{attachment.slug}?cachebust=123&preview=#{attachment.id}"
+    actual = attachment.url(preview: true, full_url: true, cachebust: "123")
+
+    assert_equal expected, actual
+  end
+
   test "#url returns absolute path to the draft stack when previewing for non-english locale" do
     edition = create(:draft_publication, :with_html_attachment)
     attachment = edition.attachments.first

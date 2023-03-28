@@ -1,6 +1,17 @@
-<% page_title "World location news" %>
-<h1>World location news</h1>
+<% content_for :page_title, "World location news" %>
+<% content_for :title, "World location news" %>
 
-<%= render partial: "world_location_table", locals: {title: "Active", world_locations: @active_world_locations } %>
-
-<%= render partial: "world_location_table", locals: {title: "Inactive", world_locations: @inactive_world_locations } %>
+<%= render "govuk_publishing_components/components/tabs", {
+  tabs: [
+    {
+      id: "active_tab",
+      label: "Active",
+      content: render(partial: "world_location_table", locals: {world_locations: @active_world_locations, error_message: "No active world location news."})
+    },
+    {
+      id: "inactive_tab",
+      label: "Inactive",
+      content: render(partial: "world_location_table", locals: {world_locations: @inactive_world_locations, error_message: "No inactive world location news."})
+    }
+  ]
+} %>

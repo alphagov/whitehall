@@ -12,12 +12,11 @@ class ApplicationRecord < ActiveRecord::Base
       path = "#{path}.#{options[:format]}"
     end
 
-    if options[:cachebust]
-      query_params = {
-        cachebust: options[:cachebust],
-      }
-      path = "#{path}?#{query_params.to_query}"
-    end
+    query_params = {}
+    query_params[:cachebust] = options[:cachebust] if options[:cachebust]
+    query_params[:preview] = options[:preview] if options[:preview]
+
+    path = "#{path}?#{query_params.to_query}" unless query_params.empty?
 
     path = "#{path}##{options[:anchor]}" if options[:anchor]
 

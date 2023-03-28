@@ -121,6 +121,9 @@ class PublishingApi::FatalityNoticePresenterDetailsTest < ActiveSupport::TestCas
       body: "*Test string*",
     )
 
+    @casualty_one = create(:fatality_notice_casualty, fatality_notice: @fatality_notice)
+    @casualty_two = create(:fatality_notice_casualty, fatality_notice: @fatality_notice)
+
     @presented_details = PublishingApi::FatalityNoticePresenter.new(@fatality_notice).content[:details]
   end
 
@@ -137,6 +140,10 @@ class PublishingApi::FatalityNoticePresenterDetailsTest < ActiveSupport::TestCas
 
   test "it presents the roll call introduction" do
     assert_equal(@fatality_notice.roll_call_introduction, @presented_details[:roll_call_introduction])
+  end
+
+  test "it presents the casualties" do
+    assert_equal [@casualty_one.personal_details, @casualty_two.personal_details], @presented_details[:casualties]
   end
 end
 

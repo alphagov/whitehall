@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::WorldLocationNewsControllerTest < ActionController::TestCase
+class Admin::LegacyWorldLocationNewsControllerTest < ActionController::TestCase
+  tests Admin::WorldLocationNewsController
+
   setup do
-    login_as_preview_design_system_user(:gds_editor)
+    login_as :writer
   end
 
   should_be_an_admin_controller

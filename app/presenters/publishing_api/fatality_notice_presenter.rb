@@ -61,6 +61,7 @@ module PublishingApi
     def details
       details_hash = {
         body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
+        casualties: item.fatality_notice_casualties.map(&:personal_details),
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
         roll_call_introduction: item.roll_call_introduction,
