@@ -1,0 +1,50 @@
+@startuml edition_model
+allowmixing
+hide empty description
+
+class Document
+database documents
+Document .> documents
+
+together {
+    abstract Edition {
+        state
+    }
+    database editions
+    Edition .> editions
+    rectangle "(others)" as othereds
+    Edition <|-- othereds
+    Edition <|-- Publicationesque
+    abstract Publicationesque
+    Publicationesque <|-- Publication
+    rectangle "(others)" as otherpubs
+    Publicationesque <|-- otherpubs
+}
+
+together {
+    abstract Attachment 
+    class HtmlAttachment {
+      content_id
+      slug
+    }
+    database attachments
+    Attachment .> attachments
+    Attachment <|-- HtmlAttachment
+    Attachment <|-- FileAttachment
+    Attachment <|-- ExternalAttachment
+}
+
+Document *-r- Edition : "has_many"
+
+Publicationesque *-r- Attachment: "has_many"
+
+
+class Document {
+    content_id
+    document_type
+    slug
+    {method} latest_edition
+    {method} live_edition
+}
+
+@enduml

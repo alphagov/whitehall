@@ -1,0 +1,37 @@
+@startuml edition_state_transitions
+hide empty description
+
+[*] --> draft
+
+draft --> deleted: delete
+submitted --> deleted: delete
+rejected --> deleted: delete
+
+draft --> submitted: submit
+rejected --> submitted: submit
+
+submitted --> rejected: reject
+submitted --> scheduled: schedule
+
+draft --> scheduled: force_schedule
+submitted --> scheduled: force_schedule
+
+scheduled -u-> submitted: unschedule
+
+submitted --> published: publish
+scheduled --> published: publish
+
+draft -[norank]-> published: force_publish
+submitted -[norank]-> published: force_publish
+
+published -u-> draft: unpublish
+draft -u-> draft: unpublish
+
+published --> superseded: supersede
+
+published --> withdrawn: withdraw
+withdrawn --> withdrawn: withdraw
+
+withdrawn --> superseded: unwithdraw
+
+@enduml
