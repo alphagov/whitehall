@@ -312,6 +312,7 @@ Whitehall::Application.routes.draw do
 
         resource :cabinet_ministers, only: %i[show update]
         resources :roles, except: [:show] do
+          get :confirm_destroy, on: :member
           resources :role_appointments, only: %i[new create edit update destroy], shallow: true
           resources :translations, controller: "role_translations"
         end
