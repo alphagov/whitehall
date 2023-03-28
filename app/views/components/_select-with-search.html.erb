@@ -1,0 +1,36 @@
+<%
+  id ||= false
+  label ||= false
+  name ||= id
+  is_page_heading ||= false
+
+  shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
+  heading_size = false unless shared_helper.valid_heading_size?(heading_size)
+  select_helper = GovukPublishingComponents::Presenters::SelectWithSearchHelper.new(local_assigns)
+
+  aria_describedby = { describedby: select_helper.describedby }
+%>
+
+<%= content_tag :div, class: select_helper.css_classes, data: select_helper.data_attributes do %>
+  <% if is_page_heading %>
+    <%= tag.h1 label_tag(id, label, class: select_helper.label_classes), class: "gem-c-title__text" %>
+  <% else %>
+    <%= label_tag(id, label, class: select_helper.label_classes) %>
+  <% end %>
+
+  <% if select_helper.hint %>
+    <%= render "govuk_publishing_components/components/hint", {
+      id: select_helper.hint_id,
+      text: hint
+    } %>
+  <% end %>
+
+  <% if select_helper.error_message %>
+    <%= render "govuk_publishing_components/components/error_message", {
+      id: select_helper.error_id,
+      text: select_helper.error_message
+    } %>
+  <% end %>
+
+  <%= select_tag name, select_helper.options_html, id: id, class: select_helper.select_classes, aria: aria_describedby %>
+<% end %>
