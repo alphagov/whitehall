@@ -11,7 +11,7 @@
         <%= @statistics_announcement.title %>
       </span>
     </h1>
-    <%= link_to "View announcement on GOV.UK", statistics_announcement_url(@statistics_announcement, public_and_cachebusted_url_options) %>
+    <%= view_on_website_link_for @statistics_announcement %>
 
     <% if @statistics_announcement.cancelled? %>
       <div class="alert alert-danger add-top-margin">

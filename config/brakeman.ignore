@@ -125,6 +125,40 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "7e1e98f6a994a61f63f282a08bd17ca64302efd1377424988a0fc68b5ee5ab16",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/admin/statistics_announcements/show.html.erb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"View announcement on GOV.UK\", StatisticsAnnouncement.friendly.find(params[:id]).public_url(public_and_cachebusted_url_options))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::StatisticsAnnouncementsController",
+          "method": "show",
+          "line": 15,
+          "file": "app/controllers/admin/statistics_announcements_controller.rb",
+          "rendered": {
+            "name": "admin/statistics_announcements/show",
+            "file": "app/views/admin/statistics_announcements/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/statistics_announcements/show"
+      },
+      "user_input": "StatisticsAnnouncement.friendly.find(params[:id]).public_url(public_and_cachebusted_url_options)",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "82dea23cb472eca9cd5c4217767e59cab37e956a57572095a7f225d47aff2db8",
@@ -333,7 +367,7 @@
           "type": "controller",
           "class": "Admin::PeopleController",
           "method": "show",
-          "line": 26,
+          "line": 27,
           "file": "app/controllers/admin/people_controller.rb",
           "rendered": {
             "name": "admin/people/show",
@@ -387,6 +421,6 @@
       "note": "We don't use the user data directly to find the template, it comes from the database."
     }
   ],
-  "updated": "2023-03-14 13:32:00 +0000",
-  "brakeman_version": "5.4.0"
+  "updated": "2023-03-23 12:43:52 +0000",
+  "brakeman_version": "5.3.1"
 }

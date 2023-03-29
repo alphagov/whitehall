@@ -91,7 +91,6 @@ Whitehall::Application.routes.draw do
     get "/latest", as: "latest", to: rack_404
     get "/organisations", as: "organisations", to: rack_404
     get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
-    get "/statistics/announcements/:id", as: "statistics_announcement", to: rack_404
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
 
     resources :organisations, only: [] do
