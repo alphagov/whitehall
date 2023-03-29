@@ -15,14 +15,13 @@
         font_size: "l",
         margin_bottom: 3
       } %>
+      <p class="govuk-body">
+        <%= link_to "Edit #{@response.friendly_name}", [:edit, :admin, @edition, @response.singular_routing_symbol], class: "govuk-link" %>
+      </p>
 
       <%= govspeak_to_html @response.summary %>
 
       <p class="govuk-body">Published on <%= @response.published_on.to_fs(:long_ordinal) %></p>
-
-      <p class="govuk-body">
-        <%= link_to "Edit #{@response.friendly_name}", [:edit, :admin, @edition, @response.singular_routing_symbol], class: "govuk-link" %>
-      </p>
 
       <%= render "govuk_publishing_components/components/heading", {
         text: "Attachments (optional)",

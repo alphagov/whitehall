@@ -31,7 +31,7 @@
         text: link_to('Edit', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state")
       },
       {
-        text: link_to("Delete", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state")
+        text: link_to("Delete", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state gem-link--destructive")
       }
     ]
   end

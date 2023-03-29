@@ -12,14 +12,11 @@
 
 <% if @organisation.unused_corporate_information_page_types.any? %>
   <%= render "govuk_publishing_components/components/button", {
-    text: "New corporate information page",
+    text: "Create new corporate information page",
     href: new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]),
-    secondary_solid: true,
     margin_bottom: 6,
   } %>
 <% end %>
-
-<%= paginate(@paginator, theme: "govuk_paginator") %>
 
 <p class="govuk-body"><%= @paginator.total_count %> documents</p>
 
@@ -35,27 +32,30 @@
         text: "Updated by"
       },
       {
-        text: "Updated"
+        text: "State"
       },
       {
-        text: "State"
+        text: tag.span("State", class: "govuk-visually-hidden")
       }
     ],
     rows:
       @filter.editions.map do |edition|
         [
            {
-             text: render('title_row', edition: edition)
+             text: index_table_title_row(edition)
            },
            {
-             text: linked_author(edition.last_author, class: "govuk-link")
+             text: tag.p("#{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-0") +
+                    "by " +
+                    linked_author(edition.last_author, class: 'govuk-link')
            },
            {
-             text: "#{time_ago_in_words edition.updated_at} ago",
+             text: render(Admin::Editions::TagsComponent.new(edition)),
            },
            {
-             text: admin_edition_state_text(edition),
-           }
+             text: link_to(sanitize("Edit <span class='govuk-visually-hidden'> #{edition.title}</span>"), admin_edition_path(edition), class: "govuk-link"),
+             format: "numeric",
+           },
         ]
       end
   } %>
