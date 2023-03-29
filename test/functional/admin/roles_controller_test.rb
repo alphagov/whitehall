@@ -173,7 +173,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "input[name='role[name]'][type='text']"
       assert_select "select[name='role[role_type]']"
       assert_select "select[name*='role[organisation_ids]']"
-      assert_select "input[type='submit']"
+      assert_select "button[type='submit']"
     end
   end
 
@@ -260,7 +260,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   view_test "create with invalid data should display errors" do
     post :create, params: { role: attributes_for(:role, name: nil) }
 
-    assert_select ".form-errors"
+    assert_select ".govuk-error-summary"
   end
 
   view_test "edit should display form for updating an existing role" do

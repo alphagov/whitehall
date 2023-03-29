@@ -1,8 +1,3 @@
-<%
-  show_instantly_live_warning ||= false
-  show_consult_gds_warning ||= false
-%>
-
 <%= form_for role, as: :role, url: role_url_for(role) do |form| %>
     <%= render "govuk_publishing_components/components/input", {
         label: {
@@ -114,14 +109,6 @@
       rows: 20
     } %>
 
-    <%= render "govuk_publishing_components/components/warning_text", {
-      text: "Changes to roles appear instantly on the live site."
-    } if show_instantly_live_warning %>
-
-    <%= render "govuk_publishing_components/components/warning_text", {
-      text: "Do not create ministerial roles without consulting GDS."
-    } if show_consult_gds_warning %>
-
     <div class="govuk-button-group">
       <%= render "govuk_publishing_components/components/button", {
         text: "Save",
@@ -134,7 +121,7 @@
         name: "save_and_continue",
         value: "Save and continue",
         type: "submit",
-        secondary: true
+        secondary_solid: true
       } %>
       <%= link_to("Cancel", admin_roles_path, class: "govuk-link") %>
     </div>
