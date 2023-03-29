@@ -1,0 +1,86 @@
+<% content_for :page_title, "Dashboard"%>
+<% content_for :title, "Dashboard" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Writing and publishing",
+      font_size: "m",
+      heading_level: 2,
+      margin_bottom: 4,
+    } %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Product development",
+      font_size: "m",
+      heading_level: 2,
+      margin_bottom: 4,
+    } %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Support",
+      font_size: "m",
+      heading_level: 2,
+      margin_bottom: 4,
+    } %>
+  </div>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-bottom-8">
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: [
+        link_to("Content Data", content_data_home_url, class: "govuk-link"),
+        link_to("GOV.UK style guide", "https://www.gov.uk/guidance/style-guide", class: "govuk-link"),
+        link_to("How to publish content on GOV.UK", "https://www.gov.uk/guidance/how-to-publish-on-gov-uk" , class: "govuk-link"),
+        link_to("Planning, writing and managing content", "https://www.gov.uk/guidance/content-design", class: "govuk-link"),
+      ]
+    } %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: [
+        link_to("Inside GOV.UK blog", "https://insidegovuk.blog.gov.uk/", class: "govuk-link"),
+        link_to("GOV.UK style guide", "https://www.gov.uk/guidance/style-guide", class: "govuk-link"),
+      ]
+    } %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: [
+        link_to("GDS support form (Zendesk)", "https://www.gov.uk/support/internal", class: "govuk-link"),
+        link_to("Find in admin bookmarklet", admin_find_in_admin_bookmarklet_instructions_index_path, class: "govuk-link"),
+      ],
+    } %>
+  </div>
+</div>
+
+<%= render "govuk_publishing_components/components/heading", {
+  text: "My draft documents",
+  font_size: "l",
+  heading_level: 2,
+  margin_bottom: 4,
+} %>
+
+<%= render 'document_table', documents: @draft_documents, title: 'draft documents' %>
+
+<% if current_user.organisation %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "#{organisation_acronym_or_name(current_user.organisation)}’s force-published documents",
+    font_size: "l",
+    heading_level: 2,
+    margin_bottom: 4,
+  } %>
+
+  <%= render 'document_table', documents: @force_published_documents, title: 'force published documents' %>
+  <p class="govuk-body"><%= link_to "See all", admin_editions_path(state: :force_published, organisation: current_user.organisation), class: "govuk-link" %></p>
+<% end %>

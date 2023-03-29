@@ -1,0 +1,51 @@
+<%
+  documents ||= []
+%>
+<% if documents.nil? || documents.empty? %>
+  <p>No <%= title %></p>
+<% else %>
+  <% action = title == "draft documents" ? "Edit" : "Review" %>
+  <div class="app-view-dashboard-index__table govuk-!-margin-bottom-9">
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Type"
+        },
+        {
+          text: "Title",
+        },
+        {
+          text: "Updated",
+        },
+        {
+          text: "Status",
+        },
+        {
+          text: tag.span("Actions", class: "govuk-visually-hidden"),
+          format: "numeric"
+        }
+      ],
+      rows: documents.map do |edition|
+        [
+          {
+            text: edition.type.titleize,
+          },
+          {
+            text: edition.title,
+          },
+          {
+            text: sanitize(tag.p("Updated #{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0")) +
+              sanitize("by #{linked_author(edition.last_author, class: 'govuk-link')}")
+          },
+          {
+            text: render(Admin::Editions::TagsComponent.new(edition)),
+          },
+          {
+            text: link_to(sanitize("#{action} #{tag.span(edition.title, class: 'govuk-visually-hidden')}"), admin_edition_path(edition), class: "govuk-link"),
+            format: "numeric"
+          }
+        ]
+      end
+    } %>
+  </div>
+<% end %>
