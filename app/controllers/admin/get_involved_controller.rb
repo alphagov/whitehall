@@ -6,13 +6,12 @@ class Admin::GetInvolvedController < Admin::BaseController
     enforce_permission!(:administer, :get_involved_section)
   end
 
-  def index; end
+  def index
+    render_design_system("index", "legacy_index", next_release: false)
+  end
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"

@@ -1,9 +1,26 @@
-<% page_title 'Get involved' %>
+<% content_for :page_title, "Get involved" %>
+<% content_for :title, "Get involved" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<div class="get-involved-header">
-  <h1>Get involved</h1>
-  <%= link_to "View on website", get_involved_url %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">
+      <%= link_to "View on website", get_involved_url, class: "govuk-link", target: "_blank" %>
+    </p>
+
+    <%= render "components/secondary_navigation", {
+      aria_label: "Get involved tabs",
+      items: [
+        {
+          label: "Get involved",
+          href: admin_get_involved_path,
+          current: true,
+        },
+        {
+          label: "Take part pages",
+          href: admin_take_part_pages_path,
+        }
+      ]
+    } %>
+  </div>
 </div>
-<section class="get-involved">
-  <%= get_involved_tab_navigation %>
-</section>

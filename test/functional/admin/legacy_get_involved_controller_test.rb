@@ -13,6 +13,6 @@ class Admin::LegacyGetInvolvedControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_template "index"
+    assert_template "legacy_index"
   end
 end
