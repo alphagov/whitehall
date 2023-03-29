@@ -1,0 +1,19 @@
+<% content_for :page_title, "Delete appointment" %>
+<% content_for :title, "Delete the appointment of #{@role_appointment.person.name} to #{@role_appointment.role}" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag admin_role_appointment_path(@role_appointment), method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-6">Are you sure you want to delete the appointment of "<%= @role_appointment.person.name %>" to "<%= @role_appointment.role %>"?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+        <%= link_to("Cancel", admin_role_appointment_path(@role_appointment), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

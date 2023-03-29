@@ -1,31 +1,74 @@
-<%= form.errors %>
-
-<%= form.label :person_id, 'Person' %>
-<%= form.select :person_id,
-                options_for_select(disambiguated_people_names, form.object.person_id),
-                {include_blank: true},
-                class: 'chzn-select form-control',
-                data: { placeholder: "Choose person…" },
-                disabled: !form.object.new_record? %>
+<%= render "/components/select-with-search", {
+  id: :"role_appointment_person_id",
+  label: "Person (required)",
+  heading_size: "m",
+  name: "role_appointment[person_id]",
+  options:
+    disambiguated_people_names.map do |person_name, person_id|
+      {
+        text: person_name,
+        value: person_id,
+        selected: form.object.person_id == person_id
+      }
+    end.select do |option|
+      form.object.new_record? || option[:selected]
+    end,
+  error_message: errors_for_input(form.object.errors, :person_id)
+} %>
 
 <% if form.object.new_record? %>
-  <p>Once an appointment has been created the person cannot be changed. This preserves a person’s relationship to associated speeches.</p>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "Note: Once an appointment has been created the person cannot be changed. This preserves a person’s relationship to associated speeches."
+  } %>
 <% end %>
 
-<div class="form-group">
-  <%= form.label :started_at %>
-  <div class="form-inline">
-    <%= form.date_select :started_at, { include_blank: true, start_year: Date.today.year, end_year: 1700 }, { :class => "date form-control" } %>
-  </div>
-</div>
+<%= render "components/datetime_fields", {
+  date_heading: "Started at (required)",
+  field_name: "started_at",
+  prefix: "role_appointment",
+  id: "role_appointment_started_at",
+  date_only: true,
+  year: {
+    value: form.object.started_at&.year,
+    start_year: Date.today.year,
+    end_year: 1700,
+    id: "role_appointment_started_at_1i",
+  },
+  month: {
+    value: form.object.started_at&.month,
+    id: "role_appointment_started_at_2i",
+  },
+  day: {
+    value: form.object.started_at&.day,
+    id: "role_appointment_started_at_3i",
+  },
+  error_items: errors_for(form.object.errors, :started_at),
+}
+%>
 
 <% if params[:make_current].blank? %>
-  <div class="form-group">
-    <%= form.label :ended_at %>
-    <div class="form-inline">
-      <%= form.date_select :ended_at, { include_blank: true, start_year: Date.today.year, end_year: 1700 }, { :class => "date form-control" } %>
-    </div>
-  </div>
+  <%= render "components/datetime_fields", {
+    date_heading: "Ended at",
+    field_name: "ended_at",
+    prefix: "role_appointment",
+    id: "role_appointment_ended_at",
+    date_only: true,
+    year: {
+      value: form.object.ended_at&.year,
+      start_year: Date.today.year,
+      end_year: 1700,
+      id: "role_appointment_ended_at_1i",
+    },
+    month: {
+      value: form.object.ended_at&.month,
+      id: "role_appointment_ended_at_2i",
+    },
+    day: {
+      value: form.object.ended_at&.day,
+      id: "role_appointment_ended_at_3i",
+    }
+  }
+  %>
 <% end %>
 
 <% if params[:make_current] %>

@@ -1,5 +1,6 @@
 class Admin::RoleAppointmentsController < Admin::BaseController
-  before_action :load_role_appointment, only: %i[edit update destroy]
+  before_action :load_role_appointment, only: %i[edit update destroy confirm_destroy]
+  layout :get_layout
 
   def new
     role = Role.find(params[:role_id])
@@ -17,15 +18,19 @@ class Admin::RoleAppointmentsController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    render_design_system("edit", "legacy_edit", next_release: false)
+  end
 
   def update
     if @role_appointment.update(role_appointment_params)
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been updated"
     else
-      render :edit
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
+
+  def confirm_destroy; end
 
   def destroy
     if @role_appointment.destroyable?
@@ -33,7 +38,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been deleted"
     else
       flash.now[:alert] = "Appointment can not be deleted"
-      render :edit
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
 
@@ -47,5 +52,16 @@ private
     params.require(:role_appointment).permit(
       :person_id, :started_at, :ended_at, :make_current
     )
+  end
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[edit update destroy confirm_destroy] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 end

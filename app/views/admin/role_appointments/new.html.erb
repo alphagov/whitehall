@@ -5,7 +5,7 @@
     <h1>Create new appointment to position of <%= @role_appointment.role.name %> </h1>
 
     <%= form_for [:admin, @role_appointment.role.becomes(Role), @role_appointment], html: {class: 'well'} do |form| %>
-      <%= render partial: 'admin/role_appointments/form', locals: { form: form } %>
+      <%= render partial: 'admin/role_appointments/legacy_form', locals: { form: form } %>
 
       <%= form.save_or_cancel cancel: edit_admin_role_path(@role_appointment.role) %>
     <% end %>
