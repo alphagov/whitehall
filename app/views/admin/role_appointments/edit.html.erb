@@ -34,7 +34,7 @@
 
     <h2>Other appointments to this role</h2>
     <% if @role_appointment.other_appointments_for_same_role.any? %>
-      <%= render partial: "admin/role_appointments/list", locals: {role_appointments: @role_appointment.other_appointments_for_same_role }%>
+      <%= render partial: "admin/role_appointments/legacy_list", locals: { role_appointments: @role_appointment.other_appointments_for_same_role }%>
     <% else %>
       <p>None</p>
     <% end %>

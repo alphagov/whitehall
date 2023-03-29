@@ -12,6 +12,6 @@
   </div>
   <div class="col-md-4">
     <h2>Existing appointments</h2>
-    <%= render partial: "admin/role_appointments/list", locals: {role_appointments: @role_appointment.role.role_appointments} %>
+    <%= render partial: "admin/role_appointments/legacy_list", locals: { role_appointments: @role_appointment.role.role_appointments} %>
   </div>
 </div>

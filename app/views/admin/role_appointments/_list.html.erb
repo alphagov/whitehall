@@ -1,8 +1,7 @@
-<ul>
-<% role_appointments.select(&:persisted?).each do |role_appointment| %>
-  <li>
-    <%= role_appointment.person.name %> (<%= l(role_appointment.started_at.to_date) %> &ndash; <%= role_appointment.ended_at ? l(role_appointment.ended_at.to_date) : 'present' %>)
-    <%= link_to "edit", [:edit, :admin, role_appointment] %>
-  </li>
-<% end %>
-</ul>
+<%= render "govuk_publishing_components/components/list", {
+  visible_counters: true,
+  items:
+    role_appointments.select(&:persisted?).map do |role_appointment|
+      "#{role_appointment.person.name} (#{l(role_appointment.started_at.to_date)} - #{role_appointment.ended_at ? l(role_appointment.ended_at.to_date) : 'present'}) #{link_to("edit", [:edit, :admin, role_appointment], class: "govuk-link")}"
+    end
+} %>
