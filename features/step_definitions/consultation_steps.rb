@@ -15,11 +15,11 @@ When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
 
   if using_design_system?
     within "#edition_opening_at" do
-      fill_in_datetime_field(1.day.ago.to_s)
+      fill_in_date_and_time_field(1.day.ago.to_s)
     end
 
     within "#edition_closing_at" do
-      fill_in_datetime_field(6.days.from_now.to_s)
+      fill_in_date_and_time_field(6.days.from_now.to_s)
     end
 
     check "Does not apply to Wales"

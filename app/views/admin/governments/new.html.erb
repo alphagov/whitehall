@@ -1,4 +1,4 @@
-<% page_title "Create a government" %>
-<h1>Create a government</h1>
-
-<%= render "form", government: @government %>
+<% content_for :title, "Create a government" %>
+<% content_for :page_title, "Create a government" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @government)) %>
+<%= render partial: "form", locals: { government: @government } %>
