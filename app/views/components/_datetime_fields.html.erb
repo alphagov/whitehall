@@ -51,7 +51,7 @@
 <%= tag.div class: root_classes, data: data_attributes, id: id do %>
   <% unless date_only && !date_heading %>
     <%= render "govuk_publishing_components/components/heading", {
-      text: date_heading || "Date",
+      text: date_heading || "Date (required)",
       heading_level: heading_level || 3,
       font_size: heading_size || "m",
       padding: true,

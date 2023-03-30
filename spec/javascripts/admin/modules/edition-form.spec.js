@@ -103,7 +103,7 @@ describe('GOVUK.Modules.EditionForm', function () {
       expect(deliveredByLabel.textContent).toEqual('Writer (required)')
       expect(hasProfileRadioLabel.textContent).toEqual('Writer has a profile on GOV.UK')
       expect(noProfileRadioLabel.textContent).toEqual('Writer does not have a profile on GOV.UK')
-      expect(deliveredOnLabel.textContent).toEqual('Written on (required)')
+      expect(deliveredOnLabel.textContent).toEqual('Written on')
       expect(locationDiv.classList[1]).toEqual('app-view-edit-edition__speech-location--hidden')
       expect(locationInput.value).toEqual('')
     })
@@ -127,7 +127,7 @@ describe('GOVUK.Modules.EditionForm', function () {
       expect(deliveredByLabel.textContent).toEqual('Speaker (required)')
       expect(hasProfileRadioLabel.textContent).toEqual('Speaker has a profile on GOV.UK')
       expect(noProfileRadioLabel.textContent).toEqual('Speaker does not have a profile on GOV.UK')
-      expect(deliveredOnLabel.textContent).toEqual('Delivered on (required)')
+      expect(deliveredOnLabel.textContent).toEqual('Delivered on')
       expect(locationDiv.classList.length).toEqual(1)
       expect(locationDiv.classList[0]).toEqual('js-app-view-edit-edition__speech-location-field')
     })
@@ -195,7 +195,7 @@ describe('GOVUK.Modules.EditionForm', function () {
       '</div>' +
 
       '<fieldset class="govuk-fieldset" id="edition_delivered_on">' +
-        '<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">Delivered on (required)</legend>' +
+        '<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">Delivered on</legend>' +
       '</fieldset>' +
 
       '<div class="js-app-view-edit-edition__speech-location-field">' +
