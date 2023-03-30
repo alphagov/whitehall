@@ -11,6 +11,8 @@ class Admin::RolesController < Admin::BaseController
 
   def new
     @role = Role.new
+
+    render_design_system("new", "legacy_new", next_release: false)
   end
 
   def create
@@ -18,7 +20,7 @@ class Admin::RolesController < Admin::BaseController
     if @role.save
       redirect_to index_or_edit_path, notice: %("#{@role.name}" created.)
     else
-      render action: "new"
+      render_design_system("new", "legacy_new", next_release: false)
     end
   end
 
@@ -83,7 +85,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index confirm_destroy edit update] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy edit update new create] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
