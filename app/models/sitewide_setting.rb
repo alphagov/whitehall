@@ -22,6 +22,6 @@ class SitewideSetting < ApplicationRecord
     Services.publishing_api.put_content(payload.content_id, payload.content)
     Services.publishing_api.publish(payload.content_id, nil, locale: "en")
 
-    PresentPageToPublishingApi.new.publish(PublishingApi::HowGovernmentWorksPresenter)
+    PublishHowGovernmentWorksPage.new.publish
   end
 end
