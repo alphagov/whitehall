@@ -5,7 +5,7 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
     @operational_field = create(
       :operational_field,
       name: "Operational Field name",
-      description: "Operational Field description",
+      description: "Operational Field description \n\n##Some title",
     )
     @fatality_notices_for_operational_field = (0..4).map { |_i| create(:published_fatality_notice, operational_field: @operational_field) }
     create(:published_fatality_notice, operational_field: create(:operational_field))
@@ -34,7 +34,7 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
       document_type: "field_of_operation",
       rendering_app: "whitehall-frontend",
       schema_name: "field_of_operation",
-      description: "Operational Field description",
+      description: Whitehall::GovspeakRenderer.new.govspeak_to_html(@operational_field.description),
       routes: [
         {
           path: "/government/fields-of-operation/operational-field-name",
