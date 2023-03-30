@@ -9,11 +9,11 @@
       <p class="govuk-body">
         <% if current_user.can_preview_images_update? && edition.allows_image_attachments? %>
           To add images and attachments you must save the document first. After
-          saving, use the new tabs at the top of the page to upload, edit and
+          saving, use the tabs at the top of the page to upload, edit and
           delete images and attachments.
         <% else %>
           If you’d like to add an attachment to this document, please save
-          it first. You’ll then find a new tab at the top of the page that you
+          it first. You’ll then find a tab at the top of the page that you
           can use to upload, edit and delete attachments.
         <% end %>
       </p>
