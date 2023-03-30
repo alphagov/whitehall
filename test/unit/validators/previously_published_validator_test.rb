@@ -18,8 +18,15 @@ class PreviouslyPublishedValidatorTest < ActiveSupport::TestCase
     assert edition.errors.empty?, "No errors were expected"
   end
 
-  test "invalid if first_published_at is nil" do
+  test "invalid if previously published is true and first_published_at is nil" do
     invalid_edition = build(:edition, previously_published: true, first_published_at: nil)
+    @validator.validate(invalid_edition)
+    assert_equal "can't be blank",
+                 invalid_edition.errors[:first_published_at].first
+  end
+
+  test "invalid if the edition has a published_major_version and first_published_at is nil" do
+    invalid_edition = build(:edition, published_major_version: 1, first_published_at: nil)
     @validator.validate(invalid_edition)
     assert_equal "can't be blank",
                  invalid_edition.errors[:first_published_at].first

@@ -62,6 +62,8 @@
       legend_text: "First published",
       heading_size: "l",
       hint: "For example, 31 3 2000",
+      id: "edition_first_published_at",
+      error_message: errors_for_input(edition.errors, :first_published_at),
     } do %>
       <%= first_published_at_fields %>
     <% end %>

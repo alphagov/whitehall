@@ -1096,7 +1096,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit subsequent editions should display first_published_at fields, but not show radio buttons" do
-        edition = create(edition_type, published_major_version: 1)
+        edition = create(edition_type, published_major_version: 1, first_published_at: 2.days.ago)
 
         get :edit, params: { id: edition }
 
