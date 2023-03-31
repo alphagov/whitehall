@@ -114,14 +114,26 @@
         text: "Save",
         name: "save",
         value: "Save",
-        type: "submit"
+        type: "submit",
+        data_attributes: {
+          module: "gem-track-click",
+          "track-category": "form-button",
+          "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+          "track-label": "Save"
+        }
       } %>
       <%= render "govuk_publishing_components/components/button", {
         text: "Save and continue",
         name: "save_and_continue",
         value: "Save and continue",
         type: "submit",
-        secondary_solid: true
+        secondary_solid: true,
+        data_attributes: {
+          module: "gem-track-click",
+          "track-category": "form-button",
+          "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+          "track-label": "Save and continue"
+        }
       } %>
       <%= link_to("Cancel", admin_roles_path, class: "govuk-link") %>
     </div>
