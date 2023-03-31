@@ -4,7 +4,9 @@ class Admin::WorldLocationNewsController < Admin::BaseController
 
   def edit; end
 
-  def show; end
+  def show
+    render_design_system("show", "legacy_show", next_release: false)
+  end
 
   def index
     @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition(&:active?)
@@ -63,10 +65,8 @@ private
   end
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    design_system_actions = %w[show]
+    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
