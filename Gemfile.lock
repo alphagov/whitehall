@@ -267,7 +267,7 @@ GEM
     govuk_personalisation (0.13.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (35.1.1)
+    govuk_publishing_components (35.2.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -502,7 +502,7 @@ GEM
       pry (>= 0.10.4)
     ptools (1.5.0)
     public_suffix (5.0.1)
-    puma (6.2.0)
+    puma (6.2.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.6.2)
