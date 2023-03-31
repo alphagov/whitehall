@@ -22,6 +22,7 @@ module GovukPublishingComponents
         @select_helper = SelectHelper.new(local_assigns.except(:options, :grouped_options))
         @options = local_assigns[:options]
         @grouped_options = local_assigns[:grouped_options]
+        @include_blank = local_assigns[:include_blank]
         @local_assigns = local_assigns
       end
 
@@ -33,15 +34,17 @@ module GovukPublishingComponents
 
       def options_html
         if @grouped_options.present?
-          grouped_options_for_select(
-            transform_grouped_options(@grouped_options),
-            selected_option,
-          )
+          blank_option_if_include_blank +
+            grouped_options_for_select(
+              transform_grouped_options(@grouped_options),
+              selected_option,
+            )
         elsif @options.present?
-          options_for_select(
-            transform_options(@options),
-            selected_option,
-          )
+          blank_option_if_include_blank +
+            options_for_select(
+              transform_options(@options),
+              selected_option,
+            )
         end
       end
 
@@ -69,6 +72,12 @@ module GovukPublishingComponents
         grouped_options.map do |(group, options)|
           [group, transform_options(options)]
         end
+      end
+
+      def blank_option_if_include_blank
+        return "".html_safe if @include_blank.blank?
+
+        options_for_select([["", ""]])
       end
     end
   end

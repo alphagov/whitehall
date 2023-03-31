@@ -27,11 +27,57 @@ examples:
         value: option2
       - text: Option three
         value: option3
+  with_blank_option:
+    description: Include a blank option
+    data:
+      id: dropdown-with-blank
+      label: With blank option
+      include_blank: true
+      options:
+      - text: Option one
+        value: option1
+      - text: Option two
+        value: option2
+      - text: Option three
+        value: option3
   with_grouped_options:
     description: Options can be grouped
     data:
       id: dropdown-with-grouped-options
       label: Select a city
+      grouped_options:
+      - - England
+        - - text: Bath
+            value: bath
+          - text: Bristol
+            value: bristol
+          - text: London
+            value: london
+          - text: Manchester
+            value: manchester
+      - - Northern Ireland
+        - - text: Bangor
+            value: bangor
+          - text: Belfast
+            value: belfast
+      - - Scotland
+        - - text: Dundee
+            value: dundee
+          - text: Edinburgh
+            value: edinburgh
+          - text: Glasgow
+            value: glasgow
+      - - Wales
+        - - text: Cardiff
+            value: cardiff
+          - text: Swansea
+            value: swansea
+  with_grouped_options_and_blank_option:
+    description: Options can be grouped and include a blank option
+    data:
+      id: dropdown-with-grouped-options-and-blank
+      label: Select a city
+      include_blank: true
       grouped_options:
       - - England
         - - text: Bath
@@ -126,9 +172,8 @@ examples:
       label: How will you be travelling to the conference?
       error_message: Please choose an option
       error_id: error_id
+      include_blank: true
       options:
-      - text: ""
-        value: ""
       - text: Public transport
         value: option1
       - text: Will make own arrangements
