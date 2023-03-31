@@ -26,12 +26,31 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var newItem = this.template.content.cloneNode(true)
     newItem.firstElementChild.innerHTML = newItem.firstElementChild.innerHTML.replaceAll('{{ index }}', newIndex)
 
+    this.initItemDeleteButton(newItem)
     this.hideEmptyStateMessage()
     this.itemSection.append(newItem)
   }
 
+  AddAnother.prototype.showEmptyStateMessage = function () {
+    this.emptyStateMessage.classList.remove('app-add-another__empty-state-message--hidden')
+  }
+
   AddAnother.prototype.hideEmptyStateMessage = function () {
     this.emptyStateMessage.classList.add('app-add-another__empty-state-message--hidden')
+  }
+
+  AddAnother.prototype.initItemDeleteButton = function (item) {
+    item
+      .querySelector('.js-app-c-add-another__delete-button')
+      .addEventListener('click', function (e) {
+        var target = e.currentTarget
+
+        target.parentElement.remove()
+
+        if (this.itemSection.childElementCount === 0) {
+          this.showEmptyStateMessage()
+        }
+      }.bind(this))
   }
 
   Modules.AddAnother = AddAnother
