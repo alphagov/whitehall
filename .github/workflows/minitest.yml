@@ -10,7 +10,7 @@ on:
       publishingApiRef:
         description: 'The branch, tag or SHA to checkout Publishing API'
         required: false
-        default: 'deployed-to-production'
+        default: 'main'
         type: string
 
 jobs:
