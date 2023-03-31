@@ -7,6 +7,7 @@
 //= require jquery
 //= require bootstrap
 
+//= require components/add-another
 //= require components/autocomplete
 //= require components/govspeak-editor
 //= require components/miller-columns
