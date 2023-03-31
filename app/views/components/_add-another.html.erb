@@ -1,0 +1,24 @@
+<%
+  id ||= "add-another-#{SecureRandom.hex(4)}"
+  add_button_label ||= "Add"
+  items ||= []
+
+  empty_state_message ||= "No items added"
+  empty_state_classes = %w(govuk-body app-add-another__empty-state-message)
+  empty_state_classes << "app-add-another__empty-state-message--hidden" if items.present?
+%>
+
+<div class="app-c-add-another" data-module="add-another" id="<%= id %>">
+  <template>
+    <%= yield %>
+  </template>
+
+  <%= tag.p empty_state_message, class: empty_state_classes %>
+
+  <div class="app-c-add-another__items"></div>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: add_button_label,
+    secondary_solid: true
+  } %>
+</div>

@@ -1,0 +1,26 @@
+name: Add another
+description: |
+  A progressive enhancement feature that uses javascript to add additional sections
+body: |
+  Typically it is used when you the user needs to add multiple entries. A good example of this is when a user has to enter their previous employments or an address history.
+part_of_admin_layout: true
+accessibility_criteria: |
+  The component must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when they have focus
+  - be recognisable as form textarea elements
+  - have correctly associated labels
+examples:
+  default:
+    data:
+      block: |
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="item-name-{{ index }}">
+              Shopping list item
+            </label>
+            <input class="govuk-input" id="item-name-{{ index }}" name="item-name-{{ index }}" type="text" />
+          </div>
