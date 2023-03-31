@@ -91,7 +91,9 @@
   <% end %>
 </div>
 
-<%= render 'first_published_at', form: form, edition: edition %>
+<% unless edition.is_a?(Consultation) %>
+  <%= render 'first_published_at', form: form, edition: edition %>
+<% end %>
 
 <% if current_user.can_preview_images_update? %>
   <% if %w(CaseStudy Speech FatalityNotice).include?(edition.type) %>
@@ -104,8 +106,8 @@
       } %>
       <p class="govuk-body">
         <% if edition.new_record? %>
-          To add images you must save the document first. After saving, use the 
-          tabs at the top of the page to upload, edit and delete images and 
+          To add images you must save the document first. After saving, use the
+          tabs at the top of the page to upload, edit and delete images and
           attachments.
         <% else %>
           Use the tabs at the top of the page to upload, edit and delete images.
@@ -118,7 +120,7 @@
     <% if edition.type == "CaseStudy" %>
       <%= render partial: "image_fields_case_studies", locals: { form: form, edition: form.object } %>
     <% else %>
-      <%= render partial: "image_fields", locals: { form: form, edition: form.object } %> 
+      <%= render partial: "image_fields", locals: { form: form, edition: form.object } %>
     <% end %>
   <% end %>
 <% end %>

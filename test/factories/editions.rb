@@ -104,10 +104,12 @@ FactoryBot.define do
 
     trait(:superseded) do
       state { "superseded" }
+      first_published_at { 2.days.ago }
     end
 
     trait(:superseded_with_published) do
       state { "superseded" }
+      first_published_at { 2.days.ago }
 
       after(:create) do |edition|
         create(:published_edition, document: edition.document)

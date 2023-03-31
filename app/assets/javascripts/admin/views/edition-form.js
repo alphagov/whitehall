@@ -84,14 +84,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         deliveredByLabel.textContent = 'Writer (required)'
         hasProfileRadioLabel.textContent = 'Writer has a profile on GOV.UK'
         noProfileRadioLabel.textContent = 'Writer does not have a profile on GOV.UK'
-        deliveredOnLabel.textContent = 'Written on (required)'
+        deliveredOnLabel.textContent = 'Written on'
         locationInput.value = ''
       } else {
         locationDiv.classList.remove('app-view-edit-edition__speech-location--hidden')
         deliveredByLabel.textContent = 'Speaker (required)'
         hasProfileRadioLabel.textContent = 'Speaker has a profile on GOV.UK'
         noProfileRadioLabel.textContent = 'Speaker does not have a profile on GOV.UK'
-        deliveredOnLabel.textContent = 'Delivered on (required)'
+        deliveredOnLabel.textContent = 'Delivered on'
       }
     })
   }

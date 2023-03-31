@@ -39,7 +39,7 @@
       <%= render "govuk_publishing_components/components/radio", {
         name: "edition[previously_published]",
         id: "edition_previously_published",
-        error_items: errors_for(edition.errors, :previously_published),
+        error_items: errors_for(edition.errors, :previously_published) || errors_for(edition.errors, :first_published_at),
         items: [
           {
             value: false,
@@ -49,7 +49,7 @@
           {
             value: true,
             text: "This document has previously been published on another website.",
-            checked: edition.previously_published,
+            checked: edition.previously_published == true,
             conditional: first_published_at_fields
           }
         ]
@@ -59,9 +59,11 @@
 <% else %>
   <div class="govuk-!-margin-bottom-4">
     <%= render "govuk_publishing_components/components/fieldset", {
-      legend_text: "First published (required)",
+      legend_text: "First published",
       heading_size: "l",
       hint: "For example, 31 3 2000",
+      id: "edition_first_published_at",
+      error_message: errors_for_input(edition.errors, :first_published_at),
     } do %>
       <%= first_published_at_fields %>
     <% end %>
