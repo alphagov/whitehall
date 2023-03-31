@@ -10,12 +10,13 @@
       <% 0.upto(3) do |index| %>
         <% lead_organisation_id = lead_organisation_id_at_index(edition, index) %>
         <% cache_if lead_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
-          <%= render "govuk_publishing_components/components/select", {
+          <%= render "components/select-with-search", {
               id: "edition_lead_organisation_ids_#{index + 1}",
               name: "edition[lead_organisation_ids][]",
               label: "Lead organisation #{index + 1}",
               heading_size: "s",
-              options: ([""] + taggable_organisations_container).map do |name, id|
+              include_blank: true,
+              options: taggable_organisations_container.map do |name, id|
               {
                 text: name,
                 value: id,
@@ -36,12 +37,13 @@
     <% 0.upto(5) do |index| %>
       <% supporting_organisation_id = supporting_organisation_id_at_index(edition, index) %>
       <% cache_if supporting_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
-        <%= render "govuk_publishing_components/components/select", {
+        <%= render "components/select-with-search", {
           id: "edition_supporting_organisation_ids_#{index + 1}",
           name: "edition[supporting_organisation_ids][]",
           label: "Supporting organisation #{index + 1}",
           heading_size: "s",
-          options: ([""] + taggable_organisations_container).map do |name, id|
+          include_blank: true,
+          options: taggable_organisations_container.map do |name, id|
           {
             text: name,
             value: id,

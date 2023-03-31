@@ -6,20 +6,20 @@
     heading_size: "l",
     no_hint_text: true,
     error_items: errors_for_input(edition.errors, :create_foreign_language_only),
+    include_blank: true,
     items: [
       {
         label: "Create a foreign language only #{edition.model_name.human.downcase}",
         value: "1",
         checked: form.object.primary_locale != "en",
-        conditional: (render "govuk_publishing_components/components/select", {
+        conditional: (render "components/select-with-search", {
           id: "edition_primary_locale",
           name: "edition[primary_locale]",
           label: "Document language",
           heading_size: "m",
-          full_width: true,
-          allow_blank: true,
+          include_blank: true,
           errors: errors_for(edition.errors, :primary_locale),
-          options: ([nil] + options_for_locales(Locale.non_english)).map do |language, value|
+          options: options_for_locales(Locale.non_english).map do |language, value|
             {
               text: language,
               value: value,

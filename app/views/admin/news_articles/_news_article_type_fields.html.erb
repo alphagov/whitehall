@@ -1,17 +1,17 @@
 <div class="app-view-edition-form__subtype-fields js-app-view-edition-form__subtype-fields" data-format-advice="<%= NewsArticleType::FORMAT_ADVICE %>">
-  <%= render "govuk_publishing_components/components/select", {
+  <%= render "components/select-with-search", {
     name: "edition[news_article_type_id]",
     id: "edition_news_article_type_id",
-    label: "News article type",
+    label: "News article type (required)",
     heading_size: "l",
-    full_width: true,
     value: edition.news_article_type_id,
     error_message: errors_for_input(edition.errors, :news_article_type_id),
-    options: ([nil]+ NewsArticleType.all).map do |type|
+    include_blank: true,
+    options: NewsArticleType.all.map do |type|
       {
-        text: type&.singular_name,
-        value: type&.id,
-        selected: edition.news_article_type_id == type&.id
+        text: type.singular_name,
+        value: type.id,
+        selected: edition.news_article_type_id == type.id
       }
     end
   } %>
