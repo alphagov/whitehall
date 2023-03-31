@@ -518,7 +518,7 @@ en:
   world_location:
     content:
       complete_list: See the complete %{href}. This includes all embassies, high commissions and consulates.
-      find_out: Find out what is help is available from the UK government if you're abroad.
+      find_out: Find out what help is available from the UK government if you're abroad.
       heading: Help and services around the&nbsp;world
       list_link: list of overseas Foreign, Commonwealth & Development Office posts
     headings:
