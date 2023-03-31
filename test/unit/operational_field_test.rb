@@ -33,7 +33,7 @@ class OperationalFieldTest < ActiveSupport::TestCase
   end
 
   test "should send the fields of operation index page to publishing api when a field of operation is created" do
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OperationalFieldsIndexPresenter)
+    PublishOperationalFieldsIndexPage.any_instance.expects(:publish)
 
     create(:operational_field)
   end
@@ -41,7 +41,7 @@ class OperationalFieldTest < ActiveSupport::TestCase
   test "should send the fields of operation index page to publishing api when a field of operation is updated" do
     field = create(:operational_field, name: "Field Name")
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OperationalFieldsIndexPresenter)
+    PublishOperationalFieldsIndexPage.any_instance.expects(:publish)
 
     field.update!(name: "New Field Name")
   end
@@ -49,7 +49,7 @@ class OperationalFieldTest < ActiveSupport::TestCase
   test "should send the fields of operation index page to publishing api when a field of operation is destroyed" do
     field = create(:operational_field, name: "Field Name")
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OperationalFieldsIndexPresenter)
+    PublishOperationalFieldsIndexPage.any_instance.expects(:publish)
 
     field.destroy!
   end

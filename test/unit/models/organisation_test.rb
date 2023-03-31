@@ -1127,7 +1127,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "should send the how government works page to publishing api when an organisation is created" do
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PublishHowGovernmentWorksPage.any_instance.expects(:publish)
 
     create(:organisation)
   end
@@ -1135,7 +1135,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "should send the how government works page to publishing api when an organisation is updated" do
     organisation = create(:organisation)
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PublishHowGovernmentWorksPage.any_instance.expects(:publish)
 
     organisation.update!(name: "New department name")
   end

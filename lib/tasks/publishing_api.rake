@@ -71,22 +71,17 @@ namespace :publishing_api do
 
     desc "Republish the past prime ministers index page to Publishing API"
     task republish_past_prime_ministers_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::HistoricalAccountsIndexPresenter)
+      PublishPrimeMinistersIndexPage.new.publish
     end
 
     desc "Republish the how government works page to Publishing API"
     task republish_how_government_works: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::HowGovernmentWorksPresenter)
+      PublishHowGovernmentWorksPage.new.publish
     end
 
     desc "Republish the fields of operation index page to Publishing API"
     task republish_operational_fields_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::OperationalFieldsIndexPresenter)
-    end
-
-    desc "Republish the world index page to Publishing API"
-    task republish_world_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::WorldIndexPresenter)
+      PublishOperationalFieldsIndexPage.new.publish
     end
   end
 

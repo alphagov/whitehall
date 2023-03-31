@@ -43,7 +43,7 @@ class HistoricalAccount < ApplicationRecord
   end
 
   def republish_prime_ministers_index_page_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::HistoricalAccountsIndexPresenter) unless role.slug != "prime-minister"
+    PublishPrimeMinistersIndexPage.new.publish unless role.slug != "prime-minister"
   end
 
   def appointment_info_array
