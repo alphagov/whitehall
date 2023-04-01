@@ -12,6 +12,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   AddAnother.prototype.init = function () {
     this.initAddButton()
+    this.initDeleteButtons()
   }
 
   AddAnother.prototype.initAddButton = function () {
@@ -20,15 +21,30 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }.bind(this))
   }
 
+  AddAnother.prototype.initDeleteButtons = function () {
+    var initialItems = this.module.querySelectorAll('.app-c-add-another__item')
+
+    initialItems.forEach(function (item) {
+      this.initItemDeleteButton(item)
+    }.bind(this))
+  }
+
   AddAnother.prototype.addAnotherItem = function () {
     var newIndex = this.itemSection.childElementCount + 1
 
     var newItem = this.template.content.cloneNode(true)
-    newItem.firstElementChild.innerHTML = newItem.firstElementChild.innerHTML.replaceAll('{{ index }}', newIndex)
+    newItem = this.replaceNewItemVariables(newItem, newIndex)
 
     this.initItemDeleteButton(newItem)
     this.hideEmptyStateMessage()
     this.itemSection.append(newItem)
+  }
+
+  AddAnother.prototype.replaceNewItemVariables = function (newItem, index) {
+    newItem.firstElementChild.innerHTML = newItem.firstElementChild.innerHTML.replaceAll('{{ index }}', index)
+    newItem.firstElementChild.innerHTML = newItem.firstElementChild.innerHTML.replaceAll(/{{(.*?)}}/g, '')
+
+    return newItem
   }
 
   AddAnother.prototype.showEmptyStateMessage = function () {
