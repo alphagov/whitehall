@@ -7,23 +7,44 @@
   empty_state_message ||= "No items added"
   empty_state_classes = %w(govuk-body app-add-another__empty-state-message)
   empty_state_classes << "app-add-another__empty-state-message--hidden" if items.present?
+
+  def replace_template_with_item_values(template, item, index)
+    item_template = template
+    item_template = item_template.gsub "{{ index }}", index.to_s
+
+    variables = template.scan(/{{ (.*?) }}/).map { |s| s[0] }.uniq
+    variables.each do | variable |
+      item_template = item_template.gsub "{{ #{variable} }}",
+        item["#{variable}"].present? ? item["#{variable}"] : ""
+    end
+
+    item_template
+  end
 %>
+
+<% template = capture do %>
+  <div class="app-c-add-another__item">
+    <%= yield %>
+    <%= render "govuk_publishing_components/components/button", {
+      classes: "js-app-c-add-another__delete-button",
+      text: delete_button_label,
+      destructive: true
+    } %>
+  </div>
+<% end %>
 
 <div class="app-c-add-another" data-module="add-another" id="<%= id %>">
   <template>
-    <div class="app-c-add-another__item">
-      <%= yield %>
-      <%= render "govuk_publishing_components/components/button", {
-        classes: "js-app-c-add-another__delete-button",
-        text: delete_button_label,
-        destructive: true
-      } %>
-    </div>
+    <%= template %>
   </template>
 
   <%= tag.p empty_state_message, class: empty_state_classes %>
 
-  <div class="app-c-add-another__items"></div>
+  <div class="app-c-add-another__items">
+    <% items.each_with_index do | item, index | %>
+      <%= raw(replace_template_with_item_values(template, item, index)) %>
+    <% end %>
+  </div>
 
   <%= render "govuk_publishing_components/components/button", {
     classes: "js-app-c-add-another__add-button",
