@@ -26,11 +26,13 @@
 <% template = capture do %>
   <div class="app-c-add-another__item">
     <%= yield %>
-    <%= render "govuk_publishing_components/components/button", {
-      classes: "js-app-c-add-another__delete-button",
-      text: delete_button_label,
-      destructive: true
-    } %>
+    <div class="app-c-add-another--js-only">
+      <%= render "govuk_publishing_components/components/button", {
+        classes: "js-app-c-add-another__delete-button",
+        text: delete_button_label,
+        destructive: true
+      } %>
+    </div>
   </div>
 <% end %>
 
@@ -47,9 +49,11 @@
     <% end %>
   </div>
 
-  <%= render "govuk_publishing_components/components/button", {
-    classes: "js-app-c-add-another__add-button",
-    text: add_button_label,
-    secondary_solid: true
-  } %>
+  <div class="app-c-add-another--js-only">
+    <%= render "govuk_publishing_components/components/button", {
+      classes: "js-app-c-add-another__add-button",
+      text: add_button_label,
+      secondary_solid: true
+    } %>
+  </div>
 </div>

@@ -6,3 +6,11 @@
 .app-c-add-another__item {
   @include govuk-responsive-margin(6, "bottom");
 }
+
+.app-c-add-another--js-only {
+  display: none;
+}
+
+.js-enabled .app-c-add-another--js-only {
+  display: block;
+}
