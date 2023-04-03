@@ -52,3 +52,47 @@ examples:
             <input class="govuk-input" id="with-rails-delete-input-{{ index }}" name="with-rails-delete-input-{{ index }}" type="text" value="{{ value }}" />
             <input type="hidden" name="with-rails-delete-input[{{ index }}][_destroy]" value="false">
           </div>
+  with_custom_id_param:
+    data:
+      id: some-random-id
+      block: |
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="item-name-{{ index }}">
+              Shopping list item
+            </label>
+            <input class="govuk-input" id="item-name-{{ index }}" name="item-name-{{ index }}" type="text" />
+          </div>
+  with_custom_add_button_label:
+    data:
+      add_button_label: Add item
+      block: |
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="item-name-{{ index }}">
+              Shopping list item
+            </label>
+            <input class="govuk-input" id="item-name-{{ index }}" name="item-name-{{ index }}" type="text" />
+          </div>
+  with_custom_delete_button_label:
+    data:
+      delete_button_label: Delete item
+      items:
+        - value: Strawberries
+        - value: Pineapple
+      block: |
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="item-name-{{ index }}">
+              Shopping list item
+            </label>
+            <input class="govuk-input" id="item-name-{{ index }}" name="item-name-{{ index }}" type="text" value="{{ value }}" />
+          </div>
+  with_custom_empty_state_message:
+    data:
+      empty_state_message: |
+        oh no, you have no items in your basket 😭
+      block: |
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="item-name-{{ index }}">
+              Shopping list item
+            </label>
+            <input class="govuk-input" id="item-name-{{ index }}" name="item-name-{{ index }}" type="text" value="{{ value }}" />
+          </div>
