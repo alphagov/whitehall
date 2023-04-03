@@ -96,3 +96,55 @@ examples:
             </label>
             <input class="govuk-input" id="item-name-{{ index }}" name="item-name-{{ index }}" type="text" value="{{ value }}" />
           </div>
+  with_multiple_fields:
+    description: |
+      This example illustrates how to use the `add another` component with multiple fields.
+    data:
+      empty_state_message: |
+        No previous address added.
+      add_button_label: Add previous address
+      delete_button_label: Remove this address
+      items:
+        - address_line_1: The White Chapel Building
+          address_line_2: 10 Whitechapel High St
+          address_town_city: London
+          address_county: London
+          address_postcode: E1 8QS
+      block: |
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h2 class="govuk-fieldset__heading">
+                Previous address
+              </h2>
+            </legend>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="previous-address-{{ index }}-address-line-1">
+                Address line 1
+              </label>
+              <input class="govuk-input" id="previous-address-{{ index }}-address-line-1" name="previous-address-{{ index }}-address-line-1" type="text" autocomplete="address-line1" value="{{ address_line_1 }}">
+            </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="previous-address-{{ index }}-address-line-2">
+                Address line 2 (optional)
+              </label>
+              <input class="govuk-input" id="previous-address-{{ index }}-address-line-2" name="previous-address-{{ index }}-address-line-2" type="text" autocomplete="address-line2"  value="{{ address_line_2 }}">
+            </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="previous-address-{{ index }}-address-town">
+                Town or city
+              </label>
+              <input class="govuk-input govuk-!-width-two-thirds" id="previous-address-{{ index }}-address-town" name="previous-address-{{ index }}-address-town" type="text" autocomplete="address-level2"  value="{{ address_town_city }}">
+            </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="previous-address-{{ index }}-address-county">
+                County (optional)
+              </label>
+              <input class="govuk-input govuk-!-width-two-thirds" id="previous-address-{{ index }}-address-county" name="previous-address-{{ index }}-address-county" type="text"  value="{{ address_county }}">
+            </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="previous-address-{{ index }}-address-postcode">
+                Postcode
+              </label>
+              <input class="govuk-input govuk-input--width-10" id="previous-address-{{ index }}-address-postcode" name="previous-address-{{ index }}-address-postcode" type="text" autocomplete="postal-code"  value="{{ address_postcode }}">
+            </div>
+          </fieldset>
