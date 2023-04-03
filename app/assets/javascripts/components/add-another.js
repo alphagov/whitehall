@@ -61,16 +61,16 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       .querySelector('.js-app-c-add-another__delete-button')
       .addEventListener('click', function (e) {
         var target = e.currentTarget
-        var itemElement = target.parentElement
+        var itemElement = target.parentElement.parentElement
 
         if (this.deleteMode === 'hide') {
-          itemElement.classList.add('app-c-add-another--hidden')
+          itemElement.classList.add('app-c-add-another__item--hidden')
           this.updateDestroyInputValue(itemElement)
         } else {
           itemElement.remove()
         }
 
-        var numberOfVisibleItems = this.itemSection.querySelectorAll('.app-c-add-another__item:not(.app-c-add-another--hidden)').length
+        var numberOfVisibleItems = this.itemSection.querySelectorAll('.app-c-add-another__item:not(.app-c-add-another__item--hidden)').length
         if (numberOfVisibleItems === 0) {
           this.showEmptyStateMessage()
         }
