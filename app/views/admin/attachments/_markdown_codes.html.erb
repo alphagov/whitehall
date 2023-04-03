@@ -1,0 +1,16 @@
+<% if attachable.attachments.any? %>
+  <p class="govuk-body">
+    You can insert an attachment into your document by entering the
+    following snippets of Markdown:
+  </p>
+
+  <%= render "govuk_publishing_components/components/list", {
+      list_type: "number",
+      visible_counters: true,
+      items: attachable.attachments.map.with_index(1) do |attachment, index|
+        "#{tag.strong(attachment.title)} – #{inline_attachment_code_tags(index)}"
+      end
+    } %>
+<% else %>
+  <p class="govuk-body">No attachments</p>
+<% end %>

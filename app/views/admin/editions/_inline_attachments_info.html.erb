@@ -25,7 +25,7 @@
         </p>
       <% end %>
       <% if edition.allows_inline_attachments? %>
-        <%= render 'admin/attachments/legacy_markdown_codes', attachable: edition %>
+        <%= render 'admin/attachments/markdown_codes', attachable: edition %>
       <% end %>
     <% end %>
     <% if edition.respond_to?(:alternative_format_provider) %>
