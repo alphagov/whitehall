@@ -14,6 +14,7 @@
 
 //= require admin/analytics
 
+//= require admin/modules/add-another
 //= require admin/modules/app-analytics
 //= require admin/modules/document-history-paginator
 //= require admin/modules/navbar-toggle

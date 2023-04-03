@@ -1,0 +1,8 @@
+.js-duplicate-fields-set {
+  margin-top: govuk-spacing(4);
+  border-bottom: 1px solid $govuk-border-colour;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
