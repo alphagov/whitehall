@@ -1,6 +1,7 @@
 <%
   id ||= "add-another-#{SecureRandom.hex(4)}"
   add_button_label ||= "Add"
+  delete_mode ||= "remove"
   delete_button_label ||= "Delete"
   items ||= []
 
@@ -33,7 +34,7 @@
   </div>
 <% end %>
 
-<div class="app-c-add-another" data-module="add-another" id="<%= id %>">
+<div class="app-c-add-another" data-module="add-another" data-delete-mode="<%= delete_mode %>" id="<%= id %>">
   <template>
     <%= template %>
   </template>

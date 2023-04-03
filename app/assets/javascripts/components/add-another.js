@@ -8,6 +8,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.itemSection = module.querySelector('.app-c-add-another__items')
     this.emptyStateMessage = module.querySelector('.app-add-another__empty-state-message')
     this.addButton = module.querySelector('.js-app-c-add-another__add-button')
+    this.deleteMode = module.getAttribute('data-delete-mode')
   }
 
   AddAnother.prototype.init = function () {
@@ -60,13 +61,31 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       .querySelector('.js-app-c-add-another__delete-button')
       .addEventListener('click', function (e) {
         var target = e.currentTarget
+        var itemElement = target.parentElement
 
-        target.parentElement.remove()
+        if (this.deleteMode === 'hide') {
+          itemElement.classList.add('app-c-add-another--hidden')
+          this.updateDestroyInputValue(itemElement)
+        } else {
+          itemElement.remove()
+        }
 
-        if (this.itemSection.childElementCount === 0) {
+        var numberOfVisibleItems = this.itemSection.querySelectorAll('.app-c-add-another__item:not(.app-c-add-another--hidden)').length
+        if (numberOfVisibleItems === 0) {
           this.showEmptyStateMessage()
         }
       }.bind(this))
+  }
+
+  AddAnother.prototype.updateDestroyInputValue = function (itemElement) {
+    var regex = /\[_destroy\]$/g
+    var inputs = itemElement.querySelectorAll('input')
+
+    inputs.forEach(function (input) {
+      if (regex.exec(input.getAttribute('name'))) {
+        input.value = 1
+      }
+    })
   }
 
   Modules.AddAnother = AddAnother

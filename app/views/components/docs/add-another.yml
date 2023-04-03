@@ -31,8 +31,24 @@ examples:
         - value: Bread
       block: |
         <div class="govuk-form-group">
-            <label class="govuk-label" for="item-name-{{ index }}">
+            <label class="govuk-label" for="with-items-{{ index }}">
               Shopping list item
             </label>
-            <input class="govuk-input" id="item-name-{{ index }}" name="item-name-{{ index }}" type="text" value="{{ value }}" />
+            <input class="govuk-input" id="with-items-{{ index }}" name="with-items-{{ index }}" type="text" value="{{ value }}" />
+          </div>
+  with_rails_delete_input:
+    description: |
+      When the `delete_mode` is set to `hide`, the component will hide the section (instead of removing it) and search the template for any inputs with `[_destroy]` in the name and set the value to `1`. This allows it to be compatible with the way rails manages deletion.
+    data:
+      delete_mode: hide
+      items:
+        - value: Strawberries
+        - value: Pineapple
+      block: |
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="with-rails-delete-input-{{ index }}">
+              Shopping list item
+            </label>
+            <input class="govuk-input" id="with-rails-delete-input-{{ index }}" name="with-rails-delete-input-{{ index }}" type="text" value="{{ value }}" />
+            <input type="hidden" name="with-rails-delete-input[{{ index }}][_destroy]" value="false">
           </div>
