@@ -82,7 +82,13 @@ Then(/^I should be able to appoint "([^"]*)" to the new role$/) do |person_name|
   click_on using_design_system? ? "Edit#{role.name}" : role.name
   click_on "New appointment"
   select person_name, from: "Person"
-  select_date 1.day.ago.to_s, from: "Started at"
+  if using_design_system?
+    within "#role_appointment_started_at" do
+      fill_in_date_fields(1.day.ago.to_s)
+    end
+  else
+    select_date 1.day.ago.to_s, from: "Started at"
+  end
   click_on "Save"
 end
 

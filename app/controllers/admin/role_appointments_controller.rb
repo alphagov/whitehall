@@ -5,6 +5,8 @@ class Admin::RoleAppointmentsController < Admin::BaseController
   def new
     role = Role.find(params[:role_id])
     @role_appointment = role.role_appointments.build(started_at: Time.zone.today)
+
+    render_design_system("new", "legacy_new", next_release: false)
   end
 
   def create
@@ -14,7 +16,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
       redirect_to edit_admin_role_path(role), notice: "Appointment created"
     else
       params[:make_current] = params[:role_appointment][:make_current]
-      render :new
+      render_design_system("new", "legacy_new", next_release: false)
     end
   end
 
@@ -56,7 +58,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[edit update destroy confirm_destroy] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new create edit update destroy confirm_destroy] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
