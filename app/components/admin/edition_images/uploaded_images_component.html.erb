@@ -19,8 +19,10 @@
     <p class="govuk-body">The lead image appears at the top of the document. It cannot be used
     in the document body.</p>
   <% end %>
+<% end %>
 
-  <div class="govuk-grid-row">
+<div class="govuk-grid-row">
+  <% if lead_image %>
     <div class="govuk-grid-column-one-third">
       <img src="<%= lead_image[:url] %>" alt="<%= lead_image[:preview_alt_text] %>" class="app-view-edition-images__image">
     </div>
@@ -28,12 +30,28 @@
       <li><strong>Caption: </strong><%= lead_image[:caption] %></li>
       <li><strong>Alt text: </strong><%= lead_image[:alt_text] %></li>
     </ul>
-    <div class="app-view-edition-images__actions govuk-grid-column-full govuk-button-group">
-      <% if @edition.type == "CaseStudy" %>
-      <% lead_image[:links].each do |link| %><%= link %><% end %>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+
+  <% if lead_image || @edition.type == "CaseStudy" %>
+    <%= form_with(url: update_image_display_option_admin_edition_path(@edition), method: :patch) do |form| %>
+      <div class="app-view-edition-images__actions govuk-grid-column-full govuk-button-group">
+        <% if @edition.type == "CaseStudy" %>
+          <%= hidden_field_tag "edition[image_display_option]", new_image_display_option %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: update_image_display_option_button_text,
+            secondary_solid: true,
+            margin_bottom: 4
+          } %>
+        <% end %>
+
+        <% if lead_image %>
+          <% lead_image[:links].each do |link| %><%= link %><% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>
 
 <%= render "govuk_publishing_components/components/heading", {
   text: "Images available to use in document",

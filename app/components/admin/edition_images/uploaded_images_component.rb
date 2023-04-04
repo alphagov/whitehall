@@ -23,6 +23,22 @@ class Admin::EditionImages::UploadedImagesComponent < ViewComponent::Base
     @document_images.map.with_index(1) { |image, index| image_to_hash image, index }
   end
 
+  def new_image_display_option
+    if @edition.image_display_option == "no_image"
+      return has_lead_image? ? "custom_image" : "organisation_image"
+    end
+
+    "no_image"
+  end
+
+  def update_image_display_option_button_text
+    if has_lead_image?
+      return "#{new_image_display_option == 'no_image' ? 'Hide' : 'Show'} lead image"
+    end
+
+    "#{new_image_display_option == 'no_image' ? 'Remove lead' : 'Use default'} image"
+  end
+
 private
 
   def image_to_hash(image, index)
