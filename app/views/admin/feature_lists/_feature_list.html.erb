@@ -4,7 +4,7 @@
 <h2 class="add-bottom-margin feature-title">Feature new documents</h2>
 <div class="row">
   <div class="col-md-3">
-    <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
+    <%= render partial: 'admin/editions/legacy_filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
   </div>
   <div class="col-md-9" id="search_results">
     <%= render partial: "admin/feature_lists/search_results", locals: {feature_list: feature_list} %>
