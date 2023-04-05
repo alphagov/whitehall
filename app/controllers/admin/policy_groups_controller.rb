@@ -1,9 +1,10 @@
 class Admin::PolicyGroupsController < Admin::BaseController
   before_action :enforce_permissions!, only: [:destroy]
+  layout :get_layout
 
   def index
     @policy_groups = PolicyGroup.order(:name)
-    render :legacy_index
+    render_design_system("index", "legacy_index", next_release: false)
   end
 
   def new
@@ -40,6 +41,17 @@ class Admin::PolicyGroupsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def enforce_permissions!
     enforce_permission!(:delete, PolicyGroup)
