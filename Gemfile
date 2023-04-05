@@ -60,6 +60,7 @@ gem "terser"
 gem "transitions", require: ["transitions", "active_record/transitions"]
 gem "validates_email_format_of"
 gem "view_component"
+gem "debug", "~> 1.7"
 gem "whenever", require: false
 
 group :development, :test do
@@ -102,3 +103,4 @@ group :cucumber, :test do
   gem "govuk_test"
   gem "launchy"
 end
+
