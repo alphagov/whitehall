@@ -3,6 +3,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
 
   def index
     @policy_groups = PolicyGroup.order(:name)
+    render :legacy_index
   end
 
   def new
