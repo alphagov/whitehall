@@ -77,7 +77,7 @@ module Admin::TabbedNavHelper
       {
         label: "Group",
         href: edit_admin_policy_group_path(group),
-        current: current_path == edit_admin_policy_group_path(group),
+        current: current_path == edit_admin_policy_group_path(group) || current_path == admin_policy_group_path(group),
       },
       {
         label: sanitize("Attachments #{tag.span(group.attachments.count, class: 'govuk-tag govuk-tag--grey') if group.attachments.count.positive?}"),
