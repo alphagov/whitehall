@@ -39,9 +39,9 @@
   } %>
 </div>
 
-<% if edition.images %>
+<% if @edition.images %>
   <ul class="govuk-list">
-    <% edition.images.each_with_index do |image, index| %>
+    <% @edition.images.each_with_index do |image, index| %>
       <li class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
           <% if image.url.present? %>
@@ -58,7 +58,7 @@
           <%= link_to("Delete image", confirm_destroy_admin_edition_image_path(@edition, image), class: "govuk-link gem-link--destructive") %>
         </div>
       </li>
-      <% if image != edition.images.last %>
+      <% if image != @edition.images.last %>
         <li aria-hidden="true"><hr class="app-view-edition-images__section-break govuk-section-break govuk-section-break--visible"></li>
       <% end %>
     <% end %>
