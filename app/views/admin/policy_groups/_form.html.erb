@@ -1,0 +1,76 @@
+<%= form_for [:admin, policy_group] do |policy_group_form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Name (required)"
+    },
+    name: "policy_group[name]",
+    id: "policy_group_name",
+    value: policy_group.name,
+    heading_size: "l",
+    error_items: errors_for(policy_group.errors, :name)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Email"
+    },
+    name: "policy_group[email]",
+    id: "policy_group_email",
+    value: policy_group.email,
+    heading_size: "l",
+    error_items: errors_for(policy_group.errors, :email)
+  } %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Summary",
+      heading_size: "l",
+    },
+    name: "policy_group[summary]",
+    id: "policy_group_summary",
+    value: policy_group.summary,
+    error_items: errors_for(policy_group.errors, :summary),
+    rows: 20,
+  } %>
+
+  <%= render "components/govspeak-editor", {
+    label: {
+      heading_size: "l",
+      text: "Description"
+    },
+    name: "policy_group[description]",
+    id: "policy_group_description",
+    value: policy_group.description,
+    error_items: errors_for(policy_group.errors, :description),
+    rows: 20,
+  } %>
+
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Attachments",
+    margin_bottom: 4,
+  } %>
+
+  <% if policy_group.persisted? %>
+    <%= render 'admin/attachments/markdown_codes', attachable: policy_group %>
+  <% else %>
+    <p class="govuk-body">
+      If you’d like to add an attachment to this group,
+      please save it first. You’ll then find a tab at the top of the page
+      that you can use to upload, edit and delete attachments.
+    </p>
+  <% end %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "policy-group-button",
+        "track-label": "Save"
+      }
+    } %>
+
+    <%= link_to("Cancel", admin_policy_groups_path, class: "govuk-link govuk-link--no-visited-state") %>
+  </div>
+<% end %>

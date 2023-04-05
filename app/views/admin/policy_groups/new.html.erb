@@ -1,0 +1,16 @@
+<% content_for :page_title, "New group" %>
+<% content_for :title, "New group" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @policy_group)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Do not create groups without consulting GDS. Changes to groups appear instantly on the live site."
+    } %>
+
+    <%= render "form", policy_group: @policy_group %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar %>
+  </div>
+</div>

@@ -10,7 +10,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
 
   def new
     @policy_group = PolicyGroup.new
-    render :legacy_new
+    render_design_system("new", "legacy_new", next_release: false)
   end
 
   def create
@@ -18,19 +18,19 @@ class Admin::PolicyGroupsController < Admin::BaseController
     if @policy_group.save
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" created.)
     else
-      render :legacy_new
+      render_design_system("new", "legacy_new", next_release: false)
     end
   end
 
   def edit
-    render :legacy_edit
+    render_design_system("edit", "legacy_edit", next_release: false)
   end
 
   def update
     if @policy_group.update(policy_group_params)
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" saved.)
     else
-      render :legacy_edit
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
 
@@ -45,10 +45,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"
