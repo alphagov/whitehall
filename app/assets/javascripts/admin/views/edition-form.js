@@ -49,10 +49,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var container = form.querySelector('.app-view-edit-edition__locale-field')
     var localeCheckbox = container.querySelector('#edition_create_foreign_language_only-0')
     var localeSelect = container.querySelector('#edition_primary_locale')
-    var newArticleTypeId = '4'
+    var worldNewsArticleTypeId = '4'
+    var ministers = form.querySelector('.app-view-edit-edition__appointment-fields')
+    var organisations = form.querySelector('.app-view-edit-edition__organisation-fields')
+    var world_location = form.querySelector('.app-view-edit-edition__world-location-fields')
+
+    if (subtypeSelect.value === worldNewsArticleTypeId) {
+      ministersDiv.classList.add('app-view-edit-edition__appointment-fields--hidden')
+      organisationsDiv.classList.add('app-view-edit-edition__organisation-fields--hidden')
+    } else {
+      worldLocationDiv.classList.add('app-view-edit-edition__world-location-fields--hidden')
+    }
 
     select.addEventListener('change', function () {
-      if (select.value !== newArticleTypeId) {
+      if (select.value !== worldNewsArticleTypeId) {
         container.classList.add('app-view-edit-edition__locale-field--hidden')
         localeCheckbox.value = '0'
         localeCheckbox.checked = false
