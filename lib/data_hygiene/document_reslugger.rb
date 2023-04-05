@@ -40,7 +40,7 @@ module DataHygiene
     end
 
     def new_slug_is_a_duplicate
-      documents = Document.where(slug: new_slug)
+      documents = Document.where(document_type: document.document_type, slug: new_slug)
       documents.present? && documents != [document]
     end
 

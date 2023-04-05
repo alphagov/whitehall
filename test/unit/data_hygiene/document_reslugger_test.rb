@@ -4,7 +4,7 @@ class DocumentResluggerTest < ActiveSupport::TestCase
   setup do
     stub_any_publishing_api_call
     @user = create(:user)
-    @document = create(:document, slug: "old-slug")
+    @document = create(:document, slug: "old-slug", document_type: "news_article")
     @published_edition = create(:edition, :published)
   end
 
@@ -30,12 +30,21 @@ class DocumentResluggerTest < ActiveSupport::TestCase
     assert_equal @document.errors.full_messages, ["Slug is blank"]
   end
 
-  test "returns false and the adds an error when the new slug is present on an another document" do
-    create(:document, slug: "new-slug")
+  test "returns false and the adds an error when the new slug is present on an another document of the same type" do
+    create(:document, slug: "new-slug", document_type: "news_article")
 
     reslugger = DataHygiene::DocumentReslugger.new(@document, @published_edition, @user, "new-slug")
     assert_equal false, reslugger.run!
     assert_equal @document.errors.full_messages, ["Slug must be unique"]
+  end
+
+  test "updates the slug when the new slug is present on an another document of a different type" do
+    create(:document, slug: "new-slug", document_type: "publication")
+
+    reslugger = DataHygiene::DocumentReslugger.new(@document, @published_edition, @user, "new-slug")
+    reslugger.run!
+
+    assert_equal "new-slug", @document.slug
   end
 
   test "returns false and the adds an error to the document when new_slug starts with a slash" do
