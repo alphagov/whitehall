@@ -40,7 +40,7 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
 
   test "returns the statistical_data_set_path for StatisticalDataSet instances" do
     statistical_data_set = create(:statistical_data_set)
-    assert_equal statistical_data_set_path(statistical_data_set.document), public_document_path(statistical_data_set)
+    assert_equal statistical_data_set.public_path, public_document_path(statistical_data_set)
   end
 
   test "returns the correct path for CorporateInformationPage for organisations" do

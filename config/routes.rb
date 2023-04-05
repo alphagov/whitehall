@@ -90,7 +90,6 @@ Whitehall::Application.routes.draw do
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
     get "/latest", as: "latest", to: rack_404
     get "/organisations", as: "organisations", to: rack_404
-    get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
 
     resources :organisations, only: [] do
