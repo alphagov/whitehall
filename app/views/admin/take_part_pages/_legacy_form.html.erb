@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-8">
+    <p class="warning">
+      Warning: changes to take part pages appears instantly on the live site.
+    </p>
+
+    <%= form_for take_part_page, url: [:admin, take_part_page] do |form| %>
+      <%= form.errors %>
+      <%= form.text_field :title %>
+      <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 160, 'count-message-selector' => '.summary-length-info' } %>
+      <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
+      <%= form.text_area :body, rows: 20, class: "previewable", required: true, data: {
+        module: "paste-html-to-govspeak"
+      } %>
+      <%= form.upload :image %>
+      <%= form.text_field :image_alt_text, label_text: "Image description (alt text)" %>
+      <%= form.save_or_cancel cancel: admin_take_part_pages_path %>
+    <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <%= legacy_simple_formatting_sidebar %>
+  </div>
+</div>

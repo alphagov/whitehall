@@ -1,24 +1,92 @@
-<div class="row">
-  <div class="col-md-8">
-    <p class="warning">
-      Warning: changes to take part pages appears instantly on the live site.
-    </p>
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Changes to take part pages appears instantly on the live site."
+    } %>
 
-    <%= form_for take_part_page, url: [:admin, take_part_page] do |form| %>
-      <%= form.errors %>
-      <%= form.text_field :title %>
-      <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 160, 'count-message-selector' => '.summary-length-info' } %>
-      <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
-      <%= form.text_area :body, rows: 20, class: "previewable", required: true, data: {
-        module: "paste-html-to-govspeak"
+    <%= form_for take_part_page, url: [:admin, take_part_page], multipart: true do |form| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Title (required)"
+        },
+        name: "take_part_page[title]",
+        id: "take_part_page_title",
+        hint: "Title text should be 255 characters or fewer.",
+        heading_level: 2,
+        heading_size: "l",
+        value: form.object.title,
+        error_items: errors_for(form.object.errors, :title)
       } %>
-      <%= form.upload :image %>
-      <%= form.text_field :image_alt_text, label_text: "Image description (alt text)" %>
-      <%= form.save_or_cancel cancel: admin_take_part_pages_path %>
-    <% end %>
-  </div>
 
-  <div class="col-md-4">
-    <%= legacy_simple_formatting_sidebar %>
-  </div>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Summary (required)",
+          heading_level: 2,
+          heading_size: "l",
+        },
+        name: "take_part_page[summary]",
+        id: "take_part_page_summary",
+        rows: 2,
+        hint: "Summary text should be 255 characters or fewer.",
+        value: form.object.summary,
+        error_items: errors_for(form.object.errors, :summary)
+      } %>
+
+      <%= render "components/govspeak-editor", {
+        label: {
+          heading_size: "l",
+          text: "Body (required)"
+        },
+        name: "take_part_page[body]",
+        id: "take_part_page_body",
+        rows: 20,
+        value: form.object.body,
+        error_items: errors_for(form.object.errors, :body)
+      } %>
+
+      <%= render "govuk_publishing_components/components/file_upload", {
+        label: {
+          text: "Image (required)",
+          heading_size: "l"
+        },
+        name: "take_part_page[image]",
+        id: "take_part_page_image",
+        value: form.object.image,
+        error_items: errors_for(form.object.errors, :image)
+      } %>
+
+      <% if form.object.carrierwave_image.present? %>
+        <%= hidden_field_tag "take_part_page[image]", form.object.carrierwave_image %>
+        <p class="govuk-body"><%= "#{File.basename(form.object.carrierwave_image)} already uploaded" %></p>
+      <% end %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Image description (alt text)",
+        },
+        heading_size: "l",
+        name: "take_part_page[image_alt_text]",
+        id: "take_part_page_image_alt_text",
+        value: form.object.image_alt_text
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "take-part-page-button",
+            "track-label": "Save"
+          }
+        } %>
+
+        <%= link_to "Cancel", admin_take_part_pages_path, class:"govuk-link govuk-link--no-visited-state" %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar %>
+  </section>
 </div>
