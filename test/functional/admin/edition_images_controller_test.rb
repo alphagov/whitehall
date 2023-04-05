@@ -20,22 +20,46 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "edit page displays alt text input for images with alt text" do
+    login_authorised_user
     images = [build(:image)]
     edition = create(:draft_publication, images:)
-    user = create(:gds_editor)
-    user.permissions << "Preview images update"
-    login_as user
     get edit_admin_edition_image_path(edition, images[0])
     assert_select "#image_alt_text"
   end
 
   test "edit page does not display alt text input where it is blank" do
+    login_authorised_user
     images = [build(:image, alt_text: "")]
     edition = create(:draft_publication, images:)
+    get edit_admin_edition_image_path(edition, images[0])
+    assert_select "#image_alt_text", count: 0
+  end
+
+  test "#create redirects to #edit with a valid image upload" do
+    login_authorised_user
+    edition = create(:news_article)
+
+    file = upload_fixture("images/960x640_jpeg.jpg")
+    post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
+
+    follow_redirect!
+    assert_equal edit_admin_edition_image_path(edition, edition.images.last), path
+  end
+
+  test "#create shows a validation error if image is too small" do
+    login_authorised_user
+    edition = create(:news_article)
+
+    file = upload_fixture("images/50x33_gif.gif")
+    post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
+
+    assert_template "admin/edition_images/index"
+    assert_select ".govuk-error-summary li", "Image data file must be 960px wide and 640px tall, but is 50px wide and 33px tall"
+  end
+
+  def login_authorised_user
     user = create(:gds_editor)
     user.permissions << "Preview images update"
     login_as user
-    get edit_admin_edition_image_path(edition, images[0])
-    assert_select "#image_alt_text", count: 0
   end
 end
