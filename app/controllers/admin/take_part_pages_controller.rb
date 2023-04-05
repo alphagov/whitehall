@@ -12,6 +12,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def new
     @take_part_page = TakePartPage.new
+    render_design_system("new", "legacy_new", next_release: false)
   end
 
   def create
@@ -52,7 +53,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new create] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

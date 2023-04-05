@@ -27,7 +27,7 @@ class Admin::LegacyTakePartPagesControllerTest < ActionController::TestCase
     assert assigns(:take_part_page).is_a? TakePartPage
     assert_not assigns(:take_part_page).persisted?
     assert_response :success
-    assert_template "new"
+    assert_template "legacy_new"
   end
 
   test "POST :create saves a new instance with the supplied valid params" do
