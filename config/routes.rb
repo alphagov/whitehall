@@ -88,7 +88,6 @@ Whitehall::Application.routes.draw do
     # End of public facing routes still rendered by Whitehall
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
-    get "/latest", as: "latest", to: rack_404
     get "/organisations", as: "organisations", to: rack_404
     get "/statistical-data-sets/:id", as: "statistical_data_set", to: rack_404
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
