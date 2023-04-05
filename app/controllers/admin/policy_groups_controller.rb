@@ -1,5 +1,6 @@
 class Admin::PolicyGroupsController < Admin::BaseController
-  before_action :enforce_permissions!, only: [:destroy]
+  before_action :enforce_permissions!, only: %i[confirm_destroy destroy]
+  before_action :load_group, only: %i[edit update confirm_destroy destroy]
   layout :get_layout
 
   def index
@@ -20,12 +21,9 @@ class Admin::PolicyGroupsController < Admin::BaseController
     end
   end
 
-  def edit
-    @policy_group = PolicyGroup.friendly.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @policy_group = PolicyGroup.friendly.find(params[:id])
     if @policy_group.update(policy_group_params)
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" saved.)
     else
@@ -33,10 +31,11 @@ class Admin::PolicyGroupsController < Admin::BaseController
     end
   end
 
+  def confirm_destroy; end
+
   def destroy
-    policy_group = PolicyGroup.friendly.find(params[:id])
-    name = policy_group.name
-    policy_group.destroy!
+    name = @policy_group.name
+    @policy_group.destroy!
     redirect_to admin_policy_groups_path, notice: %("#{name}" deleted.)
   end
 
@@ -44,13 +43,17 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
     end
+  end
+
+  def load_group
+    @policy_group = PolicyGroup.friendly.find(params[:id])
   end
 
   def enforce_permissions!

@@ -49,6 +49,23 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
     assert_equal "Policy Board", group.reload.name
   end
 
+  test "GET :confirm_destroy is forbidden for writers" do
+    group = create(:policy_group)
+
+    get :confirm_destroy, params: { id: group }
+
+    assert_response :forbidden
+  end
+
+  test "GET :confirm_destroy works for GDS editors" do
+    group = create(:policy_group)
+
+    login_as_preview_design_system_user :gds_editor
+    get :confirm_destroy, params: { id: group }
+
+    assert_equal group, assigns(:policy_group)
+  end
+
   test "DELETE :destroy is forbidden for writers" do
     group = create(:policy_group)
 

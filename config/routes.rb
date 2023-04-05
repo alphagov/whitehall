@@ -159,6 +159,7 @@ Whitehall::Application.routes.draw do
           end
         end
         resources :policy_groups, path: "groups", except: [:show] do
+          get :confirm_destroy, on: :member
           resources :attachments do
             put :order, on: :collection
             get :confirm_destroy, on: :member
