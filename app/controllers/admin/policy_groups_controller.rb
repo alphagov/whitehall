@@ -10,6 +10,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
 
   def new
     @policy_group = PolicyGroup.new
+    render :legacy_new
   end
 
   def create
@@ -17,17 +18,19 @@ class Admin::PolicyGroupsController < Admin::BaseController
     if @policy_group.save
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" created.)
     else
-      render action: "new"
+      render :legacy_new
     end
   end
 
-  def edit; end
+  def edit
+    render :legacy_edit
+  end
 
   def update
     if @policy_group.update(policy_group_params)
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" saved.)
     else
-      render action: "edit"
+      render :legacy_edit
     end
   end
 
