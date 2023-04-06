@@ -2,7 +2,8 @@
   text: "Uploaded images",
   font_size: "l",
 } %>
-<div>
+
+<% if can_have_lead_image? %>
   <%= render "govuk_publishing_components/components/heading", {
     text: "Lead image",
     font_size: "m",
@@ -19,48 +20,53 @@
     in the document body.</p>
   <% end %>
 
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Use default image",
-    secondary_solid: true,
-    margin_bottom: 4
-  } %>
-</div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <img src="<%= lead_image[:url] %>" alt="<%= lead_image[:preview_alt_text] %>" class="app-view-edition-images__image">
+    </div>
+    <ul class="app-view-edition-images__details govuk-grid-column-two-thirds govuk-list govuk-list--bullet">
+      <li><strong>Caption: </strong><%= lead_image[:caption] %></li>
+      <li><strong>Alt text: </strong><%= lead_image[:alt_text] %></li>
+    </ul>
+    <div class="app-view-edition-images__actions govuk-grid-column-full govuk-button-group">
+      <% if @edition.type == "CaseStudy" %>
+      <% lead_image[:links].each do |link| %><%= link %><% end %>
+    </div>
+  </div>
+<% end %>
 
-<div>
-  <%= render "govuk_publishing_components/components/heading", {
-    text: "Images available to use in document",
-    font_size: "m",
-    padding: true
-  } %>
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Images available to use in document",
+  font_size: "m",
+  padding: true
+} %>
 
+<% if document_images %>
   <%= render "govuk_publishing_components/components/inset_text", {
     text: "Use the 'Insert image' button in the document tab to add images to body copy.",
     margin_top: 0
   } %>
-</div>
 
-<% if @edition.images %>
   <ul class="govuk-list">
-    <% @edition.images.each_with_index do |image, index| %>
+    <% document_images.each do |image| %>
       <li class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
-          <% if image.url.present? %>
-            <img src="<%= image.url %>" alt="Image <%= index + 1 %>" class="app-view-edition-images__image">
-          <% end %>
+          <img src="<%= image[:url] %>" alt="<%= image[:preview_alt_text] %>" class="app-view-edition-images__image">
         </div>
         <ul class="app-view-edition-images__details govuk-grid-column-two-thirds govuk-list govuk-list--bullet">
-          <li><strong>Caption: </strong><%= image.caption.blank? ? "None" : image.caption %></li>
-          <% if image.alt_text %><li><strong>Alt text: </strong><%= image.alt_text.blank? ? "None" : image.alt_text %></li><% end %>
-          <li><strong>Markdown code: </strong><span>[Image:&nbsp;<%=image.image_data.carrierwave_image %>]</span></li>
+          <li><strong>Caption: </strong><%= image[:caption] %></li>
+          <li><strong>Alt text: </strong><%= image[:alt_text] %></li>
+          <li><strong>Markdown code: </strong><%= image[:markdown] %></li>
         </ul>
         <div class="app-view-edition-images__actions govuk-grid-column-full govuk-button-group">
-          <%= link_to("Edit details", edit_admin_edition_image_path(@edition, image), class: "govuk-link") %>
-          <%= link_to("Delete image", confirm_destroy_admin_edition_image_path(@edition, image), class: "govuk-link gem-link--destructive") %>
+          <% image[:links].each do |link| %><%= link %><% end %>
         </div>
       </li>
-      <% if image != @edition.images.last %>
+      <% if image != document_images.last %>
         <li aria-hidden="true"><hr class="app-view-edition-images__section-break govuk-section-break govuk-section-break--visible"></li>
       <% end %>
     <% end %>
   </ul>
+<% else %>
+  <p class="govuk-body">No images uploaded</p>
 <% end %>
