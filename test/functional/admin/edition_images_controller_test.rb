@@ -72,6 +72,18 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is 960 pixels wide and 640 pixels tall"
   end
 
+  test "#create shows a validation error if image has a duplicated filename" do
+    login_authorised_user
+    edition = create(:news_article)
+    file = upload_fixture("images/960x640_gif.gif")
+    create(:image, edition:, image_data: create(:image_data, file:))
+
+    post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
+
+    assert_template "admin/edition_images/index"
+    assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+  end
+
   def login_authorised_user
     user = create(:gds_editor)
     user.permissions << "Preview images update"
