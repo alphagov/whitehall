@@ -8,6 +8,12 @@
     <%= form_for [:admin, @role_appointment] do |form| %>
       <%= render 'admin/role_appointments/form', form: form %>
 
+      <% unless @role_appointment.destroyable? %>
+        <%= render "govuk_publishing_components/components/inset_text", {
+          text: "This appointment cannot be deleted"
+        } %>
+      <% end %>
+
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",
@@ -23,12 +29,6 @@
         <% end %>
         <%= link_to("Cancel", edit_admin_role_path(@role_appointment.role), class: "govuk-link") %>
       </div>
-    <% end %>
-
-    <% unless @role_appointment.destroyable? %>
-      <%= render "govuk_publishing_components/components/inset_text", {
-        text: "Note: This appointment cannot be deleted"
-      } %>
     <% end %>
   </div>
 
