@@ -1,6 +1,8 @@
 require "mini_magick"
 
 class ImageData < ApplicationRecord
+  attr_accessor :validate_on_image
+
   VALID_WIDTH = 960
   VALID_HEIGHT = 640
 
@@ -10,6 +12,7 @@ class ImageData < ApplicationRecord
 
   validates :file, presence: true
   validates_with ImageValidator, size: [VALID_WIDTH, VALID_HEIGHT]
+  validate :filename_is_unique
 
   delegate :width, :height, to: :dimensions
   delegate :content_type, to: :file
@@ -46,5 +49,16 @@ private
                       image = MiniMagick::Image.open file.path
                       Dimensions.new(image[:width], image[:height])
                     end
+  end
+
+  def filename_is_unique
+    return if validate_on_image.blank? || file.blank?
+
+    image = validate_on_image
+    edition = validate_on_image.edition
+
+    if edition.images.excluding(image).joins(:image_data).exists?(["image_data.carrierwave_image = ?", filename])
+      errors.add(:file, message: "name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name.")
+    end
   end
 end
