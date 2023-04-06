@@ -47,9 +47,16 @@ private
       preview_alt_text: index.zero? ? "Lead image" : "Image #{index}",
       caption: image.caption.presence || "None",
       alt_text: image.alt_text.presence || "None",
-      markdown: "[#{image.image_data.carrierwave_image}]",
+      markdown: unique_names? ? "[Image: #{image.filename}]" : "!!#{index}",
       links: links_for_image(image),
     }
+  end
+
+  def unique_names?
+    return @unique_names if defined? @unique_names
+
+    names = @edition.images.map(&:filename)
+    @unique_names = (names.uniq.length == names.length)
   end
 
   def links_for_image(image)
