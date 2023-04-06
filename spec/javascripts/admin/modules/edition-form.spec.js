@@ -51,23 +51,38 @@ describe('GOVUK.Modules.EditionForm', function () {
       expect(organisationFields.classList).toContain('app-view-edit-edition__organisation-fields--hidden')
     })
 
-    it('should reset the locale checkbox and select values when WorldNewsStory is deselected', function () {
-      var select = form.querySelector('#edition_news_article_type_id')
+    it('should reset & hide the locale & world location fields, and show the organisation and ministers fields when WorldNewsStory is deselected', function () {
+      var subtypeSelect = form.querySelector('#edition_news_article_type_id')
+      var localeDiv = form.querySelector('.app-view-edit-edition__locale-field')
       var localeCheckbox = form.querySelector('#edition_create_foreign_language_only-0')
       var localeSelect = form.querySelector('#edition_primary_locale')
 
-      select.value = '4'
-      select.dispatchEvent(new Event('change'))
+      var ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
+      var organisationDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
+      var worldLocationDiv = form.querySelector('.app-view-edit-edition__world-location-fields')
+      var worldLocationSelect = worldLocationDiv.querySelector('select')
+
+      subtypeSelect.value = '4'
+      subtypeSelect.dispatchEvent(new Event('change'))
 
       localeCheckbox.checked = true
       localeCheckbox.value = '1'
       localeSelect.value = 'ar'
-      select.value = '1'
-      select.dispatchEvent(new Event('change'))
+      subtypeSelect.value = '1'
+      worldLocationSelect.value = '1'
 
+      subtypeSelect.dispatchEvent(new Event('change'))
+
+      expect(localeDiv.classList).toContain('app-view-edit-edition__locale-field--hidden')
       expect(localeCheckbox.value).toEqual('0')
       expect(localeCheckbox.checked).toEqual(false)
       expect(localeSelect.value).toEqual('')
+
+      expect(worldLocationDiv.classList).toContain('app-view-edit-edition__world-location-fields--hidden')
+      expect(worldLocationSelect.value).toEqual('')
+
+      expect(ministersDiv.classList).not.toContain('app-view-edit-edition__ministers-fields--hidden')
+      expect(organisationDiv.classList).not.toContain('app-view-edit-edition__organisation-fields--hidden')
     })
   })
 
@@ -86,21 +101,33 @@ describe('GOVUK.Modules.EditionForm', function () {
       expect(worldLocationFields.classList).toContain('app-view-edit-edition__world-location-fields--hidden')
     })
 
-    it('should render the locale fields when WorldNewsStory is selected', function () {
+    it('should show the locale & world location fields, and hide and reset the ministers & org fields when WorldNewsStory is selected', function () {
       var select = form.querySelector('#edition_news_article_type_id')
 
       select.value = '4'
       select.dispatchEvent(new Event('change'))
 
       var localeFields = form.querySelector('.app-view-edit-edition__locale-field')
+      var ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
+      var ministersSelect = ministersDiv.querySelector('select')
+      var organisationDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
+      var organisationSelect1 = organisationDiv.querySelectorAll('select')[0]
+      var organisationSelect2 = organisationDiv.querySelectorAll('select')[1]
+      var worldLocationDiv = form.querySelector('.app-view-edit-edition__world-location-fields')
 
-      expect(localeFields.style.display).not.toContain('app-view-edit-edition__locale-field--hidden')
+      expect(localeFields.classList).not.toContain('app-view-edit-edition__locale-field--hidden')
+      expect(worldLocationDiv.classList).not.toContain('app-view-edit-edition__world-location-fields--hidden')
+      expect(ministersDiv.classList).toContain('app-view-edit-edition__appointment-fields--hidden')
+      expect(ministersSelect.value).toEqual('')
+      expect(organisationDiv.classList).toContain('app-view-edit-edition__organisation-fields--hidden')
+      expect(organisationSelect1.value).toEqual('')
+      expect(organisationSelect2.value).toEqual('')
     })
   })
 
   describe('#setupSpeechSubtypeEventListeners', function () {
     beforeEach(function () {
-      form.innerHTML = speechFields() + associationsFields()
+      form.innerHTML = speechFields()
       var editionForm = new GOVUK.Modules.EditionForm(form)
       editionForm.init()
     })
@@ -201,10 +228,30 @@ describe('GOVUK.Modules.EditionForm', function () {
   function associationsFields () {
     return (
       '<div class="app-view-edit-edition__appointment-fields">' +
+        '<select name="edition[role_appointment_ids][]" id="edition_role_appointment_ids-select">' +
+          '<option value=""></option>' +
+          '<option value="1" selected="selected">Random Lord 1</option>' +
+          '<option value="2">Random Lord 2</option>' +
+        '</select>' +
       '</div>' +
       '<div class="app-view-edit-edition__organisation-fields">' +
+        '<select name="edition[lead_organisation_ids][]" id="edition_lead_organisation_ids_1">' +
+          '<option value=""></option>' +
+          '<option value="1" selected="selected">Org 1</option>' +
+          '<option value="2">Org 2</option>' +
+        '</select>' +
+        '<select name="edition[lead_organisation_ids][]" id="edition_lead_organisation_ids_2">' +
+          '<option value=""></option>' +
+          '<option value="1">Org 1</option>' +
+          '<option value="2" selected="selected">Org 2</option>' +
+        '</select>' +
       '</div>' +
       '<div class="app-view-edit-edition__world-location-fields">' +
+        '<select name="edition[world_location_ids][]" id="edition_world_location_ids-select">' +
+          '<option value=""></option>' +
+          '<option value="1" selected="selected">Country 1</option>' +
+          '<option value="2">Country 2</option>' +
+        '</select>' +
       '</div>'
     )
   }

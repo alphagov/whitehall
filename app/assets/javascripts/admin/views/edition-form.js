@@ -42,17 +42,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   EditionForm.prototype.setupWorldNewsStoryVisibilityToggle = function () {
     var form = this.module
 
-    var select = form.querySelector('#edition_news_article_type_id')
+    var subtypeSelect = form.querySelector('#edition_news_article_type_id')
 
-    if (!select) { return }
+    if (!subtypeSelect) { return }
 
-    var container = form.querySelector('.app-view-edit-edition__locale-field')
-    var localeCheckbox = container.querySelector('#edition_create_foreign_language_only-0')
-    var localeSelect = container.querySelector('#edition_primary_locale')
+    var localeDiv = form.querySelector('.app-view-edit-edition__locale-field')
+    var localeCheckbox = localeDiv.querySelector('#edition_create_foreign_language_only-0')
+    var localeSelect = localeDiv.querySelector('#edition_primary_locale')
     var worldNewsArticleTypeId = '4'
-    var ministers = form.querySelector('.app-view-edit-edition__appointment-fields')
-    var organisations = form.querySelector('.app-view-edit-edition__organisation-fields')
-    var world_location = form.querySelector('.app-view-edit-edition__world-location-fields')
+    var ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
+    var organisationsDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
+    var worldLocationDiv = form.querySelector('.app-view-edit-edition__world-location-fields')
 
     if (subtypeSelect.value === worldNewsArticleTypeId) {
       ministersDiv.classList.add('app-view-edit-edition__appointment-fields--hidden')
@@ -61,14 +61,27 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       worldLocationDiv.classList.add('app-view-edit-edition__world-location-fields--hidden')
     }
 
-    select.addEventListener('change', function () {
-      if (select.value !== worldNewsArticleTypeId) {
-        container.classList.add('app-view-edit-edition__locale-field--hidden')
+    subtypeSelect.addEventListener('change', function () {
+      if (subtypeSelect.value !== worldNewsArticleTypeId) {
+        localeDiv.classList.add('app-view-edit-edition__locale-field--hidden')
         localeCheckbox.value = '0'
         localeCheckbox.checked = false
         localeSelect.value = ''
+        ministersDiv.classList.remove('app-view-edit-edition__appointment-fields--hidden')
+        organisationsDiv.classList.remove('app-view-edit-edition__organisation-fields--hidden')
+        worldLocationDiv.classList.add('app-view-edit-edition__world-location-fields--hidden')
+        worldLocationDiv.querySelector('select').value = ''
       } else {
-        container.classList.remove('app-view-edit-edition__locale-field--hidden')
+        localeDiv.classList.remove('app-view-edit-edition__locale-field--hidden')
+        worldLocationDiv.classList.remove('app-view-edit-edition__world-location-fields--hidden')
+
+        ministersDiv.classList.add('app-view-edit-edition__appointment-fields--hidden')
+        ministersDiv.querySelector('select').value = ''
+
+        organisationsDiv.classList.add('app-view-edit-edition__organisation-fields--hidden')
+        organisationsDiv.querySelectorAll('select').forEach(function (select) {
+          select.value = ''
+        })
       }
     })
   }
