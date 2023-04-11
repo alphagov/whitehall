@@ -44,7 +44,7 @@
             <option
               value="<%= id %>"
               <%="disabled='disabled'" if name.end_with?('(-)') %>
-              <%="selected" if (id == edition.alternative_format_provider_id || id == current_user.organisation.try(:id)) %>>
+              <%="selected" if (id == edition.alternative_format_provider_id || (edition.alternative_format_provider_id.blank? && id == current_user.organisation.try(:id))) %>>
               <%= name %>
             </option>
           <% end %>
