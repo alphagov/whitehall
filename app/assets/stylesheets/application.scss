@@ -14,6 +14,7 @@ $govuk-page-width: 1140px;
 @import "./admin/layout";
 
 @import "./admin/views/audit-trail";
+@import "./admin/views/dashboard-index";
 @import "./admin/views/document-history-tab";
 @import "./admin/views/edit-edition";
 @import "./admin/views/edit-person";

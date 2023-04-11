@@ -4,21 +4,48 @@
 <% if documents.nil? || documents.empty? %>
   <p>No <%= title %></p>
 <% else %>
-  <ol class="document-list list-unstyled">
-    <% documents.each do |edition| %>
-      <%= content_tag_for(:li, edition, class: 'document-row') do %>
-        <h3 class="add-label-margin"><%= link_to edition.title, admin_edition_path(edition) %></h3>
-        <ul class="attributes list-unstyled list-inline text-muted">
-          <li class="updated-by">Updated <%= time_ago_in_words edition.updated_at %> ago by <%= linked_author(edition.last_author, class: 'link-muted') %></li>
-          <li class="type"><%= edition.type.titleize %></li>
-          <% if edition.force_published? %>
-            <li><span class="force_published label label-danger">not reviewed</span></li>
-          <% end %>
-          <% if edition.access_limited? %>
-            <li><span class="access_limited label label-danger">limited access</span></li>
-          <% end %>
-        </ul>
-      <% end %>
-    <% end %>
-  </ol>
+  <% action = title == "draft documents" ? "Edit" : "Review" %>
+  <div class="app-view-dashboard-index__table govuk-!-margin-bottom-9">
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Type"
+        },
+        {
+          text: "Title",
+        },
+        {
+          text: "Updated",
+        },
+        {
+          text: "Status",
+        },
+        {
+          text: tag.span("Actions", class: "govuk-visually-hidden"),
+          format: "numeric"
+        }
+      ],
+      rows: documents.map do |edition|
+        [
+          {
+            text: edition.type.titleize,
+          },
+          {
+            text: edition.title,
+          },
+          {
+            text: sanitize(tag.p("Updated #{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0")) +
+              sanitize("by #{linked_author(edition.last_author, class: 'govuk-link')}")
+          },
+          {
+            text: render(Admin::Editions::TagsComponent.new(edition)),
+          },
+          {
+            text: link_to(sanitize("#{action} #{tag.span(edition.title, class: 'govuk-visually-hidden')}"), admin_edition_path(edition), class: "govuk-link"),
+            format: "numeric"
+          }
+        ]
+      end
+    } %>
+  </div>
 <% end %>
