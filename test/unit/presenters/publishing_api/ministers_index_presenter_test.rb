@@ -56,31 +56,4 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
       assert_equal expected_details, presented_item.content[:details]
     end
   end
-
-  test "presents ministers index page ready for the publishing-api in welsh" do
-    I18n.with_locale(:cy) do
-      create(:sitewide_setting, key: :minister_reshuffle_mode, on: false)
-
-      expected_hash = {
-        title: "ministers_index",
-        locale: "cy",
-        publishing_app: "whitehall",
-        redirects: [],
-        update_type: "major",
-        base_path: "/government/ministers.cy",
-        details: {},
-        document_type: "ministers_index",
-        rendering_app: "whitehall-frontend",
-        schema_name: "ministers_index",
-        routes: [
-          {
-            path: "/government/ministers.cy",
-            type: "exact",
-          },
-        ],
-      }
-
-      assert_equal expected_hash, presented_item.content
-    end
-  end
 end

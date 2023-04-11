@@ -49,9 +49,7 @@ module PublishingApi
     end
 
     def base_path
-      return "/government/ministers" if I18n.locale == :en
-
-      "/government/ministers.#{I18n.locale}"
+      "/government/ministers"
     end
   end
 end
