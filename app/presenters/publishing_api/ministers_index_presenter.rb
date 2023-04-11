@@ -37,9 +37,15 @@ module PublishingApi
     def details
       setting = SitewideSetting.find_by(key: :minister_reshuffle_mode)
 
-      return {} unless setting.on
-
-      { reshuffle: { message: setting.govspeak } }
+      if setting.on
+        {
+          reshuffle: { message: setting.govspeak },
+        }
+      else
+        {
+          body: "Read biographies and responsibilities of [Cabinet ministers](#cabinet-ministers) and all [ministers by department](#ministers-by-department), as well as the [whips](#whips) who help co-ordinate parliamentary business.",
+        }
+      end
     end
 
     def base_path
