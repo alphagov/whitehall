@@ -12,7 +12,7 @@
 
   <h3>Attachments</h3>
   <% if policy_group.persisted? %>
-    <%= render 'admin/attachments/markdown_codes', attachable: policy_group %>
+    <%= render 'admin/attachments/legacy_markdown_codes', attachable: policy_group %>
   <% else %>
     <p>
       If you’d like to add an attachment to this group,

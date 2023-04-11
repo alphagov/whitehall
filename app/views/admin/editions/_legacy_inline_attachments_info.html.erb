@@ -7,7 +7,7 @@
       can use to upload, edit and delete attachments.
     </p>
   <% elsif edition.allows_inline_attachments? %>
-    <%= render 'admin/attachments/markdown_codes', attachable: edition %>
+    <%= render 'admin/attachments/legacy_markdown_codes', attachable: edition %>
   <% end %>
 
   <% if edition.respond_to?(:alternative_format_provider) %>

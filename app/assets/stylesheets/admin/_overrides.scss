@@ -5,3 +5,7 @@
 .govuk-tag--s {
   @include govuk-font(14, $weight: bold, $line-height: 1);
 }
+
+code {
+  color: govuk-colour("red");
+}
