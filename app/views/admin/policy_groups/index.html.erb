@@ -1,36 +1,48 @@
-<% page_title "Groups" %>
-<section>
-  <h1>Groups</h1>
-  <p class="warning remove-top-margin">Do not create groups without consulting GDS.</p>
+<% content_for :page_title, "Groups" %>
+<% content_for :title, "Groups" %>
+<% content_for :title_margin_bottom, 6 %>
 
-  <%= link_to "Create group", new_admin_policy_group_path, class: "btn btn-default new_resource", title: "Create a group" %>
+<%= render "govuk_publishing_components/components/button", {
+  text: "Create new group",
+  href: new_admin_policy_group_path,
+  margin_bottom: 6
+} %>
 
+<div class="govuk-!-margin-bottom-6">
+  <%= render "govuk_publishing_components/components/warning_text", {
+    text: "Do not create groups without consulting GDS."
+  } %>
+</div>
 
-  <table class="policy_groups table table-striped table-bordered add-top-margin">
-    <thead>
-      <tr class="table-header">
-        <th width="30%">Name</th>
-        <th>Email</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @policy_groups.each do |policy_group| %>
-        <%= content_tag_for(:tr, policy_group) do %>
-          <td class="name"><%= link_to policy_group.name, edit_admin_policy_group_path(policy_group), title: "Edit group #{policy_group.name}" %></td>
-          <td class="email"><%= policy_group.email %></td>
-          <td>
-            <% if can?(:delete, PolicyGroup) %>
-            <%= button_to 'Delete',
-                  admin_policy_group_path(policy_group),
-                  method: :delete,
-                  title: "Delete",
-                  data: { confirm: "Are you sure you want to delete the group?" },
-                  class: "btn btn-danger" %>
-            <% end %>
-          </td>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
-</section>
+<div class="app-c-govuk-table--filterable">
+  <%= render "govuk_publishing_components/components/table", {
+    filterable: true,
+    head: [
+      {
+        text: "Name"
+      },
+      {
+        text: "Email",
+      },
+      {
+        text: tag.span("Actions", class: "govuk-visually-hidden"),
+        format: "numeric"
+      }
+    ],
+    rows: @policy_groups.map do |policy_group|
+      [
+        {
+          text: policy_group.name
+        },
+        {
+          text: policy_group.email,
+        },
+        {
+          text: link_to(sanitize("Edit #{tag.span(policy_group.name, class: 'govuk-visually-hidden')}"), edit_admin_policy_group_path(policy_group), class: "govuk-link") +
+           (link_to(sanitize("Delete #{tag.span(policy_group.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_policy_group_path(policy_group), class: "govuk-link gem-link--destructive govuk-!-margin-left-2") if can?(:delete, PolicyGroup)),
+          format: "numeric",
+        }
+      ]
+    end
+  } %>
+</div>
