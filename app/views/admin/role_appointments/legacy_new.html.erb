@@ -1,0 +1,17 @@
+<% page_title "Create new appointment to #{@role_appointment.role.name}"  %>
+
+<div class="row">
+  <div class="col-md-8">
+    <h1>Create new appointment to position of <%= @role_appointment.role.name %> </h1>
+
+    <%= form_for [:admin, @role_appointment.role.becomes(Role), @role_appointment], html: {class: 'well'} do |form| %>
+      <%= render partial: 'admin/role_appointments/legacy_form', locals: { form: form } %>
+
+      <%= form.save_or_cancel cancel: edit_admin_role_path(@role_appointment.role) %>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <h2>Existing appointments</h2>
+    <%= render partial: "admin/role_appointments/legacy_list", locals: { role_appointments: @role_appointment.role.role_appointments} %>
+  </div>
+</div>

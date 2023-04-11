@@ -62,7 +62,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     _person = create(:person)
     post :create, params: { role_id: role.id, role_appointment: { started_at: 3.days.ago } }
     assert role.role_appointments.empty?
-    assert_select ".field_with_errors", text: "Person*"
+    assert_select ".govuk-error-message", text: "Error: Person can't be blank"
   end
 
   test "create should curtail previous appointments if make_current is present" do
