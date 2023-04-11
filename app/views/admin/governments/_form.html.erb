@@ -74,7 +74,13 @@
 
       <div class="govuk-button-group govuk-!-margin-bottom-8">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Save"
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "government-button",
+            "track-label": "Save"
+       }
         } %>
         <%= link_to("cancel", admin_governments_path(), class: "govuk-link") %>
       </div>
