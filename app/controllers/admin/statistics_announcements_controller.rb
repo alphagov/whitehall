@@ -29,14 +29,16 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    render :legacy_edit
+  end
 
   def update
     @statistics_announcement.attributes = statistics_announcement_params
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
-      render :edit
+      render :legacy_edit
     end
   end
 
