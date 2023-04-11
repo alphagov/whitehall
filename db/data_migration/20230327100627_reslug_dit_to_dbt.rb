@@ -1,6 +1,6 @@
 require "csv"
 
-csv_file = File.join(File.dirname(__FILE__), "20230327100626_reslug_dit_to_dbt.csv")
+csv_file = File.join(File.dirname(__FILE__), "20230327100627_reslug_dit_to_dbt.csv")
 csv = CSV.parse(File.open(csv_file), headers: true)
 
 csv.each do |row|
