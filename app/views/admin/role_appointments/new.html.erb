@@ -1,17 +1,33 @@
-<% page_title "Create new appointment to #{@role_appointment.role.name}"  %>
+<% content_for :page_title, "Create new appointment to #{@role_appointment.role.name}"  %>
+<% content_for :title, "Create new appointment to #{@role_appointment.role.name}" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @role_appointment)) %>
 
-<div class="row">
-  <div class="col-md-8">
-    <h1>Create new appointment to position of <%= @role_appointment.role.name %> </h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for [:admin, @role_appointment.role.becomes(Role), @role_appointment] do |form| %>
+      <%= render 'admin/role_appointments/form', form: form %>
 
-    <%= form_for [:admin, @role_appointment.role.becomes(Role), @role_appointment], html: {class: 'well'} do |form| %>
-      <%= render partial: 'admin/role_appointments/form', locals: { form: form } %>
-
-      <%= form.save_or_cancel cancel: edit_admin_role_path(@role_appointment.role) %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+            "track-label": "Save"
+          }
+        } %>
+        <%= link_to("Cancel", edit_admin_role_path(@role_appointment.role), class: "govuk-link") %>
+      </div>
     <% end %>
   </div>
-  <div class="col-md-4">
-    <h2>Existing appointments</h2>
-    <%= render partial: "admin/role_appointments/legacy_list", locals: { role_appointments: @role_appointment.role.role_appointments} %>
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Existing appointments",
+      margin_bottom: 4
+    } %>
+
+    <%= render "admin/role_appointments/list", role_appointments: @role_appointment.role.role_appointments %>
   </div>
 </div>

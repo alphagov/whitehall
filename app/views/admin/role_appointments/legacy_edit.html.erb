@@ -1,0 +1,42 @@
+<% page_title "Edit appointment to #{@role_appointment.role.name}"  %>
+
+<div class="row">
+  <div class="col-md-8">
+    <h1>Edit appointment to position of <%= @role_appointment.role.name %> </h1>
+
+    <%= form_for [:admin, @role_appointment], html: {class: 'well'} do |form| %>
+      <%= render partial: 'admin/role_appointments/legacy_form', locals: { form: form } %>
+
+      <%= form.save_or_cancel cancel: edit_admin_role_path(@role_appointment.role) %>
+    <% end %>
+
+    <% if @role_appointment.destroyable? %>
+      <%= button_to "Delete", admin_role_appointment_path(@role_appointment), method: :delete, class: "btn btn-danger" %>
+    <% else %>
+      <p>Cannot delete</p>
+    <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <section class="speeches">
+      <h2>Speeches during this appointment</h2>
+
+      <% if @role_appointment.speeches.any? %>
+        <ul class="speeches">
+        <% @role_appointment.speeches.each do |speech| %>
+          <li><%= link_to speech.title, [:admin, speech] %></li>
+        <% end %>
+        </ul>
+      <% else %>
+        <p>None</p>
+      <% end %>
+    </section>
+
+    <h2>Other appointments to this role</h2>
+    <% if @role_appointment.other_appointments_for_same_role.any? %>
+      <%= render partial: "admin/role_appointments/legacy_list", locals: { role_appointments: @role_appointment.other_appointments_for_same_role }%>
+    <% else %>
+      <p>None</p>
+    <% end %>
+  </div>
+</div>

@@ -54,7 +54,7 @@ class RoleAppointment < ApplicationRecord
   end
 
   validates :role_id, :person_id, :started_at, presence: true
-  validates_with Validator
+  validates_with Validator, if: -> { started_at.present? }
 
   scope :for_role, ->(role) { where(role_id: role.id) }
   scope :for_person, ->(person) { where(person_id: person.id) }

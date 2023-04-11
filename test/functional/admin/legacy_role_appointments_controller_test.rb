@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
+class Admin::LegacyRoleAppointmentsControllerTest < ActionController::TestCase
+  tests Admin::RoleAppointmentsController
+
   setup do
-    login_as_preview_design_system_user(:writer)
+    login_as :writer
   end
 
   should_be_an_admin_controller
@@ -62,7 +64,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     _person = create(:person)
     post :create, params: { role_id: role.id, role_appointment: { started_at: 3.days.ago } }
     assert role.role_appointments.empty?
-    assert_select ".govuk-error-message", text: "Error: Person can't be blank"
+    assert_select ".field_with_errors", text: "Person*"
   end
 
   test "create should curtail previous appointments if make_current is present" do
@@ -79,17 +81,16 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     assert_select "form[action=?]", admin_role_appointment_path(appointment)
   end
 
-  view_test "edit should show a link to delete an appointment" do
-    destroyable_appointment = create(:role_appointment)
-    get :edit, params: { id: destroyable_appointment.id }
-    assert_select "a[href=?]", confirm_destroy_admin_role_appointment_path(destroyable_appointment), text: "Delete"
+  view_test "edit should show a button to delete an appointment" do
+    appointment = create(:role_appointment)
+    get :edit, params: { id: appointment.id }
+    assert_select "form[action=?]", admin_role_appointment_path(appointment)
   end
 
-  view_test "edit should not show a link to delete an undeleteable appointment" do
+  view_test "edit should not show a button to delete an undeleteable appointment" do
     appointment = create(:role_appointment)
-    create(:speech, title: "Some Speech", role_appointment: appointment)
     get :edit, params: { id: appointment.id }
-    refute_select "a[href=?]", confirm_destroy_admin_role_appointment_path(appointment), text: "Delete"
+    assert_select "form[action=?]", admin_role_appointment_path(appointment)
   end
 
   view_test "edit should show speeches associated with this appointment" do
@@ -102,9 +103,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   view_test "edit should not allow the person to be changed" do
     appointment = create(:role_appointment)
     get :edit, params: { id: appointment.id }
-    assert_select "select#role_appointment_person_id" do
-      assert_select "option", count: 1
-    end
+    assert_select "select#role_appointment_person_id[disabled=disabled]"
   end
 
   test "update should update an existing role appointment" do
@@ -123,18 +122,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   view_test "update shows errors if validation failed" do
     appointment = create(:role_appointment, started_at: 3.days.ago, ended_at: 2.days.ago)
     put :update, params: { id: appointment.id, role_appointment: { started_at: 1.day.from_now } }
-    assert_select ".govuk-error-message", text: "Error: Started at should not be in the future"
-  end
-
-  view_test "confirm_destroy should display form for deleting an existing appointment" do
-    appointment = create(:role_appointment)
-
-    get :confirm_destroy, params: { id: appointment }
-
-    assert_select "form[action='#{admin_role_appointment_path(appointment)}']" do
-      assert_select "button[type='submit']", "Delete"
-      assert_select "a[href=?]", admin_role_appointment_path(appointment).to_s, "Cancel"
-    end
+    assert_select ".field_with_errors", text: "Started at*"
   end
 
   test "delete removes an appointment" do

@@ -35,6 +35,11 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_not role_appointment.valid?
   end
 
+  test "should be invalid with no started_at but with ended_at"  do
+    role_appointment = build(:role_appointment, started_at: nil, ended_at: Time.zone.parse("1999-01-01"))
+    assert_not role_appointment.valid?
+  end
+
   test "should not be current if not started" do
     role_appointment = build(:role_appointment, started_at: nil, ended_at: nil)
     assert_not role_appointment.current?
