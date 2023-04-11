@@ -34,6 +34,7 @@ module PublishingApi
       {
         ordered_cabinet_ministers: ordered_cabinet_ministers_content_ids,
         ordered_also_attends_cabinet: ordered_also_attends_cabinet_content_ids,
+        ordered_ministerial_departments: ordered_ministerial_departments_content_ids,
       }
     end
 
@@ -88,6 +89,16 @@ module PublishingApi
       end
 
       sorted_ministers.map(&:content_id)
+    end
+
+    def ordered_ministerial_departments_content_ids
+      Organisation.ministerial_departments
+        .excluding_govuk_status_closed
+        .with_translations_for(:ministerial_roles)
+        .includes(ministerial_roles: [:current_people])
+        .order("organisations.ministerial_ordering, organisation_roles.ordering")
+        .uniq
+        .map(&:content_id)
     end
   end
 end
