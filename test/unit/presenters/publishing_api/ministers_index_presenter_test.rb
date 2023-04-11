@@ -18,7 +18,13 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
     I18n.with_locale(:en) do
       create(:sitewide_setting, key: :minister_reshuffle_mode, on: false)
 
-      expected_hash = {
+      prime_minister = create(:role_appointment, person: create(:person), role: create(:prime_minister_role, cabinet_member: true, seniority: 0))
+      cabinet_member_1 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, cabinet_member: true, seniority: 2))
+      cabinet_member_2 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, cabinet_member: true, seniority: 1))
+      also_attends_cabinet_minister_1 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, attends_cabinet_type_id: RoleAttendsCabinetType::AttendsCabinet.id, seniority: 4))
+      also_attends_cabinet_minister_2 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, attends_cabinet_type_id: RoleAttendsCabinetType::AttendsCabinet.id, seniority: 3))
+
+      expected_content = {
         title: "Ministers",
         locale: "en",
         publishing_app: "whitehall",
@@ -39,7 +45,20 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
         ],
       }
 
-      assert_equal expected_hash, presented_item.content
+      expected_links = {
+        ordered_cabinet_ministers: [
+          prime_minister.person.content_id,
+          cabinet_member_2.person.content_id,
+          cabinet_member_1.person.content_id,
+        ],
+        ordered_also_attends_cabinet: [
+          also_attends_cabinet_minister_2.person.content_id,
+          also_attends_cabinet_minister_1.person.content_id,
+        ],
+      }
+
+      assert_equal expected_content, presented_item.content
+      assert_equal expected_links, presented_item.links
     end
   end
 
@@ -53,7 +72,10 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
         },
       }
 
+      expected_links = {}
+
       assert_equal expected_details, presented_item.content[:details]
+      assert_equal expected_links, presented_item.links
     end
   end
 end

@@ -29,17 +29,20 @@ module PublishingApi
     end
 
     def links
-      {}
+      return {} if reshuffle_in_progress?
+
+      {
+        ordered_cabinet_ministers: ordered_cabinet_ministers_content_ids,
+        ordered_also_attends_cabinet: ordered_also_attends_cabinet_content_ids,
+      }
     end
 
   private
 
     def details
-      setting = SitewideSetting.find_by(key: :minister_reshuffle_mode)
-
-      if setting.on
+      if reshuffle_in_progress?
         {
-          reshuffle: { message: setting.govspeak },
+          reshuffle: { message: SitewideSetting.find_by(key: :minister_reshuffle_mode).govspeak },
         }
       else
         {
@@ -50,6 +53,41 @@ module PublishingApi
 
     def base_path
       "/government/ministers"
+    end
+
+    def reshuffle_in_progress?
+      SitewideSetting.find_by(key: :minister_reshuffle_mode)&.on || false
+    end
+
+    def ordered_cabinet_ministers_content_ids
+      ministers = MinisterialRole
+        .cabinet
+        .occupied
+        .where(cabinet_member: true)
+        .map(&:current_role_appointment)
+        .map(&:person)
+        .uniq
+
+      sorted_ministers = ministers.sort_by do |person|
+        [person.current_roles.map(&:seniority).min, person.sort_key]
+      end
+
+      sorted_ministers.map(&:content_id)
+    end
+
+    def ordered_also_attends_cabinet_content_ids
+      ministers = MinisterialRole
+      .also_attends_cabinet
+      .occupied
+      .map(&:current_role_appointment)
+      .map(&:person)
+      .uniq
+
+      sorted_ministers = ministers.sort_by do |person|
+        [person.current_roles.map(&:seniority).min, person.sort_key]
+      end
+
+      sorted_ministers.map(&:content_id)
     end
   end
 end
