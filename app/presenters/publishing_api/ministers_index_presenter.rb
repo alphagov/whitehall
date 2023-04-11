@@ -13,7 +13,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         nil,
-        title: "ministers_index",
+        title: "Ministers",
         update_type:,
       ).base_attributes
 

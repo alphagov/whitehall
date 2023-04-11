@@ -19,7 +19,7 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
       create(:sitewide_setting, key: :minister_reshuffle_mode, on: false)
 
       expected_hash = {
-        title: "ministers_index",
+        title: "Ministers",
         locale: "en",
         publishing_app: "whitehall",
         redirects: [],
