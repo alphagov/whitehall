@@ -13,6 +13,7 @@ $govuk-page-width: 1140px;
 @import "./admin/overrides";
 @import "./admin/layout";
 
+@import "./admin/views/add-another";
 @import "./admin/views/audit-trail";
 @import "./admin/views/dashboard-index";
 @import "./admin/views/document-history-tab";

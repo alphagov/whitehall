@@ -26,29 +26,31 @@
       label: {
         text: "Introduction (required)",
         heading_size: "m",
-        value: edition.roll_call_introduction,
       },
+      value: edition.roll_call_introduction,
       name: "edition[roll_call_introduction]",
       id: "edition_roll_call_introduction",
       error_items: errors_for(edition.errors, :roll_call_introduction),
       rows: 2
     } %>
 
-    <h4 class="govuk-heading-m">Casualties</h4>
+    <h4 class="govuk-heading-m">Casualties (required)</h4>
 
-    <% @edition.fatality_notice_casualties.each_with_index do |fatality, index| %>
-      <div class="js-duplicate-fields-set">
-        <%= render "govuk_publishing_components/components/textarea", {
-          label: {
-            text: "Personal details (required)",
-            bold: true,
-            value: fatality.personal_details
-          },
-          name: "edition[fatality_notice_casualties_attributes][#{index}][personal_details]",
-          id: "edition_fatality_notice_casualties_#{index}_personal_details",
-          rows: 2
-        } %>
-      </div>
-    <% end %>
+    <div data-module="AddAnother" data-add-text="Add another person" class="govuk-!-margin-bottom-4">
+      <%= form.fields_for :fatality_notice_casualties do |fatality_form| %>
+        <div class="js-duplicate-fields-set govuk-!-margin-top-4">
+          <%= render "govuk_publishing_components/components/textarea", {
+            label: {
+              text: "Personal details",
+              bold: true,
+            },
+            value: fatality_form.object.personal_details,
+            name: "edition[fatality_notice_casualties_attributes][#{fatality_form.index}][personal_details]",
+            id: "edition_fatality_notice_casualties_#{fatality_form.index}_personal_details",
+            rows: 2
+          } %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
