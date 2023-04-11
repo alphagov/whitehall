@@ -24,4 +24,30 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
   end
 
   should_not_accept_footnotes_in :body
+
+  test "republishes topical event when its about page is created" do
+    topical_event = create(:topical_event)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(topical_event)
+
+    create(:topical_event_about_page, topical_event:)
+  end
+
+  test "republishes topical event when its about page is updated" do
+    topical_event = create(:topical_event)
+    about_page = create(:topical_event_about_page, topical_event:)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(topical_event)
+
+    about_page.save!
+  end
+
+  test "republishes topical event when its about page is destroyed" do
+    topical_event = create(:topical_event)
+    about_page = create(:topical_event_about_page, topical_event:)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(topical_event)
+
+    about_page.destroy!
+  end
 end
