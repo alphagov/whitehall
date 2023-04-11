@@ -2,6 +2,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   before_action :find_statistics_announcement, only: %i[show edit update cancel publish_cancellation cancel_reason]
   before_action :redirect_to_show_if_cancelled, only: %i[cancel publish_cancellation]
   helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
+  layout :get_layout
 
   def cancel_reason; end
 
@@ -30,7 +31,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def edit
-    render :legacy_edit
+    render_design_system("edit", "legacy_edit", next_release: false)
   end
 
   def update
@@ -38,7 +39,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
-      render :legacy_edit
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
 
@@ -114,5 +115,16 @@ private
 
   def unlinked_announcements_filter
     @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: "imminent", unlinked_only: "1", organisation_id: filter_params[:organisation_id])
+  end
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[edit update] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 end
