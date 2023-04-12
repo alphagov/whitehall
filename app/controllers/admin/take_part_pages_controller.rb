@@ -27,6 +27,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def edit
     @take_part_page = TakePartPage.friendly.find(params[:id])
+    render_design_system("edit", "legacy_edit", next_release: false)
   end
 
   def update
@@ -62,7 +63,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[new create index confirm_destroy update_order] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new create index edit update confirm_destroy update_order] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

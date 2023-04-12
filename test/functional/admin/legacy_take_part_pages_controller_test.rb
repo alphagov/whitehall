@@ -63,7 +63,7 @@ class Admin::LegacyTakePartPagesControllerTest < ActionController::TestCase
 
     assert_equal page, assigns(:take_part_page)
     assert_response :success
-    assert_template "edit"
+    assert_template "legacy_edit"
   end
 
   test "PUT :update changes the supplied instance with the supplied params" do

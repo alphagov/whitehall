@@ -1,11 +1,6 @@
-<% page_title "Edit take part page" %>
+<% content_for :page_title, "Edit take part page" %>
+<% content_for :title, "Edit take part page \"#{@take_part_page.title}\"" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @take_part_page)) %>
+<% content_for :title_margin_bottom, 8 %>
 
-<h2>Edit take part page "<%= @take_part_page.title %>"
-  <%= button_to "Delete",
-        [:admin, @take_part_page],
-        method: "delete",
-        class: "btn btn-danger",
-        data: { confirm: "Are you sure you want to delete this take part page?" } %>
-</h2>
-
-<%= render 'legacy_form', take_part_page: @take_part_page %>
+<%= render 'form', take_part_page: @take_part_page %>
