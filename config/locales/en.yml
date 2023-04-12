@@ -550,3 +550,9 @@ en:
       our_people: Our people
     location: Location
     part_of: Part of
+  errors:
+    messages:
+      carrierwave_processing_error: failed to be processed
+      carrierwave_integrity_error: is not of an allowed file type
+      extension_allowlist_error: "type must be %{allowed_types}. You tried to upload a %{extension} file."
+      processing_error: "Failed to manipulate, maybe it is not an image?"
