@@ -104,7 +104,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     put :update, params: { id: announcement.id, statistics_announcement: { title: "" } }
 
     assert_response :success
-    assert_select "ul.errors li[data-track-action='statistics-announcement-error'][data-track-label=\"Title can't be blank\"]", text: "Title can't be blank"
+    assert_select ".govuk-error-summary__list", text: "Title can't be blank"
   end
 
   test "POST :publish_cancellation cancels the announcement" do

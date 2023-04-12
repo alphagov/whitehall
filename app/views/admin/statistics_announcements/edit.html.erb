@@ -2,9 +2,10 @@
 <% content_for :context, @statistics_announcement.title %>
 <% content_for :title, "Edit statistics announcement" %>
 <% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render "legacy_form", statistics_announcement: @statistics_announcement %>
+    <%= render "form", statistics_announcement: @statistics_announcement %>
   </div>
 </div>
