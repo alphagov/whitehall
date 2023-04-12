@@ -1,0 +1,60 @@
+<%= render "components/datetime_fields", {
+  date_heading: "Release date (required)",
+  field_name: "release_date",
+  prefix: "statistics_announcement[current_release_date_attributes]",
+  id: "statistics_announcement_current_release_date_release_date",
+  year: {
+    start_year: Date.today.year,
+    end_year: Date.today.year + 5,
+    id: "release_date(1i)",
+    value: statistics_announcement.release_date&.year
+  },
+  month: {
+    id: "release_date(2i)",
+    value: statistics_announcement.release_date&.month
+  },
+  day: {
+    id: "release_date(3i)",
+    value: statistics_announcement.release_date&.day
+  },
+  hour: {
+    id: "release_date(4i)",
+    value: statistics_announcement.release_date&.hour
+  },
+  minute: {
+    id: "release_date(5i)",
+    value: statistics_announcement.release_date&.min
+  },
+  error_items: errors_for(statistics_announcement.current_release_date&.errors, :release_date),
+}
+%>
+
+<%= render "govuk_publishing_components/components/radio", {
+  heading: "Delivery date",
+  name: "statistics_announcement[current_release_date_attributes][precision]",
+  id: "statistics_announcement_current_release_date_precision",
+  items: [
+    {
+      value: 0,
+      text: "Exact date (provisional)",
+      checked: statistics_announcement.current_release_date&.precision == 0 && !statistics_announcement.current_release_date&.confirmed
+    },
+    {
+      value: 1,
+      text: "Within one month (provisional)",
+      checked: statistics_announcement.current_release_date&.precision == 1
+    },
+    {
+      value: 2,
+      text: "Within two months (provisional)",
+      checked: statistics_announcement.current_release_date&.precision == 2
+    },
+    :or,
+    {
+      value: "exact_confirmed",
+      text: "Exact date (confirmed)",
+      checked: statistics_announcement.current_release_date&.precision == 0 && statistics_announcement.current_release_date&.confirmed
+    }
+  ]
+} %>
+

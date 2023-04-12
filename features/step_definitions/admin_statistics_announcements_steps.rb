@@ -111,8 +111,15 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
   choose "statistics_announcement_publication_type_id_5" # Statistics
   fill_in :statistics_announcement_title, with: announcement_title
   fill_in :statistics_announcement_summary, with: "Summary of publication"
-  select_date 1.year.from_now.to_s, from: "Release date"
-  select organisation.name, from: :statistics_announcement_organisation_ids
+  if using_design_system?
+    within "#statistics_announcement_current_release_date_release_date" do
+      fill_in_date_and_time_field(1.year.from_now.to_s)
+    end
+    select organisation.name, from: :statistics_announcement_organisations
+  else
+    select_date 1.year.from_now.to_s, from: "Release date"
+    select organisation.name, from: :statistics_announcement_organisation_ids
+  end
 
   click_on "Publish announcement"
 end

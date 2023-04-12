@@ -1,0 +1,14 @@
+<% content_for :page_title, "New statistics announcement" %>
+<% content_for :title, "New statistics announcement" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body-lead">Make an announcement for a forthcoming statistics release.</p>
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: "Statistics announcements are only for Official Statistics governed by the UK Statistics Authority."
+    } %>
+    <%= render "form", statistics_announcement: @statistics_announcement %>
+  </div>
+</div>
