@@ -30,6 +30,17 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
       create(:role_appointment, person: create(:person), role: create(:ministerial_role, organisations: [ministerial_department_3]))
       create(:role_appointment, person: create(:person), role: create(:ministerial_role, organisations: [ministerial_department_2]))
 
+      hoc_whip_1 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseOfCommons.id, whip_ordering: 2, organisations: [ministerial_department_1]))
+      hoc_whip_2 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseOfCommons.id, whip_ordering: 1, organisations: [ministerial_department_1]))
+      junior_treasury_whip_1 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::JuniorLordsoftheTreasury.id, whip_ordering: 2, organisations: [ministerial_department_1]))
+      junior_treasury_whip_2 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::JuniorLordsoftheTreasury.id, whip_ordering: 1, organisations: [ministerial_department_1]))
+      assistant_whip_1 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::AssistantWhips.id, whip_ordering: 2, organisations: [ministerial_department_1]))
+      assistant_whip_2 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::AssistantWhips.id, whip_ordering: 1, organisations: [ministerial_department_1]))
+      hol_whip_1 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseofLords.id, whip_ordering: 2, organisations: [ministerial_department_1]))
+      hol_whip_2 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseofLords.id, whip_ordering: 1, organisations: [ministerial_department_1]))
+      baroness_whip_1 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::BaronessAndLordsInWaiting.id, whip_ordering: 2, organisations: [ministerial_department_1]))
+      baroness_whip_2 = create(:role_appointment, person: create(:person), role: create(:ministerial_role, whip_organisation_id: Whitehall::WhipOrganisation::BaronessAndLordsInWaiting.id, whip_ordering: 1, organisations: [ministerial_department_1]))
+
       expected_content = {
         title: "Ministers",
         locale: "en",
@@ -65,6 +76,26 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
           ministerial_department_3.content_id,
           ministerial_department_1.content_id,
           ministerial_department_2.content_id,
+        ],
+        ordered_house_of_commons_whips: [
+          hoc_whip_2.person.content_id,
+          hoc_whip_1.person.content_id,
+        ],
+        ordered_junior_lords_of_the_treasury_whips: [
+          junior_treasury_whip_2.person.content_id,
+          junior_treasury_whip_1.person.content_id,
+        ],
+        ordered_assistant_whips: [
+          assistant_whip_2.person.content_id,
+          assistant_whip_1.person.content_id,
+        ],
+        ordered_house_lords_whips: [
+          hol_whip_2.person.content_id,
+          hol_whip_1.person.content_id,
+        ],
+        ordered_baronessess_and_ladies_in_waiting_whips: [
+          baroness_whip_2.person.content_id,
+          baroness_whip_1.person.content_id,
         ],
       }
 

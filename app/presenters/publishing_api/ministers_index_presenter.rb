@@ -35,6 +35,11 @@ module PublishingApi
         ordered_cabinet_ministers: ordered_cabinet_ministers_content_ids,
         ordered_also_attends_cabinet: ordered_also_attends_cabinet_content_ids,
         ordered_ministerial_departments: ordered_ministerial_departments_content_ids,
+        ordered_house_of_commons_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseOfCommons),
+        ordered_junior_lords_of_the_treasury_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::JuniorLordsoftheTreasury),
+        ordered_assistant_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::AssistantWhips),
+        ordered_house_lords_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseofLords),
+        ordered_baronessess_and_ladies_in_waiting_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::BaronessAndLordsInWaiting),
       }
     end
 
@@ -98,6 +103,17 @@ module PublishingApi
         .includes(ministerial_roles: [:current_people])
         .order("organisations.ministerial_ordering, organisation_roles.ordering")
         .uniq
+        .map(&:content_id)
+    end
+
+    def ordered_whips_content_ids(whip_type)
+      Role
+        .whip
+        .where(whip_organisation_id: whip_type.id)
+        .occupied
+        .order(:whip_ordering)
+        .map(&:current_role_appointment)
+        .map(&:person)
         .map(&:content_id)
     end
   end
