@@ -69,7 +69,7 @@ class RoleAppointment < ApplicationRecord
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
-  after_save :republish_organisation_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api
+  after_save :republish_organisation_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_ministerial_pages_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api
 
   def republish_organisation_to_publishing_api
@@ -78,8 +78,11 @@ class RoleAppointment < ApplicationRecord
     end
   end
 
-  def republish_how_government_works_page_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::HowGovernmentWorksPresenter) if ministerial?
+  def republish_ministerial_pages_to_publishing_api
+    if ministerial?
+      PresentPageToPublishingApi.new.publish(PublishingApi::HowGovernmentWorksPresenter)
+      PresentPageToPublishingApi.new.publish(PublishingApi::MinistersIndexPresenter)
+    end
   end
 
   def republish_prime_ministers_index_page_to_publishing_api

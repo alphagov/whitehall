@@ -88,7 +88,7 @@ if WorldLocation.where(name: "Test International Delegation").blank?
     Person.skip_callback(:commit, :after, :publish_to_publishing_api)
     RoleAppointment.skip_callback(:commit, :after, :publish_to_publishing_api)
     RoleAppointment.skip_callback(:save, :after, :republish_prime_ministers_index_page_to_publishing_api)
-    RoleAppointment.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
+    RoleAppointment.skip_callback(:save, :after, :republish_ministerial_pages_to_publishing_api)
     HistoricalAccount.skip_callback(:commit, :after, :publish_to_publishing_api)
     HistoricalAccount.skip_callback(:save, :after, :republish_prime_ministers_index_page_to_publishing_api)
 
