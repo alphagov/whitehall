@@ -27,7 +27,7 @@ module Admin
     end
 
     def each_edition_for_csv(locale = nil)
-      editions_with_translations(locale).find_each do |edition|
+      editions_with_translations(locale).find_each(batch_size: 100) do |edition|
         yield edition if Whitehall::Authority::Enforcer.new(@current_user, edition).can?(:see)
       end
     end
