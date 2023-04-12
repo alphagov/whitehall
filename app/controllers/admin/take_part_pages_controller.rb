@@ -8,6 +8,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def index
     @take_part_pages = TakePartPage.in_order
+    render_design_system(:index, :legacy_index, next_release: false)
   end
 
   def new
@@ -37,10 +38,18 @@ class Admin::TakePartPagesController < Admin::BaseController
     end
   end
 
+  def confirm_destroy
+    @take_part_page = TakePartPage.friendly.find(params[:id])
+  end
+
   def destroy
     @take_part_page = TakePartPage.friendly.find(params[:id])
     @take_part_page.destroy!
     redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" deleted!)
+  end
+
+  def update_order
+    @take_part_pages = TakePartPage.in_order
   end
 
   def reorder
@@ -53,7 +62,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[new create] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new create index confirm_destroy update_order] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

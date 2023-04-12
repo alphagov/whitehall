@@ -1,0 +1,32 @@
+<% content_for :context, "Take part pages" %>
+<% content_for :page_title, "Reorder list" %>
+<% content_for :title, "Reorder list" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-full">
+    <%= form_tag(reorder_admin_take_part_pages_path(@take_part_pages)) do %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Use the up and down buttons to reorder pages, or select and hold on a page to reorder using drag and drop.",
+        margin_bottom: 4,
+      } %>
+
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        items: @take_part_pages.map do |take_part_page|
+          {
+            id: take_part_page.id,
+            title: take_part_page.title
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update order",
+        } %>
+
+        <%= link_to("Cancel", admin_take_part_pages_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

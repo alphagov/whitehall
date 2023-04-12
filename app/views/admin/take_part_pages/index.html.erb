@@ -1,38 +1,63 @@
-<% page_title 'Get involved' %>
+<% content_for :page_title, "Get involved" %>
+<% content_for :title, "Get involved" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<div class="get-involved-header">
-  <h1>Get involved</h1>
-  <%= link_to "View on website", get_involved_url %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <p class="govuk-body">
+      <%= link_to "View on website", get_involved_url, class: "govuk-link", target: "_blank" %>
+    </p>
+  </div>
 </div>
 
-<section class="get-involved">
-  <%= get_involved_tab_navigation %>
-
-  <h2>Take part pages</h2>
-  <p class="warning">
-    Warning: changes to take part page ordering appears instantly on the live site.
-  </p>
-
-  <% if @take_part_pages.any? %>
-    <%= form_tag reorder_admin_take_part_pages_path, method: :post do %>
-      <fieldset class="sortable">
-        <% @take_part_pages.each do |take_part_page| %>
-          <div class="well">
-            <%= label_tag "ordering-#{take_part_page.id}" do %>
-              <%= link_to(take_part_page.title, [:edit, :admin, take_part_page]) %>
-            <% end %>
-
-            <%= text_field_tag "ordering[#{take_part_page.id}]", take_part_page.ordering, id: "ordering-#{take_part_page.id}", class: "ordering" %>
-          </div>
-        <% end %>
-      </fieldset>
-      <%= submit_tag "Update order", class: "btn btn-default" %>
-    <% end %>
-  <% else %>
-    <p class="no-content no-content-bordered">No take part pages</p>
-  <% end %>
-
-  <div class="form-actions">
-    <%= link_to "Add new take part page", new_admin_take_part_page_path, class: "btn btn-lg btn-primary"%>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Get involved tabs",
+      items: [
+        {
+          label: "Get involved",
+          href: admin_get_involved_path
+        },
+        {
+          label: "Take part pages",
+          href: admin_take_part_pages_path,
+          current: true
+        }
+      ]
+    } %>
   </div>
-</section>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/list", {
+      items: [
+        (link_to 'Add new take part page', new_admin_take_part_page_path, class: "govuk-link govuk-link--no-visited-state"),
+        (link_to 'Update order', update_order_admin_take_part_pages_path, class: "govuk-link govuk-link--no-visited-state")
+      ]
+    } %>
+
+    <% if @take_part_pages.any? %>
+      <div class="app-view-take-part__page-list">
+        <%= render "govuk_publishing_components/components/table", {
+          rows: @take_part_pages.map do |take_part_page|
+            [
+              {
+                text: take_part_page.title
+              },
+              {
+                text: (
+                  link_to("Edit", [:edit, :admin, take_part_page], class: "govuk-link") +
+                  link_to("Delete", [:confirm_destroy, :admin, take_part_page], class: "govuk-link gem-link--destructive govuk-!-margin-left-2")
+                )
+              }
+            ]
+          end
+        } %>
+      </div>
+    <% else %>
+      <p class="govuk-body">No take part pages</p>
+    <% end %>
+  </div>
+</div>
