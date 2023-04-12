@@ -21,7 +21,7 @@ module PublishingApi
           document_type: "field_of_operation",
           locale: "en",
           publishing_app: "whitehall",
-          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           schema_name: "field_of_operation",
           title: operational_field.name,
           update_type:,
