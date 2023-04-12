@@ -3,6 +3,11 @@ Given("a draft document with images exists") do
   @edition = create(:draft_publication, body: "!!2", images:)
 end
 
+Given("a draft case study with images exists") do
+  images = [build(:image), build(:image)]
+  @edition = create(:draft_case_study, body: "!!2", images:)
+end
+
 When("I visit the images tab of the document with images") do
   visit admin_edition_images_path(@edition)
 end
@@ -38,6 +43,10 @@ When("I click to edit the details of an image") do
   first("a", text: "Edit details").click
 end
 
+When("I click to hide the lead image") do
+  find("button", text: "Hide lead image").click
+end
+
 When("I confirm the deletion") do
   find("button", text: "Delete image").click
 end
@@ -57,6 +66,10 @@ end
 
 Then "I should see the updated image details" do
   expect(page).to have_content("Test caption")
+end
+
+Then "I should see a button to show the lead image" do
+  expect(page).to have_content("Show lead image")
 end
 
 And(/^I navigate to the images tab$/) do

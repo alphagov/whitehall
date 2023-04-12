@@ -40,6 +40,13 @@ Feature: Images tab on edit edition
     Then I should see a updated banner
     Then I should see the updated image details
 
+  Scenario: Lead image setting can be updated from the images tab
+    And I have the "Preview images update" permission
+    And a draft case study with images exists
+    When I visit the images tab of the document with images
+    And I click to hide the lead image
+    Then I should see a button to show the lead image
+
   Scenario: Image uploaded with no cropping required
     And I have the "Preview images update" permission
     And I start drafting a new publication "Standard Beard Lengths"
