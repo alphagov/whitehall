@@ -252,7 +252,7 @@ GEM
       jquery-rails (~> 4.3)
       plek (>= 2.1)
       rails (>= 6)
-    govuk_app_config (6.0.1)
+    govuk_app_config (7.0.0)
       logstasher (~> 2.1)
       plek (>= 4, < 6)
       prometheus_exporter (~> 2.0)
@@ -261,7 +261,6 @@ GEM
       sentry-rails (~> 5.3)
       sentry-ruby (~> 5.3)
       statsd-ruby (~> 1.5)
-      unicorn (~> 6.1)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
     govuk_personalisation (0.13.0)
@@ -350,7 +349,6 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    kgio (2.11.4)
     kramdown (2.4.0)
       rexml
     launchy (2.5.2)
@@ -552,7 +550,6 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    raindrops (0.20.1)
     rake (13.0.6)
     record_tag_helper (1.0.1)
       actionview (>= 5)
@@ -710,9 +707,6 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.4.2)
-    unicorn (6.1.0)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
     validates_email_format_of (1.7.2)
       i18n
     version_gem (1.1.1)
