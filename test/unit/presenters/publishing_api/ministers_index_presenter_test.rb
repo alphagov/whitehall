@@ -5,16 +5,7 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
     PublishingApi::MinistersIndexPresenter.new
   end
 
-  test "presenter is valid against ministers index schema" do
-    I18n.with_locale(:en) do
-      create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
-
-      assert_valid_against_publisher_schema(presented_item.content, "ministers_index")
-      assert_valid_against_links_schema({ links: presented_item.links }, "ministers_index")
-    end
-  end
-
-  test "presents ministers index page ready for the publishing-api in english" do
+  test "presents a valid content item containing the correct information when reshuffle mode is off" do
     I18n.with_locale(:en) do
       create(:sitewide_setting, key: :minister_reshuffle_mode, on: false)
 
@@ -100,11 +91,14 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
       }
 
       assert_equal expected_content, presented_item.content
+      assert_valid_against_publisher_schema(presented_item.content, "ministers_index")
+
       assert_equal expected_links, presented_item.links
+      assert_valid_against_links_schema({ links: presented_item.links }, "ministers_index")
     end
   end
 
-  test "presents ministers index page ready for the publishing-api with correct reshuffle message" do
+  test "presents a valid content item without information when reshuffle mode is on" do
     I18n.with_locale(:en) do
       create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
 
@@ -117,7 +111,10 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
       expected_links = {}
 
       assert_equal expected_details, presented_item.content[:details]
+      assert_valid_against_publisher_schema(presented_item.content, "ministers_index")
+
       assert_equal expected_links, presented_item.links
+      assert_valid_against_links_schema({ links: presented_item.links }, "ministers_index")
     end
   end
 end
