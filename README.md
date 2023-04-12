@@ -16,10 +16,6 @@ Whitehall is deployed in two modes:
 
 - CSV Preview pages: [https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview)
 
-### Fields of Operation
-
-- Field of Operation pages: [https://www.gov.uk/government/fields-of-operation/iraq](https://www.gov.uk/government/fields-of-operation/iraq)
-
 ### Government Information
 
 - Current ministers list: [https://www.gov.uk/government/ministers](https://www.gov.uk/government/ministers)
