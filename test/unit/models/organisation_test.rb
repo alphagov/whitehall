@@ -1126,17 +1126,43 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "https://www.test.gov.uk/courts-tribunals/#{tribunal.slug}", tribunal.public_url
   end
 
-  test "should send the how government works page to publishing api when an organisation is created" do
+  test "should send related pages to publishing api when a non-ministerial department is created" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
 
     create(:organisation)
   end
 
-  test "should send the how government works page to publishing api when an organisation is updated" do
+  test "should send related pages to publishing api when a non-ministerial department is updated" do
     organisation = create(:organisation)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
 
     organisation.update!(name: "New department name")
+  end
+
+  test "should send related pages to publishing api when a ministerial department is created" do
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    create(:ministerial_department)
+  end
+
+  test "should send related pages to publishing api when a ministerial department is updated" do
+    organisation = create(:ministerial_department)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    organisation.update!(name: "New department name")
+  end
+
+  test "should send related pages to publishing api when a ministerial department is deleted" do
+    organisation = create(:ministerial_department)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    organisation.destroy!
   end
 end
