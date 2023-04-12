@@ -18,6 +18,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   def new
     @statistics_announcement = build_statistics_announcement(organisation_ids: [current_user.organisation.try(:id)])
     @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
+
+    render :legacy_new
   end
 
   def create
@@ -26,7 +28,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement published successfully"
     else
-      render :new
+      render :legacy_new
     end
   end
 
