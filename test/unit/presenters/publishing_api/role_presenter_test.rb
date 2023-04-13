@@ -47,7 +47,6 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
     }
     expected_links = {
       ordered_parent_organisations: [organisation.content_id],
-      ministerial: [],
     }
 
     presented_item = present(role)
@@ -107,7 +106,6 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
     }
     expected_links = {
       ordered_parent_organisations: [organisation.content_id],
-      ministerial: [],
     }
 
     presented_item = present(role)
