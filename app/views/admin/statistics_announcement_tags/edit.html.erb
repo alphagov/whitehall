@@ -1,48 +1,64 @@
-<% page_title "Edit topics: " + @statistics_announcement.title %>
+<% content_for :page_title, "Edit topics: " + @statistics_announcement.title %>
+<% content_for :context, @statistics_announcement.title %>
+<% content_for :title, "Topic taxonomy tags"%>
 
-<div class="row">
-  <h1><%= @statistics_announcement.title %></h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-!-margin-bottom-8">
+      <p class="govuk-body">The topic taxonomy groups content based on what it’s about.</p>
+      <p class="govuk-body">Choose the tag or tags that best describe what this content is about.</p>
+      <p class="govuk-body">You can use the whole topic taxonomy. There's no limit to the number of tags you can choose.</p>
+      <p class="govuk-body"><%= link_to "Find out more about tagging to the topic taxonomy", "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#add-topic-tagging", class: "govuk-link", target: "_blank" %> (open in new tab)</p>
+    </div>
+    <div class="govuk-!-margin-bottom-8">
+      <p class="govuk-body"><%= link_to "Suggest a new tag", "#{Whitehall.support_url}/taxonomy_new_topic_request/new", class: "govuk-link", target: "_blank" %> (open in new tab)</p>
+      <p class="govuk-body"><%= link_to "Suggest a change to a tag", "#{Whitehall.support_url}/taxonomy_change_topic_request/new", class: "govuk-link", target: "_blank" %> (open in new tab)</p>
+    </div>
+  </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <h2>Topics (new taxonomy)</h2>
-    <hr>
 
-    <%= form_for @tag_form, url: admin_statistics_announcement_tags_path(@statistics_announcement), method: :put do |form| %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Selected Topics",
+      margin_bottom: 2,
+    } %>
+
+    <%= form_for @tag_form, url: admin_statistics_announcement_tags_path(@statistics_announcement), method: :put, data: {
+      module: "track-selected-taxons"
+    } do |form| %>
       <%= form.hidden_field :previous_version %>
 
-      <div class="form-group"
-        data-module="taxonomy-tree-checkboxes"
-        data-content-id="<%= @statistics_announcement.content_id %>"
-        data-content-format="statistics_announcement"
-        data-content-public-path="<%= @statistics_announcement.base_path %>">
+      <% if @topic_taxonomy.ordered_taxons_transformed(@tag_form.selected_taxons).count() %>
+        <%= render partial: "/components/miller-columns", locals: {
+          id: "taxonomy_tag_form[taxons]",
+          searchable: true,
+          items: @topic_taxonomy.ordered_taxons_transformed(@tag_form.selected_taxons),
+        } %>
+      <% else %>
+        <p class="govuk-body">No taxons available</p>
+      <% end %>
 
-        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.ordered_taxons } %>
+      <%= form.hidden_field "invisible_taxons", value: @tag_form.invisible_taxons.join(",") %>
 
-      </div>
+      <%= render "govuk_publishing_components/components/details", {
+        title: "Changes are applied to a live page as soon as you update the tags"
+      } do %>
+        If this content has already been published and you add new topics, then the last published edition will appear on those topic pages immediately, before you publish a new edition.
+      <% end %>
 
-      <p>
-        <%= link_to "Suggest a new topic",
-          "#{Whitehall.support_url}/taxonomy_new_topic_request/new",
-          class: "feedback-link"
-        %>
-        or
-        <%= link_to "Suggest a change to a topic",
-          "#{Whitehall.support_url}/taxonomy_change_topic_request/new",
-          class: "feedback-link"
-        %>
-      </p>
+      <div class="govuk-button-group govuk-!-margin-top-7">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update tags",
+          data_attributes: {
+            module: 'gem-track-click',
+            track_category: 'form-button',
+            track_label: "Save tagging changes",
+            track_action: "taxonomy-tag-form-button",
+          }
+        } %>
 
-      <h2>Selected topics</h2>
-      <div class="content content-bordered hidden" data-module="breadcrumb-preview">
-      </div>
-
-      <p class="warning">
-        Warning: topic changes to published content appear instantly on the live site.
-      </p>
-
-      <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_statistics_announcement_path(@statistics_announcement)) %>
+        <%= link_to("Cancel", admin_statistics_announcement_path(@statistics_announcement), class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </div>
