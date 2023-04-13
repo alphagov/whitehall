@@ -83,6 +83,11 @@ namespace :publishing_api do
     task republish_operational_fields_index: :environment do
       PresentPageToPublishingApi.new.publish(PublishingApi::OperationalFieldsIndexPresenter)
     end
+
+    desc "Republish the ministers index page to Publishing API"
+    task republish_ministers_index: :environment do
+      PresentPageToPublishingApi.new.publish(PublishingApi::MinistersIndexPresenter)
+    end
   end
 
   namespace :patch_links do
