@@ -9,7 +9,7 @@
 <%= render 'govuk_publishing_components/components/layout_for_admin',
   product_name: "Whitehall Publisher",
   environment: environment,
-  browser_title: yield(:page_title).presence || yield(:title) do %>
+  browser_title: ("Error: " unless yield(:error_summary).blank?).to_s + (yield(:page_title).presence || yield(:title)) do %>
 
   <!-- This element exists to initialise the JS module that configures custom Analytics behaviour -->
   <div data-module="app-analytics"></div>
