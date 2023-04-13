@@ -1,0 +1,82 @@
+<%= form_for [:admin, statistics_announcement] do |form| %>
+  <%= form.hidden_field :publication_id %>
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Statistics type (required)",
+    name: "statistics_announcement[publication_type_id]",
+    small: true,
+    items: [
+      {
+        value: 5,
+        text: "Official Statistics",
+        name: "statistics_announcement[publication_type_id]",
+        id: "statistics_announcement_publication_type_id_5",
+        hint_text: "Statistics governed by the UK Statistics Authority.",
+        bold: true,
+        checked: statistics_announcement.publication_type_id == 5
+      },
+      {
+        value: 15,
+        text: "National Statistics",
+        name: "statistics_announcement[publication_type_id]",
+        id: "statistics_announcement_publication_type_id_15",
+        hint_text: "Official Statistics approved by the UK Statistics Authority. The National Statistics logo will display on this announcement.",
+        bold: true,
+        checked: statistics_announcement.publication_type_id == 15
+      }
+    ]
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Title (required)",
+      heading_size: "m"
+    },
+    value: statistics_announcement.title,
+    id: "statistics_announcement_title",
+    name: "statistics_announcement[title]"
+  } %>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Summary (required)",
+      heading_size: "m"
+    },
+    value: statistics_announcement.summary,
+    id: "statistics_announcement_summary",
+    name: "statistics_announcement[summary]",
+    rows: 5
+  } %>
+
+  <%= render "components/autocomplete", {
+    id: "statistics_announcement_organisations",
+    label: {
+      text: "Organisations (required)",
+      heading_size: "m"
+    },
+    name: "statistics_announcement[organisation_ids][]",
+    select: {
+      options:  options_from_collection_for_select(Organisation.with_translations.order("organisation_translations.name"), 'id', 'name', statistics_announcement.organisation_ids),
+      multiple: true
+    }
+  } %>
+
+  <% if statistics_announcement.new_record? %>
+    <%= form.fields_for :current_release_date do |fields| %>
+      <hr />
+      <%= render 'legacy_release_date', form: fields %>
+    <% end %>
+  <% end %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: statistics_announcement.new_record? ? "Publish announcement" : "Save and publish changes",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+        "track-label": statistics_announcement.new_record? ? "Publish announcement" : "Save and publish changes"
+      }
+    } %>
+    <%= link_to("Cancel", [:admin, statistics_announcement], class: "govuk-link") %>
+  </div>
+
+<% end %>

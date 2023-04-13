@@ -1,11 +1,13 @@
 require "test_helper"
 
-class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
+class Admin::LegacyStatisticsAnnouncementsControllerTest < ActionController::TestCase
+  tests Admin::StatisticsAnnouncementsController
+
   include TaxonomyHelper
 
   setup do
     @organisation = create(:organisation)
-    @user = login_as_preview_design_system_user :gds_editor, @organisation
+    @user = login_as create(:gds_editor, organisation: @organisation)
     stub_taxonomy_with_world_taxons
   end
 
@@ -35,7 +37,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "GET :index handles users without an organisation" do
-    login_as_preview_design_system_user :gds_editor
+    login_as create(:gds_editor, organisation: nil)
     get :index
 
     assert_response :success
@@ -104,7 +106,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     put :update, params: { id: announcement.id, statistics_announcement: { title: "" } }
 
     assert_response :success
-    assert_select ".govuk-error-summary__list", text: "Title can't be blank"
+    assert_select "ul.errors li[data-track-action='statistics-announcement-error'][data-track-label=\"Title can't be blank\"]", text: "Title can't be blank"
   end
 
   test "POST :publish_cancellation cancels the announcement" do
@@ -143,7 +145,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
       organisations: [dfe_organisation],
     )
 
-    login_as_preview_design_system_user(:user)
+    login_as(create(:user, organisation: dfe_organisation))
 
     announcement_has_no_expanded_links(announcement.content_id)
     get :show, params: { id: announcement }
@@ -159,7 +161,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
       organisations: [sfa_organisation],
     )
 
-    login_as_preview_design_system_user(:user)
+    login_as(create(:user, organisation: sfa_organisation))
 
     announcement_has_no_expanded_links(announcement.content_id)
     get :show, params: { id: announcement }
@@ -176,7 +178,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
       organisations: [sfa_organisation],
     )
 
-    login_as_preview_design_system_user(:user)
+    login_as(create(:user, organisation: sfa_organisation))
 
     announcement_has_expanded_links(announcement.content_id)
 

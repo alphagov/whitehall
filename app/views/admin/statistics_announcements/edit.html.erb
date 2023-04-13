@@ -1,14 +1,11 @@
-<% content_for :page_class, 'statistics-announcements edit' %>
-<% page_title "Edit statistics announcement" %>
+<% content_for :page_title, "Edit statistics announcement" %>
+<% content_for :context, @statistics_announcement.title %>
+<% content_for :title, "Edit statistics announcement" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
 
-<div class="stats-form-wrapper">
-  <h1>
-    <span class="stats-small-heading">
-      <%= @statistics_announcement.title %>
-    </span>
-    <span class="stats-heading">
-      Edit statistics announcement
-    </span>
-  </h1>
-  <%= render "legacy_form", statistics_announcement: @statistics_announcement %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "form", statistics_announcement: @statistics_announcement %>
+  </div>
 </div>
