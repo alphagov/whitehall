@@ -30,7 +30,7 @@ module PublishingApi
     def links
       {
         ordered_parent_organisations: item.organisations.pluck(:content_id).compact,
-      }.merge(item.ministerial? ? { ministerial: [] } : {})
+      }
     end
 
   private
