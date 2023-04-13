@@ -11,21 +11,21 @@
 
       <%= render "govuk_publishing_components/components/textarea", {
         label: {
-          text: "Caption",
+          text: "Caption and credit",
           heading_size: "l",
         },
         name: "image[caption]",
         id: "image_caption",
         value: image.caption,
-        rows: 5,
-        hint: tag.p("Name a person in a photo or label a graph, infographic or diagram. The caption appears next to the image.", class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0"),
+        rows: 2,
+        hint: raw("Name a person in a photo or add image credit. <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/images'>Read the image copyright standards</a>. The text appears next to the image."),
         margin_bottom: 4,
       } %>
 
       <% if image.alt_text.blank? %>
         <h2 class="govuk-heading-l">Alt text</h2>
 
-        <p class="govuk-body">If you need to give an alt text description, write it in the body copy below the image so it’s available to everyone.</p>
+        <p class="govuk-body">If your image is informative, you should describe the image in the body text below the image so it’s available to everyone.</p>
 
         <p class="govuk-body">You do not need to provide an alt text description for decorative images.</p>
       <% else %>
@@ -43,7 +43,7 @@
         } %>
       <% end %>
 
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/content-design/images" class="govuk-link" target="_blank">How to use alt text (opens in new tab)</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/content-design/images" class="govuk-link" target="_blank">Using informative and decorative images on GOV.UK (opens in new tab)</a></p>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
