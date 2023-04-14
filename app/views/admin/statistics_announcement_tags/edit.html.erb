@@ -1,48 +1,38 @@
-<% page_title "Edit topics: " + @statistics_announcement.title %>
+<% content_for :page_title, "Edit topics: " + @statistics_announcement.title %>
+<% content_for :context, @statistics_announcement.title %>
+<% content_for :title, "Topic taxonomy tags"%>
 
-<div class="row">
-  <h1><%= @statistics_announcement.title %></h1>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <h2>Topics (new taxonomy)</h2>
-    <hr>
+<%= render 'admin/shared/tagging/taxonomy_group_description' %>
 
-    <%= form_for @tag_form, url: admin_statistics_announcement_tags_path(@statistics_announcement), method: :put do |form| %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Selected Topics",
+      margin_bottom: 2,
+    } %>
+
+    <%= form_for @tag_form, url: admin_statistics_announcement_tags_path(@statistics_announcement), method: :put, data: {
+      module: "track-selected-taxons"
+    } do |form| %>
       <%= form.hidden_field :previous_version %>
 
-      <div class="form-group"
-        data-module="taxonomy-tree-checkboxes"
-        data-content-id="<%= @statistics_announcement.content_id %>"
-        data-content-format="statistics_announcement"
-        data-content-public-path="<%= @statistics_announcement.base_path %>">
+      <%= render "admin/shared/tagging/taxonomy_group_selector", {
+        form: form,
+        tag_form: @tag_form
+      } %>
 
-        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.ordered_taxons } %>
+      <div class="govuk-button-group govuk-!-margin-top-7">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update tags",
+          data_attributes: {
+            module: 'gem-track-click',
+            track_category: 'form-button',
+            track_label: "Save tagging changes",
+            track_action: "taxonomy-tag-form-button",
+          }
+        } %>
 
-      </div>
-
-      <p>
-        <%= link_to "Suggest a new topic",
-          "#{Whitehall.support_url}/taxonomy_new_topic_request/new",
-          class: "feedback-link"
-        %>
-        or
-        <%= link_to "Suggest a change to a topic",
-          "#{Whitehall.support_url}/taxonomy_change_topic_request/new",
-          class: "feedback-link"
-        %>
-      </p>
-
-      <h2>Selected topics</h2>
-      <div class="content content-bordered hidden" data-module="breadcrumb-preview">
-      </div>
-
-      <p class="warning">
-        Warning: topic changes to published content appear instantly on the live site.
-      </p>
-
-      <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_statistics_announcement_path(@statistics_announcement)) %>
+        <%= link_to("Cancel", admin_statistics_announcement_path(@statistics_announcement), class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </div>
