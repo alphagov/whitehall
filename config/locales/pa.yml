@@ -443,8 +443,7 @@ pa:
       organisation_chart: ਸਾਡਾ ਸੰਗਠਨ ਚਾਰਟ
       transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
     embassies:
-      find_an_embassy_lowercase: ਬ੍ਰਿਟਿਸ਼ ਦੂਤਾਵਾਸ, ਹਾਈ ਕਮਿਸ਼ਨ ਜਾਂ ਕੌਂਸਲੇਟ ਲੱਭੋ
-      find_an_embassy_uppercase: ਬ੍ਰਿਟਿਸ਼ ਦੂਤਾਵਾਸ, ਹਾਈ ਕਮਿਸ਼ਨ ਜਾਂ ਕੌਂਸਲੇਟ ਲੱਭੋ
+      find_an_embassy_title: ਬ੍ਰਿਟਿਸ਼ ਦੂਤਾਵਾਸ, ਹਾਈ ਕਮਿਸ਼ਨ ਜਾਂ ਕੌਂਸਲੇਟ ਲੱਭੋ
     headings:
       corporate_information: ਕਾਰਪੋਰੇਟ ਜਾਣਕਾਰੀ
       corporate_reports: ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ

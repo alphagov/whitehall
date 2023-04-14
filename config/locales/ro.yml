@@ -518,8 +518,7 @@ ro:
       organisation_chart: Graficul nostru organizațional
       transparency: Date privind transparența
     embassies:
-      find_an_embassy_lowercase: Găsiți o ambasadă, comisie sau consulat britanic
-      find_an_embassy_uppercase: Găsiți o ambasadă, comisie sau consulat britanic
+      find_an_embassy_title: Găsiți o ambasadă, comisie sau consulat britanic
     headings:
       corporate_information: Informații despre corporație
       corporate_reports: Rapoarte de companie

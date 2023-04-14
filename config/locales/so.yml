@@ -442,8 +442,7 @@ so:
       organisation_chart: Jaantuska ururkayaga
       transparency: Xog daah furan
     embassies:
-      find_an_embassy_lowercase: Raadi safaarada Ingiriiska, komishanka sare ama qunsulka
-      find_an_embassy_uppercase: Raadi safaarada Ingiriiska, komishanka sare ama qunsulka
+      find_an_embassy_title: Raadi safaarada Ingiriiska, komishanka sare ama qunsulka
     headings:
       corporate_information: Macluumaadka shirkada
       corporate_reports: Warbixinaha shirkada

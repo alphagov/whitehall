@@ -440,8 +440,7 @@ nl:
       organisation_chart: Ons organigram
       transparency: Transparantiegegevens
     embassies:
-      find_an_embassy_lowercase: Zoek een Britse ambassade, hoge commissie of consulaat
-      find_an_embassy_uppercase: Zoek een Britse ambassade, Hoge Commissie of Consulaat
+      find_an_embassy_title: Zoek een Britse ambassade, hoge commissie of consulaat
     headings:
       corporate_information: Bedrijfsinformatie
       corporate_reports: Bedrijfsrapporten

@@ -519,8 +519,7 @@ sr:
       organisation_chart: Naš organizacioni dijagram
       transparency: Podaci o transparentnosti
     embassies:
-      find_an_embassy_lowercase: Pronađite britansku ambasadu, namesništvo ili konzulat
-      find_an_embassy_uppercase: Pronađite britansku ambasadu, namesništvo ili konzulat
+      find_an_embassy_title: Pronađite britansku ambasadu, namesništvo ili konzulat
     headings:
       corporate_information: Poslovni podaci
       corporate_reports: Organizacioni izveštaji

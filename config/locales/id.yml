@@ -366,8 +366,7 @@ id:
       organisation_chart: Diagram organisasi kami
       transparency: Data transparansi
     embassies:
-      find_an_embassy_lowercase: Temukan kedubes, komisi tinggi, atau konsulat Inggris
-      find_an_embassy_uppercase: Temukan Kedubes, Komisi Tinggi, atau Konsulat Inggris
+      find_an_embassy_title: Temukan kedubes, komisi tinggi, atau konsulat Inggris
     headings:
       corporate_information: Informasi korporat
       corporate_reports: Laporan korporat

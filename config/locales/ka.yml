@@ -443,8 +443,7 @@ ka:
       organisation_chart: ჩვენი ორგანიზაციის ქარტია
       transparency: გამჭირვალობის მონაცემები
     embassies:
-      find_an_embassy_lowercase: იპოვეთ ბრიტანეთის საელჩო, უმაღლესი კომისია ან საკონსულო
-      find_an_embassy_uppercase: იპოვეთ ბრიტანეთის საელჩო, უმაღლესი კომისია ან საკონსულო
+      find_an_embassy_title: იპოვეთ ბრიტანეთის საელჩო, უმაღლესი კომისია ან საკონსულო
     headings:
       corporate_information: კორპორატიული ინფორმაცია
       corporate_reports: კორპორატიული ანგარიშები

@@ -440,8 +440,7 @@ yi:
       organisation_chart:
       transparency:
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_title:
     headings:
       corporate_information:
       corporate_reports:

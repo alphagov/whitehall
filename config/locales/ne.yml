@@ -442,8 +442,7 @@ ne:
       organisation_chart: हाम्रो सङ्गठनको तालिका
       transparency: पारदर्शिता जानकारी
     embassies:
-      find_an_embassy_lowercase: एउटा ब्रिटिश दूतावास, उच्च आयोग वा वाणिज्य दूतावास खोज्नुहोस्
-      find_an_embassy_uppercase: एउटा ब्रिटिश दूतावास, उच्च आयोग वा वाणिज्य दूतावास खोज्नुहोस्
+      find_an_embassy_title: एउटा ब्रिटिश दूतावास, उच्च आयोग वा वाणिज्य दूतावास खोज्नुहोस्
     headings:
       corporate_information: निगम जानकारी
       corporate_reports: निगम प्रतिवेदनहरू

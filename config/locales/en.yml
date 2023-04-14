@@ -443,8 +443,7 @@ en:
       organisation_chart: Our organisation chart
       transparency: Transparency data
     embassies:
-      find_an_embassy_lowercase: Find a British embassy, high commission or consulate
-      find_an_embassy_uppercase: Find a British embassy, High Commission or Consulate
+      find_an_embassy_title: Find a British embassy, high commission or consulate
     headings:
       corporate_information: Corporate information
       corporate_reports: Corporate reports

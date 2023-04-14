@@ -443,8 +443,7 @@ fi:
       organisation_chart: Organisaatiomme kaavio
       transparency: Avoimuustiedot
     embassies:
-      find_an_embassy_lowercase: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
-      find_an_embassy_uppercase: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
+      find_an_embassy_title: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
     headings:
       corporate_information: Yritystiedot
       corporate_reports: Yritysraportit

@@ -442,8 +442,7 @@ uz:
       organisation_chart: Ташкилий тузилмани бизнинг схемамиз
       transparency: Очиқликка оид маълумотлар
     embassies:
-      find_an_embassy_lowercase: Британия элчихонасини, олий комиссияни ёки консулликни топиш
-      find_an_embassy_uppercase: Британия элчихонасини, Олий комиссияни ёки Консулликни топиш
+      find_an_embassy_title: Британия элчихонасини, олий комиссияни ёки консулликни топиш
     headings:
       corporate_information: Корпоратив маълумот
       corporate_reports: Корпорация фаолияти тўғрисида ҳисоботлар

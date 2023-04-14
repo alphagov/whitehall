@@ -442,8 +442,7 @@ kk:
       organisation_chart: Біздің ұйым жарғысы
       transparency: Ашықтық деректері
     embassies:
-      find_an_embassy_lowercase: Ұлыбритания елшілігін, жоғары комиссияны немесе консулдықты табыңыз
-      find_an_embassy_uppercase: Ұлыбритания елшілігін, Жоғарғы Комиссияны немесе Консулдықты табыңыз
+      find_an_embassy_title: Ұлыбритания елшілігін, жоғары комиссияны немесе консулдықты табыңыз
     headings:
       corporate_information: Корпоративтік ақпарат
       corporate_reports: Корпоративтік есептер

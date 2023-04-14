@@ -442,8 +442,7 @@ et:
       organisation_chart: Meie organisatsiooni skeem
       transparency: Läbipaistvuse andmed
     embassies:
-      find_an_embassy_lowercase: Leia Briti saatkond, ülemkomisjon või konsulaat
-      find_an_embassy_uppercase: Leia Briti saatkond, Ülemkomisjon või Konsulaat
+      find_an_embassy_title: Leia Briti saatkond, ülemkomisjon või konsulaat
     headings:
       corporate_information: Ettevõtte teave
       corporate_reports: Ettevõtte aruanded

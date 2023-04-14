@@ -746,8 +746,7 @@ cy:
       organisation_chart: Ein siart sefydliadol
       transparency: Data tryloywder
     embassies:
-      find_an_embassy_lowercase: Dod o hyd i un o lysgenadaethau, uchel gomisiynau neu swyddfeydd conswliaid Prydain
-      find_an_embassy_uppercase: Dod o hyd i un o Lysgenadaethau, Uchel Gomisiynau neu Swyddfeydd Conswliaid Prydain
+      find_an_embassy_title: Dod o hyd i un o lysgenadaethau, uchel gomisiynau neu swyddfeydd conswliaid Prydain
     headings:
       corporate_information: Gwybodaeth gorfforaethol
       corporate_reports: Adroddiadau corfforaethol

@@ -443,8 +443,7 @@ he:
       organisation_chart: תרשים הארגון שלנו
       transparency: שקיפות מידע
     embassies:
-      find_an_embassy_lowercase: מצא שגרירות בריטית, נציבות עליונה או קונסוליה
-      find_an_embassy_uppercase: מצא שגרירות בריטית, נציבות עליונה או קונסוליה
+      find_an_embassy_title: מצא שגרירות בריטית, נציבות עליונה או קונסוליה
     headings:
       corporate_information: מידע תאגידי
       corporate_reports: דו"חות משותפים

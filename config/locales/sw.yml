@@ -442,8 +442,7 @@ sw:
       organisation_chart: Chati ya shirika letu
       transparency: Data ya uwazi
     embassies:
-      find_an_embassy_lowercase: Tafuta ubalozi wa Uingereza, ubalozi au ubalozi mdogo
-      find_an_embassy_uppercase: Tafuta ubalozi wa Uingereza, Ubalozi au Ubalozi Mdogo
+      find_an_embassy_title: Tafuta ubalozi wa Uingereza, ubalozi au ubalozi mdogo
     headings:
       corporate_information: Maelezo ya shirika
       corporate_reports: Ripoti za shirika

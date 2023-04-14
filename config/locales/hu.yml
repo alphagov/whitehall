@@ -442,8 +442,7 @@ hu:
       organisation_chart: Szervezeti térképünk
       transparency: Átláthatósági adatok
     embassies:
-      find_an_embassy_lowercase: A brit nagykövetség, a legfelső biztosság vagy a konzulátus keresése
-      find_an_embassy_uppercase: A brit nagykövetség, a Legfelső Biztosság vagy a Konzulátus keresése
+      find_an_embassy_title: A brit nagykövetség, a legfelső biztosság vagy a konzulátus keresése
     headings:
       corporate_information: Vállalati adatok
       corporate_reports: Testületi beszámolók

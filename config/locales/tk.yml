@@ -442,8 +442,7 @@ tk:
       organisation_chart: Guramamyzyň diagrammasy
       transparency: Aç-açanlyk maglumatlar
     embassies:
-      find_an_embassy_lowercase: Iňlis ilçihanasyny, ýokary komissiýany ýa-da konsullygy tapyň
-      find_an_embassy_uppercase: Iňlis ilçihanasyny, Ýokary komissiýany ýa-da Konsullygy tapyň
+      find_an_embassy_title: Iňlis ilçihanasyny, ýokary komissiýany ýa-da konsullygy tapyň
     headings:
       corporate_information: Korporatiw maglumatlar
       corporate_reports: Korperatiw hasabatlar

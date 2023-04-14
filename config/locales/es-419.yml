@@ -443,8 +443,7 @@ es-419:
       organisation_chart: Nuestro organigrama
       transparency: Transparencia de datos
     embassies:
-      find_an_embassy_lowercase: Encuentre una embajada británica, alto comisionado o consulado británico
-      find_an_embassy_uppercase: Encuentre una embajada británica, alto comisionado o consulado británico
+      find_an_embassy_title: Encuentre una embajada británica, alto comisionado o consulado británico
     headings:
       corporate_information: Información corporativa
       corporate_reports: Informes de la empresa

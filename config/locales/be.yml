@@ -592,8 +592,7 @@ be:
       organisation_chart: Наша арганізацыйная структура
       transparency: Адкрытыя дадзеныя
     embassies:
-      find_an_embassy_lowercase: Знайсці брытанскае пасольства, вярхоўную камісію або консульства
-      find_an_embassy_uppercase: Знайсці брытанскае пасольства, вярхоўную камісію або консульства
+      find_an_embassy_title: Знайсці брытанскае пасольства, вярхоўную камісію або консульства
     headings:
       corporate_information: Карпаратыўная іфармацыя
       corporate_reports: Карпаратыўныя справаздачы

@@ -367,8 +367,7 @@ ms:
       organisation_chart: Carta organisasi kami
       transparency: Data ketelusan
     embassies:
-      find_an_embassy_lowercase: Cari kedutaan, pesuruhjaya tinggi atau konsulat British
-      find_an_embassy_uppercase: Cari kedutaan, Pesuruhjaya Tinggi atau Konsulat British
+      find_an_embassy_title: Cari kedutaan, pesuruhjaya tinggi atau konsulat British
     headings:
       corporate_information: Maklumat korporat
       corporate_reports: Laporan korporat

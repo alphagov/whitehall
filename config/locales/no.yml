@@ -443,8 +443,7 @@
       organisation_chart: Vårt organisasjonskart
       transparency: Åpenhetstsdata
     embassies:
-      find_an_embassy_lowercase: Finn en britisk ambassade, høykommissær eller konsulat
-      find_an_embassy_uppercase: Finn en britisk ambassade, høykommissær eller konsulat
+      find_an_embassy_title: Finn en britisk ambassade, høykommissær eller konsulat
     headings:
       corporate_information: Bedriftsinformasjon
       corporate_reports: Bedriftsrapporter
