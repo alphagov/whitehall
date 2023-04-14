@@ -28,8 +28,7 @@ class Admin::GenericEditionsController::RejectingDocumentsTest < ActionControlle
   end
 
   view_test "should show who rejected the edition" do
-    edition = create(:rejected_edition)
-    edition.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
+    edition = create(:rejected_edition, edition_authors: [create(:edition_author, user: current_user)])
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
     get :show, params: { id: edition }

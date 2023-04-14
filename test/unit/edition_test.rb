@@ -271,11 +271,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_not NewsArticle.authored_by(publication.creator).include?(publication)
   end
 
-  test "#rejected_by uses information from the audit trail" do
+  test "#rejected_by uses information from the audit trail and returns the user who first rejected the edition" do
     publication = create(:submitted_publication)
     user = create(:writer)
+    user2 = create(:writer)
     Edition::AuditTrail.whodunnit = user
     publication.reject!
+    Edition::AuditTrail.whodunnit = user2
+    publication.update!(title: "new title")
     assert_equal user, publication.rejected_by
   end
 
