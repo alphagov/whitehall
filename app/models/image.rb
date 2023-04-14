@@ -9,6 +9,8 @@ class Image < ApplicationRecord
 
   accepts_nested_attributes_for :image_data
 
+  delegate :filename, :content_type, :width, :height, :bitmap?, to: :image_data
+
   default_scope -> { order(:id) }
 
   def url(*args)

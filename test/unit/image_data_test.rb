@@ -18,4 +18,30 @@ class ImageDataTest < ActiveSupport::TestCase
 
     assert_equal [case_study_1.auth_bypass_id, case_study_2.auth_bypass_id], image_data.auth_bypass_ids
   end
+
+  test "rejects images smaller than 960x640" do
+    image_data = build_example("50x33_gif.gif")
+    assert_not image_data.valid?
+    assert_equal ["must be 960px wide and 640px tall, but is 50px wide and 33px tall"], image_data.errors[:file]
+  end
+
+  test "accepts images with 960x640 dimensions" do
+    image_data = build_example("960x640_jpeg.jpg")
+    assert image_data.valid?
+  end
+
+  test "#bitmap? is false for SVG files" do
+    assert_not build_example("test-svg.svg").bitmap?
+  end
+
+  test "#bitmap? is true for non-SVG files" do
+    assert build_example("50x33_gif.gif").bitmap?
+    assert build_example("300x1000_png.png").bitmap?
+    assert build_example("960x640_jpeg.jpg").bitmap?
+  end
+
+  def build_example(file_name)
+    file = File.open(Rails.root.join("test/fixtures/images", file_name))
+    build(:image_data, file:)
+  end
 end
