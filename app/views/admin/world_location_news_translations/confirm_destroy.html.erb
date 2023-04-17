@@ -1,0 +1,21 @@
+<% content_for :context, @english_world_location.name %>
+<% content_for :page_title, "Delete translation" %>
+<% content_for :title, "Delete #{translation_locale.native_and_english_language_name} translation" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag admin_world_location_news_translation_path(@translated_world_location_news, translation_locale), method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete the "<%= translation_locale.native_and_english_language_name %>" translation for "<%= @translated_world_location.name %>"?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", admin_world_location_news_translations_path(@world_location_news), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

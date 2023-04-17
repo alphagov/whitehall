@@ -9,10 +9,6 @@ class Admin::WorldLocationNewsTranslationsController < Admin::BaseController
 
 private
 
-  def get_layout
-    "admin"
-  end
-
   def create_redirect_path
     edit_admin_world_location_news_translation_path(@world_location_news, id: translation_locale)
   end
@@ -50,5 +46,14 @@ private
       :mission_statement, :title,
       world_location_attributes: %i[id name]
     )
+  end
+
+  def get_layout
+    design_system_actions = %w[confirm_destroy]
+    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 end
