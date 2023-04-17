@@ -1,9 +1,10 @@
 describe('GOVUK.Modules.EditionForm', function () {
-  var form
+  var form, currentYear
 
   beforeEach(function () {
     form = document.createElement('form')
     form.setAttribute('data-module', 'EditionForm')
+    currentYear = new Date().getFullYear()
   })
 
   describe('#setupSubtypeFormatAdviceEventListener', function () {
@@ -127,7 +128,7 @@ describe('GOVUK.Modules.EditionForm', function () {
 
   describe('#setupSpeechSubtypeEventListeners', function () {
     beforeEach(function () {
-      form.innerHTML = speechFields()
+      form.innerHTML = speechFields(currentYear)
       var editionForm = new GOVUK.Modules.EditionForm(form)
       editionForm.init()
     })
@@ -175,6 +176,40 @@ describe('GOVUK.Modules.EditionForm', function () {
       expect(deliveredOnLabel.textContent).toEqual('Delivered on')
       expect(locationDiv.classList.length).toEqual(1)
       expect(locationDiv.classList[0]).toEqual('js-app-view-edit-edition__speech-location-field')
+    })
+
+    describe('#setupSpeechDeliverdOnWarningEventListener', function () {
+      beforeEach(function () {
+        form.innerHTML = speechFields(currentYear)
+        var editionForm = new GOVUK.Modules.EditionForm(form)
+        editionForm.init()
+      })
+
+      it('shows the speech delivered_on in future warning to the user when they select a date in the future', function () {
+        var deliveredOnFieldset = form.querySelector('#edition_delivered_on')
+        deliveredOnFieldset.querySelector('select').value = '1'
+        deliveredOnFieldset.querySelectorAll('select')[1].value = '1'
+        deliveredOnFieldset.querySelectorAll('select')[2].value = currentYear + 1
+
+        deliveredOnFieldset.querySelector('select').dispatchEvent(new Event('change'))
+
+        var warning = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
+
+        expect(warning.classList).not.toContain('app-view-edit-edition__delivered-on-warning--hidden')
+      })
+
+      it('does not show the speech delivered_on in future warning to the user when they select a date in the past', function () {
+        var deliveredOnFieldset = form.querySelector('#edition_delivered_on')
+        deliveredOnFieldset.querySelector('select').value = '1'
+        deliveredOnFieldset.querySelectorAll('select')[1].value = '1'
+        deliveredOnFieldset.querySelectorAll('select')[2].value = currentYear
+
+        deliveredOnFieldset.dispatchEvent(new Event('change'))
+
+        var warning = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
+
+        expect(warning.classList).toContain('app-view-edit-edition__delivered-on-warning--hidden')
+      })
     })
   })
 
@@ -258,41 +293,57 @@ describe('GOVUK.Modules.EditionForm', function () {
 
   function speechFields () {
     return (
-      '<div>' +
-        '<div class="govuk-form-group gem-c-select">' +
-          '<label class="govuk-label govuk-label--s" for="edition_speech_type_id">Speech type</label>' +
-          '<select name="edition[speech_type_id]" id="edition_speech_type_id" class="govuk-select gem-c-select__select--full-width">' +
-            '<option value=""></option>' +
-            '<option value="1">Transcript</option>' +
-            '<option value="2">Draft text</option>' +
-            '<option value="3">Speaking notes</option>' +
-            '<option value="4">Written statement to Parliament</option>' +
-            '<option value="5">Oral statement to Parliament</option>' +
-            '<option value="6">Authored article</option>' +
-          '</select>' +
+      `
+        '<div>' +
+          '<div class="govuk-form-group gem-c-select">' +
+            '<label class="govuk-label govuk-label--s" for="edition_speech_type_id">Speech type</label>' +
+            '<select name="edition[speech_type_id]" id="edition_speech_type_id" class="govuk-select gem-c-select__select--full-width">' +
+              '<option value=""></option>' +
+              '<option value="1">Transcript</option>' +
+              '<option value="2">Draft text</option>' +
+              '<option value="3">Speaking notes</option>' +
+              '<option value="4">Written statement to Parliament</option>' +
+              '<option value="5">Oral statement to Parliament</option>' +
+              '<option value="6">Authored article</option>' +
+            '</select>' +
+          '</div>' +
         '</div>' +
-      '</div>' +
 
-      '<div id="edition_role_appointment">' +
-        '<fieldset class="govuk-fieldset">' +
-           '<legend class="govuk-fieldset__legend">' +
-              '<h2 class="govuk-fieldset__heading">Speaker (required)</h2>' +
-           '</legend>' +
-             '<input type="radio" name="speaker_radios" id="edition_role_appointment_speaker_on_govuk">' +
-             '<label for="edition_role_appointment_speaker_on_govuk">Speaker has a profile on GOV.UK</label>' +
-             '<input type="radio" name="speaker_radios" id="edition_role_appointment_speaker_not_on_govuk">' +
-             '<label for="edition_role_appointment_speaker_not_on_govuk">Speaker does not have a profile on GOV.UK</label>' +
-           '</div>' +
+        '<div id="edition_role_appointment">' +
+          '<fieldset class="govuk-fieldset">' +
+             '<legend class="govuk-fieldset__legend">' +
+                '<h2 class="govuk-fieldset__heading">Speaker (required)</h2>' +
+             '</legend>' +
+               '<input type="radio" name="speaker_radios" id="edition_role_appointment_speaker_on_govuk">' +
+               '<label for="edition_role_appointment_speaker_on_govuk">Speaker has a profile on GOV.UK</label>' +
+               '<input type="radio" name="speaker_radios" id="edition_role_appointment_speaker_not_on_govuk">' +
+               '<label for="edition_role_appointment_speaker_not_on_govuk">Speaker does not have a profile on GOV.UK</label>' +
+             '</div>' +
+          '</fieldset>' +
+        '</div>' +
+        '<fieldset class="govuk-fieldset" id="edition_delivered_on">' +
+          '<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">Delivered on</legend>' +
+          '<div class="app-c-datetime-fields__date-time-wrapper">' +
+            '<select id="edition_delivered_on_3i" name="edition[delivered_on(3i)]">' +
+              '<option value="" label=" "></option>' +
+              '<option value="1">1</option>' +
+            '</select>'
+            '<select id="edition_delivered_on_2i" name="edition[delivered_on(2i)]">' +
+              '<option value="" label=" "></option>' +
+              '<option value="1">January</option>' +
+            '</select>' +
+            '<select id="edition_delivered_on_1i" name="edition[delivered_on(1i)]">' +
+              '<option value="${currentYear}">${currentYear}</option>' +
+              '<option value="${currentYear + 1}">${currentYear + 1}</option>' +
+            '</select>' +
+          '</div>' +
         '</fieldset>' +
-      '</div>' +
-
-      '<fieldset class="govuk-fieldset" id="edition_delivered_on">' +
-        '<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">Delivered on</legend>' +
-      '</fieldset>' +
-
-      '<div class="js-app-view-edit-edition__speech-location-field">' +
-        '<input name="edition[location]" type="text">' +
-      '</div>'
+        '<div class="js-app-view-edit-edition__delivered-on-warning app-view-edit-edition__delivered-on-warning--hidden">' +
+        '</div>' +
+        '<div class="js-app-view-edit-edition__speech-location-field">' +
+          '<input name="edition[location]" type="text">' +
+        '</div>'
+      `
     )
   }
 })
