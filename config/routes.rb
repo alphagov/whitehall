@@ -80,7 +80,6 @@ Whitehall::Application.routes.draw do
     # Public facing routes still rendered by Whitehall
     resources :fatality_notices, path: "fatalities", only: [:show]
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
-    resources :operational_fields, path: "fields-of-operation", only: %i[index show]
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
 
     get "/consultations", as: "consultations", to: "consultations#index" # used only for a redirect

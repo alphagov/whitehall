@@ -63,7 +63,7 @@ When(/^I add a casualty to the fatality notice$/) do
 end
 
 Then(/^I should see a casualty listed on the field of operation page for "(.*?)"$/) do |field|
-  visit operational_field_path(OperationalField.find_by(name: field))
+  visit OperationalField.find_by(name: field).public_path
 
   within ".fatality_notice ul.govuk-list" do
     expect(page).to have_content(FatalityNotice.last.title, count: 1)
