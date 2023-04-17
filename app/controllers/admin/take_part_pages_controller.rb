@@ -20,7 +20,7 @@ class Admin::TakePartPagesController < Admin::BaseController
     if @take_part_page.save
       redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" created!)
     else
-      render :new
+      render_design_system("new", "legacy_new", next_release: false)
     end
   end
 
