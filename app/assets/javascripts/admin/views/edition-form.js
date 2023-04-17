@@ -10,6 +10,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.setupSubtypeFormatAdviceEventListener()
     this.setupWorldNewsStoryVisibilityToggle()
     this.setupSpeechSubtypeEventListeners()
+    this.setupSpeechDeliverdOnWarningEventListener()
   }
 
   EditionForm.prototype.setupSubtypeFormatAdviceEventListener = function () {
@@ -116,6 +117,40 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         noProfileRadioLabel.textContent = 'Speaker does not have a profile on GOV.UK'
         deliveredOnLabel.textContent = 'Delivered on'
       }
+    })
+  }
+
+  EditionForm.prototype.setupSpeechDeliverdOnWarningEventListener = function () {
+    var form = this.module
+    var deliveredOnFieldset = form.querySelector('#edition_delivered_on')
+
+    if (!deliveredOnFieldset) { return }
+
+    var warningDiv = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
+    var day = form.querySelector('#edition_delivered_on_3i')
+    var month = form.querySelector('#edition_delivered_on_2i')
+    var year = form.querySelector('#edition_delivered_on_1i')
+
+    deliveredOnFieldset.querySelectorAll('select').forEach(function (select) {
+      select.addEventListener('change', function () {
+        var dateIsInvalid = day.value === '' || month.value === '' || year.value === ''
+
+        if (dateIsInvalid) {
+          if (!warningDiv.classList.contains('app-view-edit-edition__delivered-on-warning--hidden')) {
+            warningDiv.classList.add('app-view-edit-edition__delivered-on-warning--hidden')
+          }
+        } else {
+          var date = new Date(year.value, month.value - 1, day.value)
+          var currentDate = new Date()
+          if (currentDate < date) {
+            var dateFields = deliveredOnFieldset.querySelector('.app-c-datetime-fields__date-time-wrapper')
+            dateFields.after(warningDiv)
+            warningDiv.classList.remove('app-view-edit-edition__delivered-on-warning--hidden')
+          } else if (!warningDiv.classList.contains('app-view-edit-edition__delivered-on-warning--hidden')) {
+            warningDiv.classList.add('app-view-edit-edition__delivered-on-warning--hidden')
+          }
+        }
+      })
     })
   }
 
