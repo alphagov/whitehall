@@ -17,12 +17,7 @@
   attachment_data = {}
   if attachment.html?
     attachment_data = {
-      module: "ga4-link-tracker",
-      ga4_track_links_only: "",
-      ga4_link: {
-        event_name: "navigation",
-        type: "html attachment",
-      }.to_json,
+      ga4_attachment_link: "",
     }
   end
 %>
