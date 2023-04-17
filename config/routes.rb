@@ -319,7 +319,9 @@ Whitehall::Application.routes.draw do
           member do
             get "/features(.:locale)", as: "features", to: "world_location_news#features", constraints: { locale: valid_locales_regex }
           end
-          resources :translations, controller: "world_location_news_translations"
+          resources :translations, controller: "world_location_news_translations" do
+            get :confirm_destroy, on: :member
+          end
           resources :offsite_links
         end
 

@@ -65,7 +65,7 @@ private
   end
 
   def get_layout
-    design_system_actions = %w[show]
+    design_system_actions = %w[show index]
     if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else

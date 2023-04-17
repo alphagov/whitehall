@@ -1,54 +1,72 @@
-<% page_title @world_location_news.name + " translations" %>
-<% page_class "world-location-translations-index" %>
+<% content_for :page_title, "#{@world_location_news.name} translations" %>
+<% content_for :context, "Translations" %>
+<% content_for :title, "#{@world_location_news.name}" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<%= content_tag_for(:div, @world_location_news) do %>
-  <div class="world-location-header">
-    <h1>
-      <span class="name"><%= @world_location_news.name %></span>
-    </h1>
-    <p><%= link_to "View on website", @world_location_news.public_url(cachebust_url_options) %></p>
-  </div>
-  <section class="world-location-details">
-    <%= tab_navigation_for(@world_location_news) %>
+<div class="govuk-!-margin-bottom-8">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">
+        <%= link_to "View on website", @world_location_news.public_url(cachebust_url_options), class: "govuk-link", target: "_blank" %>
+      </p>
 
-    <% if @world_location_news.non_english_translated_locales.present? %>
-      <table id="world-location-translations" class="table table-bordered table-striped">
-        <thead>
-          <tr class="table-header">
-            <th>Locale</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @world_location_news.non_english_translated_locales.each do |locale| %>
-            <tr>
-              <td class="locale">
-                <%= link_to locale.native_language_name, edit_admin_world_location_news_translation_path(@world_location_news, locale.code) %> (<%= link_to "view", @world_location_news.public_url(locale: locale.code) %>)
-              </td>
-              <td class="actions">
-                <%= button_to 'Delete',
-                      admin_world_location_news_translation_path(@world_location_news, locale.code),
-                      method: :delete,
-                      class: "btn btn-danger",
-                      data: { confirm: "Are you sure you want to delete this translation?" } %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p class="no-content no-content-bordered">No translations</p>
-    <% end %>
-    <div class="form-actions">
+      <%= render "components/secondary_navigation", {
+        aria_label: "World location translation items",
+        items: secondary_navigation_tabs_items(current_user, @world_location_news, request.path)
+      } %>
+
+      <% if @world_location_news.non_english_translated_locales.present? %>
+        <%= render "govuk_publishing_components/components/table", {
+        first_cell_is_header: true,
+        head: [
+          {
+            text: "Locale"
+          },
+          {
+            text: sanitize("<a class='govuk-visually-hidden'>Actions</a>"),
+            format: "numeric"
+          }
+        ],
+        rows:
+          @world_location_news.non_english_translated_locales.map do |locale|
+            [
+              {
+                text: locale.native_language_name
+              },
+              {
+                text: sanitize(
+                  "<a class='govuk-link' href='#{@world_location_news.public_url(locale: locale.code)}'>View <span class='govuk-visually-hidden'>#{locale.code}</span></a>" +
+
+                  "<a class='govuk-link govuk-!-margin-left-2' href='#{edit_admin_world_location_news_translation_path(@world_location_news, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{locale.code}</span></a>" +
+
+                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code)}'>Delete<span class='govuk-visually-hidden'>#{locale.code}</span></a>"),
+
+                format: "numeric"
+              }
+            ]
+          end
+      } %>
+      <% else %>
+        <p class="govuk-body">No translations</p>
+      <% end %>
+
       <% if @world_location_news.missing_translations.any? %>
-        <%= form_tag admin_world_location_news_translations_path(@world_location_news), class: 'well' do %>
-          <div class="form-group">
-            <%= label_tag :translation_locale, 'Locale' %>
-            <%= select_locale :translation_locale, @world_location_news.missing_translations, class: 'form-control input-md-3' %>
-          </div>
-          <%= submit_tag "Create translation", class: "btn btn-primary" %>
+        <%= form_tag admin_world_location_news_translations_path(@world_location_news) do %>
+          <%= render "govuk_publishing_components/components/select", {
+          id: "translation_locale",
+          name: "translation_locale",
+          label: 'Locale',
+          heading_size: 'm',
+          options: @world_location_news.missing_translations.map { |missing_trans| { text: missing_trans
+            .native_and_english_language_name, value: missing_trans.code.to_s } }
+        } %>
+
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Create new translation",
+          margin_bottom: 6,
+        } %>
         <% end %>
       <% end %>
     </div>
-  </section>
-<% end %>
+  </div>
+</div>
