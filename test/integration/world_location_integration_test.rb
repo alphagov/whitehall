@@ -112,7 +112,7 @@ class WorldLocationIntegrationTest < ActionDispatch::IntegrationTest
       new_mission_statement = "a different mission"
       fill_in "world_location_news_mission_statement", with: new_mission_statement
       new_title = "a new title"
-      fill_in "Title", with: new_title
+      fill_in "Title", match: :first, with: new_title
 
       Services.publishing_api.expects(:put_content).once.with(@world_location_news.content_id, put_content_hash_containing("en", new_title, new_mission_statement))
       Services.publishing_api.expects(:put_content).once.with(@world_location_news.content_id, put_content_hash_containing("fr", @original_french_title, @original_french_mission_statement))
