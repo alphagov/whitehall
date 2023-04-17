@@ -366,8 +366,7 @@ zh-tw:
       organisation_chart: 我們的組織圖
       transparency: 透明數據
     embassies:
-      find_an_embassy_lowercase: 查找英國大使館、辦事處或領事館
-      find_an_embassy_uppercase: 查找英國大使館、辦事處或領事館
+      find_an_embassy_title: 查找英國大使館、辦事處或領事館
     headings:
       corporate_information: 公司資訊
       corporate_reports: 企業報告

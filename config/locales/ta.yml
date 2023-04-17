@@ -442,8 +442,7 @@ ta:
       organisation_chart: எங்கள் அமைப்பு வரைபடம்
       transparency: வெளிப்படையான தரவு
     embassies:
-      find_an_embassy_lowercase: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக் கண்டறியுங்கள்
-      find_an_embassy_uppercase: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக் கண்டறியுங்கள்
+      find_an_embassy_title: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக் கண்டறியுங்கள்
     headings:
       corporate_information: குழுமத் தகவல்கள்
       corporate_reports: குழும அறிக்கைகள்

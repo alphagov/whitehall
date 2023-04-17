@@ -442,8 +442,7 @@ si:
       organisation_chart: අපේ සංවිධාන සටහන
       transparency: විනිවිදභාව දත්ත
     embassies:
-      find_an_embassy_lowercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක් හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
-      find_an_embassy_uppercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක් හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
+      find_an_embassy_title: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක් හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
     headings:
       corporate_information: ආයතනික තොරතුරු
       corporate_reports: ආයතනික වාර්තා

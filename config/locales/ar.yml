@@ -744,8 +744,7 @@ ar:
       organisation_chart: مخططنا التنظيمي
       transparency: بيانات الشفافية
     embassies:
-      find_an_embassy_lowercase: العثور على سفارة أو مفوضية عليا أو قنصلية بريطانية
-      find_an_embassy_uppercase: العثور على سفارة أو مفوضية عليا أو قنصلية بريطانية
+      find_an_embassy_title: العثور على سفارة أو مفوضية عليا أو قنصلية بريطانية
     headings:
       corporate_information: معلومات الشركة
       corporate_reports: تقارير الشركة

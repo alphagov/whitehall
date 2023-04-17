@@ -442,8 +442,7 @@ tr:
       organisation_chart: Kuruluş şemamız
       transparency: Şeffaflık verileri
     embassies:
-      find_an_embassy_lowercase: Bir İngiliz büyükelçiliği, yüksek komisyonu veya konsolosluğu
-      find_an_embassy_uppercase: Bir İngiliz Büyükelçiliği, Yüksek Komisyonu veya Konsolosluğu
+      find_an_embassy_title: Bir İngiliz büyükelçiliği, yüksek komisyonu veya konsolosluğu
     headings:
       corporate_information: Kurumsal bilgiler
       corporate_reports: Kurumsal raporlar

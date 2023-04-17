@@ -364,8 +364,7 @@ ja:
       organisation_chart: 組織図
       transparency: 透明度データ
     embassies:
-      find_an_embassy_lowercase: 英国大使館、高等弁務官、領事館を探す
-      find_an_embassy_uppercase: 英国大使館、高等弁務官、領事館を探す
+      find_an_embassy_title: 英国大使館、高等弁務官、領事館を探す
     headings:
       corporate_information: 企業情報
       corporate_reports: 企業報告

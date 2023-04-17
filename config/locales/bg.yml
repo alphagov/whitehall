@@ -442,8 +442,7 @@ bg:
       organisation_chart: Нашата организационна схема
       transparency: Данни за прозрачност
     embassies:
-      find_an_embassy_lowercase: Намиране на британско посолство, върховна комисия или консулство
-      find_an_embassy_uppercase: Намиране на британско посолство, върховна комисия или консулство
+      find_an_embassy_title: Намиране на британско посолство, върховна комисия или консулство
     headings:
       corporate_information: Фирмена информация
       corporate_reports: Фирмени доклади

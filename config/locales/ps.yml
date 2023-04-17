@@ -443,8 +443,7 @@ ps:
       organisation_chart: زموږ د سازمان چارټ
       transparency: د شفافیت ډاټا
     embassies:
-      find_an_embassy_lowercase: د برتانیا سفارت ، عالي کمیسیون یا قونسلګري ومومئ
-      find_an_embassy_uppercase: د برتانیا سفارت ، عالي کمیسیون یا قونسلګري ومومئ
+      find_an_embassy_title: د برتانیا سفارت ، عالي کمیسیون یا قونسلګري ومومئ
     headings:
       corporate_information: د شرکت معلومات
       corporate_reports: د شرکت راپورونه

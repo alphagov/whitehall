@@ -442,8 +442,7 @@ gu:
       organisation_chart: અમારી સંસ્થાનો ચાર્ટ
       transparency: પારદર્શિતા ડેટા
     embassies:
-      find_an_embassy_lowercase: બ્રિટિશ દૂતાવાસ, હાઇ કમિશન અથવા કોન્સ્યુલેટ શોધો
-      find_an_embassy_uppercase: બ્રિટિશ દૂતાવાસ, હાઇ કમિશન અથવા કોન્સ્યુલેટ શોધો
+      find_an_embassy_title: બ્રિટિશ દૂતાવાસ, હાઇ કમિશન અથવા કોન્સ્યુલેટ શોધો
     headings:
       corporate_information: કોર્પોરેટ માહિતી
       corporate_reports: કોર્પોરેટ અહેવાલો

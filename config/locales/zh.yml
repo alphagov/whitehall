@@ -366,8 +366,7 @@ zh:
       organisation_chart: 我们的组织机构图
       transparency: 透明度数据
     embassies:
-      find_an_embassy_lowercase: 查找英国大使馆，高级专员或领事馆
-      find_an_embassy_uppercase: 查找英国大使馆，高级专员或领事馆
+      find_an_embassy_title: 查找英国大使馆，高级专员或领事馆
     headings:
       corporate_information: 公司信息
       corporate_reports: 公司报告

@@ -366,8 +366,7 @@ th:
       organisation_chart: แผนผังองค์กรของเรา
       transparency: ข้อมูลความโปร่งใส
     embassies:
-      find_an_embassy_lowercase: ค้นหาสถานทูต ข้าหลวงใหญ่ หรือกงสุลอังกฤษ
-      find_an_embassy_uppercase: ค้นหาสถานทูต ข้าหลวงใหญ่ หรือกงสุลอังกฤษ
+      find_an_embassy_title: ค้นหาสถานทูต ข้าหลวงใหญ่ หรือกงสุลอังกฤษ
     headings:
       corporate_information: ข้อมูลองค์กร
       corporate_reports: รายงานของบริษัท

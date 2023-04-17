@@ -592,8 +592,7 @@ pl:
       organisation_chart: Nasza struktura organizacyjna
       transparency: Dane o transparentności
     embassies:
-      find_an_embassy_lowercase: Znajdź brytyjską ambasadę, wysokiego komisarza lub konsulat
-      find_an_embassy_uppercase: Znajdź brytyjską ambasadę, wysokiego komisarza lub konsulat
+      find_an_embassy_title: Znajdź brytyjską ambasadę, wysokiego komisarza lub konsulat
     headings:
       corporate_information: Informacje korporacyjne
       corporate_reports: Sprawozdania korporacyjne
