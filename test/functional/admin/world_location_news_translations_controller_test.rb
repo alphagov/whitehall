@@ -22,7 +22,7 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
         assert_select "option[value=es]", text: "Español (Spanish)"
       end
 
-      assert_select "input[type=submit]"
+      assert_select "button[type=submit]"
     end
   end
 
@@ -94,8 +94,9 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
     get :index, params: { world_location_news_id: location }
 
     assert_select "a" do |links|
-      view_links = links.select { |link| link.text =~ /view/ }
-      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news.fr")}/, view_links.first["href"])
+      view_links = links.select { |link| link.text =~ /View/ }
+      # Selects all and selects by REGEX of 'View' third index is for the view on the table.
+      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news.fr")}/, view_links.third["href"])
     end
   end
 

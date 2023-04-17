@@ -2,6 +2,10 @@ class Admin::WorldLocationNewsTranslationsController < Admin::BaseController
   include TranslationControllerConcern
   layout :get_layout
 
+  def index
+    render_design_system(:index, :legacy_index, next_release: false)
+  end
+
   def destroy
     translatable_item.world_location.remove_translations_for(translation_locale.code)
     super
@@ -49,7 +53,7 @@ private
   end
 
   def get_layout
-    design_system_actions = %w[confirm_destroy]
+    design_system_actions = %w[index confirm_destroy]
     if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
