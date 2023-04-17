@@ -30,6 +30,8 @@ class WorldLocationNews < ApplicationRecord
              only: :active,
              indexable_content: :search_description
 
+  validates :title, presence: true
+
   def search_description
     I18n.t("world_news.uk_updates_in_country", country: name)
   end
