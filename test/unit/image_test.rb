@@ -43,4 +43,14 @@ class ImageTest < ActiveSupport::TestCase
     image_data.expects(:destroy!)
     image.destroy!
   end
+
+  test "delegates to image data" do
+    image = create(:image)
+
+    assert_equal "minister-of-funk.960x640.jpg", image.filename
+    assert_equal "image/jpeg", image.content_type
+    assert_equal 960, image.width
+    assert_equal 640, image.height
+    assert image.bitmap?
+  end
 end
