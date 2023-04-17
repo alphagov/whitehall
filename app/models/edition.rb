@@ -489,7 +489,7 @@ EXISTS (
   end
 
   def rejected_by
-    versions_desc.where(state: "rejected").first.try(:user)
+    author_of_latest_state_change_to("rejected")
   end
 
   def published_by
@@ -501,24 +501,7 @@ EXISTS (
   end
 
   def submitted_by
-    # Find this edition's most recent state change from non-submitted to submitted.
-    # This will tell us when it was most recently submitted, even if there were subsequent
-    # changes from other users while the document remained in a "submitted" state.
-
-    latest_submitted_version = versions_desc.select("created_at, id")
-                                            .where(state: :submitted)
-                                            .limit(1)
-
-    pre_submitted_version = versions_desc.select("created_at, id")
-                                         .where.not(state: "submitted")
-                                         .where("(created_at, id) < (:submitted_version)", submitted_version: latest_submitted_version)
-                                         .limit(1)
-
-    first_submitted_version = versions_asc.where(state: "submitted")
-                                          .where("(created_at, id) > (:pre_submitted_version)", pre_submitted_version:)
-                                          .first
-
-    first_submitted_version.try(:user)
+    author_of_latest_state_change_to("submitted")
   end
 
   def title_with_state
@@ -735,5 +718,31 @@ private
 
   def update_document_edition_references
     document.update_edition_references
+  end
+
+  def author_of_latest_state_change_to(state)
+    # Find this edition's most recent state change to the state passed in.
+    # This will tell us when it was most recent transition to this state,
+    # even if there were subsequent changes from other users while the
+    # document remained in a the same state. Then return it's user.
+
+    latest_version_with_state = versions_desc.select("created_at, id")
+                                            .where(state:)
+                                            .limit(1)
+
+    previous_version_with_different_state = versions_desc.select("created_at, id")
+                                         .where.not(state:)
+                                         .where("(created_at, id) < (:latest_version_with_state)", latest_version_with_state:)
+                                         .limit(1)
+
+    if latest_version_with_state.present? && previous_version_with_different_state.blank?
+      return versions_asc.where(state:).limit(1).first.try(:user)
+    end
+
+    first_version_with_state = versions_asc.where(state:)
+                                          .where("(created_at, id) > (:previous_version_with_different_state)", previous_version_with_different_state:)
+                                          .first
+
+    first_version_with_state.try(:user)
   end
 end
