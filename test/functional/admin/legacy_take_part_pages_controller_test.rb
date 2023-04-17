@@ -53,7 +53,7 @@ class Admin::LegacyTakePartPagesControllerTest < ActionController::TestCase
 
     assert_not assigns(:take_part_page).persisted?
     assert_response :success
-    assert_template "new"
+    assert_template "legacy_new"
   end
 
   test "GET :edit fetches the supplied instance" do
