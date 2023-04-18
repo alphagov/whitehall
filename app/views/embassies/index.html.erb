@@ -23,11 +23,11 @@
               } %>
             </div>
             <div class="govuk-grid-column-two-thirds">
-              <% if embassy.has_consular_service_in_location? && embassy.offices.empty? %>
-                <p class="govuk-body"><%= embassy.text %></p>
+              <% if !embassy.special_case? && embassy.offices.empty? %>
+                <p class="govuk-body">British nationals should contact the local authorities.</p>
               <% else %>
                 <ul class="govuk-list govuk-list--spaced govuk-!-margin-top-0">
-                  <% if !embassy.has_consular_service_in_location? || embassy.has_remote_service? %>
+                  <% if embassy.special_case? || embassy.has_remote_service? %>
                   <li>
                     <p class="govuk-body">
                       <%= embassy.text %>
