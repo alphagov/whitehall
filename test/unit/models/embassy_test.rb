@@ -49,29 +49,29 @@ class EmbassyTest < ActiveSupport::TestCase
   end
 
   test "remote_services_office and remote_services_country" do
-    legoland = create(:world_location, name: "Legoland")
+    qatar = create(:world_location, name: "Qatar")
 
-    toytown = create(:world_location, :with_worldwide_organisations, name: "Narnia")
-    toytown_org = toytown.worldwide_organisations.first
-    toytown_org.main_office = nil
+    afghanistan = create(:world_location, :with_worldwide_organisations, name: "Afghanistan")
+    british_embassy_kabul = afghanistan.worldwide_organisations.first
+    british_embassy_kabul.main_office = nil
     contact = create(
       :contact,
-      title: "British Embassy Legoland",
-      street_address: "1 Brick Lane",
-      country: legoland,
+      title: "British Embassy Kabul",
+      street_address: "Al Shabab Street",
+      country: qatar,
     )
-    toytown_org.offices << create(
+    british_embassy_kabul.offices << create(
       :worldwide_office,
-      title: "British Consular Services Legoland",
+      title: "British Embassy Kabul has temporarily suspended in-country operations.",
       contact:,
-      worldwide_organisation: toytown_org,
+      worldwide_organisation: british_embassy_kabul,
       worldwide_office_type: WorldwideOfficeType::Embassy,
     )
 
-    location = Embassy.new(toytown)
+    embassy = Embassy.new(afghanistan)
 
-    assert_equal "Legoland", location.remote_services_country.name
-    assert_equal "British Embassy Legoland", location.offices.first.title
+    assert_equal "Qatar", embassy.remote_services_country.name
+    assert_equal "British Embassy Kabul", embassy.offices.first.title
   end
 
   test ".embassy_office? is true for Embassy office types" do
