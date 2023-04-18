@@ -95,13 +95,7 @@ class EmbassyTest < ActiveSupport::TestCase
   end
 
   test ".embassy_office? is false for non-Embassy office types" do
-    embassy_office_types = [
-      WorldwideOfficeType::BritishTradeACulturalOffice,
-      WorldwideOfficeType::Consulate,
-      WorldwideOfficeType::Embassy,
-      WorldwideOfficeType::HighCommission
-    ]
-    (WorldwideOfficeType.all - embassy_office_types).each do |office_type|
+    (WorldwideOfficeType.all - Embassy::EmbassyOfficeTypes).each do |office_type|
       office = WorldwideOffice.new(worldwide_office_type: office_type)
       refute Embassy.embassy_office?(office)
     end

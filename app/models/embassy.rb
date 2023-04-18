@@ -1,14 +1,14 @@
 class Embassy
-  def initialize(world_location)
-    @world_location = world_location
-  end
-
   EmbassyOfficeTypes = [
     WorldwideOfficeType::BritishTradeACulturalOffice,
     WorldwideOfficeType::Consulate,
     WorldwideOfficeType::Embassy,
     WorldwideOfficeType::HighCommission,
   ]
+
+  def initialize(world_location)
+    @world_location = world_location
+  end
 
   delegate :name, to: :@world_location
 
