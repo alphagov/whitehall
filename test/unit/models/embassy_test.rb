@@ -74,24 +74,11 @@ class EmbassyTest < ActiveSupport::TestCase
     assert_equal "British Embassy Legoland", location.offices.first.title
   end
 
-  test ".embassy_office? is true for British Trade and Cultural Office" do
-    office = WorldwideOffice.new(worldwide_office_type: WorldwideOfficeType::BritishTradeACulturalOffice)
-    assert Embassy.embassy_office?(office)
-  end
-
-  test ".embassy_office? is true for Consulate" do
-    office = WorldwideOffice.new(worldwide_office_type: WorldwideOfficeType::Consulate)
-    assert Embassy.embassy_office?(office)
-  end
-
-  test ".embassy_office? is true for Embassy" do
-    office = WorldwideOffice.new(worldwide_office_type: WorldwideOfficeType::Embassy)
-    assert Embassy.embassy_office?(office)
-  end
-
-  test ".embassy_office? is true for High Comission" do
-    office = WorldwideOffice.new(worldwide_office_type: WorldwideOfficeType::HighCommission)
-    assert Embassy.embassy_office?(office)
+  test ".embassy_office? is true for Embassy office types" do
+    Embassy::EmbassyOfficeTypes.each do |office_type|
+      office = WorldwideOffice.new(worldwide_office_type: office_type)
+      assert Embassy.embassy_office?(office)
+    end
   end
 
   test ".embassy_office? is false for non-Embassy office types" do
