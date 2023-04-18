@@ -64,17 +64,12 @@ Whitehall::Application.routes.draw do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 
     # Redirects rendered by Whitehall
-    get "/collections" => redirect("/publications")
-    get "/fatalities" => redirect("/announcements"), as: "fatality_notices"
-    get "/news" => redirect("/announcements"), as: "news_articles"
     get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organsation_id/series(.:locale)" => redirect("/publications"), constraints: { locale: valid_locales_regex }
-    get "/organisations/:organsation_id/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
-    get "/speeches" => redirect("/announcements")
-    get "/tour" => redirect("/tour", prefix: "")
+    get "/organisations/:organisation_id/series(.:locale)" => redirect("/publications"), constraints: { locale: valid_locales_regex }
+    get "/organisations/:organisation_id/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
     # End of redirects rendered by Whitehall
 
     # Public facing routes still rendered by Whitehall
