@@ -417,13 +417,16 @@ private
   end
 
   def edition_filter_options
-    params_filters_with_default_state
+    filter_options = params_filters_with_default_state
       .symbolize_keys
       .merge(
         include_unpublishing: true,
         include_link_check_reports: true,
         include_last_author: true,
       )
+
+    filter_options = filter_options.merge(per_page: 15) if preview_design_system?(next_release: false)
+    filter_options
   end
 
   def detect_other_active_editors
