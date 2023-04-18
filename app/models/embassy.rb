@@ -15,16 +15,26 @@ class Embassy
     end
   end
 
+  def in_location_offices
+    offices.select { |office| office.country == @world_location }
+  end
+
+  def remote_offices
+    offices.reject { |office| office.country == @world_location }
+  end
+
+  def remote_services_office
+    return nil if in_location_offices.any?
+    return nil if remote_offices.empty?
+
+    remote_offices.first
+  end
+
   def remote_services_country
-    countries = offices.map(&:country)
-    unless countries.empty? || countries.include?(@world_location)
-      countries.first
-    end
+    remote_services_office.country
   end
 
   def remote_services_organisation
-    return nil unless remote_services_country
-
-    consular_services_organisations.select { |org| org.world_locations.include?(remote_services_country) }.first
+    remote_services_office.organisation
   end
 end

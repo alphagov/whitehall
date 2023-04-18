@@ -38,6 +38,10 @@ class EmbassyPresenter < SimpleDelegator
     end
   end
 
+  def has_consular_services?
+    offices.any? || special_case? || has_remote_service?
+  end
+
   def special_case?
     SPECIAL_CASES.key?(name)
   end
