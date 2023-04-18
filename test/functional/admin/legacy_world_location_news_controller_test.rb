@@ -29,7 +29,7 @@ class Admin::LegacyWorldLocationNewsControllerTest < ActionController::TestCase
 
     get :edit, params: { id: world_location.world_location_news }
 
-    assert_template "world_location_news/edit"
+    assert_template "world_location_news/legacy_edit"
     assert_select "input[name='world_location_news[title]']"
     assert_select "textarea[name='world_location_news[mission_statement]']"
   end

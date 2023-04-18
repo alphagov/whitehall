@@ -11,7 +11,7 @@
       <%= form.translated_text_field :acronym %>
       <%= form.translated_text_area  :logo_formatted_name, rows: "4", style: "width: auto" %>
 
-      <%= render 'admin/shared/featured_link_fields', form: form %>
+      <%= render 'admin/shared/legacy_featured_link_fields', form: form %>
 
       <%= form.save_or_cancel cancel: admin_organisation_translations_path(@translated_organisation) %>
     <% end %>

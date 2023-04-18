@@ -108,7 +108,7 @@
       </div>
     </fieldset>
 
-    <%= render 'admin/shared/featured_link_fields', form: organisation_form %>
+    <%= render 'admin/shared/legacy_featured_link_fields', form: organisation_form %>
   <% end %>
 
   <% if can?(:manage_important_board_members, @organisation) && @organisation.management_roles.any? %>

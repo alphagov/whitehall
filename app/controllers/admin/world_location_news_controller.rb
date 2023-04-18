@@ -2,7 +2,9 @@ class Admin::WorldLocationNewsController < Admin::BaseController
   before_action :load_world_location, only: %i[edit update show features]
   layout :get_layout
 
-  def edit; end
+  def edit
+    render :legacy_edit
+  end
 
   def show
     render_design_system("show", "legacy_show", next_release: false)
@@ -18,7 +20,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     if @world_location_news.update(world_location_news_params)
       redirect_to [:admin, @world_location_news], notice: "World location updated successfully"
     else
-      render action: :edit
+      render :legacy_edit
     end
   end
 
