@@ -31,7 +31,6 @@ class Embassy
   end
 
   def remote_services_country
-    offices = consular_services_organisations.map(&:offices).flatten
     countries = offices.map(&:country)
     unless countries.empty? || countries.include?(@world_location)
       countries.first
