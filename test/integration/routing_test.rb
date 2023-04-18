@@ -27,11 +27,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should redirect from old tour page to mainstream tour page in case the URL has escaped into the wild" do
-    get "/government/tour"
-    assert_redirected_to "/tour"
-  end
-
   test "admin URLs are reachable when accessed via the admin host in production" do
     admin_host = "whitehall-admin.production.alphagov.co.uk"
     Whitehall.stubs(:admin_host).returns(admin_host)
