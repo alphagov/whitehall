@@ -3,7 +3,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
   layout :get_layout
 
   def edit
-    render :legacy_edit
+    render_design_system("edit", "legacy_edit", next_release: false)
   end
 
   def show
@@ -20,7 +20,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     if @world_location_news.update(world_location_news_params)
       redirect_to [:admin, @world_location_news], notice: "World location updated successfully"
     else
-      render :legacy_edit
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
 
@@ -67,7 +67,7 @@ private
   end
 
   def get_layout
-    design_system_actions = %w[show index]
+    design_system_actions = %w[show index edit update]
     if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
