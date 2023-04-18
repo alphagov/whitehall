@@ -1,7 +1,6 @@
-<% offices = Embassy.filter_offices(organisation) %>
 <li>
   <%= render "govuk_publishing_components/components/heading", {
-    text: ERB::Util.html_escape(offices.first.contact.locality),
+    text: ERB::Util.html_escape(organisation.embassy_offices.first.locality),
     heading_level: 3,
     margin_bottom: 1
   } %>

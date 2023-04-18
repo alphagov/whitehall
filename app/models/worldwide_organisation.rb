@@ -17,6 +17,10 @@ class WorldwideOrganisation < ApplicationRecord
   # This include is dependant on the above has_many
   include HasCorporateInformationPages
 
+  def embassy_offices
+    offices.select { |o| Embassy.embassy_office?(o) }
+  end
+
   has_many :editions, through: :edition_worldwide_organisations
 
   has_one :access_and_opening_times, as: :accessible, dependent: :destroy
