@@ -30,9 +30,9 @@
                   <% if embassy.special_case? || embassy.has_remote_service? %>
                   <li>
                     <p class="govuk-body">
-                      <%= embassy.text %>
+                      <%= embassy.remote_office_text %>
                     </p>
-                    <%= embassy.embassy_path %>
+                    <%= link_to(embassy.remote_office_name, embassy.remote_office_base_path, class: "govuk-link") %>
                   </li>
                   <% else %>
                     <%= render partial:"organisation", collection: embassy.consular_services_organisations %>

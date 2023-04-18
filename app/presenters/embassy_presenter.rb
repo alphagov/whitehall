@@ -4,23 +4,37 @@ class EmbassyPresenter < SimpleDelegator
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
 
-  def text
+  def remote_office_text
+    "British nationals should contact the #{remote_office_name} in #{remote_office_country}."
+  end
+
+  def remote_office_name
     if special_case?
-      "British nationals should contact the #{SPECIAL_CASES[name][:building]} in #{SPECIAL_CASES[name][:location]}."
+      SPECIAL_CASES[name][:building]
     elsif has_remote_service?
-      "British nationals should contact the #{remote_services_organisation} in #{remote_services_country}."
+      remote_services_organisation.name
+    else
+      raise 'ERROR'
     end
   end
 
-  def embassy_path
+  def remote_office_location
     if special_case?
-      link_to(SPECIAL_CASES[name][:building], SPECIAL_CASES[name][:base_path], class: "govuk-link")
-    elsif remote_services_organisation
-      link_to(
-        remote_services_organisation.name,
-        remote_services_organisation.public_path,
-        class: "govuk-link",
-      )
+      SPECIAL_CASES[name][:location]
+    elsif has_remote_service?
+      remote_services_country
+    else
+      raise 'ERROR'
+    end
+  end
+
+  def remote_office_base_path
+    if special_case?
+      SPECIAL_CASES[name][:base_path]
+    elsif has_remote_service?
+      remote_services_organisation.public_path
+    else
+      raise 'ERROR'
     end
   end
 
