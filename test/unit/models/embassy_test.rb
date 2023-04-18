@@ -48,30 +48,26 @@ class EmbassyTest < ActiveSupport::TestCase
     assert [], embassy.offices
   end
 
-  test "remote_services_office and remote_services_country" do
+  test "#remote_services_country" do
     qatar = create(:world_location, name: "Qatar")
 
-    afghanistan = create(:world_location, :with_worldwide_organisations, name: "Afghanistan")
-    british_embassy_kabul = afghanistan.worldwide_organisations.first
-    british_embassy_kabul.main_office = nil
+    afghanistan = create(:world_location, name: "Afghanistan")
+    british_embassy_kabul = create(:worldwide_organisation, world_locations: [afghanistan])
     contact = create(
       :contact,
-      title: "British Embassy Kabul",
-      street_address: "Al Shabab Street",
+      street_address: 'British Embassy West Bay',
       country: qatar,
     )
     british_embassy_kabul.offices << create(
       :worldwide_office,
-      title: "British Embassy Kabul has temporarily suspended in-country operations.",
       contact:,
-      worldwide_organisation: british_embassy_kabul,
       worldwide_office_type: WorldwideOfficeType::Embassy,
     )
 
     embassy = Embassy.new(afghanistan)
 
-    assert_equal "Qatar", embassy.remote_services_country.name
-    assert_equal "British Embassy Kabul", embassy.offices.first.title
+    assert_equal qatar, embassy.remote_services_country
+    assert_equal british_embassy_kabul.offices, embassy.offices
   end
 
   test ".embassy_office? is true for Embassy office types" do
