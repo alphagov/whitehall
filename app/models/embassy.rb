@@ -3,6 +3,13 @@ class Embassy
     @world_location = world_location
   end
 
+  EmbassyOfficeTypes = [
+    WorldwideOfficeType::BritishTradeACulturalOffice,
+    WorldwideOfficeType::Consulate,
+    WorldwideOfficeType::Embassy,
+    WorldwideOfficeType::HighCommission,
+  ]
+
   delegate :name, to: :@world_location
 
   def self.filter_offices(worldwide_organisation)
@@ -28,11 +35,6 @@ class Embassy
   end
 
   def self.embassy_office?(office)
-    [
-      WorldwideOfficeType::BritishTradeACulturalOffice,
-      WorldwideOfficeType::Consulate,
-      WorldwideOfficeType::Embassy,
-      WorldwideOfficeType::HighCommission,
-    ].include?(office.worldwide_office_type)
+    EmbassyOfficeTypes.include?(office.worldwide_office_type)
   end
 end
