@@ -29,10 +29,10 @@ class Embassy
 
   def self.embassy_office?(office)
     [
-      "British Trade and Cultural Office",
-      "Consulate",
-      "Embassy",
-      "High Commission",
-    ].include?(office.worldwide_office_type.name)
+      WorldwideOfficeType::BritishTradeACulturalOffice,
+      WorldwideOfficeType::Consulate,
+      WorldwideOfficeType::Embassy,
+      WorldwideOfficeType::HighCommission,
+    ].include?(office.worldwide_office_type)
   end
 end

@@ -73,4 +73,37 @@ class EmbassyTest < ActiveSupport::TestCase
     assert_equal "Legoland", location.remote_services_country.name
     assert_equal "British Embassy Legoland", location.offices.first.title
   end
+
+  test ".embassy_office? is true for British Trade and Cultural Office" do
+    office = WorldwideOffice.new(worldwide_office_type: WorldwideOfficeType::BritishTradeACulturalOffice)
+    assert Embassy.embassy_office?(office)
+  end
+
+  test ".embassy_office? is true for Consulate" do
+    office = WorldwideOffice.new(worldwide_office_type: WorldwideOfficeType::Consulate)
+    assert Embassy.embassy_office?(office)
+  end
+
+  test ".embassy_office? is true for Embassy" do
+    office = WorldwideOffice.new(worldwide_office_type: WorldwideOfficeType::Embassy)
+    assert Embassy.embassy_office?(office)
+  end
+
+  test ".embassy_office? is true for High Comission" do
+    office = WorldwideOffice.new(worldwide_office_type: WorldwideOfficeType::HighCommission)
+    assert Embassy.embassy_office?(office)
+  end
+
+  test ".embassy_office? is false for non-Embassy office types" do
+    embassy_office_types = [
+      WorldwideOfficeType::BritishTradeACulturalOffice,
+      WorldwideOfficeType::Consulate,
+      WorldwideOfficeType::Embassy,
+      WorldwideOfficeType::HighCommission
+    ]
+    (WorldwideOfficeType.all - embassy_office_types).each do |office_type|
+      office = WorldwideOffice.new(worldwide_office_type: office_type)
+      refute Embassy.embassy_office?(office)
+    end
+  end
 end
