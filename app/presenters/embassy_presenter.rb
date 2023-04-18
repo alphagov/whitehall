@@ -8,17 +8,17 @@ class EmbassyPresenter < SimpleDelegator
     if special_case?
       "British nationals should contact the #{SPECIAL_CASES[name][:building]} in #{SPECIAL_CASES[name][:location]}."
     elsif has_remote_service?
-      "British nationals should contact the #{organisation.name} in #{remote_services_country}."
+      "British nationals should contact the #{remote_services_organisation} in #{remote_services_country}."
     end
   end
 
   def embassy_path
     if special_case?
       link_to(SPECIAL_CASES[name][:building], SPECIAL_CASES[name][:base_path], class: "govuk-link")
-    elsif organisation
+    elsif remote_services_organisation
       link_to(
-        organisation.name,
-        organisation.public_path,
+        remote_services_organisation.name,
+        remote_services_organisation.public_path,
         class: "govuk-link",
       )
     end
@@ -33,10 +33,6 @@ class EmbassyPresenter < SimpleDelegator
   end
 
 private
-
-  def organisation
-    consular_services_organisations.first
-  end
 
   SPECIAL_CASES = {
     "Central African Republic" => {

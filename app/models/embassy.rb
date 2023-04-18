@@ -21,4 +21,10 @@ class Embassy
       countries.first
     end
   end
+
+  def remote_services_organisation
+    return nil unless remote_services_country
+
+    consular_services_organisations.select { |org| org.world_locations.include?(remote_services_country) }.first
+  end
 end
