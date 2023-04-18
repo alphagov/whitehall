@@ -16,7 +16,7 @@ class OperationalField < ApplicationRecord
   after_commit :republish_operational_fields_index_page_to_publishing_api
 
   def republish_operational_fields_index_page_to_publishing_api
-    PublishOperationalFieldsIndexPage.new.publish
+    PresentPageToPublishingApi.new.publish(PublishingApi::OperationalFieldsIndexPresenter)
   end
 
   def search_link
