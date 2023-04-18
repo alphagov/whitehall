@@ -1,7 +1,18 @@
 class WorldwideOfficeType
+  EmbassyOfficeTypes = [
+    BritishTradeACulturalOffice,
+    Consulate,
+    Embassy,
+    HighCommission,
+  ]
+
   include ActiveRecordLikeInterface
 
   attr_accessor :id, :name, :grouping, :listing_order
+
+  def embassy_office?
+    EmbassyOfficeTypes.include?(self)
+  end
 
   def slug
     name.downcase.gsub(/[^a-z]+/, "-")

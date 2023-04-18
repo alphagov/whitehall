@@ -18,7 +18,7 @@ class WorldwideOrganisation < ApplicationRecord
   include HasCorporateInformationPages
 
   def embassy_offices
-    offices.select { |o| Embassy.embassy_office?(o) }
+    offices.select { |office| office.embassy_office? }
   end
 
   has_many :editions, through: :edition_worldwide_organisations

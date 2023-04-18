@@ -9,6 +9,10 @@ class WorldwideOffice < ApplicationRecord
 
   accepts_nested_attributes_for :contact
 
+  def embassy_office?
+    worldwide_office_type.embassy_office?
+  end
+
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :worldwide_organisation
 

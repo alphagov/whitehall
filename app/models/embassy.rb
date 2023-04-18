@@ -1,15 +1,4 @@
 class Embassy
-  EmbassyOfficeTypes = [
-    WorldwideOfficeType::BritishTradeACulturalOffice,
-    WorldwideOfficeType::Consulate,
-    WorldwideOfficeType::Embassy,
-    WorldwideOfficeType::HighCommission,
-  ]
-
-  def self.embassy_office?(office)
-    EmbassyOfficeTypes.include?(office.worldwide_office_type)
-  end
-
   def initialize(world_location)
     @world_location = world_location
   end
@@ -17,7 +6,7 @@ class Embassy
   delegate :name, to: :@world_location
 
   def offices
-    @world_location.worldwide_organisations.map { |org| org.embassy_offices }.flatten
+    consular_services_organisations.map { |org| org.embassy_offices }.flatten
   end
 
   def consular_services_organisations
