@@ -68,8 +68,8 @@ Whitehall::Application.routes.draw do
     get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organsation_id/series(.:locale)" => redirect("/publications"), constraints: { locale: valid_locales_regex }
-    get "/organisations/:organsation_id/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
+    get "/organisations/:organisation_id/series(.:locale)" => redirect("/publications"), constraints: { locale: valid_locales_regex }
+    get "/organisations/:organisation_id/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
     # End of redirects rendered by Whitehall
 
     # Public facing routes still rendered by Whitehall
