@@ -5,17 +5,13 @@ class Embassy
 
   delegate :name, to: :@world_location
 
-  def self.filter_offices(worldwide_organisation)
-    worldwide_organisation.embassy_offices
-  end
-
   def offices
-    @world_location.worldwide_organisations.map { |org| self.class.filter_offices(org) }.flatten
+    @world_location.worldwide_organisations.map(&:embassy_offices).flatten
   end
 
   def consular_services_organisations
     @world_location.worldwide_organisations.select do |org|
-      self.class.filter_offices(org).any?
+      org.embassy_offices.any?
     end
   end
 
