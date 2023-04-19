@@ -23,21 +23,21 @@
               } %>
             </div>
             <div class="govuk-grid-column-two-thirds">
-              <% if !embassy.special_case? && embassy.offices.empty? %>
-                <p class="govuk-body">British nationals should contact the local authorities.</p>
-              <% else %>
+              <% if embassy.has_consular_services? %>
                 <ul class="govuk-list govuk-list--spaced govuk-!-margin-top-0">
                   <% if embassy.special_case? || embassy.has_remote_service? %>
-                  <li>
-                    <p class="govuk-body">
-                      <%= embassy.text %>
-                    </p>
-                    <%= embassy.embassy_path %>
-                  </li>
+                    <li>
+                      <p class="govuk-body">
+                        <%= embassy.text %>
+                      </p>
+                      <%= embassy.embassy_path %>
+                    </li>
                   <% else %>
                     <%= render partial:"organisation", collection: embassy.consular_services_organisations %>
                   <% end %>
                 </ul>
+              <% else %>
+                <p class="govuk-body">British nationals should contact the local authorities.</p>
               <% end %>
             </div>
           </li>

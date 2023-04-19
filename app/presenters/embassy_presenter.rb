@@ -32,6 +32,10 @@ class EmbassyPresenter < SimpleDelegator
     remote_services_country.present?
   end
 
+  def has_consular_services?
+    special_case? || offices.any?
+  end
+
 private
 
   def organisation
