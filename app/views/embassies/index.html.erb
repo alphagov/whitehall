@@ -25,15 +25,15 @@
             <div class="govuk-grid-column-two-thirds">
               <% if embassy.has_consular_services? %>
                 <ul class="govuk-list govuk-list--spaced govuk-!-margin-top-0">
-                  <% if embassy.special_case? || embassy.has_remote_service? %>
+                  <% if embassy.has_local_services? %>
+                    <%= render partial:"organisation", collection: embassy.consular_services_organisations %>
+                  <% else %>
                     <li>
                       <p class="govuk-body">
                         <%= embassy.text %>
                       </p>
                       <%= embassy.embassy_path %>
                     </li>
-                  <% else %>
-                    <%= render partial:"organisation", collection: embassy.consular_services_organisations %>
                   <% end %>
                 </ul>
               <% else %>
