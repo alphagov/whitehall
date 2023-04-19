@@ -23,9 +23,9 @@
               } %>
             </div>
             <div class="govuk-grid-column-two-thirds">
-              <% if embassy.has_consular_services? %>
+              <% if embassy.can_assist_british_nationals? %>
                 <ul class="govuk-list govuk-list--spaced govuk-!-margin-top-0">
-                  <% if embassy.has_local_services? %>
+                  <% if embassy.can_assist_in_location? %>
                     <%= render partial:"organisation", collection: embassy.consular_services_organisations %>
                   <% else %>
                     <li>

@@ -30,7 +30,7 @@ class Embassy
       RemoteOffice.new(name: SPECIAL_CASES[name][:building],
                        location: SPECIAL_CASES[name][:location],
                        path: SPECIAL_CASES[name][:base_path])
-    elsif has_remote_service?
+    elsif can_assist_in_other_location?
       RemoteOffice.new(name: organisation.name,
                        location: remote_services_country,
                        path: organisation.public_path)
@@ -41,15 +41,15 @@ class Embassy
     SPECIAL_CASES.key?(name)
   end
 
-  def has_remote_service?
+  def can_assist_in_other_location?
     remote_services_country.present?
   end
 
-  def has_local_services?
-    offices.any? && !(special_case? || has_remote_service?)
+  def can_assist_in_location?
+    offices.any? && !(special_case? || can_assist_in_other_location?)
   end
 
-  def has_consular_services?
+  def can_assist_british_nationals?
     special_case? || offices.any?
   end
 
