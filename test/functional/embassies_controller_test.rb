@@ -48,7 +48,7 @@ class EmbassiesControllerTest < ActionController::TestCase
   end
 
   view_test "some countries have different remote consular services" do
-    EmbassyPresenter::SPECIAL_CASES.each do |special_case|
+    Embassy::SPECIAL_CASES.each do |special_case|
       name = special_case.first
       building = special_case.last.fetch(:building)
       building_location = special_case.last.fetch(:location)
