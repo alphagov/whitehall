@@ -19,7 +19,7 @@
       <%= label_tag :organisation_id %>
       <div class="form-group">
         <%= select_tag :organisation_id,
-                       admin_organisation_filter_options(current_user, @filter.options[:organisation_id]),
+                       legacy_admin_organisation_filter_options(current_user, @filter.options[:organisation_id]),
                        class: "chzn-select" %>
       </div>
 

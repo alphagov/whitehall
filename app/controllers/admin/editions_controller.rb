@@ -48,7 +48,7 @@ class Admin::EditionsController < Admin::BaseController
       if request.xhr?
         render partial: "legacy_search_results"
       else
-        render :legacy_index
+        render_design_system(:index, :legacy_index, next_release: false)
       end
     elsif session_filters.any?
       redirect_to session_filters
@@ -195,6 +195,7 @@ private
   def get_layout
     design_system_actions = %w[confirm_destroy diff show]
     design_system_actions += %w[edit update new create] if preview_design_system?(next_release: true)
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

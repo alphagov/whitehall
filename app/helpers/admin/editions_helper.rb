@@ -37,7 +37,48 @@ module Admin::EditionsHelper
     "active" if filter_value && disallowed_values.none? { |disallowed_value| filter_value == disallowed_value }
   end
 
-  def admin_organisation_filter_options(current_user, selected_organisation)
+  def admin_organisation_filter_options(selected_organisation)
+    organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
+    closed_organisations = Organisation.with_translations(:en).closed || []
+    if current_user.organisation
+      organisations = [current_user.organisation] + (organisations - [current_user.organisation])
+    end
+
+    [
+      [
+        "",
+        [
+          {
+            text: "All organisations",
+            value: "",
+            selected: selected_organisation.blank?,
+          },
+        ],
+      ],
+      [
+        "Live organisations",
+        organisations.map do |organisation|
+          {
+            text: organisation.select_name,
+            value: organisation.id,
+            selected: selected_organisation == organisation.id.to_s,
+          }
+        end,
+      ],
+      [
+        "Closed organisations",
+        closed_organisations.map do |organisation|
+          {
+            text: organisation.select_name,
+            value: organisation.id,
+            selected: selected_organisation == organisation.id.to_s,
+          }
+        end,
+      ],
+    ]
+  end
+
+  def legacy_admin_organisation_filter_options(current_user, selected_organisation)
     organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
     closed_organisations = Organisation.with_translations(:en).closed || []
     if current_user.organisation
