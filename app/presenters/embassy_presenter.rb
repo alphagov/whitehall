@@ -5,7 +5,7 @@ class EmbassyPresenter < SimpleDelegator
   include ActionView::Helpers::UrlHelper
 
   def text
-    if SPECIAL_CASES.key?(name)
+    if special_case?
       "British nationals should contact the #{SPECIAL_CASES[name][:building]} in #{SPECIAL_CASES[name][:location]}."
     elsif offices.empty?
       "British nationals should contact the local authorities."
@@ -15,7 +15,7 @@ class EmbassyPresenter < SimpleDelegator
   end
 
   def embassy_path
-    if SPECIAL_CASES.key?(name)
+    if special_case?
       link_to(SPECIAL_CASES[name][:building], SPECIAL_CASES[name][:base_path], class: "govuk-link")
     elsif organisation
       link_to(
@@ -26,8 +26,8 @@ class EmbassyPresenter < SimpleDelegator
     end
   end
 
-  def has_consular_service_in_location?
-    !SPECIAL_CASES.key?(name)
+  def special_case?
+    SPECIAL_CASES.key?(name)
   end
 
   def has_remote_service?
