@@ -16,9 +16,11 @@ class Embassy
   end
 
   def remote_services_country
+    return nil if offices_in_location.any?
+
     offices = consular_services_organisations.map(&:offices).flatten
     countries = offices.map(&:country)
-    unless countries.empty? || countries.include?(@world_location)
+    unless countries.empty?
       countries.first
     end
   end
@@ -46,7 +48,10 @@ class Embassy
   end
 
   def can_assist_in_location?
-    offices.any? && !(special_case? || can_assist_in_other_location?)
+    return false if special_case?
+    return false if can_assist_in_other_location?
+
+    offices_in_location.any? || offices_in_unknown_location.any?
   end
 
   def can_assist_british_nationals?
@@ -54,6 +59,14 @@ class Embassy
   end
 
 private
+
+  def offices_in_location
+    offices.select { |office| office.country == @world_location }
+  end
+
+  def offices_in_unknown_location
+    offices.select { |office| office.country.nil? }
+  end
 
   def organisation
     consular_services_organisations.first
