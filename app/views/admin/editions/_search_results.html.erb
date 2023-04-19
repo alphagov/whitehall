@@ -1,7 +1,13 @@
-<p class="govuk-body"><%= paginator.total_count %> documents</p>
+<% if @filter.show_stats %>
+    <p class="govuk-heading-s govuk-!-margin-bottom-1 "><%= pluralize(number_with_delimiter(@filter.published_count), "published document") %></p>
+    <p class="govuk-heading-s govuk-!-margin-bottom-1"><%= number_with_delimiter(@filter.force_published_count) %> force published</p>
+    <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= @filter.force_published_percentage %>% force published</p>
+  <% else %>
+    <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
+<% end %>
 
 <% if filter.editions.blank? %>
-  <p class="govuk-body">No documents found</p>
+  <p class="govuk-body app-view-edition-search-results__no_documents">No documents found</p>
 <% else %>
   <%= render "govuk_publishing_components/components/table", {
     head: [
@@ -40,5 +46,18 @@
       end
   } %>
 
-  <%= paginate(paginator, theme: "govuk_paginator") %>
+    <% if paginate(paginator, theme: "govuk_paginator").present? && show_export && can?(:export, Edition) %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <%= paginate(paginator, theme: "govuk_paginator") %>
+        </div>
+        <div class="govuk-grid-column-one-third">
+          <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
+        </div>
+      </div>
+    <% elsif paginate(paginator, theme: "govuk_paginator").present? && !(show_export && can?(:export, Edition)) %>
+      <%= paginate(paginator, theme: "govuk_paginator") %>
+    <% elsif show_export && can?(:export, Edition) %>
+      <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
+    <% end %>
 <% end %>

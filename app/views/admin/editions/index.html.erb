@@ -6,5 +6,8 @@
     <%= render 'filter_options', filter_action: admin_editions_path %>
   </div>
   <div class="govuk-grid-column-two-thirds">
+    <div class="app-view-edition-index__table">
+      <%= render 'search_results', filter: @filter, paginator: @filter.editions, show_export: true %>
+    </div>
   </div>
 </div>
