@@ -32,7 +32,7 @@
                       <p class="govuk-body">
                         British nationals should contact the <%= embassy.remote_office_name %> in <%= embassy.remote_office_location %>.
                       </p>
-                      <%= embassy.embassy_link %>
+                      <%= link_to(embassy.remote_office_name, embassy.remote_office_path, class: "govuk-link") %>
                     </li>
                   <% end %>
                 </ul>
