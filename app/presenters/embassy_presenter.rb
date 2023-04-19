@@ -1,9 +1,4 @@
 class EmbassyPresenter < SimpleDelegator
-  include Rails.application.routes.url_helpers
-  include ActionView::Helpers::TextHelper
-  include ActionView::Helpers::TagHelper
-  include ActionView::Helpers::UrlHelper
-
   RemoteOffice = Struct.new(:name, :location, :path, keyword_init: true)
 
   def remote_office
