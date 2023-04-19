@@ -6,10 +6,10 @@ class EmbassyPresenter < SimpleDelegator
 
   def embassy_link
     if special_case?
-      link_to(SPECIAL_CASES[name][:building], SPECIAL_CASES[name][:base_path], class: "govuk-link")
+      link_to(remote_office_name, SPECIAL_CASES[name][:base_path], class: "govuk-link")
     elsif organisation
       link_to(
-        organisation.name,
+        remote_office_name,
         organisation.public_path,
         class: "govuk-link",
       )
