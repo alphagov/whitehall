@@ -7,8 +7,6 @@ class EmbassyPresenter < SimpleDelegator
   def text
     if special_case?
       "British nationals should contact the #{SPECIAL_CASES[name][:building]} in #{SPECIAL_CASES[name][:location]}."
-    elsif offices.empty?
-      "British nationals should contact the local authorities."
     elsif has_remote_service?
       "British nationals should contact the #{organisation.name} in #{remote_services_country}."
     end
