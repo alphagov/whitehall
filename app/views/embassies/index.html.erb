@@ -30,9 +30,9 @@
                   <% else %>
                     <li>
                       <p class="govuk-body">
-                        British nationals should contact the <%= embassy.remote_office_name %> in <%= embassy.remote_office_location %>.
+                        British nationals should contact the <%= embassy.remote_office.name %> in <%= embassy.remote_office.location %>.
                       </p>
-                      <%= link_to(embassy.remote_office_name, embassy.remote_office_path, class: "govuk-link") %>
+                      <%= link_to(embassy.remote_office.name, embassy.remote_office.path, class: "govuk-link") %>
                     </li>
                   <% end %>
                 </ul>

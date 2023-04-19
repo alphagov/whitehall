@@ -4,27 +4,17 @@ class EmbassyPresenter < SimpleDelegator
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
 
-  def remote_office_path
-    if special_case?
-      SPECIAL_CASES[name][:base_path]
-    elsif has_remote_service?
-      organisation.public_path
-    end
-  end
+  RemoteOffice = Struct.new(:name, :location, :path, keyword_init: true)
 
-  def remote_office_name
+  def remote_office
     if special_case?
-      SPECIAL_CASES[name][:building]
+      RemoteOffice.new(name: SPECIAL_CASES[name][:building],
+                       location: SPECIAL_CASES[name][:location],
+                       path: SPECIAL_CASES[name][:base_path])
     elsif has_remote_service?
-      organisation.name
-    end
-  end
-
-  def remote_office_location
-    if special_case?
-      SPECIAL_CASES[name][:location]
-    elsif has_remote_service?
-      remote_services_country
+      RemoteOffice.new(name: organisation.name,
+                       location: remote_services_country,
+                       path: organisation.public_path)
     end
   end
 
