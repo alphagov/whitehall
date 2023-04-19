@@ -12,7 +12,7 @@ class EmbassyPresenter < SimpleDelegator
     end
   end
 
-  def embassy_path
+  def embassy_link
     if special_case?
       link_to(SPECIAL_CASES[name][:building], SPECIAL_CASES[name][:base_path], class: "govuk-link")
     elsif organisation
