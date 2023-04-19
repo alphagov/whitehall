@@ -103,6 +103,10 @@ class WorldwideOrganisation < ApplicationRecord
     main_office == office
   end
 
+  def embassy_offices
+    offices.select(&:embassy_office?)
+  end
+
   def primary_role
     roles.occupied.find_by(type: PRIMARY_ROLES.map(&:name))
   end

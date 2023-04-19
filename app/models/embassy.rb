@@ -6,7 +6,7 @@ class Embassy
   delegate :name, to: :@world_location
 
   def self.filter_offices(worldwide_organisation)
-    worldwide_organisation.offices.select { |o| embassy_office?(o) }
+    worldwide_organisation.embassy_offices
   end
 
   def offices
@@ -25,14 +25,5 @@ class Embassy
     unless countries.empty? || countries.include?(@world_location)
       countries.first
     end
-  end
-
-  def self.embassy_office?(office)
-    [
-      "British Trade and Cultural Office",
-      "Consulate",
-      "Embassy",
-      "High Commission",
-    ].include?(office.worldwide_office_type.name)
   end
 end

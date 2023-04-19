@@ -7,6 +7,10 @@ class WorldwideOfficeType
     name.downcase.gsub(/[^a-z]+/, "-")
   end
 
+  def embassy_office?
+    EMBASSY_OFFICE_TYPES.include?(self)
+  end
+
   def self.find_by_name(name)
     all.detect { |type| type.name == name }
   end
@@ -40,4 +44,11 @@ class WorldwideOfficeType
 
   # Other office types
   Other                       = create!(id: 999, name: "Other", grouping: "Other", listing_order: 99)
+
+  EMBASSY_OFFICE_TYPES = [
+    BritishTradeACulturalOffice,
+    Consulate,
+    Embassy,
+    HighCommission,
+  ].freeze
 end

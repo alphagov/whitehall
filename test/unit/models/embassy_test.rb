@@ -31,23 +31,6 @@ class EmbassyTest < ActiveSupport::TestCase
     assert [], embassy.offices
   end
 
-  test "#offices treats other types of offices as embassies" do
-    embassy = Embassy.new(@location)
-    t = WorldwideOfficeType
-
-    @organisation.main_office.update!(worldwide_office_type: t::BritishTradeACulturalOffice)
-    assert [@organisation.main_office], embassy.offices
-
-    @organisation.main_office.update!(worldwide_office_type: t::Consulate)
-    assert [@organisation.main_office], embassy.offices
-
-    @organisation.main_office.update!(worldwide_office_type: t::HighCommission)
-    assert [@organisation.main_office], embassy.offices
-
-    @organisation.main_office.update!(worldwide_office_type: t::Other)
-    assert [], embassy.offices
-  end
-
   test "remote_services_office and remote_services_country" do
     legoland = create(:world_location, name: "Legoland")
 

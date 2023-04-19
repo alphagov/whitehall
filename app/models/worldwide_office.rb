@@ -23,6 +23,7 @@ class WorldwideOffice < ApplicationRecord
 
   delegate(*contact_methods, to: :contact, allow_nil: true)
   delegate(:non_english_translated_locales, to: :worldwide_organisation)
+  delegate(:embassy_office?, to: :worldwide_office_type)
 
   def access_and_opening_times_body
     (access_and_opening_times || default_access_and_opening_times).try(:body)

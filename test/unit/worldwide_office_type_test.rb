@@ -24,4 +24,16 @@ class WorldwideOfficeTypeTest < ActiveSupport::TestCase
       assert_equal grouped_order, in_groups[grouping].map(&:listing_order)
     end
   end
+
+  test "#embassy_office? returns true for embassy office types" do
+    WorldwideOfficeType::EMBASSY_OFFICE_TYPES.each do |office_type|
+      assert office_type.embassy_office?
+    end
+  end
+
+  test "#embassy_office? returns false for non-embassy office types" do
+    (WorldwideOfficeType.all - WorldwideOfficeType::EMBASSY_OFFICE_TYPES).each do |office_type|
+      assert_not office_type.embassy_office?
+    end
+  end
 end
