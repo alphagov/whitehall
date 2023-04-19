@@ -7,7 +7,7 @@ class EmbassyPresenter < SimpleDelegator
   def remote_office_path
     if special_case?
       SPECIAL_CASES[name][:base_path]
-    elsif organisation
+    elsif has_remote_service?
       organisation.public_path
     end
   end
