@@ -19,18 +19,6 @@ class EmbassyTest < ActiveSupport::TestCase
     assert_equal "Narnia", embassy.name
   end
 
-  test "#offices returns the organisation's embassy" do
-    embassy = Embassy.new(@location)
-    assert_equal [@organisation.main_office], embassy.offices
-  end
-
-  test "#offices returns an empty array if there is no embassy" do
-    location = create(:world_location, :with_worldwide_organisations, name: "Legoland")
-
-    embassy = Embassy.new(location)
-    assert [], embassy.offices
-  end
-
   test "remote_services_office and remote_services_country" do
     legoland = create(:world_location, name: "Legoland")
 
