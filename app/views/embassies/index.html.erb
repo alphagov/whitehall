@@ -26,7 +26,7 @@
               <% if embassy.can_assist_british_nationals? %>
                 <ul class="govuk-list govuk-list--spaced govuk-!-margin-top-0">
                   <% if embassy.can_assist_in_location? %>
-                    <%= render partial:"organisation", collection: embassy.consular_services_organisations %>
+                    <%= render partial: "organisation", collection: embassy.organisations_with_embassy_offices %>
                   <% else %>
                     <li>
                       <p class="govuk-body">

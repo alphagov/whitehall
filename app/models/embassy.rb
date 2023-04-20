@@ -5,7 +5,7 @@ class Embassy
 
   delegate :name, to: :@world_location
 
-  def consular_services_organisations
+  def organisations_with_embassy_offices
     @world_location.worldwide_organisations.select do |org|
       org.embassy_offices.any?
     end
@@ -57,7 +57,7 @@ private
   def remote_services_country
     return nil if offices_in_location.any?
 
-    offices = consular_services_organisations.map(&:offices).flatten
+    offices = organisations_with_embassy_offices.map(&:offices).flatten
     countries = offices.map(&:country)
     unless countries.empty?
       countries.first
@@ -65,7 +65,7 @@ private
   end
 
   def organisation
-    consular_services_organisations.first
+    organisations_with_embassy_offices.first
   end
 
   def special_case?
