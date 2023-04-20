@@ -11,16 +11,6 @@ class Embassy
     end
   end
 
-  def remote_services_country
-    return nil if offices_in_location.any?
-
-    offices = consular_services_organisations.map(&:offices).flatten
-    countries = offices.map(&:country)
-    unless countries.empty?
-      countries.first
-    end
-  end
-
   RemoteOffice = Struct.new(:name, :location, :path, keyword_init: true)
 
   def remote_office
@@ -62,6 +52,16 @@ private
 
   def offices_in_unknown_location
     offices.select { |office| office.country.nil? }
+  end
+
+  def remote_services_country
+    return nil if offices_in_location.any?
+
+    offices = consular_services_organisations.map(&:offices).flatten
+    countries = offices.map(&:country)
+    unless countries.empty?
+      countries.first
+    end
   end
 
   def organisation
