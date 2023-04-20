@@ -3,7 +3,7 @@
   <%= render "govuk_publishing_components/components/radio", {
     heading: "Statistics type (required)",
     name: "statistics_announcement[publication_type_id]",
-    small: true,
+    id: "statistics_announcement_publication_type_id",
     items: [
       {
         value: 5,
@@ -23,7 +23,8 @@
         bold: true,
         checked: statistics_announcement.publication_type_id == 15
       }
-    ]
+    ],
+    error_items: errors_for(statistics_announcement.errors, :publication_type_id),
   } %>
 
   <%= render "govuk_publishing_components/components/input", {
@@ -33,7 +34,8 @@
     },
     value: statistics_announcement.title,
     id: "statistics_announcement_title",
-    name: "statistics_announcement[title]"
+    name: "statistics_announcement[title]",
+    error_message: errors_for_input(statistics_announcement.errors, :title),
   } %>
   <%= render "govuk_publishing_components/components/textarea", {
     label: {
@@ -43,7 +45,8 @@
     value: statistics_announcement.summary,
     id: "statistics_announcement_summary",
     name: "statistics_announcement[summary]",
-    rows: 5
+    rows: 5,
+    error_message: errors_for_input(statistics_announcement.errors, :summary),
   } %>
 
   <%= render "components/autocomplete", {
@@ -56,14 +59,12 @@
     select: {
       options:  options_from_collection_for_select(Organisation.with_translations.order("organisation_translations.name"), 'id', 'name', statistics_announcement.organisation_ids),
       multiple: true
-    }
+    },
+    error_items: errors_for(statistics_announcement.errors, :organisations),
   } %>
 
   <% if statistics_announcement.new_record? %>
-    <%= form.fields_for :current_release_date do |fields| %>
-      <hr />
-      <%= render 'legacy_release_date', form: fields %>
-    <% end %>
+      <%= render 'release_date', statistics_announcement: statistics_announcement %>
   <% end %>
 
   <div class="govuk-button-group">

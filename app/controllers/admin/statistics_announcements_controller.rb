@@ -1,4 +1,5 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
+  before_action :set_release_date_params, only: %i[create]
   before_action :find_statistics_announcement, only: %i[show edit update cancel publish_cancellation cancel_reason]
   before_action :redirect_to_show_if_cancelled, only: %i[cancel publish_cancellation]
   helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
@@ -18,6 +19,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   def new
     @statistics_announcement = build_statistics_announcement(organisation_ids: [current_user.organisation.try(:id)])
     @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
+
+    render_design_system("new", "legacy_new", next_release: false)
   end
 
   def create
@@ -26,7 +29,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement published successfully"
     else
-      render :new
+      render_design_system("new", "legacy_new", next_release: false)
     end
   end
 
@@ -69,6 +72,17 @@ private
     end
 
     current_user.statistics_announcements.new(attributes)
+  end
+
+  def set_release_date_params(attributes = params[:statistics_announcement][:current_release_date_attributes])
+    return if attributes.blank?
+
+    if attributes[:precision] == "exact_confirmed"
+      attributes[:precision] = StatisticsAnnouncementDate::PRECISION[:exact]
+      attributes[:confirmed] = true
+    else
+      attributes[:confirmed] = false
+    end
   end
 
   def statistics_announcement_params
@@ -119,7 +133,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[edit update] if preview_design_system?(next_release: false)
+    design_system_actions += %w[edit update new create] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

@@ -1,9 +1,14 @@
-<% initialise_script "GOVUK.StatisticsAnnouncementDateForm", 'statistics_announcement[current_release_date_attributes]' %>
-<% page_title "New statistics announcement" %>
+<% content_for :page_title, "New statistics announcement" %>
+<% content_for :title, "New statistics announcement" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
 
-<div class="stats-form-wrapper">
-  <h1>New statistics announcement</h1>
-  <p class="lead">Make an announcement for a forthcoming statistics release.</p>
-  <%= render 'warning' %>
-  <%= render "legacy_form", statistics_announcement: @statistics_announcement %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body-lead">Make an announcement for a forthcoming statistics release.</p>
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: "Statistics announcements are only for Official Statistics governed by the UK Statistics Authority."
+    } %>
+    <%= render "form", statistics_announcement: @statistics_announcement %>
+  </div>
 </div>
