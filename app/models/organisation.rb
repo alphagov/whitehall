@@ -548,6 +548,10 @@ class Organisation < ApplicationRecord
     append_url_options(base_path, options)
   end
 
+  def link_to_section_on_organisation_list_page
+    append_url_options("/government/organisations", anchor: slug)
+  end
+
   def public_url(options = {})
     website_root = if options[:draft]
                      Plek.external_url_for("draft-origin")

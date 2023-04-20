@@ -1126,6 +1126,12 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "https://www.test.gov.uk/courts-tribunals/#{tribunal.slug}", tribunal.public_url
   end
 
+  test "can create anchored link on organisation list page" do
+    org = create(:organisation)
+
+    assert_equal "/government/organisations##{org.slug}", org.link_to_section_on_organisation_list_page
+  end
+
   test "should send related pages to publishing api when a non-ministerial department is created" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
