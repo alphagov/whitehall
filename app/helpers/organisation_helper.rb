@@ -125,7 +125,8 @@ module OrganisationHelper
       child_relationships_link_text = child_organisations.size.to_s
       child_relationships_link_text += child_organisations.size == 1 ? " public body" : " agencies and public bodies"
 
-      organisation_name += link_to(child_relationships_link_text, organisation.public_path, class: "brand__color")
+      organisation_name += link_to(child_relationships_link_text, organisation.link_to_section_on_organisation_list_page, class: "brand__color")
+
       organisation_name += "."
     end
 

@@ -181,6 +181,19 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal(govspeak_to_html(""), presented_item.content[:details][:body])
   end
 
+  test "presents an organisation with children" do
+    child_organisation = create(:organisation, name: "Department for Stuff")
+    organisation = create(
+      :organisation,
+      name: "Organisation of Things",
+      child_organisations: [child_organisation],
+    )
+
+    presented_item = present(organisation)
+
+    assert_includes presented_item.content.dig(:details, :body), "/government/organisations#organisation-of-things"
+  end
+
   test "presents an eligible organisation with promotional features" do
     promotional_feature1 = create(:promotional_feature)
     promotional_feature_item1 = create(:promotional_feature_item, promotional_feature: promotional_feature1)
