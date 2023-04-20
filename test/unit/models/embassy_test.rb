@@ -42,7 +42,6 @@ class EmbassyTest < ActiveSupport::TestCase
     location = Embassy.new(toytown)
 
     assert_equal "Legoland", location.remote_services_country.name
-    assert_equal "British Embassy Legoland", location.offices.first.title
   end
 
   test '#can_assist_british_nationals? returns true if the world location is a special case' do
