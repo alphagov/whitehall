@@ -290,3 +290,8 @@ Then(/^I should be able to associate "([^"]*)" with the topical event "([^"]*)"$
   select topical_event_title, from: "edition_topical_event_ids"
   click_on "Save"
 end
+
+Then(/^I should see my edit in the audit trail for this organisation/) do
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  expect(page).to have_content(@user.name)
+end

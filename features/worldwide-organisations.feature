@@ -27,6 +27,7 @@ Feature: Administering worldwide organisation
     And I should see that it is part of the "Department of Beards"
     When I update the worldwide organisation to set the name to "Department of Beards and Moustaches in France"
     Then I should see the updated worldwide organisation information on the public website
+    Then I should see my edit in the audit trail for this organisation
     When I delete the worldwide organisation
     Then the worldwide organisation should not be visible from the public website
 

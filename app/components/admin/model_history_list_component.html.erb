@@ -1,0 +1,12 @@
+<div class="">
+  <%= link_to_previous_page(versions, 'Newer') %>
+  <%= link_to_next_page(versions, 'Older') %>
+</div>
+
+<ul class="list-unstyled">
+  <% versions.each do |version| %>
+    <li>
+      <%= render Admin::ModelHistoryComponent.new(version: version) %>
+    </li>
+  <% end %>
+</ul>

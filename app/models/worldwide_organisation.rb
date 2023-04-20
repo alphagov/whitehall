@@ -39,6 +39,10 @@ class WorldwideOrganisation < ApplicationRecord
 
   include PublishesToPublishingApi
 
+  attr_accessor :state
+
+  include Edition::AuditTrail
+
   extend FriendlyId
   friendly_id
 
