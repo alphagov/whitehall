@@ -19,9 +19,10 @@ class Embassy
                        location: SPECIAL_CASES[name][:location],
                        path: SPECIAL_CASES[name][:base_path])
     elsif can_assist_in_other_location?
-      RemoteOffice.new(name: organisation.name,
-                       location: remote_services_country,
-                       path: organisation.public_path)
+      remote_office = offices_in_remote_location.first
+      RemoteOffice.new(name: remote_office.worldwide_organisation.name,
+                       location: remote_office.country,
+                       path: remote_office.worldwide_organisation.public_path)
     end
   end
 
@@ -43,7 +44,9 @@ private
   end
 
   def can_assist_in_other_location?
-    remote_services_country.present?
+    return false if offices_in_location.any?
+
+    offices_in_remote_location.any?
   end
 
   def offices_in_location
@@ -54,17 +57,8 @@ private
     offices.select { |office| office.country.nil? }
   end
 
-  def remote_services_country
-    return nil if offices_in_location.any?
-
-    countries = offices.map(&:country)
-    unless countries.empty?
-      countries.first
-    end
-  end
-
-  def organisation
-    organisations_with_embassy_offices.first
+  def offices_in_remote_location
+    offices - offices_in_location - offices_in_unknown_location
   end
 
   def special_case?
