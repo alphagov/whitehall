@@ -23,6 +23,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       shouldSort: false // show options and groups in the order they were given
     })
 
+    this.module.choices = this.choices
+
     if (this.enableTracking) {
       this.module.addEventListener('change', this.trackChange.bind(this))
     }
