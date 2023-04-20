@@ -5,10 +5,6 @@ class Embassy
 
   delegate :name, to: :@world_location
 
-  def offices
-    @world_location.worldwide_organisations.map(&:embassy_offices).flatten
-  end
-
   def consular_services_organisations
     @world_location.worldwide_organisations.select do |org|
       org.embassy_offices.any?
@@ -51,6 +47,10 @@ class Embassy
   end
 
 private
+
+  def offices
+    @world_location.worldwide_organisations.map(&:embassy_offices).flatten
+  end
 
   def can_assist_in_other_location?
     remote_services_country.present?
