@@ -154,4 +154,35 @@ class EmbassyTest < ActiveSupport::TestCase
       assert_equal expected, embassy.remote_office
     end
   end
+
+  context "when there is an organisation with two offices in two remote countries and one isn't an embassy" do
+    let(:second_location) { create(:world_location) }
+    let(:third_location) { create(:world_location) }
+
+    before do
+      organisation = create(:worldwide_organisation,
+                            world_locations: [world_location],
+                            name: "org-name",
+                            slug: "org-slug")
+      second_location_contact = create(:contact, street_address: "street-address", country: second_location)
+      third_location_contact = create(:contact, street_address: "street-address", country: third_location)
+      create(:worldwide_office,
+             contact: second_location_contact,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::Other)
+      create(:worldwide_office,
+             contact: third_location_contact,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
+    end
+
+    it "returns the embassy office from #remote_office" do
+      expected = Embassy::RemoteOffice.new(
+        name: "org-name",
+        location: third_location,
+        path: "/world/organisations/org-slug",
+      )
+      assert_equal expected, embassy.remote_office
+    end
+  end
 end

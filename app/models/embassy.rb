@@ -57,7 +57,6 @@ private
   def remote_services_country
     return nil if offices_in_location.any?
 
-    offices = organisations_with_embassy_offices.map(&:offices).flatten
     countries = offices.map(&:country)
     unless countries.empty?
       countries.first
