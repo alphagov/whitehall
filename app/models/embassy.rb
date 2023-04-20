@@ -39,14 +39,6 @@ class Embassy
     end
   end
 
-  def special_case?
-    SPECIAL_CASES.key?(name)
-  end
-
-  def can_assist_in_other_location?
-    remote_services_country.present?
-  end
-
   def can_assist_in_location?
     return false if special_case?
     return false if can_assist_in_other_location?
@@ -60,6 +52,10 @@ class Embassy
 
 private
 
+  def can_assist_in_other_location?
+    remote_services_country.present?
+  end
+
   def offices_in_location
     offices.select { |office| office.country == @world_location }
   end
@@ -70,6 +66,10 @@ private
 
   def organisation
     consular_services_organisations.first
+  end
+
+  def special_case?
+    SPECIAL_CASES.key?(name)
   end
 
   SPECIAL_CASES = {
