@@ -56,4 +56,32 @@ class EmbassyTest < ActiveSupport::TestCase
     assert_equal "Legoland", location.remote_services_country.name
     assert_equal "British Embassy Legoland", location.offices.first.title
   end
+
+  test '#can_assist_british_nationals? returns true if the world location is a special case' do
+    location_name = 'Central African Republic'
+    location = build(:world_location, name: location_name)
+    embassy = Embassy.new(location)
+
+    assert Embassy::SPECIAL_CASES.has_key?(location_name)
+    assert embassy.can_assist_british_nationals?
+  end
+
+  test '#can_assist_british_nationals? returns true if the world location has at least one embassy office' do
+    location = create(:world_location)
+    organisation = create(:worldwide_organisation, world_locations: [location])
+    office = create(:worldwide_office,
+                    worldwide_organisation: organisation,
+                    worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first
+                   )
+    embassy = Embassy.new(location)
+
+    assert embassy.can_assist_british_nationals?
+  end
+
+  test '#can_assist_british_nationals? returns false if the world location is not a special case and it does not have any embassy offices' do
+    location = build(:world_location)
+    embassy = Embassy.new(location)
+
+    refute embassy.can_assist_british_nationals?
+  end
 end
