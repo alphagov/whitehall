@@ -7,7 +7,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
-      <%= render 'release_date', statistics_announcement_date_change:  @statistics_announcement_date_change %>
+      <%= render '/admin/shared/release_date', {
+        current_release_date: @statistics_announcement_date_change.current_release_date,
+        name_prefix: @statistics_announcement_date_change.class.name.underscore,
+        id_prefix: @statistics_announcement_date_change.class.name.underscore
+      } %>
 
       <% if @statistics_announcement.confirmed? %>
         <%= render "govuk_publishing_components/components/textarea", {

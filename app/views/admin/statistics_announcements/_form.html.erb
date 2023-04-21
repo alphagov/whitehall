@@ -64,7 +64,11 @@
   } %>
 
   <% if statistics_announcement.new_record? %>
-      <%= render 'release_date', statistics_announcement: statistics_announcement %>
+      <%= render '/admin/shared/release_date', {
+        current_release_date: statistics_announcement.current_release_date,
+        name_prefix: "#{statistics_announcement.class.name&.underscore}[current_release_date_attributes]",
+        id_prefix: "#{statistics_announcement.class.name&.underscore}_current_release_date"
+      } %>
   <% end %>
 
   <div class="govuk-button-group">
