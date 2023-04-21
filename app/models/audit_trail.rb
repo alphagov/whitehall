@@ -40,6 +40,7 @@ private
 
   def record_create
     user = AuditTrail.whodunnit
+    state = try(:state)
     versions.create!(event: "create", user:, state:)
     alert!(user)
   end
@@ -47,6 +48,7 @@ private
   def record_update
     if changed.any?
       user = AuditTrail.whodunnit
+      state = try(:state)
       versions.build(event: "update", user:, state:)
       alert!(user)
     end
