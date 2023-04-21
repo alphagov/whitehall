@@ -1,4 +1,4 @@
-module Edition::AuditTrail
+module AuditTrail
   extend ActiveSupport::Concern
 
   class << self
@@ -6,11 +6,11 @@ module Edition::AuditTrail
   end
 
   def self.acting_as(actor)
-    original_actor = Edition::AuditTrail.whodunnit
-    Edition::AuditTrail.whodunnit = actor
+    original_actor = AuditTrail.whodunnit
+    AuditTrail.whodunnit = actor
     yield
   ensure
-    Edition::AuditTrail.whodunnit = original_actor
+    AuditTrail.whodunnit = original_actor
   end
 
   included do
@@ -39,14 +39,14 @@ module Edition::AuditTrail
 private
 
   def record_create
-    user = Edition::AuditTrail.whodunnit
+    user = AuditTrail.whodunnit
     versions.create!(event: "create", user:, state:)
     alert!(user)
   end
 
   def record_update
     if changed.any?
-      user = Edition::AuditTrail.whodunnit
+      user = AuditTrail.whodunnit
       versions.build(event: "update", user:, state:)
       alert!(user)
     end

@@ -66,20 +66,20 @@ class ActiveSupport::TestCase
     fake_whodunnit = FactoryBot.build(:user)
     fake_whodunnit.stubs(:id).returns(1000)
     fake_whodunnit.stubs(:persisted?).returns(true)
-    Edition::AuditTrail.whodunnit = fake_whodunnit
+    AuditTrail.whodunnit = fake_whodunnit
     stub_any_publishing_api_call
     stub_publishing_api_publish_intent
     Services.stubs(:asset_manager).returns(stub_everything("asset-manager"))
   end
 
   teardown do
-    Edition::AuditTrail.whodunnit = nil
+    AuditTrail.whodunnit = nil
     Timecop.return
     Sidekiq::Worker.clear_all
   end
 
   def acting_as(actor, &block)
-    Edition::AuditTrail.acting_as(actor, &block)
+    AuditTrail.acting_as(actor, &block)
   end
 
   def assert_same_elements(array1, array2)
@@ -235,8 +235,8 @@ class ActionController::TestCase
   def login_as(role_or_user)
     @current_user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user # rubocop:disable Rails/SaveBang
     request.env["warden"] = stub(authenticate!: true, authenticated?: true, user: @current_user)
-    @previous_papertrail_whodunnit ||= Edition::AuditTrail.whodunnit
-    Edition::AuditTrail.whodunnit = @current_user
+    @previous_papertrail_whodunnit ||= AuditTrail.whodunnit
+    AuditTrail.whodunnit = @current_user
     @current_user
   end
 

@@ -62,7 +62,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test "diffing against a previous version" do
     publication = create(:draft_publication)
     editor = create(:departmental_editor)
-    Edition::AuditTrail.whodunnit = editor
+    AuditTrail.whodunnit = editor
     publication.first_published_at = Time.zone.now
     publication.major_change_published_at = Time.zone.now
     force_publish(publication)

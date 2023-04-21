@@ -17,7 +17,7 @@ class Edition < ApplicationRecord
   include Edition::Publishing
 
   # Sets up papertrail and versioning
-  include Edition::AuditTrail
+  include AuditTrail
 
   include Edition::ActiveEditors
   include Edition::Translatable
