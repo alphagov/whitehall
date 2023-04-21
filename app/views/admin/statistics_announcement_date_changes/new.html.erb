@@ -1,0 +1,45 @@
+<% content_for :page_title, "Change statistics announcement release date" %>
+<% content_for :context, @statistics_announcement.title %>
+<% content_for :title, "Change release date" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement_date_change)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
+      <%= render 'release_date', statistics_announcement_date_change:  @statistics_announcement_date_change %>
+
+      <% if @statistics_announcement.confirmed? %>
+        <%= render "govuk_publishing_components/components/textarea", {
+          label: {
+            text: "Public change note (required)",
+            heading_size: "m"
+          },
+          id: "statistics_announcement_date_change_change_note",
+          name: "statistics_announcement_date_change[change_note]",
+          value: @statistics_announcement_date_change.change_note,
+          error_message: errors_for_input(@statistics_announcement_date_change.errors, :change_note)
+        } %>
+      <% end %>
+
+      <% if @statistics_announcement.publication %>
+        <%= render "govuk_publishing_components/components/inset_text", {
+          text: sanitize("Don’t forget to change the release date of the #{link_to("attached publication", [:admin, @statistics_announcement.publication], class: "govuk-link")} as well.")
+        } %>
+      <% end %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Publish date",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+            "track-label": "Publish date"
+          }
+        } %>
+        <%= link_to("Cancel", [:admin, @statistics_announcement], class: "govuk-link") %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -58,8 +58,7 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
          params: { statistics_announcement_id: @announcement,
                    statistics_announcement_date_change: {
                      release_date: new_date,
-                     confirmed: "1",
-                     precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                     precision: "exact_confirmed",
                    } }
 
     @announcement.reload
