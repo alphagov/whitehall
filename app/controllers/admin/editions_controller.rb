@@ -256,6 +256,7 @@ private
       :read_consultation_principles,
       :all_nation_applicability,
       :image_display_option,
+      :speaker_radios,
       {
         all_nation_applicability: [],
         secondary_specialist_sector_tags: [],

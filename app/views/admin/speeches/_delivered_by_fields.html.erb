@@ -1,6 +1,6 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/radio", {
-    name: "speaker_radios",
+    name: "edition[speaker_radios]",
     id: "edition_role_appointment",
     heading: edition.authored_article? ? "Writer (required)" : "Speaker (required)",
     heading_size: "l",
@@ -26,5 +26,5 @@
         })
       }
     ]
-  } %>  
+  } %>
 </div>
