@@ -104,6 +104,40 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_selector ".gem-c-error-summary__list-item a", count: 0
     assert_selector ".gem-c-error-summary__list-item span", text: "This is a top level error that is agnostic of model level validations. It has probably been added by an updater service or a controller and does not link to an input."
   end
+
+  test "renders errors when 'ActiveModel::Errors' are passed in" do
+    render_inline(Admin::ErrorSummaryComponent.new(object: @object_with_errors.errors, parent_class: "error_summary_test_object"))
+
+    first_link = page.all(".gem-c-error-summary__list-item")[0].find("a")
+    second_link = page.all(".gem-c-error-summary__list-item")[1].find("a")
+    third_link = page.all(".gem-c-error-summary__list-item")[2].find("a")
+
+    assert_equal page.all(".gem-c-error-summary__list-item").count, 3
+    assert_equal page.all(".gem-c-error-summary__list-item a").count, 3
+    assert_equal first_link.text, "Title can't be blank"
+    assert_equal first_link[:href], "#error_summary_test_object_title"
+    assert_equal second_link.text, "Date can't be blank"
+    assert_equal second_link[:href], "#error_summary_test_object_date"
+    assert_equal third_link.text, "Date is invalid"
+    assert_equal third_link[:href], "#error_summary_test_object_date"
+  end
+
+  test "renders errors when an array of 'ActiveModel::Error' objects are passed in" do
+    render_inline(Admin::ErrorSummaryComponent.new(object: @object_with_errors.errors.errors, parent_class: "error_summary_test_object"))
+
+    first_link = page.all(".gem-c-error-summary__list-item")[0].find("a")
+    second_link = page.all(".gem-c-error-summary__list-item")[1].find("a")
+    third_link = page.all(".gem-c-error-summary__list-item")[2].find("a")
+
+    assert_equal page.all(".gem-c-error-summary__list-item").count, 3
+    assert_equal page.all(".gem-c-error-summary__list-item a").count, 3
+    assert_equal first_link.text, "Title can't be blank"
+    assert_equal first_link[:href], "#error_summary_test_object_title"
+    assert_equal second_link.text, "Date can't be blank"
+    assert_equal second_link[:href], "#error_summary_test_object_date"
+    assert_equal third_link.text, "Date is invalid"
+    assert_equal third_link[:href], "#error_summary_test_object_date"
+  end
 end
 
 class ErrorSummaryTestObject

@@ -13,7 +13,7 @@ class Admin::ErrorSummaryComponent < ViewComponent::Base
   end
 
   def render?
-    object.errors.present?
+    errors.present?
   end
 
 private
@@ -35,7 +35,7 @@ private
   end
 
   def error_items
-    object.errors.map do |error|
+    errors.map do |error|
       error_item = {
         text: error.full_message,
         data_attributes: track_analytics_data("form-error", analytics_action, error.full_message),
@@ -52,5 +52,13 @@ private
 
   def parent_class
     @parent_class ||= object.class.to_s.underscore
+  end
+
+  def errors
+    @errors ||= if [ActiveModel::Errors, Array].include?(object.class)
+                  object
+                else
+                  object.errors
+                end
   end
 end
