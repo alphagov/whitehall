@@ -3,6 +3,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
   layout :get_layout
 
   def edit
+    build_featured_link_if_none_present
     render_design_system("edit", "legacy_edit", next_release: false)
   end
 
@@ -20,6 +21,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     if @world_location_news.update(world_location_news_params)
       redirect_to [:admin, @world_location_news], notice: "World location updated successfully"
     else
+      build_featured_link_if_none_present
       render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
@@ -64,6 +66,10 @@ private
       featured_links_attributes: %i[url title id _destroy],
       world_location_attributes: %i[active id world_location_type],
     )
+  end
+
+  def build_featured_link_if_none_present
+    @world_location_news.featured_links.new if @world_location_news.featured_links.blank?
   end
 
   def get_layout
