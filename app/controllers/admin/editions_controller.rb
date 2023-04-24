@@ -425,7 +425,7 @@ private
         include_last_author: true,
       )
 
-    filter_options = filter_options.merge(per_page: 15) if preview_design_system?(next_release: false)
+    filter_options = filter_options.merge(per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE) if preview_design_system?(next_release: false)
     filter_options
   end
 
