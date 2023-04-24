@@ -2,7 +2,12 @@
 <% content_for :title, "Edit " + @world_location_news.name %>
 <% content_for :context, "World location" %>
 <% content_for :title_margin_bottom, 4 %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @world_location_news, parent_class: "world_location_news")) %>
+<% content_for :error_summary,
+  render(Admin::ErrorSummaryComponent.new(
+    object: @world_location_news.errors.reject { |error|error.is_a?(ActiveModel::NestedError) },
+    parent_class: "world_location_news")
+  )
+%>
 
 <div class="govuk-!-margin-bottom-8">
   <div class="govuk-grid-row">
