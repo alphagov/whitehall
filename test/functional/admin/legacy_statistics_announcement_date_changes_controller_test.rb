@@ -1,9 +1,11 @@
 require "test_helper"
 
-class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController::TestCase
+class Admin::LegacyStatisticsAnnouncementDateChangesControllerTest < ActionController::TestCase
+  tests Admin::StatisticsAnnouncementDateChangesController
+
   setup do
     Timecop.travel(1.day.ago) do
-      @user = login_as_preview_design_system_user(:gds_editor)
+      @user = login_as(:gds_editor)
       @organisation = create(:organisation)
       @announcement = create(:statistics_announcement)
     end
@@ -58,7 +60,8 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
          params: { statistics_announcement_id: @announcement,
                    statistics_announcement_date_change: {
                      release_date: new_date,
-                     precision: "exact_confirmed",
+                     confirmed: "1",
+                     precision: StatisticsAnnouncementDate::PRECISION[:exact],
                    } }
 
     @announcement.reload

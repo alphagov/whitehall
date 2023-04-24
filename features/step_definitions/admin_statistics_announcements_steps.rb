@@ -139,10 +139,20 @@ When(/^I change the release date on the announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
   click_on "Change release date"
 
-  select_datetime "14-Dec-#{Time.zone.today.year.next} 09:30", from: "Release date"
-  check "Confirmed date?"
-  choose "Exact"
-  click_on "Publish change of date"
+  if using_design_system?
+    within "#statistics_announcement_date_change_release_date" do
+      fill_in_date_and_time_field("14-Dec-#{Time.zone.today.year.next} 09:30")
+    end
+
+    choose "Exact date (confirmed)"
+    click_on "Publish date"
+  else
+    select_datetime "14-Dec-#{Time.zone.today.year.next} 09:30", from: "Release date"
+    check "Confirmed date?"
+    choose "Exact"
+
+    click_on "Publish change of date"
+  end
 end
 
 When(/^I search for announcements containing "(.*?)"$/) do |keyword|
@@ -209,7 +219,7 @@ Then(/^I should (see|only see) a statistics announcement called "(.*?)"$/) do |s
 end
 
 Then(/^the new date is reflected on the announcement$/) do
-  expect(page).to have_content("14 December #{Time.zone.today.year.next} 9:30am")
+  expect(page).to have_content("14 December #{Time.zone.today.year.next} 9:30am (confirmed)")
 end
 
 Then(/^I should be able to filter both past and future announcements$/) do

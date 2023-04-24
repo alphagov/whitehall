@@ -1,0 +1,29 @@
+<% initialise_script "GOVUK.StatisticsAnnouncementDateForm", 'statistics_announcement_date_change' %>
+<% page_title "Change statistics announcement release date" %>
+
+<div class="stats-form-wrapper">
+  <h1>
+    <span class="stats-small-heading">
+      <%= @statistics_announcement.title %>
+    </span>
+    <span class="stats-heading">
+      Change release date
+    </span>
+  </h1>
+
+  <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
+    <%= form.errors %>
+    <%= render '/admin/statistics_announcements/legacy_release_date', form: form %>
+    <div class="form-group">
+      <% if @statistics_announcement.confirmed? %>
+        <%= form.text_area :change_note, required: true, rows: 5, class: 'form-control', label_text: 'Public change note' %>
+      <% end %>
+    </div>
+    <% if @statistics_announcement.publication %>
+      <div class="alert alert-warning">
+        <span>Don’t forget to change the release date of the <%= link_to "attached publication", [:admin, @statistics_announcement.publication] %> as well.</span>
+      </div>
+    <% end %>
+    <%= form.save_or_cancel_buttons buttons: { save: 'Publish change of date' }, cancel: [:admin, @statistics_announcement] %>
+  <% end %>
+</div>
