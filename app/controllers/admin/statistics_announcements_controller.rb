@@ -46,13 +46,15 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  def cancel; end
+  def cancel
+    render :legacy_cancel
+  end
 
   def publish_cancellation
     if @statistics_announcement.cancel!(params[:statistics_announcement][:cancellation_reason], current_user)
       redirect_to [:admin, @statistics_announcement], notice: "Announcement has been cancelled"
     else
-      render :cancel
+      render :legacy_cancel
     end
   end
 
