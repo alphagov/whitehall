@@ -1,7 +1,7 @@
 <% content_for :page_title, "#{@edition.title}: Withdraw or unpublish" %>
 <% content_for :title, "Withdraw or unpublish" %>
 <% content_for :context, @edition.title %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @unpublishing, verb: "withdraw or unpublish", noun: @edition.format_name)) %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @unpublishing)) %>
 <% render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 
 <%

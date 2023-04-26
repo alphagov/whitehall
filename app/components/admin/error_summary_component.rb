@@ -5,11 +5,9 @@ class Admin::ErrorSummaryComponent < ViewComponent::Base
 
   attr_reader :object
 
-  def initialize(object:, parent_class: nil, verb: nil, noun: nil)
+  def initialize(object:, parent_class: nil)
     @object = object
     @parent_class = parent_class
-    @verb = verb
-    @noun = noun
   end
 
   def render?
@@ -19,15 +17,7 @@ class Admin::ErrorSummaryComponent < ViewComponent::Base
 private
 
   def title
-    "To #{verb} the #{noun} please fix the following issues:"
-  end
-
-  def verb
-    @verb ||= "save"
-  end
-
-  def noun
-    @noun ||= humanized_class_name
+    "There is a problem"
   end
 
   def humanized_class_name
