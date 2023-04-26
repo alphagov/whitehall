@@ -290,3 +290,25 @@ Then(/^I should be able to associate "([^"]*)" with the topical event "([^"]*)"$
   select topical_event_title, from: "edition_topical_event_ids"
   click_on "Save"
 end
+
+Then(/^I should see a create record in the audit trail for the worldwide organisation/) do
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+
+  history_component = page.find(".audit-history-component")
+
+  within history_component do
+    expect(page).to have_content("Document created")
+    expect(page).to have_content(@user.name)
+  end
+end
+
+Then(/^I should see an update record in the audit trail for the worldwide organisation/) do
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+
+  history_component = page.find(".audit-history-component", match: :first)
+
+  within history_component do
+    expect(page).to have_content("Document updated")
+    expect(page).to have_content(@user.name)
+  end
+end

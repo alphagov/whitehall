@@ -1,4 +1,6 @@
 class Admin::WorldwideOrganisationsController < Admin::BaseController
+  VERSIONS_PER_PAGE = 10
+
   respond_to :html
 
   before_action :find_worldwide_organisation, except: %i[index new create]
@@ -28,7 +30,12 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     respond_with :admin, @worldwide_organisation
   end
 
-  def show; end
+  def show
+    @versions = @worldwide_organisation
+                  .versions_desc
+                  .page(params[:page])
+                  .per(VERSIONS_PER_PAGE)
+  end
 
   def access_info
     @access_and_opening_times = @worldwide_organisation.access_and_opening_times ||
