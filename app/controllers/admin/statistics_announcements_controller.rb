@@ -5,8 +5,6 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
   layout :get_layout
 
-  def cancel_reason; end
-
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
     @statistics_announcements = @filter.statistics_announcements
@@ -56,6 +54,10 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     else
       render_design_system("cancel", "legacy_cancel", next_release: false)
     end
+  end
+
+  def cancel_reason
+    render :legacy_cancel_reason
   end
 
 private
