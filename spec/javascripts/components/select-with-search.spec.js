@@ -68,23 +68,23 @@ describe('GOVUK.Modules.SelectWithSearch', function () {
         <label for="example">Choose a city</label>
         <select id="example">
           <optgroup label="England">
-            <option value="bath">Bath</label>
-            <option value="bristol">Bristol</label>
-            <option value="london">London</label>
-            <option value="manchester">Manchester</label>
+            <option value="bath">Bath</option>
+            <option value="bristol">Bristol</option>
+            <option value="london">London</option>
+            <option value="manchester">Manchester</option>
           </optgroup>
           <optgroup label="Ireland">
-            <option value="bangor">Bangor</label>
-            <option value="belfast">Belfast</label>
+            <option value="bangor">Bangor</option>
+            <option value="belfast">Belfast</option>
           </optgroup>
           <optgroup label="Scotland">
-            <option value="dundee">Dundee</label>
-            <option value="edinburgh">Edinburgh</label>
-            <option value="glasgow">Glasgow</label>
+            <option value="dundee">Dundee</option>
+            <option value="edinburgh">Edinburgh</option>
+            <option value="glasgow">Glasgow</option>
           </optgroup>
           <optgroup label="Wales">
-            <option value="cardiff">Cardiff</label>
-            <option value="swansea">Swansea</label>
+            <option value="cardiff">Cardiff</option>
+            <option value="swansea">Swansea</option>
           </optgroup>
         </select>
       `

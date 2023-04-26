@@ -1,17 +1,17 @@
 <div class="app-view-edition-form__subtype-fields js-app-view-edition-form__subtype-fields" data-format-advice="<%= SpeechType::FORMAT_ADVICE %>">
-  <%= render "govuk_publishing_components/components/select", {
+  <%= render "components/select-with-search", {
     name: "edition[speech_type_id]",
     id: "edition_speech_type_id",
     label: "Speech type",
     heading_size: "l",
-    full_width: true,
     value: edition.speech_type_id,
     error_message: errors_for_input(edition.errors, :speech_type_id),
-    options: ([nil] + SpeechType.primary).map do |type|
+    include_blank: true,
+    options: SpeechType.primary.map do |type|
       {
-        text: type&.singular_name,
-        value: type&.id,
-        selected: edition.speech_type_id == type&.id
+        text: type.singular_name,
+        value: type.id,
+        selected: edition.speech_type_id == type.id
       }
     end
   } %>

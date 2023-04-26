@@ -1,33 +1,39 @@
 <div class="app-view-edition-form__subtype-fields js-app-view-edition-form__subtype-fields" data-format-advice="<%= PublicationType::FORMAT_ADVICE %>">
-  <div class="govuk-!-margin-bottom-8 govuk-form-group <%= "govuk-form-group--error" if errors_for_input(edition.errors, :publication_type_id).present? %>">
-    <label class="gem-c-label govuk-label govuk-label--l govuk-!-font-weight-bold" for="edition_publication_type_id">
-      Publication type
-    </label>
-    <% if errors_for_input(edition.errors, :publication_type_id).present? %>
-      <%= render "govuk_publishing_components/components/error_message", {
-        text: errors_for_input(edition.errors, :publication_type_id),
-      } %>
-    <% end %>
-
-    <select class="govuk-select govuk-select gem-c-select__select--full-width" id="edition_publication_type_id" name="edition[publication_type_id]">
-      <option></option>
-      <optgroup label="Common types">
-        <% PublicationType.primary.each do |publication_type| %>
-          <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
-        <% end %>
-      <optgroup/>
-      <optgroup label="Less common types">
-        <% PublicationType.less_common.each do |publication_type| %>
-          <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
-        <% end %>
-      <optgroup/>
-      <optgroup label="Use discouraged">
-        <% PublicationType.use_discouraged.each do |publication_type| %>
-          <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>
-        <% end %>
-      <optgroup/>
-    </select>
-  </div>
+  <%= render "components/select-with-search", {
+    id: "edition_publication_type_id",
+    name: "edition[publication_type_id]",
+    label: "Publication type (required)",
+    heading_size: "l",
+    value: edition.publication_type_id,
+    error_message: errors_for_input(edition.errors, :publication_type_id),
+    include_blank: true,
+    grouped_options: [
+      [
+        "Common types",
+        PublicationType.primary,
+      ],
+      [
+        "Less common types",
+        PublicationType.less_common,
+      ],
+      [
+        "Use discouraged",
+        PublicationType.use_discouraged,
+      ]
+    ]
+    .map do |group|
+      [
+        group.first,
+        group.second.map do |publication_type|
+          {
+            text: publication_type.singular_name,
+            value: publication_type.id,
+            selected: edition.publication_type_id == publication_type.id,
+          }
+        end
+      ]
+    end
+  } %>
 
   <% if edition.publication_type_id.present? %>
     <%= render "subtype_format_advice", guidance: JSON.parse(PublicationType::FORMAT_ADVICE)[edition.publication_type_id.to_s].html_safe %>

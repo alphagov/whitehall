@@ -3,13 +3,14 @@
   <%= form.hidden_field :lock_version %>
 
   <% unless form.object.persisted? %>
-    <%= render "govuk_publishing_components/components/select", {
+    <%= render "components/select-with-search", {
       id: "edition_corporate_information_page_type_id",
       name: "edition[corporate_information_page_type_id]",
       label: "Type",
       heading_size: "s",
       error_message: errors_for_input(edition.errors, :corporate_information_page_type_id),
-      options: ([nil] + corporate_information_page_types(@organisation)).map do |type, value|
+      include_blank: true,
+      options: corporate_information_page_types(@organisation).map do |type, value|
         {
           text: type,
           value: value,
@@ -61,8 +62,8 @@
       } %>
       <p class="govuk-body">
         <% if edition.new_record? %>
-          To add images you must save the document first. After saving, use the 
-          tabs at the top of the page to upload, edit and delete images and 
+          To add images you must save the document first. After saving, use the
+          tabs at the top of the page to upload, edit and delete images and
           attachments.
         <% else %>
           Use the tabs at the top of the page to upload, edit and delete images.
