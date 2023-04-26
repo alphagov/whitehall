@@ -72,7 +72,7 @@ class EmbassyTest < ActiveSupport::TestCase
   end
 
   context "when the world location is a special case" do
-    let(:world_location) { build(:world_location, name: "Central African Republic") }
+    let(:world_location) { build(:world_location, name: Embassy::SPECIAL_CASES.keys.first) }
 
     it "returns true for #can_assist_british_nationals?" do
       assert embassy.can_assist_british_nationals?
