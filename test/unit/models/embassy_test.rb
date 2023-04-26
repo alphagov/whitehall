@@ -28,7 +28,7 @@ class EmbassyTest < ActiveSupport::TestCase
   context "when there are organisations with embassy offices in the world location" do
     before do
       organisation = create(:worldwide_organisation, world_locations: [world_location])
-      contact = create(:contact, street_address: "street-address", country: world_location)
+      contact = create(:contact_with_country, country: world_location)
       create(:worldwide_office,
              contact:,
              worldwide_organisation: organisation,
@@ -100,7 +100,7 @@ class EmbassyTest < ActiveSupport::TestCase
                             world_locations: [world_location],
                             name: "org-name",
                             slug: "org-slug")
-      contact = create(:contact, street_address: "street-address", country: other_location)
+      contact = create(:contact_with_country, country: other_location)
       create(:worldwide_office,
              contact:,
              worldwide_organisation: organisation,
@@ -133,7 +133,7 @@ class EmbassyTest < ActiveSupport::TestCase
                             world_locations: [world_location],
                             name: "org-name",
                             slug: "org-slug")
-      remote_office_contact = create(:contact, street_address: "street-address", country: other_location)
+      remote_office_contact = create(:contact_with_country, country: other_location)
       unknown_location_contact = create(:contact, country: nil)
       create(:worldwide_office,
              contact: remote_office_contact,
@@ -164,8 +164,8 @@ class EmbassyTest < ActiveSupport::TestCase
                             world_locations: [world_location],
                             name: "org-name",
                             slug: "org-slug")
-      second_location_contact = create(:contact, street_address: "street-address", country: second_location)
-      third_location_contact = create(:contact, street_address: "street-address", country: third_location)
+      second_location_contact = create(:contact_with_country, country: second_location)
+      third_location_contact = create(:contact_with_country, country: third_location)
       create(:worldwide_office,
              contact: second_location_contact,
              worldwide_organisation: organisation,
