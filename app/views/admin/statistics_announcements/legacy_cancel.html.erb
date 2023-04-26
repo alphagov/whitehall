@@ -1,0 +1,30 @@
+<% content_for :page_class, 'statistics-announcements edit' %>
+<% page_title "Cancel statistics release" %>
+
+<div class="stats-form-wrapper">
+  <h1>
+    <span class="stats-small-heading">
+      <%= @statistics_announcement.title %>
+    </span>
+    <span class="stats-heading">
+      Cancel statistics release
+    </span>
+  </h1>
+
+  <p class="lead">
+    The announcement will remain on GOV.UK, together with the reason for cancellation.
+    <br />
+    Cancelling a release cannot be undone.
+  </p>
+
+  <%= form_for [:publish_cancellation, :admin, @statistics_announcement], method: :post, html: {class: 'well'} do |form| %>
+    <%= form.errors %>
+
+    <div class="form-group">
+      <%= form.text_area :cancellation_reason, rows: 5, required: true, label_text: 'Official reason for cancellation' %>
+    </div>
+
+    <%= form.submit "Publish cancellation", class: "btn btn-lg btn-danger add-right-margin" %>
+    <%= link_to "Don’t cancel", [:admin, @statistics_announcement], class: "btn btn-default btn-lg" %>
+  <% end %>
+</div>

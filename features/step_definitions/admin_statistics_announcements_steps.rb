@@ -166,7 +166,12 @@ When(/^I cancel the statistics announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
   click_on "Cancel statistics release"
 
-  fill_in "Official reason for cancellation", with: "Cancelled because: reasons"
+  if using_design_system?
+    fill_in "Reason for cancellation", with: "Cancelled because: reasons"
+  else
+    fill_in "Official reason for cancellation", with: "Cancelled because: reasons"
+  end
+
   click_on "Publish cancellation"
 end
 

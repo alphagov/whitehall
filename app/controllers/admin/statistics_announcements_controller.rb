@@ -46,13 +46,15 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  def cancel; end
+  def cancel
+    render_design_system("cancel", "legacy_cancel", next_release: false)
+  end
 
   def publish_cancellation
     if @statistics_announcement.cancel!(params[:statistics_announcement][:cancellation_reason], current_user)
       redirect_to [:admin, @statistics_announcement], notice: "Announcement has been cancelled"
     else
-      render :cancel
+      render_design_system("cancel", "legacy_cancel", next_release: false)
     end
   end
 
@@ -133,7 +135,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[edit update new create] if preview_design_system?(next_release: false)
+    design_system_actions += %w[edit update new create cancel publish_cancellation] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
