@@ -1,30 +1,86 @@
-<% page_title "Edit " + @world_location_news.name %>
+<% content_for :page_title, "Edit " + @world_location_news.name %>
+<% content_for :title, "Edit " + @world_location_news.name %>
+<% content_for :context, "World location" %>
+<% content_for :title_margin_bottom, 4 %>
+<% content_for :error_summary,
+  render(Admin::ErrorSummaryComponent.new(
+    object: @world_location_news.errors.reject { |error|error.is_a?(ActiveModel::NestedError) },
+    parent_class: "world_location_news")
+  )
+%>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>Edit world location</h1>
-    <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
-    <%= form_for([:admin, @world_location_news]) do |form| %>
-      <%= form.fields_for :world_location, @world_location do |location_form| %>
-        <div class="form-group">
-          <%= location_form.label :world_location_type, 'Type' %>
-          <%= location_form.select :world_location_type, WorldLocation.world_location_types.keys.map { |key| [I18n.t("world_location.type.#{key}", count: 1), key] }, {}, { class: 'form-control input-md-3' } %>
-        </div>
+<div class="govuk-!-margin-bottom-8">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= form_for([:admin, @world_location_news]) do |form| %>
+        <%= form.fields_for :world_location, @world_location do |location_form| %>
+          <%= render "govuk_publishing_components/components/warning_text", {
+            text: "Changes to worldwide locations appear instantly on the live site.",
+          } %>
 
-        <%= form.text_field :title %>
+          <%= render "govuk_publishing_components/components/select", {
+            id: "world_location_news_world_location_world_location_type",
+            name: "world_location_news[world_location_attributes][world_location_type]",
+            label: "Type (required)",
+            heading_size: "l",
+            options: WorldLocation.world_location_types.keys.map { |location_type| { text: I18n.t("world_location.type.#{location_type}", count: 1), value: location_type } },
+            full_width: true,
+          } %>
 
-        <%= form.text_area :mission_statement, rows: 20, class: "previewable", data: {
-          module: "paste-html-to-govspeak"
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Title (required)"
+            },
+            value: @world_location_news.title,
+            name: "world_location_news[title]",
+            id: "world_location_news_title",
+            heading_size: "l",
+            error_items: errors_for(@world_location_news.errors, :title)
+          } %>
+
+          <%= render "components/govspeak-editor", {
+            label: {
+              text: "Mission statement",
+              heading_size: "l",
+            },
+            name: "world_location_news[mission_statement]",
+            id: "world_location_news_mission_statement",
+            value: @world_location_news.mission_statement,
+            rows: 10,
+          } %>
+
+          <%= render "govuk_publishing_components/components/checkboxes", {
+            name: "world_location_news[world_location_attributes][active]",
+            items: [
+              {
+                label: "Active (can visitors click through from the world location list?)",
+                checked: @world_location.active?,
+                value: 1
+              }
+            ]
+          } %>
+        <% end %>
+
+        <%= render "govuk_publishing_components/components/title", {
+          context: @world_location_news.name,
+          title: "Featured links"
         } %>
 
-        <%= location_form.check_box :active,
-                                    label_text: "Active (can visitors click through from the world location list?)" %>
-
         <%= render 'admin/shared/featured_link_fields', form: form %>
-      <% end %>
 
-      <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
-      <%= form.save_or_cancel cancel: admin_world_location_news_path(@world_location_news) %>
-    <% end %>
-  </section>
+        <div class="govuk-button-group govuk-!-margin-top-6">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Save",
+            data_attributes: {
+              module: "gem-track-click",
+              "track-category": "form-button",
+              "track-action": "world-location-news-button",
+              "track-label": "Save"
+            }
+          } %>
+          <%= link_to("Cancel", admin_world_location_news_path(@world_location_news), class: "govuk-link") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,28 @@
+<%
+  featured_links = form.object.featured_links
+  featured_links = [LocalisedModel.new(FeaturedLink.new, I18n.default_locale)] unless featured_links.any?
+
+  if form.object.respond_to?(:visible_featured_links_count)
+    visible_links = form.object.visible_featured_links_count
+  else
+    visible_links = FeaturedLink::DEFAULT_SET_SIZE
+  end
+%>
+
+<fieldset class="named featured-links js-duplicate-fields">
+  <legend>Featured links</legend>
+  <p class="alert alert-info">Only the first <%= visible_links %> links will be shown on the public site.</p>
+
+  <%= form.fields_for(:featured_links, featured_links) do |featured_links_form| %>
+    <div class="js-duplicate-fields-set well">
+      <% if @translation_locale && @translation_locale.code != I18n.default_locale %>
+        <%= featured_links_form.translated_text_field :title, class: 'input-md-4' %>
+        <%= featured_links_form.translated_text_field :url, label_text: 'URL' %>
+      <% else %>
+        <%= featured_links_form.text_field :title, class: 'input-md-4' %>
+        <%= featured_links_form.text_field :url, label_text: 'URL' %>
+      <% end %>
+      <%= featured_links_form.hidden_field :_destroy, class: 'js-hidden-destroy' %>
+    </div>
+  <% end %>
+</fieldset>

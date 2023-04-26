@@ -2,7 +2,10 @@ class Admin::WorldLocationNewsController < Admin::BaseController
   before_action :load_world_location, only: %i[edit update show features]
   layout :get_layout
 
-  def edit; end
+  def edit
+    build_featured_link_if_none_present
+    render_design_system("edit", "legacy_edit", next_release: false)
+  end
 
   def show
     render_design_system("show", "legacy_show", next_release: false)
@@ -18,7 +21,8 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     if @world_location_news.update(world_location_news_params)
       redirect_to [:admin, @world_location_news], notice: "World location updated successfully"
     else
-      render action: :edit
+      build_featured_link_if_none_present
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
 
@@ -64,8 +68,12 @@ private
     )
   end
 
+  def build_featured_link_if_none_present
+    @world_location_news.featured_links.new if @world_location_news.featured_links.blank?
+  end
+
   def get_layout
-    design_system_actions = %w[show index]
+    design_system_actions = %w[show index edit update]
     if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else

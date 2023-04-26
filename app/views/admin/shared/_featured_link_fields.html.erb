@@ -1,6 +1,7 @@
 <%
   featured_links = form.object.featured_links
   featured_links = [LocalisedModel.new(FeaturedLink.new, I18n.default_locale)] unless featured_links.any?
+  model = form.object.model_name.singular
 
   if form.object.respond_to?(:visible_featured_links_count)
     visible_links = form.object.visible_featured_links_count
@@ -9,20 +10,40 @@
   end
 %>
 
-<fieldset class="named featured-links js-duplicate-fields">
-  <legend>Featured links</legend>
-  <p class="alert alert-info">Only the first <%= visible_links %> links will be shown on the public site.</p>
+<%= render "govuk_publishing_components/components/inset_text", {
+  text: "Only the first #{visible_links} links will be shown on the public site."
+} %>
 
-  <%= form.fields_for(:featured_links, featured_links) do |featured_links_form| %>
-    <div class="js-duplicate-fields-set well">
+<div data-module="AddAnother" data-add-text="Add another featured link" class="govuk-!-margin-bottom-4">
+  <%= form.fields_for :featured_links do |featured_link_form| %>
+    <div class="js-duplicate-fields-set govuk-!-margin-top-4">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Title"
+        },
+        heading_size: "m",
+        value: featured_link_form.object.title,
+        name: "#{model}[featured_links_attributes][#{featured_link_form.index}][title]",
+        id: "#{model}_featured_links[#{featured_link_form.index}]_title",
+      } %>
+
       <% if @translation_locale && @translation_locale.code != I18n.default_locale %>
-        <%= featured_links_form.translated_text_field :title, class: 'input-md-4' %>
-        <%= featured_links_form.translated_text_field :url, label_text: 'URL' %>
-      <% else %>
-        <%= featured_links_form.text_field :title, class: 'input-md-4' %>
-        <%= featured_links_form.text_field :url, label_text: 'URL' %>
+        <p class="app-view-translation__english-content govuk-body">English: <%= featured_link_form.object.title %></p>
       <% end %>
-      <%= featured_links_form.hidden_field :_destroy, class: 'js-hidden-destroy' %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "URL",
+        },
+        heading_size: "m",
+        value: featured_link_form.object.url,
+        name: "#{model}[featured_links_attributes][#{featured_link_form.index}][url]",
+        id: "#{model}_featured_links[#{featured_link_form.index}]_title",
+      } %>
+
+    <% if @translation_locale && @translation_locale.code != I18n.default_locale %>
+      <p class="app-view-translation__english-content govuk-body">English: <%= featured_link_form.object.url %></p>
+    <% end %>
     </div>
   <% end %>
-</fieldset>
+</div>

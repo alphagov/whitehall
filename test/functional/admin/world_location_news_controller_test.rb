@@ -31,6 +31,8 @@ class Admin::WorldLocationNewsControllerTest < ActionController::TestCase
     assert_template "world_location_news/edit"
     assert_select "input[name='world_location_news[title]']"
     assert_select "textarea[name='world_location_news[mission_statement]']"
+    assert_select "input[name='world_location_news[featured_links_attributes][0][title]']"
+    assert_select "input[name='world_location_news[featured_links_attributes][0][url]']"
   end
 
   test "updating should modify the world location" do
