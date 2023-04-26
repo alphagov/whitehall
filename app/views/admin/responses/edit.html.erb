@@ -1,7 +1,7 @@
 <% content_for :page_title, "Editing #{@response.friendly_name} for: #{@edition.title}" %>
 <% content_for :title, "Editing #{@response.friendly_name} for consultation" %>
 <% content_for :context, "#{@edition.title}" %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @response, noun: "consultation #{@response.friendly_name}")) %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @response)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

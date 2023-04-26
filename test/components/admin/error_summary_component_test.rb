@@ -12,35 +12,6 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_empty page.text
   end
 
-  test "uses the noun to construct the title if one is passed in" do
-    render_inline(Admin::ErrorSummaryComponent.new(object: @object_with_errors, noun: "withdrawal explanation"))
-    assert_selector "h2", text: "To save the withdrawal explanation please fix the following issues:"
-  end
-
-  test "editions use the self.format_name method to construct the noun in the title if one is not passed in" do
-    detailed_guide = build(:detailed_guide, title: nil)
-    detailed_guide.validate
-    render_inline(Admin::ErrorSummaryComponent.new(object: detailed_guide))
-
-    assert_selector "h2", text: "To save the detailed guidance please fix the following issues:"
-  end
-
-  test "other objects use the class of the object to construct the title if no noun is passed in" do
-    render_inline(Admin::ErrorSummaryComponent.new(object: @object_with_errors))
-
-    assert_selector "h2", text: "To save the error summary test object please fix the following issues:"
-  end
-
-  test "uses the `verb` to constuct the title if passed in" do
-    render_inline(Admin::ErrorSummaryComponent.new(object: @object_with_errors, verb: "karate chop"))
-    assert_selector "h2", text: "To karate chop the error summary test object please fix the following issues:"
-  end
-
-  test "defaults the verb of the to `save` if a verb is not passed in" do
-    render_inline(Admin::ErrorSummaryComponent.new(object: @object_with_errors))
-    assert_selector "h2", text: "To save the error summary test object please fix the following issues:"
-  end
-
   test "constructs a list of links which link to an id based on the objects class and attribute of the error" do
     render_inline(Admin::ErrorSummaryComponent.new(object: @object_with_errors))
 
