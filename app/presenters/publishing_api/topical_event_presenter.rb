@@ -54,6 +54,7 @@ module PublishingApi
       {
         url: item.logo_url(:s300),
         alt_text: item.logo_alt_text,
+        srcset: ImageUploader::SRCSET_SIZE_MAP.map { |k, v| { url: item.logo_url(k), size: v } },
       }
     end
 

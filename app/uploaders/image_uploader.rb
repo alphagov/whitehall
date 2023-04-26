@@ -1,6 +1,15 @@
 class ImageUploader < WhitehallUploader
   include CarrierWave::MiniMagick
 
+  SRCSET_SIZE_MAP = {
+    s960: "960w",
+    s712: "712w",
+    s630: "630w",
+    s465: "465w",
+    s300: "300w",
+    s216: "216w",
+  }.freeze
+
   configure do |config|
     config.remove_previously_stored_files_after_update = false
   end
