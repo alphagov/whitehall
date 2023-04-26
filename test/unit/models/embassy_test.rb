@@ -23,6 +23,10 @@ class EmbassyTest < ActiveSupport::TestCase
     it "returns nil for #remote_office" do
       assert_nil embassy.remote_office
     end
+
+    it "returns no #organisations_with_embassy_offices" do
+      assert embassy.organisations_with_embassy_offices.empty?
+    end
   end
 
   context "when there are organisations with embassy offices in the world location" do
@@ -45,6 +49,10 @@ class EmbassyTest < ActiveSupport::TestCase
 
     it "returns nil for #remote_office" do
       assert_nil embassy.remote_office
+    end
+
+    it "returns a single #organisations_with_embassy_offices" do
+      assert_equal 1, embassy.organisations_with_embassy_offices.count
     end
   end
 
@@ -69,6 +77,10 @@ class EmbassyTest < ActiveSupport::TestCase
     it "returns nil for #remote_office" do
       assert_nil embassy.remote_office
     end
+
+    it "returns a single #organisations_with_embassy_offices" do
+      assert_equal 1, embassy.organisations_with_embassy_offices.count
+    end
   end
 
   context "when the world location is a special case" do
@@ -80,6 +92,10 @@ class EmbassyTest < ActiveSupport::TestCase
 
     it "returns false for #can_assist_in_location?" do
       assert_not embassy.can_assist_in_location?
+    end
+
+    it "returns no #organisations_with_embassy_offices" do
+      assert embassy.organisations_with_embassy_offices.empty?
     end
 
     it "returns a #remote_office" do
@@ -113,6 +129,10 @@ class EmbassyTest < ActiveSupport::TestCase
 
     it "returns false for #can_assist_in_location?" do
       assert_not embassy.can_assist_in_location?
+    end
+
+    it "returns a single #organisations_with_embassy_offices" do
+      assert_equal 1, embassy.organisations_with_embassy_offices.count
     end
 
     it "returns #remote_office" do
