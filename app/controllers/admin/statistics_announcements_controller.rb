@@ -57,7 +57,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def cancel_reason
-    render :legacy_cancel_reason
+    render_design_system("cancel_reason", "legacy_cancel_reason", next_release: false)
   end
 
 private
@@ -137,7 +137,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[edit update new create cancel publish_cancellation] if preview_design_system?(next_release: false)
+    design_system_actions += %w[edit update new create cancel publish_cancellation cancel_reason] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

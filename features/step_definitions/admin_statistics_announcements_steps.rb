@@ -177,9 +177,14 @@ end
 
 When(/^I change the cancellation reason$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-
   click_on "Edit cancellation reason"
-  fill_in "Official reason for cancellation", with: "Updated cancellation reason"
+
+  if using_design_system?
+    fill_in "Reason for cancellation", with: "Updated cancellation reason"
+  else
+    fill_in "Official reason for cancellation", with: "Updated cancellation reason"
+  end
+
   click_on "Update cancellation reason"
 end
 
