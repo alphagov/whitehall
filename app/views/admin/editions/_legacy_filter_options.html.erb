@@ -1,0 +1,80 @@
+<% initialise_script "GOVUK.FilterOptions", filter_form: '.js-editions-filter-form', search_results: '#search_results' %>
+<%
+  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links]
+  raise "filter action required" unless defined?(filter_action)
+%>
+<form class="filter-options js-editions-filter-form" method="get" action="<%= filter_action %>">
+  <h2 class="remove-top-margin">Filter by</h2>
+
+  <% if filter_by.include?(:title) %>
+    <div class="filter-grouping" id="title_filter">
+      <%= label_tag :search_title, 'Title or slug' %>
+      <div class="btn-enter-wrapper">
+        <%= search_field_tag :title, @filter.options[:title], id: 'search_title', class: 'form-control', placeholder: 'Search title' %>
+        <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="filter-grouping">
+    <% if filter_by.include?(:author) %>
+      <div id="author_filter">
+        <%= label_tag :author %>
+        <%= select_tag  :author, options_for_select(admin_author_filter_options(current_user), @filter.options[:author]), class: 'chzn-select form-control' %>
+      </div>
+    <% end %>
+
+    <% if filter_by.include?(:organisation) %>
+      <div id="organisation_filter">
+        <%= label_tag :organisation, 'Organisation' %>
+        <%= select_tag  :organisation, legacy_admin_organisation_filter_options(current_user, @filter.options[:organisation]), class: 'chzn-select form-control' %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if filter_by.include?(:world_location) %>
+    <div class="filter-grouping" id="world_location_filter">
+      <%= label_tag :world_location %>
+      <%= select_tag  :world_location, options_for_select(admin_world_location_filter_options(current_user), @filter.options[:world_location]), class: 'chzn-select form-control' %>
+    </div>
+  <% end %>
+
+  <% if filter_by.include?(:type) %>
+    <div class="filter-grouping" id="type_filter">
+      <%= label_tag :type, 'Document type' %>
+      <%= select_tag :type, filter_edition_type_options_for_select(current_user, @filter.options[:type]), class: 'chzn-select-no-search form-control' %>
+    </div>
+  <% end %>
+
+  <% if filter_by.include?(:state) %>
+    <div class="filter-grouping" id="state_filter">
+      <%= label_tag :state %>
+      <%= select_tag :state, options_for_select(admin_state_filter_options, @filter.options[:state]), class: 'chzn-select-no-search form-control' %>
+    </div>
+  <% end %>
+
+  <% if filter_by.include?(:date) %>
+    <div class="filter-grouping date-filter">
+      <h3>Date (last updated)</h3>
+      <%= label_tag :from_date, "From" %>
+      <div class="btn-enter-wrapper">
+        <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date form-control', placeholder: "eg 23/07/2013" %>
+        <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
+      </div>
+      <%= label_tag :to_date, "To" %>
+      <div class="btn-enter-wrapper">
+        <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date form-control', placeholder: "eg 23/08/2013" %>
+        <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
+      </div>
+    </div>
+  <% end %>
+  <% if filter_by.include?(:only_broken_links) %>
+    <div class="filter-grouping checkbox-filter">
+      <%= check_box_tag :only_broken_links, "1", false %>
+      <%= label_tag "only_broken_links", "Only broken links" %>
+    </div>
+  <% end %>
+
+  <%= submit_tag "Search", class: 'btn btn-default add-bottom-margin' %>
+  <p><a href="?state=active">Reset all fields</a></p>
+</form>

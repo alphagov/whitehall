@@ -87,7 +87,11 @@ Then(/^I can see that the consultation has been published$/) do
   expected_title = Consultation.last.title
   expected_message = "The document #{expected_title} has been published"
 
-  expect(page).to have_selector(".flash", text: expected_message)
+  if using_design_system?
+    expect(page).to have_selector(".gem-c-success-alert", text: expected_message)
+  else
+    expect(page).to have_selector(".flash", text: expected_message)
+  end
 end
 
 And(/^I can see the primary locale for consultation "(.*?)" is "(.*?)"$/) do |title, locale_code|

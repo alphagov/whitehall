@@ -18,47 +18,4 @@
   } %>
 <% end %>
 
-<p class="govuk-body"><%= @paginator.total_count %> documents</p>
-
-<% if @filter.editions.blank? %>
-  <p class="govuk-body">No documents found</p>
-<% else %>
-  <%= render "govuk_publishing_components/components/table", {
-    head: [
-      {
-        text: "Title"
-      },
-      {
-        text: "Updated by"
-      },
-      {
-        text: "State"
-      },
-      {
-        text: tag.span("State", class: "govuk-visually-hidden")
-      }
-    ],
-    rows:
-      @filter.editions.map do |edition|
-        [
-           {
-             text: index_table_title_row(edition)
-           },
-           {
-             text: tag.p("#{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-0") +
-                    "by " +
-                    linked_author(edition.last_author, class: 'govuk-link')
-           },
-           {
-             text: render(Admin::Editions::TagsComponent.new(edition)),
-           },
-           {
-             text: link_to(sanitize("Edit <span class='govuk-visually-hidden'> #{edition.title}</span>"), admin_edition_path(edition), class: "govuk-link"),
-             format: "numeric",
-           },
-        ]
-      end
-  } %>
-
-  <%= paginate(@paginator, theme: "govuk_paginator") %>
-<% end %>
+<%= render 'admin/editions/search_results', filter: @filter, paginator: @paginator, show_export: false %>

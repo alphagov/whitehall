@@ -1,12 +1,13 @@
-<% page_title @filter.page_title %>
-<% content_for :full_width, true %>
-<section class="editions-index">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render partial: 'filter_options', locals: {filter_action: admin_editions_path} %>
-    </div>
-    <div class="col-md-9" id="search_results">
-      <%= render partial: 'legacy_search_results', locals: { show_export: true } %>
+<% content_for :page_title, @filter.page_title %>
+<% content_for :title, @filter.page_title %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <%= render 'filter_options', filter_action: admin_editions_path %>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <div class="app-view-edition-index__table">
+      <%= render 'search_results', filter: @filter, paginator: @filter.editions, show_export: true %>
     </div>
   </div>
-</section>
+</div>

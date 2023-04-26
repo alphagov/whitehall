@@ -175,30 +175,57 @@ When(/^I edit the (publication|news article|consultation) changing the title to 
 end
 
 Then("I should see {edition}") do |edition|
-  expect(page).to have_selector(record_css_selector(edition))
+  if using_design_system?
+    expect(find(".govuk-table")).to have_content edition.title
+  else
+    expect(page).to have_selector(record_css_selector(edition))
+  end
 end
 
 Then("I should not see {edition}") do |edition|
-  expect(page).to_not have_selector(record_css_selector(edition))
+  if using_design_system?
+    expect(find(".govuk-table")).not_to have_content edition.title
+  else
+    expect(page).to_not have_selector(record_css_selector(edition))
+  end
 end
 
 Then("I should see {edition} in the list of announcements") do |edition|
-  expect(page).to have_selector(record_css_selector(edition))
+  if using_design_system?
+    expect(find(".govuk-table")).to have_content edition.title
+  else
+    expect(page).to have_selector(record_css_selector(edition))
+  end
 end
 
 Then("I should see {edition} in the list of draft documents") do |edition|
   visit admin_editions_path
-  expect(page).to have_selector(record_css_selector(edition))
+
+  if using_design_system?
+    expect(find(".govuk-table")).to have_content edition.title
+  else
+    expect(page).to have_selector(record_css_selector(edition))
+  end
 end
 
 Then("I should see {edition} in the list of submitted documents") do |edition|
   visit admin_editions_path(state: :submitted)
-  expect(page).to have_selector(record_css_selector(edition))
+
+  if using_design_system?
+    expect(find(".govuk-table")).to have_content edition.title
+  else
+    expect(page).to have_selector(record_css_selector(edition))
+  end
 end
 
 Then("I should see {edition} in the list of published documents") do |edition|
   visit admin_editions_path(state: :published)
-  expect(page).to have_selector(record_css_selector(edition))
+
+  if using_design_system?
+    expect(find(".govuk-table")).to have_content edition.title
+  else
+    expect(page).to have_selector(record_css_selector(edition))
+  end
 end
 
 Then("{edition} should no longer be listed on the public site") do |edition|

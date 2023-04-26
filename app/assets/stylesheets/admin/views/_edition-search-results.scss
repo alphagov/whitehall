@@ -1,0 +1,32 @@
+.app-view-edition-search-results__csv-export {
+  float: right;
+}
+
+.app-view-edition-index__table .govuk-table__row .govuk-table__header:nth-child(1) {
+  width: 50%;
+}
+
+.app-view-edition-index__table .govuk-table__row .govuk-table__header:nth-child(2) {
+  width: 35%;
+}
+
+.app-view-edition-index__table .govuk-table__row .govuk-table__header:nth-child(3) {
+  width: 15%;
+}
+
+.app-view-edition-index__table .govuk-table__row .govuk-table__header:nth-child(4) {
+  width: 5%;
+}
+
+.app-view-edition-index__table .govuk-table, {
+  border-top: 2px solid govuk-colour("black");
+}
+
+.app-view-edition-index__table .govuk-table__header {
+  padding-top: govuk-spacing(4);
+}
+
+.app-view-edition-search-results__no_documents {
+  border-top: 2px solid govuk-colour("black");
+  padding-top: govuk-spacing(4);
+}

@@ -11,9 +11,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   SelectWithSearch.prototype.init = function () {
     if (!this.select) return
-
     var placeholderOption = this.select.querySelector('option[value=""]:first-child')
-    if (placeholderOption) {
+
+    if (placeholderOption && placeholderOption.textContent === '') {
       placeholderOption.textContent = 'Select one'
     }
 

@@ -1,0 +1,63 @@
+<% if @filter.show_stats %>
+    <p class="govuk-heading-s govuk-!-margin-bottom-1 "><%= pluralize(number_with_delimiter(@filter.published_count), "published document") %></p>
+    <p class="govuk-heading-s govuk-!-margin-bottom-1"><%= number_with_delimiter(@filter.force_published_count) %> force published</p>
+    <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= @filter.force_published_percentage %>% force published</p>
+  <% else %>
+    <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
+<% end %>
+
+<% if filter.editions.blank? %>
+  <p class="govuk-body app-view-edition-search-results__no_documents">No documents found</p>
+<% else %>
+  <%= render "govuk_publishing_components/components/table", {
+    head: [
+      {
+        text: "Title"
+      },
+      {
+        text: "Updated by"
+      },
+      {
+        text: "State"
+      },
+      {
+        text: tag.span("Edit", class: "govuk-visually-hidden")
+      }
+    ],
+    rows:
+      filter.editions.map do |edition|
+        [
+           {
+             text: index_table_title_row(edition)
+           },
+           {
+             text: tag.p("#{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-0") +
+                    "by " +
+                    linked_author(edition.last_author, class: 'govuk-link')
+           },
+           {
+             text: render(Admin::Editions::TagsComponent.new(edition)),
+           },
+           {
+             text: link_to(sanitize("Edit <span class='govuk-visually-hidden'> #{edition.title}</span>"), admin_edition_path(edition), class: "govuk-link"),
+             format: "numeric",
+           },
+        ]
+      end
+  } %>
+
+    <% if paginate(paginator, theme: "govuk_paginator").present? && show_export && can?(:export, Edition) %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+          <%= paginate(paginator, theme: "govuk_paginator") %>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
+        </div>
+      </div>
+    <% elsif paginate(paginator, theme: "govuk_paginator").present? && !(show_export && can?(:export, Edition)) %>
+      <%= paginate(paginator, theme: "govuk_paginator") %>
+    <% elsif show_export && can?(:export, Edition) %>
+      <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
+    <% end %>
+<% end %>

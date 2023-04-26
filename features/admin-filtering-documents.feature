@@ -33,7 +33,7 @@ Feature: Filtering documents by author in admin
     Then I should see the publication "Thumbtack Publication"
     And I should not see the publication "Another Publication"
 
-  @javascript
+  @javascript @bootstrap-only
   Scenario: Using the document filter with javascript enabled
     Given two organisations "Department of Thumbtacks" and "Ministry of Post-it Notes" exist
     And I am a writer in the organisation "Department of Thumbtacks"
