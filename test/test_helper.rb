@@ -235,7 +235,6 @@ class ActionController::TestCase
   def login_as(role_or_user)
     @current_user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user # rubocop:disable Rails/SaveBang
     request.env["warden"] = stub(authenticate!: true, authenticated?: true, user: @current_user)
-    @previous_papertrail_whodunnit ||= AuditTrail.whodunnit
     AuditTrail.whodunnit = @current_user
     @current_user
   end
