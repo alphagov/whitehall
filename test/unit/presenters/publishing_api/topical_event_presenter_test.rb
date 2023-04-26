@@ -55,6 +55,14 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
         image: {
           url: topical_event.logo_url(:s300),
           alt_text: topical_event.logo_alt_text,
+          srcset: [
+            { url: topical_event.logo_url(:s960), size: "960w" },
+            { url: topical_event.logo_url(:s712), size: "712w" },
+            { url: topical_event.logo_url(:s630), size: "630w" },
+            { url: topical_event.logo_url(:s465), size: "465w" },
+            { url: topical_event.logo_url(:s300), size: "300w" },
+            { url: topical_event.logo_url(:s216), size: "216w" },
+          ],
         },
         start_date: topical_event.start_date.rfc3339,
         end_date: topical_event.end_date.rfc3339,
