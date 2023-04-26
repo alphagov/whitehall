@@ -5,7 +5,7 @@
   text: "Cancelling a release cannot be undone."
 } %>
 
-<%= form_for path, method: http_action do |form| %>
+<%= form_for [controller_action, :admin, @statistics_announcement], method: http_action do |form| %>
   <%= render "govuk_publishing_components/components/textarea", {
     label: {
       text: "Reason for cancellation (required)",

@@ -1,6 +1,6 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
   before_action :set_release_date_params, only: %i[create]
-  before_action :find_statistics_announcement, only: %i[show edit update cancel publish_cancellation cancel_reason]
+  before_action :find_statistics_announcement, only: %i[show edit update cancel publish_cancellation cancel_reason update_cancel_reason]
   before_action :redirect_to_show_if_cancelled, only: %i[cancel publish_cancellation]
   helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
   layout :get_layout
@@ -36,7 +36,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def update
-    @statistics_announcement.attributes = statistics_announcement_params
+    @statistics_announcement.assign_attributes(statistics_announcement_params)
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
@@ -58,6 +58,15 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def cancel_reason
     render_design_system("cancel_reason", "legacy_cancel_reason", next_release: false)
+  end
+
+  def update_cancel_reason
+    @statistics_announcement.assign_attributes(cancellation_params)
+    if @statistics_announcement.save
+      redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
+    else
+      render_design_system("cancel_reason", "legacy_cancel_reason", next_release: false)
+    end
   end
 
 private
@@ -104,6 +113,14 @@ private
       )
   end
 
+  def cancellation_params
+    params
+      .require(:statistics_announcement)
+      .permit(
+        :cancellation_reason,
+      )
+  end
+
   def filter_params
     params.slice(:title, :page, :per_page, :organisation_id, :dates, :unlinked_only)
           .permit!
@@ -137,7 +154,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[edit update new create cancel publish_cancellation cancel_reason] if preview_design_system?(next_release: false)
+    design_system_actions += %w[edit update new create cancel publish_cancellation cancel_reason update_cancel_reason] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

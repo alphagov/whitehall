@@ -8,8 +8,8 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render 'cancel_form', {
       statistics_announcement: @statistics_announcement,
-      path: [:admin, @statistics_announcement],
-      http_action: :put
+      controller_action: :update_cancel_reason,
+      http_action: :patch
     } %>
   </div>
 </div>
