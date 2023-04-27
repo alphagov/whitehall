@@ -74,3 +74,10 @@ Feature: Statistical release announcements
     And a cancelled statistics announcement exists
     When I change the cancellation reason
     Then I should see the updated cancellation reason
+
+  Scenario: unpublishing a statistics announcement
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And a statistics announcement called "Beard grooming spending 2014" exists
+    When I unpublish the statistics announcement
+    Then I should see the unpublish statistics announcement banner
+    And I should see no statistic announcements

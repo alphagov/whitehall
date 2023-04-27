@@ -23,11 +23,12 @@
       } %>
     <% end %>
 
-    <%= form_for @statistics_announcement, url: admin_statistics_announcement_unpublish_path(@statistics_announcement), method: :post do |form| %>
+    <%= form_for @statistics_announcement, url: admin_statistics_announcement_unpublish_path(@statistics_announcement) do |form| %>
       <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "Redirect to URL (required)"
         },
+        hint: "URL should be like: #{Whitehall.public_protocol}://#{Whitehall.public_host}/example",
         id: "statistics_announcement_redirect_url",
         name: "statistics_announcement[redirect_url]",
         value: @statistics_announcement.redirect_url,
