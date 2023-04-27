@@ -69,12 +69,18 @@ And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
       attach_file jpg_image
     elsif width == 64 && height == 96
       attach_file Rails.root.join("test/fixtures/horrible-image.64x96.jpg")
+    elsif width == 960 && height == 960
+      attach_file Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")
     end
   end
   click_on "Upload"
 end
 
-And(/^I click the "Save and continue" button on the preview page$/) do
+Then(/^I am redirected to a page for image cropping$/) do
+  expect(page).to have_content("Crop image")
+end
+
+And(/^I click the "Save and continue" button on the crop page$/) do
   click_on "Save and continue"
 end
 

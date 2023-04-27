@@ -49,6 +49,18 @@ Feature: Images tab on edit edition
     And I update the image details and save
     Then the publication "Standard Beard Lengths" should have 1 image attachment
 
+  @javascript
+  Scenario: Image uploaded with cropping required
+    And I have the "Preview images update" permission
+    And a draft document with images exists
+    When I visit the images tab of the document with images
+    Then I should see a list with 2 images
+    When I upload a 960x960 image
+    Then I am redirected to a page for image cropping
+    When I click the "Save and continue" button on the crop page
+    And I update the image details and save
+    Then I should see a list with 3 image
+
   Scenario: Small image uploaded
     And I have the "Preview images update" permission
     And I start drafting a new publication "Standard Beard Lengths"

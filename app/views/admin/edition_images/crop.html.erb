@@ -1,0 +1,31 @@
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Crop image" %>
+<% content_for :title, "Crop image" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag admin_edition_images_path(@edition), multipart: true do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Select part of the image to use. The part you select will be resized for GOV.UK. The shape is fixed.</p>
+
+      <%= render "components/image-cropper", {
+        name: "image[image_data][file]",
+        src: @data_url,
+        filename: @new_image.filename,
+        type: @new_image.content_type
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save and continue",
+        } %>
+
+        <%= link_to("Cancel", admin_edition_images_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+
+  <%= render "image_information", image: @new_image%>
+
+</div>

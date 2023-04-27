@@ -46,6 +46,21 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal edit_admin_edition_image_path(edition, edition.images.last), path
   end
 
+  test "#create shows the cropping page if image is too large" do
+    login_authorised_user
+    edition = create(:news_article)
+
+    filename = "images/960x960_jpeg.jpg"
+    post admin_edition_images_path(edition), params: { image: { image_data: { file: upload_fixture(filename, "image/jpeg") } } }
+
+    assert_template "admin/edition_images/crop"
+    assert_select "h1", "Crop image"
+
+    img = document_root_element.css("img.app-c-image-cropper__image").first
+    expected_data_url = "data:image/jpeg;base64,#{Base64.strict_encode64(file_fixture(filename).read)}"
+    assert_equal expected_data_url, img["src"], "Expected img src to be a Data URL representation of the uploaded file"
+  end
+
   test "#create shows a validation error if image is too small" do
     login_authorised_user
     edition = create(:news_article)
