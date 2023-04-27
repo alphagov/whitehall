@@ -22,7 +22,7 @@ module PublishingApi
         href: edition.public_path(locale: feature.feature_list.locale),
         image: {
           url: feature.image.url,
-          alt_text: feature.alt_text,
+          alt_text: feature.alt_text.presence || "",
         },
         summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(edition.summary),
         public_updated_at: edition.public_timestamp,
