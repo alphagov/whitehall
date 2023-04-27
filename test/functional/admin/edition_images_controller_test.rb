@@ -54,7 +54,7 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
 
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file must be 960px wide and 640px tall, but is 50px wide and 33px tall"
+    assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is 960 pixels wide and 640 pixels tall"
   end
 
   def login_authorised_user

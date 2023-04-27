@@ -44,9 +44,15 @@ private
     target_width = @size[0]
     target_height = @size[1]
 
-    unless actual_width == target_width && actual_height == target_height
-      record.errors.add(@method, "must be #{target_width}px wide and #{target_height}px tall, but is #{actual_width}px wide and #{actual_height}px tall")
-    end
+    too_small = actual_width < target_width || actual_height < target_height
+    too_large = actual_width > target_width || actual_height > target_height
+
+    return unless too_small || too_large
+
+    error_type = too_small ? :too_small : :too_large
+    problem = too_small ? "too small" : "too large"
+    message = "is #{problem}. Select an image that is #{target_width} pixels wide and #{target_height} pixels tall"
+    record.errors.add(@method, error_type, message:)
   end
 
   def file_for(record)

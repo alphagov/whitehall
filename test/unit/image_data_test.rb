@@ -22,12 +22,18 @@ class ImageDataTest < ActiveSupport::TestCase
   test "rejects images smaller than 960x640" do
     image_data = build_example("50x33_gif.gif")
     assert_not image_data.valid?
-    assert_equal ["must be 960px wide and 640px tall, but is 50px wide and 33px tall"], image_data.errors[:file]
+    assert image_data.errors.of_kind?(:file, :too_small)
   end
 
   test "accepts images with 960x640 dimensions" do
     image_data = build_example("960x640_jpeg.jpg")
     assert image_data.valid?
+  end
+
+  test "rejects images larger than 960x640" do
+    image_data = build_example("960x960_jpeg.jpg")
+    assert_not image_data.valid?
+    assert image_data.errors.of_kind?(:file, :too_large)
   end
 
   test "#bitmap? is false for SVG files" do

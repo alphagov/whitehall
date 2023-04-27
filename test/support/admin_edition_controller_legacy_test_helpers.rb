@@ -551,7 +551,7 @@ module AdminEditionControllerLegacyTestHelpers
                ),
              }
 
-        assert_select ".errors", text: "Images image data file must be 960px wide and 640px tall, but is 64px wide and 96px tall"
+        assert_select ".errors", text: "Images image data file is too small. Select an image that is 960 pixels wide and 640 pixels tall"
       end
 
       view_test "edit displays edition image fields" do

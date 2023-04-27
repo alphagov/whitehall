@@ -28,11 +28,25 @@ class ImageValidatorTest < ActiveSupport::TestCase
     assert_validates_as_valid(subject, "960x640_gif.gif")
   end
 
-  test "with constrain_size option it should only accept original images of that size" do
+  test "with size option it should only accept original images of that size" do
     subject = ImageValidator.new(size: [960, 640])
 
     assert_validates_as_invalid(subject, "50x33_gif.gif")
     assert_validates_as_valid(subject, "960x640_jpeg.jpg")
+  end
+
+  test "error type is :too_small when the image is too small" do
+    subject = ImageValidator.new(size: [960, 640])
+    too_small = build_example("50x33_gif.gif")
+    subject.validate(too_small)
+    assert too_small.errors.of_kind?(:file, :too_small)
+  end
+
+  test "error type is :too_large when the image is too large" do
+    subject = ImageValidator.new(size: [960, 640])
+    too_large = build_example("960x960_jpeg.jpg")
+    subject.validate(too_large)
+    assert too_large.errors.of_kind?(:file, :too_large)
   end
 
   test "it should not throw an exception if a file isn't present" do
