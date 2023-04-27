@@ -1,10 +1,12 @@
 require "test_helper"
 
-class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionController::TestCase
+class Admin::LegacyStatisticsAnnouncementUnpublishingsControllerTest < ActionController::TestCase
+  tests Admin::StatisticsAnnouncementUnpublishingsController
+
   include GdsApi::TestHelpers::PublishingApi
 
   setup do
-    @user = login_as_preview_design_system_user(:gds_editor)
+    @user = login_as(:gds_editor)
     @announcement = create(:statistics_announcement)
   end
 
