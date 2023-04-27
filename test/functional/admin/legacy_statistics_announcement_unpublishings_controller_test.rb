@@ -38,7 +38,7 @@ class Admin::LegacyStatisticsAnnouncementUnpublishingsControllerTest < ActionCon
                      redirect_url: "https://youtube.com",
                    } }
 
-    assert_template :new
+    assert_template :legacy_new
   end
 
   test "POST :create with valid params unpublishes the announcement" do
