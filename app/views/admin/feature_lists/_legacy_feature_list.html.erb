@@ -1,4 +1,4 @@
-<%= render partial: 'admin/feature_lists/current_feature_list', locals: {feature_list: feature_list, maximum_featured_documents: maximum_featured_documents } %>
+<%= render partial: 'admin/feature_lists/legacy_current_feature_list', locals: {feature_list: feature_list, maximum_featured_documents: maximum_featured_documents } %>
 
 <hr />
 <h2 class="add-bottom-margin feature-title">Feature new documents</h2>
@@ -7,7 +7,7 @@
     <%= render partial: 'admin/editions/legacy_filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
   </div>
   <div class="col-md-9" id="search_results">
-    <%= render partial: "admin/feature_lists/search_results", locals: {feature_list: feature_list} %>
+    <%= render partial: "admin/feature_lists/legacy_search_results", locals: {feature_list: feature_list} %>
   </div>
 </div>
 
@@ -15,14 +15,14 @@
   <div class="col-md-6">
     <% if @featurable_topical_events.any? %>
       <h2 class="add-bottom-margin">Feature new topical events</h2>
-      <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
+      <%= render partial: 'admin/feature_lists/legacy_featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
     <% end %>
   </div>
 
   <div class="col-md-6">
     <h2 class="add-bottom-margin">Feature non-GOV.UK government link</h2>
     <% if @featurable_offsite_links.any? %>
-      <%= render partial: 'admin/feature_lists/featurable_offsite_links', locals: { feature_list: feature_list, featurable_offsite_links: @featurable_offsite_links } %>
+      <%= render partial: 'admin/feature_lists/legacy_featurable_offsite_links', locals: { feature_list: feature_list, featurable_offsite_links: @featurable_offsite_links } %>
     <% else %>
       <p class="no-content no-content-bordered">There are currently no non-GOV.UK government links.</p>
     <% end %>

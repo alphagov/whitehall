@@ -38,7 +38,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     if request.xhr?
       render partial: "admin/feature_lists/search_results", locals: { feature_list: @feature_list }
     else
-      render :features
+      :legacy_features
     end
   end
 
