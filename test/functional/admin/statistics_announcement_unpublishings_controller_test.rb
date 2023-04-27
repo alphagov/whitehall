@@ -22,11 +22,20 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
     assert_response 200
   end
 
-  view_test "GET :new renders a form" do
+  view_test "GET :new renders a form with cancel a release" do
     get :new, params: { statistics_announcement_id: @announcement }
 
     assert_response :success
     assert_select "input[name='statistics_announcement[redirect_url]']"
+    assert_select "a.govuk-link", text: "cancel the release", count: 1
+  end
+
+  view_test "GET :new with a cancelled announcement doesn't render the cancel release link" do
+    get :new, params: { statistics_announcement_id: create(:cancelled_statistics_announcement) }
+
+    assert_response :success
+    assert_select "input[name='statistics_announcement[redirect_url]']"
+    assert_select "a.govuk-link", text: "cancel the release", count: 0
   end
 
   test "POST :create with invalid params rerenders the form" do
@@ -36,7 +45,7 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
                      redirect_url: "https://youtube.com",
                    } }
 
-    assert_template :legacy_new
+    assert_template :new
   end
 
   test "POST :create with valid params unpublishes the announcement" do
