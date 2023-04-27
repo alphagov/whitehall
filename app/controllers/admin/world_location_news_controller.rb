@@ -28,6 +28,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
 
   def features
     @feature_list = @world_location.world_location_news.load_or_create_feature_list(params[:locale])
+    @locale = Locale.new(params[:locale] || :en)
 
     filter_params = default_filter_params.merge(optional_filter_params).merge(state: "published")
 
@@ -38,7 +39,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     if request.xhr?
       render partial: "admin/feature_lists/legacy_search_results", locals: { feature_list: @feature_list }
     else
-      render :legacy_features
+      render_design_system("features", "legacy_features", next_release: false)
     end
   end
 
@@ -73,7 +74,7 @@ private
   end
 
   def get_layout
-    design_system_actions = %w[show index edit update]
+    design_system_actions = %w[show index edit update features]
     if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
