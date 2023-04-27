@@ -1,76 +1,208 @@
 require "test_helper"
 
 class EmbassyTest < ActiveSupport::TestCase
-  setup do
-    @location = create(:world_location, :with_worldwide_organisations, name: "Narnia")
-    @organisation = @location.worldwide_organisations.first
+  extend Minitest::Spec::DSL
 
-    @organisation.main_office = create(
-      :worldwide_office,
-      title: "British Embassy Narnia",
-      worldwide_organisation: @organisation,
-      worldwide_office_type: WorldwideOfficeType::Embassy,
-      contact: create(:contact, street_address: "The woods", country: @location),
-    )
-  end
+  let(:world_location) { build(:world_location) }
+  let(:embassy) { Embassy.new(world_location) }
 
-  test "it delegates to the world location" do
-    embassy = Embassy.new(@location)
+  it "delegates to the world location" do
+    world_location.name = "Narnia"
     assert_equal "Narnia", embassy.name
   end
 
-  test "#offices returns the organisation's embassy" do
-    embassy = Embassy.new(@location)
-    assert_equal [@organisation.main_office], embassy.offices
+  context "when there are no organisations" do
+    it "returns false for #can_assist_british_nationals?" do
+      assert_not embassy.can_assist_british_nationals?
+    end
+
+    it "returns false for #can_assist_in_location?" do
+      assert_not embassy.can_assist_in_location?
+    end
+
+    it "returns nil for #remote_office" do
+      assert_nil embassy.remote_office
+    end
+
+    it "returns no #organisations_with_embassy_offices" do
+      assert embassy.organisations_with_embassy_offices.empty?
+    end
   end
 
-  test "#offices returns an empty array if there is no embassy" do
-    location = create(:world_location, :with_worldwide_organisations, name: "Legoland")
+  context "when there are organisations with embassy offices in the world location" do
+    before do
+      organisation = create(:worldwide_organisation, world_locations: [world_location])
+      contact = create(:contact_with_country, country: world_location)
+      create(:worldwide_office,
+             contact:,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
+    end
 
-    embassy = Embassy.new(location)
-    assert [], embassy.offices
+    it "returns true for #can_assist_british_nationals?" do
+      assert embassy.can_assist_british_nationals?
+    end
+
+    it "returns true for #can_assist_in_location?" do
+      assert embassy.can_assist_in_location?
+    end
+
+    it "returns nil for #remote_office" do
+      assert_nil embassy.remote_office
+    end
+
+    it "returns a single #organisations_with_embassy_offices" do
+      assert_equal 1, embassy.organisations_with_embassy_offices.count
+    end
   end
 
-  test "#offices treats other types of offices as embassies" do
-    embassy = Embassy.new(@location)
-    t = WorldwideOfficeType
+  context "when there are organisations with embassy offices in unspecified countries" do
+    before do
+      organisation = create(:worldwide_organisation, world_locations: [world_location])
+      contact = create(:contact, country: nil)
+      create(:worldwide_office,
+             contact:,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
+    end
 
-    @organisation.main_office.update!(worldwide_office_type: t::BritishTradeACulturalOffice)
-    assert [@organisation.main_office], embassy.offices
+    it "returns true for #can_assist_british_nationals?" do
+      assert embassy.can_assist_british_nationals?
+    end
 
-    @organisation.main_office.update!(worldwide_office_type: t::Consulate)
-    assert [@organisation.main_office], embassy.offices
+    it "returns true for #can_assist_in_location?" do
+      assert embassy.can_assist_in_location?
+    end
 
-    @organisation.main_office.update!(worldwide_office_type: t::HighCommission)
-    assert [@organisation.main_office], embassy.offices
+    it "returns nil for #remote_office" do
+      assert_nil embassy.remote_office
+    end
 
-    @organisation.main_office.update!(worldwide_office_type: t::Other)
-    assert [], embassy.offices
+    it "returns a single #organisations_with_embassy_offices" do
+      assert_equal 1, embassy.organisations_with_embassy_offices.count
+    end
   end
 
-  test "remote_services_office and remote_services_country" do
-    legoland = create(:world_location, name: "Legoland")
+  context "when the world location is a special case" do
+    let(:world_location) { build(:world_location, name: Embassy::SPECIAL_CASES.keys.first) }
 
-    toytown = create(:world_location, :with_worldwide_organisations, name: "Narnia")
-    toytown_org = toytown.worldwide_organisations.first
-    toytown_org.main_office = nil
-    contact = create(
-      :contact,
-      title: "British Embassy Legoland",
-      street_address: "1 Brick Lane",
-      country: legoland,
-    )
-    toytown_org.offices << create(
-      :worldwide_office,
-      title: "British Consular Services Legoland",
-      contact:,
-      worldwide_organisation: toytown_org,
-      worldwide_office_type: WorldwideOfficeType::Embassy,
-    )
+    it "returns true for #can_assist_british_nationals?" do
+      assert embassy.can_assist_british_nationals?
+    end
 
-    location = Embassy.new(toytown)
+    it "returns false for #can_assist_in_location?" do
+      assert_not embassy.can_assist_in_location?
+    end
 
-    assert_equal "Legoland", location.remote_services_country.name
-    assert_equal "British Embassy Legoland", location.offices.first.title
+    it "returns no #organisations_with_embassy_offices" do
+      assert embassy.organisations_with_embassy_offices.empty?
+    end
+
+    it "returns a #remote_office" do
+      expected = Embassy::RemoteOffice.new(
+        name: "Foreign, Commonwealth and Development Office",
+        location: "the UK",
+        path: "/government/organisations/foreign-commonwealth-development-office",
+      )
+      assert_equal expected, embassy.remote_office
+    end
+  end
+
+  context "when there are organisations with embassy offices in other world locations" do
+    let(:other_location) { create(:world_location) }
+
+    before do
+      organisation = create(:worldwide_organisation,
+                            world_locations: [world_location],
+                            name: "org-name",
+                            slug: "org-slug")
+      contact = create(:contact_with_country, country: other_location)
+      create(:worldwide_office,
+             contact:,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
+    end
+
+    it "returns true for #can_assist_british_nationals?" do
+      assert embassy.can_assist_british_nationals?
+    end
+
+    it "returns false for #can_assist_in_location?" do
+      assert_not embassy.can_assist_in_location?
+    end
+
+    it "returns a single #organisations_with_embassy_offices" do
+      assert_equal 1, embassy.organisations_with_embassy_offices.count
+    end
+
+    it "returns #remote_office" do
+      expected = Embassy::RemoteOffice.new(
+        name: "org-name",
+        location: other_location,
+        path: "/world/organisations/org-slug",
+      )
+      assert_equal expected, embassy.remote_office
+    end
+  end
+
+  context "when there is an organisation with two embassy offices, one in an unknown location and one in another world location" do
+    let(:other_location) { create(:world_location) }
+
+    before do
+      organisation = create(:worldwide_organisation,
+                            world_locations: [world_location],
+                            name: "org-name",
+                            slug: "org-slug")
+      remote_office_contact = create(:contact_with_country, country: other_location)
+      unknown_location_contact = create(:contact, country: nil)
+      create(:worldwide_office,
+             contact: remote_office_contact,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
+      create(:worldwide_office,
+             contact: unknown_location_contact,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
+    end
+
+    it "returns the remote office from #remote_office" do
+      expected = Embassy::RemoteOffice.new(
+        name: "org-name",
+        location: other_location,
+        path: "/world/organisations/org-slug",
+      )
+      assert_equal expected, embassy.remote_office
+    end
+  end
+
+  context "when there is an organisation with two offices in two remote countries and one isn't an embassy" do
+    let(:second_location) { create(:world_location) }
+    let(:third_location) { create(:world_location) }
+
+    before do
+      organisation = create(:worldwide_organisation,
+                            world_locations: [world_location],
+                            name: "org-name",
+                            slug: "org-slug")
+      second_location_contact = create(:contact_with_country, country: second_location)
+      third_location_contact = create(:contact_with_country, country: third_location)
+      create(:worldwide_office,
+             contact: second_location_contact,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::Other)
+      create(:worldwide_office,
+             contact: third_location_contact,
+             worldwide_organisation: organisation,
+             worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
+    end
+
+    it "returns the embassy office from #remote_office" do
+      expected = Embassy::RemoteOffice.new(
+        name: "org-name",
+        location: third_location,
+        path: "/world/organisations/org-slug",
+      )
+      assert_equal expected, embassy.remote_office
+    end
   end
 end
