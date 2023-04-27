@@ -36,9 +36,9 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     @featurable_offsite_links = @world_location.world_location_news.offsite_links
 
     if request.xhr?
-      render partial: "admin/feature_lists/search_results", locals: { feature_list: @feature_list }
+      render partial: "admin/feature_lists/legacy_search_results", locals: { feature_list: @feature_list }
     else
-      render :features
+      render :legacy_features
     end
   end
 

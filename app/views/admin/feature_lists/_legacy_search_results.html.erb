@@ -1,0 +1,5 @@
+<h3 class="add-bottom-margin">
+  <%= @filter.page_title %>
+</h3>
+
+<%= render partial: 'admin/feature_lists/legacy_featurable_editions', locals: { feature_list: feature_list, featurable_editions: @filter.editions(feature_list.locale) } %>
