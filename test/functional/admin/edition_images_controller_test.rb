@@ -46,6 +46,21 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal edit_admin_edition_image_path(edition, edition.images.last), path
   end
 
+  test "#create shows the cropping page if image is too large" do
+    login_authorised_user
+    edition = create(:news_article)
+
+    filename = "images/960x960_jpeg.jpg"
+    post admin_edition_images_path(edition), params: { image: { image_data: { file: upload_fixture(filename, "image/jpeg") } } }
+
+    assert_template "admin/edition_images/crop"
+    assert_select "h1", "Crop image"
+
+    img = document_root_element.css("img.app-c-image-cropper__image").first
+    expected_data_url = "data:image/jpeg;base64,#{Base64.strict_encode64(file_fixture(filename).read)}"
+    assert_equal expected_data_url, img["src"], "Expected img src to be a Data URL representation of the uploaded file"
+  end
+
   test "#create shows a validation error if image is too small" do
     login_authorised_user
     edition = create(:news_article)
@@ -54,7 +69,7 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
 
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file must be 960px wide and 640px tall, but is 50px wide and 33px tall"
+    assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is 960 pixels wide and 640 pixels tall"
   end
 
   def login_authorised_user

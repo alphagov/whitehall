@@ -1,0 +1,95 @@
+// stylelint-disable-next-line scss/at-import-partial-extension
+@import "cropperjs/dist/cropper.min";
+
+$app-cropper-point-size: 20px;
+
+.app-c-image-cropper {
+  @include govuk-font($size: 19);
+  @include govuk-responsive-margin(6, "bottom");
+
+  .cropper-view-box {
+    outline: 2px solid $govuk-focus-colour;
+    outline-color: $govuk-focus-colour;
+  }
+
+  .cropper-line,
+  .cropper-point,
+  .cropper-point.point-se:before {
+    background-color: $govuk-focus-colour;
+  }
+
+  .cropper-point {
+    width: $app-cropper-point-size;
+    height: $app-cropper-point-size;
+    opacity: 1;
+  }
+
+  .cropper-point.point-n {
+    top: -$app-cropper-point-size / 2;
+    margin-left: -$app-cropper-point-size / 2;
+  }
+
+  .cropper-point.point-ne {
+    top: -$app-cropper-point-size / 2;
+    right: -$app-cropper-point-size / 2;
+  }
+
+  .cropper-point.point-e {
+    right: -$app-cropper-point-size / 2;
+    margin-top: -$app-cropper-point-size / 2;
+  }
+
+  .cropper-point.point-se {
+    right: -$app-cropper-point-size / 2;
+    bottom: -$app-cropper-point-size / 2;
+  }
+
+  .cropper-point.point-s {
+    bottom: -$app-cropper-point-size / 2;
+    margin-left: -$app-cropper-point-size / 2;
+  }
+
+  .cropper-point.point-sw {
+    bottom: -$app-cropper-point-size / 2;
+    left: -$app-cropper-point-size / 2;
+  }
+
+  .cropper-point.point-w {
+    left: -$app-cropper-point-size / 2;
+    margin-top: -$app-cropper-point-size / 2;
+  }
+
+  .cropper-point.point-nw {
+    top: -$app-cropper-point-size / 2;
+    left: -$app-cropper-point-size / 2;
+  }
+}
+
+.app-c-image-cropper__image {
+  display: none;
+  max-width: 100%;
+  max-height: 640px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.app-c-image-cropper__description {
+  display: none;
+  margin-top: 0;
+}
+
+.app-c-image-cropper__no-js-description {
+  margin-top: 0;
+}
+
+.js-enabled {
+  .app-c-image-cropper__no-js-description,
+  .app-c-image-cropper__no-js-image {
+    display: none;
+  }
+
+  .app-c-image-cropper__description,
+  .app-c-image-cropper__image {
+    display: block;
+  }
+}

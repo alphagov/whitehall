@@ -1,0 +1,8 @@
+<%= tag.div class: "app-c-image-cropper", data: {module: "image-cropper", filename:, type:} do %>
+  <input type="file" class="js-cropped-image-input" name="<%= name %>" hidden>
+  <%= tag.div class: "app-c-image-cropper__container" do %>
+    <%= tag.img class: "app-c-image-cropper__image",
+      src: src
+    %>
+  <% end%>
+<% end %>

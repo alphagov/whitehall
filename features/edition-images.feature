@@ -39,7 +39,7 @@ Feature: Images tab on edit edition
     And I update the image details and save
     Then I should see a updated banner
     Then I should see the updated image details
-    
+
   Scenario: Image uploaded with no cropping required
     And I have the "Preview images update" permission
     And I start drafting a new publication "Standard Beard Lengths"
@@ -49,13 +49,25 @@ Feature: Images tab on edit edition
     And I update the image details and save
     Then the publication "Standard Beard Lengths" should have 1 image attachment
 
+  @javascript
+  Scenario: Image uploaded with cropping required
+    And I have the "Preview images update" permission
+    And a draft document with images exists
+    When I visit the images tab of the document with images
+    Then I should see a list with 2 images
+    When I upload a 960x960 image
+    Then I am redirected to a page for image cropping
+    When I click the "Save and continue" button on the crop page
+    And I update the image details and save
+    Then I should see a list with 3 image
+
   Scenario: Small image uploaded
     And I have the "Preview images update" permission
     And I start drafting a new publication "Standard Beard Lengths"
     When I am on the edit page for publication "Standard Beard Lengths"
     And I navigate to the images tab
     And I upload a 64x96 image
-    Then I should get the error message "Image data file must be 960px wide and 640px tall, but is 64px wide and 96px tall"
+    Then I should get the error message "Image data file is too small. Select an image that is 960 pixels wide and 640 pixels tall"
 
   Scenario: No file uploaded
     And I have the "Preview images update" permission
