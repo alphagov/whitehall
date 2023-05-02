@@ -1,34 +1,49 @@
-<% page_title "Unpublish statistics announcement" %>
-
-<div class="stats-form-wrapper">
-  <h1>
-    <span class="stats-small-heading">
-      <%= @statistics_announcement.title %>
-    </span>
-    <span class="stats-heading">
-      Unpublish statistics announcement
-    </span>
-  </h1>
-
-  <div class="add-bottom-margin lead">
-    <p>Take announcements off GOV.UK if they:</p>
-    <ul>
-      <li>are a duplicate of another announcement</li>
-      <li>have been published too soon or in error</li>
-    </ul>
-
-    <p>
-      <strong>If the statistics are no longer being released, <%= link_to "cancel the release", [:cancel, :admin, @statistics_announcement] %>.</strong>
-    </p>
+<% content_for :page_title, "Unpublish statistics announcement" %>
+<% content_for :context, @statistics_announcement.title %>
+<% content_for :title, "Unpublish statistics announcement" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">Take announcements off GOV.UK if they:</p>
+    <%= render "govuk_publishing_components/components/list", {
+      label: "Take announcements off GOV.UK if they:",
+      visible_counters: true,
+      items: [
+        "are a duplicate of another announcement",
+        "have been published too soon or in error"
+      ]
+    } %>
+    <% unless @statistics_announcement.cancelled? %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: sanitize("If the statistics are no longer being released, #{link_to("cancel the release", [:cancel, :admin, @statistics_announcement], class: "govuk-link")}.")
+      } %>
+    <% end %>
+    <%= form_for @statistics_announcement, url: admin_statistics_announcement_unpublish_path(@statistics_announcement), method: :post do |form| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Redirect to URL (required)"
+        },
+        hint: "URL should be like: #{Whitehall.public_protocol}://#{Whitehall.public_host}/example",
+        id: "statistics_announcement_redirect_url",
+        name: "statistics_announcement[redirect_url]",
+        value: @statistics_announcement.redirect_url,
+        heading_size: "m",
+        error_message: errors_for_input(@statistics_announcement.errors, :redirect_url)
+      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Unpublish announcement",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+            "track-label": "Unpublish announcement"
+          },
+          destructive: true
+        } %>
+        <%= link_to("Cancel", [:admin, @statistics_announcement], class: "govuk-link") %>
+      </div>
+    <% end %>
   </div>
-
-  <%= form_for @statistics_announcement, url: admin_statistics_announcement_unpublish_path(@statistics_announcement), method: :post, html: { class: "well" } do |form| %>
-    <%= form.errors %>
-    <div class="form-group">
-      <%= form.text_field :redirect_url, required: true, rows: 5, class: 'form-control', label_text: 'Redirect to URL' %>
-    </div>
-
-    <%= form.submit('Unpublish', class: "btn btn-lg btn-primary btn-danger") %>
-    <%= link_to('Cancel', admin_statistics_announcement_path(@statistics_announcement), class: 'btn btn-default btn-lg add-left-margin') %>
-  <% end %>
 </div>

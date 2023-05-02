@@ -1,10 +1,12 @@
 require "test_helper"
 
-class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionController::TestCase
+class Admin::LegacyStatisticsAnnouncementUnpublishingsControllerTest < ActionController::TestCase
+  tests Admin::StatisticsAnnouncementUnpublishingsController
+
   include GdsApi::TestHelpers::PublishingApi
 
   setup do
-    @user = login_as_preview_design_system_user(:gds_editor)
+    @user = login_as(:gds_editor)
     @announcement = create(:statistics_announcement)
   end
 
@@ -22,20 +24,11 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
     assert_response 200
   end
 
-  view_test "GET :new renders a form with cancel a release" do
+  view_test "GET :new renders a form" do
     get :new, params: { statistics_announcement_id: @announcement }
 
     assert_response :success
     assert_select "input[name='statistics_announcement[redirect_url]']"
-    assert_select "a.govuk-link", text: "cancel the release", count: 1
-  end
-
-  view_test "GET :new with a cancelled announcement doesn't render the cancel release link" do
-    get :new, params: { statistics_announcement_id: create(:cancelled_statistics_announcement) }
-
-    assert_response :success
-    assert_select "input[name='statistics_announcement[redirect_url]']"
-    assert_select "a.govuk-link", text: "cancel the release", count: 0
   end
 
   test "POST :create with invalid params rerenders the form" do
@@ -45,7 +38,7 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
                      redirect_url: "https://youtube.com",
                    } }
 
-    assert_template :new
+    assert_template :legacy_new
   end
 
   test "POST :create with valid params unpublishes the announcement" do

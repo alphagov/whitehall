@@ -271,3 +271,26 @@ Then(/^I should be able to view these upcoming releases without a linked publica
   expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
   expect(page).to_not have_selector("tr.statistics_announcement", text: @next_year_announcement.title)
 end
+
+When(/^I unpublish the statistics announcement$/) do
+  visit admin_statistics_announcement_path(@statistics_announcement)
+  click_on "Unpublish announcement"
+
+  fill_in "Redirect to URL", with: "http://www.dev.gov.uk/example"
+
+  if using_design_system?
+    click_on "Unpublish announcement"
+  else
+    click_on "Unpublish"
+  end
+end
+
+Then(/^I should see the unpublish statistics announcement banner$/) do
+  ensure_path admin_statistics_announcements_path
+
+  expect(page).to have_content("Unpublished statistics announcement: #{@statistics_announcement.title}")
+end
+
+Then(/^I should see no statistic announcements$/) do
+  expect(page).to have_content("No future statistics announcements found")
+end
