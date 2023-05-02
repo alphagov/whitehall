@@ -19,7 +19,10 @@
     {
       id: "currently_featured_tab",
       label: "Currently featured",
-      content: "",
+      content: render(Admin::CurrentlyFeaturedTabComponent.new(
+        features: @feature_list.features.current,
+        maximum_featured_documents: @world_location_news.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT
+      ))
     },
     {
       id: "documents_tab",

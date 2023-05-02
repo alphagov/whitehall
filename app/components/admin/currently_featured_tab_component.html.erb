@@ -1,0 +1,25 @@
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Currently featured"
+} %>
+
+<%= render "govuk_publishing_components/components/inset_text", {
+  text: "A maximum of #{maximum_featured_documents} documents will be featured on GOV.UK."
+} %>
+
+<% if features.many? %>
+  <p class="govuk-body">
+    <%= link_to "Reorder documents", "#", class: "govuk-link" %>
+  </p>
+<% end %>
+
+<% if features.present? %>
+  <div class="app-view-features__table govuk-!-margin-bottom-8">
+    <%= table("#{pluralize(live_features.count, "featured document")} live on GOV.UK", live_features) %>
+  </div>
+<% end %>
+
+<% if remaining_features.present? %>
+  <div class="app-view-features__table">
+    <%= table(pluralize(remaining_features.count, "remaining featured document"), remaining_features) %>
+  </div>
+<% end %>
