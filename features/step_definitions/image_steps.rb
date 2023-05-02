@@ -12,6 +12,10 @@ When("I visit the images tab of the document with images") do
   visit admin_edition_images_path(@edition)
 end
 
+When(/^I visit the images tab of the document "([^"]*)"$/) do |title|
+  visit admin_edition_images_path(Edition.find_by(title:))
+end
+
 Then(/^I should see a list with (\d+) image/) do |count|
   expect(page).to have_selector(".app-view-edition-images__details", count:)
 end
