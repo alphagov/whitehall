@@ -1,0 +1,38 @@
+<% page_title 'Get involved' %>
+
+<div class="get-involved-header">
+  <h1>Get involved</h1>
+  <%= link_to "View on website", get_involved_url %>
+</div>
+
+<section class="get-involved">
+  <%= get_involved_tab_navigation %>
+
+  <h2>Take part pages</h2>
+  <p class="warning">
+    Warning: changes to take part page ordering appears instantly on the live site.
+  </p>
+
+  <% if @take_part_pages.any? %>
+    <%= form_tag reorder_admin_take_part_pages_path, method: :post do %>
+      <fieldset class="sortable">
+        <% @take_part_pages.each do |take_part_page| %>
+          <div class="well">
+            <%= label_tag "ordering-#{take_part_page.id}" do %>
+              <%= link_to(take_part_page.title, [:edit, :admin, take_part_page]) %>
+            <% end %>
+
+            <%= text_field_tag "ordering[#{take_part_page.id}]", take_part_page.ordering, id: "ordering-#{take_part_page.id}", class: "ordering" %>
+          </div>
+        <% end %>
+      </fieldset>
+      <%= submit_tag "Update order", class: "btn btn-default" %>
+    <% end %>
+  <% else %>
+    <p class="no-content no-content-bordered">No take part pages</p>
+  <% end %>
+
+  <div class="form-actions">
+    <%= link_to "Add new take part page", new_admin_take_part_page_path, class: "btn btn-lg btn-primary"%>
+  </div>
+</section>

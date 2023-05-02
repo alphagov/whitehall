@@ -1,0 +1,21 @@
+<% content_for :context, @take_part_page.title %>
+<% content_for :page_title, "Delete take part page" %>
+<% content_for :title, "Delete take part page" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete this page?</p>
+
+    <%= form_tag [:admin, :take_part_page], id: @take_part_page_to_change, method: :delete do %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", admin_take_part_pages_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

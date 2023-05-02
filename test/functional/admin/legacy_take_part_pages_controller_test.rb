@@ -18,7 +18,7 @@ class Admin::LegacyTakePartPagesControllerTest < ActionController::TestCase
 
     assert_equal [page1, page2, page3], assigns(:take_part_pages)
     assert_response :success
-    assert_template "index"
+    assert_template "legacy_index"
   end
 
   test "GET :new prepares an unsaved instance" do
