@@ -214,9 +214,18 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".attachment.embedded"
   end
 
-  test "embeds image urls" do
+  test "embeds image urls when using !!number as a markdown" do
     edition = build(:published_news_article, body: "!!1")
-    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg")])
+    image_data = create(:image_data, id: 1)
+    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg", image_data: ImageData.find(image_data.id))])
+    html = govspeak_edition_to_html(edition)
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
+  end
+
+  test "embeds image urls when using filename as a markdown" do
+    edition = build(:published_news_article, body: "[Image: minister-of-funk.960x640.jpg]")
+    image_data = create(:image_data, id: 1)
+    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg", image_data: ImageData.find(image_data.id))])
     html = govspeak_edition_to_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
   end
