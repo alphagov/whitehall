@@ -144,6 +144,45 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_equal Time.zone.now, announcement.cancelled_at
   end
 
+  view_test "POST :publish_cancellation re-renders cancellation form if changes are not valid" do
+    announcement = create(:statistics_announcement)
+    post :publish_cancellation,
+         params: {
+           id: announcement.id,
+           statistics_announcement: { cancellation_reason: "" },
+         }
+
+    assert_response :success
+    assert_template :cancel
+    assert_select "ul.govuk-error-summary__list a[data-track-action='statistics announcement-error'][data-track-label=\"Cancellation reason must be provided when cancelling an announcement\"]", text: "Cancellation reason must be provided when cancelling an announcement"
+  end
+
+  test "PATCH :update_cancel_reason updates the cancellation message" do
+    announcement = create(:cancelled_statistics_announcement)
+    patch :update_cancel_reason,
+          params: {
+            id: announcement.id,
+            statistics_announcement: { cancellation_reason: "Another reason" },
+          }
+
+    assert_redirected_to [:admin, announcement]
+    assert_equal "Another reason", announcement.reload.cancellation_reason
+    assert_equal Time.zone.now, announcement.cancelled_at
+  end
+
+  view_test "PATCH :update_cancel_reason re-renders cancel_reason form if changes are not valid" do
+    announcement = create(:cancelled_statistics_announcement)
+    patch :update_cancel_reason,
+          params: {
+            id: announcement.id,
+            statistics_announcement: { cancellation_reason: "" },
+          }
+
+    assert_response :success
+    assert_template :cancel_reason
+    assert_select "ul.govuk-error-summary__list a[data-track-action='statistics announcement-error'][data-track-label=\"Cancellation reason must be provided when cancelling an announcement\"]", text: "Cancellation reason must be provided when cancelling an announcement"
+  end
+
   test "cancelled announcements cannot be cancelled" do
     announcement = create(:cancelled_statistics_announcement)
 

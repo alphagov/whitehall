@@ -1,0 +1,34 @@
+<p class="govuk-body-lead">
+  The announcement will remain on GOV.UK, together with the reason for cancellation.
+</p>
+<%= render "govuk_publishing_components/components/inset_text", {
+  text: "Cancelling a release cannot be undone."
+} %>
+
+<%= form_for [controller_action, :admin, @statistics_announcement], method: http_action do |form| %>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Reason for cancellation (required)",
+      heading_size: "m"
+    },
+    value: statistics_announcement.cancellation_reason,
+    id: "statistics_announcement_cancellation_reason",
+    name: "statistics_announcement[cancellation_reason]",
+    rows: 5,
+    error_message: errors_for_input(statistics_announcement.errors, :cancellation_reason),
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: statistics_announcement.cancellation_reason.blank? ? "Publish cancellation" : "Update cancellation reason",
+      destructive: true,
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+        "track-label": statistics_announcement.cancellation_reason.blank? ? "Publish cancellation" : "Update cancellation reason"
+      }
+    } %>
+    <%= link_to("Cancel", [:admin, statistics_announcement], class: "govuk-link") %>
+  </div>
+<% end %>

@@ -260,8 +260,9 @@ Whitehall::Application.routes.draw do
         resources :statistics_announcements, except: [:destroy] do
           member do
             get :cancel
-            get :cancel_reason
             post :publish_cancellation
+            get :cancel_reason
+            patch :update_cancel_reason
           end
           resource :tags, only: %i[edit update], controller: :statistics_announcement_tags
           resources :statistics_announcement_date_changes, as: "changes", path: "changes"
