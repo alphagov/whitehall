@@ -3,11 +3,9 @@
 <% content_for :title, "Unpublish statistics announcement" %>
 <% content_for :title_margin_bottom, 6 %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">Take announcements off GOV.UK if they:</p>
-
     <%= render "govuk_publishing_components/components/list", {
       label: "Take announcements off GOV.UK if they:",
       visible_counters: true,
@@ -16,14 +14,12 @@
         "have been published too soon or in error"
       ]
     } %>
-
     <% unless @statistics_announcement.cancelled? %>
       <%= render "govuk_publishing_components/components/inset_text", {
         text: sanitize("If the statistics are no longer being released, #{link_to("cancel the release", [:cancel, :admin, @statistics_announcement], class: "govuk-link")}.")
       } %>
     <% end %>
-
-    <%= form_for @statistics_announcement, url: admin_statistics_announcement_unpublish_path(@statistics_announcement) do |form| %>
+    <%= form_for @statistics_announcement, url: admin_statistics_announcement_unpublish_path(@statistics_announcement), method: :post do |form| %>
       <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "Redirect to URL (required)"
@@ -35,7 +31,6 @@
         heading_size: "m",
         error_message: errors_for_input(@statistics_announcement.errors, :redirect_url)
       } %>
-
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Unpublish announcement",
