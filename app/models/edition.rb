@@ -16,8 +16,7 @@ class Edition < ApplicationRecord
   # Adds support for `unpublishing`, change notes and version numbers.
   include Edition::Publishing
 
-  # Sets up papertrail and versioning
-  include Edition::AuditTrail
+  include AuditTrail
 
   include Edition::ActiveEditors
   include Edition::Translatable

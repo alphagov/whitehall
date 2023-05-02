@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 private
 
   def set_audit_trail_whodunnit
-    Edition::AuditTrail.whodunnit = current_user
+    AuditTrail.whodunnit = current_user
   end
 
   def skip_slimmer
