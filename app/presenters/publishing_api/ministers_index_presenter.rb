@@ -39,7 +39,7 @@ module PublishingApi
         ordered_junior_lords_of_the_treasury_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::JuniorLordsoftheTreasury),
         ordered_assistant_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::AssistantWhips),
         ordered_house_lords_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseofLords),
-        ordered_baronessess_and_ladies_in_waiting_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::BaronessAndLordsInWaiting),
+        ordered_baronesses_and_lords_in_waiting_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::BaronessAndLordsInWaiting),
       }
     end
 
