@@ -2,6 +2,7 @@ require "test_helper"
 
 class Admin::LegacyPromotionalFeaturesControllerTest < ActionController::TestCase
   tests Admin::PromotionalFeaturesController
+
   setup do
     login_as :writer
     @organisation = create(:executive_office)
@@ -81,6 +82,7 @@ class Admin::LegacyPromotionalFeaturesControllerTest < ActionController::TestCas
 
     delete :destroy, params: { organisation_id: @organisation, id: promotional_feature }
 
+    assert_redirected_to admin_organisation_promotional_features_url(@organisation)
     assert_not PromotionalFeature.exists?(promotional_feature.id)
     assert_equal "Promotional feature deleted.", flash[:notice]
   end
