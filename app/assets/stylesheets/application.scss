@@ -45,6 +45,15 @@ $govuk-page-width: 1140px;
   .app-js-only {
     display: block;
   }
+
+  // The .js-enabled class gets applied immediately while the page is still loading,
+  // whereas GOV.UK JS Modules only initialise once the entire HTML document has loaded (on DOMContentLoaded).
+  // To avoid a 'flash of unstyled content', elements can use .hide-before-js-module-init to
+  // temporarily hide the element. The element's JS module can then remove it once
+  // initialised and apply the correct styling.
+  .hide-before-js-module-init {
+    display: none;
+  }
 }
 
 .legacy-whitehall {

@@ -10,6 +10,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   NavbarToggle.prototype.init = function () {
     this.menu.classList.add('govuk-visually-hidden')
+    this.menu.classList.remove('hide-before-js-module-init')
     this.toggler.setAttribute('tabindex', 0)
     this.initToggleListeners()
   }

@@ -105,7 +105,7 @@ module Admin::EditionActionsHelper
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
     tag.ul(
-      class: "masthead-menu list-unstyled js-hidden js-navbar-toggle__menu",
+      class: "masthead-menu list-unstyled js-hidden js-navbar-toggle__menu hide-before-js-module-init",
       id: "new-document-menu",
       role: "menu",
       "aria-labelledby" => "new-document-label",
