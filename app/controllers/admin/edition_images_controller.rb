@@ -26,8 +26,10 @@ class Admin::EditionImagesController < Admin::BaseController
     @new_image = @edition.images.build
     @new_image.build_image_data(image_params["image_data"])
 
+    @new_image.image_data.validate_on_image = @new_image
+
     if @new_image.save
-      redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.image_data.carrierwave_image} successfully uploaded"
+      redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
     elsif new_image_needs_cropping?
       @data_url = image_data_url
       render :crop

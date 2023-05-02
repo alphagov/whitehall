@@ -36,6 +36,25 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.errors.of_kind?(:file, :too_large)
   end
 
+  test "rejects images with duplicate filename on edition" do
+    image_data = build_example("960x640_jpeg.jpg")
+    edition = create(:news_article, images: [build(:image, image_data:)])
+    image = build(:image, image_data:, edition:)
+
+    image_data.validate_on_image = image
+
+    assert_not image_data.valid?
+    assert_equal ["name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."], image_data.errors[:file]
+  end
+
+  test "does not validate unique filename if validate_on_image is not assigned" do
+    image_data = build_example("960x640_jpeg.jpg")
+    edition = create(:news_article, images: [build(:image, image_data:)])
+    build(:image, image_data:, edition:)
+
+    assert image_data.valid?
+  end
+
   test "#bitmap? is false for SVG files" do
     assert_not build_example("test-svg.svg").bitmap?
   end
