@@ -13,10 +13,6 @@ end
 
 When(/^I draft a new news article "([^"]*)"$/) do |title|
   begin_drafting_news_article title:, summary: "here's a simple summary"
-  within ".images" do
-    attach_file "File", jpg_image, match: :first
-    fill_in "Alt text", with: "An alternative description", match: :first
-  end
   click_button "Save"
 end
 
