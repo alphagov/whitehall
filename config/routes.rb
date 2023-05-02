@@ -322,7 +322,8 @@ Whitehall::Application.routes.draw do
         end
 
         resources :feature_lists, only: [:show] do
-          post :reorder, on: :member
+          get :reorder, on: :member
+          post :update_order, on: :member
 
           resources :features, only: %i[new create] do
             post :unfeature, on: :member

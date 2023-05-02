@@ -30,14 +30,15 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
   end
 
   test "renders link to the reorder page if more than 1 feature_list item" do
+    feature_list = build_stubbed(:feature_list)
+
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, 2),
+                    features: build_list(:feature, 2, feature_list:),
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
     assert_selector ".govuk-link", text: "Reorder documents" do |link|
-      # this will be updated when i add the reorder endpoint
-      assert link[:href] == "#"
+      assert link[:href] == reorder_admin_feature_list_path(feature_list)
     end
   end
 
@@ -51,8 +52,10 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
   end
 
   test "Only renders the live featured documents table when feature_list count is <= to maximum_featured_documents" do
+    feature_list = build_stubbed(:feature_list)
+
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, @maximum_featured_documents),
+                    features: build_list(:feature, @maximum_featured_documents, feature_list:),
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
@@ -61,8 +64,10 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
   end
 
   test "renders the live featured documents table and the remaining documents table when feature_list count is great than maximum_featured_documents" do
+    feature_list = build_stubbed(:feature_list)
+
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, @maximum_featured_documents + 1),
+                    features: build_list(:feature, @maximum_featured_documents + 1, feature_list:),
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 

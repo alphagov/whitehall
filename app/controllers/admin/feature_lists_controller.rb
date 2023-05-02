@@ -1,11 +1,14 @@
 class Admin::FeatureListsController < Admin::BaseController
   before_action :find_feature_list
+  layout "design_system"
 
   def show
     redirect_to feature_list_path(@feature_list)
   end
 
-  def reorder
+  def reorder; end
+
+  def update_order
     new_order = ordering_params.to_h.sort_by { |_k, v| v.to_i }.map(&:first)
     message = if @feature_list.reorder!(new_order)
                 { notice: "Feature order updated" }

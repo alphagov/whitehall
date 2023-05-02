@@ -11,7 +11,7 @@
       To change the order of your featured documents, drag them up or down and then click "Save ordering".
     </p>
   <% end %>
-  <%= form_for feature_list, url: reorder_admin_feature_list_path(feature_list), method: :post do |form| %>
+  <%= form_for feature_list, url: update_order_admin_feature_list_path(feature_list), method: :post do |form| %>
     <fieldset class="sortable">
       <% feature_list.features.current.each do |feature| %>
         <div class="well feature-list">

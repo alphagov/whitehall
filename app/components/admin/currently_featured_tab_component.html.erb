@@ -8,7 +8,7 @@
 
 <% if features.many? %>
   <p class="govuk-body">
-    <%= link_to "Reorder documents", "#", class: "govuk-link" %>
+    <%= link_to "Reorder documents", reorder_admin_feature_list_path(features.first.feature_list), class: "govuk-link" %>
   </p>
 <% end %>
 
