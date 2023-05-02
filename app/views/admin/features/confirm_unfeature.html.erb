@@ -1,0 +1,21 @@
+<% content_for :context, "Features (#{Locale.new(@feature_list.locale).native_language_name})" %>
+<% content_for :page_title, "Unfeature ‘#{@feature}’" %>
+<% content_for :title, "Unfeature ‘#{@feature}’" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with url: unfeature_admin_feature_list_feature_path(@feature_list, @feature), method: :post do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to unfeature ‘<%= @feature %>’ from ‘<%= @feature_list.featurable.name %>’?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Unfeature",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", polymorphic_url([:features, :admin, @feature_list.featurable], locale: @feature_list.locale), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

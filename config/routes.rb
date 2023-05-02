@@ -326,6 +326,7 @@ Whitehall::Application.routes.draw do
           post :update_order, on: :member
 
           resources :features, only: %i[new create] do
+            get :confirm_unfeature, on: :member
             post :unfeature, on: :member
           end
         end

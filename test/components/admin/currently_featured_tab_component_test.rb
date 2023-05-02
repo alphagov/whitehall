@@ -9,6 +9,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
   setup do
     @maximum_featured_documents = 5
+    @feature_list = build_stubbed(:feature_list)
   end
 
   test "renders h2 so that screen readers have context for which tab they're in" do
@@ -30,15 +31,13 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
   end
 
   test "renders link to the reorder page if more than 1 feature_list item" do
-    feature_list = build_stubbed(:feature_list)
-
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, 2, feature_list:),
+                    features: build_list(:feature, 2, feature_list: @feature_list),
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
     assert_selector ".govuk-link", text: "Reorder documents" do |link|
-      assert link[:href] == reorder_admin_feature_list_path(feature_list)
+      assert link[:href] == reorder_admin_feature_list_path(@feature_list)
     end
   end
 
@@ -52,10 +51,8 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
   end
 
   test "Only renders the live featured documents table when feature_list count is <= to maximum_featured_documents" do
-    feature_list = build_stubbed(:feature_list)
-
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, @maximum_featured_documents, feature_list:),
+                    features: build_list(:feature, @maximum_featured_documents, feature_list: @feature_list),
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
@@ -64,10 +61,8 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
   end
 
   test "renders the live featured documents table and the remaining documents table when feature_list count is great than maximum_featured_documents" do
-    feature_list = build_stubbed(:feature_list)
-
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, @maximum_featured_documents + 1, feature_list:),
+                    features: build_list(:feature, @maximum_featured_documents + 1, feature_list: @feature_list),
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
@@ -80,10 +75,11 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
     document = build(:document)
     edition = build_stubbed(:news_article, :published)
     document.stubs(:live_edition).returns(edition)
+    feature = build_stubbed(:feature, document:, feature_list: @feature_list)
     title = edition.title
 
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: [build(:feature, document:)],
+                    features: [feature],
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
@@ -93,12 +89,11 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
     actions_column.assert_selector "a[href='#{admin_edition_path(edition)}']", text: "Edit #{title}"
-    # this will be updated when i add the unfeatued endpoint
-    actions_column.assert_selector "a[href='#']", text: "Unfeature #{title}"
+    actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Unfeature #{title}"
   end
 
   test "renders the correct row when the feature list item belongs to a topical event" do
-    feature = build_stubbed(:feature, :with_topical_event_association)
+    feature = build_stubbed(:feature, :with_topical_event_association, feature_list: @feature_list)
     title = feature.topical_event.name
 
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
@@ -112,12 +107,11 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
     actions_column.assert_selector "a[href='#{edit_admin_topical_event_path(feature.topical_event)}']", text: "Edit #{title}"
-    # this will be updated when i add the unfeatued endpoint
-    actions_column.assert_selector "a[href='#']", text: "Unfeature #{title}"
+    actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Unfeature #{title}"
   end
 
   test "renders the correct row when the feature list item belongs to a offsite link" do
-    feature = build_stubbed(:feature, :with_offsite_link_association)
+    feature = build_stubbed(:feature, :with_offsite_link_association, feature_list: @feature_list)
     title = feature.offsite_link.title
 
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
@@ -131,8 +125,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
     actions_column.assert_selector "a[href='#{polymorphic_path([:edit, :admin, feature.offsite_link.parent, feature.offsite_link])}']", text: "Edit #{title}"
-    # this will be updated when i add the unfeatued endpoint
-    actions_column.assert_selector "a[href='#']", text: "Unfeature #{title}"
+    actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Unfeature #{title}"
   end
 
   test "renders the correct row when the feature list item does not have an association" do

@@ -1,6 +1,6 @@
 class Admin::FeaturesController < Admin::BaseController
   before_action :find_feature_list
-  before_action :build_feature
+  before_action :build_feature, only: %i[new create]
   before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
   layout :get_layout
 
@@ -17,6 +17,10 @@ class Admin::FeaturesController < Admin::BaseController
       flash.now[:alert] = "Unable to create feature"
       render_design_system(:new, :legacy_new, next_release: false)
     end
+  end
+
+  def confirm_unfeature
+    @feature = @feature_list.features.find(params[:id])
   end
 
   def unfeature

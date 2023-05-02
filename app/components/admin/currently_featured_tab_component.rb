@@ -129,7 +129,7 @@ private
 
   def unfeature_link(feature)
     if feature.document&.live_edition.present? || feature.topical_event.present? || feature.offsite_link.present?
-      link_to(sanitize("Unfeature #{tag.span(title(feature), class: 'govuk-visually-hidden')}"), "#", class: "gem-link--destructive govuk-!-margin-left-2")
+      link_to(sanitize("Unfeature #{tag.span(title(feature), class: 'govuk-visually-hidden')}"), confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature), class: "gem-link--destructive govuk-!-margin-left-2")
     else
       ""
     end
