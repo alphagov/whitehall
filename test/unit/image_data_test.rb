@@ -36,6 +36,12 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.errors.of_kind?(:file, :too_large)
   end
 
+  test "rejects image as 'too small' when it's too large in one dimension but too small in another" do
+    image_data = build_example("300x1000_png.png")
+    assert_not image_data.valid?
+    assert image_data.errors.of_kind?(:file, :too_small)
+  end
+
   test "rejects images with duplicate filename on edition" do
     image_data = build_example("960x640_jpeg.jpg")
     edition = create(:news_article, images: [build(:image, image_data:)])
