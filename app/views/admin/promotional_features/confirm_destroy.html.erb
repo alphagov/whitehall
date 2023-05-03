@@ -1,0 +1,23 @@
+<% content_for :context, @organisation.name %>
+<% content_for :page_title, "Delete #{promotional_feature.title}" %>
+<% content_for :title, "Delete #{promotional_feature.title}" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    promotional_feature.title
+    <%= form_tag admin_organisation_promotional_feature_path(@organisation, promotional_feature), method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete the "<%= promotional_feature.title %>" from "<% @organisation.name %>"?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", [:admin, @promotional_feature.organisation, PromotionalFeature], class: "govuk-link govuk-link--no-visited-state") %>
+
+      </div>
+    <% end %>
+  </section>
+</div>
