@@ -9,7 +9,7 @@
   </div>
   <div class="govuk-grid-column-two-thirds">
     <div class="app-view-features-search-results__table">
-      <%= render 'admin/feature_lists/search_results', filter: filter, paginator: filter.editions(feature_list.locale), feature_list: feature_list %>
+      <%= render 'admin/feature_lists/search_results', filter: filter, paginator: filter.editions(feature_list.locale), feature_list: feature_list, anchor: anchor %>
     </div>
   </div>
 </div>

@@ -30,13 +30,29 @@ module Admin::PaginationHelper
     attr_accessor :path, :previous_href, :next_href, :current_page, :total_pages
 
     def normalise_path(path, current_page)
-      if path.include?("page=#{current_page}")
+      if url_has_page_param?(path)
         path
-      elsif path.include?("?")
+      elsif url_has_a_query_string?(path) && !url_has_an_anchor?(path)
         path + "&page=#{current_page}"
+      elsif url_has_a_query_string?(path) && url_has_an_anchor?(path)
+        path.gsub("#", "&page=#{current_page}#")
+      elsif url_has_an_anchor?(path)
+        path.gsub("#", "?page=#{current_page}#")
       else
         path + "?page=#{current_page}"
       end
+    end
+
+    def url_has_page_param?(path)
+      path.include?("page=#{current_page}")
+    end
+
+    def url_has_a_query_string?(path)
+      path.include?("?")
+    end
+
+    def url_has_an_anchor?(path)
+      path.include?("#")
     end
 
     def build_path_for(page)

@@ -208,6 +208,49 @@ class Admin::PaginationHelperTest < ActionView::TestCase
     assert_equal expected_hash, Admin::PaginationHelper.pagination_hash(current_page: 1, total_pages: 2, path:)
   end
 
+  test "#pagination_hash when the request has an anchor and but query strings it constructs the url correctly" do
+    path = "#{admin_organisation_corporate_information_pages_path(@organisation)}#document_tab"
+
+    expected_hash = {
+      previous_href: nil,
+      next_href: "#{path_for_page(2)}#document_tab",
+      items: [
+        {
+          href: "#{path_for_page(1)}#document_tab",
+          current: true,
+        },
+        {
+          href: "#{path_for_page(2)}#document_tab",
+          current: false,
+        },
+      ],
+    }
+
+    assert_equal expected_hash, Admin::PaginationHelper.pagination_hash(current_page: 1, total_pages: 2, path:)
+  end
+
+  test "#pagination_hash when the request has an anchor but and query strings it constructs the url correctly" do
+    path = "#{admin_organisation_corporate_information_pages_path(@organisation, random_query_string: 'random')}#document_tab"
+    base_path = admin_organisation_corporate_information_pages_path(@organisation, random_query_string: "random")
+
+    expected_hash = {
+      previous_href: nil,
+      next_href: "#{base_path}&page=2#document_tab",
+      items: [
+        {
+          href: "#{base_path}&page=1#document_tab",
+          current: true,
+        },
+        {
+          href: "#{base_path}&page=2#document_tab",
+          current: false,
+        },
+      ],
+    }
+
+    assert_equal expected_hash, Admin::PaginationHelper.pagination_hash(current_page: 1, total_pages: 2, path:)
+  end
+
   def path_for_page(page)
     admin_organisation_corporate_information_pages_path(@organisation, page:)
   end
