@@ -1,20 +1,21 @@
 module PublishingApi
   module PayloadBuilder
     class PolymorphicPath
-      attr_reader :item, :additional_routes
+      attr_reader :item, :prefix, :additional_routes
 
-      def self.for(item, additional_routes: [])
-        new(item, additional_routes:).call
+      def self.for(item, prefix: false, additional_routes: [])
+        new(item, prefix:, additional_routes:).call
       end
 
-      def initialize(item, additional_routes: [])
+      def initialize(item, prefix: false, additional_routes: [])
         @item = item
+        @prefix = prefix
         @additional_routes = additional_routes
       end
 
       def call
         { base_path: }.merge(
-          PayloadBuilder::Routes.for(base_path, additional_routes:),
+          PayloadBuilder::Routes.for(base_path, prefix:, additional_routes:),
         )
       end
 

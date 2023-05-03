@@ -32,7 +32,7 @@ module PublishingApi
         schema_name:,
       )
       content.merge!(
-        PayloadBuilder::PolymorphicPath.for(item, additional_routes:),
+        PayloadBuilder::PolymorphicPath.for(item, prefix: true, additional_routes:),
       )
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end

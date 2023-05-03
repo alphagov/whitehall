@@ -50,7 +50,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       publishing_app: "whitehall",
       rendering_app: "collections",
       routes: [
-        { path: public_path, type: "exact" },
+        { path: public_path, type: "prefix" },
         { path: public_atom_path, type: "exact" },
       ],
       redirects: [],
@@ -294,7 +294,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     presented_item = present(organisation)
 
     assert_equal("collections", presented_item.content[:rendering_app])
-    assert_equal([{ path: "/courts-tribunals/court-at-mid-wicket", type: "exact" }], presented_item.content[:routes])
+    assert_equal([{ path: "/courts-tribunals/court-at-mid-wicket", type: "prefix" }], presented_item.content[:routes])
   end
 
   test "present default news image url only when image is SVG" do
@@ -357,7 +357,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       assert_equal organisation.base_path, presented_item.content[:base_path]
 
       assert_equal [
-        { path: organisation.base_path, type: "exact" },
+        { path: organisation.base_path, type: "prefix" },
         { path: "#{organisation.base_path}.atom", type: "exact" },
       ], presented_item.content[:routes]
     end
@@ -368,7 +368,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       assert_equal "#{organisation.base_path}.cy", presented_item.content[:base_path]
 
       assert_equal [
-        { path: "#{organisation.base_path}.cy", type: "exact" },
+        { path: "#{organisation.base_path}.cy", type: "prefix" },
         { path: "#{organisation.base_path}.cy.atom", type: "exact" },
       ], presented_item.content[:routes]
     end
