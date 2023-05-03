@@ -60,7 +60,7 @@ class Admin::LegacyPromotionalFeaturesControllerTest < ActionController::TestCas
     get :edit, params: { organisation_id: @organisation, id: promotional_feature }
 
     assert_response :success
-    assert_template :edit
+    assert_template :legacy_edit
     assert_equal promotional_feature, assigns(:promotional_feature)
   end
 

@@ -1,6 +1,7 @@
 <% page_title "Edit #{@promotional_feature.title} promotional feature" %>
 <% content_for :page_title, "Edit #{@promotional_feature.title} promotional feature" %>
 <% content_for :title, "Edit #{@promotional_feature.title} promotional feature" %>
+<% content_for :context, @organisation.name %>
 <% content_for :title_margin_bottom, 6 %>
 <%= form_for [:admin, @promotional_feature.organisation, @promotional_feature], html: { class: "form-horizontal promotional_feature_item" } do |form| %>
   <%= form.errors %>
@@ -24,7 +25,7 @@
             "track-label": "Save"
         }
         } %>
-        <%= link_to("cancel", [:admin, @promotional_feature.organisation, PromotionalFeature], class: "govuk-link") %>
+        <%= link_to("Cancel", [:admin, @promotional_feature.organisation, PromotionalFeature], class: "govuk-link") %>
       </div>
     </div>
   </div>

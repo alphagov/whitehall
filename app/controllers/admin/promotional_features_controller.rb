@@ -35,7 +35,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
       Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature updated"
     else
-      render_design_system("edit", "legacy_edit", next_release: false)
+      render action: :edit
     end
   end
 
@@ -46,8 +46,6 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     Whitehall::PublishingApi.republish_async(@organisation)
     redirect_to [:admin, @organisation, PromotionalFeature], notice: "Promotional feature deleted."
   end
-
-  def confirm_destroy; end
 
   def reorder
     redirect_to admin_organisation_promotional_features_path(@organisation) and return unless @organisation.promotional_features.many?
@@ -67,7 +65,7 @@ private
 
   def get_layout
     design_system_actions = %w[edit confirm_destroy reorder update_order]
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
