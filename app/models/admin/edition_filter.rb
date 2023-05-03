@@ -25,6 +25,7 @@ module Admin
         permitted_only(requested_editions),
         total_count: requested_editions.total_count,
       ).page(options[:page])
+      .per(options.fetch(:per_page) { default_page_size })
     end
 
     def each_edition_for_csv(locale = nil)
