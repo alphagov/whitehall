@@ -166,7 +166,7 @@
     overflow: hidden;
   }
 
-  &.govuk-form-group--error .choices:not(.is-active, .is-focused, .is-open) .choices__inner {
+  &.govuk-form-group--error .choices:not(.is-active):not(.is-focused):not(.is-open) .choices__inner {
     border-color: $govuk-error-colour;
   }
 
