@@ -1,6 +1,7 @@
 require "test_helper"
 
-class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
+class Admin::LegacyPromotionalFeaturesControllerTest < ActionController::TestCase
+  tests Admin::PromotionalFeaturesController
   setup do
     login_as :writer
     @organisation = create(:executive_office)

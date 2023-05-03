@@ -1,6 +1,6 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
-  before_action :load_promotional_feature, only: %i[show edit update destroy]
+  before_action :load_promotional_feature, only: %i[show edit update destroy confirm_destroy]
   before_action :clean_image_or_youtube_video_url_param, only: %i[create]
   layout :get_layout
 
@@ -33,7 +33,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
       Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature updated"
     else
-      render action: :edit
+      render :edit
     end
   end
 
@@ -63,11 +63,11 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy reorder update_order]
-      if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
-          "design_system"
-      else
-        "admin"
-      end
+    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 
   def load_organisation
