@@ -59,7 +59,7 @@
           {
             text: name,
             value: id,
-            selected: @filter.options[:world_location] == id.to_s
+            selected: @filter.options[:world_location].to_s == id.to_s
           }
         end
       } %>
