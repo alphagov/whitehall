@@ -32,7 +32,7 @@ module PublishingApi
         schema_name:,
       )
       content.merge!(
-        PayloadBuilder::PolymorphicPath.for(item, additional_routes:),
+        PayloadBuilder::PolymorphicPath.for(item, prefix: use_prefix_route?, additional_routes:),
       )
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
@@ -60,6 +60,10 @@ module PublishingApi
 
     def schema_name
       "organisation"
+    end
+
+    def use_prefix_route?
+      !court_or_tribunal?
     end
 
     def additional_routes

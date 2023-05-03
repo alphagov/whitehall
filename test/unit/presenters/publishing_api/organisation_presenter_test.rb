@@ -50,7 +50,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       publishing_app: "whitehall",
       rendering_app: "collections",
       routes: [
-        { path: public_path, type: "exact" },
+        { path: public_path, type: "prefix" },
         { path: public_atom_path, type: "exact" },
       ],
       redirects: [],
@@ -286,7 +286,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal("<div class=\"govspeak\"><p>Habeus loudius noisus</p>\n</div>", presented_item.content[:details][:body])
   end
 
-  test "renders courts and tribunals using Collections" do
+  test "renders courts and tribunals with 'exact' route using Collections" do
     organisation = create(
       :court,
       name: "Court at mid-wicket",
@@ -357,7 +357,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       assert_equal organisation.base_path, presented_item.content[:base_path]
 
       assert_equal [
-        { path: organisation.base_path, type: "exact" },
+        { path: organisation.base_path, type: "prefix" },
         { path: "#{organisation.base_path}.atom", type: "exact" },
       ], presented_item.content[:routes]
     end
@@ -368,7 +368,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       assert_equal "#{organisation.base_path}.cy", presented_item.content[:base_path]
 
       assert_equal [
-        { path: "#{organisation.base_path}.cy", type: "exact" },
+        { path: "#{organisation.base_path}.cy", type: "prefix" },
         { path: "#{organisation.base_path}.cy.atom", type: "exact" },
       ], presented_item.content[:routes]
     end

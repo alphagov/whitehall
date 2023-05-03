@@ -9,6 +9,12 @@ module PublishingApi
         assert_equal({ routes: [{ path: base_path, type: "exact" }] }, Routes.for(base_path))
       end
 
+      test "returns a routes payload with a prefix route" do
+        base_path = "some/base/path"
+
+        assert_equal({ routes: [{ path: base_path, type: "prefix" }] }, Routes.for(base_path, prefix: true))
+      end
+
       test "returns a routes payload with additional routes" do
         base_path = "some/base/path"
         additional_routes = %w[atom rss]
