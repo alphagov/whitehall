@@ -40,6 +40,7 @@ module PublishingApi
         ordered_assistant_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::AssistantWhips),
         ordered_house_lords_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseofLords),
         ordered_baronesses_and_lords_in_waiting_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::BaronessAndLordsInWaiting),
+        ordered_baronessess_and_ladies_in_waiting_whips: [],
       }
     end
 
