@@ -31,6 +31,7 @@
         filter: @filter,
         feature_list: @feature_list,
         filter_by: [:title, :type, :world_location],
+        anchor: "#documents_tab",
         filter_action: polymorphic_url([:features, :admin, @feature_list.featurable]),
       ),
     },
