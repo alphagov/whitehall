@@ -30,7 +30,11 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     @feature_list = @world_location.world_location_news.load_or_create_feature_list(params[:locale])
     @locale = Locale.new(params[:locale] || :en)
 
-    filter_params = default_filter_params.merge(optional_filter_params).merge(state: "published")
+    filter_params = default_filter_params.merge(
+      optional_filter_params,
+      state: "published",
+      per_page: preview_design_system?(next_release: false) ? Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE : nil,
+    )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active
