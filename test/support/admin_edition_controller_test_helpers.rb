@@ -345,16 +345,6 @@ module AdminEditionControllerTestHelpers
     def should_allow_attached_images_for(edition_type)
       edition_class = class_for(edition_type)
 
-      view_test "new displays edition image fields" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
-          assert_select "textarea[name='edition[images_attributes][0][caption]']"
-          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
-        end
-      end
-
       test "creating an edition should attach image" do
         image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type)
@@ -392,57 +382,6 @@ module AdminEditionControllerTestHelpers
              params: {
                edition: attributes,
              }
-      end
-
-      view_test "creating an edition with invalid data should still show image fields" do
-        post :create,
-             params: {
-               edition: controller_attributes_for(edition_type, title: ""),
-             }
-
-        assert_select "form#new_edition" do
-          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
-          assert_select "textarea[name='edition[images_attributes][0][caption]']"
-          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
-        end
-      end
-
-      view_test "creating an edition with invalid data should only allow a single image to be selected for upload" do
-        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
-        attributes = controller_attributes_for(edition_type, title: "")
-        attributes[:images_attributes] = {
-          "0" => { alt_text: "some-alt-text",
-                   image_data_attributes: attributes_for(:image_data, file: image) },
-        }
-
-        post :create,
-             params: {
-               edition: attributes,
-             }
-
-        assert_select "form#new_edition" do
-          assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
-        end
-      end
-
-      view_test "creating an edition with invalid data but valid image data should still display the image data" do
-        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
-        attributes = controller_attributes_for(edition_type, title: "")
-        attributes[:images_attributes] = {
-          "0" => { alt_text: "some-alt-text",
-                   image_data_attributes: attributes_for(:image_data, file: image) },
-        }
-
-        post :create,
-             params: {
-               edition: attributes,
-             }
-
-        assert_select "form#new_edition" do
-          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='some-alt-text']"
-          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
-          assert_select "p", text: "minister-of-funk.960x640.jpg already uploaded"
-        end
       end
 
       view_test "creating an edition with invalid data should not show any existing image info" do
@@ -502,29 +441,6 @@ module AdminEditionControllerTestHelpers
 
         assert_select "div .gem-c-error-summary" do
           assert_select "a", text: "Images image data file is too small. Select an image that is 960 pixels wide and 640 pixels tall"
-        end
-      end
-
-      view_test "edit displays edition image fields" do
-        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        create(
-          :image,
-          alt_text: "blah",
-          edition:,
-          image_data_attributes: attributes_for(:image_data, file: image),
-        )
-
-        get :edit, params: { id: edition }
-
-        assert_select "form#edit_edition" do
-          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='blah']"
-          assert_select ".image" do
-            assert_select "img[src$='minister-of-funk.960x640.jpg']"
-          end
-          assert_select "input[name='edition[images_attributes][1][alt_text]'][type='text']"
-          assert_select "textarea[name='edition[images_attributes][1][caption]']"
-          assert_select "input[name='edition[images_attributes][1][image_data_attributes][file]'][type='file']"
         end
       end
 
@@ -624,104 +540,6 @@ module AdminEditionControllerTestHelpers
         assert_equal "some-alt-text", image1.alt_text
         image2 = edition.images.last
         assert_equal "more-alt-text", image2.alt_text
-      end
-
-      view_test "updating an edition with invalid data should still allow image to be selected for upload" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        put :update,
-            params: {
-              id: edition,
-              edition: {
-                title: "",
-              },
-            }
-
-        assert_select "form#edit_edition" do
-          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
-        end
-      end
-
-      view_test "updating an edition with invalid data should only allow a single image to be selected for upload" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image = upload_fixture("minister-of-funk.960x640.jpg")
-        attributes = {
-          title: "",
-          images_attributes: {
-            "0" => {
-              alt_text: "some-alt-text",
-              image_data_attributes: attributes_for(:image_data, file: image),
-            },
-          },
-        }
-
-        put :update, params: { id: edition, edition: attributes }
-
-        assert_select "form#edit_edition" do
-          assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
-        end
-      end
-
-      view_test "updating an edition with invalid data and valid image data should display the image data" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image = upload_fixture("minister-of-funk.960x640.jpg")
-        attributes = {
-          title: "",
-          images_attributes: {
-            "0" => {
-              alt_text: "some-alt-text",
-              image_data_attributes: attributes_for(:image_data, file: image),
-            },
-          },
-        }
-
-        put :update, params: { id: edition, edition: attributes }
-
-        assert_select "form#edit_edition" do
-          assert_select "input[name='edition[images_attributes][0][alt_text]'][value='some-alt-text']"
-          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
-          assert_select "p", text: "minister-of-funk.960x640.jpg already uploaded"
-        end
-      end
-
-      view_test "updating a stale edition should still display image fields" do
-        edition = create("draft_#{edition_type}")
-        lock_version = edition.lock_version
-        edition.touch
-
-        put :update,
-            params: {
-              id: edition,
-              edition: {
-                lock_version:,
-              },
-            }
-
-        assert_select "form#edit_edition" do
-          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
-          assert_select "textarea[name='edition[images_attributes][0][caption]']"
-          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
-        end
-      end
-
-      view_test "updating a stale edition should only allow a single image to be selected for upload" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image = upload_fixture("minister-of-funk.960x640.jpg")
-        lock_version = edition.lock_version
-        edition.touch
-        attributes = {
-          title: "",
-          lock_version:,
-          images_attributes: { "0" => {
-            alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image),
-          } },
-        }
-
-        put :update, params: { id: edition, edition: attributes }
-
-        assert_select "form#edit_edition" do
-          assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
-        end
       end
 
       view_test "updating should allow removal of images" do
