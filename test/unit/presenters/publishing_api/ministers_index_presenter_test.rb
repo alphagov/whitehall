@@ -88,6 +88,7 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
           baroness_whip_2.person.content_id,
           baroness_whip_1.person.content_id,
         ],
+        ordered_baronessess_and_ladies_in_waiting_whips: [],
       }
 
       assert_equal expected_content, presented_item.content
