@@ -1,10 +1,11 @@
 <%
   filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links]
+  anchor ||= anchor || ""
   raise "filter action required" unless defined?(filter_action)
 %>
 
 <div class="app-view-filter govuk-!-margin-right-5 govuk-!-padding-5">
-  <%= form_with url: filter_action, method: :get do |form| %>
+  <%= form_with url: filter_action + anchor, method: :get do |form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,
@@ -58,7 +59,7 @@
           {
             text: name,
             value: id,
-            selected: @filter.options[:world_location] == id.to_s
+            selected: @filter.options[:world_location].to_s == id.to_s
           }
         end
       } %>
@@ -141,6 +142,6 @@
       margin_bottom: 4,
     } %>
 
-    <p class="govuk-body"><%= link_to "Reset all fields", filter_action + "?state=active" %></p>
+    <p class="govuk-body"><%= link_to "Reset all fields", filter_action + "?state=active" + anchor, class: "govuk-link" %></p>
   <% end %>
 </div>
