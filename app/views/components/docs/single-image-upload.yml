@@ -1,0 +1,40 @@
+name: Single Image Upload
+description: A component for use where a single image is uploaded within the page
+body: This component is used to provide an image upload section on pages where a single image needs to be uploaded and there is no dedicated image tab.
+part_of_admin_layout: true
+accessibility_criteria: |
+  The component must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when they have focus
+  - be recognisable as form input elements
+  - have correctly associated labels
+examples:
+  default:
+    data:
+      id: single-image-upload
+      name: single-image-upload
+  with_error:
+    data:
+      id: single-image-upload-with-error
+      name: single-image-upload-with-error
+      error_items:
+        - text: Image can't be blank
+  with_image_uploaded:
+    data:
+      id: single-image-upload-with-image
+      name: single-image-upload-with-image
+      image_src: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/5/No10DoorAjar-2.jpg
+      image_alt: Some optional text that describes the image
+  with_errors_on_page:
+    data:
+      id: single-image-upload-with-errors-on-page
+      name: single-image-upload-with-errors-on-page
+      image_alt: Some optional text that describes the image
+      page_errors: true
+      image_src: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/5/No10DoorAjar-2.jpg
+      filename: No10DoorAjar-2.jpg,
+      image_cache: 1686052895-990540429428995-0004-6416/No10DoorAjar-2.jpg

@@ -35,4 +35,10 @@ class ImageUploader < WhitehallUploader
 
     new_file.content_type !~ /svg/
   end
+
+  def image_cache
+    if send("cache_id").present?
+      file.file.gsub("/govuk/whitehall/carrierwave-tmp/", "")
+    end
+  end
 end
