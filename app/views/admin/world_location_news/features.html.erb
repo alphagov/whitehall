@@ -38,7 +38,11 @@
     {
       id: "non_govuk_government_links_tab",
       label: "Non-GOV.UK government links",
-      content: "",
+      content: render("admin/feature_lists/featureable_offsite_links",
+        model: @world_location_news,
+        feature_list: @feature_list,
+        featurable_offsite_links: @featurable_offsite_links,
+      ),
     }
   ]
 } %>
