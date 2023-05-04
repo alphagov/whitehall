@@ -123,6 +123,6 @@ class Admin::WorldLocationNewsControllerTest < ActionController::TestCase
     create(:feature_list, locale: :en, featurable: world_location, features: [first_feature])
     get :features, params: { id: world_location }
 
-    assert_match(/Please note that you can only feature a maximum of [\d+] documents.*/, response.body)
+    assert_match(/A maximum of [\d+] documents will be featured on GOV.UK.*/, response.body)
   end
 end

@@ -14,7 +14,7 @@ module Admin::WorldLocationHelper
       {
         label: "Features (#{Locale.new(:en).native_language_name})",
         href: features_admin_world_location_news_path(world_location_instance, locale: I18n.locale),
-        current: path == features_admin_world_location_news_path(world_location_instance),
+        current: path == features_admin_world_location_news_path(world_location_instance, locale: :en),
       },
       world_location_instance.non_english_translated_locales.map do |locale|
         {

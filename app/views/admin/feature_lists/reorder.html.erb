@@ -1,0 +1,32 @@
+<% content_for :context, "Currently featured documents" %>
+<% content_for :page_title, "Reorder list" %>
+<% content_for :title, "Reorder list" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= form_with url: update_order_admin_feature_list_path(@feature_list) do %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Use the up and down buttons to reorder pages, or select and hold on a page to reorder using drag and drop.",
+        margin_bottom: 4,
+      } %>
+
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        items: @feature_list.features.current.map do |feature|
+          {
+            id: feature.id,
+            title: feature,
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update order",
+        } %>
+
+        <%= link_to("Cancel", polymorphic_url([:features, :admin, @feature_list.featurable], locale: @feature_list.locale), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

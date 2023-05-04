@@ -1,0 +1,45 @@
+<% content_for :page_title, @world_location_news.name %>
+<% content_for :title, @world_location_news.name %>
+<% content_for :context, "Features (#{@locale.native_language_name})" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<p class="govuk-body">
+  <%= link_to "View on website", @world_location_news.public_url({locale: params[:locale]}.merge(cachebust_url_options)), class: "govuk-link", target: "_blank" %>
+</p>
+
+<div class="govuk-!-margin-bottom-8">
+  <%= render "components/secondary_navigation", {
+    aria_label: "Document tabs",
+    items: secondary_navigation_tabs_items(current_user, @world_location_news, request.path)
+  } %>
+</div>
+
+<%= render "govuk_publishing_components/components/tabs", {
+  tabs: [
+    {
+      id: "currently_featured_tab",
+      label: "Currently featured",
+      content: render(Admin::CurrentlyFeaturedTabComponent.new(
+        features: @feature_list.features.current,
+        maximum_featured_documents: @world_location_news.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT
+      ))
+    },
+    {
+      id: "documents_tab",
+      label: "Documents",
+      content: "",
+      tab_data_attributes: {
+      }
+    },
+    {
+      id: "topical_events_tab",
+      label: "Topical events",
+      content: "",
+    },
+    {
+      id: "non_govuk_government_links_tab",
+      label: "Non-GOV.UK government links",
+      content: "",
+    }
+  ]
+} %>
