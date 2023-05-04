@@ -567,7 +567,7 @@ module AdminEditionControllerTestHelpers
             }
 
         assert_select "div .gem-c-error-summary" do
-          assert_select "a", text: "Images image data file can't be blank"
+          assert_select "a", text: "Images image data file cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF."
         end
 
         edition.reload

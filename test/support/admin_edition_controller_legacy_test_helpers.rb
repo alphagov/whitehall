@@ -615,7 +615,7 @@ module AdminEditionControllerLegacyTestHelpers
               },
             }
 
-        assert_select ".errors", text: "Images image data file can't be blank"
+        assert_select ".errors", text: "Images image data file cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF."
 
         edition.reload
         assert_equal 0, edition.images.length
