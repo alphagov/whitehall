@@ -11,7 +11,7 @@
     } %>
 
     <%= render "image_upload", edition: @edition %>
-    <%= render "uploaded_images", edition: @edition %>
+    <%= render Admin::EditionImages::UploadedImagesComponent.new(edition: @edition) %>
   </div>
 </div>
 

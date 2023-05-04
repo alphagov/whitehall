@@ -5,7 +5,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id history]
+  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option history]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
@@ -31,7 +31,7 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:create, edition_class || Edition)
     when "create"
       enforce_permission!(:create, @edition)
-    when "edit", "update", "revise", "diff", "update_bypass_id"
+    when "edit", "update", "revise", "diff", "update_bypass_id", "update_image_display_option"
       enforce_permission!(:update, @edition)
     when "destroy", "confirm_destroy"
       enforce_permission!(:delete, @edition)
@@ -177,6 +177,17 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to admin_editions_path, notice: "The draft of '#{@edition.title}' has been deleted"
     else
       redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
+    end
+  end
+
+  def update_image_display_option
+    @edition.assign_attributes(edition_params)
+
+    if updater.can_perform? && @edition.save_as(current_user)
+      updater.perform!
+      redirect_to admin_edition_images_path(@edition), notice: "The lead image has been updated"
+    else
+      redirect_to admin_edition_images_path(@edition), alert: updater.failure_reason
     end
   end
 
