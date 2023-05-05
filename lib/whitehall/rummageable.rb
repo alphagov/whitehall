@@ -31,7 +31,7 @@ module Whitehall
 
       def amend(link, changes)
         repeatedly do
-          make_request(:post, documents_url(link:), changes)
+          make_request(:post, documents_url(link:), MultiJson.encode(changes))
         end
       end
 
