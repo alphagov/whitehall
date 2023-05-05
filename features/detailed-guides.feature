@@ -5,13 +5,6 @@ Feature: Detailed guides
     When I draft a new detailed guide "The finer points of moustache trimming"
     Then I should see the detailed guide "The finer points of moustache trimming" in the list of draft documents
 
-  @javascript @design-system-wip
-  Scenario: Adding multiple images
-    Given I am a writer in the organisation "Department of Examples"
-    Given I start drafting a new detailed guide
-    When I select an image for the detailed guide
-    Then I should be able to select another image for the detailed guide
-
   Scenario: Publishing a submitted detailed guide
     Given I am an editor in the organisation "Department of Examples"
     And a submitted detailed guide "Finer points of moustache trimming" exists
