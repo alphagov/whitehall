@@ -8,7 +8,9 @@ class Reports::OrganisationAttachmentsReportTest < ActiveSupport::TestCase
     Timecop.freeze do
       path = Rails.root.join("tmp/#{organisation.slug}-attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
 
-      Reports::OrganisationAttachmentsReport.new(organisation.slug).report
+      capture_io do
+        Reports::OrganisationAttachmentsReport.new(organisation.slug).report
+      end
 
       assert_equal Reports::OrganisationAttachmentsReport::CSV_HEADERS, CSV.read(path)[0]
       assert_equal 1, CSV.read(path, headers: true).count
@@ -29,7 +31,9 @@ class Reports::OrganisationAttachmentsReportTest < ActiveSupport::TestCase
     Timecop.freeze do
       path = Rails.root.join("tmp/#{organisation.slug}-attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
 
-      Reports::OrganisationAttachmentsReport.new(organisation.slug).report
+      capture_io do
+        Reports::OrganisationAttachmentsReport.new(organisation.slug).report
+      end
 
       assert_equal Reports::OrganisationAttachmentsReport::CSV_HEADERS, CSV.read(path)[0]
       assert_equal 0, CSV.read(path, headers: true).count
