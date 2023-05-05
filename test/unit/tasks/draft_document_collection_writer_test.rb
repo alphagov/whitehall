@@ -23,7 +23,7 @@ class DraftDocumentCollectionWriteRake < ActiveSupport::TestCase
       create(:document, content_id: whitehall_document_content_id, document_type: "detailed_guide")
       create(:edition, :published, type: "DetailedGuide", document_id: Document.last.id)
 
-      task.invoke(specialist_topic_base_path, "my_email@email.com")
+      capture_io { task.invoke(specialist_topic_base_path, "my_email@email.com") }
 
       assert_equal 1, DocumentCollection.count
     end
@@ -36,7 +36,7 @@ class DraftDocumentCollectionWriteRake < ActiveSupport::TestCase
 
       stub_valid_specialist_topic
 
-      task.invoke(specialist_topic_base_path, "my_email@email.com")
+      capture_io { task.invoke(specialist_topic_base_path, "my_email@email.com") }
       task.reenable
 
       new_document_content_id = "abc436e5-1234-4462-913f-9a497f7e793e"
@@ -57,7 +57,7 @@ class DraftDocumentCollectionWriteRake < ActiveSupport::TestCase
       )
 
       Timecop.travel 1.minute.from_now
-      task.invoke(specialist_topic_base_path, "my_email@email.com")
+      capture_io { task.invoke(specialist_topic_base_path, "my_email@email.com") }
 
       assert_equal 1, DocumentCollection.count
     end
@@ -91,7 +91,7 @@ class DraftDocumentCollectionWriteRake < ActiveSupport::TestCase
         "links" => level_two_topic_links,
       })
 
-      assert_raise { task.invoke(specialist_topic_base_path, "my_email@email.com") }
+      assert_raise { capture_io { task.invoke(specialist_topic_base_path, "my_email@email.com") } }
       assert_equal 0, DocumentCollection.count
     end
   end
