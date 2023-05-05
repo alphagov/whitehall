@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   setup do
-    login_as :writer
+    login_as_preview_design_system_user :writer
     @organisation = create(:executive_office)
   end
 
@@ -121,5 +121,14 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisation_promotional_features_path(@organisation)
     assert_equal "Promotional features reordered successfully", flash[:notice]
+  end
+
+  test "GET :confirm_destroy calls correctly" do
+    promotional_feature = create(:promotional_feature, organisation: @organisation)
+
+    get :confirm_destroy, params: { organisation_id: @organisation, id: promotional_feature }
+
+    assert_response :success
+    assert_equal promotional_feature, assigns(:promotional_feature)
   end
 end
