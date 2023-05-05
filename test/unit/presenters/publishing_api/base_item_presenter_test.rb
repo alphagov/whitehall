@@ -9,7 +9,7 @@ module PublishingApi
       expected_hash = {
         title: stubbed_item.title,
         locale: "fr",
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         redirects: [],
         update_type: "major",
       }

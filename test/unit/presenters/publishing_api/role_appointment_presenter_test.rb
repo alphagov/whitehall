@@ -27,7 +27,7 @@ class PublishingApi::RoleAppointmentPresenterTest < ActionView::TestCase
       schema_name: "role_appointment",
       document_type: "role_appointment",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       public_updated_at: role.updated_at,
       update_type: "major",
       details: {

@@ -16,7 +16,7 @@ class PublishingApi::TopicalEventAboutPagePresenterTest < ActiveSupport::TestCas
       document_type: "topical_event_about_page",
       locale: "en",
       public_updated_at: topical_event_about_page.updated_at,
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "government-frontend",
       routes: [
         { path: topical_event_about_page.search_link, type: "exact" },

@@ -47,7 +47,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       schema_name: "organisation",
       document_type: "organisation",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       routes: [
         { path: public_path, type: "exact" },

@@ -21,7 +21,7 @@ private
         schema_name: "organisations_homepage",
         locale: "en",
         base_path: BASE_PATH,
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         routes: [
           {

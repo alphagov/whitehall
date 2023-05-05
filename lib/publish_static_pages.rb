@@ -87,7 +87,7 @@ class PublishStaticPages
         schema_name: (page[:schema_name] || "placeholder"),
         locale: "en",
         base_path: page[:base_path],
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         rendering_app: page.fetch(:rendering_app, Whitehall::RenderingApp::WHITEHALL_FRONTEND),
         routes:,
         public_updated_at: Time.zone.now.iso8601,

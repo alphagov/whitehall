@@ -28,7 +28,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       schema_name: "person",
       document_type: "person",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       public_updated_at: person.updated_at,
       routes: [{ path: public_path, type: "exact" }],

@@ -14,7 +14,7 @@ class PublishingApiRake < ActiveSupport::TestCase
       Timecop.freeze do
         params = {
           format: "special_route",
-          publishing_app: "whitehall",
+          publishing_app: Whitehall::PublishingApp::WHITEHALL,
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           update_type: "major",
           type: "prefix",
@@ -50,7 +50,7 @@ class PublishingApiRake < ActiveSupport::TestCase
                 destination: route[:destination],
               },
             ],
-            publishing_app: "whitehall",
+            publishing_app: Whitehall::PublishingApp::WHITEHALL,
             public_updated_at: Time.zone.now.iso8601,
             update_type: "major",
           }

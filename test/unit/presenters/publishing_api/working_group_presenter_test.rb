@@ -14,7 +14,7 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "government-frontend",
       schema_name: "working_group",
       document_type: "working_group",

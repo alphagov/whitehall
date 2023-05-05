@@ -28,7 +28,7 @@ module PublishingApi
         document_type: "press_release",
         locale: "en",
         public_updated_at: edition.updated_at,
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         rendering_app: "government-frontend",
         routes: [
           { path: public_path, type: "exact" },

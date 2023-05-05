@@ -14,7 +14,7 @@ module PublishingApi
         title:,
         locale:,
         details:,
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         update_type:,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,

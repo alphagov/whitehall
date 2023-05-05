@@ -15,7 +15,7 @@ module PublishingApi
       {
         title:,
         locale:,
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         redirects: [],
         update_type:,
       }

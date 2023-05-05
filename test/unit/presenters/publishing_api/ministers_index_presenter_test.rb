@@ -35,7 +35,7 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
       expected_content = {
         title: "Ministers",
         locale: "en",
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         redirects: [],
         update_type: "major",
         base_path: "/government/ministers",

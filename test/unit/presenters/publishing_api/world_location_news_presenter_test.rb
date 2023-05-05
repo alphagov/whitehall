@@ -30,7 +30,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
     expected = {
       title: "Aardistan and the Uk",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       redirects: [],
       description: "Updates, news and events from the UK government in Aardistan",
       details: {

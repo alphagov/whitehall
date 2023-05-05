@@ -15,7 +15,7 @@ module Whitehall
           base_path:,
           document_type: "redirect",
           schema_name: "redirect",
-          publishing_app: "whitehall",
+          publishing_app: Whitehall::PublishingApp::WHITEHALL,
           update_type: "major",
           redirects:,
         }

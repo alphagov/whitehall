@@ -44,7 +44,7 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the publishing_app as whitehall" do
-    assert_equal "whitehall", @presented_content[:publishing_app]
+    assert_equal Whitehall::PublishingApp::WHITEHALL, @presented_content[:publishing_app]
   end
 
   test "it presents the rendering_app as government-frontend" do
