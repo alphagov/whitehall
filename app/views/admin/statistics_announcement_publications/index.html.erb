@@ -1,0 +1,9 @@
+<% content_for :page_title, "Connect document" %>
+<% content_for :context, @statistics_announcement.title %>
+<% content_for :title, "Connect document" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
+
+<%= render "govuk_publishing_components/components/search", {
+  name: "statistics_announcement[publication]"
+} %>
