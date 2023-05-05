@@ -12,7 +12,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_editing_of :speech
 
   should_allow_association_between_world_locations_and :speech
-  should_allow_attached_images_for :speech
   should_prevent_modification_of_unmodifiable :speech
   should_allow_scheduled_publication_of :speech
   should_allow_access_limiting_of :speech
