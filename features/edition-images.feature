@@ -37,7 +37,7 @@ Feature: Images tab on edit edition
     When I visit the images tab of the document "Standard Beard Lengths"
     And I upload a 960x640 image
     And I update the image details and save
-    Then the publication "Standard Beard Lengths" should have 1 image attachment
+    Then I should see a list with 1 image
 
   @javascript
   Scenario: Image uploaded with cropping required
