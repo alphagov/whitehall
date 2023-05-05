@@ -3,7 +3,6 @@
 <% content_for :title, "Connect document" %>
 <% content_for :title_margin_bottom, 6 %>
 
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with url: admin_statistics_announcement_publication_index_path(@statistics_announcement), method: :get do |form| %>
@@ -21,7 +20,12 @@
         id: 'table',
         rows:
           @editions.map do |edition|
-            [{text: edition.title}]
+            [{
+               text: edition.title
+             },
+             {
+               text: link_to("View", admin_edition_path(edition), class: "govuk-link")
+             }]
           end
     } %>
     <% end %>
