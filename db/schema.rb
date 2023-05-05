@@ -1136,6 +1136,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_163453) do
     t.datetime "updated_at", precision: nil
     t.integer "worldwide_office_type_id", null: false
     t.string "slug"
+    t.text "access_and_opening_times"
     t.index ["slug"], name: "index_worldwide_offices_on_slug"
     t.index ["worldwide_organisation_id"], name: "index_worldwide_offices_on_worldwide_organisation_id"
   end
@@ -1178,6 +1179,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_163453) do
     t.integer "default_news_organisation_image_data_id"
     t.string "analytics_identifier"
     t.string "content_id"
+    t.text "default_access_and_opening_times"
     t.index ["default_news_organisation_image_data_id"], name: "index_worldwide_organisations_on_image_data_id"
     t.index ["slug"], name: "index_worldwide_organisations_on_slug", unique: true
   end
