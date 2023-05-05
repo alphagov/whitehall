@@ -100,7 +100,7 @@ class Admin::EditionsController < Admin::BaseController
   def edit
     @edition.open_for_editing_as(current_user)
     fetch_version_and_remark_trails
-    render_design_system(:edit, :edit_legacy, next_release: false)
+    render_design_system(:edit, :edit_legacy, next_release: true)
   end
 
   def update
