@@ -2,7 +2,11 @@ class Admin::StatisticsAnnouncementPublicationsController < Admin::BaseControlle
   before_action :find_statistics_announcement
   layout "design_system"
 
-  def index; end
+  def index
+    if params[:search].present?
+      @editions = Edition.statistical_publications.with_title_containing(params[:search])
+    end
+  end
 
   private
   def find_statistics_announcement

@@ -2,8 +2,28 @@
 <% content_for :context, @statistics_announcement.title %>
 <% content_for :title, "Connect document" %>
 <% content_for :title_margin_bottom, 6 %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
 
-<%= render "govuk_publishing_components/components/search", {
-  name: "statistics_announcement[publication]"
-} %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_statistics_announcement_publication_index_path(@statistics_announcement), method: :get do |form| %>
+      <%= render "govuk_publishing_components/components/search", {
+        name: "search",
+        value: params[:search],
+        label_text: "Search by title or slug",
+        label_size: "l",
+      } %>
+    <% end %>
+
+    <% if @editions %>
+      <p class="govuk-table__caption--m"><%= @editions.length.to_s + " document".pluralize(@editions.length) %></p>
+      <%= render "govuk_publishing_components/components/table", {
+        id: 'table',
+        rows:
+          @editions.map do |edition|
+            [{text: edition.title}]
+          end
+    } %>
+    <% end %>
+  </div>
+</div>
