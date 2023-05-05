@@ -5,7 +5,9 @@ Feature: Detailed guides
     When I draft a new detailed guide "The finer points of moustache trimming"
     Then I should see the detailed guide "The finer points of moustache trimming" in the list of draft documents
 
-  @javascript @design-system-wip
+  @javascript @bootstrap-only
+  # Bootstrap only: Images have a different workflow in the Design System.
+  # They're uploaded via a different tab, rather than on the main edition 'edit' page.
   Scenario: Adding multiple images
     Given I am a writer in the organisation "Department of Examples"
     Given I start drafting a new detailed guide
