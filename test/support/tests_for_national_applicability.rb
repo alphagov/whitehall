@@ -292,7 +292,7 @@ private
   end
 
   def assert_page_has_error(error)
-    assert_select(".errors", text: error)
+    assert_select(".gem-c-error-summary__list-item", text: error)
   end
 
   def assert_nation_inapplicability_fields_set_as(attributes)
