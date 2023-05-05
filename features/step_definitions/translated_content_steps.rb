@@ -32,19 +32,11 @@ When(/^I add a french translation "([^"]*)" to the "([^"]*)" document$/) do |fre
   visit admin_edition_path(Edition.find_by!(title: english_title))
   click_link "Add translation"
 
-  if using_design_system?
-    select "Français", from: "Choose language"
-    click_button "Next"
-    fill_in "Translated title (required)", with: french_title
-    fill_in "Translated summary (required)", with: "French summary"
-    fill_in "Translated body (required)", with: "French body"
-  else
-    select "Français", from: "Locale"
-    click_button "Add translation"
-    fill_in "Title", with: french_title
-    fill_in "Summary", with: "French summary"
-    fill_in "Body", with: "French body"
-  end
+  select "Français", from: "Choose language"
+  click_button "Next"
+  fill_in "Translated title (required)", with: french_title
+  fill_in "Translated summary (required)", with: "French summary"
+  fill_in "Translated body (required)", with: "French body"
 
   click_button "Save"
 end

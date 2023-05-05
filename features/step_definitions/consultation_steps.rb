@@ -13,25 +13,16 @@ When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
 
-  if using_design_system?
-    within "#edition_opening_at" do
-      fill_in_date_and_time_field(1.day.ago.to_s)
-    end
-
-    within "#edition_closing_at" do
-      fill_in_date_and_time_field(6.days.from_now.to_s)
-    end
-
-    check "Does not apply to Wales"
-    fill_in "edition[nation_inapplicabilities_attributes][2][alternative_url]", with: "http://www.visitwales.co.uk/"
-  else
-    select_date 1.day.ago.to_s, from: "Opening Date"
-    select_date 6.days.from_now.to_s, from: "Closing Date"
-    within record_css_selector(Nation.find_by_name!("Wales")) do
-      check "Wales"
-      fill_in "URL of corresponding content", with: "http://www.visitwales.co.uk/"
-    end
+  within "#edition_opening_at" do
+    fill_in_date_and_time_field(1.day.ago.to_s)
   end
+
+  within "#edition_closing_at" do
+    fill_in_date_and_time_field(6.days.from_now.to_s)
+  end
+
+  check "Does not apply to Wales"
+  fill_in "edition[nation_inapplicabilities_attributes][2][alternative_url]", with: "http://www.visitwales.co.uk/"
 
   check "Scotland"
   click_button "Save"

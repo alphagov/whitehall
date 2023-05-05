@@ -96,16 +96,11 @@ module DocumentHelper
     begin_drafting_document options.merge(type: "speech", summary: "Some summary of the content", previously_published: false)
     select SpeechType::Transcript.singular_name, from: "Speech type"
 
-    if using_design_system?
-      choose "Speaker has a profile on GOV.UK"
-      select "Colonel Mustard, Attorney General"
+    choose "Speaker has a profile on GOV.UK"
+    select "Colonel Mustard, Attorney General"
 
-      within_fieldset "Delivered on" do
-        select_date 1.day.ago.to_s, base_dom_id: "edition_delivered_on"
-      end
-    else
-      select "Colonel Mustard, Attorney General", from: "Speaker"
-      select_date 1.day.ago.to_s, from: "Delivered on"
+    within_fieldset "Delivered on" do
+      select_date 1.day.ago.to_s, base_dom_id: "edition_delivered_on"
     end
 
     fill_in "Location", with: "The Drawing Room"
@@ -122,28 +117,18 @@ module DocumentHelper
   def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")
     select announcement_type, from: "News article type"
 
-    if using_design_system?
-      radio_label = "This document has previously been published on another website."
-      choose radio_label
-      within_conditional_reveal radio_label do
-        select_date first_published, base_dom_id: "edition_first_published_at"
-      end
-    else
-      choose "has previously been published on another website."
-      select_date first_published, from: "Its original publication date was *"
+    radio_label = "This document has previously been published on another website."
+    choose radio_label
+    within_conditional_reveal radio_label do
+      select_date first_published, base_dom_id: "edition_first_published_at"
     end
   end
 
   def fill_in_publication_fields(first_published: "2010-01-01", publication_type: "Research and analysis")
-    if using_design_system?
-      radio_label = "This document has previously been published on another website."
-      choose radio_label
-      within_conditional_reveal radio_label do
-        select_date first_published, base_dom_id: "edition_first_published_at"
-      end
-    else
-      choose "has previously been published on another website."
-      select_date first_published, from: "Its original publication date was *"
+    radio_label = "This document has previously been published on another website."
+    choose radio_label
+    within_conditional_reveal radio_label do
+      select_date first_published, base_dom_id: "edition_first_published_at"
     end
     select publication_type, from: "edition_publication_type_id"
   end

@@ -55,8 +55,8 @@ When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do
     create(:worldwide_organisation, name: "Afghanistan embassy")
     create(:world_location, name: "Afghanistan", active: true)
     begin_drafting_news_article(title:, first_published: Time.zone.today.to_s, announcement_type: news_type)
-    select "Afghanistan embassy", from: using_design_system? ? "Worldwide organisations" : "Select the worldwide organisations associated with this news article"
-    select "Afghanistan", from: using_design_system? ? "World locations" : "Select the world locations this news article is about"
+    select "Afghanistan embassy", from: "Worldwide organisations"
+    select "Afghanistan", from: "World locations"
     select "", from: "edition_lead_organisation_ids_1"
   else
     begin_drafting_news_article(title:, first_published: Time.zone.today.to_s, announcement_type: news_type)
