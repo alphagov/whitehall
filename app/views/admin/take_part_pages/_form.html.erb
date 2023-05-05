@@ -44,6 +44,10 @@
         error_items: errors_for(form.object.errors, :body)
       } %>
 
+      <% if form.object.carrierwave_image.present? %>
+        <%= hidden_field_tag "take_part_page[image]", form.object.carrierwave_image %>
+      <% end %>
+
       <%= render "govuk_publishing_components/components/file_upload", {
         label: {
           text: "Image (required)",
@@ -56,7 +60,6 @@
       } %>
 
       <% if form.object.carrierwave_image.present? %>
-        <%= hidden_field_tag "take_part_page[image]", form.object.carrierwave_image %>
         <p class="govuk-body"><%= "#{File.basename(form.object.carrierwave_image)} already uploaded" %></p>
       <% end %>
 
