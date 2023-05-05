@@ -82,7 +82,7 @@ Feature: Images tab on edit edition
     When I am on the edit page for publication "Standard Beard Lengths"
     And I navigate to the images tab
     And I click upload without attaching a file
-    Then I should get the error message "Image data file can't be blank"
+    Then I should get the error message "Image data file cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF."
 
   Scenario: Uploading a file with duplicated filename
     And I have the "Preview images update" permission
