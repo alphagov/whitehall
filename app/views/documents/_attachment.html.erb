@@ -14,12 +14,9 @@
   # to publishing-api.
   preview = controller.nil? ? nil : params[:preview]
 
-  attachment_data = {}
-  if attachment.html?
-    attachment_data = {
-      ga4_attachment_link: "",
-    }
-  end
+  attachment_data = {
+    ga4_attachment_link: "",
+  }
 %>
 <%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded", data: attachment_data) do %>
   <div class="attachment-thumb">
