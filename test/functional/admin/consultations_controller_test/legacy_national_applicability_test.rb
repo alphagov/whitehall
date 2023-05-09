@@ -1,14 +1,14 @@
 require "test_helper"
 
 class Admin::ConsultationsControllerTest < ActionController::TestCase
-  class NationalApplicabilityTest < ActionController::TestCase
+  class LegacyNationalApplicabilityTest < ActionController::TestCase
     tests Admin::ConsultationsController
 
     setup do
-      login_as_preview_design_system_user :writer
+      login_as :writer
     end
 
-    include TestsForNationalApplicability
+    include LegacyTestsForNationalApplicability
 
   private
 
