@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
-  test "redirects users without the 'Preview images update' permission" do
+  test "redirects users without the 'Preview design system' permission" do
     edition = create(:draft_publication)
     login_as create(:gds_editor)
     get admin_edition_images_path(edition.id)
@@ -13,7 +13,7 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
   test "forbids unauthorised users from viewing the images index endpoint" do
     edition = create(:draft_publication)
     user = create(:world_editor)
-    user.permissions << "Preview images update"
+    user.permissions << "Preview design system"
     login_as user
     get admin_edition_images_path(edition.id)
     assert_equal 403, status
@@ -86,7 +86,7 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
 
   def login_authorised_user
     user = create(:gds_editor)
-    user.permissions << "Preview images update"
+    user.permissions << "Preview design system"
     login_as user
   end
 end

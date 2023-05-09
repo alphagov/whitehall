@@ -10,7 +10,7 @@
     </p>
     <%= render "components/secondary_navigation", {
       aria_label: "Document tabs",
-      items: secondary_navigation_tabs_items(current_user, @world_location_news, request.path)
+      items: secondary_navigation_tabs_items(@world_location_news, request.path)
     } %>
     <div class="govuk-!-margin-bottom-4">
       <%= render "govuk_publishing_components/components/button", {

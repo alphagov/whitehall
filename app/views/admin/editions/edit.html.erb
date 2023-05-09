@@ -27,7 +27,7 @@
     <div class="govuk-grid-column-two-thirds">
       <%= render "components/secondary_navigation", {
         aria_label: "Document navigation tabs",
-        items: secondary_navigation_tabs_items(current_user, @edition, request.path)
+        items: secondary_navigation_tabs_items(@edition, request.path)
       } %>
 
       <%= render "form", edition: @edition %>

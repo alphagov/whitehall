@@ -12,6 +12,10 @@ When("I visit the images tab of the document with images") do
   visit admin_edition_images_path(@edition)
 end
 
+When(/^I visit the images tab of the document "([^"]*)"$/) do |title|
+  visit admin_edition_images_path(Edition.find_by(title:))
+end
+
 Then(/^I should see a list with (\d+) image/) do |count|
   expect(page).to have_selector(".app-view-edition-images__details", count:)
 end
@@ -24,15 +28,6 @@ When(/^I select an image for the (?:detailed guide|publication)$/) do
     execute_script("document.querySelector('.js-upload-image-input').dispatchEvent(new CustomEvent('click', { bubbles: true }))")
     fill_in "Alt text", with: "minister of funk", match: :first
   end
-end
-
-Then(/^the page should not have an images tab$/) do
-  expect(page).to_not have_link("li.app-c-secondary-navigation__list-item a", text: "Images")
-end
-
-Then(/^I can navigate to the images tab$/) do
-  find("li.app-c-secondary-navigation__list-item a", text: "Images").click
-  expect(page).to have_content("Upload an image")
 end
 
 When("I click to delete an image") do
@@ -72,10 +67,6 @@ Then "I should see a button to show the lead image" do
   expect(page).to have_content("Show lead image")
 end
 
-And(/^I navigate to the images tab$/) do
-  find("li.app-c-secondary-navigation__list-item a", text: "Images").click
-end
-
 And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
   within "input.gem-c-file-upload" do
     if width == 960 && height == 640
@@ -99,10 +90,6 @@ end
 
 And(/^I click upload without attaching a file$/) do
   click_on "Upload"
-end
-
-Then(/^the publication "(.*?)" should have (\d+) image attachments?$/) do |title, expected_number_of_images|
-  expect(expected_number_of_images.to_i).to eq(Edition.find_by(title:).images.count)
 end
 
 Then(/^I should get the error message "(.*?)"$/) do |error_message|

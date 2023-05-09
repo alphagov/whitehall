@@ -233,7 +233,7 @@ private
   end
 
   def permitted_edition_attributes
-    [
+    permitted = [
       :title,
       :body,
       :change_note,
@@ -286,13 +286,6 @@ private
         statistical_data_set_document_ids: [],
         policy_group_ids: [],
         document_collection_group_ids: [],
-        images_attributes: [
-          :id,
-          :alt_text,
-          :caption,
-          :_destroy,
-          { image_data_attributes: %i[file file_cache] },
-        ],
         consultation_participation_attributes: [
           :id,
           :link_url,
@@ -313,6 +306,21 @@ private
       },
       :auth_bypass_id,
     ]
+
+    # These fields are only accepted on the legacy Bootstrap edit form
+    unless preview_design_system?(next_release: true)
+      permitted << {
+        images_attributes: [
+          :id,
+          :alt_text,
+          :caption,
+          :_destroy,
+          { image_data_attributes: %i[file file_cache] },
+        ],
+      }
+    end
+
+    permitted
   end
 
   def new_edition_params

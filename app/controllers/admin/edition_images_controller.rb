@@ -1,6 +1,6 @@
 class Admin::EditionImagesController < Admin::BaseController
   before_action :find_edition
-  before_action :redirect_unless_user_can_preview_images_update
+  before_action :redirect_unless_user_can_preview_next_release
   before_action :enforce_permissions!
   layout "design_system"
 
@@ -68,8 +68,8 @@ private
     @edition = LocalisedModel.new(edition, edition.primary_locale)
   end
 
-  def redirect_unless_user_can_preview_images_update
-    redirect_to edit_admin_edition_path(@edition) unless current_user.can_preview_images_update?
+  def redirect_unless_user_can_preview_next_release
+    redirect_to edit_admin_edition_path(@edition) unless preview_design_system?(next_release: true)
   end
 
   def enforce_permissions!

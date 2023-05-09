@@ -95,32 +95,22 @@
   <%= render 'first_published_at', form: form, edition: edition %>
 <% end %>
 
-<% if current_user.can_preview_images_update? %>
-  <% if %w(CaseStudy Speech FatalityNotice).include?(edition.type) %>
-    <div class="govuk-!-margin-bottom-8">
-      <%= render "govuk_publishing_components/components/heading", {
-          text: "Images",
-          heading_level: 3,
-          font_size: "l",
-          margin_bottom: 3
-      } %>
-      <p class="govuk-body">
-        <% if edition.new_record? %>
-          To add images you must save the document first. After saving, use the
-          tabs at the top of the page to upload, edit and delete images and
-          attachments.
-        <% else %>
-          Use the tabs at the top of the page to upload, edit and delete images.
-        <% end %>
-      </p>
-    </div>
-  <% end %>
-<% else %>
-  <% if form.object.allows_image_attachments? %>
-    <% if edition.type == "CaseStudy" %>
-      <%= render partial: "image_fields_case_studies", locals: { form: form, edition: form.object } %>
-    <% else %>
-      <%= render partial: "image_fields", locals: { form: form, edition: form.object } %>
-    <% end %>
-  <% end %>
+<% if %w(CaseStudy Speech FatalityNotice).include?(edition.type) %>
+  <div class="govuk-!-margin-bottom-8">
+    <%= render "govuk_publishing_components/components/heading", {
+        text: "Images",
+        heading_level: 3,
+        font_size: "l",
+        margin_bottom: 3
+    } %>
+    <p class="govuk-body">
+      <% if edition.new_record? %>
+        To add images you must save the document first. After saving, use the
+        tabs at the top of the page to upload, edit and delete images and
+        attachments.
+      <% else %>
+        Use the tabs at the top of the page to upload, edit and delete images.
+      <% end %>
+    </p>
+  </div>
 <% end %>
