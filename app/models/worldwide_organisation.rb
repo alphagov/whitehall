@@ -58,6 +58,8 @@ class WorldwideOrganisation < ApplicationRecord
     end
   end
 
+  after_commit :republish_embassies_index_page_to_publishing_api
+
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
   # and all that this implies. I really only want to expose a list of
@@ -131,5 +133,9 @@ class WorldwideOrganisation < ApplicationRecord
 
   def public_url(options = {})
     Plek.website_root + public_path(options)
+  end
+
+  def republish_embassies_index_page_to_publishing_api
+    PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
   end
 end

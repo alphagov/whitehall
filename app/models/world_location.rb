@@ -18,6 +18,8 @@ class WorldLocation < ApplicationRecord
   accepts_nested_attributes_for :world_location_news
   delegate :title, to: :world_location_news
 
+  after_commit :republish_embassies_index_page_to_publishing_api
+
   enum world_location_type: { world_location: 1, international_delegation: 3 }
 
   accepts_nested_attributes_for :edition_world_locations
@@ -89,4 +91,8 @@ class WorldLocation < ApplicationRecord
 
   extend FriendlyId
   friendly_id
+
+  def republish_embassies_index_page_to_publishing_api
+    PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
+  end
 end

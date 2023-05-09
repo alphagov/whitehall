@@ -342,4 +342,26 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
       default_news_image: create(:default_news_organisation_image_data),
     )
   end
+
+  test "republishes embassies index page on creation of worldwide organisation" do
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+
+    create(:worldwide_organisation)
+  end
+
+  test "republishes embassies index page on update of worldwide organisation" do
+    organisation = create(:worldwide_organisation)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+
+    organisation.update!(name: "new-name")
+  end
+
+  test "republishes embassies index page on deletion of worldwide organisation" do
+    organisation = create(:worldwide_organisation)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+
+    organisation.destroy!
+  end
 end

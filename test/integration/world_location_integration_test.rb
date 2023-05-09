@@ -49,6 +49,13 @@ class WorldLocationIntegrationTest < ActionDispatch::IntegrationTest
     has_entries(locale:, title:, details: has_entries(mission_statement:))
   end
 
+  def expect_embassies_index_to_be_published
+    presenter = PublishingApi::EmbassiesIndexPresenter.new
+    Services.publishing_api.expects(:put_content).with(presenter.content_id, presenter.content)
+    Services.publishing_api.expects(:patch_links).with(presenter.content_id, links: presenter.links)
+    Services.publishing_api.expects(:publish).with(presenter.content_id, anything)
+  end
+
   test "when updating, makes the correct calls to publishing api" do
     Sidekiq::Testing.inline! do
       world_location_news_without_translations = build(:world_location_news)
@@ -57,8 +64,10 @@ class WorldLocationIntegrationTest < ActionDispatch::IntegrationTest
       new_mission_statement = "a different mission"
       fill_in "world_location_news_mission_statement", with: new_mission_statement
 
+      expect_embassies_index_to_be_published
       Services.publishing_api.expects(:put_content).once.with(world_location_news_without_translations.content_id, put_content_hash_containing("en", world_location_news_without_translations.title, new_mission_statement))
-      Services.publishing_api.expects(:publish).at_least_once
+      Services.publishing_api.expects(:patch_links).with(world_location_news_without_translations.content_id, anything)
+      Services.publishing_api.expects(:publish).with(world_location_news_without_translations.content_id, anything, anything)
 
       click_on "Save"
     end
@@ -114,6 +123,7 @@ class WorldLocationIntegrationTest < ActionDispatch::IntegrationTest
       new_title = "a new title"
       fill_in "Title", match: :first, with: new_title
 
+      PresentPageToPublishingApi.any_instance.stubs(:publish).with(PublishingApi::EmbassiesIndexPresenter)
       Services.publishing_api.expects(:put_content).once.with(@world_location_news.content_id, put_content_hash_containing("en", new_title, new_mission_statement))
       Services.publishing_api.expects(:put_content).once.with(@world_location_news.content_id, put_content_hash_containing("fr", @original_french_title, @original_french_mission_statement))
       Services.publishing_api.expects(:publish).at_least_once
@@ -134,6 +144,7 @@ class WorldLocationIntegrationTest < ActionDispatch::IntegrationTest
       new_title = "un titre différent"
       fill_in "Title", with: new_title
 
+      PresentPageToPublishingApi.any_instance.stubs(:publish).with(PublishingApi::EmbassiesIndexPresenter)
       Services.publishing_api.expects(:put_content).once.with(@world_location_news.content_id, put_content_hash_containing("en", @original_english_title, @original_english_mission_statement))
       Services.publishing_api.expects(:put_content).at_least_once.with(@world_location_news.content_id, put_content_hash_containing("fr", new_title, new_mission_statement))
       Services.publishing_api.expects(:publish).at_least_once
