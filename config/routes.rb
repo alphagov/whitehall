@@ -319,7 +319,9 @@ Whitehall::Application.routes.draw do
           resources :translations, controller: "world_location_news_translations" do
             get :confirm_destroy, on: :member
           end
-          resources :offsite_links
+          resources :offsite_links do
+            get :confirm_destroy, on: :member
+          end
         end
 
         resources :feature_lists, only: [:show] do

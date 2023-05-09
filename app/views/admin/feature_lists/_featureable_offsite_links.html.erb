@@ -37,7 +37,7 @@
           {
             text: link_to(sanitize("Edit #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:edit, :admin, offsite_link.parent, offsite_link]), class: "govuk-link") +
                     link_to(sanitize("Feature #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:new, :admin, feature_list, :feature], offsite_link_id: offsite_link.id), class: 'govuk-link govuk-!-margin-left-2') +
-                      link_to(sanitize("Delete #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), "#", class: 'govuk-link govuk-!-margin-left-2 gem-link--destructive'),
+                      link_to(sanitize("Delete #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:confirm_destroy, :admin, offsite_link.parent, offsite_link]), class: 'govuk-link govuk-!-margin-left-2 gem-link--destructive'),
             format: "numeric"
           }
         ]
