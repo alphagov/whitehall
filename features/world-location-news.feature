@@ -35,3 +35,9 @@ Feature: Administering world location news information
       And filter documents by all organisations
       And I feature "Featured document"
       Then I see that "Featured document" has been featured
+
+    Scenario: Featuring a non-GOV.UK link
+      Given the world location has an offsite link with the title "Featured link"
+      When I visit the world location news page
+      And I feature "Featured link"
+      Then I see that "Featured link" has been featured

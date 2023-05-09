@@ -88,3 +88,7 @@ Then(/^I see that "([^"]*)" has been featured$/) do |title|
     expect(find("table td:first").text).to eq title
   end
 end
+
+Given(/^the world location has an offsite link with the title "([^"]*)"$/) do |title|
+  create(:offsite_link, parent_type: "WorldLocationNews", parent: @world_location_news, title:)
+end
