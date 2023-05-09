@@ -1,0 +1,39 @@
+<% page_title @organisation.name %>
+
+<div class="organisation-header">
+  <h1><%= @organisation.name %></h1>
+  <%= view_on_website_link_for @organisation %>
+</div>
+
+<section class="organisation-details">
+  <%= tab_navigation_for(@organisation) do %>
+
+    <p class="warning">Warning: changes to promotional features appear instantly on the live site.</p>
+
+    <% if @promotional_features.many? %>
+      <p><%= link_to "Reorder promotional features", reorder_admin_organisation_promotional_features_path(@organisation) %></p>
+    <% end %>
+
+    <% if @promotional_features.present? %>
+      <table class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th>Promotional Feature</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%= render @promotional_features, organisation: @organisation %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="no-content no-content-bordered">No promotional features</p>
+    <% end %>
+
+    <div class="form-actions">
+      <%= link_to "New promotional feature", new_admin_organisation_promotional_feature_path, class: "btn btn-lg btn-primary"%>
+    </div>
+
+  <% end %>
+</section>

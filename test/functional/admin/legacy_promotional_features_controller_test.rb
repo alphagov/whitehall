@@ -25,7 +25,7 @@ class Admin::LegacyPromotionalFeaturesControllerTest < ActionController::TestCas
     assert_response :success
     assert_equal @organisation, assigns(:organisation)
     assert_equal @organisation.reload.promotional_features, assigns(:promotional_features)
-    assert_template :index
+    assert_template :legacy_index
   end
 
   test "GET :new prepares a promotional feature" do

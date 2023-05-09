@@ -6,6 +6,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def index
     @promotional_features = @organisation.promotional_features
+    render_design_system("index", "legacy_index", next_release: false)
   end
 
   def new
