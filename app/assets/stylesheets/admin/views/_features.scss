@@ -39,11 +39,13 @@
   width: 20%;
 }
 
-.app-view-features-search-results__table .govuk-table, {
+.app-view-features-search-results__table .govuk-table,
+.app-view-features-offsite-links__table .govuk-table {
   border-top: 2px solid govuk-colour("black");
 }
 
-.app-view-features-search-results__table .govuk-table__header {
+.app-view-features-search-results__table .govuk-table__header,
+.app-view-features-offsite-links__table .govuk-table__header {
   padding-top: govuk-spacing(4);
 }
 

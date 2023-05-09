@@ -16,6 +16,10 @@
   <div class="app-view-features__table govuk-!-margin-bottom-8">
     <%= table("#{pluralize(live_features.count, "featured document")} live on GOV.UK", live_features) %>
   </div>
+<% else %>
+  <p class="govuk-body">
+    There are currently no featured documents.
+  </p>
 <% end %>
 
 <% if remaining_features.present? %>

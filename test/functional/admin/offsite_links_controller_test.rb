@@ -43,6 +43,13 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
+  test "GET :confirm_destroy calls correctly" do
+    get :confirm_destroy, params: { world_location_news_id: @world_location_news.slug, id: @offsite_link.id }
+
+    assert_response :success
+    assert_equal @offsite_link, assigns(:offsite_link)
+  end
+
   test "DELETE :destroy removes offsite link" do
     assert_difference("OffsiteLink.count", -1) do
       delete :destroy, params: {
