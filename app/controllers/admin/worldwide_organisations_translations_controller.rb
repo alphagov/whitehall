@@ -38,8 +38,6 @@ private
   end
 
   def translation_params
-    params.require(:worldwide_organisation).permit(
-      :name, :summary, :description, :services
-    )
+    params.require(:worldwide_organisation).permit(:name)
   end
 end
