@@ -92,3 +92,36 @@ end
 Given(/^the world location has an offsite link with the title "([^"]*)"$/) do |title|
   create(:offsite_link, parent_type: "WorldLocationNews", parent: @world_location_news, title:)
 end
+
+And(/^I create a new a non-GOV.UK link with the title "([^"]*)"$/) do |title|
+  click_link "Create a new link"
+
+  fill_in "Title (required)", with: title
+  fill_in "Summary (required)", with: "Summary"
+  fill_in "URL (required)", with: "https://www.gov.uk/jobsearch"
+
+  click_button "Save"
+end
+
+Then(/^I can see the non-GOV.UK link with the title "([^"]*)"$/) do |title|
+  within "#non_govuk_government_links_tab" do
+    expect(find("table td:first").text).to eq title
+  end
+end
+
+And(/^I update the title of a featured link from "([^"]*)" to "([^"]*)"$/) do |current_title, new_title|
+  click_link "Edit #{current_title}"
+  fill_in "Title (required)", with: new_title
+  click_button "Save"
+end
+
+And(/^I delete "([^"]*)"$/) do |title|
+  click_link "Delete #{title}"
+  click_button "Delete"
+end
+
+Then(/^I can see that "([^"]*)" has been deleted$/) do |title|
+  within "#non_govuk_government_links_tab" do
+    expect(page).not_to have_content title
+  end
+end

@@ -41,3 +41,20 @@ Feature: Administering world location news information
       When I visit the world location news page
       And I feature "Featured link"
       Then I see that "Featured link" has been featured
+
+    Scenario: Creating a non-GOV.UK link
+      When I visit the world location news page
+      And I create a new a non-GOV.UK link with the title "Featured link"
+      Then I can see the non-GOV.UK link with the title "Featured link"
+
+    Scenario: Editing a non-GOV.UK link
+      Given the world location has an offsite link with the title "Featured link"
+      When I visit the world location news page
+      And I update the title of a featured link from "Featured link" to "New title"
+      Then I can see the non-GOV.UK link with the title "New title"
+
+    Scenario: Deleting a non-GOV.UK link
+      Given the world location has an offsite link with the title "Featured link"
+      When I visit the world location news page
+      And I delete "Featured link"
+      Then I can see that "Featured link" has been deleted
