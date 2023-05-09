@@ -15,6 +15,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
       get :index, params: { organisation_id: organisation }
     end
   end
+
   test "GET :index loads the promotional organisation and renders the index template" do
     create(:promotional_feature, organisation: @organisation)
     get :index, params: { organisation_id: @organisation }
@@ -50,23 +51,6 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :show
     assert_equal promotional_feature, assigns(:promotional_feature)
-  end
-
-  view_test "confirm_destroy should display form for deleting an existing promotional feature" do
-    @promotional_feature = create(:promotional_feature, organisation: @organisation)
-
-    get :confirm_destroy, params: { organisation: @organisation, promotional_feature: @promotional_feature }
-
-    assert_select "form[action='#{admin_organisation_promotional_feature_path(@organisation, @promotional_feature)}']" do
-      assert_select "button[type='submit']", "Delete"
-      # assert_select "a[href=?]", [:admin, @promotional_feature.organisation, PromotionalFeature].to_s, "Cancel"
-    end
-  end
-
-  test "delete removes an appointment" do
-    appointment = create(:role_appointment)
-    delete :destroy, params: { id: appointment.id }
-    assert_nil RoleAppointment.find_by(id: appointment.id)
   end
 
   test "GET :edit loads the promotional feature and renders the template" do
