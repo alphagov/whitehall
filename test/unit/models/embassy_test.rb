@@ -138,7 +138,7 @@ class EmbassyTest < ActiveSupport::TestCase
     it "returns #remote_office" do
       expected = Embassy::RemoteOffice.new(
         name: "org-name",
-        location: other_location,
+        location: other_location.name,
         path: "/world/organisations/org-slug",
       )
       assert_equal expected, embassy.remote_office
@@ -168,7 +168,7 @@ class EmbassyTest < ActiveSupport::TestCase
     it "returns the remote office from #remote_office" do
       expected = Embassy::RemoteOffice.new(
         name: "org-name",
-        location: other_location,
+        location: other_location.name,
         path: "/world/organisations/org-slug",
       )
       assert_equal expected, embassy.remote_office
@@ -199,7 +199,7 @@ class EmbassyTest < ActiveSupport::TestCase
     it "returns the embassy office from #remote_office" do
       expected = Embassy::RemoteOffice.new(
         name: "org-name",
-        location: third_location,
+        location: third_location.name,
         path: "/world/organisations/org-slug",
       )
       assert_equal expected, embassy.remote_office

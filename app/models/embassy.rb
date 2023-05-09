@@ -21,7 +21,7 @@ class Embassy
     elsif can_assist_in_other_location?
       remote_office = offices_in_remote_location.first
       RemoteOffice.new(name: remote_office.worldwide_organisation.name,
-                       location: remote_office.country,
+                       location: remote_office.country.name,
                        path: remote_office.worldwide_organisation.public_path)
     end
   end
