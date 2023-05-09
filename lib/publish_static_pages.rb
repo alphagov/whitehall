@@ -41,14 +41,6 @@ class PublishStaticPages
         base_path: "/government/ministers",
         locales: Locale.non_english.map(&:code),
       },
-      {
-        content_id: "430df081-f28e-4a1f-b812-8977fdac6e9a",
-        title: "Find a British embassy, high commission or consulate",
-        base_path: "/world/embassies",
-        document_type: "finder",
-        schema_name: "embassies_index",
-        description: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
-      },
     ]
   end
 
