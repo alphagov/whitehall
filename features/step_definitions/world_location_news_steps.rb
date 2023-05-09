@@ -66,3 +66,25 @@ Then(/^I see that I have no featured documents$/) do
     expect(page).to have_content "There are currently no featured documents."
   end
 end
+
+Given(/^there is a published document with the tile "([^"]*)"$/) do |title|
+  create(:edition, :published, title:)
+end
+
+And(/^filter documents by all organisations$/) do
+  select "All locations"
+  click_button "Search"
+end
+
+And(/^I feature "([^"]*)"$/) do |title|
+  click_link "Feature #{title}"
+
+  attach_file "Image (required)", jpg_image
+  click_button "Save"
+end
+
+Then(/^I see that "([^"]*)" has been featured$/) do |title|
+  within "#currently_featured_tab" do
+    expect(find("table td:first").text).to eq title
+  end
+end
