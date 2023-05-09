@@ -53,3 +53,16 @@ Then(/^the featured documents should be in the following order:$/) do |featured_
     expect(feature.to_s).to eq(document_titles[index])
   end
 end
+
+And(/^I unfeature the document$/) do
+  within "#currently_featured_tab" do
+    click_link "Unfeature"
+  end
+  click_button "Unfeature"
+end
+
+Then(/^I see that I have no featured documents$/) do
+  within "#currently_featured_tab" do
+    expect(page).to have_content "There are currently no featured documents."
+  end
+end

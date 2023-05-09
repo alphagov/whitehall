@@ -22,3 +22,9 @@ Feature: Administering world location news information
       | title      |
       | Document 2 |
       | Document 1 |
+
+    Scenario: Unfeaturing a document
+      Given the world location has a feature list with 1 featured document
+      When I visit the world location news page
+      And I unfeature the document
+      Then I see that I have no featured documents
