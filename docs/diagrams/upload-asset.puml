@@ -1,0 +1,59 @@
+@startuml
+
+skinparam dpi 300
+title The sequence of events that cause email notifications to be sent for Whitehall content on GOV.UK
+
+actor editor
+participant AttachmentController
+participant AssetModel
+database mysql
+participant AssetManagerStorage
+database filesystem
+participant CreateWhitehallAssetWorker
+participant AttachmentSetUploadedToWorker
+participant asset_manager
+participant Asset
+database am_filesystem
+participant VirusScanner
+participant SaveToCloudStorageWorker
+database S3
+
+editor -> AttachmentController : upload an asset
+
+AttachmentController -> AssetModel : save
+AssetModel -> mysql : Store Asset meta information
+
+group carrierwave
+    AssetModel -> AssetManagerStorage : trigger carrierwave magic
+    AssetManagerStorage -> filesystem : Store temporary file
+    AssetManagerStorage -> CreateWhitehallAssetWorker : Enqueue a background job
+end group
+
+group sidekiq
+    CreateWhitehallAssetWorker -> asset_manager : Upload the file to Asset Manager
+    CreateWhitehallAssetWorker -> AttachmentSetUploadedToWorker : Enqueue a background job
+end group
+
+group sidekiq
+    AttachmentSetUploadedToWorker -> mysql : Update the timestamp of when the file was uploaded
+end group
+
+group carrierwave
+    asset_manager -> Asset : Save
+    Asset -> am_filesystem : Store temporary file
+    Asset -> VirusScanner : Enqueue virus scanner
+end group
+
+group sidekiq
+    VirusScanner -> Asset : Update state to be "clean"
+    Asset -> SaveToCloudStorageWorker : Enqueue SaveToCloudStorageWorker
+end group
+
+group sidekiq
+    SaveToCloudStorageWorker -> S3 : Upload to S3
+    SaveToCloudStorageWorker -> Asset : Update state to be "uploaded"
+    Asset -> am_filesystem : Remove temp file
+end group
+
+
+@enduml
