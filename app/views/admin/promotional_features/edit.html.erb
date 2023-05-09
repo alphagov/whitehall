@@ -1,12 +1,32 @@
 <% page_title "Edit #{@promotional_feature.title} promotional feature" %>
-<h1>Edit ‘<%= @promotional_feature.title %>’ feature</h1>
-
+<% content_for :page_title, "Edit #{@promotional_feature.title} promotional feature" %>
+<% content_for :title, "Edit #{@promotional_feature.title} promotional feature" %>
+<% content_for :context, @organisation.name %>
+<% content_for :title_margin_bottom, 6 %>
 <%= form_for [:admin, @promotional_feature.organisation, @promotional_feature], html: { class: "form-horizontal promotional_feature_item" } do |form| %>
   <%= form.errors %>
-
-  <fieldset>
-    <%= form.text_field :title, label_text: 'Feature title' %>
-  </fieldset>
-
-  <%= form.save_or_cancel(cancel: [:admin, @promotional_feature.organisation, PromotionalFeature]) %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Feature title"
+        },
+        name: "promotional_feature[title]",
+        id: "promotional_feature_title",
+        value: @promotional_feature.title
+      } %>
+      <div class="govuk-button-group govuk-!-margin-top-4">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "promotional_feature-button",
+            "track-label": "Save"
+        }
+        } %>
+        <%= link_to("Cancel", [:admin, @promotional_feature.organisation, PromotionalFeature], class: "govuk-link") %>
+      </div>
+    </div>
+  </div>
 <% end %>
