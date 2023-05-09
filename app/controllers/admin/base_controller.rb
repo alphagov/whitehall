@@ -44,6 +44,7 @@ class Admin::BaseController < ApplicationController
   def preview_design_system?(next_release: false)
     current_user.can_preview_design_system? || (next_release && current_user.can_preview_next_release?)
   end
+  helper_method :preview_design_system?
 
   def render_design_system(design_system_view, legacy_view, next_release: false)
     if preview_design_system?(next_release:)

@@ -1,20 +1,20 @@
 module Admin::TabbedNavHelper
   include Admin::EditionsHelper
 
-  def secondary_navigation_tabs_items(user, model, current_path)
+  def secondary_navigation_tabs_items(model, current_path)
     if model.is_a?(Edition)
-      edition_nav_items(user, model, current_path)
+      edition_nav_items(model, current_path)
     elsif model.respond_to? :consultation
-      edition_nav_items(user, model.consultation, current_path)
+      edition_nav_items(model.consultation, current_path)
     else
       send("#{model.class.model_name.param_key}_nav_items", model, current_path)
     end
   end
 
-  def edition_nav_items(user, edition, current_path)
+  def edition_nav_items(edition, current_path)
     nav_items = []
     nav_items << standard_edition_nav_items(edition, current_path)
-    nav_items << images_nav_items(edition, current_path) if user.can_preview_images_update?
+    nav_items << images_nav_items(edition, current_path) if preview_design_system?(next_release: true)
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
     nav_items.flatten
