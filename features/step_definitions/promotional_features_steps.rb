@@ -59,8 +59,9 @@ When(/^I delete the promotional feature$/) do
   click_link "Promotional features"
 
   within record_css_selector(@promotional_feature) do
-    click_button "Delete"
+    click_link "Delete"
   end
+  click_button "Delete"
 end
 
 When(/^I edit the promotional item, set the summary to "([^"]*)"$/) do |new_summary|

@@ -1,6 +1,6 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
-  before_action :load_promotional_feature, only: %i[show edit update destroy]
+  before_action :load_promotional_feature, only: %i[show edit update destroy confirm_destroy]
   before_action :clean_image_or_youtube_video_url_param, only: %i[create]
   layout :get_layout
 
@@ -43,6 +43,8 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     redirect_to [:admin, @organisation, PromotionalFeature], notice: "Promotional feature deleted."
   end
 
+  def confirm_destroy; end
+
   def reorder
     redirect_to admin_organisation_promotional_features_path(@organisation) and return unless @organisation.promotional_features.many?
 
@@ -60,8 +62,8 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 private
 
   def get_layout
-    case action_name
-    when "reorder", "update_order"
+    design_system_actions = %w[confirm_destroy reorder update_order]
+    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"
