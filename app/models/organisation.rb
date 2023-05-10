@@ -24,6 +24,7 @@ class Organisation < ApplicationRecord
   has_many :edition_organisations, dependent: :destroy, inverse_of: :organisation
   # This include is dependant on the above has_many
   include HasCorporateInformationPages
+  include HasAboutUsCorporateInformationPage
 
   has_many :editions, through: :edition_organisations
 

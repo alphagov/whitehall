@@ -3,8 +3,6 @@ class CorporateInformationPage < Edition
   include Searchable
 
   after_commit :republish_organisation_to_publishing_api
-  after_commit :republish_about_page_to_publishing_api, unless: :about_page?
-  after_save :reindex_organisation_in_search_index, if: :about_page?
 
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
   has_one :organisation, -> { includes(:translations) }, through: :edition_organisation, autosave: false
@@ -35,23 +33,12 @@ class CorporateInformationPage < Edition
     Whitehall::PublishingApi.republish_async(owning_organisation) if owning_organisation.is_a?(Organisation)
   end
 
-  def republish_about_page_to_publishing_api
-    about_us = owning_organisation&.about_us
-    return unless about_us
-
-    PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
-      "bulk_republishing",
-      about_us.document_id,
-      true,
-    )
-  end
-
   def reindex_organisation_in_search_index
     owning_organisation.update_in_search_index
   end
 
   def body_required?
-    !about_page?
+    true
   end
 
   def search_title
@@ -150,10 +137,6 @@ class CorporateInformationPage < Edition
     false
   end
 
-  def about_page?
-    corporate_information_page_type.try(:slug) == "about"
-  end
-
   def rendering_app
     if worldwide_organisation.present?
       Whitehall::RenderingApp::WHITEHALL_FRONTEND
@@ -176,8 +159,7 @@ class CorporateInformationPage < Edition
 
   def base_path
     if worldwide_organisation.present?
-      url = edition_worldwide_organisation.worldwide_organisation.base_path.to_s + "/about/#{slug}"
-      url.gsub("/about/about", "")
+      edition_worldwide_organisation.worldwide_organisation.base_path.to_s + "/about/#{slug}"
     elsif organisation.present?
       url = edition_organisation.organisation.base_path.to_s + "/about/#{slug}"
       url.gsub("/about/about", "/about")

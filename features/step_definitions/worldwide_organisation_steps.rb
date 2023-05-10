@@ -75,7 +75,6 @@ end
 
 When(/^I update the worldwide organisation to set:$/) do |table|
   attributes = table.rows_hash
-  p attributes
   visit edit_admin_worldwide_organisation_path(WorldwideOrganisation.last)
   fill_in "Name", with: attributes["name"]
   fill_in "Summary", with: attributes["summary"]
@@ -280,8 +279,7 @@ Then(/^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*
   visit worldwide_organisation.public_path(locale:)
 
   expect(page).to have_selector(".worldwide-org-summary", text: translation["summary"])
-  expect(page).to have_selector(".worldwide-org-description", text: translation["description"])
-  expect(page).to have_selector(".worldwide-org-content", text: translation["services"])
+  expect(page).to have_selector(".worldwide-org-description", text: translation["body"])
 end
 
 Given(/^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, native_locale_name|
