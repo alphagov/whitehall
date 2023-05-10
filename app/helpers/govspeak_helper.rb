@@ -20,7 +20,7 @@ module GovspeakHelper
   end
 
   def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
-    wrapped_in_govspeak_div(bare_govspeak_with_attachments_to_html(body, attachments, alternative_format_contact_email))
+    wrapped_in_govspeak_div(bare_govspeak_with_attachments_to_html(body.to_s, attachments, alternative_format_contact_email))
   end
 
   def bare_govspeak_edition_to_html(edition)

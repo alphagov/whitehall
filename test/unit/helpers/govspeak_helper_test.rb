@@ -400,6 +400,11 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "span.fraction > img[alt='1/x']"
   end
 
+  test "govspeak_with_attachments_to_html with nil body" do
+    html = govspeak_with_attachments_to_html(nil)
+    assert_select_within_html html, ".govspeak", text: ""
+  end
+
   test "govspeak_with_attachments_and_alt_format_information" do
     body = "#Heading\n\n!@1\n\n##Subheading"
     document = build(:published_detailed_guide, :with_file_attachment, body:)

@@ -1,4 +1,6 @@
 module Admin::EditionsHelper
+  include Admin::AttachableHelper
+
   def edition_type(edition)
     type = if edition.is_a?(Speech) && edition.speech_type.written_article?
              edition.speech_type.singular_name

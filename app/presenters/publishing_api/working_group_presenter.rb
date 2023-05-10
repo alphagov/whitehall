@@ -50,11 +50,7 @@ module PublishingApi
 
     def body
       # It looks 'wrong' using the description as the body, but it isn't
-      if item.description.present?
-        Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.description, item.attachments, item.email)
-      else
-        ""
-      end
+      Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.description, item.attachments, item.email)
     end
   end
 end

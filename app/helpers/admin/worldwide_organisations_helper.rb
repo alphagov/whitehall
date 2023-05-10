@@ -1,5 +1,9 @@
 module Admin::WorldwideOrganisationsHelper
+  include Admin::AttachableHelper
+
   def worldwide_organisation_tabs(worldwide_organisation)
+    return {} if worldwide_organisation.new_record?
+
     {
       "Details" => admin_worldwide_organisation_path(worldwide_organisation),
       attachments_label(worldwide_organisation) => admin_worldwide_organisation_attachments_path(worldwide_organisation),
