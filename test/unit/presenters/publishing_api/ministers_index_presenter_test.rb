@@ -40,7 +40,7 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
         update_type: "major",
         base_path: "/government/ministers",
         details: {
-          body: "Read biographies and responsibilities of [Cabinet ministers](#cabinet-ministers) and all [ministers by department](#ministers-by-department), as well as the [whips](#whips) who help co-ordinate parliamentary business.",
+          body: "Read biographies and responsibilities of <a href=\"#cabinet-ministers\" class=\"govuk-link\">Cabinet ministers</a> and all <a href=\"#ministers-by-department\" class=\"govuk-link\">ministers by department</a>, as well as the <a href=\"#whips\" class=\"govuk-link\">whips</a> who help co-ordinate parliamentary business.",
         },
         document_type: "ministers_index",
         rendering_app: "whitehall-frontend",
