@@ -358,10 +358,9 @@ private
   def build_national_exclusion_params
     design_system_controllers = %w[consultations detailed_guides publications]
     return unless design_system_controllers.include?(controller_name) && preview_design_system?(next_release: true)
+    return if edition_params["nation_inapplicabilities_attributes"].blank?
 
-    exclusion_params = edition_params["all_nation_applicability"]
-    return if exclusion_params.blank? || edition_params["nation_inapplicabilities_attributes"].blank?
-
+    exclusion_params = edition_params["all_nation_applicability"] || []
     edition_params["all_nation_applicability"] = exclusion_params.include?("all_nations") ? "1" : "0"
 
     build_nation_params(nation_id: 1, checked: exclusion_params.include?("england"))
