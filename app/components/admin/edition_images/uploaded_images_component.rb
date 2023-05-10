@@ -39,6 +39,14 @@ class Admin::EditionImages::UploadedImagesComponent < ViewComponent::Base
     "#{new_image_display_option == 'no_image' ? 'Remove lead' : 'Use default'} image"
   end
 
+  def lead_image_guidance
+    if @edition.type == "CaseStudy"
+      tag.p("Using a lead image is optional and can be shown or hidden. The first image you upload is used as the lead image.", class: "govuk-body") + tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
+    else
+      tag.p("The first image you upload is used as the lead image.", class: "govuk-body") + tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
+    end
+  end
+
 private
 
   def image_to_hash(image, index)

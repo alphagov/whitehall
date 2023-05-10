@@ -13,11 +13,7 @@
   <%= render "govuk_publishing_components/components/details", {
         title: "Using a lead image",
       } do %>
-    <p class="govuk-body">Using a lead image is optional. To use a lead image either select the
-    default image for your organisation or upload an image and select it as
-    the lead image.</p>
-    <p class="govuk-body">The lead image appears at the top of the document. It cannot be used
-    in the document body.</p>
+    <% lead_image_guidance %>
   <% end %>
 <% end %>
 
