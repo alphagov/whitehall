@@ -10,6 +10,7 @@ participant Attachment
 database mysql
 participant AssetManagerStorage
 database filesystem
+database sidekiq
 participant CreateWhitehallAssetWorker
 participant AttachmentSetUploadedToWorker
 participant AttachmentUpdater
@@ -19,6 +20,7 @@ box "Asset Manager" #f2f8fe
 participant asset_manager
 participant Asset
 database am_filesystem
+database am_sidekiq
 participant VirusScanner
 participant SaveToCloudStorageWorker
 database S3
@@ -32,44 +34,50 @@ Attachment -> mysql : Store Asset meta information
 group carrierwave
     Attachment -> AssetManagerStorage : Trigger carrierwave magic
     AssetManagerStorage -> filesystem : Store temporary file
-    AssetManagerStorage -> CreateWhitehallAssetWorker : Enqueue a background job
+    AssetManagerStorage -> sidekiq++ : Enqueue CreateWhitehallAssetWorker
 end group
 
+AttachmentController -> editor : Redirect to edition/attachments
+
 group sidekiq
+    sidekiq -> CreateWhitehallAssetWorker--: trigger worker
     CreateWhitehallAssetWorker -> asset_manager : Upload the file to Asset Manager
-    CreateWhitehallAssetWorker -> AttachmentSetUploadedToWorker : Enqueue a background job
+    CreateWhitehallAssetWorker -> sidekiq++ : Enqueue AttachmentSetUploadedToWorker
     CreateWhitehallAssetWorker -> filesystem : Remove file
 end group
 
 group sidekiq
-    AttachmentSetUploadedToWorker -> mysql : Update the timestamp of when the file was uploaded
-    Attachment -> AttachmentUpdater : Enqueue background job
+    sidekiq -> AttachmentSetUploadedToWorker--: trigger worker
+    AttachmentSetUploadedToWorker -> Attachment : Update the timestamp of when the file was uploaded
+    Attachment -> sidekiq++ : Enqueue AttachmentUpdater
+end group
+
+group carrierwave
+    asset_manager -> Asset : Save
+    Asset -> am_filesystem : Store temporary file
+    Asset -> am_sidekiq++ : Enqueue VirusScanner
 end group
 
 group sidekiq
+    am_sidekiq -> VirusScanner--: trigger worker
+    VirusScanner -> Asset : Update state to be "clean"
+    Asset -> am_sidekiq++ : Enqueue SaveToCloudStorageWorker
+end group
+
+group sidekiq
+    am_sidekiq -> SaveToCloudStorageWorker--: trigger worker
+    SaveToCloudStorageWorker -> S3 : Upload to S3
+    SaveToCloudStorageWorker -> Asset : Update state to be "uploaded"
+    Asset -> am_filesystem : Remove temp file
+end group
+
+group sidekiq
+    sidekiq -> AttachmentUpdater--: trigger worker
     AttachmentUpdater -> asset_manager : AccessLimitedUpdates
     AttachmentUpdater -> asset_manager : DraftStatusUpdates
     AttachmentUpdater -> asset_manager : LinkHeaderUpdates
     AttachmentUpdater -> asset_manager : RedirectUrlUpdates
     AttachmentUpdater -> asset_manager : ReplacementIdUpdates
 end group
-
-group carrierwave
-    asset_manager -> Asset : Save
-    Asset -> am_filesystem : Store temporary file
-    Asset -> VirusScanner : Enqueue virus scanner
-end group
-
-group sidekiq
-    VirusScanner -> Asset : Update state to be "clean"
-    Asset -> SaveToCloudStorageWorker : Enqueue SaveToCloudStorageWorker
-end group
-
-group sidekiq
-    SaveToCloudStorageWorker -> S3 : Upload to S3
-    SaveToCloudStorageWorker -> Asset : Update state to be "uploaded"
-    Asset -> am_filesystem : Remove temp file
-end group
-
 
 @enduml
