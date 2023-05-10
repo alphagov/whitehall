@@ -259,7 +259,9 @@ Whitehall::Application.routes.draw do
           resource :tags, only: %i[edit update], controller: :statistics_announcement_tags
           resources :statistics_announcement_date_changes, as: "changes", path: "changes"
           resource :statistics_announcement_unpublishings, as: "unpublish", path: "unpublish", only: %i[new create]
-          resources :statistics_announcement_publications, as: "publication", path: "publication", only: %i[index]
+          resources :statistics_announcement_publications, as: "publication", path: "publication", only: %i[index] do
+            get "connect"
+          end
         end
 
         resources :suggestions, only: [:index]

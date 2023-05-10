@@ -26,7 +26,19 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     assert_response :success
     assert_select "input[name='search']"
     assert_select "p", "1 document"
-    assert_select ".govuk-table"
-    assert_select "td", @statistics_publication.title
+    assert_select ".govuk-table" do
+      assert_select "tr", count: 1
+      assert_select "td", @statistics_publication.title
+      assert_select "a[href=?]", admin_publication_path(@statistics_publication), text: "View"
+      assert_select "a[href=?]", admin_statistics_announcement_publication_connect_path(@announcement, @statistics_publication), text: "Connect"
+    end
+  end
+
+  test "GET :connect will add a document to a statistics announcement" do
+    get :connect, params: { statistics_announcement_id: @announcement, publication_id: @statistics_publication }
+
+    assert_equal @statistics_publication, @announcement.reload.publication
+
+    assert_redirected_to admin_statistics_announcement_path(@announcement)
   end
 end

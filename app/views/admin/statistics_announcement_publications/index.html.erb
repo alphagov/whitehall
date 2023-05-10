@@ -25,6 +25,9 @@
              },
              {
                text: link_to("View", admin_edition_path(edition), class: "govuk-link")
+             },
+             {
+               text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition) , class: "govuk-link")
              }]
           end
     } %>
