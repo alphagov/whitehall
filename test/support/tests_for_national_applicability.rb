@@ -282,22 +282,32 @@ private
   end
 
   def nation_inapplicabilities_attributes_for(nations_vs_urls, *existing_applicabilities)
-    result = {}
+    nation_inapplicabilities_attributes = {}
 
     [Nation.england, Nation.scotland, Nation.wales, Nation.northern_ireland].each.with_index do |nation, index|
-      h = result[index.to_s] = {
+      national_inapplicability_attribute = nation_inapplicabilities_attributes[index.to_s] = {
         nation_id: nation,
       }
-      if (existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id })
-        h[:id] = existing.id
-        h[:alternative_url] = existing.alternative_url
+
+      existing_applicability = return_existing_applicability_for(nation, existing_applicabilities)
+
+      if existing_applicability.present?
+        national_inapplicability_attribute[:id] = existing_applicability.id
+        national_inapplicability_attribute[:alternative_url] = existing_applicability.alternative_url
       end
-      if nations_vs_urls[nation]
-        h.merge!(alternative_url: nations_vs_urls[nation])
+
+      new_alternative_url = nations_vs_urls[nation]
+
+      if new_alternative_url.present?
+        national_inapplicability_attribute[:alternative_url] = new_alternative_url
       end
     end
 
-    { nation_inapplicabilities_attributes: result }
+    { nation_inapplicabilities_attributes: }
+  end
+
+  def return_existing_applicability_for(nation, existing_applicabilities)
+    existing_applicabilities.detect { |ea| ea.nation_id == nation.id }
   end
 
   def assert_page_has_error(error)
