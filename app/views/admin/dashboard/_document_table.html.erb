@@ -1,10 +1,14 @@
 <%
   documents ||= []
 %>
+
 <% if documents.nil? || documents.empty? %>
-  <p>No <%= title %></p>
+  <%= render "govuk_publishing_components/components/inset_text", {
+   text: "No #{title}"
+  } %>
 <% else %>
   <% action = title == "draft documents" ? "Edit" : "Review" %>
+
   <div class="app-view-dashboard-index__table govuk-!-margin-bottom-9">
     <%= render "govuk_publishing_components/components/table", {
       head: [
