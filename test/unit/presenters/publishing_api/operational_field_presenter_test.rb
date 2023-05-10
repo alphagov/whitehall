@@ -27,7 +27,7 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
     expected_hash = {
       title: "Operational Field name",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       update_type: "major",
       base_path: "/government/fields-of-operation/operational-field-name",
       details: {},

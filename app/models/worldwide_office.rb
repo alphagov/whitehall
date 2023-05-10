@@ -7,6 +7,8 @@ class WorldwideOffice < ApplicationRecord
   has_one :default_access_and_opening_times, through: :worldwide_organisation, source: :access_and_opening_times
   validates :worldwide_organisation, :contact, :worldwide_office_type_id, presence: true
 
+  after_commit :republish_embassies_index_page_to_publishing_api
+
   accepts_nested_attributes_for :contact
 
   extend FriendlyId
@@ -39,5 +41,9 @@ class WorldwideOffice < ApplicationRecord
 
   def available_in_multiple_languages?
     false
+  end
+
+  def republish_embassies_index_page_to_publishing_api
+    PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
   end
 end

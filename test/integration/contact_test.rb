@@ -43,7 +43,7 @@ class ContactTest < ActiveSupport::TestCase
         schema_name: "contact",
         document_type: "contact",
         locale: "en",
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
       ),
     )
 

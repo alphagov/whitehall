@@ -101,7 +101,7 @@ module SpecialistTopicHelper
       "base_path": document_collection_base_path,
       "content_id": document_collection_content_id,
       "document_type": "document_collection",
-      "publishing_app": "whitehall" }
+      "publishing_app": Whitehall::PublishingApp::WHITEHALL }
   end
 
   def specialist_topic_content_item

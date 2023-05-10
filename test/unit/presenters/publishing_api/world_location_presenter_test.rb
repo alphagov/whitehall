@@ -14,7 +14,7 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
       schema_name: "world_location",
       document_type: "world_location",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "whitehall-frontend",
       public_updated_at: world_location.updated_at,
       redirects: [],

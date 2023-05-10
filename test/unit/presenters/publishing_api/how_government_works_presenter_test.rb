@@ -23,7 +23,7 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
     test "presents a valid content item" do
       expected_hash = {
         base_path: "/government/how-government-works",
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         rendering_app: "government-frontend",
         schema_name: "how_government_works",
         document_type: "how_government_works",
@@ -79,7 +79,7 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
     test "presents a valid content item without any details or links" do
       expected_hash = {
         base_path: "/government/how-government-works",
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         rendering_app: "government-frontend",
         schema_name: "how_government_works",
         document_type: "how_government_works",

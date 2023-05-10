@@ -23,7 +23,7 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       schema_name: "historic_appointment",
       document_type: "historic_appointment",

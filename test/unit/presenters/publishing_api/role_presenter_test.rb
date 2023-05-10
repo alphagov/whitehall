@@ -20,7 +20,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       schema_name: "role",
       document_type: "ministerial_role",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       public_updated_at: role.updated_at,
       routes: [
@@ -76,7 +76,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       schema_name: "role",
       document_type: "ministerial_role",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       public_updated_at: role.updated_at,
       routes: [
@@ -129,7 +129,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       schema_name: "role",
       document_type: "board_member_role",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       public_updated_at: role.updated_at,
       routes: [],

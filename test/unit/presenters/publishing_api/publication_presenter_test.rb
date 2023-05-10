@@ -28,7 +28,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       document_type: "policy_paper",
       locale: "en",
       public_updated_at: publication.public_timestamp,
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "government-frontend",
       routes: [
         { path: public_path, type: "exact" },

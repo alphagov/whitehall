@@ -19,7 +19,7 @@ class Whitehall::PublishingApi::RedirectTest < ActiveSupport::TestCase
   end
 
   test "sets the publishing_app to 'whitehall'" do
-    assert_equal "whitehall", @output_hash[:publishing_app]
+    assert_equal Whitehall::PublishingApp::WHITEHALL, @output_hash[:publishing_app]
   end
 
   test "sets the redirects as provided" do

@@ -20,7 +20,7 @@ module PublishingApi
           details: {},
           document_type: "field_of_operation",
           locale: "en",
-          publishing_app: "whitehall",
+          publishing_app: Whitehall::PublishingApp::WHITEHALL,
           rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           schema_name: "field_of_operation",
           title: operational_field.name,

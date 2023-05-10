@@ -28,7 +28,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       schema_name: "topical_event",
       document_type: "topical_event",
@@ -101,7 +101,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       schema_name: "topical_event",
       document_type: "topical_event",

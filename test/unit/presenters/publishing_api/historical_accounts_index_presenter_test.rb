@@ -17,7 +17,7 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
   test "presents a valid content item" do
     expected_hash = {
       base_path: "/government/history/past-prime-ministers",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       schema_name: "historic_appointments",
       document_type: "historic_appointments",

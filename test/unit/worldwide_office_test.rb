@@ -96,4 +96,29 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
     assert_not list.shown_on_home_page?(office)
   end
+
+  test "republishes embassies index page on creation of worldwide office" do
+    worldwide_organisation = create(:worldwide_organisation)
+    contact = create(:contact)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).twice
+
+    create(:worldwide_office, worldwide_organisation:, contact:)
+  end
+
+  test "republishes embassies index page on update of worldwide office" do
+    office = create(:worldwide_office)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+
+    office.update!(slug: "new-slug")
+  end
+
+  test "republishes embassies index page on deletion of worldwide office" do
+    office = create(:worldwide_office)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).twice
+
+    office.destroy!
+  end
 end

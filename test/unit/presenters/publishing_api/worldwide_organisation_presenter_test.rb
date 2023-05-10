@@ -23,7 +23,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       schema_name: "worldwide_organisation",
       document_type: "worldwide_organisation",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "whitehall-frontend",
       public_updated_at: worldwide_org.updated_at,
       routes: [{ path: public_path, type: "exact" }],

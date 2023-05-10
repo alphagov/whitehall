@@ -20,6 +20,8 @@ class Contact < ApplicationRecord
   after_create :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api
 
+  after_commit :republish_embassies_index_page_to_publishing_api
+
   include TranslatableModel
   translates :title,
              :comments,
@@ -74,5 +76,9 @@ class Contact < ApplicationRecord
 
   def missing_translations
     super & contactable.non_english_translated_locales
+  end
+
+  def republish_embassies_index_page_to_publishing_api
+    PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
   end
 end

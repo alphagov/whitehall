@@ -126,6 +126,7 @@ class ContactTest < ActiveSupport::TestCase
       ServiceListeners::EditionDependenciesPopulator.new(news_article).populate!
       ServiceListeners::EditionDependenciesPopulator.new(corp_info_page).populate!
 
+      PresentPageToPublishingApi.any_instance.stubs(:publish).with(PublishingApi::EmbassiesIndexPresenter)
       expect_publishing(contact)
       expect_republishing(news_article, corp_info_page)
 
@@ -156,5 +157,27 @@ class ContactTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:republish_async).with(policy_group).once
 
     contact.update!(title: "A new name")
+  end
+
+  test "republishes embassies index page on creation of contact" do
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+
+    create(:contact)
+  end
+
+  test "republishes embassies index page on update of contact" do
+    contact = create(:contact_with_country)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+
+    contact.update!(locality: "new-locality")
+  end
+
+  test "republishes embassies index page on deletion of contact" do
+    contact = create(:contact)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+
+    contact.destroy!
   end
 end

@@ -12,7 +12,7 @@ namespace :publishing_api do
       publisher.publish(
         {
           format: "special_route",
-          publishing_app: "whitehall",
+          publishing_app: Whitehall::PublishingApp::WHITEHALL,
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           update_type: "major",
           type: "prefix",
@@ -39,7 +39,7 @@ namespace :publishing_api do
             destination: route[:destination],
           },
         ],
-        publishing_app: "whitehall",
+        publishing_app: Whitehall::PublishingApp::WHITEHALL,
         public_updated_at: Time.zone.now.iso8601,
         update_type: "major",
       )
@@ -87,6 +87,11 @@ namespace :publishing_api do
     desc "Republish the ministers index page to Publishing API"
     task republish_ministers_index: :environment do
       PresentPageToPublishingApi.new.publish(PublishingApi::MinistersIndexPresenter)
+    end
+
+    desc "Republish the embassies index page to Publishing API"
+    task republish_embassies_index: :environment do
+      PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
     end
   end
 

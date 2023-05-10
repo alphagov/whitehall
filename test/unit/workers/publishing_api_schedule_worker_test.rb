@@ -9,7 +9,7 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
 
     expected_payload = {
       publish_time:,
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "government-frontend",
       routes: [{ path: base_path, type: "exact" }],
     }

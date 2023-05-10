@@ -10,7 +10,7 @@ class PublishingApi::OperationalFieldsIndexPresenterTest < ActiveSupport::TestCa
     expected_hash = {
       base_path: "/government/fields-of-operation",
       details: {},
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "government-frontend",
       schema_name: "fields_of_operation",
       document_type: "fields_of_operation",

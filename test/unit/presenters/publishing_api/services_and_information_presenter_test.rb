@@ -16,7 +16,7 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
       schema_name: "generic",
       document_type: "services_and_information",
       locale: "en",
-      publishing_app: "whitehall",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "collections",
       public_updated_at: organisation.updated_at,
       routes: [{ path: public_path, type: "exact" }],
