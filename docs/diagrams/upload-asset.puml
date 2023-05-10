@@ -1,30 +1,36 @@
 @startuml
 
 skinparam dpi 300
-title The sequence of events that cause email notifications to be sent for Whitehall content on GOV.UK
+title The sequence of creating a file attachment in Whitehall
 
+box "Whitehall" #f2fef8
 actor editor
 participant AttachmentController
-participant AssetModel
+participant Attachment
 database mysql
 participant AssetManagerStorage
 database filesystem
 participant CreateWhitehallAssetWorker
 participant AttachmentSetUploadedToWorker
+participant AttachmentUpdater
+end box
+
+box "Asset Manager" #f2f8fe
 participant asset_manager
 participant Asset
 database am_filesystem
 participant VirusScanner
 participant SaveToCloudStorageWorker
 database S3
+end box
+
 
 editor -> AttachmentController : upload an asset
-
-AttachmentController -> AssetModel : save
-AssetModel -> mysql : Store Asset meta information
+AttachmentController -> Attachment : save
+Attachment -> mysql : Store Asset meta information
 
 group carrierwave
-    AssetModel -> AssetManagerStorage : trigger carrierwave magic
+    Attachment -> AssetManagerStorage : Trigger carrierwave magic
     AssetManagerStorage -> filesystem : Store temporary file
     AssetManagerStorage -> CreateWhitehallAssetWorker : Enqueue a background job
 end group
@@ -32,10 +38,20 @@ end group
 group sidekiq
     CreateWhitehallAssetWorker -> asset_manager : Upload the file to Asset Manager
     CreateWhitehallAssetWorker -> AttachmentSetUploadedToWorker : Enqueue a background job
+    CreateWhitehallAssetWorker -> filesystem : Remove file
 end group
 
 group sidekiq
     AttachmentSetUploadedToWorker -> mysql : Update the timestamp of when the file was uploaded
+    Attachment -> AttachmentUpdater : Enqueue background job
+end group
+
+group sidekiq
+    AttachmentUpdater -> asset_manager : AccessLimitedUpdates
+    AttachmentUpdater -> asset_manager : DraftStatusUpdates
+    AttachmentUpdater -> asset_manager : LinkHeaderUpdates
+    AttachmentUpdater -> asset_manager : RedirectUrlUpdates
+    AttachmentUpdater -> asset_manager : ReplacementIdUpdates
 end group
 
 group carrierwave
