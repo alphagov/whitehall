@@ -1,0 +1,68 @@
+@startuml
+
+skinparam dpi 300
+title The sequence of creating an image attachment in Whitehall
+
+box "Whitehall" #f2fef8
+actor editor
+participant EditionImagesController
+participant Image
+database mysql
+participant ImageUploader
+participant AssetManagerStorage
+database filesystem
+database sidekiq
+participant CreateWhitehallAssetWorker
+end box
+
+box "Asset Manager" #f2f8fe
+participant asset_manager
+participant Asset
+database am_filesystem
+database am_sidekiq
+participant VirusScanner
+participant SaveToCloudStorageWorker
+database S3
+end box
+
+
+editor -> EditionImagesController : upload an image
+EditionImagesController -> Image : save
+Image -> mysql : Store Image meta information
+
+group carrierwave
+    Image -> ImageUploader : Trigger carrierwave magic
+    ImageUploader -> ImageUploader : Generate image versions
+    ImageUploader -> AssetManagerStorage : Trigger carrierwave magic for each version
+    AssetManagerStorage -> filesystem : Store temporary file
+    AssetManagerStorage -> sidekiq++ : Enqueue CreateWhitehallAssetWorker
+end group
+
+EditionImagesController -> editor : Redirect to edition/images/edit
+
+group sidekiq
+    sidekiq -> CreateWhitehallAssetWorker--: Trigger worker for each image version
+    CreateWhitehallAssetWorker -> asset_manager : Upload the file to Asset Manager
+    CreateWhitehallAssetWorker -> filesystem : Remove file
+end group
+
+group carrierwave
+    asset_manager -> Asset : Save
+    Asset -> am_filesystem : Store temporary file
+    Asset -> am_sidekiq++ : Enqueue VirusScanner
+end group
+
+group sidekiq
+    am_sidekiq -> VirusScanner--: trigger worker
+    VirusScanner -> Asset : Update state to be "clean"
+    Asset -> am_sidekiq++ : Enqueue SaveToCloudStorageWorker
+end group
+
+group sidekiq
+    am_sidekiq -> SaveToCloudStorageWorker--: trigger worker
+    SaveToCloudStorageWorker -> S3 : Upload to S3
+    SaveToCloudStorageWorker -> Asset : Update state to be "uploaded"
+    Asset -> am_filesystem : Remove temp file
+end group
+
+@enduml
