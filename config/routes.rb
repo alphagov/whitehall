@@ -243,7 +243,6 @@ Whitehall::Application.routes.draw do
           resources :attachments, except: [:show] do
             put :order, on: :collection
             get :reorder, on: :collection
-            put :update_many, on: :collection, constraints: { format: "json" }
             get :confirm_destroy, on: :member
           end
           resources :bulk_uploads, except: %i[show edit update] do
