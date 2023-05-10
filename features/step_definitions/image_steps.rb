@@ -95,3 +95,7 @@ end
 Then(/^I should get the error message "(.*?)"$/) do |error_message|
   expect(page).to have_content(error_message)
 end
+
+Then(/^I should get (\d+) error message$/) do |count|
+  expect(page).to have_selector(".gem-c-error-summary__list-item", count:)
+end

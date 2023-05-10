@@ -70,3 +70,14 @@ Feature: Images tab on edit edition
     And I update the image details and save
     And I upload a 960x640 image
     Then I should get the error message "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+
+  @javascript
+  Scenario: Uploading an oversized file with duplicated filename
+    When a draft document with images exists
+    And I visit the images tab of the document with images
+    And I upload a 960x960 image
+    And I am redirected to a page for image cropping
+    And I click the "Save and continue" button on the crop page
+    And I update the image details and save
+    And I upload a 960x960 image
+    Then I should get 1 error message
