@@ -1,39 +1,54 @@
-<% page_title @organisation.name %>
+<% content_for :context, "Organisation" %>
+<% content_for :title, @organisation.name %>
+<% content_for :title_margin_bottom, 4 %>
 
-<div class="organisation-header">
-  <h1><%= @organisation.name %></h1>
-  <%= view_on_website_link_for @organisation %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+<p class="govuk-body">
+  <%= view_on_website_link_for @organisation, class: "govuk-link" %></p>
+
+<%= render "components/secondary_navigation", {
+  aria_label: "Promotional features navigation tabs",
+  items: secondary_navigation_tabs_items(current_user, @organisation, request.path)
+} %>
+
+<%= render "govuk_publishing_components/components/warning_text", {
+  text: "Changes to promotional features appear instantly on the live site."
+} %>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: "New promotional feature",
+  href: new_admin_organisation_promotional_feature_path,
+  margin_bottom: 6,
+} %>
+
+<% if @promotional_features.many? %>
+  <p class="govuk-body">
+    <%= link_to "Reorder promotional features", reorder_admin_organisation_promotional_features_path(@organisation), class: "govuk-link", target: "_blank" %>
+  </p>
+<% end %>
+
+<% if @promotional_features.present? %>
+  <%= render "govuk_publishing_components/components/table" , {
+    width:60,
+    rows: @promotional_features.map do |promotional_feature|
+      [
+        {
+          text: promotional_feature.title
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link govuk-!-margin-right-2") +
+            (link_to(sanitize("Rename #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), edit_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link") )+
+            (link_to(sanitize("Delete #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
+          format: "numeric",
+        }
+      ]
+    end
+  } %>
+<% else %>
+  <div class="govuk-body app-view-features-search-results__no_documents">
+    No promotional features
+  </div>
+<% end %>
+  </div>
 </div>
-
-<section class="organisation-details">
-  <%= tab_navigation_for(@organisation) do %>
-
-    <p class="warning">Warning: changes to promotional features appear instantly on the live site.</p>
-
-    <% if @promotional_features.many? %>
-      <p><%= link_to "Reorder promotional features", reorder_admin_organisation_promotional_features_path(@organisation) %></p>
-    <% end %>
-
-    <% if @promotional_features.present? %>
-      <table class="table table-bordered">
-        <thead>
-          <tr class="table-header">
-            <th>Promotional Feature</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <%= render @promotional_features, organisation: @organisation %>
-        </tbody>
-      </table>
-    <% else %>
-      <p class="no-content no-content-bordered">No promotional features</p>
-    <% end %>
-
-    <div class="form-actions">
-      <%= link_to "New promotional feature", new_admin_organisation_promotional_feature_path, class: "btn btn-lg btn-primary"%>
-    </div>
-
-  <% end %>
-</section>
