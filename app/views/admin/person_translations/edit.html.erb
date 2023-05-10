@@ -6,7 +6,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @translated_person, url: admin_person_translation_path(@translated_person, translation_locale), method: :put do |form| %>
 
-      <%= render "govuk_publishing_components/components/textarea", {
+      <%= render "components/govspeak-editor", {
         label: {
           heading_size: "l",
           text: "Biography",
