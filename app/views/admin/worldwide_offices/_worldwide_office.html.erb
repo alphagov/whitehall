@@ -22,10 +22,10 @@
     <%= definition('Markdown to use', "[Contact:#{worldwide_office.contact.id}]") %>
     <%= definition('On home page?', worldwide_office_shown_on_home_page_text(worldwide_organisation, worldwide_office)) %>
     <%= definition("Access and<br/>opening times".html_safe, 'ignored') do |ignored| %>
-      <% if worldwide_office.access_and_opening_times.present? %>
+      <% if worldwide_office.has_custom_access_and_opening_times? %>
         Custom info
         <%= link_to 'Edit access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time] %>
-      <% elsif worldwide_office.default_access_and_opening_times.present? %>
+      <% elsif worldwide_office.access_and_opening_times.present? %>
         Using default
         <%= link_to 'Customise access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time] %>
       <% else %>

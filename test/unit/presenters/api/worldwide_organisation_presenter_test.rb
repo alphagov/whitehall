@@ -2,20 +2,19 @@ require "test_helper"
 
 class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   setup do
-    @access_times = stub_record(:access_and_opening_times, body: "never")
     @main_sponsor = stub_translatable_record(:organisation)
     @office = stub_record(
       :worldwide_office,
       contact: stub_translatable_record(:contact, contact_numbers: []),
       services: [],
       worldwide_organisation: nil,
-      access_and_opening_times: @access_times,
+      access_and_opening_times: "never",
     )
     @world_org = stub_translatable_record(
       :worldwide_organisation,
       sponsoring_organisations: [@main_sponsor],
       offices: [@office],
-      access_and_opening_times: @access_times,
+      access_and_opening_times: "never",
     )
     @world_org.stubs(:summary).returns("summary")
     @presenter = Api::WorldwideOrganisationPresenter.new(@world_org, @view_context)
@@ -115,13 +114,13 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes govspoken access_and_opening_times_body in details hash of an office" do
-    @office.stubs(:access_and_opening_times_body).returns("world-office-access-and-opening-times")
+    @office.stubs(:access_and_opening_times).returns("world-office-access-and-opening-times")
     stubs_helper_method(:govspeak_to_html).with("world-office-access-and-opening-times").returns("govspoken-world-office-access-and-opening-times")
     assert_equal "govspoken-world-office-access-and-opening-times", @presenter.as_json[:offices][:main][:details][:access_and_opening_times]
   end
 
-  test "json includes empty string for access_and_opening_times_body if they are missing for an office" do
-    @office.stubs(:access_and_opening_times_body).returns(nil)
+  test "json includes empty string for access_and_opening_times if they are missing for an office" do
+    @office.stubs(:access_and_opening_times).returns(nil)
     assert_equal "", @presenter.as_json[:offices][:main][:details][:access_and_opening_times]
   end
 
@@ -136,14 +135,14 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
       contact: stub_translatable_record(:contact, title: "best-office", contact_numbers: []),
       services: [],
       worldwide_organisation: nil,
-      access_and_opening_times: @access_times,
+      access_and_opening_times: "never",
     )
     office2 = stub_record(
       :worldwide_office,
       contact: stub_translatable_record(:contact, title: "worst-office", contact_numbers: []),
       services: [],
       worldwide_organisation: nil,
-      access_and_opening_times: @access_times,
+      access_and_opening_times: "never",
     )
 
     @world_org.stubs(:main_office).returns(office1)

@@ -3,11 +3,11 @@ class WorldwideOffice < ApplicationRecord
   belongs_to :worldwide_organisation
   has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_office
   has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
-  has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
-  has_one :default_access_and_opening_times, through: :worldwide_organisation, source: :access_and_opening_times
   validates :worldwide_organisation, :contact, :worldwide_office_type_id, presence: true
 
   after_commit :republish_embassies_index_page_to_publishing_api
+
+  delegate :default_access_and_opening_times, to: :worldwide_organisation
 
   accepts_nested_attributes_for :contact
 
@@ -27,8 +27,12 @@ class WorldwideOffice < ApplicationRecord
   delegate(:non_english_translated_locales, to: :worldwide_organisation)
   delegate(:embassy_office?, to: :worldwide_office_type)
 
-  def access_and_opening_times_body
-    (access_and_opening_times || default_access_and_opening_times).try(:body)
+  def access_and_opening_times
+    super || default_access_and_opening_times
+  end
+
+  def has_custom_access_and_opening_times?
+    self[:access_and_opening_times].present?
   end
 
   def worldwide_office_type

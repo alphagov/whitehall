@@ -61,8 +61,8 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
   end
 
   def office_access_and_opening_times_as_json(office_worldwide_organisation)
-    if office_worldwide_organisation.access_and_opening_times_body.present?
-      context.govspeak_to_html(office_worldwide_organisation.access_and_opening_times_body)
+    if office_worldwide_organisation.access_and_opening_times.present?
+      context.govspeak_to_html(office_worldwide_organisation.access_and_opening_times)
     else
       ""
     end

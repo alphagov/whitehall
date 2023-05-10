@@ -5,15 +5,16 @@
   <h1><%= @worldwide_organisation.name %></h1>
   <%= view_on_website_link_for @worldwide_organisation %>
 </div>
+
 <section class="organisation-details">
   <%= tab_navigation_for(@worldwide_organisation) do %>
     <h2>Access and opening times</h2>
     <div>
-      <% if @access_and_opening_times.new_record? %>
+      <% if @access_and_opening_times.blank? %>
         <%= link_to 'Add default access information', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: "btn btn-primary" %>
       <% else %>
         <article class="document">
-          <div class="lead"><%= govspeak_to_admin_html(@access_and_opening_times.body) %></div>
+          <div class="lead"><%= govspeak_to_admin_html(@access_and_opening_times) %></div>
           <%= link_to 'Edit', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: 'btn btn-primary' %>
         </article>
       <% end %>
