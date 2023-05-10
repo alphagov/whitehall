@@ -30,12 +30,18 @@ class WorldwideOrganisation < ApplicationRecord
   self.analytics_prefix = "WO"
 
   include TranslatableModel
-  translates :name
+  translates :name, :summary, :body
+
+  include ::Attachable
 
   alias_method :original_main_office, :main_office
 
   validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attribute: :body
+
   validates :name, presence: true
+  validates :body, length: { maximum: 16_777_215 }
+  validates :summary, length: { maximum: 65_535 }
 
   include PublishesToPublishingApi
 

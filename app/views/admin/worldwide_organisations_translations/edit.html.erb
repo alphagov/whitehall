@@ -7,6 +7,10 @@
       <%= form.errors %>
 
       <%= form.translated_text_field :name %>
+      <%= form.translated_text_area :summary %>
+      <%= form.translated_text_area :body, rows: 20, cols: 9000, data: {
+        module: "paste-html-to-govspeak"
+      } %>
 
       <%= form.save_or_cancel cancel: admin_worldwide_organisation_translations_path(@english_worldwide_organisation) %>
     <% end %>

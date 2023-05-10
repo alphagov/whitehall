@@ -168,6 +168,9 @@ Whitehall::Application.routes.draw do
         end
 
         resources :worldwide_organisations do
+          resources :attachments, except: [:show] do
+            get :confirm_destroy, on: :member
+          end
           member do
             put :set_main_office
             get :access_info

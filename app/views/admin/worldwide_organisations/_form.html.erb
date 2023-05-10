@@ -1,21 +1,30 @@
-<%= form_for [:admin, worldwide_organisation], as: :worldwide_organisation do |form| %>
-  <%= form.errors %>
-  <fieldset>
-    <%= form.text_field :name %>
+<%= tab_navigation_for(@worldwide_organisation) do %>
+  <%= form_for [:admin, worldwide_organisation], as: :worldwide_organisation do |form| %>
+    <%= form.errors %>
+    <fieldset>
+      <%= form.text_field :name %>
 
-    <%= form.label :world_location_ids, 'World location' %>
-    <%= form.select :world_location_ids, WorldLocation.ordered_by_name.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose world locations…"} %>
+      <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 160, 'count-message-selector' => '.summary-length-info' } %>
+      <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
 
-    <%= form.label :sponsoring_organisation_ids, 'Sponsoring organisations' %>
-    <%= form.select :sponsoring_organisation_ids, Organisation.all.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose sponsoring organisations…"} %>
+      <%= form.text_area :body, class: "previewable", rows: 20, cols: 9000, data: {
+        module: "paste-html-to-govspeak"
+      } %>
 
-    <%= form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
+      <%= form.label :world_location_ids, 'World location' %>
+      <%= form.select :world_location_ids, WorldLocation.ordered_by_name.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose world locations…"} %>
 
-    <%= form.fields_for :default_news_image do |image_fields| %>
-      <%= render partial: "admin/shared/default_news_image_fields", locals: {image_fields: image_fields} %>
-    <% end %>
+      <%= form.label :sponsoring_organisation_ids, 'Sponsoring organisations' %>
+      <%= form.select :sponsoring_organisation_ids, Organisation.all.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose sponsoring organisations…"} %>
 
-  </fieldset>
-  <p class="warning">Warning: changes to worldwide organisations appear instantly on the live site.</p>
-  <%= form.save_or_cancel(cancel: (worldwide_organisation.persisted? ? admin_worldwide_organisation_path(worldwide_organisation) : admin_worldwide_organisations_path)) %>
+      <%= form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
+
+      <%= form.fields_for :default_news_image do |image_fields| %>
+        <%= render partial: "admin/shared/default_news_image_fields", locals: {image_fields: image_fields} %>
+      <% end %>
+
+    </fieldset>
+    <p class="warning">Warning: changes to worldwide organisations appear instantly on the live site.</p>
+    <%= form.save_or_cancel(cancel: (worldwide_organisation.persisted? ? admin_worldwide_organisation_path(worldwide_organisation) : admin_worldwide_organisations_path)) %>
+  <% end %>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_163453) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_09_144421) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -1155,6 +1155,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_163453) do
     t.string "name"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.text "summary"
+    t.text "body"
     t.index ["locale"], name: "index_worldwide_org_translations_on_locale"
     t.index ["worldwide_organisation_id"], name: "index_worldwide_org_translations_on_worldwide_organisation_id"
   end

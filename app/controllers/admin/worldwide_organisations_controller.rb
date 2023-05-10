@@ -64,6 +64,8 @@ private
   def worldwide_organisation_params
     params.require(:worldwide_organisation).permit(
       :name,
+      :summary,
+      :body,
       :logo_formatted_name,
       world_location_ids: [],
       sponsoring_organisation_ids: [],

@@ -63,4 +63,12 @@ module Admin::AttachableHelper
 
     "Attachments need to be referenced in the body markdown to appear in your document."
   end
+
+  def attachments_label(attachable)
+    if attachable.attachments.count.positive?
+      "Attachments <span class='badge'>#{attachable.attachments.count}</span>".html_safe
+    else
+      "Attachments"
+    end
+  end
 end
