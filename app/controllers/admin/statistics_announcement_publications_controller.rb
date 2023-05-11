@@ -3,20 +3,27 @@ class Admin::StatisticsAnnouncementPublicationsController < Admin::BaseControlle
   layout "design_system"
 
   def index
-    if params[:search].present?
-      @editions = Edition.statistical_publications.with_title_containing(params[:search])
-    end
+    get_editions
   end
 
   def connect
     @statistics_announcement.assign_attributes(publication_params)
 
-    @statistics_announcement.save
-
-    redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
+    if @statistics_announcement.save
+      redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
+    else
+      get_editions
+      render :index
+    end
   end
 
 private
+
+  def get_editions
+    if params[:search].present?
+      @editions = Edition.statistical_publications.with_title_containing(params[:search])
+    end
+  end
 
   def find_statistics_announcement
     @statistics_announcement = StatisticsAnnouncement.friendly.find(params[:statistics_announcement_id])
