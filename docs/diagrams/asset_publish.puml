@@ -1,0 +1,95 @@
+@startuml
+
+skinparam dpi 300
+title Things that affect the status of an Asset in Asset Manager
+
+box "Whitehall" #f2fef8
+actor editor
+participant AttachmentsController
+participant AttachmentData
+participant AssetManagerStorage
+participant AssetManagerCreateWhitehallAssetWorker
+participant AssetManagerAttachmentSetUploadedToWorker
+participant "ServiceListeners::AttachmentUpdater"
+participant EditionUnpublishingController
+participant EditionWorkflowController
+participant EditionServiceCoordinator
+participant AttachmentRedirectUrlUpdater
+participant AssetManagerAttachmentRedirectUrlUpdateWorker
+end box
+
+box "AssetManagerAttachmentMetadataWorker" #f2fef8
+participant AssetManagerAttachmentMetadataWorker
+participant AttachmentUpdater
+end box
+
+box "Asset Manager" #f2f8fe
+participant asset_manager
+end box
+
+== Controller invokes AttachmentUpdater directly ==
+
+editor -> AttachmentsController: /create\n/update\n/update_many\n/destroy
+AttachmentsController -> "ServiceListeners::AttachmentUpdater": invoke
+"ServiceListeners::AttachmentUpdater" -> AssetManagerAttachmentMetadataWorker: Enqueue
+group sidekiq
+    AssetManagerAttachmentMetadataWorker -> AttachmentUpdater: update asset
+    AttachmentUpdater -> asset_manager : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+end group
+
+== CarrierWave invokes AttachmentUpdater whenever a file-attachment is uploaded ==
+
+editor -> AttachmentsController: /create
+AttachmentsController -> AttachmentData: /save\n/update
+AttachmentData -> AssetManagerStorage: /save\n/update
+AssetManagerStorage -> AssetManagerCreateWhitehallAssetWorker: Enqueue
+group sidekiq
+    AssetManagerCreateWhitehallAssetWorker -> AssetManagerAttachmentSetUploadedToWorker: Enqueue
+end group
+group sidekiq
+    AssetManagerAttachmentSetUploadedToWorker -> AttachmentData : uploaded_to_asset_manager!
+    AttachmentData -> "ServiceListeners::AttachmentUpdater": invoke
+    "ServiceListeners::AttachmentUpdater" -> AssetManagerAttachmentMetadataWorker: Enqueue
+end group
+group sidekiq
+    AssetManagerAttachmentMetadataWorker -> AttachmentUpdater: update asset
+    AttachmentUpdater -> asset_manager : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+end group
+
+== CarrierWave invokes AttachmentUpdater 7 times when an image is uploaded ==
+
+editor -> AttachmentsController: /create
+AttachmentsController -> AttachmentData: /save\n/update
+AttachmentData -> AttachmentData: ImageUploader creates resized versions
+AttachmentData -> AssetManagerStorage: /save\n/update
+AssetManagerStorage -> AssetManagerCreateWhitehallAssetWorker: Enqueue 7 times
+group for each image version
+    group sidekiq
+        AssetManagerCreateWhitehallAssetWorker -> AssetManagerAttachmentSetUploadedToWorker: Enqueue
+    end group
+    group sidekiq
+        AssetManagerAttachmentSetUploadedToWorker -> AttachmentData : uploaded_to_asset_manager!
+        AttachmentData -> "ServiceListeners::AttachmentUpdater": invoke
+        "ServiceListeners::AttachmentUpdater" -> AssetManagerAttachmentMetadataWorker: Enqueue
+    end group
+    group sidekiq
+        AssetManagerAttachmentMetadataWorker -> AttachmentUpdater: update asset
+        AttachmentUpdater -> asset_manager : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+    end group
+end group
+
+== Edition workflow for publishing and unpublishing causing Assets to change state ==
+
+editor -> EditionWorkflowController : /publish\n/force_publish\n/unwithdraw\n/unpublish
+editor -> EditionUnpublishingController : /unpublish
+EditionUnpublishingController -> EditionServiceCoordinator: unpublish
+EditionWorkflowController -> EditionServiceCoordinator: publish\nforce_publish\nunwithdraw\nunpublish
+EditionServiceCoordinator -> AttachmentRedirectUrlUpdater: "*any_event*"\npublish\nforce_publish\nunwithdraw\nunpublish
+AttachmentRedirectUrlUpdater -> AssetManagerAttachmentRedirectUrlUpdateWorker: Enqueue
+
+group sidekiq
+    AssetManagerAttachmentRedirectUrlUpdateWorker -> AttachmentUpdater: update asset
+    AttachmentUpdater -> asset_manager : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+end group
+
+@enduml
