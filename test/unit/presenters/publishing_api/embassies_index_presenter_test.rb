@@ -1,15 +1,16 @@
 require "test_helper"
 
 class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
-  test "returns the content_id of the embassies index page" do
-    presenter = PublishingApi::EmbassiesIndexPresenter.new
+  setup do
+    @presenter = PublishingApi::EmbassiesIndexPresenter.new
+  end
 
-    assert_equal "430df081-f28e-4a1f-b812-8977fdac6e9a", presenter.content_id
+  test "returns the content_id of the embassies index page" do
+    assert_equal "430df081-f28e-4a1f-b812-8977fdac6e9a", @presenter.content_id
   end
 
   test "includes common properties in the generated document" do
-    presenter = PublishingApi::EmbassiesIndexPresenter.new
-    presented_page = presenter.content
+    presented_page = @presenter.content
 
     expected = {
       base_path: "/world/embassies",
@@ -27,10 +28,8 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
   end
 
   test "includes /world as the parent in the links" do
-    presenter = PublishingApi::EmbassiesIndexPresenter.new
-
     expected = { parent: [PublishingApi::EmbassiesIndexPresenter::WORLD_INDEX_CONTENT_ID] }
-    assert_hash_includes presenter.links, expected
+    assert_hash_includes @presenter.links, expected
   end
 
   test "generates a valid document for world locations with no embassies" do
@@ -65,8 +64,7 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
   end
 
   def assert_valid_embassies_index_document
-    presenter = PublishingApi::EmbassiesIndexPresenter.new
-    presented_page = presenter.content
+    presented_page = @presenter.content
 
     validator = GovukSchemas::Validator.new(
       presented_page[:schema_name],
