@@ -4,7 +4,6 @@ Feature: Managing attachments on editions
   I want to attach files and additional HTML content to publications and consultations
   In order to support the publications and consultations with statistics and other relevant documents
 
-  @design-system-only
   Scenario: Adding and reordering attachments
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"
@@ -24,7 +23,6 @@ Feature: Managing attachments on editions
       | Beard Length Statistics 2014 |
       | Beard Length Illustrations   |
 
-  @design-system-only
   Scenario: Previewing HTML attachment
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"

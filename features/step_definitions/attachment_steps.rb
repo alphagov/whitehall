@@ -50,33 +50,20 @@ Then(/^the .* "(.*?)" should have (\d+) attachments$/) do |title, expected_numbe
 end
 
 When(/^I set the order of attachments to:$/) do |attachment_order|
-  # Editions use the Design System but Consultations still use Bootstrap,
-  # so this step needs to handle both
-  click_link "Reorder attachments" if using_design_system?
+  click_link "Reorder attachments"
   attachment_order.hashes.each do |attachment_info|
     attachment = Attachment.find_by(title: attachment_info[:title])
     fill_in "ordering[#{attachment.id}]", with: attachment_info[:order]
   end
-  click_on using_design_system? ? "Update order" : "Save attachment order"
+  click_on "Update order"
 end
 
 Then(/^the attachments should be in the following order:$/) do |attachment_list|
-  # Editions use the Design System but Consultations still use Bootstrap,
-  # so this step needs to handle both
-  if using_design_system?
-    attachment_names = all("table td:first").map(&:text).map { |t| t.chomp("Uploading").strip }
+  attachment_names = all("table td:first").map(&:text).map { |t| t.chomp("Uploading").strip }
 
-    attachment_list.hashes.each_with_index do |attachment_info, index|
-      attachment = Attachment.find_by(title: attachment_info[:title])
-      expect(attachment.title).to eq(attachment_names[index])
-    end
-  else
-    attachment_ids = all(".existing-attachments > li").map { |element| element[:id] }
-
-    attachment_list.hashes.each_with_index do |attachment_info, index|
-      attachment = Attachment.find_by(title: attachment_info[:title])
-      expect("attachment_#{attachment.id}").to eq(attachment_ids[index])
-    end
+  attachment_list.hashes.each_with_index do |attachment_info, index|
+    attachment = Attachment.find_by(title: attachment_info[:title])
+    expect(attachment.title).to eq(attachment_names[index])
   end
 end
 
@@ -95,11 +82,7 @@ Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do
 end
 
 Then(/^I can see the attachment title "([^"]*)"$/) do |text|
-  if using_design_system?
-    expect(page).to have_selector(".govuk-table__cell", text:)
-  else
-    expect(page).to have_selector("li.attachment", text:)
-  end
+  expect(page).to have_selector(".govuk-table__cell", text:)
 end
 
 Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|
