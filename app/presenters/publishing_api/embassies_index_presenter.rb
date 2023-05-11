@@ -18,7 +18,7 @@ module PublishingApi
         base_path:,
         details:,
         document_type: "embassies_index",
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: "embassies_index",
       )
 

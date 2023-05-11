@@ -18,7 +18,7 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
       locale: "en",
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
       redirects: [],
-      rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+      rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
       routes: [{ path: "/world/embassies", type: "exact" }],
       schema_name: "embassies_index",
       title: I18n.t("organisation.embassies.find_an_embassy_title"),
