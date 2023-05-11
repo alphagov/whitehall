@@ -30,7 +30,6 @@
 
 <% if @promotional_features.present? %>
   <%= render "govuk_publishing_components/components/table" , {
-    width:60,
     rows: @promotional_features.map do |promotional_feature|
       [
         {

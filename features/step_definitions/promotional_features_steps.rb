@@ -25,9 +25,9 @@ When(/^I add a new promotional feature with a single item which has an image$/) 
   fill_in "Feature title", with: "Big Cheese"
 
   within "form.promotional_feature_item" do
-    fill_in "Summary",                      with: "The Big Cheese is coming."
-    fill_in "Item title (optional)",        with: "The Big Cheese"
-    fill_in "Item title url (optional)",    with: "http://big-cheese.co"
+    fill_in "Summary", with: "The Big Cheese is coming."
+    fill_in "Item title (optional)", with: "The Big Cheese"
+    fill_in "Item title url (optional)", with: "http://big-cheese.co"
     attach_file :image, Rails.root.join("test/fixtures/big-cheese.960x640.jpg")
     fill_in "Image description (alt text)", with: "The Big Cheese"
   end
@@ -43,9 +43,9 @@ When(/^I add a new promotional feature with a single item which has a YouTube UR
   fill_in "Feature title", with: "Big Cheese"
 
   within "form.promotional_feature_item" do
-    fill_in "Summary",                      with: "The Big Cheese is coming."
-    fill_in "Item title (optional)",        with: "The Big Cheese"
-    fill_in "Item title url (optional)",    with: "http://big-cheese.co"
+    fill_in "Summary", with: "The Big Cheese is coming."
+    fill_in "Item title (optional)", with: "The Big Cheese"
+    fill_in "Item title url (optional)", with: "http://big-cheese.co"
     choose "YouTube video"
     fill_in "YouTube video URL", with: "https://www.youtube.com/watch?v=fFmDQn9Lbl4"
     fill_in "YouTube video description (alt text)", with: "Description of video."
@@ -58,8 +58,12 @@ When(/^I delete the promotional feature$/) do
   visit admin_organisation_path(@executive_office)
   click_link "Promotional features"
 
-  within record_css_selector(@promotional_feature) do
-    click_link "Delete"
+  if using_design_system?
+    click_link "Delete #{@promotional_feature.title}"
+  else
+    within record_css_selector(@promotional_feature) do
+      click_link "Delete"
+    end
   end
   click_button "Delete"
 end
@@ -67,7 +71,11 @@ end
 When(/^I edit the promotional item, set the summary to "([^"]*)"$/) do |new_summary|
   visit admin_organisation_path(@executive_office)
   click_link "Promotional features"
-  click_link @promotional_feature.title
+  if using_design_system?
+    click_link "View #{@promotional_feature.title}"
+  else
+    click_link @promotional_feature.title
+  end
   within record_css_selector(@promotional_item) do
     click_link "Edit"
   end
@@ -78,8 +86,11 @@ end
 When(/^I delete the promotional item$/) do
   visit admin_organisation_path(@executive_office)
   click_link "Promotional features"
-  click_link @promotional_feature.title
-
+  if using_design_system?
+    click_link "View #{@promotional_feature.title}"
+  else
+    click_link @promotional_feature.title
+  end
   within record_css_selector(@promotional_item) do
     click_button "Delete"
   end
@@ -158,10 +169,19 @@ When(/^I set the order of the promotional features to:$/) do |promotional_featur
 end
 
 Then(/^the promotional features should be in the following order:$/) do |promotional_feature_list|
-  promotion_feature_ids = all(".promotional_feature").map { |element| element[:id] }
+  if using_design_system?
+    promotion_feature_ids = all(".govuk-table__cell").select.with_index { |_element, index| index.even? }.map(&:text)
 
-  promotional_feature_list.hashes.each_with_index do |feature_info, index|
-    promotional_feature = PromotionalFeature.find_by(title: feature_info[:title])
-    expect("promotional_feature_#{promotional_feature.id}").to eq(promotion_feature_ids[index])
+    promotional_feature_list.hashes.each_with_index do |feature_info, index|
+      promotional_feature = PromotionalFeature.find_by(title: feature_info[:title])
+      expect(promotional_feature.title.to_s).to eq(promotion_feature_ids[index])
+    end
+  else
+    promotion_feature_ids = all(".promotional_feature").map { |element| element[:id] }
+
+    promotional_feature_list.hashes.each_with_index do |feature_info, index|
+      promotional_feature = PromotionalFeature.find_by(title: feature_info[:title])
+      expect("promotional_feature_#{promotional_feature.id}").to eq(promotion_feature_ids[index])
+    end
   end
 end
