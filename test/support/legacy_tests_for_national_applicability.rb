@@ -1,4 +1,4 @@
-module TestsForNationalApplicability
+module LegacyTestsForNationalApplicability
   extend ActiveSupport::Concern
 
   included do
@@ -12,13 +12,31 @@ module TestsForNationalApplicability
 
     test "create should create a new edition with nation inapplicabilities" do
       create(:government)
-      attributes = attributes_for_edition
+      attributes = attributes_for_edition(all_nation_applicability: "0")
 
-      post :create, params: { edition: attributes.merge(all_nation_applicability: %w[scotland]).merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.example.com/scotland")) }
+      post :create, params: { edition: attributes.merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.example.com/scotland")) }
 
       assert edition = Edition.last
       assert scotland_inapplicability = edition.nation_inapplicabilities.for_nation(Nation.scotland).first
       assert_equal "http://www.example.com/scotland", scotland_inapplicability.alternative_url
+    end
+
+    test "create should create a new edition with all_nation_applicability including all nations" do
+      create(:government)
+
+      post :create, params: { edition: attributes_for_edition }
+
+      assert edition = Edition.last
+      assert_equal edition.national_applicability, expected_national_applicability
+    end
+
+    test "create should create a new edition with all_nation_applicability overriding individual options" do
+      create(:government)
+
+      post :create, params: { edition: attributes_for_edition }
+
+      assert edition = Edition.last
+      assert_equal edition.national_applicability, expected_national_applicability
     end
 
     test "national_applicability works correctly" do
@@ -47,32 +65,30 @@ module TestsForNationalApplicability
 
     view_test "creating with all nations excluded should fail validation" do
       create(:government)
-      attributes = attributes_for_edition(all_nation_applicability: %w[england wales scotland northern_ireland])
+      attributes = attributes_for_edition(all_nation_applicability: "0")
 
-      all_nations = nation_inapplicabilities_attributes_for(
-        {
-          Nation.england => "http://www.example.com/england.",
-          Nation.scotland => "http://www.example.com/scotland",
-          Nation.wales => "http://www.example.com/wales",
-          Nation.northern_ireland => "http://www.example.com/ni",
-        },
-      )
+      all_nations = nation_inapplicabilities_attributes_for({
+        Nation.england => "http://www.example.com/england.",
+        Nation.scotland => "http://www.example.com/scotland",
+        Nation.wales => "http://www.example.com/wales",
+        Nation.northern_ireland => "http://www.example.com/ni",
+      })
 
       post :create, params: { edition: attributes.merge(all_nations) }
 
       assert_nil Edition.last
 
-      assert_page_has_error(/Excluded nations can not exclude all nations/)
+      assert_page_has_error("Excluded nations can not exclude all nations")
     end
 
     view_test "creating with no applicability options should fail validation" do
       create(:government)
 
-      post :create, params: { edition: attributes_for_edition.merge(nation_inapplicabilities_attributes_for({})) }
+      post :create, params: { edition: attributes_for_edition(all_nation_applicability: "0") }
 
       assert_nil Edition.last
 
-      assert_page_has_error(/Excluded nations - you must select whether this content applies to all UK nations or which ones it excludes/)
+      assert_page_has_error("Excluded nations - you must select whether this content applies to all UK nations or which ones it excludes")
     end
 
     view_test "creating with all_nation_applicability and an excluded nation should fail validation" do
@@ -80,35 +96,32 @@ module TestsForNationalApplicability
 
       post :create, params: {
         edition: attributes_for_edition.merge(
-          all_nation_applicability: %w[all_nations scotland],
-        ).merge(
           nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.example.com/scotland"),
+          all_nation_applicability: "1",
         ),
       }
 
-      assert_page_has_error(/Excluded nations - you cannot select all UK nations and also exclude nations/)
+      assert_page_has_error("Excluded nations - you cannot select all UK nations and also exclude nations")
     end
 
     view_test "creating with invalid edition data should not lose the nation inapplicability fields or values" do
-      attributes = attributes_for_edition(all_nation_applicability: %w[scotland])
+      attributes = attributes_for_edition(all_nation_applicability: "0")
       post :create,
            params: {
              edition: attributes.merge(
                title: "",
-             )
-             .merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.example.com/scotland")),
+             ).merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.example.com/scotland")),
            }
 
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.example.com/scotland")
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: true, alternative_url: "http://www.example.com/scotland")
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: false)
       assert_nation_inapplicability_fields_set_as(index: 3, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 4, checked: false)
     end
 
     view_test "creating with invalid nation inapplicability data should not lose the nation inapplicability fields or values" do
-      attributes = attributes_for_edition(all_nation_applicability: %w[scotland])
+      attributes = attributes_for_edition(all_nation_applicability: "0")
       post :create,
            params: {
              edition: attributes.merge(
@@ -118,10 +131,9 @@ module TestsForNationalApplicability
 
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "invalid-url")
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: true, alternative_url: "invalid-url")
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: false)
       assert_nation_inapplicability_fields_set_as(index: 3, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 4, checked: false)
     end
 
     view_test "edit displays edition form with nation inapplicability fields and values" do
@@ -136,8 +148,7 @@ module TestsForNationalApplicability
         assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
         assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
         assert_nation_inapplicability_fields_set_as(index: 2, checked: false)
-        assert_nation_inapplicability_fields_set_as(index: 3, checked: false)
-        assert_nation_inapplicability_fields_set_as(index: 4, checked: true, alternative_url: "http://www.example.com/ni")
+        assert_nation_inapplicability_fields_set_as(index: 3, checked: true, alternative_url: "http://www.example.com/ni")
       end
     end
 
@@ -150,12 +161,7 @@ module TestsForNationalApplicability
       assert_equal [Nation.northern_ireland], edition.inapplicable_nations
       assert_equal "http://www.example.com/ni", edition.nation_inapplicabilities.for_nation(Nation.northern_ireland).first.alternative_url
 
-      attributes = nation_inapplicabilities_attributes_for(
-        { Nation.scotland => "http://www.example.com/scotland" },
-        northern_ireland_inapplicability,
-      ).merge(all_nation_applicability: %w[scotland])
-
-      put :update, params: { id: edition, edition: attributes }
+      put :update, params: { id: edition, edition: nation_inapplicabilities_attributes_for({ Nation.scotland => "http://www.example.com/scotland" }, northern_ireland_inapplicability) }
 
       edition.reload
       assert_equal [Nation.scotland], edition.inapplicable_nations
@@ -169,21 +175,17 @@ module TestsForNationalApplicability
       wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.example.com/wales")
       edition.save!
 
-      attributes = nation_inapplicabilities_attributes_for(
-        { Nation.northern_ireland => "http://www.example.com/ni" },
-        scotland_inapplicability, wales_inapplicability
-      ).merge(title: "").merge(all_nation_applicability: %w[northern_ireland])
+      attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.example.com/ni" }, scotland_inapplicability, wales_inapplicability).merge(title: "")
 
       put :update, params: { id: edition, edition: attributes }
 
-      assert_page_has_error(/Title can't be blank/)
+      assert_page_has_error("Title can't be blank")
 
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.example.com/scotland")
-      assert_nation_inapplicability_fields_set_as(index: 3, checked: false, alternative_url: "http://www.example.com/wales")
-      assert_nation_inapplicability_fields_set_as(index: 4, checked: true, alternative_url: "http://www.example.com/ni")
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.example.com/scotland")
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.example.com/wales")
+      assert_nation_inapplicability_fields_set_as(index: 3, checked: true, alternative_url: "http://www.example.com/ni")
     end
 
     view_test "updating with invalid nation inapplicability data should not lose the nation inapplicability fields or values" do
@@ -199,14 +201,13 @@ module TestsForNationalApplicability
                       { Nation.northern_ireland => "invalid-url" },
                       scotland_inapplicability,
                       wales_inapplicability,
-                    ).merge(all_nation_applicability: %w[northern_ireland]) }
+                    ) }
 
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.example.com/scotland")
-      assert_nation_inapplicability_fields_set_as(index: 3, checked: false, alternative_url: "http://www.example.com/wales")
-      assert_nation_inapplicability_fields_set_as(index: 4, checked: true, alternative_url: "invalid-url")
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.example.com/scotland")
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.example.com/wales")
+      assert_nation_inapplicability_fields_set_as(index: 3, checked: true, alternative_url: "invalid-url")
     end
 
     view_test "updating a stale edition should not lose the nation inapplicability fields or values" do
@@ -218,19 +219,15 @@ module TestsForNationalApplicability
       lock_version = edition.lock_version
       edition.update!(title: "new title", change_note: "foo")
 
-      stale_attributes = nation_inapplicabilities_attributes_for(
-        { Nation.northern_ireland => "http://www.example.com/ni" },
-        scotland_inapplicability, wales_inapplicability
-      ).merge(lock_version:).merge(all_nation_applicability: %w[northern_ireland])
+      stale_attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.example.com/ni" }, scotland_inapplicability, wales_inapplicability).merge(lock_version:)
 
       put :update, params: { id: edition, edition: stale_attributes }
 
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.example.com/scotland")
-      assert_nation_inapplicability_fields_set_as(index: 3, checked: false, alternative_url: "http://www.example.com/wales")
-      assert_nation_inapplicability_fields_set_as(index: 4, checked: true, alternative_url: "http://www.example.com/ni")
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.example.com/scotland")
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.example.com/wales")
+      assert_nation_inapplicability_fields_set_as(index: 3, checked: true, alternative_url: "http://www.example.com/ni")
     end
   end
 
@@ -270,62 +267,44 @@ private
   end
 
   def assert_nation_inapplicability_fields_exist
-    assert_select "input[id='edition_nation_inapplicabilities-0'][type='checkbox'][value='all_nations']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities-1'][type='checkbox'][value='england']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities-2'][type='checkbox'][value='scotland']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities-3'][type='checkbox'][value='wales']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities-4'][type='checkbox'][value='northern_ireland']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities_attributes_0_alternative_url'][type='text']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities_attributes_1_alternative_url'][type='text']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities_attributes_2_alternative_url'][type='text']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities_attributes_3_alternative_url'][type='text']", count: 1
+    n = Nation.potentially_inapplicable.count
+    assert_select "input[name*='edition[all_nation_applicability]'][type='checkbox']", count: 1
+    assert_select "input[name*='edition[nation_inapplicabilities_attributes]'][type='checkbox']", count: n
+    assert_select "input[name*='edition[nation_inapplicabilities_attributes]'][type='text']", count: n
   end
 
   def nation_inapplicabilities_attributes_for(nations_vs_urls, *existing_applicabilities)
-    nation_inapplicabilities_attributes = {}
-
+    result = {}
     [Nation.england, Nation.scotland, Nation.wales, Nation.northern_ireland].each.with_index do |nation, index|
-      national_inapplicability_attribute = nation_inapplicabilities_attributes[index.to_s] = {
+      h = result[index.to_s] = {
+        excluded: (nations_vs_urls.key?(nation) ? "1" : "0"),
         nation_id: nation,
       }
-
-      existing_applicability = return_existing_applicability_for(nation, existing_applicabilities)
-
-      if existing_applicability.present?
-        national_inapplicability_attribute[:id] = existing_applicability.id
-        national_inapplicability_attribute[:alternative_url] = existing_applicability.alternative_url
+      if (existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id })
+        h[:id] = existing.id
+        h[:alternative_url] = existing.alternative_url
       end
-
-      new_alternative_url = nations_vs_urls[nation]
-
-      if new_alternative_url.present?
-        national_inapplicability_attribute[:alternative_url] = new_alternative_url
+      if nations_vs_urls[nation]
+        h.merge!(alternative_url: nations_vs_urls[nation])
       end
     end
-
-    { nation_inapplicabilities_attributes: }
-  end
-
-  def return_existing_applicability_for(nation, existing_applicabilities)
-    existing_applicabilities.detect { |ea| ea.nation_id == nation.id }
+    { nation_inapplicabilities_attributes: result }
   end
 
   def assert_page_has_error(error)
-    assert_select(".govuk-error-summary", text: error)
+    assert_select(".errors", text: error)
   end
 
   def assert_nation_inapplicability_fields_set_as(attributes)
-    checkbox_id_fragment = "edition_nation_inapplicabilities-#{attributes[:index]}"
-    url_name_fragment = "edition[nation_inapplicabilities_attributes][#{attributes[:index] - 1}][alternative_url]"
-
+    name_fragment = "edition[nation_inapplicabilities_attributes][#{attributes[:index]}]"
     if attributes[:checked]
-      assert_select "input[id='#{checkbox_id_fragment}'][type='checkbox'][checked='checked']"
+      assert_select "input[name='#{name_fragment}[excluded]'][type='checkbox'][checked='checked']"
     else
-      refute_select "input[id='#{checkbox_id_fragment}'][type='checkbox'][checked='checked']"
-      assert_select "input[id='#{checkbox_id_fragment}'][type='checkbox']"
+      refute_select "input[name='#{name_fragment}[excluded]'][type='checkbox'][checked='checked']"
+      assert_select "input[name='#{name_fragment}[excluded]'][type='checkbox']"
     end
     if attributes[:alternative_url]
-      assert_select "input[name='#{url_name_fragment}'][value='#{attributes[:alternative_url]}']"
+      assert_select "input[name='#{name_fragment}[alternative_url]'][value='#{attributes[:alternative_url]}']"
     end
   end
 end
