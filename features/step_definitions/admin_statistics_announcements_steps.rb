@@ -203,7 +203,11 @@ Then(/^I should see that the statistics announcement has been cancelled$/) do
 end
 
 Then(/^the document fields are pre-filled based on the announcement$/) do
-  expect(page).to have_selector("input[id=edition_title][value='#{@statistics_announcement.title}']")
+  if using_design_system?
+    expect(page).to have_selector("textarea[id=edition_title]", text: @statistics_announcement.title)
+  else
+    expect(page).to have_selector("input[id=edition_title][value='#{@statistics_announcement.title}']")
+  end
   expect(page).to have_selector("textarea[id=edition_summary]", text: @statistics_announcement.summary)
 end
 

@@ -7,7 +7,7 @@
       id: "edition_corporate_information_page_type_id",
       name: "edition[corporate_information_page_type_id]",
       label: "Type",
-      heading_size: "s",
+      heading_size: "l",
       error_message: errors_for_input(edition.errors, :corporate_information_page_type_id),
       include_blank: true,
       options: corporate_information_page_types(@organisation).map do |type, value|
@@ -19,23 +19,25 @@
     } %>
   <% end %>
 
-  <%= render "govuk_publishing_components/components/textarea", {
-    label: {
-      text: "Summary",
-       bold: true
+  <%= render "govuk_publishing_components/components/character_count", {
+    textarea: {
+      label: {
+        text: "Summary",
+        heading_size: "l",
+      },
+      name: "edition[summary]",
+      value: edition.summary,
+      rows: 4,
+      error_items: errors_for(form.object.errors, :summary),
     },
-    name: "edition[summary]",
     id: "edition_summary",
-    value: edition.summary,
-    rows: 4,
-    hint: "Summary text should be 160 characters or fewer.",
-    error_items: errors_for(form.object.errors, :summary),
+    maxlength: 160
   } %>
 
   <%= render "components/govspeak-editor", {
     label: {
       text: "Body (required)",
-        bold: true
+      heading_size: "l",
     },
     name: "edition[body]",
     id: "edition_body",
@@ -61,8 +63,8 @@
     } %>
   <p class="govuk-body">
     <% if edition.new_record? %>
-      To add images you must save the document first. After saving, use the 
-      tabs at the top of the page to upload, edit and delete images and 
+      To add images you must save the document first. After saving, use the
+      tabs at the top of the page to upload, edit and delete images and
       attachments.
     <% else %>
       Use the tabs at the top of the page to upload, edit and delete images.

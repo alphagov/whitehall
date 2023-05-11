@@ -47,7 +47,7 @@ module AdminEditionControllerTestHelpers
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
         assert_select "form#new_edition[action='#{admin_editions_path}']" do
-          assert_select "input[name='edition[title]'][type='text']"
+          assert_select "textarea[name='edition[title]']"
           assert_select "textarea[name='edition[summary]']"
           assert_select "textarea[name='edition[body]']"
           assert_select "button[type='submit']"
@@ -165,7 +165,7 @@ module AdminEditionControllerTestHelpers
 
         admin_edition_path = send("admin_#{edition_type}_path", edition)
         assert_select "form#edit_edition[action='#{admin_edition_path}']" do
-          assert_select "input[name='edition[title]'][type='text']"
+          assert_select "textarea[name='edition[title]']"
           assert_select "textarea[name='edition[body]']"
           assert_select "button[type='submit']"
         end
