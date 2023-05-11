@@ -765,10 +765,8 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select ".govuk-notification-banner__heading", "Multiple people have started editing this #{edition.format_name}:"
-        assert_select ".govuk-notification-banner__content li", "Joe Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work.
-            Contact <a href=\"mailto:joe@example.com\">joe@example.com</a> if you think they are still working on it."
-        assert_equal assert_select(".govuk-notification-banner__content li")[1].text.strip,  "Josie Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work.
-            Contact <a href=\"mailto:josie@example.com\">josie@example.com</a> if you think they are still working on it."
+        assert_select ".govuk-notification-banner__content li", "Joe Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work. Contact joe@example.com if you think they are still working on it."
+        assert_equal assert_select(".govuk-notification-banner__content li")[1].text.strip, "Josie Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work. Contact josie@example.com if you think they are still working on it."
       end
 
       test "saving a #{edition_type} should remove any RecentEditionOpening records for the current user" do

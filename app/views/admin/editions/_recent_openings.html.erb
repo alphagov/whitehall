@@ -5,10 +5,7 @@
     description_govspeak = render("govuk_publishing_components/components/list", {
       visible_counters: true,
       items: recent_openings.map do |opening|
-              sanitize("
-                #{opening.editor.name} started editing this #{edition.format_name} #{time_ago_in_words opening.created_at} ago and hasn’t yet saved their work.
-                Contact #{mail_to(opening.editor.email)} if you think they are still working on it.
-              ")
+              sanitize("#{opening.editor.name} started editing this #{edition.format_name} #{time_ago_in_words opening.created_at} ago and hasn’t yet saved their work. Contact #{mail_to(opening.editor.email)} if you think they are still working on it.")
              end
     })
   else
