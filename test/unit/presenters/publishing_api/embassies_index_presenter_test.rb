@@ -1,6 +1,38 @@
 require "test_helper"
 
 class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
+  test "returns the content_id of the embassies index page" do
+    presenter = PublishingApi::EmbassiesIndexPresenter.new
+
+    assert_equal "430df081-f28e-4a1f-b812-8977fdac6e9a", presenter.content_id
+  end
+
+  test "includes common properties in the generated document" do
+    presenter = PublishingApi::EmbassiesIndexPresenter.new
+    presented_page = presenter.content
+
+    expected = {
+      base_path: "/world/embassies",
+      document_type: "embassies_index",
+      locale: "en",
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
+      redirects: [],
+      rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+      routes: [{ path: "/world/embassies", type: "exact" }],
+      schema_name: "embassies_index",
+      title: I18n.t("organisation.embassies.find_an_embassy_title"),
+      update_type: "minor",
+    }
+    assert_hash_includes presented_page, expected
+  end
+
+  test "includes /world as the parent in the links" do
+    presenter = PublishingApi::EmbassiesIndexPresenter.new
+
+    expected = { parent: [PublishingApi::EmbassiesIndexPresenter::WORLD_INDEX_CONTENT_ID] }
+    assert_hash_includes presenter.links, expected
+  end
+
   test "generates a valid document for world locations with no embassies" do
     create(:world_location)
 
