@@ -1,9 +1,10 @@
 module PublishingApi
   class EmbassiesIndexPresenter
     WORLD_INDEX_CONTENT_ID = "369729ba-7776-4123-96be-2e3e98e153e1".freeze
+    EMBASSIES_INDEX_CONTENT_ID = "430df081-f28e-4a1f-b812-8977fdac6e9a".freeze
 
     def content_id
-      "430df081-f28e-4a1f-b812-8977fdac6e9a"
+      EMBASSIES_INDEX_CONTENT_ID
     end
 
     def content

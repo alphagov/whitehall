@@ -6,7 +6,7 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
   end
 
   test "returns the content_id of the embassies index page" do
-    assert_equal "430df081-f28e-4a1f-b812-8977fdac6e9a", @presenter.content_id
+    assert_equal PublishingApi::EmbassiesIndexPresenter::EMBASSIES_INDEX_CONTENT_ID, @presenter.content_id
   end
 
   test "includes common properties in the generated document" do
