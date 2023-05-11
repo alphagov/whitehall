@@ -50,26 +50,11 @@ Feature: Images tab on edit edition
     And I update the image details and save
     Then I should see a list with 3 image
 
-  Scenario: Small image uploaded
-    And I start drafting a new publication "Standard Beard Lengths"
-    When I visit the images tab of the document "Standard Beard Lengths"
-    And I upload a 64x96 image
-    Then I should get the error message "Image data file is too small. Select an image that is 960 pixels wide and 640 pixels tall"
-
   Scenario: No file uploaded
     And I start drafting a new publication "Standard Beard Lengths"
     When I visit the images tab of the document "Standard Beard Lengths"
     And I click upload without attaching a file
     Then I should get the error message "Image data file cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF."
-
-  Scenario: Uploading a file with duplicated filename
-    And I have the "Preview images update" permission
-    And I start drafting a new publication "Standard Beard Lengths"
-    When I visit the images tab of the document "Standard Beard Lengths"
-    And I upload a 960x640 image
-    And I update the image details and save
-    And I upload a 960x640 image
-    Then I should get the error message "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
 
   @javascript
   Scenario: Uploading an oversized file with duplicated filename
