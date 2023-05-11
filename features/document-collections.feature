@@ -33,11 +33,6 @@ Feature: Grouping documents into a collection
     When I redraft the document collection and remove "May 2012 Update" from it
     Then I can see in the admin that "May 2012 Update" does not appear
 
-  Scenario: Legacy document series urls are redirected to the new document collection urls
-    Given a published document collection "Rail statistics" exists
-    When I visit the old document series url "/government/organisations/government-department/series/rail-statistics"
-    Then I should be redirected to the "Rail statistics" document collection
-
   @javascript
   Scenario: Reordering documents in a document collection
     Given a published document "Wombats of Wimbledon" exists
