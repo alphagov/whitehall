@@ -6,6 +6,8 @@ class Admin::CabinetMinistersController < Admin::BaseController
     @also_attends_cabinet_roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
     @whip_roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
+
+    render :legacy_show
   end
 
   def update
