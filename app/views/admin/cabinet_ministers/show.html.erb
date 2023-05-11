@@ -1,0 +1,31 @@
+<% content_for :page_title, "Cabinet ministers ordering" %>
+<% content_for :title, "Cabinet ministers ordering" %>
+
+<%= render "govuk_publishing_components/components/tabs", {
+  tabs: [
+    {
+      id: "cabinet_minister",
+      label: "Cabinet minister ordering",
+      title: "Cabinet minister ordering",
+      content: render("ministers_tab", roles: @cabinet_minister_roles, reorder_path: "#")
+    },
+    {
+      id: "also_attends_cabinet",
+      label: "Also attends cabinet ordering",
+      title: "Also attends cabinet ordering",
+      content: render("ministers_tab", roles: @also_attends_cabinet_roles, reorder_path: "#")
+    },
+    {
+      id: "whips",
+      label: "Whips ordering",
+      title: "Whips ordering",
+      content: render("ministers_tab", roles: @whip_roles, reorder_path: "#")
+    },
+    {
+      id: "organisations",
+      label: "Organisations ordering",
+      title: "Organisations ordering",
+      content: render("organisations_tab", organisations: @organisations)
+    }
+  ]
+} %>

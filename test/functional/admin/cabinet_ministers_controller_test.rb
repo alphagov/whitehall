@@ -57,16 +57,6 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_equal MinisterialRole.whip.order(:whip_ordering).to_a, [role1, role2]
   end
 
-  test "should list ministerial organisations in ministerial order" do
-    org1 = create(:ministerial_department, ministerial_ordering: 0)
-    org2 = create(:ministerial_department, ministerial_ordering: 2)
-    org3 = create(:ministerial_department, ministerial_ordering: 1)
-
-    get :show
-
-    assert_equal assigns(:organisations).to_a, [org1, org3, org2]
-  end
-
   test "should reorder ministerial organisations" do
     org2 = create(:organisation)
     org1 = create(:organisation)
@@ -80,5 +70,40 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
         }
 
     assert_equal Organisation.order(:ministerial_ordering), [org1, org2]
+  end
+
+  view_test "should list cabinet ministers and ministerial organisations in separate tabs, in the correct order, with reorder links" do
+    minister1 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation], seniority: 1)
+    minister2 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation], seniority: 0)
+
+    also_attends_cabinet1 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation], seniority: 1)
+    also_attends_cabinet2 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation], seniority: 0)
+
+    whip1 = create(:ministerial_role, name: "Whip 1", whip_organisation_id: 2, organisations: [organisation], whip_ordering: 1)
+    whip2 = create(:ministerial_role, name: "Whip 2", whip_organisation_id: 2, organisations: [organisation], whip_ordering: 0)
+
+    org1 = create(:ministerial_department, ministerial_ordering: 1)
+    org2 = create(:ministerial_department, ministerial_ordering: 0)
+
+    get :show
+
+    assert_tab_has_href_and_ordered_roles("#cabinet_minister", "#", [minister2, minister1])
+    assert_tab_has_href_and_ordered_roles("#also_attends_cabinet", "#", [also_attends_cabinet2, also_attends_cabinet1])
+    assert_tab_has_href_and_ordered_roles("#whips", "#", [whip2, whip1])
+    assert_tab_has_href_and_ordered_roles("#organisations", "#", [org2, org1])
+  end
+
+private
+
+  def assert_tab_has_href_and_ordered_roles(id, href, roles)
+    assert_select id do
+      assert_select ".govuk-link", text: "Reorder list" do |links|
+        assert links.first[:href] == href
+      end
+
+      roles.each_with_index do |role, index|
+        assert_select ".govuk-table__row:nth-child(#{index + 1}) td:first-child", role.name
+      end
+    end
   end
 end

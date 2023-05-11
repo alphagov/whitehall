@@ -1,0 +1,19 @@
+<% if organisations.many? %>
+  <p class="govuk-body">
+    <%= link_to "Reorder list", "#", class: "govuk-link" %>
+  </p>
+<% end %>
+
+<% if organisations.any? %>
+  <%= render "govuk_publishing_components/components/table", {
+    rows: organisations.map do |organisation|
+      [
+        {
+          text: tag.p(organisation.name, class: "govuk-!-margin-0 govuk-!-font-weight-bold")
+        },
+      ]
+    end
+  } %>
+<% else %>
+  <p class="govuk-body">None</p>
+<% end %>

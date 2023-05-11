@@ -1,5 +1,6 @@
 class Admin::CabinetMinistersController < Admin::BaseController
   before_action :enforce_permissions!
+  layout :get_layout
 
   def show
     @cabinet_minister_roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)
@@ -7,7 +8,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
     @whip_roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
 
-    render :legacy_show
+    render_design_system(:show, :legacy_show, next_release: false)
   end
 
   def update
@@ -19,6 +20,14 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    if preview_design_system?(next_release: false)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def enforce_permissions!
     enforce_permission!(:reorder_cabinet_ministers, MinisterialRole)
