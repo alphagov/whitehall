@@ -34,6 +34,7 @@ class Admin::EditionImagesController < Admin::BaseController
       @data_url = image_data_url
       render :crop
     else
+      @new_image.errors.delete(:"image_data.file", :too_large)
       # Remove @new_image from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
       @edition.images.delete(@new_image)
       render :index
