@@ -155,7 +155,6 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   test "#secondary_navigation_tabs_items for persisted editions which do not allow images" do
     %i[corporate_information_page].each do |type|
       edition = build_stubbed(type)
-      puts type
 
       expected_output = [
         {
