@@ -10,7 +10,7 @@
       </p>
 
       <%= render "components/secondary_navigation", {
-        aria_label: "Document navigation tabs",
+        aria_label: "People translation navigation tabs",
         items: secondary_navigation_tabs_items(@person, request.path)
       } %>
 
@@ -40,7 +40,9 @@
           end
         } %>
       <% else %>
-        <p class="govuk-body">No translations</p>
+        <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No translations."
+        } %>
       <% end %>
 
       <% if @person.missing_translations.any? %>

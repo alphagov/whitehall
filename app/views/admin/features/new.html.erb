@@ -1,9 +1,15 @@
+<%# content_for :page_title, "Feature document" %>
+<%# content_for :title, "Feature ‘#{@feature}’ within ‘#{@feature_list}’" %>
+<%# content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @feature)) %>
+
+<%# Suggested edit, possibly check with Nikin. If not remove below and uncomment above %>
 <% content_for :page_title, "Feature document" %>
-<% content_for :title, "Feature ‘#{@feature}’ within ‘#{@feature_list}’" %>
+<% content_for :title, "Feature ‘#{@feature}’" %>
+<% content_for :context, @feature_list%>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @feature)) %>
 
 <%= render "govuk_publishing_components/components/warning_text", {
-  text: "Warning: changes to features appear instantly on the live site."
+  text: "Changes to features appear instantly on the live site."
 } %>
 
 <div class="govuk-grid-row">

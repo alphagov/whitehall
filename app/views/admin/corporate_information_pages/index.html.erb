@@ -3,10 +3,10 @@
 <% content_for :title, @organisation.name %>
 <% content_for :title_margin_bottom, 4 %>
 
-<p class="govuk-body"><%= view_on_website_link_for @organisation, class: "govuk-link" %></p>
+<p class="govuk-body"><%= view_on_website_link_for @organisation, class: "govuk-link", target: "blank" %></p>
 
 <%= render "components/secondary_navigation", {
-  aria_label: "Document navigation tabs",
+  aria_label: "Corporate information tabs",
   items: secondary_navigation_tabs_items(@organisation, request.path)
 } %>
 
@@ -15,6 +15,10 @@
     text: "Create new corporate information page",
     href: new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]),
     margin_bottom: 6,
+  } %>
+<% else %>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "No Corporate information pages have been created."
   } %>
 <% end %>
 

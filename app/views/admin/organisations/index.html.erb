@@ -35,5 +35,7 @@
     } %>
   </div>
 <% else %>
-  <p class="govuk-body">No organisation have been created.</p>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "No organisation have been created."
+  } %>
 <% end %>

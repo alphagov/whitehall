@@ -9,7 +9,7 @@
       <%= link_to "View on website", @world_location_news.public_url(cachebust_url_options), class: "govuk-link", target: "_blank" %>
     </p>
     <%= render "components/secondary_navigation", {
-      aria_label: "Document tabs",
+      aria_label: "World Location News navigation tabs",
       items: secondary_navigation_tabs_items(@world_location_news, request.path)
     } %>
     <div class="govuk-!-margin-bottom-4">
