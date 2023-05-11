@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::CabinetMinistersControllerTest < ActionController::TestCase
+class Admin::LegacyCabinetMinistersControllerTest < ActionController::TestCase
+  tests Admin::CabinetMinistersController
+
   setup do
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
   end
 
   should_be_an_admin_controller
