@@ -1,7 +1,7 @@
 en:
   admin:
     whats_new:
-      show_banner: false
+      show_banner: true
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
@@ -22,6 +22,21 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: New page for uploading and managing images
+            area: Creating and updating documents
+            type: change
+            date: 11 May 2023
+            body_govspeak: |
+              There is now an images tab where you can upload and manage images for your document. This appears after you save a document.
+
+              You can now upload images bigger than 960 pixels wide by 640 pixels high for edition or document pages and resize them with a new cropping tool.
+
+              The image file name is now used as the Markdown to add the image to the body text.
+          - heading: Edit edition page moved to the Design System
+            type: improvement
+            date: 11 May 2023
+            body_govspeak: |
+              The edit edition page has moved to use the GOV.UK Design System. This includes translations.
           - heading: Document history and notes can now be filtered
             area: Creating and updating documents
             type: change
