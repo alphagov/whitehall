@@ -9,7 +9,7 @@
 
 <%= render "components/secondary_navigation", {
   aria_label: "Promotional features navigation tabs",
-  items: secondary_navigation_tabs_items(current_user, @organisation, request.path)
+  items: secondary_navigation_tabs_items( @organisation, request.path)
 } %>
 
 <%= render "govuk_publishing_components/components/warning_text", {
