@@ -24,7 +24,6 @@ Feature: Managing attachments on editions
       | Beard Length Statistics 2014 |
       | Beard Length Illustrations   |
 
-  @design-system-only
   Scenario: Previewing HTML attachment
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"

@@ -95,11 +95,7 @@ Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do
 end
 
 Then(/^I can see the attachment title "([^"]*)"$/) do |text|
-  if using_design_system?
-    expect(page).to have_selector(".govuk-table__cell", text:)
-  else
-    expect(page).to have_selector("li.attachment", text:)
-  end
+  expect(page).to have_selector(".govuk-table__cell", text:)
 end
 
 Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|
