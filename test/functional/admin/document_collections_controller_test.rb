@@ -31,7 +31,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form[action=?]", admin_document_collections_path do
-      assert_select "input[type=text][name=?]", "edition[title]"
+      assert_select "textarea[name=?]", "edition[title]"
       assert_select "textarea[name=?]", "edition[summary]"
       assert_select "textarea[name=?]", "edition[body]"
     end
@@ -73,7 +73,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
 
     assert_select "form[action=?]", admin_document_collection_path(document_collection) do
       assert_select "input[name='edition[slug]'][value=?]", document_collection.slug
-      assert_select "input[name='edition[title]'][value=?]", document_collection.title
+      assert_select "textarea[name='edition[title]']", document_collection.title
       assert_select "textarea[name='edition[summary]']", text: document_collection.summary
       assert_select "textarea[name='edition[body]']", text: document_collection.body
     end
