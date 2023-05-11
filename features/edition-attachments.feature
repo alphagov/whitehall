@@ -4,7 +4,6 @@ Feature: Managing attachments on editions
   I want to attach files and additional HTML content to publications and consultations
   In order to support the publications and consultations with statistics and other relevant documents
 
-  @design-system-only
   Scenario: Adding and reordering attachments
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"
