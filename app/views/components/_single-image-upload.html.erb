@@ -34,31 +34,24 @@
 
     <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-    <%= render "govuk_publishing_components/components/file_upload", {
-      label: {
-        text: "Replace image",
-        heading_size: "m"
-      },
-
-      name: "#{name}[image]",
-      hint: "Images must be 960px by 640px",
-      id: "#{id}_image",
-      value: image_src,
-      error_items: error_items
-    } %>
+    <% image_label = "Replace image" %>
+    <% label_size = "m" %>
   <% else %>
-    <%= render "govuk_publishing_components/components/file_upload", {
-      label: {
-        text: "Upload image"
-      },
-
-      name: "#{name}[image]",
-      hint: "Images must be 960px by 640px",
-      id: "#{id}_image",
-      value: image_src,
-      error_items: error_items
-    } %>
+    <% image_label = "Upload image" %>
+    <% label_size = nil %>
   <% end %>
+
+  <%= render "govuk_publishing_components/components/file_upload", {
+    label: {
+      text: image_label,
+      heading_size: label_size
+    },
+    name: "#{name}[image]",
+    hint: "Images must be 960px by 640px",
+    id: "#{id}_image",
+    value: image_src,
+    error_items: error_items
+  } %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
