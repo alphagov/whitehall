@@ -22,10 +22,10 @@
     <div class="govuk-grid-column-one-third">
       <img src="<%= lead_image[:url] %>" alt="<%= lead_image[:preview_alt_text] %>" class="app-view-edition-images__image">
     </div>
-    <ul class="app-view-edition-images__details govuk-grid-column-two-thirds govuk-list govuk-list--bullet">
-      <li><strong>Caption: </strong><%= lead_image[:caption] %></li>
-      <li><strong>Alt text: </strong><%= lead_image[:alt_text] %></li>
-    </ul>
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body"><strong>Caption: </strong><%= lead_image[:caption] %></p>
+      <p class="govuk-body"><strong>Alt text: </strong><%= lead_image[:alt_text] %></p>
+    </div>
   <% end %>
 
   <% if lead_image || @edition.type == "CaseStudy" %>
@@ -67,11 +67,15 @@
         <div class="govuk-grid-column-one-third">
           <img src="<%= image[:url] %>" alt="<%= image[:preview_alt_text] %>" class="app-view-edition-images__image">
         </div>
-        <ul class="app-view-edition-images__details govuk-grid-column-two-thirds govuk-list govuk-list--bullet">
-          <li><strong>Caption: </strong><%= image[:caption] %></li>
-          <li><strong>Alt text: </strong><%= image[:alt_text] %></li>
-          <li><strong>Markdown code: </strong><%= image[:markdown] %></li>
-        </ul>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body"><strong>Caption: </strong><%= image[:caption] %></p>
+          <p class="govuk-body"><strong>Alt text: </strong><%= image[:alt_text] %></p>
+          <%= render "govuk_publishing_components/components/copy_to_clipboard", {
+            label: tag.strong("Markdown code:"),
+            copyable_content: image[:markdown],
+            button_text: "Copy markdown"
+          } %>
+        </div>
         <div class="app-view-edition-images__actions govuk-grid-column-full govuk-button-group">
           <% image[:links].each do |link| %><%= link %><% end %>
         </div>

@@ -17,7 +17,7 @@ When(/^I visit the images tab of the document "([^"]*)"$/) do |title|
 end
 
 Then(/^I should see a list with (\d+) image/) do |count|
-  expect(page).to have_selector(".app-view-edition-images__details", count:)
+  expect(page).to have_selector(".app-view-edition-images__image", count:)
 end
 
 When(/^I select an image for the (?:detailed guide|publication)$/) do
