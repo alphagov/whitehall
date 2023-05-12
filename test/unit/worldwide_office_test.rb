@@ -65,22 +65,38 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal "consulate-generals-office", office_at_different_org.slug
   end
 
-  test "returns nil if no default or custom access info has been set" do
+  test "#access_and_opening_times returns nil if no default or custom access info has been set" do
     office = create(:worldwide_office)
-    assert_nil office.access_and_opening_times_body
+
+    assert_nil office.access_and_opening_times
   end
 
-  test "defaults to the access info of the worldwide organisation" do
-    office = create(:worldwide_office)
-    access_and_opening_times = create(:access_and_opening_times, accessible: office.worldwide_organisation)
-    assert_equal access_and_opening_times.body, office.access_and_opening_times_body
+  test "#access_and_opening_times defaults to the access info of the worldwide organisation" do
+    organisation = create(:worldwide_organisation, default_access_and_opening_times: "default")
+    office = create(:worldwide_office, worldwide_organisation: organisation)
+
+    assert_equal "default", office.access_and_opening_times
   end
 
-  test "returns custom access info ahead of a default one it present" do
-    office = create(:worldwide_office)
-    create(:access_and_opening_times, accessible: office.worldwide_organisation)
-    create(:access_and_opening_times, accessible: office, body: "custom body")
-    assert_equal "custom body", office.access_and_opening_times_body
+  test "#access_and_opening_times returns custom access info ahead of a default one it present" do
+    organisation = create(:worldwide_organisation, default_access_and_opening_times: "default")
+    office = create(:worldwide_office, access_and_opening_times: "custom body", worldwide_organisation: organisation)
+
+    assert_equal "custom body", office.access_and_opening_times
+  end
+
+  test "#has_custom_access_and_opening_times? returns false when default access is set but custom access is not" do
+    organisation = create(:worldwide_organisation, default_access_and_opening_times: "default")
+    office = create(:worldwide_office, worldwide_organisation: organisation)
+
+    assert_not office.has_custom_access_and_opening_times?
+  end
+
+  test "#has_custom_access_and_opening_times? returns true when custom access is set" do
+    organisation = create(:worldwide_organisation, default_access_and_opening_times: "default")
+    office = create(:worldwide_office, access_and_opening_times: "custom body", worldwide_organisation: organisation)
+
+    assert office.has_custom_access_and_opening_times?
   end
 
   test "is not translatable just yet" do

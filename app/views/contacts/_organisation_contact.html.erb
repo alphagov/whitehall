@@ -47,7 +47,7 @@
     <% end %>
   </div>
 
-  <% if contact.is_a?(WorldwideOffice) && contact.access_and_opening_times_body.present? %>
+  <% if contact.is_a?(WorldwideOffice) && contact.access_and_opening_times.present? %>
     <%
       fallback = t_fallback('contact.access_and_opening_times')
       lang = fallback if fallback && fallback != I18n.locale

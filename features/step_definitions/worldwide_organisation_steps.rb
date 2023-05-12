@@ -204,8 +204,7 @@ Then(/^I should see the default access information on the public "([^"]*)" offic
 end
 
 Given(/^a worldwide organisation "([^"]*)" with default access information$/) do |name|
-  worldwide_organisation = create(:worldwide_organisation, name:)
-  create(:access_and_opening_times, accessible: worldwide_organisation, body: "Default body information")
+  create(:worldwide_organisation, name:, default_access_and_opening_times: "Default body information")
 end
 
 When(/^I edit the default access information for the worldwide organisation$/) do

@@ -3,22 +3,12 @@ class Admin::AccessAndOpeningTimesController < Admin::BaseController
   helper_method :accessible_path
 
   def edit
-    @access_and_opening_times = @accessible.access_and_opening_times || @accessible.build_access_and_opening_times
-    set_default_body_for_worldwide_office
-  end
-
-  def create
-    @access_and_opening_times = @accessible.build_access_and_opening_times(access_and_opening_times_params)
-    if @access_and_opening_times.save
-      redirect_to accessible_path(@accessible), notice: "Access information saved."
-    else
-      render :edit
-    end
+    @access_and_opening_times = AccessAndOpeningTimesForm.new({ body: @accessible.access_and_opening_times })
   end
 
   def update
-    @access_and_opening_times = @accessible.access_and_opening_times
-    if @access_and_opening_times.update(access_and_opening_times_params)
+    @access_and_opening_times = AccessAndOpeningTimesForm.new(access_and_opening_times_params)
+    if @access_and_opening_times.save(@accessible)
       redirect_to accessible_path(@accessible), notice: "Access information saved."
     else
       render :edit
@@ -47,13 +37,7 @@ private
     end
   end
 
-  def set_default_body_for_worldwide_office
-    if @accessible.is_a?(WorldwideOffice)
-      @access_and_opening_times.body ||= @accessible.default_access_and_opening_times.try(:body)
-    end
-  end
-
   def access_and_opening_times_params
-    params.require(:access_and_opening_times).permit(:body)
+    params.require(:access_and_opening_times_form).permit(:body)
   end
 end

@@ -9,7 +9,7 @@
 
 <article class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
-    <% headers = govspeak_headers(@worldwide_office.access_and_opening_times_body) %>
+    <% headers = govspeak_headers(@worldwide_office.access_and_opening_times) %>
     <% if headers.any? %>
       <nav aria-label="Page navigation">
         <%= render "govuk_publishing_components/components/contents_list", {
@@ -40,7 +40,7 @@
 
     <div class="body">
       <%= render "govuk_publishing_components/components/govspeak", {} do
-        govspeak_to_html(@worldwide_office.access_and_opening_times_body)
+        govspeak_to_html(@worldwide_office.access_and_opening_times)
       end %>
     </div>
   </div>

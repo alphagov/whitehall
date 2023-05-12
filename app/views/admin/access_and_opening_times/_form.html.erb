@@ -1,7 +1,8 @@
-<%= form_for [:admin, accessible, access_and_opening_times],
+<%= form_for [:admin, @access_and_opening_times],
     url: accessible.is_a?(WorldwideOrganisation) ?
-          admin_worldwide_organisation_access_and_opening_time_path(accessible) :
-          admin_worldwide_organisation_worldwide_office_access_and_opening_time_path(accessible.worldwide_organisation, accessible) do |form| %>
+          admin_worldwide_organisation_access_and_opening_time_path(@accessible) :
+          admin_worldwide_organisation_worldwide_office_access_and_opening_time_path(@accessible.worldwide_organisation, @accessible),
+    method: :put do |form| %>
   <%= form.errors %>
   <%= form.text_area :body, rows: 20, label_text: "Body", class: "previewable", required: true, data: {
     module: "paste-html-to-govspeak"

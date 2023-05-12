@@ -58,13 +58,6 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal 0, worldwide_organisation.worldwide_organisation_roles.count
   end
 
-  test "destroys associated office access information" do
-    worldwide_organisation = create(:worldwide_organisation)
-    office_access_info = create(:access_and_opening_times, accessible: worldwide_organisation)
-    worldwide_organisation.destroy!
-    assert_not AccessAndOpeningTimes.exists?(office_access_info.id)
-  end
-
   test "destroys associated corporate information page documents and editions" do
     worldwide_organisation = create(:worldwide_organisation)
     create(:corporate_information_page, worldwide_organisation:, organisation: nil)
