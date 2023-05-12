@@ -1,0 +1,32 @@
+@startuml
+
+skinparam dpi 300
+title The sequence of uploading an image in content publisher
+
+box "Content publisher" #f2f8fe
+actor editor
+participant ImagesController
+participant ActiveStorage
+participant PreviewAssetService
+participant PublishController
+participant PublishAssetsService
+end box
+
+box "Asset Manager" #f2fef8
+participant "Asset Manager"
+end box
+
+editor -> ImagesController : /create
+ImagesController -> ActiveStorage : store
+
+editor -> ImagesController : /update-crop
+ImagesController -> ActiveStorage : create a cropped version
+ImagesController -> PreviewAssetService : call
+PreviewAssetService -> "Asset Manager" : upload cropped image
+
+== publish ==
+editor -> PublishController : /publish
+PublishController -> PublishAssetsService : call
+PublishAssetsService -> "Asset Manager" : update-asset {draft: false}
+PublishAssetsService -> "Asset Manager" : delete-asset
+@enduml
