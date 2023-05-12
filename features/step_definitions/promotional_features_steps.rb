@@ -169,19 +169,10 @@ When(/^I set the order of the promotional features to:$/) do |promotional_featur
 end
 
 Then(/^the promotional features should be in the following order:$/) do |promotional_feature_list|
-  if using_design_system?
-    promotion_feature_ids = all(".govuk-table__cell").select.with_index { |_element, index| index.even? }.map(&:text)
+  promotion_feature_ids = all("table td:first").map(&:text)
 
-    promotional_feature_list.hashes.each_with_index do |feature_info, index|
-      promotional_feature = PromotionalFeature.find_by(title: feature_info[:title])
-      expect(promotional_feature.title.to_s).to eq(promotion_feature_ids[index])
-    end
-  else
-    promotion_feature_ids = all(".promotional_feature").map { |element| element[:id] }
-
-    promotional_feature_list.hashes.each_with_index do |feature_info, index|
-      promotional_feature = PromotionalFeature.find_by(title: feature_info[:title])
-      expect("promotional_feature_#{promotional_feature.id}").to eq(promotion_feature_ids[index])
-    end
+  promotional_feature_list.hashes.each_with_index do |feature_info, index|
+    promotional_feature = PromotionalFeature.find_by(title: feature_info[:title])
+    expect(promotional_feature.title.to_s).to eq(promotion_feature_ids[index])
   end
 end

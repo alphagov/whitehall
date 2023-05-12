@@ -6,7 +6,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">
-      <%= view_on_website_link_for @organisation, class: "govuk-link" %>
+      <%= view_on_website_link_for @organisation, class: "govuk-link", target: "blank" %>
     </p>
 
     <%= render "components/secondary_navigation", {
@@ -47,9 +47,9 @@
         end
       } %>
     <% else %>
-        <div class="govuk-body app-view-features-search-results__no_documents">
-          No promotional features
-        </div>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No promotional features."
+      } %>
     <% end %>
   </div>
 </div>
