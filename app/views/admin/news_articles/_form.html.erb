@@ -18,11 +18,12 @@
       </div>
 
       <%= render 'topical_event_fields', form: form, edition: edition %>
-      <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
 
-      <div class="app-view-edit-edition__world-location-fields">
-        <%= render 'world_location_fields', form: form, edition: edition %>
+      <div class="app-view-edit-edition__world-organisation-fields govuk-!-margin-bottom-4">
+        <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
       </div>
+
+      <%= render 'world_location_fields', form: form, edition: edition %>
 
       <div class="app-view-edit-edition__organisation-fields">
         <%= render 'organisation_fields', form: form, edition: edition %>

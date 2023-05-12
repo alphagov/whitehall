@@ -53,13 +53,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var worldNewsArticleTypeId = '4'
     var ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
     var organisationsDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
-    var worldLocationDiv = form.querySelector('.app-view-edit-edition__world-location-fields')
+    var worldOrganisationDiv = form.querySelector('.app-view-edit-edition__world-organisation-fields')
 
     if (subtypeSelect.value === worldNewsArticleTypeId) {
       ministersDiv.classList.add('app-view-edit-edition__appointment-fields--hidden')
       organisationsDiv.classList.add('app-view-edit-edition__organisation-fields--hidden')
     } else {
-      worldLocationDiv.classList.add('app-view-edit-edition__world-location-fields--hidden')
+      worldOrganisationDiv.classList.add('app-view-edit-edition__world-organisation-fields--hidden')
     }
 
     subtypeSelect.addEventListener('change', function () {
@@ -70,11 +70,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         localeSelect.value = ''
         ministersDiv.classList.remove('app-view-edit-edition__appointment-fields--hidden')
         organisationsDiv.classList.remove('app-view-edit-edition__organisation-fields--hidden')
-        worldLocationDiv.classList.add('app-view-edit-edition__world-location-fields--hidden')
-        worldLocationDiv.querySelector('select').value = ''
+        worldOrganisationDiv.classList.add('app-view-edit-edition__world-organisation-fields--hidden')
+        worldOrganisationDiv.querySelector('select').value = ''
       } else {
         localeDiv.classList.remove('app-view-edit-edition__locale-field--hidden')
-        worldLocationDiv.classList.remove('app-view-edit-edition__world-location-fields--hidden')
+        worldOrganisationDiv.classList.remove('app-view-edit-edition__world-organisation-fields--hidden')
 
         ministersDiv.classList.add('app-view-edit-edition__appointment-fields--hidden')
         ministersDiv.querySelector('select').value = ''
