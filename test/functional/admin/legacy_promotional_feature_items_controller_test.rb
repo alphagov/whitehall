@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
+class Admin::LegacyPromotionalFeatureItemsControllerTest < ActionController::TestCase
   tests Admin::PromotionalFeatureItemsController
   setup do
     login_as :writer

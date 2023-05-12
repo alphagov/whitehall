@@ -91,9 +91,10 @@ When(/^I delete the promotional item$/) do
   else
     click_link @promotional_feature.title
   end
-  within record_css_selector(@promotional_item) do
-    click_button "Delete"
+  within record_css_selector(@promotional_feature) do
+    click_link "Delete"
   end
+  click_button "Delete"
 end
 
 Then(/^I should see the promotional feature on the organisation's page$/) do

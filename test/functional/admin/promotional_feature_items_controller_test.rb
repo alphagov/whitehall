@@ -131,4 +131,12 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_not PromotionalFeatureItem.exists?(promotional_feature_item.id)
     assert_equal "Feature item deleted.", flash[:notice]
   end
+
+  test "GET :confirm_destroy calls correctly" do
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
+    get :confirm_destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
+
+    assert_response :success
+    assert_equal promotional_feature_item, assigns(:promotional_feature_item)
+  end
 end
