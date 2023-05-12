@@ -28,7 +28,7 @@
       </div>
 
       <div class="govuk-grid-column-three-quarters">
-        <p class="govuk-body govuk-!-margin-0"><strong>Alt text: </strong><%= image_alt %></p>
+        <p class="govuk-body govuk-!-margin-0"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
       </div>
     </div>
 
@@ -66,6 +66,6 @@
     },
     name: "#{name}[image_alt_text]",
     id: "#{id}_image_alt_text",
-    value: image_alt == "" ? "None" : image_alt # form.object.image_alt_text
+    value: image_alt
   } %>
 <% end %>
