@@ -17,14 +17,6 @@ When(/^I visit the sitewide settings page$/) do
   visit admin_sitewide_settings_path
 end
 
-Then(/^I should see the minister counts$/) do
-  expect(page).to have_selector(".feature-ministers")
-end
-
-Then(/^I should not see the minister counts$/) do
-  expect(page).to_not have_selector(".feature-ministers")
-end
-
 Then(/^I should see a reshuffle warning message$/) do
   expect(page).to have_content("Test minister reshuffle message")
 end

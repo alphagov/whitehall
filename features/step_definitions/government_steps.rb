@@ -22,10 +22,6 @@ Given(/^a government exists called "(.*?)" between dates "(.*?)" and "(.*?)"$/) 
   FactoryBot.create(:government, name: government_name, start_date:, end_date:)
 end
 
-Given(/^a government exists called "(.*?)" starting on "(.*?)"$/) do |government_name, start_date|
-  FactoryBot.create(:government, name: government_name, start_date:)
-end
-
 When(/^I edit the government called "(.*?)" to have dates "(.*?)" and "(.*?)"$/) do |government_name, start_date, end_date|
   edit_government(
     name: government_name,

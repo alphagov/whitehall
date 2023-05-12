@@ -1,7 +1,3 @@
-When(/^I visit the attachments page$/) do
-  first(:link, "Attachments").click
-end
-
 When(/^the attachment has been uploaded to the asset-manager$/) do
   Attachment.last.attachment_data.uploaded_to_asset_manager!
 end

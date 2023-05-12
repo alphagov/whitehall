@@ -1,8 +1,3 @@
-Given(/^a published publication "([^"]*)" exists that is about "([^"]*)"$/) do |publication_title, world_location_name|
-  world_location = WorldLocation.find_by!(name: world_location_name)
-  create(:published_publication, title: publication_title, world_locations: [world_location])
-end
-
 Given(/^a submitted publication "([^"]*)" with a PDF attachment$/) do |title|
   publication = create(:submitted_publication, :with_file_attachment, title:, body: "!@1")
   @attachment = publication.attachments.first
@@ -53,19 +48,6 @@ Then(/^I should see a link to the PDF attachment$/) do
   expect(page).to have_selector("a[href*='#{@attachment.filename}']")
 end
 
-Then(/^I should see a thumbnail of the first page of the PDF$/) do
-  expect(page).to have_selector(".attachment img[src*='#{@attachment.filename}.png']").or
-  have_selector("div.img img[src*='#{@attachment.filename}.png']")
-end
-
-Then(/^I should see that the publication is about "([^"]*)"$/) do |world_location_name|
-  expect(page).to have_selector(".meta a", text: world_location_name)
-end
-
-Then(/^I should get a "([^"]*)" error$/) do |error_code|
-  expect(error_code.to_i).to eq(status_code)
-end
-
 When(/^I replace the data file of the attachment in a new draft of the publication$/) do
   @old_edition = Publication.last
   visit edit_admin_publication_path(@old_edition)
@@ -84,47 +66,10 @@ When(/^I replace the data file of the attachment in a new draft of the publicati
   click_button "Save"
 end
 
-Then(/^the new data file should not have replaced the old data file$/) do
-  expect(1).to eq(@new_edition.attachments.count)
-
-  new_attachment_data = @new_edition.attachments.first.attachment_data
-  old_attachment_data = @old_edition.reload.attachments.first.attachment_data
-
-  expect(page).to_not have_content(old_attachment_data, new_attachment_data)
-
-  new_attachment_filename = File.basename(@new_file)
-  expect(new_attachment_filename).to eq(new_attachment_data.filename)
-end
-
-When(/^I published the draft edition$/) do
-  stub_publishing_api_links_with_taxons(@new_edition.content_id, %w[a-taxon-content-id])
-  visit admin_publication_path(@new_edition)
-  publish(force: true)
-end
-
 When(/^I try to publish the draft edition$/) do
   stub_publishing_api_links_with_taxons(@new_edition.content_id, %w[a-taxon-content-id])
   visit admin_publication_path(@new_edition)
   publish(force: true, ignore_errors: true)
-end
-
-Given(/^a published publication "([^"]*)" with type "([^"]*)"$/) do |publication_title, publication_type|
-  type_id = PublicationType.all.select { |pt| pt.singular_name == publication_type }.first.id
-  create(:published_publication, title: publication_title, publication_type_id: type_id)
-end
-
-When(/^I publish a new publication called "([^"]*)"$/) do |title|
-  begin_drafting_publication(title, first_published: Time.zone.today.to_s)
-  click_button "Save"
-  add_external_attachment
-  publish(force: true)
-end
-
-When(/^I publish a new publication of the type "([^"]*)" called "([^"]*)"$/) do |publication_type, title|
-  begin_drafting_publication(title, first_published: Time.zone.today.to_s, publication_type:)
-  click_button "Save"
-  add_external_attachment
-  publish(force: true)
 end
 
 Then(/^I should not be able to publish the publication "([^"]*)"$/) do |title|
