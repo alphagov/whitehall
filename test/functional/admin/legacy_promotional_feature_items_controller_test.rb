@@ -1,8 +1,9 @@
 require "test_helper"
 
 class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
+  tests Admin::PromotionalFeatureItemsController
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     @promotional_feature = create(:promotional_feature)
     @organisation = @promotional_feature.organisation
   end

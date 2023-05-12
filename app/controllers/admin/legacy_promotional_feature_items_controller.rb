@@ -1,9 +1,9 @@
 class Admin::PromotionalFeatureItemsController < Admin::BaseController
   before_action :load_organisation
   before_action :load_promotional_feature
-  before_action :load_promotional_feature_item, only: %i[edit update destroy confirm_destroy]
+  before_action :load_promotional_feature_item, only: %i[edit update destroy]
   before_action :clean_image_or_youtube_video_url_param, only: %i[create update]
-  layout :get_layout
+
   def new
     @promotional_feature_item = @promotional_feature.promotional_feature_items.build
     @promotional_feature_item.links.build
@@ -44,16 +44,9 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
     Whitehall::PublishingApi.republish_async(@organisation)
     redirect_to_feature "Feature item deleted."
   end
-  def confirm_destroy; end
+
 private
-  def get_layout
-    design_system_actions = %w[confirm_destroy]
-    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
-      "design_system"
-    else
-      "admin"
-    end
-  end
+
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])
   end
