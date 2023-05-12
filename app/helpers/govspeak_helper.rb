@@ -9,8 +9,8 @@ module GovspeakHelper
   SORTABLE_REGEXP = /{sortable}/
   FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/
 
-  def govspeak_to_html(govspeak, images = [], options = {})
-    wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images, options))
+  def govspeak_to_html(govspeak, options = {})
+    wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, [], options))
   end
 
   def govspeak_edition_to_html(edition)

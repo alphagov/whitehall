@@ -72,12 +72,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "a[href='#{public_url}']", text: "that"
   end
 
-  test "should allow attached images to be embedded in public html" do
-    images = [OpenStruct.new(alt_text: "My Alt", url: "http://example.com/image.jpg")]
-    html = govspeak_to_html("!!1", images)
-    assert_select_within_html html, ".govspeak figure.image.embedded img"
-  end
-
   test "should only extract level two headers by default" do
     text = "# Heading 1\n\n## Heading 2\n\n### Heading 3"
     headers = govspeak_headers(text)
@@ -247,7 +241,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "adds numbers to h2 headings" do
     input = "# main\n\n## first\n\n## second"
     output = '<div class="govspeak"><h1 id="main">main</h1> <h2 id="first"> <span class="number">1. </span>first</h2> <h2 id="second"> <span class="number">2. </span>second</h2></div>'
-    assert_equivalent_html output, govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, " ")
+    assert_equivalent_html output, govspeak_to_html(input, heading_numbering: :auto).gsub(/\s+/, " ")
   end
 
   test "adds sub-numbers to h3 tags" do
@@ -257,7 +251,7 @@ class GovspeakHelperTest < ActionView::TestCase
     expected_output_1b = '<h3 id="first-point-two"> <span class="number">1.2 </span>first point two</h3>'
     expected_output2 = '<h2 id="second"> <span class="number">2. </span>second</h2>'
     expected_output_2a = '<h3 id="second-point-one"> <span class="number">2.1 </span>second point one</h3>'
-    actual_output = govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, " ")
+    actual_output = govspeak_to_html(input, heading_numbering: :auto).gsub(/\s+/, " ")
     assert_match %r{#{expected_output1}}, actual_output
     assert_match %r{#{expected_output_1a}}, actual_output
     assert_match %r{#{expected_output_1b}}, actual_output
@@ -268,18 +262,18 @@ class GovspeakHelperTest < ActionView::TestCase
   test "adds manual numbering to heading tags" do
     input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence\n\n## 0GD Not all numeric characters"
     expected_output = '<div class="govspeak"><h2 id="main"> <span class="number">1. </span> Main</h2> <h2 id="second"> <span class="number">2. </span> Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence"> <span class="number">42.12 </span> Out of sequence</h2> <h2 id="gd-not-all-numeric-characters"> <span class="number">0GD </span> Not all numeric characters</h2></div>'
-    assert_equivalent_html expected_output, govspeak_to_html(input, [], heading_numbering: :manual).gsub(/\s+/, " ")
+    assert_equivalent_html expected_output, govspeak_to_html(input, heading_numbering: :manual).gsub(/\s+/, " ")
   end
 
   test "leaves heading numbers not occuring at the start of the heading text alone when using manual heading numbering" do
     input = "## Number 8"
-    result = Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input, [], heading_numbering: :manual))
+    result = Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input, heading_numbering: :manual))
     assert_equal "Number 8", result.css("h2").first.text
   end
 
   test "should not corrupt character encoding of numbered headings" do
     input = "# café"
-    actual_output = govspeak_to_html(input, [], heading_numbering: :auto)
+    actual_output = govspeak_to_html(input, heading_numbering: :auto)
     assert actual_output.include?("café</h1>")
   end
 
@@ -296,7 +290,7 @@ class GovspeakHelperTest < ActionView::TestCase
     contact = build(:contact)
     Contact.stubs(:find_by).with(id: "1").returns(contact)
     input = "[Contact:1]"
-    output = govspeak_to_html(input, [], contact_heading_tag: "p")
+    output = govspeak_to_html(input, contact_heading_tag: "p")
     contact_html = render("contacts/contact", contact:, heading_tag: "p")
     assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
