@@ -10,7 +10,7 @@
   <div class="about-us govuk-grid-column-two-thirds worldwide-org-content">
     <p class="govuk-body-l worldwide-org-summary"><%= @worldwide_organisation.summary %></p>
     <div class="worldwide-org-description">
-      <%= govspeak_to_html @worldwide_organisation.body %>
+      <%= govspeak_with_attachments_to_html @worldwide_organisation.body, @worldwide_organisation.attachments, @worldwide_organisation.alternative_format_contact_email %>
     </div>
   </div>
   <% if @worldwide_organisation.social_media_accounts.any? %>

@@ -122,3 +122,9 @@ Feature: Administering worldwide organisation
     When I translate the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     Then I should be able to read the translated "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France" on the site
+
+  Scenario: Managing attachments for a worldwide organisation
+    Given a worldwide organisation "Department of Beards in France"
+    And I edit the attachments for the worldwide organisation
+    And I upload a file attachment with the title "French Beard Length Graphs 2012" and the file "greenpaper.pdf"
+    Then I can see the attachment title "French Beard Length Graphs 2012"

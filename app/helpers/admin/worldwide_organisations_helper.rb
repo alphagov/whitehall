@@ -1,7 +1,10 @@
 module Admin::WorldwideOrganisationsHelper
+  include Admin::AttachableHelper
+
   def worldwide_organisation_tabs(worldwide_organisation)
     {
       "Details" => admin_worldwide_organisation_path(worldwide_organisation),
+      attachments_tab_label(worldwide_organisation) => admin_worldwide_organisation_attachments_path(worldwide_organisation),
       "Translations" => admin_worldwide_organisation_translations_path(worldwide_organisation),
       "Offices" => admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation),
       "Access and opening times" => access_info_admin_worldwide_organisation_path(worldwide_organisation),
@@ -16,6 +19,11 @@ module Admin::WorldwideOrganisationsHelper
         label: "Details",
         href: admin_worldwide_organisation_path(worldwide_organisation),
         current: current_path == admin_worldwide_organisation_path(worldwide_organisation),
+      },
+      {
+        label: attachments_nav_item_label(worldwide_organisation),
+        href: admin_worldwide_organisation_attachments_path(worldwide_organisation),
+        current: current_path == admin_worldwide_organisation_attachments_path(worldwide_organisation),
       },
       {
         label: "Translations",

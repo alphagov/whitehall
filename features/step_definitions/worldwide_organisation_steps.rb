@@ -269,3 +269,8 @@ Then(/^I should see an update record in the audit trail for the worldwide organi
     expect(page).to have_content(@user.name)
   end
 end
+
+Given(/^I edit the attachments for the worldwide organisation$/) do
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  click_on "Attachments"
+end

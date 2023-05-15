@@ -3,6 +3,8 @@ class WorldwideOrganisation < ApplicationRecord
   SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
   OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
 
+  include ::Attachable::ForNonEditionableModel
+
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :world_locations, through: :worldwide_organisation_world_locations
   has_many :social_media_accounts, as: :socialable, dependent: :destroy

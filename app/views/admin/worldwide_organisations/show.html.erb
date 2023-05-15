@@ -25,7 +25,7 @@
 
               <div class="body description">
                 <div class="content govspeak">
-                  <%= govspeak_to_html @worldwide_organisation.body %>
+                  <%= govspeak_with_attachments_to_html @worldwide_organisation.body, @worldwide_organisation.attachments, @worldwide_organisation.alternative_format_contact_email %>
                 </div>
               </div>
             </article>
