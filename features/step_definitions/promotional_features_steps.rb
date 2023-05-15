@@ -136,23 +136,6 @@ Then(/^I should not be able to add any further feature items$/) do
   expect(page).to_not have_link("Add feature item")
 end
 
-Then(/^I should see the promotional feature on the executive office page$/) do
-  visit @executive_office.public_path
-
-  within record_css_selector(@executive_office) do
-    within "section.features" do
-      expect(page).to have_selector(".promotional_feature h2", text: @promotional_feature.title)
-
-      within record_css_selector(@promotional_feature) do
-        @promotional_feature.items.each do |item|
-          expect(page).to have_content(item.summary)
-          expect(page).to have_selector("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']")
-        end
-      end
-    end
-  end
-end
-
 And(/^the executive office has the promotional feature "([^"]*)"$/) do |title|
   @executive_office.promotional_features.create!(title:)
 end

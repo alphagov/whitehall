@@ -14,15 +14,6 @@ When(/^I create a new worldwide organisation "([^"]*)" in "([^"]*)"$/) do |name,
   click_on "Save"
 end
 
-When(/^I create a new worldwide organisation "([^"]*)" in  "([^"]*)" sponsored by the "([^"]*)"$/) do |name, location, sponsoring_organisation|
-  visit new_admin_worldwide_organisation_path
-  fill_in "Name", with: name
-  fill_in "Logo formatted name", with: name
-  select location, from: "World location"
-  select sponsoring_organisation, from: "Sponsoring organisations"
-  click_on "Save"
-end
-
 Then(/^I should see the(?: updated)? worldwide organisation information on the public website$/) do
   worldwide_organisation = WorldwideOrganisation.last
   visit worldwide_organisation.public_path
@@ -38,27 +29,11 @@ Then(/^I should see that it is part of the "([^"]*)"$/) do |sponsoring_organisat
   expect(page).to have_selector(".sponsoring-organisation", text: sponsoring_organisation)
 end
 
-Then(/^I should see the worldwide organisation listed on the page$/) do
-  worldwide_organisation = WorldwideOrganisation.last
-  within ".meta" do
-    expect(page).to have_content(worldwide_organisation.name)
-  end
-end
-
 Then(/^I should see the worldwide location name "([^"]*)" on the worldwide organisation page$/) do |location_name|
   location = WorldLocation.find_by(name: location_name)
   worldwide_organisation = WorldwideOrganisation.last
   within record_css_selector(worldwide_organisation) do
     expect(page).to have_content(location.name)
-  end
-end
-
-Then(/^I should see the worldwide organisation "([^"]*)" on the "([^"]*)" world location page$/) do |worldwide_organisation_name, location_name|
-  location = WorldLocation.find_by(name: location_name)
-  worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_organisation_name)
-  visit location.public_path
-  within record_css_selector(worldwide_organisation) do
-    expect(page).to have_content(worldwide_organisation_name)
   end
 end
 
@@ -164,24 +139,6 @@ Then(/^the "([^"]*)" should be shown as the main office on the public website$/)
   end
 end
 
-Then(/^I should see his name on the worldwide organisation page$/) do
-  visit WorldwideOrganisation.last.public_path
-  person = Person.last
-
-  within record_css_selector(person) do
-    expect(page).to have_content(person.name)
-  end
-end
-
-Then(/^I should not see his name on the worldwide organisation page$/) do
-  visit WorldwideOrganisation.last.public_path
-  person = Person.last
-
-  within record_css_selector(person) do
-    expect(page).to_not have_content(person.name)
-  end
-end
-
 When(/^I add default access information to the worldwide organisation$/) do
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Access and opening times"
@@ -276,18 +233,6 @@ end
 
 When(/^I edit the "([^"]*)" translation for the worldwide organisation "([^"]*)" setting:$/) do |locale, name, table|
   edit_translation_for_worldwide_organisation(locale, name, table.rows_hash)
-end
-
-Then(/^I should be able to associate "([^"]*)" with the worldwide organisation "([^"]*)"$/) do |edition_title, world_org_title|
-  begin_editing_document edition_title
-  select world_org_title, from: "edition_worldwide_organisation_ids"
-  click_on "Save"
-end
-
-Then(/^I should be able to associate "([^"]*)" with the topical event "([^"]*)"$/) do |edition_title, topical_event_title|
-  begin_editing_document edition_title
-  select topical_event_title, from: "edition_topical_event_ids"
-  click_on "Save"
 end
 
 Then(/^I should see a create record in the audit trail for the worldwide organisation/) do

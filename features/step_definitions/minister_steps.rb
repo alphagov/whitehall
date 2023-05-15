@@ -1,32 +1,9 @@
-Given(/^ministers exist:$/) do |table|
-  table.hashes.each do |row|
-    person = find_or_create_person(row["Person"])
-    ministerial_role = find_or_create_ministerial_role(row["Ministerial Role"])
-    create(:role_appointment, role: ministerial_role, person:)
-  end
-end
-
-Given(/^"([^"]*)" used to be the "([^"]*)" for the "([^"]*)"$/) do |person_name, ministerial_role, organisation_name|
-  create_role_appointment(person_name, ministerial_role, organisation_name, 3.years.ago => 2.years.ago)
-end
-
 Given(/^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/) do |person_name, ministerial_role, organisation_name|
   create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago)
 end
 
 Given(/^"([^"]*)" is the "([^"]*)" for the "([^"]*)" and also attends cabinet$/) do |person_name, ministerial_role, organisation_name|
   create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago, role_options: { attends_cabinet_type_id: 1 })
-end
-
-Given(/^the role "([^"]*)" has the responsibilities "([^"]*)"$/) do |role_name, responsibilities|
-  ministerial_role = find_or_create_ministerial_role(role_name)
-  ministerial_role.responsibilities = responsibilities
-  ministerial_role.save!
-end
-
-When(/^I visit the minister page for "([^"]*)"$/) do |name|
-  visit ministers_page
-  click_link name
 end
 
 When(/^I visit the ministers page$/) do
@@ -46,20 +23,6 @@ Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^
     expect(page).to have_selector(".current-appointee", text: minister_name)
     expect(page).to have_selector(".app-person__roles", text: role)
   end
-end
-
-Then(/^I should see that the minister is associated with the "([^"]*)"$/) do |organisation_name|
-  expect(page).to have_selector(".meta", text: organisation_name)
-end
-
-Then(/^I should see that the minister has responsibilities "([^"]*)"$/) do |responsibilities|
-  expect(page).to have_selector(".responsibilities", text: responsibilities)
-end
-
-When(/^there is a reshuffle and "([^"]*)" is now "([^"]*)"$/) do |person_name, ministerial_role|
-  person = find_or_create_person(person_name)
-  role = MinisterialRole.find_by(name: ministerial_role)
-  create(:role_appointment, role:, person:, make_current: true)
 end
 
 Given(/^"([^"]*)" is a commons whip "([^"]*)" for the "([^"]*)"$/) do |person_name, ministerial_role, organisation_name|
@@ -122,35 +85,4 @@ Then(/^I should see "([^"]*)", "([^"]*)" in that order on the whips section of t
   visit ministers_page
   actual = all(".whips .current-appointee").map(&:text)
   expect([person1, person2]).to eq(actual)
-end
-
-Given(/^there are some ministers for the "([^"]*)"$/) do |organisation_name|
-  aaron = create_role_appointment("Aaron A. Aadrvark", "Minister of The Start Of The Alphabet", organisation_name, 2.years.ago)
-  marion = create_role_appointment("Marion M. Myddleton", "Minister of The Middle Of The Alphabet", organisation_name, 2.years.ago)
-  zeke = create_role_appointment("Zeke Z. Zaltzman", "Minister of The End Of The Alphabet", organisation_name, 2.years.ago)
-  onezero = create_role_appointment("10101010", "Minister of Numbers", organisation_name, 2.years.ago)
-  @the_ministers = [aaron, marion, zeke, onezero]
-  @the_ministerial_organisation = Organisation.find_by(name: organisation_name)
-end
-
-When(/^I specify an order for those ministers$/) do
-  visit people_admin_organisation_path(@the_ministerial_organisation)
-  # .shuffle on it's own isn't enough to guarantee a new ordering, so we
-  # swap the first and last, and shuffle the middle
-  @the_ordered_ministers = [@the_ministers[-1], *@the_ministers[1..-2].shuffle, @the_ministers[0]]
-  @the_ordered_ministers.each_with_index do |role_appointment, index|
-    fill_in "#{role_appointment.role.name}#{role_appointment.person.name}", with: index
-  end
-  click_on "Save"
-end
-
-Then(/^I should see that ordering displayed on the section for the organisation on the ministers page$/) do
-  visit ministers_page
-
-  headings_css_selector = "#organisation_#{@the_ministerial_organisation.id} .minister-list li h4"
-  minister_headings = all(headings_css_selector).map(&:text)
-
-  @the_ordered_ministers.each.with_index do |role_appointment, idx|
-    expect(role_appointment.person.name).to eq(minister_headings[idx])
-  end
 end

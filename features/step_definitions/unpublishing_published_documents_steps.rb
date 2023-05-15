@@ -81,11 +81,6 @@ Then(/^there should be an editorial remark recording the fact that the document 
   expect("Reset to draft").to eq(edition.editorial_remarks.last.body)
 end
 
-Then(/^there should be an editorial remark recording the fact that the document was withdrawn$/) do
-  edition = Edition.last
-  expect("Withdrawn").to eq(edition.editorial_remarks.last.body)
-end
-
 Then(/^there should be an unpublishing explanation of "([^"]*)" and a reason of "([^"]*)"$/) do |explanation, reason_name|
   edition = Edition.last
   unpublishing = edition.unpublishing

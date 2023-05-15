@@ -2,10 +2,6 @@ Given(/^a closed consultation exists$/) do
   create(:closed_consultation)
 end
 
-Given(/^an unopened consultation exists$/) do
-  create(:unopened_consultation)
-end
-
 When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
   document_options = { type: "consultation", title:, summary: "consultation-summary", alternative_format_provider: create(:alternative_format_provider), all_nation_applicablity: false }
   document_options.merge!(locale:) unless locale == "English"
@@ -35,11 +31,6 @@ When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
 
   check "Scotland"
   click_button "Save"
-end
-
-Then(/^I can see links to the consultations "([^"]*)" and "([^"]*)"$/) do |title1, title2|
-  expect(page).to have_selector(".consultation a", text: title1)
-  expect(page).to have_selector(".consultation a", text: title2)
 end
 
 When(/^I add an outcome to the consultation$/) do

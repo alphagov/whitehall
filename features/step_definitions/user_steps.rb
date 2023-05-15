@@ -35,11 +35,3 @@ end
 Then(/^I should see an email address "([^"]*)"$/) do |email_address|
   expect(page).to have_selector(".email", text: email_address)
 end
-
-When(/^I visit the user list in the admin section$/) do
-  visit admin_users_path
-end
-
-Then(/^I should see "([^"]*)" in the user list$/) do |name|
-  expect(page).to have_content(name)
-end

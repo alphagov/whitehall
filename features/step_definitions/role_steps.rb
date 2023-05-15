@@ -1,8 +1,3 @@
-Given(/^I visit the role page for "(.*?)"$/) do |name|
-  role = Role.find_by(name:)
-  visit polymorphic_path(role)
-end
-
 Given(/^an ambassador role named "([^"]*)" in the "([^"]*)" worldwide organisation$/) do |role_name, worldwide_organisation_name|
   worldwide_organisation = WorldwideOrganisation.find_by!(name: worldwide_organisation_name)
   create(:ambassador_role, name: role_name, worldwide_organisations: [worldwide_organisation])

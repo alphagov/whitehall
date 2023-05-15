@@ -6,16 +6,6 @@ Given(/^a published document collection "([^"]*)" exists$/) do |title|
   @document_collection = create(:published_document_collection, :with_group, title:)
 end
 
-Given(/^a published publication called "(.*?)" in the document collection "(.*?)"$/) do |publication_title, collection_title|
-  @publication = create(:published_publication, title: publication_title)
-  @document_collection = create(
-    :published_document_collection,
-    title: collection_title,
-    groups: [build(:document_collection_group, documents: [@publication.document])],
-  )
-  @group = @document_collection.groups.first
-end
-
 When(/^I draft a new document collection called "(.*?)"$/) do |title|
   begin_drafting_document_collection(title:)
   click_on "Save"
@@ -120,14 +110,6 @@ Then(/^I (?:can )?view the document collection in the admin$/) do
   expect(page).to have_selector("h1", text: @document_collection.title)
 end
 
-Then(/^I see that the document "(.*?)" is not part of the document collection$/) do |document_title|
-  refute_document_is_part_of_document_collection(document_title)
-end
-
-Then(/^I should see links back to the collection$/) do
-  expect(page).to have_selector("a[href='#{public_document_path(@document_collection)}']")
-end
-
 When(/^I visit the old document series url "(.*?)"$/) do |url|
   visit url
 rescue ActionController::RoutingError
@@ -179,18 +161,4 @@ end
 Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |doc_title1, doc_title2|
   expect(page).to have_content(doc_title1)
   expect(body.index(doc_title1) < body.index(doc_title2)).to be(true)
-end
-
-And(/^I search for "(.*?)" to add it to the document collection$/) do |document_title|
-  visit admin_document_collection_path(@document_collection)
-  click_on "Edit draft"
-  click_on "Collection documents"
-
-  fill_in "title", with: document_title
-  click_on "Find"
-end
-
-Then(/^the document does not appear in the search results$/) do
-  result = find("li.ui-menu-item")
-  expect(result.text).to eq("No results matching search criteria")
 end

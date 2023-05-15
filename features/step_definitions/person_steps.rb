@@ -11,12 +11,6 @@ Given(/^a person called "([^"]*)" exists with a translation for the locale "([^"
   add_translation_to_person(person, locale:, biography: "Unimportant")
 end
 
-Given(/^a person called "([^"]*)" exists in the role of "([^"]*)"$/) do |name, role_name|
-  @person = create_person(name)
-  @role = create(:ministerial_role, supports_historical_accounts: true, name: role_name)
-  create(:role_appointment, role: @role, person: @person)
-end
-
 When(/^I add a new person called "([^"]*)"$/) do |name|
   visit_people_admin
   click_link "Create person"

@@ -1,53 +1,12 @@
-Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |title, appointee|
-  appointment = find_person(appointee).current_role_appointments.last
-  news_article = create(:published_news_article, title:, role_appointments: [appointment])
-
-  stub_any_search.to_return(
-    body: {
-      results: [
-        { link: document_path(news_article), title: news_article.title },
-      ],
-    }.to_json,
-  )
-end
-
 When(/^I draft a new news article "([^"]*)"$/) do |title|
   begin_drafting_news_article title:, summary: "here's a simple summary"
   click_button "Save"
-end
-
-When(/^I draft a French-only "World news story" news article associated with "([^"]*)"$/) do |location_name|
-  create(:worldwide_organisation, name: "French embassy")
-
-  begin_drafting_news_article title: "French-only news article", body: "test-body", summary: "test-summary", announcement_type: "World news story"
-  select "Français", from: "Document language"
-  select location_name, from: "Select the world locations this news article is about"
-  select "French embassy", from: "Select the worldwide organisations associated with this news article"
-  select "", from: "edition_lead_organisation_ids_1"
-  click_button "Save and continue"
-  click_button "Update tags"
-  @news_article = find_news_article_in_locale!(:fr, "French-only news article")
 end
 
 And(/^when I publish the article$/) do
   stub_publishing_api_links_with_taxons(@news_article.content_id, %w[a-taxon-content-id])
   visit admin_edition_path(@news_article)
   publish(force: true)
-end
-
-Then(/^I should see the news article listed in admin with an indication that it is in French$/) do
-  expect(page).to have_current_path(admin_edition_path(@news_article))
-  expect(page).to have_content("This document is French-only")
-end
-
-Then(/^I should only see the news article on the French version of the public "([^"]*)" location page$/) do |world_location_name|
-  world_location = WorldLocation.find_by!(name: world_location_name)
-  visit world_location.public_path(locale: :fr)
-  within record_css_selector(@news_article) do
-    expect(page).to have_content(@news_article.title)
-  end
-  visit world_location.public_path
-  expect(page).to_not have_selector(record_css_selector(@news_article))
 end
 
 When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do |news_type, title|

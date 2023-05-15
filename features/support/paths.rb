@@ -33,23 +33,6 @@ module NavigationHelpers
     worldwide_organisation = WorldwideOrganisation.find_by!(name:)
     visit worldwide_organisation.public_path
   end
-
-  def public_path_for(edition)
-    case edition
-    when Speech
-      announcements_path
-    when Consultation
-      consultations_path
-    when DetailedGuide
-      detailed_guide_path(edition.document)
-    else
-      raise "Don't know where to go for #{edition.class.name}s"
-    end
-  end
-
-  def visit_public_index_for(edition)
-    visit public_path_for(edition)
-  end
 end
 
 World(NavigationHelpers)

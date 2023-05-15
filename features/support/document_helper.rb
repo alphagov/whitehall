@@ -57,11 +57,6 @@ module DocumentHelper
     click_link "Edit draft"
   end
 
-  def begin_new_draft_document(title)
-    visit_edition_admin title
-    click_button "Create new edition"
-  end
-
   def begin_drafting_news_article(options)
     begin_drafting_document(options.merge(type: "news_article", previously_published: false))
     fill_in_news_article_fields(**options.slice(:first_published, :announcement_type))
