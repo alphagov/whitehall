@@ -1,4 +1,6 @@
 module Admin::EditionsHelper
+  include Admin::AttachableHelper
+
   def edition_type(edition)
     type = if edition.is_a?(Speech) && edition.speech_type.written_article?
              edition.speech_type.singular_name
@@ -206,12 +208,7 @@ module Admin::EditionsHelper
   def default_edition_tabs(edition)
     { "Document" => tab_url_for_edition(edition) }.tap do |tabs|
       if edition.allows_attachments? && edition.persisted?
-        text = if edition.attachments.count.positive?
-                 "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
-               else
-                 "Attachments"
-               end
-        tabs[text] = admin_edition_attachments_path(edition)
+        tabs[attachments_tab_label(edition)] = admin_edition_attachments_path(edition)
       end
 
       if edition.is_a?(DocumentCollection) && !edition.new_record?

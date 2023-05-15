@@ -29,7 +29,7 @@ module Admin::TabbedNavHelper
       },
       *(if edition.persisted? && edition.allows_attachments?
           [{
-            label: sanitize("Attachments #{tag.span(edition.attachments.count, class: 'govuk-tag govuk-tag--grey') if edition.attachments.count.positive?}"),
+            label: attachments_nav_item_label(edition),
             href: admin_edition_attachments_path(edition),
             current: current_path == admin_edition_attachments_path(edition),
           }]
@@ -80,7 +80,7 @@ module Admin::TabbedNavHelper
         current: current_path == edit_admin_policy_group_path(group) || current_path == admin_policy_group_path(group),
       },
       {
-        label: sanitize("Attachments #{tag.span(group.attachments.count, class: 'govuk-tag govuk-tag--grey') if group.attachments.count.positive?}"),
+        label: attachments_nav_item_label(group),
         href: admin_policy_group_attachments_path(group),
         current: current_path == admin_policy_group_attachments_path(group),
       },
