@@ -2,6 +2,8 @@
 
 skinparam dpi 300
 title The sequence of creating an image attachment in Whitehall
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
 
 box "Whitehall" #f2fef8
 actor editor
@@ -16,7 +18,7 @@ participant CreateWhitehallAssetWorker
 end box
 
 box "Asset Manager" #f2f8fe
-participant asset_manager
+participant AssetController
 participant Asset
 database am_filesystem
 database am_sidekiq
@@ -42,12 +44,12 @@ EditionImagesController -> editor : Redirect to edition/images/edit
 
 group sidekiq
     sidekiq -> CreateWhitehallAssetWorker--: Trigger worker for each image version
-    CreateWhitehallAssetWorker -> asset_manager : Upload the file to Asset Manager
+    CreateWhitehallAssetWorker -> AssetController : Upload the file to Asset Manager
     CreateWhitehallAssetWorker -> filesystem : Remove file
 end group
 
 group carrierwave
-    asset_manager -> Asset : Save
+    AssetController -> Asset : Save
     Asset -> am_filesystem : Store temporary file
     Asset -> am_sidekiq++ : Enqueue VirusScanner
 end group

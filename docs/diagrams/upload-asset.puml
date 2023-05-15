@@ -2,6 +2,8 @@
 
 skinparam dpi 300
 title The sequence of creating a file attachment in Whitehall
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
 
 box "Whitehall" #f2fef8
 actor editor
@@ -17,7 +19,7 @@ participant AttachmentUpdater
 end box
 
 box "Asset Manager" #f2f8fe
-participant asset_manager
+participant AssetController
 participant Asset
 database am_filesystem
 database am_sidekiq
@@ -41,7 +43,7 @@ AttachmentController -> editor : Redirect to edition/attachments
 
 group sidekiq
     sidekiq -> CreateWhitehallAssetWorker--: trigger worker
-    CreateWhitehallAssetWorker -> asset_manager : Upload the file to Asset Manager
+    CreateWhitehallAssetWorker -> AssetController : Upload the file to Asset Manager
     CreateWhitehallAssetWorker -> sidekiq++ : Enqueue AttachmentSetUploadedToWorker
     CreateWhitehallAssetWorker -> filesystem : Remove file
 end group
@@ -53,7 +55,7 @@ group sidekiq
 end group
 
 group carrierwave
-    asset_manager -> Asset : Save
+    AssetController -> Asset : Save
     Asset -> am_filesystem : Store temporary file
     Asset -> am_sidekiq++ : Enqueue VirusScanner
 end group
@@ -73,11 +75,8 @@ end group
 
 group sidekiq
     sidekiq -> AttachmentUpdater--: trigger worker
-    AttachmentUpdater -> asset_manager : AccessLimitedUpdates
-    AttachmentUpdater -> asset_manager : DraftStatusUpdates
-    AttachmentUpdater -> asset_manager : LinkHeaderUpdates
-    AttachmentUpdater -> asset_manager : RedirectUrlUpdates
-    AttachmentUpdater -> asset_manager : ReplacementIdUpdates
+    AttachmentUpdater -> AssetController : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+    AssetController -> Asset : Save
 end group
 
 @enduml

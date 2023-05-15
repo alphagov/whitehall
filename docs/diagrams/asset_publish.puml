@@ -2,6 +2,9 @@
 
 skinparam dpi 300
 title Things that affect the status of an Asset in Asset Manager
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+hide unlinked
 
 box "Whitehall" #f2fef8
 actor editor
@@ -24,7 +27,7 @@ participant AttachmentUpdater
 end box
 
 box "Asset Manager" #f2f8fe
-participant asset_manager
+participant AssetController
 end box
 
 == Controller invokes AttachmentUpdater directly ==
@@ -34,7 +37,7 @@ AttachmentsController -> "ServiceListeners::AttachmentUpdater": invoke
 "ServiceListeners::AttachmentUpdater" -> AssetManagerAttachmentMetadataWorker: Enqueue
 group sidekiq
     AssetManagerAttachmentMetadataWorker -> AttachmentUpdater: update asset
-    AttachmentUpdater -> asset_manager : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+    AttachmentUpdater -> AssetController : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
 end group
 
 == CarrierWave invokes AttachmentUpdater whenever a file-attachment is uploaded ==
@@ -53,7 +56,7 @@ group sidekiq
 end group
 group sidekiq
     AssetManagerAttachmentMetadataWorker -> AttachmentUpdater: update asset
-    AttachmentUpdater -> asset_manager : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+    AttachmentUpdater -> AssetController : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
 end group
 
 == CarrierWave invokes AttachmentUpdater 7 times when an image is uploaded ==
@@ -74,7 +77,7 @@ group for each image version
     end group
     group sidekiq
         AssetManagerAttachmentMetadataWorker -> AttachmentUpdater: update asset
-        AttachmentUpdater -> asset_manager : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+        AttachmentUpdater -> AssetController : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
     end group
 end group
 
@@ -89,7 +92,7 @@ AttachmentRedirectUrlUpdater -> AssetManagerAttachmentRedirectUrlUpdateWorker: E
 
 group sidekiq
     AssetManagerAttachmentRedirectUrlUpdateWorker -> AttachmentUpdater: update asset
-    AttachmentUpdater -> asset_manager : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
+    AttachmentUpdater -> AssetController : update the state of Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url\n:replacement_legacy_url_path
 end group
 
 @enduml
