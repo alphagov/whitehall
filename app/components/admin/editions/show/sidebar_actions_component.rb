@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Admin::Editions::Show::SidebarActionsComponent < ViewComponent::Base
+  include Admin::EditionRoutesHelper
+
   def initialize(edition:, current_user:)
-    @url_maker = Whitehall::UrlMaker.new(host: Plek.find("whitehall"))
     @enforcer = Whitehall::Authority::Enforcer.new(current_user, edition)
     @scheduler = Whitehall.edition_services.scheduler(edition)
     @force_scheduler = Whitehall.edition_services.force_scheduler(edition)
@@ -77,7 +78,7 @@ private
     if @edition.editable?
       actions << render("govuk_publishing_components/components/button", {
         text: "Edit draft",
-        href: @url_maker.edit_admin_edition_path(@edition),
+        href: edit_admin_edition_path(@edition),
         secondary_quiet: true,
         data_attributes: {
           module: "gem-track-click",
@@ -248,14 +249,14 @@ private
   def add_view_action
     if @edition.publicly_visible?
       actions << link_to("View on website (opens in new tab)",
-                         @url_maker.public_document_url(@edition),
+                         @edition.public_url,
                          class: "govuk-link",
                          target: "_blank",
                          rel: "noopener",
                          data: {
                            module: "gem-track-click",
                            track_category: "external-link-clicked",
-                           track_action: @url_maker.public_document_url(@edition),
+                           track_action: @edition.public_url,
                            track_label: "View on website",
                          })
     end
