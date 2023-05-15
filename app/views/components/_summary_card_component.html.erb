@@ -1,0 +1,41 @@
+<%
+  id ||= nil
+  data_attributes ||= {}
+  summary_card_actions ||= []
+  rows ||=[]
+%>
+<%= tag.div class: "app-c-summary-card-component", id: id, data: data_attributes do %>
+  <div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+      <h2 class="govuk-summary-card__title"><%= title %></h2>
+      <ul class="govuk-summary-card__actions">
+        <% summary_card_actions.each do |action| %>
+          <li class="govuk-summary-card__action">
+            <%= link_to sanitize(action[:label] + tag.span(" #{title}", class: "govuk-visually-hidden")), action[:href], class: "govuk-link govuk-link--no-visited-state #{"gem-link--destructive govuk-!-font-weight-bold" if action[:destructive]}".strip %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="govuk-summary-card__content">
+      <dl class="govuk-summary-list">
+        <% rows.each do |row| %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= row[:key] %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= row[:value] %>
+            </dd>
+            <% if row[:actions].present? %>
+              <dd class="govuk-summary-list__actions">
+                <% row[:actions].each do |action| %>
+                  <%= link_to sanitize(action[:label] + tag.span(" #{row[:key]}", class: "govuk-visually-hidden")), action[:href], class: "govuk-link govuk-link--no-visited-state govuk-!-margin-left-2 #{"gem-link--destructive" if action[:destructive]}".strip %>
+                <% end %>
+              </dd>
+            <% end %>
+          </div>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+<%end %>
