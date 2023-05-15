@@ -19,6 +19,10 @@ class Admin::CabinetMinistersController < Admin::BaseController
     @roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
   end
 
+  def reorder_whip_roles
+    @roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
+  end
+
   def update
     update_ordering(:roles, :seniority)
     update_ordering(:whips, :whip_ordering)
