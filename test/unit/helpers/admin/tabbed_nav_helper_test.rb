@@ -4,10 +4,6 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   include Rails.application.routes.url_helpers
   include Admin::EditionRoutesHelper
 
-  def preview_design_system?(_next_release)
-    true
-  end
-
   test "#secondary_navigation_tabs_items for persisted consultations with no attachments" do
     consultation = build_stubbed(:consultation)
 
