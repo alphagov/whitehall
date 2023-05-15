@@ -7,7 +7,6 @@ class Admin::NeedsControllerTest < ActionController::TestCase
   def setup
     login_as :user
     @document = create(:edition, :with_document).document
-    @url_maker = Whitehall::UrlMaker.new(host: Plek.find("whitehall"))
 
     @need1 = {
       "content_id" => SecureRandom.uuid,

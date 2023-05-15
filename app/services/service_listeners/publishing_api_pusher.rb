@@ -55,7 +55,7 @@ module ServiceListeners
       previous_edition = edition.previous_edition
 
       if previous_edition
-        edition_url = Whitehall::UrlMaker.new.public_document_url(edition)
+        edition_url = edition.public_url
         removed_locales = previous_edition.translations.map(&:locale) - edition.translations.map(&:locale)
         removed_locales.each do |locale|
           PublishingApiGoneWorker.new.perform(

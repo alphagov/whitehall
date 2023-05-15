@@ -157,7 +157,7 @@ module ServiceListeners
         .expects(:new)
         .returns(pusher)
 
-      expected_original_url = Whitehall::UrlMaker.new.public_document_url(new_edition)
+      expected_original_url = new_edition.public_url
 
       pusher.expects(:perform).with(
         new_edition.document.content_id,
