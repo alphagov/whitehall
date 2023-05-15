@@ -134,14 +134,12 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
       :worldwide_office,
       contact: stub_translatable_record(:contact, title: "best-office", contact_numbers: []),
       services: [],
-      worldwide_organisation: nil,
       access_and_opening_times: "never",
     )
     office2 = stub_record(
       :worldwide_office,
       contact: stub_translatable_record(:contact, title: "worst-office", contact_numbers: []),
       services: [],
-      worldwide_organisation: nil,
       access_and_opening_times: "never",
     )
 
