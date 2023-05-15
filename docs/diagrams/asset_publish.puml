@@ -84,9 +84,9 @@ end group
 == Edition workflow for publishing and unpublishing causing Assets to change state ==
 
 editor -> EditionWorkflowController : /publish\n/force_publish\n/unwithdraw\n/unpublish
+EditionWorkflowController -> EditionServiceCoordinator: publish\nforce_publish\nunwithdraw\nunpublish
 editor -> EditionUnpublishingController : /unpublish
 EditionUnpublishingController -> EditionServiceCoordinator: unpublish
-EditionWorkflowController -> EditionServiceCoordinator: publish\nforce_publish\nunwithdraw\nunpublish
 EditionServiceCoordinator -> AttachmentRedirectUrlUpdater: "*any_event*"\npublish\nforce_publish\nunwithdraw\nunpublish
 AttachmentRedirectUrlUpdater -> AssetManagerAttachmentRedirectUrlUpdateWorker: Enqueue
 
