@@ -1,5 +1,6 @@
 # Calls the Link Checker API to verify all links in public editions, either per organisation or not
 class CheckOrganisationLinksWorker
+  include Rails.application.routes.url_helpers
   include Sidekiq::Worker
   ORGANISATION_EDITION_LIMIT = 500
 
@@ -21,7 +22,7 @@ class CheckOrganisationLinksWorker
       ignored = 0
       editions.each do |edition|
         if LinkCheckerApiService.has_links?(edition)
-          LinkCheckerApiService.check_links(edition, callback)
+          LinkCheckerApiService.check_links(edition, admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")))
         else
           LinkCheckerApiReport.create_noop_report(edition)
           ignored += 1
@@ -39,9 +40,5 @@ private
 
   def public_editions(organisation)
     Edition.includes(:link_check_reports).publicly_visible.with_translations.in_organisation(organisation).order("link_checker_api_reports.updated_at").limit(ORGANISATION_EDITION_LIMIT)
-  end
-
-  def callback
-    Whitehall::UrlMaker.new(host: Plek.find("whitehall-admin")).admin_link_checker_api_callback_url
   end
 end
