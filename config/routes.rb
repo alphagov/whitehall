@@ -308,6 +308,7 @@ Whitehall::Application.routes.draw do
           get :reorder_cabinet_minister_roles, on: :member
           get :reorder_also_attends_cabinet_roles, on: :member
           get :reorder_whip_roles, on: :member
+          get :reorder_ministerial_organisations, on: :member
         end
 
         resources :roles, except: [:show] do

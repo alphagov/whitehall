@@ -23,6 +23,10 @@ class Admin::CabinetMinistersController < Admin::BaseController
     @roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
   end
 
+  def reorder_ministerial_organisations
+    @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
+  end
+
   def update
     update_ordering(:roles, :seniority)
     update_ordering(:whips, :whip_ordering)
@@ -64,10 +68,18 @@ private
   def update_organisation_ordering
     return unless params.include?(:organisation)
 
-    params[:organisation].each_pair do |id, org_params|
-      Organisation.where(id:).update_all(
-        ministerial_ordering: org_params["ordering"],
-      )
+    if get_layout == "design_system"
+      params[:organisation]["ordering"].each_pair do |id, order|
+        Organisation.where(id:).update_all(
+          ministerial_ordering: order,
+        )
+      end
+    else
+      params[:organisation].each_pair do |id, org_params|
+        Organisation.where(id:).update_all(
+          ministerial_ordering: org_params["ordering"],
+        )
+      end
     end
   end
 end

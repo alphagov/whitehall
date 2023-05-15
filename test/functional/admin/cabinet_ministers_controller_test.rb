@@ -70,8 +70,10 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     put :update,
         params: {
           organisation: {
-            org1.id.to_s => { ordering: 0 },
-            org2.id.to_s => { ordering: 1 },
+            ordering: {
+              org1.id.to_s => 0,
+              org2.id.to_s => 1,
+            },
           },
         }
 
@@ -96,7 +98,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_tab_has_href_and_ordered_roles("#cabinet_minister", reorder_cabinet_minister_roles_admin_cabinet_ministers_path, [minister2, minister1])
     assert_tab_has_href_and_ordered_roles("#also_attends_cabinet", reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path, [also_attends_cabinet2, also_attends_cabinet1])
     assert_tab_has_href_and_ordered_roles("#whips", reorder_whip_roles_admin_cabinet_ministers_path, [whip2, whip1])
-    assert_tab_has_href_and_ordered_roles("#organisations", "#", [org2, org1])
+    assert_tab_has_href_and_ordered_roles("#organisations", reorder_ministerial_organisations_admin_cabinet_ministers_path, [org2, org1])
   end
 
   test "GET :reorder_cabinet_minister_roles should assign roles correctly" do
@@ -130,6 +132,17 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "reorder_whip_roles"
     assert_equal assigns(:roles), [whip2, whip1]
+  end
+
+  test "GET :reorder_ministerial_organisations should assign roles correctly" do
+    org1 = create(:ministerial_department, ministerial_ordering: 1)
+    org2 = create(:ministerial_department, ministerial_ordering: 0)
+
+    get :reorder_ministerial_organisations
+
+    assert_response :success
+    assert_template "reorder_ministerial_organisations"
+    assert_equal assigns(:organisations), [org2, org1]
   end
 
 private

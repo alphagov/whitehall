@@ -45,3 +45,16 @@ Feature: Reordering of Cabinet ministers and Organisations
       | name   |
       | Role 2 |
       | Role 1 |
+
+  Scenario: Reordering Ministerial organisations
+    Given there are multiple organisations with ministerial ordering
+    When I visit the Cabinet ministers order page
+    And I click the reorder link in the "#organisations" tab
+    And I set the order of the organisations for the "organisation" ordering field to:
+      | name   | order |
+      | Org 2 | 0     |
+      | Org 1 | 1     |
+    Then the organisations in the "#organisations" tab should be in the following order:
+      | name   |
+      | Org 2 |
+      | Org 1 |
