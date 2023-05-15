@@ -442,7 +442,7 @@ bn:
       organisation_chart: আমাদের প্রতিষ্ঠানের চার্ট
       transparency: স্বচ্ছতার তথ্য
     embassies:
-      find_an_embassy_title: একটি ব্রিটিশ দূতাবাস, হাই কমিশন বা কনসিউলেট খুঁজুন
+      find_an_embassy_title:
     headings:
       corporate_information: কর্পোরেট তথ্য
       corporate_reports: কর্পোরেট রিপোর্টসমূহ

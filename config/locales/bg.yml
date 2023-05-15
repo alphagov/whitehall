@@ -442,7 +442,7 @@ bg:
       organisation_chart: Нашата организационна схема
       transparency: Данни за прозрачност
     embassies:
-      find_an_embassy_title: Намиране на британско посолство, върховна комисия или консулство
+      find_an_embassy_title:
     headings:
       corporate_information: Фирмена информация
       corporate_reports: Фирмени доклади

@@ -595,7 +595,7 @@ sl:
       organisation_chart: Naša organizacijska shema
       transparency: Podatki o preglednosti
     embassies:
-      find_an_embassy_title: Poiščite britansko veleposlaništvo, visoki komisariat ali konzulat
+      find_an_embassy_title:
     headings:
       corporate_information: Informacije o podjetju
       corporate_reports: Poročila podjetja

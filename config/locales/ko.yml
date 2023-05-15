@@ -366,7 +366,7 @@ ko:
       organisation_chart: 조직 차트
       transparency: 투명성 데이터
     embassies:
-      find_an_embassy_title: 영국 대사관, 고등판무관 또는 영사관 찾기
+      find_an_embassy_title:
     headings:
       corporate_information: 기업 정보
       corporate_reports: 기업 보고서

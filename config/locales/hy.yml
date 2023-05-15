@@ -443,7 +443,7 @@ hy:
       organisation_chart: Մեր կազմակերպության կառուցվածքը
       transparency: Թափանցիկության տվյալներ
     embassies:
-      find_an_embassy_title: Գտնել Բրիտանիայի դեսպանատուն կամ հյուպատոսություն
+      find_an_embassy_title:
     headings:
       corporate_information: Կորպորատիվ տեղեկություն
       corporate_reports: Կորպորատիվ զեկույցներ
