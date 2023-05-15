@@ -17,7 +17,12 @@ rescue LoadError
   # Pact isn't available in all environments
 end
 
+desc "Run the 'pact verify' command with the RSpec 'progress' formatter"
+task "pact:verify:with_progress_formatter" => :environment do
+  sh "pact verify --format progress --pact-helper spec/service_consumers/pact_helper.rb"
+end
+
 Whitehall::Application.load_tasks
 
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[lint test cucumber jasmine pact:verify]
+task default: %i[lint test cucumber jasmine pact:verify:with_progress_formatter]

@@ -43,6 +43,8 @@ class RepublishDraftHtmlAttachmentsWithAssoicatedResponsesRake < ActiveSupport::
       true,
     ).never
 
-    Rake.application.invoke_task "republish_draft_html_attachments_associated_with_responses"
+    capture_io do
+      Rake.application.invoke_task "republish_draft_html_attachments_associated_with_responses"
+    end
   end
 end

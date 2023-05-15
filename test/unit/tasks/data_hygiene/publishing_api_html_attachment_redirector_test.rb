@@ -34,7 +34,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
 
       it "does not send the redirection to the Publishing API" do
         PublishingApiRedirectWorker.any_instance.expects(:perform).never
-        call_html_attachment_redirector
+        capture_io { call_html_attachment_redirector }
       end
 
       it "reports the html attachment that would have changed" do
@@ -53,7 +53,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
 
         it "raises an exception" do
           assert_raises DataHygiene::EditionNotUnpublished do
-            call_html_attachment_redirector
+            capture_io { call_html_attachment_redirector }
           end
         end
       end
@@ -65,7 +65,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
 
         it "raises an exception" do
           assert_raises DataHygiene::HtmlAttachmentsNotFound do
-            call_html_attachment_redirector
+            capture_io { call_html_attachment_redirector }
           end
         end
       end
@@ -79,7 +79,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
             .expects(:perform)
             .with(attachment.content_id, redirection, attachment.locale)
 
-          call_html_attachment_redirector
+          capture_io { call_html_attachment_redirector }
         end
 
         it "reports the redirections sent to the Publishing API" do
@@ -95,11 +95,13 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
             .expects(:perform)
             .with(attachment.content_id, redirection, attachment.locale)
 
-          DataHygiene::PublishingApiHtmlAttachmentRedirector.call(
-            attachment.content_id,
-            redirection,
-            dry_run:,
-          )
+          capture_io do
+            DataHygiene::PublishingApiHtmlAttachmentRedirector.call(
+              attachment.content_id,
+              redirection,
+              dry_run:,
+            )
+          end
         end
       end
     end

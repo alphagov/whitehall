@@ -39,7 +39,6 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
 
     post :create, params: { take_part_page: take_part_page_attrs }
 
-    puts assigns(:take_part_page).errors.full_messages
     assert assigns(:take_part_page).persisted?
     assert_equal "Wear a monocle!", assigns(:take_part_page).title
     assert_redirected_to admin_take_part_pages_path

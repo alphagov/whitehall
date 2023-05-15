@@ -21,7 +21,7 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
   test "when given an organisation it only calls LinkCheckerApiService with editions for that organisation" do
     new_edition = stub_published_publication
 
-    CheckOrganisationLinksWorker.new.perform(@hmrc.id)
+    capture_subprocess_io { CheckOrganisationLinksWorker.new.perform(@hmrc.id) }
 
     assert_equal 1, LinkCheckerApiReport.count
     assert_requested new_edition
@@ -69,7 +69,7 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
       body: "no links here",
     )
 
-    CheckOrganisationLinksWorker.new.perform(org.id)
+    capture_subprocess_io { CheckOrganisationLinksWorker.new.perform(org.id) }
     assert_equal(1, publication.link_check_reports.count)
     assert_equal(false, publication.link_check_reports.last.has_problems?)
   end
@@ -79,7 +79,7 @@ private
   def assert_report_count_increased
     stub_organisation_edition_limit(2) do
       assert_difference "LinkCheckerApiReport.count", 2 do
-        CheckOrganisationLinksWorker.new.perform(@hmrc.id)
+        capture_subprocess_io { CheckOrganisationLinksWorker.new.perform(@hmrc.id) }
       end
     end
   end
