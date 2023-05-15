@@ -1,0 +1,30 @@
+<% content_for :title, "Reorder list" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_cabinet_ministers_path, method: :patch do %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Use the up and down buttons to reorder attachments, or select and hold on an attachment to reorder using drag and drop.",
+        margin_bottom: 4,
+      } %>
+
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: name,
+        items: list.map do |item|
+          {
+            id: item.id,
+            title: item.name,
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update order",
+        } %>
+
+        <%= link_to("Cancel", admin_cabinet_ministers_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

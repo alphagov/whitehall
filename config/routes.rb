@@ -304,7 +304,10 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
 
-        resource :cabinet_ministers, only: %i[show update]
+        resource :cabinet_ministers, only: %i[show update] do
+          get :reorder_cabinet_minister_roles, on: :member
+        end
+
         resources :roles, except: [:show] do
           get :confirm_destroy, on: :member
           resources :role_appointments, only: %i[new create edit update destroy], shallow: true do

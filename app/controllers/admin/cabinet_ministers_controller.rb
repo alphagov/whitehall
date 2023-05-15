@@ -11,6 +11,10 @@ class Admin::CabinetMinistersController < Admin::BaseController
     render_design_system(:show, :legacy_show, next_release: false)
   end
 
+  def reorder_cabinet_minister_roles
+    @roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)
+  end
+
   def update
     update_ordering(:roles, :seniority)
     update_ordering(:whips, :whip_ordering)
@@ -36,10 +40,16 @@ private
   def update_ordering(key, column)
     return unless params.include?(key)
 
-    params[key].keys.each do |id|
-      Role.where(id:).update_all(
-        column => params[key][id.to_s]["ordering"],
-      )
+    if get_layout == "design_system"
+      params[key]["ordering"].keys.each do |id|
+        Role.where(id:).update_all("#{column}": params[key]["ordering"][id.to_s])
+      end
+    else
+      params[key].keys.each do |id|
+        Role.where(id:).update_all(
+          column => params[key][id.to_s]["ordering"],
+        )
+      end
     end
   end
 

@@ -18,8 +18,10 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     put :update,
         params: {
           roles: {
-            role1.id.to_s => { ordering: 0 },
-            role2.id.to_s => { ordering: 1 },
+            ordering: {
+              role1.id.to_s => 0,
+              role2.id.to_s => 1,
+            },
           },
         }
 
@@ -33,8 +35,10 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     put :update,
         params: {
           roles: {
-            role1.id.to_s => { ordering: 0 },
-            role2.id.to_s => { ordering: 1 },
+            ordering: {
+              role1.id.to_s => 0,
+              role2.id.to_s => 1,
+            },
           },
         }
 
@@ -48,8 +52,10 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     put :update,
         params: {
           whips: {
-            role1.id.to_s => { ordering: 0 },
-            role2.id.to_s => { ordering: 1 },
+            ordering: {
+              role1.id.to_s => 0,
+              role2.id.to_s => 1,
+            },
           },
         }
 
@@ -87,10 +93,21 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
 
     get :show
 
-    assert_tab_has_href_and_ordered_roles("#cabinet_minister", "#", [minister2, minister1])
+    assert_tab_has_href_and_ordered_roles("#cabinet_minister", reorder_cabinet_minister_roles_admin_cabinet_ministers_path, [minister2, minister1])
     assert_tab_has_href_and_ordered_roles("#also_attends_cabinet", "#", [also_attends_cabinet2, also_attends_cabinet1])
     assert_tab_has_href_and_ordered_roles("#whips", "#", [whip2, whip1])
     assert_tab_has_href_and_ordered_roles("#organisations", "#", [org2, org1])
+  end
+
+  test "GET :reorder_cabinet_minister_roles should assign roles correctly" do
+    minister1 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation], seniority: 1)
+    minister2 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation], seniority: 0)
+
+    get :reorder_cabinet_minister_roles
+
+    assert_response :success
+    assert_template "reorder_cabinet_minister_roles"
+    assert_equal assigns(:roles), [minister2, minister1]
   end
 
 private
