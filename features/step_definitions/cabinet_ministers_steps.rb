@@ -31,3 +31,9 @@ Then(/^the roles in the "([^"]*)" tab should be in the following order:$/) do |t
     expect(role.name).to eq name[index]
   end
 end
+
+Given(/^there are multiple Also attends cabinet roles$/) do
+  organisation = create(:organisation)
+  create(:ministerial_role, name: "Role 1", attends_cabinet_type_id: 2, organisations: [organisation], seniority: 1)
+  create(:ministerial_role, name: "Role 2", attends_cabinet_type_id: 1, organisations: [organisation], seniority: 0)
+end

@@ -94,7 +94,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     get :show
 
     assert_tab_has_href_and_ordered_roles("#cabinet_minister", reorder_cabinet_minister_roles_admin_cabinet_ministers_path, [minister2, minister1])
-    assert_tab_has_href_and_ordered_roles("#also_attends_cabinet", "#", [also_attends_cabinet2, also_attends_cabinet1])
+    assert_tab_has_href_and_ordered_roles("#also_attends_cabinet", reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path, [also_attends_cabinet2, also_attends_cabinet1])
     assert_tab_has_href_and_ordered_roles("#whips", "#", [whip2, whip1])
     assert_tab_has_href_and_ordered_roles("#organisations", "#", [org2, org1])
   end
@@ -108,6 +108,17 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "reorder_cabinet_minister_roles"
     assert_equal assigns(:roles), [minister2, minister1]
+  end
+
+  test "GET :reorder_also_attends_cabinet_roles should assign roles correctly" do
+    also_attends_cabinet1 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation], seniority: 1)
+    also_attends_cabinet2 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation], seniority: 0)
+
+    get :reorder_also_attends_cabinet_roles
+
+    assert_response :success
+    assert_template "reorder_also_attends_cabinet_roles"
+    assert_equal assigns(:roles), [also_attends_cabinet2, also_attends_cabinet1]
   end
 
 private
