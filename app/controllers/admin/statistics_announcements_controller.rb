@@ -12,6 +12,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def show
     @edition_taxons = EditionTaxonsFetcher.new(@statistics_announcement.content_id).fetch
+
+    render :legacy_show
   end
 
   def new
