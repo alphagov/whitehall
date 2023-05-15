@@ -1,6 +1,6 @@
 class PolicyGroup < ApplicationRecord
   include Searchable
-  include ::Attachable
+  include ::Attachable::ForNonEditionableModel
   include PublishesToPublishingApi
 
   validates :email, email_format: true, allow_blank: true
@@ -30,30 +30,6 @@ class PolicyGroup < ApplicationRecord
 
   def remove_all_dependencies
     policy_group_dependencies.delete_all
-  end
-
-  def access_limited_object
-    nil
-  end
-
-  def access_limited?
-    false
-  end
-
-  def publicly_visible?
-    true
-  end
-
-  def accessible_to?(*)
-    true
-  end
-
-  def unpublished?
-    false
-  end
-
-  def unpublished_edition
-    nil
   end
 
   def has_summary?
