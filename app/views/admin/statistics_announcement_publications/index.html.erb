@@ -15,12 +15,13 @@
       } %>
     <% end %>
 
-    <% if @editions %>
-      <p class="govuk-table__caption--m"><%= @editions.length.to_s + " document".pluralize(@editions.length) %></p>
+    <% if @filter %>
+      <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
+      <hr class="govuk-section-break--m">
       <%= render "govuk_publishing_components/components/table", {
         id: 'table',
         rows:
-          @editions.map do |edition|
+          @filter.editions.map do |edition|
             [{
                text: edition.title
              },
@@ -31,7 +32,8 @@
                text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, search: params[:search]) , class: "govuk-link")
              }]
           end
-    } %>
+      } %>
+      <%= paginate(@filter.editions, theme: "govuk_paginator") %>
     <% end %>
   </div>
 </div>
