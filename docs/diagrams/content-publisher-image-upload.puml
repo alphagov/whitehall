@@ -2,6 +2,9 @@
 
 skinparam dpi 300
 title The sequence of uploading an image in content publisher
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+
 
 box "Content publisher" #f2f8fe
 actor editor

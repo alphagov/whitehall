@@ -1,27 +1,39 @@
 @startuml edition_state_transitions
 hide empty description
 
-state asset_start <<start>>
+state AssetManager #a7afff {
+    state asset_start <<start>> #a7afff
+    state asset_nonexistent #a7afff
+    state asset_draft #a7afff
+    state asset_published #a7afff
+    state asset_deleted #a7afff
+}
 
-[*] --> draft
+state Whitehall #a7ffaf {
+    [*] --> draft
 
-'removed: submitted, rejected, scheculed
+    'removed: submitted, rejected, scheculed
 
-draft -l-> deleted: delete
+    draft -l-> deleted: delete
 
-draft -[norank]-> published: force_publish
+    draft -[norank]-> published: force_publish
 
-published -u-> draft: unpublish
-published -u-> draft: new edition also unpublishes
+    published -u-> draft: unpublish
+    published -u-> draft: new edition also unpublishes
 
-'draft -u-> draft: unpublish
+    'draft -u-> draft: unpublish
 
-published --> superseded: supersede
+    published --> superseded: supersede
 
-published --> withdrawn: withdraw
-withdrawn --> withdrawn: withdraw
+    published --> withdrawn: withdraw
+    withdrawn --> withdrawn: withdraw
 
-withdrawn --> superseded: unwithdraw
+    withdrawn --> superseded: unwithdraw
+
+    state Attachment {
+        [*] --> nonexistentent
+    }
+}
 
 asset_start --> asset_nonexistent
 
@@ -31,7 +43,7 @@ draft -[dashed]> asset_draft: upload
 published -[dashed]> asset_published
 
 asset_draft --> asset_published
-asset_published --> asset_draft
+asset_published --> asset_draft: draft: false\ndraft: true
 
-asset_published --> asset_deleted
+asset_published --> asset_deleted: deleted_at: <timestamp>
 @enduml
