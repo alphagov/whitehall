@@ -2,7 +2,6 @@ require "test_helper"
 
 class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   include Admin::EditionRoutesHelper
-  include PublicDocumentRoutesHelper
 
   test "should wrap admin output with a govspeak class" do
     html = govspeak_to_admin_html("govspeak-text")

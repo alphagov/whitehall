@@ -3,7 +3,6 @@ require "test_helper"
 class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
   include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
 
   describe AssetManager::AttachmentUpdater::LinkHeaderUpdates do
     let(:updater) { AssetManager::AttachmentUpdater }

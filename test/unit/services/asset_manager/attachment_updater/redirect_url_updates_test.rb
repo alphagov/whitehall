@@ -3,7 +3,6 @@ require "test_helper"
 class AssetManager::AttachmentUpdater::RedirectUrlUpdatesTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
   include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
 
   describe AssetManager::AttachmentUpdater::RedirectUrlUpdates do
     let(:updater) { AssetManager::AttachmentUpdater }

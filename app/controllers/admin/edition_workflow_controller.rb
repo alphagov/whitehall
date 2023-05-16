@@ -1,6 +1,5 @@
 class Admin::EditionWorkflowController < Admin::BaseController
   include HistoricContentConcern
-  include PublicDocumentRoutesHelper
 
   layout :get_layout
 

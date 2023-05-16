@@ -1,7 +1,6 @@
 class DocumentsController < PublicFacingController
   include CacheControlHelper
   include PermissionsChecker
-  include PublicDocumentRoutesHelper
 
   before_action :redirect_to_canonical_url
   before_action :find_document, only: [:show]

@@ -5,5 +5,4 @@ module PublicHostHelper
 end
 
 World(Admin::EditionRoutesHelper)
-World(PublicDocumentRoutesHelper)
 World(PublicHostHelper)

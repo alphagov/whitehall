@@ -1,7 +1,6 @@
 require "test_helper"
 
 class DocumentHelperTest < ActionView::TestCase
-  include PublicDocumentRoutesHelper
   include OrganisationHelper
   include InlineSvg::ActionView::Helpers
 

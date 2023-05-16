@@ -1,6 +1,4 @@
 module AtomTestHelpers
-  include PublicDocumentRoutesHelper
-
   def assert_select_atom_feed(&block)
     assert_select "feed", &block
   end

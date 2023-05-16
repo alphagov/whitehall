@@ -3,7 +3,6 @@ require "test_helper"
 class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   include GovspeakHelper
   include Admin::EditionRoutesHelper
-  include PublicDocumentRoutesHelper
 
   Whitehall.edition_classes.each do |edition_class|
     test "should rewrite absolute path to an admin page for a published #{edition_class} as link to its public page" do
