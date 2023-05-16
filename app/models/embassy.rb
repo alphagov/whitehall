@@ -66,11 +66,6 @@ private
   end
 
   SPECIAL_CASES = {
-    "French Polynesia" => {
-      building: "British High Commission Wellington",
-      location: "New Zealand",
-      base_path: "/government/world/organisations/british-high-commission-wellington",
-    },
     "Holy See" => {
       building: "British Embassy Rome",
       location: "Italy",
