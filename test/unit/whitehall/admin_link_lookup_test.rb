@@ -2,6 +2,9 @@ require "test_helper"
 
 module Whitehall
   class AdminLinkLookupTest < ActiveSupport::TestCase
+    include Rails.application.routes.url_helpers
+    include Admin::EditionRoutesHelper
+
     test "finds published edition" do
       speech = create(:published_speech)
 
@@ -12,7 +15,7 @@ module Whitehall
 
     test "finds corporate information page" do
       cip = create(:published_corporate_information_page)
-      admin_path = Whitehall.url_maker.polymorphic_path([:admin, cip.organisation, cip])
+      admin_path = polymorphic_path([:admin, cip.organisation, cip])
 
       edition = AdminLinkLookup.find_edition(admin_path)
 
@@ -22,7 +25,7 @@ module Whitehall
     test "finds worldwide corporate information page" do
       world_org = create(:worldwide_organisation)
       cip = create(:published_corporate_information_page, organisation: nil, worldwide_organisation: world_org)
-      admin_path = Whitehall.url_maker.polymorphic_path([:admin, world_org, cip])
+      admin_path = polymorphic_path([:admin, world_org, cip])
 
       edition = AdminLinkLookup.find_edition(admin_path)
 
