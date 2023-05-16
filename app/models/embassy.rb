@@ -76,11 +76,6 @@ private
       location: "Tunisia",
       base_path: "/government/world/organisations/british-embassy-tunis",
     },
-    "Marshall Islands" => {
-      building: "British High Commission Suva",
-      location: "Fiji",
-      base_path: "/government/world/organisations/british-high-commission-suva",
-    },
     "Micronesia" => {
       building: "British High Commission Suva",
       location: "Fiji",
