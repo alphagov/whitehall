@@ -1,0 +1,94 @@
+name: Summary Card Component
+description: An extension of Summary List Component
+accessibility_criteria: |
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - indicate when it has focus
+examples:
+  default:
+    data:
+      title: Title
+      rows:
+        - key: key one
+          value: value1
+        - key: key two
+          value: value2
+  with_custom-id:
+    data:
+      id: custom_id
+      title: Title
+      rows:
+        - key: key one
+          value: value1
+        - key: key two
+          value: value2
+  with_tracking:
+    data:
+      data_attributes:
+        tracking: GTM-123AB
+      title: Title
+      rows:
+        - key: key one
+          value: value1
+        - key: key two
+          value: value2
+  with_actions:
+    data:
+      title: Title
+      rows:
+        - key: key one
+          value: value1
+        - key: key two
+          value: value2
+      summary_card_actions:
+        - label: View
+          href: "#1"
+        - label: Edit
+          href: "#2"
+  with_destructive_action:
+    data:
+      title: Title
+      rows:
+        - key: key one
+          value: value1
+        - key: key two
+          value: value2
+      summary_card_actions:
+        - label: Delete
+          href: "#1"
+          destructive: true
+
+  with_row_actions:
+    data:
+      title: Title
+      rows:
+        - key: key one
+          value: value1
+          actions:
+            - label: View
+              href: "#1"
+            - label: Edit
+              href: "#2"
+        - key: key two
+          value: value2
+          actions:
+            - label: View
+              href: "#1"
+            - label: Edit
+              href: "#2"
+  with_row_destructive_action:
+    data:
+      title: Title
+      rows:
+        - key: key
+          value: value
+          actions:
+            - label: View
+              href: "#1"
+            - label: Edit
+              href: "#2"
+            - label: Delete
+              href: "#3"
+              destructive: true
+
