@@ -51,7 +51,6 @@ def document_format(edition)
   end
 end
 
-url_maker = Whitehall.url_maker
 CSV.open(output_filename, "w") do |csv|
   csv << ["URL", "Organisation", "First published on GOV.UK", "Format", "Status", "Timestamp of last state change"]
   Organisation.ordered_by_name_ignoring_prefix.each do |org|
@@ -59,7 +58,7 @@ CSV.open(output_filename, "w") do |csv|
       sorted_editions = editions.sort_by(&:lock_version)
       latest_edition = sorted_editions.last
       csv << [
-        url_maker.public_document_url(latest_edition),
+        latest_edition.public_url,
         org.name,
         first_published(sorted_editions),
         document_format(latest_edition),
