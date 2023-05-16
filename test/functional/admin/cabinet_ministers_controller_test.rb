@@ -12,6 +12,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
   end
 
   test "should reorder ministerial roles" do
+    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_cabinet_minister_roles_admin_cabinet_ministers_path
     role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
 
@@ -26,9 +27,11 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
         }
 
     assert_equal MinisterialRole.cabinet.order(:seniority).to_a, [role1, role2]
+    assert_redirected_to "#{admin_cabinet_ministers_path}#cabinet_minister"
   end
 
   test "should reorder people who also attend cabinet" do
+    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path
     role2 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation])
 
@@ -43,9 +46,11 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
         }
 
     assert_equal MinisterialRole.also_attends_cabinet.order(:seniority).to_a, [role1, role2]
+    assert_redirected_to "#{admin_cabinet_ministers_path}#also_attends_cabinet"
   end
 
   test "should reorder whips as part of the same request" do
+    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_whip_roles_admin_cabinet_ministers_path
     role2 = create(:ministerial_role, name: "Whip 1", whip_organisation_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Whip 2", whip_organisation_id: 2, organisations: [organisation])
 
@@ -61,9 +66,11 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
 
     assert_equal MinisterialRole.whip.order(:seniority).to_a, [role2, role1]
     assert_equal MinisterialRole.whip.order(:whip_ordering).to_a, [role1, role2]
+    assert_redirected_to "#{admin_cabinet_ministers_path}#whips"
   end
 
   test "should reorder ministerial organisations" do
+    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_ministerial_organisations_admin_cabinet_ministers_path
     org2 = create(:organisation)
     org1 = create(:organisation)
 
@@ -78,6 +85,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
         }
 
     assert_equal Organisation.order(:ministerial_ordering), [org1, org2]
+    assert_redirected_to "#{admin_cabinet_ministers_path}#organisations"
   end
 
   view_test "should list cabinet ministers and ministerial organisations in separate tabs, in the correct order, with reorder links" do

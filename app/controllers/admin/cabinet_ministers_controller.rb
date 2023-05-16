@@ -32,7 +32,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
     update_ordering(:whips, :whip_ordering)
     update_organisation_ordering
 
-    redirect_to admin_cabinet_ministers_path
+    redirect_to admin_cabinet_ministers_path + add_anchor_if_arrived_from_reorder_page
   end
 
 private
@@ -47,6 +47,23 @@ private
 
   def enforce_permissions!
     enforce_permission!(:reorder_cabinet_ministers, MinisterialRole)
+  end
+
+  def add_anchor_if_arrived_from_reorder_page
+    return "" if request.referer.blank?
+
+    case URI(request.referer).path
+    when reorder_cabinet_minister_roles_admin_cabinet_ministers_path
+      "#cabinet_minister"
+    when reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path
+      "#also_attends_cabinet"
+    when reorder_whip_roles_admin_cabinet_ministers_path
+      "#whips"
+    when reorder_ministerial_organisations_admin_cabinet_ministers_path
+      "#organisations"
+    else
+      ""
+    end
   end
 
   def update_ordering(key, column)
