@@ -1,6 +1,8 @@
 require "test_helper"
 
 class CorporateInformationPagesControllerTest < ActionController::TestCase
+  include Rails.application.routes.url_helpers
+
   should_be_a_public_facing_controller
 
   view_test "show renders the summary as plain text" do
@@ -99,7 +101,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
   test "finds unpublishing for a corporate information page" do
     organisation = create(:organisation)
     cip = create(:corporate_information_page, :unpublished, organisation:)
-    alternative_url = Whitehall.url_maker.root_url
+    alternative_url = Plek.website_root
     cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url:)
 
     get :show, params: { organisation_id: cip.organisation, id: cip.slug }
@@ -111,8 +113,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     organisation2 = create(:organisation, slug: "another_organisation")
     cip = create(:corporate_information_page, :unpublished, organisation:)
-    alternative_url = Whitehall.url_maker.root_url
-    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url:)
+    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url: Plek.website_root)
     draft_cip = create(:corporate_information_page, organisation: organisation2)
 
     # Even though the Unpublishing has the same slug as the draft CIP, we should

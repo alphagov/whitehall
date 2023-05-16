@@ -1,6 +1,9 @@
 require "test_helper"
 
 class LinkReporterCsvServiceTest < ActiveSupport::TestCase
+  include Rails.application.routes.url_helpers
+  include Admin::EditionRoutesHelper
+
   # Tests are run in parallel. Any shared resources (like files) which the
   # tests use need to be managed carefully. For example the setup method
   # creates a directory, and the teardown method removes it - it's important
@@ -79,14 +82,14 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
     assert_equal 3, hmrc_csv.size
     assert_equal [detailed_guide.public_url,
-                  "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_detailed_guide_path(detailed_guide)}",
+                  "https://whitehall-admin.publishing.service.gov.uk#{admin_detailed_guide_path(detailed_guide)}",
                   detailed_guide.public_timestamp.to_s,
                   "DetailedGuide",
                   "2",
                   "https://www.test.gov.uk/bad-link\r\nhttps://www.test.gov.uk/missing-link"],
                  hmrc_csv[1]
     assert_equal [publication.public_url,
-                  "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
+                  "https://whitehall-admin.publishing.service.gov.uk#{admin_publication_path(publication)}",
                   publication.public_timestamp.to_s,
                   "Publication",
                   "1",
@@ -152,15 +155,15 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     LinkReporterCsvService.new(reports_dir:, organisation: hmrc).generate
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
     assert_equal 2, hmrc_csv.size
-    assert_equal ["https://www.test.gov.uk#{Whitehall.url_maker.detailed_guide_path(detailed_guide.slug)}",
-                  "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_detailed_guide_path(detailed_guide)}",
+    assert_equal ["https://www.test.gov.uk#{detailed_guide.public_path}",
+                  "https://whitehall-admin.publishing.service.gov.uk#{admin_detailed_guide_path(detailed_guide)}",
                   detailed_guide.public_timestamp.to_s,
                   "DetailedGuide",
                   "2",
                   "https://www.test.gov.uk/bad-link\r\nhttps://www.test.gov.uk/missing-link"],
                  hmrc_csv[1]
     assert_not_equal [publication.public_url,
-                      "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
+                      "https://whitehall-admin.publishing.service.gov.uk#{admin_publication_path(publication)}",
                       publication.public_timestamp.to_s,
                       "Publication",
                       "0",
@@ -190,7 +193,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     assert_equal 2, csv.size
     assert_equal ["page", "admin link", "public timestamp", "format", "broken link count", "broken links"], csv[0]
     assert_equal [speech.public_url,
-                  "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_speech_path(speech)}",
+                  "https://whitehall-admin.publishing.service.gov.uk#{admin_speech_path(speech)}",
                   speech.public_timestamp.to_s,
                   "Speech",
                   "1",

@@ -111,11 +111,9 @@ module PublishingApi
       end
 
       def initialize(corporate_information_page,
-                     context = ActionController::Base,
-                     url_maker = Whitehall.url_maker)
+                     context = ActionController::Base)
         self.context = context
         self.corporate_information_page = corporate_information_page
-        self.url_maker = url_maker
       end
 
       def call
@@ -129,7 +127,7 @@ module PublishingApi
 
     private
 
-      attr_accessor :context, :corporate_information_page, :url_maker
+      attr_accessor :context, :corporate_information_page
 
       delegate :helpers, to: :context
       delegate :owning_organisation, to: :corporate_information_page

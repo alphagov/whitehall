@@ -288,9 +288,8 @@ module PublishingApi
         new(consultation).call
       end
 
-      def initialize(consultation, url_helpers: Whitehall.url_maker)
+      def initialize(consultation)
         self.consultation = consultation
-        self.url_helpers = url_helpers
       end
 
       def call
@@ -310,7 +309,7 @@ module PublishingApi
 
     private
 
-      attr_accessor :consultation, :url_helpers
+      attr_accessor :consultation
 
       delegate :consultation_participation, to: :consultation
       delegate :consultation_response_form, to: :participation

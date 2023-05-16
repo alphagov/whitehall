@@ -2,6 +2,9 @@ require "test_helper"
 
 module Govspeak
   class AdminLinkReplacerTest < ActiveSupport::TestCase
+    include Rails.application.routes.url_helpers
+    include Admin::EditionRoutesHelper
+
     test "rewrites admin links for published editions" do
       speech     = create(:published_speech)
       public_url = speech.public_url
@@ -14,7 +17,7 @@ module Govspeak
 
     test "unpublished edition links are replaced with plain text" do
       draft_speech = create(:draft_speech)
-      _admin_path  = Whitehall.url_maker.admin_speech_path(draft_speech)
+      _admin_path  = admin_speech_path(draft_speech)
       fragment     = govspeak_to_nokogiri_fragment("this is an [unpublished thing](/government/admin/speeches/#{draft_speech.id})")
 
       AdminLinkReplacer.new(fragment).replace!
@@ -25,7 +28,7 @@ module Govspeak
 
     test "rewrites admin links to published corporate information pages" do
       cip        = create(:published_corporate_information_page)
-      admin_path = Whitehall.url_maker.polymorphic_path([:admin, cip.organisation, cip])
+      admin_path = polymorphic_path([:admin, cip.organisation, cip])
       public_url = cip.public_url
       fragment   = govspeak_to_nokogiri_fragment("Here is a link to an [info page](#{admin_path})")
 
@@ -37,7 +40,7 @@ module Govspeak
     test "handles cips on world orgs" do
       world_org  = create(:worldwide_organisation)
       cip        = create(:published_corporate_information_page, organisation: nil, worldwide_organisation: world_org)
-      admin_path = Whitehall.url_maker.polymorphic_path([:admin, world_org, cip])
+      admin_path = polymorphic_path([:admin, world_org, cip])
       public_url = cip.public_url
       fragment   = govspeak_to_nokogiri_fragment("Here is a link to a [world info page](#{admin_path})")
 

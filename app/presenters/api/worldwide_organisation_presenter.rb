@@ -5,7 +5,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
       title: model.name,
       format: "Worldwide Organisation",
       updated_at: model.updated_at,
-      web_url: Whitehall.url_maker.worldwide_organisation_url(model),
+      web_url: model.public_url,
       details: {
         slug: model.slug,
       },
@@ -47,7 +47,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
       title: office_worldwide_organisation.contact.title,
       format: "World Office",
       updated_at: office_worldwide_organisation.updated_at,
-      web_url: Whitehall.url_maker.worldwide_organisation_worldwide_office_url(model, office_worldwide_organisation),
+      web_url: office_worldwide_organisation.public_url,
       details: {
         email: office_worldwide_organisation.contact.email || "",
         description: office_worldwide_organisation.contact.comments || "",

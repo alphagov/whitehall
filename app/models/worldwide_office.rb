@@ -50,4 +50,16 @@ class WorldwideOffice < ApplicationRecord
   def republish_embassies_index_page_to_publishing_api
     PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
   end
+
+  def base_path
+    "/world/organisations/#{worldwide_organisation.slug}/office/#{slug}"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options)
+  end
 end

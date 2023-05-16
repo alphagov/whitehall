@@ -72,7 +72,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public world organisations url as web_url" do
-    assert_equal Whitehall.url_maker.worldwide_organisation_url(@world_org), @presenter.as_json[:web_url]
+    assert_equal @world_org.public_url, @presenter.as_json[:web_url]
   end
 
   test "json includes office sponsoring org name in sponsors array as title" do
@@ -95,7 +95,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public office url in offices as web_url" do
-    assert_equal Whitehall.url_maker.worldwide_organisation_worldwide_office_url(@world_org, @office), @presenter.as_json[:offices][:main][:web_url]
+    assert_equal @office.public_url, @presenter.as_json[:offices][:main][:web_url]
   end
 
   test "json includes office contact comments in offices as description" do
@@ -134,14 +134,12 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
       :worldwide_office,
       contact: stub_translatable_record(:contact, title: "best-office", contact_numbers: []),
       services: [],
-      worldwide_organisation: nil,
       access_and_opening_times: "never",
     )
     office2 = stub_record(
       :worldwide_office,
       contact: stub_translatable_record(:contact, title: "worst-office", contact_numbers: []),
       services: [],
-      worldwide_organisation: nil,
       access_and_opening_times: "never",
     )
 

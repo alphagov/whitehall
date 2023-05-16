@@ -1,4 +1,6 @@
 class FileAttachment < Attachment
+  include Rails.application.routes.url_helpers
+
   extend FriendlyId
   include HasContentId
   friendly_id { |config| config.routes = false }
@@ -58,10 +60,12 @@ private
 
   def preview_url
     if csv? && attachable.is_a?(Edition)
-      Whitehall.url_maker.csv_preview_url(
+      csv_preview_url(
         id: attachment_data.id,
         file: filename_without_extension,
         extension: file_extension,
+        host: Whitehall.public_host,
+        protocol: Whitehall.public_protocol,
       )
     end
   end
