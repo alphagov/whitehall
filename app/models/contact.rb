@@ -20,7 +20,7 @@ class Contact < ApplicationRecord
   after_create :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api
 
-  after_commit :republish_embassies_index_page_to_publishing_api
+  after_commit :republish_embassies_index_page_to_publishing_api, :republish_worldwide_office_to_publishing_api
 
   include TranslatableModel
   translates :title,
@@ -37,6 +37,10 @@ class Contact < ApplicationRecord
 
   def republish_organisation_to_publishing_api
     Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(Organisation)
+  end
+
+  def republish_worldwide_office_to_publishing_api
+    Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(WorldwideOffice)
   end
 
   def contactable_name
