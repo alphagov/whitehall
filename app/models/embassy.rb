@@ -76,11 +76,6 @@ private
       location: "Tunisia",
       base_path: "/government/world/organisations/british-embassy-tunis",
     },
-    "Micronesia" => {
-      building: "British High Commission Suva",
-      location: "Fiji",
-      base_path: "/government/world/organisations/british-high-commission-suva",
-    },
     "New Caledonia" => {
       building: "British High Commission Wellington",
       location: "New Zealand",
