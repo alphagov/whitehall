@@ -82,7 +82,7 @@
 
           <%= render "govuk_publishing_components/components/copy_to_clipboard", {
             label: "Copy and send this link to someone and they’ll be able to preview your draft on GOV.UK.",
-            copyable_content: preview_document_url_with_auth_bypass_token(@edition),
+            copyable_content: show_url_with_auth_bypass_options(@edition, draft: true),
             button_text: "Copy link"
           } %>
           <% if !@edition.publicly_visible? %>
