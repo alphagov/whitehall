@@ -6,7 +6,11 @@ class StatisticsControllerTest < ActionController::TestCase
   include TaxonomyHelper
 
   should_be_a_public_facing_controller
-  should_redirect_json_in_english_locale
+
+  view_test "index requested as JSON is redirected" do
+    get :index, format: :json
+    assert_response :redirect
+  end
 
   def assert_publication_order(expected_order)
     actual_order = assigns(:publications).map(&:model).map(&:id)
