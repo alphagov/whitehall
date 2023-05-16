@@ -36,6 +36,7 @@ Feature: Minister pages
     And I should see that "Fred Bloggs" also attends cabinet
     And I should see that "Fred Bloggs" is a minister in the "Department of Foo"
 
+  @bootstrap-only
   Scenario: Administering the order of cabinet ministers
     Given I am a GDS editor called "Jane"
     And two cabinet ministers "Mary Moffet" and "Catherine Tuffet"
@@ -44,6 +45,7 @@ Feature: Minister pages
     When I order the cabinet ministers "Catherine Tuffet", "Mary Moffet"
     Then I should see "Catherine Tuffet", "Mary Moffet" in that order on the ministers page
 
+  @bootstrap-only
   Scenario: Administering the order of whips
     Given I am a GDS editor called "Jane"
     Given two whips "Wilma the Whip" and "Jake the Junior Whip"
