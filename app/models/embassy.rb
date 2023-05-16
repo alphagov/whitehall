@@ -76,11 +76,6 @@ private
       location: "Tunisia",
       base_path: "/government/world/organisations/british-embassy-tunis",
     },
-    "New Caledonia" => {
-      building: "British High Commission Wellington",
-      location: "New Zealand",
-      base_path: "/government/world/organisations/british-high-commission-wellington",
-    },
     "St Martin" => {
       building: "British Embassy Paris",
       location: "France",
