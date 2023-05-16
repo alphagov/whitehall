@@ -90,16 +90,16 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   end
 
   test "should allow attached images to be embedded in admin html" do
-    images = [OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg")]
-    html = govspeak_to_admin_html("!!1", images)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", "https://some.cdn.com/image.jpg"
+    image = build(:image)
+    html = govspeak_to_admin_html("!!1", [image])
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.url
   end
 
   test "should allow attached images to be embedded in edition body" do
-    edition = build(:published_news_article, body: "!!1")
-    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg")])
+    image = build(:image)
+    edition = build(:published_news_article, body: "!!1", images: [image])
     html = govspeak_edition_to_admin_html(edition)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", "https://some.cdn.com/image.jpg"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.url
   end
 
   test "uses the frontend contacts/_contact partial when rendering embedded contacts, not the admin partial" do
