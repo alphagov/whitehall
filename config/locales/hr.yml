@@ -519,7 +519,7 @@ hr:
       organisation_chart: Naša shema organizacije
       transparency: Podaci o transparentnosti
     embassies:
-      find_an_embassy_title: Pronađite britansko veleposlanstvo, visokog poručnika ili konzulata
+      find_an_embassy_title:
     headings:
       corporate_information: Korporativne informacije
       corporate_reports: Korporativna izvješća

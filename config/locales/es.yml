@@ -440,7 +440,7 @@ es:
       organisation_chart: Nuestro organigrama
       transparency: Datos de transparencia
     embassies:
-      find_an_embassy_title: Busque una embajada británica, alto comisionado o consulado
+      find_an_embassy_title:
     headings:
       corporate_information: Información corporativa
       corporate_reports: Informes corporativos

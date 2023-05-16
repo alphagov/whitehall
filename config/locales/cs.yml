@@ -519,7 +519,7 @@ cs:
       organisation_chart: Naše organizační schéma
       transparency: Údaje o transparentnosti
     embassies:
-      find_an_embassy_title: Vyhledání britského velvyslanectví, vysoké komise nebo konzulátu
+      find_an_embassy_title:
     headings:
       corporate_information: Firemní informace
       corporate_reports: Podnikové zprávy

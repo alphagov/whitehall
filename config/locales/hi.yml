@@ -443,7 +443,7 @@ hi:
       organisation_chart: हमारी संस्था का चार्ट
       transparency: पारदर्शिता आंकड़े
     embassies:
-      find_an_embassy_title: एक ब्रिटिश दूतावास, उच्चायोग या वाणिज्य दूतावास खोजें
+      find_an_embassy_title:
     headings:
       corporate_information: कारपोरेट सूचना
       corporate_reports: कॉरपोरेट विवरण

@@ -443,7 +443,7 @@ az:
       organisation_chart: Təşkilat sxemimiz
       transparency: Məlumatla bağlı şəffaflıq
     embassies:
-      find_an_embassy_title: Britaniya səfirliyi, diplomatik nümayəndəliyi və ya konsulluğu tapın
+      find_an_embassy_title:
     headings:
       corporate_information: Korporativ məlumat
       corporate_reports: Şirkətin fəaliyyəti üzrə hesabatlar

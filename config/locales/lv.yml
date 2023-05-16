@@ -440,7 +440,7 @@ lv:
       organisation_chart: Mūsu organizācijas shēma
       transparency: Atklātība
     embassies:
-      find_an_embassy_title: Atrast britu vēstniecību, augsto komisiju vai konsulātu
+      find_an_embassy_title:
     headings:
       corporate_information: Korporatīvā informācija
       corporate_reports: Korporatīvie ziņojumi

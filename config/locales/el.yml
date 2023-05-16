@@ -442,7 +442,7 @@ el:
       organisation_chart: Το οργανόγραμμα μας
       transparency: Δεδομένα διαφάνειας
     embassies:
-      find_an_embassy_title: Βρείτε βρετανική πρεσβεία, γραφείο κοινοπολιτείας ή προξενείο
+      find_an_embassy_title:
     headings:
       corporate_information: Εταιρικές πληροφορίες
       corporate_reports: Εταιρικές εκθέσεις

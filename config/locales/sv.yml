@@ -443,7 +443,7 @@ sv:
       organisation_chart: Vårt organisationsschema
       transparency: Uppgifter om öppenhet
     embassies:
-      find_an_embassy_title: Hitta en brittisk ambassad, ett brittiskt högkommissariat eller konsulat
+      find_an_embassy_title:
     headings:
       corporate_information: Företagsinformation
       corporate_reports: Företagsrapporter

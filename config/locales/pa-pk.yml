@@ -440,7 +440,7 @@ pa-pk:
       organisation_chart: ساڈے ادارے دا چارٹ
       transparency: شفافیت دی معلومات
     embassies:
-      find_an_embassy_title: اک برطانوی ایمبیسی، ہائی کمیشن یا کونسلیٹ دی کھوج کرو
+      find_an_embassy_title:
     headings:
       corporate_information: کاروبار دی معلومات
       corporate_reports: کاروبار دیاں خبراں

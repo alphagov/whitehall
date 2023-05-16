@@ -516,7 +516,7 @@ lt:
       organisation_chart: Mūsų organizacijos schema
       transparency: Skaidrumo informacija
     embassies:
-      find_an_embassy_title: Raskite Didžiosios Britanijos ambasadą ar konsulatą
+      find_an_embassy_title:
     headings:
       corporate_information: Korporatyvinė informacija
       corporate_reports: Korporatyvinės ataskaitos
