@@ -8,7 +8,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   Whitehall.edition_classes.each do |edition_class|
     test "should rewrite absolute path to an admin page for a published #{edition_class} as link to its public page" do
       edition = create("published_#{edition_class.name.underscore}")
-      assert_rewrites_link(from: admin_edition_path(edition), to: public_document_url(edition))
+      assert_rewrites_link(from: admin_edition_path(edition), to: edition.public_url)
     end
   end
 
@@ -56,17 +56,17 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
 
   test "should rewrite admin link to an superseded edition as a link to its published edition" do
     superseded_edition, published_edition = create_superseded_document_with_published_edition
-    assert_rewrites_link(from: admin_edition_path(superseded_edition), to: public_document_url(published_edition))
+    assert_rewrites_link(from: admin_edition_path(superseded_edition), to: published_edition.public_url)
   end
 
   test "should rewrite admin link to a draft edition as a link to its published edition" do
     published_edition, new_draft = create_draft_document_with_published_edition
-    assert_rewrites_link(from: admin_edition_path(new_draft), to: public_document_url(published_edition))
+    assert_rewrites_link(from: admin_edition_path(new_draft), to: published_edition.public_url)
   end
 
   test "should rewrite absolute path to an admin page for a speech as a link to its public page" do
     speech = create(:published_speech)
-    assert_rewrites_link(from: admin_speech_path(speech), to: public_document_url(speech))
+    assert_rewrites_link(from: admin_speech_path(speech), to: speech.public_url)
   end
 
   test "should not link to draft editions with no published edition" do

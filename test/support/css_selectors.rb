@@ -98,7 +98,7 @@ module CssSelectors
   end
 
   def link_to_public_version_selector(document)
-    "a[href='#{public_document_url(document)}']"
+    "a[href='#{document.public_url}']"
   end
 
   def link_to_preview_version_selector(document)
