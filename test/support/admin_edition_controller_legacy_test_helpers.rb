@@ -1122,7 +1122,7 @@ module AdminEditionControllerLegacyTestHelpers
         first_published_at = 3.months.ago
         post :create,
              params: {
-               edition: controller_attributes_for(edition_type).merge(first_published_at: 3.months.ago),
+               edition: controller_attributes_for(edition_type).merge(first_published_at: 3.months.ago, previously_published: "true"),
              }
 
         edition = edition_class.last

@@ -465,6 +465,14 @@ private
     edition_params.delete(:create_foreign_language_only)
     edition_params[:external_url] = nil if edition_params[:external] == "0"
     edition_params[:change_note] = nil if edition_params[:minor_change] == "true"
+
+    if edition_params[:previously_published] == "false"
+      edition_params["first_published_at(1i)"] = ""
+      edition_params["first_published_at(2i)"] = ""
+      edition_params["first_published_at(3i)"] = ""
+      edition_params["first_published_at(4i)"] = ""
+      edition_params["first_published_at(5i)"] = ""
+    end
   end
 
   def clear_scheduled_publication_if_not_activated

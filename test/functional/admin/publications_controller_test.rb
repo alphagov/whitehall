@@ -71,6 +71,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
            edition: controller_attributes_for(
              :publication,
              first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
+             previously_published: "true",
              publication_type_id: PublicationType::ResearchAndAnalysis.id,
            ),
          }
