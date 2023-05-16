@@ -76,11 +76,6 @@ private
       location: "Tunisia",
       base_path: "/government/world/organisations/british-embassy-tunis",
     },
-    "Liechtenstein" => {
-      building: "British Embassy Berne",
-      location: "Switzerland",
-      base_path: "/government/world/organisations/british-embassy-berne",
-    },
     "Macao" => {
       building: "British Consulate General Hong Kong",
       location: "Hong Kong",
