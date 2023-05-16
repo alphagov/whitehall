@@ -36,7 +36,7 @@
             <ul class="govuk-list">
               <% @corporate_publications.each do |publication| %>
                 <%= content_tag_for :li, publication, class: 'item' do %>
-                  <h3 class="title"><%= link_to publication.title, public_document_path(publication), class: "govuk-link" %></h3>
+                  <h3 class="title"><%= link_to publication.title, publication.public_path, class: "govuk-link" %></h3>
                   <span class="metadata">
                     <%= absolute_date(publication.public_timestamp) %>
                   </span>

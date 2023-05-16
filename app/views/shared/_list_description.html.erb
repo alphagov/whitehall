@@ -5,12 +5,12 @@
         <%=
           link_to(
             edition.title,
-            public_document_path(edition),
+            edition.public_path,
             class: "govuk-link",
             data: {
               track_category: 'navPolicyAreaLinkClicked',
               track_action: "#{local_assigns.has_key?(:heading) ? heading : "Unknown"}.#{edition_index + 1}",
-              track_label: public_document_path(edition),
+              track_label: edition.public_path,
               track_options: {
                 dimension28: editions.count.to_s,
                 dimension29: edition.title

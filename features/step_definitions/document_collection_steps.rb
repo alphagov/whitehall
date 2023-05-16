@@ -117,7 +117,7 @@ rescue ActionController::RoutingError
 end
 
 Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|
-  expect(page).to have_current_path(public_document_path(DocumentCollection.find_by(title:)))
+  expect(page).to have_current_path(DocumentCollection.find_by(title:).public_path)
 end
 
 Then(/^I can see in the admin that "(.*?)" is part of the document collection$/) do |document_title|
