@@ -32,6 +32,17 @@ module GovspeakHelper
     bare_govspeak_to_html(partially_processed_govspeak, images, allowed_elements:)
   end
 
+  def govspeak_html_attachment_to_html(html_attachment)
+    attachable = html_attachment.attachable
+    model_images = attachable.respond_to?(:images) ? attachable.images : []
+    images = prepare_images model_images
+
+    heading_numbering = html_attachment.manually_numbered_headings? ? :manual : :auto
+    options = { heading_numbering:, contact_heading_tag: "h4" }
+
+    wrapped_in_govspeak_div(bare_govspeak_to_html(html_attachment.body, images, options))
+  end
+
   def prepare_images(images)
     images.map do |image|
       {

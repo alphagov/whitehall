@@ -437,4 +437,37 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_with_attachments_to_html(body, attachments, "email@example.com")
     assert html.include?("<details class=\"gem-c-details")
   end
+
+  test "should convert a HTML attachment" do
+    html_attachment = create(:html_attachment, body: "## A heading")
+    html = govspeak_html_attachment_to_html(html_attachment)
+    assert_select_within_html html, ".govspeak h2"
+  end
+
+  test "HTML attachments inherit images from their parent edition" do
+    edition = create(:published_publication, images: [build(:image)])
+    body = "[Image: minister-of-funk.960x640.jpg]"
+    html_attachment = create(:html_attachment, attachable: edition, body:)
+    html = govspeak_html_attachment_to_html(html_attachment)
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.url}']"
+  end
+
+  test "HTML attachments can embed images using !!number syntax" do
+    edition = create(:published_publication, images: [build(:image)])
+    html_attachment = create(:html_attachment, attachable: edition, body: "!!1")
+    html = govspeak_html_attachment_to_html(html_attachment)
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.url}']"
+  end
+
+  test "HTML attachment with automatically numbered headings" do
+    html_attachment = create(:html_attachment, body: "## A heading", manually_numbered_headings: false)
+    html = govspeak_html_attachment_to_html(html_attachment)
+    assert_select_within_html html, ".govspeak h2", text: "1. A heading", count: 1
+  end
+
+  test "HTML attachment with manually numbered headings" do
+    html_attachment = create(:html_attachment, body: "## A heading", manually_numbered_headings: true)
+    html = govspeak_html_attachment_to_html(html_attachment)
+    assert_select_within_html html, ".govspeak h2", text: "A heading", count: 1
+  end
 end

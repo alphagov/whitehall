@@ -71,14 +71,8 @@ module PublishingApi
       details_hash.merge(national_applicability: item.attachable.national_applicability)
     end
 
-    def govspeak_options
-      method = item.manually_numbered_headings? ? :manual : :auto
-      { heading_numbering: method, contact_heading_tag: "h4" }
-    end
-
     def body
-      images = item.attachable.try(:images) || []
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body, images, govspeak_options)
+      Whitehall::GovspeakRenderer.new.govspeak_html_attachment_to_html(item)
     end
 
     def first_published_version?
