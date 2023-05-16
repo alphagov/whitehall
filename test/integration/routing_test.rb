@@ -49,36 +49,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "redirects organisation groups index URL to organisation page" do
-    organisation = create(:organisation)
-    get "/government/organisations/#{organisation.to_param}/groups"
-    assert_redirected_to organisation.public_path
-  end
-
-  test "redirects organisation groups show URL to organisation page" do
-    organisation = create(:organisation)
-    get "/government/organisations/#{organisation.to_param}/groups/some-group"
-    assert_redirected_to organisation.public_path
-  end
-
-  test "redirects organisation chiefs-of-staff URL to organisation page" do
-    organisation = create(:organisation)
-    get "/government/organisations/#{organisation.to_param}/chiefs-of-staff"
-    assert_redirected_to organisation.public_path
-  end
-
-  test "redirects organisation consultations URL to organisation page" do
-    organisation = create(:organisation)
-    get "/government/organisations/#{organisation.to_param}/consultations"
-    assert_redirected_to organisation.public_path
-  end
-
-  test "redirects organisation series URL to publications page" do
-    organisation = create(:organisation)
-    get "/government/organisations/#{organisation.to_param}/series"
-    assert_redirected_to "/government/publications"
-  end
-
   test "routing to editions#show will redirect to correct edition type" do
     login_as_admin
     publication = create(:publication)

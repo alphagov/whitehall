@@ -63,15 +63,6 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 
-    # Redirects rendered by Whitehall
-    get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_id/series(.:locale)" => redirect("/publications"), constraints: { locale: valid_locales_regex }
-    get "/organisations/:organisation_id/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
-    # End of redirects rendered by Whitehall
-
     # Public facing routes still rendered by Whitehall
     resources :fatality_notices, path: "fatalities", only: [:show]
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
