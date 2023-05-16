@@ -5,8 +5,7 @@ class Admin::PreviewController < Admin::BaseController
 
   def preview
     if Govspeak::HtmlValidator.new(params[:body]).valid?
-      model_images = Image.find(params.fetch(:image_ids, []))
-      @images = prepare_images model_images
+      @images = Image.find(params.fetch(:image_ids, []))
       @alternative_format_contact_email = alternative_format_contact_email
       render layout: false
     else

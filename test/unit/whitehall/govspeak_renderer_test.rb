@@ -29,19 +29,19 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
   end
 
   test "converts inline attachments" do
-    body = "#Heading\n\nText about my [InlineAttachment:2] and [InlineAttachment:1]."
+    body = "#Heading\n\nText about my [AttachmentLink:greenpaper.pdf] and [AttachmentLink:greenpaper.pdf]."
     edition = build(
       :published_detailed_guide,
       :with_file_attachment,
       body:,
       attachments: [
-        attachment1 = build(:file_attachment, id: 1),
-        attachment2 = build(:file_attachment, id: 2),
+        build(:file_attachment, title: "file-attachment-title-1"),
+        build(:file_attachment, title: "file-attachment-title-2"),
       ],
     )
     html = render_govspeak(edition)
-    assert_select_within_html html, "#attachment_#{attachment1.id}"
-    assert_select_within_html html, "#attachment_#{attachment2.id}"
+
+    assert_select_within_html html, ".gem-c-attachment-link", count: 2
   end
 
   test "converts block attachments and handles thumbnails for PDFs" do
@@ -51,7 +51,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
       :with_file_attachment,
       body:,
       attachments: [
-        attachment = build(:file_attachment, id: 1),
+        build(:file_attachment, id: 1),
       ],
     )
 
@@ -60,7 +60,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
     ad.update_column(:content_type, "application/pdf")
 
     html = render_govspeak(edition)
-    assert_select_within_html html, "#attachment_#{attachment.id}"
+    assert_select_within_html html, "a[href='#{edition.attachments.first.url}']"
   end
 
   def render_govspeak(edition)

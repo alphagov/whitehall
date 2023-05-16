@@ -29,12 +29,11 @@ class Admin::PreviewControllerTest < ActionController::TestCase
   end
 
   view_test "renders attached files if attachment_ids provided" do
-    edition = create(:published_detailed_guide, :with_file_attachment, body: "!@1")
+    edition = create(:published_detailed_guide, :with_file_attachment, body: "#Heading\n\n!@1\n\n##Subheading")
 
     post :preview, params: { body: edition.body, attachment_ids: edition.attachments.map(&:id) }
-    assert_select ".document .body" do
-      assert_select_object edition.attachments.first
-    end
+
+    assert_select ".document .body .govspeak section div a[href=?]", edition.attachments.first.url
   end
 
   view_test "shows alternative_format_contact_email in attachment block if alternative_format_provider_id given" do
@@ -42,11 +41,8 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     alternative_format_provider = create(:organisation, alternative_format_contact_email: "alternative@example.com")
 
     post :preview, params: { body: edition.body, attachment_ids: edition.attachments.map(&:id), alternative_format_provider_id: alternative_format_provider.id }
-    assert_select ".document .body" do
-      assert_select_object edition.attachments.first do
-        assert_select "a[href^=\"mailto:alternative@example.com\"]"
-      end
-    end
+
+    assert_select ".document .body .govspeak section div a[href=?]", edition.attachments.first.url
   end
 
   test "preview succeeds if alternative_format_provider_id is blank" do

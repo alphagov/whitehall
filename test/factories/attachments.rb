@@ -11,7 +11,7 @@ FactoryBot.define do
       file { File.open(Rails.root.join("test/fixtures/greenpaper.pdf")) }
     end
     after(:build) do |attachment, evaluator|
-      attachment.attachment_data ||= build(:attachment_data, file: evaluator.file)
+      attachment.attachment_data ||= build(:attachment_data, file: evaluator.file, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
     end
     accessible { false }
   end
