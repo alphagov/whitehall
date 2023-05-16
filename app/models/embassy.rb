@@ -76,11 +76,6 @@ private
       location: "Tunisia",
       base_path: "/government/world/organisations/british-embassy-tunis",
     },
-    "Macao" => {
-      building: "British Consulate General Hong Kong",
-      location: "Hong Kong",
-      base_path: "/government/world/organisations/british-consulate-general-hong-kong",
-    },
     "Marshall Islands" => {
       building: "British High Commission Suva",
       location: "Fiji",
