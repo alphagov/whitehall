@@ -1,4 +1,3 @@
-@design-system-only
 Feature: Images tab on edit edition
 
   Background:
