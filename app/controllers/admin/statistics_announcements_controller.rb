@@ -13,7 +13,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   def show
     @edition_taxons = EditionTaxonsFetcher.new(@statistics_announcement.content_id).fetch
 
-    render :legacy_show
+    render_design_system("show", "legacy_show", next_release: false)
   end
 
   def new
@@ -156,7 +156,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[edit update new create cancel publish_cancellation cancel_reason update_cancel_reason] if preview_design_system?(next_release: false)
+    design_system_actions += %w[show edit update new create cancel publish_cancellation cancel_reason update_cancel_reason] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

@@ -1,0 +1,11 @@
+<% content_for :page_title, "Statistics announcement: #{@statistics_announcement.title}" %>
+<% content_for :title, "#{@statistics_announcement.title}" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render partial: 'admin/statistics_announcements/show/main' %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= render partial: 'admin/statistics_announcements/show/sidebar' %>
+  </div>
+</div>

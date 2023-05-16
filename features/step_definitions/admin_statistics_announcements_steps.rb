@@ -88,19 +88,38 @@ end
 
 When(/^I link the announcement to the publication$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on "connect an existing draft"
+
+  if using_design_system?
+    click_on "Add existing document"
+  else
+    click_on "connect an existing draft"
+  end
 
   fill_in "title", with: "statistics"
   click_on "Search"
-  find("li.ui-menu-item").click
+
+  if using_design_system?
+    find(".govuk-link", text: "Connect").click
+  else
+    find("li.ui-menu-item").click
+  end
 end
 
 Then(/^I should see that the announcement is linked to the publication$/) do
   expect(page).to have_current_path(admin_statistics_announcement_path(@statistics_announcement))
-  expect(page).to have_content(
-    "Announcement connected to draft document #{@statistics_publication.title}",
-    normalize_ws: true,
-  )
+  if using_design_system?
+    expect(page).to have_content("Announcement updated successfully")
+    expect(page).to have_link("Change connected document", href: admin_statistics_announcement_publication_index_path(@statistics_announcement))
+    expect(page).to_not have_link("Add existing document", href: admin_statistics_announcement_publication_index_path(@statistics_announcement))
+    expect(page).to_not have_link("create new document", href: new_admin_publication_path(statistics_announcement_id: @statistics_announcement))
+    expect(page).to have_content(@statistics_publication.title.to_s)
+    expect(page).to have_link("View", href: admin_statistics_announcement_publication_index_path(@statistics_announcement))
+  else
+    expect(page).to have_content(
+      "Announcement connected to draft document #{@statistics_publication.title}",
+      normalize_ws: true,
+    )
+  end
 end
 
 When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |announcement_title|
@@ -126,7 +145,11 @@ end
 
 When(/^I draft a document from the announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on "Draft new document"
+  if using_design_system?
+    click_on "create new document"
+  else
+    click_on "Draft new document"
+  end
 end
 
 When(/^I save the draft statistics document$/) do
@@ -137,9 +160,10 @@ end
 
 When(/^I change the release date on the announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on "Change release date"
 
   if using_design_system?
+    click_on "Change dates"
+
     within "#statistics_announcement_date_change_release_date" do
       fill_in_date_and_time_field("14-Dec-#{Time.zone.today.year.next} 09:30")
     end
@@ -147,6 +171,7 @@ When(/^I change the release date on the announcement$/) do
     choose "Exact date (confirmed)"
     click_on "Publish date"
   else
+    click_on "Change release date"
     select_datetime "14-Dec-#{Time.zone.today.year.next} 09:30", from: "Release date"
     check "Confirmed date?"
     choose "Exact"
@@ -164,8 +189,8 @@ end
 
 When(/^I cancel the statistics announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on "Cancel statistics release"
 
+  click_on "Cancel statistics release"
   if using_design_system?
     fill_in "Reason for cancellation", with: "Cancelled because: reasons"
   else
@@ -177,6 +202,7 @@ end
 
 When(/^I change the cancellation reason$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
+
   click_on "Edit cancellation reason"
 
   if using_design_system?
@@ -197,9 +223,12 @@ end
 
 Then(/^I should see that the statistics announcement has been cancelled$/) do
   ensure_path admin_statistics_announcement_path(@statistics_announcement)
-
-  expect(page).to have_content("Statistics release cancelled")
-  expect(page).to have_content("Cancelled because: reason")
+  if using_design_system?
+    expect(page).to have_content("Announcement has been cancelled")
+  else
+    expect(page).to have_content("Statistics release cancelled")
+    expect(page).to have_content("Cancelled because: reason")
+  end
 end
 
 Then(/^the document fields are pre-filled based on the announcement$/) do
@@ -274,8 +303,8 @@ end
 
 When(/^I unpublish the statistics announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on "Unpublish announcement"
 
+  click_on "Unpublish announcement"
   fill_in "Redirect to URL", with: "http://www.dev.gov.uk/example"
 
   if using_design_system?

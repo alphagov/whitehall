@@ -22,7 +22,7 @@ module Admin::UrlOptionsHelper
 
   def view_on_website_link_for(model, options = {})
     url_options = options.delete(:url) || {}
-    link_to "View on website", show_url_with_public_and_cachebusted_options(model, url_options), options
+    link_to "View on website (opens in a new tab)", show_url_with_public_and_cachebusted_options(model, url_options), options
   end
 
   def auth_bypass_options(edition)

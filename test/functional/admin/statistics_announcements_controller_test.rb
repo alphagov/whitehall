@@ -105,7 +105,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     get :show, params: { id: announcement }
 
     assert_response :success
-    assert_select "h1 .stats-heading", text: announcement.title
+    assert_select "h1.govuk-heading-xl", text: announcement.title
   end
 
   view_test "GET :edit renders the edit form for the  announcement" do
@@ -199,7 +199,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_redirected_to [:admin, announcement]
   end
 
-  view_test "show a button to tag to the new taxonomy" do
+  view_test "show a link to tag to the new taxonomy" do
     dfe_organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
 
     announcement = create(
@@ -212,7 +212,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     announcement_has_no_expanded_links(announcement.content_id)
     get :show, params: { id: announcement }
 
-    assert_select ".taxonomy-topics .btn", "Add tag"
+    assert_select "a[href='#{edit_admin_statistics_announcement_tags_path(announcement.id)}']", "Add tags"
   end
 
   view_test "when announcement is not tagged to the new taxonomy" do
@@ -228,8 +228,8 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     announcement_has_no_expanded_links(announcement.content_id)
     get :show, params: { id: announcement }
 
-    refute_select ".taxonomy-topics .content"
-    assert_select ".taxonomy-topics .no-content", "No topics - please add a topic"
+    assert_select ".govuk-warning-text", /Please add a tag before publishing/
+    refute_select ".govuk-breadcrumbs__list"
   end
 
   view_test "when announcement is tagged to the new taxonomy" do
@@ -246,9 +246,9 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     get :show, params: { id: announcement }
 
-    refute_select ".taxonomy-topics .no-content"
-    assert_select ".taxonomy-topics .content li", "Education, Training and Skills"
-    assert_select ".taxonomy-topics .content li", "Primary Education"
+    refute_select ".govuk-warning-text"
+    assert_select ".govuk-breadcrumbs__list-item", "Education, Training and Skills"
+    assert_select ".govuk-breadcrumbs__list-item", "Primary Education"
   end
 
 private
