@@ -1,0 +1,37 @@
+@startuml edition_state_transitions
+hide empty description
+
+state asset_start <<start>>
+
+[*] --> draft
+
+'removed: submitted, rejected, scheculed
+
+draft -l-> deleted: delete
+
+draft -[norank]-> published: force_publish
+
+published -u-> draft: unpublish
+published -u-> draft: new edition also unpublishes
+
+'draft -u-> draft: unpublish
+
+published --> superseded: supersede
+
+published --> withdrawn: withdraw
+withdrawn --> withdrawn: withdraw
+
+withdrawn --> superseded: unwithdraw
+
+asset_start --> asset_nonexistent
+
+asset_nonexistent --> asset_draft: asset uploaded
+
+draft -[dashed]> asset_draft: upload
+published -[dashed]> asset_published
+
+asset_draft --> asset_published
+asset_published --> asset_draft
+
+asset_published --> asset_deleted
+@enduml

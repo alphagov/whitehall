@@ -1,0 +1,62 @@
+@startuml edition_model
+allowmixing
+hide empty description
+
+class Document
+database documents
+Document .> documents
+
+together {
+    abstract Edition {
+        state
+    }
+    database editions
+    Edition .> editions
+    rectangle "(others)" as othereds
+    Edition <|-- othereds
+    Edition <|-- Publicationesque
+    abstract Publicationesque
+    Publicationesque <|-- Publication
+    abstract Attachable<<concern>>
+    Attachable <.r- Publicationesque: "is a"
+    rectangle "(others)" as otherpubs
+    Publicationesque <|-- otherpubs
+}
+
+together {
+    class AttachmentData {
+      attachable_id
+      file
+    }
+    note right: "only for file attachments"
+    AttachmentData "attachment_data" *-- "attachments" Attachment: "has_many"
+    note on link: "has attachments from past editions as well"
+
+
+    abstract Attachment 
+    class HtmlAttachment {
+      content_id
+      slug
+    }
+    database attachments
+    Attachment .> attachments
+    Attachment <|-- HtmlAttachment
+    Attachment <|-- FileAttachment
+    Attachment <|-- ExternalAttachment
+}
+
+Document *-r- Edition : "has_many"
+
+Publicationesque *-r- Attachment: "has_many"
+
+Attachment --o Attachable: "belongs_to"
+
+class Document {
+    content_id
+    document_type
+    slug
+    {method} latest_edition
+    {method} live_edition
+}
+
+@enduml
