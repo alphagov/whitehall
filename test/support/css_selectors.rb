@@ -102,7 +102,7 @@ module CssSelectors
   end
 
   def link_to_preview_version_selector(document)
-    "a[href='#{preview_document_url(document)}']"
+    "a[href='#{document.public_url(draft: true)}']"
   end
 
   def policy_group_selector
