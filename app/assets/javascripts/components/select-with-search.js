@@ -18,7 +18,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     this.choices = new window.Choices(this.select, {
-      allowHTML: false,
+      allowHTML: true,
       searchPlaceholderValue: 'Search in list',
       shouldSort: false // show options and groups in the order they were given
     })
