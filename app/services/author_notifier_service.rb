@@ -1,4 +1,7 @@
 class AuthorNotifierService
+  include Rails.application.routes.url_helpers
+  include Admin::EditionRoutesHelper
+
   attr_accessor :edition, :excluded_authors
 
   def self.call(edition, *excluded_authors)
@@ -31,7 +34,7 @@ class AuthorNotifierService
   end
 
   def edition_admin_url
-    Whitehall.url_maker.admin_edition_url(edition)
+    admin_edition_url(edition)
   end
 
   def public_document_url
