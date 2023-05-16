@@ -4,6 +4,7 @@ module Whitehall
     delegate :govspeak_edition_to_html,
              :govspeak_to_html,
              :govspeak_with_attachments_to_html,
+             :govspeak_html_attachment_to_html,
              :block_attachments,
              to: :helpers
 
