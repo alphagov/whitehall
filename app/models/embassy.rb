@@ -76,11 +76,6 @@ private
       location: "Tunisia",
       base_path: "/government/world/organisations/british-embassy-tunis",
     },
-    "St Martin" => {
-      building: "British Embassy Paris",
-      location: "France",
-      base_path: "/government/world/organisations/british-embassy-paris",
-    },
     "Syria" => {
       building: "British Embassy Beirut",
       location: "Lebanon",
