@@ -3,7 +3,7 @@ class Admin::StatisticsAnnouncementPublicationsController < Admin::BaseControlle
   layout "design_system"
 
   def index
-    if params[:search].present?
+    if params[:title].present?
       filter
     end
   end
@@ -22,15 +22,11 @@ class Admin::StatisticsAnnouncementPublicationsController < Admin::BaseControlle
 private
 
   def filter
-    @filter ||= Admin::EditionFilter.new(get_editions, current_user, edition_filter_options)
-  end
-
-  def get_editions
-    Edition.with_title_containing(params[:search])
+    @filter ||= Admin::EditionFilter.new(Edition, current_user, edition_filter_options)
   end
 
   def params_filters
-    params.slice(:page)
+    params.slice(:title, :page)
           .permit!
           .to_h
   end

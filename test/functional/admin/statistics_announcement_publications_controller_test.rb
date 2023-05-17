@@ -5,7 +5,7 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     @user = login_as_preview_design_system_user(:gds_editor)
     @official_statistics_announcement = create(:statistics_announcement)
     @official_statistics_publication = create(:published_statistics)
-    @search = "publication-title"
+    @title = "publication-title"
   end
 
   should_be_an_admin_controller
@@ -15,16 +15,8 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
 
     assert_response :success
     assert_select ".govuk-label"
-    assert_select "input[name='search']"
+    assert_select "input[name='title']"
     refute_select ".govuk-table"
-  end
-
-  test "GET :index will filter by title containing search param" do
-    create(:published_statistics, title: "something else")
-
-    Admin::EditionFilter.expects(:new).with([@official_statistics_publication], anything, anything)
-
-    get :index, params: { statistics_announcement_id: @official_statistics_announcement, search: @search }
   end
 
   view_test "GET :index with search value renders paginated results" do
@@ -34,11 +26,11 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     stub_filter = stub_edition_filter({ editions:, options: { per_page: 15 } })
     Admin::EditionFilter.stubs(:new).returns(stub_filter)
 
-    get :index, params: { statistics_announcement_id: @official_statistics_announcement, search: @search }
+    get :index, params: { statistics_announcement_id: @official_statistics_announcement, title: @title }
 
     assert_response :success
     assert_template :index
-    assert_select "input[name='search']"
+    assert_select "input[name='title']"
     assert_select ".govuk-heading-s", "16 documents"
     assert_select ".govuk-table" do
       assert_select "tr", count: 15
@@ -59,7 +51,7 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     stub_filter = stub_edition_filter({ editions: [@official_statistics_publication], options: { per_page: 15 } })
     Admin::EditionFilter.stubs(:new).returns(stub_filter)
 
-    get :connect, params: { statistics_announcement_id: @official_statistics_announcement, publication_id: @generic_publication, search: @search }
+    get :connect, params: { statistics_announcement_id: @official_statistics_announcement, publication_id: @generic_publication, title: @title }
 
     assert_response :success
     has_search_results_table
@@ -70,13 +62,13 @@ private
 
   def has_search_results_table
     assert_template :index
-    assert_select "input[name='search']"
+    assert_select "input[name='title']"
     assert_select ".govuk-heading-s", "1 document"
     assert_select ".govuk-table" do
       assert_select "tr", count: 1
       assert_select "td", @official_statistics_publication.title
       assert_select "a[href=?]", admin_publication_path(@official_statistics_publication), text: "View"
-      assert_select "a[href=?]", admin_statistics_announcement_publication_connect_path(@official_statistics_announcement, @official_statistics_publication, search: @search), text: "Connect"
+      assert_select "a[href=?]", admin_statistics_announcement_publication_connect_path(@official_statistics_announcement, @official_statistics_publication, title: @title), text: "Connect"
     end
   end
 

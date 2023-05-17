@@ -9,7 +9,7 @@
     <%= form_with url: admin_statistics_announcement_publication_index_path(@statistics_announcement), method: :get do |form| %>
       <%= render "govuk_publishing_components/components/search", {
         name: "search",
-        value: params[:search],
+        value: params[:title],
         label_text: "Search by title or slug",
         label_size: "l",
       } %>
@@ -29,7 +29,7 @@
                text: link_to("View", admin_edition_path(edition), class: "govuk-link")
              },
              {
-               text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, search: params[:search]) , class: "govuk-link")
+               text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, title: params[:title]) , class: "govuk-link")
              }]
           end
       } %>
