@@ -248,14 +248,6 @@ module Admin::EditionsHelper
     tab_navigation(tabs) { yield blk }
   end
 
-  def edition_edit_headline(edition)
-    if edition.is_a?(CorporateInformationPage)
-      "Edit &lsquo;#{edition.title}&rsquo; page for #{link_to edition.owning_organisation.name, [:admin, edition.owning_organisation]}".html_safe
-    else
-      "Edit #{edition.type.underscore.humanize.downcase}"
-    end
-  end
-
   def edition_information(information)
     tag.div(class: "alert alert-info") do
       information

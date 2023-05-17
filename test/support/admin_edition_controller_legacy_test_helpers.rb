@@ -155,8 +155,6 @@ module AdminEditionControllerLegacyTestHelpers
     end
 
     def legacy_should_allow_editing_of(edition_type)
-      legacy_should_report_editing_conflicts_of(edition_type)
-
       view_test "edit displays edition form" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
@@ -1123,52 +1121,6 @@ module AdminEditionControllerLegacyTestHelpers
 
         edition.reload
         assert_equal first_published_at, edition.first_published_at
-      end
-    end
-
-    def legacy_should_report_editing_conflicts_of(edition_type)
-      test "editing an existing #{edition_type} should record a RecentEditionOpening" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        get :edit, params: { id: edition }
-
-        assert_equal [current_user], edition.reload.recent_edition_openings.map(&:editor)
-      end
-
-      view_test "should not see a warning when editing an edition that nobody has recently edited" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        get :edit, params: { id: edition }
-
-        refute_select ".editing_conflict"
-      end
-
-      view_test "should see a warning when editing an edition that someone else has recently edited" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        other_user = create(:author, name: "Joe Bloggs", email: "joe@example.com")
-        edition.open_for_editing_as(other_user)
-        Timecop.travel 1.hour.from_now
-
-        request.env["HTTPS"] = "on"
-        get :edit, params: { id: edition }
-
-        assert_select ".editing_conflict", /Joe Bloggs/ do
-          assert_select "img[src^='https']"
-        end
-        assert_select ".editing_conflict", /1 hour ago/
-      end
-
-      test "saving a #{edition_type} should remove any RecentEditionOpening records for the current user" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        edition.open_for_editing_as(@current_user)
-
-        assert_difference "edition.reload.recent_edition_openings.count", -1 do
-          put :update,
-              params: {
-                id: edition,
-                edition: {
-                  summary: "A summary",
-                },
-              }
-        end
       end
     end
 
