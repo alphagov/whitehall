@@ -24,10 +24,6 @@ describe('GOVUKAdmin.Modules.TrackSelectClick', function () {
     )
     $(document.body).append(form)
 
-    GOVUK.adminEditionsForm.init({
-      selector: 'form#non-english',
-      right_to_left_locales: ['ar']
-    })
     $('.js-hidden').hide()
 
     trackSelectClick = new GOVUKAdmin.Modules.TrackSelectClick()

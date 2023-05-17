@@ -2,7 +2,7 @@
   <p class="govuk-body"><strong>Use this format for:</strong> Continuously curated, permanent lists of closely related documents for a specific audience – not just by subject.</p>
 </div>
 
-<%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
+<%= standard_edition_form(edition) do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,

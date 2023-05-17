@@ -2,7 +2,7 @@
   <p class="govuk-body"><strong>Use this format for:</strong> Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don’t publish a news story which duplicates this announcement.</p>
 </div>
 
-<%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
+<%= standard_edition_form(edition) do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,

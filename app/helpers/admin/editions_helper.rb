@@ -165,17 +165,13 @@ module Admin::EditionsHelper
     edition.edition_organisations.reject(&:lead?)[index].try(:organisation_id)
   end
 
-  def standard_edition_form(edition, information = nil, preview_design_system: false)
-    if preview_design_system
-      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
-        concat render("standard_fields", form:, edition:)
-        yield(form)
-        concat render("access_limiting_fields", form:, edition:)
-        concat render("scheduled_publication_fields", form:, edition:)
-        concat standard_edition_publishing_controls(form, edition)
-      end
-    else
-      initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
+  def standard_edition_form(edition)
+    form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
+      concat render("standard_fields", form:, edition:)
+      yield(form)
+      concat render("access_limiting_fields", form:, edition:)
+      concat render("scheduled_publication_fields", form:, edition:)
+      concat standard_edition_publishing_controls(form, edition)
     end
   end
 

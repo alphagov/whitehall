@@ -25,11 +25,6 @@ describe('GOVUKAdmin.Modules.TrackSelectedTaxons', function () {
 
     $(document.body).append(form)
 
-    GOVUK.adminEditionsForm.init({
-      selector: 'form#taxon-form',
-      right_to_left_locales: ['ar']
-    })
-
     trackSelectedTaxons = new GOVUKAdmin.Modules.TrackSelectedTaxons()
   })
 
