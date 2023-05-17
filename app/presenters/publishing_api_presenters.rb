@@ -42,6 +42,8 @@ module PublishingApiPresenters
         PublishingApi::WorldLocationNewsPresenter
       when ::WorldwideOrganisation
         PublishingApi::WorldwideOrganisationPresenter
+      when ::WorldwideOffice
+        PublishingApi::WorldwideOfficePresenter
       when ::Contact
         PublishingApi::ContactPresenter
       when OperationalField
