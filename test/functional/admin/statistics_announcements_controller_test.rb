@@ -62,6 +62,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_includes announcement.organisations, @organisation
     assert_equal @user, announcement.creator
     assert_equal "November 2012", announcement.display_date
+    assert_equal false, announcement.confirmed?
     assert_equal @user, announcement.current_release_date.creator
   end
 
@@ -86,6 +87,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_includes announcement.organisations, @organisation
     assert_equal @user, announcement.creator
     assert_equal "11 November 2012 11:11am", announcement.display_date
+    assert_equal true, announcement.confirmed?
     assert_equal @user, announcement.current_release_date.creator
   end
 
