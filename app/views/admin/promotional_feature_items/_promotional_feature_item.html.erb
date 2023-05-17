@@ -22,9 +22,5 @@
   </p>
 
   <%= link_to "Edit", edit_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item), class: "btn btn-default"%>
-  <%= button_to "Delete",
-        admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item),
-        method: "delete",
-        class: "btn btn-danger",
-        data: { confirm: "Are you sure you want to delete this feature item?" } %>
+  <%= link_to "Delete", confirm_destroy_admin_organisation_promotional_feature_item_path(@organisation,@promotional_feature, promotional_feature_item), class: 'btn btn-danger btn-sm' %>
 <% end %>

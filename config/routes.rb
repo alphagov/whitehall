@@ -125,7 +125,9 @@ Whitehall::Application.routes.draw do
             get :reorder, on: :collection
             get :confirm_destroy, on: :member
             patch :update_order, on: :collection
-            resources :promotional_feature_items, as: :items, path: "items", except: [:index]
+            resources :promotional_feature_items, as: :items, path: "items", except: [:index] do
+              get :confirm_destroy, on: :member
+            end
           end
           member do
             get "/features(.:locale)", as: "features", to: "organisations#features", constraints: { locale: valid_locales_regex }

@@ -1,8 +1,9 @@
 require "test_helper"
 
-class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
+class Admin::LegacyPromotionalFeatureItemsControllerTest < ActionController::TestCase
+  tests Admin::PromotionalFeatureItemsController
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     @promotional_feature = create(:promotional_feature)
     @organisation = @promotional_feature.organisation
   end
@@ -130,13 +131,5 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
     assert_not PromotionalFeatureItem.exists?(promotional_feature_item.id)
     assert_equal "Feature item deleted.", flash[:notice]
-  end
-
-  test "GET :confirm_destroy calls correctly" do
-    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
-    get :confirm_destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
-
-    assert_response :success
-    assert_equal promotional_feature_item, assigns(:promotional_feature_item)
   end
 end
