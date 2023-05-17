@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::TopicalEventsControllerTest < ActionController::TestCase
+class Admin::LegacyTopicalEventsControllerTest < ActionController::TestCase
+  tests(Admin::TopicalEventsController)
+
   setup do
-    login_as_preview_design_system_user(:writer)
+    login_as :writer
   end
 
   should_be_an_admin_controller
