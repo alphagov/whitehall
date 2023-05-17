@@ -76,7 +76,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         worldwide_org.corporate_information_pages[4].content_id,
       ],
       ordered_contacts: [
-        worldwide_org.offices.first.contact.content_id,
+        worldwide_org.reload.offices.first.contact.content_id,
       ],
       sponsoring_organisations: [
         worldwide_org.sponsoring_organisations.first.content_id,

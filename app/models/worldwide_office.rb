@@ -11,6 +11,8 @@ class WorldwideOffice < ApplicationRecord
 
   accepts_nested_attributes_for :contact
 
+  include PublishesToPublishingApi
+
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :worldwide_organisation
 
@@ -21,7 +23,7 @@ class WorldwideOffice < ApplicationRecord
   contact_methods = Contact.column_names +
     Contact::Translation.column_names +
     %w[contact_numbers country country_code country_name has_postal_address?] -
-    %w[id contactable_id contactable_type contact_id locale created_at updated_at]
+    %w[id contactable_id contactable_type contact_id locale created_at updated_at content_id]
 
   delegate(*contact_methods, to: :contact, allow_nil: true)
   delegate(:non_english_translated_locales, to: :worldwide_organisation)

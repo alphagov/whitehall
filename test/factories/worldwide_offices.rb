@@ -4,6 +4,7 @@ FactoryBot.define do
       title { "Contact title" }
     end
     sequence(:slug) { |index| "worldwide-office-#{index}" }
+    content_id { SecureRandom.uuid }
     contact { create :contact_with_country, title: }
     worldwide_organisation
     worldwide_office_type_id { WorldwideOfficeType.all.sample.id }

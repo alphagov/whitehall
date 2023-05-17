@@ -180,4 +180,28 @@ class ContactTest < ActiveSupport::TestCase
 
     contact.destroy!
   end
+
+  test "republishes worldwide office on creation of related contact" do
+    worldwide_office = create(:worldwide_office)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
+
+    create(:contact, contactable: worldwide_office)
+  end
+
+  test "republishes worldwide office on update of related contact" do
+    worldwide_office = create(:worldwide_office)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
+
+    worldwide_office.contact.update!(locality: "new-locality")
+  end
+
+  test "republishes worldwide office on deletion of related contact" do
+    worldwide_office = create(:worldwide_office)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
+
+    worldwide_office.contact.destroy!
+  end
 end

@@ -357,4 +357,21 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     organisation.destroy!
   end
+
+  test "republishes related offices on change" do
+    organisation = create(:worldwide_organisation, :with_office)
+    organisation.reload
+
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation.offices.first).once
+
+    organisation.update!(default_access_and_opening_times: "new access and opening times")
+  end
+
+  test "does not try to republish offices when there are none" do
+    organisation = create(:worldwide_organisation)
+
+    Whitehall::PublishingApi.expects(:republish_async).never
+
+    organisation.update!(default_access_and_opening_times: "new access and opening times")
+  end
 end

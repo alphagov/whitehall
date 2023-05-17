@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_05_150919) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_120104) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -1137,6 +1137,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_150919) do
     t.integer "worldwide_office_type_id", null: false
     t.string "slug"
     t.text "access_and_opening_times"
+    t.string "content_id"
     t.index ["slug"], name: "index_worldwide_offices_on_slug"
     t.index ["worldwide_organisation_id"], name: "index_worldwide_offices_on_worldwide_organisation_id"
   end

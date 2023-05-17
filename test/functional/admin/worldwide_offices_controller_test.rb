@@ -23,7 +23,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
          }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
-    assert_equal 1, worldwide_organisation.offices.count
+    assert_equal 1, worldwide_organisation.reload.offices.count
     assert_equal "Main office", worldwide_organisation.offices.first.contact.title
   end
 
@@ -43,7 +43,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
            worldwide_organisation_id: worldwide_organisation.id,
          }
 
-    new_office = worldwide_organisation.offices.last
+    new_office = worldwide_organisation.reload.offices.last
     assert_equal "Main office", new_office.contact.title
     assert worldwide_organisation.office_shown_on_home_page?(new_office)
   end
@@ -64,7 +64,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
            worldwide_organisation_id: worldwide_organisation.id,
          }
 
-    new_office = worldwide_organisation.offices.last
+    new_office = worldwide_organisation.reload.offices.last
     assert_equal "Main office", new_office.contact.title
     assert_not worldwide_organisation.office_shown_on_home_page?(new_office)
   end
@@ -84,7 +84,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
            worldwide_organisation_id: worldwide_organisation.id,
          }
 
-    new_office = worldwide_organisation.offices.last
+    new_office = worldwide_organisation.reload.offices.last
     assert_equal "Main office", new_office.contact.title
     assert_not worldwide_organisation.office_shown_on_home_page?(new_office)
   end
@@ -107,7 +107,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
            worldwide_organisation_id: worldwide_organisation.id,
          }
 
-    assert_equal 1, worldwide_organisation.offices.count
+    assert_equal 1, worldwide_organisation.reload.offices.count
     assert_equal [service1, service2], worldwide_organisation.offices.first.services.sort_by(&:id)
   end
 
@@ -130,6 +130,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
          }
 
     actual_numbers = worldwide_organisation
+                       .reload
                        .offices
                        .first
                        .contact
@@ -196,7 +197,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
         }
 
     assert_equal "Head office", office.reload.contact.title
-    assert_not worldwide_organisation.office_shown_on_home_page?(office)
+    assert_not worldwide_organisation.reload.office_shown_on_home_page?(office)
   end
 
   test "put update updates an office without changing the home page state if no suggestion made" do
@@ -300,7 +301,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
     assert_equal %("#{office.title}" removed from home page successfully), flash[:notice]
-    assert_not worldwide_organisation.office_shown_on_home_page?(office)
+    assert_not worldwide_organisation.reload.office_shown_on_home_page?(office)
   end
 
   test "POST on :add_to_home_page adds office to the home page of the worldwide organisation" do
