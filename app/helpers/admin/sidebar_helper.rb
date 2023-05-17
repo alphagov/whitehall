@@ -21,20 +21,6 @@ module Admin::SidebarHelper
     end
   end
 
-  def edition_tabs(edition, options = {})
-    options = { editing: false, history_count: 0, remarks_count: 0 }.merge(options)
-    {}.tap do |tabs|
-      if options[:editing]
-        tabs[:govspeak_help] = "Help"
-      end
-      tabs[:notes] = ["Notes", options[:remarks_count]]
-      tabs[:history] = ["History", options[:history_count]]
-      if edition.can_be_fact_checked?
-        tabs[:fact_checking] = ["Fact checking", edition.all_completed_fact_check_requests.count]
-      end
-    end
-  end
-
   def sidebar_tabs(tabs, options = {})
     tab_tags = tabs.map.with_index do |(id, tab_content), index|
       link_content = case tab_content
