@@ -202,11 +202,8 @@ end
 class ActionController::TestCase
   include HtmlAssertions
   include AdminControllerTestHelpers
-  include AdminEditionControllerLegacyTestHelpers
   include AdminEditionControllerTestHelpers
-  include AdminEditionControllerLegacyScheduledPublishingTestHelpers
   include AdminEditionControllerScheduledPublishingTestHelpers
-  include AdminEditionLegacyWorldLocationsBehaviour
   include AdminEditionWorldLocationsBehaviour
   include DocumentControllerTestHelpers
   include ControllerTestHelpers
