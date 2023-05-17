@@ -81,26 +81,21 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def new
-    render_design_system(:new, :new_legacy, next_release: true)
-  end
+  def new; end
 
   def create
     if updater.can_perform? && @edition.save
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      flash.now[:alert] = "There are some problems with the document" unless preview_design_system?(next_release: true)
-      @information = updater.failure_reason unless preview_design_system?(next_release: true)
       build_edition_dependencies
-      render_design_system(:new, :new_legacy, next_release: true)
+      render :new
     end
   end
 
   def edit
     @edition.open_for_editing_as(current_user)
     fetch_version_and_remark_trails
-    render_design_system(:edit, :edit_legacy, next_release: true)
   end
 
   def update
@@ -116,18 +111,17 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
-      @information = updater.failure_reason unless preview_design_system?(next_release: true)
       build_edition_dependencies
       fetch_version_and_remark_trails
       construct_similar_slug_warning_error
-      render_design_system(:edit, :edit_legacy, next_release: true)
+      render :edit
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
     build_edition_dependencies
-    render_design_system(:edit, :edit_legacy, next_release: true)
+    render :edit
   end
 
   def revise
@@ -204,8 +198,7 @@ class Admin::EditionsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_destroy diff show]
-    design_system_actions += %w[edit update new create] if preview_design_system?(next_release: true)
+    design_system_actions = %w[confirm_destroy diff show edit update new create]
     design_system_actions += %w[index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
@@ -216,12 +209,7 @@ private
   end
 
   def fetch_version_and_remark_trails
-    if get_layout == "design_system"
-      @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
-    else
-      @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
-      @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
-    end
+    @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
   end
 
   def edition_class
@@ -233,7 +221,7 @@ private
   end
 
   def permitted_edition_attributes
-    permitted = [
+    [
       :title,
       :body,
       :change_note,
@@ -303,13 +291,6 @@ private
         ],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
-      },
-      :auth_bypass_id,
-    ]
-
-    # These fields are only accepted on the legacy Bootstrap edit form
-    unless preview_design_system?(next_release: true)
-      permitted << {
         images_attributes: [
           :id,
           :alt_text,
@@ -317,10 +298,9 @@ private
           :_destroy,
           { image_data_attributes: %i[file file_cache] },
         ],
-      }
-    end
-
-    permitted
+      },
+      :auth_bypass_id,
+    ]
   end
 
   def new_edition_params
@@ -357,7 +337,7 @@ private
 
   def build_national_exclusion_params
     design_system_controllers = %w[consultations detailed_guides publications]
-    return unless design_system_controllers.include?(controller_name) && preview_design_system?(next_release: true)
+    return unless design_system_controllers.include?(controller_name)
     return if edition_params["nation_inapplicabilities_attributes"].blank?
 
     exclusion_params = edition_params["all_nation_applicability"] || []
@@ -461,7 +441,7 @@ private
     return if edition_params.empty?
 
     edition_params[:title].strip! if edition_params[:title]
-    edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank? || (preview_design_system?(next_release: true) && edition_params[:create_foreign_language_only].blank?)
+    edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank? || edition_params[:create_foreign_language_only].blank?
     edition_params.delete(:create_foreign_language_only)
     edition_params[:external_url] = nil if edition_params[:external] == "0"
     edition_params[:change_note] = nil if edition_params[:minor_change] == "true"
