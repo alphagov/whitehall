@@ -93,7 +93,7 @@ private
     if attributes[:precision] == "exact_confirmed"
       attributes[:precision] = StatisticsAnnouncementDate::PRECISION[:exact]
       attributes[:confirmed] = true
-    else
+    elsif attributes[:confirmed].blank?
       attributes[:confirmed] = false
     end
   end

@@ -43,7 +43,7 @@ class Admin::LegacyStatisticsAnnouncementsControllerTest < ActionController::Tes
     assert_response :success
   end
 
-  test "POST :create saves the announcement to the database and redirects to the dashboard" do
+  test "POST :create saves the announcement to the database and redirects to the dashboard with provisional date" do
     post :create,
          params: {
            statistics_announcement: {
@@ -65,6 +65,33 @@ class Admin::LegacyStatisticsAnnouncementsControllerTest < ActionController::Tes
     assert_includes announcement.organisations, @organisation
     assert_equal @user, announcement.creator
     assert_equal "November 2012", announcement.display_date
+    assert_equal false, announcement.confirmed?
+    assert_equal @user, announcement.current_release_date.creator
+  end
+
+  test "POST :create saves the announcement to the database and redirects to the dashboard with confirmed date" do
+    post :create,
+         params: {
+           statistics_announcement: {
+             title: "Beard stats 2014",
+             summary: "Summary text",
+             publication_type_id: PublicationType::OfficialStatistics.id,
+             organisation_ids: [@organisation.id],
+             current_release_date_attributes: {
+               release_date: 1.year.from_now,
+               precision: StatisticsAnnouncementDate::PRECISION[:exact],
+               confirmed: "1"
+             },
+           },
+         }
+
+    assert_response :redirect
+    assert announcement = StatisticsAnnouncement.last
+    assert_equal "Beard stats 2014", announcement.title
+    assert_includes announcement.organisations, @organisation
+    assert_equal @user, announcement.creator
+    assert_equal "11 November 2012 11:11am", announcement.display_date
+    assert_equal true, announcement.confirmed?
     assert_equal @user, announcement.current_release_date.creator
   end
 
