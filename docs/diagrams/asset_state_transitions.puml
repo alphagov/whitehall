@@ -32,6 +32,8 @@ state Whitehall #a7ffaf {
 
     state Attachment {
         [*] --> nonexistentent
+        nonexistentent --> not_uploaded
+        not_uploaded --> uploaded
     }
 }
 
@@ -41,6 +43,12 @@ asset_nonexistent --> asset_draft: asset uploaded
 
 draft -[dashed]> asset_draft: upload
 published -[dashed]> asset_published
+
+note right of asset_draft
+    draft: false
+    access_limited: []
+    link_header: []
+end note
 
 asset_draft --> asset_published
 asset_published --> asset_draft: draft: false\ndraft: true
