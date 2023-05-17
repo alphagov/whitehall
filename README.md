@@ -23,7 +23,6 @@ Whitehall is deployed in two modes:
 ### World Information
 
 - Help and services around the world: [https://www.gov.uk/world](https://www.gov.uk/world)
-- World Embassies list: [https://www.gov.uk/world/embassies](https://www.gov.uk/world/embassies)
 - Worldwide Organisation pages: [https://www.gov.uk/world/organisations/british-embassy-paris](https://www.gov.uk/world/organisations/british-embassy-paris)
 
 ## Running the Application
