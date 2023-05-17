@@ -58,33 +58,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
         visit admin_case_study_path(edition)
         click_link "Edit draft"
-        choose "Use a custom image"
-        attach_file "File", path_to_attachment("minister-of-funk.960x640.jpg")
-        click_button "Save"
-      end
-
-      # Note that there is no access limiting applied to non attachments. This is existing behaviour that probably needs changing.
-      it "sends an image to asset manager with the case study's auth_bypass_id" do
-        Services.asset_manager.expects(:create_whitehall_asset).at_least_once.with(
-          has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
-        )
-
-        AssetManagerCreateWhitehallAssetWorker.drain
-      end
-    end
-
-    context "given a draft document with an image uploader when the user has the preview design system permission" do
-      let(:edition) { create(:draft_case_study) }
-
-      before do
-        managing_editor.permissions << "Preview design system"
-
-        setup_publishing_api_for(edition)
-
-        stub_whitehall_asset("minister-of-funk.960x640.jpg", id: "asset-id", draft: true)
-
-        visit admin_case_study_path(edition)
-        click_link "Edit draft"
         click_link "Images"
         attach_file "image[image_data][file]", path_to_attachment("minister-of-funk.960x640.jpg")
         click_button "Upload"
@@ -232,27 +205,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it "sends a consultation form to asset manager with the consultation's auth_bypass_id" do
-        visit admin_consultation_path(edition)
-        click_link "Edit draft"
-        id_of_form_uploader = "edition_consultation_participation_attributes_consultation_response_form_attributes_consultation_response_form_data_attributes_file"
-        fill_in "edition_consultation_participation_attributes_consultation_response_form_attributes_title", with: "Consultation response form"
-        attach_file id_of_form_uploader, path_to_attachment("simple.pdf")
-        click_button "Save"
-
-        # Note that there is no access limiting applied to non attachments. This is existing behaviour that probably needs changing.
-        Services.asset_manager.expects(:create_whitehall_asset).with(
-          has_entries(
-            legacy_url_path: regexp_matches(/simple\.pdf/),
-            auth_bypass_ids: [edition.auth_bypass_id],
-          ),
-        )
-
-        AssetManagerCreateWhitehallAssetWorker.drain
-      end
-
-      it "sends a consultation form to asset manager with the consultation's auth_bypass_id" do
-        managing_editor.permissions << "Preview design system"
-
         visit admin_consultation_path(edition)
         click_link "Edit draft"
         name_of_form_uploader = "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]"
