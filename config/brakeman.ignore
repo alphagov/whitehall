@@ -205,6 +205,60 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "b40740e859dd6e295b630652ea4773ee5a5af7a7a0e390e160b22d1e48ab1e7e",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/admin/editions/show/_main_notices.html.erb",
+      "line": 13,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"View this on the website\", Edition.find(params[:edition_id]).public_url(:draft => true), :class => \"govuk-link\", :target => \"_blank\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::EditionsController",
+          "method": "show",
+          "line": 80,
+          "file": "app/controllers/admin/editions_controller.rb",
+          "rendered": {
+            "name": "admin/editions/show",
+            "file": "app/views/admin/editions/show.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "admin/editions/show",
+          "line": 13,
+          "file": "app/views/admin/editions/show.html.erb",
+          "rendered": {
+            "name": "admin/editions/show/_main",
+            "file": "app/views/admin/editions/show/_main.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "admin/editions/show/_main",
+          "line": 32,
+          "file": "app/views/admin/editions/show/_main.html.erb",
+          "rendered": {
+            "name": "admin/editions/show/_main_notices",
+            "file": "app/views/admin/editions/show/_main_notices.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/editions/show/_main_notices"
+      },
+      "user_input": "Edition.find(params[:edition_id]).public_url(:draft => true)",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Denial of Service",
       "warning_code": 76,
       "fingerprint": "b6466a4be2585936be59e23c913700d4803fa9ba911c133dfcbf9c8353f3c923",
@@ -258,7 +312,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/admin/worldwide_organisations/show.html.erb",
-      "line": 14,
+      "line": 17,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "WorldwideOrganisation.friendly.find(params[:id]).sponsoring_organisations.map do\n link_to(o.name, [:admin, o])\n end.to_sentence",
       "render_path": [
@@ -266,7 +320,7 @@
           "type": "controller",
           "class": "Admin::WorldwideOrganisationsController",
           "method": "show",
-          "line": 32,
+          "line": 35,
           "file": "app/controllers/admin/worldwide_organisations_controller.rb",
           "rendered": {
             "name": "admin/worldwide_organisations/show",
@@ -323,6 +377,50 @@
         "template": "worldwide_organisations/_header"
       },
       "user_input": "Organisation.friendly.find(params[:organisation_id])",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "d434e52c82b51e5da893f10cf62f9fbb9c340076387462c8114ec962fe005505",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/admin/editions/show/_main.html.erb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"Preview on website #{if Edition.find(params[:edition_id]).translatable? and Edition.find(params[:edition_id]).available_in_multiple_languages? then\n  \"- English\"\nend} (opens in new tab)\".strip, Edition.find(params[:edition_id]).public_url(:draft => true), :class => \"govuk-link\", :target => \"_blank\", :data => ({ :module => \"gem-track-click\", :\"track-category\" => \"button-clicked\", :\"track-action\" => (\"#{Edition.find(params[:edition_id]).model_name.singular.dasherize}-button\"), :\"track-label\" => \"Preview on website\" }))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::EditionsController",
+          "method": "show",
+          "line": 80,
+          "file": "app/controllers/admin/editions_controller.rb",
+          "rendered": {
+            "name": "admin/editions/show",
+            "file": "app/views/admin/editions/show.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "admin/editions/show",
+          "line": 13,
+          "file": "app/views/admin/editions/show.html.erb",
+          "rendered": {
+            "name": "admin/editions/show/_main",
+            "file": "app/views/admin/editions/show/_main.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/editions/show/_main"
+      },
+      "user_input": "Edition.find(params[:edition_id]).public_url(:draft => true)",
       "confidence": "Weak",
       "cwe_id": [
         79
@@ -401,7 +499,7 @@
           "type": "controller",
           "class": "Admin::PromotionalFeaturesController",
           "method": "show",
-          "line": 28,
+          "line": 29,
           "file": "app/controllers/admin/promotional_features_controller.rb",
           "rendered": {
             "name": "admin/promotional_features/show",
@@ -419,8 +517,42 @@
         22
       ],
       "note": "We don't use the user data directly to find the template, it comes from the database."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "f27b865264b3fc651a9e170c09972a709832270b5ad4baf33ba4b395a1a87113",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/admin/edition_workflow/confirm_approve_retrospectively.html.erb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"View this on the website (opens in new tab)\", Edition.find(params[:edition_id]).public_url(:draft => true), :class => \"govuk-link\", :target => \"_blank\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::EditionWorkflowController",
+          "method": "confirm_approve_retrospectively",
+          "line": 157,
+          "file": "app/controllers/admin/edition_workflow_controller.rb",
+          "rendered": {
+            "name": "admin/edition_workflow/confirm_approve_retrospectively",
+            "file": "app/views/admin/edition_workflow/confirm_approve_retrospectively.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/edition_workflow/confirm_approve_retrospectively"
+      },
+      "user_input": "Edition.find(params[:edition_id]).public_url(:draft => true)",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
     }
   ],
-  "updated": "2023-03-23 12:43:52 +0000",
-  "brakeman_version": "5.3.1"
+  "updated": "2023-05-17 09:12:09 +0000",
+  "brakeman_version": "5.4.1"
 }
