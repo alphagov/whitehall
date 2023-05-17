@@ -26,11 +26,11 @@ private
   end
 
   def get_editions
-    Edition.statistical_publications.with_title_containing(params[:search])
+    Edition.with_title_containing(params[:search])
   end
 
   def params_filters
-    params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date, :only_broken_links)
+    params.slice(:page)
           .permit!
           .to_h
   end
@@ -40,15 +40,16 @@ private
   end
 
   def edition_filter_options
-    filter_options = params_filters_with_default_state
+    params_filters_with_default_state
                        .symbolize_keys
                        .merge(
                          include_unpublishing: true,
                          include_link_check_reports: true,
                          include_last_author: true,
+                         type: "publication",
+                         subtypes: @statistics_announcement.publication_type,
+                         per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                        )
-
-    filter_options.merge(per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
   end
 
   def find_statistics_announcement
