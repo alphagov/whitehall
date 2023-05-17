@@ -109,7 +109,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_tab_has_href_and_ordered_roles("#organisations", reorder_ministerial_organisations_admin_cabinet_ministers_path, [org2, org1])
   end
 
-  test "GET :reorder_cabinet_minister_roles should assign roles correctly" do
+  view_test "GET :reorder_cabinet_minister_roles should assign roles correctly and the cancel_path should have the correct anchor" do
     minister1 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation], seniority: 1)
     minister2 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation], seniority: 0)
 
@@ -118,9 +118,10 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "reorder_cabinet_minister_roles"
     assert_equal assigns(:roles), [minister2, minister1]
+    assert_select ".govuk-link[href='#{admin_cabinet_ministers_path}#cabinet_minister']", text: "Cancel"
   end
 
-  test "GET :reorder_also_attends_cabinet_roles should assign roles correctly" do
+  view_test "GET :reorder_also_attends_cabinet_roles should assign roles correctly and the cancel_path should have the correct anchor" do
     also_attends_cabinet1 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation], seniority: 1)
     also_attends_cabinet2 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation], seniority: 0)
 
@@ -129,9 +130,10 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "reorder_also_attends_cabinet_roles"
     assert_equal assigns(:roles), [also_attends_cabinet2, also_attends_cabinet1]
+    assert_select ".govuk-link[href='#{admin_cabinet_ministers_path}#also_attends_cabinet']", text: "Cancel"
   end
 
-  test "GET :reorder_whip_roles should assign roles correctly" do
+  view_test "GET :reorder_whip_roles should assign roles correctly and the cancel_path should have the correct anchor" do
     whip1 = create(:ministerial_role, name: "Whip 1", whip_organisation_id: 2, organisations: [organisation], whip_ordering: 1)
     whip2 = create(:ministerial_role, name: "Whip 2", whip_organisation_id: 2, organisations: [organisation], whip_ordering: 0)
 
@@ -140,9 +142,10 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "reorder_whip_roles"
     assert_equal assigns(:roles), [whip2, whip1]
+    assert_select ".govuk-link[href='#{admin_cabinet_ministers_path}#whips']", text: "Cancel"
   end
 
-  test "GET :reorder_ministerial_organisations should assign roles correctly" do
+  view_test "GET :reorder_ministerial_organisations should assign roles correctly and the cancel_path should have the correct anchor" do
     org1 = create(:ministerial_department, ministerial_ordering: 1)
     org2 = create(:ministerial_department, ministerial_ordering: 0)
 
@@ -151,6 +154,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "reorder_ministerial_organisations"
     assert_equal assigns(:organisations), [org2, org1]
+    assert_select ".govuk-link[href='#{admin_cabinet_ministers_path}#organisations']", text: "Cancel"
   end
 
 private

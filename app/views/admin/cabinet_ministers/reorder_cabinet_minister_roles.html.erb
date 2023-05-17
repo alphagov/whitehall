@@ -1,4 +1,4 @@
 <% content_for :page_title, "Reorder Cabinet minister ordering" %>
 <% content_for :context, "Cabinet minister ordering" %>
 
-<%= render "reorder", list: @roles, name: "roles[ordering]" %>
+<%= render "reorder", list: @roles, name: "roles[ordering]", cancel_path: "#{admin_cabinet_ministers_path}#cabinet_minister" %>
