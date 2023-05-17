@@ -3,7 +3,6 @@
 <div class="row">
   <section class="col-md-8">
     <h1>Create <%= @edition.type.underscore.humanize.downcase %></h1>
-    <%= render partial: "legacy_form", locals: {edition: @edition} %>
   </section>
   <div class="col-md-4">
     <%= legacy_simple_formatting_sidebar hide_inline_attachments_help: !@edition.allows_inline_attachments?,

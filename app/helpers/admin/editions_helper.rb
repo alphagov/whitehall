@@ -176,10 +176,6 @@ module Admin::EditionsHelper
       end
     else
       initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
-
-      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
-        yield(form)
-      end
     end
   end
 
