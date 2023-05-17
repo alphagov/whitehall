@@ -24,4 +24,8 @@ class ApplicationRecordTest < ActiveSupport::TestCase
   test "append_url_options adds cachebust string, format, locale and anchor when all present" do
     assert_equal "/government/foo.cy.atom?cachebust=123#heading", Edition.new.append_url_options("/government/foo", cachebust: "123", format: "atom", locale: "cy", anchor: "heading")
   end
+
+  test "append_url_options adds token and utm strings when all present" do
+    assert_equal "/government/foo?token=123&utm_source=heading", Edition.new.append_url_options("/government/foo", token: "123", utm_source: "heading")
+  end
 end

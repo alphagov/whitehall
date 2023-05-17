@@ -1,6 +1,4 @@
 module AtomTestHelpers
-  include PublicDocumentRoutesHelper
-
   def assert_select_atom_feed(&block)
     assert_select "feed", &block
   end
@@ -19,7 +17,7 @@ module AtomTestHelpers
           "link[rel=?][type=?][href=?]",
           "alternate",
           "text/html",
-          routes_helper.public_document_url(document),
+          document.public_url,
         )
         assert_select entry, "title", count: 1, text: "#{document.display_type}: #{document.title}"
         assert_select entry, "summary", count: 1, text: document.summary

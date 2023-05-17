@@ -5,7 +5,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition = create(:published_edition, title: "edition-title")
 
     assert_equal "edition-title", edition.search_index["title"]
-    assert_equal routes_helper.public_document_path(edition), edition.search_index["link"]
+    assert_equal edition.public_path, edition.search_index["link"]
     assert_equal edition.body, edition.search_index["indexable_content"]
     assert_equal "generic_edition", edition.search_index["format"]
     assert_equal edition.summary, edition.search_index["description"]
@@ -25,7 +25,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition = create(:withdrawn_edition, title: "edition-title")
 
     assert_equal "edition-title", edition.search_index["title"]
-    assert_equal routes_helper.public_document_path(edition), edition.search_index["link"]
+    assert_equal edition.public_path, edition.search_index["link"]
     assert_equal edition.body, edition.search_index["indexable_content"]
     assert_equal "generic_edition", edition.search_index["format"]
     assert_equal edition.summary, edition.search_index["description"]

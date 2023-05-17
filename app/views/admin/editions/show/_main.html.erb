@@ -41,7 +41,7 @@
       } %>
       <p class="govuk-body">
         <%= link_to("Preview on website #{"- English" if @edition.translatable? && @edition.available_in_multiple_languages?} (opens in new tab)".strip,
-        preview_document_url(@edition),
+        @edition.public_url(draft: true),
         class: "govuk-link",
         target: "_blank",
         data: {
@@ -58,7 +58,7 @@
           <%= render "govuk_publishing_components/components/list", {
             items: @edition.non_english_translated_locales.map do |locale|
               (link_to("Preview on website - #{locale.native_and_english_language_name}",
-                      preview_document_url(@edition, locale: locale.code),
+                      @edition.public_url(locale: locale.code, draft: true),
                       class: 'govuk-link',
                       target: '_blank',
                       data: {
@@ -82,7 +82,7 @@
 
           <%= render "govuk_publishing_components/components/copy_to_clipboard", {
             label: "Copy and send this link to someone and they’ll be able to preview your draft on GOV.UK.",
-            copyable_content: preview_document_url_with_auth_bypass_token(@edition),
+            copyable_content: show_url_with_auth_bypass_options(@edition, draft: true),
             button_text: "Copy link"
           } %>
           <% if !@edition.publicly_visible? %>

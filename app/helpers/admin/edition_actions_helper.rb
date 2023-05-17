@@ -22,7 +22,7 @@ module Admin::EditionActionsHelper
 
   def custom_track_dimensions(edition, edition_taxons)
     {
-      1 => public_document_path(edition),
+      1 => edition.public_path,
       2 => edition.type.underscore,
       3 => root_taxon_paths(edition_taxons),
       4 => edition.document.content_id,

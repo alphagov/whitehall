@@ -18,7 +18,7 @@ module EditionPresenterHelper
     if model.respond_to? :link
       model.link
     else
-      context.public_document_path(model)
+      model.public_path
     end
   end
 

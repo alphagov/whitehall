@@ -5,7 +5,6 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
   include Capybara::DSL
   include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
   include TaxonomyHelper
 
   describe "attachment link header" do

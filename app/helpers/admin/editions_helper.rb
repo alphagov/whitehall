@@ -319,11 +319,11 @@ module Admin::EditionsHelper
     links = []
 
     if edition.available_in_english?
-      links << [preview_document_url(edition), "Language: English"]
+      links << [edition.public_url(draft: true), "Language: English"]
     end
 
     links + edition.non_english_translated_locales.map do |locale|
-      [preview_document_url(edition, locale: locale.code),
+      [edition.public_url(locale: locale.code, draft: true),
        "Language: #{locale.native_and_english_language_name}"]
     end
   end

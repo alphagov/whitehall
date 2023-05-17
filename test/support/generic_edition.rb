@@ -1,5 +1,3 @@
-require "public_document_routes_helper"
-
 class GenericEdition < Edition
   include Attachable
 

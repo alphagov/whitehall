@@ -12,9 +12,16 @@ class ApplicationRecord < ActiveRecord::Base
       path = "#{path}.#{options[:format]}"
     end
 
-    query_params = {}
-    query_params[:cachebust] = options[:cachebust] if options[:cachebust]
-    query_params[:preview] = options[:preview] if options[:preview]
+    permitted_query_params = %i[
+      cachebust
+      preview
+      token
+      utm_campaign
+      utm_medium
+      utm_source
+    ]
+
+    query_params = options.slice(*permitted_query_params).compact
 
     path = "#{path}?#{query_params.to_query}" unless query_params.empty?
 

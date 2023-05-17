@@ -19,7 +19,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <p class="govuk-body"><%= link_to "See more information about #{with_this_determiner(@edition.display_type.downcase)}", public_document_url(@edition), class: "govuk-link" %></p>
+    <p class="govuk-body"><%= link_to "See more information about #{with_this_determiner(@edition.display_type.downcase)}", @edition.public_url, class: "govuk-link" %></p>
   </div>
 </div>
 

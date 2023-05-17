@@ -1,8 +1,6 @@
 require "test_helper"
 
 class Admin::TopicalEventAboutPagesControllerTest < ActionController::TestCase
-  include PublicDocumentRoutesHelper
-
   def setup
     login_as :user
     @topical_event = create(:topical_event)
