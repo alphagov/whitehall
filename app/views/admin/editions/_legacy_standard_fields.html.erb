@@ -1,6 +1,4 @@
 <%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
-  <%= render "legacy_locale_fields", form: form, edition: edition %>
-
   <%= form.hidden_field :lock_version %>
   <% if form.object.document %>
   <%= form.text_field :slug, disabled: true %>

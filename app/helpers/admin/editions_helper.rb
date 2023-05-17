@@ -178,8 +178,6 @@ module Admin::EditionsHelper
       initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
 
       form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
-        concat edition_information(information) if information
-        concat form.errors
         concat render("legacy_standard_fields", form:, edition:)
         yield(form)
         concat render("legacy_access_limiting_fields", form:, edition:)
@@ -246,12 +244,6 @@ module Admin::EditionsHelper
       tabs["Final outcome"] = admin_consultation_outcome_path(edition)
     end
     tab_navigation(tabs) { yield blk }
-  end
-
-  def edition_information(information)
-    tag.div(class: "alert alert-info") do
-      information
-    end
   end
 
   def standard_edition_publishing_controls(form, edition)
