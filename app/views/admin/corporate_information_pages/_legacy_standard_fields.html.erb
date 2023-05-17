@@ -16,7 +16,3 @@
   } %>
 
 <% end %>
-
-<% if form.object.allows_image_attachments? %>
-  <%= render partial: "legacy_image_fields", locals: {form: form, edition: form.object} %>
-<% end %>
