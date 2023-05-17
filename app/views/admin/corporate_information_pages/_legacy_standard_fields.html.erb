@@ -1,6 +1,4 @@
 <%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
-  <%= render "legacy_subtype_fields", form: form, edition: form.object %>
-
   <%= form.hidden_field :lock_version %>
 
   <% unless form.object.persisted? %>
