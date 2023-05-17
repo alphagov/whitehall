@@ -252,26 +252,6 @@ module AdminEditionControllerLegacyTestHelpers
         assert_equal "There are some problems with the document", flash.now[:alert]
       end
 
-      test "update with a stale edition should render edit page with conflicting edition" do
-        edition = create("draft_#{edition_type}")
-        lock_version = edition.lock_version
-        edition.touch
-
-        put :update,
-            params: {
-              id: edition,
-              edition: {
-                lock_version:,
-              },
-            }
-
-        assert_template "edit_legacy"
-        conflicting_edition = edition.reload
-        assert_equal conflicting_edition, assigns(:conflicting_edition)
-        assert_equal conflicting_edition.lock_version, assigns(:edition).lock_version
-        assert_equal %(This document has been saved since you opened it), flash[:alert]
-      end
-
       test "removes blank space from titles for updated editions" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
 

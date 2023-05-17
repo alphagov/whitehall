@@ -64,18 +64,6 @@ module AdminEditionLegacyWorldLocationsBehaviour
         document = document.reload
         assert_equal [world_location1], document.world_locations
       end
-
-      view_test "updating a stale document should render edit page with conflicting document and its world locations" do
-        document = create(document_type) # rubocop:disable Rails/SaveBang
-        lock_version = document.lock_version
-        document.touch
-
-        put :update, params: { id: document, edition: { lock_version: } }
-
-        assert_select ".document.conflict" do
-          assert_select "h1", "World locations"
-        end
-      end
     end
   end
 
