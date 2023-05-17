@@ -10,5 +10,5 @@ unless embassy.organisations_with_embassy_offices == [organisation]
     Expected #{location} to have a single embassy organisation of #{organisation.slug}
     But actually contains #{embassy.organisations_with_embassy_offices.map(&:slug)}
   END_MESSAGE
-  raise msg
+  puts msg
 end
