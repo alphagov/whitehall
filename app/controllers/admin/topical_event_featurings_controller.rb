@@ -15,9 +15,9 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     @featurable_offsite_links = @topical_event.offsite_links
 
     if request.xhr?
-      render partial: "admin/topical_event_featurings/featured_documents"
+      render partial: "admin/topical_event_featurings/legacy_featured_documents"
     else
-      render :index
+      render :legacy_index
     end
   end
 
@@ -78,7 +78,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[new create] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new create index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
