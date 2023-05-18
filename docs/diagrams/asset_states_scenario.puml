@@ -1,0 +1,101 @@
+@startuml
+
+'Note the 'skinparam' and <<state>> stereotype might be overkill
+' especially as they need to be repeated for every subdocument
+' we could keep this simpler with vanilla cards
+' (I've removed skinparam for the later states)
+
+circle " " as startPoint
+
+label NoAttachments [
+{{
+hide stereotype
+card "No Attachments" <<state>> {
+
+  object Document {
+    slug: "..."
+    content_id: "..."
+    latest_edition_id: 1
+    live_edition_id: nil
+  }
+  object NewsArticle {
+    state: "draft"
+  }
+  Document *- "1" NewsArticle
+}
+skinparam <<state>> {
+  roundcorner 30
+}
+}}
+]
+
+label NewAttachment [
+{{
+hide stereotype
+card "New Attachment" {
+
+  object Document
+  object NewsArticle {
+    state: "draft"
+  }
+  object FileAttachment {
+    deleted: 0
+    external_url: nil
+    attachable_type: "Edition"
+    content_id: "..."
+  }
+
+  Document *- "1" NewsArticle
+
+  object AttachmentData {
+    carrierwave_file: "foo.pdf"
+    uploaded_to_asset_manager_at: nil
+  }
+  AttachmentData *-- "1" FileAttachment
+  NewsArticle *- "1" FileAttachment
+
+}
+}}
+]
+
+label NewAttachmentUploaded [
+{{
+allowmixing
+hide stereotype
+card "New Attachment Uploaded" {
+  node Whitehall {
+  object Document
+  object NewsArticle {
+    state: "draft"
+  }
+  object FileAttachment {
+    content_id: "..."
+  }
+
+  Document *- "1" NewsArticle
+
+  object AttachmentData {
+    uploaded_to_asset_manager_at: "...now..."
+  }
+  AttachmentData *-- "1" FileAttachment
+  NewsArticle *- "1" FileAttachment
+  }
+
+  node AssetManager {
+  object WhitehallAsset {
+    state: "uploaded"
+    draft: true
+  }
+  database S3 {
+  file asset_file
+  }
+  }
+}
+}}
+]
+
+startPoint --> NoAttachments
+NoAttachments --> NewAttachment : user attaches file
+NewAttachment --> NewAttachmentUploaded: sidekiq job uploads file
+
+@enduml
