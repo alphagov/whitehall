@@ -36,6 +36,8 @@ class CorporateInformationPage < Edition
   end
 
   def republish_about_page_to_publishing_api
+    return if worldwide_organisation.present?
+
     about_us = owning_organisation&.about_us
     return unless about_us
 

@@ -283,10 +283,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "re-indexes the organisation after the 'About Us' CIP is saved" do
     org = create(:organisation, govuk_status: "live")
     corp_page = create(
-      :corporate_information_page,
-      :published,
+      :about_corporate_information_page,
       organisation: org,
-      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
     )
 
     Whitehall::SearchIndex.expects(:add).with(org).once
@@ -296,11 +294,9 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "re-indexes the worldwide organisation after the 'About Us' CIP is saved" do
     worldwide_org = create(:worldwide_organisation)
     about_us = create(
-      :corporate_information_page,
-      :published,
+      :about_corporate_information_page,
       organisation: nil,
       worldwide_organisation: worldwide_org,
-      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
     )
 
     Whitehall::SearchIndex.expects(:add).with(worldwide_org).once
@@ -329,10 +325,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "republishes the 'About Us' CIP if another CIP is saved" do
     org = create(:organisation, govuk_status: "live")
     about_us = create(
-      :corporate_information_page,
-      :published,
+      :about_corporate_information_page,
       organisation: org,
-      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
     )
     other_page = create(
       :corporate_information_page,
@@ -343,13 +337,28 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     other_page.touch
   end
 
+  test "does not republish the 'About Us' CIP if it is for a worldwide organisation" do
+    org = create(:worldwide_organisation)
+    about_us = create(
+      :about_corporate_information_page,
+      organisation: nil,
+      worldwide_organisation: org,
+    )
+    other_page = create(
+      :corporate_information_page,
+      :published,
+      worldwide_organisation: org,
+      organisation: nil,
+    )
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).never
+    other_page.touch
+  end
+
   test "does not republish the 'About Us' CIP if it is saved" do
     org = create(:organisation, govuk_status: "live")
     about_us = create(
-      :corporate_information_page,
-      :published,
+      :about_corporate_information_page,
       organisation: org,
-      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
     )
     PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).never
     about_us.touch
