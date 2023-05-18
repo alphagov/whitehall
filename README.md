@@ -45,16 +45,18 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 
 ### Running the test suite
 
+These commands assume you have the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) running and its binaries in your PATH.
+
 ```
 # run all the test suites
-bundle exec rake
+govuk-docker-run bundle exec rake
 ```
 
 Javascript unit tests can also be run separately:
 
 ```
 # run all the JavaScript tests
-bundle exec rake jasmine
+govuk-docker-run bundle exec rake jasmine
 ```
 
 ### Further documentation
