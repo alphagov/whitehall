@@ -1,26 +1,82 @@
-<%= content_tag_for(:section, promotional_feature_item, class: 'well') do %>
-  <% unless promotional_feature_item.image.s300.url.blank? %>
-    <%= image_tag promotional_feature_item.image.s300.url, alt: promotional_feature_item.image_alt_text %>
-  <% end %>
+<%= render "components/summary_card_component", {
+  title: "Feature item #{promotional_feature_item.id}",
+  rows: [
+    {
 
-  <% if promotional_feature_item.youtube_video_url.present? %>
-    <p>
-      <%= link_to promotional_feature_item.youtube_video_url, promotional_feature_item.youtube_video_url %>
-    </p>
-  <% end %>
+      key: "Item title",
+      value: promotional_feature_item.title
 
-  <% if promotional_feature_item.title.present? %>
-    <p><%= link_to_unless promotional_feature_item.title_url.blank?, promotional_feature_item.title, promotional_feature_item.title_url %></p>
-  <% end %>
-  <p>
-    <%=format_with_html_line_breaks promotional_feature_item.summary %>
-  </p>
-  <p>
-    <% promotional_feature_item.links.each do |link| %>
-      &mdash; <%= link_to link.text, link.url %><br />
-    <% end %>
-  </p>
+    },
+    {
+      key: "Item title URL",
+      value: "",
+      actions: [
+        {
+          label: "View",
+          href: promotional_feature_item.title_url
+        },
+      ]
+    },
+    {
+      key: "Summary",
+      value: promotional_feature_item.summary,
 
-  <%= link_to "Edit", edit_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item), class: "btn btn-default"%>
-  <%= link_to "Delete", confirm_destroy_admin_organisation_promotional_feature_item_path(@organisation,@promotional_feature, promotional_feature_item), class: 'btn btn-danger btn-sm' %>
-<% end %>
+    },
+    if promotional_feature_item.image.s300.url.present?
+      {
+        key: "Image",
+        value: "",
+        actions: [
+          {
+            label: "View",
+            href: promotional_feature_item.image.s300.url,
+          },
+        ]
+      }
+    end,
+    {
+      key: "Image description",
+      value: promotional_feature_item.image_alt_text,
+    },
+    {
+      key: "YouTube video",
+      value: "",
+      actions: [
+        {
+          label: "View",
+          href: promotional_feature_item.youtube_video_url,
+        },
+      ]
+    },
+    {
+      key: "Video description",
+      value: ""
+    },
+    promotional_feature_item.links.each_with_index.map do |promo_link, index|
+      {
+        key: "Item link #{index + 1}",
+        value: promo_link.text,
+        actions: [
+          {
+            label: "View",
+            href: promo_link.url
+          },
+        ]
+      }
+    end
+
+  ].flatten,
+  summary_card_actions: [
+    {
+      label: "Edit",
+      href: edit_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item),
+    },
+    {
+      label: "Delete",
+      href: confirm_destroy_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item),
+      destructive: true
+    }
+  ]
+}
+%>
+

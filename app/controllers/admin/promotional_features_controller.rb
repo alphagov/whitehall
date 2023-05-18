@@ -25,7 +25,9 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     end
   end
 
-  def show; end
+  def show
+    render_design_system("show", "legacy_show", next_release: false)
+  end
 
   def edit
     render_design_system("edit", "legacy_edit", next_release: false)
@@ -66,7 +68,7 @@ private
 
   def get_layout
     design_system_actions = %w[reorder update_order confirm_destroy]
-    design_system_actions += %w[edit index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[edit index show] if preview_design_system?(next_release: false)
     if design_system_actions.include?(action_name)
       "design_system"
     else
