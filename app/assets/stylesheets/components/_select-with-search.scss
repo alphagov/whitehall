@@ -212,7 +212,6 @@
     box-shadow: 0 2px 0 #929191;
     line-height: 1;
     color: #0b0c0c;
-    word-break: break-all;
     box-sizing: border-box;
 
     &[data-deletable] {
@@ -246,7 +245,6 @@
     border-top-width: 0;
     top: 100%;
     overflow: hidden;
-    word-break: break-all;
     will-change: visibility;
 
     &.is-active {
@@ -295,7 +293,7 @@
   @media (min-width: 640px) {
     .choices__list--dropdown .choices__item--selectable,
     .choices__list[aria-expanded] .choices__item--selectable {
-      padding-right: 100px;
+      padding-right: 5px;
     }
 
     .choices__list--dropdown .choices__item--selectable:after,
