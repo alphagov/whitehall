@@ -25,13 +25,27 @@ class MoveAttachmentsFromWorldwideOrganisationAboutPagesToWorldwideOrganisations
   end
 
   def up
+    number_of_worldwide_organisations = 0
+    number_of_attachments = 0
+
     WorldwideOrganisation.all.each do |worldwide_organisation|
-      next if worldwide_organisation.about_us.nil?
+      write "Moving attachments for WorldOrganisation: #{worldwide_organisation.slug}"
+      number_of_worldwide_organisations += 1
+
+      if worldwide_organisation.about_us.nil?
+        write "  WorldOrganisation #{worldwide_organisation.slug} has no about page"
+        next
+      end
 
       worldwide_organisation.about_us.attachments.each do |attachment|
+        write "  Processing attachment: #{attachment.id}"
+        number_of_attachments += 1
         attachment.update!(attachable: worldwide_organisation)
       end
     end
+
+    write "Number of WorldwideOrganisations: #{number_of_worldwide_organisations}"
+    write "Number of Attachments moved: #{number_of_attachments}"
   end
 
   def down
