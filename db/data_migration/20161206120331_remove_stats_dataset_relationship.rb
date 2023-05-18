@@ -1,7 +1,0 @@
-# This DfT publication 'ict-spend' has one statistical data set
-# which is superseded and has the slug 'average-house-prices'
-# so assume this is a bad relationship and disconnect the two.
-pub = Publication.find(392_444)
-data_set = StatisticalDataSet.find(14_779)
-pub.statistical_data_sets = (pub.statistical_data_sets - [data_set])
-pub.save!
