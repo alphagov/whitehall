@@ -1,0 +1,72 @@
+@startuml
+allowmixing
+hide empty members
+
+note "Generated diagram on 2023-05-18 " as Note1
+
+' Generated for classes Edition,Document,Attachment,AttachmentData,Image,ImageData
+rectangle "Edition Family" {
+class Edition 
+class DocumentCollection 
+class CorporateInformationPage 
+class CaseStudy 
+class DetailedGuide 
+class Announcement 
+class Publicationesque 
+class NewsArticle 
+class FatalityNotice 
+class Speech 
+class StatisticalDataSet 
+class Publication 
+class Consultation 
+}
+class Document 
+rectangle "Attachment Family" {
+class Attachment 
+class HtmlAttachment 
+class FileAttachment 
+class ExternalAttachment 
+}
+class AttachmentData 
+class Image 
+class ImageData 
+Edition <|-- DocumentCollection #line:blue;line.bold
+Edition <|-- CorporateInformationPage #line:blue;line.bold
+Edition <|-- CaseStudy #line:blue;line.bold
+Edition <|-- DetailedGuide #line:blue;line.bold
+Edition <|-- Announcement #line:blue;line.bold
+Announcement <|-- NewsArticle #line:blue;line.bold
+Announcement <|-- FatalityNotice #line:blue;line.bold
+Announcement <|-- Speech #line:blue;line.bold
+Edition <|-- Publicationesque #line:blue;line.bold
+Publicationesque <|-- StatisticalDataSet #line:blue;line.bold
+Publicationesque <|-- Publication #line:blue;line.bold
+Publicationesque <|-- Consultation #line:blue;line.bold
+Attachment <|-- HtmlAttachment #line:blue;line.bold
+Attachment <|-- FileAttachment #line:blue;line.bold
+Attachment <|-- ExternalAttachment #line:blue;line.bold
+Edition --> Document : "belongs_to"
+CorporateInformationPage --> Attachment : "has_many x 2"
+CorporateInformationPage --> HtmlAttachment : "has_many x 2"
+CaseStudy --> Image : "has_many"
+Document ..> DocumentCollection : "(through) has_many x 5"
+DetailedGuide --> Image : "has_many"
+DetailedGuide --> Attachment : "has_many x 2"
+DetailedGuide --> HtmlAttachment : "has_many x 2"
+Document --> Edition : "has_many,has_one x 3"
+Document ..> Edition : "(through) has_many x 2"
+Announcement --> Image : "has_many"
+NewsArticle --> Attachment : "has_many x 2"
+NewsArticle --> HtmlAttachment : "has_many x 2"
+Publicationesque --> Attachment : "has_many x 2"
+Publicationesque --> HtmlAttachment : "has_many x 2"
+Publication --> Image : "has_many"
+Document ..> StatisticalDataSet : "(through) has_many"
+Consultation --> Image : "has_many"
+Attachment --> AttachmentData : "belongs_to"
+AttachmentData --> Attachment : "has_many"
+AttachmentData --> AttachmentData : "belongs_to"
+Image --> ImageData : "belongs_to"
+Image --> Edition : "belongs_to"
+ImageData --> Image : "has_many"
+@enduml
