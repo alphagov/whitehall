@@ -3,6 +3,13 @@
   <fieldset>
     <%= form.text_field :name %>
 
+    <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 160, 'count-message-selector' => '.summary-length-info' } %>
+    <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
+
+    <%= form.text_area :body, class: "previewable", rows: 20, cols: 9000, data: {
+      module: "paste-html-to-govspeak"
+    } %>
+
     <%= form.label :world_location_ids, 'World location' %>
     <%= form.select :world_location_ids, WorldLocation.ordered_by_name.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose world locations…"} %>
 

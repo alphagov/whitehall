@@ -30,7 +30,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     expected_hash = {
       base_path: public_path,
       title: "Locationia Embassy",
-      description: "edition-summary",
+      description: "This is the summary text of a worldwide organisation",
       schema_name: "worldwide_organisation",
       document_type: "worldwide_organisation",
       locale: "en",
@@ -40,7 +40,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
       details: {
-        body: "<div class=\"govspeak\"><p>Some stuff</p>\n</div>",
+        body: "<div class=\"govspeak\"><p>This is the body text of a worldwide organisation</p>\n</div>",
         logo: {
           crest: "single-identity",
           formatted_title: "Locationia\nEmbassy",

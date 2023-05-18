@@ -218,8 +218,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "search index data for a worldwide organisation includes name, summary, the correct link and format" do
-    worldwide_organisation = create(:worldwide_organisation, content_id: "7d58b5d8-6d91-4dbb-b3e1-c2a27f131046", name: "British Embassy to Hat land", slug: "british-embassy-to-hat-land")
-    create(:published_corporate_information_page, corporate_information_page_type: CorporateInformationPageType.find("about"), worldwide_organisation:, organisation: nil, summary: "Providing assistance to uk residents in hat land")
+    worldwide_organisation = create(:worldwide_organisation, content_id: "7d58b5d8-6d91-4dbb-b3e1-c2a27f131046", name: "British Embassy to Hat land", summary: "Providing assistance to uk residents in hat land", slug: "british-embassy-to-hat-land")
 
     assert_equal(
       { "title" => worldwide_organisation.name,

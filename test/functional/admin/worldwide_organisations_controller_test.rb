@@ -20,16 +20,16 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "creates a worldwide organisation" do
-    post :create,
-         params: {
-           worldwide_organisation: {
-             name: "Organisation",
-           },
-         }
+    name = "Organisation"
+    summary = "A Worldwide Organisation"
+    body = "Some more information"
+    post :create, params: { worldwide_organisation: { name:, summary:, body: } }
 
     worldwide_organisation = WorldwideOrganisation.last
     assert_kind_of WorldwideOrganisation, worldwide_organisation
-    assert_equal "Organisation", worldwide_organisation.name
+    assert_equal name, worldwide_organisation.name
+    assert_equal summary, worldwide_organisation.summary
+    assert_equal body, worldwide_organisation.body
 
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
@@ -52,19 +52,27 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "updates an existing objects with new values" do
     organisation = create(:worldwide_organisation)
+    new_name = "New name"
+    new_body = "New body"
+    new_summary = "New summary"
+    file_name = "minister-of-funk.960x640.jpg"
     put :update,
         params: {
           id: organisation.id,
           worldwide_organisation: {
-            name: "New name",
+            name: new_name,
+            body: new_body,
+            summary: new_summary,
             default_news_image_attributes: {
-              file: upload_fixture("minister-of-funk.960x640.jpg"),
+              file: upload_fixture(file_name),
             },
           },
         }
     worldwide_organisation = WorldwideOrganisation.last
-    assert_equal "New name", worldwide_organisation.name
-    assert_equal "minister-of-funk.960x640.jpg", worldwide_organisation.default_news_image.file.file.filename
+    assert_equal new_name, worldwide_organisation.name
+    assert_equal file_name, worldwide_organisation.default_news_image.file.file.filename
+    assert_equal new_body, worldwide_organisation.body
+    assert_equal new_summary, worldwide_organisation.summary
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
 
@@ -98,11 +106,9 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "shows the name summary and description of the worldwide organisation" do
-    organisation = create(:worldwide_organisation, name: "Ministry of Silly Walks in Madrid")
-    about_us = create(
-      :about_corporate_information_page,
-      organisation: nil,
-      worldwide_organisation: organisation,
+    organisation = create(
+      :worldwide_organisation,
+      name: "Ministry of Silly Walks in Madrid",
       summary: "We have a nice organisation in madrid",
       body: "# Organisation\nOur organisation is on the main road\n",
     )
@@ -111,7 +117,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
     assert_select_object organisation do
       assert_select "h1", organisation.name
-      assert_select ".summary", about_us.summary
+      assert_select ".summary", organisation.summary
       assert_select ".description" do
         assert_select "h1", "Organisation"
         assert_select "p", "Our organisation is on the main road"

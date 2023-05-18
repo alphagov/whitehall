@@ -39,7 +39,6 @@ private
 
     if current_user_can_preview?
       expires_now
-      @draft = true
     end
   end
 

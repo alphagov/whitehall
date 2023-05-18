@@ -1,7 +1,10 @@
-When(/^I create a worldwide organisation "([^"]*)" sponsored by the "([^"]*)"$/) do |name, sponsoring_organisation|
+When(/^I create a worldwide organisation "([^"]*)" sponsored by the "([^"]*)" with:$/) do |name, sponsoring_organisation, table|
+  attributes = table.rows_hash
   visit new_admin_worldwide_organisation_path
   fill_in "Name", with: name
   fill_in "Logo formatted name", with: name
+  fill_in "Summary", with: attributes["summary"]
+  fill_in "Body", with: attributes["body"]
   select sponsoring_organisation, from: "Sponsoring organisations"
   click_on "Save"
 end
@@ -18,6 +21,8 @@ Then(/^I should see the(?: updated)? worldwide organisation information on the p
   worldwide_organisation = WorldwideOrganisation.last
   visit worldwide_organisation.public_path
   expect(page).to have_title(worldwide_organisation.name)
+  expect(page).to have_content(worldwide_organisation.summary)
+  expect(page).to have_content(worldwide_organisation.body)
 end
 
 Then(/^the "([^"]*)" logo should show correctly with the HMG crest$/) do |name|
@@ -40,6 +45,15 @@ end
 When(/^I update the worldwide organisation to set the name to "([^"]*)"$/) do |new_title|
   visit edit_admin_worldwide_organisation_path(WorldwideOrganisation.last)
   fill_in "Name", with: new_title
+  click_on "Save"
+end
+
+When(/^I update the worldwide organisation to set:$/) do |table|
+  attributes = table.rows_hash
+  visit edit_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  fill_in "Name", with: attributes["name"]
+  fill_in "Summary", with: attributes["summary"]
+  fill_in "Body", with: attributes["body"]
   click_on "Save"
 end
 
@@ -221,6 +235,7 @@ Then(/^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*
   visit worldwide_organisation.public_path(locale:)
 
   expect(page).to have_selector(".worldwide-org-summary", text: translation["summary"])
+  expect(page).to have_selector(".worldwide-org-description", text: translation["body"])
 end
 
 Given(/^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, native_locale_name|

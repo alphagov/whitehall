@@ -16,7 +16,6 @@ class WorldwideOrganisation < ApplicationRecord
   has_many :edition_worldwide_organisations, dependent: :destroy, inverse_of: :worldwide_organisation
   # This include is dependant on the above has_many
   include HasCorporateInformationPages
-  include HasAboutUsCorporateInformationPage
 
   has_many :editions, through: :edition_worldwide_organisations
 
@@ -32,12 +31,16 @@ class WorldwideOrganisation < ApplicationRecord
   self.analytics_prefix = "WO"
 
   include TranslatableModel
-  translates :name
+  translates :name, :summary, :body
 
   alias_method :original_main_office, :main_office
 
   validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attribute: :body
+
   validates :name, presence: true
+  validates :body, length: { maximum: 16_777_215 }
+  validates :summary, length: { maximum: 65_535 }
 
   include PublishesToPublishingApi
 

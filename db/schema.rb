@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_15_120104) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_141021) do
   create_table "attachment_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "carrierwave_file"
     t.string "content_type"
@@ -1148,6 +1148,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_120104) do
     t.string "name"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.text "summary"
+    t.text "body", size: :medium
     t.index ["locale"], name: "index_worldwide_org_translations_on_locale"
     t.index ["worldwide_organisation_id"], name: "index_worldwide_org_translations_on_worldwide_organisation_id"
   end

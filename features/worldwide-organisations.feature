@@ -21,12 +21,17 @@ Feature: Administering worldwide organisation
 
   Scenario: Creating worldwide organisation
     Given the organisation "Department of Beards" exists
-    When I create a worldwide organisation "Department of Beards in France" sponsored by the "Department of Beards"
+    When I create a worldwide organisation "Department of Beards in France" sponsored by the "Department of Beards" with:
+      | summary | Beards Summary |
+      | body    | Beards Body    |
     Then I should see the worldwide organisation information on the public website
     And the "Department of Beards in France" logo should show correctly with the HMG crest
     And I should see that it is part of the "Department of Beards"
     Then I should see a create record in the audit trail for the worldwide organisation
-    When I update the worldwide organisation to set the name to "Department of Beards and Moustaches in France"
+    When I update the worldwide organisation to set:
+      | name    | Department of Beards & Moustaches in France |
+      | summary | Beards & Moustaches Summary                 |
+      | body    | Beards & Moustaches Body                    |
     Then I should see the updated worldwide organisation information on the public website
     Then I should see an update record in the audit trail for the worldwide organisation
     When I delete the worldwide organisation

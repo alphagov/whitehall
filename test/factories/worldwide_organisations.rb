@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :worldwide_organisation, traits: [:translated] do
     sequence(:name) { |index| "worldwide-organisation-#{index}" }
     logo_formatted_name { name.to_s.split.join("\n") }
+    body { "This is the body text of a worldwide organisation" }
+    summary { "This is the summary text of a worldwide organisation" }
 
     trait(:with_corporate_information_pages) do
       after :create do |organisation, _evaluator|
