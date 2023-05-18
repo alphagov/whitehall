@@ -2,6 +2,13 @@
 <h1>
   <%= "#{@filter.page_title}" %>
 </h1>
+
+<% if @organisation.is_a?(WorldwideOrganisation) %>
+  <p id="worldwide-organisation-about-page-explanation">
+    Content for the Worldwide Organisation page can now be edited under the <%= link_to "Details tab", admin_worldwide_organisation_path(@organisation) %> instead of in the "About us" page.
+  </p>
+<% end %>
+
 <% if @filter.editions.blank? %>
   <div class="add-top-margin no-content no-content-bordered">
     No documents found

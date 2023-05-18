@@ -10,6 +10,12 @@
   items: secondary_navigation_tabs_items(@organisation, request.path)
 } %>
 
+<% if @organisation.is_a?(WorldwideOrganisation) %>
+  <p id="worldwide-organisation-about-page-explanation">
+    Content for the Worldwide Organisation page can now be edited under the <%= link_to "Details tab", admin_worldwide_organisation_path(@organisation) %> instead of in the "About us" page.
+  </p>
+<% end %>
+
 <% if @organisation.unused_corporate_information_page_types.any? %>
   <%= render "govuk_publishing_components/components/button", {
     text: "Create new corporate information page",

@@ -21,6 +21,33 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert assigns(:filter).hide_type
   end
 
+  view_test "GET :index should exclude about us pages for worldwide organisations" do
+    worldwide_organisation = create(:worldwide_organisation)
+    about_us = create(:about_corporate_information_page, worldwide_organisation:, organisation: nil)
+    draft_about_us = create(:draft_about_corporate_information_page, document: about_us.document, worldwide_organisation:, organisation: nil)
+    other_corporate_information_page = create(:recruitment_corporate_information_page, worldwide_organisation:, organisation: nil)
+
+    get :index, params: { worldwide_organisation_id: worldwide_organisation }
+
+    assert_select "#worldwide-organisation-about-page-explanation a[href='#{admin_worldwide_organisation_path(worldwide_organisation)}']"
+    assert_select "tr td", text: other_corporate_information_page.title
+    refute_select "tr td", text: about_us.title
+    refute_select "tr td", text: draft_about_us.title
+  end
+
+  view_test "GET :index should include about us pages for organisations" do
+    about_us = create(:about_corporate_information_page, organisation: @organisation)
+    draft_about_us = create(:draft_about_corporate_information_page, document: about_us.document, organisation: @organisation)
+    other_corporate_information_page = create(:recruitment_corporate_information_page, organisation: @organisation)
+
+    get :index, params: { organisation_id: @organisation }
+
+    refute_select "#worldwide-organisation-about-page-explanation"
+    assert_select "tr td", text: other_corporate_information_page.title
+    assert_select "tr td", text: about_us.title
+    assert_select "tr td", text: draft_about_us.title
+  end
+
   view_test "GET :new should display form" do
     get :new, params: { organisation_id: @organisation }
 

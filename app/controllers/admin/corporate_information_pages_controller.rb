@@ -6,7 +6,7 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
 
   def index
     params[:state] = "active" # Ensure that state column is displayed.
-    @paginator = @organisation.corporate_information_pages.where("state != ?", "superseded").order("corporate_information_page_type_id").page(params["page"].to_i || 1).per(100)
+    @paginator = Kaminari.paginate_array(corporate_information_pages).page(params["page"].to_i || 1).per(100)
     @filter = FakeEditionFilter.new @paginator, "Corporate information pages", false, true
 
     render_design_system(:index, :legacy_index, next_release: false)
@@ -26,6 +26,14 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   end
 
 private
+
+  def corporate_information_pages
+    @organisation
+      .corporate_information_pages
+      .where("state != ?", "superseded")
+      .order("corporate_information_page_type_id")
+      .reject { |cip| cip.about_page? && cip.worldwide_organisation.present? }
+  end
 
   def get_layout
     design_system_actions = %w[confirm_destroy show edit update new create]
