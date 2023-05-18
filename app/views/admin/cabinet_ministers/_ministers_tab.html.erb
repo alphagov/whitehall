@@ -1,0 +1,26 @@
+<% if roles.many? %>
+  <p class="govuk-body">
+    <%= link_to "Reorder list", reorder_path, class: "govuk-link" %>
+  </p>
+<% end %>
+
+<% if roles.any? %>
+  <%= render "govuk_publishing_components/components/table", {
+    rows: roles.map do |role|
+      [
+        {
+          text: tag.p(role.name, class: "govuk-!-margin-0 govuk-!-font-weight-bold")
+        },
+        {
+          text: role.current_person&.name
+        },
+        {
+          text: link_to(sanitize("Edit #{tag.span(role.name, class: "govuk-visually-hidden")}"),  [:edit, :admin, role.becomes(Role)], class: "govuk-link"),
+          format: "numberic"
+        },
+      ]
+    end
+  } %>
+<% else %>
+  <p class="govuk-body">None</p>
+<% end %>

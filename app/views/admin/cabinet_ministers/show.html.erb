@@ -1,44 +1,31 @@
-<% page_title "Cabinet ministers ordering" %>
+<% content_for :page_title, "Cabinet ministers ordering" %>
+<% content_for :title, "Cabinet ministers ordering" %>
 
-<%= form_for admin_cabinet_ministers_path, method: :put do |form| %>
-  <div id="role_ordering" class="row">
-  <% if @cabinet_minister_roles.any? %>
-    <div class="col-md-3">
-      <fieldset id="minister_ordering" class="sortable">
-        <legend>Cabinet ministers ordering</legend>
-        <%= ministers_role_ordering_fields(form, @cabinet_minister_roles, 'roles', &:seniority) %>
-      </fieldset>
-    </div>
-  <% end %>
-
-  <% if @also_attends_cabinet_roles.any? %>
-    <div class="col-md-3">
-      <fieldset id="special_representative_ordering" class="sortable">
-        <legend>Also attends cabinet ordering</legend>
-        <%= ministers_role_ordering_fields(form, @also_attends_cabinet_roles, 'roles', &:seniority) %>
-      </fieldset>
-    </div>
-  <% end %>
-
-  <% if @whip_roles.any? %>
-    <div class="col-md-3">
-      <fieldset id="special_representative_ordering" class="sortable">
-        <legend>Whips ordering</legend>
-        <%= ministers_role_ordering_fields(form, @whip_roles, 'whips', &:whip_ordering) %>
-      </fieldset>
-    </div>
-  <% end %>
-
-
-  <% if @organisations.any? %>
-    <div class="col-md-3">
-      <fieldset id="organisations_ordering" class="sortable">
-        <legend>Organisations ordering</legend>
-        <%= organisation_ordering_fields(@organisations) %>
-      </fieldset>
-    </div>
-  <% end %>
-
-  </div>
-  <%= form.save_or_cancel cancel: admin_cabinet_ministers_path %>
-<% end %>
+<%= render "govuk_publishing_components/components/tabs", {
+  tabs: [
+    {
+      id: "cabinet_minister",
+      label: "Cabinet minister ordering",
+      title: "Cabinet minister ordering",
+      content: render("ministers_tab", roles: @cabinet_minister_roles, reorder_path: reorder_cabinet_minister_roles_admin_cabinet_ministers_path)
+    },
+    {
+      id: "also_attends_cabinet",
+      label: "Also attends cabinet ordering",
+      title: "Also attends cabinet ordering",
+      content: render("ministers_tab", roles: @also_attends_cabinet_roles, reorder_path: reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path)
+    },
+    {
+      id: "whips",
+      label: "Whips ordering",
+      title: "Whips ordering",
+      content: render("ministers_tab", roles: @whip_roles, reorder_path: reorder_whip_roles_admin_cabinet_ministers_path)
+    },
+    {
+      id: "organisations",
+      label: "Organisations ordering",
+      title: "Organisations ordering",
+      content: render("organisations_tab", organisations: @organisations)
+    }
+  ]
+} %>
