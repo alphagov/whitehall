@@ -96,17 +96,25 @@ Feature: Administering worldwide organisation
   Scenario: Adding a new translation
     Given a worldwide organisation "Department of Beards in France" exists for the world location "France" with translations into "Français"
     When I add a new translation to the worldwide organisation "Department of Beards in France" with:
-      | locale | Français                         |
-      | name   | Département des barbes en France |
+      | locale  | Français                         |
+      | name    | Département des barbes en France |
+      | summary | Résumé des barbes                |
+      | body    | Corp des barbes                  |
     Then when viewing the worldwide organisation "Department of Beards in France" with the locale "fr" I should see:
-      | name | Département des barbes en France |
+      | name    | Département des barbes en France |
+      | summary | Résumé des barbes                |
+      | body    | Corp des barbes                  |
 
   Scenario: Editing an existing translation
     Given a worldwide organisation "Department of Beards in France" exists with a translation for the locale "Français"
     When I edit the "Français" translation for the worldwide organisation "Department of Beards in France" setting:
       | name | Le super département des barbes en France |
+      | summary | Résumé des barbes spectaculaires       |
+      | body    | Corp des barbes spectaculaires         |
     Then when viewing the worldwide organisation "Department of Beards in France" with the locale "fr" I should see:
       | name | Le super département des barbes en France |
+      | summary | Résumé des barbes spectaculaires       |
+      | body    | Corp des barbes spectaculaires         |
 
   Scenario: Translating a corporate information page for a worldwide organisation
     Given a worldwide organisation "Department of Beards in France"

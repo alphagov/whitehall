@@ -1,17 +1,11 @@
 Given(/^a worldwide organisation that is translated exists$/) do
   world_location = create(:world_location, active: true)
-  worldwide_organisation = create(
+  create(
     :worldwide_organisation,
     world_locations: [world_location],
     name: "en-organisation",
-    translated_into: { fr: { name: "fr-organisation" } },
-  )
-  create(
-    :about_corporate_information_page,
-    organisation: nil,
-    worldwide_organisation:,
     summary: "en-summary",
-    translated_into: { fr: { summary: "fr-summary" } },
+    translated_into: { fr: { name: "fr-organisation", summary: "fr-summary", body: "fr-body" } },
   )
 end
 
@@ -21,6 +15,7 @@ end
 
 Then(/^I should see the translation of that world organisation$/) do
   expect(page).to have_selector(".worldwide-org-summary", text: "fr-summary")
+  expect(page).to have_selector(".worldwide-org-description", text: "fr-body")
 end
 
 Given(/^I have drafted a translatable document "([^"]*)"$/) do |title|
