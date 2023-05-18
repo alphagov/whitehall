@@ -84,7 +84,7 @@ class EmbassyTest < ActiveSupport::TestCase
   end
 
   context "when the world location is a special case" do
-    let(:world_location) { build(:world_location, name: Embassy::SPECIAL_CASES.keys.first) }
+    let(:world_location) { build(:world_location, name: "Holy See") }
 
     it "returns true for #can_assist_british_nationals?" do
       assert embassy.can_assist_british_nationals?
@@ -100,9 +100,9 @@ class EmbassyTest < ActiveSupport::TestCase
 
     it "returns a #remote_office" do
       expected = Embassy::RemoteOffice.new(
-        name: "Foreign, Commonwealth and Development Office",
-        location: "the UK",
-        path: "/government/organisations/foreign-commonwealth-development-office",
+        name: "British Embassy Rome",
+        location: "Italy",
+        path: "/government/world/organisations/british-embassy-rome",
       )
       assert_equal expected, embassy.remote_office
     end

@@ -66,16 +66,6 @@ private
   end
 
   SPECIAL_CASES = {
-    "Central African Republic" => {
-      building: "Foreign, Commonwealth and Development Office",
-      location: "the UK",
-      base_path: "/government/organisations/foreign-commonwealth-development-office",
-    },
-    "French Polynesia" => {
-      building: "British High Commission Wellington",
-      location: "New Zealand",
-      base_path: "/government/world/organisations/british-high-commission-wellington",
-    },
     "Holy See" => {
       building: "British Embassy Rome",
       location: "Italy",
@@ -85,36 +75,6 @@ private
       building: "British Embassy Tunis",
       location: "Tunisia",
       base_path: "/government/world/organisations/british-embassy-tunis",
-    },
-    "Liechtenstein" => {
-      building: "British Embassy Berne",
-      location: "Switzerland",
-      base_path: "/government/world/organisations/british-embassy-berne",
-    },
-    "Macao" => {
-      building: "British Consulate General Hong Kong",
-      location: "Hong Kong",
-      base_path: "/government/world/organisations/british-consulate-general-hong-kong",
-    },
-    "Marshall Islands" => {
-      building: "British High Commission Suva",
-      location: "Fiji",
-      base_path: "/government/world/organisations/british-high-commission-suva",
-    },
-    "Micronesia" => {
-      building: "British High Commission Suva",
-      location: "Fiji",
-      base_path: "/government/world/organisations/british-high-commission-suva",
-    },
-    "New Caledonia" => {
-      building: "British High Commission Wellington",
-      location: "New Zealand",
-      base_path: "/government/world/organisations/british-high-commission-wellington",
-    },
-    "St Martin" => {
-      building: "British Embassy Paris",
-      location: "France",
-      base_path: "/government/world/organisations/british-embassy-paris",
     },
     "Syria" => {
       building: "British Embassy Beirut",
