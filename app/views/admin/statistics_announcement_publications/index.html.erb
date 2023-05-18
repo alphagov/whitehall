@@ -6,9 +6,9 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with url: admin_statistics_announcement_publication_index_path(@statistics_announcement), method: :get do |form| %>
+    <%= form_with url: admin_statistics_announcement_publication_index_path(@statistics_announcement), method: :get do |_form| %>
       <%= render "govuk_publishing_components/components/search", {
-        name: "search",
+        name: "title",
         value: params[:title],
         label_text: "Search by title or slug",
         label_size: "l",

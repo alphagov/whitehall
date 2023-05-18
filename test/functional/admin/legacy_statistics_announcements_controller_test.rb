@@ -80,7 +80,7 @@ class Admin::LegacyStatisticsAnnouncementsControllerTest < ActionController::Tes
              current_release_date_attributes: {
                release_date: 1.year.from_now,
                precision: StatisticsAnnouncementDate::PRECISION[:exact],
-               confirmed: "1"
+               confirmed: "1",
              },
            },
          }

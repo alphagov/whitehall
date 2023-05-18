@@ -6,6 +6,12 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     @official_statistics_announcement = create(:statistics_announcement)
     @official_statistics_publication = create(:published_statistics)
     @title = "publication-title"
+    @default_filter_params = {
+      state: "active",
+      type: "publication",
+      subtypes: @official_statistics_announcement.publication_type,
+      per_page: 15,
+    }
   end
 
   should_be_an_admin_controller
@@ -17,6 +23,14 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     assert_select ".govuk-label"
     assert_select "input[name='title']"
     refute_select ".govuk-table"
+  end
+
+  test "GET :index with search value passes title and default params to filter" do
+    default_filter_params_with_title = @default_filter_params.merge(title: @title)
+
+    Admin::EditionFilter.expects(:new).with([@official_statistics_publication], @user, default_filter_params_with_title)
+
+    get :index, params: { statistics_announcement_id: @official_statistics_announcement, title: @title }
   end
 
   view_test "GET :index with search value renders paginated results" do

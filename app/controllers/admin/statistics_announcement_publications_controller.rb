@@ -22,7 +22,11 @@ class Admin::StatisticsAnnouncementPublicationsController < Admin::BaseControlle
 private
 
   def filter
-    @filter ||= Admin::EditionFilter.new(Edition, current_user, edition_filter_options)
+    @filter ||= Admin::EditionFilter.new(edition_scope, current_user, edition_filter_options)
+  end
+
+  def edition_scope
+    Edition.with_translations(I18n.locale)
   end
 
   def params_filters
@@ -39,9 +43,6 @@ private
     params_filters_with_default_state
                        .symbolize_keys
                        .merge(
-                         include_unpublishing: true,
-                         include_link_check_reports: true,
-                         include_last_author: true,
                          type: "publication",
                          subtypes: @statistics_announcement.publication_type,
                          per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
