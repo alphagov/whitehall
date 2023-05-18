@@ -1,9 +1,24 @@
 module DiagramGenerator
-  ClassNode = Struct.new(:name, :stereotype) do
+
+  def is_concern?(klass)
+    klass.singleton_class.included_modules.include? ActiveSupport::Concern
+  end
+  module_function :is_concern?
+
+  ClassNode = Struct.new(:name) do
     def to_uml
-      <<~UML
-        class #{name} #{stereotype || ''}
-      UML
+      klass = Object.const_get(name)
+      if klass.instance_of?(Class)
+        <<~UML
+          class #{name}
+        UML
+      elsif klass.instance_of?(Module)
+        <<~UML
+          metaclass #{name} #{DiagramGenerator.is_concern?(klass) ? '<<concern>>' : ''}
+        UML
+      else
+        raise "logic error - ClassNodes should be a Class or a Module, not #{klass.name} which is a #{klass.class}"
+      end
     end
   end
 
@@ -67,6 +82,14 @@ module DiagramGenerator
     end
   end
 
+  Concern = Struct.new(:from, :to) do
+    def to_uml
+      <<~UML
+        #{from} .u.|> #{to}
+      UML
+    end
+  end
+
   # Don't store inheritance as a relationship because it's quite different and specific
   InheritanceLink = Struct.new(:from, :to) do
     def to_uml
@@ -79,10 +102,16 @@ module DiagramGenerator
   class ModelDiagram
     def initialize(base_class_names, options)
       @options = options
+      @show_associations = options[:show_associations]
+      @show_through_associations = options[:through]
+      @show_concerns = options[:show_concerns]
+      @add_extra_classes = options[:extra_classes]
+
       @base_class_names = base_class_names
       @class_layers = Hash.new { |h, key| h[key] = [] } # group classes by base class name so we can group them
       @extra_classes = [] # classes with no known base class
       @inheritance_links = [] # order doesn't matter
+      @concerns = []
       @associations = Hash.new { |h, key| h[key] = Associations.new(key) }
       @node_names = Set.new
 
@@ -97,13 +126,19 @@ module DiagramGenerator
         end
 
         if base_class.subclasses.empty?
-          puts "Note #{base_class_name} has no subclasses - maybe run `Rails.application.eager_load!` first?"
+          warn "Note #{base_class_name} has no subclasses - maybe run `Rails.application.eager_load!` first?"
         end
-        add_class(base_class_name, base_class, nil, 0)
+        add_class!(base_class_name, base_class, nil, 0)
       end
 
       @base_class_names.each do |base_class_name|
-        add_associations(base_class_name, Object.const_get(base_class_name), nil, 0)
+        base_class = Object.const_get(base_class_name)
+        if @show_concerns
+          add_concerns!(base_class)
+        end
+        if @show_associations
+          add_associations!(base_class)
+        end
       end
     end
 
@@ -116,6 +151,8 @@ module DiagramGenerator
         note "Generated diagram on #{Time.now.strftime("%Y-%m-%d")} " as Note1
 
         ' Generated for classes #{@base_class_names.join(",")}
+        ' Options: #{@options}
+
       UML
 
       @base_class_names.each do |base_class_name|
@@ -130,37 +167,37 @@ module DiagramGenerator
 
       end
 
-      # dest.puts "together {"
-      @extra_classes.each do |plantuml_class|
-        dest.print plantuml_class.to_uml
+      @extra_classes.each do |extra_class|
+        dest.print extra_class.to_uml
       end
-      # dest.puts "}"
 
       @inheritance_links.each do |link|
+        dest.print link.to_uml
+      end
+      @concerns.each do |link|
         dest.print link.to_uml
       end
       @associations.each_value do |link|
         dest.print link.to_uml
       end
 
-      dest.print "@enduml"
+      dest.puts "@enduml"
     end
 
     private
 
-    def add_class(base_class_name, klass, parent, depth)
+    def add_class!(base_class_name, klass, parent, depth)
       (@class_layers[base_class_name][depth] ||= []) << ClassNode.new(klass.name)
       @node_names << klass.name
       unless parent.nil?
         @inheritance_links << InheritanceLink.new(parent.name, klass.name)
       end
       klass.subclasses.each do |subclass|
-        add_class(base_class_name, subclass, klass, depth + 1)
+        add_class!(base_class_name, subclass, klass, depth + 1)
       end
     end
 
-    def add_associations(base_class_name, klass, parent, depth)
-
+    def add_associations!(klass)
       associations = klass.reflect_on_all_associations
       superclass_associations = klass.superclass.reflect_on_all_associations
       my_associations = associations.reject { |a| superclass_associations.include? a }
@@ -169,7 +206,23 @@ module DiagramGenerator
       end
 
       klass.subclasses.each do |subclass|
-        add_associations(base_class_name, subclass, klass, depth + 1)
+        add_associations!(subclass)
+      end
+    end
+
+    def add_concerns!(klass)
+      concerns = (klass.included_modules - klass.superclass.included_modules).select { |c| DiagramGenerator.is_concern?(c) }
+      concerns.each do |concern|
+        if known_class?(concern.name) || @add_extra_classes
+          add_extra_class_if_needed(concern.name)
+        end
+        if known_class?(concern.name)
+          @concerns << Concern.new(klass.name, concern.name)
+        end
+      end
+
+      klass.subclasses.each do |subclass|
+        add_concerns!(subclass)
       end
     end
 
@@ -178,7 +231,7 @@ module DiagramGenerator
     end
 
     def add_extra_class_if_needed(class_name)
-      if @options[:extra_classes] && !known_class?(class_name)
+      if @add_extra_classes && !known_class?(class_name)
         @extra_classes << ClassNode.new(class_name)
         @node_names << class_name
       end
@@ -186,7 +239,7 @@ module DiagramGenerator
 
     def add_model_link(new_link)
       if @inheritance_links.any? { |link| link.from == new_link.from && link.to == new_link.to }
-        puts "ignoring duplicate ? but should we merge?"
+        warn "ignoring duplicate inheritance link"
       end
     end
 
@@ -196,7 +249,7 @@ module DiagramGenerator
       through = assoc.options.include?(:through)
 
       if through
-        return unless @options[:through]
+        return unless @show_through_associations
 
         through_name = assoc.options[:through]
         through_assoc = all_assoc.find { |a| a.name == through_name }
@@ -204,15 +257,13 @@ module DiagramGenerator
           warn "Can't find through association from #{class_name} to #{assoc.name} through #{through_name}"
           return
         end
-        if (known_class?(assoc.class_name) && known_class?(through_assoc.class_name)) || @options[:extra_classes]
-          # puts "adding through assoc #{class_name} -> #{through_assoc.macro.to_s} #{through_assoc.class_name} name #{through_assoc.name} -> #{macro} #{assoc.class_name} name #{assoc.name}"
+        if (known_class?(assoc.class_name) && known_class?(through_assoc.class_name)) || @add_extra_classes
           add_extra_class_if_needed(assoc.class_name)
           add_extra_class_if_needed(through_assoc.class_name)
           @associations[AssociationKey.new(through_assoc.class_name, assoc.class_name)].add_through(ThroughRelationship.new(macro, assoc.name, class_name))
         end
       else
-        if known_class?(assoc.class_name) || @options[:extra_classes]
-          # puts "adding assoc from #{class_name}  #{macro} to #{assoc.class_name} name #{assoc.name}"
+        if known_class?(assoc.class_name) || @add_extra_classes
           add_extra_class_if_needed(assoc.class_name)
           @associations[AssociationKey.new(class_name, assoc.class_name)].add(NormalRelationship.new(macro, assoc.name))
         end

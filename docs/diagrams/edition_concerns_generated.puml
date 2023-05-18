@@ -1,0 +1,145 @@
+@startuml
+allowmixing
+hide empty members
+
+note "Generated diagram on 2023-05-18 " as Note1
+
+' Generated for classes Edition
+' Options: {:show_associations=>false, :show_concerns=>true, :extra_classes=>true}
+
+rectangle "Edition Family" {
+class Edition
+class DocumentCollection
+class CorporateInformationPage
+class CaseStudy
+class DetailedGuide
+class Announcement
+class Publicationesque
+class NewsArticle
+class FatalityNotice
+class Speech
+class StatisticalDataSet
+class Publication
+class Consultation
+}
+metaclass Searchable::Mixin <<concern>>
+metaclass Searchable <<concern>>
+metaclass Dependable <<concern>>
+metaclass Edition::SpecialistSectors <<concern>>
+metaclass Edition::Translatable <<concern>>
+metaclass Edition::ActiveEditors <<concern>>
+metaclass AuditTrail <<concern>>
+metaclass Edition::Publishing <<concern>>
+metaclass ActiveModel::Transitions <<concern>>
+metaclass Edition::Workflow <<concern>>
+metaclass Edition::LimitedAccess <<concern>>
+metaclass Edition::Identifiable <<concern>>
+metaclass Edition::NullWorldLocations <<concern>>
+metaclass Edition::NullImages <<concern>>
+metaclass Edition::Traits <<concern>>
+metaclass Edition::TopicalEvents <<concern>>
+metaclass Edition::TaggableOrganisations <<concern>>
+metaclass Edition::Organisations <<concern>>
+metaclass Attachable <<concern>>
+metaclass Edition::WorldwideOrganisations <<concern>>
+metaclass Edition::WorldLocations <<concern>>
+metaclass Edition::HasDocumentCollections <<concern>>
+metaclass Edition::FirstImagePulledOut <<concern>>
+metaclass Edition::FactCheckable <<concern>>
+metaclass Edition::Images <<concern>>
+metaclass Edition::RelatedDocuments <<concern>>
+metaclass Edition::AlternativeFormatProvider <<concern>>
+metaclass Edition::NationalApplicability <<concern>>
+metaclass Edition::CanApplyToLocalGovernmentThroughRelatedPolicies <<concern>>
+metaclass Edition::RoleAppointments <<concern>>
+metaclass Edition::Appointment <<concern>>
+metaclass Edition::StatisticalDataSets <<concern>>
+Edition <|-- DocumentCollection #line:blue;line.bold
+Edition <|-- CorporateInformationPage #line:blue;line.bold
+Edition <|-- CaseStudy #line:blue;line.bold
+Edition <|-- DetailedGuide #line:blue;line.bold
+Edition <|-- Announcement #line:blue;line.bold
+Announcement <|-- NewsArticle #line:blue;line.bold
+Announcement <|-- FatalityNotice #line:blue;line.bold
+Announcement <|-- Speech #line:blue;line.bold
+Edition <|-- Publicationesque #line:blue;line.bold
+Publicationesque <|-- StatisticalDataSet #line:blue;line.bold
+Publicationesque <|-- Publication #line:blue;line.bold
+Publicationesque <|-- Consultation #line:blue;line.bold
+Edition .u.|> Searchable::Mixin
+Edition .u.|> Searchable
+Edition .u.|> Dependable
+Edition .u.|> Edition::SpecialistSectors
+Edition .u.|> Edition::Translatable
+Edition .u.|> Edition::ActiveEditors
+Edition .u.|> AuditTrail
+Edition .u.|> Edition::Publishing
+Edition .u.|> ActiveModel::Transitions
+Edition .u.|> Edition::Workflow
+Edition .u.|> Edition::LimitedAccess
+Edition .u.|> Edition::Identifiable
+Edition .u.|> Edition::NullWorldLocations
+Edition .u.|> Edition::NullImages
+Edition .u.|> Edition::Traits
+DocumentCollection .u.|> Edition::TopicalEvents
+DocumentCollection .u.|> Edition::TaggableOrganisations
+DocumentCollection .u.|> Edition::Organisations
+CorporateInformationPage .u.|> Attachable
+CaseStudy .u.|> Edition::WorldwideOrganisations
+CaseStudy .u.|> Edition::WorldLocations
+CaseStudy .u.|> Edition::TaggableOrganisations
+CaseStudy .u.|> Edition::Organisations
+CaseStudy .u.|> Edition::HasDocumentCollections
+CaseStudy .u.|> Edition::FirstImagePulledOut
+CaseStudy .u.|> Edition::FactCheckable
+CaseStudy .u.|> Edition::Images
+DetailedGuide .u.|> Edition::TopicalEvents
+DetailedGuide .u.|> Edition::RelatedDocuments
+DetailedGuide .u.|> Edition::TaggableOrganisations
+DetailedGuide .u.|> Edition::Organisations
+DetailedGuide .u.|> Edition::HasDocumentCollections
+DetailedGuide .u.|> Edition::FactCheckable
+DetailedGuide .u.|> Edition::AlternativeFormatProvider
+DetailedGuide .u.|> Attachable
+DetailedGuide .u.|> Edition::NationalApplicability
+DetailedGuide .u.|> Edition::Images
+Announcement .u.|> Edition::TopicalEvents
+Announcement .u.|> Edition::WorldLocations
+Announcement .u.|> Edition::TaggableOrganisations
+Announcement .u.|> Edition::Organisations
+Announcement .u.|> Edition::Images
+NewsArticle .u.|> Edition::FirstImagePulledOut
+NewsArticle .u.|> Edition::FactCheckable
+NewsArticle .u.|> Edition::WorldwideOrganisations
+NewsArticle .u.|> Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
+NewsArticle .u.|> Edition::AlternativeFormatProvider
+NewsArticle .u.|> Attachable
+NewsArticle .u.|> Edition::HasDocumentCollections
+NewsArticle .u.|> Edition::RoleAppointments
+FatalityNotice .u.|> Edition::FactCheckable
+FatalityNotice .u.|> Edition::RoleAppointments
+Speech .u.|> Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
+Speech .u.|> Edition::HasDocumentCollections
+Speech .u.|> Edition::Appointment
+Publicationesque .u.|> Attachable
+Publicationesque .u.|> Edition::TaggableOrganisations
+Publicationesque .u.|> Edition::Organisations
+Publicationesque .u.|> Edition::HasDocumentCollections
+StatisticalDataSet .u.|> Edition::AlternativeFormatProvider
+Publication .u.|> Edition::TopicalEvents
+Publication .u.|> Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
+Publication .u.|> Edition::StatisticalDataSets
+Publication .u.|> Edition::WorldLocations
+Publication .u.|> Edition::AlternativeFormatProvider
+Publication .u.|> Edition::FactCheckable
+Publication .u.|> Edition::RoleAppointments
+Publication .u.|> Edition::NationalApplicability
+Publication .u.|> Edition::Images
+Consultation .u.|> Edition::TopicalEvents
+Consultation .u.|> Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
+Consultation .u.|> Edition::AlternativeFormatProvider
+Consultation .u.|> Edition::FactCheckable
+Consultation .u.|> Edition::RoleAppointments
+Consultation .u.|> Edition::NationalApplicability
+Consultation .u.|> Edition::Images
+@enduml
