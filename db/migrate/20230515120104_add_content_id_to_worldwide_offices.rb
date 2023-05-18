@@ -1,7 +1,11 @@
 class AddContentIdToWorldwideOffices < ActiveRecord::Migration[7.0]
-  def change
-    add_column :worldwide_offices, :content_id, :string
+  def up
+    unless column_exists? :worldwide_offices, :content_id
+      add_column :worldwide_offices, :content_id, :string
+    end
+  end
 
-    WorldwideOffice.all.each { |office| office.update!(content_id: SecureRandom.uuid) }
+  def down
+    remove_column :worldwide_offices, :content_id, :string
   end
 end
