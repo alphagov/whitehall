@@ -1,0 +1,33 @@
+@startuml
+allowmixing
+hide empty members
+
+note "Generated diagram on 2023-05-18 " as Note1
+
+' Generated for classes Attachment,AttachmentData,Image,ImageData
+rectangle "Attachment Family" {
+class Attachment 
+class HtmlAttachment 
+class FileAttachment 
+class ExternalAttachment 
+}
+class AttachmentData 
+class Image 
+class ImageData 
+class Attachable 
+class AttachmentSource 
+class GovspeakContent 
+class Edition 
+Attachment <|-- HtmlAttachment #line:blue;line.bold
+Attachment <|-- FileAttachment #line:blue;line.bold
+Attachment <|-- ExternalAttachment #line:blue;line.bold
+Attachment --> Attachable : "belongs_to"
+Attachment --> AttachmentSource : "has_one"
+Attachment --> AttachmentData : "belongs_to"
+HtmlAttachment --> GovspeakContent : "has_one"
+AttachmentData --> Attachment : "has_many"
+AttachmentData --> AttachmentData : "belongs_to"
+Image --> ImageData : "belongs_to"
+Image --> Edition : "belongs_to"
+ImageData --> Image : "has_many"
+@enduml
