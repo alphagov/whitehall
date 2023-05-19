@@ -18,7 +18,7 @@ module PublishingApi
 
       content.merge!(
         details: {
-          access_and_opening_times: Whitehall::GovspeakRenderer.new.govspeak_to_html(item.access_and_opening_times),
+          access_and_opening_times:,
         },
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
@@ -42,6 +42,12 @@ module PublishingApi
       return [] if item.contact.blank?
 
       [item.contact.content_id]
+    end
+
+    def access_and_opening_times
+      return if item.access_and_opening_times.blank?
+
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.access_and_opening_times)
     end
   end
 end

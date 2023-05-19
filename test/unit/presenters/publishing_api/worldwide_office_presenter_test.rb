@@ -46,4 +46,12 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
     assert_valid_against_publisher_schema(presented_item.content, "worldwide_office")
     assert_valid_against_links_schema({ links: presented_item.links }, "worldwide_office")
   end
+
+  test "sets access_and_opening_times as nil when they are blank" do
+    worldwide_office = create(:worldwide_office)
+
+    presented_item = present(worldwide_office)
+
+    assert_nil presented_item.content.dig(:details, :access_and_opening_times)
+  end
 end
