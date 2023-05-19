@@ -1,5 +1,6 @@
 @startuml edition_state_transitions
 hide empty description
+skinparam dpi 300
 
 state AssetManager #a7afff {
     state asset_start <<start>> #a7afff

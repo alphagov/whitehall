@@ -1,6 +1,7 @@
 @startuml
 allowmixing
 hide empty members
+skinparam dpi 300
 
 note "Generated diagram on 2023-05-18 " as Note1
 

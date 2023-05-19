@@ -1,6 +1,7 @@
 @startuml edition_model
 allowmixing
 hide empty description
+skinparam dpi 300
 
 class Document
 database documents
