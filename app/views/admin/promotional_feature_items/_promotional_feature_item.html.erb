@@ -1,71 +1,99 @@
+<%
+  def item_row_builder(promotional_feature_item)
+    [
+      *(
+        if promotional_feature_item.title && !promotional_feature_item.title.blank?
+          [{
+             key: "Item title",
+             value: promotional_feature_item.title
+           }]
+        end),
+
+      *(
+        if promotional_feature_item.title_url
+          [{
+             key: "Item title URL",
+             value: "",
+             actions: [
+               {
+                 label: "View",
+                 href: promotional_feature_item.title_url
+               },
+             ]
+           }]
+        end),
+
+      *([{
+           key: "Summary",
+           value: promotional_feature_item.summary
+         }]),
+
+      *(
+        if promotional_feature_item.image.s300.url
+          [{
+             key: "Image",
+             value: "",
+             actions: [
+               {
+                 label: "View",
+                 href: promotional_feature_item.image.s300.url,
+               },
+             ]
+           }]
+        end),
+
+      *(
+        if promotional_feature_item.image_alt_text
+          [{
+             key: "Image description",
+             value: promotional_feature_item.image_alt_text,
+           }]
+        end),
+
+      *(
+        if promotional_feature_item.youtube_video_url
+          [{
+             key: "YouTube video",
+             value: "",
+             actions: [
+               {
+                 label: "View",
+                 href: promotional_feature_item.youtube_video_url,
+               },
+             ]
+           }]
+        end),
+
+      *(
+        if promotional_feature_item.youtube_video_alt_text
+          [{
+             key: "Video description",
+             value: promotional_feature_item.youtube_video_alt_text
+           }]
+        end),
+
+      *(
+        if promotional_feature_item.links
+          promotional_feature_item.links.each_with_index.map do |promo_link, index|
+            {
+               key: "Item link #{index + 1}",
+               value: promo_link.text,
+               actions: [
+                 {
+                   label: "View",
+                   href: promo_link.url
+                 },
+               ]
+             }
+          end
+        end),
+    ]
+  end
+%>
+
 <%= render "components/summary_card_component", {
   title: "Feature item #{promotional_feature_item.id}",
-  rows: [
-    {
-
-      key: "Item title",
-      value: promotional_feature_item.title
-
-    },
-    {
-      key: "Item title URL",
-      value: "",
-      actions: [
-        {
-          label: "View",
-          href: promotional_feature_item.title_url
-        },
-      ]
-    },
-    {
-      key: "Summary",
-      value: promotional_feature_item.summary,
-
-    },
-    if promotional_feature_item.image.s300.url.present?
-      {
-        key: "Image",
-        value: "",
-        actions: [
-          {
-            label: "View",
-            href: promotional_feature_item.image.s300.url,
-          },
-        ]
-      }
-    end,
-    {
-      key: "Image description",
-      value: promotional_feature_item.image_alt_text,
-    },
-    {
-      key: "YouTube video",
-      value: "",
-      actions: [
-        {
-          label: "View",
-          href: promotional_feature_item.youtube_video_url,
-        },
-      ]
-    },
-    {
-      key: "Video description",
-      value: ""
-    },
-    promotional_feature_item.links.each_with_index.map do |promo_link, index|
-      {
-        key: "Item link #{index + 1}",
-        value: promo_link.text,
-        actions: [
-          {
-            label: "View",
-            href: promo_link.url
-          },
-        ]
-      }
-    end
-
-  ].flatten,
+  rows: item_row_builder(promotional_feature_item),
   summary_card_actions: [
     {
       label: "Edit",
