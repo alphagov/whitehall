@@ -5,7 +5,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option history]
+  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
@@ -23,7 +23,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def enforce_permissions!
     case action_name
-    when "index", "topics", "history"
+    when "index", "topics"
       enforce_permission!(:see, edition_class || Edition)
     when "show"
       enforce_permission!(:see, @edition)
@@ -189,10 +189,6 @@ class Admin::EditionsController < Admin::BaseController
     EditionAuthBypassUpdater.new(edition: @edition, current_user:, updater:).call
 
     redirect_to admin_edition_path(@edition), notice: "New document preview link generated"
-  end
-
-  def history
-    @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
   end
 
 private
