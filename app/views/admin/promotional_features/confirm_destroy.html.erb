@@ -14,8 +14,14 @@
         <%= render "govuk_publishing_components/components/button", {
           text: "Delete",
           destructive: true,
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "role-button",
+            "track-label": "Delete"
+          }
         } %>
-        <%= link_to("Cancel", [:admin, @promotional_feature.organisation, PromotionalFeature] ,class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Cancel", [:admin, @promotional_feature.organisation, PromotionalFeature], class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </section>
