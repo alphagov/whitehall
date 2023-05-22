@@ -48,7 +48,7 @@ class Admin::EditionsController < Admin::BaseController
       if request.xhr?
         render partial: "legacy_search_results"
       else
-        render_design_system(:index, :legacy_index, next_release: false)
+        render_design_system(:index, :legacy_index, next_release: true)
       end
     elsif session_filters.any?
       redirect_to session_filters
@@ -195,7 +195,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy diff show edit update new create]
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index] if preview_design_system?(next_release: true)
 
     if design_system_actions.include?(action_name)
       "design_system"
@@ -412,7 +412,7 @@ private
         include_last_author: true,
       )
 
-    filter_options = filter_options.merge(per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE) if preview_design_system?(next_release: false)
+    filter_options = filter_options.merge(per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE) if preview_design_system?(next_release: true)
     filter_options
   end
 
