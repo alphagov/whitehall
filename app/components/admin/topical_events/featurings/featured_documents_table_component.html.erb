@@ -1,0 +1,20 @@
+<%= render "govuk_publishing_components/components/table", {
+  caption:,
+  caption_classes: "govuk-heading-s",
+  head: [
+    {
+      text: "Title",
+    },
+    {
+      text: "Type",
+    },
+    {
+      text: "Published",
+    },
+    {
+      text: tag.span("Actions", class: "govuk-visually-hidden"),
+      format: "numeric",
+    },
+  ],
+  rows: rows(featurings),
+} %>

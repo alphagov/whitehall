@@ -16,16 +16,19 @@
 
 <%= render "govuk_publishing_components/components/tabs", {
   tabs: [
-  {
-    id: "currently_featured_tab",
-    label: "Currently featured",
-    content: ""
-  },
-  {
-    id: "documents_tab",
-    label: "Documents",
-    content: ""
-  },
+    {
+      id: "currently_featured_tab",
+      label: "Currently featured",
+      content: render(Admin::CurrentlyFeaturedTabComponent.new(
+        featurings: @topical_event_featurings,
+        maximum_featured_documents: 5
+      ))
+    },
+    {
+      id: "documents_tab",
+      label: "Documents",
+      content: ""
+    },
     {
       id: "non_govuk_government_links_tab",
       label: "Non-GOV.UK government links",

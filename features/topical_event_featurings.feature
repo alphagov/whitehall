@@ -24,3 +24,9 @@ Feature:
     When I visit the topical event featuring index page
     And I delete "Featured link"
     Then I can see that "Featured link" has been deleted
+
+  Scenario: Featuring a non-GOV.UK link
+    Given the topical event has an offsite link with the title "Featured link"
+    When I visit the topical event featuring index page
+    And I feature "Featured link"
+    Then I see that "Featured link" has been featured
