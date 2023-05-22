@@ -175,7 +175,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update_image_display_option
-    @edition.assign_attributes(edition_params)
+    @edition.assign_attributes(params.require(:edition).permit(:image_display_option))
 
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
@@ -256,7 +256,6 @@ private
       :political,
       :read_consultation_principles,
       :all_nation_applicability,
-      :image_display_option,
       :speaker_radios,
       {
         all_nation_applicability: [],
@@ -291,13 +290,6 @@ private
         ],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
-        images_attributes: [
-          :id,
-          :alt_text,
-          :caption,
-          :_destroy,
-          { image_data_attributes: %i[file file_cache] },
-        ],
       },
       :auth_bypass_id,
     ]
