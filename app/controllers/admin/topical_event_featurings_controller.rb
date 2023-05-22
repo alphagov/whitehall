@@ -17,7 +17,7 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     if request.xhr?
       render partial: "admin/topical_event_featurings/legacy_featured_documents"
     else
-      render :legacy_index
+      render_design_system(:index, :legacy_index)
     end
   end
 

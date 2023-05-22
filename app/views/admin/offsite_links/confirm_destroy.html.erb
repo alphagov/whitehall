@@ -13,8 +13,11 @@
           text: "Delete",
           destructive: true,
         } %>
-
-        <%= link_to("Cancel", polymorphic_url([:features, :admin, @parent]) + "#non_govuk_government_links_tab", class: "govuk-link govuk-link--no-visited-state") %>
+        <% if @parent.is_a?(TopicalEvent) %>
+          <%= link_to("Cancel", admin_topical_event_topical_event_featurings_path(@parent) + "#non_govuk_government_links_tab", class: "govuk-link govuk-link--no-visited-state") %>
+        <% else %>
+          <%= link_to("Cancel", polymorphic_url([:features, :admin, @parent]) + "#non_govuk_government_links_tab", class: "govuk-link govuk-link--no-visited-state") %>
+        <% end %>
       </div>
     <% end %>
   </section>

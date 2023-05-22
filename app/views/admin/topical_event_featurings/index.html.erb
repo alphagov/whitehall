@@ -1,0 +1,39 @@
+<% content_for :page_title, @topical_event.name %>
+<% content_for :title, @topical_event.name %>
+<% content_for :context, "Topical events" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<p class="govuk-body">
+  <%= link_to "View on website", @topical_event.public_url({locale: params[:locale]}.merge(cachebust_url_options)), class: "govuk-link", target: "_blank" %>
+</p>
+
+<div class="govuk-!-margin-bottom-8">
+  <%= render "components/secondary_navigation", {
+    aria_label: "Document tabs",
+    items: secondary_navigation_tabs_items(@topical_event, request.path)
+  } %>
+</div>
+
+<%= render "govuk_publishing_components/components/tabs", {
+  tabs: [
+  {
+    id: "currently_featured_tab",
+    label: "Currently featured",
+    content: ""
+  },
+  {
+    id: "documents_tab",
+    label: "Documents",
+    content: ""
+  },
+    {
+      id: "non_govuk_government_links_tab",
+      label: "Non-GOV.UK government links",
+      content: render("admin/feature_lists/featureable_offsite_links",
+        model: @topical_event,
+        featurable_offsite_links: featurable_offsite_links_for_topical_event(@featurable_offsite_links, @topical_event),
+        featuring_path: [:new, :admin, @topical_event, :topical_event_featuring],
+      ),
+    }
+  ]
+} %>
