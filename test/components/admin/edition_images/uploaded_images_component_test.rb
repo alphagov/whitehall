@@ -32,8 +32,8 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
     edition = create(:draft_publication, images:)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
-    assert_selector "li", text: "[Image: 960x640_jpeg.jpg]"
-    assert_selector "li", text: "[Image: 960x640_gif.gif]"
+    assert_selector "input[value='[Image: 960x640_jpeg.jpg]']"
+    assert_selector "input[value='[Image: 960x640_gif.gif]']"
   end
 
   test "image index markdown used for duplicate filenames" do
@@ -41,7 +41,7 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
     edition = create(:draft_publication, images:)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
-    assert_selector "li", text: "!!1"
-    assert_selector "li", text: "!!2"
+    assert_selector "input[value='!!1']"
+    assert_selector "input[value='!!2']"
   end
 end
