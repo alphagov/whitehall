@@ -147,6 +147,7 @@ Whitehall::Application.routes.draw do
           resources :topical_event_featurings, path: "featurings" do
             get :reorder, on: :collection
             put :order, on: :collection
+            get :confirm_destroy, on: :member
           end
           resources :offsite_links do
             get :confirm_destroy, on: :member
