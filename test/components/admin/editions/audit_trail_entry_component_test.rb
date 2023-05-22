@@ -9,7 +9,7 @@ class Admin::Editions::AuditTrailEntryComponentTest < ViewComponent::TestCase
     actor = create(:user)
     edition = create(:edition)
     version = edition.versions.create!(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: actor.id)
-    audit = Document::PaginatedHistory::AuditTrailEntry.new(version, is_first_edition: true)
+    audit = Document::PaginatedTimeline::VersionPresenter.new(version, is_first_edition: true)
 
     render_inline(Admin::Editions::AuditTrailEntryComponent.new(entry: audit, edition:))
 
@@ -22,7 +22,7 @@ class Admin::Editions::AuditTrailEntryComponentTest < ViewComponent::TestCase
   test "it constructs output based on the entry when an actor is absent" do
     edition = build_stubbed(:edition)
     version = edition.versions.new(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: nil)
-    audit = Document::PaginatedHistory::AuditTrailEntry.new(version, is_first_edition: true)
+    audit = Document::PaginatedTimeline::VersionPresenter.new(version, is_first_edition: true)
 
     render_inline(Admin::Editions::AuditTrailEntryComponent.new(entry: audit, edition:))
 
@@ -35,7 +35,7 @@ class Admin::Editions::AuditTrailEntryComponentTest < ViewComponent::TestCase
     edition = create(:edition, :published)
     edition.versions.create!(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: actor.id)
     version = edition.versions.create!(event: "published", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: actor.id, state: "published")
-    audit = Document::PaginatedHistory::AuditTrailEntry.new(version, is_first_edition: true)
+    audit = Document::PaginatedTimeline::VersionPresenter.new(version, is_first_edition: true)
     newer_edition = create(:edition, :draft)
 
     render_inline(Admin::Editions::AuditTrailEntryComponent.new(entry: audit, edition: newer_edition))

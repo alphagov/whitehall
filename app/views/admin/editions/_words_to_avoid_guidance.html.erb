@@ -50,11 +50,3 @@
     <li><span class="js-word-to-avoid">ring fencing</span></li>
   </ul>
 </div>
-
-<% if ENABLE_WORDS_TO_AVOID_HIGHLIGHTING %>
-  <% initialise_script "GOVUK.WordsToAvoidGuide",
-      el: ["form textarea[name='edition[summary]']", "form textarea[name='edition[body]']"],
-      wordsToAvoidList: "#js-words-to-avoid-list",
-      wordsToAvoidAlert: "#js-words-to-avoid-alert",
-      wordsToAvoidCounter: "#js-words-to-avoid-count" %>
-<% end %>

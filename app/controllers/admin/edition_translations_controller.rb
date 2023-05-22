@@ -1,13 +1,11 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-  layout :get_layout
+  layout "design_system"
 
-  def new
-    render_design_system("new", "legacy_new", next_release: true)
-  end
+  def new; end
 
   def edit
-    render_design_system("edit", "edit_legacy", next_release: true)
+    load_document_history
   end
 
   def update
@@ -16,22 +14,14 @@ class Admin::EditionTranslationsController < Admin::BaseController
       save_draft_translation if send_downstream?
       redirect_to update_redirect_path, notice: notice_message("saved")
     else
-      render_design_system("edit", "edit_legacy", next_release: true)
+      load_document_history
+      render :edit
     end
   end
 
   def confirm_destroy; end
 
 private
-
-  def get_layout
-    design_system_actions = %w[edit update new confirm_destroy]
-    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def create_redirect_path
     edit_admin_edition_translation_path(@edition, id: translation_locale)
@@ -54,13 +44,11 @@ private
   end
 
   def load_translated_models
-    if preview_design_system?(next_release: true)
-      @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
-    else
-      @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
-      @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
-    end
     @translated_edition = LocalisedModel.new(@edition, translation_locale.code)
+  end
+
+  def load_document_history
+    @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
   end
 
   def load_translatable_item

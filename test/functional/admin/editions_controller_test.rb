@@ -70,7 +70,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
       publication.reload.create_draft(editor)
     end
 
-    get :diff, params: { id: draft_publication, audit_trail_entry_id: Document::PaginatedHistory.new(draft_publication.document, 1).query.last.item_id }
+    get :diff, params: { id: draft_publication, audit_trail_entry_id: draft_publication.previous_edition.id }
 
     assert_response :success
     assert_template :diff

@@ -1,7 +1,0 @@
-<div class="form-group">
-  <%= form.label :delivered_on, {class: "check-date-valid"} %>
-  <div class="form-inline add-label-margin">
-    <%= form.datetime_select :delivered_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: "date form-control" } %>
-  </div>
-  <div class="date-warning-info">You have set the date in the future, please ensure that this will not be published before this date</div>
-</div>

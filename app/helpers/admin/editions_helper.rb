@@ -165,27 +165,13 @@ module Admin::EditionsHelper
     edition.edition_organisations.reject(&:lead?)[index].try(:organisation_id)
   end
 
-  def standard_edition_form(edition, information = nil, preview_design_system: false)
-    if preview_design_system
-      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
-        concat render("standard_fields", form:, edition:)
-        yield(form)
-        concat render("access_limiting_fields", form:, edition:)
-        concat render("scheduled_publication_fields", form:, edition:)
-        concat standard_edition_publishing_controls(form, edition)
-      end
-    else
-      initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
-
-      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
-        concat edition_information(information) if information
-        concat form.errors
-        concat render("legacy_standard_fields", form:, edition:)
-        yield(form)
-        concat render("legacy_access_limiting_fields", form:, edition:)
-        concat render("legacy_scheduled_publication_fields", form:, edition:)
-        concat legacy_standard_edition_publishing_controls(form, edition)
-      end
+  def standard_edition_form(edition)
+    form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
+      concat render("standard_fields", form:, edition:)
+      yield(form)
+      concat render("access_limiting_fields", form:, edition:)
+      concat render("scheduled_publication_fields", form:, edition:)
+      concat standard_edition_publishing_controls(form, edition)
     end
   end
 
@@ -248,20 +234,6 @@ module Admin::EditionsHelper
     tab_navigation(tabs) { yield blk }
   end
 
-  def edition_edit_headline(edition)
-    if edition.is_a?(CorporateInformationPage)
-      "Edit &lsquo;#{edition.title}&rsquo; page for #{link_to edition.owning_organisation.name, [:admin, edition.owning_organisation]}".html_safe
-    else
-      "Edit #{edition.type.underscore.humanize.downcase}"
-    end
-  end
-
-  def edition_information(information)
-    tag.div(class: "alert alert-info") do
-      information
-    end
-  end
-
   def standard_edition_publishing_controls(form, edition)
     tag.div(class: "publishing-controls") do
       if edition.change_note_required?
@@ -269,18 +241,6 @@ module Admin::EditionsHelper
       end
 
       concat render("save_or_continue_or_cancel", form:, edition:)
-    end
-  end
-
-  def legacy_standard_edition_publishing_controls(form, edition)
-    tag.div(class: "publishing-controls well") do
-      if edition.change_note_required?
-        concat render(
-          partial: "legacy_change_notes",
-          locals: { form:, edition: },
-        )
-      end
-      concat form.save_or_continue_or_cancel
     end
   end
 

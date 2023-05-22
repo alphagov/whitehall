@@ -13,13 +13,13 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     assert_equal entry_timestamps.sort.reverse, entry_timestamps
   end
 
-  test "#entries is a list of AuditTrailEntry and EditorialRemark objects when no 'only' argument is passed in" do
+  test "#entries is a list of VersionPresenter and EditorialRemark objects when no 'only' argument is passed in" do
     timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    assert_equal [Document::PaginatedHistory::AuditTrailEntry, EditorialRemark].to_set,
+    assert_equal [Document::PaginatedTimeline::VersionPresenter, EditorialRemark].to_set,
                  timeline.entries.map(&:class).to_set
   end
 
-  test "#total_count counts the list of AuditTrailEntry and EditorialRemark objects when no 'only' argument is passed in" do
+  test "#total_count counts the list of VersionPresenter and EditorialRemark objects when no 'only' argument is passed in" do
     timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
     assert_equal 11, timeline.total_count
   end
@@ -58,7 +58,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     assert_equal 3, timeline.total_count
   end
 
-  test "#entries is a list of AuditTrailEntry objects when 'history' is passed in as a 'only' argument" do
+  test "#entries is a list of VersionPresenter objects when 'history' is passed in as a 'only' argument" do
     timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
     expected_actions = %w[updated
                           editioned
@@ -72,7 +72,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     assert_equal expected_actions, timeline.entries.map(&:action)
   end
 
-  test "#total_count counts the total AuditTrailEntry objects when 'history' is passed into the 'only' argument" do
+  test "#total_count counts the total VersionPresenter objects when 'history' is passed into the 'only' argument" do
     timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
     assert_equal 8, timeline.total_count
   end
@@ -110,10 +110,10 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     end
   end
 
-  test "AuditTrailEntry correctly determines actions" do
+  test "VersionPresenter correctly determines actions" do
     mock_pagination(per_page: 30) do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedHistory::AuditTrailEntry) }
+      entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedTimeline::VersionPresenter) }
       expected_actions = %w[updated
                             editioned
                             published
@@ -127,9 +127,9 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     end
   end
 
-  test "AuditTrailEntry correctly determines actors" do
+  test "VersionPresenter correctly determines actors" do
     timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedHistory::AuditTrailEntry) }
+    entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedTimeline::VersionPresenter) }
     expected_actors = [@user,
                        @user,
                        @user2,

@@ -13,11 +13,6 @@ form {
   }
 
   fieldset {
-    .role_appointment,
-    .speech-type {
-      width: 98%;
-    }
-
     .important-associations {
       margin-bottom: 20px;
 
@@ -43,10 +38,6 @@ form {
         line-height: 350%;
       }
     }
-  }
-
-  fieldset.named {
-    padding-top: .5em;
   }
 
   fieldset.right-to-left {
@@ -107,12 +98,6 @@ fieldset.contact_number {
   }
 }
 
-.first-published-date {
-  .show-first-published {
-    margin-left: 20px;
-  }
-}
-
 .contacts-admin {
   max-width: 600px;
 
@@ -128,7 +113,6 @@ fieldset.fatality-notice-casualties {
   }
 }
 
-.date-warning-info,
 .title-length-info,
 .summary-length-info {
   text-align: right;

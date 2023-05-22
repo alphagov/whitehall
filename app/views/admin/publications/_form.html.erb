@@ -2,7 +2,7 @@
   <p class="govuk-body"><strong>Use this format for:</strong> Stand-alone government documents, issued on a specified date through GOV.UK for distribution.</p>
 </div>
 
-<%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
+<%= standard_edition_form(edition) do |form| %>
   <%= form.hidden_field :statistics_announcement_id %>
   <%= render 'inline_attachments_info', form: form, edition: edition %>
   <%= render 'html_version_fields', form: form, edition: edition %>

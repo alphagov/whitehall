@@ -160,14 +160,8 @@ Then("I should see {edition} in the list of published documents") do |edition|
 end
 
 Then(/^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
-  if using_design_system?
-    expect(new_title).to eq(find(".gem-c-title__context").text)
-    expect(page).to have_selector(".conflict h2", text: latest_title)
-  else
-    expect(new_title).to eq(find(".conflicting.new #edition_title").value)
-    expect(page).to have_selector(".conflicting.latest .document .title", text: latest_title)
-
-  end
+  expect(new_title).to eq(find(".gem-c-title__context").text)
+  expect(page).to have_selector(".conflict h2", text: latest_title)
 end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|

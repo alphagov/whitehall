@@ -213,7 +213,6 @@ Whitehall::Application.routes.draw do
             get :document_history, to: "edition_document_history#index"
             patch :update_bypass_id
             patch :update_image_display_option
-            get :history, to: "editions#history"
             get :confirm_destroy
           end
           resources :link_check_reports
