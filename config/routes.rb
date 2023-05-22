@@ -65,13 +65,7 @@ Whitehall::Application.routes.draw do
     resources :fatality_notices, path: "fatalities", only: [:show]
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
-
-    get "/consultations", as: "consultations", to: "consultations#index" # used only for a redirect
-    get "/statistics/announcements", as: "statistics_announcements", to: "statistics_announcements#index" # used only for a redirect
     # End of public facing routes still rendered by Whitehall
-
-    # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
-    get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
 
     resources :organisations, only: [] do
       # These aren't rendered but are coupled to Worldwide organisation corporate information pages
