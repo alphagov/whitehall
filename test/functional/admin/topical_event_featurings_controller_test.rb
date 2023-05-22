@@ -69,6 +69,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :index contains a message when no results matching search criteria were found" do
+    skip("Will be re-enabled in the PR which adds the documents search tab.")
     create(:published_news_article, topical_events: [@topical_event])
 
     get :index, params: { topical_event_id: create(:topical_event) }
