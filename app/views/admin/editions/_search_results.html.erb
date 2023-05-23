@@ -21,7 +21,7 @@
         text: "State"
       },
       {
-        text: tag.span("Edit", class: "govuk-visually-hidden")
+        text: tag.span("View", class: "govuk-visually-hidden")
       }
     ],
     rows:
@@ -39,7 +39,7 @@
              text: render(Admin::Editions::TagsComponent.new(edition)),
            },
            {
-             text: link_to(sanitize("Edit <span class='govuk-visually-hidden'> #{edition.title}</span>"), admin_edition_path(edition), class: "govuk-link"),
+             text: link_to(sanitize("View #{tag.span(edition.title, class: 'govuk-visually-hidden')}"), admin_edition_path(edition), class: "govuk-link"),
              format: "numeric",
            },
         ]
