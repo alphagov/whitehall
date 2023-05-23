@@ -111,23 +111,6 @@ module ApplicationHelper
     RoleTypePresenter.options
   end
 
-  def render_list_of_roles(roles, class_name = "ministerial_roles")
-    raise ArgumentError, "please supply the content of the list item" unless block_given?
-
-    tag.ul(class: class_name) do
-      roles.each do |role|
-        li = content_tag_for(:li, role) {
-          yield(RolePresenter.new(role, self)).html_safe
-        }.html_safe
-        concat li
-      end
-    end
-  end
-
-  def render_list_of_ministerial_roles(ministerial_roles, &block)
-    render_list_of_roles(ministerial_roles, &block)
-  end
-
   def render_datetime_microformat(object, method, &block)
     tag.time(class: method, datetime: object.send(method).iso8601, &block)
   end

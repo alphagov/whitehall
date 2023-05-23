@@ -41,18 +41,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert format_with_html_line_breaks("").html_safe?
   end
 
-  test "should raise unless you supply the content of the list item" do
-    e = assert_raise(ArgumentError) { render_list_of_ministerial_roles([]) }
-    assert_match %r{please supply the content of the list item}i, e.message
-  end
-
-  test "should render a list of ministerial roles" do
-    roles = [build(:ministerial_role, name: "Jack"), build(:ministerial_role, name: "Jill")]
-    html = render_list_of_ministerial_roles(roles) { |ministerial_role| "<p>#{ministerial_role.name}</p>" }
-    assert_select_within_html(html, "ul li p", text: "Jack")
-    assert_select_within_html(html, "ul li p", text: "Jill")
-  end
-
   test "should render a object's datetime using the datetime microformat" do
     created_at = Time.zone.now
     object = stub(created_at:)
