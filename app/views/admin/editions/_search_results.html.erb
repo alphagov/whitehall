@@ -21,7 +21,7 @@
         text: "State"
       },
       {
-        text: tag.span("Edit", class: "govuk-visually-hidden")
+        text: tag.span("View", class: "govuk-visually-hidden")
       }
     ],
     rows:
@@ -39,25 +39,25 @@
              text: render(Admin::Editions::TagsComponent.new(edition)),
            },
            {
-             text: link_to(sanitize("Edit <span class='govuk-visually-hidden'> #{edition.title}</span>"), admin_edition_path(edition), class: "govuk-link"),
+             text: link_to(sanitize("View #{tag.span(edition.title, class: 'govuk-visually-hidden')}"), admin_edition_path(edition), class: "govuk-link"),
              format: "numeric",
            },
         ]
       end
   } %>
 
-    <% if paginate(paginator, theme: "govuk_paginator").present? && show_export && can?(:export, Edition) %>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-three-quarters">
-          <%= paginate(paginator, theme: "govuk_paginator") %>
-        </div>
-        <div class="govuk-grid-column-one-quarter">
-          <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
-        </div>
+  <% if paginate(paginator, theme: "govuk_paginator").present? && show_export && can?(:export, Edition) %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= paginate(paginator, theme: "govuk_paginator") %>
       </div>
-    <% elsif paginate(paginator, theme: "govuk_paginator").present? && !(show_export && can?(:export, Edition)) %>
-      <%= paginate(paginator, theme: "govuk_paginator") %>
-    <% elsif show_export && can?(:export, Edition) %>
-      <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
-    <% end %>
+      <div class="govuk-grid-column-one-quarter">
+        <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
+      </div>
+    </div>
+  <% elsif paginate(paginator, theme: "govuk_paginator").present? && !(show_export && can?(:export, Edition)) %>
+    <%= paginate(paginator, theme: "govuk_paginator") %>
+  <% elsif show_export && can?(:export, Edition) %>
+    <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
+  <% end %>
 <% end %>
