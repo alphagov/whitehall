@@ -143,8 +143,8 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   visit admin_document_collection_path(@document_collection)
 
   click_on "Create new edition"
-  save_screenshot
   fill_in_change_note_if_required
+  save_screenshot
   click_button "Save and continue"
   save_screenshot
   click_button "Update tags"
