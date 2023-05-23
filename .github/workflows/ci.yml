@@ -88,3 +88,9 @@ jobs:
           RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
         run: bundle exec rails cucumber
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: capybara-screenshots
+          path: tmp/capybara/capybara-*.png
