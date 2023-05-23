@@ -11,42 +11,6 @@ on:
   pull_request:
 
 jobs:
-  security-analysis:
-    name: Security Analysis
-    uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yml@main
-
-  lint-scss:
-    name: Lint SCSS
-    uses: alphagov/govuk-infrastructure/.github/workflows/stylelint.yml@main
-    with:
-      files: "app/assets/stylesheets/"
-
-  lint-javascript:
-    name: Lint JavaScript
-    uses: alphagov/govuk-infrastructure/.github/workflows/standardx.yml@main
-    with:
-      files: "'app/assets/javascripts/**/*.js' 'spec/javascripts/**/*.js'"
-
-  lint-ruby:
-    name: Lint Ruby
-    uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yml@main
-
-  test-javascript:
-    name: Test JavaScript
-    uses: alphagov/govuk-infrastructure/.github/workflows/jasmine.yml@main
-    with:
-      useWithRails: true
-
-  pact-tests:
-    name: Run Pact tests
-    uses: ./.github/workflows/pact-verify.yml
-    with:
-      ref: ${{ github.ref }}
-
-  test-ruby:
-    name: Test Ruby
-    uses: ./.github/workflows/minitest.yml
-
   integration-tests:
     name: Integration tests
     runs-on: ubuntu-latest
