@@ -145,6 +145,16 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_preview_next_release?
   end
 
+  test "cannot preview call for evidence by default" do
+    user = build(:user)
+    assert_not user.can_preview_call_for_evidence?
+  end
+
+  test "can preview call for evidence if given permission" do
+    user = build(:user, permissions: [User::Permissions::PREVIEW_CALL_FOR_EVIDENCE])
+    assert user.can_preview_call_for_evidence?
+  end
+
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?

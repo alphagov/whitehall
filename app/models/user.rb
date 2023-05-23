@@ -26,6 +26,7 @@ class User < ApplicationRecord
     GDS_ADMIN = "GDS Admin".freeze
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
     PREVIEW_NEXT_RELEASE = "Preview next release".freeze
+    PREVIEW_CALL_FOR_EVIDENCE = "Preview call for evidence".freeze
   end
 
   def role
@@ -89,6 +90,10 @@ class User < ApplicationRecord
 
   def can_preview_next_release?
     has_permission?(Permissions::PREVIEW_NEXT_RELEASE)
+  end
+
+  def can_preview_call_for_evidence?
+    has_permission?(Permissions::PREVIEW_CALL_FOR_EVIDENCE)
   end
 
   def organisation_name
