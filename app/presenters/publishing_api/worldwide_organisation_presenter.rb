@@ -19,6 +19,7 @@ module PublishingApi
       content.merge!(
         description:,
         details: {
+          body:,
           logo: {
             crest: "single-identity",
             formatted_title: item.logo_formatted_name,
@@ -46,6 +47,10 @@ module PublishingApi
 
     def description
       item.summary
+    end
+
+    def body
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body) || ""
     end
 
     def ordered_contacts
