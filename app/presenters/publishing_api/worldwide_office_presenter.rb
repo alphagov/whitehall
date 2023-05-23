@@ -33,6 +33,7 @@ module PublishingApi
       {
         contact:,
         parent: [item.worldwide_organisation.content_id],
+        worldwide_organisation: [item.worldwide_organisation.content_id],
       }
     end
 

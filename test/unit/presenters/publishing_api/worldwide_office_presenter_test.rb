@@ -34,6 +34,9 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
       parent: [
         worldwide_office.worldwide_organisation.content_id,
       ],
+      worldwide_organisation: [
+        worldwide_office.worldwide_organisation.content_id,
+      ],
     }
 
     presented_item = present(worldwide_office)
