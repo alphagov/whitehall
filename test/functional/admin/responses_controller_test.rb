@@ -41,7 +41,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select "p", text: "A summary of the outcome"
-    assert_select "a", text: "Edit outcome"
+    assert_select "a", text: "Change Outcome"
   end
 
   view_test "GET :show when consultation has public feedback shows the feedback details and includes an edit link" do
@@ -50,7 +50,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select "p", text: "A summary of the public feedback"
-    assert_select "a", text: "Edit public feedback"
+    assert_select "a", text: "Change Public feedback"
   end
 
   test "POST :create with valid outcome params saves the outcome and redirects" do

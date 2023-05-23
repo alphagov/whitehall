@@ -11,18 +11,23 @@
     } %>
 
     <% if @response.persisted? %>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "#{@response.friendly_name.capitalize} summary",
-        font_size: "l",
-        margin_bottom: 3
+      <%= render "govuk_publishing_components/components/summary_list", {
+        title: "#{@response.friendly_name.capitalize}",
+        heading_size: "l",
+        items: [
+          {
+            field: "Summary",
+            value: govspeak_to_html(@response.summary)
+          },
+          {
+            field: "Published on",
+            value: @response.published_on.to_fs(:long_ordinal)
+          }
+        ],
+        edit: {
+          href: [:edit, :admin, @edition, @response.singular_routing_symbol],
+        }
       } %>
-      <p class="govuk-body">
-        <%= link_to "Edit #{@response.friendly_name}", [:edit, :admin, @edition, @response.singular_routing_symbol], class: "govuk-link" %>
-      </p>
-
-      <%= govspeak_to_html @response.summary %>
-
-      <p class="govuk-body">Published on <%= @response.published_on.to_fs(:long_ordinal) %></p>
 
       <%= render "govuk_publishing_components/components/heading", {
         text: "Attachments (optional)",
@@ -39,7 +44,9 @@
 
       <%= render('admin/attachments/attachments', attachable: @response) if @response.attachments.any? %>
     <% else %>
-      <p class="govuk-body"><%= consulation_response_help_text(@response) %></p>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: consulation_response_help_text(@response),
+      } %>
 
       <%= render partial: 'form', locals: { consultation: @edition, consultation_response: @response } %>
     <% end %>
