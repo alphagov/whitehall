@@ -25,6 +25,8 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     featured_offsite_link = OffsiteLink.find(params[:offsite_link_id]) if params[:offsite_link_id].present?
     @topical_event_featuring = @topical_event.topical_event_featurings.build(edition: featured_edition, offsite_link: featured_offsite_link)
     @topical_event_featuring.build_image
+
+    render :legacy_new
   end
 
   def create
@@ -37,7 +39,7 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
                        end
       redirect_to polymorphic_path([:admin, @topical_event, :topical_event_featurings])
     else
-      render :new
+      render :legacy_new
     end
   end
 
