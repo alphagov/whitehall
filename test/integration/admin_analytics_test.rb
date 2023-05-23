@@ -16,51 +16,34 @@ class AdminAnalyticsTest < ActionDispatch::IntegrationTest
     ENV.delete("GDS_SSO_MOCK_INVALID")
   end
 
-  # GA is noisy in tests because all GA calls become console.log so we
-  # don't want it enabled for all tests, use this to selectively turn it on
-  def with_ga_enabled
-    GovukAdminTemplate.configure { |c| c.enable_google_analytics_in_tests = true }
-    yield
-  ensure
-    GovukAdminTemplate.configure { |c| c.enable_google_analytics_in_tests = false }
-  end
-
   def refute_dimension_is_set(dimension)
-    assert_no_match(/#{Regexp.escape("GOVUKAdmin.setDimension(#{dimension}")}/, page.body)
+    assert_equal page.all("meta[name='custom-dimension:#{dimension}']", visible: false).count, 0
   end
 
-  def assert_dimension_is_set(dimension, with_value: nil)
-    dimension_set_js_code = "GOVUKAdmin.setDimension(#{dimension}"
-    dimension_set_js_code += ", \"#{with_value}\")" if with_value.present?
-    assert_match(/#{Regexp.escape(dimension_set_js_code)}/, page.body)
+  def assert_dimension_is_set(dimension, with_value: "not set")
+    assert page.find("meta[name='custom-dimension:#{dimension}'][content='#{with_value}']", visible: false)
   end
 
-  test "send a GA event including the users org slug when successfully signed-in" do
-    with_ga_enabled do
-      login_as(create(:user, name: "user-name", email: "user@example.com", organisation_slug: "ministry-of-lindy-hop"))
-      visit admin_root_path
-      assert_dimension_is_set(8, with_value: "ministry-of-lindy-hop")
-    end
+  test "send a GA event including the users org slug when successfully signed-in with the preview design system permission" do
+    login_as(create(:user, :with_preview_design_system, name: "user-name", email: "user@example.com", organisation_slug: "ministry-of-lindy-hop"))
+    visit admin_root_path
+    assert_dimension_is_set(8, with_value: "ministry-of-lindy-hop")
   end
 
-  test "send a GA event including '(not set)' for the org slug when the user has no org" do
-    with_ga_enabled do
-      login_as(create(:user, name: "user-name", email: "user@example.com", organisation_slug: nil))
-      visit admin_root_path
-      assert_dimension_is_set(8, with_value: "(not set)")
-    end
+  test "send a GA event including '(not set)' for the org slug when the user has no org abd the preview design system permission" do
+    login_as(create(:user, :with_preview_design_system, name: "user-name", email: "user@example.com", organisation_slug: nil))
+    visit admin_root_path
+    assert_dimension_is_set(8, with_value: "(not set)")
   end
 
-  test "does not send GA event for logged in users on non admin pages" do
+  test "does not send GA event for logged in users on non admin pages with the preview design system permission" do
     organisation = create(:worldwide_organisation)
 
-    with_ga_enabled do
-      login_as(create(:user, name: "user-name", email: "user@example.com", organisation_slug: "ministry-of-lindy-hop"))
-      visit admin_root_path
-      assert_dimension_is_set(8)
+    login_as(create(:user, :with_preview_design_system, name: "user-name", email: "user@example.com", organisation_slug: "ministry-of-lindy-hop"))
+    visit admin_root_path
+    assert_dimension_is_set(8, with_value: "ministry-of-lindy-hop")
 
-      visit worldwide_organisation_path(organisation)
-      refute_dimension_is_set(8)
-    end
+    visit worldwide_organisation_path(organisation)
+    refute_dimension_is_set(8)
   end
 end
