@@ -48,7 +48,16 @@
       visible_counters: true,
       items: [
         link_to("Inside GOV.UK blog", "https://insidegovuk.blog.gov.uk/", class: "govuk-link"),
-        link_to("GOV.UK style guide", "https://www.gov.uk/guidance/style-guide", class: "govuk-link"),
+        link_to(
+          "What's new",
+          admin_whats_new_path,
+          class: "govuk-link",
+          data: {
+            module: "gem-track-click",
+            track_category: 'dashboardLink',
+            track_action: "What's new",
+            track_label: 'whats-new-click'
+        }),
       ]
     } %>
   </div>
