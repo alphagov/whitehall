@@ -1,6 +1,6 @@
 <%= form_for [:admin, consultation, consultation_response], url: [:admin, consultation, consultation_response.singular_routing_symbol] do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Published on",
+    legend_text: "Published on (required)",
     heading_size: "l"
   } do %>
     <%= render "components/datetime_fields", {
@@ -26,7 +26,7 @@
   <%= render "components/govspeak-editor", {
     label: {
       heading_size: "l",
-      text: "Detail/Summary"
+      text: "Summary (required)"
     },
     name: "consultation_#{consultation_response.singular_routing_symbol}[summary]",
     rows: 20,
@@ -49,6 +49,6 @@
       }
     } %>
 
-    <%= link_to("Cancel", "#{admin_edition_path(consultation)}/public_feedback", class: "govuk-link govuk-link--no-visited-state") %>
+    <%= link_to("Cancel", "#{admin_edition_path(consultation)}/#{consultation_response.singular_routing_symbol.to_s}", class: "govuk-link govuk-link--no-visited-state") %>
   </div>
 <% end %>

@@ -3,7 +3,7 @@ class Response < ApplicationRecord
 
   belongs_to :consultation, foreign_key: :edition_id
 
-  validates :published_on, recent_date: true, presence: true
+  validates :published_on, recent_date: true
   validates :summary, presence: { unless: :has_attachments }
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :summary

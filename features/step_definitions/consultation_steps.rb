@@ -29,7 +29,7 @@ When(/^I add an outcome to the consultation$/) do
   click_button "Create new edition"
   click_link "Final outcome"
 
-  fill_in "Detail/Summary", with: "Outcome summary"
+  fill_in using_design_system? ? "Summary (required)" : "Detail/Summary", with: "Outcome summary"
   click_button "Save"
 
   upload_new_attachment(pdf_attachment, "Outcome attachment title")
