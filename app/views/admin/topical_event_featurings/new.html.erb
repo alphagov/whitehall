@@ -1,0 +1,61 @@
+<% content_for :page_title, "Feature document" %>
+<% content_for :title do %>
+  <% if featuring_a_document? %>
+    Feature ‘<%= @topical_event_featuring.edition.title %>’ within ‘<%= @topical_event.name %>’
+  <% else %>
+    Feature ‘<%= @topical_event_featuring.offsite_link.title %>’ within ‘<%= @topical_event.name %>’
+  <% end %>
+<% end %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @topical_event_featuring)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Warning: changes to features appear instantly on the live site."
+    } %>
+
+    <%= form_for @topical_event_featuring, url: [:admin, @topical_event, @topical_event_featuring], multipart: true do |form| %>
+      <% if featuring_a_document? %>
+        <%= form.hidden_field :edition_id %>
+      <% else %>
+        <%= form.hidden_field :offsite_link_id %>
+      <% end %>
+
+      <%= render "govuk_publishing_components/components/file_upload", {
+        label: {
+          text: "Image (required)",
+          heading_size: "l"
+        },
+        hint: "Select a 960px wide and 640px tall image to be shown when featuring",
+        name: "topical_event_featuring[image_attributes][file]",
+        id: "topical_event_featuring_image",
+        error_items: errors_for(@topical_event_featuring.errors, :image)
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Image description (alt text)",
+        },
+        heading_size: "l",
+        name: "topical_event_featuring[alt_text]",
+        id: "topical_event_featuring_alt_text",
+        value: @topical_event_featuring.alt_text,
+        error_message: errors_for_input(@topical_event_featuring.errors, :alt_text)
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "topical-event-featuring-button",
+            "track-label": "Save"
+          }
+        } %>
+
+        <%= link_to "Cancel", polymorphic_path([:admin, @topical_event, :topical_event_featurings]), class:"govuk-link govuk-link--no-visited-state" %>
+      </div>
+    <% end %>
+  </div>
+</div>

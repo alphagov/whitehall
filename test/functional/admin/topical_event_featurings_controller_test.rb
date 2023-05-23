@@ -99,7 +99,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     edition = create :edition
     get :new, params: { topical_event_id: @topical_event.id, edition_id: edition.id }
 
-    assert_select "#topical_event_featuring_image_attributes_file"
+    assert_select "#topical_event_featuring_image"
     assert_select "#topical_event_featuring_alt_text"
   end
 
@@ -107,7 +107,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     offsite_link = create :offsite_link
     get :new, params: { topical_event_id: @topical_event.id, offsite_link_id: offsite_link.id }
 
-    assert_select "#topical_event_featuring_image_attributes_file"
+    assert_select "#topical_event_featuring_image"
     assert_select "#topical_event_featuring_alt_text"
   end
 
