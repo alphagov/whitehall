@@ -51,7 +51,9 @@
       <%= render "components/single-image-upload", {
         id: "take_part_page",
         name: "take_part_page",
+        page_errors: form.object.errors.any?,
         error_items: errors_for(form.object.errors, :image),
+        carrierwave_image: form.object.carrierwave_image,
         image_src: form.object.image.url,
         image_alt: form.object.image_alt_text
       } %>

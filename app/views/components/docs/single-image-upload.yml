@@ -29,3 +29,11 @@ examples:
       name: single-image-upload-with-image
       image_src: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/5/No10DoorAjar-2.jpg
       image_alt: Some optional text that describes the image
+  with_errors_on_page:
+    data:
+      id: single-image-upload-with-errors-on-page
+      name: single-image-upload-with-errors-on-page
+      image_alt: Some optional text that describes the image
+      page_errors: true
+      image_src: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/5/No10DoorAjar-2.jpg
+      carrierwave_image: No10DoorAjar-2.jpg

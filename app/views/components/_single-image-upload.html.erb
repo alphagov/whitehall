@@ -1,5 +1,6 @@
 <%
   error_items ||= []
+  page_errors ||= false
   data_attributes ||= {}
   image_src ||= nil
   image_alt ||= nil
@@ -22,15 +23,20 @@
       margin_bottom: 3
     } %>
 
-    <div class="govuk-grid-row app-c-single-image-upload__uploaded-image">
-      <div class="govuk-grid-column-one-quarter">
-        <img src="<%= image_src %>" alt="" class="app-view-edition-images__image">
-      </div>
+    <% if page_errors %>
+      <p class="govuk-body"><strong>File name: </strong><%= carrierwave_image %></p>
+      <p class="govuk-body"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
+    <% else %>
+      <div class="govuk-grid-row app-c-single-image-upload__uploaded-image">
+        <div class="govuk-grid-column-one-quarter">
+          <img src="<%= image_src %>" alt="" class="app-view-edition-images__image">
+        </div>
 
-      <div class="govuk-grid-column-three-quarters">
-        <p class="govuk-body govuk-!-margin-0"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
+        <div class="govuk-grid-column-three-quarters">
+          <p class="govuk-body govuk-!-margin-0"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
