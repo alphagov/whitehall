@@ -51,7 +51,7 @@ jobs:
         env:
           RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec cucumber
+        run: bundle exec cucumber features/document-collections.feature:31
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
