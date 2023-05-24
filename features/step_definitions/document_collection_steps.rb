@@ -147,7 +147,7 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   save_screenshot
   click_button "Save and continue"
   save_screenshot
-  click_button "Update tags"
+  click_button "Does not exist"
 
   click_on "Edit draft"
   click_on "Collection documents"
