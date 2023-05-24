@@ -6,7 +6,7 @@ class Government < ApplicationRecord
   validates :content_id, presence: true, uniqueness: { case_sensitive: false }
   validates :start_date, presence: true
 
-  validate :not_overlapping?
+  validate :not_overlapping?, if: -> { start_date.present? }
 
   before_validation on: :create do |government|
     government.slug = government.name.to_s.parameterize
