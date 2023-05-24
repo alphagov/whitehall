@@ -1,16 +1,29 @@
-<% page_title "Promotional feature: #{@promotional_feature.title}" %>
-
-<%= content_tag_for(:div, @promotional_feature) do %>
-  <h1>Promotional feature: <%= @promotional_feature.title %></h1>
-  <p><%= link_to "Back to #{@organisation.name}", [:admin, @organisation, PromotionalFeature] %></p>
-
-  <%= render @promotional_feature.items %>
-
-  <% if @promotional_feature.has_reached_item_limit? %>
-    <p><em>(maximum number of feature items reached)</em></p>
-  <% else %>
-    <div class="form-actions">
-      <%= link_to "Add feature item", new_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature), class: "btn btn-lg btn-primary"%>
-    </div>
-  <% end %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: [:admin, @organisation, PromotionalFeature]
+  } %>
 <% end %>
+<% content_for :page_title, "Promotional feature: #{@promotional_feature.title}" %>
+<% content_for :context, "Promotional feature" %>
+<% content_for :title, @promotional_feature.title %>
+<% content_for :title_margin_bottom, 6 %>
+
+<% if @promotional_feature.has_reached_item_limit? %>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "Maximum number of feature items reached"
+  } %>
+<% else %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Add feature item",
+    href: new_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature),
+    margin_bottom: 6,
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <% @promotional_feature.items.each do |promo_item| %>
+      <%= render promo_item %>
+    <% end %>
+  </div>
+</div>

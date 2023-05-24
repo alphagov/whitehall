@@ -51,7 +51,7 @@ class Admin::LegacyPromotionalFeaturesControllerTest < ActionController::TestCas
     get :show, params: { organisation_id: @organisation, id: promotional_feature }
 
     assert_response :success
-    assert_template :show
+    assert_template :legacy_show
     assert_equal promotional_feature, assigns(:promotional_feature)
   end
 
