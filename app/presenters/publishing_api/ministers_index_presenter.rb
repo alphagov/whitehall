@@ -1,5 +1,7 @@
 module PublishingApi
   class MinistersIndexPresenter
+    include GovspeakHelper
+
     attr_accessor :update_type
 
     def initialize(update_type: nil)
@@ -48,7 +50,7 @@ module PublishingApi
     def details
       if reshuffle_in_progress?
         {
-          reshuffle: { message: SitewideSetting.find_by(key: :minister_reshuffle_mode).govspeak },
+          reshuffle: { message: bare_govspeak_to_html(SitewideSetting.find_by(key: :minister_reshuffle_mode).govspeak) },
         }
       else
         {

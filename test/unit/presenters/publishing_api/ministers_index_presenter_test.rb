@@ -100,11 +100,16 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
 
   test "presents a valid content item without information when reshuffle mode is on" do
     I18n.with_locale(:en) do
-      create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
+      create(
+        :sitewide_setting,
+        key: :minister_reshuffle_mode,
+        on: true,
+        govspeak: "Check [latest appointments](/government/news/ministerial-appointments-february-2023).",
+      )
 
       expected_details = {
         reshuffle: {
-          message: "example text",
+          message: "<p>Check <a href=\"/government/news/ministerial-appointments-february-2023\" class=\"govuk-link\">latest appointments</a>.</p>\n",
         },
       }
 
