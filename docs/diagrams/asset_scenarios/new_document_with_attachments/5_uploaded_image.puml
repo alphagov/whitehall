@@ -26,6 +26,11 @@ object "FileAttachment:1" as FileAttachment_1 {
   deleted: false
 }
 NewsArticle_1 *-- FileAttachment_1
+object "Image:2" as Image_2 {
+  alt_text:
+  caption:
+}
+NewsArticle_1 *-- Image_2
 }
 object "AttachmentData:1" as AttachmentData_1 {
   carrierwave_file: PlantUML_Language_Reference_Guide_en.pdf
@@ -34,26 +39,10 @@ object "AttachmentData:1" as AttachmentData_1 {
   present_at_unpublish: false
 }
 AttachmentData_1 *-u- FileAttachment_1
+object "ImageData:2" as ImageData_2 {
+  carrierwave_image: sangim_960_640.png
 }
-node AssetManager {
-object "WhitehallAsset:646e2d14ad6b5b00164e681f" as am_WhitehallAsset_646e2d14ad6b5b00164e681f {
-  state: unscanned
-  draft: true
-  redirect_url:
-  content_type:
-  deleted_at:
-  file: thumbnail_PlantUML_Language_Reference_Guide_en.pdf.png
-  legacy_url_path: .../attachment_data/file/1/(filename)
-}
-object "WhitehallAsset:646e2d15ad6b5b00174e681f" as am_WhitehallAsset_646e2d15ad6b5b00174e681f {
-  state: unscanned
-  draft: true
-  redirect_url:
-  content_type:
-  deleted_at:
-  file: PlantUML_Language_Reference_Guide_en.pdf
-  legacy_url_path: .../attachment_data/file/1/(filename)
-}
+ImageData_2 *-u- Image_2
 }
 node PublishingApi {
 object "Document:4" as pubapi_Document_4 {
@@ -78,7 +67,54 @@ object "Edition:4" as pubapi_Edition_4 {
 }
 pubapi_Document_4 *-- pubapi_Edition_4
 }
+node AssetManager {
+together {
+object "WhitehallAsset:646e2d14ad6b5b00164e681f" as am_WhitehallAsset_646e2d14ad6b5b00164e681f {
+  state: uploaded
+  draft: true
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: thumbnail_PlantUML_Language_Reference_Guide_en.pdf.png
+  legacy_url_path: .../attachment_data/file/1/(filename)
+}
+object "WhitehallAsset:646e2d15ad6b5b00174e681f" as am_WhitehallAsset_646e2d15ad6b5b00174e681f {
+  state: uploaded
+  draft: true
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: PlantUML_Language_Reference_Guide_en.pdf
+  legacy_url_path: .../attachment_data/file/1/(filename)
+}
+}
+together {
+object "WhitehallAsset:646e6282ad6b5b00174e6824" as am_WhitehallAsset_646e6282ad6b5b00174e6824 {
+  state: uploaded
+  draft: false
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: sangim_960_640.png
+  legacy_url_path: .../image_data/file/2/(filename)
+}
+object "WhitehallAsset:646e6282ad6b5b00174e6825" as am_WhitehallAsset_646e6282ad6b5b00174e6825 {
+  state: uploaded
+  draft: false
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: s216_sangim_960_640.png
+  legacy_url_path: .../image_data/file/2/(filename)
+}
+note right
+ also 5 other images not shown
+end note
+}
+}
 Document_1 .. pubapi_Document_4
 AttachmentData_1 .. am_WhitehallAsset_646e2d14ad6b5b00164e681f
 AttachmentData_1 .. am_WhitehallAsset_646e2d15ad6b5b00174e681f
+ImageData_2 .. am_WhitehallAsset_646e6282ad6b5b00174e6824
+ImageData_2 .. am_WhitehallAsset_646e6282ad6b5b00174e6825
 @enduml
