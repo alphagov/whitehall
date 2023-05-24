@@ -21,7 +21,7 @@ module PublishingApi
         base_path:,
         details:,
         document_type: "ministers_index",
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: "ministers_index",
       )
 
