@@ -94,8 +94,51 @@ card "New Attachment Uploaded" {
 }}
 ]
 
+label ForcePublish1 [
+{{
+allowmixing
+hide stereotype
+
+rectangle "this is really 2 states - fix"
+
+card "Force Publish 1" {
+  node Whitehall {
+  object Document {
+    live_edition_id: 1
+  }
+  object NewsArticle {
+    state: "published"
+    force_published: true
+  }
+  object FileAttachment {
+    content_id: "..."
+  }
+
+  Document *- "1" NewsArticle
+
+  object AttachmentData {
+    uploaded_to_asset_manager_at: "...now..."
+  }
+  AttachmentData *-- "1" FileAttachment
+  NewsArticle *- "1" FileAttachment
+  }
+
+  node AssetManager {
+  object WhitehallAsset {
+    state: "uploaded"
+    draft: false
+  }
+  database S3 {
+  file asset_file
+  }
+  }
+}
+}}
+]
+
 startPoint --> NoAttachments
 NoAttachments --> NewAttachment : user attaches file
 NewAttachment --> NewAttachmentUploaded: sidekiq job uploads file
+NewAttachmentUploaded --> ForcePublish1: user force publishes
 
 @enduml
