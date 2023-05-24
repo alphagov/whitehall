@@ -36,6 +36,15 @@ Given(/^there is a current government$/) do
   FactoryBot.create(:current_government)
 end
 
+Given(/^two cabinet ministers "([^"]*)" and "([^"]*)"$/) do |person1, person2|
+  create(:role_appointment, person: create(:person, forename: person1), role: create(:ministerial_role, cabinet_member: true))
+  create(:role_appointment, person: create(:person, forename: person2), role: create(:ministerial_role, cabinet_member: true))
+end
+
+Given(/^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/) do |person_name, ministerial_role, organisation_name|
+  create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago)
+end
+
 When(/^I close the current government$/) do
   close_government(name: Government.current.name)
 end

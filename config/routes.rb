@@ -63,7 +63,6 @@ Whitehall::Application.routes.draw do
 
     # Public facing routes still rendered by Whitehall
     resources :fatality_notices, path: "fatalities", only: [:show]
-    get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
     # End of public facing routes still rendered by Whitehall
 
