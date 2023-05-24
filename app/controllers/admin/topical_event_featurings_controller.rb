@@ -44,6 +44,8 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     end
   end
 
+  def reorder; end
+
   def order
     params[:ordering].each do |topical_event_featuring_id, ordering|
       @topical_event.topical_event_featurings.find(topical_event_featuring_id).update_column(:ordering, ordering)
@@ -78,7 +80,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[new create index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new create index reorder] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

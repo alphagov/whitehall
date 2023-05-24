@@ -145,6 +145,7 @@ Whitehall::Application.routes.draw do
         resources :topical_events, path: "topical-events" do
           resource :topical_event_about_pages, path: "about"
           resources :topical_event_featurings, path: "featurings" do
+            get :reorder, on: :collection
             put :order, on: :collection
           end
           resources :offsite_links do

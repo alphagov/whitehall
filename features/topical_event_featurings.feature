@@ -30,3 +30,15 @@ Feature:
     When I visit the topical event featuring index page
     And I feature "Featured link"
     Then I see that "Featured link" has been featured
+
+  Scenario: Reordering currently featured documents
+    Given two featurings exist for "Really topical"
+    When I visit the topical event featuring index page
+    And I set the order of the topical event featurings to:
+      | title           | order |
+      | Featured link 2 | 0     |
+      | Featured link 1 | 1     |
+    Then the topical event featurings should be in the following order:
+      | title           |
+      | Featured link 2 |
+      | Featured link 1 |
