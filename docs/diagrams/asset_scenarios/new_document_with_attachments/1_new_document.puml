@@ -1,0 +1,47 @@
+@startuml
+node Whitehall {
+object "Document:1" as Document_1 {
+  slug: new-news
+  document_type: NewsArticle
+  content_id: 7e75befe-e47c-4faa-920f-38699bd72b83
+  latest_edition_id: 1
+  live_edition_id:
+}
+together {
+object "NewsArticle:1" as NewsArticle_1 {
+  type: NewsArticle
+  state: draft
+  lock_version: 0
+  major_change_published_at:
+  first_published_at:
+  force_published:
+  external_url:
+}
+Document_1 *-- NewsArticle_1
+}
+}
+node PublishingApi {
+object "Document:4" as pubapi_Document_4 {
+  content_id: 7e75befe-e47c-4faa-920f-38699bd72b83
+}
+object "Edition:4" as pubapi_Edition_4 {
+  title: New news
+  public_updated_at: 24 May 15:23
+  publishing_app: whitehall
+  rendering_app: government-frontend
+  update_type: major
+  phase: live
+  document_type: news_story
+  schema_name: news_article
+  first_published_at:
+  state: draft
+  user_facing_versions:
+  content_store: draft
+  published_at:
+  major_published_at:
+  publishing_api_first_published_at:
+}
+pubapi_Document_4 *-- pubapi_Edition_4
+}
+Document_1 .. pubapi_Document_4
+@enduml
