@@ -48,7 +48,16 @@
       visible_counters: true,
       items: [
         link_to("Inside GOV.UK blog", "https://insidegovuk.blog.gov.uk/", class: "govuk-link"),
-        link_to("GOV.UK style guide", "https://www.gov.uk/guidance/style-guide", class: "govuk-link"),
+        link_to(
+          "What's new",
+          admin_whats_new_path,
+          class: "govuk-link",
+          data: {
+            module: "gem-track-click",
+            track_category: 'dashboardLink',
+            track_action: "What's new",
+            track_label: 'whats-new-click'
+        }),
       ]
     } %>
   </div>
@@ -80,7 +89,7 @@
     heading_level: 2,
     margin_bottom: 4,
   } %>
+  <p class="govuk-body"><%= link_to "View complete list of forced-published documents", admin_editions_path(state: :force_published, organisation: current_user.organisation), class: "govuk-link" %></p>
 
   <%= render 'document_table', documents: @force_published_documents, title: 'force published documents' %>
-  <p class="govuk-body"><%= link_to "See all", admin_editions_path(state: :force_published, organisation: current_user.organisation), class: "govuk-link" %></p>
 <% end %>
