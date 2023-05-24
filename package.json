@@ -49,5 +49,9 @@
     "standardx": "^7.0.0",
     "stylelint": "^14.16.1",
     "stylelint-config-gds": "^0.3.0"
+  },
+  "resolutions": {
+    "stylelint/strip-ansi": "6.0.1",
+    "stylelint/string-width": "4.2.3"
   }
 }
