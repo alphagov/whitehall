@@ -1,5 +1,6 @@
 class Admin::TopicalEventFeaturingsController < Admin::BaseController
   before_action :load_topical_event
+  layout :get_layout
 
   def index
     filter_params = params.slice(:page, :type, :author, :organisation, :title)
@@ -25,6 +26,8 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     featured_offsite_link = OffsiteLink.find(params[:offsite_link_id]) if params[:offsite_link_id].present?
     @topical_event_featuring = @topical_event.topical_event_featurings.build(edition: featured_edition, offsite_link: featured_offsite_link)
     @topical_event_featuring.build_image
+
+    render_design_system(:new, :legacy_new, next_release: true)
   end
 
   def create
@@ -37,7 +40,7 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
                        end
       redirect_to polymorphic_path([:admin, @topical_event, :topical_event_featurings])
     else
-      render :new
+      render_design_system(:new, :legacy_new, next_release: true)
     end
   end
 
@@ -72,6 +75,17 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[new create] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def load_topical_event
     @topical_event = TopicalEvent.find(params[:topical_event_id] || params[:topic_id])

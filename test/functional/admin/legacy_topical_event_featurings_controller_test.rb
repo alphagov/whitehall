@@ -1,11 +1,13 @@
 require "test_helper"
 
-class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
+class Admin::LegacyTopicalEventFeaturingsControllerTest < ActionController::TestCase
+  tests Admin::TopicalEventFeaturingsController
+
   should_be_an_admin_controller
 
   setup do
     @topical_event = create(:topical_event)
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   test "GET :index assigns tagged_editions with a paginated collection of published editions related to the topical_event ordered by most recently created editions first" do
@@ -99,7 +101,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     edition = create :edition
     get :new, params: { topical_event_id: @topical_event.id, edition_id: edition.id }
 
-    assert_select "#topical_event_featuring_image"
+    assert_select "#topical_event_featuring_image_attributes_file"
     assert_select "#topical_event_featuring_alt_text"
   end
 
@@ -107,7 +109,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     offsite_link = create :offsite_link
     get :new, params: { topical_event_id: @topical_event.id, offsite_link_id: offsite_link.id }
 
-    assert_select "#topical_event_featuring_image"
+    assert_select "#topical_event_featuring_image_attributes_file"
     assert_select "#topical_event_featuring_alt_text"
   end
 

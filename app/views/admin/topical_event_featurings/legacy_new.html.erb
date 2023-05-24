@@ -1,0 +1,30 @@
+<% page_title "Feature document" %>
+
+<h2>
+  <% if featuring_a_document? %>
+    Feature ‘<%= @topical_event_featuring.edition.title %>’ within ‘<%= @topical_event.name %>’
+  <% else %>
+    Feature an offsite document within ‘<%= @topical_event.name %>’
+  <% end %>
+</h2>
+
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for [:admin, @topical_event, @topical_event_featuring], builder: Whitehall::FormBuilder, html: {class: 'well'} do |form| %>
+      <%= form.errors %>
+
+      <%= form.fields_for :image do |image_fields| %>
+        <%= image_fields.upload :file, label_text: 'Select a 960px wide and 640px tall image to be shown when featuring' %>
+      <% end %>
+      <%= form.text_field :alt_text, label_text: "Image description (alt text)" %>
+
+      <% if featuring_a_document? %>
+        <%= form.hidden_field :edition_id %>
+      <% else %>
+        <%= form.hidden_field :offsite_link_id %>
+      <% end %>
+
+      <%= form.save_or_cancel cancel: polymorphic_path([:admin, @topical_event, :topical_event_featurings]) %>
+    <% end %>
+  </div>
+</div>
