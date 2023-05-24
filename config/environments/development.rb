@@ -3,6 +3,14 @@ require "active_support/core_ext/integer/time"
 Whitehall::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # use logger with timestamp (default is simple logger)
+  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter.datetime_format = "%H:%M:%S"
+
+  # enable logger in GDS API calls (it's not very detailed but helps tracing)
+  GdsApi::Base.logger = ActiveSupport::TaggedLogging.new(Logger.new("log/gds_api.log"))
+  GdsApi::Base.logger.formatter = config.log_formatter
+
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
