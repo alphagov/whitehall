@@ -46,5 +46,7 @@
     } %>
   </div>
 <% else %>
-  <p class="govuk-body">There are currently no non-GOV.UK government links.</p>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "There are currently no non-GOV.UK government links."
+  } %>
 <% end %>
