@@ -5,11 +5,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
-    <%= render 'admin/editions/filter_options', filter_by: filter_by, filter_action: filter_action, locale: feature_list.locale, anchor: anchor %>
+    <%= render 'admin/editions/filter_options', filter_by:, filter_action:, anchor: %>
   </div>
   <div class="govuk-grid-column-two-thirds">
     <div class="app-view-features-search-results__table">
-      <%= render 'admin/feature_lists/search_results', filter: filter, paginator: filter.editions(feature_list.locale), feature_list: feature_list, anchor: anchor %>
+      <%= render 'admin/featurable_editions/search_results', featurable_editions:, paginator:, anchor:, feature_path: %>
     </div>
   </div>
 </div>

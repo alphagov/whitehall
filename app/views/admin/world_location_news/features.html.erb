@@ -27,12 +27,14 @@
     {
       id: "documents_tab",
       label: "Documents",
-      content: render("admin/feature_lists/featureable_editions",
+      content: render("admin/shared/featurable_editions",
         filter: @filter,
-        feature_list: @feature_list,
+        paginator: @filter.editions(@feature_list.locale),
+        featurable_editions: featurable_editions_for_feature_list(@filter.editions(@feature_list.locale), @feature_list),
         filter_by: [:title, :type, :world_location],
         anchor: "#documents_tab",
         filter_action: polymorphic_url([:features, :admin, @feature_list.featurable]),
+        feature_path: [:new, :admin, @feature_list, :feature],
       ),
     },
     {
