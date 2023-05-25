@@ -63,6 +63,44 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_template :show
   end
 
+  view_test "GET on :show displays the users infomration in a summary list component and renders delete and edit link" do
+    person = create(
+      :person,
+      forename: "Rishi",
+      surname: "Sunak",
+      privy_counsellor: true,
+      title: "Mr",
+      letters: "OBE",
+      biography: "He is the PM.",
+    )
+
+    get :show, params: { id: person }
+
+    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Rt Hon"
+    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: "Yes"
+    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Title"
+    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: "Mr"
+    assert_select ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "Forename"
+    assert_select ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: "Rishi"
+    assert_select ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Surname"
+    assert_select ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "Sunak"
+    assert_select ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Letters"
+    assert_select ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: "OBE"
+    assert_select ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Biography"
+    assert_select ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "He is the PM."
+    assert_select ".govuk-summary-list__actions-list a[href='#{edit_admin_person_path(person)}']", text: /Edit details/
+    assert_select ".govuk-summary-list__actions-list a[href='#{confirm_destroy_admin_person_path(person)}']", text: "Delete Details"
+  end
+
+  view_test "GET on :show renders an inset text component when user cannot be deleted" do
+    person = create(:pm)
+
+    get :show, params: { id: person }
+
+    assert_select ".gem-c-inset-text", text: "Note: This person cannot be deleted as they are currently assigned to a role"
+    assert_select ".govuk-summary-list__actions-list a[href='#{confirm_destroy_admin_person_path(person)}']", text: "Delete Details", count: 0
+  end
+
   view_test "editing shows form for editing a person" do
     person = create(:person, image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
     get :edit, params: { id: person }
