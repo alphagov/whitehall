@@ -437,3 +437,28 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
     assert_valid_against_links_schema({ links: @presented_document_collection.links }, "document_collection")
   end
 end
+
+class PublishingApi::DocumentCollectionWithMappedSpecialistTopicTest < ActiveSupport::TestCase
+  setup do
+    create(:current_government)
+  end
+
+  test "presents the mapped specialist topic when one exists" do
+    mapped_specialist_topic_content_id = "fc33fada-fe47-4451-b4d3-89fea99bf796"
+    document_collection = create(:document_collection, mapped_specialist_topic_content_id:)
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
+
+    assert_equal mapped_specialist_topic_content_id, presented_document_collection.content[:details][:mapped_specialist_topic_content_id]
+
+    assert_valid_against_publisher_schema presented_document_collection.content, "document_collection"
+  end
+
+  test "does not present the mapped specialist topic if it is nil" do
+    document_collection = create(:document_collection)
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
+
+    assert_not presented_document_collection.content[:details].key?(:mapped_specialist_topic_content_id)
+
+    assert_valid_against_publisher_schema presented_document_collection.content, "document_collection"
+  end
+end
