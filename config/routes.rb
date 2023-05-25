@@ -62,7 +62,6 @@ Whitehall::Application.routes.draw do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 
     # Public facing routes still rendered by Whitehall
-    resources :fatality_notices, path: "fatalities", only: [:show]
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
     # End of public facing routes still rendered by Whitehall
 
