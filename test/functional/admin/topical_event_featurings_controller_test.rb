@@ -21,7 +21,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     assert_equal [news_article2, news_article1], tagged_editions
     assert_equal 1, tagged_editions.current_page
     assert_equal 1, tagged_editions.total_pages
-    assert_equal 25, tagged_editions.limit_value
+    assert_equal 15, tagged_editions.limit_value
   end
 
   test "GET :index assigns a filtered list to tagged_editions when given a title" do

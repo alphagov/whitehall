@@ -10,6 +10,11 @@ When(/^I visit the topical event featuring index page$/) do
   visit admin_topical_event_topical_event_featurings_path(@topical_event)
 end
 
+Given(/^the topical event has an edition with the title "([^"]*)"$/) do |title|
+  edition = create(:publication, :published, title:)
+  create(:topical_event_membership, edition:, topical_event: @topical_event)
+end
+
 And(/^two featurings exist for "([^"]*)"$/) do |name|
   topical_event = TopicalEvent.find_by(name:)
   offsite_link1 = create(:offsite_link, parent_type: "TopicalEvent", parent: topical_event, title: "Featured link 1")

@@ -9,6 +9,8 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
                           .to_h
                           .merge(state: "published", topical_event: @topical_event.to_param)
 
+    filter_params = filter_params.merge(per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE) if preview_design_system?(next_release: false)
+
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @tagged_editions = editions_to_show
 
@@ -106,6 +108,7 @@ private
                               .with_translations
                               .order("editions.created_at DESC")
                               .page(params[:page])
+                              .per((Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE if preview_design_system?(next_release: false)))
     end
   end
 

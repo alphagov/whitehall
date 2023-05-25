@@ -205,6 +205,14 @@ class TopicalEvent < ApplicationRecord
     end
   end
 
+  def featurable_editions
+    editions.reject do |edition|
+      topical_event_featurings.detect do |featuring|
+        featuring.edition == edition
+      end
+    end
+  end
+
 private
 
   delegate :any?, to: :features

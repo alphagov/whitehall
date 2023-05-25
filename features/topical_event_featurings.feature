@@ -31,6 +31,12 @@ Feature:
     And I feature "Featured link"
     Then I see that "Featured link" has been featured
 
+  Scenario: Featuring an edition
+    Given the topical event has an edition with the title "Featured edition"
+    When I visit the topical event featuring index page
+    And I feature "Featured edition"
+    Then I see that "Featured edition" has been featured
+
   Scenario: Reordering currently featured documents
     Given two featurings exist for "Really topical"
     When I visit the topical event featuring index page
