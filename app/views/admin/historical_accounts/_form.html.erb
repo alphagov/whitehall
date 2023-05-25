@@ -37,9 +37,9 @@
       } %>
 
       <%= render "components/autocomplete", {
-        id: "historical_account_political_party",
+        id: "historical_account_political_parties",
         name: "historical_account[political_party_ids][]",
-        error_items: errors_for(historical_account.errors, :political_party),
+        error_items: errors_for(historical_account.errors, :political_parties),
         label: {
           text: "Political parties (required)",
           heading_size: "l",
