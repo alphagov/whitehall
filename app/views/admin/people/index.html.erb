@@ -13,7 +13,7 @@
   margin_bottom: 8
 } %>
 
-<div class="app-c-govuk-table--filterable">
+<div class="app-c-govuk-table--filterable app-view-people-index__table">
 <%= render "govuk_publishing_components/components/table", {
   filterable: true,
   label: "Filter people",
@@ -24,14 +24,22 @@
     {
       text: "Biography",
     },
+    {
+      text: tag.span("View", class: "govuk-visually-hidden"),
+      format: "numeric"
+    },
   ],
   rows: @people.map do |person|
     [
       {
-        text: link_to(person.name, [:admin, person], title: "View #{person.name}", class: "govuk-link"),
+        text: tag.p(person.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
       },
       {
         text: truncate(person.biography, length: 60),
+      },
+      {
+        text: link_to(sanitize("View #{tag.span(person.name, class: "govuk-visually-hidden")}"), [:admin, person], class: "govuk-link"),
+        format: "numeric"
       }
     ]
   end
