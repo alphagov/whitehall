@@ -73,7 +73,8 @@
         } %>
         <%= link_to("Cancel", admin_governments_path(), class: "govuk-link") %>
       </div>
-      <% if government.persisted? %>
+
+      <% if government.current? %>
         <%= link_to("Prepare to close this government", prepare_to_close_admin_government_path(government), class:
           "govuk-link gem-link--destructive") %>
       <% end %>

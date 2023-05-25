@@ -57,4 +57,18 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
     assert_nil ambassadorial.ended_at
     assert ambassadorial.current?
   end
+
+  view_test "edit renders the prepare to close link when editing the current government" do
+    login_as_preview_design_system_user :gds_admin
+    get :edit, params: { id: @government.id }
+    assert_select "a[href='#{prepare_to_close_admin_government_path(@government)}']", text: "Prepare to close this government"
+  end
+
+  view_test "edit does not render the prepare to close link when editing a previous government" do
+    @government.update!(end_date: 1.minute.ago)
+    create(:government, start_date: Time.zone.now)
+    login_as_preview_design_system_user :gds_admin
+    get :edit, params: { id: @government.id }
+    assert_select "a[href='#{prepare_to_close_admin_government_path(@government)}']", text: "Prepare to close this government", count: 0
+  end
 end
