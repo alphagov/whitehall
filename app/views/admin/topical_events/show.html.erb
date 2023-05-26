@@ -1,51 +1,43 @@
-<% page_title @topical_event.name %>
+<% content_for :page_title, @topical_event.name %>
+<% content_for :title, @topical_event.name %>
+<% content_for :title_margin_bottom, 4 %>
 
-<% content_for :current_tab do %>
-  <table class="<%= model_name %> table table-bordered add-top-margin">
-    <tr>
-      <th>Summary</th>
-      <td class="summary"><%= @topical_event.summary %></td>
-    </tr>
+<p class="govuk-body"><%= view_on_website_link_for @topical_event, class: "govuk-link" %></p>
 
-    <tr>
-      <th>Description</th>
-      <td class="description"><%= @topical_event.description %></td>
-    </tr>
+<div class="govuk-!-margin-bottom-8">
+  <%= render "components/secondary_navigation", {
+    aria_label: "Topical Events tabs",
+    items: [
+      {
+        label: "Details",
+        href: [:admin, @topical_event],
+        current: true,
+      },
+      {
+        label: "About page",
+        href: [:admin, @topical_event, :topical_event_about_pages]
+      },
+      {
+        label: "Features",
+        href: [:admin, @topical_event, :topical_event_featurings]
+      }
+    ]
+  } %>
+</div>
 
-    <tr>
-      <th>Details</th>
-      <td class="details"><%= topical_event_contents_breakdown(@topical_event) %></td>
-    </tr>
-
-    <% if @topical_event.is_a?(TopicalEvent) %>
-      <tr>
-        <th>Duration</th>
-        <td class="duration">
-          <% if @topical_event.start_date && @topical_event.end_date %>
-            <%= @topical_event.start_date %> to <%= @topical_event.end_date %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-
-    <% if @topical_event.respond_to?(:featured_links) %>
-      <tr>
-        <th>Featured links</th>
-        <td class="featured-links">
-          <% if @topical_event.featured_links.any? %>
-            <%= render 'shared/featured_links', links: @topical_event.featured_links %>
-          <% else %>
-            <em>None</em>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-
-
-  <div class="form-actions">
-    <%= link_to "Edit", [:edit, :admin, @topical_event], class: "btn btn-lg btn-primary"%>
-  </div>
-<% end %>
-
-<%= render partial: 'tab_wrapper', locals: { model: @topical_event } %>
+<%= render "govuk_publishing_components/components/summary_list", {
+  title: "Details",
+  items: [
+    { field: "Summary", value: @topical_event.summary },
+    { field: "Description", value: @topical_event.description },
+    { field: "Details", value: topical_event_contents_breakdown(@topical_event) },
+    { field: "Duration",
+      value: ("#{@topical_event.start_date} to #{@topical_event.end_date}" if @topical_event.start_date && @topical_event.end_date)
+    }
+  ],
+  edit: {
+    href: [:edit, :admin, @topical_event],
+    link_text: "Edit",
+    link_text_no_enhance: true
+  }
+} %>

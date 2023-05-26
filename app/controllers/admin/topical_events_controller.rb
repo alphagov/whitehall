@@ -6,7 +6,11 @@ class Admin::TopicalEventsController < Admin::BaseController
   before_action :build_associated_objects, only: %i[new edit]
   before_action :destroy_blank_social_media_accounts, only: %i[create update]
 
-  def show; end
+  layout :get_layout
+
+  def show
+    render_design_system(:show, :show_legacy, next_release: true)
+  end
 
   def index
     @topical_events = model_class.order(:name)
@@ -65,6 +69,17 @@ class Admin::TopicalEventsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[show] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def model_class
     TopicalEvent
