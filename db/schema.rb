@@ -11,15 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_05_15_120104) do
-  create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.text "body"
-    t.string "accessible_type"
-    t.integer "accessible_id"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.index ["accessible_id", "accessible_type"], name: "accessible_index"
-  end
-
   create_table "attachment_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "carrierwave_file"
     t.string "content_type"
