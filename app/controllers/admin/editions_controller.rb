@@ -19,7 +19,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
-  layout :get_layout
+  layout "design_system"
 
   def enforce_permissions!
     case action_name
@@ -45,11 +45,7 @@ class Admin::EditionsController < Admin::BaseController
   def index
     if filter && filter.valid?
       session[:document_filters] = params_filters
-      if request.xhr?
-        render partial: "legacy_search_results"
-      else
-        render_design_system(:index, :legacy_index, next_release: true)
-      end
+      render :index
     elsif session_filters.any?
       redirect_to session_filters
     else
@@ -192,17 +188,6 @@ class Admin::EditionsController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    design_system_actions = %w[confirm_destroy diff show edit update new create]
-    design_system_actions += %w[index] if preview_design_system?(next_release: true)
-
-    if design_system_actions.include?(action_name)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def fetch_version_and_remark_trails
     @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
@@ -404,16 +389,14 @@ private
   end
 
   def edition_filter_options
-    filter_options = params_filters_with_default_state
+    params_filters_with_default_state
       .symbolize_keys
       .merge(
         include_unpublishing: true,
         include_link_check_reports: true,
         include_last_author: true,
       )
-
-    filter_options = filter_options.merge(per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE) if preview_design_system?(next_release: true)
-    filter_options
+      .merge(per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
   end
 
   def detect_other_active_editors

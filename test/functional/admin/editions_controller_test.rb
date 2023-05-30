@@ -30,22 +30,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { type: :publication }
   end
 
-  view_test "#index should respond to xhr requests with only the filter results html" do
-    get :index, params: { state: :active }, xhr: true
-    response_html = Nokogiri::HTML::DocumentFragment.parse(response.body)
-
-    assert_equal "h1", response_html.children[0].node_name
-    assert_match "Everyone’s documents", response_html.children[0].text
-  end
-
-  view_test "#index should show unpublishing information" do
-    create(:unpublished_edition)
-    get :index, params: { state: :active }, xhr: true
-
-    assert_select "td.title", text: /edition.title/
-    assert_select "td.title", text: /unpublished less than a minute ago/
-  end
-
   test "diffing against a previous version" do
     publication = create(:draft_publication)
     editor = create(:departmental_editor)

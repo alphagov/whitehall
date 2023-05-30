@@ -77,17 +77,6 @@ When(/^I filter by organisation "([^"]*)"$/) do |organisation_name|
   filter_editions_by :organisation, organisation_name
 end
 
-When(/^I filter by organisation "(.*?)" with javascript enabled$/) do |organisation_name|
-  select_from_chosen(organisation_name, from: "organisation")
-end
-
-When(/^I filter by title or slug "(.*?)" with javascript enabled$/) do |title_or_slug|
-  within "#title_filter" do
-    fill_in("Title or slug", with: title_or_slug)
-    click_on "enter"
-  end
-end
-
 When("I submit {edition}") do |edition|
   visit_edition_admin edition.title
   click_button "Submit for 2nd eyes"
@@ -114,49 +103,29 @@ When(/^I save my changes to the (publication|news article|consultation|speech)$/
 end
 
 Then("I should see {edition}") do |edition|
-  if using_design_system?
-    expect(find(".govuk-table")).to have_content edition.title
-  else
-    expect(page).to have_selector(record_css_selector(edition))
-  end
+  expect(find(".govuk-table")).to have_content edition.title
 end
 
 Then("I should not see {edition}") do |edition|
-  if using_design_system?
-    expect(find(".govuk-table")).not_to have_content edition.title
-  else
-    expect(page).to_not have_selector(record_css_selector(edition))
-  end
+  expect(find(".govuk-table")).not_to have_content edition.title
 end
 
 Then("I should see {edition} in the list of draft documents") do |edition|
   visit admin_editions_path
 
-  if using_design_system?
-    expect(find(".govuk-table")).to have_content edition.title
-  else
-    expect(page).to have_selector(record_css_selector(edition))
-  end
+  expect(find(".govuk-table")).to have_content edition.title
 end
 
 Then("I should see {edition} in the list of submitted documents") do |edition|
   visit admin_editions_path(state: :submitted)
 
-  if using_design_system?
-    expect(find(".govuk-table")).to have_content edition.title
-  else
-    expect(page).to have_selector(record_css_selector(edition))
-  end
+  expect(find(".govuk-table")).to have_content edition.title
 end
 
 Then("I should see {edition} in the list of published documents") do |edition|
   visit admin_editions_path(state: :published)
 
-  if using_design_system?
-    expect(find(".govuk-table")).to have_content edition.title
-  else
-    expect(page).to have_selector(record_css_selector(edition))
-  end
+  expect(find(".govuk-table")).to have_content edition.title
 end
 
 Then(/^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
