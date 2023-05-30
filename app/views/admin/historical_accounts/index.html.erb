@@ -5,6 +5,12 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <% if @person.current_role_appointments_title.present? %>
+      <%= render "govuk_publishing_components/components/lead_paragraph", {
+        text: @person.current_role_appointments.collect(&:role_name).to_sentence
+      } %>
+    <% end %>
+
     <p class="govuk-body">
       <%= view_on_website_link_for @person, class: "govuk-link" %>
     </p>

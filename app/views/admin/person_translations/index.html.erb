@@ -5,65 +5,71 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-      <p class="govuk-body">
-        <%= view_on_website_link_for @person, class: "govuk-link" %>
-      </p>
-
-      <%= render "components/secondary_navigation", {
-        aria_label: "Document navigation tabs",
-        items: secondary_navigation_tabs_items(@person, request.path)
+    <% if @person.current_role_appointments_title.present? %>
+      <%= render "govuk_publishing_components/components/lead_paragraph", {
+        text: @person.current_role_appointments.collect(&:role_name).to_sentence
       } %>
+    <% end %>
 
-      <% if @person.non_english_translated_locales.present? %>
-        <%= render "govuk_publishing_components/components/table", {
-          head: [
+    <p class="govuk-body">
+      <%= view_on_website_link_for @person, class: "govuk-link" %>
+    </p>
+
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation tabs",
+      items: secondary_navigation_tabs_items(@person, request.path)
+    } %>
+
+    <% if @person.non_english_translated_locales.present? %>
+      <%= render "govuk_publishing_components/components/table", {
+        head: [
+          {
+            text: "Locale"
+          },
+          {
+            text: tag.span("Actions", class: "govuk-visually-hidden"),
+            format: "numeric",
+          }
+        ],
+        rows: @person.non_english_translated_locales.map do |locale|
+          native_language_name = Locale.coerce(locale).native_language_name
+          [
             {
-              text: "Locale"
+              text: sanitize("#{locale.native_language_name} " + link_to("(view)", @person.public_url(locale: locale.code), class: "govuk-link"))
             },
             {
-              text: tag.span("Actions", class: "govuk-visually-hidden"),
-              format: "numeric",
+              text: sanitize("<a class='govuk-link' href='#{edit_admin_person_translation_path(@person, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{native_language_name}</span></a>" +
+                "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_translation_path(@person, locale.code)}'>Delete <span class='govuk-visually-hidden'>#{native_language_name}</span></a>"),
+              format: "numeric"
             }
-          ],
-          rows: @person.non_english_translated_locales.map do |locale|
-            native_language_name = Locale.coerce(locale).native_language_name
-            [
-              {
-                text: sanitize("#{locale.native_language_name} " + link_to("(view)", @person.public_url(locale: locale.code), class: "govuk-link"))
-              },
-              {
-                text: sanitize("<a class='govuk-link' href='#{edit_admin_person_translation_path(@person, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{native_language_name}</span></a>" +
-                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_translation_path(@person, locale.code)}'>Delete <span class='govuk-visually-hidden'>#{native_language_name}</span></a>"),
-                format: "numeric"
-              }
-            ]
+          ]
+        end
+      } %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No translations."
+      } %>
+    <% end %>
+
+    <% if @person.missing_translations.any? %>
+      <%= form_tag admin_person_translations_path(@person) do %>
+        <%= render "govuk_publishing_components/components/select", {
+          id: "translation_locale",
+          name: "translation_locale",
+          label: "Locale",
+          heading_size: "l",
+          options: @person.missing_translations.map do |locale|
+            {
+              value: locale.code,
+              text: Locale.coerce(locale).native_and_english_language_name,
+            }
           end
         } %>
-      <% else %>
-        <%= render "govuk_publishing_components/components/inset_text", {
-          text: "No translations."
+
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Create translation"
         } %>
       <% end %>
-
-      <% if @person.missing_translations.any? %>
-        <%= form_tag admin_person_translations_path(@person) do %>
-          <%= render "govuk_publishing_components/components/select", {
-            id: "translation_locale",
-            name: "translation_locale",
-            label: "Locale",
-            heading_size: "l",
-            options: @person.missing_translations.map do |locale|
-              {
-                value: locale.code,
-                text: Locale.coerce(locale).native_and_english_language_name,
-              }
-            end
-          } %>
-
-          <%= render "govuk_publishing_components/components/button", {
-            text: "Create translation"
-          } %>
-        <% end %>
-      <% end %>
+    <% end %>
   </div>
 </div>
