@@ -15,6 +15,12 @@
 <% else %>
   <%= render "govuk_publishing_components/components/button", {
     text: "Add feature item",
+    data_attributes: {
+      module: "gem-track-click",
+      "track-category": "form-button",
+      "track-action": "topical-event-button",
+      "track-label": "Add feature item"
+    },
     href: new_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature),
     margin_bottom: 6,
   } %>
