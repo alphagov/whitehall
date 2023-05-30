@@ -5,7 +5,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     tests Admin::PublicationsController
 
     setup do
-      login_as_preview_design_system_user :writer
+      login_as :writer
     end
 
     include TestsForNationalApplicability

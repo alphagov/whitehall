@@ -4,7 +4,6 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   setup do
     StatisticalDataSet.stubs(access_limited_by_default?: false)
     login_as :writer
-    @current_user.permissions << "Preview design system"
   end
 
   should_be_an_admin_controller

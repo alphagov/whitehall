@@ -5,7 +5,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     tests Admin::DetailedGuidesController
 
     setup do
-      login_as_preview_design_system_user(:writer)
+      login_as(:writer)
 
       stub_request(
         :get,

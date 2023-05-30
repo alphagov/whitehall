@@ -5,7 +5,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   setup do
     login_as :writer
-    @current_user.permissions << "Preview design system"
     ConsultationResponseForm.any_instance.stubs(:consultation_participation).returns(stub(consultation: stub(auth_bypass_id: "auth bypass id")))
   end
 

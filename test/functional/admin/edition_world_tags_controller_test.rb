@@ -67,22 +67,13 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
     refute_select "input[value='#{world_grandchild_taxon_content_id}'][checked='checked']"
   end
 
-  view_test "should render design system layout when permission is applied" do
-    login_as_preview_design_system_user(:departmental_editor)
+  view_test "should render the correct title and miller columns" do
     stub_publishing_api_links_with_taxons(@edition.content_id, [world_child_taxon_content_id])
 
     get :edit, params: { edition_id: @edition }
 
     assert_select ".govuk-caption-xl", @edition[:title]
     assert_select "h1", "Worldwide tags"
-  end
-
-  view_test "should render miller columns when user has design system layout" do
-    login_as_preview_design_system_user(:departmental_editor)
-    stub_publishing_api_links_with_taxons(@edition.content_id, [world_child_taxon_content_id])
-
-    get :edit, params: { edition_id: @edition }
-
     assert_select "h2", "Selected topics"
     assert_select "miller-columns", count: 1
     assert_select "miller-columns-selected", count: 1

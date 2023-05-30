@@ -3,7 +3,6 @@ require "test_helper"
 class Admin::SpeechesControllerTest < ActionController::TestCase
   setup do
     login_as :writer
-    @current_user.permissions << "Preview design system"
   end
 
   should_be_an_admin_controller

@@ -6,7 +6,6 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   setup do
     @organisation = create(:organisation)
     login_as :writer
-    @current_user.permissions << "Preview design system"
   end
 
   should_be_an_admin_controller
