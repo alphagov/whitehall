@@ -1,11 +1,11 @@
 en:
   admin:
     whats_new:
-      show_banner: true
+      show_banner: false
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 2 February 2023
+      last_updated: Last updated 11 May 2023
       introduction:
         heading: Moving to the Design System
         body_govspeak: |
