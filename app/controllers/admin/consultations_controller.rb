@@ -10,7 +10,7 @@ private
   def cope_with_consultation_response_form_data_action_params
     return if edition_params.empty?
     # NOTE: this is slightly different to what happens above in that
-    # replace here will not create a new onbject and set up a replaced_by
+    # replace here will not create a new object and set up a replaced_by
     # but just does a simple attribute value overwrite (e.g. a normal
     # update). This is because consultation_participation objects are not
     # (yet) versioned with their editions like attachments are.
