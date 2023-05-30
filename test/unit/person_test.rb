@@ -222,4 +222,15 @@ class PersonTest < ActiveSupport::TestCase
 
     assert_equal false, person.current_or_previous_prime_minister?
   end
+
+  test "#current_role_appointments_title returns their role appointment names in a sentence" do
+    person = build(:person)
+    role1 = build(:role, :occupied, name: "Prime Minister")
+    role2 = build(:role, :occupied, name: "Big Cheese")
+    role_appointment1 = build(:role_appointment, person:, role: role1)
+    role_appointment2 = build(:role_appointment, person:, role: role2)
+    person.stubs(:current_role_appointments).returns([role_appointment1, role_appointment2])
+
+    assert_equal "Prime Minister and Big Cheese", person.current_role_appointments_title
+  end
 end
