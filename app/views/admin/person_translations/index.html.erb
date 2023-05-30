@@ -1,6 +1,6 @@
 <% content_for :page_title, "#{@person.name}" %>
 <% content_for :title, @person.name %>
-<% content_for :context, "Translations" %>
+<% content_for :context, "People" %>
 <% content_for :title_margin_bottom, 4 %>
 
 <div class="govuk-grid-row">
@@ -16,7 +16,7 @@
     </p>
 
     <%= render "components/secondary_navigation", {
-      aria_label: "Document navigation tabs",
+      aria_label: "People navigation tabs",
       items: secondary_navigation_tabs_items(@person, request.path)
     } %>
 
