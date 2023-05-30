@@ -16,7 +16,7 @@
 
     <% if @person.can_have_historical_accounts? && @historical_accounts.present? %>
       <%= render "govuk_publishing_components/components/button", {
-        text: "Create historical account",
+        text: "Create new historical account",
         href: new_admin_person_historical_account_path,
         margin_bottom: 4,
       } %>
@@ -46,9 +46,9 @@
                 text: historical_account.summary,
               },
               {
-                text: sanitize("<a class='govuk-link' href='#{historical_account.public_path}'>View <span class='govuk-visually-hidden'>#{roles}</span></a>" +
-                  "<a class='govuk-link govuk-!-margin-left-2' href='#{edit_admin_person_historical_account_path(@person, historical_account)}'>Edit <span class='govuk-visually-hidden'>#{roles}</span></a>" +
-                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_historical_account_path(@person, historical_account)}'>Delete <span class='govuk-visually-hidden'>#{roles}</span></a>"),
+                text: link_to(sanitize("View #{tag.span(roles, class: 'govuk-visually-hidden')}"), Whitehall.public_host + historical_account.public_path, class: "govuk-link") +
+                  link_to(sanitize("Edit #{tag.span(roles, class: 'govuk-visually-hidden')}"), edit_admin_person_historical_account_path(@person, historical_account), class: "govuk-link govuk-!-margin-left-2") +
+                  link_to(sanitize("Delete #{tag.span(roles, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_person_historical_account_path(@person, historical_account), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive"),
                 format: "numeric"
               }
             ]
