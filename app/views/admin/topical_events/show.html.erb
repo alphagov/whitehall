@@ -38,6 +38,12 @@
   edit: {
     href: [:edit, :admin, @topical_event],
     link_text: "Edit",
-    link_text_no_enhance: true
+    link_text_no_enhance: true,
+    data_attributes: {
+      module: "gem-track-click",
+      "track-category": "form-button",
+      "track-action": "topical-event-button",
+      "track-label": "Edit"
+    }
   }
 } %>
