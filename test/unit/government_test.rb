@@ -32,6 +32,14 @@ class GovernmentTest < ActiveSupport::TestCase
     assert_not nil_government.valid?
   end
 
+  test "doesn't check construct an error for governments overlapping if start date is blank" do
+    nil_government = build(:government, start_date: nil)
+    nil_government.valid?
+
+    assert_equal 1, nil_government.errors.count
+    assert_equal "Start date can't be blank", nil_government.errors.first.full_message
+  end
+
   test "enforces unique names" do
     create(:government, name: "2005 to 2010 Labour government")
     duplicate_government = build(:government, name: "2005 to 2010 Labour government")

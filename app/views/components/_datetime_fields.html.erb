@@ -19,7 +19,7 @@
  year ||= {}
  year_value = year[:value]
  start_year = year[:start_year]
- end_year = year[:end_year]
+ end_year = year[:end_year] || Date.current.year + 5
  year_select_id = year[:id] || "select-year-#{SecureRandom.hex(4)}"
  year_label_id = "year-#{SecureRandom.hex(4)}"
 

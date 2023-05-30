@@ -1,4 +1,5 @@
 <% content_for :title, "Edit a government" %>
 <% content_for :page_title, "Edit a government" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @government)) %>
-<%= render partial: "form", locals: { government: @government } %>
+
+<%= render "form", government: @government %>

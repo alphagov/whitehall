@@ -6,7 +6,7 @@
       } %>
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Name"
+          text: "Name (required)"
         },
         name: "government[name]",
         id: "government_name",
@@ -15,60 +15,49 @@
         error_message: errors_for_input(government.errors, :name)
       } %>
 
-      <%= render "components/datetime_fields", {
-        date_only: true,
-        prefix: "government",
-        field_name: "start_date",
-        id: "government_start_date",
-        heading_size: "l",
-        date_hint: "For example, 01 August 2015",
-        date_heading: "Start date",
+      <%= render "govuk_publishing_components/components/fieldset", {
+        legend_text: "Dates",
+        heading_size: "l"
+      } do %>
+        <%= render "components/datetime_fields", {
+          date_only: true,
+          prefix: "government",
+          field_name: "start_date",
+          id: "government_start_date",
+          heading_size: "m",
+          date_hint: "For example, 01 August 2015",
+          date_heading: "Start date (required)",
+          year: {
+            value: government.start_date&.year,
+            start_year: 1800,
+          },
+          month: {
+            value: government.start_date&.month
+          },
+          day: {
+            value: government.start_date&.day,
+          },
+          error_items: errors_for(government.errors, :start_date)
+        } %>
 
-        year: {
-          value: government.start_date.to_date,
-          start_year: 1800
-        },
-        month: {
-          value: government.start_date.to_date
-        },
-        day: {
-          value: government.start_date.to_date
-        },
-
-        error_items: errors_for_input(government.errors, :start_date)
-      } %>
-
-      <% if government.ended? %>
         <%= render "components/datetime_fields", {
           date_only: true,
           prefix: "government",
           field_name: "end_date",
           id: "government_end_date",
-          heading_level: 3,
           heading_size: "m",
           date_hint: "For example, 01 August 2022",
           date_heading: "End date",
           year: {
-            value: government.end_date.to_date,
+            value: government.end_date&.year,
             start_year: 1800
           },
           month: {
-            value: government.end_date.to_date
+            value: government.end_date&.month
           },
           day: {
-            value: government.end_date.to_date
+            value: government.end_date&.day
           },
-        } %>
-      <% else %>
-        <%= render "components/datetime_fields", {
-          date_only: true,
-          prefix: "government",
-          field_name: "end_date",
-          id: "government_end_date",
-          heading_level: 3,
-          heading_size: "m",
-          date_hint: "For example, 01 August 2022",
-          date_heading: "End date",
         } %>
       <% end %>
 
@@ -82,9 +71,10 @@
             "track-label": "Save"
        }
         } %>
-        <%= link_to("cancel", admin_governments_path(), class: "govuk-link") %>
+        <%= link_to("Cancel", admin_governments_path(), class: "govuk-link") %>
       </div>
-      <% if government.persisted? %>
+
+      <% if government.current? %>
         <%= link_to("Prepare to close this government", prepare_to_close_admin_government_path(government), class:
           "govuk-link gem-link--destructive") %>
       <% end %>
