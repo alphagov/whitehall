@@ -28,10 +28,13 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
 private
 
   def get_layout
-    if action_name == "index" && preview_design_system?(next_release: false)
+    design_system_actions = %w[confirm_destroy show edit update new create]
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
       "design_system"
     else
-      super
+      "admin"
     end
   end
 
