@@ -115,13 +115,13 @@ module AdminEditionControllerScheduledPublishingTestHelpers
       end
 
       view_test "edit displays scheduled_publication date and time fields" do
-        edition = create(edition_type, scheduled_publication: Time.zone.parse("2060-06-03 10:30"))
+        edition = create(edition_type, scheduled_publication: Time.zone.parse("#{Time.zone.today.year + 1}-06-03 10:30"))
 
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
           assert_select "input[type=checkbox][name='scheduled_publication_active'][checked='checked']"
-          assert_select "select[name='edition[scheduled_publication(1i)]'] option[value='2060'][selected='selected']"
+          assert_select "select[name='edition[scheduled_publication(1i)]'] option[value='#{Time.zone.today.year + 1}'][selected='selected']"
           assert_select "select[name='edition[scheduled_publication(2i)]'] option[value='6'][selected='selected']"
           assert_select "select[name='edition[scheduled_publication(3i)]'] option[value='3'][selected='selected']"
           assert_select "select[name='edition[scheduled_publication(4i)]'] option[value='10'][selected='selected']"
