@@ -4,30 +4,29 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
-    <%= render "govuk_publishing_components/components/lead_paragraph", {
-      text: "Closing this government will unappoint the following ministerial roles, are you sure?"
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Closing this government will unappoint the following ministerial roles."
     } %>
 
     <%= render "govuk_publishing_components/components/list", {
       aria_label: "A list of active ministerial appointments.",
       visible_counters: true,
-      margin_bottom: 6,
-      items:
-        current_active_ministerial_appointments.map do |appointment|
-            "#{appointment.role.name}: #{appointment.person.name}"
-        end
+      extra_spacing: true,
+      margin_bottom: 8,
+      items: current_active_ministerial_appointments.map do |appointment|
+        "#{appointment.role.name}: #{appointment.person.name}"
+      end
     } %>
 
-    <%= form_tag close_admin_government_path(@government) do %>
+    <%= form_with url: close_admin_government_path(@government) do %>
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Close this government",
           destructive: true
         } %>
+
         <%= link_to("Cancel", edit_admin_government_path(@government), class: "govuk-link") %>
       </div>
     <% end %>
   </div>
 </div>
-

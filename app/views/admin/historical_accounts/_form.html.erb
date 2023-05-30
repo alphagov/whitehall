@@ -21,23 +21,25 @@
         },
       } %>
 
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
-          text: "Summary (required)",
-          heading_size: "l",
+      <%= render "govuk_publishing_components/components/character_count", {
+        textarea: {
+          label: {
+            text: "Summary (required)",
+            heading_size: "l",
+          },
+          name: "historical_account[summary]",
+          value: historical_account.summary,
+          rows: 4,
+          error_items: errors_for(historical_account.errors, :summary),
         },
         id: "historical_account_summary",
-        name: "historical_account[summary]",
-        value: historical_account.summary,
-        rows: 2,
-        hint: "Summary text should be 160 characters or fewer.",
-        error_items: errors_for(historical_account.errors, :summary),
+        maxlength: 160
       } %>
 
       <%= render "components/autocomplete", {
-        id: "historical_account_political_party",
+        id: "historical_account_political_parties",
         name: "historical_account[political_party_ids][]",
-        error_items: errors_for(historical_account.errors, :political_party),
+        error_items: errors_for(historical_account.errors, :political_parties),
         label: {
           text: "Political parties (required)",
           heading_size: "l",
@@ -96,7 +98,7 @@
         id: "historical_account_major_acts",
         name: "historical_account[major_acts]",
         value: historical_account.major_acts,
-        rows: 2,
+        rows: 4,
         error_items: errors_for(historical_account.errors, :major_acts),
       } %>
 
@@ -108,7 +110,7 @@
         id: "historical_account_interesting_facts",
         name: "historical_account[interesting_facts]",
         value: historical_account.interesting_facts,
-        rows: 2,
+        rows: 4,
         error_items: errors_for(historical_account.errors, :interesting_facts),
       } %>
 

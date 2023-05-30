@@ -13,7 +13,7 @@ end
 
 When(/^I add a new person called "([^"]*)"$/) do |name|
   visit_people_admin
-  click_link "Create person"
+  click_link using_design_system? ? "Create new person" : "Create person"
   fill_in_person_name name
   fill_in "Biography", with: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   attach_file using_design_system? ? "Upload a file" : "Image", jpg_image

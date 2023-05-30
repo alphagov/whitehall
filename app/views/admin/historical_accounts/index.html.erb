@@ -62,9 +62,13 @@
         margin_bottom: 4,
       } %>
 
-      <p class="govuk-body">No historical accounts</p>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No historical accounts."
+      } %>
     <% else %>
-      <p class="govuk-body">This person does not have any role appointments in roles that support historical accounts.</p>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "This person does not have any role appointments in roles that support historical accounts."
+      } %>
     <% end %>
   </div>
 </div>

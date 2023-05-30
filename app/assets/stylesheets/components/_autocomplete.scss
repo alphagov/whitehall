@@ -5,10 +5,6 @@ $app-focus-colour: $govuk-focus-colour;
 
 .app-c-autocomplete {
   margin-bottom: govuk-spacing(6);
-
-  @include govuk-media-query($from: tablet) {
-    margin-bottom: govuk-spacing(4);
-  }
 }
 
 .app-c-autocomplete--search {
