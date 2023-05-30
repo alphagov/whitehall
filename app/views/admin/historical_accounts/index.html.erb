@@ -1,16 +1,22 @@
 <% content_for :page_title, "#{@person.name} historical accounts" %>
 <% content_for :title, @person.name %>
-<% content_for :context, "Historical accounts" %>
+<% content_for :context, "People" %>
 <% content_for :title_margin_bottom, 4 %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <% if @person.current_role_appointments_title.present? %>
+      <%= render "govuk_publishing_components/components/lead_paragraph", {
+        text: @person.current_role_appointments.collect(&:role_name).to_sentence
+      } %>
+    <% end %>
+
     <p class="govuk-body">
       <%= view_on_website_link_for @person, class: "govuk-link" %>
     </p>
 
     <%= render "components/secondary_navigation", {
-     aria_label: "Document navigation tabs",
+     aria_label: "People navigation tabs",
      items: secondary_navigation_tabs_items(@person, request.path)
     } %>
 

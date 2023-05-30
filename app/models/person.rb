@@ -115,6 +115,10 @@ class Person < ApplicationRecord
     end
   end
 
+  def current_role_appointments_title
+    current_role_appointments.collect(&:role_name).to_sentence
+  end
+
 private
 
   def name_as_words(*elements)

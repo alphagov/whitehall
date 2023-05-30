@@ -9,3 +9,13 @@
 code {
   color: govuk-colour("red");
 }
+
+.gem-c-summary-list--with-image {
+  .govuk-summary-list__key {
+    vertical-align: top;
+  }
+
+  img {
+    display: block;
+  }
+}
