@@ -1,4 +1,4 @@
-<%= form_for [:admin, person] do |form| %>
+<%= form_for [:admin, person], multipart: true do |form| %>
   <%= hidden_field_tag 'person[privy_counsellor]', "0" %>
 
   <%= render "govuk_publishing_components/components/checkboxes", {
