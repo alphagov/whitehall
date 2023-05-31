@@ -14,7 +14,11 @@ end
 Then(/^I should see the topical event "([^"]*)" in the admin interface$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_events_path(topical_event)
-  expect(page).to have_selector(record_css_selector(topical_event))
+  if using_design_system?
+    expect(page).to have_selector(".govuk-table__cell", text: topical_event)
+  else
+    expect(page).to have_selector(record_css_selector(topical_event))
+  end
 end
 
 Given(/^I'm administering a topical event$/) do

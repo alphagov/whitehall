@@ -14,6 +14,7 @@ class Admin::TopicalEventsController < Admin::BaseController
 
   def index
     @topical_events = model_class.order(:name)
+    render_design_system(:index, :legacy_index)
   end
 
   def new; end
@@ -72,7 +73,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[show] if preview_design_system?(next_release: false)
+    design_system_actions += %w[show index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

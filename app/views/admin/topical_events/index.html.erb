@@ -1,21 +1,59 @@
-<% page_title human_friendly_model_name.pluralize %>
+<% content_for :page_title, "Topical events" %>
+<% content_for :title, "Topical events" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<h1><%= human_friendly_model_name.pluralize %></h1>
-<p class="warning remove-top-margin">Do not create <%= human_friendly_model_name.downcase %>s without consulting GDS. New documents will be live immediately on selecting save.</p>
-<%= link_to "Create #{human_friendly_model_name.downcase}", [:new, :admin, model_name.to_sym], class: "btn btn-default new_resource", title: "Create a #{human_friendly_model_name.downcase}" %>
+<%= render "govuk_publishing_components/components/warning_text", {
+  text: "Do not create topical events without consulting GDS. New documents will be live immediately on selecting save.",
+} %>
 
-<table class="<%= model_name %> table table-striped table-bordered add-top-margin">
-  <thead>
-    <tr class="table-header">
-      <th width="15%">Name</th>
-      <th>Summary</th>
-      <th>Description</th>
-      <th width="20%">Details</th>
-      <th width="10%">Duration</th>
-    </tr>
-  </thead>
+<%= render "govuk_publishing_components/components/button", {
+  text: "Create topical event",
+  href: [:new, :admin, model_name.to_sym],
+  margin_bottom: 8
+} %>
+<div class="app-view-topical-events-index__table">
+  <%= render "govuk_publishing_components/components/table", {
+    head: [
+      {
+        text: "Name"
+      },
+      {
+        text: "Summary",
+      },
 
-  <tbody>
-    <%= render @topical_events %>
-  </tbody>
-</table>
+      {
+        text: "Duration",
+      },
+      {
+        text: "Published guides",
+      },
+      {
+        text: tag.span("View", class: "govuk-visually-hidden")
+      },
+    ],
+
+    rows: @topical_events.map do |event|
+      [
+        {
+          text: tag.p(event.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+        },
+        {
+          text: truncate(event.summary, length: 130, separator: ' '),
+        },
+
+        {
+          text: duration_row_value(event)
+        },
+
+        {
+          text: event.published_detailed_guides.count
+        },
+
+        {
+          text: link_to(sanitize("View #{tag.span(event.name, class: 'govuk-visually-hidden')}"), [:admin, event], class: "govuk-link govuk-!-margin-right-4"),
+          format: "numeric"
+        }
+      ]
+    end
+  } %>
+</div>

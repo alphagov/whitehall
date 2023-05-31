@@ -1,0 +1,21 @@
+<% page_title human_friendly_model_name.pluralize %>
+
+<h1><%= human_friendly_model_name.pluralize %></h1>
+<p class="warning remove-top-margin">Do not create <%= human_friendly_model_name.downcase %>s without consulting GDS. New documents will be live immediately on selecting save.</p>
+<%= link_to "Create #{human_friendly_model_name.downcase}", [:new, :admin, model_name.to_sym], class: "btn btn-default new_resource", title: "Create a #{human_friendly_model_name.downcase}" %>
+
+<table class="<%= model_name %> table table-striped table-bordered add-top-margin">
+  <thead>
+    <tr class="table-header">
+      <th width="15%">Name</th>
+      <th>Summary</th>
+      <th>Description</th>
+      <th width="20%">Details</th>
+      <th width="10%">Duration</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render @topical_events %>
+  </tbody>
+</table>

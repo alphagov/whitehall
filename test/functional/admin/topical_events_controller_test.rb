@@ -35,7 +35,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     assert_equal "Event description", topical_event.description
   end
 
-  view_test "GET :index lists the topical events" do
+  test "GET :index lists the topical events" do
     topical_event_c = create(:topical_event, name: "Topic C")
     topical_event_a = create(:topical_event, name: "Topic A")
     topical_event_b = create(:topical_event, name: "Topic B")
@@ -43,7 +43,13 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "#{record_css_selector(topical_event_a)} + #{record_css_selector(topical_event_b)} + #{record_css_selector(topical_event_c)}"
+    assert_equal(assigns(:topical_events), [topical_event_a, topical_event_b, topical_event_c])
+  end
+
+  view_test "GET :index page has the View link to show page" do
+    topical_event = create(:topical_event)
+    get :index
+    assert_select "a[href=?]", admin_topical_event_path(topical_event), text: /View/
   end
 
   view_test "GET :edit renders the topical event form" do

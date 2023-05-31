@@ -26,4 +26,12 @@ module Admin::TopicalEventHelper
       },
     ]
   end
+
+  def duration_row_value(topical_event)
+    if topical_event.start_date.present? && topical_event.end_date.present?
+      "#{topical_event.start_date} to #{topical_event.end_date}"
+    else
+      ""
+    end
+  end
 end
