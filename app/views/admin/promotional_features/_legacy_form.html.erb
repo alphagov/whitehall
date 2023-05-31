@@ -8,7 +8,7 @@
   <fieldset class="promotional_feature_item">
     <legend>First feature item</legend>
     <%= form.fields_for :promotional_feature_items do |feature_item| %>
-      <%= render 'admin/promotional_feature_items/form_fields', { form: feature_item } %>
+      <%= render 'admin/promotional_feature_items/legacy_form_fields', { form: feature_item } %>
     <% end %>
   </fieldset>
 

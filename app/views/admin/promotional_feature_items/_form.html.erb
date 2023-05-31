@@ -6,7 +6,7 @@
   <%= form.errors %>
 
   <fieldset>
-    <%= render 'form_fields', { form: form } %>
+    <%= render 'legacy_form_fields', { form: form } %>
   </fieldset>
 
   <%= form.save_or_cancel(cancel: [:admin, organisation, promotional_feature]) %>

@@ -13,6 +13,8 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     @promotional_feature = @organisation.promotional_features.build
     @promotional_feature.promotional_feature_items.build
     @promotional_feature.promotional_feature_items.first.links.build
+
+    render :legacy_new
   end
 
   def create
@@ -21,7 +23,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
       Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature created"
     else
-      render :new
+      render :legacy_new
     end
   end
 
