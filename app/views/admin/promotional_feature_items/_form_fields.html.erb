@@ -1,0 +1,91 @@
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: "Item title"
+  },
+  name: "#{name}[title]",
+  id: "#{id}_title",
+  value: promotional_feature_item.title,
+  heading_size: "m",
+  error_items: errors_for(promotional_feature_item.errors, :title)
+} %>
+
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: "Item title url"
+  },
+  name: "#{name}[title_url]",
+  id: "#{id}_title_url",
+  value: promotional_feature_item.title_url,
+  heading_size: "m",
+  error_items: errors_for(promotional_feature_item.errors, :title_url)
+} %>
+
+<%= render "govuk_publishing_components/components/textarea", {
+  label: {
+    text: "Summary (required)",
+    heading_size: "m"
+  },
+  name: "#{name}[summary]",
+  id: "#{id}_summary",
+  value: promotional_feature_item.summary,
+  error_items: errors_for(promotional_feature_item.errors, :summary),
+  rows: 4,
+} %>
+
+<%= render "govuk_publishing_components/components/radio", {
+  heading: "Image or YouTube video (required)",
+  heading_size: "l",
+  hint_text: "Upload an image or input a YouTube video url for the promotional feature item",
+  name: "#{name}[image_or_youtube_video_url]",
+  id: "#{id}_image_or_youtube_url",
+  error_items: errors_for(promotional_feature_item.errors, :image_or_youtube_url),
+  items: [
+    {
+      value: "image",
+      text: "Image",
+      checked: promotional_feature_item.image.present? || params.dig("promotional_feature", "promotional_feature_items_attributes", "0", "image_or_youtube_video_url") == "image",
+      conditional: render("admin/promotional_feature_items/image_fields", promotional_feature_item:, name:, id:)
+    },
+    {
+      value: "youtube_video_url",
+      text: "YouTube video",
+      checked: promotional_feature_item.youtube_video_url.present? || params.dig("promotional_feature", "promotional_feature_items_attributes", "0", "image_or_youtube_video_url") == "youtube_video_url",
+      conditional: render("admin/promotional_feature_items/youtube_url_fields", promotional_feature_item:, name:, id:)
+    }
+  ]
+} %>
+
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Feature item links",
+  heading_size: "l"
+} do %>
+  <div data-module="AddAnother" data-add-text="Add link" class="govuk-!-margin-bottom-4">
+    <%= form.fields_for :links do |link_form| %>
+      <div class="js-duplicate-fields-set govuk-!-margin-top-4">
+        <div class="govuk-!-margin-bottom-6">
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "URL (required)"
+            },
+            name: "#{name}[[links_attributes][#{link_form.index}][url]",
+            id: "#{id}_links_attributes_#{link_form.index}_url",
+            value: link_form.object.url,
+            heading_size: "m",
+            error_items: errors_for(link_form.object.errors, :url),
+          } %>
+
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Text (required)"
+            },
+            name: "#{name}[[links_attributes][#{link_form.index}][text]",
+            id: "#{id}_links_attributes_#{link_form.index}_text",
+            value: link_form.object.text,
+            heading_size: "m",
+            error_items: errors_for(link_form.object.errors, :text)
+          } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

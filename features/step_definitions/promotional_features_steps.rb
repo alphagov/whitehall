@@ -21,17 +21,27 @@ When(/^I add a new promotional feature with a single item which has an image$/) 
   visit admin_organisation_path(@executive_office)
   click_link "Promotional features"
   click_link "New promotional feature"
-
-  fill_in "Feature title", with: "Big Cheese"
-
-  within "form.promotional_feature_item" do
-    fill_in "Summary", with: "The Big Cheese is coming."
-    fill_in "Item title (optional)", with: "The Big Cheese"
-    fill_in "Item title url (optional)", with: "http://big-cheese.co"
+  if using_design_system?
+    fill_in "Feature title (required)", with: "Big Cheese"
+    fill_in "Summary (required)", with: "The Big Cheese is coming."
+    fill_in "Item title", with: "The Big Cheese"
+    fill_in "Item title url", with: "http://big-cheese.co"
     attach_file :image, Rails.root.join("test/fixtures/big-cheese.960x640.jpg")
-    fill_in "Image description (alt text)", with: "The Big Cheese"
-    fill_in "Url", with: "http://test.com"
-    fill_in "Text", with: "someText"
+    fill_in "Image description", with: "The Big Cheese"
+    fill_in "URL (required)", with: "http://test.com"
+    fill_in "Text (required)", with: "someText"
+  else
+    fill_in "Feature title", with: "Big Cheese"
+
+    within "form.promotional_feature_item" do
+      fill_in "Summary", with: "The Big Cheese is coming."
+      fill_in "Item title (optional)", with: "The Big Cheese"
+      fill_in "Item title url (optional)", with: "http://big-cheese.co"
+      attach_file :image, Rails.root.join("test/fixtures/big-cheese.960x640.jpg")
+      fill_in "Image description (alt text)", with: "The Big Cheese"
+      fill_in "Url", with: "http://test.com"
+      fill_in "Text", with: "someText"
+    end
   end
 
   click_button "Save"
@@ -42,17 +52,30 @@ When(/^I add a new promotional feature with a single item which has a YouTube UR
   click_link "Promotional features"
   click_link "New promotional feature"
 
-  fill_in "Feature title", with: "Big Cheese"
-
-  within "form.promotional_feature_item" do
-    fill_in "Summary", with: "The Big Cheese is coming."
-    fill_in "Item title (optional)", with: "The Big Cheese"
-    fill_in "Item title url (optional)", with: "http://big-cheese.co"
+  if using_design_system?
+    fill_in "Feature title (required)", with: "Big Cheese"
+    fill_in "Summary (required)", with: "The Big Cheese is coming."
+    fill_in "Item title", with: "The Big Cheese"
+    fill_in "Item title url", with: "http://big-cheese.co"
     choose "YouTube video"
-    fill_in "YouTube video URL", with: "https://www.youtube.com/watch?v=fFmDQn9Lbl4"
-    fill_in "YouTube video description (alt text)", with: "Description of video."
-    fill_in "Url", with: "http://test.com"
-    fill_in "Text", with: "someText"
+    fill_in "YouTube video URL (required)", with: "https://www.youtube.com/watch?v=fFmDQn9Lbl4"
+    fill_in "YouTube description (required)", with: "Description of video."
+    fill_in "Image description", with: "The Big Cheese"
+    fill_in "URL (required)", with: "http://test.com"
+    fill_in "Text (required)", with: "someText"
+  else
+    fill_in "Feature title", with: "Big Cheese"
+
+    within "form.promotional_feature_item" do
+      fill_in "Summary", with: "The Big Cheese is coming."
+      fill_in "Item title (optional)", with: "The Big Cheese"
+      fill_in "Item title url (optional)", with: "http://big-cheese.co"
+      choose "YouTube video"
+      fill_in "YouTube video URL", with: "https://www.youtube.com/watch?v=fFmDQn9Lbl4"
+      fill_in "YouTube video description (alt text)", with: "Description of video."
+      fill_in "Url", with: "http://test.com"
+      fill_in "Text", with: "someText"
+    end
   end
 
   click_button "Save"
