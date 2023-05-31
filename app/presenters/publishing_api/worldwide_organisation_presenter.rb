@@ -40,6 +40,9 @@ module PublishingApi
       {
         corporate_information_pages:,
         ordered_contacts:,
+        primary_role_person:,
+        secondary_role_person:,
+        office_staff:,
         sponsoring_organisations:,
         world_locations:,
       }
@@ -57,6 +60,22 @@ module PublishingApi
       return [] unless item.offices.any?
 
       item.offices.map(&:contact).map(&:content_id)
+    end
+
+    def primary_role_person
+      return [] unless item.primary_role
+
+      [item.primary_role.current_person.content_id]
+    end
+
+    def secondary_role_person
+      return [] unless item.secondary_role
+
+      [item.secondary_role.current_person.content_id]
+    end
+
+    def office_staff
+      item.office_staff_roles.map(&:current_person).map(&:content_id)
     end
 
     def corporate_information_pages
