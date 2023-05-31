@@ -33,7 +33,7 @@
   }
   %>
   <p class="govuk-body ">
-    <%= view_on_website_link_for @statistics_announcement, class: "govuk-link govuk-!-margin-right-8-", target: "blank", rel: "noreferrer noopener" %>
+    <%= view_on_website_link_for @statistics_announcement, link_text: "View on website (opens in a new tab)", class: "govuk-link govuk-!-margin-right-8-", target: "blank", rel: "noreferrer noopener" %>
   </p>
 </aside>
 
@@ -45,7 +45,7 @@
   } %>
   <%= render "govuk_publishing_components/components/list", {
     extra_spacing: true,
-    items: statistics_annoucements_history_list(@statistics_announcement)
+    items: statistics_announcements_history_list(@statistics_announcement)
   } %>
 </div>
 

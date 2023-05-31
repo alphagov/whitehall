@@ -1,110 +1,116 @@
-<div class="app-view-statistics-announcements-summary__main">
-  <section class="app-view-statistics-announcements-summary__section page-header">
+<div class="app-view-summary__main">
+  <section class="app-view-summary__section">
     <p class="govuk-body-lead">
       <%= @statistics_announcement.summary %>
     </p>
 
-    <div>
-      <%=
-        render "govuk_publishing_components/components/summary_list", {
-          borderless: true,
-          items: [
-            { field: "Type", value: @statistics_announcement.display_type },
-            { field: "Organisations", value: @statistics_announcement.organisations.map(&:name).to_sentence },
-          ],
-        }
-      %>
-    </div>
+    <%= render "govuk_publishing_components/components/summary_list", {
+      borderless: true,
+      items: [
+        { field: "Type", value: @statistics_announcement.display_type },
+        { field: "Organisations", value: @statistics_announcement.organisations.map(&:name).to_sentence },
+      ],
+    }
+    %>
 
-    <div>
-      <%= render "components/inset_prompt", {
-        error: true,
-        description: "Statistics release cancelled - #{@statistics_announcement.cancellation_reason}.",
-      } if @statistics_announcement.cancelled? %>
-    </div>
+    <%= render "components/inset_prompt", {
+      error: true,
+      description: "Statistics release cancelled - #{@statistics_announcement.cancellation_reason}.",
+    } if @statistics_announcement.cancelled? %>
   </section>
 
-  <section class="app-view-statistics-announcements-summary__section">
-    <div>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Release and delivery date",
-        heading_level: 2,
-        font_size: "l",
-        margin_bottom: 3,
-      } %>
+  <section class="app-view-summary__section">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Release and delivery date",
+      heading_level: 2,
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
+    <p class="govuk-body">
+      <%= link_to("Change dates",
+                  new_admin_statistics_announcement_change_path(@statistics_announcement),
+                  class: "govuk-link",
+                  data: {
+                    module: "gem-track-click",
+                    "track-category": "button-clicked",
+                    "track-action": "#{@statistics_announcement.model_name.singular.dasherize}-button",
+                    "track-label": "Change dates",
+                  }) %>
+    </p>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Release date",
+      heading_level: 3,
+      font_size: "m",
+      margin_bottom: 2,
+    } %>
+    <% if @statistics_announcement.cancelled? %>
       <p class="govuk-body">
-        <%= link_to("Change dates",
-                    new_admin_statistics_announcement_change_path(@statistics_announcement),
-                    class: "govuk-link",
-                    data: {
-                      module: "gem-track-click",
-                      "track-category": "button-clicked",
-                      "track-action": "#{@statistics_announcement.model_name.singular.dasherize}-button",
-                      "track-label": "Change dates",
-                    }) %>
+        <span><%= @statistics_announcement.release_date.to_fs(:date_with_time) %></span>
+        <span> (cancelled)</span>
       </p>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Release date",
-        heading_level: 3,
-        font_size: "m",
-        margin_bottom: 2,
-      } %>
-      <% if @statistics_announcement.cancelled? %>
-       <p>
-         <del class="govuk-body"><%= @statistics_announcement.release_date.to_fs(:date_with_time) %></del>
-         <span class="govuk-body"> (cancelled)</span>
-       </p>
-      <% else %>
-        <p class="govuk-body"> <%= @statistics_announcement.release_date.to_fs(:date_with_time) %> </p>
-      <% end %>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Delivery date",
-        heading_level: 3,
-        font_size: "m",
-        margin_bottom: 2,
-      } %>
-      <p class="govuk-body">
-        <span><%= @statistics_announcement.display_date %></span>
-        <span>(<%= @statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)</span>
-      </p>
-    </div>
+    <% else %>
+      <p class="govuk-body"> <%= @statistics_announcement.release_date.to_fs(:date_with_time) %> </p>
+    <% end %>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Delivery date",
+      heading_level: 3,
+      font_size: "m",
+      margin_bottom: 2,
+    } %>
+    <p class="govuk-body">
+      <span><%= @statistics_announcement.display_date %></span>
+      <span><% if @statistics_announcement.cancelled? %>
+          (cancelled)
+        <% elsif @statistics_announcement.confirmed? %>
+          (confirmed)
+        <% else %>
+          (provisional)
+        <% end %></span>
+    </p>
   </section>
 
-  <section class="app-view-statistics-announcements-summary__section">
-    <div class="govuk-body">
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Connected document",
-        heading_level: 2,
-        font_size: "l",
-        margin_bottom: 3,
-      } %>
-      <p>
-        <% if @statistics_announcement.publication %>
-          <%= link_to("Change connected document",
-                      admin_statistics_announcement_publication_index_path(@statistics_announcement),
-                      class: "govuk-link ,govuk-!-margin-bottom-8") %>
-        <table class="govuk-table">
-          <tr>
-            <td><%= @statistics_announcement.publication.title %></td>
-            <td><%= link_to("View",
-                            admin_statistics_announcement_publication_index_path(@statistics_announcement),
-                            class: "govuk-link") %></td>
-          </tr>
-        </table>
-      <% else %>
-      <span><%= link_to("Add existing document",
-                        admin_statistics_announcement_publication_index_path(@statistics_announcement),
-                        class: "govuk-link") %></span>
+  <section class="app-view-summary__section">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Connected document",
+      heading_level: 2,
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
+    <% if @statistics_announcement.publication %>
+      <p class="govuk-body">
+        <%= link_to("Change connected document",
+                    admin_statistics_announcement_publication_index_path(@statistics_announcement),
+                    class: "govuk-link") %>
+      </p>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+          <p class="govuk-body">
+            <%= @statistics_announcement.publication.title %>
+          </p>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <p class="govuk-body govuk-!-text-align-right">
+            <%= link_to("View", admin_statistics_announcement_publication_index_path(@statistics_announcement),
+                        class: "govuk-link") %>
+          </p>
+        </div>
+      </div>
+
+    <% else %>
+      <p class="govuk-body">
+        <span><%= link_to("Add existing document",
+                          admin_statistics_announcement_publication_index_path(@statistics_announcement),
+                          class: "govuk-link") %></span>
         <span> or </span>
         <span><%= link_to("create new document",
                           new_admin_publication_path(statistics_announcement_id: @statistics_announcement),
                           class: "govuk-link") %></span>
-      <% end %>
       </p>
-    </div>
+    <% end %>
   </section>
 
-  <section class="app-view-statistics-announcements-summary__section">
+  <section class="app-view-summary__section">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Topic taxonomy tags",
       heading_level: 2,
@@ -120,9 +126,9 @@
 
     <% @edition_taxons.map(&:full_path).each do |tag_path| %>
       <div class="govuk-breadcrumbs">
-        <ol class="govuk-breadcrumbs__list app-view-statistics-announcements-summary__topic-tag-list">
+        <ol class="govuk-breadcrumbs__list app-view-summary__topic-tag-list">
           <% tag_path.each do |path| %>
-            <li class="govuk-breadcrumbs__list-item app-view-statistics-announcements-summary__topic-tag-list-item"><%= path[:title] %></li>
+            <li class="govuk-breadcrumbs__list-item app-view-summary__topic-tag-list-item"><%= path[:title] %></li>
           <% end %>
         </ol>
       </div>
@@ -133,5 +139,4 @@
       } %>
     <% end %>
   </section>
-
 </div>

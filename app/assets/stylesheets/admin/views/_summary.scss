@@ -1,0 +1,59 @@
+.app-view-summary__section {
+  padding: govuk-spacing(3) 0;
+}
+
+.app-view-summary__table-link {
+  margin-right: govuk-spacing(2);
+}
+
+.app-view-summary__section:first-child {
+  padding-top: 0;
+}
+
+.app-view-summary__topic-tag-list {
+  @include govuk-font($size: 19);
+  padding-bottom: govuk-spacing(2);
+  border-bottom: 1px solid govuk-colour("light-grey");
+}
+
+.app-view-summary__topic-tag-list-item {
+  &:before {
+    width: 9px;
+    height: 9px;
+  }
+
+  &:last-child {
+    @include govuk-font($size: 19, $weight: bold);
+  }
+}
+
+.app-view-summary__section--attachments .govuk-table__cell {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+// Sidebar styles
+
+.app-view-summary__sidebar-actions {
+  padding: govuk-spacing(3);
+  margin-bottom: govuk-spacing(6);
+  background-color: govuk-colour("light-grey");
+}
+
+.app-view-summary__sidebar-actions .gem-c-button {
+  width: 100%;
+}
+
+.app-view-summary__sidebar-actions .govuk-list--spaced,
+.app-view-summary__sidebar-actions .govuk-list--spaced li:last-child {
+  margin-bottom: 0;
+}
+
+.app-view-summary__broken-links-report {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.app-view-history-entry__list-item-datetime {
+  color: $govuk-secondary-text-colour;
+}
