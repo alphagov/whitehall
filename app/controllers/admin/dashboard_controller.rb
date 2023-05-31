@@ -1,5 +1,5 @@
 class Admin::DashboardController < Admin::BaseController
-  layout :get_layout
+  layout "design_system"
 
   def index
     if current_user.organisation
@@ -10,18 +10,6 @@ class Admin::DashboardController < Admin::BaseController
       @force_published_documents = current_user.organisation.editions.force_published.includes(:translations, :versions).in_reverse_chronological_order.limit(5).reject do |edition|
         edition.respond_to?(:owning_organisation) && edition.owning_organisation.nil?
       end
-    end
-
-    render_design_system(:index, :legacy_index, next_release: true)
-  end
-
-private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
     end
   end
 end

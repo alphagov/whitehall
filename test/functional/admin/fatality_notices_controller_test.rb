@@ -5,7 +5,6 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
 
   setup do
     login_as :gds_editor
-    @current_user.permissions << "Preview design system"
   end
 
   should_be_an_admin_controller

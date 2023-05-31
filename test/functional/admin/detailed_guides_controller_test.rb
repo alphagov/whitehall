@@ -5,7 +5,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
   setup do
     login_as create(:writer, organisation: create(:organisation))
-    @current_user.permissions << "Preview design system"
     create(:government)
     stub_request(
       :get,

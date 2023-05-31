@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::DashboardControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
 
     organisation = create(:organisation, users: [@current_user])
     @draft_edition1 = create(:consultation, authors: [@current_user])

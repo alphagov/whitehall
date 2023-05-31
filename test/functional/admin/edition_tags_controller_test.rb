@@ -204,22 +204,13 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     )
   end
 
-  view_test "should render design system layout when permission is applied" do
-    login_as_preview_design_system_user(:departmental_editor)
+  view_test "should render the correct fields" do
     stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])
 
     get :edit, params: { edition_id: @edition }
 
     assert_select ".govuk-caption-xl", @edition[:title]
     assert_select "h1", "Topic taxonomy tags"
-  end
-
-  view_test "should render miller columns when user has design system layout" do
-    login_as_preview_design_system_user(:departmental_editor)
-    stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])
-
-    get :edit, params: { edition_id: @edition }
-
     assert_select "h2", "Selected topics"
     assert_select "miller-columns", count: 1
     assert_select "miller-columns-selected", count: 1

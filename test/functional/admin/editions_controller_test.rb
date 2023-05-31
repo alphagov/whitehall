@@ -4,7 +4,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   include Admin::EditionRoutesHelper
 
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   should_be_an_admin_controller
@@ -28,22 +28,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     Admin::EditionFilter.expects(:new).with(anything, anything, has_entry(state: "active")).returns(stub_filter)
 
     get :index, params: { type: :publication }
-  end
-
-  view_test "#index should respond to xhr requests with only the filter results html" do
-    get :index, params: { state: :active }, xhr: true
-    response_html = Nokogiri::HTML::DocumentFragment.parse(response.body)
-
-    assert_equal "h1", response_html.children[0].node_name
-    assert_match "Everyone’s documents", response_html.children[0].text
-  end
-
-  view_test "#index should show unpublishing information" do
-    create(:unpublished_edition)
-    get :index, params: { state: :active }, xhr: true
-
-    assert_select "td.title", text: /edition.title/
-    assert_select "td.title", text: /unpublished less than a minute ago/
   end
 
   test "diffing against a previous version" do
@@ -171,7 +155,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "index should redirect to department if logged in with no remembered filters" do
     organisation = create(:organisation)
-    login_as_preview_design_system_user(:departmental_editor, organisation)
+    login_as create(:departmental_editor, organisation:)
     get :index
     assert_redirected_to admin_editions_path(organisation: organisation.id, state: :active)
   end
@@ -242,7 +226,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   view_test "index should not display limited access editions which I don't have access to" do
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
-    login_as_preview_design_system_user(:writer, my_organisation)
+    login_as create(:writer, organisation: my_organisation)
     accessible = [
       create(:draft_publication),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
@@ -260,7 +244,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   view_test "index should indicate the protected status of limited access editions which I do have access to" do
     my_organisation = create(:organisation)
-    login_as_preview_design_system_user(:writer, my_organisation)
+    login_as create(:writer, organisation: my_organisation)
     publication = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation])
 
     get :index, params: { state: :active }
@@ -274,7 +258,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test "prevents revising of access-limited editions" do
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
-    login_as_preview_design_system_user(:writer, my_organisation)
+    login_as create(:writer, organisation: my_organisation)
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
     post :revise, params: { id: inaccessible }
@@ -282,7 +266,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   view_test "prevents oversized exports" do
-    login_as_preview_design_system_user(:gds_editor)
+    login_as :gds_editor
     Admin::EditionFilter.any_instance.stubs(exportable?: false)
     post :export,
          params: {

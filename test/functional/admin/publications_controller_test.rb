@@ -6,7 +6,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     @organisation = create(:organisation)
     @user = create(:writer, organisation: @organisation)
     login_as @user
-    @user.permissions << "Preview design system"
 
     stub_taxonomy_with_world_taxons
   end
@@ -120,7 +119,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     # This applies to all editions but can't be tested in the editions controller test due to redirects.
     # After conversation with DH I picked publications arbitrarily.
     @user = login_as(create(:departmental_editor))
-    @user.permissions << "Preview design system"
     publication = create(:draft_publication)
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
@@ -139,7 +137,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
     @user = login_as(create(:user, organisation: my_organisation))
-    @user.permissions << "Preview design system"
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
     get :show, params: { id: inaccessible }
@@ -174,7 +171,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     )
 
     @user = login_as(create(:user, organisation: world_tagging_organisation))
-    @user.permissions << "Preview design system"
 
     publication_has_expanded_links(publication.content_id)
 
@@ -196,7 +192,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     )
 
     @user = login_as(create(:user, organisation: world_tagging_organisation))
-    @user.permissions << "Preview design system"
 
     publication_has_world_expanded_links(publication.content_id)
 
@@ -221,7 +216,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
     @user = login_as(create(:user, organisation:))
-    @user.permissions << "Preview design system"
 
     get :show, params: { id: publication }
 
@@ -240,7 +234,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
     @user = login_as(create(:user, organisation:))
-    @user.permissions << "Preview design system"
     get :show, params: { id: publication }
 
     refute_select ".app-view-edition-summary__primary-specialist-sector"

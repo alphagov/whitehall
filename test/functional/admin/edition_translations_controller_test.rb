@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   setup do
-    @writer = login_as_preview_design_system_user(:writer)
+    @writer = login_as(:writer)
   end
 
   should_be_an_admin_controller
@@ -97,8 +97,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     refute_select "input#edition_title"
   end
 
-  view_test "renders the govspeak help, history and fact checking tabs with the 'Preview design system' permission" do
-    @writer.permissions << "Preview design system"
+  view_test "renders the govspeak help, history and fact checking tabs" do
     edition = create(:publication)
 
     fact_checking_view_component = Admin::Editions::FactCheckingTabComponent.new(edition:)

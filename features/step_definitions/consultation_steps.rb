@@ -29,7 +29,7 @@ When(/^I add an outcome to the consultation$/) do
   click_button "Create new edition"
   click_link "Final outcome"
 
-  fill_in using_design_system? ? "Summary (required)" : "Detail/Summary", with: "Outcome summary"
+  fill_in "Summary (required)", with: "Outcome summary"
   click_button "Save"
 
   upload_new_attachment(pdf_attachment, "Outcome attachment title")
@@ -69,11 +69,7 @@ Then(/^I can see that the consultation has been published$/) do
   expected_title = Consultation.last.title
   expected_message = "The document #{expected_title} has been published"
 
-  if using_design_system?
-    expect(page).to have_selector(".gem-c-success-alert", text: expected_message)
-  else
-    expect(page).to have_selector(".flash", text: expected_message)
-  end
+  expect(page).to have_selector(".gem-c-success-alert", text: expected_message)
 end
 
 And(/^I can see the primary locale for consultation "(.*?)" is "(.*?)"$/) do |title, locale_code|
@@ -88,30 +84,21 @@ Then(/^the consultation response should have (\d+) attachments$/) do |expected_n
 end
 
 When(/^I set the order of the responses attachments to:$/) do |attachment_order|
-  click_link "Reorder attachments" if using_design_system?
+  click_link "Reorder attachments"
 
   attachment_order.hashes.each do |attachment_info|
     attachment = Attachment.find_by(title: attachment_info[:title])
     fill_in "ordering[#{attachment.id}]", with: attachment_info[:order]
   end
 
-  click_on using_design_system? ? "Update order" : "Save attachment order"
+  click_on "Update order"
 end
 
 Then(/^the responses attachments should be in the following order:$/) do |attachment_list|
-  if using_design_system?
-    attachment_names = all("table td:first").map(&:text).map { |t| t.chomp("Uploading").strip }
+  attachment_names = all("table td:first").map(&:text).map { |t| t.chomp("Uploading").strip }
 
-    attachment_list.hashes.each_with_index do |attachment_info, index|
-      attachment = Attachment.find_by(title: attachment_info[:title])
-      expect(attachment.title).to eq(attachment_names[index])
-    end
-  else
-    attachment_ids = all(".existing-attachments > li").map { |element| element[:id] }
-
-    attachment_list.hashes.each_with_index do |attachment_info, index|
-      attachment = Attachment.find_by(title: attachment_info[:title])
-      expect("attachment_#{attachment.id}").to eq(attachment_ids[index])
-    end
+  attachment_list.hashes.each_with_index do |attachment_info, index|
+    attachment = Attachment.find_by(title: attachment_info[:title])
+    expect(attachment.title).to eq(attachment_names[index])
   end
 end

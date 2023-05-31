@@ -22,7 +22,6 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :edit shows the similar slug warning as an error which links to the input when user has 'Preview design system' permission" do
-    current_user.permissions << "Preview design system"
     create(:edition, title: "title")
     edition_with_same_title = create(:edition, title: "title")
 

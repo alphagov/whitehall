@@ -445,7 +445,6 @@ module AdminEditionControllerTestHelpers
       test "new should set first lead organisation to users organisation" do
         editors_org = create(:organisation)
         @user = login_as create(:departmental_editor, organisation: editors_org)
-        @user.permissions << "Preview design system"
         get :new
 
         assert_equal assigns(:edition).edition_organisations.first.organisation, editors_org
@@ -1088,7 +1087,6 @@ module AdminEditionControllerTestHelpers
       test "should not populate world locations if user doesn't have any" do
         create(:world_location)
         @user = login_as create(:departmental_editor, world_locations: [])
-        @user.permissions << "Preview design system"
         get :new
 
         assert_equal assigns(:edition).world_locations, []
@@ -1097,7 +1095,6 @@ module AdminEditionControllerTestHelpers
       test "should populate world locations with the current users locations" do
         world_location = create(:world_location)
         @user = login_as create(:departmental_editor, world_locations: [world_location])
-        @user.permissions << "Preview design system"
         get :new
 
         assert_equal assigns(:edition).world_locations, [world_location]
