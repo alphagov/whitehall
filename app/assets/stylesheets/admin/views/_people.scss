@@ -9,3 +9,9 @@
 .app-view-people-index__table .govuk-table__row .govuk-table__header:nth-child(3) {
   width: 5%;
 }
+
+.app-view-people-details__summary_list {
+  .govuk-summary-list__value {
+    white-space: pre-line;
+  }
+}
