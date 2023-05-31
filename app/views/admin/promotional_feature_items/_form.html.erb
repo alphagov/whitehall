@@ -1,0 +1,25 @@
+<%= form_with model: promotional_feature_item,
+      url:  promotional_feature_item.persisted? ?
+            admin_organisation_promotional_feature_item_path(organisation, promotional_feature, promotional_feature_item) :
+            admin_organisation_promotional_feature_items_path(organisation, promotional_feature) do |form| %>
+  <%= render 'form_fields', {
+    promotional_feature_item: @promotional_feature_item,
+    form: form,
+    name: "promotional_feature_item",
+    id: "promotional_feature_item"
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "promotional-feature-item-button",
+        "track-label": "Save"
+      }
+    } %>
+
+    <%= link_to("Cancel",[:admin, organisation, promotional_feature], class: "govuk-link govuk-link--no-visited-state") %>
+  </div>
+<% end %>
