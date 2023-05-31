@@ -5,7 +5,7 @@
   name: "#{name}[title]",
   id: "#{id}_title",
   value: promotional_feature_item.title,
-  heading_size: "m",
+  heading_size: heading_size,
   error_items: errors_for(promotional_feature_item.errors, :title)
 } %>
 
@@ -16,14 +16,14 @@
   name: "#{name}[title_url]",
   id: "#{id}_title_url",
   value: promotional_feature_item.title_url,
-  heading_size: "m",
+  heading_size: heading_size,
   error_items: errors_for(promotional_feature_item.errors, :title_url)
 } %>
 
 <%= render "govuk_publishing_components/components/textarea", {
   label: {
     text: "Summary (required)",
-    heading_size: "m"
+    heading_size: heading_size
   },
   name: "#{name}[summary]",
   id: "#{id}_summary",
