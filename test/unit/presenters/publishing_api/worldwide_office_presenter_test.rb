@@ -17,7 +17,7 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
       document_type: "worldwide_office",
       locale: "en",
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
-      rendering_app: "whitehall-frontend",
+      rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
       public_updated_at: worldwide_office.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
