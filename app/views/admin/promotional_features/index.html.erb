@@ -31,21 +31,22 @@
     <% end %>
 
     <% if @promotional_features.present? %>
-      <%= render "govuk_publishing_components/components/table", {
-        rows: @promotional_features.map do |promotional_feature|
-          [
-            {
-              text: promotional_feature.title
-            },
-            {
-              text: link_to(sanitize("View #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link govuk-!-margin-right-2") +
-                (link_to(sanitize("Rename #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), edit_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link")) +
-                (link_to(sanitize("Delete #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
-              format: "numeric",
-            }
-          ]
-        end
-      } %>
+      <div class="govuk-table--with-actions">
+        <%= render "govuk_publishing_components/components/table", {
+          rows: @promotional_features.map do |promotional_feature|
+            [
+              {
+                text: promotional_feature.title
+              },
+              {
+                text: link_to(sanitize("View #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link govuk-!-margin-right-2") +
+                  (link_to(sanitize("Rename #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), edit_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link")) +
+                  (link_to(sanitize("Delete #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
+              }
+            ]
+          end
+        } %>
+      </div>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
         text: "No promotional features."

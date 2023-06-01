@@ -12,34 +12,33 @@
   margin_bottom: 8
 } %>
 
-<div class="app-c-govuk-table--filterable app-view-people-index__table">
-<%= render "govuk_publishing_components/components/table", {
-  filterable: true,
-  label: "Filter people",
-  head: [
-    {
-      text: "Name"
-    },
-    {
-      text: "Biography",
-    },
-    {
-      text: tag.span("View", class: "govuk-visually-hidden"),
-      format: "numeric"
-    },
-  ],
-  rows: @people.map do |person|
-    [
+<div class="app-c-govuk-table--filterable app-view-people-index__table govuk-table--with-actions">
+  <%= render "govuk_publishing_components/components/table", {
+    filterable: true,
+    label: "Filter people",
+    head: [
       {
-        text: tag.p(person.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+        text: "Name"
       },
       {
-        text: truncate(person.biography, length: 60),
+        text: "Biography",
       },
       {
-        text: link_to(sanitize("View #{tag.span(person.name, class: "govuk-visually-hidden")}"), [:admin, person], class: "govuk-link"),
-        format: "numeric"
-      }
-    ]
-  end
-} %>
+        text: tag.span("View", class: "govuk-visually-hidden"),
+      },
+    ],
+    rows: @people.map do |person|
+      [
+        {
+          text: tag.p(person.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+        },
+        {
+          text: truncate(person.biography, length: 60),
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(person.name, class: "govuk-visually-hidden")}"), [:admin, person], class: "govuk-link"),
+        }
+      ]
+    end
+  } %>
+</div>

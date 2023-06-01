@@ -12,43 +12,43 @@
 <% if @governments.blank? %>
   <p class="govuk-body">No governments have been created.</p>
 <% else %>
-  <%= render "govuk_publishing_components/components/table", {
-    head: [
-      {
-        text: "Name"
-      },
-      {
-        text: "Start date"
-      },
-      {
-        text: "End date"
-      },
-      *([
+  <div class="<%='govuk-table--with-actions' if can?(:manage, Government) %>">
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
         {
-          text: tag.span("Edit", class: "govuk-visually-hidden"),
-          format: "numeric"
-        }
-      ] if can?(:manage, Government))
-    ],
-    rows:
-      @governments.map do |government|
-      [
-        {
-          text: tag.p(government.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+          text: "Name"
         },
         {
-          text: government.start_date.to_fs(:govuk_date)
+          text: "Start date"
         },
         {
-          text: (government.end_date.to_fs(:govuk_date) if government.end_date)
+          text: "End date"
         },
         *([
           {
-            text: link_to(sanitize("Edit #{tag.span(government.name, class: "govuk-visually-hidden")}"), edit_admin_government_path(government), class: "govuk-link"),
-            format: "numeric"
+            text: tag.span("Edit", class: "govuk-visually-hidden"),
           }
         ] if can?(:manage, Government))
-      ]
-    end
-  } %>
+      ],
+      rows:
+        @governments.map do |government|
+        [
+          {
+            text: tag.p(government.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+          },
+          {
+            text: government.start_date.to_fs(:govuk_date)
+          },
+          {
+            text: (government.end_date.to_fs(:govuk_date) if government.end_date)
+          },
+          *([
+            {
+              text: link_to(sanitize("Edit #{tag.span(government.name, class: "govuk-visually-hidden")}"), edit_admin_government_path(government), class: "govuk-link"),
+            }
+          ] if can?(:manage, Government))
+        ]
+      end
+    } %>
+  </div>
 <% end %>

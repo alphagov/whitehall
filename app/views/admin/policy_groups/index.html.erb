@@ -14,7 +14,7 @@
   } %>
 </div>
 
-<div class="app-c-govuk-table--filterable">
+<div class="app-c-govuk-table--filterable govuk-table--with-actions">
   <%= render "govuk_publishing_components/components/table", {
     filterable: true,
     head: [
@@ -26,7 +26,6 @@
       },
       {
         text: tag.span("Actions", class: "govuk-visually-hidden"),
-        format: "numeric"
       }
     ],
     rows: @policy_groups.map do |policy_group|
@@ -40,7 +39,6 @@
         {
           text: link_to(sanitize("Edit #{tag.span(policy_group.name, class: 'govuk-visually-hidden')}"), edit_admin_policy_group_path(policy_group), class: "govuk-link") +
            (link_to(sanitize("Delete #{tag.span(policy_group.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_policy_group_path(policy_group), class: "govuk-link gem-link--destructive govuk-!-margin-left-2") if can?(:delete, PolicyGroup)),
-          format: "numeric",
         }
       ]
     end

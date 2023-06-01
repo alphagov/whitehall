@@ -21,30 +21,30 @@
     } %>
 
     <% if @person.non_english_translated_locales.present? %>
-      <%= render "govuk_publishing_components/components/table", {
-        head: [
-          {
-            text: "Locale"
-          },
-          {
-            text: tag.span("Actions", class: "govuk-visually-hidden"),
-            format: "numeric",
-          }
-        ],
-        rows: @person.non_english_translated_locales.map do |locale|
-          native_language_name = Locale.coerce(locale).native_language_name
-          [
+      <div class="govuk-table--with-actions">
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
             {
-              text: sanitize("#{locale.native_language_name} " + link_to("(view)", @person.public_url(locale: locale.code), class: "govuk-link"))
+              text: "Locale"
             },
             {
-              text: sanitize("<a class='govuk-link' href='#{edit_admin_person_translation_path(@person, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{native_language_name}</span></a>" +
-                "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_translation_path(@person, locale.code)}'>Delete <span class='govuk-visually-hidden'>#{native_language_name}</span></a>"),
-              format: "numeric"
+              text: tag.span("Actions", class: "govuk-visually-hidden"),
             }
-          ]
-        end
-      } %>
+          ],
+          rows: @person.non_english_translated_locales.map do |locale|
+            native_language_name = Locale.coerce(locale).native_language_name
+            [
+              {
+                text: sanitize("#{locale.native_language_name} " + link_to("(view)", @person.public_url(locale: locale.code), class: "govuk-link"))
+              },
+              {
+                text: sanitize("<a class='govuk-link' href='#{edit_admin_person_translation_path(@person, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{native_language_name}</span></a>" +
+                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_translation_path(@person, locale.code)}'>Delete <span class='govuk-visually-hidden'>#{native_language_name}</span></a>"),
+              }
+            ]
+          end
+        } %>
+      </div>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
         text: "No translations."

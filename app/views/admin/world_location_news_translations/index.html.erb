@@ -16,36 +16,36 @@
       } %>
 
       <% if @world_location_news.non_english_translated_locales.present? %>
-        <%= render "govuk_publishing_components/components/table", {
-        first_cell_is_header: true,
-        head: [
-          {
-            text: "Locale"
-          },
-          {
-            text: sanitize("<a class='govuk-visually-hidden'>Actions</a>"),
-            format: "numeric"
-          }
-        ],
-        rows:
-          @world_location_news.non_english_translated_locales.map do |locale|
-            [
-              {
-                text: locale.native_language_name
-              },
-              {
-                text: sanitize(
-                  "<a class='govuk-link' href='#{@world_location_news.public_url(locale: locale.code)}'>View <span class='govuk-visually-hidden'>#{locale.code}</span></a>" +
+        <div class="govuk-table--with-actions">
+          <%= render "govuk_publishing_components/components/table", {
+          first_cell_is_header: true,
+          head: [
+            {
+              text: "Locale"
+            },
+            {
+              text: sanitize("<a class='govuk-visually-hidden'>Actions</a>"),
+            }
+          ],
+          rows:
+            @world_location_news.non_english_translated_locales.map do |locale|
+              [
+                {
+                  text: locale.native_language_name
+                },
+                {
+                  text: sanitize(
+                    "<a class='govuk-link' href='#{@world_location_news.public_url(locale: locale.code)}'>View <span class='govuk-visually-hidden'>#{locale.code}</span></a>" +
 
-                  "<a class='govuk-link govuk-!-margin-left-2' href='#{edit_admin_world_location_news_translation_path(@world_location_news, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{locale.code}</span></a>" +
+                    "<a class='govuk-link govuk-!-margin-left-2' href='#{edit_admin_world_location_news_translation_path(@world_location_news, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{locale.code}</span></a>" +
 
-                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code)}'>Delete<span class='govuk-visually-hidden'>#{locale.code}</span></a>"),
+                    "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code)}'>Delete<span class='govuk-visually-hidden'>#{locale.code}</span></a>"),
 
-                format: "numeric"
-              }
-            ]
-          end
-      } %>
+                }
+              ]
+            end
+          } %>
+        </div>
       <% else %>
         <p class="govuk-body">No translations</p>
       <% end %>

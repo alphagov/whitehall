@@ -5,33 +5,34 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if @sitewide_settings.present? %>
-      <%= render "govuk_publishing_components/components/table", {
-        head: [
-          {
-            text: "Name"
-          },
-          {
-            text: "On/Off"
-          },
-          {
-            text: tag.span("Edit", class: "govuk-visually-hidden"),
-            format: "numeric"
-          }
-        ],
-        rows: @sitewide_settings.map do |sitewide_setting|
-          [
+      <div class="govuk-table--with-actions">
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
             {
-              text: tag.p(sitewide_setting.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+              text: "Name"
             },
             {
-              text: sitewide_setting.human_status
+              text: "On/Off"
             },
             {
-              text: link_to(sanitize("Edit #{tag.span(sitewide_setting.name, class: "govuk-visually-hidden")}"), edit_admin_sitewide_setting_path(sitewide_setting), class: "govuk-link")
-            },
-          ]
-        end
-      } %>
+              text: tag.span("Edit", class: "govuk-visually-hidden"),
+            }
+          ],
+          rows: @sitewide_settings.map do |sitewide_setting|
+            [
+              {
+                text: tag.p(sitewide_setting.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+              },
+              {
+                text: sitewide_setting.human_status
+              },
+              {
+                text: link_to(sanitize("Edit #{tag.span(sitewide_setting.name, class: "govuk-visually-hidden")}"), edit_admin_sitewide_setting_path(sitewide_setting), class: "govuk-link")
+              },
+            ]
+          end
+        } %>
+      </div>
     <% else %>
       <%= render "components/inset_prompt",{
         description: "No sitewide settings available to configure."

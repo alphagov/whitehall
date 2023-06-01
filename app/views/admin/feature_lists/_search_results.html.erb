@@ -5,44 +5,45 @@
     No documents found
   </div>
 <% else %>
-  <%= render "govuk_publishing_components/components/table", {
-    head: [
-      {
-        text: "Title"
-      },
-      {
-        text: "Type"
-      },
-      {
-        text: "Published"
-      },
-      {
-        text: tag.span("Actions", class: "govuk-visually-hidden")
-      }
-    ],
-    rows:
-      paginator.map do |edition|
-        localised_edition = LocalisedModel.new(edition, feature_list.locale)
-        next if feature_list.features.current.detect { |f| f.document == localised_edition.document }
-        [
-           {
-             text: tag.p(localised_edition.title, class: "govuk-!-margin-0 govuk-!-font-weight-bold"),
-           },
-           {
-             text: localised_edition.type.titleize,
-           },
-           {
-             text: localize(localised_edition.major_change_published_at.to_date),
-           },
-           {
-             text: link_to(sanitize("View #{tag.span(localised_edition.title, class: "govuk-visually-hidden")}"), admin_edition_path(localised_edition), class: "govuk-link") +
-               link_to(sanitize("Feature #{tag.span(localised_edition.title, class: "govuk-visually-hidden")}"), polymorphic_url([:new, :admin, @feature_list, :feature], edition_id: localised_edition), class: "govuk-link govuk-!-margin-left-2"),
-             format: "numeric",
-           },
-        ]
-      end
-      .compact
-  } %>
+  <div class="govuk-table--with-actions">
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Title"
+        },
+        {
+          text: "Type"
+        },
+        {
+          text: "Published"
+        },
+        {
+          text: tag.span("Actions", class: "govuk-visually-hidden")
+        }
+      ],
+      rows:
+        paginator.map do |edition|
+          localised_edition = LocalisedModel.new(edition, feature_list.locale)
+          next if feature_list.features.current.detect { |f| f.document == localised_edition.document }
+          [
+             {
+               text: tag.p(localised_edition.title, class: "govuk-!-margin-0 govuk-!-font-weight-bold"),
+             },
+             {
+               text: localised_edition.type.titleize,
+             },
+             {
+               text: localize(localised_edition.major_change_published_at.to_date),
+             },
+             {
+               text: link_to(sanitize("View #{tag.span(localised_edition.title, class: "govuk-visually-hidden")}"), admin_edition_path(localised_edition), class: "govuk-link") +
+                 link_to(sanitize("Feature #{tag.span(localised_edition.title, class: "govuk-visually-hidden")}"), polymorphic_url([:new, :admin, @feature_list, :feature], edition_id: localised_edition), class: "govuk-link govuk-!-margin-left-2"),
+             },
+          ]
+        end
+        .compact
+    } %>
+  </div>
 
   <%= paginate(paginator, anchor: anchor, theme: "govuk_paginator") %>
 <% end %>

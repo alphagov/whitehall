@@ -2,6 +2,12 @@
   table-layout: fixed;
 }
 
+.govuk-table--with-actions {
+  .govuk-table__cell:last-child {
+    text-align: right;
+  }
+}
+
 .govuk-tag--s {
   @include govuk-font(14, $weight: bold, $line-height: 1);
 }
