@@ -1,5 +1,8 @@
 module PublishingApi
   class WorldwideOrganisationPresenter
+    include Rails.application.routes.url_helpers
+    include ActionView::Helpers::UrlHelper
+
     attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
@@ -25,6 +28,7 @@ module PublishingApi
             formatted_title: item.logo_formatted_name,
           },
           ordered_corporate_information_pages:,
+          secondary_corporate_information_pages:,
           social_media_links:,
         },
         document_type: item.class.name.underscore,
@@ -99,35 +103,58 @@ module PublishingApi
         end
       end
 
+      links
+    end
+
+    def secondary_corporate_information_pages
+      corporate_information_pages = item.corporate_information_pages&.published
+      return [] unless corporate_information_pages
+
+      sentences = []
+
       publication_scheme = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::PublicationScheme.id)
       if publication_scheme.present?
-        links << {
-          content_id: publication_scheme.content_id,
-          title: I18n.t("worldwide_organisation.corporate_information.publication_scheme_html", link: corporate_information_page_link_text("publication_scheme")),
-        }
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.publication_scheme_html",
+          link: t_corporate_information_page_link(item, "publication-scheme"),
+        )
       end
 
       welsh_language_scheme = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::WelshLanguageScheme.id)
       if welsh_language_scheme.present?
-        links << {
-          content_id: welsh_language_scheme.content_id,
-          title: I18n.t("worldwide_organisation.corporate_information.welsh_language_scheme_html", link: corporate_information_page_link_text("welsh_language_scheme")),
-        }
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.welsh_language_scheme_html",
+          link: t_corporate_information_page_link(item, "welsh-language-scheme"),
+        )
       end
 
       personal_information_charter = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::PersonalInformationCharter.id)
       if personal_information_charter.present?
-        links << {
-          content_id: personal_information_charter.content_id,
-          title: I18n.t("worldwide_organisation.corporate_information.personal_information_charter_html", link: corporate_information_page_link_text("personal_information_charter")),
-        }
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.personal_information_charter_html",
+          link: t_corporate_information_page_link(item, "personal-information-charter"),
+        )
       end
 
-      links
+      sentences.join(" ")
     end
 
-    def corporate_information_page_link_text(key)
-      I18n.t("corporate_information_page.type.link_text.#{key}", default: I18n.t("corporate_information_page.type.title.#{key}"))
+    def t_corporate_information_page_type_link_text(page)
+      if I18n.exists?("corporate_information_page.type.link_text.#{page.display_type_key}")
+        I18n.t("corporate_information_page.type.link_text.#{page.display_type_key}")
+      else
+        I18n.t("corporate_information_page.type.title.#{page.display_type_key}")
+      end
+    end
+
+    def t_corporate_information_page_link(organisation, slug)
+      page = organisation.corporate_information_pages.published.for_slug(slug)
+      page.extend(UseSlugAsParam)
+      link_to(
+        t_corporate_information_page_type_link_text(page),
+        page.public_path,
+        class: "govuk-link",
+      )
     end
 
     def social_media_links

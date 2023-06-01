@@ -54,19 +54,8 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
             content_id: worldwide_org.corporate_information_pages[4].content_id,
             title: "Working for Locationia Embassy",
           },
-          {
-            content_id: worldwide_org.corporate_information_pages[3].content_id,
-            title: "Read about the types of information we routinely publish in our Publication scheme.",
-          },
-          {
-            content_id: worldwide_org.corporate_information_pages[5].content_id,
-            title: "Find out about our commitment to publishing in Welsh.",
-          },
-          {
-            content_id: worldwide_org.corporate_information_pages[2].content_id,
-            title: "Our Personal information charter explains how we treat your personal information.",
-          },
         ],
+        secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
         social_media_links: [
           {
             href: "https://www.facebook.com/UKgovernment",
