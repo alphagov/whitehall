@@ -4,6 +4,7 @@
   data_attributes ||= {}
   image_src ||= nil
   image_alt ||= nil
+  image_cache ||= nil
 
   root_classes = %w(app-c-single-image-upload govuk-form-group)
 %>
@@ -24,7 +25,8 @@
     } %>
 
     <% if page_errors %>
-      <p class="govuk-body"><strong>File name: </strong><%= carrierwave_image %></p>
+      <%= hidden_field_tag "#{name}[image_cache]", image_cache %>
+      <p class="govuk-body"><strong>File name: </strong><%= filename %></p>
       <p class="govuk-body"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
     <% else %>
       <div class="govuk-grid-row app-c-single-image-upload__uploaded-image">
