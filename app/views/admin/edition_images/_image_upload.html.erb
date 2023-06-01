@@ -27,6 +27,12 @@
 
   <%= render "govuk_publishing_components/components/button", {
     text: "Upload",
-    margin_bottom: 10
+    margin_bottom: 10,
+    data_attributes: {
+      module: "gem-track-click",
+      "track-category": "form-button",
+      "track-action": "#{@edition.class.name.demodulize.underscore.dasherize}-button",
+      "track-label": "Upload"
+    }
   } %>
 <% end %>
