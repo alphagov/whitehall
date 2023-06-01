@@ -63,6 +63,18 @@ $app-cropper-point-size: 20px;
     top: -$app-cropper-point-size / 2;
     left: -$app-cropper-point-size / 2;
   }
+
+  &:focus {
+    outline: none;
+
+    .cropper-view-box {
+      outline-width: 4px;
+    }
+
+    .cropper-point {
+      transform: scale(1.1);
+    }
+  }
 }
 
 .app-c-image-cropper__image {

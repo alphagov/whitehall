@@ -21,7 +21,18 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       this.initCropper()
     }
 
-    this.setupFormListener()
+    this.$image.addEventListener('ready', function () {
+      this.initKeyboardControls()
+      this.updateAriaLabel()
+    }.bind(this))
+
+    this.$image.addEventListener('crop', function () {
+      this.updateAriaLabel()
+    }.bind(this))
+
+    this.$imageCropper.addEventListener('click', function () {
+      this.$imageCropper.focus()
+    }.bind(this))
   }
 
   ImageCropper.prototype.initCropper = function () {
@@ -51,7 +62,81 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         rotatable: false,
         scalable: false
       })
+      this.setupFormListener()
     }
+  }
+
+  ImageCropper.prototype.initKeyboardControls = function () {
+    this.$imageCropper.addEventListener('keydown', function (e) {
+      var cropBoxData = this.cropper.getCropBoxData()
+
+      switch (e.keyCode) {
+        case 37:
+          e.preventDefault()
+          cropBoxData.left -= 10
+          break
+
+        case 38:
+          e.preventDefault()
+          cropBoxData.top -= 10
+          break
+
+        case 39:
+          e.preventDefault()
+          cropBoxData.left += 10
+          break
+
+        case 40:
+          e.preventDefault()
+          cropBoxData.top += 10
+          break
+
+        case 187:
+          e.preventDefault()
+          cropBoxData.height *= 1.05
+          cropBoxData.width *= 1.05
+          break
+
+        case 189:
+          e.preventDefault()
+          cropBoxData.height /= 1.05
+          cropBoxData.width /= 1.05
+          break
+      }
+      this.cropper.setCropBoxData(cropBoxData)
+    }.bind(this))
+  }
+
+  ImageCropper.prototype.updateAriaLabel = function () {
+    var cropBoxData = this.cropper.getCropBoxData()
+    var imageData = this.cropper.getImageData()
+    var portionSelected = (cropBoxData.height * cropBoxData.width) /
+            (imageData.height * imageData.width)
+    var percentage = Math.round(portionSelected * 10) * 10
+    if (percentage === 100) {
+      this.$imageCropper.ariaLabel = 'Image to be cropped. All of the image is selected.'
+      return
+    }
+
+    var horizontalPosition = cropBoxData.left / (imageData.width - cropBoxData.width)
+    var verticalPosition = cropBoxData.top / (imageData.height - cropBoxData.height)
+
+    var positionText = ''
+    if (verticalPosition < 0.33) {
+      positionText += 'top '
+    } else if (verticalPosition > 0.67) {
+      positionText += 'bottom '
+    }
+    if (horizontalPosition < 0.33) {
+      positionText += 'left '
+    } else if (horizontalPosition > 0.67) {
+      positionText += 'right '
+    }
+
+    if (positionText === '') positionText = 'middle '
+    this.$imageCropper.ariaLabel = 'Image to be cropped. ' +
+        percentage + '% of the image, centered on the ' +
+        positionText + 'is selected.'
   }
 
   ImageCropper.prototype.setupFormListener = function () {
