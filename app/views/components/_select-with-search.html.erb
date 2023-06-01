@@ -13,9 +13,9 @@
 
 <%= content_tag :div, class: select_helper.css_classes, data: select_helper.data_attributes do %>
   <% if is_page_heading %>
-    <%= tag.h1 label_tag(id, label, class: select_helper.label_classes), class: "gem-c-title__text" %>
+    <%= tag.h1 label_tag(id, label, class: select_helper.label_classes, id: "#{id}_label"), class: "gem-c-title__text" %>
   <% else %>
-    <%= label_tag(id, label, class: select_helper.label_classes) %>
+    <%= label_tag(id, label, class: select_helper.label_classes, id: "#{id}_label") %>
   <% end %>
 
   <% if select_helper.hint %>

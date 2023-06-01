@@ -23,6 +23,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       shouldSort: false, // show options and groups in the order they were given
       itemSelectText: '',
       searchResultLimit: 100,
+      labelId: this.select.id + '_label',
       // https://fusejs.io/api/options.html
       fuseOptions: {
         ignoreLocation: true, // matches any part of the string
