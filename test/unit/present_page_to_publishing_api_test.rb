@@ -23,7 +23,7 @@ class PresentPageToPublishingApiTest < ActiveSupport::TestCase
 
     Services.publishing_api.expects(:put_content).with(presenter.content_id, expected_content)
     Services.publishing_api.expects(:patch_links).with(presenter.content_id, links: presenter.links)
-    Services.publishing_api.expects(:publish).with(presenter.content_id, nil)
+    Services.publishing_api.expects(:publish).with(presenter.content_id, nil, locale: "en")
 
     PresentPageToPublishingApi.new.publish(presenter_class)
   end

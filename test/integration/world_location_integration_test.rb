@@ -53,7 +53,7 @@ class WorldLocationIntegrationTest < ActionDispatch::IntegrationTest
     presenter = PublishingApi::EmbassiesIndexPresenter.new
     Services.publishing_api.expects(:put_content).with(presenter.content_id, presenter.content)
     Services.publishing_api.expects(:patch_links).with(presenter.content_id, links: presenter.links)
-    Services.publishing_api.expects(:publish).with(presenter.content_id, anything)
+    Services.publishing_api.expects(:publish).with(presenter.content_id, anything, anything)
   end
 
   test "when updating, makes the correct calls to publishing api" do
