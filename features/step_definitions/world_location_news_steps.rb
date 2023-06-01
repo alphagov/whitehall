@@ -94,7 +94,7 @@ Given(/^the world location has an offsite link with the title "([^"]*)"$/) do |t
 end
 
 And(/^I create a new a non-GOV.UK link with the title "([^"]*)"$/) do |title|
-  click_link "Create a new link"
+  click_link "Create new link"
 
   fill_in "Title (required)", with: title
   fill_in "Summary (required)", with: "Summary"

@@ -4,7 +4,10 @@
 } %>
 
 <p class="govuk-body">
-  <%= link_to "Create a new link", [:new, :admin, model, :offsite_link], class: "govuk-link" %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Create new link",
+    href: [:new, :admin, model, :offsite_link]
+  } %>
 </p>
 
 <% if featurable_offsite_links_for_feature_list(featurable_offsite_links, feature_list).any? %>
