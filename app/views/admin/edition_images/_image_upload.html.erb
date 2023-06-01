@@ -12,6 +12,7 @@
     id: "edition_images_image_data_file",
     hint: raw('Images can be JPEG, PNG, SVG or GIF files. If you are uploading more than one image, <a class="govuk-link" href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos">read the image guidance</a> on using unique file names.'),
     error_items: @new_image.present? ? errors_for(@new_image.errors, :"image_data.file") : nil,
+    accept: "image/png, image/jpeg, image/gif, image/svg+xml"
   } %>
 
    <%= render "govuk_publishing_components/components/details", {
