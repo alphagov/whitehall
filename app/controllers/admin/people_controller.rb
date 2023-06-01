@@ -5,12 +5,12 @@ class Admin::PeopleController < Admin::BaseController
 
   def index
     @people = Person.order(:surname, :forename).includes(:translations)
-    render_design_system(:index, :legacy_index, next_release: false)
+    render_design_system(:index, :legacy_index, next_release: true)
   end
 
   def new
     @person = Person.new
-    render_design_system(:new, :legacy_new, next_release: false)
+    render_design_system(:new, :legacy_new, next_release: true)
   end
 
   def create
@@ -18,23 +18,23 @@ class Admin::PeopleController < Admin::BaseController
     if @person.save
       redirect_to [:admin, @person], notice: %("#{@person.name}" created.)
     else
-      render_design_system(:new, :legacy_new, next_release: false)
+      render_design_system(:new, :legacy_new, next_release: true)
     end
   end
 
   def show
-    render_design_system(:show, :legacy_show, next_release: false)
+    render_design_system(:show, :legacy_show, next_release: true)
   end
 
   def edit
-    render_design_system(:edit, :legacy_edit, next_release: false)
+    render_design_system(:edit, :legacy_edit, next_release: true)
   end
 
   def update
     if @person.update(person_params)
       redirect_to [:admin, @person], notice: %("#{@person.name}" saved.)
     else
-      render_design_system(:edit, :legacy_edit, next_release: false)
+      render_design_system(:edit, :legacy_edit, next_release: true)
     end
   end
 
@@ -71,7 +71,7 @@ private
 
   def get_layout
     design_system_actions = %w[reorder_role_appointments update_order_role_appointments]
-    design_system_actions += %w[index show confirm_destroy new create edit update] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show confirm_destroy new create edit update] if preview_design_system?(next_release: true)
 
     if action_name.in?(design_system_actions)
       "design_system"
