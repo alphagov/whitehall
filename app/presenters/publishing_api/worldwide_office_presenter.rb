@@ -22,7 +22,7 @@ module PublishingApi
         },
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_office",
       )
 
