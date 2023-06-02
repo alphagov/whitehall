@@ -147,20 +147,17 @@ When(/^I add default access information to the worldwide organisation$/) do
   click_button "Save"
 end
 
-Then(/^I should see the default access information on the edit "([^"]*)" office page$/) do |office_name|
+Then(/^I should see the default access information on the public "([^"]*)" office page$/) do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
-  visit edit_admin_worldwide_organisation_worldwide_office_access_and_opening_time_path(worldwide_organisation, worldwide_office)
+  visit worldwide_organisation.public_path
+  within record_css_selector(worldwide_office) do
+    click_link "Access and opening times"
+  end
 
-  expect(page).to have_content("Default body information")
-end
-
-Then(/^I should see custom access information on the edit "([^"]*)" office page$/) do |office_name|
-  worldwide_organisation = WorldwideOrganisation.last
-  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
-  visit edit_admin_worldwide_organisation_worldwide_office_access_and_opening_time_path(worldwide_organisation, worldwide_office)
-
-  expect(page).to have_content("Custom body information")
+  within ".body" do
+    expect(page).to have_content("Default body information")
+  end
 end
 
 Given(/^a worldwide organisation "([^"]*)" with default access information$/) do |name|
@@ -193,6 +190,19 @@ When(/^I give "([^"]*)" custom access information$/) do |office_name|
 
   fill_in "Body", with: "Custom body information"
   click_button "Save"
+end
+
+Then(/^I should see the custom access information on the public "([^"]*)" office page$/) do |office_name|
+  worldwide_organisation = WorldwideOrganisation.last
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
+  visit worldwide_organisation.public_path
+  within record_css_selector(worldwide_office) do
+    click_link "Access and opening times"
+  end
+
+  within ".body" do
+    expect(page).to have_content("Custom body information")
+  end
 end
 
 Then(/^I should see the updated default access information$/) do
