@@ -53,6 +53,7 @@ Whitehall::Application.routes.draw do
       get "/:organisation_id/office" => redirect("/world/organisations/%{organisation_id}", prefix: "")
       get "/:organisation_id/about(.:locale)", as: "about", constraints: { locale: valid_locales_regex }, to: rack_404
       get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
+      get "/office/:id(.:locale)", as: "worldwide_office", to: "worldwide_offices#show", constraints: { locale: valid_locales_regex }
     end
   end
 
