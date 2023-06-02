@@ -1,12 +1,11 @@
 require "test_helper"
 
 class Admin::StatisticsAnnouncementsHelperTest < ActionView::TestCase
-
   def absolute_time(*_args)
     "absolute_time"
   end
 
-  def linked_author(*args)
+  def linked_author(*_args)
     "linked_author"
   end
 

@@ -27,6 +27,7 @@ module Admin::UrlOptionsHelper
     link_to link_text, show_url_with_public_and_cachebusted_options(model,
                                                                     url_options), options
   end
+
   def auth_bypass_options(edition)
     {
       token: edition.auth_bypass_token,

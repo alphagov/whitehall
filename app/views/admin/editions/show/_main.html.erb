@@ -1,6 +1,6 @@
-<div class="app-view-edition-summary__main">
-  <section class="app-view-edition-summary__section page-header">
-    <div class="app-view-edition-summary__document-summary">
+<div class="app-view-summary__main">
+  <section class="app-view-summary__section page-header">
+    <div class="app-view-summary__document-summary">
       <p class="govuk-body-lead"><%= @edition.summary %></p>
     </div>
 
@@ -31,7 +31,7 @@
 
   <%= render partial: 'admin/editions/show/main_notices', locals: { edition: @edition } %>
 
-  <section class="app-view-edition-summary__section">
+  <section class="app-view-summary__section">
     <% if not @edition.publicly_visible? %>
       <%= render "govuk_publishing_components/components/heading", {
         text: "Preview",
@@ -101,7 +101,7 @@
   </section>
 
   <% if @edition.change_note_required? %>
-    <section class="app-view-edition-summary__section">
+    <section class="app-view-summary__section">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Public change note",
         heading_level: 2,
@@ -121,7 +121,7 @@
     </section>
   <% end %>
 
-  <section class="app-view-edition-summary__section app-view-edition-summary__taxonomy-topics">
+  <section class="app-view-summary__section app-view-summary__taxonomy-topics">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Topic taxonomy tags",
       heading_level: 2,
@@ -136,9 +136,9 @@
 
     <% @edition_taxons.map(&:full_path).each do | tag_path | %>
       <div class="govuk-breadcrumbs">
-        <ol class="govuk-breadcrumbs__list app-view-edition-summary__topic-tag-list">
+        <ol class="govuk-breadcrumbs__list app-view-summary__topic-tag-list">
           <% tag_path.each do | path | %>
-            <li class="govuk-breadcrumbs__list-item app-view-edition-summary__topic-tag-list-item"><%= path[:title] %></li>
+            <li class="govuk-breadcrumbs__list-item app-view-summary__topic-tag-list-item"><%= path[:title] %></li>
           <% end %>
         </ol>
       </div>
@@ -150,7 +150,7 @@
     <% end %>
   </section>
 
-  <section class="app-view-edition-summary__section">
+  <section class="app-view-summary__section">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Specialist topic tags",
       heading_level: 2,
@@ -173,7 +173,7 @@
           heading_level: 3,
           margin_bottom: 3,
         } %>
-        <div class="app-view-edition-summary__primary-specialist-sector">
+        <div class="app-view-summary__primary-specialist-sector">
           <%= render "govuk_publishing_components/components/list", {
             visible_counters: true,
             items: [specialist_sector_name(@edition.primary_specialist_sector_tag)]
@@ -187,7 +187,7 @@
           heading_level: 3,
           margin_bottom: 3,
         } %>
-        <div class="app-view-edition-summary__secondary-specialist-sectors">
+        <div class="app-view-summary__secondary-specialist-sectors">
           <%= render "govuk_publishing_components/components/list", {
             visible_counters: true,
             items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
@@ -200,7 +200,7 @@
   </section>
 
   <% if @edition.can_be_tagged_to_worldwide_taxonomy? %>
-    <section class="app-view-edition-summary__section app-view-edition-summary__world-taxonomy">
+    <section class="app-view-summary__section app-view-summary__world-taxonomy">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Worldwide",
         heading_level: 2,
@@ -215,9 +215,9 @@
       <% if @edition_world_taxons.map(&:full_path).any? %>
         <% @edition_world_taxons.map(&:full_path).each do | tag_path | %>
           <div class="govuk-breadcrumbs">
-            <ol class="govuk-breadcrumbs__list app-view-edition-summary__topic-tag-list">
+            <ol class="govuk-breadcrumbs__list app-view-summary__topic-tag-list">
               <% tag_path.each do | path | %>
-                <li class="govuk-breadcrumbs__list-item app-view-edition-summary__topic-tag-list-item"><%= path[:title] %></li>
+                <li class="govuk-breadcrumbs__list-item app-view-summary__topic-tag-list-item"><%= path[:title] %></li>
               <% end %>
             </ol>
           </div>
@@ -229,7 +229,7 @@
   <% end %>
 
   <% if @edition.allows_attachments? %>
-    <section class="app-view-edition-summary__section app-view-edition-summary__section--attachments">
+    <section class="app-view-summary__section app-view-summary__section--attachments">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Attachments",
         heading_level: 2,
@@ -278,7 +278,7 @@
     </section>
   <% end %>
   <% if @edition.translatable? %>
-    <section class="app-view-edition-summary__section">
+    <section class="app-view-summary__section">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Translations",
         heading_level: 2,
@@ -323,7 +323,7 @@
     </section>
   <% end %>
 
-  <section class="app-view-edition-summary__section app-view-edition-summary__section-user-needs">
+  <section class="app-view-summary__section app-view-summary__section-user-needs">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Associated user needs",
       heading_level: 2,

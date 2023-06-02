@@ -45,8 +45,8 @@
     } %>
     <% if @statistics_announcement.cancelled? %>
       <p class="govuk-body">
-        <span><%= @statistics_announcement.release_date.to_fs(:date_with_time) %></span>
-        <span> (cancelled)</span>
+        <span class="govuk-body"><%= @statistics_announcement.release_date.to_fs(:date_with_time) %></span>
+        <span class="govuk-body"> (cancelled)</span>
       </p>
     <% else %>
       <p class="govuk-body"> <%= @statistics_announcement.release_date.to_fs(:date_with_time) %> </p>

@@ -26,12 +26,12 @@ private
   end
 
   def assert_selected_specialist_sectors_are_displayed
-    expect(page).to have_selector(".app-view-edition-summary__primary-specialist-sector li", text: "Oil and Gas: Wells")
-    expect(page).to have_selector(".app-view-edition-summary__secondary-specialist-sectors li", text: "Oil and Gas: Fields")
-    expect(page).to have_selector(".app-view-edition-summary__secondary-specialist-sectors li", text: "Oil and Gas: Offshore")
+    expect(page).to have_selector(".app-view-summary__primary-specialist-sector li", text: "Oil and Gas: Wells")
+    expect(page).to have_selector(".app-view-summary__secondary-specialist-sectors li", text: "Oil and Gas: Fields")
+    expect(page).to have_selector(".app-view-summary__secondary-specialist-sectors li", text: "Oil and Gas: Offshore")
 
-    expect(page).to_not have_selector(".app-view-edition-summary__primary-specialist-sector li", text: "Oil and Gas: Fields")
-    expect(page).to_not have_selector(".app-view-edition-summary__secondary-specialist-sectors li", text: "Oil and Gas: Wells")
+    expect(page).to_not have_selector(".app-view-summary__primary-specialist-sector li", text: "Oil and Gas: Fields")
+    expect(page).to_not have_selector(".app-view-summary__secondary-specialist-sectors li", text: "Oil and Gas: Wells")
   end
 end
 

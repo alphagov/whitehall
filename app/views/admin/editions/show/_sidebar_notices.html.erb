@@ -1,4 +1,4 @@
-<div class="app-view-edition-summary__sidebar-notices">
+<div class="app-view-summary__sidebar-notices">
   <% if @edition.scheduled_publication %>
     <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
       <%= render "components/inset_prompt", {

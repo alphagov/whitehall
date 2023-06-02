@@ -35,7 +35,7 @@
   <% end %>
 
   <% if edition.scheduled_publication.present? %>
-    <div class="app-view-edition-summary__scheduled-notice">
+    <div class="app-view-summary__scheduled-notice">
       <%= render "/components/inset_prompt", {
         description: (edition.scheduled? ? "Scheduled for publication on " : "Scheduled publication proposed for ") + (l edition.scheduled_publication, format: :long) + ".",
       } %>
