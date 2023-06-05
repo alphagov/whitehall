@@ -40,6 +40,6 @@
       fallback = t_fallback('contact.access_and_opening_times')
       lang = fallback if fallback && fallback != I18n.locale
     %>
-    <p class="govuk-body"><%= link_to t('contact.access_and_opening_times'), [contact.worldwide_organisation, contact], class: "govuk-link", lang: lang %></p>
+    <p class="govuk-body"><%= link_to t('contact.access_and_opening_times'), contact.public_url, class: "govuk-link", lang: lang %></p>
   <% end %>
 <% end %>
