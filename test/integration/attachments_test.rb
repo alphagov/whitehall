@@ -9,7 +9,7 @@ class AttachmentsTest < ActionDispatch::IntegrationTest
   end
 
   def attachment_note
-    page.find("p", text: "Note:")
+    page.find(".govuk-inset-text")
   end
 
   test "displays attachment helper copy for non-publications" do
