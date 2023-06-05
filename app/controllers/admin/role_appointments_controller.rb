@@ -5,6 +5,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
   def new
     role = Role.find(params[:role_id])
     @role_appointment = role.role_appointments.build(started_at: Time.zone.today)
+    @current_appointment = params[:make_current]
 
     render_design_system("new", "legacy_new", next_release: false)
   end
@@ -15,7 +16,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
     if @role_appointment.save
       redirect_to edit_admin_role_path(role), notice: "Appointment created"
     else
-      params[:make_current] = params[:role_appointment][:make_current]
+      @current_appointment = params[:role_appointment][:make_current]
       render_design_system("new", "legacy_new", next_release: false)
     end
   end
