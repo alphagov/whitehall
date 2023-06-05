@@ -1,98 +1,11 @@
-<% content_for :page_class, 'statistics-announcements-show' %>
-<% page_title "Statistics announcement: #{@statistics_announcement.title}" %>
+<% content_for :page_title, "Statistics announcement: #{@statistics_announcement.title}" %>
+<% content_for :title, "#{@statistics_announcement.title}" %>
 
-<div class="row">
-  <div class="col-md-8">
-    <h1>
-      <span class="stats-small-heading">
-        <%= @statistics_announcement.display_type %>
-      </span>
-      <span class="stats-heading">
-        <%= @statistics_announcement.title %>
-      </span>
-    </h1>
-    <%= view_on_website_link_for @statistics_announcement %>
-
-    <% if @statistics_announcement.cancelled? %>
-      <div class="alert alert-danger add-top-margin">
-        <h2>Statistics release cancelled</h2>
-        <p><%= @statistics_announcement.cancellation_reason %></p>
-      </div>
-    <% end %>
-
-    <%= render 'document_status', statistics_announcement: @statistics_announcement %>
-
-    <dl class="stats-details dl-horizontal">
-      <dt>Release date:</dt>
-      <dd>
-        <% if @statistics_announcement.cancelled? %>
-          <del><%= @statistics_announcement.release_date.to_fs(:date_with_time) %></del> (Cancelled)
-        <% else %>
-          <%= @statistics_announcement.release_date.to_fs(:date_with_time) %>
-        <% end %>
-        –
-        <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement) %>
-      </dd>
-      <dt>Display date:</dt>
-      <dd>
-        <%= @statistics_announcement.display_date %>
-        (<%= @statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)
-      </dd>
-      <% if @statistics_announcement.last_change_note.present? %>
-        <dt>Change note:</dt>
-        <dd>
-          <%= @statistics_announcement.last_change_note %>
-        </dd>
-      <% end %>
-      <dt>Type:</dt>
-      <dd><%= @statistics_announcement.display_type %></dd>
-      <dt>Organisations:</dt>
-      <dd><%= @statistics_announcement.organisations.map(&:name).to_sentence %></dd>
-    </dl>
-
-    <p class="stats-summary">
-      <%= @statistics_announcement.summary %>
-    </p>
-
-    <div class="form-actions">
-      <%= link_to "Edit announcement", [:edit, :admin, @statistics_announcement], class: "btn btn-default add-right-margin"%>
-
-      <% if can?(:unpublish, @statistics_announcement) %>
-        <%= link_to "Unpublish announcement", new_admin_statistics_announcement_unpublish_path(@statistics_announcement), class: "btn btn-default pull-right add-left-margin" %>
-      <% end %>
-
-      <% if  @statistics_announcement.cancelled? %>
-        <%= link_to "Edit cancellation reason", [:cancel_reason, :admin, @statistics_announcement], class: 'btn btn-default' %>
-      <% else %>
-        <%= link_to "Cancel statistics release", [:cancel, :admin, @statistics_announcement], class: "btn btn-default pull-right" %>
-      <% end %>
-    </div>
-
-    <%= render partial: '/admin/shared/tagging/show_tags_box', locals: {
-      path_to_edit_tags: edit_admin_statistics_announcement_tags_path(@statistics_announcement.id),
-      selected_taxon_paths: @edition_taxons.map(&:full_path),
-      no_topics_message: 'No topics - please add a topic'
-    } %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render partial: 'admin/statistics_announcements/show/main' %>
   </div>
-
-  <div class="col-md-4">
-    <h3 class="add-vertical-margins">History</h3>
-    <ul class="unstyled">
-      <% if @statistics_announcement.cancelled? %>
-        <li class="add-bottom-margin">
-          Announcement cancelled<br />
-          <%= @statistics_announcement.cancelled_by ? linked_author(@statistics_announcement.cancelled_by) : "User (removed)" %>
-          <%= absolute_time(@statistics_announcement.cancelled_at, class: "created_at") %>
-        </li>
-      <% end %>
-
-      <% @statistics_announcement.statistics_announcement_dates.reverse.each do |previous_date| %>
-        <li class="add-bottom-margin">
-          Release date set to &ldquo;<%= previous_date.display_date %>&rdquo;<br />
-          <%= previous_date.creator ? linked_author(previous_date.creator) : "User (removed) "%>
-          <%= absolute_time(previous_date.created_at, class: "created_at") %>
-        </li>
-      <% end %>
-    </ul>
+  <div class="govuk-grid-column-one-third">
+    <%= render partial: 'admin/statistics_announcements/show/sidebar' %>
   </div>
 </div>

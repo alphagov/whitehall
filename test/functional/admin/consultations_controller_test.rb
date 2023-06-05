@@ -144,7 +144,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     stub_publishing_api_expanded_links_with_taxons(french_consultation.content_id, [])
 
     get :show, params: { id: french_consultation }
-    assert_select ".app-view-edition-summary__section a", text: "Preview on website  (opens in new tab)", href: french_consultation.public_url(draft: true)
+    assert_select ".app-view-summary__section a", text: "Preview on website  (opens in new tab)", href: french_consultation.public_url(draft: true)
   end
 
   view_test "edit displays consultation fields" do

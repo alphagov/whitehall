@@ -158,7 +158,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication_has_no_expanded_links(publication.content_id)
     get :show, params: { id: publication }
 
-    assert_select ".app-view-edition-summary__taxonomy-topics .govuk-link", "Add tags"
+    assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Add tags"
   end
 
   view_test "when edition is tagged to the new taxonomy" do
@@ -176,10 +176,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    assert_select ".app-view-edition-summary__taxonomy-topics .govuk-link", "Change tags"
-    assert_select ".app-view-edition-summary__taxonomy-topics .app-view-edition-summary__topic-tag-list-item", "Education, Training and Skills"
-    assert_select ".app-view-edition-summary__taxonomy-topics .app-view-edition-summary__topic-tag-list-item", "Primary Education"
-    assert_select ".app-view-edition-summary__world-taxonomy .govuk-link", "Add tags"
+    assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Change tags"
+    assert_select ".app-view-summary__taxonomy-topics .app-view-summary__topic-tag-list-item", "Education, Training and Skills"
+    assert_select ".app-view-summary__taxonomy-topics .app-view-summary__topic-tag-list-item", "Primary Education"
+    assert_select ".app-view-summary__world-taxonomy .govuk-link", "Add tags"
   end
 
   view_test "when edition is tagged to the world taxonomy" do
@@ -197,10 +197,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    assert_select ".app-view-edition-summary__world-taxonomy .govuk-link", "Change tags"
-    assert_select ".app-view-edition-summary__world-taxonomy .app-view-edition-summary__topic-tag-list-item", "World Child Taxon"
-    assert_select ".app-view-edition-summary__world-taxonomy .app-view-edition-summary__topic-tag-list-item", "World Grandchild Taxon"
-    assert_select ".app-view-edition-summary__taxonomy-topics .govuk-link", "Add tags"
+    assert_select ".app-view-summary__world-taxonomy .govuk-link", "Change tags"
+    assert_select ".app-view-summary__world-taxonomy .app-view-summary__topic-tag-list-item", "World Child Taxon"
+    assert_select ".app-view-summary__world-taxonomy .app-view-summary__topic-tag-list-item", "World Grandchild Taxon"
+    assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Add tags"
   end
 
   view_test "shows summary when edition is tagged to all legacy associations" do
@@ -236,8 +236,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     @user = login_as(create(:user, organisation:))
     get :show, params: { id: publication }
 
-    refute_select ".app-view-edition-summary__primary-specialist-sector"
-    refute_select ".app-view-edition-summary__secondary-specialist-sectors"
+    refute_select ".app-view-summary__primary-specialist-sector"
+    refute_select ".app-view-summary__secondary-specialist-sectors"
     assert_select ".govuk-body", "No specialist topic tags for this document"
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Add specialist topic tags/
   end
@@ -273,9 +273,9 @@ private
   end
 
   def assert_selected_specialist_sectors_are_displayed
-    assert_select ".app-view-edition-summary__primary-specialist-sector li", "Oil and Gas: Wells"
-    assert_select ".app-view-edition-summary__secondary-specialist-sectors li", "Oil and Gas: Fields"
-    assert_select ".app-view-edition-summary__secondary-specialist-sectors li", "Oil and Gas: Offshore"
+    assert_select ".app-view-summary__primary-specialist-sector li", "Oil and Gas: Wells"
+    assert_select ".app-view-summary__secondary-specialist-sectors li", "Oil and Gas: Fields"
+    assert_select ".app-view-summary__secondary-specialist-sectors li", "Oil and Gas: Offshore"
   end
 
   def publication_has_no_expanded_links(content_id)

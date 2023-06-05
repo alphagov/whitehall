@@ -70,7 +70,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
     get :show, params: { id: detailed_guide.id }
 
-    assert_select ".app-view-edition-summary__section-user-needs" do |_section|
+    assert_select ".app-view-summary__section-user-needs" do |_section|
       assert_select ".govuk-table__row" do
         assert_select ".govuk-table__cell", text: "As a x,\n I need to y,\n So that z"
         assert_select ".govuk-link[href*='#{content_id_a}']"

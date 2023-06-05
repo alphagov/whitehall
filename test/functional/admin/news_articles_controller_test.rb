@@ -46,7 +46,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, params: { id: draft_news_article }
 
-    assert_select ".app-view-edition-summary__document-summary .govuk-body-lead", text: "a-simple-summary"
+    assert_select ".app-view-summary__document-summary .govuk-body-lead", text: "a-simple-summary"
   end
 
 private
