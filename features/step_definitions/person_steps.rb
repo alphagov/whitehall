@@ -13,10 +13,10 @@ end
 
 When(/^I add a new person called "([^"]*)"$/) do |name|
   visit_people_admin
-  click_link using_design_system? ? "Create new person" : "Create person"
+  click_link "Create new person"
   fill_in_person_name name
   fill_in "Biography", with: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  attach_file using_design_system? ? "Upload a file" : "Image", jpg_image
+  attach_file "Upload a file", jpg_image
   click_button "Save"
 end
 
@@ -32,7 +32,7 @@ end
 When(/^I remove the person "([^"]*)"$/) do |name|
   visit_people_admin
   click_link name
-  click_link "Delete" if using_design_system?
+  click_link "Delete"
   click_button "Delete"
 end
 
@@ -53,11 +53,7 @@ end
 
 Then(/^I should be able to see "([^"]*)" in the list of people$/) do |name|
   visit_people_admin
-  if using_design_system?
-    expect(page).to have_selector(".govuk-table__row:nth-child(1)", text: name)
-  else
-    expect(page).to have_selector(".person .name", text: name)
-  end
+  expect(page).to have_selector(".govuk-table__row:nth-child(1)", text: name)
 end
 
 Then(/^I should not be able to see "([^"]*)" in the list of people$/) do |name|
