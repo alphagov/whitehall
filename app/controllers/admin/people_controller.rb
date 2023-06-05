@@ -62,6 +62,7 @@ class Admin::PeopleController < Admin::BaseController
   end
 
 private
+
   def load_person
     @person = Person.friendly.find(params[:id])
   end
