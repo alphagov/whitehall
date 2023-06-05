@@ -27,7 +27,7 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     @topical_event_featuring = @topical_event.topical_event_featurings.build(edition: featured_edition, offsite_link: featured_offsite_link)
     @topical_event_featuring.build_image
 
-    render_design_system(:new, :legacy_new, next_release: true)
+    render_design_system(:new, :legacy_new, next_release: false)
   end
 
   def create
@@ -40,7 +40,7 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
                        end
       redirect_to polymorphic_path([:admin, @topical_event, :topical_event_featurings])
     else
-      render_design_system(:new, :legacy_new, next_release: true)
+      render_design_system(:new, :legacy_new, next_release: false)
     end
   end
 
