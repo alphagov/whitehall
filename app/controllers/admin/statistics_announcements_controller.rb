@@ -8,6 +8,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
     @statistics_announcements = @filter.statistics_announcements
+
+    render :legacy_index
   end
 
   def show
