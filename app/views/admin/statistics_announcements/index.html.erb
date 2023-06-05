@@ -1,0 +1,35 @@
+<% content_for :page_title, @filter.title %>
+<% content_for :title, @filter.title %>
+<% content_for :banner, render("banner", show_banner: show_unlinked_announcements_warning?, count: unlinked_announcements_count, filter: @filter) %>
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render 'warning' %>
+
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Create announcement",
+      href: new_admin_statistics_announcement_path,
+      title: "Create a statistics announcement",
+      margin_bottom: 8,
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "create-announcement-button",
+        "track-label": "Create announcement"
+      }
+    } %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <%= render 'filter_options', filter_action: admin_statistics_announcements_path %>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <div class="app-view-edition-index__table">
+      <%= render 'search_results', filter: @filter, paginator: @statistics_announcements, show_export: true %>
+    </div>
+  </div>
+</div>
+

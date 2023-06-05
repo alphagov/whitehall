@@ -72,8 +72,13 @@ end
 Then(/^I should see my organisation's statistics announcements on the statistical announcements page by default$/) do
   visit admin_statistics_announcements_path
 
-  expect(page).to have_selector("tr.statistics_announcement", text: @organisation_announcement.title)
-  expect(page).to_not have_selector("tr.statistics_announcement", text: @other_organisation_announcement.title)
+  if using_design_system?
+    expect(page).to have_selector("td.govuk-table__cell", text: @organisation_announcement.title)
+    expect(page).to_not have_selector("td.govuk-table__cell", text: @other_organisation_announcement.title)
+  else
+    expect(page).to have_selector("tr.statistics_announcement", text: @organisation_announcement.title)
+    expect(page).to_not have_selector("tr.statistics_announcement", text: @other_organisation_announcement.title)
+  end
 end
 
 When(/^I filter statistics announcements by the other organisation$/) do
@@ -82,8 +87,13 @@ When(/^I filter statistics announcements by the other organisation$/) do
 end
 
 Then(/^I should only see the statistics announcement of the other organisation$/) do
-  expect(page).to have_selector("tr.statistics_announcement", text: @other_organisation_announcement.title)
-  expect(page).to_not have_selector("tr.statistics_announcement", text: @organisation_announcement.title)
+  if using_design_system?
+    expect(page).to have_selector("td.govuk-table__cell", text: @other_organisation_announcement.title)
+    expect(page).to_not have_selector("td.govuk-table__cell", text: @organisation_announcement.title)
+  else
+    expect(page).to have_selector("tr.statistics_announcement", text: @other_organisation_announcement.title)
+    expect(page).to_not have_selector("tr.statistics_announcement", text: @organisation_announcement.title)
+  end
 end
 
 When(/^I link the announcement to the publication$/) do
@@ -244,7 +254,7 @@ Then(/^the document becomes linked to the announcement$/) do
   publication = Publication.last
   visit admin_statistics_announcements_path(organisation_id: "")
 
-  within record_css_selector(@statistics_announcement) do
+  within using_design_system? ? ".govuk-table__body" : record_css_selector(@statistics_announcement) do
     expect(page).to have_link(publication.title, href: admin_publication_path(publication))
   end
 end
@@ -257,8 +267,15 @@ Then(/^I should see the announcement listed on the list of announcements$/) do
 end
 
 Then(/^I should (see|only see) a statistics announcement called "(.*?)"$/) do |single_or_multiple, title|
-  expect(page).to have_selector("tr.statistics_announcement", count: 1) if single_or_multiple == "only see"
-  expect(page).to have_selector("tr.statistics_announcement", text: title)
+  if using_design_system?
+    within ".govuk-table__body" do
+      expect(page).to have_selector("tr.govuk-table__row", count: 1) if single_or_multiple == "only see"
+      expect(page).to have_selector("tr.govuk-table__row", text: title)
+    end
+  else
+    expect(page).to have_selector("tr.statistics_announcement", count: 1) if single_or_multiple == "only see"
+    expect(page).to have_selector("tr.statistics_announcement", text: title)
+  end
 end
 
 Then(/^the new date is reflected on the announcement$/) do
@@ -271,14 +288,24 @@ Then(/^I should be able to filter both past and future announcements$/) do
   select "Future releases", from: "Release date"
   click_on "Search"
 
-  expect(page).to have_selector("tr.statistics_announcement", text: @future_announcement.title)
-  expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
+  if using_design_system?
+    expect(page).to have_selector("td.govuk-table__cell", text: @future_announcement.title)
+    expect(page).to_not have_selector("td.govuk-table__cell", text: @past_announcement.title)
+  else
+    expect(page).to have_selector("tr.statistics_announcement", text: @future_announcement.title)
+    expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
+  end
 
   select "Past announcements", from: "Release date"
   click_on "Search"
 
-  expect(page).to have_selector("tr.statistics_announcement", text: @past_announcement.title)
-  expect(page).to_not have_selector("tr.statistics_announcement", text: @future_announcement.title)
+  if using_design_system?
+    expect(page).to have_selector("td.govuk-table__cell", text: @past_announcement.title)
+    expect(page).to_not have_selector("td.govuk-table__cell", text: @future_announcement.title)
+  else
+    expect(page).to have_selector("tr.statistics_announcement", text: @past_announcement.title)
+    expect(page).to_not have_selector("tr.statistics_announcement", text: @future_announcement.title)
+  end
 end
 
 Then(/^I should be able to filter only the unlinked announcements$/) do
@@ -288,8 +315,13 @@ Then(/^I should be able to filter only the unlinked announcements$/) do
   check :unlinked_only
   click_on "Search"
 
-  expect(page).to have_selector("tr.statistics_announcement", text: @future_announcement.title)
-  expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
+  if using_design_system?
+    expect(page).to have_selector("td.govuk-table__cell", text: @future_announcement.title)
+    expect(page).to_not have_selector("td.govuk-table__cell", text: @past_announcement.title)
+  else
+    expect(page).to have_selector("tr.statistics_announcement", text: @future_announcement.title)
+    expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
+  end
 end
 
 Then(/^I should see a warning that there are upcoming releases without a linked publication$/) do
@@ -299,10 +331,17 @@ end
 Then(/^I should be able to view these upcoming releases without a linked publication$/) do
   click_on "2 imminent releases"
 
-  expect(page).to have_selector("tr.statistics_announcement", text: @tomorrow_announcement.title)
-  expect(page).to have_selector("tr.statistics_announcement", text: @next_week_announcement.title)
-  expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
-  expect(page).to_not have_selector("tr.statistics_announcement", text: @next_year_announcement.title)
+  if using_design_system?
+    expect(page).to have_selector("td.govuk-table__cell", text: @tomorrow_announcement.title)
+    expect(page).to have_selector("td.govuk-table__cell", text: @next_week_announcement.title)
+    expect(page).to_not have_selector("td.govuk-table__cell", text: @past_announcement.title)
+    expect(page).to_not have_selector("td.govuk-table__cell", text: @next_year_announcement.title)
+  else
+    expect(page).to have_selector("tr.statistics_announcement", text: @tomorrow_announcement.title)
+    expect(page).to have_selector("tr.statistics_announcement", text: @next_week_announcement.title)
+    expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
+    expect(page).to_not have_selector("tr.statistics_announcement", text: @next_year_announcement.title)
+  end
 end
 
 When(/^I unpublish the statistics announcement$/) do

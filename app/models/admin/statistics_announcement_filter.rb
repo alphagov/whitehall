@@ -22,7 +22,7 @@ module Admin
     end
 
     def description
-      [date_based_description, additonal_filters_description].compact.join(" ")
+      [date_based_description, additional_filters_description].compact.join(" ")
     end
 
     delegate :total_count, to: :statistics_announcements
@@ -68,7 +68,7 @@ module Admin
       end
     end
 
-    def additonal_filters_description
+    def additional_filters_description
       if unlinked_only?
         "(without a publication)"
       end
@@ -88,6 +88,7 @@ module Admin
                               AND statistics_announcement_dates.created_at > sd2.created_at)")
                             .group("statistics_announcement_dates.statistics_announcement_id")
                             .page(options[:page])
+                            .per(options[:per_page])
     end
 
     def unlinked_scope
