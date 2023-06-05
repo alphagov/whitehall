@@ -9,27 +9,28 @@
       margin_bottom: 6,
     } %>
 
-    <%= render "govuk_publishing_components/components/table", {
-      head: [
-        {
-          text: "Name"
-        },
-        {
-          text: tag.span("Actions", class: "govuk-visually-hidden"),
-        }
-      ],
-      rows:
-        @operational_fields.map do |operational_field|
-          [
-            {
-              text: operational_field.name,
-            },
-            {
-              text: sanitize("<a href='#{edit_admin_operational_field_path(operational_field)}' class='govuk-link'>Edit<span class='govuk-visually-hidden'> #{operational_field.name}</span></a>"),
-              format: "numeric",
-            },
-          ]
-        end
-    } %>
+    <div class="govuk-table--with-actions">
+      <%= render "govuk_publishing_components/components/table", {
+        head: [
+          {
+            text: "Name"
+          },
+          {
+            text: tag.span("Actions", class: "govuk-visually-hidden"),
+          }
+        ],
+        rows:
+          @operational_fields.map do |operational_field|
+            [
+              {
+                text: operational_field.name,
+              },
+              {
+                text: sanitize("<a href='#{edit_admin_operational_field_path(operational_field)}' class='govuk-link'>Edit<span class='govuk-visually-hidden'> #{operational_field.name}</span></a>"),
+              },
+            ]
+          end
+      } %>
+    </div>
   </div>
 </div>

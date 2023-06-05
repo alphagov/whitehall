@@ -16,55 +16,53 @@
       } %>
 
       <% if @world_location_news.non_english_translated_locales.present? %>
-        <%= render "govuk_publishing_components/components/table", {
-        first_cell_is_header: true,
-        head: [
-          {
-            text: "Locale"
-          },
-          {
-            text: sanitize("<a class='govuk-visually-hidden'>Actions</a>"),
-            format: "numeric"
-          }
-        ],
-        rows:
-          @world_location_news.non_english_translated_locales.map do |locale|
-            [
-              {
-                text: locale.native_language_name
-              },
-              {
-                text: sanitize(
-                  "<a class='govuk-link' href='#{@world_location_news.public_url(locale: locale.code)}'>View <span class='govuk-visually-hidden'>#{locale.code}</span></a>" +
+        <div class="govuk-table--with-actions">
+          <%= render "govuk_publishing_components/components/table", {
+          head: [
+            {
+              text: "Locale"
+            },
+            {
+              text: sanitize("<a class='govuk-visually-hidden'>Actions</a>"),
+            }
+          ],
+          rows:
+            @world_location_news.non_english_translated_locales.map do |locale|
+              [
+                {
+                  text: tag.p(locale.native_language_name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+                },
+                {
+                  text: link_to(sanitize("View #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), @world_location_news.public_url(locale: locale.code), class: "govuk-link") +
+                         link_to(sanitize("Edit #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), edit_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2") +
+                           link_to(sanitize("Delete #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive")
 
-                  "<a class='govuk-link govuk-!-margin-left-2' href='#{edit_admin_world_location_news_translation_path(@world_location_news, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{locale.code}</span></a>" +
-
-                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code)}'>Delete<span class='govuk-visually-hidden'>#{locale.code}</span></a>"),
-
-                format: "numeric"
-              }
-            ]
-          end
-      } %>
+                }
+              ]
+            end
+          } %>
+        </div>
       <% else %>
-        <p class="govuk-body">No translations</p>
+        <%= render "components/inset_prompt",{
+          description: "No translations."
+        } %>
       <% end %>
 
       <% if @world_location_news.missing_translations.any? %>
         <%= form_tag admin_world_location_news_translations_path(@world_location_news) do %>
           <%= render "govuk_publishing_components/components/select", {
-          id: "translation_locale",
-          name: "translation_locale",
-          label: 'Locale',
-          heading_size: 'm',
-          options: @world_location_news.missing_translations.map { |missing_trans| { text: missing_trans
-            .native_and_english_language_name, value: missing_trans.code.to_s } }
-        } %>
+            id: "translation_locale",
+            name: "translation_locale",
+            label: 'Locale',
+            heading_size: 'm',
+            options: @world_location_news.missing_translations.map { |missing_trans| { text: missing_trans
+              .native_and_english_language_name, value: missing_trans.code.to_s } }
+          } %>
 
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Create new translation",
-          margin_bottom: 6,
-        } %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Create new translation",
+            margin_bottom: 6,
+          } %>
         <% end %>
       <% end %>
     </div>

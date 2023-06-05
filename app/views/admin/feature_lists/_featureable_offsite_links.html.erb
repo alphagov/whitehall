@@ -15,7 +15,7 @@
     <%= pluralize(number_with_delimiter(featurable_offsite_links_for_feature_list(featurable_offsite_links, feature_list).count), "document") %>
   </p>
 
-  <div class="app-view-features-offsite-links__table">
+  <div class="app-view-features-offsite-links__table govuk-table--with-actions">
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {
@@ -26,7 +26,6 @@
         },
         {
           text: tag.span("Actions", class: "govuk-visually-hidden"),
-          format: "numeric"
         }
       ],
       rows: featurable_offsite_links_for_feature_list(featurable_offsite_links, feature_list).map do |offsite_link|
@@ -41,7 +40,6 @@
             text: link_to(sanitize("Edit #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:edit, :admin, offsite_link.parent, offsite_link]), class: "govuk-link") +
                     link_to(sanitize("Feature #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:new, :admin, feature_list, :feature], offsite_link_id: offsite_link.id), class: 'govuk-link govuk-!-margin-left-2') +
                       link_to(sanitize("Delete #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:confirm_destroy, :admin, offsite_link.parent, offsite_link]), class: 'govuk-link govuk-!-margin-left-2 gem-link--destructive'),
-            format: "numeric"
           }
         ]
       end

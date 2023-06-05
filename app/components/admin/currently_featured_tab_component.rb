@@ -22,26 +22,27 @@ private
   end
 
   def table(caption, features)
-    render "govuk_publishing_components/components/table", {
-      caption:,
-      caption_classes: "govuk-heading-s",
-      head: [
-        {
-          text: "Title",
-        },
-        {
-          text: "Type",
-        },
-        {
-          text: "Published",
-        },
-        {
-          text: tag.span("Actions", class: "govuk-visually-hidden"),
-          format: "numeric",
-        },
-      ],
-      rows: rows(features),
-    }
+    tag.div(class: "govuk-table--with-actions") do
+      render "govuk_publishing_components/components/table", {
+        caption:,
+        caption_classes: "govuk-heading-s",
+        head: [
+          {
+            text: "Title",
+          },
+          {
+            text: "Type",
+          },
+          {
+            text: "Published",
+          },
+          {
+            text: tag.span("Actions", class: "govuk-visually-hidden"),
+          },
+        ],
+        rows: rows(features),
+      }
+    end
   end
 
   def rows(features)

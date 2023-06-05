@@ -9,7 +9,7 @@
 <% else %>
   <% action = title == "draft documents" ? "View" : "Review" %>
 
-  <div class="app-view-dashboard-index__table govuk-!-margin-bottom-9">
+  <div class="app-view-dashboard-index__table govuk-!-margin-bottom-9 govuk-table--with-actions">
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {
@@ -23,7 +23,6 @@
         },
         {
           text: tag.span("Actions", class: "govuk-visually-hidden"),
-          format: "numeric"
         }
       ],
       rows: documents.map do |edition|
@@ -40,7 +39,6 @@
           },
           {
             text: link_to(sanitize("#{action} #{tag.span(edition.title, class: 'govuk-visually-hidden')}"), admin_edition_path(edition), class: "govuk-link"),
-            format: "numeric"
           }
         ]
       end
