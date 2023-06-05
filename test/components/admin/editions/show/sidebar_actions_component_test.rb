@@ -51,7 +51,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:superseded_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_no_selector "app-view-edition-summary__sidebar-actions"
+    assert_no_selector "app-view-summary__sidebar-actions"
   end
 
   test "actions for scheduled edition" do
@@ -160,7 +160,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:superseded_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_no_selector "app-view-edition-summary__sidebar-actions"
+    assert_no_selector "app-view-summary__sidebar-actions"
   end
 
   test "actions for scheduled edition as managing editor" do
