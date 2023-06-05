@@ -63,6 +63,7 @@ module PublishingApi
       }.tap do |details_hash|
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
         details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
+        details_hash.merge!({ mapped_specialist_topic_content_id: item.mapped_specialist_topic_content_id }) if item.mapped_specialist_topic_content_id
       end
     end
 
