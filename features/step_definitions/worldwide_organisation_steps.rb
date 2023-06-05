@@ -139,6 +139,15 @@ Then(/^the "([^"]*)" should be shown as the main office on the public website$/)
   end
 end
 
+Then(/^I should see a link on the worldwide organisation page to the access details of the "([^"]*)" office$/) do |contact_title|
+  worldwide_organisation = WorldwideOrganisation.last
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
+  visit worldwide_organisation.public_path
+  within record_css_selector(worldwide_office) do
+    expect(page).to have_link("Access and opening times", href: worldwide_office.public_url)
+  end
+end
+
 When(/^I add default access information to the worldwide organisation$/) do
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Access and opening times"
