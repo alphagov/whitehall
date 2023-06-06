@@ -1,6 +1,7 @@
-<% content_for :page_title, "Edit appointment to #{@role_appointment.role.name}"  %>
-<% content_for :title, "Edit appointment to #{@role_appointment.role.name}" %>
-<% content_for :title_margin_bottom, 6 %>
+<% content_for :page_title, "Edit appointment for #{@role_appointment.role.name}"  %>
+<% content_for :title, "Edit appointment" %>
+<% content_for :context, @role_appointment.role.name %>
+<% content_for :title_margin_bottom, 8 %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @role_appointment)) %>
 
 <div class="govuk-grid-row">
@@ -13,22 +14,6 @@
           text: "This appointment cannot be deleted"
         } %>
       <% end %>
-
-      <div class="govuk-button-group">
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Save",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
-            "track-label": "Save"
-          }
-        } %>
-        <% if @role_appointment.destroyable? %>
-          <%= link_to("Delete", confirm_destroy_admin_role_appointment_path(@role_appointment), class: "govuk-link govuk-link--no-visited-state gem-link--destructive") %>
-        <% end %>
-        <%= link_to("Cancel", edit_admin_role_path(@role_appointment.role), class: "govuk-link") %>
-      </div>
     <% end %>
   </div>
 
@@ -55,8 +40,9 @@
       text: "Other appointments to this role",
       margin_bottom: 4
     } %>
+
     <% if @role_appointment.other_appointments_for_same_role.any? %>
-      <%= render "admin/role_appointments/list", role_appointments: @role_appointment.other_appointments_for_same_role %>
+      <%= render "list", role_appointments: @role_appointment.other_appointments_for_same_role %>
     <% else %>
       <p class="govuk-body">None</p>
     <% end %>

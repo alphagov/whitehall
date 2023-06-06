@@ -1,0 +1,24 @@
+<%= render "components/datetime_fields", {
+  date_heading: "Start date (required)",
+  heading_size: heading_size,
+  field_name: "started_at",
+  prefix: "role_appointment",
+  id: "role_appointment_started_at",
+  date_only: true,
+  date_hint: "For example, 01 August 2015",
+  year: {
+    value: form.object.started_at&.year,
+    start_year: Date.today.year,
+    end_year: 1700,
+    id: "role_appointment_started_at_1i",
+  },
+  month: {
+    value: form.object.started_at&.month,
+    id: "role_appointment_started_at_2i",
+  },
+  day: {
+    value: form.object.started_at&.day,
+    id: "role_appointment_started_at_3i",
+  },
+  error_items: errors_for(form.object.errors, :started_at),
+} %>

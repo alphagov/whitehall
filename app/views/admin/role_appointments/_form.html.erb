@@ -1,7 +1,7 @@
 <%= render "/components/select-with-search", {
-  id: :"role_appointment_person_id",
+  id: "role_appointment_person_id",
   label: "Person (required)",
-  heading_size: "m",
+  heading_size: "l",
   name: "role_appointment[person_id]",
   options:
     disambiguated_people_names.map do |person_name, person_id|
@@ -22,55 +22,58 @@
   } %>
 <% end %>
 
-<%= render "components/datetime_fields", {
-  date_heading: "Started at (required)",
-  field_name: "started_at",
-  prefix: "role_appointment",
-  id: "role_appointment_started_at",
-  date_only: true,
-  year: {
-    value: form.object.started_at&.year,
-    start_year: Date.today.year,
-    end_year: 1700,
-    id: "role_appointment_started_at_1i",
-  },
-  month: {
-    value: form.object.started_at&.month,
-    id: "role_appointment_started_at_2i",
-  },
-  day: {
-    value: form.object.started_at&.day,
-    id: "role_appointment_started_at_3i",
-  },
-  error_items: errors_for(form.object.errors, :started_at),
-}
-%>
+<% if @current_appointment.blank? %>
+  <%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Dates",
+  heading_size: "l"
+  } do %>
+    <%= render "start_date_field", heading_size: "m", form: form %>
 
-<% if params[:make_current].blank? %>
-  <%= render "components/datetime_fields", {
-    date_heading: "Ended at",
-    field_name: "ended_at",
-    prefix: "role_appointment",
-    id: "role_appointment_ended_at",
-    date_only: true,
-    year: {
-      value: form.object.ended_at&.year,
-      start_year: Date.today.year,
-      end_year: 1700,
-      id: "role_appointment_ended_at_1i",
-    },
-    month: {
-      value: form.object.ended_at&.month,
-      id: "role_appointment_ended_at_2i",
-    },
-    day: {
-      value: form.object.ended_at&.day,
-      id: "role_appointment_ended_at_3i",
+    <%= render "components/datetime_fields", {
+      date_heading: "End date",
+      heading_size: "m",
+      field_name: "ended_at",
+      prefix: "role_appointment",
+      id: "role_appointment_ended_at",
+      date_only: true,
+      date_hint: "For example, 01 August 2022",
+      year: {
+        value: form.object.ended_at&.year,
+        start_year: Date.today.year,
+        end_year: 1700,
+        id: "role_appointment_ended_at_1i",
+      },
+      month: {
+        value: form.object.ended_at&.month,
+        id: "role_appointment_ended_at_2i",
+      },
+      day: {
+        value: form.object.ended_at&.day,
+        id: "role_appointment_ended_at_3i",
+      },
+      error_items: errors_for(form.object.errors, :ended_at),
     }
-  }
-  %>
-<% end %>
-
-<% if params[:make_current] %>
+    %>
+  <% end %>
+<% else %>
+  <%= render "start_date_field", heading_size: "l", form: form %>
   <%= form.hidden_field :make_current, value: true %>
 <% end %>
+
+<div class="govuk-button-group govuk-!-margin-top-8">
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save",
+    data_attributes: {
+      module: "gem-track-click",
+      "track-category": "form-button",
+      "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+      "track-label": "Save"
+    }
+  } %>
+
+  <%= link_to("Cancel", edit_admin_role_path(@role_appointment.role), class: "govuk-link") %>
+
+  <% if @role_appointment.destroyable? %>
+    <%= link_to("Delete", confirm_destroy_admin_role_appointment_path(@role_appointment), class: "govuk-link govuk-link--no-visited-state gem-link--destructive") %>
+  <% end %>
+</div>
