@@ -18,6 +18,7 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
   class AttachmentDataNotFoundTransient < AttachmentDataNotFound; end
 
   def perform(model_class, model_id, legacy_url_path)
+    logger.info "[AssetManagerAttachmentSetUploadedToWorker]  govuk_request_id: #{GdsApi::GovukHeaders.headers[:govuk_request_id]} legacy_url_path: #{legacy_url_path}"
     model = model_class.constantize.find(model_id)
 
     found = false

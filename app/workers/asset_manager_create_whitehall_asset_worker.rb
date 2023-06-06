@@ -5,6 +5,7 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
 
   def perform(file_path, legacy_url_path, draft = false, attachable_model_class = nil, attachable_model_id = nil, auth_bypass_ids = [])
     return unless File.exist?(file_path)
+    logger.info "[AssetManagerCreateWhitehallAssetWorker] govuk_request_id: #{GdsApi::GovukHeaders.headers[:govuk_request_id]} legacy_url_path: #{legacy_url_path}"
 
     file = File.open(file_path)
     asset_options = { file:, legacy_url_path:, auth_bypass_ids: }

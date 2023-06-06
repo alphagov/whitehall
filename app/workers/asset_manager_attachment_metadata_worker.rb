@@ -4,6 +4,7 @@ class AssetManagerAttachmentMetadataWorker < WorkerBase
   def perform(attachment_data_id)
     attachment_data = AttachmentData.find(attachment_data_id)
     return unless attachment_data.present? && attachment_data.uploaded_to_asset_manager_at
+    logger.info "[AssetManagerAttachmentMetadataWorker] govuk_request_id: #{GdsApi::GovukHeaders.headers[:govuk_request_id]} attachment_data_id: #{attachment_data_id}"
 
     AssetManager::AttachmentUpdater.call(
       attachment_data,

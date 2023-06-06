@@ -19,6 +19,7 @@ class Admin::AttachmentsController < Admin::BaseController
   def new; end
 
   def create
+    logger.info "[AttachmentsController] govuk_request_id: #{GdsApi::GovukHeaders.headers[:govuk_request_id]}"
     if save_attachment
       attachment_updater(attachment.attachment_data)
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
