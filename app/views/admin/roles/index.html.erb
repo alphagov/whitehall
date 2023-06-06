@@ -2,19 +2,19 @@
 <% content_for :title, "Roles" %>
 <% content_for :title_margin_bottom, 6 %>
 
-<%= render "govuk_publishing_components/components/button", {
-  title: "Create new role",
-  text: "Create new role",
-  href: new_admin_role_path,
-  margin_bottom: 6
-} %>
-
 <div class="govuk-!-margin-bottom-6">
   <%= render "govuk_publishing_components/components/warning_text", {
     text: "Do not create ministerial roles without consulting GDS."
   } %>
 </div>
 
+<%= render "govuk_publishing_components/components/button", {
+  title: "Create new role",
+  text: "Create new role",
+  href: new_admin_role_path,
+  margin_bottom: 6
+} %>
+<div class="app-view-roles__page-list">
 <%= render "govuk_publishing_components/components/table", {
   head: [
     {
@@ -24,52 +24,46 @@
       text: "Organistions"
     },
     {
-      text: "Role type"
-    },
-    {
       text: "Currently appointed"
     },
     {
       text: "Translations"
     },
     {
-      text: "Edit"
+      text: tag.span("Actions", class: "govuk-visually-hidden")
     },
-    {
-      text: "Delete"
-    }
   ],
   rows: @roles.map do |role|
     [
       {
-        text: role.name
+        text: tag.span(role.name, class: "govuk-!-font-weight-bold"),
       },
       {
         text: role.organisation_names
       },
       {
-        text: role.role_type.humanize
-      },
-      {
-        text: role.current_person_name
+        text:
+          if role.current_person_name.eql?("No one is assigned to this role")
+            ""
+          else
+            role.current_person_name
+          end
       },
       {
         text:
           content_tag_for(:div, role) do
-            link_to(sanitize("Manage translations#{tag.span(role.name, class: "govuk-visually-hidden")}"), admin_role_translations_path(role), title: "Manage translations of #{role.name}", class: "govuk-link")
+            link_to(sanitize("Manage #{tag.span(role.name, class: "govuk-visually-hidden")}"), admin_role_translations_path(role), title: "Manage translations of #{role.name}", class: "govuk-link")
           end
       },
       {
-        text: link_to(sanitize("Edit#{tag.span(role.name, class: "govuk-visually-hidden")}"), edit_admin_role_path(role), title: "Edit role #{role.name}", class: "govuk-link")
+        text: link_to(sanitize("Edit #{tag.span(role.name, class: "govuk-visually-hidden")}"), edit_admin_role_path(role), title: "Edit role #{role.name}", class: "govuk-link") +
+          if role.destroyable?
+            link_to(sanitize("Delete #{tag.span(role.name, class: "govuk-visually-hidden")}"), confirm_destroy_admin_role_path(role), class: "govuk-link govuk-link--no-visited-state gem-link--destructive govuk-!-margin-left-2")
+          else
+            ""
+          end
       },
-      {
-        text:
-            if role.destroyable?
-                link_to(sanitize("Delete#{tag.span(role.name, class: "govuk-visually-hidden")}"), confirm_destroy_admin_role_path(role), class: "govuk-link govuk-link--no-visited-state gem-link--destructive")
-            else
-              ""
-            end
-      }
     ]
-    end
+  end
 } %>
+</div>
