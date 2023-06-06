@@ -6,13 +6,13 @@ class Admin::RolesController < Admin::BaseController
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])
                   .order("organisation_translations.name, roles.type DESC, roles.permanent_secretary DESC, role_translations.name")
 
-    render_design_system("index", "legacy_index", next_release: false)
+    render_design_system("index", "legacy_index")
   end
 
   def new
     @role = Role.new
 
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -20,21 +20,21 @@ class Admin::RolesController < Admin::BaseController
     if @role.save
       redirect_to index_or_edit_path, notice: %("#{@role.name}" created.)
     else
-      render_design_system("new", "legacy_new", next_release: false)
+      render_design_system("new", "legacy_new")
     end
   end
 
   def edit
     @role = Role.find(params[:id])
 
-    render_design_system("edit", "legacy_edit", next_release: false)
+    render_design_system("edit", "legacy_edit")
   end
 
   def update
     if @role.update(role_params)
       redirect_to index_or_edit_path, notice: %("#{@role.name}" updated.)
     else
-      render_design_system("edit", "legacy_edit", next_release: false)
+      render_design_system("edit", "legacy_edit")
     end
   end
 

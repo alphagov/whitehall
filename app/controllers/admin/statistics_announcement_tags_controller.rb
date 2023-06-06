@@ -7,7 +7,7 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
     @topic_taxonomy = Taxonomy::TopicTaxonomy.new
     @tag_form = TaxonomyTagForm.load(@statistics_announcement.content_id)
 
-    render_design_system("edit", "legacy_edit", next_release: false)
+    render_design_system("edit", "legacy_edit")
   end
 
   def update

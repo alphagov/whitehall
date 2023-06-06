@@ -5,7 +5,7 @@ class Admin::FeaturesController < Admin::BaseController
   layout :get_layout
 
   def new
-    render_design_system(:new, :legacy_new, next_release: false)
+    render_design_system(:new, :legacy_new)
   end
 
   def create
@@ -15,7 +15,7 @@ class Admin::FeaturesController < Admin::BaseController
       redirect_to admin_feature_list_path(@feature_list), notice: "The document has been saved"
     else
       flash.now[:alert] = "Unable to create feature"
-      render_design_system(:new, :legacy_new, next_release: false)
+      render_design_system(:new, :legacy_new)
     end
   end
 

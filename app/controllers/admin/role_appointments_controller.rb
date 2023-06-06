@@ -7,7 +7,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
     @role_appointment = role.role_appointments.build(started_at: Time.zone.today)
     @current_appointment = params[:make_current]
 
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -17,19 +17,19 @@ class Admin::RoleAppointmentsController < Admin::BaseController
       redirect_to edit_admin_role_path(role), notice: "Appointment created"
     else
       @current_appointment = params[:role_appointment][:make_current]
-      render_design_system("new", "legacy_new", next_release: false)
+      render_design_system("new", "legacy_new")
     end
   end
 
   def edit
-    render_design_system("edit", "legacy_edit", next_release: false)
+    render_design_system("edit", "legacy_edit")
   end
 
   def update
     if @role_appointment.update(role_appointment_params)
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been updated"
     else
-      render_design_system("edit", "legacy_edit", next_release: false)
+      render_design_system("edit", "legacy_edit")
     end
   end
 
@@ -41,7 +41,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been deleted"
     else
       flash.now[:alert] = "Appointment can not be deleted"
-      render_design_system("edit", "legacy_edit", next_release: false)
+      render_design_system("edit", "legacy_edit")
     end
   end
 

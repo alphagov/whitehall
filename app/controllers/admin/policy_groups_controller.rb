@@ -5,12 +5,12 @@ class Admin::PolicyGroupsController < Admin::BaseController
 
   def index
     @policy_groups = PolicyGroup.order(:name)
-    render_design_system("index", "legacy_index", next_release: false)
+    render_design_system("index", "legacy_index")
   end
 
   def new
     @policy_group = PolicyGroup.new
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -18,19 +18,19 @@ class Admin::PolicyGroupsController < Admin::BaseController
     if @policy_group.save
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" created.)
     else
-      render_design_system("new", "legacy_new", next_release: false)
+      render_design_system("new", "legacy_new")
     end
   end
 
   def edit
-    render_design_system("edit", "legacy_edit", next_release: false)
+    render_design_system("edit", "legacy_edit")
   end
 
   def update
     if @policy_group.update(policy_group_params)
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" saved.)
     else
-      render_design_system("edit", "legacy_edit", next_release: false)
+      render_design_system("edit", "legacy_edit")
     end
   end
 

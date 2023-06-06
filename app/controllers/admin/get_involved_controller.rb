@@ -7,7 +7,7 @@ class Admin::GetInvolvedController < Admin::BaseController
   end
 
   def index
-    render_design_system("index", "legacy_index", next_release: false)
+    render_design_system("index", "legacy_index")
   end
 
   def get_layout

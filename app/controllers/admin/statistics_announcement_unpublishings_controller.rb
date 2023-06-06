@@ -4,14 +4,14 @@ class Admin::StatisticsAnnouncementUnpublishingsController < Admin::BaseControll
   layout :get_layout
 
   def new
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new")
   end
 
   def create
     if @statistics_announcement.update(statistics_announcement_params.merge(publishing_state: "unpublished"))
       redirect_to admin_statistics_announcements_path, notice: "Unpublished statistics announcement: #{@statistics_announcement.title}"
     else
-      render_design_system("new", "legacy_new", next_release: false)
+      render_design_system("new", "legacy_new")
     end
   end
 
