@@ -3,7 +3,7 @@ require "test_helper"
 class Admin::GovernmentsControllerTest < ActionController::TestCase
   setup do
     @government = FactoryBot.create(:government)
-    login_as_preview_design_system_user(:gds_editor)
+    login_as(:gds_editor)
   end
 
   should_be_an_admin_controller
@@ -23,7 +23,7 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
   end
 
   view_test "new should have the correct form fields and default start date of today" do
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
     get :new
     assert_select "input[name='government[name]']"
     assert_select "select[name='government[start_date(1i)]'] option[value='#{Time.zone.today.year}'][selected='selected']"
@@ -35,14 +35,14 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
   end
 
   test "#close sets the end date to today" do
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
     post :close, params: { id: @government.id }
     @government.reload
     assert_equal Time.zone.today, @government.end_date
   end
 
   test "#close doesn't overwrite an end date if there is one" do
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
     @government.update!(end_date: 10.days.ago.to_date)
     post :close, params: { id: @government.id }
     @government.reload
@@ -50,7 +50,7 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
   end
 
   test "#close ends all the current ministerial role appointments on the same day as the government closes" do
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
     @government.update!(end_date: 1.day.ago.to_date)
     ministerial = create(:ministerial_role_appointment)
     ambassadorial = create(:ambassador_role_appointment)
@@ -63,7 +63,7 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
   end
 
   view_test "edit renders the correct fields and prepare to close link when editing the current government" do
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
     get :edit, params: { id: @government.id }
 
     assert_select "input[name='government[name]'][value='#{@government.name}']"
@@ -79,7 +79,7 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
   view_test "edit does not render the prepare to close link when editing a previous government" do
     @government.update!(end_date: 1.minute.ago)
     create(:government, start_date: Time.zone.now)
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
     get :edit, params: { id: @government.id }
     assert_select "a[href='#{prepare_to_close_admin_government_path(@government)}']", text: "Prepare to close this government", count: 0
   end

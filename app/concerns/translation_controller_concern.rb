@@ -8,7 +8,7 @@ module TranslationControllerConcern
   end
 
   def edit
-    render :legacy_edit if get_layout == "admin" && [Person, WorldLocationNews].include?(translatable_item.class)
+    render :legacy_edit if get_layout == "admin" && [WorldLocationNews].include?(translatable_item.class)
   end
 
   def create
@@ -19,7 +19,7 @@ module TranslationControllerConcern
     if translatable_item.update(translation_params)
       save_draft_translation if send_downstream?
       redirect_to update_redirect_path, notice: notice_message("saved")
-    elsif get_layout == "admin" && [Person, WorldLocationNews].include?(translatable_item.class)
+    elsif get_layout == "admin" && [WorldLocationNews].include?(translatable_item.class)
       render :legacy_edit
     else
       render :edit

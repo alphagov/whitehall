@@ -33,7 +33,7 @@ module PersonHelper
     visit admin_person_path(person)
     click_link "Translations"
     select translation["locale"], from: "Locale"
-    click_on using_design_system? ? "Create new translation" : "Create translation"
+    click_on "Create new translation"
     fill_in "Biography", with: translation["biography"]
     click_on "Save"
   end

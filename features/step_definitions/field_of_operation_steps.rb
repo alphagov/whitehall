@@ -1,12 +1,7 @@
 When(/^I create a new field of operation called "([^"]*)" with description "([^"]*)"$/) do |field_name, description|
   visit admin_operational_fields_path
 
-  if using_design_system?
-    click_on "Create field of operation"
-  else
-    click_on "Add field of operation"
-  end
-
+  click_on "Create field of operation"
   fill_in "Name", with: field_name
   fill_in "Description", with: description
   click_on "Save"

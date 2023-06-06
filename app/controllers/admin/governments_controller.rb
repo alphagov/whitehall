@@ -1,22 +1,17 @@
 class Admin::GovernmentsController < Admin::BaseController
   before_action :enforce_permissions!, except: :index
-  layout :get_layout
+  layout "design_system"
 
   def index
     @governments = Government.order(start_date: :desc)
-
-    render_design_system("index", "legacy_index", next_release: true)
   end
 
   def new
     @government = Government.new(start_date: Time.zone.today)
-    render_design_system("new", "legacy_new", next_release: true)
   end
 
   def edit
     @government = Government.find(params[:id])
-
-    render_design_system("edit", "legacy_edit", next_release: true)
   end
 
   def create
@@ -27,7 +22,7 @@ class Admin::GovernmentsController < Admin::BaseController
     if @government.save
       redirect_to admin_governments_path, notice: "Created government information"
     else
-      render_design_system("new", "legacy_new", next_release: true)
+      render :new
     end
   end
 
@@ -37,14 +32,12 @@ class Admin::GovernmentsController < Admin::BaseController
     if @government.update(government_params)
       redirect_to admin_governments_path, notice: "Updated government information"
     else
-      render_design_system("edit", "legacy_edit", next_release: true)
+      render :edit
     end
   end
 
   def prepare_to_close
     @government = Government.find(params[:id])
-
-    render_design_system("prepare_to_close", "legacy_prepare_to_close", next_release: true)
   end
 
   def close
@@ -74,15 +67,4 @@ private
     RoleAppointment.current.for_ministerial_roles
   end
   helper_method :current_active_ministerial_appointments
-
-  def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index edit new create update prepare_to_close] if preview_design_system?(next_release: true)
-
-    if design_system_actions.include?(action_name)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 end
