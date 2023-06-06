@@ -62,11 +62,7 @@ module PublishingApiPresenters
       when Consultation
         PublishingApi::ConsultationPresenter
       when CorporateInformationPage
-        if edition.worldwide_organisation.present?
-          FALLBACK_EDITION_PRESENTER
-        else
-          PublishingApi::CorporateInformationPagePresenter
-        end
+        PublishingApi::CorporateInformationPagePresenter
       when ::DetailedGuide
         PublishingApi::DetailedGuidePresenter
       when ::DocumentCollection
