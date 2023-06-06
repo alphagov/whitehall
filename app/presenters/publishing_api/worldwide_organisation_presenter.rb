@@ -43,7 +43,9 @@ module PublishingApi
     def links
       {
         corporate_information_pages:,
-        ordered_contacts:,
+        ordered_contacts: [],
+        main_office:,
+        home_page_offices:,
         primary_role_person:,
         secondary_role_person:,
         office_staff:,
@@ -60,10 +62,16 @@ module PublishingApi
       Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body) || ""
     end
 
-    def ordered_contacts
-      return [] unless item.offices.any?
+    def main_office
+      return [] unless item.main_office
 
-      item.offices.map(&:contact).map(&:content_id)
+      [item.main_office.content_id]
+    end
+
+    def home_page_offices
+      return [] unless item.home_page_offices.any?
+
+      item.home_page_offices.map(&:content_id)
     end
 
     def primary_role_person

@@ -77,9 +77,11 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         worldwide_org.corporate_information_pages[4].content_id,
         worldwide_org.corporate_information_pages[5].content_id,
       ],
-      ordered_contacts: [
-        worldwide_org.reload.offices.first.contact.content_id,
+      ordered_contacts: [],
+      main_office: [
+        worldwide_org.reload.offices.first.content_id,
       ],
+      home_page_offices: [],
       primary_role_person: [
         ambassador.content_id,
       ],
