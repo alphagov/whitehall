@@ -1,6 +1,6 @@
 <% content_for :page_title, "Edit " + @world_location_news.name %>
-<% content_for :title, "Edit " + @world_location_news.name %>
-<% content_for :context, "World location" %>
+<% content_for :title, "Edit details" %>
+<% content_for :context, @world_location_news.name %>
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :error_summary,
   render(Admin::ErrorSummaryComponent.new(
@@ -61,14 +61,14 @@
           } %>
         <% end %>
 
-        <%= render "govuk_publishing_components/components/title", {
-          context: @world_location_news.name,
-          title: "Featured links"
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Featured links",
+          font_size: "l"
         } %>
 
         <%= render 'admin/shared/featured_link_fields', form: form %>
 
-        <div class="govuk-button-group govuk-!-margin-top-6">
+        <div class="govuk-button-group govuk-!-margin-top-8">
           <%= render "govuk_publishing_components/components/button", {
             text: "Save",
             data_attributes: {
