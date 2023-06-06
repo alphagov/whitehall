@@ -14,9 +14,9 @@
   text: "Only the first #{visible_links} links will be shown on the public site."
 } %>
 
-<div data-module="AddAnother" data-add-text="Add another featured link" class="govuk-!-margin-bottom-4">
+<div data-module="AddAnother" data-add-text="Add another featured link">
   <%= form.fields_for :featured_links do |featured_link_form| %>
-    <div class="js-duplicate-fields-set govuk-!-margin-top-4">
+    <div class="js-duplicate-fields-set govuk-!-margin-bottom-6">
       <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "Title"
