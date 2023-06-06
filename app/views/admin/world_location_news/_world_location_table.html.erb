@@ -4,9 +4,6 @@
   <%= render "govuk_publishing_components/components/table", {
     head: [
       {
-        text: "Type"
-      },
-      {
         text: "Location"
       },
       {
@@ -16,17 +13,14 @@
         text: "Translations"
       },
       {
-        text: "Edit"
+        text: tag.span("Edit", class: "govuk-visually-hidden")
       }
     ],
     rows:
       world_locations.map do |world_location|
         [
           {
-            text: world_location.display_type
-          },
-          {
-            text: world_location.name
+            text: tag.p(world_location.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
           },
           {
             text:
@@ -43,7 +37,7 @@
                   link_to("#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_world_location_news_translation_path(world_location, locale.code), class: "govuk-link")
                 end.to_sentence)
               else
-                "none"
+                ""
               end
           },
           {

@@ -2,16 +2,17 @@
 <% content_for :title, "World location news" %>
 
 <%= render "govuk_publishing_components/components/tabs", {
+  panel_border: false,
   tabs: [
     {
       id: "active_tab",
       label: "Active",
-      content: render(partial: "world_location_table", locals: {world_locations: @active_world_locations, error_message: "No active world location news."})
+      content: render("world_location_table", world_locations: @active_world_locations, error_message: "No active world location news.")
     },
     {
       id: "inactive_tab",
       label: "Inactive",
-      content: render(partial: "world_location_table", locals: {world_locations: @inactive_world_locations, error_message: "No inactive world location news."})
+      content: render("world_location_table", world_locations: @inactive_world_locations, error_message: "No inactive world location news.")
     }
   ]
 } %>
