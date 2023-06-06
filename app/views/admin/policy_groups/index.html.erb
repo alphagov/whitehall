@@ -2,19 +2,17 @@
 <% content_for :title, "Groups" %>
 <% content_for :title_margin_bottom, 6 %>
 
+<%= render "govuk_publishing_components/components/warning_text", {
+  text: "Do not create groups without consulting GDS."
+} %>
+
 <%= render "govuk_publishing_components/components/button", {
   text: "Create new group",
   href: new_admin_policy_group_path,
-  margin_bottom: 6
+  margin_bottom: 6,
 } %>
 
-<div class="govuk-!-margin-bottom-6">
-  <%= render "govuk_publishing_components/components/warning_text", {
-    text: "Do not create groups without consulting GDS."
-  } %>
-</div>
-
-<div class="app-c-govuk-table--filterable govuk-table--with-actions">
+<div class="app-c-govuk-table--filterable govuk-table--with-actions app-view-groups-index__table">
   <%= render "govuk_publishing_components/components/table", {
     filterable: true,
     head: [
@@ -31,7 +29,7 @@
     rows: @policy_groups.map do |policy_group|
       [
         {
-          text: policy_group.name
+          text: tag.span(policy_group.name, class: "govuk-!-font-weight-bold"),
         },
         {
           text: policy_group.email,

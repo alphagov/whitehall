@@ -2,6 +2,8 @@
 <% content_for :title, "Attachments for #{attachment.attachable_model_name}" %>
 <% if attachment.attachable.is_a?(Edition) %>
   <% content_for :context, "#{attachment.attachable.title}" %>
+<% elsif attachment.attachable.is_a?(PolicyGroup) %>
+  <% content_for :context, "#{attachment.attachable.name}" %>
 <% end %>
 
 <div class="govuk-grid-row">
@@ -11,7 +13,10 @@
       items: secondary_navigation_tabs_items(attachment.attachable, request.path)
     } %>
 
-    <p class="govuk-body">Note: <%= attachment_note(attachment.attachable_model_name) %></p>
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: attachment_note(attachment.attachable_model_name),
+    } %>
+
     <%= render "govuk_publishing_components/components/heading", {
       text: "Add new attachment",
       margin_bottom: 2,

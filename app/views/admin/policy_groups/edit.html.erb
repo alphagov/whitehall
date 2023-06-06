@@ -1,5 +1,6 @@
 <% content_for :page_title, "Edit #{@policy_group.name}" %>
-<% content_for :title, "Edit #{@policy_group.name}" %>
+<% content_for :title, "Edit group" %>
+<% content_for :context, @policy_group.name %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @policy_group)) %>
 
 <div class="govuk-grid-row">
