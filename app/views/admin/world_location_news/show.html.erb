@@ -1,5 +1,5 @@
 <% content_for :page_title, @world_location_news.name %>
-<% content_for :context, "Details" %>
+<% content_for :context, "World location news" %>
 <% content_for :title, @world_location_news.name %>
 <% content_for :title_margin_bottom, 4 %>
 
@@ -12,13 +12,43 @@
       aria_label: "World location news navigation tabs",
       items: secondary_navigation_tabs_items(@world_location_news, request.path)
     } %>
-    <div class="govuk-!-margin-bottom-4">
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Edit",
-        secondary_solid: true,
-        href: [:edit, :admin, @world_location_news]
-      } %>
-    </div>
-    <%= govspeak_to_html @world_location_news.mission_statement %>
+
+    <%= render "govuk_publishing_components/components/summary_list", {
+      title: "Details",
+      items: [
+        {
+          field: "Type",
+          value: @world_location_news.world_location.display_type,
+        },
+        {
+          field: "Title",
+          value: @world_location_news.title,
+        },
+        {
+          field: "Mission statement",
+          value: @world_location_news.mission_statement,
+        },
+        {
+          field: "Active",
+          value: @world_location_news.world_location.active? ? "Yes" : "",
+        },
+        @world_location_news.featured_links.each_with_index.map do |featured_link, index|
+          [
+            {
+              field: "Featured link #{index + 1} title",
+              value: featured_link.title,
+            },
+            {
+              field: "Featured link #{index + 1} URL",
+              value: featured_link.url,
+            }
+          ]
+        end
+      ].flatten.reject { |row| row[:value].blank? },
+      edit: {
+        href: [:edit, :admin, @world_location_news],
+        link_text: "Edit",
+      }
+    } %>
   </div>
 </div>
