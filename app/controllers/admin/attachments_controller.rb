@@ -175,6 +175,11 @@ private
   end
 
   def save_attachment
+    if use_non_legacy_endpoints?
+      logger.info("Feature flag #{User::Permissions::USE_NON_LEGACY_ENDPOINTS} is set to true.")
+    else
+      logger.info("Feature flag #{User::Permissions::USE_NON_LEGACY_ENDPOINTS} is set to false.")
+    end
     result = attachment.save(context: :user_input)
 
     if result && attachment.is_a?(HtmlAttachment)
@@ -194,5 +199,9 @@ private
 
   def attachment_updater(attachment_data)
     ServiceListeners::AttachmentUpdater.call(attachment_data:)
+  end
+
+  def use_non_legacy_endpoints?
+    current_user.can_use_non_legacy_endpoints?
   end
 end
