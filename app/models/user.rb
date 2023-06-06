@@ -27,6 +27,7 @@ class User < ApplicationRecord
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
     PREVIEW_NEXT_RELEASE = "Preview next release".freeze
     PREVIEW_CALL_FOR_EVIDENCE = "Preview call for evidence".freeze
+    USE_NON_LEGACY_ENDPOINTS = "Use non legacy endpoints".freeze
   end
 
   def role
@@ -86,6 +87,10 @@ class User < ApplicationRecord
 
   def can_preview_design_system?
     has_permission?(Permissions::PREVIEW_DESIGN_SYSTEM)
+  end
+
+  def can_use_non_legacy_endpoints?
+    has_permission?(Permissions::USE_NON_LEGACY_ENDPOINTS)
   end
 
   def can_preview_next_release?
