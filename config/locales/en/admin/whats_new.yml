@@ -1,5 +1,7 @@
 en:
   admin:
+    feedback:
+      show_banner: true
     whats_new:
       show_banner: false
       title: What’s new in Whitehall Publisher
