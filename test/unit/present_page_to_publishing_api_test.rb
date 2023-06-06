@@ -17,13 +17,19 @@ class PresentPageToPublishingApiTest < ActiveSupport::TestCase
     assert_content_is_presented_to_publishing_api(PublishingApi::HistoricalAccountsIndexPresenter)
   end
 
-  def assert_content_is_presented_to_publishing_api(presenter_class)
+  test "should update content, patch links and publish new document with locale" do
+    I18n.with_locale(:cy) do
+      assert_content_is_presented_to_publishing_api(PublishingApi::HowGovernmentWorksPresenter, locale: "cy")
+    end
+  end
+
+  def assert_content_is_presented_to_publishing_api(presenter_class, locale: "en")
     presenter = presenter_class.new
     expected_content = presenter.content
 
     Services.publishing_api.expects(:put_content).with(presenter.content_id, expected_content)
     Services.publishing_api.expects(:patch_links).with(presenter.content_id, links: presenter.links)
-    Services.publishing_api.expects(:publish).with(presenter.content_id, nil, locale: "en")
+    Services.publishing_api.expects(:publish).with(presenter.content_id, nil, locale:)
 
     PresentPageToPublishingApi.new.publish(presenter_class)
   end
