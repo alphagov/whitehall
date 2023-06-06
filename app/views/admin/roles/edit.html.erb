@@ -8,9 +8,7 @@
     <%= render "govuk_publishing_components/components/warning_text", {
       text: "Changes to roles appear instantly on the live site."
     } %>
-    <%= render "form", {
-       role: @role
-    } %>
+    <%= render "form", role: @role %>
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render "govuk_publishing_components/components/tabs", {
