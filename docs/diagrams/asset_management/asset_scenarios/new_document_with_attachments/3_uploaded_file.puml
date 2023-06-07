@@ -1,84 +1,43 @@
 @startuml
 node Whitehall {
 object "Document:1" as Document_1 {
-  slug: new-news
-  document_type: NewsArticle
-  content_id: 7e75befe-e47c-4faa-920f-38699bd72b83
   latest_edition_id: 1
   live_edition_id:
 }
 together {
 object "NewsArticle:1" as NewsArticle_1 {
-  type: NewsArticle
   state: draft
-  lock_version: 0
-  major_change_published_at:
-  first_published_at:
-  force_published:
-  external_url:
 }
 Document_1 *-- NewsArticle_1
 object "FileAttachment:1" as FileAttachment_1 {
-  type: FileAttachment
-  title: Plantuml manual
-  attachment_data_id: 1
-  content_id: aece8fa8-a958-4e34-83b1-fbe221d04081
   deleted: false
 }
 NewsArticle_1 *-- FileAttachment_1
 }
 object "AttachmentData:1" as AttachmentData_1 {
-  carrierwave_file: PlantUML_Language_Reference_Guide_en.pdf
-  content_type: application/pdf
   uploaded_to_asset_manager_at: 24 May 16:28
-  present_at_unpublish: false
 }
 AttachmentData_1 *-u- FileAttachment_1
 }
 node AssetManager {
-object "WhitehallAsset:646e2d14ad6b5b00164e681f" as am_WhitehallAsset_646e2d14ad6b5b00164e681f {
+object "WhitehallAsset:X164e681f" as am_WhitehallAsset_X164e681f {
   state: unscanned
   draft: true
-  redirect_url:
-  content_type:
-  deleted_at:
-  file: thumbnail_PlantUML_Language_Reference_Guide_en.pdf.png
-  legacy_url_path: .../attachment_data/file/1/(filename)
 }
-object "WhitehallAsset:646e2d15ad6b5b00174e681f" as am_WhitehallAsset_646e2d15ad6b5b00174e681f {
+object "WhitehallAsset:X174e681f" as am_WhitehallAsset_X174e681f {
   state: unscanned
   draft: true
-  redirect_url:
-  content_type:
-  deleted_at:
-  file: PlantUML_Language_Reference_Guide_en.pdf
-  legacy_url_path: .../attachment_data/file/1/(filename)
 }
 }
 node PublishingApi {
 object "Document:4" as pubapi_Document_4 {
-  content_id: 7e75befe-e47c-4faa-920f-38699bd72b83
 }
 object "Edition:4" as pubapi_Edition_4 {
-  title: New news
-  public_updated_at: 24 May 15:23
-  publishing_app: whitehall
-  rendering_app: government-frontend
-  update_type: major
-  phase: live
-  document_type: news_story
-  schema_name: news_article
-  first_published_at:
   state: draft
-  user_facing_versions:
-  content_store: draft
-  published_at:
-  major_published_at:
-  publishing_api_first_published_at:
 }
 pubapi_Document_4 *-- pubapi_Edition_4
 }
 Document_1 .. pubapi_Document_4
-AttachmentData_1 .. am_WhitehallAsset_646e2d14ad6b5b00164e681f
-AttachmentData_1 .. am_WhitehallAsset_646e2d15ad6b5b00174e681f
+AttachmentData_1 .. am_WhitehallAsset_X164e681f
+AttachmentData_1 .. am_WhitehallAsset_X174e681f
 @enduml
