@@ -1,9 +1,10 @@
 require "test_helper"
 
 class Admin::TopicalEventAboutPagesControllerTest < ActionController::TestCase
+  tests Admin::TopicalEventAboutPagesController
   def setup
+    login_as :user
     @topical_event = create(:topical_event)
-    login_as_preview_design_system_user(:writer)
   end
 
   view_test "GET show prompts user to create an about page" do

@@ -4,6 +4,8 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
 
   helper_method :model_name, :human_friendly_model_name
 
+  layout :get_layout
+
   def new
     @topical_event_about_page = TopicalEventAboutPage.new
   end
@@ -27,6 +29,7 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
 
   def show
     @topical_event_about_page = @topical_event.topical_event_about_page
+    render_design_system(:show, :legacy_show, next_release: false)
   end
 
   def model_name
@@ -37,7 +40,7 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
     model_name.humanize
   end
 
-private
+  private
 
   def find_topical_event
     @topical_event = TopicalEvent.friendly.find(params[:topical_event_id])
@@ -49,5 +52,16 @@ private
 
   def about_page_params
     params.require(:topical_event_about_page).permit(:body, :name, :summary, :read_more_link_text)
+  end
+end
+
+def get_layout
+  design_system_actions = []
+  design_system_actions += %w[show] if preview_design_system?(next_release: false)
+
+  if design_system_actions.include?(action_name)
+    "design_system"
+  else
+    "admin"
   end
 end
