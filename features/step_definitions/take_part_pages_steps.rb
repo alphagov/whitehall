@@ -14,7 +14,7 @@ When(/^I create a new take part page called "([^"]*)"$/) do |title|
   fill_in "Title", with: title
   fill_in "Summary", with: "A short description of #{title.downcase}"
   fill_in "Body", with: "A longer description of #{title.downcase}, with some markdown"
-  attach_file "Image", jpg_image
+  attach_file using_design_system? ? "Upload image" : "Image", jpg_image
   fill_in "Image description (alt text)", with: "A description of the image"
 
   click_on "Save"

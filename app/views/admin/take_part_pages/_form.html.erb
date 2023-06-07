@@ -49,33 +49,15 @@
         error_items: errors_for(form.object.errors, :body)
       } %>
 
-      <% if form.object.carrierwave_image.present? %>
-        <%= hidden_field_tag "take_part_page[image]", form.object.carrierwave_image %>
-      <% end %>
-
-      <%= render "govuk_publishing_components/components/file_upload", {
-        label: {
-          text: "Image (required)",
-          heading_size: "l"
-        },
-        name: "take_part_page[image]",
-        id: "take_part_page_image",
-        value: form.object.image,
-        error_items: errors_for(form.object.errors, :image)
-      } %>
-
-      <% if form.object.carrierwave_image.present? %>
-        <p class="govuk-body"><%= "#{File.basename(form.object.carrierwave_image)} already uploaded" %></p>
-      <% end %>
-
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Image description (alt text)",
-        },
-        heading_size: "l",
-        name: "take_part_page[image_alt_text]",
-        id: "take_part_page_image_alt_text",
-        value: form.object.image_alt_text
+      <%= render "components/single-image-upload", {
+        id: "take_part_page",
+        name: "take_part_page",
+        page_errors: form.object.errors.any?,
+        error_items: errors_for(form.object.errors, :image),
+        filename: form.object.image.filename,
+        image_cache: (form.object.image.image_cache if form.object.image.image_cache.present?),
+        image_src: form.object.image.url,
+        image_alt: form.object.image_alt_text
       } %>
       <div class="govuk-button-group govuk-!-margin-top-8">
         <%= render "govuk_publishing_components/components/button", {
