@@ -1,6 +1,6 @@
 # Whitehall
 
-Whitehall is deployed in two modes:
+Whitehall is deployed in three modes:
 
 - 'admin' for publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>)
 - 'frontend' for rendering content to the public that has yet to be migrated to using Publishing API (see live examples that follow)
