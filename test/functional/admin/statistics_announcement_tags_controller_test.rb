@@ -3,6 +3,7 @@ require "test_helper"
 class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCase
   include TaxonomyHelper
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   setup do
     @user = login_as_preview_design_system_user(:departmental_editor)

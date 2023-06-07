@@ -6,6 +6,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   def organisation
     @organisation ||= create(:organisation)

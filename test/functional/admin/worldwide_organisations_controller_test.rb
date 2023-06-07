@@ -6,6 +6,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   test "shows a list of worldwide organisations" do
     organisation = create(:worldwide_organisation)

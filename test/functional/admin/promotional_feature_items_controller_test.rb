@@ -8,6 +8,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   test "GET :new loads the organisation and feature and instantiates a new item and link" do
     get :new, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature }

@@ -6,6 +6,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "new shows form for creating a person" do
     get :new

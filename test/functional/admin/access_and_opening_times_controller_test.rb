@@ -6,6 +6,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   test "GET on :edit loads the organisation as accessible if worldwide_office_id is not supplied" do
     worldwide_organisation = create(:worldwide_organisation)

@@ -2,6 +2,7 @@ require "test_helper"
 
 class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   setup do
     @topical_event = create(:topical_event)
