@@ -49,8 +49,8 @@ class Admin::BaseController < ApplicationController
   end
   helper_method :preview_design_system?
 
-  def render_design_system(design_system_view, legacy_view, next_release: false)
-    if preview_design_system?(next_release:)
+  def render_design_system(design_system_view, legacy_view)
+    if get_layout == "design_system"
       render design_system_view
     else
       render legacy_view

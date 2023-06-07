@@ -8,7 +8,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
     @whip_roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
 
-    render_design_system(:show, :legacy_show, next_release: false)
+    render_design_system(:show, :legacy_show)
   end
 
   def reorder_cabinet_minister_roles

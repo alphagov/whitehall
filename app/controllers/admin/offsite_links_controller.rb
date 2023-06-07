@@ -6,7 +6,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
   def new
     @offsite_link = OffsiteLink.new
 
-    render_design_system(:new, :legacy_new, next_release: false)
+    render_design_system(:new, :legacy_new)
   end
 
   def create
@@ -16,19 +16,19 @@ class Admin::OffsiteLinksController < Admin::BaseController
       flash[:notice] = "An offsite link has been created for #{@parent.name}"
       redirect_to offsite_links_path
     else
-      render_design_system(:new, :legacy_new, next_release: false)
+      render_design_system(:new, :legacy_new)
     end
   end
 
   def edit
-    render_design_system(:edit, :legacy_edit, next_release: false)
+    render_design_system(:edit, :legacy_edit)
   end
 
   def update
     if @offsite_link.update(offsite_link_params)
       redirect_to offsite_link_path(@offsite_link)
     else
-      render_design_system(:edit, :legacy_edit, next_release: false)
+      render_design_system(:edit, :legacy_edit)
     end
   end
 

@@ -6,7 +6,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def index
     @organisations = Organisation.alphabetical
     @user_organisation = current_user.organisation
-    render_design_system(:index, :legacy_index, next_release: false)
+    render_design_system(:index, :legacy_index)
   end
 
   def new
@@ -25,7 +25,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def show
-    render_design_system(:show, :legacy_show, next_release: false)
+    render_design_system(:show, :legacy_show)
   end
 
   def people

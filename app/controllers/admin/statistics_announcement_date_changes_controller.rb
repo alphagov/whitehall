@@ -7,7 +7,7 @@ class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
   def new
     @statistics_announcement_date_change = build_date_change
 
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -16,7 +16,7 @@ class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
     if @statistics_announcement_date_change.save
       redirect_to [:admin, @statistics_announcement], notice: "Release date changed"
     else
-      render_design_system("new", "legacy_new", next_release: false)
+      render_design_system("new", "legacy_new")
     end
   end
 

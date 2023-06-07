@@ -8,6 +8,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "GET #index lists the groups and memberships in the collection" do
     publication = create(:publication)

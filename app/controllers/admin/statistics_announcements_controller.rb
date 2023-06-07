@@ -13,14 +13,14 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   def show
     @edition_taxons = EditionTaxonsFetcher.new(@statistics_announcement.content_id).fetch
 
-    render_design_system("show", "legacy_show", next_release: false)
+    render_design_system("show", "legacy_show")
   end
 
   def new
     @statistics_announcement = build_statistics_announcement(organisation_ids: [current_user.organisation.try(:id)])
     @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
 
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -29,12 +29,12 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement published successfully"
     else
-      render_design_system("new", "legacy_new", next_release: false)
+      render_design_system("new", "legacy_new")
     end
   end
 
   def edit
-    render_design_system("edit", "legacy_edit", next_release: false)
+    render_design_system("edit", "legacy_edit")
   end
 
   def update
@@ -42,24 +42,24 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
-      render_design_system("edit", "legacy_edit", next_release: false)
+      render_design_system("edit", "legacy_edit")
     end
   end
 
   def cancel
-    render_design_system("cancel", "legacy_cancel", next_release: false)
+    render_design_system("cancel", "legacy_cancel")
   end
 
   def publish_cancellation
     if @statistics_announcement.cancel!(params[:statistics_announcement][:cancellation_reason], current_user)
       redirect_to [:admin, @statistics_announcement], notice: "Announcement has been cancelled"
     else
-      render_design_system("cancel", "legacy_cancel", next_release: false)
+      render_design_system("cancel", "legacy_cancel")
     end
   end
 
   def cancel_reason
-    render_design_system("cancel_reason", "legacy_cancel_reason", next_release: false)
+    render_design_system("cancel_reason", "legacy_cancel_reason")
   end
 
   def update_cancel_reason
@@ -67,7 +67,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
-      render_design_system("cancel_reason", "legacy_cancel_reason", next_release: false)
+      render_design_system("cancel_reason", "legacy_cancel_reason")
     end
   end
 

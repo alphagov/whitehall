@@ -8,6 +8,7 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   def id_params
     { document_collection_id: @collection, group_id: @group }

@@ -15,6 +15,7 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "GET :index with no search value renders search bar only" do
     get :index, params: { statistics_announcement_id: @official_statistics_announcement }

@@ -6,7 +6,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def index
     @promotional_features = @organisation.promotional_features
-    render_design_system("index", "legacy_index", next_release: false)
+    render_design_system("index", "legacy_index")
   end
 
   def new
@@ -14,7 +14,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     @promotional_feature.promotional_feature_items.build
     @promotional_feature.promotional_feature_items.first.links.build
 
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -25,16 +25,16 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature created"
     else
       @promotional_feature.promotional_feature_items.first.links.build if @promotional_feature.promotional_feature_items.first.links.blank?
-      render_design_system("new", "legacy_new", next_release: false)
+      render_design_system("new", "legacy_new")
     end
   end
 
   def show
-    render_design_system("show", "legacy_show", next_release: false)
+    render_design_system("show", "legacy_show")
   end
 
   def edit
-    render_design_system("edit", "legacy_edit", next_release: false)
+    render_design_system("edit", "legacy_edit")
   end
 
   def update

@@ -6,6 +6,7 @@ class Admin::SitewideSettingsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   %i[edit update].each do |action_method|
     test "#{action_method} action is not permitted to non-GDS editors" do

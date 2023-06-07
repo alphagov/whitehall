@@ -9,7 +9,7 @@ class Admin::TopicalEventsController < Admin::BaseController
   layout :get_layout
 
   def show
-    render_design_system(:show, :show_legacy, next_release: false)
+    render_design_system(:show, :show_legacy)
   end
 
   def index

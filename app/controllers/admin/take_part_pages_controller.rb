@@ -8,12 +8,12 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def index
     @take_part_pages = TakePartPage.in_order
-    render_design_system(:index, :legacy_index, next_release: false)
+    render_design_system(:index, :legacy_index)
   end
 
   def new
     @take_part_page = TakePartPage.new
-    render_design_system("new", "legacy_new", next_release: false)
+    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -21,13 +21,13 @@ class Admin::TakePartPagesController < Admin::BaseController
     if @take_part_page.save
       redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" created!)
     else
-      render_design_system("new", "legacy_new", next_release: false)
+      render_design_system("new", "legacy_new")
     end
   end
 
   def edit
     @take_part_page = TakePartPage.friendly.find(params[:id])
-    render_design_system("edit", "legacy_edit", next_release: false)
+    render_design_system("edit", "legacy_edit")
   end
 
   def update

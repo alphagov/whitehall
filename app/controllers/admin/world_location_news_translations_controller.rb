@@ -3,7 +3,7 @@ class Admin::WorldLocationNewsTranslationsController < Admin::BaseController
   layout :get_layout
 
   def index
-    render_design_system(:index, :legacy_index, next_release: false)
+    render_design_system(:index, :legacy_index)
   end
 
   def destroy
