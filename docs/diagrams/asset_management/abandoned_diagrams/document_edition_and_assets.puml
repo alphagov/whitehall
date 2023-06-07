@@ -1,0 +1,41 @@
+@startuml edition_model
+allowmixing
+hide empty description
+
+class Document {
+    content_id
+    document_type
+    slug
+    latest_edition_id
+    live_edition_id
+}
+
+abstract Edition {
+      state
+}
+
+together {
+    abstract Attachment
+    class AttachmentData {
+      attachable_id
+      file
+    }
+   }
+
+Attachment --o AttachmentData
+
+together {
+  class Image
+  class ImageData
+}
+
+Document *-- Edition
+
+Edition *-- Image
+
+Image --o ImageData
+
+Edition "as Attachable" *-- Attachment
+
+
+@enduml
