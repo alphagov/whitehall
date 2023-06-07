@@ -33,6 +33,6 @@ class PromotionalFeatureItem < ApplicationRecord
 private
 
   def image_or_youtube_url_is_present
-    errors.add(:base, "Upload either an image or add a YouTube URL") if (image.blank? && youtube_video_url.blank?) || (image.present? && youtube_video_url.present?)
+    errors.add(:image_or_youtube_url, "Upload either an image or add a YouTube URL") if (image.blank? && youtube_video_url.blank?) || (image.present? && youtube_video_url.present?)
   end
 end

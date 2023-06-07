@@ -1,0 +1,16 @@
+<%= form_for [:admin, organisation, promotional_feature], html: { class: "well promotional_feature_item" } do |form| %>
+  <%= form.errors %>
+
+  <fieldset>
+    <%= form.text_field :title, label_text: 'Feature title' %>
+  </fieldset>
+
+  <fieldset class="promotional_feature_item">
+    <legend>First feature item</legend>
+    <%= form.fields_for :promotional_feature_items do |feature_item| %>
+      <%= render 'admin/promotional_feature_items/legacy_form_fields', { form: feature_item } %>
+    <% end %>
+  </fieldset>
+
+  <%= form.save_or_cancel(cancel: [:admin, organisation, PromotionalFeature]) %>
+<% end %>

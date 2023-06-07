@@ -39,14 +39,14 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert feature_item_with_image.valid?
     assert feature_item_with_youtube_url.valid?
     assert_not invalid_feature_item.valid?
-    assert_equal invalid_feature_item.errors.full_messages, ["Upload either an image or add a YouTube URL"]
+    assert_equal invalid_feature_item.errors.full_messages, ["Image or youtube url Upload either an image or add a YouTube URL"]
   end
 
   test "validates that either an image and youtube_video_url can be provided" do
     invalid_feature_item = build(:promotional_feature_item, youtube_video_url: "https://www.youtube.com/watch?v=fFmDQn9Lbl4", youtube_video_alt_text: "Alt text.")
 
     assert_not invalid_feature_item.valid?
-    assert_equal invalid_feature_item.errors.full_messages, ["Upload either an image or add a YouTube URL"]
+    assert_equal invalid_feature_item.errors.full_messages, ["Image or youtube url Upload either an image or add a YouTube URL"]
   end
 
   VALID_YOUTUBE_URLS.each do |url|

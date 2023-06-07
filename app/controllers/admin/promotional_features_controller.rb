@@ -13,15 +13,19 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     @promotional_feature = @organisation.promotional_features.build
     @promotional_feature.promotional_feature_items.build
     @promotional_feature.promotional_feature_items.first.links.build
+
+    render_design_system("new", "legacy_new", next_release: false)
   end
 
   def create
     @promotional_feature = @organisation.promotional_features.build(promotional_feature_params)
+
     if @promotional_feature.save
       Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature created"
     else
-      render :new
+      @promotional_feature.promotional_feature_items.first.links.build if @promotional_feature.promotional_feature_items.first.links.blank?
+      render_design_system("new", "legacy_new", next_release: false)
     end
   end
 
@@ -68,7 +72,7 @@ private
 
   def get_layout
     design_system_actions = %w[reorder update_order confirm_destroy]
-    design_system_actions += %w[edit index show] if preview_design_system?(next_release: false)
+    design_system_actions += %w[edit index show new create] if preview_design_system?(next_release: false)
     if design_system_actions.include?(action_name)
       "design_system"
     else

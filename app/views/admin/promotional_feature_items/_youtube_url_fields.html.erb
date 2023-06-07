@@ -1,0 +1,20 @@
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: "YouTube video URL (required)"
+  },
+  hint: "For example https://www.youtube.com/watch?v=MSmotCRFFMc",
+  name: "#{name}[youtube_video_url]",
+  id: "#{id}_youtube_video_url",
+  value: promotional_feature_item.youtube_video_url,
+  error_items: errors_for(promotional_feature_item.errors, :youtube_video_url)
+} %>
+
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: "YouTube description (required)"
+  },
+  name: "#{name}[youtube_video_alt_text]",
+  id: "#{id}_youtube_video_alt_text",
+  value: promotional_feature_item.youtube_video_alt_text,
+  error_items: errors_for(promotional_feature_item.errors, :youtube_video_alt_text)
+} %>

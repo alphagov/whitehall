@@ -1,16 +1,40 @@
-<%= form_for [:admin, organisation, promotional_feature], html: { class: "well promotional_feature_item" } do |form| %>
-  <%= form.errors %>
+<%= form_for [:admin, organisation, promotional_feature], multipart: true do |form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Feature title (required)"
+    },
+    name: "promotional_feature[title]",
+    id: "promotional_feature_title",
+    value: @promotional_feature.title,
+    heading_size: "l",
+    error_items: errors_for(@promotional_feature.errors, :title)
+  } %>
 
-  <fieldset>
-    <%= form.text_field :title, label_text: 'Feature title' %>
-  </fieldset>
-
-  <fieldset class="promotional_feature_item">
-    <legend>First feature item</legend>
-    <%= form.fields_for :promotional_feature_items do |feature_item| %>
-      <%= render 'admin/promotional_feature_items/form_fields', { form: feature_item } %>
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "First feature item",
+    heading_size: "l"
+  } do %>
+    <%= form.fields_for :promotional_feature_items do |feature_item_form| %>
+      <%= render 'admin/promotional_feature_items/form_fields', {
+        promotional_feature_item: @promotional_feature.promotional_feature_items.first,
+        form: feature_item_form,
+        name: "promotional_feature[promotional_feature_items_attributes][0]",
+        id: "promotional_feature_promotional_feature_items"
+      } %>
     <% end %>
-  </fieldset>
+  <% end %>
 
-  <%= form.save_or_cancel(cancel: [:admin, organisation, PromotionalFeature]) %>
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "promotional-feature-button",
+        "track-label": "Save"
+      }
+    } %>
+
+    <%= link_to("Cancel", [:admin, organisation, PromotionalFeature], class: "govuk-link govuk-link--no-visited-state") %>
+  </div>
 <% end %>
