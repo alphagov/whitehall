@@ -10,7 +10,7 @@ class Admin::TopicalEventAboutPagesControllerTest < ActionController::TestCase
     get :show, params: { topical_event_id: @topical_event.to_param }
     assert_response :success
     assert_select "h1", @topical_event.name
-    assert_select "p", /doesn’t yet have a page/
+    assert_select ".govuk-inset-text", "There is no about page associated with this topical event."
   end
 
   view_test "GET new allows user to enter copy for new about page" do

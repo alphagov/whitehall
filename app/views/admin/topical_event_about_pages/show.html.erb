@@ -1,37 +1,58 @@
-<% page_title "Read more about #{@topical_event.name}" %>
-
-<% content_for :current_tab do %>
-  <% if @topical_event_about_page.present? %>
-    <table class="<%= model_name %> table">
-      <tr>
-        <th>Name</th>
-        <td class="name"><%= @topical_event_about_page.name %></td>
-      </tr>
-      <tr>
-        <th>Read more link text</th>
-        <td class="read-more-link-text"><%= @topical_event_about_page.read_more_link_text %></td>
-      </tr>
-      <tr>
-        <th>Summary</th>
-        <td class="summary"><%= @topical_event_about_page.summary %></td>
-      </tr>
-      <tr>
-        <th width="20%">Body</th>
-        <td class="body"><%= govspeak_to_html(@topical_event_about_page.body) %></td>
-      </tr>
-    </table>
-
-    <div class="form-actions">
-      <%= link_to "Edit", [:edit, :admin, @topical_event, :topical_event_about_pages], class: "btn btn-lg btn-primary"%>
-    </div>
-  <% else %>
-    <p>
-      <%= @topical_event.name %> doesn’t yet have a page showing more information about it.
-    </p>
-    <div class="form-actions">
-      <%= link_to 'Create', new_admin_topical_event_topical_event_about_pages_path, class: 'btn btn-lg btn-primary' %>
-    </div>
-  <% end %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_topical_events_path
+  } %>
 <% end %>
+<% content_for :context, "Topical events" %>
+<% content_for :page_title, "Read more about #{@topical_event.name}" %>
+<% content_for :title, @topical_event.name %>
+<% content_for :title_margin_bottom, 4 %>
 
-<%= render partial: "admin/topical_events/tab_wrapper", locals: { model: @topical_event } %>
+<p class="govuk-body"><%= view_on_website_link_for @topical_event, class: "govuk-link" %></p>
+
+<div class="govuk-!-margin-bottom-8">
+  <%= render "components/secondary_navigation", {
+    aria_label: "Topical Events tabs",
+    items: topical_events_nav_items(@topical_event, request.path)
+  } %>
+</div>
+<% if @topical_event_about_page.present? %>
+  <%= render "govuk_publishing_components/components/summary_list", {
+    title: "About page",
+    items: [
+      {
+        field: "Name",
+        value: @topical_event_about_page.name,
+      },
+      {
+        field: "Read more link text",
+        value: @topical_event_about_page.read_more_link_text,
+      },
+      {
+        field: "Summary",
+        value: @topical_event_about_page.summary,
+      },
+      {
+        field: "Body",
+        value: govspeak_to_html(@topical_event_about_page.body),
+      }
+    ],
+    edit: {
+      href: [:edit, :admin, @topical_event, :topical_event_about_pages],
+      link_text: "Edit",
+    }
+  } %>
+<% else %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "About page",
+    margin_bottom: 6
+  } %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Create new about page",
+    href: new_admin_topical_event_topical_event_about_pages_path
+
+  } %>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "There is no about page associated with this topical event."
+  } %>
+<% end %>

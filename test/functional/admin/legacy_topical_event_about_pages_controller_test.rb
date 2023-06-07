@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::TopicalEventAboutPagesControllerTest < ActionController::TestCase
+class Admin::LegacyTopicalEventAboutPagesControllerTest < ActionController::TestCase
   tests Admin::TopicalEventAboutPagesController
   def setup
     login_as :user

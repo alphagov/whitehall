@@ -29,7 +29,7 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
 
   def show
     @topical_event_about_page = @topical_event.topical_event_about_page
-    render_design_system(:show, :legacy_show, next_release: false)
+    render_design_system(:show, :legacy_show)
   end
 
   def model_name
@@ -40,7 +40,7 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
     model_name.humanize
   end
 
-  private
+private
 
   def find_topical_event
     @topical_event = TopicalEvent.friendly.find(params[:topical_event_id])
