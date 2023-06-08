@@ -8,6 +8,8 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   def new
     @promotional_feature_item = @promotional_feature.promotional_feature_items.build
     @promotional_feature_item.links.build
+
+    render_design_system("new", "legacy_new", next_release: false)
   end
 
   def create
@@ -16,12 +18,13 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
       Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to_feature "Feature item added."
     else
-      render :new
+      render_design_system("new", "legacy_new", next_release: false)
     end
   end
 
   def edit
     @promotional_feature_item.links.build if @promotional_feature_item.links.empty?
+    render_design_system("edit", "legacy_edit", next_release: false)
   end
 
   def update
@@ -36,7 +39,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
 
       redirect_to_feature "Feature item updated."
     else
-      render :edit
+      render_design_system("edit", "legacy_edit", next_release: false)
     end
   end
 
@@ -52,6 +55,8 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[new create edit update] if preview_design_system?(next_release: false)
+
     if design_system_actions.include?(action_name)
       "design_system"
     else

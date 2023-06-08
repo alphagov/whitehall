@@ -1,7 +1,14 @@
-<%= initialise_script "GOVUK.adminPromotionalFeatureItemsForm", selector: ".promotional_feature_item" %>
+<% content_for :page_title, "Edit promotional feature for #{@promotional_feature.title}" %>
+<% content_for :title, "Edit feature item" %>
+<% content_for :context, @promotional_feature.title %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @promotional_feature_item)) %>
 
-<% page_title "Feature item for #{@promotional_feature.title}" %>
-<h1>Editing feature item for <%= @promotional_feature.title %></h1>
-<p class="warning">Warning: changes will appear instantly on the live site.</p>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Newly created feature items will appear instantly on the live site."
+    } %>
 
-<%= render "form", promotional_feature_item: @promotional_feature_item, promotional_feature: @promotional_feature, organisation: @organisation %>
+    <%= render "form", promotional_feature_item: @promotional_feature_item, promotional_feature: @promotional_feature, organisation: @organisation %>
+  </div>
+</div>

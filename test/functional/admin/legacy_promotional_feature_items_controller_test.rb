@@ -14,7 +14,7 @@ class Admin::LegacyPromotionalFeatureItemsControllerTest < ActionController::Tes
     get :new, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature }
 
     assert_response :success
-    assert_template :new
+    assert_template :legacy_new
     assert_equal @organisation, assigns(:organisation)
     assert_equal @promotional_feature, assigns(:promotional_feature)
     assert assigns(:promotional_feature_item).is_a?(PromotionalFeatureItem)
@@ -49,7 +49,7 @@ class Admin::LegacyPromotionalFeatureItemsControllerTest < ActionController::Tes
     get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_response :success
-    assert_template :edit
+    assert_template :legacy_edit
     assert_equal @organisation, assigns(:organisation)
     assert_equal @promotional_feature, assigns(:promotional_feature)
     assert_equal promotional_feature_item, assigns(:promotional_feature_item)
@@ -61,7 +61,7 @@ class Admin::LegacyPromotionalFeatureItemsControllerTest < ActionController::Tes
     get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_response :success
-    assert_template :edit
+    assert_template :legacy_edit
     assert link = assigns(:promotional_feature_item).links.first
     assert link.new_record?
     assert link.is_a?(PromotionalFeatureLink)
@@ -116,7 +116,7 @@ class Admin::LegacyPromotionalFeatureItemsControllerTest < ActionController::Tes
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, summary: "Old summary")
     put :update, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item, promotional_feature_item: { summary: "" } }
 
-    assert_template :edit
+    assert_template :legacy_edit
     assert_equal "Old summary", promotional_feature_item.reload.summary
   end
 
