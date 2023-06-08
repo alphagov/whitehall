@@ -15,4 +15,4 @@ You can also use an IDE plugin, or run a server so you can edit the `.puml` file
 
 `plantuml -tsvg *.puml` to generate them, embed them in markdown as normal:
 
-`!(description for accessibility)[path_to_file.svg]`
+`![description for accessibility](path_to_file.svg)`

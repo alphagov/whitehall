@@ -6,6 +6,8 @@ This page documents only a subset of the full Document and Edition model world -
 
 Note, as a simplification, that concerns are not shown.  For instance `Attachment` is actually linked to an `Attachable` which is a concern mixed in by `Publicationesque`
 
+There is a more detailed view of assets in the [Edition Asset Model](asset_management/edition_asset_model.md) document.
+
 ## Document
 
 A document represents all iterations of a publishable document in Whitehall.  It stores the main document type, the `content_id` which links it to the [Publishing API](https://github.com/alphagov/publishing-api/blob/main/docs/model.md#content_id) and the slug, used to locate the document in web pages.
