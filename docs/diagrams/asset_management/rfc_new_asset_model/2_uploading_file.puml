@@ -1,0 +1,45 @@
+@startuml
+node Whitehall {
+object "Document:1" as Document_1 {
+  latest_edition_id: 1
+  live_edition_id:
+}
+together {
+object "NewsArticle:1" as NewsArticle_1 {
+  state: draft
+}
+Document_1 *-- NewsArticle_1
+object "FileAttachment:1" as FileAttachment_1 {
+  deleted: false
+}
+NewsArticle_1 *-- FileAttachment_1
+}
+object "AttachmentData:1" as AttachmentData_1 {
+}
+AttachmentData_1 *-u- FileAttachment_1
+object "RemoteAsset:1" as RemoteAsset_1 {
+  state: awaiting_upload
+  remote_id:
+}
+object "RemoteAsset:2" as RemoteAsset_2 {
+  state: awaiting_upload
+  remote_id:
+}
+AttachmentData_1 --* RemoteAsset_1
+AttachmentData_1 --* RemoteAsset_2
+}
+node PublishingApi {
+object "Document:4" as pubapi_Document_4 {
+}
+object "Edition:4" as pubapi_Edition_4 {
+  state: draft
+}
+pubapi_Document_4 *-- pubapi_Edition_4
+}
+node AssetManager {
+rectangle "no assets" {
+}
+}
+Document_1 .. pubapi_Document_4
+
+@enduml

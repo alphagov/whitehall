@@ -1,0 +1,54 @@
+@startuml
+node Whitehall {
+object "Document:1" as Document_1 {
+  latest_edition_id: 1
+  live_edition_id:
+}
+together {
+object "NewsArticle:1" as NewsArticle_1 {
+  state: draft
+}
+Document_1 *-- NewsArticle_1
+object "FileAttachment:1" as FileAttachment_1 {
+  deleted: false
+}
+NewsArticle_1 *-- FileAttachment_1
+}
+object "AttachmentData:1" as AttachmentData_1 {
+  uploaded_to_asset_manager_at: 24 May 16:28
+}
+AttachmentData_1 *-u- FileAttachment_1
+object "RemoteAsset:1" as RemoteAsset_1 {
+  state: uploaded
+  remote_id: X164e681f
+}
+object "RemoteAsset:2" as RemoteAsset_2 {
+  state: uploaded
+  remote_id: X174e681f
+}
+AttachmentData_1 --* RemoteAsset_1
+AttachmentData_1 --* RemoteAsset_2
+}
+node AssetManager {
+object "WhitehallAsset:X164e681f" as am_WhitehallAsset_X164e681f {
+  state: unscanned
+  draft: true
+}
+object "WhitehallAsset:X174e681f" as am_WhitehallAsset_X174e681f {
+  state: unscanned
+  draft: true
+}
+
+}
+node PublishingApi {
+object "Document:4" as pubapi_Document_4 {
+}
+object "Edition:4" as pubapi_Edition_4 {
+  state: draft
+}
+pubapi_Document_4 *-- pubapi_Edition_4
+}
+Document_1 .. pubapi_Document_4
+RemoteAsset_1 .. am_WhitehallAsset_X164e681f
+RemoteAsset_2 .. am_WhitehallAsset_X174e681f
+@enduml
