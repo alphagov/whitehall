@@ -2,6 +2,8 @@
 
 This is a document to kick off discussion around changing the Asset modelling in whitehall.
 
+**NOTE** - this is duplicated in Google Drive for collaboration - if you want to make comments or changes, we suggest you make them [here](https://docs.google.com/document/d/1YLsnqhu0BNNCnHJa62yHr_BbyYJS8pIWTRFZKcIezwI/edit?usp=sharing) (cabinet office account needed) - accepted changes should be merged back into github.
+
 ## Problem statement
 
 TODO add details
