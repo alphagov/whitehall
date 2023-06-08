@@ -11,7 +11,7 @@ class Admin::GetInvolvedController < Admin::BaseController
   end
 
   def get_layout
-    if preview_design_system?(next_release: false)
+    if preview_design_system?(next_release: true)
       "design_system"
     else
       "admin"

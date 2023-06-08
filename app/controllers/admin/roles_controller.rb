@@ -84,10 +84,7 @@ private
   end
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index confirm_destroy edit update new create] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: true)
       "design_system"
     else
       "admin"

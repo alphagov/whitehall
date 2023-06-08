@@ -78,8 +78,7 @@ private
   end
 
   def get_layout
-    design_system_actions = %w[show index edit update features]
-    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: true)
       "design_system"
     else
       "admin"

@@ -62,10 +62,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[new create index edit update confirm_destroy update_order] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: true)
       "design_system"
     else
       "admin"
