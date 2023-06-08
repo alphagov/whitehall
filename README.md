@@ -72,7 +72,7 @@ See the [`docs/`](docs/) directory.
 - [Timestamps](docs/timestamps.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Adding a data migration](db/data_migration/README.md)
-- [Asset Management (WIP)](docs/asset_management.md)
+- [Asset Management](docs/asset_management/README.md)
 
 ## Licence
 
