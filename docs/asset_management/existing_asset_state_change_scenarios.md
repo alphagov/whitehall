@@ -13,13 +13,13 @@ One of the goals of the Whitehall Asset Management team is to make these states 
 
 Note there are prior states not shown here around creating the first draft in the Publishing API. However this behaviour is currently synchronous so while it could have problems if the publishing API crashed during a call, it is an unlikely point of failure.
 
-![new document](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/1_new_document.png)
+![new document](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/1_new_document.svg)
 
 ### State 2 - upload file attachment started
 
 A user has attached a file, but the background sidekiq job has not yet uploaded the asset to Asset Manager.  However the original transaction will have committed, so the `FileAttachment` and `AttachmentData` models will be created (and for robustness, would need handling if Asset Manager upload failed)
 
-![state_2](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/2_uploading_file.png)
+![state_2](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/2_uploading_file.svg)
 
 ### State 3 - files uploaded to Asset Manager
 
@@ -27,13 +27,13 @@ The sidekiq jobs send the file (plus a thumbnail, in this case) to Asset Manager
 
 Note there are actually a few possible states here as each upload is a separate background job in its own transaction.  **Check this?**
 
-![state_3](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/3_uploaded_file.png)
+![state_3](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/3_uploaded_file.svg)
 
 ### State 4 - uploading images
 
 A user attaches an image to the article, but the background sidekiq job has not yet started.
 
-![state_4](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/4_uploading_image.png)
+![state_4](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/4_uploading_image.svg)
 
 ### State 5 - images uploaded to Asset Manager
 
@@ -41,7 +41,7 @@ The sidekiq jobs send several scaled versions of the image to Asset Manager.
 
 Note that there are several possible states here as each upload is a separate background job in its own transaction.
 
-![state_5](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/5_uploaded_image.png)
+![state_5](../diagrams/asset_management/asset_scenarios/new_document_with_attachments/5_uploaded_image.svg)
 
 ---
 
@@ -53,7 +53,7 @@ This starts with state following on from State 5 above
 
 The user performs a "Force Publish" (to simplify state - normal publishing flow has several intermediate states) - but the background sidekiq job has not yet started.
 
-![state_6](../diagrams/asset_management/asset_scenarios/publish_doc_with_attachments/6_force_publishing.png)
+![state_6](../diagrams/asset_management/asset_scenarios/publish_doc_with_attachments/6_force_publishing.svg)
 
 ### State 7 - assets updated after publishing
 
@@ -61,7 +61,7 @@ Sidekiq updates the assets asynchronously, each one in its own transaction. **Ch
 
 Note that this only changes files to non-draft - images start as non-draft for some reason!
 
-![state_7](../diagrams/asset_management/asset_scenarios/publish_doc_with_attachments/7_force_published.png)
+![state_7](../diagrams/asset_management/asset_scenarios/publish_doc_with_attachments/7_force_published.svg)
 
 ---
 
@@ -77,16 +77,16 @@ The new draft causes a new Edition (in this case a News Article) to be created i
 
 Note that the `AttachmentData` and `ImageData` classes are now associated with two FileAttachments and Images respectively.  AttachmentData has some complicated logic such as the `last_publicly_visible_attachment` method that works out which looks at all associated FileAttachments and works out which one is 'live' based on the Edition states.
 
-![state_8](../diagrams/asset_management/asset_scenarios/superceding/8_new_draft.png)
+![state_8](../diagrams/asset_management/asset_scenarios/superceding/8_new_draft.svg)
 
 ### State 9 - new draft is saved
 
 At this point the draft is sent to the Publishing API.
 
-![state_9](../diagrams/asset_management/asset_scenarios/superceding/9_new_draft_saved.png)
+![state_9](../diagrams/asset_management/asset_scenarios/superceding/9_new_draft_saved.svg)
 
 ### State 10 - new draft is published
 
 Using Force Publishing again to simplify state flow.  When the new edition is published, the old edition moves to state `superseded` in both Whitehall and Publishing API.
 
-![state_10](../diagrams/asset_management/asset_scenarios/superceding/10_force_published.png)
+![state_10](../diagrams/asset_management/asset_scenarios/superceding/10_force_published.svg)
