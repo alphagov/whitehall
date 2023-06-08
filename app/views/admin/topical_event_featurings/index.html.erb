@@ -31,7 +31,7 @@
       label: "Non-GOV.UK government links",
       content: render("admin/feature_lists/featureable_offsite_links",
         model: @topical_event,
-        featurable_offsite_links: featurable_offsite_links_for_topical_event(@featurable_offsite_links, @topical_event),
+        featurable_offsite_links: @topical_event.featurable_offsite_links,
         featuring_path: [:new, :admin, @topical_event, :topical_event_featuring],
       ),
     }

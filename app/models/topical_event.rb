@@ -197,6 +197,14 @@ class TopicalEvent < ApplicationRecord
     Plek.website_root + public_path(options)
   end
 
+  def featurable_offsite_links
+    offsite_links.reject do |link|
+      topical_event_featurings.detect do |featuring|
+        featuring.offsite_link == link
+      end
+    end
+  end
+
 private
 
   delegate :any?, to: :features
