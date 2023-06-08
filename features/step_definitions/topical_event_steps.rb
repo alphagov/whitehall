@@ -25,7 +25,11 @@ end
 
 When(/^I add a page of information about the event$/) do
   click_link "About page"
-  click_link "Create"
+  if using_design_system?
+    click_link "Create new about page"
+  else
+    click_link "Create"
+  end
   fill_in "Name", with: "Page about the event"
   fill_in "Read more link text", with: "Read more about this event"
   fill_in "Summary", with: "Summary"

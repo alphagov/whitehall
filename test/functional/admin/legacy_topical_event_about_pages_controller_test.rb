@@ -1,16 +1,17 @@
 require "test_helper"
 
-class Admin::TopicalEventAboutPagesControllerTest < ActionController::TestCase
+class Admin::LegacyTopicalEventAboutPagesControllerTest < ActionController::TestCase
+  tests Admin::TopicalEventAboutPagesController
   def setup
+    login_as :user
     @topical_event = create(:topical_event)
-    login_as_preview_design_system_user(:writer)
   end
 
   view_test "GET show prompts user to create an about page" do
     get :show, params: { topical_event_id: @topical_event.to_param }
     assert_response :success
     assert_select "h1", @topical_event.name
-    assert_select ".govuk-inset-text", "There is no about page associated with this topical event."
+    assert_select "p", /doesn’t yet have a page/
   end
 
   view_test "GET new allows user to enter copy for new about page" do

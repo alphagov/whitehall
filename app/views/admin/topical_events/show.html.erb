@@ -1,3 +1,9 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_topical_events_path
+  } %>
+<% end %>
+<% content_for :context, "Topical events" %>
 <% content_for :page_title, @topical_event.name %>
 <% content_for :title, @topical_event.name %>
 <% content_for :title_margin_bottom, 4 %>
@@ -7,21 +13,7 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "components/secondary_navigation", {
     aria_label: "Topical Events tabs",
-    items: [
-      {
-        label: "Details",
-        href: [:admin, @topical_event],
-        current: true,
-      },
-      {
-        label: "About page",
-        href: [:admin, @topical_event, :topical_event_about_pages]
-      },
-      {
-        label: "Features",
-        href: [:admin, @topical_event, :topical_event_featurings]
-      }
-    ]
+    items: topical_events_nav_items(@topical_event, request.path)
   } %>
 </div>
 
