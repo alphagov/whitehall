@@ -6,7 +6,6 @@ class Admin::WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   test "should return active and inactive world locations in alphabetical order" do
     active = [

@@ -6,7 +6,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "index should display a list of roles" do
     org_one = create(:organisation, name: "org-one")
