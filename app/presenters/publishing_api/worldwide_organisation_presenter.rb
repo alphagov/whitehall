@@ -43,7 +43,6 @@ module PublishingApi
     def links
       {
         corporate_information_pages:,
-        ordered_contacts: [],
         main_office:,
         home_page_offices:,
         primary_role_person:,
