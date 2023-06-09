@@ -1,1 +1,23 @@
-<%= render partial: 'form', locals: { page_title: "Edit page about #{@topical_event.name}", url: admin_topical_event_topical_event_about_pages_path(@topical_event, @topical_event_about_page) } %>
+<% content_for :page_title, "Edit page about #{@topical_event.name}" %>
+<% content_for :title, "Edit page about #{@topical_event.name}" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @topical_event_about_page)) %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Changes to topical events appear instantly on the live site."
+    } %>
+    <%= render "form", topical_event_about_page: @topical_event_about_page %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/tabs", {
+      tabs: [
+        {
+          id: "govspeak_tab",
+          label: "Help",
+          content: simple_formatting_sidebar
+        },
+      ]
+    } %>
+  </div>
+</div>

@@ -1,26 +1,54 @@
-<div class="row">
-  <section class="col-md-8">
-    <h1><%= page_title %></h1>
-
-    <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
-
-    <%= form_for [@topical_event, @topical_event_about_page], url: url do |form| %>
-      <%= form.errors %>
-      <fieldset>
-        <%= form.text_field :name, required: true %>
-        <%= form.text_field :read_more_link_text, required: true %>
-      </fieldset>
-      <fieldset>
-        <%= form.text_area :summary, rows: 5, required: true %>
-        <%= form.text_area :body, rows: 20, required: true, class: "previewable", data: {
-          module: "paste-html-to-govspeak"
-        } %>
-      </fieldset>
-
-      <%= form.save_or_cancel cancel: admin_topical_event_topical_event_about_pages_path(@topical_event) %>
-    <% end %>
-  </section>
-  <div class="col-md-4">
-    <%= legacy_simple_formatting_sidebar %>
+<%= form_with model: topical_event_about_page, url: admin_topical_event_topical_event_about_pages_path(topical_event_about_page.topical_event) do |form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Name (required)",
+      heading_size: "l"
+    },
+    value: topical_event_about_page.name,
+    name: "topical_event_about_page[name]",
+    id: "topical_event_about_page_name",
+    error_items: errors_for(topical_event_about_page.errors, :name)
+  }
+  %>
+  <%= render "govuk_publishing_components/components/character_count", {
+    textarea: {
+      label: {
+        text: "Read more link text (required)",
+        heading_size: "l"
+      },
+      value: topical_event_about_page.read_more_link_text,
+      name: "topical_event_about_page[read_more_link_text]",
+      error_items: errors_for(topical_event_about_page.errors, :read_more_link_text)
+    },
+    maxlength: 255,
+    id: "topical_event_about_page_read_more_link_text",
+  } %>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      heading_size: "l",
+      text: "Summary (required)",
+    },
+    value: topical_event_about_page.summary,
+    heading_size: "l",
+    name: "topical_event_about_page[summary]",
+    id: "topical_event_about_page_summary",
+    error_items: errors_for(topical_event_about_page.errors, :summary)
+  } %>
+  <%= render "components/govspeak-editor", {
+    label: {
+      text: "Body",
+      heading_size: "l"
+    },
+    id: "topical_event_about_page_body",
+    name: "topical_event_about_page[body]",
+    value: topical_event_about_page.body,
+    rows: 20,
+    error_items: errors_for(topical_event_about_page.errors, :body)
+  } %>
+  <div class="govuk-button-group govuk-!-margin-top-8">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save"
+    } %>
+    <%= link_to("Cancel", admin_topical_events_path, class: "govuk-link") %>
   </div>
-</div>
+<% end %>
