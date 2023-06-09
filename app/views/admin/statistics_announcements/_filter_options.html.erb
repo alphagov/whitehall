@@ -1,0 +1,77 @@
+<div class="app-view-filter govuk-!-padding-5">
+  <%= form_with url: admin_statistics_announcements_path, method: :get do |_form| %>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Filter by",
+      margin_bottom: 4,
+    } %>
+
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: "Title or slug",
+        bold: true,
+      },
+      name: "title",
+      id: "title_filter",
+      value: @filter.options[:title],
+    } %>
+
+    <%= render "components/select-with-search", {
+      label: "Organisation",
+      id: "organisation_filter",
+      name: "organisation_id",
+      heading_size: "s",
+      grouped_options: admin_organisation_filter_options(@filter.options[:organisation_id]),
+    } %>
+
+    <%= render "govuk_publishing_components/components/select", {
+      id: "release_date_filter",
+      label: "Release date",
+      name: "dates",
+      heading_size: "s",
+      full_width: true,
+      options: [
+        {
+          text: "All announcements",
+          value: nil,
+          selected: @filter.options[:dates] == nil
+        },
+        {
+          text: "Future releases",
+          value: "future",
+          selected: @filter.options[:dates] == "future"
+        },
+        {
+          text: "Next 2 weeks",
+          value: "imminent",
+          selected: @filter.options[:dates] == "imminent"
+        },
+        {
+          text: "Past announcements",
+          value: "past",
+          selected: @filter.options[:dates] == "past"
+        }
+      ]
+    } %>
+
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: "unlinked_only",
+      heading: "Announcements",
+      no_hint_text: true,
+      heading_size: "s",
+      items: [
+        {
+          label: "Without a linked publication",
+          value: 1,
+          checked: @filter.options[:unlinked_only]
+        },
+      ]
+    } %>
+
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Search",
+      margin_bottom: 4,
+    } %>
+
+    <p class="govuk-body"><%= link_to "Reset all fields", admin_statistics_announcements_path + "?state=active", class: "govuk-link" %></p>
+  <% end %>
+</div>

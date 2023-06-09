@@ -1,0 +1,56 @@
+<h2 class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "document") %></h2>
+
+<% if paginator.blank? %>
+  <p class="govuk-body app-view-edition-search-results__no_documents">No <%= filter.options[:dates] %> statistics announcements found</p>
+<% else %>
+  <div class="govuk-table--with-actions">
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Title"
+        },
+        {
+          text: "Organisation"
+        },
+        {
+          text: "Release date"
+        },
+        {
+          text: "Publication"
+        },
+        {
+          text: tag.span("View", class: "govuk-visually-hidden")
+        }
+      ],
+      rows:
+        paginator.map do |statistics_announcement|
+          [
+             {
+               text: tag.strong(statistics_announcement.title)
+             },
+             {
+               text: statistics_announcement.organisations.map(&:name).to_sentence
+             },
+             {
+               text: tag.p(statistics_announcement.release_date.to_date.strftime(sanitize("%e&nbsp;%B&nbsp;%Y")), class: "govuk-!-margin-0") +
+               tag.p(statistics_announcement.release_date.strftime("%l:%M%P"), class: "govuk-!-margin-0") +
+                 "(#{statistics_announcement.confirmed? ? 'confirmed' : 'provisional'})"
+             },
+             {
+               text:  if publication = statistics_announcement.publication
+                        tag.p(link_to(publication.title, [:admin, publication], class: "govuk-link"), class: "govuk-!-margin-0") +
+                          "(#{publication.current_state})"
+                      else
+                        ""
+                      end
+             },
+             {
+               text: link_to(sanitize("View #{tag.span(statistics_announcement.title, class: 'govuk-visually-hidden')}"), [:admin, statistics_announcement], class: "govuk-link"),
+             },
+          ]
+        end
+    } %>
+  </div>
+
+  <%= paginate(paginator, theme: "govuk_paginator") %>
+<% end %>

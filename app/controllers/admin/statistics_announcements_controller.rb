@@ -8,6 +8,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
     @statistics_announcements = @filter.statistics_announcements
+
+    render_design_system("index", "legacy_index")
   end
 
   def show
@@ -135,6 +137,7 @@ private
       organisation_id: current_user.organisation.try(:id),
       dates: "future",
       user_id: current_user.id,
+      per_page: 15,
     }
   end
 
@@ -155,10 +158,7 @@ private
   end
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[show edit update new create cancel publish_cancellation cancel_reason update_cancel_reason] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"

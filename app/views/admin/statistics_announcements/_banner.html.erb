@@ -1,0 +1,6 @@
+<% if show_banner %>
+  <%= render "govuk_publishing_components/components/notice", {
+    title: sanitize("#{link_to(pluralize(count, "imminent release"), admin_statistics_announcements_path(dates: 'imminent', unlinked_only: '1', organisation_id: filter.options[:organisation_id]), class: "govuk-link")} need a publication"),
+    show_banner_title: true
+  } %>
+<% end %>

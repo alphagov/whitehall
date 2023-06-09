@@ -1,108 +1,35 @@
-<% page_title @filter.title %>
-<% content_for :full_width, true %>
-<h1><%= @filter.title %></h1>
-<%= render 'warning' %>
+<% content_for :page_title, @filter.title %>
+<% content_for :title, @filter.title %>
+<% content_for :banner, render("banner", show_banner: show_unlinked_announcements_warning?, count: unlinked_announcements_count, filter: @filter) %>
 
-<%= link_to "Create announcement", new_admin_statistics_announcement_path, class: "btn btn-default btn-lg add-bottom-margin", title: "Create a statistics announcement" %>
 
-<div class="row">
-  <div class="col-md-3">
-    <%= form_tag admin_statistics_announcements_path, class: "filter-options", method: :get do %>
-    <h2 class="remove-top-margin">Filter</h2>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render 'warning' %>
 
-    <div class="filter-grouping">
-      <%= label_tag :search_title, 'Title or slug' %>
-      <div class="form-group">
-        <%= search_field_tag :title, @filter.options[:title], id: 'search_title', placeholder: 'Search title', class: 'form-control' %>
-      </div>
-
-      <%= label_tag :organisation_id %>
-      <div class="form-group">
-        <%= select_tag :organisation_id,
-                       legacy_admin_organisation_filter_options(current_user, @filter.options[:organisation_id]),
-                       class: "chzn-select" %>
-      </div>
-
-      <%= label_tag :dates, "Release date" %>
-      <div class="form-group">
-        <%= select_tag :dates, options_for_select([
-                                 ["All announcements", nil],
-                                 ["Future releases", 'future'],
-                                 ["Next 2 weeks", 'imminent'],
-                                 ["Past announcements", 'past'],
-                               ], @filter.options[:dates]),
-                               class: "chzn-select" %>
-      </div>
-
-      <%= label_tag :unlinked_only, "Announcements" %>
-      <div class="checkbox add-bottom-margin remove-top-margin">
-        <%= label_tag :unlinked_only do %>
-          <%= check_box_tag :unlinked_only, "1", @filter.options[:unlinked_only] %>
-          without a linked publication
-        <% end %>
-      </div>
-    </div>
-
-    <%= submit_tag 'Search', class: 'btn btn-default add-bottom-margin' %>
-    <p><%= link_to "Reset all fields", admin_statistics_announcements_path %></p>
-  <% end %>
-  </div>
-
-  <div class="col-md-9" id="search_results">
-    <% if @statistics_announcements.present? %>
-
-      <h2 class="add-bottom-margin"><%= @filter.description %></h2>
-
-      <% if show_unlinked_announcements_warning? %>
-        <div class="alert alert-warning unlinked-announcements-warning">
-          <%= link_to pluralize(unlinked_announcements_count, "imminent release"), admin_statistics_announcements_path(dates: 'imminent', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
-          need a publication
-        </div>
-      <% end %>
-
-      <table class="statistics-announcements table table-bordered table-striped">
-        <thead>
-          <tr class="table-header">
-            <th class="table-header-highlight">Release date</th>
-            <th>Announcement title</th>
-            <th>Publication</th>
-            <th>Organisations</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @statistics_announcements.each do |statistics_announcement| %>
-            <%= content_tag_for :tr, statistics_announcement, class: "statistics_announcement" do %>
-              <td>
-                <%= statistics_announcement.release_date.to_date.strftime("%e&nbsp;%B&nbsp;%Y").html_safe %><br />
-                <%= statistics_announcement.release_date.strftime("%l:%M%P") %>
-              </td>
-              <td>
-                <strong class="stats-announcement-title">
-                  <%= link_to statistics_announcement.title, [:admin, statistics_announcement] %>
-                </strong>
-                <%= content_tag(:span, "cancelled", class: "badge badge-important add-left-margin") if statistics_announcement.cancelled? %>
-                <div class="text-muted">
-                  <%= statistics_announcement.display_date %> (<%= statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)
-                </div>
-              </td>
-              <td>
-                <% if publication = statistics_announcement.publication %>
-                  <%= link_to(publication.title, [:admin, publication]) %>
-                  (<%= publication.current_state %>)
-                <% else %>
-                  <div class="no-publication-warning alert alert-warning">
-                    No&nbsp;publication
-                  </div>
-                <% end %>
-              </td>
-              <td><%= statistics_announcement.organisations.map(&:name).to_sentence %></td>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-      <%= paginate @statistics_announcements, theme: 'twitter-bootstrap-3' %>
-    <% else %>
-      <div class="no-content no-content-bordered">No <%= @filter.options[:dates] %> statistics announcements found</div>
-    <% end %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Create announcement",
+      href: new_admin_statistics_announcement_path,
+      title: "Create a statistics announcement",
+      margin_bottom: 8,
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "create-announcement-button",
+        "track-label": "Create announcement"
+      }
+    } %>
   </div>
 </div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <%= render 'filter_options' %>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <div class="app-view-edition-index__table">
+      <%= render 'search_results', filter: @filter, paginator: @statistics_announcements, show_export: true %>
+    </div>
+  </div>
+</div>
+
