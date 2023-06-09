@@ -9,7 +9,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
     @statistics_announcements = @filter.statistics_announcements
 
-    render_design_system("index", "legacy_index", next_release: false)
+    render_design_system("index", "legacy_index")
   end
 
   def show

@@ -1,10 +1,5 @@
-<%
-  anchor ||= anchor || ""
-  raise "filter action required" unless defined?(filter_action)
-%>
-
-<div class="app-view-filter govuk-!-margin-right-5 govuk-!-padding-5">
-  <%= form_with url: filter_action + anchor, method: :get do |_form| %>
+<div class="app-view-filter govuk-!-padding-5">
+  <%= form_with url: admin_statistics_announcements_path, method: :get do |_form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,
@@ -33,6 +28,7 @@
       label: "Release date",
       name: "dates",
       heading_size: "s",
+      full_width: true,
       options: [
         {
           text: "All announcements",
@@ -61,6 +57,7 @@
       name: "unlinked_only",
       heading: "Announcements",
       no_hint_text: true,
+      heading_size: "s",
       items: [
         {
           label: "Without a linked publication",
@@ -75,6 +72,6 @@
       margin_bottom: 4,
     } %>
 
-    <p class="govuk-body"><%= link_to "Reset all fields", filter_action + "?state=active" + anchor, class: "govuk-link" %></p>
+    <p class="govuk-body"><%= link_to "Reset all fields", admin_statistics_announcements_path + "?state=active", class: "govuk-link" %></p>
   <% end %>
 </div>

@@ -1,4 +1,4 @@
-<p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "document") %></p>
+<h2 class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "document") %></h2>
 
 <% if paginator.blank? %>
   <p class="govuk-body app-view-edition-search-results__no_documents">No <%= filter.options[:dates] %> statistics announcements found</p>
@@ -32,23 +32,20 @@
                text: statistics_announcement.organisations.map(&:name).to_sentence
              },
              {
-               text: sanitize("#{statistics_announcement.release_date.to_date.strftime("%e&nbsp;%B&nbsp;%Y").html_safe}
-                              <br>
-                              #{statistics_announcement.release_date.strftime("%l:%M%P")}
-                              (#{statistics_announcement.confirmed? ? 'confirmed' : 'provisional'})"
-               ),
+               text: tag.p(statistics_announcement.release_date.to_date.strftime(sanitize("%e&nbsp;%B&nbsp;%Y")), class: "govuk-!-margin-0") +
+               tag.p(statistics_announcement.release_date.strftime("%l:%M%P"), class: "govuk-!-margin-0") +
+                 "(#{statistics_announcement.confirmed? ? 'confirmed' : 'provisional'})"
              },
              {
                text:  if publication = statistics_announcement.publication
-                        sanitize("#{link_to(publication.title, [:admin, publication], class: "govuk-link")}
-                                  <br>
-                                  (#{publication.current_state})")
+                        tag.p(link_to(publication.title, [:admin, publication], class: "govuk-link"), class: "govuk-!-margin-0") +
+                          "(#{publication.current_state})"
                       else
                         ""
                       end
              },
              {
-               text: link_to(sanitize("View #{tag.span("View", class: 'govuk-visually-hidden')}"), [:admin, statistics_announcement], class: "govuk-link"),
+               text: link_to(sanitize("View #{tag.span(statistics_announcement.title, class: 'govuk-visually-hidden')}"), [:admin, statistics_announcement], class: "govuk-link"),
              },
           ]
         end
