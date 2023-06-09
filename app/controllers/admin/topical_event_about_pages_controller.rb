@@ -23,7 +23,7 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
     if @topical_event_about_page.update(about_page_params)
       redirect_to admin_topical_event_topical_event_about_pages_path, notice: "About page saved"
     else
-      render action: "edit"
+      render_design_system(:edit, :legacy_edit)
     end
   end
 
@@ -57,7 +57,7 @@ end
 
 def get_layout
   design_system_actions = []
-  design_system_actions += %w[show] if preview_design_system?(next_release: false)
+  design_system_actions += %w[show edit] if preview_design_system?(next_release: false)
 
   if design_system_actions.include?(action_name)
     "design_system"

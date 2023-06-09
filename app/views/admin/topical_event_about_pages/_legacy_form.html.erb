@@ -1,0 +1,26 @@
+<div class="row">
+  <section class="col-md-8">
+    <h1><%= page_title %></h1>
+
+    <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
+
+    <%= form_for [@topical_event, @topical_event_about_page], url: url do |form| %>
+      <%= form.errors %>
+      <fieldset>
+        <%= form.text_field :name, required: true %>
+        <%= form.text_field :read_more_link_text, required: true %>
+      </fieldset>
+      <fieldset>
+        <%= form.text_area :summary, rows: 5, required: true %>
+        <%= form.text_area :body, rows: 20, required: true, class: "previewable", data: {
+          module: "paste-html-to-govspeak"
+        } %>
+      </fieldset>
+
+      <%= form.save_or_cancel cancel: admin_topical_event_topical_event_about_pages_path(@topical_event) %>
+    <% end %>
+  </section>
+  <div class="col-md-4">
+    <%= legacy_simple_formatting_sidebar %>
+  </div>
+</div>
