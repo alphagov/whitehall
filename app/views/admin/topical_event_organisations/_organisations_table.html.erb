@@ -1,0 +1,25 @@
+<div id=<%= lead ? "lead_organisations" : "supporting_organisations"%>>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half govuk-heading-s">
+      <%= lead ? "Lead organisations" : "Supporting organisations" %>
+    </div>
+    <div class="govuk-grid-column-one-half govuk-!-text-align-right">
+      <%= link_to sanitize("Reorder organisations #{tag.span(lead ? "lead" : "supporting", class: "govuk-visually-hidden")}"), "reorder_link", class: "govuk-link" %>
+    </div>
+  </div>
+  <div class="govuk-table--with-actions">
+    <%= render "govuk_publishing_components/components/table", {
+      first_cell_is_header: true,
+      rows: @topical_event.topical_event_organisations.where(lead: lead).map do |topical_event_organisation|
+        [{
+           text: topical_event_organisation.organisation.name,
+         },
+         {
+           text: link_to(sanitize("View #{tag.span(topical_event_organisation.organisation.name, class: "govuk-visually-hidden")}"), [:admin, topical_event_organisation.organisation], class: "govuk-link") +
+             link_to(sanitize((lead ? "Make supporting " : "Make lead ") + tag.span(topical_event_organisation.organisation.name, class: "govuk-visually-hidden")), "make_link", class: "govuk-link govuk-!-margin-left-2"),
+         }
+        ]
+      end
+    } %>
+  </div>
+</div>

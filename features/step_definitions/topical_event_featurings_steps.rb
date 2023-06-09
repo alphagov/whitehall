@@ -1,7 +1,3 @@
-And(/^a topical event called "([^"]*)" exists$/) do |name|
-  @topical_event = create(:topical_event, name:)
-end
-
 Given(/^the topical event has an offsite link with the title "([^"]*)"$/) do |title|
   create(:offsite_link, parent_type: "TopicalEvent", parent: @topical_event, title:)
 end
