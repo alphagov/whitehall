@@ -255,7 +255,7 @@ class TopicalEventTest < ActiveSupport::TestCase
     assert_equal "https://www.test.gov.uk/government/topical-events/foo?cachebust=123", object.public_url(cachebust: "123")
   end
 
-  test "#featurable_offsite_links returns associated offsite links do not belong to a topical event featuring" do
+  test "#featurable_offsite_links returns associated offsite links that do not belong to a topical event featuring" do
     topical_event = build(:topical_event)
     offsite_link1 = build(:offsite_link)
     offsite_link2 = build(:offsite_link)
@@ -265,5 +265,17 @@ class TopicalEventTest < ActiveSupport::TestCase
     topical_event.stubs(:topical_event_featurings).returns([topical_event_featuring])
 
     assert_equal [offsite_link2], topical_event.featurable_offsite_links
+  end
+
+  test "#featurable_editions returns associated editions that do not belong to a topical event featuring" do
+    topical_event = build(:topical_event)
+    edition1 = build(:edition)
+    edition2 = build(:edition)
+    topical_event_featuring = build(:topical_event_featuring, edition: edition1)
+
+    topical_event.stubs(:editions).returns([edition1, edition2])
+    topical_event.stubs(:topical_event_featurings).returns([topical_event_featuring])
+
+    assert_equal [edition2], topical_event.featurable_editions
   end
 end
