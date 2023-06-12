@@ -14,7 +14,7 @@ When(/^I create a new take part page called "([^"]*)"$/) do |title|
   fill_in "Title", with: title
   fill_in "Summary", with: "A short description of #{title.downcase}"
   fill_in "Body", with: "A longer description of #{title.downcase}, with some markdown"
-  attach_file using_design_system? ? "Upload image" : "Image", jpg_image
+  attach_file "Upload image", jpg_image
   fill_in "Image description (alt text)", with: "A description of the image"
 
   click_on "Save"
@@ -22,11 +22,7 @@ When(/^I create a new take part page called "([^"]*)"$/) do |title|
 end
 
 When(/^I reorder the take part pages to highlight my new page$/) do
-  if using_design_system?
-    visit update_order_admin_take_part_pages_path
-  else
-    visit admin_take_part_pages_path
-  end
+  visit update_order_admin_take_part_pages_path
 
   @the_take_part_pages_in_order.each.with_index do |take_part_page, idx|
     fill_in take_part_page.title, with: idx + 2
@@ -44,7 +40,7 @@ Then(/^I see the take part pages in my specified order including the new page on
   click_on "Take part pages"
 
   # Note that the selector is for the non-JS version of the page
-  take_part_pages = using_design_system? ? page.all(".gem-c-table .govuk-table__row td:first").map(&:text) : page.all(".well label a").map(&:text)
+  take_part_pages = page.all(".gem-c-table .govuk-table__row td:first").map(&:text)
 
   @the_take_part_pages_in_order.each.with_index do |take_part_page, idx|
     expect(take_part_page.title).to eq(take_part_pages[idx])
@@ -55,21 +51,11 @@ When(/^I remove one of the take part pages because it's not something we want to
   visit admin_get_involved_path
   click_on "Take part pages"
 
-  if using_design_system?
-    find(".gem-c-table .govuk-table__row:nth-child(2)").find("a", text: "Delete").click
-    find("button", text: "Delete").click
-  else
-    click_on @page1.title
-    click_on "Delete"
-  end
+  find(".gem-c-table .govuk-table__row:nth-child(2)").find("a", text: "Delete").click
+  find("button", text: "Delete").click
 
-  if using_design_system?
-    find(".gem-c-table .govuk-table__row:nth-child(2)").find("a", text: "Delete").click
-    find("button", text: "Delete").click
-  else
-    click_on @page2.title
-    click_on "Delete"
-  end
+  find(".gem-c-table .govuk-table__row:nth-child(2)").find("a", text: "Delete").click
+  find("button", text: "Delete").click
 
   @the_removed_pages = [@the_take_part_pages_in_order[0], @the_take_part_pages_in_order[2]]
   @the_take_part_pages_in_order = [@the_take_part_pages_in_order[1]]
