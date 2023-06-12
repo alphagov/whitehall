@@ -1,10 +1,8 @@
 class Admin::WorldLocationNewsTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-  layout :get_layout
+  layout "design_system"
 
-  def index
-    render_design_system(:index, :legacy_index)
-  end
+  def index; end
 
   def destroy
     translatable_item.world_location.remove_translations_for(translation_locale.code)
