@@ -1,16 +1,14 @@
 class Admin::PolicyGroupsController < Admin::BaseController
   before_action :enforce_permissions!, only: %i[confirm_destroy destroy]
   before_action :load_group, only: %i[edit update confirm_destroy destroy]
-  layout :get_layout
+  layout "design_system"
 
   def index
     @policy_groups = PolicyGroup.order(:name)
-    render_design_system("index", "legacy_index")
   end
 
   def new
     @policy_group = PolicyGroup.new
-    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -18,19 +16,17 @@ class Admin::PolicyGroupsController < Admin::BaseController
     if @policy_group.save
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" created.)
     else
-      render_design_system("new", "legacy_new")
+      render :new
     end
   end
 
-  def edit
-    render_design_system("edit", "legacy_edit")
-  end
+  def edit; end
 
   def update
     if @policy_group.update(policy_group_params)
       redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" saved.)
     else
-      render_design_system("edit", "legacy_edit")
+      render :edit
     end
   end
 
@@ -43,14 +39,6 @@ class Admin::PolicyGroupsController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def load_group
     @policy_group = PolicyGroup.friendly.find(params[:id])
