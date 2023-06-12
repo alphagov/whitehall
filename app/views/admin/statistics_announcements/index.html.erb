@@ -1,5 +1,6 @@
 <% content_for :page_title, @filter.title %>
 <% content_for :title, @filter.title %>
+<% content_for :title_margin_bottom, 0 %>
 <% content_for :banner, render("banner", show_banner: show_unlinked_announcements_warning?, count: unlinked_announcements_count, filter: @filter) %>
 
 
