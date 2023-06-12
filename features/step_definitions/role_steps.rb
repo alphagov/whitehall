@@ -20,7 +20,7 @@ When(/^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)"$/) do |role_t
   @role_name = role_name
 
   visit admin_roles_path
-  click_on using_design_system? ? "Create new role" : "Create role"
+  click_on "Create new role"
   fill_in "Role title", with: role_name
   select role_type, from: "Role type"
   select organisation_name, from: "Organisations"
@@ -29,7 +29,7 @@ end
 
 When(/^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" worldwide organisation$/) do |role_type, role_name, worldwide_organisation_name|
   visit admin_roles_path
-  click_on using_design_system? ? "Create new role" : "Create role"
+  click_on "Create new role"
   fill_in "Role title", with: role_name
   select role_type, from: "Role type"
   select worldwide_organisation_name, from: "Worldwide organisations"
@@ -56,8 +56,8 @@ end
 When(/^I appoint "(.*?)" as the "(.*?)"$/) do |person_name, role_name|
   visit admin_roles_path
 
-  click_on using_design_system? ? "Edit #{role_name}" : role_name
-  click_on using_design_system? ? "Create new appointment" : "New appointment"
+  click_on "Edit #{role_name}"
+  click_on "Create new appointment"
   select person_name, from: "Person"
   click_on "Save"
 end
@@ -74,8 +74,8 @@ end
 
 Then(/^I should be able to appoint "([^"]*)" to the new role$/) do |person_name|
   role = Role.last
-  click_on using_design_system? ? "Edit #{role.name}" : role.name
-  click_on using_design_system? ? "Create new appointment" : "New appointment"
+  click_on "Edit #{role.name}"
+  click_on "Create new appointment"
   select person_name, from: "Person"
   if using_design_system?
     within "#role_appointment_started_at" do

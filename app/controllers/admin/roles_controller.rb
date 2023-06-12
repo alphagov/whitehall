@@ -1,18 +1,14 @@
 class Admin::RolesController < Admin::BaseController
   before_action :load_role, only: %i[edit update destroy]
-  layout :get_layout
+  layout "design_system"
 
   def index
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])
                   .order("organisation_translations.name, roles.type DESC, roles.permanent_secretary DESC, role_translations.name")
-
-    render_design_system("index", "legacy_index")
   end
 
   def new
     @role = Role.new
-
-    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -20,21 +16,19 @@ class Admin::RolesController < Admin::BaseController
     if @role.save
       redirect_to index_or_edit_path, notice: %("#{@role.name}" created.)
     else
-      render_design_system("new", "legacy_new")
+      render :new
     end
   end
 
   def edit
     @role = Role.find(params[:id])
-
-    render_design_system("edit", "legacy_edit")
   end
 
   def update
     if @role.update(role_params)
       redirect_to index_or_edit_path, notice: %("#{@role.name}" updated.)
     else
-      render_design_system("edit", "legacy_edit")
+      render :edit
     end
   end
 
@@ -81,13 +75,5 @@ private
 
   def sti_type
     RoleTypePresenter.role_attributes_from(params[:role][:role_type])[:type]
-  end
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
   end
 end
