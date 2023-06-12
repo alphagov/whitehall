@@ -7,7 +7,7 @@ module Admin::TopicalEventHelper
     }
   end
 
-  def topical_events_nav_items(topical_event, current_path)
+  def topical_event_nav_items(topical_event, current_path)
     [
       {
         label: "Details",

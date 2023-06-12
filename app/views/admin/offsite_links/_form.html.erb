@@ -84,9 +84,9 @@
     } %>
 
     <% if parent.is_a?(Organisation) || parent.is_a?(WorldLocationNews) %>
-      <%= link_to "Cancel", polymorphic_path([:features, :admin, parent]), class: "govuk-link govuk-link--no-visited-state" %>
+      <%= link_to "Cancel", polymorphic_path([:features, :admin, parent], anchor: "non_govuk_government_links_tab"), class: "govuk-link govuk-link--no-visited-state" %>
     <% else %>
-      <%= link_to "Cancel", polymorphic_path([:admin, parent, :topical_event_featurings]), class: "govuk-link govuk-link--no-visited-state" %>
+      <%= link_to "Cancel", polymorphic_path([:admin, parent, :topical_event_featurings], anchor: "non_govuk_government_links_tab"), class: "govuk-link govuk-link--no-visited-state" %>
     <% end %>
   </div>
 <% end %>

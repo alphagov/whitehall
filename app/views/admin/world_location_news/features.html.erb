@@ -40,8 +40,8 @@
       label: "Non-GOV.UK government links",
       content: render("admin/feature_lists/featureable_offsite_links",
         model: @world_location_news,
-        feature_list: @feature_list,
-        featurable_offsite_links: @featurable_offsite_links,
+        featurable_offsite_links: featurable_offsite_links_for_feature_list(@featurable_offsite_links, @feature_list),
+        featuring_path: [:new, :admin, @feature_list, :feature],
       ),
     }
   ]

@@ -13,7 +13,7 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "components/secondary_navigation", {
     aria_label: "Topical Events tabs",
-    items: topical_events_nav_items(@topical_event, request.path)
+    items: topical_event_nav_items(@topical_event, request.path)
   } %>
 </div>
 <% if @topical_event_about_page.present? %>
