@@ -1,9 +1,6 @@
 @startuml
 node Whitehall {
 object "Document:7" as Document_7 {
-  slug: deleted-new-newses
-  document_type: NewsArticle
-  content_id: 04d9533d-3701-4ade-893c-88de782f558d
   latest_edition_id:
   live_edition_id:
 }
@@ -13,55 +10,36 @@ object "Document:7" as Document_7 {
 
 node PublishingApi {
 object "Document:10" as pubapi_Document_10 {
-  content_id: 04d9533d-3701-4ade-893c-88de782f558d
 }
 }
 
 
 
 node AssetManager {
-object "WhitehallAsset:646f2d5d64e14d0016c302fa" as am_WhitehallAsset_646f2d5d64e14d0016c302fa {
+object "WhitehallAsset:X16c302fa" as am_WhitehallAsset_X16c302fa {
   state: uploaded
   draft: true
-  redirect_url:
-  content_type:
   deleted_at: 25 May 09:55
-  file: test-pdf.pdf
-  legacy_url_path: .../attachment_data/file/8/test-pdf.pdf
 }
-object "WhitehallAsset:646f2d5d64e14d0017c302f9" as am_WhitehallAsset_646f2d5d64e14d0017c302f9 {
+object "WhitehallAsset:X17c302f9" as am_WhitehallAsset_X17c302f9 {
   state: uploaded
   draft: true
-  redirect_url:
-  content_type:
   deleted_at: 25 May 09:55
-  file: thumbnail_test-pdf.pdf.png
-  legacy_url_path: .../attachment_data/file/8/thumbnail_test-pdf.pdf.png
 }
 }
 
 node AssetManager {
-object "WhitehallAsset:646f2d7564e14d0017c302fa" as am_WhitehallAsset_646f2d7564e14d0017c302fa {
+object "WhitehallAsset:X17c302fa" as am_WhitehallAsset_X17c302fa {
   state: uploaded
   draft: false
-  redirect_url:
-  content_type:
   deleted_at:
-  file: fox-960x640.jpg
-  legacy_url_path: .../image_data/file/4/fox-960x640.jpg
 }
-object "WhitehallAsset:646f2d7564e14d0016c302fb" as am_WhitehallAsset_646f2d7564e14d0016c302fb {
+object "WhitehallAsset:X16c302fb" as am_WhitehallAsset_X16c302fb {
   state: uploaded
   draft: false
-  redirect_url:
-  content_type:
   deleted_at:
-  file: s960_fox-960x640.jpg
-  legacy_url_path: .../image_data/file/4/s960_fox-960x640.jpg
 }
 }
-
-
 
 Document_7 .. pubapi_Document_10
 Whitehall .. AssetManager

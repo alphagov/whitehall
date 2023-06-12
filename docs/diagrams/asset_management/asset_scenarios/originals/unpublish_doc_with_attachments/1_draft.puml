@@ -1,0 +1,117 @@
+@startuml
+node Whitehall {
+object "Document:7" as Document_7 {
+  slug: new-newses
+  document_type: NewsArticle
+  content_id: 04d9533d-3701-4ade-893c-88de782f558d
+  latest_edition_id: 7
+  live_edition_id:
+}
+together {
+object "NewsArticle:7" as NewsArticle_7 {
+  type: NewsArticle
+  state: draft
+  lock_version: 0
+  major_change_published_at:
+  first_published_at:
+  force_published:
+  external_url:
+}
+Document_7 *-- NewsArticle_7
+object "FileAttachment:8" as FileAttachment_8 {
+  type: FileAttachment
+  title: test-pdf
+  attachment_data_id: 8
+  content_id: 87ae8ab2-ba6f-4387-8e77-663fde4d3320
+  deleted: false
+}
+NewsArticle_7 *-- FileAttachment_8
+object "Image:4" as Image_4 {
+  alt_text:
+  caption:
+}
+NewsArticle_7 *-- Image_4
+}
+object "AttachmentData:8" as AttachmentData_8 {
+  carrierwave_file: test-pdf.pdf
+  content_type: application/pdf
+  uploaded_to_asset_manager_at: 25 May 10:42
+  present_at_unpublish: false
+}
+AttachmentData_8 *-u- FileAttachment_8
+object "ImageData:4" as ImageData_4 {
+  carrierwave_image: fox-960x640.jpg
+}
+ImageData_4 *-u- Image_4
+}
+
+
+node PublishingApi {
+object "Document:10" as pubapi_Document_10 {
+  content_id: 04d9533d-3701-4ade-893c-88de782f558d
+}
+object "Edition:10" as pubapi_Edition_10 {
+  title: new newses
+  public_updated_at: 25 May 09:40
+  update_type: major
+  phase: live
+  document_type: news_story
+  schema_name: news_article
+  first_published_at:
+  state: draft
+  user_facing_versions:
+  content_store: draft
+  published_at:
+  major_published_at:
+  publishing_api_first_published_at:
+}
+pubapi_Document_10 *-- pubapi_Edition_10
+}
+
+node AssetManager {
+object "WhitehallAsset:646f2d5d64e14d0016c302fa" as am_WhitehallAsset_646f2d5d64e14d0016c302fa {
+  state: uploaded
+  draft: true
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: test-pdf.pdf
+  legacy_url_path: <legacy_url_path>
+}
+object "WhitehallAsset:646f2d5d64e14d0017c302f9" as am_WhitehallAsset_646f2d5d64e14d0017c302f9 {
+  state: uploaded
+  draft: true
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: thumbnail_test-pdf.pdf.png
+  legacy_url_path: <legacy_url_path>
+}
+
+object "WhitehallAsset:646f2d7564e14d0017c302fa" as am_WhitehallAsset_646f2d7564e14d0017c302fa {
+  state: uploaded
+  draft: false
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: fox-960x640.jpg
+  legacy_url_path: <legacy_url_path>
+}
+object "WhitehallAsset:646f2d7564e14d0016c302fb" as am_WhitehallAsset_646f2d7564e14d0016c302fb {
+  state: uploaded
+  draft: false
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: s960_fox-960x640.jpg
+  legacy_url_path: <legacy_url_path>
+}
+}
+
+
+Document_7 .. pubapi_Document_10
+ImageData_4 .. am_WhitehallAsset_646f2d7564e14d0017c302fa
+ImageData_4 .. am_WhitehallAsset_646f2d7564e14d0016c302fb
+AttachmentData_8 .. am_WhitehallAsset_646f2d5d64e14d0016c302fa
+AttachmentData_8 .. am_WhitehallAsset_646f2d5d64e14d0017c302f9
+@enduml

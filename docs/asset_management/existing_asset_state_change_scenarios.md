@@ -90,3 +90,35 @@ At this point the draft is sent to the Publishing API.
 Using Force Publishing again to simplify state flow.  When the new edition is published, the old edition moves to state `superseded` in both Whitehall and Publishing API.
 
 ![state_10](../diagrams/asset_management/asset_scenarios/superceding/10_force_published.svg)
+
+---
+
+## Scenario 4 - deleting unpublished draft
+
+TODO: notes on what happens here
+
+### State 1 - new draft
+
+![state_1](../diagrams/asset_management/asset_scenarios/unpublish_doc_with_attachments/1_draft.svg)
+
+### State 2 - draft deleted
+
+![state_2](../diagrams/asset_management/asset_scenarios/unpublish_doc_with_attachments/2_delete_draft.svg)
+
+---
+
+## Scenario 5 - deleting published article
+
+TODO: notes on what happens here
+
+### State 1 - new draft
+
+![state_1](../diagrams/asset_management/asset_scenarios/unpublish_published_doc/1_draft.svg)
+
+### State 2 - article published
+
+![state_2](../diagrams/asset_management/asset_scenarios/unpublish_published_doc/2_published.svg)
+
+### State 3 - article deleted
+
+![state_3](../diagrams/asset_management/asset_scenarios/unpublish_published_doc/3_unpublished.svg)
