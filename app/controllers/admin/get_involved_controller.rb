@@ -1,20 +1,10 @@
 class Admin::GetInvolvedController < Admin::BaseController
   before_action :enforce_permissions!
-  layout :get_layout
+  layout "design_system"
 
   def enforce_permissions!
     enforce_permission!(:administer, :get_involved_section)
   end
 
-  def index
-    render_design_system("index", "legacy_index")
-  end
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
+  def index; end
 end
