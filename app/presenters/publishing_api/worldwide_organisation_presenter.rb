@@ -30,6 +30,7 @@ module PublishingApi
           ordered_corporate_information_pages:,
           secondary_corporate_information_pages:,
           social_media_links:,
+          world_location_names:,
         },
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
@@ -186,6 +187,17 @@ module PublishingApi
       return [] unless item.world_locations.any?
 
       item.world_locations.map(&:content_id)
+    end
+
+    def world_location_names
+      return [] unless item.world_locations.any?
+
+      item.world_locations.map do |world_location|
+        {
+          content_id: world_location.content_id,
+          name: world_location.name,
+        }
+      end
     end
   end
 end
