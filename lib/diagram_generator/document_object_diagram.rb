@@ -1,7 +1,7 @@
 module DiagramGenerator
   class DocumentObjectDiagram
     def initialize(document_id = nil)
-      @document = document_id ? Document.find(document_id) : Document.last
+      @document = document_id ? Document.unscoped.find(document_id) : Document.unscoped.last
       # avoid duplicates
       @emitted_objects = []
       @emitted_links = []
@@ -18,12 +18,12 @@ module DiagramGenerator
       puts "node Whitehall {"
       emit_object(@document, %i[slug document_type content_id latest_edition_id live_edition_id])
 
-      @document.editions.each do |edition|
+      Edition.unscoped.where(document_id: @document.id).each do |edition|
         dump_edition(@document, edition)
       end
 
       # data objects are outside editions (and link back to editions)
-      @document.editions.each do |edition|
+      Edition.unscoped.where(document_id: @document.id).each do |edition|
         dump_data_objects(edition)
       end
 
@@ -77,15 +77,15 @@ module DiagramGenerator
       emit_link(document, edition, "*--")
 
       if edition.class.included_modules.include? Attachable
-        edition.attachments.each do |attachment|
+        Attachment.unscoped.where(attachable_id: edition.id).each do |attachment|
           dump_attachment(edition, attachment)
         end
       end
-      edition.images.each do |image|
+      Image.unscoped.where(edition_id: edition.id).each do |image|
         dump_image(edition, image)
       end
 
-      if (unpub = edition.unpublishing)
+      if (unpub = Unpublishing.unscoped.where(edition_id: edition.id).first)
         emit_object(unpub, %i[unpublishing_reason_id document_type slug redirect content_id unpublished_at])
         emit_link(edition, unpub, "*-")
       end
@@ -94,11 +94,11 @@ module DiagramGenerator
 
     def dump_data_objects(edition)
       if edition.class.included_modules.include? Attachable
-        edition.attachments.each do |attachment|
+        Attachment.unscoped.where(attachable_id: edition.id).each do |attachment|
           dump_attachment_data_objects(attachment)
         end
       end
-      edition.images.each do |image|
+      Image.unscoped.where(edition_id: edition.id).each do |image|
         dump_image_data_objects(image)
       end
     end
@@ -109,13 +109,14 @@ module DiagramGenerator
     end
 
     def dump_attachment_data_objects(attachment)
-      attachment_data = attachment.attachment_data
+      attachment_data = AttachmentData.unscoped.find(attachment.attachment_data_id)
       emit_object(attachment_data, %i[carrierwave_file content_type uploaded_to_asset_manager_at present_at_unpublish])
       emit_link(attachment_data, attachment, "*-u-")
 
-      if attachment_data.attachments.count > 1
-        attachment_data.attachments.filter { |a| a.id != attachment.id }.each do |other_attachment|
-          other_attachable = other_attachment.attachable
+      all_attachments = Attachment.unscoped.where(attachment_data_id: attachment_data.id)
+      if all_attachments.count > 1
+        all_attachments.filter { |a| a.id != attachment.id }.each do |other_attachment|
+          other_attachable = Edition.unscoped.find(other_attachment.attachable_id)
           unless @emitted_objects.include? object_key(other_attachment)
             raise "unexpected new attachment: #{object_key(other_attachment)}"
           end
@@ -135,16 +136,17 @@ module DiagramGenerator
     end
 
     def dump_image_data_objects(image)
-      image_data = image.image_data
+      image_data = ImageData.unscoped.find(image.image_data_id)
       emit_object(image_data, %i[carrierwave_image])
       emit_link(image_data, image, "*-u-")
-      if image_data.images.count > 1
-        image_data.images.filter { |i| i.id != image.id }.each do |other_image|
+      all_images = Image.unscoped.where(image_data_id: image_data.id)
+      if all_images.count > 1
+        all_images.filter { |i| i.id != image.id }.each do |other_image|
           unless @emitted_objects.include? object_key(other_image)
             raise "unexpected new image #{object_key(other_image)}"
           end
 
-          other_edition = other_image.edition
+          other_edition = Edition.unscoped.find(other_image.edition_id)
           unless @emitted_objects.include? object_key(other_edition)
             raise "unexpected new edition #{object_key(other_edition)}"
           end
