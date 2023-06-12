@@ -1,7 +1,7 @@
 <% content_for :page_title, "Change statistics announcement release date" %>
 <% content_for :context, @statistics_announcement.title %>
 <% content_for :title, "Change release date" %>
-<% content_for :title_margin_bottom, 6 %>
+<% content_for :title_margin_bottom, 8 %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement_date_change)) %>
 
 <div class="govuk-grid-row">
@@ -17,7 +17,7 @@
         <%= render "govuk_publishing_components/components/textarea", {
           label: {
             text: "Public change note (required)",
-            heading_size: "m"
+            heading_size: "l"
           },
           id: "statistics_announcement_date_change_change_note",
           name: "statistics_announcement_date_change[change_note]",
@@ -32,14 +32,14 @@
         } %>
       <% end %>
 
-      <div class="govuk-button-group">
+      <div class="govuk-button-group govuk-!-margin-top-8">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Publish date",
+          text: "Update date",
           data_attributes: {
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
-            "track-label": "Publish date"
+            "track-label": "Update date"
           }
         } %>
         <%= link_to("Cancel", [:admin, @statistics_announcement], class: "govuk-link") %>
