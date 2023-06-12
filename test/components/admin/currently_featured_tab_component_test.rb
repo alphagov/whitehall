@@ -9,12 +9,10 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
   setup do
     @maximum_featured_documents = 5
-    @feature_list = build_stubbed(:feature_list)
   end
 
   test "renders h2 so that screen readers have context for which tab they're in" do
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: [],
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
@@ -23,22 +21,20 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
   test "informs the user how many documents they can feature" do
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: [],
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
     assert_selector ".gem-c-inset-text", text: "A maximum of 5 documents will be featured on GOV.UK."
   end
 
-  test "renders link to the reorder page if more than 1 feature_list item" do
+  test "renders link to the reorder features page if more than 1 feature_list item" do
+    feature_list = build_stubbed(:feature_list)
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, 2, feature_list: @feature_list),
+                    features: build_list(:feature, 2, feature_list:),
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
-    assert_selector ".govuk-link", text: "Reorder documents" do |link|
-      assert link[:href] == reorder_admin_feature_list_path(@feature_list)
-    end
+    assert_selector ".govuk-link[href='#{reorder_admin_feature_list_path(feature_list)}']", text: "Reorder documents"
   end
 
   test "does not render link to the reorder page if less than 2 feature_list items" do
@@ -47,98 +43,137 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
-    assert_selector ".govuk-link", text: "reorder", count: 0
+    assert_selector ".govuk-link", text: "Reorder documents", count: 0
   end
 
-  test "Only renders the live featured documents table when feature_list count is <= to maximum_featured_documents" do
+  test "makes one call to the features FeaturedDocumentsTableComponent when features count is <= to maximum_featured_documents" do
+    feature_list = build_stubbed(:feature_list)
+    features = build_list(:feature, @maximum_featured_documents, feature_list:)
+    table_component = Admin::Features::FeaturedDocumentsTableComponent.new(caption: "caption", features: [])
+
+    Admin::Features::FeaturedDocumentsTableComponent
+    .expects(:new)
+    .with(features:, caption: "#{features.count} featured documents live on GOV.UK")
+    .once
+    .returns(table_component)
+
+    table_component
+    .expects(:render)
+    .returns("")
+
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, @maximum_featured_documents, feature_list: @feature_list),
+                    features:,
+                    maximum_featured_documents: @maximum_featured_documents,
+                  ))
+  end
+
+  test "makes two calls to the features FeaturedDocumentsTableComponent when features count is greater than maximum_featured_documents" do
+    feature_list = build_stubbed(:feature_list)
+    live_features = build_list(:feature, @maximum_featured_documents, feature_list:)
+    remaining_features = build(:feature, feature_list:)
+    table_component1 = Admin::Features::FeaturedDocumentsTableComponent.new(caption: "caption1", features: [])
+    table_component2 = Admin::Features::FeaturedDocumentsTableComponent.new(caption: "caption2", features: [])
+
+    Admin::Features::FeaturedDocumentsTableComponent
+    .expects(:new)
+    .with(features: live_features, caption: "#{live_features.count} featured documents live on GOV.UK")
+    .once
+    .returns(table_component1)
+
+    table_component1
+    .expects(:render)
+    .once
+    .returns("")
+
+    Admin::Features::FeaturedDocumentsTableComponent
+    .expects(:new)
+    .with(features: [remaining_features], caption: "1 remaining featured document")
+    .once
+    .returns(table_component2)
+
+    table_component2
+    .expects(:render)
+    .once
+    .returns("")
+
+    render_inline(Admin::CurrentlyFeaturedTabComponent.new(
+                    features: live_features + [remaining_features],
+                    maximum_featured_documents: @maximum_featured_documents,
+                  ))
+  end
+
+  test "renders link to the reorder featurings page if more than 1 feature_list item" do
+    topical_event = build_stubbed(:topical_event)
+    render_inline(Admin::CurrentlyFeaturedTabComponent.new(
+                    featurings: build_stubbed_list(:topical_event_featuring, 2, topical_event:),
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
-    assert_selector ".govuk-table", count: 1
-    assert_selector ".govuk-table__caption", text: "#{@maximum_featured_documents} featured documents live on GOV.UK"
+    assert_selector ".govuk-link[href='#{reorder_admin_topical_event_topical_event_featurings_path(topical_event)}']", text: "Reorder documents"
   end
 
-  test "renders the live featured documents table and the remaining documents table when feature_list count is great than maximum_featured_documents" do
+  test "does not render link to the reorder page if less than 2 featurings" do
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: build_list(:feature, @maximum_featured_documents + 1, feature_list: @feature_list),
+                    featurings: [build_stubbed(:topical_event_featuring)],
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
-    assert_selector ".govuk-table", count: 2
-    assert_selector ".govuk-table__caption", text: "#{@maximum_featured_documents} featured documents live on GOV.UK"
-    assert_selector ".govuk-table__caption", text: "1 remaining featured document"
+    assert_selector ".govuk-link", text: "Reorder documents", count: 0
   end
 
-  test "renders the correct row when the feature list item belongs to a document with a live edition" do
-    document = build(:document)
-    edition = build_stubbed(:news_article, :published)
-    document.stubs(:live_edition).returns(edition)
-    feature = build_stubbed(:feature, document:, feature_list: @feature_list)
-    title = edition.title
+  test "makes one call to the featurings FeaturedDocumentsTableComponent when featurings count is <= to maximum_featured_documents" do
+    topical_event = build_stubbed(:topical_event)
+    featurings = build_stubbed_list(:topical_event_featuring, @maximum_featured_documents, topical_event:)
+    table_component = Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent.new(caption: "caption", featurings: [])
+
+    Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent
+    .expects(:new)
+    .with(featurings:, caption: "#{featurings.count} featured documents live on GOV.UK")
+    .once
+    .returns(table_component)
+
+    table_component
+    .expects(:render)
+    .returns("")
 
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: [feature],
+                    featurings:,
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
-
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "News Article (document)"
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, I18n.localize(edition.major_change_published_at.to_date)
-
-    actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
-    actions_column.assert_selector "a[href='#{admin_edition_path(edition)}']", text: "Edit #{title}"
-    actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Unfeature #{title}"
   end
 
-  test "renders the correct row when the feature list item belongs to a topical event" do
-    feature = build_stubbed(:feature, :with_topical_event_association, feature_list: @feature_list)
-    title = feature.topical_event.name
+  test "makes two calls to the featurings FeaturedDocumentsTableComponent when featurings count is greater than maximum_featured_documents" do
+    topical_event = build_stubbed(:topical_event)
+    live_featurings = build_stubbed_list(:topical_event_featuring, @maximum_featured_documents, topical_event:)
+    remaining_featurings = build_stubbed(:topical_event_featuring, topical_event:)
+    table_component1 = Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent.new(caption: "caption1", featurings: [])
+    table_component2 = Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent.new(caption: "caption2", featurings: [])
+
+    Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent
+    .expects(:new)
+    .with(featurings: live_featurings, caption: "#{live_featurings.count} featured documents live on GOV.UK")
+    .once
+    .returns(table_component1)
+
+    table_component1
+    .expects(:render)
+    .once
+    .returns("")
+
+    Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent
+    .expects(:new)
+    .with(featurings: [remaining_featurings], caption: "1 remaining featured document")
+    .once
+    .returns(table_component2)
+
+    table_component2
+    .expects(:render)
+    .once
+    .returns("")
 
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: [feature],
+                    featurings: live_featurings + [remaining_featurings],
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
-
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Topical Event"
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, topical_event_dates_string(feature.topical_event)
-
-    actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
-    actions_column.assert_selector "a[href='#{edit_admin_topical_event_path(feature.topical_event)}']", text: "Edit #{title}"
-    actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Unfeature #{title}"
-  end
-
-  test "renders the correct row when the feature list item belongs to a offsite link" do
-    feature = build_stubbed(:feature, :with_offsite_link_association, feature_list: @feature_list)
-    title = feature.offsite_link.title
-
-    render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: [feature],
-                    maximum_featured_documents: @maximum_featured_documents,
-                  ))
-
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Alert (offsite link)"
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, ""
-
-    actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
-    actions_column.assert_selector "a[href='#{polymorphic_path([:edit, :admin, feature.offsite_link.parent, feature.offsite_link])}']", text: "Edit #{title}"
-    actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Unfeature #{title}"
-  end
-
-  test "renders the correct row when the feature list item does not have an association" do
-    feature = build_stubbed(:feature, document: nil)
-
-    render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    features: [feature],
-                    maximum_featured_documents: @maximum_featured_documents,
-                  ))
-
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, "Feature #{feature.id}"
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, ""
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, ""
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3].text, ""
   end
 end

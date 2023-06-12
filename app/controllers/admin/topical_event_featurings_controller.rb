@@ -1,5 +1,6 @@
 class Admin::TopicalEventFeaturingsController < Admin::BaseController
   before_action :load_topical_event
+  before_action :load_topical_event_featuring, only: %i[confirm_destroy destroy]
   layout :get_layout
 
   def index
@@ -44,6 +45,8 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     end
   end
 
+  def reorder; end
+
   def order
     params[:ordering].each do |topical_event_featuring_id, ordering|
       @topical_event.topical_event_featurings.find(topical_event_featuring_id).update_column(:ordering, ordering)
@@ -54,9 +57,9 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     redirect_to polymorphic_path([:admin, @topical_event, :topical_event_featurings]), notice: "Featured items re-ordered"
   end
 
-  def destroy
-    @topical_event_featuring = @topical_event.topical_event_featurings.find(params[:id])
+  def confirm_destroy; end
 
+  def destroy
     if featuring_a_document?
       edition = @topical_event_featuring.edition
       @topical_event_featuring.destroy!
@@ -78,7 +81,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[new create index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new create index reorder confirm_destroy] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
@@ -89,6 +92,10 @@ private
 
   def load_topical_event
     @topical_event = TopicalEvent.find(params[:topical_event_id] || params[:topic_id])
+  end
+
+  def load_topical_event_featuring
+    @topical_event_featuring = @topical_event.topical_event_featurings.find(params[:id])
   end
 
   def editions_to_show

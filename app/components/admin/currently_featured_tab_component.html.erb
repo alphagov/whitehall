@@ -6,15 +6,15 @@
   text: "A maximum of #{maximum_featured_documents} documents will be featured on GOV.UK."
 } %>
 
-<% if features.many? %>
+<% if featured.many? %>
   <p class="govuk-body">
-    <%= link_to "Reorder documents", reorder_admin_feature_list_path(features.first.feature_list), class: "govuk-link" %>
+    <%= link_to "Reorder documents", reorder_path, class: "govuk-link" %>
   </p>
 <% end %>
 
-<% if features.present? %>
+<% if featured.present? %>
   <div class="app-view-features__table govuk-!-margin-bottom-8">
-    <%= table("#{pluralize(live_features.count, "featured document")} live on GOV.UK", live_features) %>
+    <%= table("#{pluralize(live.count, "featured document")} live on GOV.UK", live) %>
   </div>
 <% else %>
   <p class="govuk-body">
@@ -22,8 +22,8 @@
   </p>
 <% end %>
 
-<% if remaining_features.present? %>
+<% if remaining.present? %>
   <div class="app-view-features__table">
-    <%= table(pluralize(remaining_features.count, "remaining featured document"), remaining_features) %>
+    <%= table(pluralize(remaining.count, "remaining featured document"), remaining) %>
   </div>
 <% end %>

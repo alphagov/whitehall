@@ -1,0 +1,21 @@
+<% content_for :context, @topical_event.name %>
+<% content_for :page_title, "Unfeature ‘#{@topical_event_featuring.title}’" %>
+<% content_for :title, "Unfeature ‘#{@topical_event_featuring.title}’" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_topical_event_topical_event_featuring_path(@topical_event, @topical_event_featuring), method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to unfeature ‘<%= @topical_event_featuring.title %>’ for ‘<%= @topical_event.name %>’?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Unfeature",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", admin_topical_event_topical_event_featurings_path(@topical_event), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>
