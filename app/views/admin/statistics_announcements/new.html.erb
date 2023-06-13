@@ -5,7 +5,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <p class="govuk-body-lead">Make an announcement for a forthcoming statistics release.</p>
+    <%= render "govuk_publishing_components/components/lead_paragraph", {
+      text: "Make an announcement for a forthcoming statistics release.",
+      margin_bottom: 6,
+    } %>
+
     <%= render 'warning' %>
     <%= render "form", statistics_announcement: @statistics_announcement %>
   </div>

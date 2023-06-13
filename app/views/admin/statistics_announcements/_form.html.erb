@@ -1,7 +1,8 @@
-<%= form_for [:admin, statistics_announcement] do |form| %>
+<%= form_with url: [:admin, statistics_announcement] do |form| %>
   <%= form.hidden_field :publication_id %>
   <%= render "govuk_publishing_components/components/radio", {
     heading: "Statistics type (required)",
+    heading_size: "l",
     name: "statistics_announcement[publication_type_id]",
     id: "statistics_announcement_publication_type_id",
     items: [
@@ -30,7 +31,7 @@
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Title (required)",
-      heading_size: "m"
+      heading_size: "l"
     },
     value: statistics_announcement.title,
     id: "statistics_announcement_title",
@@ -40,7 +41,7 @@
   <%= render "govuk_publishing_components/components/textarea", {
     label: {
       text: "Summary (required)",
-      heading_size: "m"
+      heading_size: "l"
     },
     value: statistics_announcement.summary,
     id: "statistics_announcement_summary",
@@ -53,7 +54,7 @@
     id: "statistics_announcement_organisations",
     label: {
       text: "Organisations (required)",
-      heading_size: "m"
+      heading_size: "l"
     },
     name: "statistics_announcement[organisation_ids][]",
     select: {
@@ -71,7 +72,7 @@
       } %>
   <% end %>
 
-  <div class="govuk-button-group">
+  <div class="govuk-button-group govuk-!-margin-top-8">
     <%= render "govuk_publishing_components/components/button", {
       text: statistics_announcement.new_record? ? "Publish announcement" : "Save and publish changes",
       data_attributes: {

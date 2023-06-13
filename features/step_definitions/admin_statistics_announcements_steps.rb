@@ -179,7 +179,7 @@ When(/^I change the release date on the announcement$/) do
     end
 
     choose "Exact date (confirmed)"
-    click_on "Publish date"
+    click_on "Update date"
   else
     click_on "Change release date"
     select_datetime "14-Dec-#{Time.zone.today.year.next} 09:30", from: "Release date"

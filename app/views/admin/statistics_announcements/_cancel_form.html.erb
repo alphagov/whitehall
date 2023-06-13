@@ -1,8 +1,6 @@
-<p class="govuk-body-lead">
-  The announcement will remain on GOV.UK, together with the reason for cancellation.
-</p>
-<%= render "govuk_publishing_components/components/inset_text", {
-  text: "Cancelling a release cannot be undone."
+<%= render "govuk_publishing_components/components/lead_paragraph", {
+  text: "The announcement will remain on GOV.UK, together with the reason for cancellation.",
+  margin_bottom: 6,
 } %>
 
 <%= form_for [controller_action, :admin, @statistics_announcement], method: http_action do |form| %>
@@ -18,7 +16,11 @@
     error_message: errors_for_input(statistics_announcement.errors, :cancellation_reason),
   } %>
 
-  <div class="govuk-button-group">
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "Cancelling a release cannot be undone."
+  } %>
+
+  <div class="govuk-button-group govuk-!-margin-top-8">
     <%= render "govuk_publishing_components/components/button", {
       text: statistics_announcement.cancellation_reason.blank? ? "Publish cancellation" : "Update cancellation reason",
       destructive: true,

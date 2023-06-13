@@ -1,36 +1,41 @@
-<%= render "components/datetime_fields", {
-  date_heading: "Release date (required)",
-  field_name: "release_date",
-  prefix: name_prefix,
-  id: "#{id_prefix}_release_date",
-  year: {
-    start_year: Date.today.year,
-    end_year: Date.today.year + 5,
-    id: "#{id_prefix}_release_date_1i",
-    value: current_release_date&.release_date&.year
-  },
-  month: {
-    id: "#{id_prefix}_release_date_2i",
-    value: current_release_date&.release_date&.month
-  },
-  day: {
-    id: "#{id_prefix}_release_date_3i",
-    value: current_release_date&.release_date&.day
-  },
-  hour: {
-    id: "#{id_prefix}_release_date_4i",
-    value: current_release_date&.release_date&.hour
-  },
-  minute: {
-    id: "#{id_prefix}_release_date_5i",
-    value: current_release_date&.release_date&.min
-  },
-  error_items: errors_for(current_release_date&.errors, :release_date),
-}
-%>
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Release date",
+  heading_size: "l"
+} do %>
+  <%= render "components/datetime_fields", {
+    date_heading: "Date (required)",
+    field_name: "release_date",
+    prefix: name_prefix,
+    id: "#{id_prefix}_release_date",
+    year: {
+      start_year: Date.today.year,
+      end_year: Date.today.year + 5,
+      id: "#{id_prefix}_release_date_1i",
+      value: current_release_date&.release_date&.year
+    },
+    month: {
+      id: "#{id_prefix}_release_date_2i",
+      value: current_release_date&.release_date&.month
+    },
+    day: {
+      id: "#{id_prefix}_release_date_3i",
+      value: current_release_date&.release_date&.day
+    },
+    hour: {
+      id: "#{id_prefix}_release_date_4i",
+      value: current_release_date&.release_date&.hour
+    },
+    minute: {
+      id: "#{id_prefix}_release_date_5i",
+      value: current_release_date&.release_date&.min
+    },
+    error_items: errors_for(current_release_date&.errors, :release_date),
+  } %>
+<% end %>
 
 <%= render "govuk_publishing_components/components/radio", {
   heading: "Delivery date",
+  heading_size: "l",
   name: "#{name_prefix}[precision]",
   id: "#{id_prefix}_precision",
   items: [
@@ -58,4 +63,3 @@
   ],
   error_items: errors_for(current_release_date&.errors, :precision),
 } %>
-
