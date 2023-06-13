@@ -18,6 +18,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
       Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to_feature "Feature item added."
     else
+      @promotional_feature_item.links.build if @promotional_feature_item.links.blank?
       render_design_system("new", "legacy_new")
     end
   end
@@ -39,6 +40,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
 
       redirect_to_feature "Feature item updated."
     else
+      @promotional_feature_item.links.build if @promotional_feature_item.links.blank?
       render_design_system("edit", "legacy_edit")
     end
   end
