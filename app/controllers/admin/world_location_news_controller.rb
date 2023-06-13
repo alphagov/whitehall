@@ -1,20 +1,15 @@
 class Admin::WorldLocationNewsController < Admin::BaseController
   before_action :load_world_location, only: %i[edit update show features]
-  layout :get_layout
+  layout "design_system"
 
   def edit
     build_featured_link_if_none_present
-    render_design_system("edit", "legacy_edit")
   end
 
-  def show
-    render_design_system("show", "legacy_show")
-  end
+  def show; end
 
   def index
     @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition(&:active?)
-
-    render_design_system("index", "legacy_index")
   end
 
   def update
@@ -22,7 +17,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
       redirect_to [:admin, @world_location_news], notice: "World location updated successfully"
     else
       build_featured_link_if_none_present
-      render_design_system("edit", "legacy_edit")
+      render :edit
     end
   end
 
@@ -43,7 +38,7 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     if request.xhr?
       render partial: "admin/feature_lists/legacy_search_results", locals: { feature_list: @feature_list }
     else
-      render_design_system("features", "legacy_features")
+      render :features
     end
   end
 
@@ -75,13 +70,5 @@ private
 
   def build_featured_link_if_none_present
     @world_location_news.featured_links.new if @world_location_news.featured_links.blank?
-  end
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
   end
 end

@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user(:writer)
+    login_as(:writer)
   end
 
   should_be_an_admin_controller
