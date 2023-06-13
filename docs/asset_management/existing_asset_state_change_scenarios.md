@@ -95,13 +95,25 @@ Using Force Publishing again to simplify state flow.  When the new edition is pu
 
 ## Scenario 4 - deleting unpublished draft
 
-TODO: notes on what happens here
+This scenario shows what happens when a draft Edition is created and deleted without ever being published.
 
 ### State 1 - new draft
+
+As earlier, a draft is created with images and file attachments:
 
 ![state_1](../diagrams/asset_management/asset_scenarios/unpublish_doc_with_attachments/1_draft.svg)
 
 ### State 2 - draft deleted
+
+When the draft is deleted, the article and file attachments are soft deleted.  The ImageData and AttachmentData records are not.
+
+The Images are not deleted, they are just orphaned.
+
+In the Publishing API the Edition  is hard deleted.
+
+In the Asset Manager the File assets are soft deleted, the Image assets are not.
+
+Note that soft deletion in Whitehall uses `default scope` which makes the orphaned data effectively inaccessible. 
 
 ![state_2](../diagrams/asset_management/asset_scenarios/unpublish_doc_with_attachments/2_delete_draft.svg)
 
@@ -109,7 +121,7 @@ TODO: notes on what happens here
 
 ## Scenario 5 - deleting published article
 
-TODO: notes on what happens here
+Once an article is actually published you can't delete it - you can just unpublish it, which replaces it with a new draft
 
 ### State 1 - new draft
 

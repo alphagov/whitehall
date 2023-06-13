@@ -1,0 +1,102 @@
+@startuml
+node Whitehall {
+object "Document:7" as Document_7 {
+  slug: deleted-wabbits
+  document_type: NewsArticle
+  content_id: aacd79f8-f934-4563-9ef8-f1335a53bc4e
+  latest_edition_id:
+  live_edition_id:
+}
+together {
+object "NewsArticle:8" as NewsArticle_8 {
+  type: NewsArticle
+  state: deleted
+  lock_version: 1
+  major_change_published_at:
+  first_published_at:
+  force_published:
+  external_url:
+}
+Document_7 *-- NewsArticle_8
+object "FileAttachment:4" as FileAttachment_4 {
+  type: FileAttachment
+  title: wabbit docs
+  attachment_data_id: 3
+  content_id: 0d86a294-1e68-4b06-a917-357424932dd6
+  deleted: true
+}
+NewsArticle_8 *-- FileAttachment_4
+object "Image:4" as Image_4 {
+  alt_text:
+  caption: yes
+}
+NewsArticle_8 *-- Image_4
+}
+object "AttachmentData:3" as AttachmentData_3 {
+  carrierwave_file: PlantUML_Language_Reference_Guide_en.pdf
+  content_type: application/pdf
+  uploaded_to_asset_manager_at: 12 Jun 18:48
+  present_at_unpublish: false
+}
+AttachmentData_3 *-u- FileAttachment_4
+object "ImageData:3" as ImageData_3 {
+  carrierwave_image: sangim_960_640.png
+}
+ImageData_3 *-u- Image_4
+}
+node PublishingApi {
+object "Document:6" as pubapi_Document_6 {
+  content_id: aacd79f8-f934-4563-9ef8-f1335a53bc4e
+}
+}
+node AssetManager {
+together {
+object "WhitehallAsset:64875a64c8042500192117da" as am_WhitehallAsset_64875a64c8042500192117da {
+  state: uploaded
+  draft: true
+  redirect_url:
+  content_type:
+  deleted_at: 12 Jun 17:49
+  file: thumbnail_PlantUML_Language_Reference_Guide_en.pdf.png
+  legacy_url_path: /government/uploads/system/uploads/attachment_data/file/3/thumbnail_PlantUML_Language_Reference_Guide_en.pdf.png
+}
+object "WhitehallAsset:64875a64c8042500162117da" as am_WhitehallAsset_64875a64c8042500162117da {
+  state: uploaded
+  draft: true
+  redirect_url:
+  content_type:
+  deleted_at: 12 Jun 17:49
+  file: PlantUML_Language_Reference_Guide_en.pdf
+  legacy_url_path: /government/uploads/system/uploads/attachment_data/file/3/PlantUML_Language_Reference_Guide_en.pdf
+}
+}
+together {
+object "WhitehallAsset:64875a73c8042500192117db" as am_WhitehallAsset_64875a73c8042500192117db {
+  state: uploaded
+  draft: false
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: sangim_960_640.png
+  legacy_url_path: /government/uploads/system/uploads/image_data/file/3/sangim_960_640.png
+}
+object "WhitehallAsset:64875a73c8042500162117db" as am_WhitehallAsset_64875a73c8042500162117db {
+  state: uploaded
+  draft: false
+  redirect_url:
+  content_type:
+  deleted_at:
+  file: s960_sangim_960_640.png
+  legacy_url_path: /government/uploads/system/uploads/image_data/file/3/s960_sangim_960_640.png
+}
+}
+}
+
+
+Document_7 .. pubapi_Document_6
+ImageData_3 .. am_WhitehallAsset_64875a73c8042500192117db
+ImageData_3 .. am_WhitehallAsset_64875a73c8042500162117db
+AttachmentData_3 .. am_WhitehallAsset_64875a64c8042500192117da
+AttachmentData_3 .. am_WhitehallAsset_64875a64c8042500162117da
+
+@enduml

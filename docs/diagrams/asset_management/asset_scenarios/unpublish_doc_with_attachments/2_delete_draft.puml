@@ -4,6 +4,28 @@ object "Document:7" as Document_7 {
   latest_edition_id:
   live_edition_id:
 }
+
+together {
+object "NewsArticle:7"  as NewsArticle_7 {
+  state: deleted
+}
+Document_7 *-- NewsArticle_7
+object "FileAttachment:8" as FileAttachment_8 {
+  deleted: true
+}
+NewsArticle_7 *-- FileAttachment_8
+object "Image:4" as Image_4 {
+}
+NewsArticle_7 *-- Image_4
+}
+object "AttachmentData:8" as AttachmentData_8 {
+}
+AttachmentData_8 *-u- FileAttachment_8
+object "ImageData:4" as ImageData_4 {
+}
+ImageData_4 *-u- Image_4
+
+
 }
 
 
@@ -16,6 +38,7 @@ object "Document:10" as pubapi_Document_10 {
 
 
 node AssetManager {
+together {
 object "WhitehallAsset:X16c302fa" as am_WhitehallAsset_X16c302fa {
   state: uploaded
   draft: true
@@ -28,7 +51,7 @@ object "WhitehallAsset:X17c302f9" as am_WhitehallAsset_X17c302f9 {
 }
 }
 
-node AssetManager {
+together {
 object "WhitehallAsset:X17c302fa" as am_WhitehallAsset_X17c302fa {
   state: uploaded
   draft: false
@@ -40,8 +63,12 @@ object "WhitehallAsset:X16c302fb" as am_WhitehallAsset_X16c302fb {
   deleted_at:
 }
 }
+}
 
 Document_7 .. pubapi_Document_10
-Whitehall .. AssetManager
+ImageData_4 .. am_WhitehallAsset_X17c302fa
+ImageData_4 .. am_WhitehallAsset_X16c302fb
+AttachmentData_8 .. am_WhitehallAsset_X16c302fa
+AttachmentData_8 .. am_WhitehallAsset_X17c302f9
 
 @enduml
