@@ -91,4 +91,13 @@ examples:
             - label: Delete
               href: "#3"
               destructive: true
-
+  with_row_action_that_opens_in_new_tab:
+    data:
+      title: Title
+      rows:
+        - key: key
+          value: value
+          actions:
+            - label: View
+              href: "#1"
+              opens_in_new_tab: true

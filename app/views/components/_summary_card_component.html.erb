@@ -29,7 +29,11 @@
             <% if row[:actions].present? %>
               <dd class="govuk-summary-list__actions">
                 <% row[:actions].each do |action| %>
-                  <%= link_to sanitize(action[:label] + tag.span(" #{row[:key]}", class: "govuk-visually-hidden")), action[:href], class: "govuk-link govuk-link--no-visited-state govuk-!-margin-left-2 #{"gem-link--destructive" if action[:destructive]}".strip %>
+                  <% if action[:opens_in_new_tab] %>
+                    <%= link_to sanitize(action[:label] + tag.span(" #{row[:key]} (opens in new tab)", class: "govuk-visually-hidden")), action[:href], class: "govuk-link govuk-link--no-visited-state govuk-!-margin-left-2", rel: "noreferrer noopener", target: "_blank" %>
+                  <% else %>
+                    <%= link_to sanitize(action[:label] + tag.span(" #{row[:key]}", class: "govuk-visually-hidden")), action[:href], class: "govuk-link govuk-link--no-visited-state govuk-!-margin-left-2 #{"gem-link--destructive" if action[:destructive]}".strip %>
+                  <% end %>
                 <% end %>
               </dd>
             <% end %>
