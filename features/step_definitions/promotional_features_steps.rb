@@ -108,6 +108,7 @@ When(/^I edit the promotional item, set the summary to "([^"]*)"$/) do |new_summ
     end
   end
   fill_in "Summary", with: new_summary
+  attach_file :image, Rails.root.join("test/fixtures/big-cheese.960x640.jpg")
   click_button "Save"
 end
 
@@ -139,7 +140,7 @@ Then(/^I should see the promotional feature on the organisation's page$/) do
       expect(all(".govuk-summary-list__row")[1].find(".govuk-summary-list__actions")).to have_link("View", href: item.title_url)
       expect(all(".govuk-summary-list__row")[2]).to have_selector("dd", text: item.summary)
       if item.image.present?
-        expect(all(".govuk-summary-list__row")[3].find(".govuk-summary-list__actions")).to have_link("View", href: item.image.s300.url)
+        expect(all(".govuk-summary-list__row")[3].find(".govuk-summary-list__value")).to have_selector("img[src='#{item.image.s300.url}']")
         expect(all(".govuk-summary-list__row")[4]).to have_selector("dd", text: item.image_alt_text)
       end
       if item.youtube_video_url.present?

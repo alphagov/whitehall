@@ -4,7 +4,7 @@
 <% content_for :title_margin_bottom, 4 %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <p class="govuk-body">
       <%= view_on_website_link_for @organisation, class: "govuk-link", target: "blank" %>
     </p>
@@ -13,7 +13,9 @@
       aria_label: "Organisation navigation tabs",
       items: secondary_navigation_tabs_items(@organisation, request.path)
     } %>
+  </div>
 
+  <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/warning_text", {
       text: "Changes to promotional features appear instantly on the live site."
     } %>

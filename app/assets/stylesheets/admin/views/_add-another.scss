@@ -5,4 +5,8 @@
   &:last-of-type {
     border-bottom: none;
   }
+
+  &:first-child {
+    margin-top: 0;
+  }
 }

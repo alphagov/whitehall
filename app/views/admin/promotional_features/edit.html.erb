@@ -2,29 +2,34 @@
 <% content_for :page_title, "Edit #{@promotional_feature.title} promotional feature" %>
 <% content_for :title, "Edit #{@promotional_feature.title} promotional feature" %>
 <% content_for :context, @organisation.name %>
-<% content_for :title_margin_bottom, 6 %>
-<%= form_for [:admin, @promotional_feature.organisation, @promotional_feature], html: { class: "form-horizontal promotional_feature_item" } do |form| %>
-  <%= form.errors %>
+<% content_for :title_margin_bottom, 8 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @promotional_feature)) %>
+
+<%= form_with url: [:admin, @promotional_feature.organisation, @promotional_feature] do |form| %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Feature title"
+          text: "Title (required)",
+          heading_size: "l"
         },
         name: "promotional_feature[title]",
         id: "promotional_feature_title",
-        value: @promotional_feature.title
+        value: @promotional_feature.title,
+        error_items: errors_for(@promotional_feature.errors, :title)
       } %>
-      <div class="govuk-button-group govuk-!-margin-top-4">
+
+      <div class="govuk-button-group govuk-!-margin-top-8">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Save",
+          text: "Update name",
           data_attributes: {
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "promotional_feature-button",
-            "track-label": "Save"
-        }
+            "track-label": "Update name"
+          }
         } %>
+
         <%= link_to("Cancel", [:admin, @promotional_feature.organisation, PromotionalFeature], class: "govuk-link") %>
       </div>
     </div>
