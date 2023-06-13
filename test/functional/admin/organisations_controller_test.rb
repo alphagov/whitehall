@@ -451,7 +451,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :features, params: { id: organisation, locale: "en" }
     assert_response :success
 
-    selected_organisation = css_select('#organisation option[selected="selected"]')
+    selected_organisation = css_select('#organisation_filter option[selected="selected"]')
     assert_equal selected_organisation.text, organisation.name
   end
 
