@@ -108,6 +108,7 @@ When(/^I edit the promotional item, set the summary to "([^"]*)"$/) do |new_summ
     end
   end
   fill_in "Summary", with: new_summary
+  attach_file :image, Rails.root.join("test/fixtures/big-cheese.960x640.jpg")
   click_button "Save"
 end
 

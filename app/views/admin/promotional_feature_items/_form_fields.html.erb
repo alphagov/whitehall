@@ -44,7 +44,16 @@
       value: "image",
       text: "Image",
       checked: promotional_feature_item.image.present? || params.dig("promotional_feature", "promotional_feature_items_attributes", "0", "image_or_youtube_video_url") == "image",
-      conditional: render("admin/promotional_feature_items/image_fields", promotional_feature_item:, name:, id:)
+      conditional: render("components/single-image-upload", {
+        name: name,
+        id: id,
+        page_errors: form.object.errors.any?,
+        error_items: errors_for(form.object.errors, :image),
+        filename: form.object.image.filename,
+        image_cache: (form.object.image.image_cache if form.object.image.image_cache.present?),
+        image_src: form.object.image.url,
+        image_alt: form.object.image_alt_text
+      })
     },
     {
       value: "youtube_video_url",

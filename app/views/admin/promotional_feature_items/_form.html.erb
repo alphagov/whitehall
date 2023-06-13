@@ -1,7 +1,8 @@
 <%= form_with model: promotional_feature_item,
       url:  promotional_feature_item.persisted? ?
             admin_organisation_promotional_feature_item_path(organisation, promotional_feature, promotional_feature_item) :
-            admin_organisation_promotional_feature_items_path(organisation, promotional_feature) do |form| %>
+            admin_organisation_promotional_feature_items_path(organisation, promotional_feature),
+            multipart: true do |form| %>
   <%= render 'form_fields', {
     promotional_feature_item: @promotional_feature_item,
     form: form,
