@@ -63,7 +63,7 @@ module Admin::OrganisationHelper
     tabs << {
       label: "Features",
       href: features_admin_organisation_path(organisation, locale: I18n.default_locale),
-      current: current_path == features_admin_organisation_path(organisation, locale: I18n.default_locale),
+      current: current_path == features_admin_organisation_path(organisation, locale: I18n.default_locale) || current_path == features_admin_organisation_path(organisation),
     }
 
     organisation.non_english_translated_locales.each do |locale|
