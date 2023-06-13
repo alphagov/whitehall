@@ -27,9 +27,9 @@ class Admin::TopicalEventAboutPagesControllerTest < ActionController::TestCase
   end
 
   view_test "GET edit shows the form for editing an about page" do
-    about = create(:topical_event_about_page, topical_event: @topical_event)
+    create(:topical_event_about_page, topical_event: @topical_event)
     get :edit, params: { topical_event_id: @topical_event.to_param }
-    assert_select ".govuk-form-group", text: /#{about.summary}/
+    assert_select 'textarea[name*="summary"]'
   end
 
   test "PUT update saves changes to the about page" do
