@@ -14,11 +14,12 @@
         if promotional_feature_item.title_url.present?
           [{
              key: "Item title URL",
-             value: "",
+             value: promotional_feature_item.title_url,
              actions: [
                {
                  label: "View",
-                 href: promotional_feature_item.title_url
+                 href: promotional_feature_item.title_url,
+                 opens_in_new_tab: true
                },
              ]
            }]
@@ -33,13 +34,7 @@
         if promotional_feature_item.image.s300.url
           [{
              key: "Image",
-             value: "",
-             actions: [
-               {
-                 label: "View",
-                 href: promotional_feature_item.image.s300.url,
-               },
-             ]
+             value: image_tag(promotional_feature_item.image.s300.url),
            }]
         end),
 
@@ -82,7 +77,8 @@
               actions: [
                 {
                   label: "View",
-                  href: promo_link.url
+                  href: promo_link.url,
+                  opens_in_new_tab: true
                 },
               ]
             }
