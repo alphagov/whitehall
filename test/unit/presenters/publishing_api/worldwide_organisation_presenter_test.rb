@@ -63,6 +63,12 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
             title: "Our Facebook Page",
           },
         ],
+        world_location_names: [
+          {
+            content_id: worldwide_org.world_locations.first.content_id,
+            name: worldwide_org.world_locations.first.name,
+          },
+        ],
       },
       analytics_identifier: "WO123",
       update_type: "major",
