@@ -70,6 +70,12 @@
     <%= render "govuk_publishing_components/components/button", {
       text: "Search",
       margin_bottom: 4,
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "statistics-announcements-button",
+        "track-label": "Search"
+      }
     } %>
 
     <p class="govuk-body"><%= link_to "Reset all fields", admin_statistics_announcements_path + "?state=active", class: "govuk-link" %></p>
