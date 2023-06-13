@@ -11,6 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_06_21_120551) do
+  create_table "assets", charset: "utf8mb3", force: :cascade do |t|
+    t.string "asset_manager_id", null: false
+    t.bigint "attachment_data_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachment_data_id"], name: "index_assets_on_attachment_data_id"
+  end
+
   create_table "attachment_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "carrierwave_file"
     t.string "content_type"

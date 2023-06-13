@@ -18,19 +18,27 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
       end
     end
 
-    asset_manager.create_whitehall_asset(asset_options)
+    response = asset_manager.create_whitehall_asset(asset_options)
 
     if attachable_model
       # The AttachmentData we want to set the timestamp on may not
       # exist yet, so create a worker to do it after a very short
       # delay.  The worker will retry if it still doesn't exist.
       AssetManagerAttachmentSetUploadedToWorker.perform_in(
-        0.5.seconds, attachable_model_class, attachable_model_id, legacy_url_path
+        0.5.seconds, attachable_model_class, attachable_model_id, legacy_url_path, get_asset_id(response)
       )
     end
 
     file.close
     FileUtils.rm(file)
     FileUtils.rmdir(File.dirname(file))
+  end
+
+  def get_asset_id(response)
+    return unless response
+
+    attributes = response.to_hash
+    url = attributes["id"]
+    url[/\/assets\/(.*)/, 1]
   end
 end

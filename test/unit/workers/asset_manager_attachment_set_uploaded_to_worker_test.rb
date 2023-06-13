@@ -25,5 +25,14 @@ class AssetManagerAttachmentSetUploadedToWorkerTest < ActiveSupport::TestCase
         worker.perform("Publication", publication.id, "some-unknown-path")
       end
     end
+
+    it "saves corresponding asset id for attachment" do
+      asset_manager_id = "56fbf7e577550f39a5aea04a"
+      asset = Asset.new(asset_manager_id:, attachment_data_id: attachment.attachment_data.id)
+      Asset.stub(:new, asset) do
+        worker.perform("Publication", publication.id, attachment.attachment_data.path, asset_manager_id)
+        assert_equal Asset.where(asset_manager_id:).count, 1
+      end
+    end
   end
 end
