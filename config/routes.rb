@@ -125,7 +125,9 @@ Whitehall::Application.routes.draw do
             get :people
           end
           resources :financial_reports, except: [:show]
-          resources :offsite_links
+          resources :offsite_links do
+            get :confirm_destroy, on: :member
+          end
         end
         resources :corporate_information_pages, only: [] do
           resources :attachments, except: [:show] do

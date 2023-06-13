@@ -480,6 +480,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     create(:feature_list, locale: :en, featurable: organisation, features: [first_feature])
     get :features, params: { id: organisation }
 
-    assert_match(/Please note that you can only feature a maximum of 6 documents.*/, response.body)
+    assert_match(/A maximum of 6 documents will be featured on GOV.UK.*/, response.body)
   end
 end

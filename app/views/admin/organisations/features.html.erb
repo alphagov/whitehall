@@ -1,0 +1,68 @@
+<% content_for :page_title, @organisation.name %>
+<% content_for :title, @organisation.name %>
+<% content_for :context, "Organisation" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<p class="govuk-body">
+  <%= view_on_website_link_for @organisation, url: { locale: I18n.default_locale }, class: "govuk-link" %>
+</p>
+
+<div class="govuk-!-margin-bottom-8">
+  <%= render "components/secondary_navigation", {
+    aria_label: "Organisation navigation tabs",
+    items: secondary_navigation_tabs_items(@organisation, request.path)
+  } %>
+</div>
+
+<%= render "govuk_publishing_components/components/tabs", {
+  tabs: [
+    {
+      id: "currently_featured_tab",
+      label: "Currently featured",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "organisation-features-tab",
+        "track-label": "Currently featured"
+      },
+      content: render(Admin::CurrentlyFeaturedTabComponent.new(
+        features: @feature_list.features.current,
+        maximum_featured_documents: @organisation.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT
+      ))
+    },
+    {
+      id: "documents_tab",
+      label: "Documents",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "organisation-features-tab",
+        "track-label": "Documents"
+      },
+      content: render("admin/shared/featurable_editions",
+        filter: @filter,
+        paginator: @filter.editions(@feature_list.locale),
+        featurable_editions: featurable_editions_for_feature_list(@filter.editions(@feature_list.locale), @feature_list),
+        filter_by: [:title, :type, :author, :organisation],
+        anchor: "#documents_tab",
+        filter_action: polymorphic_url([:features, :admin, @feature_list.featurable]),
+        feature_path: [:new, :admin, @feature_list, :feature],
+      ),
+    },
+    {
+      id: "non_govuk_government_links_tab",
+      label: "Non-GOV.UK government links",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "organisation-features-tab",
+        "track-label": "Non-GOV.UK government links"
+      },
+      content: render("admin/feature_lists/featureable_offsite_links",
+        model: @organisation,
+        featurable_offsite_links: featurable_offsite_links_for_feature_list(@featurable_offsite_links, @feature_list),
+        featuring_path: [:new, :admin, @feature_list, :feature],
+      ),
+    }
+  ]
+} %>
