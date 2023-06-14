@@ -8,7 +8,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
       <%= render '/admin/shared/release_date', {
-        current_release_date: @statistics_announcement_date_change.current_release_date,
+        current_release_date: @statistics_announcement_date_change,
         name_prefix: @statistics_announcement_date_change.class.name.underscore,
         id_prefix: @statistics_announcement_date_change.class.name.underscore
       } %>
