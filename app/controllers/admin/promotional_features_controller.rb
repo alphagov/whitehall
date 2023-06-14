@@ -71,9 +71,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[reorder update_order confirm_destroy]
-    design_system_actions += %w[edit update index show new create] if preview_design_system?(next_release: false)
-    if design_system_actions.include?(action_name)
+    if preview_design_system?(next_release: true)
       "design_system"
     else
       "admin"
