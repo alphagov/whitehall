@@ -16,6 +16,26 @@ class AttachmentsHelperTest < ActionView::TestCase
     assert_not previewable?(csv_on_policy_group)
   end
 
+  test "block_attachments renders an array of rendered attachments" do
+    alternative_format_contact_email = "test@example.com"
+    attachments = [
+      create(:html_attachment),
+      create(:external_attachment),
+      create(:file_attachment, accessible: false),
+    ]
+
+    rendered_attachments = block_attachments(attachments, alternative_format_contact_email)
+
+    rendered_attachments.each.with_index do |rendered, index|
+      attachment = attachments[index]
+      assert_select_within_html(rendered, ".gem-c-attachment")
+      assert_select_within_html(rendered, ".gem-c-attachment__title a", text: attachment.title) do |link|
+        assert_equal attachment.url, link.attr("href").to_s
+      end
+      assert_select_within_html(rendered, "a", text: alternative_format_contact_email) if index == 2
+    end
+  end
+
   test "component params for HTML attachment" do
     attachment = create(:html_attachment)
     expect_params = {

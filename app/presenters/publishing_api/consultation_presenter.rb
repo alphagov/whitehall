@@ -268,7 +268,6 @@ module PublishingApi
         renderer.block_attachments(
           public_feedback.attachments,
           public_feedback.alternative_format_contact_email,
-          public_feedback.published_on,
         )
       end
 

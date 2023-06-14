@@ -59,17 +59,12 @@ module AttachmentsHelper
     params.compact
   end
 
-  def block_attachments(attachments = [],
-                        alternative_format_contact_email = nil,
-                        published_on = nil)
-    attachments.collect do |attachment|
+  def block_attachments(attachments = [], alternative_format_contact_email = nil)
+    attachments.map do |attachment|
       render(
-        partial: "documents/attachment",
-        formats: :html,
-        object: attachment,
+        partial: "govuk_publishing_components/components/attachment",
         locals: {
-          alternative_format_contact_email:,
-          published_on:,
+          attachment: attachment_component_params(attachment, alternative_format_contact_email:),
         },
       )
     end
