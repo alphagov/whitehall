@@ -123,7 +123,7 @@ Then(/^I should see that the announcement is linked to the publication$/) do
     expect(page).to_not have_link("Add existing document", href: admin_statistics_announcement_publication_index_path(@statistics_announcement))
     expect(page).to_not have_link("create new document", href: new_admin_publication_path(statistics_announcement_id: @statistics_announcement))
     expect(page).to have_content(@statistics_publication.title.to_s)
-    expect(page).to have_link("View", href: admin_statistics_announcement_publication_index_path(@statistics_announcement))
+    expect(page).to have_link("View", href: admin_edition_path(@statistics_publication))
   else
     expect(page).to have_content(
       "Announcement connected to draft document #{@statistics_publication.title}",
