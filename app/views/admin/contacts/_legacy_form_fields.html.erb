@@ -1,0 +1,31 @@
+<fieldset class="contact">
+  <legend>Address</legend>
+  <%= contact_form.text_field :recipient, placeholder: "Organisation, division, team, unit or person name" %>
+  <%= contact_form.text_area :street_address, rows: 3, class: "address" %>
+  <%= contact_form.text_field :locality, placeholder: "Town or city" %>
+  <%= contact_form.text_field :region, placeholder: "State or county" %>
+  <%= contact_form.text_field :postal_code %>
+
+  <div class="form-group">
+    <%= contact_form.label :country_id, 'Country', class: "control-label" %>
+    <%= contact_form.select :country_id,
+                            options_from_collection_for_select(WorldLocation.geographical, :id, :name, contact_form.object.country_id),
+                            { include_blank: true },
+                            class: 'chzn-select form-control',
+                            data: { placeholder: "Choose the country…" } %>
+  </div>
+</fieldset>
+
+<%= contact_form.text_field :email %>
+<%= contact_form.text_field :contact_form_url %>
+
+<fieldset class="contact_numbers js-duplicate-fields">
+  <legend>Phone numbers</legend>
+  <%= contact_form.fields_for :contact_numbers, contact_form.object.contact_numbers do |contact_number_form| %>
+    <fieldset class="contact_number well js-duplicate-fields-set">
+      <%= contact_number_form.text_field :label %>
+      <%= contact_number_form.text_field :number %>
+      <%= contact_number_form.hidden_field :_destroy, class: 'js-hidden-destroy' %>
+    </fieldset>
+  <% end %>
+</fieldset>
