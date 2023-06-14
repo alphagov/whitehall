@@ -1,5 +1,6 @@
-<% content_for :page_title, "Edit page about #{@topical_event.name}" %>
-<% content_for :title, "Edit page about #{@topical_event.name}" %>
+<% content_for :context, "#{@topical_event.name}" %>
+<% content_for :page_title, "Edit about page" %>
+<% content_for :title, "Edit about page" %>
 <% content_for :title_margin_bottom, 6 %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @topical_event_about_page)) %>
 <div class="govuk-grid-row">

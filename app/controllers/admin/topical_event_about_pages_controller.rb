@@ -7,7 +7,8 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
   layout :get_layout
 
   def new
-    @topical_event_about_page = TopicalEventAboutPage.new
+    @topical_event_about_page = TopicalEventAboutPage.new(topical_event: @topical_event)
+    render_design_system(:new, :legacy_new)
   end
 
   def create
@@ -15,7 +16,7 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
     if @topical_event_about_page.save
       redirect_to admin_topical_event_topical_event_about_pages_path, notice: "About page created"
     else
-      render action: "new"
+      render_design_system("new", "legacy_new")
     end
   end
 
@@ -57,7 +58,7 @@ end
 
 def get_layout
   design_system_actions = []
-  design_system_actions += %w[show edit update] if preview_design_system?(next_release: false)
+  design_system_actions += %w[show new edit update create] if preview_design_system?(next_release: false)
 
   if design_system_actions.include?(action_name)
     "design_system"
