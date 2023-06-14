@@ -9,7 +9,6 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   test "GDS Editor permission required to unpublish" do
     login_as :departmental_editor
