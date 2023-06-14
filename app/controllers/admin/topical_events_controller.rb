@@ -17,7 +17,9 @@ class Admin::TopicalEventsController < Admin::BaseController
     render_design_system(:index, :legacy_index)
   end
 
-  def new; end
+  def new
+    render_design_system(:new, :legacy_new)
+  end
 
   def create
     @topical_event = model_class.new(object_params)
@@ -28,7 +30,9 @@ class Admin::TopicalEventsController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    render_design_system(:edit, :legacy_edit)
+  end
 
   def update
     @topical_event = TopicalEvent.friendly.find(params[:id])
@@ -74,8 +78,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[show index] if preview_design_system?(next_release: false)
-
+    design_system_actions += %w[show index edit update new create] if preview_design_system?(next_release: false)
     if design_system_actions.include?(action_name)
       "design_system"
     else

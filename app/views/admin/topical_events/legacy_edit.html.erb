@@ -10,9 +10,9 @@
   <section class="sidebar col-md-4 display_heading">
     <h1>Delete <%= human_friendly_model_name.downcase %></h1>
     <%= button_to 'Delete',
-                  [:admin, @topical_event],
-                  method: :delete,
-                  class: 'btn btn-danger',
-                  data: { confirm: "Are you sure you want to delete: #{@topical_event} ?" } %>
+          [:admin, @topical_event],
+          method: :delete,
+          class: 'btn btn-danger',
+          data: { confirm: "Are you sure you want to delete: #{@topical_event} ?" } %>
   </section>
 </div>
