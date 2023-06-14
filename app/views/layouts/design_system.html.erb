@@ -23,9 +23,9 @@
   </div>
 
   <div class="govuk-width-container">
-    <% if t('admin.whats_new.show_banner') %>
-      <%= render "shared/whats_new_banner" %>
-    <% end %>
+    <%= render "shared/phase_banner", {
+        show_feedback_banner: t('admin.feedback.show_banner'),
+      } %>
 
     <%= yield(:back_link) %>
     <%= yield(:breadcrumbs) %>
