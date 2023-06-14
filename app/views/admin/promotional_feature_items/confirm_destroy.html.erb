@@ -1,17 +1,17 @@
-<% content_for :context, @organisation.name %>
+<% content_for :context, @promotional_feature.title %>
 <% content_for :page_title, "Delete #{@promotional_feature_item.title}" %>
-<% content_for :title, "Delete #{@promotional_feature_item.title}" %>
+<% content_for :title, "Delete promotional feature item" %>
 <% content_for :title_margin_bottom, 6 %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <%= form_with url: admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, @promotional_feature_item), method:
       :delete do %>
-      <p class="govuk-body govuk-!-margin-bottom-4">Are you sure you want to
-        delete <%= @promotional_feature_item.title %>
-        item?</p>
+      <p class="govuk-body">
+        Are you sure you want to delete this promotional feature item?
+      </p>
 
-      <div class="govuk-button-group govuk-!-margin-bottom-6">
+      <div class="govuk-button-group govuk-!-margin-top-6">
         <%= render "govuk_publishing_components/components/button", {
           text: "Delete",
           destructive: true,
