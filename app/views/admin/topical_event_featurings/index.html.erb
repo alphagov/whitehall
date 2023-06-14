@@ -19,6 +19,12 @@
     {
       id: "currently_featured_tab",
       label: "Currently featured",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "topical-event-featuring-tab",
+        "track-label": "Currently featured"
+      },
       content: render(Admin::CurrentlyFeaturedTabComponent.new(
         featurings: @topical_event_featurings,
         maximum_featured_documents: 5
@@ -27,6 +33,12 @@
     {
       id: "documents_tab",
       label: "Documents",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "topical-event-featuring-tab",
+        "track-label": "Documents"
+      },
       content: render("admin/shared/featurable_editions",
         filter: @filter,
         paginator: @tagged_editions,
@@ -40,6 +52,12 @@
     {
       id: "non_govuk_government_links_tab",
       label: "Non-GOV.UK government links",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "topical-event-featuring-tab",
+        "track-label": "Non-GOV.UK government links"
+      },
       content: render("admin/feature_lists/featureable_offsite_links",
         model: @topical_event,
         featurable_offsite_links: @topical_event.featurable_offsite_links,
