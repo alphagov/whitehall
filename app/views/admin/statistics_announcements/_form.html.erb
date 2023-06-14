@@ -1,4 +1,4 @@
-<%= form_with url: [:admin, statistics_announcement] do |form| %>
+<%= form_with model: statistics_announcement, url: [:admin, statistics_announcement] do |form| %>
   <%= form.hidden_field :publication_id %>
   <%= render "govuk_publishing_components/components/radio", {
     heading: "Statistics type (required)",
