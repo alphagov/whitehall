@@ -27,7 +27,7 @@ Feature: Administering Organisations
     When I add the offsite link "Offsite Thing" of type "Alert" to the organisation "Ministry of Pop"
     Then I should see the edit offsite link "Offsite Thing" on the "Ministry of Pop" organisation page
 
-  @javascript
+  @javascript @bootstrap-only
   Scenario: Filtering items to feature on an organisation page
     Given an organisation and some documents exist
     When I go to the organisation feature page

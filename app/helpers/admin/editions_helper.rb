@@ -61,7 +61,7 @@ module Admin::EditionsHelper
           {
             text: organisation.select_name,
             value: organisation.id,
-            selected: selected_organisation == organisation.id.to_s,
+            selected: selected_organisation.to_s == organisation.id.to_s,
           }
         end,
       ],
@@ -71,7 +71,7 @@ module Admin::EditionsHelper
           {
             text: organisation.select_name,
             value: organisation.id,
-            selected: selected_organisation == organisation.id.to_s,
+            selected: selected_organisation.to_s == organisation.id.to_s,
           }
         end,
       ],
