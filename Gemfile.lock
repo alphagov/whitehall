@@ -79,7 +79,7 @@ GEM
       execjs (~> 2)
     awesome_print (1.9.2)
     babosa (2.0.0)
-    better_errors (2.10.0)
+    better_errors (2.10.1)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
