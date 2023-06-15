@@ -5,7 +5,13 @@ class Admin::RoleTranslationsController < Admin::BaseController
 private
 
   def get_layout
-    "admin"
+    design_system_actions = %w[confirm_destroy]
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 
   def create_redirect_path

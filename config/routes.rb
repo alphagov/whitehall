@@ -305,7 +305,9 @@ Whitehall::Application.routes.draw do
           resources :role_appointments, only: %i[new create edit update destroy], shallow: true do
             get :confirm_destroy, on: :member
           end
-          resources :translations, controller: "role_translations"
+          resources :translations, controller: "role_translations" do
+            get :confirm_destroy, on: :member
+          end
         end
 
         resources :world_location_news, only: %i[index edit update show] do
