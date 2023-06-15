@@ -19,6 +19,12 @@
     {
       id: "currently_featured_tab",
       label: "Currently featured",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "world-location-news-features-tab",
+        "track-label": "Currently featured"
+      },
       content: render(Admin::CurrentlyFeaturedTabComponent.new(
         features: @feature_list.features.current,
         maximum_featured_documents: @world_location_news.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT
@@ -27,6 +33,12 @@
     {
       id: "documents_tab",
       label: "Documents",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "world-location-news-features-tab",
+        "track-label": "Documents"
+      },
       content: render("admin/shared/featurable_editions",
         filter: @filter,
         paginator: @filter.editions(@feature_list.locale),
@@ -40,6 +52,12 @@
     {
       id: "non_govuk_government_links_tab",
       label: "Non-GOV.UK government links",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "world-location-news-features-tab",
+        "track-label": "Non-GOV.UK government links"
+      },
       content: render("admin/feature_lists/featureable_offsite_links",
         model: @world_location_news,
         featurable_offsite_links: featurable_offsite_links_for_feature_list(@featurable_offsite_links, @feature_list),
