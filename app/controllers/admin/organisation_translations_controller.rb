@@ -3,13 +3,14 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   layout :get_layout
 
   def index
-    render :legacy_index
+    render_design_system(:index, :legacy_index)
   end
 
 private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
