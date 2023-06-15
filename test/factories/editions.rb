@@ -90,6 +90,8 @@ FactoryBot.define do
       after :create, &:refresh_index_if_required
     end
 
+    trait(:non_english) { primary_locale { "cy" } }
+
     trait(:force_published) do
       state { "published" }
       first_published_at { 2.days.ago }
@@ -187,6 +189,7 @@ FactoryBot.define do
   factory :submitted_edition, parent: :edition, traits: [:submitted]
   factory :rejected_edition, parent: :edition, traits: [:rejected]
   factory :published_edition, parent: :edition, traits: [:published]
+  factory :non_english_published_edition, parent: :edition, traits: %i[non_english published]
   factory :deleted_edition, parent: :edition, traits: [:deleted]
   factory :superseded_edition, parent: :edition, traits: [:superseded]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
