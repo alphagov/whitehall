@@ -3,14 +3,16 @@
     <div class="govuk-grid-column-one-half govuk-heading-s">
       <%= lead ? "Lead organisations" : "Supporting organisations" %>
     </div>
-    <div class="govuk-grid-column-one-half govuk-!-text-align-right">
-      <%= link_to sanitize("Reorder organisations #{tag.span(lead ? "lead" : "supporting", class: "govuk-visually-hidden")}"), "reorder_link", class: "govuk-link" %>
-    </div>
+    <% if lead && @topical_event.lead_topical_event_organisations.many? %>
+      <div class="govuk-grid-column-one-half govuk-!-text-align-right">
+        <%= link_to "Reorder organisations", reorder_admin_topical_event_topical_event_organisations_path(@topical_event), class: "govuk-link" %>
+      </div>
+    <% end %>
   </div>
   <div class="govuk-table--with-actions">
     <%= render "govuk_publishing_components/components/table", {
       first_cell_is_header: true,
-      rows: @topical_event.topical_event_organisations.where(lead: lead).map do |topical_event_organisation|
+      rows: @topical_event.topical_event_organisations.where(lead: lead).order(lead ? :lead_ordering : :ordering).map do |topical_event_organisation|
         [{
            text: topical_event_organisation.organisation.name,
          },

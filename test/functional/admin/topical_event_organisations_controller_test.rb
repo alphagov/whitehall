@@ -24,14 +24,25 @@ class Admin::TopicalEventOrganisationsControllerTest < ActionController::TestCas
     get :index, params: { topical_event_id: @topical_event }
 
     check_topical_event_organisations(lead_topical_event_organisations, "lead")
+    assert_select "a[href=?]", reorder_admin_topical_event_topical_event_organisations_path(@topical_event), text: "Reorder organisations"
     refute_select "#supporting_organisations"
   end
 
-  view_test "GET :index renders lead supporting organisations only" do
+  view_test "GET :index renders no reorder link when there is only one lead organisation" do
+    create_list(:topical_event_organisation, 2, topical_event: @topical_event)
+    lead_topical_event_organisations = create_list(:topical_event_organisation, 1, topical_event: @topical_event, lead: true)
+    get :index, params: { topical_event_id: @topical_event }
+
+    check_topical_event_organisations(lead_topical_event_organisations, "lead")
+    refute_select "a[href=?]", reorder_admin_topical_event_topical_event_organisations_path(@topical_event), text: "Reorder organisations"
+  end
+
+  view_test "GET :index renders lead supporting organisations only with no reorder link" do
     supporting_topical_event_organisations = create_list(:topical_event_organisation, 2, topical_event: @topical_event)
     get :index, params: { topical_event_id: @topical_event }
 
     check_topical_event_organisations(supporting_topical_event_organisations, "supporting")
+    refute_select "a[href=?]", reorder_admin_topical_event_topical_event_organisations_path(@topical_event)
     refute_select "#lead_organisations"
   end
 
@@ -43,10 +54,40 @@ class Admin::TopicalEventOrganisationsControllerTest < ActionController::TestCas
     assert_select ".govuk-inset-text", "There are no organisations associated with this topical event."
   end
 
+  view_test "GET :reorder renders reoderable list of lead organisations" do
+    lead_topical_event_organisations = create_list(:topical_event_organisation, 2, topical_event: @topical_event, lead: true)
+    get :reorder, params: { topical_event_id: @topical_event }
+
+    assert_template :reorder
+    assert_response :success
+    assert_select "a[href=?]", admin_topical_event_topical_event_organisations_path(@topical_event), text: "Back"
+    assert_select "h1", "Reorder lead organisations list"
+    assert_select ".gem-c-reorderable-list", count: 1
+    assert_select ".gem-c-reorderable-list__item", count: 2
+    assert_select ".gem-c-reorderable-list__title", lead_topical_event_organisations[0].organisation.name
+    assert_select ".gem-c-reorderable-list__title", lead_topical_event_organisations[1].organisation.name
+  end
+
+  test "PUT :order saves the new order of lead organisations" do
+    lead_topical_event_organisations = create_list(:topical_event_organisation, 3, topical_event: @topical_event, lead: true)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(@topical_event).once
+
+    put :order,
+        params: { topical_event_id: @topical_event,
+                  ordering: {
+                    lead_topical_event_organisations[0].id.to_s => "1",
+                    lead_topical_event_organisations[1].id.to_s => "2",
+                    lead_topical_event_organisations[2].id.to_s => "0",
+                  } }
+
+    assert_response :redirect
+    assert_equal [lead_topical_event_organisations[2], lead_topical_event_organisations[0], lead_topical_event_organisations[1]], @topical_event.reload.topical_event_organisations.where(lead: true).order(:lead_ordering)
+  end
+
   def check_topical_event_organisations(topical_event_organisations, type)
     assert_select "##{type}_organisations" do
       assert_select ".govuk-heading-s", "#{type.capitalize} organisations"
-      assert_select "a[href=?]", "reorder_link", text: "Reorder organisations #{type}"
       topical_event_organisations.each do |topical_event_organisation|
         assert_select "th", topical_event_organisation.organisation.name
         assert_select "a[href=?]", admin_organisation_path(topical_event_organisation.organisation), text: "View #{topical_event_organisation.organisation.name}"

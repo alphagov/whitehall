@@ -142,7 +142,10 @@ Whitehall::Application.routes.draw do
             put :order, on: :collection
             get :confirm_destroy, on: :member
           end
-          resources :topical_event_organisations, path: "organisations", only: %i[index]
+          resources :topical_event_organisations, path: "organisations" do
+            get :reorder, on: :collection
+            put :order, on: :collection
+          end
           resources :offsite_links do
             get :confirm_destroy, on: :member
           end

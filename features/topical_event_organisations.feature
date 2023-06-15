@@ -14,3 +14,16 @@ Feature:
     When I visit the topical event organisations index page
     Then I can see the lead organisation with the name "Lead organisation"
     And I can see the supporting organisation with the name "Supporting organisation"
+
+  Scenario: Reorder lead organisations
+    Given the topical event has a lead organisation called "Another lead organisation"
+    When I visit the topical event organisations index page
+    And I set the order of lead organisations to:
+      | name                      | order |
+      | Lead organisation         | 1     |
+      | Another lead organisation | 0     |
+    Then I can see a "Lead organisations have been reordered." success notice
+    And the lead organisations should be in the following order:
+      | name                      |
+      | Another lead organisation |
+      | Lead organisation         |
