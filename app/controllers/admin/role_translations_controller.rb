@@ -5,7 +5,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_destroy]
+    design_system_actions = %w[confirm_destroy index]
 
     if design_system_actions.include?(action_name)
       "design_system"

@@ -1,42 +1,61 @@
-<% page_title @role.name + " translations" %>
+<% content_for :page_title, "#{@role.name}" %>
+<% content_for :title, @role.name %>
+<% content_for :context, "Roles" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<h1>Translations for <%= @role.name %></h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">
+      <%= view_on_website_link_for @role, class: "govuk-link" %>
+    </p>
 
-<% if @role.missing_translations.any? %>
-  <%= form_tag admin_role_translations_path(@role) do %>
-    <div class="form-group">
-      <%= label_tag :translation_locale, 'Locale' %>
-      <%= select_locale :translation_locale, @role.missing_translations, {class: 'form-control input-md-3' } %>
-    </div>
-    <%= submit_tag "Create translation", class: "btn btn-primary" %>
-  <% end %>
-<% end %>
-
-<% if @role.non_english_translated_locales.present? %>
-  <table id="role-translations" class="table table-striped table-bordered add-top-margin">
-    <thead>
-      <tr class="table-header">
-        <th>Locale</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @role.non_english_translated_locales.each do |locale| %>
-        <tr>
-          <td class="locale">
-            <%= link_to locale.native_language_name, edit_admin_role_translation_path(@role, locale.code) %>
-          </td>
-          <td class="actions">
-            <%= button_to 'Delete',
-                  admin_role_translation_path(@role, locale.code),
-                  method: :delete,
-                  class: "btn btn-danger",
-                  data: { confirm: "Are you sure you want to delete this translation?" } %>
-          </td>
-        </tr>
+    <% if @role.non_english_translated_locales.present? %>
+      <div class="govuk-table--with-actions">
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
+            {
+              text: "Locale"
+            },
+            {
+              text: tag.span("Actions", class: "govuk-visually-hidden"),
+            }
+          ],
+          rows: @role.non_english_translated_locales.map do |locale|
+            [
+              {
+                text: locale.native_and_english_language_name
+              },
+              {
+                text: link_to(sanitize("Edit #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), edit_admin_role_translation_path(@role, locale.code), class: "govuk-link") +
+                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_role_translation_path(@role, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")
+              }
+            ]
+          end
+        } %>
+      </div>
+    <% else %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No translations."
+      } %>
+    <% end %>
+    <% if @role.missing_translations.any? %>
+      <%= form_with url: admin_role_translations_path(@role) do %>
+        <%= render "govuk_publishing_components/components/select", {
+          id: "translation_locale",
+          name: "translation_locale",
+          label: "Locale",
+          heading_size: "l",
+          options: @role.missing_translations.map do |locale|
+            {
+              value: locale.code,
+              text: Locale.coerce(locale).native_and_english_language_name,
+            }
+          end
+        } %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Create new translation"
+        } %>
       <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p class="no-content no-content-bordered">No translations</p>
-<% end %>
+    <% end %>
+  </div>
+</div>

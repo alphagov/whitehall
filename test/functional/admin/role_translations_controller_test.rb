@@ -21,7 +21,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
         assert_select "option[value=es]", text: "Español (Spanish)"
       end
 
-      assert_select "input[type=submit]"
+      assert_select "button[type=submit]"
     end
   end
 
@@ -49,7 +49,10 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     get :index, params: { role_id: role }
 
     edit_translation_path = edit_admin_role_translation_path(role, "fr")
-    assert_select "a[href=?]", edit_translation_path, text: "Français"
+    confirm_destroy_url = confirm_destroy_admin_role_translation_path(role, "fr")
+
+    assert_select "a[href=?]", edit_translation_path, text: "Edit Français (French)"
+    assert_select "a[href=?]", confirm_destroy_url, text: "Delete Français (French)"
   end
 
   view_test "index does not list the english translation" do
@@ -57,16 +60,6 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
 
     edit_translation_path = edit_admin_role_translation_path(@role, "en")
     assert_select "a[href=?]", edit_translation_path, text: "en", count: 0
-  end
-
-  view_test "index displays delete button for a translation" do
-    role = create(:role, translated_into: [:fr])
-
-    get :index, params: { role_id: role }
-
-    assert_select "form[action=?]", admin_role_translation_path(role, :fr) do
-      assert_select "input[type='submit'][value=?]", "Delete"
-    end
   end
 
   test "create redirects to edit for the chosen language" do
