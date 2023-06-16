@@ -1,5 +1,6 @@
 class AssetManager::AttachmentUpdater::Update
-  def initialize(attachment_data, uploader_or_legacy_url_path, new_attributes)
+  def initialize(asset_manager_id, attachment_data, uploader_or_legacy_url_path, new_attributes)
+    @asset_manager_id = asset_manager_id
     @attachment_data = attachment_data
 
     @legacy_url_path = if uploader_or_legacy_url_path.respond_to?(:asset_manager_path)
@@ -13,12 +14,12 @@ class AssetManager::AttachmentUpdater::Update
 
   def call
     AssetManager::AssetUpdater.call(
-      nil,
+      asset_manager_id,
       attachment_data,
       legacy_url_path,
       new_attributes.deep_stringify_keys,
     )
   end
 
-  attr_reader :attachment_data, :legacy_url_path, :new_attributes
+  attr_reader :attachment_data, :legacy_url_path, :new_attributes, :asset_manager_id
 end
