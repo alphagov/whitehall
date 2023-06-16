@@ -23,7 +23,7 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
 
       it "updates replacement ID of corresponding asset" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
+          .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
 
         updater.call(attachment_data, replacement_id: true)
       end
@@ -53,9 +53,9 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
 
       it "updates replacement ID of asset for attachment & its thumbnail" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
+          .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
         update_worker.expects(:call)
-          .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
+          .with(nil, attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
         updater.call(attachment_data, replacement_id: true)
       end
@@ -67,9 +67,9 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
 
         it "updates replacement ID of asset for attachment & its thumbnail" do
           update_worker.expects(:call)
-            .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
+            .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
           update_worker.expects(:call)
-            .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
+            .with(nil, attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
           updater.call(attachment_data, replacement_id: true)
         end

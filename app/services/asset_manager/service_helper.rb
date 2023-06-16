@@ -1,7 +1,7 @@
 module AssetManager::ServiceHelper
   class AssetNotFound < StandardError
-    def initialize(legacy_url_path)
-      super("Asset '#{legacy_url_path}' is not in Asset Manager")
+    def initialize(identifier)
+      super("Asset '#{identifier}' is not in Asset Manager")
     end
   end
 
@@ -19,5 +19,11 @@ private
     attributes.merge("id" => id, "url" => url)
   rescue GdsApi::HTTPNotFound
     raise AssetNotFound, legacy_url_path
+  end
+
+  def find_asset_by_id(asset_manager_id)
+    asset_manager.asset(asset_manager_id).to_hash
+  rescue GdsApi::HTTPNotFound
+    raise AssetNotFound, asset_manager_id
   end
 end

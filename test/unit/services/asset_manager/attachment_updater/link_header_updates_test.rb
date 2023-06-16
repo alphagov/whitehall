@@ -35,7 +35,7 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::Te
 
       it "sets parent_document_url for attachment using draft hostname" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
+          .with(nil, attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
 
         updater.call(attachment_data, link_header: true)
       end
@@ -47,7 +47,7 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::Te
 
       it "sets parent_document_url of corresponding asset" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
+          .with(nil, attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
 
         updater.call(attachment_data, link_header: true)
       end
@@ -59,9 +59,9 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::Te
 
       it "sets parent_document_url for attachment & its thumbnail" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
+          .with(nil, attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, { "parent_document_url" => parent_document_url })
+          .with(nil, attachment_data, attachment.file.thumbnail.asset_manager_path, { "parent_document_url" => parent_document_url })
 
         updater.call(attachment_data, link_header: true)
       end

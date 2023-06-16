@@ -13,6 +13,7 @@ class AssetManager::AttachmentUpdater::Update
 
   def call
     AssetManager::AssetUpdater.call(
+      nil,
       attachment_data,
       legacy_url_path,
       new_attributes.deep_stringify_keys,
