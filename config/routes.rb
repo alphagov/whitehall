@@ -145,6 +145,7 @@ Whitehall::Application.routes.draw do
           resources :topical_event_organisations, path: "organisations" do
             get :reorder, on: :collection
             put :order, on: :collection
+            get :toggle_lead, on: :member
           end
           resources :offsite_links do
             get :confirm_destroy, on: :member

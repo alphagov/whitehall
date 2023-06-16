@@ -18,7 +18,7 @@
          },
          {
            text: link_to(sanitize("View #{tag.span(topical_event_organisation.organisation.name, class: "govuk-visually-hidden")}"), [:admin, topical_event_organisation.organisation], class: "govuk-link") +
-             link_to(sanitize((lead ? "Make supporting " : "Make lead ") + tag.span(topical_event_organisation.organisation.name, class: "govuk-visually-hidden")), "make_link", class: "govuk-link govuk-!-margin-left-2"),
+               link_to(sanitize((lead ? "Make supporting " : "Make lead ") + tag.span(topical_event_organisation.organisation.name, class: "govuk-visually-hidden")), toggle_lead_admin_topical_event_topical_event_organisation_path(@topical_event, topical_event_organisation), class: "govuk-link govuk-!-margin-left-2")
          }
         ]
       end

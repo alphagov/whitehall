@@ -15,6 +15,18 @@ class Admin::TopicalEventOrganisationsController < Admin::BaseController
     redirect_to polymorphic_path([:admin, @topical_event, :topical_event_organisations]), notice: "Lead organisations have been reordered."
   end
 
+  def toggle_lead
+    topical_event_organisation = TopicalEventOrganisation.find(params[:id])
+    lead = topical_event_organisation.lead
+    @topical_event.topical_event_organisations.find(topical_event_organisation.id).update!(
+      lead ? { lead: false, lead_ordering: nil } : { lead: true, lead_ordering: @topical_event.lead_topical_event_organisations.count },
+    )
+
+    Whitehall::PublishingApi.republish_async(@topical_event)
+
+    redirect_to polymorphic_path([:admin, @topical_event, :topical_event_organisations]), notice: "#{topical_event_organisation.organisation.name} has been assigned as a #{lead ? 'supporting' : 'lead'} organisation."
+  end
+
 private
 
   def load_topical_event

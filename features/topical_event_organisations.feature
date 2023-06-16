@@ -27,3 +27,15 @@ Feature:
       | name                      |
       | Another lead organisation |
       | Lead organisation         |
+
+  Scenario: Make lead organisation
+    When I visit the topical event organisations index page
+    And I make "Supporting organisation" a lead organisation
+    Then I can see a "Supporting organisation has been assigned as a lead organisation." success notice
+    And I can see the lead organisation with the name "Supporting organisation"
+
+  Scenario: Make supporting organisation
+    When I visit the topical event organisations index page
+    And I make "Lead organisation" a supporting organisation
+    Then I can see a "Lead organisation has been assigned as a supporting organisation." success notice
+    And I can see the supporting organisation with the name "Lead organisation"

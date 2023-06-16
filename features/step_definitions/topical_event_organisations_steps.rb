@@ -38,6 +38,10 @@ Then(/^the lead organisations should be in the following order:$/) do |expected_
   end
 end
 
+And(/^I make "([^"]*)" a (lead|supporting) organisation$/) do |name, organisation_type|
+  click_link "Make #{organisation_type} #{name}"
+end
+
 Then(/^I can see a "([^"]*)" success notice$/) do |message|
   expect(find(".gem-c-success-alert__message").text).to eq message
 end
