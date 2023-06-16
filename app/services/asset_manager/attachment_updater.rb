@@ -22,15 +22,15 @@ class AssetManager::AttachmentUpdater
 
   def self.combined_updates(updates)
     grouped_updates = updates.group_by do |update|
-      [update.attachment_data, update.legacy_url_path]
+      [update.attachment_data, update.legacy_url_path, update.asset_manager_id]
     end
 
-    grouped_updates.map do |(attachment_data, legacy_url_path), updates_to_combine|
+    grouped_updates.map do |(attachment_data, legacy_url_path, asset_manager_id), updates_to_combine|
       new_attributes = updates_to_combine.each_with_object({}) do |update, hash|
         hash.merge!(update.new_attributes)
       end
 
-      Update.new(attachment_data, legacy_url_path, new_attributes)
+      Update.new(asset_manager_id, attachment_data, legacy_url_path, new_attributes)
     end
   end
 end

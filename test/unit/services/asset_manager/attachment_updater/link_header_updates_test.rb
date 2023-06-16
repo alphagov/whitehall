@@ -17,53 +17,117 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::Te
       end
     end
 
-    context "when attachment doesn't belong to an edition" do
-      let(:attachment) { FactoryBot.create(:file_attachment) }
+    describe "Attachment Data has no assets" do
+      context "when attachment doesn't belong to an edition" do
+        let(:attachment) { FactoryBot.create(:file_attachment) }
 
-      it "does not update status of any assets" do
-        update_worker.expects(:call).never
+        it "does not update status of any assets" do
+          update_worker.expects(:call).never
 
-        updater.call(attachment_data, link_header: true)
+          updater.call(attachment_data, link_header: true)
+        end
+      end
+
+      context "when attachment belongs to a draft edition" do
+        let(:edition) { FactoryBot.create(:draft_edition) }
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
+        let(:parent_document_url) { edition.public_url(draft: true) }
+
+        it "sets parent_document_url for attachment using draft hostname" do
+          update_worker.expects(:call)
+                       .with(nil, attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
+      end
+
+      context "when attachment is not a PDF" do
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
+
+        it "sets parent_document_url of corresponding asset" do
+          update_worker.expects(:call)
+                       .with(nil, attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
+      end
+
+      context "when attachment is a PDF" do
+        let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: edition) }
+
+        it "sets parent_document_url for attachment & its thumbnail" do
+          update_worker.expects(:call)
+                       .with(nil, attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
+          update_worker.expects(:call)
+                       .with(nil, attachment_data, attachment.file.thumbnail.asset_manager_path, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
       end
     end
 
-    context "when attachment belongs to a draft edition" do
-      let(:edition) { FactoryBot.create(:draft_edition) }
-      let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-      let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
-      let(:parent_document_url) { edition.public_url(draft: true) }
+    describe "Attachment Data has asset(s)" do
+      context "when attachment doesn't belong to an edition" do
+        let(:attachment) { FactoryBot.create(:file_attachment) }
 
-      it "sets parent_document_url for attachment using draft hostname" do
-        update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
+        it "does not update status of any assets" do
+          update_worker.expects(:call).never
 
-        updater.call(attachment_data, link_header: true)
+          updater.call(attachment_data, link_header: true)
+        end
       end
-    end
 
-    context "when attachment is not a PDF" do
-      let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-      let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
+      context "when attachment belongs to a draft edition" do
+        let(:edition) { FactoryBot.create(:draft_edition) }
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
+        let(:parent_document_url) { edition.public_url(draft: true) }
+        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id) }
 
-      it "sets parent_document_url of corresponding asset" do
-        update_worker.expects(:call)
-          .with(nil, attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
+        it "sets parent_document_url for attachment using draft hostname" do
+          attachment_data.assets = [asset]
 
-        updater.call(attachment_data, link_header: true)
+          update_worker.expects(:call)
+                       .with(asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
       end
-    end
 
-    context "when attachment is a PDF" do
-      let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
-      let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: edition) }
+      context "when attachment is not a PDF" do
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
+        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id) }
 
-      it "sets parent_document_url for attachment & its thumbnail" do
-        update_worker.expects(:call)
-          .with(nil, attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
-        update_worker.expects(:call)
-          .with(nil, attachment_data, attachment.file.thumbnail.asset_manager_path, { "parent_document_url" => parent_document_url })
+        it "sets parent_document_url of corresponding asset" do
+          attachment_data.assets = [asset]
 
-        updater.call(attachment_data, link_header: true)
+          update_worker.expects(:call)
+                       .with(asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
+      end
+
+      context "when attachment is a PDF" do
+        let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: edition) }
+        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id) }
+        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id) }
+
+        it "sets parent_document_url for attachment & its thumbnail" do
+          attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]
+
+          update_worker.expects(:call)
+                       .with(pdf_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+          update_worker.expects(:call)
+                       .with(pdf_thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
       end
     end
   end

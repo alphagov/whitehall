@@ -13,83 +13,172 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
       end
     end
 
-    context "when attachment data is not a PDF" do
-      let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-      let(:sample_docx) { File.open(fixture_path.join("sample.docx")) }
-      let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
-      let(:replacement) { AttachmentData.create!(file: sample_docx) }
-      let(:key) { "replacement_legacy_url_path" }
-      let(:attributes) { { key => replacement.file.asset_manager_path } }
-
-      it "updates replacement ID of corresponding asset" do
-        update_worker.expects(:call)
-          .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
-
-        updater.call(attachment_data, replacement_id: true)
-      end
-    end
-
-    context "when attachment does not have a replacement" do
-      let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-      let(:attachment_data) { AttachmentData.create!(file: sample_rtf) }
-
-      it "does not update asset manager" do
-        update_worker.expects(:call).never
-
-        updater.call(attachment_data, replacement_id: true)
-      end
-    end
-
-    context "when attachment data is a PDF" do
-      let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
-      let(:whitepaper_pdf) { File.open(fixture_path.join("whitepaper.pdf")) }
-      let(:attachment_data) { AttachmentData.create!(file: simple_pdf, replaced_by: replacement) }
-      let(:replacement) { AttachmentData.create!(file: whitepaper_pdf) }
-      let(:key) { "replacement_legacy_url_path" }
-      let(:replacement_url_path) { replacement.file.asset_manager_path }
-      let(:attributes) { { key => replacement_url_path } }
-      let(:replacement_thumbnail_url_path) { replacement.file.thumbnail.asset_manager_path }
-      let(:thumbnail_attributes) { { key => replacement_thumbnail_url_path } }
-
-      it "updates replacement ID of asset for attachment & its thumbnail" do
-        update_worker.expects(:call)
-          .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
-        update_worker.expects(:call)
-          .with(nil, attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
-
-        updater.call(attachment_data, replacement_id: true)
-      end
-
-      context "but replacement is not a PDF" do
+    describe "Attachment Data has no assets" do
+      context "when attachment data is not a PDF" do
         let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-        let(:replacement) { AttachmentData.create!(file: sample_rtf) }
-        let(:thumbnail_attributes) { { key => replacement_url_path } }
+        let(:sample_docx) { File.open(fixture_path.join("sample.docx")) }
+        let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
+        let(:replacement) { AttachmentData.create!(file: sample_docx) }
+        let(:key) { "replacement_legacy_url_path" }
+        let(:attributes) { { key => replacement.file.asset_manager_path } }
 
-        it "updates replacement ID of asset for attachment & its thumbnail" do
+        it "updates replacement ID of corresponding asset" do
           update_worker.expects(:call)
-            .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
-          update_worker.expects(:call)
-            .with(nil, attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
+                       .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
 
           updater.call(attachment_data, replacement_id: true)
         end
       end
-    end
 
-    context "when attachment is not synced with asset manager" do
-      let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-      let(:sample_docx) { File.open(fixture_path.join("sample.docx")) }
-      let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
-      let(:replacement) { AttachmentData.create!(file: sample_docx) }
+      context "when attachment does not have a replacement" do
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:attachment_data) { AttachmentData.create!(file: sample_rtf) }
 
-      before do
-        update_worker.expects(:call)
-          .raises(AssetManager::ServiceHelper::AssetNotFound.new("asset not found"))
+        it "does not update asset manager" do
+          update_worker.expects(:call).never
+
+          updater.call(attachment_data, replacement_id: true)
+        end
       end
 
-      it "raises a AssetNotFound error" do
-        assert_raises(AssetManager::ServiceHelper::AssetNotFound) do
+      context "when attachment data is a PDF" do
+        let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
+        let(:whitepaper_pdf) { File.open(fixture_path.join("whitepaper.pdf")) }
+        let(:attachment_data) { AttachmentData.create!(file: simple_pdf, replaced_by: replacement) }
+        let(:replacement) { AttachmentData.create!(file: whitepaper_pdf) }
+        let(:key) { "replacement_legacy_url_path" }
+        let(:replacement_url_path) { replacement.file.asset_manager_path }
+        let(:attributes) { { key => replacement_url_path } }
+        let(:replacement_thumbnail_url_path) { replacement.file.thumbnail.asset_manager_path }
+        let(:thumbnail_attributes) { { key => replacement_thumbnail_url_path } }
+
+        it "updates replacement ID of asset for attachment & its thumbnail" do
+          update_worker.expects(:call)
+                       .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
+          update_worker.expects(:call)
+                       .with(nil, attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
+
           updater.call(attachment_data, replacement_id: true)
+        end
+
+        context "but replacement is not a PDF" do
+          let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+          let(:replacement) { AttachmentData.create!(file: sample_rtf) }
+          let(:thumbnail_attributes) { { key => replacement_url_path } }
+
+          it "updates replacement ID of asset for attachment & its thumbnail" do
+            update_worker.expects(:call)
+                         .with(nil, attachment_data, attachment_data.file.asset_manager_path, attributes)
+            update_worker.expects(:call)
+                         .with(nil, attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
+
+            updater.call(attachment_data, replacement_id: true)
+          end
+        end
+      end
+
+      context "when attachment is not synced with asset manager" do
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:sample_docx) { File.open(fixture_path.join("sample.docx")) }
+        let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
+        let(:replacement) { AttachmentData.create!(file: sample_docx) }
+
+        before do
+          update_worker.expects(:call)
+                       .raises(AssetManager::ServiceHelper::AssetNotFound.new("asset not found"))
+        end
+
+        it "raises a AssetNotFound error" do
+          assert_raises(AssetManager::ServiceHelper::AssetNotFound) do
+            updater.call(attachment_data, replacement_id: true)
+          end
+        end
+      end
+    end
+
+    describe "Attachment Data has asset(s)" do
+      context "when attachment data is not a PDF" do
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:sample_docx) { File.open(fixture_path.join("sample.docx")) }
+        let(:replacement) { AttachmentData.create!(file: sample_docx) }
+        let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
+        let(:attributes) { { "replacement_id" => attachment_data.replaced_by.id } }
+        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id) }
+
+        it "updates replacement ID of corresponding asset" do
+          attachment_data.assets = [asset]
+
+          update_worker.expects(:call)
+                       .with(asset.asset_manager_id, attachment_data, nil, attributes)
+
+          updater.call(attachment_data, replacement_id: true)
+        end
+      end
+
+      context "when attachment does not have a replacement" do
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:attachment_data) { AttachmentData.create!(file: sample_rtf) }
+
+        it "does not update asset manager" do
+          update_worker.expects(:call).never
+
+          updater.call(attachment_data, replacement_id: true)
+        end
+      end
+
+      context "when attachment data is a PDF" do
+        let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
+        let(:whitepaper_pdf) { File.open(fixture_path.join("whitepaper.pdf")) }
+        let(:attachment_data) { AttachmentData.create!(file: simple_pdf, replaced_by: replacement) }
+        let(:replacement) { AttachmentData.create!(file: whitepaper_pdf) }
+        let(:attributes) { { "replacement_id" => attachment_data.replaced_by.id } }
+        let(:thumbnail_attributes) { { "replacement_id" => attachment_data.replaced_by.id } }
+        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id) }
+        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id) }
+
+        it "and replacement is a pdf - updates replacement ID of asset for attachment & its thumbnail" do
+          attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]
+
+          update_worker.expects(:call)
+                       .with(pdf_asset.asset_manager_id, attachment_data, nil, attributes)
+          update_worker.expects(:call)
+                       .with(pdf_thumbnail_asset.asset_manager_id, attachment_data, nil, thumbnail_attributes)
+
+          updater.call(attachment_data, replacement_id: true)
+        end
+
+        context "but replacement is not a PDF" do
+          let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+          let(:replacement) { AttachmentData.create!(file: sample_rtf) }
+
+          it "updates replacement ID of asset for attachment & its thumbnail" do
+            attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]
+
+            update_worker.expects(:call)
+                         .with(pdf_asset.asset_manager_id, attachment_data, nil, attributes)
+            update_worker.expects(:call)
+                         .with(pdf_thumbnail_asset.asset_manager_id, attachment_data, nil, attributes)
+
+            updater.call(attachment_data, replacement_id: true)
+          end
+        end
+      end
+
+      context "when attachment is not synced with asset manager" do
+        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+        let(:sample_docx) { File.open(fixture_path.join("sample.docx")) }
+        let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
+        let(:replacement) { AttachmentData.create!(file: sample_docx) }
+
+        before do
+          update_worker.expects(:call)
+                       .raises(AssetManager::ServiceHelper::AssetNotFound.new("asset not found"))
+        end
+
+        it "raises a AssetNotFound error" do
+          assert_raises(AssetManager::ServiceHelper::AssetNotFound) do
+            updater.call(attachment_data, replacement_id: true)
+          end
         end
       end
     end
