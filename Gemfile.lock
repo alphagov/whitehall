@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/alphagov/govuk_sidekiq.git
-  revision: 2329649cefababedaa9218ff59580e01b881668a
-  branch: Log-GOVUK_REQUEST_ID-in-Json-in-Worker
+  revision: 52c1bc981fff22df46e546c9a2dba73dc16fd627
+  branch: log-request-id-tags
   specs:
     govuk_sidekiq (7.1.0)
       gds-api-adapters (>= 19.1.0)
