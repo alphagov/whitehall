@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/alphagov/govuk_sidekiq.git
+  revision: 2329649cefababedaa9218ff59580e01b881668a
+  branch: Log-GOVUK_REQUEST_ID-in-Json-in-Worker
+  specs:
+    govuk_sidekiq (7.1.0)
+      gds-api-adapters (>= 19.1.0)
+      govuk_app_config (>= 1.1)
+      redis-namespace (~> 1.6)
+      sidekiq (~> 6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -276,11 +287,6 @@ GEM
       sprockets (>= 3)
     govuk_schemas (4.6.0)
       json-schema (>= 2.8, < 4.1)
-    govuk_sidekiq (7.0.0)
-      gds-api-adapters (>= 19.1.0)
-      govuk_app_config (>= 1.1)
-      redis-namespace (~> 1.6)
-      sidekiq (~> 6)
     govuk_test (3.0.1)
       brakeman (>= 5.0.2)
       capybara (>= 3.36)
@@ -393,7 +399,7 @@ GEM
     mini_magick (4.12.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.2)
-    minitest (5.18.0)
+    minitest (5.18.1)
     minitest-fail-fast (0.1.0)
       minitest (~> 5)
     minitest-stub-const (0.6)
@@ -557,7 +563,7 @@ GEM
       redis-client (>= 0.9.0)
     redis-client (0.14.1)
       connection_pool
-    redis-namespace (1.10.0)
+    redis-namespace (1.11.0)
       redis (>= 4)
     regexp_parser (2.6.2)
     request_store (1.5.1)
@@ -772,7 +778,7 @@ DEPENDENCIES
   govuk_frontend_toolkit
   govuk_publishing_components
   govuk_schemas
-  govuk_sidekiq
+  govuk_sidekiq!
   govuk_test
   graphviz_transitions
   i18n-coverage
