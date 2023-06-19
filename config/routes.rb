@@ -60,10 +60,6 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 
-    # Public facing routes still rendered by Whitehall
-    get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
-    # End of public facing routes still rendered by Whitehall
-
     resources :organisations, only: [] do
       # These aren't rendered but are coupled to Worldwide organisation corporate information pages
       get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }

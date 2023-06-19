@@ -60,13 +60,7 @@ private
 
   def preview_url
     if csv? && attachable.is_a?(Edition)
-      csv_preview_url(
-        id: attachment_data.id,
-        file: filename_without_extension,
-        extension: file_extension,
-        host: Whitehall.public_host,
-        protocol: Whitehall.public_protocol,
-      )
+      Plek.asset_root + "/uploads/system/uploads/attachment_data/file/#{attachment_data.id}/#{filename}/preview"
     end
   end
 

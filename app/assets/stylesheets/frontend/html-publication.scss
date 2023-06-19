@@ -60,7 +60,6 @@ $govuk-use-legacy-palette: false;
 
   // VIEWS
   // Styles scoped to each template in /views
-  @import "views/attachments/csv-preview";
   @import "views/html-publications";
   @import "views/publication-header";
 }

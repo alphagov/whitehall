@@ -12,10 +12,6 @@ Whitehall is deployed in two modes:
 
 ## Live examples (public facing frontend)
 
-### CSV Previews
-
-- CSV Preview pages: [https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview)
-
 ### Static Content
 
 - Virus checking placeholder: [https://www.gov.uk/government/placeholder](https://www.gov.uk/government/placeholder)
