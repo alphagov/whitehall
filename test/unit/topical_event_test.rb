@@ -278,4 +278,12 @@ class TopicalEventTest < ActiveSupport::TestCase
 
     assert_equal [edition2], topical_event.featurable_editions
   end
+
+  test "rejects SVG logo uploads" do
+    svg_logo = File.open(Rails.root.join("test/fixtures/images/test-svg.svg"))
+    topical_event = build(:topical_event, logo: svg_logo)
+
+    assert_not topical_event.valid?
+    assert_equal topical_event.errors.first.full_message, "Logo is not of an allowed type"
+  end
 end
