@@ -47,7 +47,7 @@ When(/^I add a new "([^"]*)" translation to the role "([^"]*)" with:$/) do |loca
   end
 
   select locale.native_and_english_language_name, from: "Locale"
-  click_on "Create translation"
+  click_on "Create new translation"
   fill_in "Name", with: translation["name"]
   fill_in "Responsibilities", with: translation["responsibilities"]
   click_on "Save"
@@ -96,7 +96,7 @@ end
 
 Then(/^I should see the role translation "([^"]*)" with:$/) do |locale, table|
   fields = table.rows_hash
-  click_link locale
+  click_link "Edit #{locale}"
   expect(page).to have_selector("input[id=role_name][value='#{fields['name']}']")
   expect(page).to have_selector("#role_responsibilities", text: fields["responsibility"])
 end

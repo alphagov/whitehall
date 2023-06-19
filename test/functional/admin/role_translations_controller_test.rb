@@ -71,7 +71,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   view_test "edit indicates which language is being translated to" do
     create(:role, translated_into: [:fr])
     get :edit, params: { role_id: @role, id: "fr" }
-    assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
+    assert_select "h1", text: /Edit ‘Français\(French\)’ translation/
   end
 
   view_test "edit presents a form to update an existing translation" do
@@ -88,7 +88,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     assert_select "form[action=?]", translation_path do
       assert_select "input[type=text][name='role[name]'][value=?]", "nom de rôle"
       assert_select "textarea[name='role[responsibilities]']", text: "responsabilités"
-      assert_select "input[type=submit][value=Save]"
+      assert_select "button[type=submit]"
     end
   end
 
@@ -107,11 +107,9 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
 
     translation_path = admin_role_translation_path(role, "ar")
     assert_select "form[action=?]", translation_path do
-      assert_select "fieldset[class='right-to-left']" do
-        assert_select "input[type=text][name='role[name]'][dir='rtl'][value=?]", "دور اسم"
-        assert_select "textarea[name='role[responsibilities]'][dir='rtl']", text: "المسؤوليات"
-      end
-      assert_select "input[type=submit][value=Save]"
+      assert_select "input[type=text][name='role[name]'][dir='rtl'][value=?]", "دور اسم"
+      assert_select "textarea[name='role[responsibilities]'][dir='rtl']", text: "المسؤوليات"
+      assert_select "button[type=submit]"
     end
   end
 
@@ -140,8 +138,9 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
                   } }
 
     translation_path = admin_role_translation_path(@role, "fr")
+
+    assert_select ".govuk-error-summary"
     assert_select "form[action=?]", translation_path do
-      assert_select ".form-errors"
       assert_select "input[type=text][name='role[name]'][value=?]", ""
       assert_select "textarea[name='role[responsibilities]']", text: "responsabilités"
     end

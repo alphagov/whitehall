@@ -1,16 +1,56 @@
-<% page_title "Edit translation for: #{@english_role.name}" %>
+<% content_for :page_title, "Edit translation for: #{@english_role.name}" %>
+<% content_for :title, "Edit ‘#{@translation_locale.native_language_name}(#{@translation_locale.english_language_name})’ translation for: #{@english_role.name}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @translated_role)) %>
 
-<h1>Edit ‘<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)’ translation for: <%= @english_role.name %></h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @translated_role, as: :role, url: admin_role_translation_path(@translated_role, translation_locale) do |form| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Name (required)",
+        },
+        heading_size: "l",
+        name: "role[name]",
+        id: "role_name",
+        value: @translated_role.name,
+        error_items: errors_for(form.object.errors, :name),
+        right_to_left: @translated_role.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
 
-<div class="row">
-  <div class="col-md-8">
-    <%= form_for @translated_role, as: :role, url: admin_role_translation_path(@translated_role, translation_locale), method: :put, html: {class: 'well'} do |form| %>
-      <%= form.errors %>
+      <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English name content:</h2>
+      <p class="app-view-translation__english-content govuk-body"><%= @role.name %></p>
 
-      <%= form.translated_text_field :name %>
-      <%= form.translated_text_area :responsibilities, rows: 20 %>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          heading_size: "l",
+          text: "Responsibilities",
+        },
+        name: "role[responsibilities]",
+        id: "role_responsibilities",
+        value: @translated_role.responsibilities,
+        rows: 20,
+        error_items: errors_for(form.object.errors, :responsibilities),
+        right_to_left: @translated_role.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
 
-      <%= form.save_or_cancel cancel: admin_role_translations_path(@translated_role) %>
+      <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English responsibilities content:</h2>
+      <p class="app-view-translation__english-content govuk-body"><%= @role.responsibilities %></p>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+            "track-label": "Save"
+          }
+        } %>
+
+        <%= link_to "Cancel", admin_role_translations_path(@translated_role), class: "govuk-link govuk-link--no-visited-state" %>
+      </div>
     <% end %>
   </div>
 </div>
