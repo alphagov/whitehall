@@ -6,12 +6,12 @@ class RecentDateValidatorTest < ActiveSupport::TestCase
   end
 
   test "adds an error if date is less than 1900" do
-    response = validate(Response.new(published_on: Date.parse("1800-01-01")))
+    response = validate(ConsultationResponse.new(published_on: Date.parse("1800-01-01")))
     assert_not response.errors[:published_on].empty?
   end
 
   test "allows dates greater than 1900" do
-    response = validate(Response.new(published_on: Date.parse("1901-01-01")))
+    response = validate(ConsultationResponse.new(published_on: Date.parse("1901-01-01")))
     assert response.errors[:published_on].empty?
   end
 

@@ -34,8 +34,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   def self.supported_attachable_types
     {
       edition: :edition_id,
-      consultation_outcome: :response_id,
-      consultation_public_feedback: :response_id,
+      consultation_outcome: :consultation_response_id,
+      consultation_public_feedback: :consultation_response_id,
       policy_group: :policy_group_id,
     }
   end

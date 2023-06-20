@@ -80,7 +80,7 @@ And(/^I can see the primary locale for consultation "(.*?)" is "(.*?)"$/) do |ti
 end
 
 Then(/^the consultation response should have (\d+) attachments$/) do |expected_number_of_attachments|
-  expect(expected_number_of_attachments.to_i).to eq(Response.last.attachments.count)
+  expect(expected_number_of_attachments.to_i).to eq(ConsultationResponse.last.attachments.count)
 end
 
 When(/^I set the order of the responses attachments to:$/) do |attachment_order|
