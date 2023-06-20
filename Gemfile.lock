@@ -276,7 +276,7 @@ GEM
       sprockets (>= 3)
     govuk_schemas (4.6.0)
       json-schema (>= 2.8, < 4.1)
-    govuk_sidekiq (7.0.0)
+    govuk_sidekiq (7.1.0)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
       redis-namespace (~> 1.6)
@@ -557,7 +557,7 @@ GEM
       redis-client (>= 0.9.0)
     redis-client (0.14.1)
       connection_pool
-    redis-namespace (1.10.0)
+    redis-namespace (1.11.0)
       redis (>= 4)
     regexp_parser (2.6.2)
     request_store (1.5.1)
