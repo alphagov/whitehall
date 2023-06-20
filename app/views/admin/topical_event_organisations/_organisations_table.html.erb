@@ -1,6 +1,6 @@
-<div id=<%= lead ? "lead_organisations" : "supporting_organisations"%>>
+<div id=<%= lead ? "lead_organisations" : "supporting_organisations"%> class="govuk-!-padding-bottom-20">
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half govuk-heading-s">
+    <div class="govuk-grid-column-one-half govuk-heading-m">
       <%= lead ? "Lead organisations" : "Supporting organisations" %>
     </div>
     <% if lead && @topical_event.lead_topical_event_organisations.many? %>
@@ -9,7 +9,7 @@
       </div>
     <% end %>
   </div>
-  <div class="govuk-table--with-actions">
+  <div class="govuk-table--with-actions govuk-!-padding-bottom-4">
     <%= render "govuk_publishing_components/components/table", {
       first_cell_is_header: true,
       rows: @topical_event.topical_event_organisations.where(lead: lead).order(lead ? :lead_ordering : :ordering).map do |topical_event_organisation|

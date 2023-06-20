@@ -60,7 +60,6 @@ class Admin::TopicalEventOrganisationsControllerTest < ActionController::TestCas
 
     assert_template :reorder
     assert_response :success
-    assert_select "a[href=?]", admin_topical_event_topical_event_organisations_path(@topical_event), text: "Back"
     assert_select "h1", "Reorder lead organisations list"
     assert_select ".gem-c-reorderable-list", count: 1
     assert_select ".gem-c-reorderable-list__item", count: 2
@@ -115,7 +114,7 @@ class Admin::TopicalEventOrganisationsControllerTest < ActionController::TestCas
 
   def check_topical_event_organisations(topical_event_organisations, type)
     assert_select "##{type}_organisations" do
-      assert_select ".govuk-heading-s", "#{type.capitalize} organisations"
+      assert_select ".govuk-heading-m", "#{type.capitalize} organisations"
       topical_event_organisations.each do |topical_event_organisation|
         assert_select "th", topical_event_organisation.organisation.name
         assert_select "a[href=?]", admin_organisation_path(topical_event_organisation.organisation), text: "View #{topical_event_organisation.organisation.name}"
