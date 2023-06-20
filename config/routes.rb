@@ -270,6 +270,10 @@ Whitehall::Application.routes.draw do
           resource :outcome, controller: "consultation_responses", type: "ConsultationOutcome", except: %i[new destroy]
           resource :public_feedback, controller: "consultation_responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
         end
+        resources :calls_for_evidence, except: [:index] do
+          # resource :outcome, controller: "call_for_evidence_responses", type: "CallForEvidenceOutcome", except: %i[new destroy]
+          # resource :public_feedback, controller: "call_for_evidence_responses", type: "CallForEvidencePublicFeedback", except: %i[new destroy]
+        end
         resources :consultation_responses, only: :none do
           resources :attachments do
             put :order, on: :collection
