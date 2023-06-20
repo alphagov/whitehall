@@ -103,7 +103,7 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::T
         let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
         let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
         let(:draft) { true }
-        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id) }
+        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
 
         before do
           attachment_data.assets = [asset]
@@ -125,8 +125,8 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::T
         let(:draft) { true }
         let(:unpublished) { false }
         let(:replaced) { false }
-        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id) }
-        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id) }
+        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
+        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, version: Asset.versions[:thumbnail]) }
 
         before do
           attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]

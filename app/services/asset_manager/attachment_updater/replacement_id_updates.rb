@@ -37,8 +37,23 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdates
       # Therefore, it is not needed to check whether or not the Attachment is a pdf.
       Enumerator.new do |enum|
         attachment_data.assets.each do |asset|
+          # Update original file
+          replacement_asset = replacement.assets.where(version: Asset.versions[:original]).first
+
           enum.yield AssetManager::AttachmentUpdater::Update.new(
-            asset.asset_manager_id, attachment_data, nil, replacement_id: replacement.id
+            asset.asset_manager_id, attachment_data, nil, replacement_id: replacement_asset.asset_manager_id
+          )
+
+          #   Update thumbnail
+          next unless asset.version == Asset.versions[:thumbnail]
+
+          replacement_thumbnail = replacement.assets.where(version: Asset.versions[:thumbnail])
+          if replacement_thumbnail.empty?
+            replacement_thumbnail = replacement.assets.where(version: Asset.versions[:original])
+          end
+
+          enum.yield AssetManager::AttachmentUpdater::Update.new(
+            asset.asset_manager_id, attachment_data, nil, replacement_id: replacement_thumbnail.first.asset_manager_id
           )
         end
       end

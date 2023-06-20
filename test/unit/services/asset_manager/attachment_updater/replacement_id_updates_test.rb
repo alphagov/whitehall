@@ -97,19 +97,21 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
     end
 
     describe "Attachment Data has asset(s)" do
-      context "when attachment data is not a PDF" do
+      context "when attachment data being updated is not a PDF" do
         let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
         let(:sample_docx) { File.open(fixture_path.join("sample.docx")) }
         let(:replacement) { AttachmentData.create!(file: sample_docx) }
         let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
-        let(:attributes) { { "replacement_id" => attachment_data.replaced_by.id } }
-        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id) }
+        let(:attributes) { { "replacement_id" => replacement_original_asset.asset_manager_id } }
+        let(:original_asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
+        let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id", attachment_data_id: replacement.id, version: Asset.versions[:original]) }
 
         it "updates replacement ID of corresponding asset" do
-          attachment_data.assets = [asset]
+          attachment_data.assets = [original_asset]
+          replacement.assets = [replacement_original_asset]
 
           update_worker.expects(:call)
-                       .with(asset.asset_manager_id, attachment_data, nil, attributes)
+                       .with(original_asset.asset_manager_id, attachment_data, nil, attributes)
 
           updater.call(attachment_data, replacement_id: true)
         end
@@ -126,23 +128,26 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
         end
       end
 
-      context "when attachment data is a PDF" do
+      context "when attachment data being updated is a PDF" do
         let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
         let(:whitepaper_pdf) { File.open(fixture_path.join("whitepaper.pdf")) }
         let(:attachment_data) { AttachmentData.create!(file: simple_pdf, replaced_by: replacement) }
         let(:replacement) { AttachmentData.create!(file: whitepaper_pdf) }
-        let(:attributes) { { "replacement_id" => attachment_data.replaced_by.id } }
-        let(:thumbnail_attributes) { { "replacement_id" => attachment_data.replaced_by.id } }
-        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id) }
-        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id) }
+        let(:attributes) { { "replacement_id" => replacement_original_asset.asset_manager_id } }
+        let(:thumbnail_attributes) { { "replacement_id" => replacement_thumbnail_asset.asset_manager_id } }
+        let(:original_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
+        let(:thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, version: Asset.versions[:thumbnail]) }
+        let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id_1", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
+        let(:replacement_thumbnail_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id_2", attachment_data_id: attachment_data.id, version: Asset.versions[:thumbnail]) }
 
         it "and replacement is a pdf - updates replacement ID of asset for attachment & its thumbnail" do
-          attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]
+          attachment_data.assets = [original_asset, thumbnail_asset]
+          replacement.assets = [replacement_original_asset, replacement_thumbnail_asset]
 
           update_worker.expects(:call)
-                       .with(pdf_asset.asset_manager_id, attachment_data, nil, attributes)
+                       .with(original_asset.asset_manager_id, attachment_data, nil, attributes)
           update_worker.expects(:call)
-                       .with(pdf_thumbnail_asset.asset_manager_id, attachment_data, nil, thumbnail_attributes)
+                       .with(thumbnail_asset.asset_manager_id, attachment_data, nil, thumbnail_attributes)
 
           updater.call(attachment_data, replacement_id: true)
         end
@@ -152,12 +157,13 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
           let(:replacement) { AttachmentData.create!(file: sample_rtf) }
 
           it "updates replacement ID of asset for attachment & its thumbnail" do
-            attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]
+            attachment_data.assets = [original_asset, thumbnail_asset]
+            replacement.assets = [replacement_original_asset]
 
             update_worker.expects(:call)
-                         .with(pdf_asset.asset_manager_id, attachment_data, nil, attributes)
+                         .with(original_asset.asset_manager_id, attachment_data, nil, attributes)
             update_worker.expects(:call)
-                         .with(pdf_thumbnail_asset.asset_manager_id, attachment_data, nil, attributes)
+                         .with(thumbnail_asset.asset_manager_id, attachment_data, nil, attributes)
 
             updater.call(attachment_data, replacement_id: true)
           end
