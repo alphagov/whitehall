@@ -358,6 +358,12 @@ EXISTS (
     PUBLICLY_VISIBLE_STATES.include?(state)
   end
 
+  def versioning_completed?
+    return true unless change_note_required?
+
+    change_note.present? || minor_change
+  end
+
   # @group Overwritable permission methods
   def can_be_associated_with_topical_events?
     false

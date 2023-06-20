@@ -29,4 +29,24 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
 
     assert_select ".govuk-error-summary a", text: "Title is already used on GOV.UK. Please create a unique title", href: "#edition_title"
   end
+
+  view_test "GET :show renders preview link if publically visible and change note is present" do
+    published_edition = create(:published_edition)
+    draft_edition = create(:draft_edition, change_note: "Random update.", document: published_edition.document)
+    stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
+
+    get :show, params: { id: draft_edition }
+    assert_select ".govuk-link", text: "Preview on website  (opens in new tab)", href: draft_edition.public_url(draft: true)
+  end
+
+  view_test "GET :show doesn't render preview link if publically visible, change note is blank and edition is a major version" do
+    published_edition = create(:published_edition)
+    draft_edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
+    stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
+
+    get :show, params: { id: draft_edition }
+
+    assert_select ".govuk-link", text: "Preview on website  (opens in new tab)", href: draft_edition.public_url(draft: true), count: 0
+    assert_select ".govuk-inset-text", text: "To preview this document or share a document preview, add a change note or update the change type to minor."
+  end
 end

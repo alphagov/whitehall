@@ -26,7 +26,7 @@
   <%= render partial: 'admin/editions/show/main_notices', locals: { edition: @edition } %>
 
   <section class="app-view-summary__section">
-    <% if not @edition.publicly_visible? %>
+    <% if !@edition.publicly_visible? && @edition.versioning_completed? %>
       <%= render "govuk_publishing_components/components/heading", {
         text: "Preview",
         heading_level: 2,
@@ -91,6 +91,17 @@
           <% end %>
         <% end %>
       <% end %>
+    <% elsif !@edition.publicly_visible? && !@edition.versioning_completed? %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Preview",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "To preview this document or share a document preview, add a change note or update the change type to minor."
+      } %>
     <% end %>
   </section>
 
