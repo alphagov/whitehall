@@ -1,6 +1,7 @@
 <%
   id ||= "#{name}-#{SecureRandom.hex(4)}"
   preview_id = "#{id}-preview"
+  error_id = "#{id}-error"
   label_id = "#{id}-label"
   label[:bold] ||= false
   hint ||= nil
@@ -76,5 +77,8 @@
 
   <%= tag.div class: "app-c-govspeak-editor__preview js-locale-switcher-custom", 'aria-live': "polite", id: preview_id, dir: dir do %>
     <p class="govuk-body" dir="ltr">Generating preview, please wait.</p>
+  <% end %>
+  <%= tag.div class: "app-c-govspeak-editor__error js-locale-switcher-custom", 'aria-live': "polite", id: error_id, dir: dir do %>
+    <p class="govuk-error-message" dir="ltr">There is an error in your Markdown. Select Back to edit and review your markdown.</p>
   <% end %>
 <% end %>
