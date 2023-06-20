@@ -9,7 +9,7 @@
     <%= form_tag admin_edition_images_path(@edition), multipart: true do %>
       <p class="govuk-body govuk-!-margin-bottom-7 app-no-js">The image you selected needs to be cropped to fit on GOV.UK. Enable JavaScript in your browser or use an alternative browser to crop and resize the image.</p>
 
-      <p class="govuk-body govuk-!-margin-bottom-7 app-js-only">Select part of the image to use. The part you select will be resized for GOV.UK. The shape is fixed.</p>
+      <p class="govuk-body govuk-!-margin-bottom-7 app-js-only">Use your cursor or the arrow keys and “<kbd>+</kbd>” and “<kbd>-</kbd>” to select a part of the image. The part you select will be resized for GOV.UK. The shape is fixed.</p>
 
       <%= render "components/image-cropper", {
         name: "image[image_data][file]",
