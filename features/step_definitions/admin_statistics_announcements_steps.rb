@@ -173,21 +173,16 @@ When(/^I change the release date on the announcement$/) do
 
   if using_design_system?
     click_on "Change dates"
-
-    within "#statistics_announcement_date_change_release_date" do
-      fill_in_date_and_time_field("14-Dec-#{Time.zone.today.year.next} 09:30")
-    end
-
-    choose "Exact date (confirmed)"
-    click_on "Update date"
   else
     click_on "Change release date"
-    select_datetime "14-Dec-#{Time.zone.today.year.next} 09:30", from: "Release date"
-    check "Confirmed date?"
-    choose "Exact"
-
-    click_on "Publish change of date"
   end
+
+  within "#statistics_announcement_date_change_release_date" do
+    fill_in_date_and_time_field("14-Dec-#{Time.zone.today.year.next} 09:30")
+  end
+
+  choose "Exact date (confirmed)"
+  click_on "Update date"
 end
 
 When(/^I search for announcements containing "(.*?)"$/) do |keyword|
