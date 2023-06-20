@@ -334,4 +334,12 @@ module Admin::EditionsHelper
     # Returning true from the first half of the "or" means the second half doesn't get computed.
     edition_is_a_novel?(edition) || edition_has_links?(edition)
   end
+
+  def status_text(edition)
+    if edition.unpublishing.present?
+      "#{edition.state.capitalize} (unpublished #{time_ago_in_words(edition.unpublishing.created_at)} ago)"
+    else
+      edition.state.capitalize
+    end
+  end
 end

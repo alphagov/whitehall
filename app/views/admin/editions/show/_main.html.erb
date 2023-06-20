@@ -5,21 +5,15 @@
     </div>
 
     <div>
-      <%=
-        status_text = [@edition.state.capitalize]
-        # TODO: remove unpublishing information once we have a separate state for unpublished editions
-        status_text << "(unpublished #{time_ago_in_words(@edition.unpublishing.created_at)} ago)" if @edition.unpublishing.present?
-
-        render "govuk_publishing_components/components/summary_list", {
-          borderless: true,
-          items: [
-            { field: "Type of document", value: edition_type(@edition) },
-            { field: "Status", value: status_text.join(' ') },
-            { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
-            *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
-          ]
-        }
-      %>
+      <%= render "govuk_publishing_components/components/summary_list", {
+        borderless: true,
+        items: [
+          { field: "Type of document", value: edition_type(@edition) },
+          { field: "Status", value: status_text(@edition) },
+          { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
+          *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
+        ]
+      } %>
     </div>
 
     <% if @edition.non_english_edition? %>
