@@ -21,6 +21,15 @@ sq:
         nation_inapplicabilities: Shtetet e përjashtuara
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Skedari i bashkangjitur
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Numri i letrës së komandës së bashkëngjitjes
         hoc_paper_number: Numri i letrës së Dhomës së Komuneve
@@ -39,6 +48,22 @@ sq:
       title: Titulli i bashkëngjitjes
       unique_reference: Referenca unike e bashkëngjitjes
       unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ sq:
     caution:
       subheading: Ne kemi gjetur disa çështje me lidhjet që mund të tregojnë probleme, duhet të jeni të kujdesshëm në lidhjen me to
     title: Lidhje të prishura
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Mbyllur
     closing_today: Mbyllet sot
@@ -148,6 +178,12 @@ sq:
       blog_post:
         one: Postim blogu
         other: Postime blogu
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Fushatë
         other: Fushata
@@ -157,6 +193,9 @@ sq:
       case_study:
         one: Rast studimi
         other: Raste studimesh
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Konsultim i mbyllur
         other: Konsultime të mbyllura
@@ -259,6 +298,9 @@ sq:
       official_statistics:
         one: Statistikat Zyrtare
         other: Statistikat Zyrtare
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Konsultim i hapur
         other: Konsultime të hapura
@@ -460,7 +502,10 @@ sq:
   see_all:
     announcement: Shihni të gjitha njoftimet tona
     authored_article: Shihni të gjithë artikujt tanë të shkruar
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Shihni të gjitha studimet tona të rasteve
+    closed_call_for_evidence:
     closed_consultation: Shihni të gjitha konsultimet tona të mbyllura
     consultation: Shihni të gjitha konsultimet tona
     consultation_outcome: Shihni të gjitha rezultatet e konsultimit tonë
@@ -483,6 +528,7 @@ sq:
     news_article: Shihni të gjitha artikujt tanë të lajmeve
     news_story: Shihni të gjitha ngjarjet
     notice: Shihni të gjitha njoftimet tona
+    open_call_for_evidence:
     open_consultation: Shihni të gjitha konsultimet tona të hapura
     oral_statement: Shihni të gjitha deklaratat tona verbale në Parlament
     policy: Shihni të gjitha politikat tona

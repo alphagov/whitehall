@@ -21,6 +21,15 @@ fi:
         nation_inapplicabilities: Poissuljetut kansat
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Liitetiedosto
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Liitetiedoston paperin numero
         hoc_paper_number: Alahuoneen asiakirjan numero
@@ -39,6 +48,22 @@ fi:
       title: Liitteen otsikko
       unique_reference: Liitteen yksilöllinen viite
       unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ fi:
     caution:
       subheading: Olemme löytäneet joitakin ongelmia linkeissä, jotka voivat viitata ongelmiin, sinun on noudatettava varovaisuutta linkittämällä niihin
     title: Katkenneet linkit
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Suljettu
     closing_today: Suljetaan tänään
@@ -148,6 +178,12 @@ fi:
       blog_post:
         one: Blogipostaus
         other: Blogiviestit
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampanja
         other: Kampanjat
@@ -157,6 +193,9 @@ fi:
       case_study:
         one: Tapaustutkimus
         other: Tapaustutkimuksia
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Suljettu kuuleminen
         other: Suljetut neuvottelut
@@ -259,6 +298,9 @@ fi:
       official_statistics:
         one: Viralliset tilastot
         other: Viralliset tilastot
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Avoin kuuleminen
         other: Avoimet kuulemiset
@@ -460,7 +502,10 @@ fi:
   see_all:
     announcement: Katso kaikki ilmoituksemme
     authored_article: Katso kaikki kirjoittamamme artikkelit
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Katso kaikki tapaustutkimuksemme
+    closed_call_for_evidence:
     closed_consultation: Katso kaikki suljetut konsultaatiomme
     consultation: Katso kaikki konsultaatiomme
     consultation_outcome: Katso kaikki kuulemistuloksemme
@@ -483,6 +528,7 @@ fi:
     news_article: Katso kaikki uutiset
     news_story: Katso kaikki uutisemme
     notice: Katso kaikki ilmoituksemme
+    open_call_for_evidence:
     open_consultation: Katso kaikki avoimet neuvottelumme
     oral_statement: Katso kaikki suulliset lausuntomme parlamentille
     policy: Tutustu kaikkiin käytäntöihimme

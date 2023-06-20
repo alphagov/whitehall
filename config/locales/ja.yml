@@ -21,6 +21,15 @@ ja:
         nation_inapplicabilities: 除外された国
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: 添付ファイル
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: 添付勅令書類番号
         hoc_paper_number: 庶民院の書類番号
@@ -39,6 +48,22 @@ ja:
       title: 添付タイトル
       unique_reference: 添付固有の参照
       unnumbered_hoc_paper: 番号のない庶民院書類
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: お客様が支援技術（スクリーンリーダーなど）を使用していて、このドキュメントよりアクセスしやすい形式のバージョンが必要な場合は、必要なフォーマットや使用している支援技術を添え％{email}にEメールをお送くりください。
@@ -66,6 +91,11 @@ ja:
     caution:
       subheading: リンクにいくつかの問題が見つかりました。リンクを表示する際には注意が必要です
     title: リンク切れ
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: ご利用いただけません
     closing_today: 本日は、ご利用いただけません
@@ -137,12 +167,18 @@ ja:
         other: 執筆記事
       blog_post:
         other: ブログ投稿
+      call_for_evidence:
+        other:
+      call_for_evidence_outcome:
+        other:
       campaign:
         other: キャンペーン
       careers:
         other: キャリア
       case_study:
         other: ケーススタディ
+      closed_call_for_evidence:
+        other:
       closed_consultation:
         other: 非公開の審議
       complaints_procedure:
@@ -211,6 +247,8 @@ ja:
         other: 知らせ
       official_statistics:
         other: 公式統計
+      open_call_for_evidence:
+        other:
       open_consultation:
         other: 公開審議
       oral_statement:
@@ -381,7 +419,10 @@ ja:
   see_all:
     announcement: すべての発表を見る
     authored_article: すべての執筆記事を見る
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: すべてのケーススタディを見る
+    closed_call_for_evidence:
     closed_consultation: すべてのケーススタディを見る
     consultation: すべての非公開審議を見る
     consultation_outcome: すべての非公開協議結果を見る
@@ -404,6 +445,7 @@ ja:
     news_article: すべてのニュース記事を見る
     news_story: すべてのニュースストーリーを見る
     notice: すべての通知を見る
+    open_call_for_evidence:
     open_consultation: すべての公開審議を見る
     oral_statement: すべての議会への頭声明を見る
     policy: すべての方針を見る

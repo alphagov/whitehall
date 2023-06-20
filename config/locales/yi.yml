@@ -21,6 +21,15 @@ yi:
         nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
         hoc_paper_number:
@@ -39,6 +48,22 @@ yi:
       title:
       unique_reference:
       unnumbered_hoc_paper:
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html:
@@ -66,6 +91,11 @@ yi:
     caution:
       subheading:
     title:
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed:
     closing_today:
@@ -145,6 +175,12 @@ yi:
       blog_post:
         one:
         other:
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one:
         other:
@@ -152,6 +188,9 @@ yi:
         one:
         other:
       case_study:
+        one:
+        other:
+      closed_call_for_evidence:
         one:
         other:
       closed_consultation:
@@ -254,6 +293,9 @@ yi:
         one:
         other:
       official_statistics:
+        one:
+        other:
+      open_call_for_evidence:
         one:
         other:
       open_consultation:
@@ -457,7 +499,10 @@ yi:
   see_all:
     announcement:
     authored_article:
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study:
+    closed_call_for_evidence:
     closed_consultation:
     consultation:
     consultation_outcome:
@@ -480,6 +525,7 @@ yi:
     news_article:
     news_story:
     notice:
+    open_call_for_evidence:
     open_consultation:
     oral_statement:
     policy:

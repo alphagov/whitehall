@@ -21,6 +21,15 @@ pa:
         nation_inapplicabilities: ਬਾਹਰ ਕੱੀਆਂ ਗਈਆਂ ਕੌਮਾਂ
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
         hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
@@ -39,6 +48,22 @@ pa:
       title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
       unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
       unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ pa:
     caution:
       subheading: ਸਾਨੂੰ ਲਿੰਕਾਂ ਦੇ ਨਾਲ ਕੁਝ ਸਮੱਸਿਆਵਾਂ ਮਿਲੀਆਂ ਹਨ ਜੋ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸੰਕੇਤ ਦੇ ਸਕਦੀਆਂ ਹਨ, ਤੁਹਾਨੂੰ ਉਹਨਾਂ ਨਾਲ ਜੋੜਨ ਵਿੱਚ ਸਾਵਧਾਨੀ ਵਰਤਣੀ ਚਾਹੀਦੀ ਹੈ
     title: ਟੁੱਟੇ ਲਿੰਕ
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: ਬੰਦ
     closing_today: ਅੱਜ ਬੰਦ
@@ -148,6 +178,12 @@ pa:
       blog_post:
         one: ਬਲੌਗ ਪੋਸਟ
         other: ਬਲੌਗ ਪੋਸਟਾਂ
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: ਮੁਹਿੰਮ
         other: ਮੁਹਿੰਮਾਂ
@@ -157,6 +193,9 @@ pa:
       case_study:
         one: ਕੇਸ ਅਧਿਐਨ
         other: ਕੇਸ ਅਧਿਐਨ
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: ਬੰਦ ਸਲਾਹ -ਮਸ਼ਵਰਾ
         other: ਬੰਦ ਸਲਾਹ ਮਸ਼ਵਰੇ
@@ -259,6 +298,9 @@ pa:
       official_statistics:
         one: ਅਧਿਕਾਰਤ ਅੰਕੜੇ
         other: ਅਧਿਕਾਰਤ ਅੰਕੜੇ
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: ਖੁੱਲ੍ਹਾ ਸਲਾਹ-ਮਸ਼ਵਰਾ
         other: ਖੁੱਲ੍ਹੇ ਸਲਾਹ-ਮਸ਼ਵਰੇ
@@ -460,7 +502,10 @@ pa:
   see_all:
     announcement: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਵੇਖੋ
     authored_article: ਸਾਡੇ ਸਾਰੇ ਲੇਖਕ ਲੇਖ ਵੇਖੋ
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: ਸਾਡੇ ਸਾਰੇ ਕੇਸ ਅਧਿਐਨ ਵੇਖੋ
+    closed_call_for_evidence:
     closed_consultation: ਸਾਡੇ ਸਾਰੇ ਬੰਦ ਕੀਤੇ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
     consultation: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
     consultation_outcome: ਸਾਡੇ ਸਾਰੇ ਸਲਾਹ -ਮਸ਼ਵਰੇ ਦੇ ਨਤੀਜੇ ਵੇਖੋ
@@ -483,6 +528,7 @@ pa:
     news_article: ਸਾਡੇ ਸਾਰੇ ਖਬਰ ਲੇਖ ਵੇਖੋ
     news_story: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਖ਼ਬਰਾਂ ਵੇਖੋ
     notice: ਸਾਡੇ ਸਾਰੇ ਨੋਟਿਸ ਵੇਖੋ
+    open_call_for_evidence:
     open_consultation: ਸਾਡੇ ਸਾਰੇ ਖੁੱਲੇ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
     oral_statement: ਸੰਸਦ ਨੂੰ ਸਾਡੇ ਸਾਰੇ ਜ਼ਬਾਨੀ ਬਿਆਨ ਵੇਖੋ
     policy: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਨੀਤੀਆਂ ਵੇਖੋ

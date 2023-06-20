@@ -21,6 +21,15 @@ cy:
         nation_inapplicabilities: Gwledydd a eithriwyd
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Y ffeil a atodwyd
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Rhif papur gorchymyn yr atodiad
         hoc_paper_number: Rhif papur Tŷ'r Cyffredin
@@ -39,6 +48,22 @@ cy:
       title: Teitl yr atodiad
       unique_reference: Cyfeirnod unigryw yr atodiad
       unnumbered_hoc_paper: Papur Tŷ'r Cyffredin heb rif
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ cy:
     caution:
       subheading: Rydyn ni wedi canfod rhai materion gyda dolenni a allai ddangos bod problem. Dylech fod yn ofalus wrth gysylltu â nhw
     title: Dolenni wedi torri
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Wedi cau
     closing_today: Yn cau heddiw
@@ -179,6 +209,20 @@ cy:
         other: Postiadau blog
         two:
         zero:
+      call_for_evidence:
+        few:
+        many:
+        one:
+        other:
+        two:
+        zero:
+      call_for_evidence_outcome:
+        few:
+        many:
+        one:
+        other:
+        two:
+        zero:
       campaign:
         few:
         many:
@@ -198,6 +242,13 @@ cy:
         many:
         one: Astudiaeth achos
         other: Astudiaethau achos
+        two:
+        zero:
+      closed_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
         two:
         zero:
       closed_consultation:
@@ -436,6 +487,13 @@ cy:
         many:
         one: Ystadegau Swyddogol
         other: Ystadegau Swyddogol
+        two:
+        zero:
+      open_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
         two:
         zero:
       open_consultation:
@@ -763,7 +821,10 @@ cy:
   see_all:
     announcement: Gweld ein holl gyhoeddiadau
     authored_article: Gweld ein holl erthyglau ag awdur wedi'i enwi
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Gweld ein holl astudiaethau achos
+    closed_call_for_evidence:
     closed_consultation: Gweld ein holl ymgynghoriadau caeedig
     consultation: Gweld ein holl ymgynghoriadau
     consultation_outcome: Gweld ein holl ganlyniadau o ymgynghoriadau
@@ -786,6 +847,7 @@ cy:
     news_article: Gweld ein holl erthyglau newyddion
     news_story: Gweld ein holl straeon newyddion
     notice: Gweld ein holl hysbysiadau
+    open_call_for_evidence:
     open_consultation: Gweld ein holl ymgynghoriadau agored
     oral_statement: Gweld ein holl ddatganiadau llafar i'r Senedd
     policy: Gweld ein holl bolisïau

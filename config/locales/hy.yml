@@ -21,6 +21,15 @@ hy:
         nation_inapplicabilities: Բացառված ազգությունները
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Կցված ֆայլը
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Կցված պաշտոնական փաստաթղթի համարը
         hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
@@ -39,6 +48,22 @@ hy:
       title: Կցորդի անվանումը
       unique_reference: Կցորդի հատուկ հղումը
       unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ hy:
     caution:
       subheading: Մենք նկատել ենք խնդրահարույց հղումների հետ կապված որոշ խնդիրներ․ դուք պետք է զգույշ լինեք դրանց կցելու ժամանակ
     title: Չգործող հղումներ
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Ավարտվել է
     closing_today: Այսօր ավարտվում է
@@ -148,6 +178,12 @@ hy:
       blog_post:
         one: Բլոգի գրառում
         other: Բլոգի գրառումներ
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Արշավ
         other: Արշավներ
@@ -157,6 +193,9 @@ hy:
       case_study:
         one: Մասնավոր դեպքի ուսումնասիրություն
         other: Մասնավոր դեպքի ուսումնասիրություններ
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Փակ խորհրդակցություն
         other: Փակ խորհրդակցություններ
@@ -259,6 +298,9 @@ hy:
       official_statistics:
         one: Պաշտոնական վիճակագրություն
         other: Պաշտոնական վիճակագրություն
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Բաց խորհրդակցություն
         other: Բաց խորհրդակցություններ
@@ -460,7 +502,10 @@ hy:
   see_all:
     announcement: Դիտել մեր բոլոր հայտարարությունները
     authored_article: Դիտել մեր բոլոր հեղինակային հոդվածները
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Դիտել մեր բոլոր դեպքերի ուսումնասիրությունները
+    closed_call_for_evidence:
     closed_consultation: Դիտել մեր բոլոր փակ խորհրդակցությունները
     consultation: Դիտել մեր բոլոր խորհրդակցությունները
     consultation_outcome: Դիտել մեր բոլոր խորհրդակցությունների արդյունքները
@@ -483,6 +528,7 @@ hy:
     news_article: Դիտել մեր բոլոր տեղեկատվական հոդվածները
     news_story: Դիտել մեր բոլոր ամսագրային հոդվածները
     notice: Դիտել մեր բոլոր ծանուցումները
+    open_call_for_evidence:
     open_consultation: Դիտել մեր բոլոր բաց խորհրդակցությունները
     oral_statement: Դիտել խորհրդարանին ուղղված մեր բոլոր բանավոր հայտարարությունները
     policy: Դիտել մեր բոլոր քաղաքականությունները

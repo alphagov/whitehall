@@ -21,6 +21,15 @@ da:
         nation_inapplicabilities: Ekskluderede nationer
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Den vedhæftede fil
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Attachment command paper number
         hoc_paper_number: Underhusets dokument nummer
@@ -39,6 +48,22 @@ da:
       title: Titel på vedhæftede fil
       unique_reference: Entydig reference til vedhæftet fil
       unnumbered_hoc_paper: Unummereret dokument fra Underhuset
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ da:
     caution:
       subheading: Vi har fundet nogle problemer med links, der kan indikere problemer, og du bør være forsigtig med at linke til dem
     title: Brudte links
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Luk
     closing_today: Lukning i dag
@@ -148,6 +178,12 @@ da:
       blog_post:
         one: Blogindlæg
         other: Blogindlæg
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampagne
         other: Kampagner
@@ -157,6 +193,9 @@ da:
       case_study:
         one: Casestudie
         other: Casestudie
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Lukket konsultation
         other: Lukkede konsultationer
@@ -259,6 +298,9 @@ da:
       official_statistics:
         one: Officielle statistikker
         other: Officielle statistikker
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Åben konsultation
         other: Åbne konsultationer
@@ -460,7 +502,10 @@ da:
   see_all:
     announcement: Se alle vores meddelelser
     authored_article: Se alle vores forfattede artikler
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Se alle vores casestudier
+    closed_call_for_evidence:
     closed_consultation: Se alle vores lukkede konsultationer
     consultation: Se alle vores konsultationer
     consultation_outcome: Se alle vores høringsresultater
@@ -483,6 +528,7 @@ da:
     news_article: Se alle vores nyhedsartikler
     news_story: Se alle vores nyhedshistorier
     notice: Se alle vores meddelelser
+    open_call_for_evidence:
     open_consultation: Se alle vores lukkede konsultationer
     oral_statement: Se alle vores skriftlige erklæringer til Parlamentet
     policy: Se alle vores meddelelser

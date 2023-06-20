@@ -21,6 +21,15 @@ ru:
         nation_inapplicabilities: Исключенные страны
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Прикрепленный файл
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Номер прикрепляемого командного документа
         hoc_paper_number: Номер документа Палаты общин
@@ -39,6 +48,22 @@ ru:
       title: Название приложения
       unique_reference: Уникальная ссылка приложения
       unnumbered_hoc_paper: Документ Палаты общин без номера
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: "Если вы используете вспомогательные технологии (например, программу чтения с экрана), \nи вам нужна версия этого документа в более доступном формате, отправьте \nписьмо по адресу электронной почты %{email}.\nВ нем укажите, какой формат вам нужен. Хорошо было бы, если бы вы также указали, какие вспомогательные технологии вы используете.\n"
@@ -66,6 +91,11 @@ ru:
     caution:
       subheading: Мы обнаружили неполадки, связанные со ссылками, которые могут указывать на наличие проблем. Будьте осторожны при подключении к ним
     title: Недействительные ссылки
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Закрыто
     closing_today: День закрытия
@@ -161,6 +191,16 @@ ru:
         many:
         one: Запись в блоге
         other: Записи в блоге
+      call_for_evidence:
+        few:
+        many:
+        one:
+        other:
+      call_for_evidence_outcome:
+        few:
+        many:
+        one:
+        other:
       campaign:
         few:
         many:
@@ -176,6 +216,11 @@ ru:
         many:
         one: Ситуационное исследование
         other: Ситуационные исследования
+      closed_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
       closed_consultation:
         few:
         many:
@@ -346,6 +391,11 @@ ru:
         many:
         one: Официальная статистика
         other: Официальная статистика
+      open_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
       open_consultation:
         few:
         many:
@@ -609,7 +659,10 @@ ru:
   see_all:
     announcement: Посмотреть все наши объявления
     authored_article: Посмотреть все наши авторские статьи
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Посмотреть все наши ситуационные исследования
+    closed_call_for_evidence:
     closed_consultation: Посмотреть все наши закрытые консультации
     consultation: Посмотреть все наши консультации
     consultation_outcome: Посмотреть все наши результаты консультаций
@@ -632,6 +685,7 @@ ru:
     news_article: Посмотреть все наши новостные статьи
     news_story: Посмотреть все наши новостные сюжеты
     notice: Посмотреть все наши уведомления
+    open_call_for_evidence:
     open_consultation: Посмотреть все наши открытые консультации
     oral_statement: Посмотреть все наши устные заявления Парламенту
     policy: Посмотреть все наши политики

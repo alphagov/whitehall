@@ -21,6 +21,15 @@ ms:
         nation_inapplicabilities: Negara dikecualikan
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Fail dilampirkan
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Lampiran nombor kertas perintah
         hoc_paper_number: Nombor kertas Dewan Rakyat
@@ -39,6 +48,22 @@ ms:
       title: Tajuk lampiran
       unique_reference: Rujukan unik lampiran
       unnumbered_hoc_paper: Kertas Dewan Rakyat tidak bernombor
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ ms:
     caution:
       subheading: Kami menemui beberapa isu dengan pautan yang mungkin menunjukkan adanya masalah, anda harus berhati-hati semasa memaut padanya
     title: Pautan putus
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Ditutup
     closing_today: Tutup hari ini
@@ -140,12 +170,18 @@ ms:
         other: Artikel ditulis penulis
       blog_post:
         other: Siaran blog
+      call_for_evidence:
+        other:
+      call_for_evidence_outcome:
+        other:
       campaign:
         other: Kempen
       careers:
         other: kerjaya
       case_study:
         other: Kajian kes
+      closed_call_for_evidence:
+        other:
       closed_consultation:
         other: Rundingan tertutup
       complaints_procedure:
@@ -214,6 +250,8 @@ ms:
         other: Notis
       official_statistics:
         other: Statistik Rasmi
+      open_call_for_evidence:
+        other:
       open_consultation:
         other: Rundingan terbuka
       oral_statement:
@@ -384,7 +422,10 @@ ms:
   see_all:
     announcement: Lihat semua pengumuman kami
     authored_article: Lihat semua artikel ditulis penulis kami
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Lihat semua kajian kes kami
+    closed_call_for_evidence:
     closed_consultation: Lihat semua rundingan tertutup kami
     consultation: Lihat semua rundingan kami
     consultation_outcome: Lihat semua hasil perundingan kami
@@ -407,6 +448,7 @@ ms:
     news_article: Lihat semua artikel berita kami
     news_story: Lihat semua berita kami
     notice: Lihat semua notis kami
+    open_call_for_evidence:
     open_consultation: Lihat semua rundingan terbuka kami
     oral_statement: Lihat semua kenyataan lisan kami kepada Parlimen
     policy: Lihat semua dasar kami

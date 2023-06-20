@@ -21,6 +21,15 @@ sv:
         nation_inapplicabilities: Uteslutna nationer
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Den bifogade filen
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Bilagans kommandopappersnummer
         hoc_paper_number: Underhusets dokumentnummer
@@ -39,6 +48,22 @@ sv:
       title: Titel på bifogade dokument
       unique_reference: Bilagans unika referens
       unnumbered_hoc_paper: Onumrerad artikel från underhuset
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ sv:
     caution:
       subheading: Vi har hittat några problem med länkar som kan tyda på problem, du bör vara försiktig när du länkar till dem
     title: Trasiga länkar
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Stängd
     closing_today: Stänger idag
@@ -148,6 +178,12 @@ sv:
       blog_post:
         one: Blogginlägg
         other: Blogginlägg
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampanj
         other: Kampanjer
@@ -157,6 +193,9 @@ sv:
       case_study:
         one: Fallstudier
         other: Fallstudier
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Slutet samråd
         other: Slutna samråd
@@ -259,6 +298,9 @@ sv:
       official_statistics:
         one: Officiell statistik
         other: Officiell statistik
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Öppet samråd
         other: Öppna samråd
@@ -460,7 +502,10 @@ sv:
   see_all:
     announcement: Se alla våra tillkännagivanden
     authored_article: Se alla våra författade artiklar
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Se alla våra fallstudier
+    closed_call_for_evidence:
     closed_consultation: Se alla våra avslutade samråd
     consultation: Se alla våra samråd
     consultation_outcome: Se alla våra samrådsresultat
@@ -483,6 +528,7 @@ sv:
     news_article: Se alla våra nyhetsartiklar
     news_story: Se alla våra nyheter
     notice: Se alla våra meddelanden
+    open_call_for_evidence:
     open_consultation: Se alla våra öppna samråd
     oral_statement: Se alla våra muntliga uttalanden inför parlamentet
     policy: Se all vår politik

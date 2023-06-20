@@ -21,6 +21,15 @@ vi:
         nation_inapplicabilities: Các quốc gia bị loại trừ
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Tệp đính kèm
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Số văn kiện lệnh đính kèm
         hoc_paper_number: Số văn kiện của Hạ viện
@@ -39,6 +48,22 @@ vi:
       title: Tiêu đề của tệp đính kèm
       unique_reference: Tham chiếu duy nhất của tệp đính kèm
       unnumbered_hoc_paper: Văn kiện của Hạ viện không được đánh số
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ vi:
     caution:
       subheading: Chúng tôi đã tìm thấy một số vấn đề với các liên kết có thể là dấu hiệu cho thấy sự cố, bạn nên thận trọng khi truy cập các liên kết đó
     title: Liên kết đã hỏng
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Đã đóng
     closing_today: Đóng hôm nay
@@ -139,12 +169,18 @@ vi:
         other: Bài viết có tác giả
       blog_post:
         other: Bài viết trên blog
+      call_for_evidence:
+        other:
+      call_for_evidence_outcome:
+        other:
       campaign:
         other: Chiến dịch
       careers:
         other: nghề nghiệp
       case_study:
         other: Nghiên cứu điển hình
+      closed_call_for_evidence:
+        other:
       closed_consultation:
         other: Tham vấn kín
       complaints_procedure:
@@ -213,6 +249,8 @@ vi:
         other: Thông báo
       official_statistics:
         other: Thống kê Chính thức
+      open_call_for_evidence:
+        other:
       open_consultation:
         other: Tham vấn mở
       oral_statement:
@@ -383,7 +421,10 @@ vi:
   see_all:
     announcement: Xem tất cả các thông báo của chúng tôi
     authored_article: Xem tất cả các bài viết có tác giả của chúng tôi
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Xem tất cả các nghiên cứu điển hình của chúng tôi
+    closed_call_for_evidence:
     closed_consultation: Xem tất cả các buổi tham vấn kín của chúng tôi
     consultation: Xem tất cả các buổi tham vấn của chúng tôi
     consultation_outcome: Xem tất cả các kết quả tham vấn của chúng tôi
@@ -406,6 +447,7 @@ vi:
     news_article: Xem tất cả các bài báo của chúng tôi
     news_story: Xem tất cả các bài phóng sự của chúng tôi
     notice: Xem tất cả các thông báo của chúng tôi
+    open_call_for_evidence:
     open_consultation: Xem tất cả các buổi tham vấn mở của chúng tôi
     oral_statement: Xem tất cả các tuyên bố bằng lời của chúng tôi trước Nghị viện
     policy: Xem tất cả các chính sách của chúng tôi

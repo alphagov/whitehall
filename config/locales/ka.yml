@@ -21,6 +21,15 @@ ka:
         nation_inapplicabilities: გამორიცხული ეროვნებები
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: თანდართული ფაილი
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: დანართი ბრძანების დოკუმენტის ნომერი
         hoc_paper_number: თემთა პალატის დოკუმენტის ნომერი
@@ -39,6 +48,22 @@ ka:
       title: დანართის სათაური
       unique_reference: დანართის უნიკალური მითითება
       unnumbered_hoc_paper: თემთა პალატის დაუნომრავი დოკუმენტი
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ ka:
     caution:
       subheading: ჩვენ აღმოვაჩინეთ ხარვეზები ბმულებში, რაც შესაძლო პრობლემებზე მიანიშნებს, თქვენ ყურადღება უნდა გამოიჩინოთ მათი გამოყენებისას
     title: ხარვეზიანი ბმულები
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: დახურულია
     closing_today: იხურება დღეს
@@ -148,6 +178,12 @@ ka:
       blog_post:
         one: ბლოგ პოსტი
         other: ბლოგ პოსტები
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: კამპანია
         other: კამპანიები
@@ -157,6 +193,9 @@ ka:
       case_study:
         one: შემთხვევის კვლევა
         other: შემთხვევის კვლევები
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: დახურული კონსულტაცია
         other: დახურული კონსულტაციები
@@ -259,6 +298,9 @@ ka:
       official_statistics:
         one: ოფიციალური სტატისტიკა
         other: ოფიციალური სტატისტიკები
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: ღია კონსულტაცია
         other: ღია კონსულტაციები
@@ -460,7 +502,10 @@ ka:
   see_all:
     announcement: იხილეთ ჩვენი ყველა განცხადება
     authored_article: იხილეთ ჩვენი ყველა საავტორო სტატია
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: იხილეთ ჩვენი ყველა შემთხვევის კვლევა
+    closed_call_for_evidence:
     closed_consultation: იხილეთ ჩვენი ყველა დახურული კონსულტაცია
     consultation: იხილეთ ჩვენი ყველა კონსულტაცია
     consultation_outcome: იხილეთ ჩვენი ყველა კონსულტაციის შედეგი
@@ -483,6 +528,7 @@ ka:
     news_article: იხილეთ ჩვენი ყველა საინფორმაციო სტატია
     news_story: იხილეთ ჩვენი ყველა სიახლე
     notice: იხილეთ ჩვენი ყველა შეტყობინება
+    open_call_for_evidence:
     open_consultation: იხილეთ ყველა ჩვენი ღია კონსულტაცია
     oral_statement: იხილეთ ჩვენი ყველა ზეპირი განცხადება პარლამენტში
     policy: იხილეთ ჩვენი ყველა კანონი

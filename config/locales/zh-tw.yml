@@ -21,6 +21,15 @@ zh-tw:
         nation_inapplicabilities: 排除的國家
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: 附件
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: 附件命令文件編號
         hoc_paper_number: 下議院文件編碼
@@ -39,6 +48,22 @@ zh-tw:
       title: 附件標題
       unique_reference: 附件專用參考
       unnumbered_hoc_paper: 未編碼的下議院文件
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ zh-tw:
     caution:
       subheading: 我們發現了一些可能表明存在問題的連結問題，你在應謹慎連結。
     title: 連結損壞
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: 關閉
     closing_today: 今日關閉
@@ -139,12 +169,18 @@ zh-tw:
         other: 授權文章
       blog_post:
         other: 部落格文章
+      call_for_evidence:
+        other:
+      call_for_evidence_outcome:
+        other:
       campaign:
         other: 活動
       careers:
         other: 職業
       case_study:
         other: 案例分析
+      closed_call_for_evidence:
+        other:
       closed_consultation:
         other: 非公開協商
       complaints_procedure:
@@ -213,6 +249,8 @@ zh-tw:
         other: 通知
       official_statistics:
         other: 官方統計
+      open_call_for_evidence:
+        other:
       open_consultation:
         other: 公開諮詢
       oral_statement:
@@ -383,7 +421,10 @@ zh-tw:
   see_all:
     announcement: 查看我們所有公告
     authored_article: 查看我們所有授權文章
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: 查看我們所有案例分析
+    closed_call_for_evidence:
     closed_consultation: 查看我們所有未公開諮詢
     consultation: 查看我們所有諮詢
     consultation_outcome: 查看我們所有諮詢結果
@@ -406,6 +447,7 @@ zh-tw:
     news_article: 查看我們所有新聞文章
     news_story: 查看我們所有新聞報導
     notice: 查看我們所有通知
+    open_call_for_evidence:
     open_consultation: 查看我們所有公開諮詢
     oral_statement: 查看我們所有對議會的口頭聲明
     policy: 查看我們所有政策

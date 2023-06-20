@@ -21,6 +21,15 @@ zh:
         nation_inapplicabilities: 排除的国家
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: 附件文件
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: 附件命令文件编号
         hoc_paper_number: 下议院文件编号
@@ -39,6 +48,22 @@ zh:
       title: 附件标题
       unique_reference: 附件唯一参考
       unnumbered_hoc_paper: 未编号的下议院文件
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ zh:
     caution:
       subheading: 我们已经发现一些链接的问题，这可能表明存在问题，您应该在链接到它们时小心
     title: 被破坏的链接
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: 关闭
     closing_today: 今天关闭
@@ -139,12 +169,18 @@ zh:
         other: 撰写文章
       blog_post:
         other: 博客帖子
+      call_for_evidence:
+        other:
+      call_for_evidence_outcome:
+        other:
       campaign:
         other: 活动
       careers:
         other: 招聘
       case_study:
         other: 案例研究
+      closed_call_for_evidence:
+        other:
       closed_consultation:
         other: 封闭咨询
       complaints_procedure:
@@ -213,6 +249,8 @@ zh:
         other: 通知
       official_statistics:
         other: 官方统计
+      open_call_for_evidence:
+        other:
       open_consultation:
         other: 公开协商
       oral_statement:
@@ -383,7 +421,10 @@ zh:
   see_all:
     announcement: 查看我们的全部公告
     authored_article: 查看我们的全部撰写文章
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: 查看我们的全部案例研究
+    closed_call_for_evidence:
     closed_consultation: 看看我们的全部封闭咨询
     consultation: 查看我们的全部咨询
     consultation_outcome: 查看我们的全部咨询结果
@@ -406,6 +447,7 @@ zh:
     news_article: 查看我们的全部新闻文章
     news_story: 查看我们的全部新闻故事
     notice: 查看我们的全部通知
+    open_call_for_evidence:
     open_consultation: 看看我们的全部开放咨询
     oral_statement: 查看我们的全部议会口头声明
     policy: 查看我们的全部政策
