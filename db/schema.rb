@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_16_164227) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_17_100117) do
   create_table "attachment_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "carrierwave_file"
     t.string "content_type"
@@ -57,6 +57,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_164227) do
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id"
     t.index ["ordering"], name: "index_attachments_on_ordering"
+  end
+
+  create_table "call_for_evidence_participations", id: :integer, charset: "utf8mb3", force: :cascade do |t|
+    t.integer "edition_id"
+    t.string "link_url"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "email"
+    t.integer "call_for_evidence_response_form_id"
+    t.text "postal_address"
+    t.index ["call_for_evidence_response_form_id"], name: "index_cfes_participations_on_cfes_response_form_id"
+    t.index ["edition_id"], name: "index_call_for_evidence_participations_on_edition_id"
+  end
+
+  create_table "call_for_evidence_response_form_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
+    t.string "carrierwave_file"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "call_for_evidence_response_forms", id: :integer, charset: "utf8mb3", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.integer "call_for_evidence_response_form_data_id"
   end
 
   create_table "consultation_participations", id: :integer, charset: "utf8mb3", force: :cascade do |t|

@@ -111,6 +111,7 @@ module Admin::EditionActionsHelper
       "aria-labelledby" => "new-document-label",
     ) do
       edition_types = [
+        CallForEvidence,
         Consultation,
         Publication,
         NewsArticle,
