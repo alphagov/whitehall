@@ -1,4 +1,4 @@
-Given(/^a draft (document|publication|news article|consultation|speech) "([^"]*)"(?: with summary "([^"]*)")? exists$/) do |document_type, title, summary|
+Given(/^a draft (document|publication|news article|consultation|speech|call for evidence) "([^"]*)"(?: with summary "([^"]*)")? exists$/) do |document_type, title, summary|
   document_type = "publication" if document_type == "document"
   attributes = { title: }
   attributes[:summary] = summary if summary
