@@ -38,8 +38,8 @@
 
       <%= render "govuk_publishing_components/components/list", {
         items: [
-          (link_to 'Upload new file attachment', new_admin_response_attachment_path(@response), class: "govuk-link"),
-          (link_to 'Add new HTML attachment', new_admin_response_attachment_path(@response, type: "html"), class: "govuk-link")
+          (link_to 'Upload new file attachment', new_admin_consultation_response_attachment_path(@response), class: "govuk-link"),
+          (link_to 'Add new HTML attachment', new_admin_consultation_response_attachment_path(@response, type: "html"), class: "govuk-link")
         ]
       } %>
 

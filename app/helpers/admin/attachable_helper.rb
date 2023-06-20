@@ -3,7 +3,7 @@ module Admin::AttachableHelper
     case attachable
     when Consultation
       consultation_editing_tabs(attachable, &block)
-    when Response
+    when ConsultationResponse
       consultation_editing_tabs(attachable.consultation, &block)
     when Edition
       edition_editing_tabs(attachable, &block)
