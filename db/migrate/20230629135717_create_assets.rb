@@ -3,6 +3,7 @@ class CreateAssets < ActiveRecord::Migration[7.0]
     create_table :assets do |t|
       t.string :asset_manager_id, null: false
       t.belongs_to :attachment_data, null: false
+      t.string :version, null: false
       t.timestamps
     end
   end

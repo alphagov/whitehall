@@ -36,14 +36,14 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
         found = true
         attachment_data.uploaded_to_asset_manager!
 
-        save_asset_id_to_assets(response_id, attachment_data) unless response_id.nil?
+        save_asset_id_to_assets(response_id, attachment_data, Asset.versions[:original]) unless response_id.nil?
       elsif attachment_data.pdf? && attachment_data.file.thumbnail.path == legacy_url_path
         # don't mark the attachment_data as uploaded when the
         # thumbnail makes it across, because we mostly care about the
         # actual pdf
         found = true
 
-        save_asset_id_to_assets(response_id, attachment_data) unless response_id.nil?
+        save_asset_id_to_assets(response_id, attachment_data, Asset.versions[:thumbnail]) unless response_id.nil?
       end
     end
 
@@ -54,8 +54,8 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
 
 private
 
-  def save_asset_id_to_assets(response_id, attachment_data)
-    asset = Asset.new(asset_manager_id: response_id, attachment_data_id: attachment_data.id)
+  def save_asset_id_to_assets(response_id, attachment_data, version)
+    asset = Asset.new(asset_manager_id: response_id, attachment_data_id: attachment_data.id, version:)
     asset.save!
   end
 end
