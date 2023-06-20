@@ -21,6 +21,15 @@ sl:
         nation_inapplicabilities: Izvzete države
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Pripeta datoteka
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Številka dokumenta, predstavljenega parlamentu v prilogi
         hoc_paper_number: Številka dokumenta britanskega parlamenta
@@ -39,6 +48,22 @@ sl:
       title: Naslov priloge
       unique_reference: Edinstvena referenca priloge
       unnumbered_hoc_paper: Neoštevilčen dokument britanskega parlamenta
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ sl:
     caution:
       subheading: Našli smo nekaj težav s povezavami, ki lahko kažejo na težave. Pri povezovanju z njimi bodite previdni
     title: Prekinjene povezave
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Zaprto
     closing_today: Zapira se danes
@@ -164,6 +194,16 @@ sl:
         one: Prispevek na blogu
         other: Prispevki na blogu
         two:
+      call_for_evidence:
+        few:
+        one:
+        other:
+        two:
+      call_for_evidence_outcome:
+        few:
+        one:
+        other:
+        two:
       campaign:
         few:
         one: Kampanja
@@ -178,6 +218,11 @@ sl:
         few:
         one: Študija primera
         other: Študije primera
+        two:
+      closed_call_for_evidence:
+        few:
+        one:
+        other:
         two:
       closed_consultation:
         few:
@@ -348,6 +393,11 @@ sl:
         few:
         one: Uradna statistika
         other: Uradna statistika
+        two:
+      open_call_for_evidence:
+        few:
+        one:
+        other:
         two:
       open_consultation:
         few:
@@ -612,7 +662,10 @@ sl:
   see_all:
     announcement: Oglejte si vse naše razglase
     authored_article: Oglejte si vse naše avtorske članke
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Oglejte si naše študije primerov
+    closed_call_for_evidence:
     closed_consultation: Oglejte si vsa naša tesna posvetovanja
     consultation: Oglejte si vsa naša posvetovanja
     consultation_outcome: Oglejte si vse rezultate naših posvetovanj
@@ -635,6 +688,7 @@ sl:
     news_article: Oglejte si vse naše časopisne članke
     news_story: Oglejte si vse naše časopisne zgodbe
     notice: Oglejte si vsa naša obvestila
+    open_call_for_evidence:
     open_consultation: Oglejte si vsa naša odprta posvetovanja
     oral_statement: Oglejte si vse naše ustne izjave za parlament
     policy: Oglejte si vsa naša politike

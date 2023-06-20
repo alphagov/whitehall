@@ -21,6 +21,15 @@ gd:
         nation_inapplicabilities: Tíortha eisiata
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: An comhad ceangailte
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Uimhir doiciméad Theach na dTeachtaí
         hoc_paper_number: Uimhir doiciméad Theach na dTeachtaí
@@ -39,6 +48,22 @@ gd:
       title: Teideal astaithe
       unique_reference: Tagairt a bhaineann go sonrach le ceangaltán
       unnumbered_hoc_paper: Doiciméad gan uimhir Theach na dTeachtaí
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ gd:
     caution:
       subheading: Táimid tar éis teacht ar naisc a d'fhéadfadh lochtanna a léiriú agus molaimid duit a bheith cúramach agus tú ag nascadh leis na suíomhanna seo.
     title: Naisc bhriste
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Gnólacht
     closing_today: Dúnta inniu
@@ -163,6 +193,16 @@ gd:
         one: Post blag
         other: Post blag
         two:
+      call_for_evidence:
+        few:
+        one:
+        other:
+        two:
+      call_for_evidence_outcome:
+        few:
+        one:
+        other:
+        two:
       campaign:
         few:
         one: Gníomhaíocht
@@ -177,6 +217,11 @@ gd:
         few:
         one: Cás-staidéir
         other: Tuarascálacha staidéir
+        two:
+      closed_call_for_evidence:
+        few:
+        one:
+        other:
         two:
       closed_consultation:
         few:
@@ -347,6 +392,11 @@ gd:
         few:
         one: Staitisticí oifigiúla
         other: Staitisticí oifigiúla
+        two:
+      open_call_for_evidence:
+        few:
+        one:
+        other:
         two:
       open_consultation:
         few:
@@ -611,7 +661,10 @@ gd:
   see_all:
     announcement: Féach ar ár bhfógraí uile
     authored_article: Féach ar ár n-alt scríofa go léir
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Féach ar ár gcás-staidéir go léir
+    closed_call_for_evidence:
     closed_consultation: Féach ar ár gcomhairliúcháin dúnta go léir
     consultation: Féach ar ár bhfiosrúcháin go léir
     consultation_outcome: Féach ar thorthaí uile ár gcomhairliúcháin
@@ -634,6 +687,7 @@ gd:
     news_article: Féach ar ár n-alt nuachta go léir
     news_story: Féach ar ár n-alt nuachta go léir
     notice: Féach ar ár n-athbhreithnithe go léir
+    open_call_for_evidence:
     open_consultation: Féach ar ár gcomhairliúcháin phoiblí go léir
     oral_statement: Féach ar ár ráitis ó bhéal go léir sa Pharlaimint
     policy: Féach ar ár mbeartais go léir

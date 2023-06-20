@@ -21,6 +21,15 @@ hu:
         nation_inapplicabilities: Kizárt nemzetek
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: A csatolt fájl
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: A csatolt parancsnoki papír száma
         hoc_paper_number: Angol Alsóházi lapszám
@@ -39,6 +48,22 @@ hu:
       title: Csatolmány címe
       unique_reference: Csatolmány egyedi referenciája
       unnumbered_hoc_paper: Számozatlan Angol Alsóházi lap
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |-
@@ -68,6 +93,11 @@ hu:
     caution:
       subheading: Olyan problémákat találtunk a hivatkozásokkal kapcsolatban, amelyek problémákra utalhatnak; legyen óvatos a továbbhivatkozásuk során
     title: Nem működő hivatkozások
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Lezárva
     closing_today: Ma zárul
@@ -147,6 +177,12 @@ hu:
       blog_post:
         one: Blogbejegyzés
         other: Blogbejegyzések
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampány
         other: Kampányok
@@ -156,6 +192,9 @@ hu:
       case_study:
         one: Esettanulmány
         other: Esettanulmányok
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Lezárt konzultáció
         other: Lezárt konzultációk
@@ -258,6 +297,9 @@ hu:
       official_statistics:
         one: Hivatalos statisztika
         other: Hivatalos statisztikák
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Nyílt konzultáció
         other: Nyílt konzultációk
@@ -459,7 +501,10 @@ hu:
   see_all:
     announcement: Minden bejelentés megtekintése
     authored_article: Minden publicisztika megtekintése
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Minden esettanulmány megtekintése
+    closed_call_for_evidence:
     closed_consultation: Minden lezárt konzultáció megtekintése
     consultation: Minden konzultáció megtekintése
     consultation_outcome: Minden konzultációs eredmény megtekintése
@@ -482,6 +527,7 @@ hu:
     news_article: Minden cikk megtekintése
     news_story: Minden hír megtekintése
     notice: Minden értesítés megtekintése
+    open_call_for_evidence:
     open_consultation: Minden nyílt konzultáció megtekintése
     oral_statement: Minden parlamenti felszólalás megtekintése
     policy: Minden irányelv megtekintése

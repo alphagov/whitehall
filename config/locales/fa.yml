@@ -21,6 +21,15 @@ fa:
         nation_inapplicabilities: کشورهای مستثنی
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: فایل پیوست شده
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: شماره سند فرمان پیوست
         hoc_paper_number: شماره سند مجلس عوام
@@ -39,6 +48,22 @@ fa:
       title: عنوان پیوست
       unique_reference: شناسه مرجع یکتای پیوست
       unnumbered_hoc_paper: سند بدون شماره مجلس عوام
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ fa:
     caution:
       subheading: ما در مورد برخی از لینک‌ها به مسائلی برخوردیم که ممکن است نشان دهنده وجود مشکلاتی باشند، در ارتباط با آنها باید احتیاط کنید
     title: لینک‌های خراب
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: بسته شده
     closing_today: امروز بسته شده
@@ -147,6 +177,12 @@ fa:
       blog_post:
         one: پست وبلاگ
         other: پست‌های وبلاگ
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: کمپین
         other: کمپین‌ها
@@ -156,6 +192,9 @@ fa:
       case_study:
         one: مطالعه موردی
         other: مطالعات موردی
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: مشاوره بسته
         other: مشاوره‌های بسته
@@ -258,6 +297,9 @@ fa:
       official_statistics:
         one: آمار رسمی
         other: آمار رسمی
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: مشاوره باز
         other: مشاوره‌های باز
@@ -459,7 +501,10 @@ fa:
   see_all:
     announcement: مشاهده تمام اعلامیه‌های ما
     authored_article: مشاهده تمام مقالات تألیف شده ما
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: مشاهده تمام مطالعات موردی ما
+    closed_call_for_evidence:
     closed_consultation: مشاهده تمام مشاوره‌های بسته ما
     consultation: مشاهده تمام مشاوره‌های ما
     consultation_outcome: مشاهده تمام نتایج مشاوره‌های ما
@@ -482,6 +527,7 @@ fa:
     news_article: مشاهده تمام مقالات خبری ما
     news_story: مشاهده تمام گزارشات خبری ما
     notice: مشاهده تمام اطلاعیه‌های ما
+    open_call_for_evidence:
     open_consultation: مشاهده تمام مشاوره‌های باز ما
     oral_statement: مشاهده تمام بیانیه‌های شفاهی ما به پارلمان
     policy: مشاهده تمام سیاست‌های ما

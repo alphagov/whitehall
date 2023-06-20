@@ -21,6 +21,15 @@ id:
         nation_inapplicabilities: Bangsa dikecualikan
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: File terlampir
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Nomor kertas perintah lampiran
         hoc_paper_number: Nomor surat House of Commons
@@ -39,6 +48,22 @@ id:
       title: Judul lampiran
       unique_reference: Referensi unik lampiran
       unnumbered_hoc_paper: Surat House of Commons tidak bernomor
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ id:
     caution:
       subheading: Kami menemukan masalah dengan tautan yang mungkin menandakan adanya masalah, Anda harus berhati-hati saat mengklik tautan itu
     title: Tautan terputus
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Ditutup
     closing_today: Hari ini ditutup
@@ -139,12 +169,18 @@ id:
         other: Artikel bersumber
       blog_post:
         other: Posting blog
+      call_for_evidence:
+        other:
+      call_for_evidence_outcome:
+        other:
       campaign:
         other: Kampanye
       careers:
         other: karier
       case_study:
         other: Studi kasus
+      closed_call_for_evidence:
+        other:
       closed_consultation:
         other: Konsultasi tertutup
       complaints_procedure:
@@ -213,6 +249,8 @@ id:
         other: Pemberitahuan
       official_statistics:
         other: Statistik Resmi
+      open_call_for_evidence:
+        other:
       open_consultation:
         other: Konsultasi terbuka
       oral_statement:
@@ -383,7 +421,10 @@ id:
   see_all:
     announcement: Lihat semua pengumuman kami
     authored_article: Lihat semua artikel bersumber kami
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Lihat semua studi kasus kami
+    closed_call_for_evidence:
     closed_consultation: Lihat semua konsultasi tertutup kami
     consultation: Lihat semua konsultasi kami
     consultation_outcome: Lihat semua hasil konsultasi kami
@@ -406,6 +447,7 @@ id:
     news_article: Lihat semua artikel berita kami
     news_story: Lihat semua cerita berita kami
     notice: Lihat semua pemberitahuan kami
+    open_call_for_evidence:
     open_consultation: Lihat semua konsultasi terbuka kami
     oral_statement: Lihat semua pernyataan lisan kami kepada Parlemen
     policy: Lihat semua kebijakan kami

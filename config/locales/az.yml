@@ -21,6 +21,15 @@ az:
         nation_inapplicabilities: Çıxarılmış millətlər
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Əlavə edilmiş fayl
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Əlavənin sənəd nömrəsi
         hoc_paper_number: İcmalar palatasının sənəd nömrəsi
@@ -39,6 +48,22 @@ az:
       title: Əlavənin başlığı
       unique_reference: Əlavə üçün unikal istinad
       unnumbered_hoc_paper: İcmalar palatasının nömrələnməmiş sənədi
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ az:
     caution:
       subheading: Biz problemləri göstərə biləcək keçidlərdə bəzi məsələlər tapmışıq, onlara qoşulan zaman ehtiyatlı olmalısınız
     title: Pozulmuş keçidlər
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Bağlıdır
     closing_today: Bu gün bağlanır
@@ -148,6 +178,12 @@ az:
       blog_post:
         one: Bloq-post
         other: Bloq-postlar
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampaniya
         other: Kampaniyalar
@@ -157,6 +193,9 @@ az:
       case_study:
         one: Nümunə üzrə araşdırma
         other: Nümunə üzrə araşdırmalar
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Qapalı məsləhətləşmə
         other: Qapalı məsləhətləşmələr
@@ -259,6 +298,9 @@ az:
       official_statistics:
         one: Rəsmi statistika
         other: Rəsmi statistika
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Açıq məsləhətləşmə
         other: Açıq məsləhətləşmələr
@@ -460,7 +502,10 @@ az:
   see_all:
     announcement: Bütün elanlarımıza baxın
     authored_article: Müəlliflik edilmiş bütün məqalələrimizə baxın
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Nümunə üzrə bütün araşdırmalarımıza baxın
+    closed_call_for_evidence:
     closed_consultation: Bütün qapalı məsləhətləşmələrimizə baxın
     consultation: Bütün məsləhətləşmələrimizə baxın
     consultation_outcome: Bütün məsləhətləşmə nəticələrimizə baxın
@@ -483,6 +528,7 @@ az:
     news_article: Xəbərləri əks etdirən bütün məqalələrimizə baxın
     news_story: Xəbərləri əks etdirən bütün materiallarımıza baxın
     notice: Bütün bildirişlərimizə baxın
+    open_call_for_evidence:
     open_consultation: Bütün açıq məsləhətləşmələrimizə baxın
     oral_statement: Parlamentə edilmiş bütün şifahi müraciətlərimizə baxın
     policy: Bütün siyasətlərimizə baxın

@@ -21,6 +21,15 @@ de:
         nation_inapplicabilities: Ausgeschlossene Nationen
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Die angehängte Datei
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Anhang Anweisungspapier Nummer
         hoc_paper_number: Unterhauspapier Nummer
@@ -39,6 +48,22 @@ de:
       title: Anhang Titel
       unique_reference: Anhang eindeutige Referenz
       unnumbered_hoc_paper: Nicht nummeriertes Unterhauspapier
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ de:
     caution:
       subheading: Wir haben einige Links gefunden, die auf Probleme hindeuten. Sie sollten bei der Verlinkung auf diese Links vorsichtig sein.
     title: Kaputte Links
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Geschlossen
     closing_today: Schließt heute
@@ -147,6 +177,12 @@ de:
       blog_post:
         one: Blogbeitrag
         other: Blogbeiträge
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampagne
         other: Kampagnen
@@ -156,6 +192,9 @@ de:
       case_study:
         one: Fallstudie
         other: Fallstudien
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Abgeschlossene Beratung
         other: Abgeschlossene Beratungen
@@ -258,6 +297,9 @@ de:
       official_statistics:
         one: Statistiken
         other: Statistiken
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Laufende Beratung
         other: Laufende Beratungen
@@ -459,7 +501,10 @@ de:
   see_all:
     announcement: Alle unsere Ankündigungen
     authored_article: Alle unsere Namensartikel
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Alle unsere Fallstudien
+    closed_call_for_evidence:
     closed_consultation: Alle unsere abgeschlossenen Beratungen
     consultation: Alle unsere Beratungen
     consultation_outcome: Alle unsere Beratungsergebnisse
@@ -482,6 +527,7 @@ de:
     news_article: Alle unsere Nachrichtenartikel
     news_story: Alle unsere Nachrichtenberichte
     notice: Alle unsere Mitteilungen
+    open_call_for_evidence:
     open_consultation: Alle unsere offenen Beratungen
     oral_statement: Alle unsere mündlichen Erklärungen vor dem Parlament
     policy: Alle unsere Richtlinien

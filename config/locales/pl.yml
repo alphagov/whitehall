@@ -21,6 +21,15 @@ pl:
         nation_inapplicabilities: Kraje wyłączone
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Załączony plik
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Numer dokumentu w załączniku
         hoc_paper_number: Numer dokumentu w Izbie Gmin
@@ -39,6 +48,22 @@ pl:
       title: Tytuł załącznika
       unique_reference: Niepowtarzalny numer referencyjny załącznika
       unnumbered_hoc_paper: Nienumerowany dokument Izby Gmin
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: "Aby otrzymać ten dokument w innym formacie, np. w alfabecie Braille'a. \nw formacie audio lub w innym rodzaju pliku prosimy wysłać email na adres %{email}.\n\n"
@@ -66,6 +91,11 @@ pl:
     caution:
       subheading: Wykryliśmy kilka problemów z linkami. Zachowaj ostrożność podczas łączenia się z nimi.
     title: Uszkodzone linki
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Zamknięte
     closing_today: Zamknięcie dziś
@@ -161,6 +191,16 @@ pl:
         many:
         one: Wpis na blogu
         other: Wpisy na blogu
+      call_for_evidence:
+        few:
+        many:
+        one:
+        other:
+      call_for_evidence_outcome:
+        few:
+        many:
+        one:
+        other:
       campaign:
         few:
         many:
@@ -176,6 +216,11 @@ pl:
         many:
         one: Studium przypadku
         other: Studia przypadku
+      closed_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
       closed_consultation:
         few:
         many:
@@ -346,6 +391,11 @@ pl:
         many:
         one: Statystyki
         other: Statystyki
+      open_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
       open_consultation:
         few:
         many:
@@ -609,7 +659,10 @@ pl:
   see_all:
     announcement: Zobacz wszystkie nasze ogłoszenia
     authored_article: Zobacz wszystkie nasze dokumenty utworzone przez
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Zobacz wszystkie nasze studia przypadku
+    closed_call_for_evidence:
     closed_consultation: Zobacz wszystkie nasze konsultacje zamknięte
     consultation: Zobacz wszystkie nasze konsultacje
     consultation_outcome: Zobacz wszystkie nasze wyniki konsultacji
@@ -632,6 +685,7 @@ pl:
     news_article: Zobacz wszystkie nasze artykuły prasowe
     news_story: Zobacz wszystkie nasze aktualności
     notice: Zobacz wszystkie nasze powiadomienia
+    open_call_for_evidence:
     open_consultation: Zobacz wszystkie nasze konsultacje otwarte
     oral_statement: Zobacz wszystkie nasze ustne oświadczenia przed parlamentem
     policy: Zobacz wszystkie nasze polityki

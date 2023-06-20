@@ -21,6 +21,15 @@ he:
         nation_inapplicabilities: אומות לא נכללות
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: הקובץ המצורף
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: מספר נייר הפקודה המצורפת
         hoc_paper_number: מספר הנייר של בית הנבחרים
@@ -39,6 +48,22 @@ he:
       title: כותרת הקובץ המצורף
       unique_reference: 'התייחסות ייחודית לקובץ המצורף '
       unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ he:
     caution:
       subheading: 'מצאנו כמה בעיות עם קישורים שעשויים להצביע על בעיות, עליך לנקוט משנה זהירות בקישור אליהם '
     title: קישורים מנותקים
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: סגור
     closing_today: נסגר היום
@@ -148,6 +178,12 @@ he:
       blog_post:
         one: רשומת בלוג
         other: רשומות בלוג
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: קמפיין
         other: קמפיינים
@@ -157,6 +193,9 @@ he:
       case_study:
         one: מקרה בוחן
         other: מקרי בוחן
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: דיון סגור
         other: דיונים סגורים
@@ -259,6 +298,9 @@ he:
       official_statistics:
         one: סטטיסטיקה רשמית
         other: סטטיסטיקה רשמית
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: דיון פתוח
         other: דיונים  פתוחים
@@ -460,7 +502,10 @@ he:
   see_all:
     announcement: ראה כל הודעות
     authored_article: ראה כל מאמרים מאושרים
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: ראה כל מקרי בוחן
+    closed_call_for_evidence:
     closed_consultation: ראה כל דיונים סגורים
     consultation: ראה כל דיונים
     consultation_outcome: ראה כל תוצאות דיונים
@@ -483,6 +528,7 @@ he:
     news_article: ראה כל מאמרי חדשות
     news_story: ראה כל חדשות
     notice: ראה כל הודעות
+    open_call_for_evidence:
     open_consultation: ראה כל דיונים  פתוחים
     oral_statement: ראה כל הצהרות בעל פה לפרלמנט
     policy: ראה כל מדיניות

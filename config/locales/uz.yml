@@ -21,6 +21,15 @@ uz:
         nation_inapplicabilities: Мустасно миллатлар
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Илова қилинган файл
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Илова қилинган буйруқнинг рақами
         hoc_paper_number: Жамоат Палатасининг ҳужжат рақами
@@ -39,6 +48,22 @@ uz:
       title: Илованинг сарлавҳаси
       unique_reference: Илованинг махсус ҳаволаси
       unnumbered_hoc_paper: Жамоат Палатасининг рақамсиз ҳужжати
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ uz:
     caution:
       subheading: Биз томондан бузилишга кўрсатиши мумкин бўлган ҳаволаларга тааллуқли маълум муаммолар аниқланди. Сизга улар орқали ўтишда эҳтиёткорликка риоя қилиш лозим бўлади
     title: шикастланган ҳаволалар
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Ёпиқ
     closing_today: Бугун ёпилади
@@ -147,6 +177,12 @@ uz:
       blog_post:
         one: Блог хабари
         other: Блог хабарлари
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Кампания
         other: Кампаниялар
@@ -156,6 +192,9 @@ uz:
       case_study:
         one: Ҳолатлар таҳлили
         other: Ҳолатларнинг таҳлиллари
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Ёпиқ маслаҳат
         other: Ёпиқ маслаҳатлар
@@ -258,6 +297,9 @@ uz:
       official_statistics:
         one: Расмий статистик маълумотлар
         other: Расмий статистик маълумотлар
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Очиқ маслаҳат
         other: Очиқ маслаҳатлар
@@ -459,7 +501,10 @@ uz:
   see_all:
     announcement: Бизнинг барча эълонларимизни кўринг
     authored_article: Бизнинг барча муаллифлик мақолаларимизни кўринг
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Бизнинг барча ҳолатни ўрганилишларимизни кўринг
+    closed_call_for_evidence:
     closed_consultation: Бизнинг барча ёпиқ маслаҳатларимизни кўринг
     consultation: Бизнинг барча маслаҳатларимизни кўринг
     consultation_outcome: Бизнинг барча маслаҳатларимиз натижаларини кўринг
@@ -482,6 +527,7 @@ uz:
     news_article: Бизнинг барча янги мақолаларимизни кўринг
     news_story: Бизнинг барча янгиликларимизни кўринг
     notice: Бизнинг барча хабарномаларимизни кўринг
+    open_call_for_evidence:
     open_consultation: Бизнинг барча очиқ маслаҳатларимизни кўринг
     oral_statement: Бизнинг барча парламентга оғзаки баёнотларимизни кўринг
     policy: Бизнинг барча дастурларимизни кўринг

@@ -21,6 +21,15 @@ ne:
         nation_inapplicabilities: बहिष्कृत राष्ट्रहरु
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: संलग्न फाइल
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: संलग्न आदेश पृष्ठ संख्या
         hoc_paper_number: हाउस अफ कमन्स पृष्ठ संख्या
@@ -39,6 +48,22 @@ ne:
       title: संलग्न शीर्षक
       unique_reference: संलग्न विशिष्ट सन्दर्भ
       unnumbered_hoc_paper: संख्या नभएको हाउस अफ कमन्स पृष्ठ
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ ne:
     caution:
       subheading: हामीले लिंकहरू सँग केहि समस्याहरु भएको थाहा पाएका छौं, तपाईं उनीहरुलाई जोड्ने कार्य गर्दा सावधानी अपनाउनु पर्छ
     title: काम नगर्ने लिंक
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: बन्द
     closing_today: आज बन्द हुँदैछ
@@ -147,6 +177,12 @@ ne:
       blog_post:
         one: ब्लग पोस्ट
         other: ब्लग पोस्टहरू
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: अभियान
         other: अभियानहरु
@@ -156,6 +192,9 @@ ne:
       case_study:
         one: मामिला अध्ययन
         other: मामिला अध्ययनहरू
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: बन्द परामर्श
         other: बन्द परामर्शहरू
@@ -258,6 +297,9 @@ ne:
       official_statistics:
         one: आधिकारिक तथ्याङ्क
         other: आधिकारिक तथ्याङ्क
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: खुला परामर्श
         other: खुला परामर्शहरू
@@ -459,7 +501,10 @@ ne:
   see_all:
     announcement: हाम्रा सबै घोषणाहरु हेर्नुहोस्
     authored_article: हाम्रो सबै लेखिएको लेखहरू हेर्नुहोस्
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: हाम्रो सबै मामिलाहरू अध्ययन हेर्नुहोस्
+    closed_call_for_evidence:
     closed_consultation: हाम्रो सबै बन्द परामर्शहरू हेर्नुहोस्
     consultation: हाम्रो सबै परामर्शहरू हेर्नुहोस्
     consultation_outcome: हाम्रो सबै परामर्श परिणामहरु हेर्नुहोस्
@@ -482,6 +527,7 @@ ne:
     news_article: हाम्रो सबै समाचार लेखहरू हेर्नुहोस्
     news_story: हाम्रा सबै समाचार कथाहरु हेर्नुहोस्
     notice: हाम्रा सबै सूचनाहरु हेर्नुहोस्
+    open_call_for_evidence:
     open_consultation: हाम्रो सबै खुला परामर्शहरू हेर्नुहोस्
     oral_statement: हाम्रो सबै संसदमा मौखिक वक्तव्यहरू हेर्नुहोस्
     policy: हाम्रा सबै नीतिहरु हेर्नुहोस्

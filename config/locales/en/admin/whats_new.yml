@@ -15,9 +15,9 @@ en:
           This will make Whitehall Publisher more accessible, more user friendly and give you a consistent user experience throughout your publishing journey on GOV.UK.
 
           [Read more about the changes on the content community Basecamp](https://3.basecamp.com/4322319/buckets/15005645/messages/5287245970).
-          
+       
           ### Take part in user research
-          
+       
           You can [sign up to take part in Whitehall Publisher user research](https://docs.google.com/forms/d/e/1FAIpQLSci1Ff7YGLWnvDiuaoAVKzSO06q32kgjVYnSX9A5Kf7jliLaQ/viewform). If you cannot access Google Forms, email <publishing-service-research@digital.cabinet-office.gov.uk>. Once you’ve signed up, you could be invited to feedback on new features and designs, user interviews or test products.
       upcoming_changes:
         heading: Upcoming changes
@@ -51,7 +51,7 @@ en:
             date: 2 February 2023
             body_govspeak: |
               History and notes have been merged into a single history tab on the edition summary page. Internal notes will be shown alongside a document’s history.
-              
+           
               ‘Remarks’ or ‘editorial remarks’ are now known as ‘internal notes’.
           - heading: Edition summary page and worldwide tagging move to the Design System
             area: Creating and updating documents
@@ -59,7 +59,7 @@ en:
             date: 2 February 2023
             body_govspeak: |
               The edition summary page (where you can do things like previewing, history and notes, submitting for 2i or publishing) and worldwide tagging have moved to use the GOV.UK Design System.
-              
+           
               Some of the buttons and actions, such as ‘create new edition’ or ‘view on website’, have moved to the sidebar.
           - heading: Attachments page, comparing previous editions and other pages move to the Design System
             area: Creating and updating documents
@@ -67,13 +67,13 @@ en:
             date: 22 December 2022
             body_govspeak: |
               The following pages have moved to the GOV.UK Design System:
-              
+           
               * attachments page
               * comparing previous versions
               * force publishing
               * deleting a draft
               * adding or editing associated user needs
-              
+           
               To reorder attachments, select ‘reorder attachments’ on the attachments page. On the reorder attachments page, use the up and down buttons to reorder attachments, or select and hold on an attachment to reorder using drag and drop.
           - heading: Search added to topic taxonomy tags page
             area: Creating and updating documents
@@ -87,12 +87,12 @@ en:
             date: 8 November 2022
             body_govspeak: |
               The following pages have moved to the GOV.UK Design System:
-              
+           
               * adding and editing external, HTML and file attachments (including bulk uploads)
               * withdrawing or unpublishing an edition
               * unwithdrawing an edition
               * adding or changing specialist topic tagging
-              
+           
               To add a specialist topic tag, type the first 3 letters of the topic you want to apply. You’ll then get a list of tagging options on that topic.
           - heading: Change to saving documents
             area: Creating and updating documents
@@ -140,7 +140,7 @@ en:
           - [how to publish content on GOV.UK](https://www.gov.uk/guidance/how-to-publish-on-gov-uk)
           - [planning, writing and managing content](https://www.gov.uk/guidance/content-design)
           - [how to contact the Government Digital Service (GDS) to request or report something](https://www.gov.uk/guidance/contact-the-government-digital-service)
-          
+       
           The [GOV.UK style guide](https://www.gov.uk/guidance/style-guide) covers style, spelling and grammar conventions for content published on GOV.UK.
-          
+       
           Read the [Inside GOV.UK blog](https://insidegovuk.blog.gov.uk/) for updates about GOV.UK.

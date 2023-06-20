@@ -21,6 +21,15 @@ lt:
         nation_inapplicabilities: Neįtrauktos valstybės
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Pridėtas failas
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Pridėto įsakymo dokumento numeris
         hoc_paper_number: Bendruomenių rūmų dokumento numeris
@@ -39,6 +48,22 @@ lt:
       title: Priedo pavadinimas
       unique_reference: Unikali priedo nuoroda
       unnumbered_hoc_paper: Nenumeruotas Bendruomenių rūmų dokumentas
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio, audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną bei leidinio pavadinimą .Prašome pasakyti, kokio formato jums reikia. Mums padės, jei pasakysite, kokią pagalbinę technologiją naudojate.
@@ -66,6 +91,11 @@ lt:
     caution:
       subheading: Aptikome problemų dėl nuorodų, atidarykite jas atsargiai
     title: Pažeistos nuorodos
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Pasibaigusi
     closing_today: Baigiasi šiandien
@@ -153,6 +183,14 @@ lt:
         few:
         one: Tinklaraščio įrašas
         other: Tinklaraščio įrašai
+      call_for_evidence:
+        few:
+        one:
+        other:
+      call_for_evidence_outcome:
+        few:
+        one:
+        other:
       campaign:
         few:
         one: Kampanija
@@ -165,6 +203,10 @@ lt:
         few:
         one: Atvejo analizė
         other: Atvejų analizės
+      closed_call_for_evidence:
+        few:
+        one:
+        other:
       closed_consultation:
         few:
         one: Pasibaigusi konsultacija
@@ -301,6 +343,10 @@ lt:
         few:
         one: Statistika
         other: Statistika
+      open_call_for_evidence:
+        few:
+        one:
+        other:
       open_consultation:
         few:
         one: Atvira konsultacija
@@ -533,7 +579,10 @@ lt:
   see_all:
     announcement: Pažiūrėkite  mūsų pranešimai
     authored_article: Pažiūrėkite  mūsų autorių straipsniai
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Pažiūrėkite  mūsų atvejų analizės
+    closed_call_for_evidence:
     closed_consultation: Pažiūrėkite  mūsų pasibaigusios konsultacijos
     consultation: Pažiūrėkite  mūsų konsultacijos
     consultation_outcome: Pažiūrėkite  mūsų konsultacijos rezultatai
@@ -556,6 +605,7 @@ lt:
     news_article: Pažiūrėkite  mūsų straipsniai
     news_story: Pažiūrėkite  mūsų naujienos
     notice: Pažiūrėkite  mūsų pranešimus
+    open_call_for_evidence:
     open_consultation: Pažiūrėkite  mūsų atviros konsultacijos
     oral_statement: Pažiūrėkite  mūsų žodiniai kreipimaisi į parlamentą
     policy: Pažiūrėkite  mūsų strategija

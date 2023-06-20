@@ -21,6 +21,15 @@ it:
         nation_inapplicabilities: Nazioni escluse
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Il file allegato
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Numero carta comando allegato
         hoc_paper_number: Numero della carta della Camera dei Comuni
@@ -39,6 +48,22 @@ it:
       title: Titolo dell’allegato
       unique_reference: Riferimento univoco dell’allegato
       unnumbered_hoc_paper: Carta della Camera dei Comuni non numerata
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ it:
     caution:
       subheading: Abbiamo riscontrato alcune questioni con i collegamenti che potrebbero indicare problemi, dovresti prestare attenzione nel collegarli
     title: Collegamenti interrotti
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Chiuso
     closing_today: In chiusura oggi
@@ -148,6 +178,12 @@ it:
       blog_post:
         one: Post sul blog
         other: Post sul blog
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Campagna
         other: Campagne
@@ -157,6 +193,9 @@ it:
       case_study:
         one: Caso di studio
         other: Casi di studio
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Consultazione chiusa
         other: Consultazioni chiuse
@@ -259,6 +298,9 @@ it:
       official_statistics:
         one: Statistiche ufficiali
         other: Statistiche ufficiali
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Consultazione aperta
         other: Consultazioni aperte
@@ -460,7 +502,10 @@ it:
   see_all:
     announcement: Vedi tutti i nostri annunci
     authored_article: Vedi tutti i nostri articoli d’autore
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Vedi tutti i nostri casi di studio
+    closed_call_for_evidence:
     closed_consultation: Vedi tutte le nostre consultazioni chiuse
     consultation: Vedi tutte le nostre consultazioni
     consultation_outcome: Vedi tutti i nostri esiti di consultazione
@@ -483,6 +528,7 @@ it:
     news_article: Vedi tutti i nostri articoli di notizie
     news_story: Vedi tutte le nostre storie di notizie
     notice: Vedi tutti i nostri avvisi
+    open_call_for_evidence:
     open_consultation: Vedi tutte le nostre consultazioni aperte
     oral_statement: Vedi tutte le nostre dichiarazioni orali al Parlamento
     policy: Vedi tutte le nostre informative

@@ -21,6 +21,15 @@ ur:
         nation_inapplicabilities: خارج کردہ اقوام
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: منسلک کردہ فائل
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
         hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
@@ -39,6 +48,22 @@ ur:
       title: منسلہ کا عنوان
       unique_reference: منسلکہ کا منفرد حوالہ
       unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ ur:
     caution:
       subheading: ہمیں لنکس کے ساتھ کچھ درپیش مسائل کے بارے میں معلوم ہوا ہے جو کہ مسائل کی نشاندہی کر سکتے ہیں، آپ کو انہیں مربوط کرنے وقت احتیاط برتنی چاہیئے
     title: ٹوٹے ہوئے لنکس
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: بند
     closing_today: آج بند ہونا ہے۔
@@ -147,6 +177,12 @@ ur:
       blog_post:
         one: بلاگ پوسٹ
         other: بلاگ پوسٹس
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: مہم
         other: مہمات
@@ -156,6 +192,9 @@ ur:
       case_study:
         one: کیس اسٹڈی
         other: کیس اسٹڈیز
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: محدود مشاورت
         other: محدود مشاورتیں
@@ -258,6 +297,9 @@ ur:
       official_statistics:
         one: سرکاری شماریات
         other: سرکاری شماریات
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: آزاد مشاورت
         other: آزاد مشاورت
@@ -459,7 +501,10 @@ ur:
   see_all:
     announcement: ہمارے تمام اعلانات دکھائیں
     authored_article: ہمارے تمام مصنف کے نام کے ساتھ لکھے مضامین دیکھیں
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: ہماری تمام کیس اسٹڈیز دیکھیں
+    closed_call_for_evidence:
     closed_consultation: ہماری تمام محدود مشاورتیں دیکھیں
     consultation: ہماری تمام مشاورتیں دیکھیں
     consultation_outcome: ہماری تمام مشاورتوں کے نتائج دیکھیں
@@ -482,6 +527,7 @@ ur:
     news_article: ہمارے تمام خبروں کے مضامین دیکھیں
     news_story: ہماری تمام خبروں کی کہانیاں دیکھیں
     notice: ہمارے تمام نوٹسز دیکھیں
+    open_call_for_evidence:
     open_consultation: ہماری تمام آزاد مشاورتیں دیکھیں
     oral_statement: ہمارے تمام پارلیمان کے لیے زبانی بیانات دیکھیں
     policy: ہماری تمام پالیسیاں دیکھیں

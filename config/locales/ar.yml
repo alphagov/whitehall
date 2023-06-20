@@ -21,6 +21,15 @@ ar:
         nation_inapplicabilities: الدول المستبعدة
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: الملف المرفق
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: رقم ورقة الأمر الخاصة بالمرفق
         hoc_paper_number: رقم ورقة مجلس العموم
@@ -39,6 +48,22 @@ ar:
       title: عنوان المرفق
       unique_reference: المرجع الفريد للمرفق
       unnumbered_hoc_paper: ورقة مجلس عموم غير مرقمة
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: "إذا كنت تستخدم تكنولوجيا مساعدة (مثل قارئ الشاشة) وكنت بحاجة لنسخة من هذا المستند بتنسيق أيسر استخدامًا، فيُرجى التواصل معنا على البريد الإلكتروني %{email}. \nمن فضلك أخبرنا بالتنسيق الذي تحتاجه. إذا أخبرتنا بالتكنولوجيا المساعدة التي تستخدمها، فهذا سيساعدنا.\n"
@@ -66,6 +91,11 @@ ar:
     caution:
       subheading: لقد وجدنا بعض المسائل المتعلقة بالارتباطات التي قد تشير إلى وجود مشكلات، وينبغي لك أن تتوخى الحذر عند إضافة الارتباطات بها
     title: ارتباطات منقطعة
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: مغلق
     closing_today: سيغلق اليوم
@@ -177,6 +207,20 @@ ar:
         other: منشورات المدوّنة
         two:
         zero:
+      call_for_evidence:
+        few:
+        many:
+        one:
+        other:
+        two:
+        zero:
+      call_for_evidence_outcome:
+        few:
+        many:
+        one:
+        other:
+        two:
+        zero:
       campaign:
         few:
         many:
@@ -196,6 +240,13 @@ ar:
         many:
         one: دراسة الحالة
         other: دراسات الحالة
+        two:
+        zero:
+      closed_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
         two:
         zero:
       closed_consultation:
@@ -434,6 +485,13 @@ ar:
         many:
         one: الإحصاءات الرسمية
         other: الإحصاءات الرسمية
+        two:
+        zero:
+      open_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
         two:
         zero:
       open_consultation:
@@ -761,7 +819,10 @@ ar:
   see_all:
     announcement: اطلع على جميع إعلاناتنا
     authored_article: اطلع على جميع مقالاتنا المؤلفة
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: اطلع على جميع دراسات الحالة لدينا
+    closed_call_for_evidence:
     closed_consultation: اطلع على جميع استشاراتنا المغلقة
     consultation: اطلع على جميع استشاراتنا
     consultation_outcome: اطلع على جميع نتائج استشاراتنا
@@ -784,6 +845,7 @@ ar:
     news_article: اطلع على جميع مقالاتنا الإخبارية
     news_story: اطلع على جميع قصصنا الصحفية
     notice: اطلع على جميع إشعاراتنا
+    open_call_for_evidence:
     open_consultation: اطلع على جميع استشاراتنا المفتوحة
     oral_statement: اطلع على جميع بياناتنا الشفوية إلى البرلمان
     policy: اطلع على جميع سياساتنا

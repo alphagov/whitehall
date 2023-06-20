@@ -21,6 +21,15 @@ ps:
         nation_inapplicabilities: خارج شوي هیوادونه
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: ضمیمه شوې فایل
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: د ضمیمې قوماندې کاغذ شمیره
         hoc_paper_number: د ولسي جرګې د کاغذ شمیره
@@ -39,6 +48,22 @@ ps:
       title: د ضمیمې سرلیک
       unique_reference: ضمیمه ځانګړې حواله
       unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ ps:
     caution:
       subheading: موږ د لینکونو سره ځینې مسلې موندلي چې ممکن ستونزې په ګوته کړي ، تاسو باید د دوی سره وصل کیدو کې احتیاط وکړئ
     title: مات شوي لینکونه
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: تړل شوی
     closing_today: نن ورځ تړل
@@ -148,6 +178,12 @@ ps:
       blog_post:
         one: د بلاګ پوسټ
         other: د بلاګ پوسټونه
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: کمپاین
         other: کمپاینونه
@@ -157,6 +193,9 @@ ps:
       case_study:
         one: د قضیې مطالعه
         other: د قضیې مطالعات
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: تړلې مشوره
         other: تړلې مشورې
@@ -259,6 +298,9 @@ ps:
       official_statistics:
         one: رسمي احصایې
         other: رسمي احصایې
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: خلاص مشوره
         other: مشورې خلاص کړئ
@@ -460,7 +502,10 @@ ps:
   see_all:
     announcement: زموږ ټول اعلانونه وګورئ
     authored_article: زموږ ټولې لیکل شوې مقالې وګورئ
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: زموږ ټولې قضیې مطالعات وګورئ
+    closed_call_for_evidence:
     closed_consultation: زموږ ټولې تړلې مشورې وګورئ
     consultation: زموږ ټولې مشورې وګورئ
     consultation_outcome: زموږ د مشورې ټولې پایلې وګورئ
@@ -483,6 +528,7 @@ ps:
     news_article: زموږ ټولې خبري مقالې وګورئ
     news_story: زموږ ټول خبرونه وګورئ
     notice: زموږ ټول خبرتیاوې وګورئ
+    open_call_for_evidence:
     open_consultation: زموږ ټولې خلاصې مشورې وګورئ
     oral_statement: پارلمان ته زموږ ټولې شفاهي څرګندونې وګورئ
     policy: زموږ ټولې پالیسۍ وګورئ
