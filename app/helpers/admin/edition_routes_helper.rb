@@ -1,7 +1,8 @@
 module Admin::EditionRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
-  EDITION_TYPES = [Publication,
+  EDITION_TYPES = [CallForEvidence,
+                   Publication,
                    NewsArticle,
                    Consultation,
                    Speech,
