@@ -7,17 +7,24 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 11 May 2023
+      last_updated: Last updated 22 June 2023
       introduction:
-        heading: Moving to the Design System
+        heading: Our roadmap
         body_govspeak: |
-          Whitehall Publisher will be moving from the current styling to use the styling and components of the [GOV.UK Design System](https://design-system.service.gov.uk/).
-          This will make Whitehall Publisher more accessible, more user friendly and give you a consistent user experience throughout your publishing journey on GOV.UK.
-
-          [Read more about the changes on the content community Basecamp](https://3.basecamp.com/4322319/buckets/15005645/messages/5287245970).
+          This quarter we are focussing on:
           
+          - moving Whitehall to the design system
+          - updating images
+          - exploring the use of a new content type for consultations
+  
+          Next quarter we plan to:
+          
+          - finish our work on the design system
+          - explore how to improve the editor journey when creating or editing a draft
+          - review how you navigate in Whitehall, as well as add document collections
+  
           ### Take part in user research
-          
+
           You can [sign up to take part in Whitehall Publisher user research](https://docs.google.com/forms/d/e/1FAIpQLSci1Ff7YGLWnvDiuaoAVKzSO06q32kgjVYnSX9A5Kf7jliLaQ/viewform). If you cannot access Google Forms, email <publishing-service-research@digital.cabinet-office.gov.uk>. Once you’ve signed up, you could be invited to feedback on new features and designs, user interviews or test products.
       upcoming_changes:
         heading: Upcoming changes
@@ -60,78 +67,6 @@ en:
             body_govspeak: |
               The edition summary page (where you can do things like previewing, history and notes, submitting for 2i or publishing) and worldwide tagging have moved to use the GOV.UK Design System.
               
-              Some of the buttons and actions, such as ‘create new edition’ or ‘view on website’, have moved to the sidebar.
-          - heading: Attachments page, comparing previous editions and other pages move to the Design System
-            area: Creating and updating documents
-            type: improvement
-            date: 22 December 2022
-            body_govspeak: |
-              The following pages have moved to the GOV.UK Design System:
-              
-              * attachments page
-              * comparing previous versions
-              * force publishing
-              * deleting a draft
-              * adding or editing associated user needs
-              
-              To reorder attachments, select ‘reorder attachments’ on the attachments page. On the reorder attachments page, use the up and down buttons to reorder attachments, or select and hold on an attachment to reorder using drag and drop.
-          - heading: Search added to topic taxonomy tags page
-            area: Creating and updating documents
-            type: new
-            date: 9 November 2022
-            body_govspeak: |
-              You can now search taxonomy topic tags and select relevant tags for your content. The search will show all topic tags which include the search term you’ve put into the search box. You only need to start typing the first 3 letters to start getting suggested topics.
-          - heading: Attachment, unpublishing and withdrawing, and specialist topic tagging pages move to the Design System
-            area: Creating and updating documents
-            type: improvement
-            date: 8 November 2022
-            body_govspeak: |
-              The following pages have moved to the GOV.UK Design System:
-              
-              * adding and editing external, HTML and file attachments (including bulk uploads)
-              * withdrawing or unpublishing an edition
-              * unwithdrawing an edition
-              * adding or changing specialist topic tagging
-              
-              To add a specialist topic tag, type the first 3 letters of the topic you want to apply. You’ll then get a list of tagging options on that topic.
-          - heading: Change to saving documents
-            area: Creating and updating documents
-            type: change
-            date: 20 October 2022
-            body_govspeak: |
-              If you select the ‘Save’ button when creating or editing documents, you’ll stay on the edit document page so you can continue working. You’ll no longer be taken to the edition summary page.
-          - heading: Topic taxonomy tags page moves to the Design System
-            area: Creating and updating documents
-            type: improvement
-            date: 6 October 2022
-            body_govspeak: |
-              The topic taxonomy tags page has moved to the GOV.UK Design System.
-
-              Topics that are tagged to a document are now listed under the ‘Selected topics’ header on the ‘Topic taxonomy tags’ page. You can also remove tags in this section.
-
-              You can use the ‘back’ button on these pages to return to a previous page.
-          - heading: Reusing previous withdrawal dates and public explanations
-            area: Creating and updating documents
-            type: improvement
-            date: 2 August 2022
-            body_govspeak: |
-              When re-withdrawing content, you can choose to reuse a previous withdrawal date and public explanation in certain circumstances.
-
-              [Read the guidance about when you can reuse previous withdrawal dates and explanations](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving).
-          - heading: Shareable document preview links
-            area: Creating and updating documents
-            type: new
-            date: 22 June 2022
-            body_govspeak: |
-              You can share document preview links for draft content with people who do not have access to Whitehall Publisher.
-
-              [Read the guidance about where and how to use document preview links](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#preview-content).
-          - heading: Paste and convert to Govspeak
-            area: Creating and updating documents
-            type: new
-            date: 18 May 2022
-            body_govspeak: |
-              When you paste text into the body field Whitehall Publisher will try to convert it to markdown. It will recognise headings, links, and lists. Other formatting will be removed and only plain text pasted.
       guidance:
         heading: Publishing guidance, updates and support
         body_govspeak: |
