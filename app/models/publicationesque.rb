@@ -3,7 +3,7 @@
 #
 # - Consultations
 # - Publication
-# - StatisticalDataSet
+# - Statistical Data Sets
 #
 # @abstract
 class Publicationesque < Edition
@@ -41,6 +41,3 @@ protected
     hash_with_blank_values?(attributes)
   end
 end
-
-require_relative "publication"
-require_relative "consultation"
