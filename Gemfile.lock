@@ -1,3 +1,18 @@
+GIT
+  remote: https://github.com/alphagov/govuk_app_config.git
+  revision: df574dde3c801a448538837b0647de86a0f8320a
+  branch: Log-GOVUK_REQUEST_ID-in-Json-in-Whitehall
+  specs:
+    govuk_app_config (9.0.0)
+      logstasher (~> 2.1)
+      plek (>= 4, < 6)
+      prometheus_exporter (~> 2.0)
+      puma (>= 5.6, < 7.0)
+      rack-proxy (~> 0.7)
+      sentry-rails (~> 5.3)
+      sentry-ruby (~> 5.3)
+      statsd-ruby (~> 1.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -252,15 +267,6 @@ GEM
       jquery-rails (~> 4.3)
       plek (>= 2.1)
       rails (>= 6)
-    govuk_app_config (8.0.2)
-      logstasher (~> 2.1)
-      plek (>= 4, < 6)
-      prometheus_exporter (~> 2.0)
-      puma (>= 5.6, < 7.0)
-      rack-proxy (~> 0.7)
-      sentry-rails (~> 5.3)
-      sentry-ruby (~> 5.3)
-      statsd-ruby (~> 1.5)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
     govuk_personalisation (0.13.0)
@@ -767,7 +773,7 @@ DEPENDENCIES
   govspeak
   govuk_ab_testing
   govuk_admin_template
-  govuk_app_config
+  govuk_app_config!
   govuk_frontend_toolkit
   govuk_publishing_components
   govuk_schemas
