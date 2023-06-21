@@ -345,11 +345,7 @@ When(/^I unpublish the statistics announcement$/) do
   click_on "Unpublish announcement"
   fill_in "Redirect to URL", with: "http://www.dev.gov.uk/example"
 
-  if using_design_system?
-    click_on "Unpublish announcement"
-  else
-    click_on "Unpublish"
-  end
+  click_on "Unpublish announcement"
 end
 
 Then(/^I should see the unpublish statistics announcement banner$/) do
