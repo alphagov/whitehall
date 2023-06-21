@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     @organisation = create(:executive_office)
   end
 

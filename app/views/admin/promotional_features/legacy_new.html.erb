@@ -1,7 +1,0 @@
-<%= initialise_script "GOVUK.adminPromotionalFeatureItemsForm", selector: ".promotional_feature_item" %>
-
-<% page_title "New promotional feature for #{@organisation.name}" %>
-<h1>New Promotional feature block</h1>
-<p class="warning">Warning: newly created feature blocks will appear instantly on the live site.</p>
-
-<%= render "legacy_form", promotional_feature: @promotional_feature, organisation: @organisation %>

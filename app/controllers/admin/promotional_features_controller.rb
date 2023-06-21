@@ -2,19 +2,16 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
   before_action :load_promotional_feature, only: %i[show edit update destroy confirm_destroy]
   before_action :clean_image_or_youtube_video_url_param, only: %i[create]
-  layout :get_layout
+  layout "design_system"
 
   def index
     @promotional_features = @organisation.promotional_features
-    render_design_system("index", "legacy_index")
   end
 
   def new
     @promotional_feature = @organisation.promotional_features.build
     @promotional_feature.promotional_feature_items.build
     @promotional_feature.promotional_feature_items.first.links.build
-
-    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -25,17 +22,13 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature created"
     else
       @promotional_feature.promotional_feature_items.first.links.build if @promotional_feature.promotional_feature_items.first.links.blank?
-      render_design_system("new", "legacy_new")
+      render :new
     end
   end
 
-  def show
-    render_design_system("show", "legacy_show")
-  end
+  def show; end
 
-  def edit
-    render_design_system("edit", "legacy_edit")
-  end
+  def edit; end
 
   def update
     if @promotional_feature.update(promotional_feature_params)
@@ -69,14 +62,6 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])
