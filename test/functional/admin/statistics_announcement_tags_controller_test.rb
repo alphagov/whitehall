@@ -5,7 +5,7 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
   should_be_an_admin_controller
 
   setup do
-    @user = login_as_preview_design_system_user(:departmental_editor)
+    @user = login_as(:departmental_editor)
     @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT
     organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
     @announcement = create(:statistics_announcement, organisations: [organisation])

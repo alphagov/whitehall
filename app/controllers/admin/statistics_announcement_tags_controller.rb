@@ -1,13 +1,11 @@
 class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
   before_action :find_statistics_announcement
   before_action :enforce_permissions!
-  layout :get_layout
+  layout "design_system"
 
   def edit
     @topic_taxonomy = Taxonomy::TopicTaxonomy.new
     @tag_form = TaxonomyTagForm.load(@statistics_announcement.content_id)
-
-    render_design_system("edit", "legacy_edit")
   end
 
   def update
@@ -41,13 +39,5 @@ private
 
   def invisible_taxons
     params["taxonomy_tag_form"].fetch("invisible_taxons", "").split(",")
-  end
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
   end
 end
