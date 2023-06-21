@@ -187,7 +187,7 @@ GEM
       parslet
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
-    faraday (2.7.6)
+    faraday (2.7.7)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
