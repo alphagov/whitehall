@@ -3,6 +3,7 @@ class ImageUploader < WhitehallUploader
 
   configure do |config|
     config.remove_previously_stored_files_after_update = false
+    config.validate_integrity = true
   end
 
   def extension_allowlist

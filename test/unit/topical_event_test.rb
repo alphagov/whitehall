@@ -278,4 +278,12 @@ class TopicalEventTest < ActiveSupport::TestCase
 
     assert_equal [edition2], topical_event.featurable_editions
   end
+
+  test "produces an error for non-image file logo uploads" do
+    non_image_file = File.open(Rails.root.join("test/fixtures/greenpaper.pdf"))
+    topical_event = build(:topical_event, logo: non_image_file)
+
+    assert_not topical_event.valid?
+    assert_equal topical_event.errors.first.full_message, 'Logo cannot be a "pdf" file.'
+  end
 end
