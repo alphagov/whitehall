@@ -1,4 +1,4 @@
-describe('GOVUK.Modules.GovspekEditor', function () {
+describe('GOVUK.Modules.GovspeakEditor', function () {
   var component, module
 
   beforeEach(function () {
@@ -29,10 +29,15 @@ describe('GOVUK.Modules.GovspekEditor', function () {
     var previewSection = document.createElement('div')
     previewSection.classList.add('app-c-govspeak-editor__preview')
 
+    // Error section
+    var errorSection = document.createElement('div')
+    errorSection.classList.add('app-c-govspeak-editor__error')
+
     // Append to component
     component.appendChild(previewButton)
     component.appendChild(textareaSection)
     component.appendChild(previewSection)
+    component.appendChild(errorSection)
 
     module = new GOVUK.Modules.GovspeakEditor(component)
     module.init()
@@ -56,6 +61,9 @@ describe('GOVUK.Modules.GovspekEditor', function () {
 
     expect(component.querySelectorAll('.app-c-govspeak-editor__preview').length).toEqual(1)
     expect(component.querySelector('.app-c-govspeak-editor__preview')).not.toHaveClass('app-c-govspeak-editor__preview--show')
+
+    expect(component.querySelectorAll('.app-c-govspeak-editor__error').length).toEqual(1)
+    expect(component.querySelector('.app-c-govspeak-editor__error')).not.toHaveClass('app-c-govspeak-editor__error--show')
   })
 
   it('shows preview section when button clicked', function () {
@@ -119,6 +127,34 @@ describe('GOVUK.Modules.GovspekEditor', function () {
     previewButton.dispatchEvent(new Event('click'))
 
     expect(previewSection.innerHTML).toEqual(html)
+  })
+
+  it('renders an error message when the govspeak service returns a 403 "forbidden" response', function () {
+    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    var previewSection = component.querySelector('.app-c-govspeak-editor__preview')
+    var errorSection = component.querySelector('.app-c-govspeak-editor__error')
+
+    jasmine.Ajax.stubRequest('/government/admin/preview', null, 'POST').andReturn({
+      status: 403,
+      contentType: 'text/html'
+    })
+
+    previewButton.dispatchEvent(new Event('click'))
+
+    expect(errorSection.classList).toContain('app-c-govspeak-editor__error--show')
+    expect(previewSection.classList).not.toContain('app-c-govspeak-editor__preview--show')
+  })
+
+  it('hides the error message when the user returns to the editor view', function () {
+    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    var errorSection = component.querySelector('.app-c-govspeak-editor__error')
+
+    previewButton.innerText = 'Back to edit'
+    errorSection.classList.add('app-c-govspeak-editor__error--show')
+
+    previewButton.dispatchEvent(new Event('click'))
+
+    expect(errorSection.classList).not.toContain('app-c-govspeak-editor__error--show')
   })
 
   it('renders govspeak correctly with changing content', function () {

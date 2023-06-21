@@ -49,6 +49,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var previewToggle = this.module.querySelector('.js-app-c-govspeak-editor__preview-button')
     var trackToggle = previewToggle.getAttribute('data-preview-toggle-tracking') === 'true'
     var preview = this.module.querySelector('.app-c-govspeak-editor__preview')
+    var error = this.module.querySelector('.app-c-govspeak-editor__error')
     var textareaWrapper = this.module.querySelector('.app-c-govspeak-editor__textarea')
     var textarea = this.module.querySelector(previewToggle.getAttribute('data-content-target'))
 
@@ -59,16 +60,26 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
       previewToggle.innerText = previewMode ? 'Back to edit' : 'Preview'
       textareaWrapper.classList.toggle('app-c-govspeak-editor__textarea--hidden')
-      preview.classList.toggle('app-c-govspeak-editor__preview--show')
 
       if (previewMode) {
+        preview.classList.add('app-c-govspeak-editor__preview--show')
         this.getRenderedGovspeak(textarea.value, function (event) {
           var response = event.currentTarget
 
-          if (response.readyState === 4 && response.status === 200) {
-            preview.innerHTML = response.responseText
+          if (response.readyState === 4) {
+            if (response.status === 200) {
+              preview.innerHTML = response.responseText
+            }
+
+            if (response.status === 403) {
+              error.classList.add('app-c-govspeak-editor__error--show')
+              preview.classList.remove('app-c-govspeak-editor__preview--show')
+            }
           }
         })
+      } else {
+        preview.classList.remove('app-c-govspeak-editor__preview--show')
+        error.classList.remove('app-c-govspeak-editor__error--show')
       }
 
       if (trackToggle) {
