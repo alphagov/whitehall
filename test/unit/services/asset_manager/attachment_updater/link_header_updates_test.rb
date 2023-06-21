@@ -20,8 +20,22 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::Te
     context "when attachment doesn't belong to an edition" do
       let(:attachment) { FactoryBot.create(:file_attachment) }
 
-      it "does not update draft status of any assets" do
+      it "does not update status of any assets" do
         update_worker.expects(:call).never
+
+        updater.call(attachment_data, link_header: true)
+      end
+    end
+
+    context "when attachment belongs to a draft edition" do
+      let(:edition) { FactoryBot.create(:draft_edition) }
+      let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+      let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
+      let(:parent_document_url) { edition.public_url(draft: true) }
+
+      it "sets parent_document_url for attachment using draft hostname" do
+        update_worker.expects(:call)
+          .with(attachment_data, attachment.file.asset_manager_path, { "parent_document_url" => parent_document_url })
 
         updater.call(attachment_data, link_header: true)
       end
