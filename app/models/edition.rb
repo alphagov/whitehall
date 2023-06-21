@@ -236,7 +236,7 @@ EXISTS (
   SELECT 1
   FROM link_checker_api_report_links
   WHERE link_checker_api_report_id = latest_link_checker_api_reports.id
-    AND link_checker_api_report_links.status != 'ok'
+    AND link_checker_api_report_links.status IN ('broken', 'caution')
 )",
     )
   end

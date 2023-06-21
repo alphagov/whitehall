@@ -200,21 +200,28 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "should filter by broken links" do
-    edition_with_broken_links = create(
+    edition_with_broken_link = create(
       :published_publication,
-      body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A bad link](https://www.gov.uk/bad-link)",
     )
-    edition = create(
+    edition_with_caution_link = create(
       :published_publication,
-      body: "[Good](https://www.gov.uk/good-link)",
     )
-    good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
-    bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
-    another_bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-bad-link", status: "broken")
-    create(:link_checker_api_report, batch_id: 1, link_reportable: edition_with_broken_links, links: [bad_link, another_bad_link])
-    create(:link_checker_api_report, batch_id: 2, link_reportable: edition, links: [good_link])
+    edition_with_ok_link = create(
+      :published_publication,
+    )
+    edition_with_pending_link = create(
+      :published_publication,
+    )
+    broken_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/broken-link", status: "broken")
+    caution_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/caution-link", status: "caution")
+    ok_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/ok-link", status: "ok")
+    pending_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/pending-link", status: "pending")
+    create(:link_checker_api_report, batch_id: 1, link_reportable: edition_with_broken_link, links: [broken_link])
+    create(:link_checker_api_report, batch_id: 2, link_reportable: edition_with_caution_link, links: [caution_link])
+    create(:link_checker_api_report, batch_id: 3, link_reportable: edition_with_ok_link, links: [ok_link])
+    create(:link_checker_api_report, batch_id: 4, link_reportable: edition_with_pending_link, links: [pending_link])
 
-    assert_equal [edition_with_broken_links], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions
+    assert_equal [edition_with_broken_link, edition_with_caution_link], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
   end
 
   test "should return the editions ordered by most recent first" do
