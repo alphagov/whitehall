@@ -1,8 +1,0 @@
-<p class="govuk-body">
-  <%= t("attachment.csv.truncated_message",
-    rows: number_with_delimiter(csv_preview.maximum_rows),
-    columns: number_with_delimiter(csv_preview.maximum_columns))
-  %>
-
-  <%= link_to t("attachment.csv.download") , attachment.url(preview: params[:preview]), class: "govuk-link" %>
-</p>
