@@ -93,6 +93,8 @@ class HtmlAttachment < Attachment
       "/government/consultations/#{attachable.slug}/outcome/#{identifier}"
     when "consultation_public_feedback"
       "/government/consultations/#{attachable.slug}/public-feedback/#{identifier}"
+    when "call_for_evidence_outcome"
+      "/government/calls-for-evidence/#{attachable.slug}/outcome/#{identifier}"
     else
       "/government/#{attachable.path_name.pluralize}/#{attachable.slug}/#{identifier}"
     end
