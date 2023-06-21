@@ -180,13 +180,7 @@ Then(/^I should see the promotional feature item's summary has been updated to "
 end
 
 Then(/^I should no longer see the promotional item$/) do
-  if using_design_system?
-    expect(page).to_not have_selector("h2", text: @promotional_feature.title)
-  else
-    within record_css_selector(@promotional_feature) do
-      expect(page).to_not have_selector(record_css_selector(@promotional_item))
-    end
-  end
+  expect(page).to_not have_selector("h2", text: @promotional_feature.title)
 end
 
 Then(/^I should not be able to add any further feature items$/) do

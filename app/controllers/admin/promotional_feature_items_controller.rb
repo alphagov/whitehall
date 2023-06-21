@@ -3,13 +3,11 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   before_action :load_promotional_feature
   before_action :load_promotional_feature_item, only: %i[edit update destroy confirm_destroy]
   before_action :clean_image_or_youtube_video_url_param, only: %i[create update]
-  layout :get_layout
+  layout "design_system"
 
   def new
     @promotional_feature_item = @promotional_feature.promotional_feature_items.build
     @promotional_feature_item.links.build
-
-    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -19,13 +17,12 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
       redirect_to_feature "Feature item added."
     else
       @promotional_feature_item.links.build if @promotional_feature_item.links.blank?
-      render_design_system("new", "legacy_new")
+      render :new
     end
   end
 
   def edit
     @promotional_feature_item.links.build if @promotional_feature_item.links.empty?
-    render_design_system("edit", "legacy_edit")
   end
 
   def update
@@ -41,7 +38,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
       redirect_to_feature "Feature item updated."
     else
       @promotional_feature_item.links.build if @promotional_feature_item.links.blank?
-      render_design_system("edit", "legacy_edit")
+      render :edit
     end
   end
 
@@ -54,14 +51,6 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   def confirm_destroy; end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])
