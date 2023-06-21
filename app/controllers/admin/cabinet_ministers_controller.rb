@@ -1,14 +1,12 @@
 class Admin::CabinetMinistersController < Admin::BaseController
   before_action :enforce_permissions!
-  layout :get_layout
+  layout "design_system"
 
   def show
     @cabinet_minister_roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)
     @also_attends_cabinet_roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
     @whip_roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
-
-    render_design_system(:show, :legacy_show)
   end
 
   def reorder_cabinet_minister_roles
@@ -37,14 +35,6 @@ class Admin::CabinetMinistersController < Admin::BaseController
 
 private
 
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
-
   def enforce_permissions!
     enforce_permission!(:reorder_cabinet_ministers, MinisterialRole)
   end
@@ -69,34 +59,18 @@ private
   def update_ordering(key, column)
     return unless params.include?(key)
 
-    if get_layout == "design_system"
-      params[key]["ordering"].keys.each do |id|
-        Role.where(id:).update_all("#{column}": params[key]["ordering"][id.to_s])
-      end
-    else
-      params[key].keys.each do |id|
-        Role.where(id:).update_all(
-          column => params[key][id.to_s]["ordering"],
-        )
-      end
+    params[key]["ordering"].keys.each do |id|
+      Role.where(id:).update_all("#{column}": params[key]["ordering"][id.to_s])
     end
   end
 
   def update_organisation_ordering
     return unless params.include?(:organisation)
 
-    if get_layout == "design_system"
-      params[:organisation]["ordering"].each_pair do |id, order|
-        Organisation.where(id:).update_all(
-          ministerial_ordering: order,
-        )
-      end
-    else
-      params[:organisation].each_pair do |id, org_params|
-        Organisation.where(id:).update_all(
-          ministerial_ordering: org_params["ordering"],
-        )
-      end
+    params[:organisation]["ordering"].each_pair do |id, order|
+      Organisation.where(id:).update_all(
+        ministerial_ordering: order,
+      )
     end
   end
 end
