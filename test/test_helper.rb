@@ -229,8 +229,8 @@ class ActionController::TestCase
     stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/links/}).to_return(body: { links: {} }.to_json)
   end
 
-  def login_as(role_or_user)
-    @current_user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user # rubocop:disable Rails/SaveBang
+  def login_as(role_or_user, organisation = nil)
+    @current_user = role_or_user.is_a?(Symbol) ? create(role_or_user, organisation:) : role_or_user
     request.env["warden"] = stub(authenticate!: true, authenticated?: true, user: @current_user)
     AuditTrail.whodunnit = @current_user
     @current_user

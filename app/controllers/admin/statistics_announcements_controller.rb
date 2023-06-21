@@ -3,26 +3,20 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   before_action :find_statistics_announcement, only: %i[show edit update cancel publish_cancellation cancel_reason update_cancel_reason]
   before_action :redirect_to_show_if_cancelled, only: %i[cancel publish_cancellation]
   helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
-  layout :get_layout
+  layout "design_system"
 
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
     @statistics_announcements = @filter.statistics_announcements
-
-    render_design_system("index", "legacy_index")
   end
 
   def show
     @edition_taxons = EditionTaxonsFetcher.new(@statistics_announcement.content_id).fetch
-
-    render_design_system("show", "legacy_show")
   end
 
   def new
     @statistics_announcement = build_statistics_announcement(organisation_ids: [current_user.organisation.try(:id)])
     @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
-
-    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -31,45 +25,39 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement published successfully"
     else
-      render_design_system("new", "legacy_new")
+      render :new
     end
   end
 
-  def edit
-    render_design_system("edit", "legacy_edit")
-  end
+  def edit; end
 
   def update
     @statistics_announcement.assign_attributes(statistics_announcement_params)
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
-      render_design_system("edit", "legacy_edit")
+      render :edit
     end
   end
 
-  def cancel
-    render_design_system("cancel", "legacy_cancel")
-  end
+  def cancel; end
 
   def publish_cancellation
     if @statistics_announcement.cancel!(params[:statistics_announcement][:cancellation_reason], current_user)
       redirect_to [:admin, @statistics_announcement], notice: "Announcement has been cancelled"
     else
-      render_design_system("cancel", "legacy_cancel")
+      render :cancel
     end
   end
 
-  def cancel_reason
-    render_design_system("cancel_reason", "legacy_cancel_reason")
-  end
+  def cancel_reason; end
 
   def update_cancel_reason
     @statistics_announcement.assign_attributes(cancellation_params)
     if @statistics_announcement.save
       redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
-      render_design_system("cancel_reason", "legacy_cancel_reason")
+      render :cancel_reason
     end
   end
 
@@ -155,13 +143,5 @@ private
 
   def unlinked_announcements_filter
     @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: "imminent", unlinked_only: "1", organisation_id: filter_params[:organisation_id])
-  end
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
   end
 end
