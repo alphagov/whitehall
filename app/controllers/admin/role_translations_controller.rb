@@ -5,7 +5,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
 private
 
   def get_layout
-    "admin"
+    "design_system"
   end
 
   def create_redirect_path

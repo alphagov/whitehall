@@ -37,6 +37,6 @@ Feature: Administering Roles
     When I add a new "Español" translation to the role "Her Majesty's Ambassador to Spain" with:
       | name             | Su Majestad Embajador en España           |
       | responsibilities | Retrato del Reino Unido en una buena luz. |
-    Then I should see the role translation "Español" with:
+    Then I should see the role translation "Español (Spanish)" with:
       | name             | Su Majestad Embajador en España           |
       | responsibilities | Retrato del Reino Unido en una buena luz. |
