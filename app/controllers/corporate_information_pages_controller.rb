@@ -5,15 +5,7 @@ class CorporateInformationPagesController < DocumentsController
   def show
     @corporate_information_page = @document
 
-    if @organisation.is_a? WorldwideOrganisation
-      render "show_worldwide_organisation"
-    else
-      render :show
-    end
-  end
-
-  def index
-    @corporate_publications = @organisation.corporate_publications.in_reverse_chronological_order.published
+    render "show_worldwide_organisation"
   end
 
 private
@@ -46,13 +38,6 @@ private
   end
 
   def find_organisation
-    @organisation =
-      if params.key?(:organisation_id)
-        Organisation.friendly.find(params[:organisation_id])
-      elsif params.key?(:worldwide_organisation_id)
-        WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
-      else
-        raise ActiveRecord::RecordNotFound
-      end
+    @organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
   end
 end

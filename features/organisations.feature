@@ -38,12 +38,6 @@ Feature: Administering Organisations
     And a published publication "Charleston styles today" with a PDF attachment and alternative format provider "Ministry of Pop"
     Then the alternative format contact email is "alternative.format@ministry-of-pop.gov.uk"
 
-  Scenario: Organisation pages links to transparency data publications
-    Given the organisation "Cabinet Office" exists
-    Then I cannot see links to Transparency data on the "Cabinet Office" about page
-    When I associate a Transparency data publication to the "Cabinet Office"
-    Then I can see a link to "Transparency data" on the "Cabinet Office" about page
-
   Scenario: deleting an organisation with no children or roles
     Given I am an editor in the organisation "Department of Fun"
     When I delete the organisation "Department of Fun"
