@@ -1,12 +1,12 @@
-<% content_for :context, @person.name %>
+<% content_for :context, @organisation.name %>
 <% content_for :page_title, "Delete #{@translation_locale.native_and_english_language_name} translation" %>
 <% content_for :title, "Delete translation" %>
 <% content_for :title_margin_bottom, 6 %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <%= form_tag admin_person_translation_path(@person, @translation_locale), method: :delete do %>
-      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete the "<%= @translation_locale.native_and_english_language_name %>" translation for "<%= @person.name %>"?</p>
+    <%= form_with url: admin_organisation_translation_path(@organisation, @translation_locale), method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete the "<%= @translation_locale.native_and_english_language_name %>" translation for "<%= @organisation.name %>"?</p>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
@@ -14,7 +14,7 @@
           destructive: true,
         } %>
 
-        <%= link_to("Cancel", admin_person_translations_path(@person), class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Cancel", admin_organisation_translations_path(@organisation), class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </section>

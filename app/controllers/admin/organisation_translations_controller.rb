@@ -2,10 +2,21 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   include TranslationControllerConcern
   layout :get_layout
 
+  def index
+    render_design_system(:index, :legacy_index)
+  end
+
 private
 
   def get_layout
-    "admin"
+    design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 
   def create_redirect_path
