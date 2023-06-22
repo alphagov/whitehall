@@ -6,15 +6,15 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   view_test "show renders the summary as plain text" do
-    @corporate_information_page = create(:corporate_information_page, :published, summary: "Just plain text")
-    get :show, params: { organisation_id: @corporate_information_page.organisation, id: @corporate_information_page.slug }
+    @corporate_information_page = create(:published_worldwide_organisation_corporate_information_page, summary: "Just plain text")
+    get :show, params: { worldwide_organisation_id: @corporate_information_page.worldwide_organisation.id, id: @corporate_information_page.slug }
 
-    assert_select ".description", text: "Just plain text"
+    assert_select "p", text: "Just plain text"
   end
 
   view_test "show renders the body as govspeak" do
-    @corporate_information_page = create(:corporate_information_page, :published, body: "## Title\n\npara1\n\n")
-    get :show, params: { organisation_id: @corporate_information_page.organisation, id: @corporate_information_page.slug }
+    @corporate_information_page = create(:published_worldwide_organisation_corporate_information_page, body: "## Title\n\npara1\n\n")
+    get :show, params: { worldwide_organisation_id: @corporate_information_page.worldwide_organisation.id, id: @corporate_information_page.slug }
 
     assert_select ".body" do
       assert_select "h2", "Title"
@@ -31,99 +31,5 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
 
     assert_select "a[href=?]", worldwide_organisation.public_path
     assert_select "a[href=?]", world_location.public_path
-  end
-
-  view_test "should show links to the alternate languages for a translated organisation" do
-    organisation = create(:organisation, translated_into: [:fr])
-    create(:about_corporate_information_page, organisation:, summary: "organisation-description")
-    get :index, params: { organisation_id: organisation }
-    expected_url = organisation_corporate_information_pages_path(organisation, locale: :fr)
-    assert_select ".available-languages a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
-  end
-
-  view_test "should display published corporate publications on about-us page" do
-    published_corporate_publication = create(:published_corporate_publication)
-    draft_corporate_publication = create(:draft_corporate_publication)
-
-    organisation = create(
-      :organisation,
-      editions: [
-        published_corporate_publication,
-        draft_corporate_publication,
-      ],
-    )
-
-    get :index, params: { organisation_id: organisation }
-
-    assert_select_object(published_corporate_publication)
-    refute_select_object(draft_corporate_publication)
-  end
-
-  test "should display published corporate publications on about-us page in order published" do
-    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse("2011-01-01"))
-    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse("2011-01-03"))
-    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse("2011-01-02"))
-
-    organisation = create(
-      :organisation,
-      editions: [
-        old_published_corporate_publication,
-        new_published_corporate_publication,
-        middle_published_corporate_publication,
-      ],
-    )
-
-    get :index, params: { organisation_id: organisation }
-
-    assert_equal [
-      new_published_corporate_publication,
-      middle_published_corporate_publication,
-      old_published_corporate_publication,
-    ],
-                 assigns(:corporate_publications)
-  end
-
-  view_test "should display link to corporate information pages on about-us page" do
-    organisation = create(:organisation)
-    corporate_information_page = create(:published_corporate_information_page, organisation:)
-    draft_corporate_information_page = create(:corporate_information_page, organisation:, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
-    get :index, params: { organisation_id: organisation }
-    assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page.slug)}']"
-    refute_select "a[href='#{organisation_corporate_information_page_path(organisation, draft_corporate_information_page.slug)}']"
-  end
-
-  view_test "should not display corporate information section on about-us page if there are no corporate publications" do
-    organisation = create(:organisation)
-    get :index, params: { organisation_id: organisation }
-    refute_select "#corporate-information"
-  end
-
-  test "finds unpublishing for a corporate information page" do
-    organisation = create(:organisation)
-    cip = create(:corporate_information_page, :unpublished, organisation:)
-    alternative_url = Plek.website_root
-    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url:)
-
-    get :show, params: { organisation_id: cip.organisation, id: cip.slug }
-    assert_response :redirect
-    assert_redirected_to alternative_url
-  end
-
-  test "unpublishing is specific to the organisation" do
-    organisation = create(:organisation)
-    organisation2 = create(:organisation, slug: "another_organisation")
-    cip = create(:corporate_information_page, :unpublished, organisation:)
-    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url: Plek.website_root)
-    draft_cip = create(:corporate_information_page, organisation: organisation2)
-
-    # Even though the Unpublishing has the same slug as the draft CIP, we should
-    # only find it for the unpublished one.
-    assert_equal draft_cip.slug, cip.unpublishing.slug
-
-    get :show, params: { organisation_id: organisation, id: cip.slug }
-    assert_response :redirect
-
-    get :show, params: { organisation_id: organisation2, id: cip.slug }
-    assert_response 404
   end
 end

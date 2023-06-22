@@ -60,13 +60,6 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 
-    resources :organisations, only: [] do
-      # These aren't rendered but are coupled to Worldwide organisation corporate information pages
-      get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }
-      get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
-    end
-    # End of routes no longer rendered by Whitehall
-
     constraints(AdminRequest) do
       namespace :admin do
         root to: "dashboard#index", via: :get
