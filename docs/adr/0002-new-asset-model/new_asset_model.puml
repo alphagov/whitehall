@@ -1,0 +1,74 @@
+@startuml
+allowmixing
+hide empty description
+hide empty members
+skinparam dpi 300
+
+class Document <<model>>
+
+rectangle "Editions" {
+    abstract Edition <<model>> {
+        state
+    }
+    rectangle "(others)" as othereds
+    Edition <|-- othereds #line:blue;line.bold
+    Edition <|-- Attachable #line:blue;line.bold
+    note on link: several Edition descendants are Attachable
+    abstract Attachable<<concern>>
+}
+
+rectangle "Attachments" {
+  together {
+    abstract Attachment <<model>>
+    class FileAttachment <<model>>
+    rectangle "(other attachments - html, external)" as otheratts
+    Attachment <|-- otheratts #line:blue;line.bold
+    Attachment <|-- FileAttachment #line:blue;line.bold
+  }
+  class AttachmentData <<model>> {
+    carrierwave_file
+  }
+  note right: only for file attachments!
+  Attachment --* AttachmentData
+  note on link: links to attachments from past editions as well
+}
+
+rectangle "Images" {
+  class Image <<model>>
+  class ImageData <<model>> {
+    carrierwave_file
+  }
+  Image --* ImageData
+  note on link: links to images from past editions as well
+}
+
+Edition *-- Image
+
+Document *-- Edition 
+
+Attachable *-- Attachment
+
+class Document {
+    {method} latest_edition
+    {method} live_edition
+}
+
+class Asset {
+  asset_manager_id
+  state
+}
+
+node AssetManager {
+class "Asset" as amAsset {
+  filename
+  legacy_url_path
+  state
+}
+}
+
+Asset .. amAsset: 1:1 relationship based on ID
+
+AttachmentData --* Asset
+ImageData --* Asset
+
+@enduml
