@@ -60,7 +60,7 @@ private
 
   def preview_url
     if csv? && attachable.is_a?(Edition)
-      Plek.asset_root + "/uploads/system/uploads/attachment_data/file/#{attachment_data.id}/#{filename}/preview"
+      Plek.asset_root + "/government/uploads/system/uploads/attachment_data/file/#{attachment_data.id}/#{filename}/preview"
     end
   end
 
