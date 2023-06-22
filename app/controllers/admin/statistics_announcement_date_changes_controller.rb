@@ -2,12 +2,10 @@ class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
   before_action :set_release_date_params
   before_action :find_statistics_announcement
   before_action :redirect_to_announcement_if_cancelled
-  layout :get_layout
+  layout "design_system"
 
   def new
     @statistics_announcement_date_change = build_date_change
-
-    render_design_system("new", "legacy_new")
   end
 
   def create
@@ -16,7 +14,7 @@ class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
     if @statistics_announcement_date_change.save
       redirect_to [:admin, @statistics_announcement], notice: "Release date changed"
     else
-      render_design_system("new", "legacy_new")
+      render :new
     end
   end
 
@@ -48,14 +46,6 @@ private
       attributes[:confirmed] = true
     elsif attributes[:confirmed].blank?
       attributes[:confirmed] = false
-    end
-  end
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
     end
   end
 end

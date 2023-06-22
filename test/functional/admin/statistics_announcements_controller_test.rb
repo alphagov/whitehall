@@ -5,7 +5,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
   setup do
     @organisation = create(:organisation)
-    @user = login_as_preview_design_system_user :gds_editor, @organisation
+    @user = login_as :gds_editor, @organisation
     stub_taxonomy_with_world_taxons
   end
 
@@ -35,7 +35,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "GET :index handles users without an organisation" do
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
     get :index
 
     assert_response :success
@@ -207,7 +207,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
       organisations: [dfe_organisation],
     )
 
-    login_as_preview_design_system_user(:user)
+    login_as(:user)
 
     announcement_has_no_expanded_links(announcement.content_id)
     get :show, params: { id: announcement }
@@ -223,7 +223,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
       organisations: [sfa_organisation],
     )
 
-    login_as_preview_design_system_user(:user)
+    login_as(:user)
 
     announcement_has_no_expanded_links(announcement.content_id)
     get :show, params: { id: announcement }
@@ -240,7 +240,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
       organisations: [sfa_organisation],
     )
 
-    login_as_preview_design_system_user(:user)
+    login_as(:user)
 
     announcement_has_expanded_links(announcement.content_id)
 

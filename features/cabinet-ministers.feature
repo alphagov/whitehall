@@ -1,4 +1,3 @@
-@design-system-only
 Feature: Reordering of Cabinet ministers and Organisations
   As a GDS editor
   I want to be able to able to view and reorder Cabinet minsters and Organisations

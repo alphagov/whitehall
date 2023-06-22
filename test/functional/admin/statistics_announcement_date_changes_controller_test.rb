@@ -3,7 +3,7 @@ require "test_helper"
 class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController::TestCase
   setup do
     Timecop.travel(1.day.ago) do
-      @user = login_as_preview_design_system_user(:gds_editor)
+      @user = login_as(:gds_editor)
       @organisation = create(:organisation)
       @announcement = create(:statistics_announcement)
     end

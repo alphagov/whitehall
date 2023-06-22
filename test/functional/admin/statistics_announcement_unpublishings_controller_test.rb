@@ -4,7 +4,7 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
   include GdsApi::TestHelpers::PublishingApi
 
   setup do
-    @user = login_as_preview_design_system_user(:gds_editor)
+    @user = login_as(:gds_editor)
     @announcement = create(:statistics_announcement)
   end
 

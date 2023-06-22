@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController::TestCase
   setup do
-    @user = login_as_preview_design_system_user(:gds_editor)
+    @user = login_as(:gds_editor)
     @official_statistics_announcement = create(:statistics_announcement)
     @official_statistics_publication = create(:published_statistics)
     @title = "publication-title"
