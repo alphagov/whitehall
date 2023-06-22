@@ -8,7 +8,7 @@ module AttachmentsHelper
   end
 
   def preview_path_for_attachment(attachment)
-    "/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/#{attachment.filename}/preview"
+    "/government/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/#{attachment.filename}/preview"
   end
 
   def block_attachments(attachments = [],
