@@ -6,6 +6,7 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
   setup do
     login_as :writer
     @current_user.permissions << "Preview design system"
+    @current_user.permissions << User::Permissions::PREVIEW_CALL_FOR_EVIDENCE
     CallForEvidenceResponseForm.any_instance.stubs(:call_for_evidence_participation).returns(stub(call_for_evidence: stub(auth_bypass_id: "auth bypass id")))
   end
 

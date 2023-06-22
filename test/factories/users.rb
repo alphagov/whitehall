@@ -97,6 +97,18 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait(:with_preview_call_for_evidence) do
+      permissions do
+        [
+          User::Permissions::SIGNIN,
+          User::Permissions::GDS_EDITOR,
+          User::Permissions::GDS_ADMIN,
+          User::Permissions::PREVIEW_DESIGN_SYSTEM,
+          User::Permissions::PREVIEW_CALL_FOR_EVIDENCE,
+        ]
+      end
+    end
   end
 
   factory :gds_editor, parent: :user do
