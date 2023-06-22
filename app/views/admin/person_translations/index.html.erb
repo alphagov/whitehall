@@ -32,14 +32,14 @@
             }
           ],
           rows: @person.non_english_translated_locales.map do |locale|
-            native_language_name = Locale.coerce(locale).native_language_name
             [
               {
-                text: sanitize("#{locale.native_language_name} " + link_to("(view)", @person.public_url(locale: locale.code), class: "govuk-link"))
+                text: locale.native_and_english_language_name
               },
               {
-                text: sanitize("<a class='govuk-link' href='#{edit_admin_person_translation_path(@person, locale.code)}'>Edit <span class='govuk-visually-hidden'>#{native_language_name}</span></a>" +
-                  "<a class='govuk-link gem-link--destructive govuk-!-margin-left-2' href='#{confirm_destroy_admin_person_translation_path(@person, locale.code)}'>Delete <span class='govuk-visually-hidden'>#{native_language_name}</span></a>"),
+                text: link_to(sanitize("View #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), @person.public_url(locale: locale.code), class: "govuk-link") +
+                  link_to(sanitize("Edit #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), edit_admin_person_translation_path(@person, locale.code), class: "govuk-link govuk-!-margin-left-2") +
+                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_person_translation_path(@person, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")
               }
             ]
           end
