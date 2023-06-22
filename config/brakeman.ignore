@@ -139,6 +139,50 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
+      "fingerprint": "88bf895310ec806b3cae893afd1d5cf218e26bdc50978d7041bd761c1460f989",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/admin/editions/show/_main.html.erb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"Preview on website #{if Edition.find(params[:edition_id]).translatable? and Edition.find(params[:edition_id]).available_in_multiple_languages? then\n  \"- English\"\nend} (opens in new tab)\".strip, Edition.find(params[:edition_id]).public_url(:draft => true, :locale => Edition.find(params[:edition_id]).primary_locale), :class => \"govuk-link\", :target => \"_blank\", :data => ({ :module => \"gem-track-click\", :\"track-category\" => \"button-clicked\", :\"track-action\" => (\"#{Edition.find(params[:edition_id]).model_name.singular.dasherize}-button\"), :\"track-label\" => \"Preview on website\" }))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::EditionsController",
+          "method": "show",
+          "line": 76,
+          "file": "app/controllers/admin/editions_controller.rb",
+          "rendered": {
+            "name": "admin/editions/show",
+            "file": "app/views/admin/editions/show.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "admin/editions/show",
+          "line": 13,
+          "file": "app/views/admin/editions/show.html.erb",
+          "rendered": {
+            "name": "admin/editions/show/_main",
+            "file": "app/views/admin/editions/show/_main.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/editions/show/_main"
+      },
+      "user_input": "Edition.find(params[:edition_id]).public_url(:draft => true, :locale => Edition.find(params[:edition_id]).primary_locale)",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
       "fingerprint": "b40740e859dd6e295b630652ea4773ee5a5af7a7a0e390e160b22d1e48ab1e7e",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
@@ -417,6 +461,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-06-22 10:21:42 +0100",
-  "brakeman_version": "5.3.1"
+  "updated": "2023-06-22 15:11:46 +0000",
+  "brakeman_version": "6.0.0"
 }
