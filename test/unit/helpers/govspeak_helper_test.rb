@@ -462,6 +462,29 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".govspeak h2", text: "A heading", count: 1
   end
 
+  test "HTML attachments cannot embed attachments from their parent edition" do
+    body = <<~MARKDOWN
+      Every way to embed an attachment:
+
+      [InlineAttachment:1]
+      [AttachmentLink:sample.csv]
+      !@1
+      [Attachment:sample.csv]
+    MARKDOWN
+
+    create(
+      :published_publication,
+      attachments: [
+        build(:file_attachment, file: upload_fixture("sample.csv", "text/csv")),
+        html_attachment = build(:html_attachment, body:),
+      ],
+      alternative_format_provider: build(:organisation, :with_alternative_format_contact_email),
+    )
+
+    html = govspeak_html_attachment_to_html(html_attachment)
+    assert_equivalent_html '<div class="govspeak"><p>Every way to embed an attachment:</p></div>', html
+  end
+
 private
 
   def collapse_whitespace(string)
