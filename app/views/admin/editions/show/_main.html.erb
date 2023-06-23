@@ -5,21 +5,15 @@
     </div>
 
     <div>
-      <%=
-        status_text = [@edition.state.capitalize]
-        # TODO: remove unpublishing information once we have a separate state for unpublished editions
-        status_text << "(unpublished #{time_ago_in_words(@edition.unpublishing.created_at)} ago)" if @edition.unpublishing.present?
-
-        render "govuk_publishing_components/components/summary_list", {
-          borderless: true,
-          items: [
-            { field: "Type of document", value: edition_type(@edition) },
-            { field: "Status", value: status_text.join(' ') },
-            { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
-            *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
-          ]
-        }
-      %>
+      <%= render "govuk_publishing_components/components/summary_list", {
+        borderless: true,
+        items: [
+          { field: "Type of document", value: edition_type(@edition) },
+          { field: "Status", value: status_text(@edition) },
+          { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
+          *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
+        ]
+      } %>
     </div>
 
     <% if @edition.non_english_edition? %>
@@ -32,7 +26,7 @@
   <%= render partial: 'admin/editions/show/main_notices', locals: { edition: @edition } %>
 
   <section class="app-view-summary__section">
-    <% if not @edition.publicly_visible? %>
+    <% if !@edition.publicly_visible? && @edition.versioning_completed? %>
       <%= render "govuk_publishing_components/components/heading", {
         text: "Preview",
         heading_level: 2,
@@ -97,6 +91,17 @@
           <% end %>
         <% end %>
       <% end %>
+    <% elsif !@edition.publicly_visible? && !@edition.versioning_completed? %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Preview",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "To see the changes and share a document preview link, add a change note or mark the change type to minor."
+      } %>
     <% end %>
   </section>
 

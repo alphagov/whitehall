@@ -930,6 +930,34 @@ class EditionTest < ActiveSupport::TestCase
     end
   end
 
+  test "#versioning_completed? returns true if change note is not required" do
+    edition = build(:edition, change_note: nil, minor_change: false)
+    edition.stubs(:change_note_required?).returns(false)
+
+    assert edition.versioning_completed?
+  end
+
+  test "#versioning_completed? returns true when a change note is present" do
+    edition = build(:edition, change_note: "This is a change.", minor_change: false)
+    edition.stubs(:change_note_required?).returns(true)
+
+    assert edition.versioning_completed?
+  end
+
+  test "#versioning_completed? returns true when edition is minor version" do
+    edition = build(:edition, minor_change: true)
+    edition.stubs(:change_note_required?).returns(true)
+
+    assert edition.versioning_completed?
+  end
+
+  test "#versioning_completed? returns false when change note is blank and not a minor version" do
+    edition = build(:edition, change_note: nil, minor_change: false)
+    edition.stubs(:change_note_required?).returns(true)
+
+    assert_not edition.versioning_completed?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
