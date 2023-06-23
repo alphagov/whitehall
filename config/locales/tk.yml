@@ -21,6 +21,15 @@ tk:
         nation_inapplicabilities: Aýrylan milletler
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Goşulan faýl
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Goşundy buýruk kagyz belgisi
         hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
@@ -39,6 +48,22 @@ tk:
       title: Goşundy ady
       unique_reference: Goşundy ýeketäk salgylanmasy
       unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ tk:
     caution:
       subheading: Biz baglanyşyklara degişli käbir meseleleri ýüze çykardyk, olardan peýdalanylanda seresap bolmaly
     title: Döwülen baglanyşyklar
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Ýapyk
     closing_today: Şu gün ýapylýar
@@ -147,6 +177,12 @@ tk:
       blog_post:
         one: Blog ýazgysy
         other: Blog ýazgylary
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kompaniýa
         other: Kompaniýalar
@@ -156,6 +192,9 @@ tk:
       case_study:
         one: Ýagdaý seljermesi
         other: Ýagdaý seljermeleri
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Ýapyk maslahat
         other: Ýapyk maslahatlar
@@ -258,6 +297,9 @@ tk:
       official_statistics:
         one: Resmi statistika
         other: Resmi statistika
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Açyk maslahat
         other: Açyk maslahatlar
@@ -459,7 +501,10 @@ tk:
   see_all:
     announcement: Biziň ähli bildirişlerimize serediň
     authored_article: Biziň ähli ygtyýarlandyrylan statýalarymyza serediň
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Biziň ähli ýagdaý seljermelerimize serediň
+    closed_call_for_evidence:
     closed_consultation: Biziň ähli ýapyk maslahatlarymyza serediň
     consultation: Biziň ähli maslahatlarymyza serediň
     consultation_outcome: Biziň ähli maslahat netijelerimize serediň
@@ -482,6 +527,7 @@ tk:
     news_article: Biziň ähli habar makalalarymyza serediň
     news_story: Biziň ähli habarlarymyza serediň
     notice: Biziň ähli belliklerimize serediň
+    open_call_for_evidence:
     open_consultation: Biziň ähli açyk maslahatlarymyza serediň
     oral_statement: Biziň ähli Mejlise edilen dilden beýanlarymyza serediň
     policy: Biziň ähli syýasatymyza serediň

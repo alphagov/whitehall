@@ -21,6 +21,15 @@ be:
         nation_inapplicabilities: Выключаныя краіны
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Укладзены файл
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Нумар дакумента каманды дадатку
         hoc_paper_number: Нумар дакумента Палаты абшчын
@@ -39,6 +48,22 @@ be:
       title: Загаловак дадатку
       unique_reference: Унікальная спасылка на дадатак
       unnumbered_hoc_paper: Ненумераваны дакумент Палаты абшчын
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: "Калі вы выкарыстоўваеце дапаможную праграму (напрыклад, праграму для чытання з экрана) і вам патрэбна версія гэтага дакумента ў больш даступным фармаце, то калі ласка напішыце на  электронную пошту %{email}. \nКалі ласка, скажыце нам, які фармат вам патрэбны. Нам таксама дапаможа, калі вы назавеце, якую дапаможную праграму вы выкарыстоўваеце."
@@ -66,6 +91,11 @@ be:
     caution:
       subheading: Мы выявілі некаторыя праблемы са спасылкамі, якія могуць паказваць на праблемы, вам варта праяўляць асцярожнасць пры спасылках на іх
     title: Непрацуючыя спасылкі
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Закрыты
     closing_today: Зачыняецца сёння
@@ -161,6 +191,16 @@ be:
         many:
         one: Публікацыя ў блогу
         other: Публікацыі ў блогу
+      call_for_evidence:
+        few:
+        many:
+        one:
+        other:
+      call_for_evidence_outcome:
+        few:
+        many:
+        one:
+        other:
       campaign:
         few:
         many:
@@ -176,6 +216,11 @@ be:
         many:
         one: Тэматычнае даследаванне
         other: Тэматычныя даследаванні
+      closed_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
       closed_consultation:
         few:
         many:
@@ -346,6 +391,11 @@ be:
         many:
         one: Афіцыйная статыстыка
         other: Афіцыйная статыстыка
+      open_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
       open_consultation:
         few:
         many:
@@ -609,7 +659,10 @@ be:
   see_all:
     announcement: Паглядзець усе Аб'явы
     authored_article: Паглядзець усе Аўтарскія артыкулы
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Паглядзець усе Тэматычныя даследаванні
+    closed_call_for_evidence:
     closed_consultation: Паглядзець усе Закрытыя кансультацыі
     consultation: Паглядзець усе Кансультацыі
     consultation_outcome: Паглядзець усе Вынікі кансультацыі
@@ -632,6 +685,7 @@ be:
     news_article: Паглядзець усе Артыкулы
     news_story: Паглядзець усе Навіны
     notice: Паглядзець усе Паведамленнi
+    open_call_for_evidence:
     open_consultation: Паглядзець усе Адкрытыя кансультацыі
     oral_statement: Паглядзець усе Вусныя заявы ў парламенце
     policy: Паглядзець усе Напрамкі дзейнасці

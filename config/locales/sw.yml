@@ -21,6 +21,15 @@ sw:
         nation_inapplicabilities: Mataifa yaliyotengwa
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Faili iliyoambatishwa
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Nambari ya hati ya amri ya kiambatisho
         hoc_paper_number: Nambari ya hati ya House of Commons
@@ -39,6 +48,22 @@ sw:
       title: Jina la kiambatisho
       unique_reference: Nambari maalum ya marejeleo ya kiambatisho
       unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ sw:
     caution:
       subheading: Tumepata matatizo kwenye viungo ambayo huenda yanaashiria hatari, unapaswa kutahadhari unapovibofya
     title: Viungo ambavyo havijakamilika
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Imefungwa
     closing_today: Inafungwa leo
@@ -147,6 +177,12 @@ sw:
       blog_post:
         one: Chapisho kwenye blogu
         other: Machapisho kwenye blogu
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampeni
         other: Kampeni
@@ -156,6 +192,9 @@ sw:
       case_study:
         one: Uchunguzi kifani
         other: Uchunguzi kifani
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Mashauriano ya watu wachache
         other: Mashauriano ya watu wachache
@@ -258,6 +297,9 @@ sw:
       official_statistics:
         one: Takwimu Rasmi
         other: Takwimu Rasmi
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Mashauriano ya watu wengi
         other: Mashauriano ya watu wengi
@@ -459,7 +501,10 @@ sw:
   see_all:
     announcement: Angalia matangazo yetu yote
     authored_article: Angalia makala yetu yote yaliyo na maelezo ya mwandishi
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Angalia uchunguzi kifani wetu wote
+    closed_call_for_evidence:
     closed_consultation: Angalia mashauriano yetu yote ya watu wachache
     consultation: Angalia mashauriano yetu yote
     consultation_outcome: Angalia matokeo ya mashauriano yetu yote
@@ -482,6 +527,7 @@ sw:
     news_article: Angalia makala yetu yote ya habari
     news_story: Angalia taarifa zetu zote za habari
     notice: Angalia notisi zetu zote
+    open_call_for_evidence:
     open_consultation: Angalia mashauriano yetu yote ya watu wengi
     oral_statement: Angalia taarifa zetu za matamshi kwa Bunge
     policy: Angalia sera zetu zote

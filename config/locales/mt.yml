@@ -21,6 +21,15 @@ mt:
         nation_inapplicabilities: Nazzjonijiet esklużi
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Il-fajl anness
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Numru tal-anness tad-dokument tal-kmand
         hoc_paper_number: Numru tad-dokument tal-House of Commons
@@ -39,6 +48,22 @@ mt:
       title: Titlu tal-anness
       unique_reference: Referenza unika tal-anness
       unnumbered_hoc_paper: Dokument mhux innumerat tal-House of Commons
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: "Jekk tuża teknoloġija assistiva (bħal qarrej ta' skrin) u għandek bżonn verżjoni ta' dan id-dokument f'format iktar aċċessibbli, jekk jogħġbok ibgħat imejl %{email}. \nJekk jogħġbok igħidilna x'format għandek bżonn.  Ser jgħinna jekk tgħidilna x'teknoloġija assistiva qed tuża'.\n"
@@ -66,6 +91,11 @@ mt:
     caution:
       subheading: Sibna xi affarijiet fil-links li jistgħu jindikaw problemi, oqgħod attent meta tagħmel link magħhom
     title: Links maqsuma
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Magħluq
     closing_today: Magħluq illum
@@ -161,6 +191,16 @@ mt:
         many:
         one: Blog post
         other: Blog posts
+      call_for_evidence:
+        few:
+        many:
+        one:
+        other:
+      call_for_evidence_outcome:
+        few:
+        many:
+        one:
+        other:
       campaign:
         few:
         many:
@@ -176,6 +216,11 @@ mt:
         many:
         one: Studju ta' Każ
         other: Studju ta' każijiet
+      closed_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
       closed_consultation:
         few:
         many:
@@ -346,6 +391,11 @@ mt:
         many:
         one: Statistiċi uffiċjali
         other: Statistiċi uffiċjali
+      open_call_for_evidence:
+        few:
+        many:
+        one:
+        other:
       open_consultation:
         few:
         many:
@@ -609,7 +659,10 @@ mt:
   see_all:
     announcement: Ara l-avviżi tagħna kollha
     authored_article: Ara l-artikli tagħna kollha li ktibna
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Ara l-istudji dwar il-każi tagħna kollha
+    closed_call_for_evidence:
     closed_consultation: Ara l-konsultazzjonijiet magħluqa tagħna kollha
     consultation: Ara l-konsultazzjonijiet tagħna kollha
     consultation_outcome: Ara r-riżultati tal-konsultazzjoni tagħna
@@ -632,6 +685,7 @@ mt:
     news_article: Ara l-artikli bl-aħbarijiet tagħna kollha
     news_story: Ara l-istejjer bl-aħbarijiet tagħna kollha
     notice: Ara l-avviżi tagħna kollha
+    open_call_for_evidence:
     open_consultation: Ara l-konsultazzjonijiet miftuħa tagħna kollha
     oral_statement: Ara d-dikjarazzjonijiet verbali tagħna kollha lill-Parlament
     policy: Ara l-politiki tagħna kollha

@@ -21,6 +21,15 @@ lv:
         nation_inapplicabilities: Neietvertās valstis
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Pievienotais fails
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Pievienotā Parlamentam iesniegtā dokumenta numurs
         hoc_paper_number: Pārstāvju palātas dokumenta numurs
@@ -39,6 +48,22 @@ lv:
       title: Pielikuma nosaukums
       unique_reference: Pielikuma unikālā atsauce
       unnumbered_hoc_paper: Pārstāvju palātas dokuments bez numura
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā, kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
@@ -66,6 +91,11 @@ lv:
     caution:
       subheading: Tika konstatētas problēmas ar saitēm, tāpēc ieteicams ievērot piesardzību, veidojot savienojumus uz tām
     title: Bojātas saites
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Aizvērts
     closing_today: Aizveras šodien
@@ -145,6 +175,12 @@ lv:
       blog_post:
         one: Emuāra ziņa
         other: Emuāra ziņas
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampaņa
         other: Kampaņas
@@ -154,6 +190,9 @@ lv:
       case_study:
         one: Piemērs
         other: Piemēri
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Slēgta tipa konsultācija
         other: Slēgta tipa konsultācijas
@@ -256,6 +295,9 @@ lv:
       official_statistics:
         one: Statistika
         other: Statistika
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Atklāta konsultācija
         other: Atklātas konsultācijas
@@ -457,7 +499,10 @@ lv:
   see_all:
     announcement: Skatīt visas paziņojumi
     authored_article: Skatīt visas autora raksti
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Skatīt visas piemēri
+    closed_call_for_evidence:
     closed_consultation: Skatīt visas slēgta tipa konsultācijas
     consultation: Skatīt visas konsultācijas
     consultation_outcome: Skatīt visas konsultāciju rezultāti
@@ -480,6 +525,7 @@ lv:
     news_article: Skatīt visas raksti
     news_story: Skatīt visas ziņas
     notice: Skatīt visus paziņojumus
+    open_call_for_evidence:
     open_consultation: Skatīt visas atklātas konsultācijas
     oral_statement: Skatīt visas mutiski paziņojumi parlamentam
     policy: Skatīt visas darbības jomas

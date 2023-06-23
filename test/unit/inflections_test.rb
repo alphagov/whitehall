@@ -17,4 +17,19 @@ class InflectionsTest < ActiveSupport::TestCase
     assert_equal "Foreign Secretaries", "Foreign Secretary".pluralize
     assert_equal "Cabinet Secretaries", "Cabinet Secretary".pluralize
   end
+
+  test "Call for evidence pluralises correctly" do
+    assert_equal "Calls for evidence", "Call for evidence".pluralize
+    assert_equal "calls_for_evidence", "call_for_evidence".pluralize
+  end
+
+  test "Call for evidence singularize correctly" do
+    assert_equal "Call for evidence", "Calls for evidence".singularize
+    assert_equal "call_for_evidence", "calls_for_evidence".singularize
+  end
+
+  test "Should not pluralize any other 'call' terms" do
+    assert_equal "Callings", "Calling".pluralize
+    assert_equal "callings", "calling".pluralize
+  end
 end

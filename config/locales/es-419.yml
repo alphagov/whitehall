@@ -21,6 +21,15 @@ es-419:
         nation_inapplicabilities: Países excluidos
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: El archivo adjunto
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Número del documento de pedido adjunto
         hoc_paper_number: Número del documento de la Cámara de los Comunes
@@ -39,6 +48,22 @@ es-419:
       title: Título del anexo
       unique_reference: Referencia única del adjunto
       unnumbered_hoc_paper: Documento no numerado de la Cámara de los Comunes
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ es-419:
     caution:
       subheading: Hemos encontrado algunos problemas con los enlaces que pueden indicar problemas, debe tener precaución al acceder a ellos
     title: Enlaces rotos
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Cerrado
     closing_today: Cierra hoy
@@ -148,6 +178,12 @@ es-419:
       blog_post:
         one: Entrada del blog
         other: Entradas del blog
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Campaña
         other: Campañas
@@ -157,6 +193,9 @@ es-419:
       case_study:
         one: Estudio de caso
         other: Estudios de caso
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Consulta restringida
         other: Consultas restringidas
@@ -259,6 +298,9 @@ es-419:
       official_statistics:
         one: Estadísticas Oficiales
         other: Estadísticas Oficiales
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Consulta pública
         other: Consultas públicas
@@ -460,7 +502,10 @@ es-419:
   see_all:
     announcement: Ver todos los anuncios
     authored_article: Ver todos los artículos de autoría
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Ver todos los estudios de casos
+    closed_call_for_evidence:
     closed_consultation: Ver todas las consultas cerradas
     consultation: Ver todas las consultas
     consultation_outcome: Ver todos los resultados de nuestras consultas
@@ -483,6 +528,7 @@ es-419:
     news_article: Ver todos los artículos de noticias
     news_story: Ver todos los reportajes
     notice: Ver todos los avisos
+    open_call_for_evidence:
     open_consultation: Ver todas las consultas abiertas
     oral_statement: Ver todas las declaraciones orales ante el Parlamento
     policy: Ver todas nuestras políticas

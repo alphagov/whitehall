@@ -21,6 +21,15 @@ so:
         nation_inapplicabilities: Aanay ku jirin qaramadu
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Faylka lifaaqa
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Lifaaqa lambarka warqada amarka
         hoc_paper_number: lambarka warqada guriga Commons
@@ -39,6 +48,22 @@ so:
       title: Cinwaanka lifaaqa
       unique_reference: Tixraaca gaarka ah ee lifaaqa
       unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ so:
     caution:
       subheading: Waxaan helnay arimaha qaar linkiyadooda kaasoo dhib muujinaya, waa inaad ka taxadartaa marka aad ka codsanayso linki iyaga
     title: Linkiyada la jabsaday
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Xidhan
     closing_today: Xidhan maanta
@@ -147,6 +177,12 @@ so:
       blog_post:
         one: Qoraalka boga
         other: Qoraalada boga
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Xayaysiiska
         other: Xayaysiisyada
@@ -156,6 +192,9 @@ so:
       case_study:
         one: Daraasad
         other: Daraasado
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Latalin Xidhan
         other: Latalino xidhan
@@ -258,6 +297,9 @@ so:
       official_statistics:
         one: Tirokoobka rasmiga ah
         other: Tirokoobka rasmiga ah
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Latalin furan
         other: Latalino furan
@@ -459,7 +501,10 @@ so:
   see_all:
     announcement: Eeg dhamaan ku dhawaaqisahayaga
     authored_article: Eeg dhamaan qoraalaada la ogalyahay
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Eeg dhamaan cilmi baadhisahayaga
+    closed_call_for_evidence:
     closed_consultation: Eeg dhamaan latilinahayaga dhaw
     consultation: Eeg dhamaan la talinahayaga oo dhan
     consultation_outcome: Eeg dhamaan maxsuulada la talinahayaga oo dhan
@@ -482,6 +527,7 @@ so:
     news_article: Eeg dhamaan qoraalaada wararka
     news_story: Eeg dhamaan sheekoyinkayaga wararka
     notice: Eeg dhamaan ogaysiisyadaya
+    open_call_for_evidence:
     open_consultation: Eeg dhamaan latilinahayaga furan
     oral_statement: Eeg dhammaan hadalada aan afka u sheegnay ee Baarlamaanka
     policy: Eeg dhamaan siyaasadahayaga

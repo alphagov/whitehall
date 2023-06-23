@@ -21,6 +21,15 @@ tr:
         nation_inapplicabilities: Hariç tutulan uluslar
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Ekli dosya
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Ek komutu evrak numarası
         hoc_paper_number: Avam Kamarası evrak numarası
@@ -39,6 +48,22 @@ tr:
       title: Ek başlığı
       unique_reference: Ek benzersiz referans
       unnumbered_hoc_paper: Sayı Verilmemiş Avam Kamarası evrakı
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ tr:
     caution:
       subheading: Linklerde problem göstergesi olabilecek bazı sorunlar bulduk, bunlara bağlantı kurarken dikkatli olmalısınız
     title: Kırık linkler
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Kapatılan
     closing_today: Bugün kapanıyor
@@ -147,6 +177,12 @@ tr:
       blog_post:
         one: Blog gönderisi
         other: Blog gönderileri
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampanya
         other: Kampanyalar
@@ -156,6 +192,9 @@ tr:
       case_study:
         one: Vaka incelemesi
         other: Vaka incelemeleri
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Kapalı danışma
         other: Kapalı danışmalar
@@ -258,6 +297,9 @@ tr:
       official_statistics:
         one: Resmi İstatistikler
         other: Resmi İstatistikler
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Açık danışma
         other: Açık danışmalar
@@ -459,7 +501,10 @@ tr:
   see_all:
     announcement: Tüm duyurularımıza bakın
     authored_article: Tüm yazar makalelerimize bakın
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Tüm vaka incelemelerimize bakın
+    closed_call_for_evidence:
     closed_consultation: Tüm tamamlanan danışmalarımıza bakın
     consultation: Tüm danışmalarımıza bakın
     consultation_outcome: Tüm danışma sonuçlarımıza bakın
@@ -482,6 +527,7 @@ tr:
     news_article: Tüm haber makalelerimize bakın
     news_story: Tüm haber hikayelerimize bakın
     notice: Tüm bildirimlerimize bakın
+    open_call_for_evidence:
     open_consultation: Tüm tamamlanan danışmalarımıza bakın
     oral_statement: Parlamentoya tüm sözlü açıklamalarımıza bakın
     policy: Tüm politikalarımıza bakın

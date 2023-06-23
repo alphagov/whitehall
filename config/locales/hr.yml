@@ -21,6 +21,15 @@ hr:
         nation_inapplicabilities: Isključene nacije
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Datoteka u privitku
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Broj papira naredbe za privitak
         hoc_paper_number: Broj papira Donjeg doma
@@ -39,6 +48,22 @@ hr:
       title: Naslov privitka
       unique_reference: Jedinstvena referenca privitka
       unnumbered_hoc_paper: Nebrojeni papir Donjeg doma
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |-
@@ -69,6 +94,11 @@ hr:
     caution:
       subheading: Otkrili smo neke probleme s vezama koji mogu ukazivati na probleme. Morate biti oprezni pri povezivanju s njima
     title: Neispravni linkovi
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Zatvoreno
     closing_today: Zatvara se danas
@@ -156,6 +186,14 @@ hr:
         few:
         one: Postavka bloga
         other: Postavke bloga
+      call_for_evidence:
+        few:
+        one:
+        other:
+      call_for_evidence_outcome:
+        few:
+        one:
+        other:
       campaign:
         few:
         one: Kampanja
@@ -168,6 +206,10 @@ hr:
         few:
         one: Studija slučaja
         other: Studije slučaja
+      closed_call_for_evidence:
+        few:
+        one:
+        other:
       closed_consultation:
         few:
         one: Zatvorena konzultacija
@@ -304,6 +346,10 @@ hr:
         few:
         one: Službena statistika
         other: Službene statistike
+      open_call_for_evidence:
+        few:
+        one:
+        other:
       open_consultation:
         few:
         one: Otvorena konzultacija
@@ -536,7 +582,10 @@ hr:
   see_all:
     announcement: Pogledajte sve naše obavijesti
     authored_article: Pogledajte sve naše autorske članke
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Pogledajte sve naše studije slučaja
+    closed_call_for_evidence:
     closed_consultation: Pogledajte sve naše zatvorene konzultacije
     consultation: Pogledajte sve naše konzultacije
     consultation_outcome: Pogledajte sve naše rezultate konzultacija
@@ -559,6 +608,7 @@ hr:
     news_article: Pogledajte sve naše članke
     news_story: Pogledajte sve naše vijesti
     notice: Pogledajte sve naše obavijesti
+    open_call_for_evidence:
     open_consultation: Pogledajte sve naše otvorene konzultacije
     oral_statement: Pogledajte sve naše usmene izjave Parlamentu
     policy: Pogledajte sva naša pravila

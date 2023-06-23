@@ -21,6 +21,15 @@ el:
         nation_inapplicabilities: Αποκλεισμένα έθνη
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Το συνημμένο αρχείο
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Αριθμός συνημμένου εγγράφου εντολής
         hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
@@ -39,6 +48,22 @@ el:
       title: Τίτλος συνημμένου
       unique_reference: Μοναδική αναφορά συνημμένου
       unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ el:
     caution:
       subheading: Βρήκαμε ορισμένα προβλήματα με τους συνδέσμους που μπορεί να ενέχουν κίνδυνο. Θα πρέπει να είστε προσεκτικοί κατά τη σύνδεση σε αυτούς
     title: Σπασμένοι σύνδεσμοι
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Κλειστό
     closing_today: Κλείνει σήμερα
@@ -147,6 +177,12 @@ el:
       blog_post:
         one: Ανάρτηση ιστολογίου
         other: Αναρτήσεις ιστολογίου
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Καμπάνια
         other: Καμπάνιες
@@ -156,6 +192,9 @@ el:
       case_study:
         one: Μελέτη περίπτωσης
         other: Μελέτες περιπτώσεων
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Κλειστή διαβούλευση
         other: Κλειστές διαβουλεύσεις
@@ -258,6 +297,9 @@ el:
       official_statistics:
         one: Επίσημη Στατιστικά Στοιχεία
         other: Επίσημη Στατιστικά Στοιχεία
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Ανοιχτή διαβούλευση
         other: Ανοιχτές διαβουλεύσεις
@@ -459,7 +501,10 @@ el:
   see_all:
     announcement: Δείτε όλες τις ανακοινώσεις
     authored_article: Δείτε όλα τα άρθρα
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Δείτε όλες τις μελέτες περιπτώσεων
+    closed_call_for_evidence:
     closed_consultation: Δείτε όλες τις κλειστές διαβουλεύσεις
     consultation: Δείτε όλες τις διαβουλεύσεις
     consultation_outcome: Δείτε όλα τα αποτελέσματα της διαβούλευσης
@@ -482,6 +527,7 @@ el:
     news_article: Δείτε όλα τα άρθρα ειδήσεων
     news_story: Δείτε όλες τις ειδήσεις
     notice: Δείτε όλες τις ειδοποιήσεις
+    open_call_for_evidence:
     open_consultation: Δείτε όλες τις ανοιχτές διαβουλεύσεις
     oral_statement: Δείτε όλες τις προφορικές δηλώσεις στη Βουλή
     policy: Δείτε όλες τις πολιτικές

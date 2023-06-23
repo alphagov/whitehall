@@ -21,6 +21,15 @@ ko:
         nation_inapplicabilities: 제외 국가
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: 첨부 파일
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: 첨부 명령 문서 번호
         hoc_paper_number: 하원 문서 번호
@@ -39,6 +48,22 @@ ko:
       title: 첨부 제목
       unique_reference: 첨부 고유 참조
       unnumbered_hoc_paper: 번호를 매기지 않은 하원 문서
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ ko:
     caution:
       subheading: 링크에서 문제를 나타낼 수 있는 몇 가지 문제가 발견되었으므로, 링크할 때 주의해야 합니다
     title: 손상된 링크
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: 종결됨
     closing_today: 오늘 종결됨
@@ -139,12 +169,18 @@ ko:
         other: 저작물
       blog_post:
         other: 블로그 포스트
+      call_for_evidence:
+        other:
+      call_for_evidence_outcome:
+        other:
       campaign:
         other: 캠페인
       careers:
         other: 커리어
       case_study:
         other: 사례 연구
+      closed_call_for_evidence:
+        other:
       closed_consultation:
         other: 종결된 상담
       complaints_procedure:
@@ -213,6 +249,8 @@ ko:
         other: 공지
       official_statistics:
         other: 공식 통계
+      open_call_for_evidence:
+        other:
       open_consultation:
         other: 공개 상담
       oral_statement:
@@ -383,7 +421,10 @@ ko:
   see_all:
     announcement: 공지 모두 둘러보기
     authored_article: 기사 모두 둘러보기
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: 케이스 스터디 모두 둘러보기
+    closed_call_for_evidence:
     closed_consultation: 비공개 협의 모두 둘러보기
     consultation: 협의 모두 둘러보기
     consultation_outcome: 협의 결과 모두 둘러보기
@@ -406,6 +447,7 @@ ko:
     news_article: 뉴스 모두 둘러보기
     news_story: 뉴스 스토리 모두 둘러보기
     notice: 공지 모두 둘러보기
+    open_call_for_evidence:
     open_consultation: 오픈 컨설테이션 모두 둘러보기
     oral_statement: 의회로 구두 성명 모두 둘러보기
     policy: 정책 논문 모두 둘러보기

@@ -21,6 +21,15 @@ fr:
         nation_inapplicabilities: Pays non autorisés
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Le fichier joint
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Numéro du document de la commande de pièce jointe
         hoc_paper_number: Numéro du document de la Chambre des Communes
@@ -39,6 +48,22 @@ fr:
       title: Titre de la pièce jointe
       unique_reference: Référence unique de la pièce jointe
       unnumbered_hoc_paper: Document non numéroté de la Chambre des Communes
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |-
@@ -69,6 +94,11 @@ fr:
     caution:
       subheading: Certains liens que nous avons trouvés peuvent présenter des problèmes. Nous vous recommandons de faire preuve de prudence lorsque vous établissez des liens vers ces derniers
     title: Liens brisés
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Fermé
     closing_today: Fermeture aujourd'hui
@@ -148,6 +178,12 @@ fr:
       blog_post:
         one: Article de blog
         other: Articles de blog
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Campagne
         other: Campagnes
@@ -157,6 +193,9 @@ fr:
       case_study:
         one: Etude de cas
         other: Etudes de cas
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Consultation fermée
         other: Consultations fermées
@@ -259,6 +298,9 @@ fr:
       official_statistics:
         one: Statistiques officielles
         other: Statistiques officielles
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Consultation ouverte
         other: Consultations ouvertes
@@ -460,7 +502,10 @@ fr:
   see_all:
     announcement: Afficher toutes nos annonces
     authored_article: Afficher toutes nos articles signés
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Afficher toutes nos etudes de cas
+    closed_call_for_evidence:
     closed_consultation: Afficher toutes nos consultations fermées
     consultation: Afficher toutes nos consultations
     consultation_outcome: Afficher tous nos résultats de consultation
@@ -483,6 +528,7 @@ fr:
     news_article: Afficher tous nos articles d'actualité
     news_story: Afficher toutes nos actualités
     notice: Afficher tous nos avis
+    open_call_for_evidence:
     open_consultation: Afficher toutes nos consultations ouvertes
     oral_statement: Afficher toutes nos déclarations orales au parlement
     policy: Afficher toutes nos politiques générales

@@ -21,6 +21,15 @@ ro:
         nation_inapplicabilities: Națiunii excluse
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Fișierul atașat
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Număr document comandă atașament
         hoc_paper_number: Numărul documentului de la Camera Comunelor
@@ -39,6 +48,22 @@ ro:
       title: Titlu atașament
       unique_reference: Referință unică atașament
       unnumbered_hoc_paper: Document nenumerotat de la Camera Comunelor
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ ro:
     caution:
       subheading: Am găsit niște erori la linkuri ce pot indica probleme, trebuie să le urmați cu atenție
     title: Linkuri rupte
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Închis
     closing_today: Se închide astăzi
@@ -155,6 +185,14 @@ ro:
         few:
         one: Postare pe blog
         other: Postări pe blog
+      call_for_evidence:
+        few:
+        one:
+        other:
+      call_for_evidence_outcome:
+        few:
+        one:
+        other:
       campaign:
         few:
         one: Campanie
@@ -167,6 +205,10 @@ ro:
         few:
         one: Studiu de caz
         other: Studii de caz
+      closed_call_for_evidence:
+        few:
+        one:
+        other:
       closed_consultation:
         few:
         one: Consultație închisă
@@ -303,6 +345,10 @@ ro:
         few:
         one: Statistică oficială
         other: Statistică oficială
+      open_call_for_evidence:
+        few:
+        one:
+        other:
       open_consultation:
         few:
         one: Consultație deschisă
@@ -535,7 +581,10 @@ ro:
   see_all:
     announcement: Vedeți toate anunțurile noastre
     authored_article: Vedeți toate articolele noastre publicate
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Vedeți toate studiile noastre de caz
+    closed_call_for_evidence:
     closed_consultation: Vedeți toate consultațiile noastre închise
     consultation: Vedeți toate consultațiile noastre
     consultation_outcome: Vedeți toate rezultatele consultațiilor noastre
@@ -558,6 +607,7 @@ ro:
     news_article: Vedeți toate articolele noastre de știri
     news_story: Vedeți toate reportajele noastre de știri
     notice: Vedeți toate notificările noastre
+    open_call_for_evidence:
     open_consultation: Vedeți toate consultațiile noastre deschise
     oral_statement: Vedeți toate expunerile noastre orale către Parlament
     policy: Vedeți toate politicile noastre

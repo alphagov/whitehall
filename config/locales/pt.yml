@@ -21,6 +21,15 @@ pt:
         nation_inapplicabilities: Nações excluídas
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: O ficheiro anexo
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Número de papel de comando do anexo
         hoc_paper_number: Número de papel da Câmara dos Comuns
@@ -39,6 +48,22 @@ pt:
       title: Título do anexo
       unique_reference: Referência única do anexo
       unnumbered_hoc_paper: Papel não numerado da Câmara dos Comuns
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -69,6 +94,11 @@ pt:
     caution:
       subheading: Encontrámos alguns problemas com links que podem indicar dificuldades – deve ter cautela ao estabelecer ligações com elas
     title: Links desfeitos
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Fechado
     closing_today: Encerra hoje
@@ -148,6 +178,12 @@ pt:
       blog_post:
         one: Publicação no blogue
         other: Publicações no blogue
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Campanha
         other: Campanhas
@@ -157,6 +193,9 @@ pt:
       case_study:
         one: Estudo de caso
         other: Estudos de caso
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Consulta encerrada
         other: Consultas encerradas
@@ -259,6 +298,9 @@ pt:
       official_statistics:
         one: Estatísticas Oficiais
         other: Estatísticas Oficiais
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Consulta aberta
         other: Consultas abertas
@@ -460,7 +502,10 @@ pt:
   see_all:
     announcement: Ver todos os nossos anúncios
     authored_article: Ver todos os nossos artigos de autor
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Ver todos os nossos estudos de caso
+    closed_call_for_evidence:
     closed_consultation: Ver todas as nossas consultas encerradas
     consultation: Ver todas as nossas consultas
     consultation_outcome: Ver todos os resultados da nossa consulta
@@ -483,6 +528,7 @@ pt:
     news_article: Ver todos os nossos artigos noticiosos
     news_story: Ver todas as nossas reportagens
     notice: Ver todos os nossos avisos
+    open_call_for_evidence:
     open_consultation: Ver todas as nossas consultas abertas
     oral_statement: Ver todas as nossas declarações orais ao Parlamento
     policy: Ver todas as nossas políticas

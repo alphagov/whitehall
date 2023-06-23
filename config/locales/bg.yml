@@ -21,6 +21,15 @@ bg:
         nation_inapplicabilities: Изключени държави
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Прикаченият файл
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Номер на прикачения нормативен документ
         hoc_paper_number: Номер на документа на Камарата на общините
@@ -39,6 +48,22 @@ bg:
       title: Заглавие на прикачения файл
       unique_reference: Уникална референция на прикачения файл
       unnumbered_hoc_paper: Документ без номер на Камарата на общините
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ bg:
     caution:
       subheading: Открихме някои проблеми с линковете, които могат да покажат нередности, и трябва да бъдете внимателни при тяхното използване
     title: Повредени линкове
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Закрито
     closing_today: Закрито днес
@@ -147,6 +177,12 @@ bg:
       blog_post:
         one: Публикация в блога
         other: Публикации в блога
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Кампания
         other: Кампании
@@ -156,6 +192,9 @@ bg:
       case_study:
         one: Казус
         other: Казуси
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Закрита консултация
         other: Закрити консултации
@@ -258,6 +297,9 @@ bg:
       official_statistics:
         one: Официална статистика
         other: Официална статистика
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Открита консултация
         other: Открити консултации
@@ -459,7 +501,10 @@ bg:
   see_all:
     announcement: Вижте всички наши съобщения
     authored_article: Вижте всички наши авторски статии
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Вижте всички наши казуси
+    closed_call_for_evidence:
     closed_consultation: Вижте всички наши закрити консултации
     consultation: Вижте всички наши консултации
     consultation_outcome: Вижте всички резултати от нашите консултации
@@ -482,6 +527,7 @@ bg:
     news_article: Вижте всички наши информационни статии
     news_story: Вижте всички наши новинарски материали
     notice: Вижте всички наши съобщения
+    open_call_for_evidence:
     open_consultation: Вижте всички наши открити консултации
     oral_statement: Вижте всички наши устни изявления в Парламента
     policy: Вижте всички наши политики

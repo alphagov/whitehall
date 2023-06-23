@@ -21,6 +21,15 @@ kk:
         nation_inapplicabilities: Шеттетілген ұлттар
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Тіркелген файл
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Тіркеме пәрменінің қағаз нөмірі
         hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
@@ -39,6 +48,22 @@ kk:
       title: Тіркеме тақырыбы
       unique_reference: Тіркеменің бірегей сілтемесі
       unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ kk:
     caution:
       subheading: Біз сілтемелерде мәселелерді көрсетуі мүмкін кейбір ақауларды таптық, оларға сілтеме жасағанда абай болу керек
     title: Бұзылған сілтемелер
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Жабық
     closing_today: Бүгін жабылады
@@ -147,6 +177,12 @@ kk:
       blog_post:
         one: Блог жарияланымы
         other: Блог жарияланымдары
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Науқан
         other: Науқандар
@@ -156,6 +192,9 @@ kk:
       case_study:
         one: Тақырыптық зерттеу
         other: Тақырыптық зерттеулер
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Жабық кеңес
         other: Жабық кеңестер
@@ -258,6 +297,9 @@ kk:
       official_statistics:
         one: Ресми статистика
         other: Ресми статистика
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Ашық кеңес
         other: Ашық кеңестер
@@ -459,7 +501,10 @@ kk:
   see_all:
     announcement: Біздің барлық хабарландыруларды қараңыз
     authored_article: Біздің авторлық мақалалардың барлығын қараңыз
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Біздің барлық жағдайлық зерттеулерімізді қараңыз
+    closed_call_for_evidence:
     closed_consultation: Біздің барлық жабық кеңестерді қараңыз
     consultation: Біздің барлық кеңестерді қараңыз
     consultation_outcome: Біздің кеңестің барлық нәтижелерін қараңыз
@@ -482,6 +527,7 @@ kk:
     news_article: Біздің барлық жаңалықтар мақалаларын қараңыз
     news_story: Біздің барлық жаңалықтар оқиғаларын қараңыз
     notice: Біздің барлық ескертулерді қараңыз
+    open_call_for_evidence:
     open_consultation: Біздің барлық ашық кеңестерді қараңыз
     oral_statement: Парламентке біздің барлық ауызша мәлімдемелерімізді қараңыз
     policy: Біздің барлық саясаттарымызды қараңыз

@@ -1,6 +1,7 @@
 # Publicationesque is a common base class for things that look like
 # publications:
 #
+# - Calls For Evidence
 # - Consultations
 # - Publication
 # - Statistical Data Sets

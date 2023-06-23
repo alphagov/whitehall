@@ -21,6 +21,15 @@ dr:
         nation_inapplicabilities: ملل مستثنی
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: فایل ضمیمه
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: شماره اوراق فرمان ضمیمه
         hoc_paper_number: مجلس اوراق عام با شماره
@@ -39,6 +48,22 @@ dr:
       title: عنوان ضمیمه
       unique_reference: رفرنس مخصوص ضمیمه
       unnumbered_hoc_paper: مجلس اوراق بدون شماره
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |-
@@ -71,6 +96,11 @@ dr:
     caution:
       subheading: ما برخی موضوعات را در این لنک ها پیدا نموده ایم که ممکن است نشان دهندهء مشکلاتی باشند، در ضمیمه نمودن آنها باید احتیاط نمایید.
     title: لنک هایی تخریب شده
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: بسته شد
     closing_today: امروز بسته میشود
@@ -150,6 +180,12 @@ dr:
       blog_post:
         one: پوست وبلاک
         other: پوست هایی وبلاگ
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: کمپاین
         other: کمپاین ها
@@ -159,6 +195,9 @@ dr:
       case_study:
         one: مطالعهء موردی
         other: مطالعهء موردی ها
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: مشاورهء متوقف شده
         other: مشاوره هایی متوقف شده
@@ -261,6 +300,9 @@ dr:
       official_statistics:
         one: آمار رسمی
         other: آمار رسمی
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: مشاورهء آزاد
         other: مشاوره هایی آزاد
@@ -462,7 +504,10 @@ dr:
   see_all:
     announcement: تمام اعلانات ما را مشاهده نمایید
     authored_article: تمام مقالات تألیف شدهء ما را مشاهده نمایید
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: تمام مطالعات موردی مارا مشاهده نمایید
+    closed_call_for_evidence:
     closed_consultation: تمام مشاوره های تمام شدهء مارا مشاهده نمایید
     consultation: تمام مشاوره هایی ما را مشاهده نمایید
     consultation_outcome: نتایج تمام مشاوره هایی مارا مشاهده نمایید
@@ -485,6 +530,7 @@ dr:
     news_article: تمام مقلات خبری ما را مشاهده نمایید
     news_story: تمام گزارشات خبری ما را مشاهده نمایید
     notice: تمام اعلامیه هایی ما را مشاهده نمایید
+    open_call_for_evidence:
     open_consultation: تمام مشاوره هایی آزاد ما را مشاهده نمایید
     oral_statement: تمام بیانیه هایی شفاهی ما به پارلمان را مشاهده نمایید
     policy: تمام سیاست/خط مشی هایی ما را مشاهده نمایید

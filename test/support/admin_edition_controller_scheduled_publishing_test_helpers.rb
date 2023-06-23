@@ -27,6 +27,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
       view_test "GET :show with a draft scheduled edition displays the 'Force schedule', but not the 'Force publish' button" do
         login_as :gds_editor
+        @current_user.permissions << User::Permissions::PREVIEW_CALL_FOR_EVIDENCE
         edition = create(edition_type, :draft, scheduled_publication: 1.day.from_now)
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
@@ -39,6 +40,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
       view_test "should display the 'Schedule' button for a submitted scheduled edition when viewing as an editor" do
         login_as :gds_editor
+        @current_user.permissions << User::Permissions::PREVIEW_CALL_FOR_EVIDENCE
         edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 

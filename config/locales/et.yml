@@ -21,6 +21,15 @@ et:
         nation_inapplicabilities: Välistatud rahvad
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Lisatud fail
+      response/call_for_evidence_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/call_for_evidence_response_attachments/attachment/attachment_data:
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Manuse käsudokumendi number
         hoc_paper_number: Alamkoja dokumendinumber
@@ -39,6 +48,22 @@ et:
       title: Manuse pealkiri
       unique_reference: Manuse unikaalne viide
       unnumbered_hoc_paper: Nummerdamata alamkoja dokument
+  admin:
+    whats_new:
+      guidance:
+        body_govspeak:
+        heading:
+      introduction:
+        body_govspeak:
+        heading:
+      last_updated:
+      recent_changes:
+        heading:
+        updates:
+      summary:
+      title:
+      upcoming_changes:
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -68,6 +93,11 @@ et:
     caution:
       subheading: Leidsime lingidega küsitavusi, mis võivad viidata probleemidele, olge nende kasutamisel ettevaatlik
     title: Katkised lingid
+  call_for_evidence:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   consultation:
     closed: Suletud
     closing_today: Suletakse täna
@@ -147,6 +177,12 @@ et:
       blog_post:
         one: Blogi postitus
         other: Blogi postitused
+      call_for_evidence:
+        one:
+        other:
+      call_for_evidence_outcome:
+        one:
+        other:
       campaign:
         one: Kampaania
         other: Kampaaniad
@@ -156,6 +192,9 @@ et:
       case_study:
         one: Juhtumiuuring
         other: Juhtumiuuringud
+      closed_call_for_evidence:
+        one:
+        other:
       closed_consultation:
         one: Suletud konsultatsioon
         other: Suletud konsultatsioonid
@@ -258,6 +297,9 @@ et:
       official_statistics:
         one: Ametlik statistika
         other: Ametlik statistika
+      open_call_for_evidence:
+        one:
+        other:
       open_consultation:
         one: Avatud konsultatsioon
         other: Avatud konsultatsioonid
@@ -459,7 +501,10 @@ et:
   see_all:
     announcement: Vaata kõiki meie teadaandeid
     authored_article: Vaata kõiki meie kirjutatud artikleid
+    call_for_evidence:
+    call_for_evidence_outcome:
     case_study: Vaata kõiki meie juhtumianalüüse
+    closed_call_for_evidence:
     closed_consultation: Vaata kõiki meie suletud konsultatsioone
     consultation: Vaata kõiki meie konsultatsioone
     consultation_outcome: Vaata kõiki meie konsultatsioonitulemusi
@@ -482,6 +527,7 @@ et:
     news_article: Vaata kõiki meie uudiseartikleid
     news_story: Vaata kõiki meie uudislugusid
     notice: Vaata kõiki meie teateid
+    open_call_for_evidence:
     open_consultation: Vaata kõiki meie avatud konsultatsioone
     oral_statement: Vaata kõiki meie suulisi avaldusi parlamendile
     policy: Vaata kõiki meie eeskirju

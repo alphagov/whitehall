@@ -85,6 +85,7 @@ class Edition < ApplicationRecord
 
   scope :announcements,                 -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
   scope :consultations,                 -> { where(type: "Consultation") }
+  scope :call_for_evidence,             -> { where(type: "CallForEvidence") }
   scope :detailed_guides,               -> { where(type: "DetailedGuide") }
   scope :statistical_publications,      -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
   scope :non_statistical_publications,  -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
