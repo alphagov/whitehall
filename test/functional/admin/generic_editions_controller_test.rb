@@ -47,6 +47,6 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
     get :show, params: { id: draft_edition }
 
     assert_select ".govuk-link", text: "Preview on website  (opens in new tab)", href: draft_edition.public_url(draft: true), count: 0
-    assert_select ".govuk-inset-text", text: "To preview this document or share a document preview, add a change note or update the change type to minor."
+    assert_select ".govuk-inset-text", text: "To see the changes and share a document preview link, add a change note or mark the change type to minor."
   end
 end
