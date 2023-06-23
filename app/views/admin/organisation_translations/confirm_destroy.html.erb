@@ -12,6 +12,12 @@
         <%= render "govuk_publishing_components/components/button", {
           text: "Delete",
           destructive: true,
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "organisations-translations-button",
+            "track-label": "Delete"
+          }
         } %>
 
         <%= link_to("Cancel", admin_organisation_translations_path(@organisation), class: "govuk-link govuk-link--no-visited-state") %>
