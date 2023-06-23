@@ -140,6 +140,12 @@
     <%= render "govuk_publishing_components/components/button", {
       text: "Search",
       margin_bottom: 4,
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "edition-filter-button",
+        "track-label": "Search"
+      }
     } %>
 
     <p class="govuk-body"><%= link_to "Reset all fields", filter_action + "?state=active" + anchor, class: "govuk-link" %></p>
