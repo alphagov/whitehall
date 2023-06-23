@@ -1,0 +1,35 @@
+<% content_for :page_title, "Reorder lead organisations list" %>
+<% content_for :title, "Reorder lead organisations list" %>
+<% content_for :context, @topical_event.name %>
+<% content_for :title_margin_bottom, 4 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: order_admin_topical_event_topical_event_organisations_path(@topical_event), method: :put do %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Use the up and down buttons to reorder pages, or select and hold on a page to reorder using drag and drop.",
+        margin_bottom: 4,
+      } %>
+
+      <%= hidden_field_tag "lead", params[:lead] %>
+
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        items: @topical_event.topical_event_organisations.where(lead: true).order(:lead_ordering).map do |topical_event_organisation|
+          {
+            id: topical_event_organisation.id,
+            title: topical_event_organisation.organisation.name,
+            value: topical_event_organisation.ordering
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update order",
+        } %>
+
+        <%= link_to("Cancel", admin_topical_event_topical_event_organisations_path(@topical_event), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div id=<%= lead ? "lead_organisations" : "supporting_organisations"%> class="govuk-!-padding-bottom-20">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half govuk-heading-m">
+      <%= lead ? "Lead organisations" : "Supporting organisations" %>
+    </div>
+    <% if lead && @topical_event.lead_topical_event_organisations.many? %>
+      <div class="govuk-grid-column-one-half govuk-!-text-align-right">
+        <%= link_to "Reorder organisations", reorder_admin_topical_event_topical_event_organisations_path(@topical_event), class: "govuk-link" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="govuk-table--with-actions govuk-!-padding-bottom-4">
+    <%= render "govuk_publishing_components/components/table", {
+      first_cell_is_header: true,
+      rows: @topical_event.topical_event_organisations.where(lead: lead).order(lead ? :lead_ordering : :ordering).map do |topical_event_organisation|
+        [{
+           text: topical_event_organisation.organisation.name,
+         },
+         {
+           text: link_to(sanitize("View #{tag.span(topical_event_organisation.organisation.name, class: "govuk-visually-hidden")}"), [:admin, topical_event_organisation.organisation], class: "govuk-link") +
+               link_to(sanitize((lead ? "Make supporting " : "Make lead ") + tag.span(topical_event_organisation.organisation.name, class: "govuk-visually-hidden")), toggle_lead_admin_topical_event_topical_event_organisation_path(@topical_event, topical_event_organisation), class: "govuk-link govuk-!-margin-left-2")
+         }
+        ]
+      end
+    } %>
+  </div>
+</div>

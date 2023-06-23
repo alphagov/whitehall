@@ -15,6 +15,11 @@ module Admin::TopicalEventHelper
         current: current_path == url_for([:admin, topical_event]),
       },
       {
+        label: "Organisations",
+        href: [:admin, topical_event, :topical_event_organisations],
+        current: current_path == url_for([:admin, topical_event, :topical_event_organisations]),
+      },
+      {
         label: "About page",
         href: [:admin, topical_event, :topical_event_about_pages],
         current: current_path == url_for([:admin, topical_event, :topical_event_about_pages]),

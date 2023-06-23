@@ -1,3 +1,7 @@
+And(/^a topical event called "([^"]*)" exists$/) do |name|
+  @topical_event = create(:topical_event, name:)
+end
+
 Given(/^a topical event called "(.*?)" with summary "([^"]*)" and description "(.*?)"$/) do |name, summary, description|
   @topical_event = create(:topical_event, name:, summary:, description:)
   stub_topical_event_in_content_store(name)

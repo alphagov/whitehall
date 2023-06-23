@@ -1,0 +1,42 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_topical_events_path
+  } %>
+<% end %>
+<% content_for :page_title, @topical_event.name %>
+<% content_for :title, @topical_event.name %>
+<% content_for :context, "Topical events" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<p class="govuk-body"><%= view_on_website_link_for @topical_event, class: "govuk-link" %></p>
+
+<div class="govuk-!-margin-bottom-8">
+  <%= render "components/secondary_navigation", {
+    aria_label: "Document tabs",
+    items: secondary_navigation_tabs_items(@topical_event, request.path)
+  } %>
+</div>
+
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Organisations",
+  heading_level: 2,
+  font_size: "l",
+  margin_bottom: @topical_event.topical_event_organisations.any? ? 6 : 0,
+} %>
+
+<div class="govuk-grid-row govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <% if @topical_event.lead_topical_event_organisations.any? %>
+      <%= render "organisations_table", lead: true %>
+    <% end %>
+    <% if @topical_event.topical_event_organisations.where(lead: false).any? %>
+      <%= render "organisations_table", lead: false %>
+    <% end %>
+    <% if @topical_event.topical_event_organisations.none? %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "There are no organisations associated with this topical event."
+      } %>
+    <% end %>
+  </div>
+</div>
+
