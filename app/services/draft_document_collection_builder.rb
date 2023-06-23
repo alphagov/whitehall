@@ -90,11 +90,7 @@ private
   end
 
   def permissable_whitehall_document(content_id)
-    document = Document.find_by(content_id:)
-
-    return if document&.document_type == "DocumentCollection"
-
-    document
+    Document.find_by(content_id:)
   end
 
   def build_document_group_membership(document, group)

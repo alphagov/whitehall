@@ -45,8 +45,7 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
 
     # Document collections
     document_collection_member = document_collection_group_memberships.third
-    document_collection_link = DocumentCollectionNonWhitehallLink.find_by(base_path: document_collection_content_item[:base_path])
-    assert_equal document_collection_member.non_whitehall_link_id, document_collection_link.id
+    assert_equal document_collection_member.document.content_id, document_collection_content_id
   end
 
   test "#perform! will not add unpublished documents to a document collection group membership" do
