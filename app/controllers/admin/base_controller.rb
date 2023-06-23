@@ -66,7 +66,7 @@ private
   def typecast_for_attachable_routing(attachable)
     case attachable
     when Edition then attachable.becomes(Edition)
-    when Response then attachable.becomes(Response)
+    when ConsultationResponse then attachable.becomes(ConsultationResponse)
     else attachable
     end
   end

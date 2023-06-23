@@ -1,4 +1,4 @@
-class ConsultationOutcome < Response
+class ConsultationOutcome < ConsultationResponse
   def singular_routing_symbol
     :outcome
   end

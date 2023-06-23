@@ -54,7 +54,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def attachable_attachments_path(attachable)
     case attachable
-    when Response
+    when ConsultationResponse
       [:admin, attachable.consultation, attachable.singular_routing_symbol]
     else
       [:admin, typecast_for_attachable_routing(attachable), Attachment]

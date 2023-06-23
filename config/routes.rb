@@ -263,10 +263,10 @@ Whitehall::Application.routes.draw do
         resources :news_articles, path: "news", except: [:index]
         resources :fatality_notices, path: "fatalities", except: [:index]
         resources :consultations, except: [:index] do
-          resource :outcome, controller: "responses", type: "ConsultationOutcome", except: %i[new destroy]
-          resource :public_feedback, controller: "responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
+          resource :outcome, controller: "consultation_responses", type: "ConsultationOutcome", except: %i[new destroy]
+          resource :public_feedback, controller: "consultation_responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
         end
-        resources :responses, only: :none do
+        resources :consultation_responses, only: :none do
           resources :attachments do
             put :order, on: :collection
             get :confirm_destroy, on: :member

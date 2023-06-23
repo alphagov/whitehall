@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ResponseTest < ActiveSupport::TestCase
+class ConsultationResponseTest < ActiveSupport::TestCase
   test "responses without a summary are only valid if they have attachments" do
     response = build(:consultation_outcome, summary: nil)
     assert_not response.valid?

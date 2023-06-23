@@ -1,4 +1,4 @@
-class Admin::ResponsesController < Admin::BaseController
+class Admin::ConsultationResponsesController < Admin::BaseController
   before_action :find_consultation
   before_action :limit_edition_access!
   before_action :enforce_edition_permissions!

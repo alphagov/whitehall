@@ -1,4 +1,4 @@
-class ConsultationPublicFeedback < Response
+class ConsultationPublicFeedback < ConsultationResponse
   def singular_routing_symbol
     :public_feedback
   end

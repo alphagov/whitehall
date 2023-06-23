@@ -1,10 +1,10 @@
 FactoryBot.define do
-  trait :response do
+  trait :consultation_response do
     consultation
     published_on { Time.zone.today }
   end
 
-  factory :consultation_outcome, traits: [:response] do
+  factory :consultation_outcome, traits: [:consultation_response] do
     sequence :summary do |n|
       "outcome summary #{n}"
     end
@@ -18,7 +18,7 @@ FactoryBot.define do
     end
   end
 
-  factory :consultation_public_feedback, traits: [:response] do
+  factory :consultation_public_feedback, traits: [:consultation_response] do
     sequence :summary do |n|
       "public feedback summary #{n}"
     end

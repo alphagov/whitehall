@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::ResponsesControllerTest < ActionController::TestCase
+class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   setup do

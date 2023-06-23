@@ -1,4 +1,4 @@
-class Response < ApplicationRecord
+class ConsultationResponse < ApplicationRecord
   include Attachable
 
   belongs_to :consultation, foreign_key: :edition_id
