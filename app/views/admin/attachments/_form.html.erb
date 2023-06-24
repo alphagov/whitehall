@@ -55,8 +55,7 @@
           right_to_left: form.object.rtl_locale?,
           data_attributes: {
             image_ids: @edition && @edition.images.any? ? @edition.images.map { |img| img[:id] } : [],
-            attachment_ids: @edition && @edition.allows_attachments? ? @edition.attachments.map(&:id) : [],
-            alternative_format_provider_id: @edition && @edition.alternative_format_provider_id ? @edition.alternative_format_provider_id : current_user.organisation.try(:id),
+            attachment_ids: [], # HTML attachments cannot embed Attachments from their parent Edition
           }
         } %>
       </div>
