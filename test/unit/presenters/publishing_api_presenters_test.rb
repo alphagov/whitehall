@@ -145,14 +145,32 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
   end
 
   test ".presenter_for returns a GenericEditionPresenter for an " \
-    "CorporateInformationPage belonging to an WorldwideOrganisation" do
+    "AboutUs CorporateInformationPage belonging to an WorldwideOrganisation" do
     presenter = PublishingApiPresenters
       .presenter_for(
         build(
           :corporate_information_page,
           worldwide_organisation: build(:worldwide_organisation),
+          organisation: nil,
+          corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
         ),
       )
+
+    assert_equal(
+      PublishingApi::GenericEditionPresenter,
+      presenter.class,
+    )
+  end
+
+  test ".presenter_for returns a WorldwideCorporateInformationPagePresenter for a " \
+    "CorporateInformationPage belonging to an WorldwideOrganisation" do
+    presenter = PublishingApiPresenters
+                  .presenter_for(
+                    build(
+                      :corporate_information_page,
+                      worldwide_organisation: build(:worldwide_organisation),
+                    ),
+                  )
 
     assert_equal(
       PublishingApi::WorldwideCorporateInformationPagePresenter,
