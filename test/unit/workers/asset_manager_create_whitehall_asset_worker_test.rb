@@ -5,6 +5,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     @file = Tempfile.new("asset", Dir.mktmpdir)
     @legacy_url_path = "legacy-url-path"
     @worker = AssetManagerCreateWhitehallAssetWorker.new
+    @asset_manager_id = "asset_manager_id"
   end
 
   test "creates a whitehall asset using a file object at the correct path" do
@@ -30,7 +31,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
   test "marks the asset as draft if instructed" do
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
 
-    @worker.perform(@file.path, @legacy_url_path, true)
+    @worker.perform(@file.path, @legacy_url_path, nil, nil, true)
   end
 
   test "removes the file after it has been successfully uploaded" do
@@ -52,7 +53,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
 
-    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, @legacy_url_path, nil, nil, true, consultation.class.to_s, consultation.id)
   end
 
   test "marks attachments belonging to consultation responses as access limited" do
@@ -65,7 +66,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
 
-    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, @legacy_url_path, nil, nil, true, consultation.class.to_s, consultation.id)
   end
 
   test "does not mark attachments belonging to policy groups as access limited" do
@@ -77,7 +78,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:access_limited)))
 
-    @worker.perform(@file.path, @legacy_url_path, true, policy_group.class.to_s, policy_group.id)
+    @worker.perform(@file.path, @legacy_url_path, nil, nil, true, policy_group.class.to_s, policy_group.id)
   end
 
   test "sends auth bypass ids to asset manager when these are passed through in the params" do
@@ -88,7 +89,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(auth_bypass_ids: [consultation.auth_bypass_id]))
 
-    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
+    @worker.perform(@file.path, @legacy_url_path, nil, nil, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
   end
 
   test "doesn't run if the file is missing (e.g. job ran twice)" do
@@ -98,5 +99,21 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:create_whitehall_asset).never
 
     @worker.perform(path, @legacy_url_path)
+  end
+
+  test "stores corresponding asset_manager_id for current file attachment" do
+    model_id = FactoryBot.create(:attachment_data).id
+    version = Asset.versions[:original]
+    Services.asset_manager.stubs(:create_whitehall_asset).returns("id" => "http://asset-manager/assets/#{@asset_manager_id}")
+
+    @worker.perform(@file.path, @legacy_url_path, model_id, version)
+
+    assert_equal Asset.where(asset_manager_id: @asset_manager_id, version: version).count, 1
+  end
+
+  test "does not store asset_manager_id if there if no values provided for model_id or version" do
+    @worker.perform(@file.path, @legacy_url_path)
+
+    assert_equal Asset.where(asset_manager_id: @asset_manager_id).count, 0
   end
 end

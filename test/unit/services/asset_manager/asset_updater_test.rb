@@ -12,7 +12,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     @attachment_data = FactoryBot.build(:attachment_data)
   end
 
-  describe "asset_manager_id is not present" do
+  describe "called with legacy_url_path" do
     test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
       @worker.stubs(:find_asset_by).with(@legacy_url_path)
              .returns("id" => @asset_url, "deleted" => true)
@@ -137,7 +137,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     end
   end
 
-  describe "asset_manager_id is present" do
+  describe "called with asset_manager_id" do
     test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
       @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
              .returns("id" => @asset_url, "deleted" => true)
