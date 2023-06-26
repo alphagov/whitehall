@@ -21,7 +21,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
     # Keeping the file attachments flow distinct from images and other flows that also use carrierwave
     # until implementation is complete
-    if uploader.model.class == AttachmentData
+    if should_save_an_asset?
       model_id = uploader.model.id
       asset_variant = legacy_url_path.include?("thumbnail") ? Asset.variants[:thumbnail] : Asset.variants[:original]
     end
@@ -67,5 +67,12 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     def zero_size?
       false
     end
+  end
+
+private
+
+  def should_save_an_asset?
+    uploader.model.instance_of?(AttachmentData) &&
+      uploader.model.use_non_legacy_endpoints
   end
 end

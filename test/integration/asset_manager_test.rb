@@ -2,6 +2,8 @@ require "test_helper"
 
 class AssetManagerIntegrationTest
   class CreatingAFileAttachment < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
     setup do
       @filename = "960x640_jpeg.jpg"
       @attachment = FactoryBot.build(
@@ -10,36 +12,73 @@ class AssetManagerIntegrationTest
       )
     end
 
-    test "sends the attachment to Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
-              .returns("id" => "http://asset-manager/assets/asset_manager_id")
+    describe "use_non_legacy_endpoints is false" do
+      test "sends the attachment to Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
-      Sidekiq::Testing.inline! do
+        Sidekiq::Testing.inline! do
+          @attachment.save!
+        end
+      end
+
+      test "marks the attachment as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
+
+        Sidekiq::Testing.inline! do
+          @attachment.save!
+        end
+      end
+
+      test "sends the user ids of authorised users to Asset Manager" do
+        organisation = FactoryBot.create(:organisation)
+        user = FactoryBot.create(:user, organisation:, uid: "user-uid")
+        consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
+        @attachment.attachable = consultation
+        @attachment.attachment_data.attachable = consultation
         @attachment.save!
+
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+
+        AssetManagerCreateWhitehallAssetWorker.drain
       end
     end
 
-    test "marks the attachment as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
-              .returns("id" => "http://asset-manager/assets/asset_manager_id")
-
-      Sidekiq::Testing.inline! do
-        @attachment.save!
+    describe "use_non_legacy_endpoints is true" do
+      setup do
+        @attachment.attachment_data.use_non_legacy_endpoints = true
       end
-    end
 
-    test "sends the user ids of authorised users to Asset Manager" do
-      organisation = FactoryBot.create(:organisation)
-      user = FactoryBot.create(:user, organisation:, uid: "user-uid")
-      consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
-      @attachment.attachable = consultation
-      @attachment.attachment_data.attachable = consultation
-      @attachment.save!
+      test "sends the attachment to Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+                .returns("id" => "http://asset-manager/assets/asset_manager_id")
 
-      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
-              .returns("id" => "http://asset-manager/assets/asset_manager_id")
+        Sidekiq::Testing.inline! do
+          @attachment.save!
+        end
+      end
 
-      AssetManagerCreateWhitehallAssetWorker.drain
+      test "marks the attachment as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
+                .returns("id" => "http://asset-manager/assets/asset_manager_id")
+
+        Sidekiq::Testing.inline! do
+          @attachment.save!
+        end
+      end
+
+      test "sends the user ids of authorised users to Asset Manager" do
+        organisation = FactoryBot.create(:organisation)
+        user = FactoryBot.create(:user, organisation:, uid: "user-uid")
+        consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
+        @attachment.attachable = consultation
+        @attachment.attachment_data.attachable = consultation
+        @attachment.save!
+
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+                .returns("id" => "http://asset-manager/assets/asset_manager_id")
+
+        AssetManagerCreateWhitehallAssetWorker.drain
+      end
     end
   end
 

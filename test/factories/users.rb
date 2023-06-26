@@ -20,6 +20,10 @@ FactoryBot.define do
     trait(:with_preview_design_system) do
       permissions { [User::Permissions::SIGNIN, User::Permissions::PREVIEW_DESIGN_SYSTEM] }
     end
+
+    trait(:with_use_non_legacy_endpoints) do
+      permissions { [User::Permissions::SIGNIN, User::Permissions::USE_NON_LEGACY_ENDPOINTS] }
+    end
   end
 
   factory :disabled_user, parent: :user do
