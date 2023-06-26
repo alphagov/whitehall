@@ -344,6 +344,33 @@ class PublishingApiRake < ActiveSupport::TestCase
       end
     end
 
+    describe "#worldwide_corporate_information_pages" do
+      let(:task) { Rake::Task["publishing_api:bulk_republish:worldwide_corporate_information_pages"] }
+
+      test "republishes published worldwide corporate information pages (including about pages)" do
+        create(
+          :published_worldwide_organisation_corporate_information_page,
+          corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
+        )
+
+        create(
+          :published_worldwide_organisation_corporate_information_page,
+          corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id,
+        )
+
+        create(:corporate_information_page, :draft, worldwide_organisation: create(:worldwide_organisation), organisation: nil)
+
+        create(
+          :published_corporate_information_page,
+          corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id,
+        )
+
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).twice
+
+        capture_io { task.invoke }
+      end
+    end
+
     describe "#by_organisation" do
       let(:org) { create(:organisation) }
       let(:task) { Rake::Task["publishing_api:bulk_republish:by_organisation"] }
