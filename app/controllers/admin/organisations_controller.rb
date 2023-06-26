@@ -41,6 +41,7 @@ class Admin::OrganisationsController < Admin::BaseController
                                         .merge(Role.special_representative).order(:ordering)
     @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role)
                                         .merge(Role.chief_professional_officer).order(:ordering)
+    render :legacy_people
   end
 
   def features
