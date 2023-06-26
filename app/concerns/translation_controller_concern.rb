@@ -7,7 +7,9 @@ module TranslationControllerConcern
     helper_method :translation_locale
   end
 
-  def edit; end
+  def edit
+    render_design_system(:edit, :legacy_edit)
+  end
 
   def create
     redirect_to create_redirect_path

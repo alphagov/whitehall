@@ -1,19 +1,69 @@
-<% page_title "Edit translation for: #{@english_organisation.name}" %>
+<% content_for :page_title, "Edit translation for: #{@english_organisation.name}" %>
+<% content_for :title, "Edit ‘#{@translation_locale.native_language_name}(#{@translation_locale.english_language_name})’ translation for: #{@english_organisation.name}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @translated_organisation)) %>
 
-<h1>Edit ‘<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)’ translation for: <%= @english_organisation.name %></h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @translated_organisation, url: admin_organisation_translation_path(@translated_organisation, translation_locale) do |form| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Name (required)",
+        },
+        heading_size: "l",
+        name: "organisation[name]",
+        id: "organisation_name",
+        value: @translated_organisation.name,
+        error_items: errors_for(form.object.errors, :name),
+        right_to_left: @translated_organisation.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
 
-<div class="row">
-  <div class="col-md-8">
-    <%= form_for @translated_organisation, url: admin_organisation_translation_path(@translated_organisation, translation_locale), method: :put, html: {class: 'well'} do |form| %>
-      <%= form.errors %>
+      <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English name
+        content:</h2>
+      <p class="app-view-translation__english-content govuk-body"><%= @organisation.name %></p>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Acronym",
+        },
+        heading_size: "l",
+        name: "organisation[acronym]",
+        id: "organisation_acronym",
+        value: @translated_organisation.acronym,
+        error_items: errors_for(form.object.errors, :acronym),
+        right_to_left: @translated_organisation.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          heading_size: "l",
+          text: "Logo formatted name (required)",
+        },
+        name: "organisation[logo_formatted_name]",
+        id: "organisation_logo_formatted_name",
+        value: @translated_organisation.logo_formatted_name,
+        rows: 4,
+        error_items: errors_for(form.object.errors, :logo_formatted_name),
+        right_to_left: @translated_organisation.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
 
-      <%= form.translated_text_field :name %>
-      <%= form.translated_text_field :acronym %>
-      <%= form.translated_text_area  :logo_formatted_name, rows: "4", style: "width: auto" %>
+      <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+      <p class="app-view-translation__english-content govuk-body"><%= @organisation.logo_formatted_name %></p>
 
-      <%= render 'admin/shared/legacy_featured_link_fields', form: form %>
+      <%= render 'admin/shared/featured_link_fields', form: form %>
+      <div class="govuk-button-group govuk-!-margin-top-8">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
+            "track-label": "Save"
+          }
+        } %>
 
-      <%= form.save_or_cancel cancel: admin_organisation_translations_path(@translated_organisation) %>
+        <%= link_to "Cancel", admin_organisation_translations_path(@translated_organisation), class: "govuk-link govuk-link--no-visited-state" %>
+      </div>
     <% end %>
   </div>
 </div>

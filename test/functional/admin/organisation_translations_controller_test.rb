@@ -66,7 +66,9 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   view_test "edit indicates which language is being translated to" do
     create(:organisation, translated_into: [:fr])
     get :edit, params: { organisation_id: @organisation, id: "fr" }
-    assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
+    assert_select ".govuk-grid-row" do
+      assert_select "h1", text: "Edit ‘Français(French)’ translation for: #{@organisation.name}"
+    end
   end
 
   view_test "edit presents a form to update an existing translation" do
@@ -86,10 +88,11 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     translation_path = admin_organisation_translation_path(organisation, "fr")
 
     assert_select "form[action=?]", translation_path do
-      assert_select "input[type=text][name='organisation[name]'][value='Afrolasie']"
-      assert_select "input[type=text][name='organisation[acronym]'][value='AFRO']"
-      assert_select "textarea[name='organisation[logo_formatted_name]']", text: "Afrolasie"
-      assert_select "input[type=submit][value=Save]"
+      assert_select ".govuk-form-group" do
+        assert_select "input[type=text][name='organisation[acronym]'][value='AFRO']"
+        assert_select "textarea[name='organisation[logo_formatted_name]']", text: "Afrolasie"
+      end
+      assert_select ".gem-c-button", text: "Save"
     end
   end
 
@@ -99,12 +102,11 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     get :edit, params: { organisation_id: organisation, id: "ar" }
 
     translation_path = admin_organisation_translation_path(organisation, "ar")
-
     assert_select "form[action=?]", translation_path do
-      assert_select "fieldset[class='right-to-left']" do
+      assert_select ".govuk-form-group" do
         assert_select "input[type=text][name='organisation[name]'][dir='rtl'][value='الناس']"
       end
-      assert_select "input[type=submit][value=Save]"
+      assert_select ".gem-c-button", text: "Save"
     end
   end
 
