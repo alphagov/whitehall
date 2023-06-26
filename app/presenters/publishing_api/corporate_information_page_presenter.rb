@@ -19,12 +19,10 @@ module PublishingApi
         .new(corporate_information_page, update_type:)
         .base_attributes
         .merge(PayloadBuilder::PublicDocumentPath.for(corporate_information_page))
-        .merge(
-          description: corporate_information_page.summary,
+        .merge(PayloadBuilder::CorporateInformationPage.for(corporate_information_page))
+        .deep_merge(
           details:,
           document_type:,
-          public_updated_at:,
-          rendering_app: corporate_information_page.rendering_app,
           schema_name: SCHEMA_NAME,
           links: edition_links,
           auth_bypass_ids: [corporate_information_page.auth_bypass_id],
@@ -59,21 +57,8 @@ module PublishingApi
 
     delegate :display_type_key, to: :corporate_information_page
 
-    def base_details
-      {
-        body:,
-      }
-    end
-
-    def body
-      Whitehall::GovspeakRenderer
-        .new
-        .govspeak_edition_to_html(corporate_information_page)
-    end
-
     def details
-      base_details
-        .merge(change_history)
+      change_history
         .merge(CorporateInformationGroups.for(corporate_information_page))
         .merge(Organisation.for(corporate_information_page))
         .merge(PayloadBuilder::TagDetails.for(corporate_information_page))
@@ -82,13 +67,6 @@ module PublishingApi
 
     def links_presenter
       @links_presenter ||= LinksPresenter.new(corporate_information_page)
-    end
-
-    def public_updated_at
-      public_updated_at = corporate_information_page.public_timestamp ||
-        corporate_information_page.updated_at
-
-      public_updated_at.rfc3339
     end
 
     def change_history
