@@ -25,12 +25,5 @@ class AssetManagerAttachmentSetUploadedToWorkerTest < ActiveSupport::TestCase
         worker.perform("Publication", publication.id, "some-unknown-path")
       end
     end
-
-    it "saves corresponding asset id for attachment when asset is an original file" do
-      asset_manager_id = "56fbf7e577550f39a5aea04a"
-      worker.perform("Publication", publication.id, attachment.attachment_data.path, asset_manager_id)
-
-      assert_equal Asset.where(asset_manager_id:, version: Asset.versions[:original]).count, 1
-    end
   end
 end

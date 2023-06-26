@@ -17,7 +17,7 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
   # fail do we want to see the error.
   class AttachmentDataNotFoundTransient < AttachmentDataNotFound; end
 
-  def perform(model_class, model_id, legacy_url_path, response_id = nil)
+  def perform(model_class, model_id, legacy_url_path)
     model = model_class.constantize.find(model_id)
 
     found = false
@@ -35,27 +35,16 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
       if attachment_data.path == legacy_url_path
         found = true
         attachment_data.uploaded_to_asset_manager!
-
-        save_asset_id_to_assets(response_id, attachment_data, Asset.versions[:original]) unless response_id.nil?
       elsif attachment_data.pdf? && attachment_data.file.thumbnail.path == legacy_url_path
         # don't mark the attachment_data as uploaded when the
         # thumbnail makes it across, because we mostly care about the
         # actual pdf
         found = true
-
-        save_asset_id_to_assets(response_id, attachment_data, Asset.versions[:thumbnail]) unless response_id.nil?
       end
     end
 
     # the AttachmentData should exist, so if we didn't find it try
     # again.
     raise AttachmentDataNotFoundTransient, legacy_url_path unless found
-  end
-
-private
-
-  def save_asset_id_to_assets(response_id, attachment_data, version)
-    asset = Asset.new(asset_manager_id: response_id, attachment_data_id: attachment_data.id, version:)
-    asset.save!
   end
 end

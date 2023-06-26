@@ -12,6 +12,7 @@ class AssetManagerIntegrationTest
 
     test "sends the attachment to Asset Manager" do
       Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+              .returns("id" => "http://asset-manager/assets/asset_manager_id")
 
       Sidekiq::Testing.inline! do
         @attachment.save!
@@ -20,6 +21,7 @@ class AssetManagerIntegrationTest
 
     test "marks the attachment as draft in Asset Manager" do
       Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
+              .returns("id" => "http://asset-manager/assets/asset_manager_id")
 
       Sidekiq::Testing.inline! do
         @attachment.save!
@@ -35,6 +37,7 @@ class AssetManagerIntegrationTest
       @attachment.save!
 
       Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+              .returns("id" => "http://asset-manager/assets/asset_manager_id")
 
       AssetManagerCreateWhitehallAssetWorker.drain
     end
@@ -77,8 +80,8 @@ class AssetManagerIntegrationTest
       )
       logo_asset_id = "asset-id"
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(/#{logo_filename}/))
-        .returns("id" => "http://asset-manager/assets/#{logo_asset_id}")
+              .with(regexp_matches(/#{logo_filename}/))
+              .returns("id" => "http://asset-manager/assets/#{logo_asset_id}")
 
       Services.asset_manager.expects(:delete_asset).with(logo_asset_id)
 
@@ -98,8 +101,8 @@ class AssetManagerIntegrationTest
       )
       old_logo_asset_id = "asset-id"
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(/#{old_logo_filename}/))
-        .returns("id" => "http://asset-manager/assets/#{old_logo_asset_id}")
+              .with(regexp_matches(/#{old_logo_filename}/))
+              .returns("id" => "http://asset-manager/assets/#{old_logo_asset_id}")
 
       Services.asset_manager.expects(:delete_asset).with(old_logo_asset_id)
 
@@ -253,14 +256,14 @@ class AssetManagerIntegrationTest
       @file_path = @consultation_response_form_data.file.path
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(/#{filename}/))
-        .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
+              .with(regexp_matches(/#{filename}/))
+              .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
       Services.asset_manager.stubs(:delete_asset)
     end
 
     test "removing a consultation response form data file removes it from asset manager" do
       Services.asset_manager.expects(:delete_asset)
-        .with(@consultation_response_form_asset_id)
+              .with(@consultation_response_form_asset_id)
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.file.remove!
@@ -281,14 +284,14 @@ class AssetManagerIntegrationTest
       @file_path = @consultation_response_form_data.file.path
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(/#{filename}/))
-        .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
+              .with(regexp_matches(/#{filename}/))
+              .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
       Services.asset_manager.stubs(:delete_asset)
     end
 
     test "replacing a consultation response form data file removes the old file from asset manager" do
       Services.asset_manager.expects(:delete_asset)
-        .with(@consultation_response_form_asset_id)
+              .with(@consultation_response_form_asset_id)
 
       @consultation_response_form_data.file = File.open(fixture_path.join("whitepaper.pdf"))
 

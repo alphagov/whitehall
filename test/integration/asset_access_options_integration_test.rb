@@ -101,7 +101,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               access_limited: %w[user-uid],
               auth_bypass_ids: [edition.auth_bypass_id],
             ),
-          )
+          ).returns("id" => "http://asset-manager/assets/asset_manager_id")
           AssetManagerCreateWhitehallAssetWorker.drain
         end
       end
@@ -153,14 +153,14 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               access_limited: %w[user-uid],
               auth_bypass_ids: [edition.auth_bypass_id],
             ),
-          )
+          ).returns("id" => "http://asset-manager/assets/file_asset_manager_id")
           Services.asset_manager.expects(:create_whitehall_asset).with(
             has_entries(
               legacy_url_path: regexp_matches(/thumbnail_greenpaper\.pdf\.png/),
               access_limited: %w[user-uid],
               auth_bypass_ids: [edition.auth_bypass_id],
             ),
-          )
+          ).returns("id" => "http://asset-manager/assets/thumbnail_asset_manager_id")
 
           AssetManagerCreateWhitehallAssetWorker.drain
         end
@@ -199,7 +199,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               access_limited: %w[user-uid],
               auth_bypass_ids: [edition.auth_bypass_id],
             ),
-          )
+          ).returns("id" => "http://asset-manager/assets/asset_manager_id")
           AssetManagerCreateWhitehallAssetWorker.drain
         end
       end
@@ -265,11 +265,12 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         end
 
         it "marks replacement attachment as access limited in Asset Manager" do
-          Services.asset_manager.expects(:create_whitehall_asset).with do |params|
+          Services.asset_manager.stubs(:create_whitehall_asset).returns("id" => "http://asset-manager/assets/asset_manager_id")
+          Services.asset_manager.expects(:create_whitehall_asset).with { |params|
             params[:legacy_url_path] =~ /big-cheese/ &&
               params[:access_limited] == %w[user-uid] &&
               params[:auth_bypass_ids] == [edition.auth_bypass_id]
-          end
+          }.returns("id" => "http://asset-manager/assets/replacement_asset_manager_id")
 
           AssetManagerCreateWhitehallAssetWorker.drain
         end
