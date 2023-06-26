@@ -6,7 +6,14 @@
 <section class="organisation-details">
   <%= tab_navigation_for(@socialable) do %>
     <h2>Social media accounts</h2>
-    <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
+
+    <% if @social_media_accounts.present? %>
+      <% @social_media_accounts.each do |social_media_account| %>
+        <%= render "legacy_social_media_account", social_media_account: social_media_account, socialable: @socialable %>
+      <% end %>
+    <% else %>
+      <%= content_tag(:p, 'No social media accounts') %>
+    <% end %>
 
     <div class="form-actions">
       <%= link_to "Add", new_polymorphic_path([:admin, @socialable, SocialMediaAccount]), class: "btn btn-lg btn-primary"%>

@@ -5,6 +5,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
 
   def index
     @social_media_accounts = @socialable.social_media_accounts
+    render :legacy_index
   end
 
   def new
