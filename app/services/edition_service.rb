@@ -42,11 +42,6 @@ class EditionService
 
 private
 
-  def is_whitehall_corp_info_page?
-    edition.type == "CorporateInformationPage" &&
-      edition.rendering_app == Whitehall::RenderingApp::WHITEHALL_FRONTEND
-  end
-
   def notify!
     # reload the edition to strip the LocalisedModel, as this can
     # cause problems later with localisation.
@@ -56,8 +51,6 @@ private
   end
 
   def update_publishing_api!
-    return if is_whitehall_corp_info_page?
-
     ServiceListeners::PublishingApiPusher
       .new(edition.reload)
       .push(event: verb, options:)
