@@ -66,6 +66,12 @@ private
 
   def attachment
     @attachment ||= find_attachment || build_attachment
+
+    if @attachment.attachment_data
+      @attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints?
+    end
+
+    @attachment
   end
   helper_method :attachment
 
@@ -175,11 +181,6 @@ private
   end
 
   def save_attachment
-    if use_non_legacy_endpoints?
-      logger.info("Feature flag #{User::Permissions::USE_NON_LEGACY_ENDPOINTS} is set to true.")
-    else
-      logger.info("Feature flag #{User::Permissions::USE_NON_LEGACY_ENDPOINTS} is set to false.")
-    end
     result = attachment.save(context: :user_input)
 
     if result && attachment.is_a?(HtmlAttachment)
