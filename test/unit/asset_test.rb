@@ -2,11 +2,11 @@ require "test_helper"
 
 class AssetTest < ActiveSupport::TestCase
   setup do
-    @attachment_data = FactoryBot.create(:attachment_data)
+    @attachment_data = build(:attachment_data)
     @version = Asset.versions[:original]
   end
 
-  test "should be invalid without a asset_manager_id" do
+  test "should be invalid without an asset_manager_id" do
     asset = Asset.new(attachment_data: @attachment_data, version: @version)
 
     assert_not asset.valid?

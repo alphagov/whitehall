@@ -108,7 +108,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     @worker.perform(@file.path, @legacy_url_path, model_id, version)
 
-    assert_equal Asset.where(asset_manager_id: @asset_manager_id, version: version).count, 1
+    assert_equal Asset.where(asset_manager_id: @asset_manager_id, version:).count, 1
   end
 
   test "does not store asset_manager_id if there if no values provided for model_id or version" do

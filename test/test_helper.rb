@@ -244,6 +244,10 @@ class ActionController::TestCase
     login_as(create(role, :with_preview_design_system, name: "user-name", email: "user@example.com", organisation:))
   end
 
+  def login_as_use_non_legacy_endpoints_user(role, organisation = nil)
+    login_as(create(role, :with_use_non_legacy_endpoints, name: "user-name", email: "user@example.com", organisation:))
+  end
+
   def assert_login_required
     assert_redirected_to login_path
   end

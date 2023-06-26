@@ -152,13 +152,13 @@ class AttachmentDataTest < ActiveSupport::TestCase
     greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
     attachment = build(:attachment_data, file: greenpaper_pdf)
 
-    Services.asset_manager.stubs(:create_whitehall_asset).returns("id" => "http://asset-manager/assets/file_asset_manager_id")
-    Services.asset_manager.expects(:create_whitehall_asset).with { |value|
+    Services.asset_manager.stubs(:create_whitehall_asset)
+    Services.asset_manager.expects(:create_whitehall_asset).with do |value|
       if value[:file].path.ends_with?(".png")
         type = `file -b --mime-type "#{value[:file].path}"`
         assert_equal "image/png", type.strip
       end
-    }.returns("id" => "http://asset-manager/assets/thumbnail_asset_manager_id")
+    end
 
     second_attempt_attachment = build(:attachment_data, file: nil, file_cache: attachment.file_cache)
     assert second_attempt_attachment.save

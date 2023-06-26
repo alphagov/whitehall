@@ -69,7 +69,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   end
 
   test "creates a sidekiq job with and passes through the auth_bypass_id but not model class or id if the uploader's model responds to images" do
-    model = ImageData.new
+    model = build(:image_data)
     model.stubs(:auth_bypass_ids).returns([@auth_bypass_id])
     @uploader.stubs(:model).returns(model)
 
@@ -117,29 +117,52 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   describe "invokes worker with necessary arguments to create an asset record" do
     context "attachment is a file" do
       setup do
-        @model = AttachmentData.new(id: 55, file: @file)
+        @model = build(:attachment_data)
         @uploader.stubs(:model).returns(@model)
       end
 
-      test "calls worker with model_id and default origin asset_version" do
-        version = Asset.versions[:original]
+      context "use_non_legacy_endpoints permission is true" do
+        setup do
+          @model.use_non_legacy_endpoints = true
+        end
 
-        AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, version, anything, anything, anything, anything)
+        test "calls worker with model_id and default origin asset_version" do
+          version = Asset.versions[:original]
 
-        @uploader.store!(@file)
+          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, version, anything, anything, anything, anything)
+
+          @uploader.store!(@file)
+        end
+
+        test "calls worker with model_id and version/thumbnail asset_version" do
+          version = Asset.versions[:thumbnail]
+          @uploader.stubs(:store_path).returns("asset-path/thumbnail_file_name")
+
+          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, version, anything, anything, anything, anything)
+
+          @uploader.store!(@file)
+        end
       end
 
-      test "calls worker with model_id and version/thumbnail asset_version" do
-        version = Asset.versions[:thumbnail]
-        @uploader.stubs(:store_path).returns("asset-path/thumbnail_file_name")
+      context "use_non_legacy_endpoints permission is false" do
+        setup do
+          @model.use_non_legacy_endpoints = false
+        end
 
-        AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, version, anything, anything, anything, anything)
+        test "calls worker with nil model_id and asset_version" do
+          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, nil, nil, anything, anything)
 
-        @uploader.store!(@file)
+          @uploader.store!(@file)
+        end
       end
     end
 
     context "attachment is not a file" do
+      setup do
+        model = build(:image_data)
+        @uploader.stubs(:model).returns(model)
+      end
+
       test "calls worker with nil model_id and asset_version" do
         AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, nil, nil, anything, anything)
 
