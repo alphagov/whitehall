@@ -99,7 +99,9 @@ Whitehall::Application.routes.draw do
             end
             post :reorder_for_home_page, on: :collection
           end
-          resources :social_media_accounts
+          resources :social_media_accounts do
+            get :confirm_destroy, on: :member
+          end
           resources :translations, controller: "organisation_translations" do
             get :confirm_destroy, on: :member
           end
