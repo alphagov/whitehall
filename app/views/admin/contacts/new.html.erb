@@ -1,5 +1,7 @@
-<% page_title "Contact for: #{@contact.contactable.name}" %>
-<h1>New contact for: <%= @contactable.name %></h1>
-<p><%= link_to "Back to #{@contact.contactable.name}", [:admin, @contactable, Contact] %></p>
+<% content_for :page_title, "Add contact" %>
+<% content_for :title, "Add contact" %>
+<% content_for :context, @contact.contactable.name %>
+<% content_for :title_margin_bottom, 8 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @contact)) %>
 
 <%= render partial: "form", locals: {contact: @contact, contactable: @contactable} %>

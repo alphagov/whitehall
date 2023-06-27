@@ -2,16 +2,19 @@ class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
   before_action :find_contact, only: %i[edit update destroy remove_from_home_page add_to_home_page]
   before_action :destroy_blank_contact_numbers, only: %i[create update]
+  layout :get_layout
 
   def index; end
 
   def new
     @contact = @contactable.contacts.build
     @contact.contact_numbers.build
+    render_design_system(:new, :legacy_new)
   end
 
   def edit
     @contact.contact_numbers.build unless @contact.contact_numbers.any?
+    render_design_system(:edit, :legacy_edit)
   end
 
   def update
@@ -19,6 +22,7 @@ class Admin::ContactsController < Admin::BaseController
       handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %("#{@contact.title}" updated successfully)
     else
+      @contact.contact_numbers.build if @contact.contact_numbers.blank?
       render :edit
     end
   end
@@ -29,7 +33,8 @@ class Admin::ContactsController < Admin::BaseController
       handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %("#{@contact.title}" created successfully)
     else
-      render :edit
+      @contact.contact_numbers.build if @contact.contact_numbers.blank?
+      render :new
     end
   end
 
@@ -49,6 +54,17 @@ class Admin::ContactsController < Admin::BaseController
                                    redirect_to: ->(container, _item) { [:admin, container, Contact] }
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[new edit create update] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def find_contactable
     @contactable = Organisation.friendly.find(params[:organisation_id])

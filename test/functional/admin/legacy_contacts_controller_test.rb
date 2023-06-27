@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::ContactsControllerTest < ActionController::TestCase
+class Admin::LegacyContactsControllerTest < ActionController::TestCase
+  tests Admin::ContactsController
+
   setup do
-    login_as_preview_design_system_user(:departmental_editor)
+    login_as :departmental_editor
   end
 
   should_be_an_admin_controller

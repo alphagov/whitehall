@@ -16,7 +16,7 @@
             data: { placeholder: "Choose office type…" } %>
       </div>
       <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: office_form.object.contact } %>
-      <%= render partial: 'admin/contacts/contact_type_details_form', locals: { contact_form: contact_form } %>
+      <%= render partial: 'admin/contacts/legacy_contact_type_details_form', locals: { contact_form: contact_form } %>
       <div class="radio">
         <p class="bold add-label-margin">Feature on home page?</p>
         <% if worldwide_organisation.is_main_office?(office_form.object) %>
@@ -48,7 +48,7 @@
         <% end %>
       </fieldset>
 
-      <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form } %>
+      <%= render partial: 'admin/contacts/legacy_form_fields', locals: { contact_form: contact_form } %>
     <% end %>
   </fieldset>
 

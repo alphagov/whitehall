@@ -1,28 +1,99 @@
-<div class="row">
-  <div class="col-md-8">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds app-view-contacts">
     <%= form_for [:admin, contactable, contact], html: {class: "well"} do |contact_form| %>
-      <%= contact_form.errors %>
-      <fieldset class="contact">
-        <%= contact_form.text_field :title %>
-        <%= contact_form.text_area :comments, rows: 2, placeholder: "Optional instructions for this contact e.g. opening hours, rules of use…" %>
-        <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: contact_form.object } %>
-        <%= render partial: 'admin/contacts/contact_type_details_form', locals: { contact_form: contact_form } %>
-        <% if contactable.respond_to? :home_page_contacts %>
-          <p class="bold add-label-margin">Feature on home page?</p>
-          <div class="radio">
-            <% if contact.foi? %>
-              <p>Yes (in FOI section)</p>
-            <% else %>
-              <%= contact_form.labelled_radio_button('yes', :show_on_home_page, '1', checked: contactable.contact_shown_on_home_page?(contact_form.object)) %>
-              <%= contact_form.labelled_radio_button('no', :show_on_home_page, '0', checked: !contactable.contact_shown_on_home_page?(contact_form.object)) %>
-            <% end %>
-          </div>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Contact name (required)"
+        },
+        name: "contact[title]",
+        id: "contact_title",
+        heading_level: 2,
+        heading_size: "l",
+        value: contact_form.object.title,
+        error_items: errors_for(contact_form.object.errors, :title)
+      } %>
+
+      <%= render partial: 'admin/contacts/contact_type_details_form', locals: { contact_form: contact_form } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Comments",
+          heading_level: 2,
+          heading_size: "l",
+        },
+        name: "contact[comments]",
+        id: "contact_comments",
+        hint: "Optional instructions for this contact",
+        value: contact_form.object.comments,
+        error_items: errors_for(contact_form.object.errors, :comments)
+      } %>
+
+      <% if contactable.respond_to? :home_page_contacts %>
+        <% if contact.foi? %>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Homepage feature",
+            font_size: "l",
+            heading_level: 2
+          } %>
+          <p class="govuk-body">Yes (in FOI section)</p>
+        <% else %>
+          <%= render "govuk_publishing_components/components/radio", {
+            heading: "Homepage feature",
+            name: "contact[show_on_home_page]",
+            id_prefix: "contact_show_on_home_page",
+            heading_level: 2,
+            heading_size: "l",
+            inline: true,
+            items: [
+              {
+                value: 1,
+                text: "Yes",
+                checked: contactable.contact_shown_on_home_page?(contact_form.object)
+              },
+              {
+                value: 0,
+                text: "No",
+                checked: !contactable.contact_shown_on_home_page?(contact_form.object)
+              }
+            ]
+          } %>
         <% end %>
-        <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form } %>
+      <% end %>
 
-      </fieldset>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Email"
+        },
+        name: "contact[email]",
+        id: "contact_email",
+        heading_level: 2,
+        heading_size: "l",
+        value: contact_form.object.email,
+        error_items: errors_for(contact_form.object.errors, :email)
+      } %>
 
-      <%= contact_form.save_or_cancel(cancel: polymorphic_url([:admin, contact.contactable, Contact])) %>
+      <div class="govuk-!-margin-bottom-8">
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Contact form URL"
+          },
+          name: "contact[contact_form_url]",
+          id: "contact_contact_form_url",
+          heading_size: "l",
+          value: contact_form.object.contact_form_url,
+          error_items: errors_for(contact_form.object.errors, :contact_form_url)
+        } %>
+      </div>
+
+      <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save"
+        } %>
+
+        <%= link_to "Cancel", polymorphic_url([:admin, contact.contactable, Contact]), class:"govuk-link govuk-link--no-visited-state" %>
+      </div>
     <% end %>
   </div>
 </div>

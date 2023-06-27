@@ -1,0 +1,22 @@
+.app-view-contacts {
+  &__address {
+    .govuk-fieldset__legend--l {
+      margin-bottom: govuk-spacing(2);
+    }
+  }
+
+  &__phone {
+    .govuk-fieldset__legend--l {
+      margin-bottom: govuk-spacing(2);
+    }
+
+    .govuk-form-group {
+      margin-bottom: govuk-spacing(4);
+    }
+
+    .add-another__remove-button {
+      margin-top: govuk-spacing(4);
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,31 +1,130 @@
-<fieldset class="contact">
-  <legend>Address</legend>
-  <%= contact_form.text_field :recipient, placeholder: "Organisation, division, team, unit or person name" %>
-  <%= contact_form.text_area :street_address, rows: 3, class: "address" %>
-  <%= contact_form.text_field :locality, placeholder: "Town or city" %>
-  <%= contact_form.text_field :region, placeholder: "State or county" %>
-  <%= contact_form.text_field :postal_code %>
+<div class="govuk-!-margin-bottom-8 app-view-contacts__address">
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Address",
+    heading_level: 2,
+    heading_size: "l"
+  } do %>
+    <div class="govuk-!-margin-bottom-4">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Recipient"
+        },
+        name: "contact[recipient]",
+        id: "contact_recipient",
+        heading_size: "m",
+        hint: "Organisation, division, team, unit or person name",
+        value: contact_form.object.recipient,
+        error_items: errors_for(contact_form.object.errors, :recipient)
+      } %>
+    </div>
 
-  <div class="form-group">
-    <%= contact_form.label :country_id, 'Country', class: "control-label" %>
-    <%= contact_form.select :country_id,
-                            options_from_collection_for_select(WorldLocation.geographical, :id, :name, contact_form.object.country_id),
-                            { include_blank: true },
-                            class: 'chzn-select form-control',
-                            data: { placeholder: "Choose the country…" } %>
-  </div>
-</fieldset>
+    <div class="govuk-!-margin-bottom-4">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Street address"
+        },
+        name: "contact[street_address]",
+        id: "contact_street_address",
+        heading_size: "m",
+        value: contact_form.object.street_address,
+        error_items: errors_for(contact_form.object.errors, :street_address)
+      } %>
+    </div>
 
-<%= contact_form.text_field :email %>
-<%= contact_form.text_field :contact_form_url %>
+    <div class="govuk-!-margin-bottom-4">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Town or city"
+        },
+        name: "contact[locality]",
+        id: "contact_locality",
+        heading_size: "m",
+        value: contact_form.object.locality,
+        error_items: errors_for(contact_form.object.errors, :locality)
+      } %>
+    </div>
 
-<fieldset class="contact_numbers js-duplicate-fields">
-  <legend>Phone numbers</legend>
-  <%= contact_form.fields_for :contact_numbers, contact_form.object.contact_numbers do |contact_number_form| %>
-    <fieldset class="contact_number well js-duplicate-fields-set">
-      <%= contact_number_form.text_field :label %>
-      <%= contact_number_form.text_field :number %>
-      <%= contact_number_form.hidden_field :_destroy, class: 'js-hidden-destroy' %>
-    </fieldset>
+    <div class="govuk-!-margin-bottom-4">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "State or county"
+        },
+        name: "contact[region]",
+        id: "contact_region",
+        heading_size: "m",
+        value: contact_form.object.region,
+        error_items: errors_for(contact_form.object.errors, :region)
+      } %>
+    </div>
+
+    <div class="govuk-!-margin-bottom-4">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Postal code"
+        },
+        name: "contact[postal_code]",
+        id: "contact_postal_code",
+        heading_size: "m",
+        value: contact_form.object.postal_code,
+        error_items: errors_for(contact_form.object.errors, :postal_code)
+      } %>
+    </div>
+
+    <%
+      options = [{value: "", text: ""}]
+      options.concat(WorldLocation.geographical.map do |location|
+        {
+          value: location.id,
+          text: location.name,
+          selected: contact_form.object.country_id == location.id
+        }
+      end)
+    %>
+
+    <div class="govuk-!-margin-bottom-0">
+      <%= render "govuk_publishing_components/components/select", {
+        id: "contact_country_id",
+        name: "contact[country_id]",
+        label: "Country",
+        full_width: true,
+        heading_size: "m",
+        error_message: errors_for_input(contact_form.object.errors, :country_id),
+        options: options
+      } %>
+    </div>
   <% end %>
-</fieldset>
+</div>
+
+<div class="govuk-!-margin-bottom-8 app-view-contacts__phone">
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Phone numbers",
+    heading_level: 2,
+    heading_size: "l",
+  } do %>
+    <div data-module="AddAnother" data-add-text="Add phone number">
+      <%= contact_form.fields_for :contact_numbers, contact_form.object.contact_numbers do |contact_number_form| %>
+        <div class=" js-duplicate-fields-set govuk-!-margin-bottom-4">
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Label"
+            },
+            name: "contact[contact_numbers_attributes][#{contact_number_form.index}][label]",
+            id: "contact_contact_numbers_attributes_#{contact_number_form.index}_label",
+            heading_size: "m",
+            value: contact_number_form.object.label
+          } %>
+
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Number"
+            },
+            name: "contact[contact_numbers_attributes][#{contact_number_form.index}][number]",
+            id: "contact_contact_numbers_attributes_#{contact_number_form.index}_number",
+            heading_size: "m",
+            value: contact_number_form.object.number
+          } %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
