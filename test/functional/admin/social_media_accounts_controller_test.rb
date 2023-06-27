@@ -84,7 +84,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     organisation = create(:organisation, translated_into: %i[fr cy])
     social_media_account = create(:social_media_account, socialable_id: organisation.id, socialable_type: "Organisation")
     get :index, params: { organisation_id: organisation.id }
-    assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id)
+    assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "en" })
     assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "fr" })
     assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "cy" })
     refute_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "dk" })

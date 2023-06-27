@@ -2,10 +2,11 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   before_action :find_socialable
   before_action :find_social_media_account, only: %i[edit update confirm_destroy destroy]
   before_action :strip_whitespace_from_url
+  layout :get_layout
 
   def index
     @social_media_accounts = @socialable.social_media_accounts
-    render :legacy_index
+    render_design_system(:index, :legacy_index)
   end
 
   def new
