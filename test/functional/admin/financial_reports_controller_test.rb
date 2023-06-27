@@ -52,8 +52,7 @@ class Admin::FinancialReportsControllerTest < ActionController::TestCase
                   financial_report: {
                     year: "not-a-year", spending: 0, funding: 0
                   } }
-    assert_select "div.alert"
-    assert_response :bad_request
+    assert_select "div.govuk-error-summary"
   end
 
   test "DELETE on a financial report removes it" do

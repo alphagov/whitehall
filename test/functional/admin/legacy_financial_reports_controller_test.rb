@@ -55,7 +55,6 @@ class Admin::LegacyFinancialReportsControllerTest < ActionController::TestCase
                     year: "not-a-year", spending: 0, funding: 0
                   } }
     assert_select "div.alert"
-    assert_response :bad_request
   end
 
   test "DELETE on a financial report removes it" do

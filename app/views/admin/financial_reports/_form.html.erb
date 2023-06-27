@@ -1,0 +1,59 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds"> 
+    <%= form_with model: financial_report, url: [:admin, organisation, financial_report] do |form| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Year (required)"
+        },
+        name: "financial_report[year]",
+        id: "financial_report_year",
+        value: params.dig("financial_report", "year") || form.object.year,
+        width: 4,
+        heading_level: 2,
+        heading_size: "l",
+        error_items: errors_for(form.object.errors, :year)
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Funding"
+        },
+        name: "financial_report[funding]",
+        id: "financial_report_funding",
+        value: params.dig("financial_report", "funding") || form.object.funding,
+        width: 10,
+        heading_level: 2,
+        heading_size: "l",
+        error_items: errors_for(form.object.errors, :funding)
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Spending"
+          },
+          name: "financial_report[spending]",
+          id: "financial_report_spending",
+          value: params.dig("financial_report", "spending") || form.object.spending,
+          width: 10,
+          heading_level: 2,
+          heading_size: "l",
+          error_items: errors_for(form.object.errors, :spending)
+        } %>
+      </div>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "financial-report-button",
+            "track-label": "Save"
+          }
+        } %>
+        <%= link_to("Cancel", admin_organisation_financial_reports_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>
