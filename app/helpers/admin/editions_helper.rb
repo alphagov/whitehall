@@ -234,6 +234,14 @@ module Admin::EditionsHelper
     tab_navigation(tabs) { yield blk }
   end
 
+  def call_for_evidence_editing_tabs(edition, &blk)
+    tabs = default_edition_tabs(edition)
+    if edition.persisted?
+      tabs["Outcome"] = admin_call_for_evidence_outcome_path(edition)
+    end
+    tab_navigation(tabs) { yield blk }
+  end
+
   def standard_edition_publishing_controls(form, edition)
     tag.div(class: "publishing-controls") do
       if edition.change_note_required?

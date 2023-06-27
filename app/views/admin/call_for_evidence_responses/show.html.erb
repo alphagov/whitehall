@@ -1,0 +1,61 @@
+<% content_for :page_title, "#{@response.friendly_name.capitalize} for call for evidence" %>
+<% content_for :title, "#{@response.friendly_name.capitalize} for call for evidence" %>
+<% content_for :context, "#{@edition.title}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @response)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation tabs",
+      items: secondary_navigation_tabs_items(@edition, request.path)
+    } %>
+
+    <% if @response.persisted? %>
+      <%= render "govuk_publishing_components/components/summary_list", {
+        title: "#{@response.friendly_name.capitalize}",
+        heading_size: "l",
+        items: [
+          {
+            field: "Summary",
+            value: govspeak_to_html(@response.summary)
+          },
+          {
+            field: "Published on",
+            value: @response.published_on.to_fs(:long_ordinal)
+          }
+        ],
+        edit: {
+          href: [:edit, :admin, @edition, @response.singular_routing_symbol],
+          link_text: "Edit"
+        }
+      } %>
+
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Attachments (optional)",
+        font_size: "l",
+        margin_bottom: 3
+      } %>
+
+      <%= render "govuk_publishing_components/components/list", {
+        items: [
+          (link_to 'Upload new file attachment', new_admin_call_for_evidence_response_attachment_path(@response), class: "govuk-link"),
+          (link_to 'Add new HTML attachment', new_admin_call_for_evidence_response_attachment_path(@response, type: "html"), class: "govuk-link")
+        ]
+      } %>
+
+      <%= render('admin/attachments/attachments', attachable: @response) if @response.attachments.any? %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: call_for_evidence_response_help_text,
+      } %>
+
+      <%= render partial: 'form', locals: { call_for_evidence: @edition, call_for_evidence_response: @response } %>
+    <% end %>
+  </div>
+
+  <% unless @response.persisted? %>
+    <div class="govuk-grid-column-one-third">
+      <%= render partial: "admin/editions/govspeak_help", locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+    </div>
+  <% end %>
+</div>

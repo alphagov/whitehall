@@ -121,6 +121,23 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     assert_same_elements [closed_now, closed_an_hour_ago, closed_less_than_24_hours_ago], CallForEvidence.closed_at_or_within_24_hours_of(base_time.ago)
   end
 
+  test ".responded includes closed calls for evidence with an outcome" do
+    closed_with_outcome = FactoryBot.create(:call_for_evidence_with_outcome)
+    FactoryBot.create(:closed_call_for_evidence)
+    FactoryBot.create(:open_call_for_evidence)
+
+    assert_same_elements [closed_with_outcome], CallForEvidence.responded
+  end
+
+  test ".awaiting_response includes published closed calls for evidence with no outcome" do
+    FactoryBot.create(:call_for_evidence_with_outcome)
+    closed_without_outcome = FactoryBot.create(:closed_call_for_evidence)
+    FactoryBot.create(:closed_call_for_evidence, :superseded)
+    FactoryBot.create(:open_call_for_evidence)
+
+    assert_same_elements [closed_without_outcome], CallForEvidence.awaiting_response
+  end
+
   test ".open includes  closing in the future and opening in the past" do
     open_call_for_evidence = create(:call_for_evidence, opening_at: 2.days.ago, closing_at: 10.minutes.from_now)
 
@@ -186,6 +203,81 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     assert_not CallForEvidenceParticipation.exists?(call_for_evidence_participation.id)
   end
 
+  test "should destroy the call for evidence outcome when the call for evidence is destroyed" do
+    call_for_evidence = create(:call_for_evidence)
+    outcome = create(:call_for_evidence_outcome, call_for_evidence:)
+
+    call_for_evidence.destroy!
+
+    assert_not CallForEvidenceOutcome.exists?(outcome.id)
+  end
+
+  test "should copy the outcome summary and link to the original attachments when creating a new draft" do
+    call_for_evidence = create(:published_call_for_evidence)
+    outcome = create(
+      :call_for_evidence_outcome,
+      call_for_evidence:,
+      attachments: [
+        attachment = build(:file_attachment, title: "attachment-title"),
+      ],
+    )
+
+    new_draft = call_for_evidence.create_draft(build(:user))
+    new_draft.reload
+
+    assert_equal outcome.summary, new_draft.outcome.summary
+    assert_not_equal outcome, new_draft.outcome
+    assert_equal 1, new_draft.outcome.attachments.length
+    assert_equal "attachment-title", new_draft.outcome.attachments.first.title
+    assert_not_equal attachment, new_draft.outcome.attachments.first
+    assert_equal attachment.attachment_data, new_draft.outcome.attachments.first.attachment_data
+  end
+
+  test "should copy the outcome without falling over if the outcome has attachments but no summary" do
+    call_for_evidence = create(:published_call_for_evidence)
+    create(
+      :call_for_evidence_outcome,
+      call_for_evidence:,
+      summary: "",
+      attachments: [
+        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf") }),
+      ],
+    )
+
+    assert_nothing_raised do
+      new_draft = call_for_evidence.create_draft(build(:user))
+      assert_equal 1, new_draft.outcome.attachments.length
+    end
+  end
+
+  test "should report that the outcome has not been published if the call for evidence is still open" do
+    call_for_evidence = create(:call_for_evidence, opening_at: 1.day.ago, closing_at: 1.month.from_now)
+
+    assert_not call_for_evidence.outcome_published?
+  end
+
+  test "should report that the outcome has not been published if the call for evidence is closed and there is no outcome" do
+    call_for_evidence = create(:call_for_evidence, opening_at: 2.days.ago, closing_at: 1.day.ago)
+
+    assert_not call_for_evidence.outcome_published?
+  end
+
+  test "should report that the outcome has been published if the call for evidence is closed and there is an outcome" do
+    call_for_evidence = create(:call_for_evidence, opening_at: 2.days.ago, closing_at: 1.day.ago)
+    _outcome = create(:call_for_evidence_outcome, call_for_evidence:)
+
+    assert call_for_evidence.outcome_published?
+  end
+
+  test "should return the published_on date of the outcome" do
+    today = Time.zone.today
+    call_for_evidence = create(:call_for_evidence)
+    outcome = create(:call_for_evidence_outcome, call_for_evidence:)
+    outcome.stubs(:published_on).returns(today)
+
+    assert_equal today, call_for_evidence.outcome_published_on
+  end
+
   test "make_public_at should set first_published_at" do
     call_for_evidence = build(:call_for_evidence, first_published_at: nil)
     call_for_evidence.make_public_at(2.days.ago)
@@ -207,6 +299,13 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     assert_equal "Closed call for evidence", call_for_evidence.display_type
   end
 
+  test "display_type when outcome published" do
+    call_for_evidence = build(:call_for_evidence, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
+    outcome = create(:call_for_evidence_outcome, call_for_evidence:)
+    outcome.attachments << build(:file_attachment)
+    assert_equal "Call for evidence outcome", call_for_evidence.display_type
+  end
+
   test "search_format_types tags the call for evidence as a call for evidence and publicationesque-call-for-evidence" do
     call_for_evidence = build(:call_for_evidence)
     assert call_for_evidence.search_format_types.include?("call-for-evidence")
@@ -221,6 +320,13 @@ class CallForEvidenceTest < ActiveSupport::TestCase
   test "when the call for evidence is closed search_format_types tags the call for evidence as call-for-evidence-closed" do
     call_for_evidence = build(:call_for_evidence, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
     assert call_for_evidence.search_format_types.include?("call-for-evidence-closed")
+  end
+
+  test "when the call for evidence has published the outcome search_format_types tags the call for evidence as call-for-evidence-outcome" do
+    call_for_evidence = build(:call_for_evidence, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
+    outcome = create(:call_for_evidence_outcome, call_for_evidence:)
+    outcome.attachments << build(:file_attachment)
+    assert call_for_evidence.search_format_types.include?("call-for-evidence-outcome")
   end
 
   test "can associate calls for evidence with topical events" do
@@ -238,6 +344,10 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     command_paper_call_for_evidence = create(:call_for_evidence)
     command_paper_call_for_evidence.stubs(:has_official_document?).returns(true)
     assert command_paper_call_for_evidence.search_index[:has_official_document]
+
+    call_for_evidence_with_command_paper_outcome = create(:call_for_evidence, outcome: create(:call_for_evidence_outcome))
+    call_for_evidence_with_command_paper_outcome.outcome.stubs(:has_official_document?).returns(true)
+    assert call_for_evidence_with_command_paper_outcome.search_index[:has_official_document]
   end
 
   test "#search_index :has_command_paper should be true if the call for evidence has command paper attachments" do
@@ -248,6 +358,10 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     command_paper_call_for_evidence = create(:call_for_evidence)
     command_paper_call_for_evidence.stubs(:has_command_paper?).returns(true)
     assert command_paper_call_for_evidence.search_index[:has_command_paper]
+
+    call_for_evidence_with_command_paper_outcome = create(:call_for_evidence, outcome: create(:call_for_evidence_outcome))
+    call_for_evidence_with_command_paper_outcome.outcome.stubs(:has_command_paper?).returns(true)
+    assert call_for_evidence_with_command_paper_outcome.search_index[:has_command_paper]
   end
 
   test "#search_index :has_act_paper should be true if the call for evidence has act paper attachments" do
@@ -259,6 +373,10 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     command_paper_call_for_evidence = create(:call_for_evidence)
     command_paper_call_for_evidence.stubs(:has_act_paper?).returns(true)
     assert command_paper_call_for_evidence.search_index[:has_act_paper]
+
+    call_for_evidence_with_command_paper_outcome = create(:call_for_evidence, outcome: create(:call_for_evidence_outcome))
+    call_for_evidence_with_command_paper_outcome.outcome.stubs(:has_act_paper?).returns(true)
+    assert call_for_evidence_with_command_paper_outcome.search_index[:has_act_paper]
   end
 
   test "#government returns the government active on the first_public_at date" do
@@ -308,8 +426,9 @@ class CallForEvidenceTest < ActiveSupport::TestCase
   end
 
   test "#attachables returns array including itself" do
-    call_for_evidence = build(:call_for_evidence)
-    assert_equal [call_for_evidence], call_for_evidence.attachables
+    outcome = build(:call_for_evidence_outcome)
+    call_for_evidence = build(:call_for_evidence, outcome:)
+    assert_equal [call_for_evidence, outcome], call_for_evidence.attachables
   end
 
   test "calls for evidence cannot be previously published" do

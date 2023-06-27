@@ -1,0 +1,54 @@
+<%= form_for [:admin, call_for_evidence, call_for_evidence_response], url: [:admin, call_for_evidence, call_for_evidence_response.singular_routing_symbol] do |form| %>
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Published on (required)",
+    heading_size: "l"
+  } do %>
+    <%= render "components/datetime_fields", {
+      prefix: "call_for_evidence_#{call_for_evidence_response.singular_routing_symbol}",
+      field_name: "published_on",
+      date_only: true,
+      error_items: errors_for(call_for_evidence_response.errors, :published_on),
+      year: {
+        value: call_for_evidence_response.published_on&.year,
+        start_year: 1997,
+        end_year: Date.today.year + 5
+      },
+      month: {
+        value: call_for_evidence_response.published_on&.month
+      },
+      day: {
+        id: "call_for_evidence_#{call_for_evidence_response.singular_routing_symbol}_published_on",
+        value: call_for_evidence_response.published_on&.day
+      }
+    } %>
+  <% end %>
+
+  <%= render "components/govspeak-editor", {
+    label: {
+      heading_size: "l",
+      text: "Summary (required)"
+    },
+    name: "call_for_evidence_#{call_for_evidence_response.singular_routing_symbol}[summary]",
+    rows: 20,
+    id: "call_for_evidence_#{call_for_evidence_response.singular_routing_symbol}_summary",
+    value: call_for_evidence_response.summary,
+    error_items: errors_for(form.object.errors, :summary),
+    data_attributes: {
+      alternative_format_provider_id: @edition && @edition.alternative_format_provider_id ? @edition.alternative_format_provider_id : current_user.organisation.try(:id)
+    }
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "call-for-evidence-#{call_for_evidence_response.singular_routing_symbol.to_s.dasherize}-button",
+        "track-label": "Save"
+      }
+    } %>
+
+    <%= link_to("Cancel", "#{admin_edition_path(call_for_evidence)}/#{call_for_evidence_response.singular_routing_symbol.to_s}", class: "govuk-link govuk-link--no-visited-state") %>
+  </div>
+<% end %>

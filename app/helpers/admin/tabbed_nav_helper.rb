@@ -6,6 +6,8 @@ module Admin::TabbedNavHelper
       edition_nav_items(model, current_path)
     elsif model.respond_to? :consultation
       edition_nav_items(model.consultation, current_path)
+    elsif model.respond_to? :call_for_evidence
+      edition_nav_items(model.call_for_evidence, current_path)
     else
       send("#{model.class.model_name.param_key}_nav_items", model, current_path)
     end
@@ -16,6 +18,7 @@ module Admin::TabbedNavHelper
     nav_items << standard_edition_nav_items(edition, current_path)
     nav_items << images_nav_items(edition, current_path)
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
+    nav_items << call_for_evidence_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(CallForEvidence)
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
     nav_items.flatten
   end
@@ -46,6 +49,16 @@ module Admin::TabbedNavHelper
             current: current_path == admin_edition_images_path(edition),
           }]
         end),
+    ]
+  end
+
+  def call_for_evidence_nav_items(edition, current_path)
+    [
+      {
+        label: "Outcome",
+        href: admin_call_for_evidence_outcome_path(edition),
+        current: current_path == admin_call_for_evidence_outcome_path(edition),
+      },
     ]
   end
 

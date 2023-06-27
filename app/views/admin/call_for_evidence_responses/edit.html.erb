@@ -1,0 +1,15 @@
+<% content_for :page_title, "Editing #{@response.friendly_name} for: #{@edition.title}" %>
+<% content_for :title, "Editing #{@response.friendly_name} for call for evidence" %>
+<% content_for :context, "#{@edition.title}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @response)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render partial: 'form', locals: { call_for_evidence: @edition, call_for_evidence_response: @response } %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render partial: "admin/editions/govspeak_help",
+    locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+  </div>
+</div>

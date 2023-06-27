@@ -5,6 +5,10 @@ module Admin::AttachableHelper
       consultation_editing_tabs(attachable, &block)
     when ConsultationResponse
       consultation_editing_tabs(attachable.consultation, &block)
+    when CallForEvidence
+      call_for_evidence_editing_tabs(attachable, &block)
+    when CallForEvidenceResponse
+      call_for_evidence_editing_tabs(attachable.call_for_evidence, &block)
     when Edition
       edition_editing_tabs(attachable, &block)
     else

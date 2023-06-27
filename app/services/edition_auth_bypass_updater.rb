@@ -65,4 +65,24 @@ private
       end
     end
   end
+
+  def update_call_for_evidence_attachments(edition)
+    return unless edition.is_a?(CallForEvidence)
+
+    if edition.call_for_evidence_participation&.call_for_evidence_response_form.present?
+      response_form = edition.call_for_evidence_participation.call_for_evidence_response_form
+      response_form_data_id = response_form.call_for_evidence_response_form_data.id
+      new_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
+
+      AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "CallForEvidenceResponseFormData", response_form_data_id, new_attributes)
+    end
+
+    if edition.outcome.present?
+      edition.outcome.attachments.files.each do |file_attachment|
+        new_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
+        attachment_data_id = file_attachment.attachment_data.id
+        AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data_id, new_attributes)
+      end
+    end
+  end
 end

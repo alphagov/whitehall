@@ -67,6 +67,7 @@ private
     case attachable
     when Edition then attachable.becomes(Edition)
     when ConsultationResponse then attachable.becomes(ConsultationResponse)
+    when CallForEvidenceResponse then attachable.becomes(CallForEvidenceResponse)
     else attachable
     end
   end

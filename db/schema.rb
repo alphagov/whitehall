@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_17_100117) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_21_120551) do
   create_table "attachment_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "carrierwave_file"
     t.string "content_type"
@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_100117) do
     t.string "email"
     t.integer "call_for_evidence_response_form_id"
     t.text "postal_address"
-    t.index ["call_for_evidence_response_form_id"], name: "index_cfes_participations_on_cfes_response_form_id"
+    t.index ["call_for_evidence_response_form_id"], name: "index_cons_participations_on_cons_response_form_id"
     t.index ["edition_id"], name: "index_call_for_evidence_participations_on_edition_id"
   end
 
@@ -82,6 +82,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_100117) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.integer "call_for_evidence_response_form_data_id"
+  end
+
+  create_table "call_for_evidence_responses", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "edition_id"
+    t.text "summary"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.date "published_on"
+    t.string "type"
+    t.index ["edition_id", "type"], name: "index_call_for_evidence_responses_on_edition_id_and_type"
+    t.index ["edition_id"], name: "index_call_for_evidence_responses_on_edition_id"
   end
 
   create_table "consultation_participations", id: :integer, charset: "utf8mb3", force: :cascade do |t|
