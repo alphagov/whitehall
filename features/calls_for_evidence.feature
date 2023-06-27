@@ -18,3 +18,12 @@ Feature: Calls For Evidence
     When I am on the edit page for call for evidence "Beard Length Review"
     And I mark the call for evidence as offsite
     Then the call for evidence can be associated with topical events
+
+  @disable-sidekiq-test-mode
+  Scenario: Adding an outcome to a closed call for evidence
+    Given I am an editor
+    And I have the "Preview call for evidence" permission
+    And a closed call for evidence exists
+    When I add an outcome to the call for evidence
+    And I save and publish the amended call for evidence
+    Then I can see that the call for evidence has been published
