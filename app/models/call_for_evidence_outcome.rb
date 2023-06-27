@@ -8,7 +8,7 @@ class CallForEvidenceOutcome < CallForEvidenceResponse
   end
 
   def allows_attachment_references?
-    true
+    false
   end
 
   def can_have_attached_house_of_commons_papers?
