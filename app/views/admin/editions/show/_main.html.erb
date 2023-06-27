@@ -35,7 +35,7 @@
       } %>
       <p class="govuk-body">
         <%= link_to("Preview on website #{"- English" if @edition.translatable? && @edition.available_in_multiple_languages?} (opens in new tab)".strip,
-        @edition.public_url(draft: true),
+        @edition.public_url(draft: true, locale: @edition.primary_locale),
         class: "govuk-link",
         target: "_blank",
         data: {
@@ -76,7 +76,7 @@
 
           <%= render "govuk_publishing_components/components/copy_to_clipboard", {
             label: "Copy and send this link to someone and they’ll be able to preview your draft on GOV.UK.",
-            copyable_content: show_url_with_auth_bypass_options(@edition, draft: true),
+            copyable_content: show_url_with_auth_bypass_options(@edition, draft: true, locale: @edition.primary_locale),
             button_text: "Copy link"
           } %>
           <% if !@edition.publicly_visible? %>
