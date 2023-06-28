@@ -26,6 +26,7 @@ class Admin::TopicalEventsController < Admin::BaseController
     if @topical_event.save
       redirect_to [:admin, @topical_event], notice: "#{human_friendly_model_name} created"
     else
+      build_associated_objects
       render action: "new"
     end
   end
@@ -43,6 +44,7 @@ class Admin::TopicalEventsController < Admin::BaseController
         redirect_to [:admin, TopicalEvent.new], notice: "#{human_friendly_model_name} updated"
       end
     else
+      build_associated_objects
       render action: "edit"
     end
   end
@@ -91,7 +93,7 @@ private
   end
 
   def build_associated_objects
-    @topical_event.social_media_accounts.build
+    @topical_event.social_media_accounts.build unless get_layout == "design_system" && @topical_event.social_media_accounts.present?
   end
 
   def destroy_blank_social_media_accounts

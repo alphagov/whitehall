@@ -1,8 +1,15 @@
-<% page_title "New policy area" %>
-<div class="row">
-  <div class="col-md-8">
-    <h1>New <%= human_friendly_model_name.downcase %></h1>
-    <p class="warning">Do not create <%= human_friendly_model_name.downcase %>s without consulting GDS. New documents will be live immediately on selecting save.</p>
-    <%= render partial: "legacy_form", locals: {topical_event: @topical_event, show_consult_gds_warning: true} %>
+<% content_for :context, "Topical events" %>
+<% content_for :page_title, "New topical event" %>
+<% content_for :title, "New topical event" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @topical_event)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Changes to topical events appear instantly on the live site.",
+      margin_bottom: 6
+    } %>
+    <%= render "form", topical_event: @topical_event %>
   </div>
 </div>
