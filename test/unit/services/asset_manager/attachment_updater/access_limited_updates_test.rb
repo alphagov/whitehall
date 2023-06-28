@@ -106,7 +106,7 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
       context "when attachment's attachable is access limited and the attachment is not a PDF" do
         let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
         let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
-        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
+        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
 
         before do
           attachment_data.assets = [asset]
@@ -130,8 +130,8 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
       context "when attachment's attachable is access limited and the attachment is a PDF" do
         let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
         let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
-        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
-        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, version: Asset.versions[:thumbnail]) }
+        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
+        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, variant: Asset.variants[:thumbnail]) }
 
         before do
           attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]
@@ -157,7 +157,7 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
       context "when attachment's attachable is not access limited and the attachment is not a PDF" do
         let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
         let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
-        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
+        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
 
         before do
           attachment_data.assets = [asset]
@@ -175,8 +175,8 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
       context "when attachment's attachable is not access limited and the attachment is a PDF" do
         let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
         let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
-        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
-        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, version: Asset.versions[:thumbnail]) }
+        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
+        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, variant: Asset.variants[:thumbnail]) }
 
         before do
           attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]

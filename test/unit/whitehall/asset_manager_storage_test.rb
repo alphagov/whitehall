@@ -126,19 +126,19 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
           @model.use_non_legacy_endpoints = true
         end
 
-        test "calls worker with model_id and default origin asset_version" do
-          version = Asset.versions[:original]
+        test "calls worker with model_id and default origin asset_variant" do
+          variant = Asset.variants[:original]
 
-          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, version, anything, anything, anything, anything)
+          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, variant, anything, anything, anything, anything)
 
           @uploader.store!(@file)
         end
 
-        test "calls worker with model_id and version/thumbnail asset_version" do
-          version = Asset.versions[:thumbnail]
+        test "calls worker with model_id and variant/thumbnail asset_variant" do
+          variant = Asset.variants[:thumbnail]
           @uploader.stubs(:store_path).returns("asset-path/thumbnail_file_name")
 
-          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, version, anything, anything, anything, anything)
+          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, variant, anything, anything, anything, anything)
 
           @uploader.store!(@file)
         end
@@ -149,7 +149,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
           @model.use_non_legacy_endpoints = false
         end
 
-        test "calls worker with nil model_id and asset_version" do
+        test "calls worker with nil model_id and asset_variant" do
           AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, nil, nil, anything, anything)
 
           @uploader.store!(@file)
@@ -163,7 +163,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
         @uploader.stubs(:model).returns(model)
       end
 
-      test "calls worker with nil model_id and asset_version" do
+      test "calls worker with nil model_id and asset_variant" do
         AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, nil, nil, anything, anything)
 
         @uploader.store!(@file)

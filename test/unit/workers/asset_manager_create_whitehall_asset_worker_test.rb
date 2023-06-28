@@ -103,15 +103,15 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
   test "stores corresponding asset_manager_id for current file attachment" do
     model_id = FactoryBot.create(:attachment_data).id
-    version = Asset.versions[:original]
+    variant = Asset.variants[:original]
     Services.asset_manager.stubs(:create_whitehall_asset).returns("id" => "http://asset-manager/assets/#{@asset_manager_id}")
 
-    @worker.perform(@file.path, @legacy_url_path, model_id, version)
+    @worker.perform(@file.path, @legacy_url_path, model_id, variant)
 
-    assert_equal Asset.where(asset_manager_id: @asset_manager_id, version:).count, 1
+    assert_equal Asset.where(asset_manager_id: @asset_manager_id, variant:).count, 1
   end
 
-  test "does not store asset_manager_id if there if no values provided for model_id or version" do
+  test "does not store asset_manager_id if there if no values provided for model_id or variant" do
     @worker.perform(@file.path, @legacy_url_path)
 
     assert_equal Asset.where(asset_manager_id: @asset_manager_id).count, 0

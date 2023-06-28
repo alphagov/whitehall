@@ -85,7 +85,7 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::Te
         let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
         let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
         let(:parent_document_url) { edition.public_url(draft: true) }
-        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
+        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
 
         it "sets parent_document_url for attachment using draft hostname" do
           attachment_data.assets = [asset]
@@ -100,7 +100,7 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::Te
       context "when attachment is not a PDF" do
         let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
         let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf, attachable: edition) }
-        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
+        let(:asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
 
         it "sets parent_document_url of corresponding asset" do
           attachment_data.assets = [asset]
@@ -115,8 +115,8 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdatesTest < ActiveSupport::Te
       context "when attachment is a PDF" do
         let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
         let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: edition) }
-        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
-        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, version: Asset.versions[:thumbnail]) }
+        let(:pdf_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
+        let(:pdf_thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, variant: Asset.variants[:thumbnail]) }
 
         it "sets parent_document_url for attachment & its thumbnail" do
           attachment_data.assets = [pdf_asset, pdf_thumbnail_asset]

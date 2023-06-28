@@ -3,7 +3,7 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
 
   sidekiq_options queue: "asset_manager"
 
-  def perform(file_path, legacy_url_path, model_id = nil, asset_version = nil, draft = false, attachable_model_class = nil, attachable_model_id = nil, auth_bypass_ids = [])
+  def perform(file_path, legacy_url_path, model_id = nil, asset_variant = nil, draft = false, attachable_model_class = nil, attachable_model_id = nil, auth_bypass_ids = [])
     return unless File.exist?(file_path)
 
     file = File.open(file_path)
@@ -20,7 +20,7 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
 
     response = asset_manager.create_whitehall_asset(asset_options)
 
-    create_asset_manager_asset(model_id, asset_version, response)
+    create_asset_manager_asset(model_id, asset_variant, response)
 
     if attachable_model
       # The AttachmentData we want to set the timestamp on may not
@@ -38,11 +38,11 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
 
 private
 
-  def create_asset_manager_asset(model_id, asset_version, response)
-    return unless model_id && asset_version
+  def create_asset_manager_asset(model_id, asset_variant, response)
+    return unless model_id && asset_variant
 
     response_id = get_asset_id(response)
-    save_asset_id_to_assets(model_id, asset_version, response_id)
+    save_asset_id_to_assets(model_id, asset_variant, response_id)
   end
 
   def get_asset_id(response)
@@ -51,8 +51,8 @@ private
     url[/\/assets\/(.*)/, 1]
   end
 
-  def save_asset_id_to_assets(model_id, version, asset_manager_id)
-    asset = Asset.new(asset_manager_id:, attachment_data_id: model_id, version:)
+  def save_asset_id_to_assets(model_id, variant, asset_manager_id)
+    asset = Asset.new(asset_manager_id:, attachment_data_id: model_id, variant:)
     asset.save!
   end
 end

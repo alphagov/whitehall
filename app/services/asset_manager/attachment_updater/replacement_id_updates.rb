@@ -38,18 +38,18 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdates
       Enumerator.new do |enum|
         attachment_data.assets.each do |asset|
           # Update original file
-          replacement_asset = replacement.assets.where(version: Asset.versions[:original]).first
+          replacement_asset = replacement.assets.where(variant: Asset.variants[:original]).first
 
           enum.yield AssetManager::AttachmentUpdater::Update.new(
             asset.asset_manager_id, attachment_data, nil, replacement_id: replacement_asset.asset_manager_id
           )
 
           #   Update thumbnail
-          next unless asset.version == Asset.versions[:thumbnail]
+          next unless asset.variant == Asset.variants[:thumbnail]
 
-          replacement_thumbnail = replacement.assets.where(version: Asset.versions[:thumbnail])
+          replacement_thumbnail = replacement.assets.where(variant: Asset.variants[:thumbnail])
           if replacement_thumbnail.empty?
-            replacement_thumbnail = replacement.assets.where(version: Asset.versions[:original])
+            replacement_thumbnail = replacement.assets.where(variant: Asset.variants[:original])
           end
 
           enum.yield AssetManager::AttachmentUpdater::Update.new(

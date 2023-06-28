@@ -103,8 +103,8 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
         let(:replacement) { AttachmentData.create!(file: sample_docx) }
         let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
         let(:attributes) { { "replacement_id" => replacement_original_asset.asset_manager_id } }
-        let(:original_asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
-        let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id", attachment_data_id: replacement.id, version: Asset.versions[:original]) }
+        let(:original_asset) { Asset.new(asset_manager_id: "asset_manager_id", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
+        let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id", attachment_data_id: replacement.id, variant: Asset.variants[:original]) }
 
         it "updates replacement ID of corresponding asset" do
           attachment_data.assets = [original_asset]
@@ -135,10 +135,10 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport:
         let(:replacement) { AttachmentData.create!(file: whitepaper_pdf) }
         let(:attributes) { { "replacement_id" => replacement_original_asset.asset_manager_id } }
         let(:thumbnail_attributes) { { "replacement_id" => replacement_thumbnail_asset.asset_manager_id } }
-        let(:original_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
-        let(:thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, version: Asset.versions[:thumbnail]) }
-        let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id_1", attachment_data_id: attachment_data.id, version: Asset.versions[:original]) }
-        let(:replacement_thumbnail_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id_2", attachment_data_id: attachment_data.id, version: Asset.versions[:thumbnail]) }
+        let(:original_asset) { Asset.new(asset_manager_id: "asset_manager_id_1", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
+        let(:thumbnail_asset) { Asset.new(asset_manager_id: "asset_manager_id_2", attachment_data_id: attachment_data.id, variant: Asset.variants[:thumbnail]) }
+        let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id_1", attachment_data_id: attachment_data.id, variant: Asset.variants[:original]) }
+        let(:replacement_thumbnail_asset) { Asset.new(asset_manager_id: "replacement_asset_manager_id_2", attachment_data_id: attachment_data.id, variant: Asset.variants[:thumbnail]) }
 
         it "and replacement is a pdf - updates replacement ID of asset for attachment & its thumbnail" do
           attachment_data.assets = [original_asset, thumbnail_asset]
