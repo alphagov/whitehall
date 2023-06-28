@@ -72,4 +72,30 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
     assert_equal "/world/organisations/#{worldwide_organisation.name}/about/about", corporate_information_page.base_path
   end
+
+  test "republishes owning organisation after commit when present" do
+    organisation = create(:organisation)
+    corporate_information_page = create(:corporate_information_page, organisation:, worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
+
+    corporate_information_page.update!(body: "new body")
+  end
+
+  test "republishes owning worldwide organisation after commit when present" do
+    worldwide_organisation = create(:worldwide_organisation)
+    corporate_information_page = create(:corporate_information_page, organisation: nil, worldwide_organisation:)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once
+
+    corporate_information_page.update!(body: "new body")
+  end
+
+  test "does not republish owning organisation when absent" do
+    corporate_information_page = create(:corporate_information_page, organisation: nil, worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:republish_async).never
+
+    corporate_information_page.update!(body: "new body")
+  end
 end
