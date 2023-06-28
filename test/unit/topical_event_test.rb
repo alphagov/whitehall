@@ -267,7 +267,7 @@ class TopicalEventTest < ActiveSupport::TestCase
     assert_equal [offsite_link2], topical_event.featurable_offsite_links
   end
 
-  test "#featurable_editions returns associated editions that do not belong to a topical event featuring" do
+  test "#featurable_editions returns editions that do not belong to a topical event featuring" do
     topical_event = build(:topical_event)
     edition1 = build(:edition)
     edition2 = build(:edition)
@@ -276,7 +276,7 @@ class TopicalEventTest < ActiveSupport::TestCase
     topical_event.stubs(:editions).returns([edition1, edition2])
     topical_event.stubs(:topical_event_featurings).returns([topical_event_featuring])
 
-    assert_equal [edition2], topical_event.featurable_editions
+    assert_equal [edition2], topical_event.featurable_editions([edition1, edition2])
   end
 
   test "rejects SVG logo uploads" do

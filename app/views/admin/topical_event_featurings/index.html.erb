@@ -42,7 +42,7 @@
       content: render("admin/shared/featurable_editions",
         filter: @filter,
         paginator: @tagged_editions,
-        featurable_editions: @topical_event.featurable_editions,
+        featurable_editions: @topical_event.featurable_editions(@tagged_editions),
         filter_by: [:title, :type, :author, :organisation],
         anchor: "#documents_tab",
         filter_action: admin_topical_event_topical_event_featurings_url(@topical_event),
