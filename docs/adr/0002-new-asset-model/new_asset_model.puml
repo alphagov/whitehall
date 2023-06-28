@@ -6,10 +6,11 @@ skinparam dpi 300
 
 class Document <<model>>
 
-rectangle "Editions" {
+rectangle "Attachables" {
     abstract Edition <<model>> {
         state
     }
+    class PolicyGroup <<model>>
     rectangle "(others)" as othereds
     Edition <|-- othereds #line:blue;line.bold
     Edition <|-- Attachable #line:blue;line.bold
@@ -42,6 +43,15 @@ rectangle "Images" {
   note on link: links to images from past editions as well
 }
 
+rectangle "Other models with assets" {
+  class Person <<model>> {
+    logo
+  }
+
+  note "several other similar\nmodels not shown" as N1
+}
+
+
 Edition *-- Image
 
 Document *-- Edition 
@@ -55,6 +65,9 @@ class Document {
 
 class Asset {
   asset_manager_id
+  owner_id
+  owner_type
+  variant
   state
 }
 
@@ -70,5 +83,5 @@ Asset .. amAsset: 1:1 relationship based on ID
 
 AttachmentData --* Asset
 ImageData --* Asset
-
+Person --* Asset
 @enduml

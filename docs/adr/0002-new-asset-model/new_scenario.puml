@@ -33,20 +33,28 @@ ImageData_2 *-u- Image_2: also linked to other editions
 
 object "Asset:1" as Asset_1 {
   asset_manager_id: X164e681f
-  state: TBD
+  owner_type: AttachmentData
+  owner_id: 1
+  variant: original
 }
 object "Asset:2" as Asset_2 {
   asset_manager_id: X174e681f
-  state: TBD
+  owner_type: AttachmentData
+  owner_id: 1
+  variant: thumbnail
 }
 
 object "Asset:3" as Asset_3 {
   asset_manager_id: X174e6824
-  state: TBD
+  owner_type: ImageData
+  owner_id: 2
+  variant: original
 }
 object "Asset:4" as Asset_4 {
   asset_manager_id: X174e6825
-  state: TBD
+  owner_type: ImageData
+  owner_id: 2
+  variant: s216
 }
 
 AttachmentData_1 *-- Asset_1

@@ -16,7 +16,7 @@ of an Edition and all of it's assets.
 
 ### Existing model
 
-The existing asset model uses `AttachmentData` and `ImageData` objects to store data about uploaded files:
+The existing asset model primarily uses `AttachmentData` and `ImageData` objects to store data about uploaded files.  There are also various other assets, such as logos, but we are mostly focused on Attachments and Images here:
 
 ![existing asset model](0002-new-asset-model/existing_asset_model.svg)
 
@@ -39,17 +39,18 @@ This diagram shows a sample scenario of a NewsArticle with one File and one Imag
 
 ## Decision
 
-We plan to move to a more explicit model where all Whitehall Assets in AssetManager have a corresponding Asset in Whitehall.
-This Asset will include the ID of the corresponding AssetManager resource, as well as any other needed metadata and state
-information.  (Specifics of states to use are not covered in this ADR)
+We plan to move to a more explicit model where all Whitehall Assets in AssetManager have a corresponding `Asset` in Whitehall.
+
+This `Asset` will include the ID of the corresponding Asset Manager `Asset`, the `variant` (e.g. if they are a thumbnail or a scaled image) and a polymorphic relationship to their owning class (this may be in future modeled as a concern such as `AssetOwner` but we will only need that if there is shared behaviour)
+
+Other metadata and state
+information can be added to Assets as needed. (Specifics of states to use are not covered in this ADR)
 
 ### New model
 
-This is the new asset model for Editions:
+This is the new asset model:
 
 ![new asset model](0002-new-asset-model/new_asset_model.svg)
-
-A similar link to an `Asset` will be needed for any other models that have images or file attachments.
 
 The scenario shown above would now be modeled as follows:
 

@@ -6,14 +6,16 @@ skinparam dpi 300
 
 class Document <<model>>
 
-rectangle "Editions" {
+rectangle "Attachables" {
     abstract Edition <<model>> {
         state
     }
+    class PolicyGroup <<model>>
     rectangle "(others)" as othereds
     Edition <|-- othereds #line:blue;line.bold
     Edition <|-- Attachable #line:blue;line.bold
     note on link: several Edition descendants are Attachable
+    PolicyGroup <|-- Attachable #line:blue;line.bold
     abstract Attachable<<concern>>
 }
 
@@ -42,6 +44,14 @@ rectangle "Images" {
   note on link: links to images from past editions as well
 }
 
+rectangle "Other models with assets" {
+  class Person <<model>> {
+    logo
+  }
+
+  note "several other similar\nmodels not shown" as N1
+}
+
 Edition *-- Image
 
 Document *-- Edition 
@@ -63,5 +73,5 @@ class Asset {
 
 AttachmentData ..* Asset: 1:many e.g. asset + thumbnail
 ImageData ..* Asset: 1:many - multiple scaled versions
-
+Person ..* Asset: 1:1 typically
 @enduml
