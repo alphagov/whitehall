@@ -67,7 +67,7 @@ private
     if featuring.offsite?
       link_to(sanitize("Edit #{tag.span(featuring.offsite_link, class: 'govuk-visually-hidden')}"), edit_admin_topical_event_offsite_link_path(featuring.topical_event, featuring.offsite_link), class: "govuk-link")
     else
-      link_to(sanitize("Edit #{tag.span(featuring.title, class: 'govuk-visually-hidden')}"), admin_edition_path(featuring.edition), class: "govuk-link")
+      link_to(sanitize("View #{tag.span(featuring.title, class: 'govuk-visually-hidden')}"), admin_edition_path(featuring.edition), class: "govuk-link")
     end
   end
 
