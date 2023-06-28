@@ -1,7 +1,7 @@
 class Admin::TopicalEventsController < Admin::BaseController
   helper_method :model_class, :model_name, :human_friendly_model_name
 
-  before_action :load_object, only: %i[show edit]
+  before_action :load_object, only: %i[show edit confirm_destroy destroy]
   before_action :build_object, only: [:new]
   before_action :build_associated_objects, only: %i[new edit]
   before_action :destroy_blank_social_media_accounts, only: %i[create update]
@@ -17,18 +17,23 @@ class Admin::TopicalEventsController < Admin::BaseController
     render_design_system(:index, :legacy_index)
   end
 
-  def new; end
+  def new
+    render_design_system(:new, :legacy_new)
+  end
 
   def create
     @topical_event = model_class.new(object_params)
     if @topical_event.save
       redirect_to [:admin, @topical_event], notice: "#{human_friendly_model_name} created"
     else
+      build_associated_objects
       render action: "new"
     end
   end
 
-  def edit; end
+  def edit
+    render_design_system(:edit, :legacy_edit)
+  end
 
   def update
     @topical_event = TopicalEvent.friendly.find(params[:id])
@@ -39,12 +44,14 @@ class Admin::TopicalEventsController < Admin::BaseController
         redirect_to [:admin, TopicalEvent.new], notice: "#{human_friendly_model_name} updated"
       end
     else
+      build_associated_objects
       render action: "edit"
     end
   end
 
+  def confirm_destroy; end
+
   def destroy
-    @topical_event = model_class.friendly.find(params[:id])
     @topical_event.delete!
     if @topical_event.deleted?
       redirect_to [:admin, model_class], notice: "#{human_friendly_model_name} destroyed"
@@ -72,9 +79,8 @@ class Admin::TopicalEventsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[show index] if preview_design_system?(next_release: false)
-
+    design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[show index edit update new create] if preview_design_system?(next_release: false)
     if design_system_actions.include?(action_name)
       "design_system"
     else
@@ -87,7 +93,7 @@ private
   end
 
   def build_associated_objects
-    @topical_event.social_media_accounts.build
+    @topical_event.social_media_accounts.build unless get_layout == "design_system" && @topical_event.social_media_accounts.present?
   end
 
   def destroy_blank_social_media_accounts

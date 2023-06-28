@@ -1,57 +1,160 @@
-<%
-  show_instantly_live_warning ||= false
-  show_consult_gds_warning ||= false
-%>
+<%= form_with model: topical_event, url: [:admin, topical_event], multipart: true do |form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Name (required)",
+      heading_size: "l"
+    },
+    value: topical_event.name,
+    name: "topical_event[name]",
+    id: "topical_event_name",
+    error_items: errors_for(topical_event.errors, :name)
+  } %>
 
-<%= form_for [:admin, topical_event] do |topical_event_form| %>
-  <%= topical_event_form.errors %>
+  <%= render "govuk_publishing_components/components/character_count", {
+    textarea: {
+      label: {
+        text: "Summary (required)",
+        heading_size: "l"
+      },
+      value: topical_event.summary,
+      name: "topical_event[summary]",
+      rows: 4,
+      error_items: errors_for(topical_event.errors, :summary)
+    },
+    maxlength: 160,
+    id: "topical_event_summary",
+  } %>
 
-  <fieldset>
-    <%= topical_event_form.text_field :name %>
-    <%= topical_event_form.text_area :summary, rows: 3, required: true %>
-    <%= topical_event_form.text_area :description, rows: 20, class: 'previewable', data: {
-      module: "paste-html-to-govspeak"
+  <%= render "components/govspeak-editor", {
+    label: {
+      heading_size: "l",
+      text: "Description (required)",
+    },
+    value: topical_event.description,
+    heading_size: "l",
+    name: "topical_event[description]",
+    id: "topical_event_description",
+    rows: 20,
+    error_items: errors_for(topical_event.errors, :description),
+    margin_bottom: 8,
+  } %>
+
+  <div class="govuk-!-margin-bottom-8">
+    <%= render "components/single-image-upload", {
+      title: "Logo",
+      name: "topical_event",
+      image_id: "topical_event_logo",
+      image_name: "topical_event[logo]",
+      alt_text_name: "topical_event[logo_alt_text]",
+      alt_text_id: "topical_event_logo_alt_text",
+      filename: topical_event.logo.filename,
+      page_errors: topical_event.errors.any?,
+      error_items: errors_for(topical_event.errors, :logo),
+      image_src: topical_event.logo.url,
+      image_alt: topical_event.logo_alt_text,
+      image_cache_name: "topical_event[logo_cache]",
+      image_cache: (topical_event.logo.image_cache if topical_event.logo.image_cache.present?)
     } %>
-  </fieldset>
-
-  <%= render partial: 'custom_form_fields', locals: {topical_event_form: topical_event_form} %>
-
-  <div class="row">
-    <fieldset id="organisations" class="named col-md-6">
-      <legend>Organisations</legend>
-
-      <div id="organisation_sortable">
-        <%= topical_event_form.fields_for :topical_event_organisations, topical_event.topical_event_organisations.where(lead: false) do |organisation_form| %>
-          <% organisation = organisation_form.object.organisation %>
-          <div id="<%= dom_id(organisation) %>" class="well remove-bottom-padding">
-            <%= organisation_form.text_field :lead_ordering, label_text: link_to(organisation.name, admin_organisation_path(organisation)), class: "ordering" %>
-            <%= organisation_form.text_field :lead, label_text: "#{organisation.name} is lead?", class: "lead" %>
-          </div>
-        <% end %>
-      </div>
-    </fieldset>
-
-    <fieldset id="lead_organisation_order" class="named col-md-6">
-      <legend>Lead organisations</legend>
-
-      <div id="lead_organisation_sortable">
-        <%= topical_event_form.fields_for :topical_event_organisations, topical_event.lead_topical_event_organisations do |lead_organisation_form| %>
-          <% lead_organisation = lead_organisation_form.object.organisation %>
-          <div id="<%= dom_id(lead_organisation) %>" class="well">
-            <%= lead_organisation_form.text_field :lead_ordering, label_text: link_to(lead_organisation.name, admin_organisation_path(lead_organisation)), class: "ordering" %>
-            <%= lead_organisation_form.text_field :lead, label_text: "#{lead_organisation.name} is lead?", class: "lead" %>
-          </div>
-        <% end %>
-      </div>
-    </fieldset>
   </div>
-  <p class="warning">
-    <% if show_instantly_live_warning %>
-      Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.
+
+  <div class="govuk-!-margin-bottom-8">
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "Duration",
+      heading_size: "l",
+      margin_bottom: 2
+    } do %>
+      <%= render "components/datetime_fields", {
+        date_only: true,
+        prefix: "topical_event",
+        field_name: "start_date",
+        id: "topical_event_start_date",
+        heading_size: "m",
+        date_hint: "For example, 01 August 2015",
+        date_heading: "Start date",
+        margin_bottom: 2,
+        year: {
+          value: topical_event.start_date&.year
+        },
+        month: {
+          value: topical_event.start_date&.month
+        },
+        day: {
+          value: topical_event.start_date&.day,
+        },
+        error_items: errors_for(topical_event.errors, :start_date)
+      } %>
+
+      <%= render "components/datetime_fields", {
+        date_only: true,
+        prefix: "topical_event",
+        field_name: "end_date",
+        id: "topical_event_end_date",
+        heading_size: "m",
+        date_hint: "For example, 01 August 2022",
+        date_heading: "End date",
+        year: {
+          value: topical_event.end_date&.year
+        },
+        month: {
+          value: topical_event.end_date&.month
+        },
+        day: {
+          value: topical_event.end_date&.day
+        },
+      } %>
     <% end %>
-    <% if show_consult_gds_warning %>
-      Do not create <%= human_friendly_model_name.downcase %>s without consulting GDS.
+  </div>
+
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Social media accounts",
+    heading_size: "l"
+  } do %>
+    <div data-module="AddAnother" data-add-text="Add account" class="govuk-!-margin-bottom-4">
+      <%= form.fields_for :social_media_accounts do |social_media_form| %>
+        <div class="js-duplicate-fields-set">
+          <div class="govuk-!-margin-bottom-6">
+            <div class="govuk-!-margin-bottom-4">
+              <%= render "govuk_publishing_components/components/select", {
+                id: "topical_event_social_media_accounts_attributes_#{social_media_form.index}_social_media_service_id",
+                label: "Service (required)",
+                name: "topical_event[social_media_accounts_attributes][#{social_media_form.index}][social_media_service_id]",
+                heading_size: "m",
+                options: [{ text: "", value: "" }] +
+                  SocialMediaService.all.map { |social_media|
+                    {
+                      text: social_media.name,
+                      value: social_media.id,
+                      selected: social_media_form.object.social_media_service_id == social_media.id
+                    }
+                  },
+                full_width: true
+              } %>
+            </div>
+            <%= render "govuk_publishing_components/components/input", {
+              label: {
+                text: "URL (required)"
+              },
+              name: "topical_event[social_media_accounts_attributes][#{social_media_form.index}][url]",
+              id: "topical_event_social_media_accounts_attributes_#{social_media_form.index}_url",
+              value: social_media_form.object.url,
+              heading_size: "m",
+              error_items: errors_for(social_media_form.object.errors, :url)
+            } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="govuk-button-group govuk-!-margin-top-8">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save"
+    } %>
+
+    <% if @topical_event.persisted? %>
+      <%= link_to("Cancel", admin_topical_event_path(@topical_event), class: "govuk-link") %>
+    <% else %>
+      <%= link_to("Cancel", admin_topical_events_path, class: "govuk-link") %>
     <% end %>
-  </p>
-  <%= topical_event_form.save_or_cancel cancel: [:admin, topical_event] %>
+  </div>
 <% end %>

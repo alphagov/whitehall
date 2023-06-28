@@ -72,7 +72,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "can be associated with topical events" do
     detailed_guide = create(:detailed_guide)
     assert detailed_guide.can_be_associated_with_topical_events?
-    assert topical_event = detailed_guide.topical_events.create!(name: "Test", description: "Test")
+    assert topical_event = detailed_guide.topical_events.create!(name: "Test", description: "Test", summary: "Test")
     assert_equal [detailed_guide], topical_event.detailed_guides
   end
 

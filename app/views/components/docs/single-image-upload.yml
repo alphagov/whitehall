@@ -17,6 +17,20 @@ examples:
     data:
       id: single-image-upload
       name: single-image-upload
+  with_custom_title:
+    data:
+      id: single-image-upload-with-title
+      name: ingle-image-upload-with-title
+      title: Custom title
+  with_custom_name_fields:
+    data:
+      id: single-image-upload-with-title
+      name: ingle-image-upload-with-title
+      alt_text_name: klass[logo_alt_text]
+      alt_text_id: klass_logo_alt_text
+      image_name: klass[logo]
+      image_id: klass_logo
+      image_cache_name: klass[logo_cache]
   with_error:
     data:
       id: single-image-upload-with-error

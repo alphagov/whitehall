@@ -25,7 +25,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
   test "POST :create saves the topical event" do
     assert_difference("TopicalEvent.count") do
-      post :create, params: { topical_event: { name: "Event", description: "Event description" } }
+      post :create, params: { topical_event: { name: "Event", description: "Event description", summary: "Event summary" } }
     end
 
     assert_response :redirect
@@ -66,6 +66,15 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_equal "New name", topical_event.reload.name
+  end
+
+  test "GET :confirm_destroy calls correctly" do
+    topical_event = create(:topical_event)
+
+    get :confirm_destroy, params: { id: topical_event.id }
+
+    assert_response :success
+    assert_equal topical_event, assigns(:topical_event)
   end
 
   test "DELETE :destroy deletes the topical event" do

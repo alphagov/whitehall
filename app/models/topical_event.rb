@@ -80,6 +80,7 @@ class TopicalEvent < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :description, presence: true
+  validates :summary, presence: true
   validate :start_and_end_dates
   validates :start_date, presence: true, if: ->(topical_event) { topical_event.end_date }
 

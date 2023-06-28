@@ -13,6 +13,11 @@ class TopicalEventTest < ActiveSupport::TestCase
     assert_not topical_event.valid?
   end
 
+  test "should be invalid without a summary" do
+    topical_event = build(:topical_event, summary: nil)
+    assert_not topical_event.valid?
+  end
+
   test "should be current when created" do
     topical_event = build(:topical_event)
     assert_equal "current", topical_event.state
