@@ -58,6 +58,7 @@
             [:admin, @topical_event, :topical_event_featurings],
             anchor: featuring_a_document? ? "documents_tab" : "non_govuk_government_links_tab"
           ),
+          method: :get,
           class:"govuk-link govuk-link--no-visited-state" %>
       </div>
     <% end %>
