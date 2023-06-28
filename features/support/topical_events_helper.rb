@@ -10,8 +10,19 @@ module TopicalEventsHelper
     click_link "Create topical event"
     fill_in "Name", with: options[:name] || "topic-name"
     fill_in "Description", with: options[:description] || "topic-description"
-    select_date (options[:start_date] || 1.day.ago.to_s), from: "Start Date"
-    select_date (options[:end_date] || 1.month.from_now.to_s), from: "End Date"
+    fill_in "Summary", with: options[:description] || "topic-summary"
+    if using_design_system?
+      within "#topical_event_start_date" do
+        fill_in_date_fields(options[:start_date] || 1.day.ago.to_s)
+      end
+      within "#topical_event_end_date" do
+        fill_in_date_fields(options[:end_date] || 1.month.from_now.to_s)
+      end
+    else
+      select_date (options[:start_date] || 1.day.ago.to_s), from: "Start Date"
+      select_date (options[:end_date] || 1.month.from_now.to_s), from: "End Date"
+    end
+
     click_button "Save"
 
     stub_topical_event_in_content_store(options[:name])

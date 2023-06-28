@@ -1,18 +1,15 @@
-<% page_title "Edit " + @topical_event.name %>
+<% content_for :context, "Topical events" %>
+<% content_for :page_title, @topical_event.name %>
+<% content_for :title, @topical_event.name %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @topical_event)) %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>Edit <%= human_friendly_model_name.downcase %></h1>
-    <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
-    <%= render partial: "form", locals: {topical_event: @topical_event, show_instantly_live_warning: true} %>
-  </section>
-
-  <section class="sidebar col-md-4 display_heading">
-    <h1>Delete <%= human_friendly_model_name.downcase %></h1>
-    <%= button_to 'Delete',
-          [:admin, @topical_event],
-          method: :delete,
-          class: 'btn btn-danger',
-          data: { confirm: "Are you sure you want to delete: #{@topical_event} ?" } %>
-  </section>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Changes to topical events appear instantly on the live site.",
+      margin_bottom: 6
+    } %>
+    <%= render "form", topical_event: @topical_event %>
+  </div>
 </div>

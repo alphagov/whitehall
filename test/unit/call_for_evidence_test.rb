@@ -332,7 +332,7 @@ class CallForEvidenceTest < ActiveSupport::TestCase
   test "can associate calls for evidence with topical events" do
     call_for_evidence = create(:call_for_evidence)
     assert call_for_evidence.can_be_associated_with_topical_events?
-    assert topical_event = call_for_evidence.topical_events.create!(name: "Test", description: "Test")
+    assert topical_event = call_for_evidence.topical_events.create!(name: "Test", description: "Test", summary: "Test")
     assert_equal [call_for_evidence], topical_event.calls_for_evidence
   end
 

@@ -372,7 +372,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "can associate consultations with topical events" do
     consultation = create(:consultation)
     assert consultation.can_be_associated_with_topical_events?
-    assert topical_event = consultation.topical_events.create!(name: "Test", description: "Test")
+    assert topical_event = consultation.topical_events.create!(name: "Test", description: "Test", summary: "Test")
     assert_equal [consultation], topical_event.consultations
   end
 

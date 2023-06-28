@@ -10,7 +10,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   test "can associate news articles with topical events" do
     news_article = create(:news_article)
     assert news_article.can_be_associated_with_topical_events?
-    assert topical_event = news_article.topical_events.create!(name: "Test", description: "Test")
+    assert topical_event = news_article.topical_events.create!(name: "Test", description: "Test", summary: "Test")
     assert_equal [news_article], topical_event.news_articles
   end
 
