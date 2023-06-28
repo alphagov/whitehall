@@ -155,11 +155,7 @@ class CorporateInformationPage < Edition
   end
 
   def rendering_app
-    if worldwide_organisation.present?
-      Whitehall::RenderingApp::WHITEHALL_FRONTEND
-    else
-      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-    end
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
   def previously_published
