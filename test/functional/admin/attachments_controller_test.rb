@@ -180,9 +180,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "use_non_legacy_endpoints is true - POST :create triggers a job to be queued to store the attachment in Asset Manager" do
     login_as_use_non_legacy_endpoints_user :gds_editor
     attachment = valid_file_attachment_params
-    version = Asset.versions[:original]
+    variant = Asset.variants[:original]
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, kind_of(Integer), version, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, kind_of(Integer), variant, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
@@ -374,9 +374,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "use_non_legacy_endpoints is true -  PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
     login_as_use_non_legacy_endpoints_user :gds_editor
     attachment = create(:file_attachment, attachable: @edition)
-    version = Asset.versions[:original]
+    variant = Asset.variants[:original]
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, kind_of(Integer), version, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, kind_of(Integer), variant, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     put :update,
         params: {
