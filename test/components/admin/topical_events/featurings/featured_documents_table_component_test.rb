@@ -22,7 +22,7 @@ class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponentTest < Vi
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, I18n.localize(edition.major_change_published_at.to_date)
 
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
-    actions_column.assert_selector "a[href='#{admin_edition_path(edition)}']", text: "Edit #{title}"
+    actions_column.assert_selector "a[href='#{admin_edition_path(edition)}']", text: "View #{title}"
     actions_column.assert_selector "a[href='#{confirm_destroy_admin_topical_event_topical_event_featuring_path(topical_event, featuring)}']", text: "Unfeature #{title}"
   end
 
