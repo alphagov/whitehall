@@ -98,6 +98,7 @@ And(/^I create a new a non-GOV.UK link with the title "([^"]*)"$/) do |title|
 
   fill_in "Title (required)", with: title
   fill_in "Summary (required)", with: "Summary"
+  select "Alert"
   fill_in "URL (required)", with: "https://www.gov.uk/jobsearch"
 
   click_button "Save"
