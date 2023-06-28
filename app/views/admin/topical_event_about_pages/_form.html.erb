@@ -8,8 +8,7 @@
     name: "topical_event_about_page[name]",
     id: "topical_event_about_page_name",
     error_items: errors_for(topical_event_about_page.errors, :name)
-  }
-  %>
+  } %>
   <%= render "govuk_publishing_components/components/character_count", {
     textarea: {
       label: {
@@ -18,7 +17,8 @@
       },
       value: topical_event_about_page.read_more_link_text,
       name: "topical_event_about_page[read_more_link_text]",
-      error_items: errors_for(topical_event_about_page.errors, :read_more_link_text)
+      error_items: errors_for(topical_event_about_page.errors, :read_more_link_text),
+      rows: 4
     },
     maxlength: 255,
     id: "topical_event_about_page_read_more_link_text",
@@ -36,7 +36,7 @@
   } %>
   <%= render "components/govspeak-editor", {
     label: {
-      text: "Body",
+      text: "Body (required)",
       heading_size: "l"
     },
     id: "topical_event_about_page_body",
