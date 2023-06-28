@@ -47,7 +47,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     newFields = fields.cloneNode(true)
 
     // Reset values of cloned fields
-    newFields.querySelectorAll('input, textarea').forEach(function (element) {
+    newFields.querySelectorAll('input, textarea, select').forEach(function (element) {
       element.value = ''
     })
 
