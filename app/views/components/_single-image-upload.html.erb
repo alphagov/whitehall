@@ -5,13 +5,19 @@
   image_src ||= nil
   image_alt ||= nil
   image_cache ||= nil
+  title ||= "Image (required)"
+  alt_text_name ||= "#{name}[image_alt_text]"
+  alt_text_id ||= "#{id}_image_alt_text"
+  image_name ||= "#{name}[image]"
+  image_id ||= "#{id}_image"
+  image_cache_name ||= "#{name}[image_cache]"
 
   root_classes = %w(app-c-single-image-upload govuk-form-group)
 %>
 
 <%= tag.div class: root_classes, data: data_attributes do %>
   <%= render "govuk_publishing_components/components/heading", {
-    text: "Image (required)",
+    text: title,
     font_size: "l",
     margin_bottom: 3
   } %>
@@ -25,7 +31,7 @@
     } %>
 
     <% if page_errors %>
-      <%= hidden_field_tag "#{name}[image_cache]", image_cache %>
+      <%= hidden_field_tag image_cache_name, image_cache %>
       <p class="govuk-body"><strong>File name: </strong><%= filename %></p>
       <p class="govuk-body"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
     <% else %>
@@ -54,9 +60,9 @@
       text: image_label,
       heading_size: label_size
     },
-    name: "#{name}[image]",
+    name: image_name,
     hint: "Images must be 960px by 640px",
-    id: "#{id}_image",
+    id: image_id,
     value: image_src,
     error_items: error_items
   } %>
@@ -65,8 +71,8 @@
     label: {
       text: "Image description (alt text)"
     },
-    name: "#{name}[image_alt_text]",
-    id: "#{id}_image_alt_text",
+    name: alt_text_name,
+    id: alt_text_id,
     value: image_alt
   } %>
 <% end %>
