@@ -150,6 +150,7 @@ Whitehall::Application.routes.draw do
           resources :offsite_links do
             get :confirm_destroy, on: :member
           end
+          get :confirm_destroy, on: :member
         end
 
         resources :worldwide_organisations do

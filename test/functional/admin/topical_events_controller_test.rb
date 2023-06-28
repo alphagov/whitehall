@@ -68,6 +68,15 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     assert_equal "New name", topical_event.reload.name
   end
 
+  test "GET :confirm_destroy calls correctly" do
+    topical_event = create(:topical_event)
+
+    get :confirm_destroy, params: { id: topical_event.id }
+
+    assert_response :success
+    assert_equal topical_event, assigns(:topical_event)
+  end
+
   test "DELETE :destroy deletes the topical event" do
     topical_event = create(:topical_event)
     delete :destroy, params: { id: topical_event }

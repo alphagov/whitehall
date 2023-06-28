@@ -1,7 +1,7 @@
 class Admin::TopicalEventsController < Admin::BaseController
   helper_method :model_class, :model_name, :human_friendly_model_name
 
-  before_action :load_object, only: %i[show edit]
+  before_action :load_object, only: %i[show edit confirm_destroy destroy]
   before_action :build_object, only: [:new]
   before_action :build_associated_objects, only: %i[new edit]
   before_action :destroy_blank_social_media_accounts, only: %i[create update]
@@ -43,8 +43,9 @@ class Admin::TopicalEventsController < Admin::BaseController
     end
   end
 
+  def confirm_destroy; end
+
   def destroy
-    @topical_event = model_class.friendly.find(params[:id])
     @topical_event.delete!
     if @topical_event.deleted?
       redirect_to [:admin, model_class], notice: "#{human_friendly_model_name} destroyed"
@@ -72,7 +73,7 @@ class Admin::TopicalEventsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
+    design_system_actions = %w[confirm_destroy]
     design_system_actions += %w[show index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)

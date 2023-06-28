@@ -28,7 +28,7 @@
         text: "Published guides",
       },
       {
-        text: tag.span("View", class: "govuk-visually-hidden")
+        text: tag.span("Actions", class: "govuk-visually-hidden")
       },
     ],
 
@@ -50,7 +50,8 @@
         },
 
         {
-          text: link_to(sanitize("View #{tag.span(event.name, class: 'govuk-visually-hidden')}"), [:admin, event], class: "govuk-link govuk-!-margin-right-4"),
+          text: link_to(sanitize("View #{tag.span(event.name, class: 'govuk-visually-hidden')}"), [:admin, event], class: "govuk-link") +
+            tag.span(link_to(sanitize("Delete #{tag.span(event.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_topical_event_path(event),class: "govuk-link govuk-!-margin-left-2 gem-link--destructive")),
           format: "numeric"
         }
       ]
