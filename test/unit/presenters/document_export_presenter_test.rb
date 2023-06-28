@@ -350,7 +350,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "includes topical events details" do
     edition = create(:news_article)
-    edition.topical_events.create!(name: "Super important event", description: "Not that important")
+    edition.topical_events.create!(name: "Super important event", description: "Not that important", summary: "Not important")
     topical_event = edition.topical_events.last
 
     result = DocumentExportPresenter.new(edition.document).as_json

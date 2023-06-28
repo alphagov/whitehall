@@ -26,7 +26,7 @@ class Admin::LegacyTopicalEventsControllerTest < ActionController::TestCase
 
   test "POST :create saves the topical event" do
     assert_difference("TopicalEvent.count") do
-      post :create, params: { topical_event: { name: "Event", description: "Event description" } }
+      post :create, params: { topical_event: { name: "Event", description: "Event description", summary: "Event description" } }
     end
 
     assert_response :redirect

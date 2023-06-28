@@ -129,7 +129,7 @@ class SpeechTest < ActiveSupport::TestCase
 
   test "can associate a speech with a topical event" do
     speech = create(:speech)
-    speech.topical_events << TopicalEvent.new(name: "foo", description: "bar")
+    speech.topical_events << TopicalEvent.new(name: "foo", description: "bar", summary: "test")
     assert speech.can_be_associated_with_topical_events?
     assert_equal 1, speech.topical_events.size
   end
