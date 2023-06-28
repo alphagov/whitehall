@@ -29,7 +29,8 @@
     label: "Type (required)",
     error_message: errors_for_input(offsite_link.errors, :link_type),
     heading_size: "l",
-    options:  OffsiteLink::LinkTypes.all.map do |type|
+    full_width: true,
+    options: [{ text: "", value:"" }] + OffsiteLink::LinkTypes.all.map do |type|
       {
         text: type.humanize,
         value: type,
