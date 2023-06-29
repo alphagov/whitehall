@@ -11,8 +11,10 @@
   href: [:new, :admin, model_name.to_sym],
   margin_bottom: 8
 } %>
-<div class="app-view-topical-events-index__table">
+<div class="app-view-topical-events-index__table govuk-table--with-actions app-c-govuk-table--filterable">
   <%= render "govuk_publishing_components/components/table", {
+    filterable: true,
+    label: "Filter topical events",
     head: [
       {
         text: "Name"
@@ -31,7 +33,6 @@
         text: tag.span("Actions", class: "govuk-visually-hidden")
       },
     ],
-
     rows: @topical_events.map do |event|
       [
         {
@@ -52,7 +53,6 @@
         {
           text: link_to(sanitize("View #{tag.span(event.name, class: 'govuk-visually-hidden')}"), [:admin, event], class: "govuk-link") +
             tag.span(link_to(sanitize("Delete #{tag.span(event.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_topical_event_path(event),class: "govuk-link govuk-!-margin-left-2 gem-link--destructive")),
-          format: "numeric"
         }
       ]
     end
