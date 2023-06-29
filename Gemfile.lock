@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/alphagov/govuk_app_config.git
-  revision: df574dde3c801a448538837b0647de86a0f8320a
+  revision: 9d6ca27fd689d8b7ce1e6ef98b1106678edc1f6d
   branch: Log-GOVUK_REQUEST_ID-in-Json-in-Whitehall
   specs:
     govuk_app_config (9.0.0)
