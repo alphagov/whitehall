@@ -57,6 +57,8 @@ module PublishingApiPresenters
 
     def presenter_class_for_edition(edition)
       case edition
+      when CallForEvidence
+        PublishingApi::CallForEvidencePresenter
       when ::CaseStudy
         PublishingApi::CaseStudyPresenter
       when Consultation
