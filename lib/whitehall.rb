@@ -156,6 +156,7 @@ module Whitehall
   def self.edition_classes
     [
       CaseStudy,
+      CallForEvidence,
       Consultation,
       CorporateInformationPage,
       DetailedGuide,
