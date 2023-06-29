@@ -167,7 +167,7 @@ class CallForEvidence < Publicationesque
   end
 
   def base_path
-    "/government/calls_for_evidence/#{slug}"
+    "/government/calls-for-evidence/#{slug}"
   end
 
 private

@@ -187,12 +187,12 @@ module PublishingApi::CallForEvidencePresenterTest
     end
 
     test "it presents the base_path if locale is :en" do
-      assert_equal "/government/calls_for_evidence/call-for-evidence-title", presented_content[:base_path]
+      assert_equal "/government/calls-for-evidence/call-for-evidence-title", presented_content[:base_path]
     end
 
     test "it presents the base_path with locale if non-english" do
       with_locale("it") do
-        assert_equal "/government/calls_for_evidence/call-for-evidence-title.it", presented_content[:base_path]
+        assert_equal "/government/calls-for-evidence/call-for-evidence-title.it", presented_content[:base_path]
       end
     end
 
