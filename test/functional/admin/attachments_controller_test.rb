@@ -136,8 +136,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_html_attachment_params
 
     Whitehall::PublishingApi
-    .expects(:save_draft)
-    .with(@edition)
+      .expects(:save_draft)
+      .with(@edition)
 
     Whitehall::PublishingApi
       .expects(:save_draft)
@@ -150,8 +150,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_file_attachment_params
 
     Whitehall::PublishingApi
-    .expects(:save_draft)
-    .with(@edition)
+      .expects(:save_draft)
+      .with(@edition)
 
     Whitehall::PublishingApi
       .expects(:save_draft)
@@ -172,7 +172,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "POST :create triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = valid_file_attachment_params
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
@@ -347,7 +347,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = create(:file_attachment, attachable: @edition)
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     put :update,
         params: {
