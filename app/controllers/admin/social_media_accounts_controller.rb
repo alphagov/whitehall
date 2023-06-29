@@ -11,14 +11,13 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
 
   def new
     @social_media_account = @socialable.social_media_accounts.build
-    render :legacy_new
+    render_design_system(:new, :legacy_new)
   end
 
   def edit
     I18n.with_locale(params[:locale] || I18n.default_locale) do
-      render
+      render_design_system(:edit, :legacy_edit)
     end
-    render :legacy_edit
   end
 
   def update
@@ -26,7 +25,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
       redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account updated successfully"
     else
-      render :legacy_edit
+      render_design_system(:edit, :legacy_edit)
     end
   end
 
@@ -36,7 +35,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
       redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account created successfully"
     else
-      render :legacy_new
+      render_design_system(:new, :legacy_new)
     end
   end
 
@@ -47,7 +46,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
       redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account deleted successfully"
     else
-      render :legacy_edit
+      render_design_system(:edit, :legacy_edit)
     end
   end
 
@@ -55,7 +54,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index new create edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

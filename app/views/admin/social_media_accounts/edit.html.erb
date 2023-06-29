@@ -1,0 +1,7 @@
+<% content_for :page_title, "Edit social media account for: #{@socialable.name}" %>
+<% content_for :title, "Edit social media account" %>
+<% content_for :title_margin_bottom, 8 %>
+<% content_for :context, @socialable.name %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @social_media_account)) %>
+
+<%= render "form", social_media_account: @social_media_account, socialable: @socialable %>
