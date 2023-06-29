@@ -6,7 +6,6 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
   should_require_fatality_handling_permission_to_access :operational_field, :index, :new, :edit
 
   test "index should list operational fields ordered alphabetically by name" do

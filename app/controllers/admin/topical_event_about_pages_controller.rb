@@ -54,15 +54,12 @@ private
   def about_page_params
     params.require(:topical_event_about_page).permit(:body, :name, :summary, :read_more_link_text)
   end
-end
 
-def get_layout
-  design_system_actions = []
-  design_system_actions += %w[show new edit update create] if preview_design_system?(next_release: false)
-
-  if design_system_actions.include?(action_name)
-    "design_system"
-  else
-    "admin"
+  def get_layout
+    if preview_design_system?(next_release: true)
+      "design_system"
+    else
+      "admin"
+    end
   end
 end

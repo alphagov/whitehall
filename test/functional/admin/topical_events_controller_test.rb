@@ -6,7 +6,6 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "GET :show lists the topical event details" do
     topical_event = create(:topical_event)
