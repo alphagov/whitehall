@@ -27,7 +27,7 @@ module PublishingApi::WorldwideCorporateInformationPagePresenterTest
           document_type: corporate_information_page.display_type_key,
           locale: "en",
           publishing_app: Whitehall::PublishingApp::WHITEHALL,
-          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           public_updated_at: corporate_information_page.updated_at,
           routes: [{ path: public_path, type: "exact" }],
           redirects: [],
