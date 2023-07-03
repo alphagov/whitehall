@@ -43,7 +43,7 @@
     "paste-html-to-govspeak": "^0.3.0"
   },
   "devDependencies": {
-    "jasmine-browser-runner": "^2.0.0",
+    "jasmine-browser-runner": "^2.1.0",
     "jasmine-core": "^5.0.1",
     "postcss": "^8.4.24",
     "standardx": "^7.0.0",

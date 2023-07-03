@@ -1379,10 +1379,10 @@ jake@^10.8.5:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-jasmine-browser-runner@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-2.0.0.tgz#43a1df8a1a737a35a314c8030d95198a61f795ed"
-  integrity sha512-b9Q1vfJ1nlm7Dm+juibYQNZGGSM9a9YZjjB5vNZv1YlNd9xoIltSUAH1SPfzsHgJMV4SdUrfRTD7isngREX2Sg==
+jasmine-browser-runner@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-2.1.0.tgz#cc08c5217cb4f13a1548a684645e3da120f2f7a7"
+  integrity sha512-kW0jpYFd5CV/3FhZRFqN8FyAr4WgUTUGAczoVduZcVJ0g/SgiCAq+s/br7W1VEjTq8kiPkk8w6JBEz3ZICZVlQ==
   dependencies:
     ejs "^3.1.6"
     express "^4.16.4"
