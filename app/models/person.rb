@@ -1,7 +1,7 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
 
-  mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
+  mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
 
   has_many :role_appointments, -> { order(:order) }
   has_many :current_role_appointments,

@@ -233,4 +233,28 @@ class PersonTest < ActiveSupport::TestCase
 
     assert_equal "Prime Minister and Big Cheese", person.current_role_appointments_title
   end
+
+  test "rejects SVG logo uploads" do
+    svg_image = File.open(Rails.root.join("test/fixtures/images/test-svg.svg"))
+    person = build(:person, image: svg_image)
+
+    assert_not person.valid?
+    assert_includes person.errors.map(&:full_message), "Image You are not allowed to upload \"svg\" files, allowed types: jpg, jpeg, gif, png"
+  end
+
+  test "rejects non-image file uploads" do
+    non_image_file = File.open(Rails.root.join("test/fixtures/folders.zip"))
+    person = build(:person, image: non_image_file)
+
+    assert_not person.valid?
+    assert_includes person.errors.map(&:full_message), "Image You are not allowed to upload \"zip\" files, allowed types: jpg, jpeg, gif, png"
+  end
+
+  test "accepts valid image uploads" do
+    jpg_image = File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg"))
+    person = build(:person, image: jpg_image)
+
+    assert person
+    assert_empty person.errors
+  end
 end
