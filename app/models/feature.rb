@@ -4,7 +4,7 @@ class Feature < ApplicationRecord
   belongs_to :offsite_link
   belongs_to :feature_list
 
-  mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
+  mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
   validates :document, presence: true, unless: ->(feature) { feature.topical_event_id.present? || feature.offsite_link_id.present? }
   validates :started_at, presence: true
   validates :image, presence: true, on: :create
