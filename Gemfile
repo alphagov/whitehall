@@ -76,6 +76,7 @@ group :development do
 end
 
 group :test do
+  gem "buildkite-test_collector"
   gem "climate_control"
   gem "database_cleaner-active_record"
   gem "equivalent-xml"
