@@ -81,7 +81,7 @@ class Document < ApplicationRecord
   end
 
   def update_slug_if_possible(new_title)
-    return if live?
+    return if live? || invalid?
 
     candidate_slug = normalize_friendly_id(new_title)
     unless candidate_slug == slug
