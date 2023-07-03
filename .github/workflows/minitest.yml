@@ -12,6 +12,10 @@ on:
         required: false
         default: 'main'
         type: string
+    secrets:
+      BUILDKITE_ANALYTICS_TOKEN:
+        description: 'Token for Buildkite Test Analytics'
+        required: true
 
 jobs:
   run-minitest:
@@ -65,4 +69,6 @@ jobs:
           RAILS_ENV: test
           GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
+          BUILDKITE_ANALYTICS_TOKEN: ${{ secrets.BUILDKITE_ANALYTICS_TOKEN }}
         run: bundle exec rake test
+

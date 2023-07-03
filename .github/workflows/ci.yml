@@ -46,6 +46,8 @@ jobs:
   test-ruby:
     name: Test Ruby
     uses: ./.github/workflows/minitest.yml
+    secrets:
+      BUILDKITE_ANALYTICS_TOKEN: ${{ secrets.BUILDKITE_ANALYTICS_TOKEN }}
 
   integration-tests:
     name: Integration tests
