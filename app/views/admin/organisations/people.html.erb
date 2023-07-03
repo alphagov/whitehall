@@ -1,0 +1,48 @@
+<% content_for :page_title, @organisation.name %>
+<% content_for :title, @organisation.name %>
+<% content_for :context, current_user.organisation == @organisation ? "My organisation" : "Organisation" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<p class="govuk-body">
+  <%= view_on_website_link_for @organisation, url: { locale: I18n.default_locale }, class: "govuk-link" %>
+</p>
+
+<div class="govuk-!-margin-bottom-6">
+  <%= render "components/secondary_navigation", {
+    aria_label: "Organisation navigation tabs",
+    items: secondary_navigation_tabs_items(@organisation, request.path)
+  } %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "People",
+    font_size: "l"
+  } %>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <% if [
+      @ministerial_organisation_roles,
+      @special_representative_organisation_roles,
+      @management_organisation_roles,
+      @traffic_commissioner_organisation_roles,
+      @chief_professional_officer_roles,
+      @military_organisation_roles,
+    ].select(&:any?).any?
+    %>
+      <%= render "govuk_publishing_components/components/tabs", {
+        tabs: [
+          *(people_tab(@ministerial_organisation_roles, "Ministers") if @ministerial_organisation_roles.any?),
+          *(people_tab(@special_representative_organisation_roles, "Special representatives") if @special_representative_organisation_roles.any?),
+          *(people_tab(@management_organisation_roles, "Management") if @management_organisation_roles.any?),
+          *(people_tab(@traffic_commissioner_organisation_roles, "Traffic commissioners") if @traffic_commissioner_organisation_roles.any?),
+          *(people_tab(@chief_professional_officer_roles, "Chief professional officers") if @chief_professional_officer_roles.any?),
+          *(people_tab(@military_organisation_roles, "Military") if @military_organisation_roles.any?),
+        ]
+      } %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No people are associated with this organisation."
+      } %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<%= render "govuk_publishing_components/components/summary_list", {
+  title:,
+  edit: {
+    href: "#",
+    link_text: sanitize("Reorder #{tag.span(title, class: "govuk-visually-hidden")}"),
+    link_text_no_enhance: true
+  }
+} do %>
+  <% organisation_roles.each do |organisation_role| %>
+    <%= render "components/summary_card_component", {
+      title: organisation_role.role.name,
+      summary_card_actions: [
+        {
+          label: "Edit",
+          href: edit_admin_role_path(organisation_role.role)
+        }
+      ],
+      rows: [if organisation_role.role.current_person
+            {
+               key: "Occupant",
+               value: organisation_role.role.current_person_name,
+               actions: [{
+                           label: "Edit",
+                           href: edit_admin_person_path(organisation_role.role.current_person)
+                         },]
+             }
+            else
+              {
+                 key: "Occupant",
+                 value: "Vacant",
+               }
+            end],
+    } %>
+  <% end %>
+<% end %>

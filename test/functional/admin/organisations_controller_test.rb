@@ -138,41 +138,49 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     military_role = create(:military_role)
 
     organisation = create(:organisation)
-    organisation_ministerial_role = create(:organisation_role, organisation:, role: ministerial_role)
-    organisation_board_member_role = create(:organisation_role, organisation:, role: board_member_role)
-    organisation_scientific_role = create(:organisation_role, organisation:, role: chief_scientific_advisor_role)
-    organisation_traffic_commissioner_role = create(:organisation_role, organisation:, role: traffic_commissioner_role)
-    organisation_chief_professional_officer_role = create(:organisation_role, organisation:, role: chief_professional_officer_role)
-    organisation_military_role = create(:organisation_role, organisation:, role: military_role)
+    create(:organisation_role, organisation:, role: ministerial_role)
+    create(:organisation_role, organisation:, role: board_member_role)
+    create(:organisation_role, organisation:, role: chief_scientific_advisor_role)
+    create(:organisation_role, organisation:, role: traffic_commissioner_role)
+    create(:organisation_role, organisation:, role: chief_professional_officer_role)
+    create(:organisation_role, organisation:, role: military_role)
 
     get :people, params: { id: organisation }
 
-    assert_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    refute_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-    refute_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
+    assert_select "#ministers_tab h2.govuk-summary-card__title", text: ministerial_role.name
+    refute_select "#ministers_tab h2.govuk-summary-card__title", text: board_member_role.name
+    refute_select "#ministers_tab h2.govuk-summary-card__title", text: traffic_commissioner_role.name
+    refute_select "#ministers_tab h2.govuk-summary-card__title", text: chief_scientific_advisor_role.name
 
-    assert_select "#board_member_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    assert_select "#board_member_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
-    refute_select "#board_member_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#board_member_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
+    assert_select "#management_tab h2.govuk-summary-card__title", text: board_member_role.name
+    assert_select "#management_tab h2.govuk-summary-card__title", text: chief_scientific_advisor_role.name
+    refute_select "#management_tab h2.govuk-summary-card__title", text: ministerial_role.name
+    refute_select "#management_tab h2.govuk-summary-card__title", text: traffic_commissioner_role.name
 
-    assert_select "#traffic_commissioner_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-    refute_select "#traffic_commissioner_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#traffic_commissioner_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    refute_select "#traffic_commissioner_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
+    assert_select "#traffic_commissioners_tab h2.govuk-summary-card__title", text: traffic_commissioner_role.name
+    refute_select "#traffic_commissioners_tab h2.govuk-summary-card__title", text: ministerial_role.name
+    refute_select "#traffic_commissioners_tab h2.govuk-summary-card__title", text: board_member_role.name
+    refute_select "#traffic_commissioners_tab h2.govuk-summary-card__title", text: chief_scientific_advisor_role.name
 
-    assert_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_military_role.id}']"
-    refute_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    refute_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-    refute_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
+    assert_select "#military_tab h2.govuk-summary-card__title", text: military_role.name
+    refute_select "#military_tab h2.govuk-summary-card__title", text: ministerial_role.name
+    refute_select "#military_tab h2.govuk-summary-card__title", text: board_member_role.name
+    refute_select "#military_tab h2.govuk-summary-card__title", text: traffic_commissioner_role.name
+    refute_select "#military_tab h2.govuk-summary-card__title", text: chief_scientific_advisor_role.name
 
-    assert_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_chief_professional_officer_role.id}']"
-    refute_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    refute_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-    refute_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
+    assert_select "#chief_professional_officers_tab h2.govuk-summary-card__title", text: chief_professional_officer_role.name
+    refute_select "#chief_professional_officers_tab h2.govuk-summary-card__title", text: ministerial_role.name
+    refute_select "#chief_professional_officers_tab h2.govuk-summary-card__title", text: board_member_role.name
+    refute_select "#chief_professional_officers_tab h2.govuk-summary-card__title", text: traffic_commissioner_role.name
+    refute_select "#chief_professional_officers_tab h2.govuk-summary-card__title", text: chief_scientific_advisor_role.name
+  end
+
+  view_test "GET on :people shows message when no people" do
+    organisation = create(:organisation)
+
+    get :people, params: { id: organisation }
+
+    assert_select ".govuk-inset-text", text: "No people are associated with this organisation."
   end
 
   view_test "GET on :people shows ministerial role and current person's name" do
@@ -183,8 +191,10 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     get :people, params: { id: organisation }
 
-    assert_select "#minister_ordering label", text: /Prime Minister/i
-    assert_select "#minister_ordering label", text: /John Doe/i
+    assert_select "#ministers_tab .govuk-summary-card__title", text: /Prime Minister/i
+    assert_select "a[href=?]", edit_admin_role_path(ministerial_role)
+    assert_select "#ministers_tab .govuk-summary-list__value", text: /John Doe/i
+    assert_select "a[href=?]", edit_admin_person_path(person)
   end
 
   test "GET on :people shows ministerial roles in their currently specified order" do
@@ -259,12 +269,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :people, params: { id: organisation }
     refute_select "#minister_ordering"
-  end
-
-  view_test "GET on :people contains the relevant dom classes to facilitate the javascript ordering functionality" do
-    organisation = create(:organisation, roles: [create(:ministerial_role)])
-    get :people, params: { id: organisation }
-    assert_select "fieldset#minister_ordering.sortable input.ordering[name^='organisation[organisation_roles_attributes]']"
   end
 
   view_test "GET on :edit allows entry of important board members only data to Editors and above" do

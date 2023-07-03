@@ -41,7 +41,7 @@ class Admin::OrganisationsController < Admin::BaseController
                                         .merge(Role.special_representative).order(:ordering)
     @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role)
                                         .merge(Role.chief_professional_officer).order(:ordering)
-    render :legacy_people
+    render_design_system(:people, :legacy_people)
   end
 
   def features
@@ -96,7 +96,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[index show features] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show features people] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

@@ -158,4 +158,18 @@ module Admin::OrganisationHelper
       ]
     end
   end
+
+  def people_tab(organisation_roles, label)
+    [{
+      id: "#{label.downcase.gsub(' ', '_')}_tab",
+      label:,
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "organisation-people-tab",
+        "track-label": label,
+      },
+      content: render("admin/organisations/people_order", organisation_roles:, title: label),
+    }]
+  end
 end
