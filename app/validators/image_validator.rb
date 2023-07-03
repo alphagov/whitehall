@@ -15,7 +15,7 @@ class ImageValidator < ActiveModel::Validator
   def validate(record)
     return if file_for(record).blank?
     return unless File.exist?(file_for(record).path)
-    return if file_for(record).file.content_type.match?(/svg/) && file_for(record).model.class != TopicalEvent
+    return if file_for(record).file.content_type.match?(/svg/)
 
     begin
       image = MiniMagick::Image.open file_for(record).path
