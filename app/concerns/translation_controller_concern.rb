@@ -8,7 +8,7 @@ module TranslationControllerConcern
   end
 
   def edit
-    render_design_system(:edit, :legacy_edit)
+    render :legacy_edit if get_layout == "admin" && [Organisation].include?(translatable_item.class)
   end
 
   def create
