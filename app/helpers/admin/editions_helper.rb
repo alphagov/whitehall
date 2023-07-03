@@ -171,6 +171,7 @@ module Admin::EditionsHelper
       yield(form)
       concat render("access_limiting_fields", form:, edition:)
       concat render("scheduled_publication_fields", form:, edition:)
+      concat render("review_reminder_fields", form:, review_reminder: edition.document.review_reminder)
       concat standard_edition_publishing_controls(form, edition)
     end
   end

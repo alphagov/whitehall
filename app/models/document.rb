@@ -47,7 +47,7 @@ class Document < ApplicationRecord
 
   after_create :ensure_document_has_a_slug
 
-  accepts_nested_attributes_for :review_reminder
+  accepts_nested_attributes_for :review_reminder, allow_destroy: true
 
   attr_accessor :sluggable_string
 

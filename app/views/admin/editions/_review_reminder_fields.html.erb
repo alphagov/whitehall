@@ -1,0 +1,55 @@
+<div class="govuk-!-margin-bottom-8">
+  <%= form.fields_for :document do |document_form| %>
+    <%= document_form.fields_for :review_reminder do |review_reminder_form| %>
+      <%= hidden_field_tag "edition[document_attributes][review_reminder_attributes][creator_id]", current_user.id %>
+
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "review_reminder",
+        id: "review_reminder",
+        heading: "Review date",
+        heading_size: 'l',
+        no_hint_text: true,
+        items: [
+          {
+            label: "Set a reminder to review this content after it has been published",
+            value: 1,
+            checked: params[:review_reminder] == "1" || review_reminder.persisted?,
+            conditional: render("components/datetime_fields", {
+              field_name: "review_at",
+              prefix: "edition[document_attributes][review_reminder_attributes]",
+              date_only: true,
+              error_items: errors_for(review_reminder.errors, :review_at),
+              date_heading: "Date",
+              date_hint: "For example, 01 August 2025",
+              year: {
+                value: review_reminder.review_at&.year,
+                id: "edition_document_review_reminder_review_at_1i",
+                start_year: Time.zone.now.year,
+                end_year: Time.zone.now.year + 10,
+              },
+              month: {
+                value: review_reminder.review_at&.month,
+                id: "edition_document_review_reminder_review_at_2i",
+              },
+              day: {
+                value: review_reminder.review_at&.day,
+                id: "edition_document_review_reminder_review_at",
+              },
+            }) +
+            render("govuk_publishing_components/components/input", {
+              label: {
+                text: "Email address",
+                heading_size: "m",
+              },
+              hint: "Enter a team email or your own email address to get a review reminder",
+              name: "edition[document_attributes][review_reminder_attributes][email_address]",
+              id: "edition_document_review_reminder_email_address",
+              value: review_reminder.email_address,
+              error_items: errors_for(review_reminder.errors, :email_address),
+            })
+          }
+        ]
+      } %>
+    <% end %>
+  <% end %>
+</div>

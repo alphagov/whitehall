@@ -286,6 +286,18 @@ private
         ],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
+        document_attributes: [
+          :id,
+          {
+            review_reminder_attributes: %i[
+              id
+              email_address
+              review_at
+              creator_id
+              _destroy
+            ],
+          },
+        ],
       },
       :auth_bypass_id,
     ]
@@ -432,6 +444,10 @@ private
       edition_params["first_published_at(3i)"] = ""
       edition_params["first_published_at(4i)"] = ""
       edition_params["first_published_at(5i)"] = ""
+    end
+
+    if params[:review_reminder].blank? && edition_params.dig("document_attributes", "review_reminder_attributes").present?
+      edition_params["document_attributes"]["review_reminder_attributes"]["_destroy"] = "1"
     end
   end
 
