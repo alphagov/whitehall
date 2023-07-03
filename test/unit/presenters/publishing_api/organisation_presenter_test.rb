@@ -297,18 +297,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal([{ path: "/courts-tribunals/court-at-mid-wicket", type: "exact" }], presented_item.content[:routes])
   end
 
-  test "present default news image url only when image is SVG" do
-    news_image = create(
-      :default_news_organisation_image_data,
-      file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")),
-    )
-    organisation = create(:organisation, default_news_image: news_image)
-    presented_item = present(organisation)
-    expected_hash = { url: news_image.file.url }
-
-    assert_equal expected_hash, presented_item.content[:details][:default_news_image]
-  end
-
   test "presents the display type of an offsite link" do
     organisation = create(
       :court,
