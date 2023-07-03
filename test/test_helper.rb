@@ -19,6 +19,9 @@ require "webmock/minitest"
 require "whitehall/search_index"
 require "sidekiq/testing"
 require "govuk_schemas/assert_matchers"
+require "buildkite/test_collector"
+
+Buildkite::TestCollector.configure(hook: :minitest)
 
 if ENV["USE_I18N_COVERAGE"]
   require "i18n/coverage"
