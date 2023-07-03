@@ -2,8 +2,9 @@
 
 <% cache_if edition.worldwide_organisation_ids.empty?, "#{taggable_worldwide_organisations_cache_digest}-design-system" do %>
   <%= render "components/autocomplete", {
-    id: "edition_worldwide_organisation_ids",
+    id: "edition_worldwide_organisations",
     name: "edition[worldwide_organisation_ids][]",
+    error_items: errors_for(edition.errors, :worldwide_organisations),
     label: {
       text:  "Worldwide organisations" + "#{' (required)' if required}",
       heading_size: "m",

@@ -9,8 +9,8 @@ module AdminEditionWorldLocationsBehaviour
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "label[for=edition_world_location_ids]", text: "World locations"
-          assert_select "#edition_world_location_ids" do |elements|
+          assert_select "label[for=edition_world_locations]", text: "World locations"
+          assert_select "#edition_world_locations" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_world_locations(
               element: elements.first,
@@ -41,9 +41,9 @@ module AdminEditionWorldLocationsBehaviour
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "label[for=edition_world_location_ids]", text: "World locations"
+          assert_select "label[for=edition_world_locations]", text: "World locations"
 
-          assert_select "#edition_world_location_ids" do |elements|
+          assert_select "#edition_world_locations" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_world_locations(
               element: elements.first,
