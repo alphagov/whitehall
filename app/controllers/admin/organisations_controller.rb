@@ -1,6 +1,6 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_action :load_organisation, except: %i[index new create]
-  before_action :enforce_permissions!, only: %i[new create edit update]
+  before_action :enforce_permissions!, only: %i[new create edit update reorder_people order_people]
   layout :get_layout
 
   def index
@@ -29,19 +29,27 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def people
-    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.ministerial).order(:ordering)
-    @management_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.management).order(:ordering)
-    @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.traffic_commissioner).order(:ordering)
-    @military_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.military).order(:ordering)
-    @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.special_representative).order(:ordering)
-    @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.chief_professional_officer).order(:ordering)
+    @render_reorder = can?(:edit, @organisation)
+    @ministerial_organisation_roles = organisation_roles(:ministerial)
+    @management_organisation_roles = organisation_roles(:management)
+    @traffic_commissioner_organisation_roles = organisation_roles(:traffic_commissioner)
+    @military_organisation_roles = organisation_roles(:military)
+    @special_representative_organisation_roles = organisation_roles(:special_representative)
+    @chief_professional_officer_roles = organisation_roles(:chief_professional_officer)
     render_design_system(:people, :legacy_people)
+  end
+
+  def reorder_people
+    type = params[:type]
+    @organisation_roles = organisation_roles(type)
+  end
+
+  def order_people
+    params[:ordering].each do |organisation_role_id, ordering|
+      @organisation.organisation_roles.find(organisation_role_id).update_column(:ordering, ordering)
+    end
+
+    redirect_to people_admin_organisation_path(@organisation), notice: "#{params[:type].capitalize.gsub("_", " ")} roles re-ordered"
   end
 
   def features
@@ -94,9 +102,14 @@ class Admin::OrganisationsController < Admin::BaseController
 
 private
 
+  def organisation_roles(type)
+    @organisation.organisation_roles.joins(:role)
+                 .merge(Role.public_send(type)).order(:ordering)
+  end
+
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[index show features people] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show features people reorder_people order_people] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
@@ -111,6 +124,10 @@ private
       enforce_permission!(:create, Organisation)
     when "edit", "update"
       enforce_permission!(:edit, @organisation)
+    when "reorder_people"
+      enforce_permission!(:reorder_people, @organisation)
+    when "order_people"
+      enforce_permission!(:order_people, @organisation)
     end
   end
 

@@ -1,10 +1,13 @@
 <%= render "govuk_publishing_components/components/summary_list", {
   title:,
-  edit: {
-    href: "#",
-    link_text: sanitize("Reorder #{tag.span(title, class: "govuk-visually-hidden")}"),
-    link_text_no_enhance: true
-  }
+  edit: if @render_reorder && organisation_roles.many?
+          {
+            href: reorder_admin_organisation_people_path(@organisation, type:, title:),
+            link_text: "Reorder"
+          }
+        else
+          {}
+        end
 } do %>
   <% organisation_roles.each do |organisation_role| %>
     <%= render "components/summary_card_component", {

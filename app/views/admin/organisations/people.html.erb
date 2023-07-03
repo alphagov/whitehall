@@ -31,12 +31,12 @@
     %>
       <%= render "govuk_publishing_components/components/tabs", {
         tabs: [
-          *(people_tab(@ministerial_organisation_roles, "Ministers") if @ministerial_organisation_roles.any?),
-          *(people_tab(@special_representative_organisation_roles, "Special representatives") if @special_representative_organisation_roles.any?),
-          *(people_tab(@management_organisation_roles, "Management") if @management_organisation_roles.any?),
-          *(people_tab(@traffic_commissioner_organisation_roles, "Traffic commissioners") if @traffic_commissioner_organisation_roles.any?),
-          *(people_tab(@chief_professional_officer_roles, "Chief professional officers") if @chief_professional_officer_roles.any?),
-          *(people_tab(@military_organisation_roles, "Military") if @military_organisation_roles.any?),
+          *(people_tab(@ministerial_organisation_roles, "Ministers", "ministerial") if @ministerial_organisation_roles.any?),
+          *(people_tab(@special_representative_organisation_roles, "Special representatives", "special_representative") if @special_representative_organisation_roles.any?),
+          *(people_tab(@management_organisation_roles, "Management", "management") if @management_organisation_roles.any?),
+          *(people_tab(@traffic_commissioner_organisation_roles, "Traffic commissioners", "traffic_commissioner") if @traffic_commissioner_organisation_roles.any?),
+          *(people_tab(@chief_professional_officer_roles, "Chief professional officers", "chief_professional_officer") if @chief_professional_officer_roles.any?),
+          *(people_tab(@military_organisation_roles, "Military", "military") if @military_organisation_roles.any?),
         ]
       } %>
     <% else %>

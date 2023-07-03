@@ -48,3 +48,19 @@ Feature: Administering Organisations
     And the organisation "Wimbledon council of wombat population control" exists
     When I close the organisation "Department of wombat population control", superseding it with the organisation "Wimbledon council of wombat population control"
     Then I can see that the organisation "Department of wombat population control" has been superseded with the organisaion "Wimbledon council of wombat population control"
+
+  Scenario: Reordering roles
+    Given I am an editor in the organisation "Ministry of Sound"
+    And the following roles exist within the "Ministry of Sound":
+      | name   |
+      | Role 1 |
+      | Role 2 |
+    When I visit the "Ministry of Sound" "People" page
+    And I set the order of roles for "Ministry of Sound" to:
+      | name   | order |
+      | Role 1 | 1     |
+      | Role 2 | 0     |
+    Then the roles should be in the following order:
+      | name   |
+      | Role 2 |
+      | Role 1 |

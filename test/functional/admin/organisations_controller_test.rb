@@ -34,6 +34,30 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test "GET :reorder_people access denied if not a gds admin" do
+    organisation = create(:organisation)
+    login_as_preview_design_system_user :writer
+    get :reorder_people, params: {
+      type: "ministerial",
+      id: organisation,
+    }
+    assert_response :forbidden
+  end
+
+  test "PUT :order_people access denied if not a gds admin" do
+    organisation = create(:organisation)
+    organisation_role = create(:organisation_role, organisation:)
+    login_as_preview_design_system_user :writer
+    put :order_people, params: {
+      type: "ministerial",
+      id: organisation,
+      ordering: {
+        organisation_role.id.to_s => "1",
+      },
+    }
+    assert_response :forbidden
+  end
+
   view_test "Link to create organisation does not show if not a gds admin" do
     login_as_preview_design_system_user :writer
     get :index
@@ -43,6 +67,67 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   view_test "Link to create organisation shows if a gds admin" do
     get :index
     assert_select ".govuk-button", text: "Create new organisation"
+  end
+
+  view_test "Link to re-order organisation does not show if there are less than 2 roles" do
+    organisation = create(:organisation)
+    create(:organisation_role, organisation:)
+    get :people, params: {
+      id: organisation,
+    }
+    refute_select ".govuk-summary-list__actions-list", text: "Reorder Ministers"
+  end
+
+  view_test "Link to re-order organisation does not show if user is not a gds admin" do
+    organisation = build(:organisation)
+    role1 = build(:ministerial_role)
+    role2 = build(:ministerial_role)
+    create(:organisation_role, organisation:, role: role1)
+    create(:organisation_role, organisation:, role: role2)
+    login_as_preview_design_system_user :writer
+    get :people, params: {
+      id: organisation,
+    }
+    refute_select ".govuk-summary-list__actions-list", text: "Reorder Ministers"
+  end
+
+  view_test "Link to re-order organisation is shown if the user is not a GDS admin but is a member of the organisation" do
+    organisation = build(:organisation)
+    role1 = build(:ministerial_role)
+    role2 = build(:ministerial_role)
+    create(:organisation_role, organisation:, role: role1)
+    create(:organisation_role, organisation:, role: role2)
+    login_as_preview_design_system_user(:writer, organisation)
+    get :people, params: {
+      id: organisation,
+    }
+    assert_select ".govuk-summary-list__actions-list", text: "Reorder Ministers"
+  end
+
+  view_test "Link to re-order organisation is shown if the user is not a GDS admin but is a member of a parent organisation" do
+    sub_organisation = build(:sub_organisation)
+    parent_organisation = sub_organisation.parent_organisations.first
+    role1 = build(:ministerial_role)
+    role2 = build(:ministerial_role)
+    create(:organisation_role, organisation: sub_organisation, role: role1)
+    create(:organisation_role, organisation: sub_organisation, role: role2)
+    login_as_preview_design_system_user(:writer, parent_organisation)
+    get :people, params: {
+      id: sub_organisation,
+    }
+    assert_select ".govuk-summary-list__actions-list", text: "Reorder Ministers"
+  end
+
+  view_test "Link to re-order organisation does show if the user is a gds_admin" do
+    organisation = build(:organisation)
+    role1 = build(:ministerial_role)
+    role2 = build(:ministerial_role)
+    create(:organisation_role, organisation:, role: role1)
+    create(:organisation_role, organisation:, role: role2)
+    get :people, params: {
+      id: organisation,
+    }
+    assert_select ".govuk-summary-list__actions-list", text: "Reorder Ministers"
   end
 
   test "POST on :create saves the organisation and its associations" do
@@ -183,7 +268,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select ".govuk-inset-text", text: "No people are associated with this organisation."
   end
 
-  view_test "GET on :people shows ministerial role and current person's name" do
+  view_test "GET on :people shows ministerial role and current person's name and edit links" do
     person = create(:person, forename: "John", surname: "Doe")
     ministerial_role = create(:ministerial_role, name: "Prime Minister")
     create(:role_appointment, person:, role: ministerial_role, started_at: 1.day.ago)
@@ -269,6 +354,55 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :people, params: { id: organisation }
     refute_select "#minister_ordering"
+  end
+
+  test "GET on :reorder_people renders a reorderable table of ministerial roles" do
+    junior_ministerial_role = create(:ministerial_role)
+    senior_ministerial_role = create(:ministerial_role)
+    organisation = create(:organisation)
+    organisation_junior_ministerial_role = create(:organisation_role, organisation:, role: junior_ministerial_role, ordering: 2)
+    organisation_senior_ministerial_role = create(:organisation_role, organisation:, role: senior_ministerial_role, ordering: 1)
+
+    get :reorder_people, params: { id: organisation, type: "ministerial" }
+
+    assert_equal [organisation_senior_ministerial_role, organisation_junior_ministerial_role], assigns(:organisation_roles)
+  end
+
+  test "GET on :reorder_people renders a reorderable table of special representative roles only" do
+    junior_ministerial_role = create(:ministerial_role)
+    senior_ministerial_role = create(:ministerial_role)
+    junior_representative_role = create(:special_representative_role)
+    senior_representative_role = create(:special_representative_role)
+    organisation = create(:organisation)
+    organisation_junior_representative_role = create(:organisation_role, organisation:, role: junior_representative_role, ordering: 2)
+    organisation_senior_representative_role = create(:organisation_role, organisation:, role: senior_representative_role, ordering: 1)
+    create(:organisation_role, organisation:, role: junior_ministerial_role, ordering: 2)
+    create(:organisation_role, organisation:, role: senior_ministerial_role, ordering: 1)
+
+    get :reorder_people, params: { id: organisation, type: "special_representative" }
+
+    assert_equal [organisation_senior_representative_role, organisation_junior_representative_role], assigns(:organisation_roles)
+  end
+
+  test "PUT on :order_people reorders and saves the order of people" do
+    organisation = build(:organisation)
+
+    organisation_senior_ministerial_role = create(:organisation_role, organisation:)
+    organisation_junior_ministerial_role = create(:organisation_role, organisation:)
+
+    put :order_people,
+        params: {
+          id: organisation,
+          ordering: {
+            organisation_junior_ministerial_role.id.to_s => "1",
+            organisation_senior_ministerial_role.id.to_s => "2",
+          },
+          type: "ministerial",
+        }
+
+    assert_response :redirect
+    assert_equal 2, organisation.reload.organisation_roles.first.ordering
+    assert_equal 1, organisation.reload.organisation_roles.second.ordering
   end
 
   view_test "GET on :edit allows entry of important board members only data to Editors and above" do
