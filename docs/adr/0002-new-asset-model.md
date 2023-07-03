@@ -65,7 +65,7 @@ It is likely that Asset state will be more focused on the state of uploading or 
 
 ## Status
 
-Draft
+Accepted
 
 ## Consequences
 
