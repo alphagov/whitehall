@@ -1,0 +1,77 @@
+@startuml
+allowmixing
+hide empty description
+hide empty members
+skinparam dpi 300
+
+class Document <<model>>
+
+rectangle "Attachables" {
+    abstract Edition <<model>> {
+        state
+    }
+    class PolicyGroup <<model>>
+    rectangle "(others)" as othereds
+    Edition <|-- othereds #line:blue;line.bold
+    Edition <|-- Attachable #line:blue;line.bold
+    note on link: several Edition descendants are Attachable
+    PolicyGroup <|-- Attachable #line:blue;line.bold
+    abstract Attachable<<concern>>
+}
+
+rectangle "Attachments" {
+  together {
+    abstract Attachment <<model>>
+    class FileAttachment <<model>>
+    rectangle "(other attachments - html, external)" as otheratts
+    Attachment <|-- otheratts #line:blue;line.bold
+    Attachment <|-- FileAttachment #line:blue;line.bold
+  }
+  class AttachmentData <<model>> {
+    carrierwave_file
+  }
+  note right: only for file attachments!
+  Attachment --* AttachmentData
+  note on link: links to attachments from past editions as well
+}
+
+rectangle "Images" {
+  class Image <<model>>
+  class ImageData <<model>> {
+    carrierwave_file
+  }
+  Image --* ImageData
+  note on link: links to images from past editions as well
+}
+
+rectangle "Other models with assets" {
+  class Person <<model>> {
+    logo
+  }
+
+  note "several other similar\nmodels not shown" as N1
+}
+
+Edition *-- Image
+
+Document *-- Edition 
+
+Attachable *-- Attachment
+
+class Document {
+    {method} latest_edition
+    {method} live_edition
+}
+
+node AssetManager {
+class Asset {
+  filename
+  legacy_url_path
+  state
+}
+}
+
+AttachmentData ..* Asset: 1:many e.g. asset + thumbnail
+ImageData ..* Asset: 1:many - multiple scaled versions
+Person ..* Asset: 1:1 typically
+@enduml

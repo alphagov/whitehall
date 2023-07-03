@@ -1,0 +1,114 @@
+@startuml
+node Whitehall {
+object "Document:1" as Document_1 {
+  slug: new_news
+  content_id: ...38699bd72b83
+  latest_edition_id: 1
+  live_edition_id:
+}
+together {
+object "NewsArticle:1" as NewsArticle_1 {
+  title: New News!
+  state: draft
+}
+Document_1 *-- NewsArticle_1
+object "FileAttachment:1" as FileAttachment_1 {
+  title: Important Document
+}
+NewsArticle_1 *-- FileAttachment_1
+object "Image:2" as Image_2 {
+  caption: Dramatic Footage
+}
+NewsArticle_1 *-- Image_2
+}
+object "AttachmentData:1" as AttachmentData_1 {
+  carrierwave_file: important_document.pdf
+  content_type: application/pdf
+}
+AttachmentData_1 *-u- FileAttachment_1: also linked to other editions
+object "ImageData:2" as ImageData_2 {
+  carrierwave_image: dramatic_footage.png
+}
+ImageData_2 *-u- Image_2: also linked to other editions
+
+object "Asset:1" as Asset_1 {
+  asset_manager_id: X164e681f
+  owner_type: AttachmentData
+  owner_id: 1
+  variant: original
+}
+object "Asset:2" as Asset_2 {
+  asset_manager_id: X174e681f
+  owner_type: AttachmentData
+  owner_id: 1
+  variant: thumbnail
+}
+
+object "Asset:3" as Asset_3 {
+  asset_manager_id: X174e6824
+  owner_type: ImageData
+  owner_id: 2
+  variant: original
+}
+object "Asset:4" as Asset_4 {
+  asset_manager_id: X174e6825
+  owner_type: ImageData
+  owner_id: 2
+  variant: s216
+}
+
+AttachmentData_1 *-- Asset_1
+AttachmentData_1 *-- Asset_2
+ImageData_2 *-- Asset_3
+ImageData_2 *-- Asset_4 
+
+}
+node PublishingApi {
+object "Document:4" as pubapi_Document_4 {
+    content_id: ...38699bd72b83
+}
+object "Edition:4" as pubapi_Edition_4 {
+  title: New News!
+  state: draft
+}
+pubapi_Document_4 *-- pubapi_Edition_4
+}
+node AssetManager {
+together {
+object "WhitehallAsset:X164e681f" as am_WhitehallAsset_X164e681f {
+  file: important_document.pdf
+  legacy_url_path: .../attachment_data/file/1/important_document.pdf
+  state: uploaded
+  draft: true
+}
+object "WhitehallAsset:X174e681f" as am_WhitehallAsset_X174e681f {
+  file: thumbnail_important_document.pdf.png
+  legacy_url_path: .../attachment_data/file/1/thumbnail_important_document.pdf.png
+  state: uploaded
+  draft: true
+}
+}
+together {
+object "WhitehallAsset:X174e6824" as am_WhitehallAsset_X174e6824 {
+  file: dramatic_footage.png
+  legacy_url_path: .../image_data/file/2/dramatic_footage.png
+  state: uploaded
+  draft: false
+}
+object "WhitehallAsset:X174e6825" as am_WhitehallAsset_X174e6825 {
+  file: s216_dramatic_footage.png
+  legacy_url_path: .../image_data/file/2/s216_dramatic_footage.png
+  state: uploaded
+  draft: false
+}
+note right
+ also 5 other scaled images not shown
+end note
+}
+}
+Document_1 .. pubapi_Document_4
+Asset_1 .. am_WhitehallAsset_X164e681f
+Asset_2 .. am_WhitehallAsset_X174e681f
+Asset_3 .. am_WhitehallAsset_X174e6824
+Asset_4 .. am_WhitehallAsset_X174e6825
+@enduml
