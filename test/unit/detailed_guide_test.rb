@@ -266,7 +266,9 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
   test "#all_nation_applicability_selected? false if first draft and unsaved" do
     unsaved_publication = build(:detailed_guide)
+    unsaved_publication_with_document = build(:detailed_guide, document: build(:document))
     assert_not unsaved_publication.all_nation_applicability_selected?
+    assert_not unsaved_publication_with_document.all_nation_applicability_selected?
   end
 
   test "#all_nation_applicability_selected? responds to all_nation_applicability once created" do

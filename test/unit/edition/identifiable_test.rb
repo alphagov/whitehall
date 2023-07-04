@@ -19,6 +19,14 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert publication.document.content_id.present?
   end
 
+  test "should generate a content_id and slug on a document when present" do
+    document = build(:document, content_id: nil, slug: nil)
+    publication = build(:publication, document:)
+    publication.valid?
+    assert publication.document.content_id.present?
+    assert publication.document.slug.present?
+  end
+
   test "should not allow the same slug to be used again for the same document type" do
     same_title = "same-title"
     publication1 = create(:publication, title: same_title)

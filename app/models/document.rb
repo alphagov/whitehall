@@ -47,6 +47,8 @@ class Document < ApplicationRecord
 
   after_create :ensure_document_has_a_slug
 
+  accepts_nested_attributes_for :review_reminder
+
   attr_accessor :sluggable_string
 
   def self.live
