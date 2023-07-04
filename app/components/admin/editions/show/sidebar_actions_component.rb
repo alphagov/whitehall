@@ -30,6 +30,7 @@ class Admin::Editions::Show::SidebarActionsComponent < ViewComponent::Base
       add_destroy_action
       add_unwithdraw_action
       add_unpublish_action
+      add_review_reminder_action
       add_view_action
       add_data_action
     end
@@ -243,6 +244,25 @@ private
           class: "govuk-link",
         )
       end
+    end
+  end
+
+  def add_review_reminder_action
+    if @edition.publicly_visible? && @edition.document.latest_edition == @edition
+      review_reminder = @edition.document.review_reminder
+      text = review_reminder.present? ? "Edit review date" : "Create new review date"
+      href = review_reminder.present? ? edit_admin_document_review_reminder_path(@edition.document, @edition.document.review_reminder) : new_admin_document_review_reminder_path(@edition.document)
+      actions << render("govuk_publishing_components/components/button", {
+        text:,
+        href:,
+        secondary_quiet: true,
+        data_attributes: {
+          module: "gem-track-click",
+          "track-category": "button-pressed",
+          "track-action": "review-reminders-button",
+          "track-label": text,
+        },
+      })
     end
   end
 
