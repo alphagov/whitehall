@@ -6,6 +6,12 @@ class ReviewReminder < ApplicationRecord
   validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP, if: -> { email_address.present? } }
   validate :review_date_cannot_be_in_the_past, if: -> { review_at.present? }
 
+  before_update :reset_reminder_sent_at_if_review_at_is_updated
+
+  def review_due?
+    Time.zone.today >= review_at
+  end
+
 private
 
   def review_date_cannot_be_in_the_past

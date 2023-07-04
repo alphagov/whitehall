@@ -44,4 +44,19 @@ class ReviewReminderTest < ActiveSupport::TestCase
     reminder = build(:review_reminder, email_address: "not a real email @ address . com")
     assert_not reminder.valid?
   end
+
+  test "#review_due? returns true when review_at is in the past" do
+    reminder = build(:review_reminder, review_at: 1.day.ago)
+    assert reminder.review_due?
+  end
+
+  test "#review_due? returns true when review_at is today" do
+    reminder = build(:review_reminder, review_at: Time.zone.today)
+    assert reminder.review_due?
+  end
+
+  test "#review_due? returns false when review_at is in the future" do
+    reminder = build(:review_reminder, review_at: 1.day.from_now)
+    assert_not reminder.review_due?
+  end
 end
