@@ -1,5 +1,5 @@
 <% content_for :page_title, "Organisations" %>
-<% content_for :title, "Organisations" %>
+<% content_for :context, current_user.organisation == @organisation ? "My organisation" : "Organisation" %>
 <% if can?(:create, Organisation) %>
   <%= render "govuk_publishing_components/components/button", {
     text: "Create organisation",
