@@ -1,0 +1,51 @@
+<%= form_with model: review_reminder, url: [:admin, document, review_reminder] do |form| %>
+  <%= render("components/datetime_fields", {
+    field_name: "review_at",
+    prefix: "review_reminder",
+    date_only: true,
+    error_items: errors_for(review_reminder.errors, :review_at),
+    date_hint: "For example, 01 August 2025",
+    date_heading: "Date (required)",
+    heading_size: "l",
+    year: {
+      value: review_reminder.review_at&.year,
+      id: "review_reminder_review_at_1i",
+      start_year: Time.zone.now.year,
+      end_year: Time.zone.now.year + 10,
+    },
+    month: {
+      value: review_reminder.review_at&.month,
+      id: "review_reminder_review_at_2i",
+    },
+    day: {
+      value: review_reminder.review_at&.day,
+      id: "review_reminder_review_at",
+    },
+  }) %>
+
+  <%= render("govuk_publishing_components/components/input", {
+    label: {
+      text: "Email address (required)",
+      heading_size: "l",
+    },
+    hint: "Enter a team email or your own email address to get a review reminder",
+    name: "review_reminder[email_address]",
+    id: "review_reminder_email_address",
+    value: review_reminder.email_address,
+    error_items: errors_for(review_reminder.errors, :email_address),
+  }) %>
+
+  <div class="govuk-button-group govuk-!-margin-top-8">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "review-reminders-button",
+        "track-label": "Save"
+      }
+    } %>
+
+    <%= link_to("Cancel", admin_edition_path(@document.latest_edition), class: "govuk-link govuk-link--no-visited-state") %>
+  </div>
+<% end %>
