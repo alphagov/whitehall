@@ -4,9 +4,11 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   respond_to :html
 
   before_action :find_worldwide_organisation, except: %i[index new create]
+  layout :get_layout
 
   def index
     respond_with @worldwide_organisations = WorldwideOrganisation.ordered_by_name
+    render_design_system(:index, :legacy_index)
   end
 
   def new
@@ -68,5 +70,14 @@ private
       sponsoring_organisation_ids: [],
       default_news_image_attributes: %i[file file_cache],
     )
+  end
+  def get_layout
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
   end
 end
