@@ -7,7 +7,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   layout :get_layout
 
   def index
-    respond_with @worldwide_organisations = WorldwideOrganisation.ordered_by_name
+    @worldwide_organisations = WorldwideOrganisation.ordered_by_name
     render_design_system(:index, :legacy_index)
   end
 
@@ -58,6 +58,17 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
 private
 
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
+
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])
   end
@@ -70,14 +81,5 @@ private
       sponsoring_organisation_ids: [],
       default_news_image_attributes: %i[file file_cache],
     )
-  end
-  def get_layout
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
-
-    if design_system_actions.include?(action_name)
-      "design_system"
-    else
-      "admin"
-    end
   end
 end
