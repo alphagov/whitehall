@@ -7,7 +7,9 @@ module TranslationControllerConcern
     helper_method :translation_locale
   end
 
-  def edit; end
+  def edit
+    render :legacy_edit if get_layout == "admin" && [Organisation].include?(translatable_item.class)
+  end
 
   def create
     redirect_to create_redirect_path

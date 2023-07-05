@@ -38,7 +38,7 @@
         heading_size: "m",
         value: featured_link_form.object.url,
         name: "#{model}[featured_links_attributes][#{featured_link_form.index}][url]",
-        id: "#{model}_featured_links[#{featured_link_form.index}]_title",
+        id: "#{model}_featured_links[#{featured_link_form.index}]_url",
       } %>
 
     <% if @translation_locale && @translation_locale.code != I18n.default_locale %>

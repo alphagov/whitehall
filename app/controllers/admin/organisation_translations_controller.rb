@@ -10,7 +10,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
