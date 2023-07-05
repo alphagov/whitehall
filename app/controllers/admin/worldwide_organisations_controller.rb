@@ -51,6 +51,8 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     respond_with :admin, @worldwide_organisation, WorldwideOffice
   end
 
+  def confirm_destroy; end
+
   def destroy
     @worldwide_organisation.destroy!
     respond_with :admin, @worldwide_organisation
@@ -60,7 +62,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

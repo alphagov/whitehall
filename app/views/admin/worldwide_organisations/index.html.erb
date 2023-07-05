@@ -29,7 +29,7 @@
               },
               {
                 text: link_to(sanitize("View #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link govuk-!-margin-right-2") +
-                  (link_to(sanitize("Delete #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"),class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
+                  (link_to(sanitize("Delete #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"),confirm_destroy_admin_worldwide_organisation_path(worldwide_organisation),class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
               }
             ]
           end

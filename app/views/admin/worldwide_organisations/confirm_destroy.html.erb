@@ -1,0 +1,28 @@
+<% content_for :context, "Worldwide organisation" %>
+<% content_for :page_title, "Delete worldwide organisation" %>
+<% content_for :title, "Delete worldwide organisation" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_worldwide_organisation_path(@worldwide_organisation), method:
+      :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-4">Are you sure you want to delete <%= @worldwide_organisation.name %>
+        item?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "role-button",
+            "track-label": "Delete"
+          }
+        } %>
+        <%= link_to("Cancel", admin_worldwide_organisations_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

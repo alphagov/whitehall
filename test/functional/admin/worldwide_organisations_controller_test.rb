@@ -98,6 +98,14 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_equal count - 1, WorldwideOrganisation.count
   end
 
+  test "GET :confirm_destroy calls correctly" do
+    organisation = create(:worldwide_organisation)
+
+    get :confirm_destroy, params: { id: organisation.id }
+
+    assert_response :success
+  end
+
   view_test "shows the name summary and description of the worldwide organisation" do
     organisation = create(:worldwide_organisation, name: "Ministry of Silly Walks in Madrid")
     about_us = create(

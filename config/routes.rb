@@ -159,6 +159,7 @@ Whitehall::Application.routes.draw do
           member do
             put :set_main_office
             get :access_info
+            get :confirm_destroy
           end
           resource :access_and_opening_time, path: "access_info", except: %i[index show new]
           resources :translations, controller: "worldwide_organisations_translations"
