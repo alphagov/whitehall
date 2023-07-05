@@ -19,6 +19,8 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
     auth_bypass_ids = uploader.model.respond_to?(:auth_bypass_ids) ? uploader.model.auth_bypass_ids : []
 
+    logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model&.id || 'nil'}")
+
     # Keeping the file attachments flow distinct from images and other flows that also use carrierwave
     # until implementation is complete
     if should_save_an_asset?
