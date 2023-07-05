@@ -13,7 +13,7 @@ class TakePartPage < ApplicationRecord
 
   include PublishesToPublishingApi
 
-  mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
+  mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
 
   validates :image, presence: true, on: :create
   validates :image_alt_text, presence: true, allow_blank: true, length: { maximum: 255 }, on: :create

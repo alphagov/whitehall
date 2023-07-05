@@ -1,4 +1,4 @@
 class DefaultNewsOrganisationImageData < ApplicationRecord
-  mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
+  mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
   validates :file, presence: true
 end

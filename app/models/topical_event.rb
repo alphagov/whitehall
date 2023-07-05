@@ -89,8 +89,7 @@ class TopicalEvent < ApplicationRecord
   accepts_nested_attributes_for :topical_event_featurings
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
-  mount_uploader :logo, ImageUploader, mount_on: :carrierwave_image
-  validates_with ImageValidator, method: :logo, mime_types: { "image/jpeg" => /(\.jpeg|\.jpg)$/, "image/png" => /\.png$/ }, if: :logo_changed?
+  mount_uploader :logo, FeaturedImageUploader, mount_on: :carrierwave_image
 
   extend FriendlyId
   friendly_id

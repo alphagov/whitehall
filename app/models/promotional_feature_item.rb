@@ -18,7 +18,7 @@ class PromotionalFeatureItem < ApplicationRecord
 
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: ->(attributes) { attributes["url"].blank? }
 
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, FeaturedImageUploader
 
   def youtube_video_id
     return if youtube_video_url.blank?

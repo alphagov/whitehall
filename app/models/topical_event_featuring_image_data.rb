@@ -1,5 +1,5 @@
 class TopicalEventFeaturingImageData < ApplicationRecord
-  mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
+  mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
 
   validates :file, presence: true, if: :image_changed?
   validates_with ImageValidator, size: [960, 640], if: :image_changed?
