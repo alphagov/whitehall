@@ -46,7 +46,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     @group.non_whitehall_links = create_list(:document_collection_non_whitehall_link, 50)
     get :index, params: { document_collection_id: @collection }
     assert_response :ok
-    assert_select ".alert-info", false, text: /it may be slow or impossible to update/
+    assert_select ".alert-info", false, /it may be slow or impossible to update/
   end
 
   view_test "GET #new renders successfully" do
