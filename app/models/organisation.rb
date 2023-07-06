@@ -513,16 +513,10 @@ class Organisation < ApplicationRecord
       charity-commission
       department-for-education
       department-for-environment-food-rural-affairs
-      driver-and-vehicle-standards-agency
-      environment-agency
-      high-speed-two-limited
-      highways-england
       hm-revenue-customs
       marine-management-organisation
       maritime-and-coastguard-agency
-      medicines-and-healthcare-products-regulatory-agency
       natural-england
-      planning-inspectorate
     ]
   end
 
