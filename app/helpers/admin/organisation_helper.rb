@@ -131,4 +131,8 @@ module Admin::OrganisationHelper
       topical_event.end_date.try(:to_date),
     ].compact.map { |date| l(date) }.join(" to ")
   end
+
+  def organisation_context_block(current_user, organisation)
+    current_user.organisation == organisation ? "My organisation" : "Organisation"
+  end
 end
