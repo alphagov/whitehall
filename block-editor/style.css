@@ -1,0 +1,37 @@
+:root {
+  --sans-serif: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+  --monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+}
+
+body {
+  font-family: var(--sans-serif);
+  margin: 0;
+  padding: 0;
+}
+
+#editorjs {
+  margin: 0 1rem;
+}
+
+.actions {
+  background: #000;
+  padding: 0.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+textarea {
+  display: block;
+  width: 80vw;
+  max-width: 40rem;
+  height: calc(80vh - 10rem);
+  max-height: 30rem;
+  margin: 1rem 0;
+  font-family: var(--monospace);
+  padding: 0.5rem;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block editor demo</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div class="actions">
+    <button id="import-button">Import Markdown</button>
+    <button id="export-button">Export Markdown</button>
+    <button id="reset-button">Reset editor</button>
+  </div>
+
+  <div id="editorjs"></div>
+
+  <dialog id="import-dialog">
+    <form method="dialog">
+      <label for="import-textarea">Markdown to import</label>
+      <textarea id="import-textarea"></textarea>
+      <button>Import</button>
+    </form>
+  </dialog>
+
+  <dialog id="export-dialog">
+    <form method="dialog">
+      <label for="export-textarea">Markdown from editor</label>
+      <textarea id="export-textarea" readonly></textarea>
+      <button>Close</button>
+    </form>
+  </dialog>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

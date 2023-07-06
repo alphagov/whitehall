@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div id="editorjs"></div>
+  <script type="module">
+    import { createEditor, getMarkdown } from '../../editor/editor';
+
+    // Make createEditor available globally so editor instances can be
+    // created dynamically by cypress
+    window.createEditor = createEditor;
+    window.getMarkdown = getMarkdown;
+  </script>
+</body>
+
+</html>

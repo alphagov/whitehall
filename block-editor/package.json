@@ -1,0 +1,45 @@
+{
+  "name": "gift-week-editor",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "cypress:open": "concurrently --kill-others vite \"cypress open --e2e -b chrome\"",
+    "cypress:run": "concurrently --kill-others vite \"cypress run\""
+  },
+  "devDependencies": {
+    "@codexteam/ajax": "^4.2.0",
+    "@codexteam/icons": "^0.2.0",
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "chai-subset": "^1.6.0",
+    "concurrently": "^7.6.0",
+    "cypress": "^12.0.0",
+    "jsdom": "^21.0.0",
+    "theredoc": "^1.0.0",
+    "vite": "^4.0.4",
+    "vitest": "^0.27.1"
+  },
+  "dependencies": {
+    "@editorjs/editorjs": "^2.26.3",
+    "@editorjs/header": "^2.7.0",
+    "@editorjs/list": "^1.8.0",
+    "@editorjs/paragraph": "^2.9.0",
+    "@editorjs/table": "^2.1.2",
+    "cropperjs": "^1.5.13",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "rehype-parse": "^8.0.4",
+    "rehype-remark": "^9.1.2",
+    "rehype-stringify": "^9.0.3",
+    "remark-gfm": "^3.0.1",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "remark-stringify": "^10.0.2",
+    "serverless-http": "^3.1.0",
+    "unified": "^10.1.2"
+  }
+}

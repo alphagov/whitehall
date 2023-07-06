@@ -1,0 +1,85 @@
+{
+  "time": 1670340289933,
+  "blocks": [
+    {
+      "id": "isE7q4Lq_2",
+      "type": "header",
+      "data": {
+        "text": "If you’re on a fixed rate tariff",
+        "level": 3
+      }
+    },
+    {
+      "id": "KqlKsXNynG",
+      "type": "paragraph",
+      "data": {
+        "text": "Fixed rate tariff customers will have the same support as those on variable tariffs, but rates are subject to a ‘floor’ price (the minimum rate the price per unit will be discounted to). The floor prices exist because some people will have fixed at much lower prices some time ago, meaning their payments will already be below the level set by the Energy Price Guarantee."
+      }
+    },
+    {
+      "id": "Zd6RpZuTBU",
+      "type": "paragraph",
+      "data": {
+        "text": "For fixed rate tariffs that currently have unit rates above the floor price, these unit price reductions apply:"
+      }
+    },
+    {
+      "id": "8T1uuGON3Z",
+      "type": "list",
+      "data": {
+        "style": "unordered",
+        "items": [
+          "up to 17p/kWh&nbsp;for electricity and 4.2p/kWh&nbsp;for gas for October to December 2022",
+          "up to 31.8p/kWh&nbsp;for electricity and 6.4p/kWh&nbsp;for gas from January to March 2023<br>"
+        ]
+      }
+    },
+    {
+      "id": "NgefQFtRKr",
+      "type": "paragraph",
+      "data": {
+        "text": "The floor unit prices vary by region and payment type but for electricity average at 34p/kWh&nbsp;and for gas average at 10.3p/kWh&nbsp;for direct debit customers in Great Britain with typical energy consumption. These floor prices remain unchanged from 1 October 2022 through to 31 March 2023."
+      }
+    },
+    {
+      "id": "sKIbm0cP02",
+      "type": "paragraph",
+      "data": {
+        "text": "Customers on fixed rate tariffs that are already below the floor unit rate will remain on those low rates but will not receive a further discount for the duration of their fixed term."
+      }
+    },
+    {
+      "id": "FKY6w7LWpK",
+      "type": "paragraph",
+      "data": {
+        "text": "A small number of consumers who fixed at very high rates will receive the full unit rate discount:"
+      }
+    },
+    {
+      "id": "PfaOuvNyU0",
+      "type": "list",
+      "data": {
+        "style": "unordered",
+        "items": [
+          "17p/kWh&nbsp;of electricity and 4.2p/kWh&nbsp;of gas between October and December 2022",
+          "31.8p/kWh&nbsp;of electricity and 6.4p/kWh&nbsp;of gas for January to March 2023<br>"
+        ]
+      }
+    },
+    {
+      "id": "DEbP2hvYxK",
+      "type": "paragraph",
+      "data": {
+        "text": "However, given the higher starting point, their high fixed rate tariffs may still have a unit rate that is above the&nbsp;EPG&nbsp;rates."
+      }
+    },
+    {
+      "id": "GOxxsq3cva",
+      "type": "paragraph",
+      "data": {
+        "text": "Any transfer to a different tariff is a matter for suppliers."
+      }
+    }
+  ],
+  "version": "2.26.1"
+}
