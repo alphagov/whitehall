@@ -16,4 +16,16 @@ module Admin::FeaturesHelper
       end
     end
   end
+
+  def feature_published_on(feature)
+    if feature.document&.live_edition.present?
+      localize(feature.document.live_edition.major_change_published_at.to_date)
+    elsif feature.topical_event.present?
+      topical_event_dates_string(feature.topical_event)
+    elsif feature.offsite_link.present?
+      (localize(feature.offsite_link.date.to_date) if feature.offsite_link.date) || ""
+    else
+      ""
+    end
+  end
 end

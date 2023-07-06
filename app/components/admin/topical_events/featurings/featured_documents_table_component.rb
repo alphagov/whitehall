@@ -2,6 +2,7 @@
 
 class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent < ViewComponent::Base
   include Admin::EditionRoutesHelper
+  include Admin::TopicalEventFeaturingsHelper
 
   attr_reader :caption, :featurings
 
@@ -45,16 +46,8 @@ private
 
   def published_row(featuring)
     {
-      text: published_at(featuring),
+      text: featuring_published_on(featuring),
     }
-  end
-
-  def published_at(featuring)
-    if featuring.offsite?
-      (localize(featuring.offsite_link.date.to_date) if featuring.offsite_link.date) || ""
-    else
-      localize(featuring.edition.major_change_published_at.to_date)
-    end
   end
 
   def actions_row(featuring)

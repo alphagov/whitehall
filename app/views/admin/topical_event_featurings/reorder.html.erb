@@ -4,7 +4,7 @@
 <% content_for :title_margin_bottom, 6 %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <%= form_with url: order_admin_topical_event_topical_event_featurings_path(@topical_event), method: :put do %>
       <%= render "govuk_publishing_components/components/hint", {
         text: "Use the up and down buttons to reorder pages, or select and hold on a page to reorder using drag and drop.",
@@ -16,6 +16,7 @@
           {
             id: featuring.id,
             title: featuring.title,
+            description: featuring_published_on(featuring).present? ? "Published: #{featuring_published_on(featuring)}" : nil
           }
         end
       } %>

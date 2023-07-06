@@ -3,6 +3,7 @@
 class Admin::Features::FeaturedDocumentsTableComponent < ViewComponent::Base
   include Admin::EditionRoutesHelper
   include Admin::OrganisationHelper
+  include Admin::FeaturesHelper
 
   attr_reader :caption, :features
 
@@ -62,20 +63,8 @@ private
 
   def published_row(feature)
     {
-      text: published_at(feature),
+      text: feature_published_on(feature),
     }
-  end
-
-  def published_at(feature)
-    if feature.document&.live_edition.present?
-      localize(feature.document.live_edition.major_change_published_at.to_date)
-    elsif feature.topical_event.present?
-      topical_event_dates_string(feature.topical_event)
-    elsif feature.offsite_link.present?
-      (localize(feature.offsite_link.date.to_date) if feature.offsite_link.date) || ""
-    else
-      ""
-    end
   end
 
   def actions_row(feature)
