@@ -43,7 +43,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     end
 
     def delete
-      AssetManagerDeleteAssetWorker.perform_async(@legacy_url_path)
+      AssetManagerDeleteAssetWorker.perform_async(@legacy_url_path, nil)
     end
 
     def url
