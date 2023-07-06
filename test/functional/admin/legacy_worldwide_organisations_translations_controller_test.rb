@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController::TestCase
+class Admin::LegacyWorldwideOrganisationsTranslationsControllerTest < ActionController::TestCase
+  tests Admin::WorldwideOrganisationsTranslationsController
+
   setup do
-    login_as_preview_design_system_user(:writer)
+    login_as :writer
     @worldwide_organisation = create(:worldwide_organisation)
 
     Locale.stubs(:non_english).returns([
@@ -22,7 +24,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
         assert_select "option[value=es]", text: "Español (Spanish)"
       end
 
-      assert_select "button", text: "Next"
+      assert_select "input[type=submit]"
     end
   end
 
@@ -44,7 +46,9 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr])
     get :index, params: { worldwide_organisation_id: worldwide_organisation }
     edit_translation_path = edit_admin_worldwide_organisation_translation_path(worldwide_organisation, "fr")
-    assert_select "a[href=?]", edit_translation_path, text: "Edit Français"
+    view_worldwide_organisation_path = worldwide_organisation.public_path(locale: "fr")
+    assert_select "a[href=?]", edit_translation_path, text: "Français"
+    assert_select "a[href=?]", view_worldwide_organisation_path, text: "view"
   end
 
   view_test "index does not list the english translation" do
@@ -53,13 +57,14 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     assert_select "a[href=?]", edit_translation_path, text: "en", count: 0
   end
 
-  view_test "index displays delete link for a translation" do
+  view_test "index displays delete button for a translation" do
     worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr])
-    delete_translation_path = confirm_destroy_admin_worldwide_organisation_translation_path(worldwide_organisation, "fr")
 
     get :index, params: { worldwide_organisation_id: worldwide_organisation }
 
-    assert_select "a[href=?]", delete_translation_path, text: "Delete Français"
+    assert_select "form[action=?]", admin_worldwide_organisation_translation_path(worldwide_organisation, "fr") do
+      assert_select "input[type='submit'][value=?]", "Delete"
+    end
   end
 
   test "create redirects to edit for the chosen language" do
