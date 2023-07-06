@@ -99,7 +99,7 @@ private
   def confirm_destroy_summary_card_action
     {
       label: "Delete",
-      href: confirm_destroy_admin_organisation_social_media_account_path(socialable, social_media_account),
+      href: polymorphic_path([:confirm_destroy, :admin, socialable, social_media_account]),
       destructive: true,
     }
   end

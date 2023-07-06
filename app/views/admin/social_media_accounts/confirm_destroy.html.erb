@@ -5,7 +5,7 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <%= form_with url: admin_organisation_social_media_account_path(@socialable, @social_media_account), method: :delete do %>
+    <%= form_with url: polymorphic_path([:admin, @socialable, @social_media_account]), method: :delete do %>
       <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete "<%= @social_media_account.service_name %>"?</p>
 
       <div class="govuk-button-group">
@@ -14,7 +14,7 @@
           destructive: true,
         } %>
 
-        <%= link_to("Cancel", admin_organisation_social_media_accounts_path(@social_media_account), class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Cancel", polymorphic_path([:admin, @socialable, :social_media_accounts]), class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </section>

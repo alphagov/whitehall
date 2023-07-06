@@ -176,7 +176,9 @@ Whitehall::Application.routes.draw do
           resources :corporate_information_pages do
             resources :translations, controller: "corporate_information_pages_translations"
           end
-          resources :social_media_accounts
+          resources :social_media_accounts do
+            get :confirm_destroy, on: :member
+          end
         end
 
         resources :editions, only: [:index] do

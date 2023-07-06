@@ -69,6 +69,28 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     assert_equal "http://bar", social_media_account.reload.url
   end
 
+  view_test "GET on :confirm_destroy has the correct action and cancel links when socialable is an organisation" do
+    organisation = create(:organisation)
+    social_media_account = create(:social_media_account, socialable: organisation)
+
+    get :confirm_destroy, params: { organisation_id: organisation, id: social_media_account }
+
+    assert_select "form[action='#{admin_organisation_social_media_account_path(organisation, social_media_account)}']" do
+      assert_select "a[href='#{admin_organisation_social_media_accounts_path(organisation)}']"
+    end
+  end
+
+  view_test "GET on :confirm_destroy has the correct action and cancel links when socialable is a worldwide organisation" do
+    worldwide_organisation = create(:worldwide_organisation)
+    social_media_account = create(:social_media_account, socialable: worldwide_organisation)
+
+    get :confirm_destroy, params: { worldwide_organisation_id: worldwide_organisation, id: social_media_account }
+
+    assert_select "form[action='#{admin_worldwide_organisation_social_media_account_path(worldwide_organisation, social_media_account)}']" do
+      assert_select "a[href='#{admin_worldwide_organisation_social_media_accounts_path(worldwide_organisation)}']"
+    end
+  end
+
   test "DELETE on :destroy destroys the social media account" do
     organisation = create(:worldwide_organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
