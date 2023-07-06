@@ -5,9 +5,9 @@ on:
   push:
     branches:
       - main
+      - buildkite-kevin
     paths-ignore:
       - "Jenkinsfile"
-      - ".git**"
   pull_request:
 
 jobs:
@@ -44,10 +44,58 @@ jobs:
       ref: ${{ github.ref }}
 
   test-ruby:
-    name: Test Ruby
-    uses: ./.github/workflows/minitest.yml
-    secrets:
-      BUILDKITE_ANALYTICS_TOKEN: ${{ secrets.BUILDKITE_ANALYTICS_TOKEN }}
+    name: Run Minitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup MySQL
+        id: setup-mysql
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@main
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
+
+      - name: Install additional system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ghostscript
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: alphagov/whitehall
+          ref: ${{ github.ref }}
+
+      - name: Checkout Publishing API (for Content Schemas)
+        uses: actions/checkout@v3
+        with:
+          repository: alphagov/publishing-api
+          ref: main
+          path: vendor/publishing-api
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@main
+
+      - name: Precompile assets
+        uses: alphagov/govuk-infrastructure/.github/actions/precompile-rails-assets@main
+
+      - name: Initialize database
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
+        run: bundle exec rails db:setup
+
+      - name: Run Minitest
+        env:
+          RAILS_ENV: test
+          GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
+          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
+          BUILDKITE_ANALYTICS_TOKEN: ${{ secrets.BUILDKITE_ANALYTICS_TOKEN }}
+        run: bundle exec rake test
 
   integration-tests:
     name: Integration tests
