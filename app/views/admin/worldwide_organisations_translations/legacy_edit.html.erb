@@ -1,0 +1,17 @@
+<% page_title "Edit translation for: #{@english_worldwide_organisation.name}" %>
+<div class="row">
+  <div class="col-md-8">
+    <h1>Edit ‘<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)’ translation for: <%= @english_worldwide_organisation.name %></h1>
+
+    <%= form_for @translated_worldwide_organisation, url: admin_worldwide_organisation_translation_path(@translated_worldwide_organisation, translation_locale), method: :put, html: {class: 'well'} do |form| %>
+      <%= form.errors %>
+
+      <%= form.translated_text_field :name %>
+
+      <%= form.save_or_cancel cancel: admin_worldwide_organisation_translations_path(@english_worldwide_organisation) %>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <%= legacy_simple_formatting_sidebar %>
+  </div>
+</div>
