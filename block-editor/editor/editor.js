@@ -1,5 +1,6 @@
 import EditorJS from '@editorjs/editorjs';
 import tools from './tools';
+import loadHtml from './loadHtml';
 import loadMarkdown from './loadMarkdown';
 import exportMarkdown from './exportMarkdown';
 
@@ -16,6 +17,14 @@ const createEditor = (config = {}) => {
     delete config.markdown;
     config.onReady = () => {
       loadMarkdown({ editor, markdown });
+    };
+  }
+
+  if (config.html) {
+    const { html } = config;
+    delete config.html;
+    config.onReady = () => {
+      loadHtml({ editor, html });
     };
   }
 

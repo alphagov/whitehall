@@ -201,6 +201,261 @@ describe('Editor', () => {
     });
   });
 
+  describe('importing HTML => to Blocks => exporting Markdown', () => {
+    [
+      {
+        html: "<h2>Hello world</h2>",
+        markdown: "## Hello world",
+        expectBlocks: [
+          {
+            type: "header",
+            data: {
+              level: 2,
+              text: "Hello world"
+            }
+          }
+        ],
+      },
+      {
+        html: "<p>A regular paragraph</p>",
+        markdown: "A regular paragraph",
+        expectBlocks: [
+          {
+            type: "paragraph",
+            data: {
+              text: "A regular paragraph"
+            }
+          }
+        ],
+      },
+      {
+        html: '<p>A paragraph <a href="https://www.gov.uk">with links</a> embedded.</p>',
+        markdown: "A paragraph [with links](https://www.gov.uk) embedded.",
+        expectBlocks: [
+          {
+            type: "paragraph",
+            data: {
+              text: `A paragraph <a href="https://www.gov.uk">with links</a> embedded.`
+            }
+          }
+        ],
+      },
+      {
+        html: theredoc`
+          <h2>Heading 2</h2>
+
+          <p>A paragraph of text, including <strong>bold text</strong>.</p>
+
+          <h3>Heading 3</h3>
+
+          <p>Some more text <a rel="external" href="https://example.com">with links</a> embedded.</p>
+        `,
+        markdown: theredoc`
+          ## Heading 2
+
+          A paragraph of text, including **bold text**.
+
+          ### Heading 3
+
+          Some more text [with links](https://example.com) embedded.
+        `,
+        expectBlocks: [
+          {
+            type: "header",
+            data: {
+              "text": "Heading 2",
+              "level": 2
+            }
+          },
+          {
+            type: "paragraph",
+            data: {
+              text: "A paragraph of text, including <b>bold text</b>."
+            }
+          },
+          {
+            type: "header",
+            data: {
+              text: "Heading 3",
+              level: 3
+            }
+          },
+          {
+            type: "paragraph",
+            data: {
+              text: "Some more text <a href=\"https://example.com\">with links</a> embedded."
+            }
+          }
+        ],
+      },
+      {
+        html: theredoc`
+          <h2>A document with a table</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Number</th>
+                <th scope="col">Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>One</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Two</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Three</td>
+              </tr>
+            </tbody>
+          </table>
+        `,
+        markdown: theredoc`
+          ## A document with a table
+
+          | Number | Name |
+          | --- | --- |
+          | 1 | One |
+          | 2 | Two |
+          | 3 | Three |
+        `,
+        expectBlocks: [
+          {
+            type: "header",
+            data: {
+              "text": "A document with a table",
+              "level": 2
+            }
+          },
+          {
+            type: "table",
+            data: {
+              withHeadings: true,
+              content: [
+                ["Number", "Name"],
+                ["1", "One"],
+                ["2", "Two"],
+                ["3", "Three"],
+              ],
+            },
+          },
+        ],
+      },
+      {
+        html: theredoc`
+          <p>There are 8 planets in our solar system:</p>
+
+          <ol>
+            <li>Mercury</li>
+            <li>Venus</li>
+            <li>Earth (that's where we live)</li>
+            <li>Mars</li>
+            <li>Jupiter</li>
+            <li>Saturn</li>
+            <li>Uranus</li>
+            <li>Neptune</li>
+          </ol>
+
+          <p>If you want to visit a planet, you're going to need:</p>
+
+          <ul>
+            <li>A space ship</li>
+            <li>Enough fuel to get you there</li>
+            <li>Lots of money</li>
+            <li>A space suit</li>
+          </ul>
+        `,
+        markdown: theredoc`
+          There are 8 planets in our solar system:
+
+          1. Mercury
+          2. Venus
+          3. Earth (that's where we live)
+          4. Mars
+          5. Jupiter
+          6. Saturn
+          7. Uranus
+          8. Neptune
+
+          If you want to visit a planet, you're going to need:
+
+          - A space ship
+          - Enough fuel to get you there
+          - Lots of money
+          - A space suit
+        `,
+        expectBlocks: [
+          {
+            type: "paragraph",
+            data: {
+              text: "There are 8 planets in our solar system:"
+            }
+          },
+          {
+            type: "list",
+            data: {
+              style: "ordered",
+              items: [
+                "Mercury",
+                "Venus",
+                "Earth (that's where we live)",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune"
+              ]
+            }
+          },
+          {
+            type: "paragraph",
+            data: {
+              text: "If you want to visit a planet, you're going to need:"
+            }
+          },
+          {
+            type: "list",
+            data: {
+              style: "unordered",
+              items: [
+                "A space ship",
+                "Enough fuel to get you there",
+                "Lots of money",
+                "A space suit"
+              ]
+            }
+          }
+        ],
+      }
+    ].forEach((example, index) => {
+      describe(`Example #${index}`, () => {
+        it(`renders HTML as Editor Blocks`, () => {
+          const { html, expectBlocks } = example;
+          cy.createEditor({ html }).then(async (editor) => {
+            const data = await editor.save();
+            expect(data).to.containSubset({
+              blocks: expectBlocks
+            });
+          });
+        });
+
+        it(`exports the Blocks to Markdown`, () => {
+          const { html, markdown } = example;
+          cy.createEditor({ html })
+            .then((editor) => (cy.getMarkdown(editor)))
+            .then((output) => {
+              expect(output).to.equal(markdown);
+            });
+        });
+      });
+    });
+  });
+
   describe('transforming Markdown syntax to Blocks', () => {
     [
       {
