@@ -91,6 +91,14 @@ class MailNotifications < ApplicationMailer
               subject: "Consultation deadline breached"
   end
 
+  def call_for_evidence_reminder(call_for_evidence, recipient_address:)
+    @title = call_for_evidence.title
+
+    view_mail template_id,
+              to: recipient_address,
+              subject: "Reminder: Call for evidence \"#{@title}\" closed 8 weeks ago"
+  end
+
   helper_method :production?
 
   def production?
