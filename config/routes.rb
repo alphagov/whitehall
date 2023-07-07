@@ -213,6 +213,8 @@ Whitehall::Application.routes.draw do
             patch :update_bypass_id
             patch :update_image_display_option
             get :confirm_destroy
+            get :block_editor
+            patch :block_editor, to: "editions#block_editor_update"
           end
           resources :link_check_reports
           resource :unpublishing, controller: "edition_unpublishing", only: %i[edit update]

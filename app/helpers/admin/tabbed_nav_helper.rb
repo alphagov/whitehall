@@ -30,6 +30,13 @@ module Admin::TabbedNavHelper
         href: tab_url_for_edition(edition),
         current: current_path == tab_url_for_edition(edition),
       },
+      *(if edition.persisted?
+        [{
+          label: 'Block editor <strong class="govuk-tag govuk-tag--yellow">New</strong>'.html_safe,
+          href: block_editor_admin_edition_path(edition),
+          current: current_path == block_editor_admin_edition_path(edition),
+        }]
+      end),
       *(if edition.persisted? && edition.allows_attachments?
           [{
             label: sanitize("Attachments #{tag.span(edition.attachments.count, class: 'govuk-tag govuk-tag--grey') if edition.attachments.count.positive?}"),

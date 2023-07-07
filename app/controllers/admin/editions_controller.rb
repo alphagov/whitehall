@@ -5,16 +5,16 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option]
-  before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
+  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option block_editor block_editor_update]
+  before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update block_editor block_editor_update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
   before_action :build_edition, only: %i[new create]
-  before_action :detect_other_active_editors, only: %i[edit update]
+  before_action :detect_other_active_editors, only: %i[edit update block_editor block_editor_update]
   before_action :set_edition_defaults, only: :new
-  before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise]
+  before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise block_editor block_editor_update]
   before_action :enforce_permissions!
-  before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
+  before_action :limit_edition_access!, only: %i[show edit update revise diff destroy block_editor block_editor_update]
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
@@ -30,7 +30,7 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:create, edition_class || Edition)
     when "create"
       enforce_permission!(:create, @edition)
-    when "edit", "update", "revise", "diff", "update_bypass_id", "update_image_display_option"
+    when "edit", "update", "revise", "diff", "update_bypass_id", "update_image_display_option", "block_editor", "block_editor_update"
       enforce_permission!(:update, @edition)
     when "destroy", "confirm_destroy"
       enforce_permission!(:delete, @edition)
@@ -183,6 +183,27 @@ class Admin::EditionsController < Admin::BaseController
     redirect_to admin_edition_path(@edition), notice: "New document preview link generated"
   end
 
+  def block_editor
+    @edition.open_for_editing_as(current_user)
+  end
+
+  def block_editor_update
+    @edition.assign_attributes(block_editor_params)
+
+    if updater.can_perform? && @edition.save_as(current_user)
+      updater.perform!
+
+      if @edition.link_check_reports.last
+        LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url)
+      end
+
+      redirect_to block_editor_admin_edition_path(@edition)
+    else
+      flash.now[:alert] = "There are some problems with the document"
+      render :block_editor
+    end
+  end
+
 private
 
   def fetch_version_and_remark_trails
@@ -191,6 +212,10 @@ private
 
   def edition_class
     Edition
+  end
+
+  def block_editor_params
+    params.fetch(:edition).permit(:body)
   end
 
   def edition_params

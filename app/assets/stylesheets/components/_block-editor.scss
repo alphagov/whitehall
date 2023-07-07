@@ -1,0 +1,10 @@
+.app-c-block-editor {
+  @include govuk-text-colour;
+  @include govuk-font($size: 19);
+}
+
+// Popup tooltips
+// Unfortunately we can't customise the class name these use
+.ct {
+  @include govuk-font($size: 19);
+}

@@ -1,0 +1,38 @@
+<% content_for :page_title, "Edit #{@edition.format_name}"%>
+<% content_for :title, "Editing #{@edition.format_name}" %>
+<% content_for :context, @edition.title %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
+<% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation tabs",
+      items: secondary_navigation_tabs_items(@edition, request.path)
+    } %>
+    <%= render BlockEditorComponent.new(edition: @edition) %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <div class="app-view-summary__sidebar-actions">
+      <%= form_for @edition, as: :edition, url: block_editor_admin_edition_path(@edition), method: "patch" do |form| %>
+        <%= form.hidden_field :body %>
+        <%= render "govuk_publishing_components/components/list", {
+          extra_spacing: true,
+          items: [
+            render("govuk_publishing_components/components/button", {
+              text: "Save changes",
+              value: "save",
+              name: "save",
+            }),
+            link_to(
+              "Cancel",
+              admin_edition_path(@edition),
+              class: "govuk-link govuk-link--no-visited-state",
+            ),
+          ]
+        } %>
+      <% end %>
+    </div>
+  </div>
+</div>

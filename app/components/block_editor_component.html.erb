@@ -1,0 +1,22 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "block-editor/dist/style" %>
+<% end %>
+
+<div class="app-c-block-editor">
+  <div id="editorjs"></div>
+</div>
+
+<% block_editor_js = path_to_javascript "block-editor/dist/block-editor" %>
+<script type="module">
+  import { createEditor, getMarkdown } from "<%= escape_javascript block_editor_js %>";
+  const config = <%= editor_config.to_json.html_safe %>;
+  const editor = createEditor(config);
+
+  const hiddenInput = document.querySelector("form input[type=hidden][name='edition[body]']");
+  hiddenInput.form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const markdown = await getMarkdown(editor);
+    hiddenInput.value = markdown;
+    hiddenInput.form.submit();
+  });
+</script>
