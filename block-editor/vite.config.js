@@ -9,4 +9,10 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
   },
+  build: {
+    lib: {
+      entry: 'editor/editor.js',
+      name: "BlockEditor",
+    }
+  },
 });

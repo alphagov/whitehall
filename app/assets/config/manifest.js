@@ -5,3 +5,4 @@
 //= link frontend.js
 //= link admin_legacy.js
 //= link application.js
+//= link_directory ../../../block-editor/dist
