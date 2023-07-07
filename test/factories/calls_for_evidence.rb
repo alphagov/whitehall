@@ -53,10 +53,6 @@ FactoryBot.define do
     outcome { create(:call_for_evidence_outcome, :with_html_attachment) }
   end
 
-  factory :call_for_evidence_with_public_feedback_html_attachment, parent: :closed_call_for_evidence do
-    public_feedback { create(:consultation_public_feedback, :with_html_attachment) }
-  end
-
   factory :call_for_evidence_with_excluded_nations, parent: :call_for_evidence, traits: [:has_excluded_nations]
   factory :published_call_for_evidence_with_excluded_nations, parent: :published_call_for_evidence, traits: [:has_excluded_nations]
 end
