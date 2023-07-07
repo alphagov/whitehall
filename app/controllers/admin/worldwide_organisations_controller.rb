@@ -20,6 +20,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   def create
     @worldwide_organisation = WorldwideOrganisation.create(worldwide_organisation_params) # rubocop:disable Rails/SaveBang
     respond_with :admin, @worldwide_organisation
+    flash[:notice] = "Organisation created successfully"
   end
 
   def edit
@@ -56,13 +57,14 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   def destroy
     @worldwide_organisation.destroy!
     respond_with :admin, @worldwide_organisation
+    flash[:notice] = "Organisation deleted successfully"
   end
 
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
+    design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

@@ -7,8 +7,9 @@
   <section class="govuk-grid-column-two-thirds">
     <%= form_with url: admin_worldwide_organisation_path(@worldwide_organisation), method:
       :delete do %>
-      <p class="govuk-body govuk-!-margin-bottom-4">Are you sure you want to delete <%= @worldwide_organisation.name %>
-        item?</p>
+      <p class="govuk-body govuk-!-margin-bottom-4">
+        Are you sure you want to delete "<%= @worldwide_organisation.name %>"
+      </p>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {

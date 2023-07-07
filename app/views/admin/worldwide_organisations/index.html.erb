@@ -3,42 +3,46 @@
 <% content_for :title_margin_bottom, 6 %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
   <%= render "govuk_publishing_components/components/button", {
     text: "Create worldwide organisation",
     href: new_admin_worldwide_organisation_path,
     margin_bottom: 6,
   } %>
-    <% if @worldwide_organisations.present? %>
-      <div class="app-c-govuk-table--filterable govuk-table--with-actions">
-        <%= render "govuk_publishing_components/components/table", {
-          filterable: true,
-          label: "Filter organisations",
-          head: [
+  <% if @worldwide_organisations.present? %>
+    <div class="app-c-govuk-table--filterable govuk-table--with-actions">
+      <%= render "govuk_publishing_components/components/table", {
+        filterable: true,
+        label: "Filter by organisation or country",
+        head: [
+          {
+            text: "Organisation name"
+          },
+          {
+            text: "Country"
+          },
+          {
+            text: tag.span("Actions", class: "govuk-visually-hidden")
+          }
+        ],
+        rows: @worldwide_organisations.map do |worldwide_organisation|
+          [
             {
-              text: "Organisation name"
+              text: tag.span(worldwide_organisation.name, class: "govuk-!-font-weight-bold")
             },
             {
-              text: "",
+              text: worldwide_organisation.world_locations.map(&:name).to_sentence
+            },
+            {
+              text: link_to(sanitize("View #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link govuk-!-margin-right-2") +
+                (link_to(sanitize("Delete #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
             }
-          ],
-          rows: @worldwide_organisations.map do |worldwide_organisation|
-            [
-              {
-                text: tag.span(worldwide_organisation.name, class: "govuk-!-font-weight-bold")
-              },
-              {
-                text: link_to(sanitize("View #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link govuk-!-margin-right-2") +
-                  (link_to(sanitize("Delete #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"),confirm_destroy_admin_worldwide_organisation_path(worldwide_organisation),class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
-              }
-            ]
-          end
-        } %>
-      </div>
-    <% else %>
-      <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No worldwide organisations have been created."
+          ]
+        end
       } %>
-    <% end %>
-  </div>
+    </div>
+  <% else %>
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: "No worldwide organisations have been created."
+    } %>
+  <% end %>
 </div>
