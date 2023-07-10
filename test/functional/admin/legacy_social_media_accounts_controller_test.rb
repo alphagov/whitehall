@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
+class Admin::LegacySocialMediaAccountsControllerTest < ActionController::TestCase
+  tests Admin::SocialMediaAccountsController
+
   setup do
-    login_as_preview_design_system_user :departmental_editor
+    login_as :departmental_editor
     @social_media_service = create(:social_media_service)
   end
 
@@ -69,28 +71,6 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     assert_equal "http://bar", social_media_account.reload.url
   end
 
-  view_test "GET on :confirm_destroy has the correct action and cancel links when socialable is an organisation" do
-    organisation = create(:organisation)
-    social_media_account = create(:social_media_account, socialable: organisation)
-
-    get :confirm_destroy, params: { organisation_id: organisation, id: social_media_account }
-
-    assert_select "form[action='#{admin_organisation_social_media_account_path(organisation, social_media_account)}']" do
-      assert_select "a[href='#{admin_organisation_social_media_accounts_path(organisation)}']"
-    end
-  end
-
-  view_test "GET on :confirm_destroy has the correct action and cancel links when socialable is a worldwide organisation" do
-    worldwide_organisation = create(:worldwide_organisation)
-    social_media_account = create(:social_media_account, socialable: worldwide_organisation)
-
-    get :confirm_destroy, params: { worldwide_organisation_id: worldwide_organisation, id: social_media_account }
-
-    assert_select "form[action='#{admin_worldwide_organisation_social_media_account_path(worldwide_organisation, social_media_account)}']" do
-      assert_select "a[href='#{admin_worldwide_organisation_social_media_accounts_path(worldwide_organisation)}']"
-    end
-  end
-
   test "DELETE on :destroy destroys the social media account" do
     organisation = create(:worldwide_organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
@@ -106,7 +86,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     organisation = create(:organisation, translated_into: %i[fr cy])
     social_media_account = create(:social_media_account, socialable_id: organisation.id, socialable_type: "Organisation")
     get :index, params: { organisation_id: organisation.id }
-    assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "en" })
+    assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id)
     assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "fr" })
     assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "cy" })
     refute_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "dk" })

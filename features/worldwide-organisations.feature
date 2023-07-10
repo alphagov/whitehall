@@ -43,7 +43,7 @@ Feature: Administering worldwide organisation
     Given a social media service "Twooter"
     When I add a "Twooter" social media link "http://twooter.com/beards-in-france" with the title "Link in English" to the worldwide organisation
     Then the "Twooter" social link called "Link in English" should be shown on the public website for the worldwide organisation
-    When I edit a "Twooter" social media link "http://twooter.com/beards-in-france-in-french" with the title "Link in French" in "Français (French)" for the worldwide organisation
+    When I edit a "Twooter" social media link "http://twooter.com/beards-in-france-in-french" with the title "Link in French" for the locale "fr" for the worldwide organisation
     Then the "Twooter" social link called "Link in French" should be shown on the public website with locale "fr" for the worldwide organisation
 
   Scenario: Managing office information

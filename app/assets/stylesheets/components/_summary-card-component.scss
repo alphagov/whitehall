@@ -6,4 +6,8 @@
   img {
     display: block;
   }
+
+  .govuk-summary-card__action:not(:first-child):not(:last-child) {
+    padding-left: govuk-spacing(2);
+  }
 }

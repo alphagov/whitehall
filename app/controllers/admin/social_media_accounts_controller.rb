@@ -1,10 +1,12 @@
 class Admin::SocialMediaAccountsController < Admin::BaseController
   before_action :find_socialable
-  before_action :find_social_media_account, only: %i[edit update destroy]
+  before_action :find_social_media_account, only: %i[edit update confirm_destroy destroy]
   before_action :strip_whitespace_from_url
+  layout :get_layout
 
   def index
     @social_media_accounts = @socialable.social_media_accounts
+    render_design_system(:index, :legacy_index)
   end
 
   def new
@@ -36,6 +38,8 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
     end
   end
 
+  def confirm_destroy; end
+
   def destroy
     if @social_media_account.destroy
       redirect_to [:admin, @socialable, SocialMediaAccount],
@@ -46,6 +50,17 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def find_socialable
     @socialable =

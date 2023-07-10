@@ -1,15 +1,44 @@
-<% page_title @socialable.name %>
-<div class="organisation-header">
-  <h1><%= @socialable.name %></h1>
-  <%= view_on_website_link_for @socialable %>
-</div>
-<section class="organisation-details">
-  <%= tab_navigation_for(@socialable) do %>
-    <h2>Social media accounts</h2>
-    <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
+<% content_for :page_title, @socialable.name %>
+<% content_for :title, @socialable.name %>
+<% content_for :context, organisation_context_block(current_user, @socialable) %>
+<% content_for :title_margin_bottom, 4 %>
 
-    <div class="form-actions">
-      <%= link_to "Add", new_polymorphic_path([:admin, @socialable, SocialMediaAccount]), class: "btn btn-lg btn-primary"%>
-    </div>
-  <% end %>
-</section>
+<p class="govuk-body">
+  <%= view_on_website_link_for @socialable, class: "govuk-link" %>
+</p>
+
+<%= render "components/secondary_navigation", {
+  aria_label: "Organisation navigation tabs",
+  items: secondary_navigation_tabs_items(@socialable, request.path)
+} %>
+
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Social media accounts",
+  margin_bottom: 6,
+} %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Create new account",
+      href: new_polymorphic_path([:admin, @socialable, SocialMediaAccount]),
+      margin_bottom: 6,
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "social-media-accounts-button",
+        "track-label": "Create new account"
+      }
+    } %>
+
+    <% if @social_media_accounts.present? %>
+      <% @social_media_accounts.each do |social_media_account| %>
+        <%= render Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(socialable: @socialable, social_media_account: social_media_account) %>
+      <% end %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No social media accounts"
+      } %>
+    <% end %>
+  </div>
+</div>
