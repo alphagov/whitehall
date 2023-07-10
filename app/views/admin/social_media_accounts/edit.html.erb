@@ -1,6 +1,7 @@
-<% page_title "Social media account for: #{@social_media_account.socialable.name}" %>
+<% content_for :page_title, "Edit social media account for: #{@socialable.name}" %>
+<% content_for :title, "Edit social media account" %>
+<% content_for :title_margin_bottom, 8 %>
+<% content_for :context, @socialable.name %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @social_media_account)) %>
 
-<h1>Social media account for: <%= @social_media_account.socialable.name %></h1>
-<p><%= link_to "Back to #{@social_media_account.socialable.name}", [:admin, @socialable, SocialMediaAccount] %></p>
-
-<%= render partial: "form", locals: {social_media_account: @social_media_account, socialable: @socialable} %>
+<%= render "form", social_media_account: @social_media_account, socialable: @socialable %>

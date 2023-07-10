@@ -1,4 +1,7 @@
-<% page_title "New social media account for: #{@socialable.name}" %>
-<h1>New Social Media Account</h1>
+<% content_for :page_title, "New social media account for: #{@socialable.name}" %>
+<% content_for :title, "New social media account" %>
+<% content_for :title_margin_bottom, 8 %>
+<% content_for :context, @socialable.name %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @social_media_account)) %>
 
-<%= render partial: "form", locals: {social_media_account: @social_media_account, socialable: @socialable} %>
+<%= render "form", social_media_account: @social_media_account, socialable: @socialable %>

@@ -1,20 +1,61 @@
-<div class="row">
-  <div class="col-md-8">
-    <%= form_for [:admin, socialable, social_media_account], html: {class: "well"} do |form| %>
-      <%= form.errors %>
-      <fieldset class="social_media_account">
-        <% if I18n.locale == I18n.default_locale %>
-          <div class="form-group">
-            <%= form.label :social_media_service_id, 'Service', class: "control-label" %>
-            <%= form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the social media service…" } %>
-          </div>
-        <% end %>
-        <%= form.text_field :url %>
-        <%= form.text_field :title %>
-        <%= form.hidden_field :locale, value: I18n.locale %>
-      </fieldset>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for [:admin, socialable, social_media_account] do |form| %>
+      <% if I18n.locale == I18n.default_locale %>
+        <%= render "components/select-with-search", {
+          label: "Service (required)",
+          id: "social_media_account_social_media_service_id",
+          name: "social_media_account[social_media_service_id]",
+          heading_size: "l",
+          include_blank: true,
+          error_message: errors_for_input(social_media_account.errors, :social_media_service_id),
+          options: SocialMediaService.all.map do |service|
+            {
+              text: service.name,
+              value: service.id,
+              selected: social_media_account.social_media_service_id == service.id
+            }
+          end
+        } %>
+      <% end %>
 
-      <%= form.save_or_cancel(cancel: [:admin, socialable, SocialMediaAccount]) %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "URL (required)"
+        },
+        id: "social_media_account_url",
+        name: "social_media_account[url]",
+        value: social_media_account.url,
+        heading_size: "l",
+        error_items: errors_for(social_media_account.errors, :url)
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Title"
+        },
+        id: "social_media_account_title",
+        name: "social_media_account[title]",
+        value: social_media_account.title,
+        heading_size: "l",
+        error_items: errors_for(social_media_account.errors, :title)
+      } %>
+
+      <%= form.hidden_field :locale, value: I18n.locale %>
+
+      <div class="govuk-button-group govuk-!-margin-top-8">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "#{socialable.class.name.demodulize.underscore.dasherize}social-media-account-button",
+            "track-label": "Save"
+          }
+        } %>
+
+        <%= link_to("Cancel", [:admin, socialable, SocialMediaAccount], class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
     <% end %>
   </div>
 </div>
