@@ -5,6 +5,7 @@ class AttachmentData < ApplicationRecord
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
   has_many :attachments, -> { order(:attachable_id) }, inverse_of: :attachment_data
+  has_many :assets, inverse_of: :attachment_data
 
   delegate :url, :path, to: :file, allow_nil: true
 
@@ -13,7 +14,7 @@ class AttachmentData < ApplicationRecord
   validates :file, presence: true
   validate :file_is_not_empty
 
-  attr_accessor :to_replace_id, :attachable
+  attr_accessor :to_replace_id, :attachable, :use_non_legacy_endpoints
 
   belongs_to :replaced_by, class_name: "AttachmentData"
   validate :cant_be_replaced_by_self

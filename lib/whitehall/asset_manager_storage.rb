@@ -19,7 +19,16 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
     auth_bypass_ids = uploader.model.respond_to?(:auth_bypass_ids) ? uploader.model.auth_bypass_ids : []
 
-    AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
+    logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model&.id || 'nil'}")
+
+    # Keeping the file attachments flow distinct from images and other flows that also use carrierwave
+    # until implementation is complete
+    if should_save_an_asset?
+      model_id = uploader.model.id
+      asset_variant = legacy_url_path.include?("thumbnail") ? Asset.variants[:thumbnail] : Asset.variants[:original]
+    end
+
+    AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path, model_id, asset_variant, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
     File.new(uploader.store_path)
   end
 
@@ -60,5 +69,12 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     def zero_size?
       false
     end
+  end
+
+private
+
+  def should_save_an_asset?
+    uploader.model.instance_of?(AttachmentData) &&
+      uploader.model.use_non_legacy_endpoints
   end
 end

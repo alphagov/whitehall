@@ -66,6 +66,12 @@ private
 
   def attachment
     @attachment ||= find_attachment || build_attachment
+
+    if @attachment.attachment_data
+      @attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints?
+    end
+
+    @attachment
   end
   helper_method :attachment
 
@@ -194,5 +200,9 @@ private
 
   def attachment_updater(attachment_data)
     ServiceListeners::AttachmentUpdater.call(attachment_data:)
+  end
+
+  def use_non_legacy_endpoints?
+    current_user.can_use_non_legacy_endpoints?
   end
 end

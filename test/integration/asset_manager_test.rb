@@ -2,6 +2,8 @@ require "test_helper"
 
 class AssetManagerIntegrationTest
   class CreatingAFileAttachment < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
     setup do
       @filename = "960x640_jpeg.jpg"
       @attachment = FactoryBot.build(
@@ -10,33 +12,73 @@ class AssetManagerIntegrationTest
       )
     end
 
-    test "sends the attachment to Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+    describe "use_non_legacy_endpoints is false" do
+      test "sends the attachment to Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
-      Sidekiq::Testing.inline! do
+        Sidekiq::Testing.inline! do
+          @attachment.save!
+        end
+      end
+
+      test "marks the attachment as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
+
+        Sidekiq::Testing.inline! do
+          @attachment.save!
+        end
+      end
+
+      test "sends the user ids of authorised users to Asset Manager" do
+        organisation = FactoryBot.create(:organisation)
+        user = FactoryBot.create(:user, organisation:, uid: "user-uid")
+        consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
+        @attachment.attachable = consultation
+        @attachment.attachment_data.attachable = consultation
         @attachment.save!
+
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+
+        AssetManagerCreateWhitehallAssetWorker.drain
       end
     end
 
-    test "marks the attachment as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
-
-      Sidekiq::Testing.inline! do
-        @attachment.save!
+    describe "use_non_legacy_endpoints is true" do
+      setup do
+        @attachment.attachment_data.use_non_legacy_endpoints = true
       end
-    end
 
-    test "sends the user ids of authorised users to Asset Manager" do
-      organisation = FactoryBot.create(:organisation)
-      user = FactoryBot.create(:user, organisation:, uid: "user-uid")
-      consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
-      @attachment.attachable = consultation
-      @attachment.attachment_data.attachable = consultation
-      @attachment.save!
+      test "sends the attachment to Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+                .returns("id" => "http://asset-manager/assets/asset_manager_id")
 
-      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+        Sidekiq::Testing.inline! do
+          @attachment.save!
+        end
+      end
 
-      AssetManagerCreateWhitehallAssetWorker.drain
+      test "marks the attachment as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
+                .returns("id" => "http://asset-manager/assets/asset_manager_id")
+
+        Sidekiq::Testing.inline! do
+          @attachment.save!
+        end
+      end
+
+      test "sends the user ids of authorised users to Asset Manager" do
+        organisation = FactoryBot.create(:organisation)
+        user = FactoryBot.create(:user, organisation:, uid: "user-uid")
+        consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
+        @attachment.attachable = consultation
+        @attachment.attachment_data.attachable = consultation
+        @attachment.save!
+
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+                .returns("id" => "http://asset-manager/assets/asset_manager_id")
+
+        AssetManagerCreateWhitehallAssetWorker.drain
+      end
     end
   end
 
@@ -77,8 +119,8 @@ class AssetManagerIntegrationTest
       )
       logo_asset_id = "asset-id"
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(/#{logo_filename}/))
-        .returns("id" => "http://asset-manager/assets/#{logo_asset_id}")
+              .with(regexp_matches(/#{logo_filename}/))
+              .returns("id" => "http://asset-manager/assets/#{logo_asset_id}")
 
       Services.asset_manager.expects(:delete_asset).with(logo_asset_id)
 
@@ -98,8 +140,8 @@ class AssetManagerIntegrationTest
       )
       old_logo_asset_id = "asset-id"
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(/#{old_logo_filename}/))
-        .returns("id" => "http://asset-manager/assets/#{old_logo_asset_id}")
+              .with(regexp_matches(/#{old_logo_filename}/))
+              .returns("id" => "http://asset-manager/assets/#{old_logo_asset_id}")
 
       Services.asset_manager.expects(:delete_asset).with(old_logo_asset_id)
 
@@ -253,14 +295,14 @@ class AssetManagerIntegrationTest
       @file_path = @consultation_response_form_data.file.path
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(/#{filename}/))
-        .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
+              .with(regexp_matches(/#{filename}/))
+              .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
       Services.asset_manager.stubs(:delete_asset)
     end
 
     test "removing a consultation response form data file removes it from asset manager" do
       Services.asset_manager.expects(:delete_asset)
-        .with(@consultation_response_form_asset_id)
+              .with(@consultation_response_form_asset_id)
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.file.remove!
@@ -281,14 +323,14 @@ class AssetManagerIntegrationTest
       @file_path = @consultation_response_form_data.file.path
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(/#{filename}/))
-        .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
+              .with(regexp_matches(/#{filename}/))
+              .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
       Services.asset_manager.stubs(:delete_asset)
     end
 
     test "replacing a consultation response form data file removes the old file from asset manager" do
       Services.asset_manager.expects(:delete_asset)
-        .with(@consultation_response_form_asset_id)
+              .with(@consultation_response_form_asset_id)
 
       @consultation_response_form_data.file = File.open(fixture_path.join("whitepaper.pdf"))
 
