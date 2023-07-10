@@ -1072,9 +1072,9 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "label[for=edition_worldwide_organisation_ids]", text: "Worldwide organisations"
+          assert_select "label[for=edition_worldwide_organisations]", text: "Worldwide organisations"
 
-          assert_select "#edition_worldwide_organisation_ids" do |elements|
+          assert_select "#edition_worldwide_organisations" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(
               element: elements.first,
@@ -1105,9 +1105,9 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "label[for=edition_worldwide_organisation_ids]", text: "Worldwide organisations"
+          assert_select "label[for=edition_worldwide_organisations]", text: "Worldwide organisations"
 
-          assert_select "#edition_worldwide_organisation_ids" do |elements|
+          assert_select "#edition_worldwide_organisations" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(
               element: elements.first,
