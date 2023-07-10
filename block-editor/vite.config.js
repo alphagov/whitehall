@@ -13,6 +13,7 @@ export default defineConfig({
     lib: {
       entry: 'editor/editor.js',
       name: "BlockEditor",
+      formats: ['es'],
     }
   },
 });

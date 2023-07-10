@@ -12,6 +12,8 @@ COPY Gemfile* .ruby-version ./
 RUN bundle install
 COPY package.json yarn.lock ./
 RUN yarn install --production --frozen-lockfile --non-interactive --link-duplicates
+COPY block-editor block-editor
+RUN cd block-editor && NODE_ENV=development npm ci --fund=false --audit=false && npm run build && rm -rf node_modules
 COPY . .
 RUN bootsnap precompile --gemfile .
 RUN rails assets:precompile && rm -fr log
