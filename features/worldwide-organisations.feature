@@ -90,7 +90,7 @@ Feature: Administering worldwide organisation
     Given a worldwide organisation "Department of Beards in France"
     When I add a "Terms of reference" corporate information page to the worldwide organisation
     And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
-    Then I should see the corporate information on the public worldwide organisation page
+    Then I should see the corporate information on the worldwide organisation corporate information pages page
 
   Scenario: Adding a new translation
     Given a worldwide organisation "Department of Beards in France" exists for the world location "France" with translations into "Français"
@@ -112,4 +112,4 @@ Feature: Administering worldwide organisation
     And I add a "Terms of reference" corporate information page to the worldwide organisation
     When I translate the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
-    Then I should be able to read the translated "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France" on the site
+    Then I should be able to see the "Français (French)" translation for the corporate information page of the worldwide organisation "Department of Beards in France"

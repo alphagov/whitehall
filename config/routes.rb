@@ -48,12 +48,6 @@ Whitehall::Application.routes.draw do
     get "(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }
 
     get "/organisations/:id(.:locale)", as: "worldwide_organisation", to: "worldwide_organisations#show", constraints: { locale: valid_locales_regex }
-    resources :worldwide_organisations, path: "organisations", only: [] do
-      get "/:organisation_id/about" => redirect("/world/organisations/%{organisation_id}", prefix: "")
-      get "/:organisation_id/office" => redirect("/world/organisations/%{organisation_id}", prefix: "")
-      get "/:organisation_id/about(.:locale)", as: "about", constraints: { locale: valid_locales_regex }, to: rack_404
-      get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
-    end
   end
 
   # Routes rendered by Whitehall to the public under the /government scope (specified in lib/whitehall.rb under the `router_prefix` method)
