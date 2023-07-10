@@ -7,10 +7,13 @@ class Admin::FinancialReportsController < Admin::BaseController
     render_design_system(:index, :legacy_index)
   end
 
-  def edit; end
+  def edit
+    render_design_system(:edit, :legacy_edit)
+  end
 
   def new
     @financial_report = @organisation.financial_reports.build(year: Time.zone.now.year)
+    render_design_system(:new, :legacy_new)
   end
 
   def create
@@ -18,7 +21,7 @@ class Admin::FinancialReportsController < Admin::BaseController
     if @financial_report.save
       redirect_to [:admin, @organisation, FinancialReport], notice: "Created Financial Report"
     else
-      render :new, status: :bad_request
+      render_design_system(:new, :legacy_new)
     end
   end
 
@@ -26,7 +29,7 @@ class Admin::FinancialReportsController < Admin::BaseController
     if @financial_report.update(financial_report_params)
       redirect_to [:admin, @organisation, FinancialReport], notice: "Updated Financial Report"
     else
-      render :edit, status: :bad_request
+      render_design_system(:edit, :legacy_edit)
     end
   end
 
@@ -43,7 +46,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index new create edit update confirm_destroy] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
