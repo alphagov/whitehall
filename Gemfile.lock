@@ -407,8 +407,6 @@ GEM
     minitest-fail-fast (0.1.0)
       minitest (~> 5)
     minitest-stub-const (0.6)
-    mlanett-redis-lock (0.2.7)
-      redis
     mocha (2.0.4)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.6.0)
@@ -997,7 +995,6 @@ DEPENDENCIES
   minitest
   minitest-fail-fast
   minitest-stub-const
-  mlanett-redis-lock
   mocha
   mysql2
   nokogiri
