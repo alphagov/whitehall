@@ -16,6 +16,7 @@
           {
             id: feature.id,
             title: feature,
+            description: feature_published_on(feature).present? ? "Published: #{feature_published_on(feature)}" : nil,
           }
         end
       } %>
