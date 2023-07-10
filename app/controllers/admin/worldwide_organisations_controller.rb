@@ -4,9 +4,11 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   respond_to :html
 
   before_action :find_worldwide_organisation, except: %i[index new create]
+  layout :get_layout
 
   def index
-    respond_with @worldwide_organisations = WorldwideOrganisation.ordered_by_name
+    @worldwide_organisations = WorldwideOrganisation.ordered_by_name
+    render_design_system(:index, :legacy_index)
   end
 
   def new
@@ -18,6 +20,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   def create
     @worldwide_organisation = WorldwideOrganisation.create(worldwide_organisation_params) # rubocop:disable Rails/SaveBang
     respond_with :admin, @worldwide_organisation
+    flash[:notice] = "Organisation created successfully"
   end
 
   def edit
@@ -49,12 +52,26 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     respond_with :admin, @worldwide_organisation, WorldwideOffice
   end
 
+  def confirm_destroy; end
+
   def destroy
     @worldwide_organisation.destroy!
     respond_with :admin, @worldwide_organisation
+    flash[:notice] = "Organisation deleted successfully"
   end
 
 private
+
+  def get_layout
+    design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])

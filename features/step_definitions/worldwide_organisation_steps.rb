@@ -45,8 +45,14 @@ end
 
 When(/^I delete the worldwide organisation$/) do
   @worldwide_organisation = WorldwideOrganisation.last
-  visit edit_admin_worldwide_organisation_path(@worldwide_organisation)
-  click_on "delete"
+  if using_design_system?
+    visit admin_worldwide_organisations_path(@worldwide_organisation)
+    click_link "Delete #{@worldwide_organisation.name}"
+    click_button "Delete"
+  else
+    visit edit_admin_worldwide_organisation_path(@worldwide_organisation)
+    click_on "delete"
+  end
 end
 
 Then(/^the worldwide organisation should not be visible from the public website$/) do

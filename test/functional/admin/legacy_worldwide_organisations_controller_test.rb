@@ -1,8 +1,9 @@
 require "test_helper"
 
-class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
+class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::TestCase
+  tests Admin::WorldwideOrganisationsController
   setup do
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_editor
   end
 
   should_be_an_admin_controller
@@ -96,14 +97,6 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     count = WorldwideOrganisation.count
     delete :destroy, params: { id: organisation.id }
     assert_equal count - 1, WorldwideOrganisation.count
-  end
-
-  test "GET :confirm_destroy calls correctly" do
-    organisation = create(:worldwide_organisation)
-
-    get :confirm_destroy, params: { id: organisation.id }
-
-    assert_response :success
   end
 
   view_test "shows the name summary and description of the worldwide organisation" do

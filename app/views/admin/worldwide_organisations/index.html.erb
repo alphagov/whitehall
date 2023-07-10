@@ -1,41 +1,48 @@
-<% page_title "Worldwide organisation" %>
+<% content_for :page_title, "Worldwide organisation" %>
+<% content_for :title, "Worldwide organisation" %>
+<% content_for :title_margin_bottom, 6 %>
 
-<h1>Worldwide organisations</h1>
-<%= link_to "Create worldwide organisation", new_admin_worldwide_organisation_path, class: "btn btn-default add-top-margin new_resource", title: "Create a worldwide office" %>
-
-<table class="worldwide_organisation table table-striped table-bordered add-top-margin">
-  <thead>
-    <tr class="table-header">
-      <th width="40%">Name</th>
-      <th width="15%">Translations</th>
-      <th width="20%">Location(s)</th>
-      <th width="15%">Sponsor(s)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if @worldwide_organisations.any? %>
-      <% @worldwide_organisations.each do |worldwide_organisation| %>
-        <%= content_tag_for(:tr, worldwide_organisation) do %>
-          <td class="name">
-            <%= link_to worldwide_organisation.name, admin_worldwide_organisation_path(worldwide_organisation), title: "View #{worldwide_organisation.name}" %>
-          </td>
-          <td>
-              <% if worldwide_organisation.non_english_translated_locales.any? %>
-                <%= worldwide_organisation.non_english_translated_locales.map do |locale|
-                  link_to("#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_worldwide_organisation_translation_path(worldwide_organisation, locale.code))
-                end.to_sentence.html_safe %>
-              <% else %>
-                none
-              <% end %>
-          </td>
-          <td><%= worldwide_organisation.world_locations.map {|l| link_to(l.name, [:admin, l.world_location_news])}.to_sentence.html_safe %></td>
-          <td><%= worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.acronym, [:admin, o])}.to_sentence.html_safe %></td>
-        <% end %>
-      <% end %>
-    <% else %>
-      <tr>
-        <td colspan="3">No worldwide organisations have been created.</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="govuk-grid-row">
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Create worldwide organisation",
+    href: new_admin_worldwide_organisation_path,
+    margin_bottom: 6,
+  } %>
+  <% if @worldwide_organisations.present? %>
+    <div class="app-c-govuk-table--filterable govuk-table--with-actions">
+      <%= render "govuk_publishing_components/components/table", {
+        filterable: true,
+        label: "Filter by organisation or country",
+        head: [
+          {
+            text: "Organisation name"
+          },
+          {
+            text: "Country"
+          },
+          {
+            text: tag.span("Actions", class: "govuk-visually-hidden")
+          }
+        ],
+        rows: @worldwide_organisations.map do |worldwide_organisation|
+          [
+            {
+              text: tag.span(worldwide_organisation.name, class: "govuk-!-font-weight-bold")
+            },
+            {
+              text: worldwide_organisation.world_locations.map(&:name).to_sentence
+            },
+            {
+              text: link_to(sanitize("View #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link govuk-!-margin-right-2") +
+                (link_to(sanitize("Delete #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
+            }
+          ]
+        end
+      } %>
+    </div>
+  <% else %>
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: "No worldwide organisations have been created."
+    } %>
+  <% end %>
+</div>
