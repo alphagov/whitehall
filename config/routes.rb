@@ -40,6 +40,7 @@ Whitehall::Application.routes.draw do
             get :confirm_destroy, on: :member
           end
         end
+        get "email-subscriptions" => "document_collection_email_subscriptions#edit", as: :edit_email_subscription
         post "whitehall-member" => "document_collection_group_memberships#create_whitehall_member", as: :new_whitehall_member
         post "non-whitehall-member" => "document_collection_group_memberships#create_non_whitehall_member", as: :new_non_whitehall_member
         post "groups/update_memberships" => "document_collection_groups#update_memberships", as: :update_group_memberships
