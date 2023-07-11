@@ -1,39 +1,30 @@
 class Admin::TopicalEventsController < Admin::BaseController
-  helper_method :model_class, :model_name, :human_friendly_model_name
-
   before_action :load_object, only: %i[show edit confirm_destroy destroy]
   before_action :build_object, only: [:new]
   before_action :build_associated_objects, only: %i[new edit]
   before_action :destroy_blank_social_media_accounts, only: %i[create update]
 
-  layout :get_layout
+  layout "design_system"
 
-  def show
-    render_design_system(:show, :show_legacy)
-  end
+  def show; end
 
   def index
-    @topical_events = model_class.order(:name)
-    render_design_system(:index, :legacy_index)
+    @topical_events = TopicalEvent.order(:name)
   end
 
-  def new
-    render_design_system(:new, :legacy_new)
-  end
+  def new; end
 
   def create
-    @topical_event = model_class.new(object_params)
+    @topical_event = TopicalEvent.new(object_params)
     if @topical_event.save
-      redirect_to [:admin, @topical_event], notice: "#{human_friendly_model_name} created"
+      redirect_to [:admin, @topical_event], notice: "Topical event created"
     else
       build_associated_objects
-      render action: "new"
+      render :new
     end
   end
 
-  def edit
-    render_design_system(:edit, :legacy_edit)
-  end
+  def edit; end
 
   def update
     @topical_event = TopicalEvent.friendly.find(params[:id])
@@ -41,11 +32,11 @@ class Admin::TopicalEventsController < Admin::BaseController
       if object_params[:topical_event_featurings_attributes]
         redirect_to [:admin, @topical_event, :topical_event_featurings], notice: "Order of featured items updated"
       else
-        redirect_to [:admin, TopicalEvent.new], notice: "#{human_friendly_model_name} updated"
+        redirect_to [:admin, TopicalEvent.new], notice: "Topical event updated"
       end
     else
       build_associated_objects
-      render action: "edit"
+      render :edit
     end
   end
 
@@ -54,44 +45,22 @@ class Admin::TopicalEventsController < Admin::BaseController
   def destroy
     @topical_event.delete!
     if @topical_event.deleted?
-      redirect_to [:admin, model_class], notice: "#{human_friendly_model_name} destroyed"
+      redirect_to [:admin, TopicalEvent], notice: "Topical event destroyed"
     else
-      redirect_to [:admin, model_class], alert: "Cannot destroy #{human_friendly_model_name} with associated content"
+      redirect_to [:admin, TopicalEvent], alert: "Cannot destroy Topical event with associated content"
     end
-  end
-
-  def human_friendly_model_name
-    model_name.humanize
   end
 
   def build_object
-    @topical_event = model_class.new
+    @topical_event = TopicalEvent.new
   end
 
   def load_object
-    @topical_event = model_class.friendly.find(params[:id])
-  end
-
-  def model_name
-    model_class.name.underscore
-  end
-
-private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
-
-  def model_class
-    TopicalEvent
+    @topical_event = TopicalEvent.friendly.find(params[:id])
   end
 
   def build_associated_objects
-    @topical_event.social_media_accounts.build unless get_layout == "design_system" && @topical_event.social_media_accounts.present?
+    @topical_event.social_media_accounts.build if @topical_event.social_media_accounts.blank?
   end
 
   def destroy_blank_social_media_accounts
@@ -105,7 +74,7 @@ private
   end
 
   def object_params
-    params.require(model_name).permit(
+    params.require(:topical_event).permit(
       :name,
       :summary,
       :description,
