@@ -119,24 +119,27 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal "https://www.test.gov.uk/world/foo?cachebust=123", object.public_url(cachebust: "123")
   end
 
-  test "republishes embassies index page on creation of world location" do
+  test "republishes embassies and world index pages on creation of world location" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     create(:world_location)
   end
 
-  test "republishes embassies index page on update of world location" do
+  test "republishes embassies and world index pages on update of world location" do
     location = create(:world_location)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     location.update!(name: "new-name")
   end
 
-  test "republishes embassies index page on deletion of world location" do
+  test "republishes embassies and world index pages on deletion of world location" do
     location = create(:world_location)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     location.destroy!
   end
