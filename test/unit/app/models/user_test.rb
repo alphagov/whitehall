@@ -172,6 +172,13 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_handle_fatalities?
   end
 
+  test "can edit email overrides if the permission is set" do
+    not_allowed = build(:user)
+    assert_not not_allowed.can_edit_email_overrides?
+    user = build(:user, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR])
+    assert user.can_edit_email_overrides?
+  end
+
   test "can be associated to world locations" do
     location1 = build(:world_location)
     location2 = build(:world_location)
