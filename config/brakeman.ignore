@@ -143,7 +143,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/admin/editions/show/_main.html.erb",
-      "line": 44,
+      "line": 38,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(\"Preview on website #{if Edition.find(params[:edition_id]).translatable? and Edition.find(params[:edition_id]).available_in_multiple_languages? then\n  \"- English\"\nend} (opens in new tab)\".strip, Edition.find(params[:edition_id]).public_url(:draft => true, :locale => Edition.find(params[:edition_id]).primary_locale), :class => \"govuk-link\", :target => \"_blank\", :data => ({ :module => \"gem-track-click\", :\"track-category\" => \"button-clicked\", :\"track-action\" => (\"#{Edition.find(params[:edition_id]).model_name.singular.dasherize}-button\"), :\"track-label\" => \"Preview on website\" }))",
       "render_path": [
@@ -174,6 +174,74 @@
         "template": "admin/editions/show/_main"
       },
       "user_input": "Edition.find(params[:edition_id]).public_url(:draft => true, :locale => Edition.find(params[:edition_id]).primary_locale)",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 84,
+      "fingerprint": "91ba2d0b918eb5164d91a19f4154f2afa2240c1ad4bfb58c4363f1d46a02b7c0",
+      "check_name": "RenderInline",
+      "message": "Unescaped model attribute rendered inline",
+      "file": "app/views/admin/people/show.html.erb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross-site_scripting/",
+      "code": "render(text => Person.friendly.find(params[:id]).current_role_appointments_title, {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::PeopleController",
+          "method": "show",
+          "line": 24,
+          "file": "app/controllers/admin/people_controller.rb",
+          "rendered": {
+            "name": "admin/people/show",
+            "file": "app/views/admin/people/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/people/show"
+      },
+      "user_input": "Person.friendly.find(params[:id]).current_role_appointments_title",
+      "confidence": "Medium",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "a0c4e7697c5acfc1a7d6009f1ef5f20e34811fcf8bb8debc781af88d9277fba2",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/admin/topical_event_featurings/index.html.erb",
+      "line": 7,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"View on website\", TopicalEvent.find(params[:topical_event_id]).public_url({ :locale => params[:locale] }.merge(cachebust_url_options)), :class => \"govuk-link\", :target => \"_blank\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::TopicalEventFeaturingsController",
+          "method": "index",
+          "line": 19,
+          "file": "app/controllers/admin/topical_event_featurings_controller.rb",
+          "rendered": {
+            "name": "admin/topical_event_featurings/index",
+            "file": "app/views/admin/topical_event_featurings/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/topical_event_featurings/index"
+      },
+      "user_input": "TopicalEvent.find(params[:topical_event_id]).public_url({ :locale => params[:locale] }.merge(cachebust_url_options))",
       "confidence": "Weak",
       "cwe_id": [
         79
@@ -215,7 +283,7 @@
         {
           "type": "template",
           "name": "admin/editions/show/_main",
-          "line": 32,
+          "line": 26,
           "file": "app/views/admin/editions/show/_main.html.erb",
           "rendered": {
             "name": "admin/editions/show/_main_notices",
@@ -296,7 +364,7 @@
           "type": "controller",
           "class": "Admin::WorldwideOrganisationsController",
           "method": "show",
-          "line": 35,
+          "line": 38,
           "file": "app/controllers/admin/worldwide_organisations_controller.rb",
           "rendered": {
             "name": "admin/worldwide_organisations/show",
@@ -317,43 +385,33 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "d434e52c82b51e5da893f10cf62f9fbb9c340076387462c8114ec962fe005505",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/admin/editions/show/_main.html.erb",
-      "line": 44,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"Preview on website #{if Edition.find(params[:edition_id]).translatable? and Edition.find(params[:edition_id]).available_in_multiple_languages? then\n  \"- English\"\nend} (opens in new tab)\".strip, Edition.find(params[:edition_id]).public_url(:draft => true), :class => \"govuk-link\", :target => \"_blank\", :data => ({ :module => \"gem-track-click\", :\"track-category\" => \"button-clicked\", :\"track-action\" => (\"#{Edition.find(params[:edition_id]).model_name.singular.dasherize}-button\"), :\"track-label\" => \"Preview on website\" }))",
+      "warning_code": 84,
+      "fingerprint": "c4b5157a5184f935bbe15ecfc3a443b6e4e4ce57fe6969bf8bf5afa988ae4779",
+      "check_name": "RenderInline",
+      "message": "Unescaped model attribute rendered inline",
+      "file": "app/views/admin/historical_accounts/index.html.erb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross-site_scripting/",
+      "code": "render(text => Person.friendly.find(params[:person_id]).current_role_appointments.collect(&:role_name).to_sentence, {})",
       "render_path": [
         {
           "type": "controller",
-          "class": "Admin::EditionsController",
-          "method": "show",
-          "line": 76,
-          "file": "app/controllers/admin/editions_controller.rb",
+          "class": "Admin::HistoricalAccountsController",
+          "method": "index",
+          "line": 8,
+          "file": "app/controllers/admin/historical_accounts_controller.rb",
           "rendered": {
-            "name": "admin/editions/show",
-            "file": "app/views/admin/editions/show.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "admin/editions/show",
-          "line": 13,
-          "file": "app/views/admin/editions/show.html.erb",
-          "rendered": {
-            "name": "admin/editions/show/_main",
-            "file": "app/views/admin/editions/show/_main.html.erb"
+            "name": "admin/historical_accounts/index",
+            "file": "app/views/admin/historical_accounts/index.html.erb"
           }
         }
       ],
       "location": {
         "type": "template",
-        "template": "admin/editions/show/_main"
+        "template": "admin/historical_accounts/index"
       },
-      "user_input": "Edition.find(params[:edition_id]).public_url(:draft => true)",
-      "confidence": "Weak",
+      "user_input": "Person.friendly.find(params[:person_id]).current_role_appointments.collect(&:role_name).to_sentence",
+      "confidence": "Medium",
       "cwe_id": [
         79
       ],
@@ -461,6 +519,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-06-22 15:11:46 +0000",
-  "brakeman_version": "6.0.0"
+  "updated": "2023-07-11 12:38:05 +0000",
+  "brakeman_version": "5.4.1"
 }
