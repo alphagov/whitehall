@@ -209,7 +209,7 @@ namespace :publishing_api do
     desc "Republish all editions which have attachments to the Publishing API"
     task editions_with_attachments: :environment do
       editions = Edition.publicly_visible.where(
-        id: Attachment.where(accessible: false, attachable_type: "Edition").select("attachable_id"),
+        id: Attachment.where(attachable_type: "Edition").select("attachable_id"),
       )
 
       editions.joins(:document).distinct.pluck("documents.id").each do |document_id|

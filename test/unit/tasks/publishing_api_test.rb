@@ -223,14 +223,34 @@ class PublishingApiRake < ActiveSupport::TestCase
     describe "#editions_with_attachments" do
       let(:task) { Rake::Task["publishing_api:bulk_republish:editions_with_attachments"] }
 
-      test "republishes all editions with attachments" do
-        edition = create(:published_publication, :with_file_attachment)
+      test "republishes all live editions with attachments" do
+        live_editions = [
+          create(:published_publication, :with_html_attachment),
+          create(:published_publication, :with_external_attachment),
+          create(:published_publication, :with_file_attachment),
+        ]
 
-        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
-          "bulk_republishing",
-          edition.document_id,
-          true,
-        )
+        other_editions = [
+          create(:draft_publication, :with_file_attachment),
+          create(:published_news_article), # without attachments
+        ]
+
+        live_editions.each do |edition|
+          PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+            "bulk_republishing",
+            edition.document_id,
+            true,
+          ).once
+        end
+
+        other_editions.each do |edition|
+          PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+            "bulk_republishing",
+            edition.document_id,
+            true,
+          ).never
+        end
+
         capture_io { task.invoke }
       end
     end
