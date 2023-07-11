@@ -224,6 +224,18 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [edition_with_broken_link, edition_with_caution_link], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
   end
 
+  test "should only filter by the most recent broken link report" do
+    edition = create(
+      :published_publication,
+    )
+    broken_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/broken-link", status: "broken")
+    ok_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/ok-link", status: "ok")
+    create(:link_checker_api_report, batch_id: 1, link_reportable: edition, links: [broken_link])
+    create(:link_checker_api_report, batch_id: 2, link_reportable: edition, links: [ok_link])
+
+    assert_equal [], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
+  end
+
   test "should return the editions ordered by most recent first" do
     older_news_article = create(:draft_news_article, updated_at: 3.days.ago)
     newer_news_article = create(:draft_news_article, updated_at: 1.minute.ago)
