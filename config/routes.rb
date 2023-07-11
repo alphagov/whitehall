@@ -47,6 +47,7 @@ Whitehall::Application.routes.draw do
             put :order, on: :collection
           end
         end
+        get "email-subscriptions" => "document_collection_email_subscriptions#edit", as: :edit_email_subscription
         post "whitehall-member" => "document_collection_group_memberships#create_whitehall_member", as: :new_whitehall_member
       end
 
