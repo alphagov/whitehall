@@ -5,7 +5,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
 
   setup do
     @topical_event = create(:topical_event)
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   test "GET :index assigns tagged_editions with a paginated collection of published editions related to the topical_event ordered by most recently created editions first" do
