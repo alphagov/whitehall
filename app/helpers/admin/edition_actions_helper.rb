@@ -111,7 +111,6 @@ module Admin::EditionActionsHelper
       "aria-labelledby" => "new-document-label",
     ) do
       edition_types = [
-        CallForEvidence,
         Consultation,
         Publication,
         NewsArticle,
@@ -121,6 +120,7 @@ module Admin::EditionActionsHelper
         FatalityNotice,
         CaseStudy,
         StatisticalDataSet,
+        CallForEvidence,
       ]
       edition_types
         .select { |edition_type| can?(:create, edition_type) }
