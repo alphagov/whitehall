@@ -189,18 +189,33 @@ end
 
 When(/^I edit the contact to have address "([^"]*)"$/) do |address|
   click_link "Contacts"
-  within ".contact" do
-    click_link "Edit"
+  if using_design_system?
+    within ".govuk-summary-card__actions" do
+      click_link "Edit"
+    end
+  else
+    within ".contact" do
+      click_link "Edit"
+    end
   end
+
   fill_in "Street address", with: address
   click_button "Save"
 end
 
 Then(/^I should see the "([^"]*)" contact in the admin interface with address "([^"]*)"$/) do |contact_description, address|
-  within ".contact" do
-    expect(page).to have_selector("h3", text: contact_description)
-    expect(page).to have_selector(".vcard", text: address)
+  if using_design_system?
+    within ".govuk-summary-card" do
+      expect(page).to have_selector("h2", text: contact_description)
+      expect(page).to have_selector(".govuk-summary-list__value", text: address)
+    end
+  else
+    within ".contact" do
+      expect(page).to have_selector("h3", text: contact_description)
+      expect(page).to have_selector(".vcard", text: address)
+    end
   end
+
 end
 
 Given(/^an organisation and some documents exist$/) do
