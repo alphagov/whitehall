@@ -56,7 +56,6 @@ Whitehall::Application.routes.draw do
     end
   end
 
-  # Routes rendered by Whitehall to the public under the /government scope (specified in lib/whitehall.rb under the `router_prefix` method)
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 
