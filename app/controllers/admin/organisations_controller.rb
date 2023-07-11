@@ -84,15 +84,17 @@ class Admin::OrganisationsController < Admin::BaseController
     end
   end
 
+  def confirm_destroy; end
+
   def destroy
     @organisation.destroy!
-    redirect_to admin_organisations_path
+    redirect_to admin_organisations_path, notice: "Organisation deleted successfully"
   end
 
 private
 
   def get_layout
-    design_system_actions = []
+    design_system_actions = %w[confirm_destroy]
     design_system_actions += %w[index show features] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)

@@ -1,0 +1,21 @@
+<% content_for :context, @organisation.name %>
+<% content_for :page_title, "Delete organisation" %>
+<% content_for :title, "Delete organisation" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag admin_organisation_path(@organisation), method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete "<%= @organisation.name %>"?</p>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", admin_organisations_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>
