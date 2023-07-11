@@ -384,6 +384,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_110128) do
     t.string "image_display_option"
     t.string "auth_bypass_id", null: false
     t.string "mapped_specialist_topic_content_id"
+    t.string "taxonomy_topic_email_override"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
