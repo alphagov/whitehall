@@ -4,7 +4,9 @@ class Admin::ContactsController < Admin::BaseController
   before_action :destroy_blank_contact_numbers, only: %i[create update]
   layout :get_layout
 
-  def index; end
+  def index
+    render_design_system(:index, :legacy_index)
+  end
 
   def new
     @contact = @contactable.contacts.build
@@ -57,7 +59,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[new edit create update] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new edit create update index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
