@@ -75,4 +75,110 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
 
     assert_equal expected_output, organisation_nav_items(organisation, current_path)
   end
+
+  test "#organisation_index_rows returns an array of arrays with the user_organisation first followed by all orgs" do
+    organisation1 = build_stubbed(:executive_office, name: "Org 1", govuk_status: "live")
+    organisation2 = build_stubbed(:ministerial_department, :closed, name: "Org 2")
+    user_organisation = build_stubbed(:devolved_administration, name: "Org 3", govuk_status: "exempt")
+
+    expected_output = [
+      [
+        {
+          text: tag.span(user_organisation.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: user_organisation.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(user_organisation.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(user_organisation), class: "govuk-link") +
+            link_to(sanitize("Delete #{tag.span(user_organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(user_organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+        },
+      ],
+      [
+        {
+          text: tag.span(organisation1.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: organisation1.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(organisation1.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation1), class: "govuk-link") +
+            link_to(sanitize("Delete #{tag.span(organisation1.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(organisation1), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+        },
+      ],
+      [
+        {
+          text: tag.span(organisation2.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: organisation2.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(organisation2.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation2), class: "govuk-link") +
+            link_to(sanitize("Delete #{tag.span(organisation2.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(organisation2), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+        },
+      ],
+      [
+        {
+          text: tag.span(user_organisation.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: user_organisation.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(user_organisation.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(user_organisation), class: "govuk-link") +
+            link_to(sanitize("Delete #{tag.span(user_organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(user_organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+        },
+      ],
+    ]
+
+    assert_equal expected_output, organisation_index_rows(user_organisation, [organisation1, organisation2, user_organisation])
+  end
+
+  test "#organisation_index_rows returns an array of arrays for all orgs when no user_organisation is passed in" do
+    organisation1 = build_stubbed(:executive_office, name: "Org 1", govuk_status: "live")
+    organisation2 = build_stubbed(:ministerial_department, :closed, name: "Org 2")
+    organisation3 = build_stubbed(:devolved_administration, name: "Org 3", govuk_status: "exempt")
+
+    expected_output = [
+      [
+        {
+          text: tag.span(organisation1.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: organisation1.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(organisation1.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation1), class: "govuk-link") +
+            link_to(sanitize("Delete #{tag.span(organisation1.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(organisation1), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+        },
+      ],
+      [
+        {
+          text: tag.span(organisation2.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: organisation2.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(organisation2.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation2), class: "govuk-link") +
+            link_to(sanitize("Delete #{tag.span(organisation2.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(organisation2), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+        },
+      ],
+      [
+        {
+          text: tag.span(organisation3.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: organisation3.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(organisation3.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation3), class: "govuk-link") +
+            link_to(sanitize("Delete #{tag.span(organisation3.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(organisation3), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+        },
+      ],
+    ]
+
+    assert_equal expected_output, organisation_index_rows(nil, [organisation1, organisation2, organisation3])
+  end
 end
