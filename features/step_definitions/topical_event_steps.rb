@@ -18,11 +18,7 @@ end
 Then(/^I should see the topical event "([^"]*)" in the admin interface$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_events_path(topical_event)
-  if using_design_system?
-    expect(page).to have_selector(".govuk-table__cell", text: topical_event)
-  else
-    expect(page).to have_selector(record_css_selector(topical_event))
-  end
+  expect(page).to have_selector(".govuk-table__cell", text: topical_event)
 end
 
 Given(/^I'm administering a topical event$/) do
@@ -33,11 +29,7 @@ end
 
 When(/^I add a page of information about the event$/) do
   click_link "About page"
-  if using_design_system?
-    click_link "Create new about page"
-  else
-    click_link "Create"
-  end
+  click_link "Create new about page"
   fill_in "Name", with: "Page about the event"
   fill_in "Read more link text", with: "Read more about this event"
   fill_in "Summary", with: "Summary"
@@ -56,14 +48,8 @@ Then(/^I should see the about page is updated$/) do
 end
 
 Then(/^I should be able to delete the topical event "([^"]*)"$/) do |name|
-  if using_design_system?
-    visit admin_topical_events_path
-    click_link "Delete #{name}" if using_design_system?
-  else
-    topical_event = TopicalEvent.find_by!(name:)
-    visit admin_topical_event_path(topical_event)
-    click_on "Edit"
-  end
+  visit admin_topical_events_path
+  click_link "Delete #{name}"
 
   expect { click_button "Delete" }.to change(TopicalEvent, :count).by(-1)
 end
