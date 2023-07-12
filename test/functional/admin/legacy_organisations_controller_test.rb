@@ -2,12 +2,12 @@ require "test_helper"
 
 class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
   tests Admin::OrganisationsController
-
   setup do
     login_as :gds_admin
   end
 
   should_be_an_admin_controller
+  should_render_bootstrap_implementation_with_preview_next_release
 
   def example_organisation_attributes
     attributes_for(:organisation).except(:logo, :analytics_identifier)
@@ -24,19 +24,19 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "GET on :new denied if not a gds admin" do
-    login_as :writer
+    login_as_preview_design_system_user :writer
     get :new
     assert_response :forbidden
   end
 
   test "POST on :create denied if not a gds admin" do
-    login_as :writer
+    login_as_preview_design_system_user :writer
     post :create, params: { organisation: {} }
     assert_response :forbidden
   end
 
   view_test "Link to create organisation does not show if not a gds admin" do
-    login_as :writer
+    login_as_preview_design_system_user :writer
     get :index
     refute_select ".btn", text: "Create organisation"
   end
@@ -130,144 +130,6 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
     assert_equal organisation, assigns(:organisation)
   end
 
-  view_test "GET on :people shows roles for ordering in separate lists" do
-    ministerial_role = create(:ministerial_role)
-    board_member_role = create(:board_member_role)
-    chief_scientific_advisor_role = create(:chief_scientific_advisor_role)
-    traffic_commissioner_role = create(:traffic_commissioner_role)
-    chief_professional_officer_role = create(:chief_professional_officer_role)
-    military_role = create(:military_role)
-
-    organisation = create(:organisation)
-    organisation_ministerial_role = create(:organisation_role, organisation:, role: ministerial_role)
-    organisation_board_member_role = create(:organisation_role, organisation:, role: board_member_role)
-    organisation_scientific_role = create(:organisation_role, organisation:, role: chief_scientific_advisor_role)
-    organisation_traffic_commissioner_role = create(:organisation_role, organisation:, role: traffic_commissioner_role)
-    organisation_chief_professional_officer_role = create(:organisation_role, organisation:, role: chief_professional_officer_role)
-    organisation_military_role = create(:organisation_role, organisation:, role: military_role)
-
-    get :people, params: { id: organisation }
-
-    assert_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    refute_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-    refute_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
-
-    assert_select "#board_member_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    assert_select "#board_member_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
-    refute_select "#board_member_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#board_member_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-
-    assert_select "#traffic_commissioner_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-    refute_select "#traffic_commissioner_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#traffic_commissioner_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    refute_select "#traffic_commissioner_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
-
-    assert_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_military_role.id}']"
-    refute_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    refute_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-    refute_select "#military_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
-
-    assert_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_chief_professional_officer_role.id}']"
-    refute_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
-    refute_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
-    refute_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
-    refute_select "#chief_professional_officer_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
-  end
-
-  view_test "GET on :people shows ministerial role and current person's name" do
-    person = create(:person, forename: "John", surname: "Doe")
-    ministerial_role = create(:ministerial_role, name: "Prime Minister")
-    create(:role_appointment, person:, role: ministerial_role, started_at: 1.day.ago)
-    organisation = create(:organisation, roles: [ministerial_role])
-
-    get :people, params: { id: organisation }
-
-    assert_select "#minister_ordering label", text: /Prime Minister/i
-    assert_select "#minister_ordering label", text: /John Doe/i
-  end
-
-  test "GET on :people shows ministerial roles in their currently specified order" do
-    junior_ministerial_role = create(:ministerial_role)
-    senior_ministerial_role = create(:ministerial_role)
-    organisation = create(:organisation)
-    organisation_junior_ministerial_role = create(:organisation_role, organisation:, role: junior_ministerial_role, ordering: 2)
-    organisation_senior_ministerial_role = create(:organisation_role, organisation:, role: senior_ministerial_role, ordering: 1)
-
-    get :people, params: { id: organisation }
-
-    assert_equal [organisation_senior_ministerial_role, organisation_junior_ministerial_role], assigns(:ministerial_organisation_roles)
-  end
-
-  test "GET on :people shows board member roles in their currently specified order" do
-    junior_board_member_role = create(:board_member_role)
-    senior_board_member_role = create(:board_member_role)
-    chief_scientific_advisor_role = create(:chief_scientific_advisor_role)
-
-    organisation = create(:organisation)
-    organisation_chief_scientific_advisor_role = create(:organisation_role, organisation:, role: chief_scientific_advisor_role, ordering: 2)
-    organisation_junior_board_member_role = create(:organisation_role, organisation:, role: junior_board_member_role, ordering: 3)
-    organisation_senior_board_member_role = create(:organisation_role, organisation:, role: senior_board_member_role, ordering: 1)
-
-    get :people, params: { id: organisation }
-
-    assert_equal [
-      organisation_senior_board_member_role,
-      organisation_chief_scientific_advisor_role,
-      organisation_junior_board_member_role,
-    ],
-                 assigns(:management_organisation_roles)
-  end
-
-  test "GET on :people shows traffic commissioner roles in their currently specified order" do
-    junior_traffic_commissioner_role = create(:traffic_commissioner_role)
-    senior_traffic_commissioner_role = create(:traffic_commissioner_role)
-    organisation = create(:organisation)
-    organisation_junior_traffic_commissioner_role = create(:organisation_role, organisation:, role: junior_traffic_commissioner_role, ordering: 2)
-    organisation_senior_traffic_commissioner_role = create(:organisation_role, organisation:, role: senior_traffic_commissioner_role, ordering: 1)
-
-    get :people, params: { id: organisation }
-
-    assert_equal [organisation_senior_traffic_commissioner_role, organisation_junior_traffic_commissioner_role], assigns(:traffic_commissioner_organisation_roles)
-  end
-
-  test "GET on :people shows chief professional officer roles in their currently specified order" do
-    junior_chief_professional_officer_role = create(:chief_professional_officer_role)
-    senior_chief_professional_officer_role = create(:chief_professional_officer_role)
-    organisation = create(:organisation)
-    organisation_junior_chief_professional_officer_role = create(:organisation_role, organisation:, role: junior_chief_professional_officer_role, ordering: 2)
-    organisation_senior_chief_professional_officer_role = create(:organisation_role, organisation:, role: senior_chief_professional_officer_role, ordering: 1)
-
-    get :people, params: { id: organisation }
-
-    assert_equal [organisation_senior_chief_professional_officer_role, organisation_junior_chief_professional_officer_role], assigns(:chief_professional_officer_roles)
-  end
-
-  test "GET on :people shows special representative roles in their currently specified order" do
-    junior_representative_role = create(:special_representative_role)
-    senior_representative_role = create(:special_representative_role)
-    organisation = create(:organisation)
-    organisation_junior_representative_role = create(:organisation_role, organisation:, role: junior_representative_role, ordering: 2)
-    organisation_senior_representative_role = create(:organisation_role, organisation:, role: senior_representative_role, ordering: 1)
-
-    get :people, params: { id: organisation }
-
-    assert_equal [organisation_senior_representative_role, organisation_junior_representative_role], assigns(:special_representative_organisation_roles)
-  end
-
-  view_test "GET on :people does not display an empty ministerial roles section" do
-    organisation = create(:organisation)
-    get :people, params: { id: organisation }
-    refute_select "#minister_ordering"
-  end
-
-  view_test "GET on :people contains the relevant dom classes to facilitate the javascript ordering functionality" do
-    organisation = create(:organisation, roles: [create(:ministerial_role)])
-    get :people, params: { id: organisation }
-    assert_select "fieldset#minister_ordering.sortable input.ordering[name^='organisation[organisation_roles_attributes]']"
-  end
-
   view_test "GET on :edit allows entry of important board members only data to Editors and above" do
     organisation = create(:organisation)
     junior_board_member_role = create(:board_member_role)
@@ -276,9 +138,9 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
     create(:organisation_role, organisation:, role: senior_board_member_role)
     create(:organisation_role, organisation:, role: junior_board_member_role)
 
-    managing_editor = create(:managing_editor, organisation:)
-    departmental_editor = create(:departmental_editor, organisation:)
-    world_editor = create(:world_editor, organisation:)
+    managing_editor = create(:managing_editor, :with_preview_design_system, organisation:)
+    departmental_editor = create(:departmental_editor, :with_preview_design_system, organisation:)
+    world_editor = create(:world_editor, :with_preview_design_system, organisation:)
 
     get :edit, params: { id: organisation }
     assert_select "select#organisation_important_board_members option", count: 2
@@ -398,18 +260,18 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
 
   view_test "Prevents unauthorized management of homepage priority" do
     organisation = create(:organisation)
-    writer = create(:writer, organisation:)
+    writer = create(:writer, :with_preview_design_system, organisation:)
     login_as(writer)
 
     get :edit, params: { id: organisation }
     refute_select ".homepage-priority"
 
-    managing_editor = create(:managing_editor, organisation:)
+    managing_editor = create(:managing_editor, :with_preview_design_system, organisation:)
     login_as(managing_editor)
     get :edit, params: { id: organisation }
     assert_select ".homepage-priority"
 
-    gds_editor = create(:gds_editor, organisation:)
+    gds_editor = create(:gds_editor, :with_preview_design_system, organisation:)
     login_as(gds_editor)
     get :edit, params: { id: organisation }
     assert_select ".homepage-priority"
@@ -417,7 +279,7 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
 
   test "Non-admins can only edit their own organisations or children" do
     organisation1 = create(:organisation)
-    gds_editor = create(:gds_editor, organisation: organisation1)
+    gds_editor = create(:gds_editor, :with_preview_design_system, organisation: organisation1)
     login_as(gds_editor)
 
     get :edit, params: { id: organisation1 }
@@ -452,24 +314,24 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
     get :features, params: { id: organisation, locale: "en" }
     assert_response :success
 
-    selected_organisation = css_select('#organisation option[selected="selected"]')
+    selected_organisation = css_select('#organisation_filter option[selected="selected"]')
     assert_equal selected_organisation.text, organisation.name
   end
 
   view_test "GDS Editors can set political status" do
     organisation = create(:organisation)
-    writer = create(:writer, organisation:)
+    writer = create(:writer, :with_preview_design_system, organisation:)
     login_as(writer)
 
     get :edit, params: { id: organisation }
     refute_select ".political-status"
 
-    managing_editor = create(:managing_editor, organisation:)
+    managing_editor = create(:managing_editor, :with_preview_design_system, organisation:)
     login_as(managing_editor)
     get :edit, params: { id: organisation }
     refute_select ".political-status"
 
-    gds_editor = create(:gds_editor, organisation:)
+    gds_editor = create(:gds_editor, :with_preview_design_system, organisation:)
     login_as(gds_editor)
     get :edit, params: { id: organisation }
     assert_select ".political-status"
@@ -480,7 +342,6 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     create(:feature_list, locale: :en, featurable: organisation, features: [first_feature])
     get :features, params: { id: organisation }
-
     assert_match(/Please note that you can only feature a maximum of 6 documents.*/, response.body)
   end
 end

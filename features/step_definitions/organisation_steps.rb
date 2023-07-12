@@ -220,7 +220,7 @@ And(/^the following roles exist within the "([^"]*)":$/) do |organisation_name, 
 
   roles.hashes.each.each do |hash|
     role = create(:role, name: hash[:name])
-    create(:organisation_role, organisation: organisation, role: role)
+    create(:organisation_role, organisation:, role:)
   end
 end
 
@@ -324,9 +324,6 @@ Then(/^the roles should be in the following order:$/) do |roles|
   if using_design_system?
     role_names = all(".gem-c-summary__block h2").map(&:text)
 
-    roles.hashes.each_with_index do |hash, index|
-      expect(hash[:name]).to eq(role_names[index])
-    end
   else
     within ".dropdown-menu" do
       click_link "People"
@@ -334,8 +331,8 @@ Then(/^the roles should be in the following order:$/) do |roles|
 
     role_names = all(".sortable a").map(&:text)
 
-    roles.hashes.each_with_index do |hash, index|
-      expect(hash[:name]).to eq(role_names[index])
-    end
+  end
+  roles.hashes.each_with_index do |hash, index|
+    expect(hash[:name]).to eq(role_names[index])
   end
 end

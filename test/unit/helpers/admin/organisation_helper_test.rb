@@ -29,7 +29,7 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
       { label: "Features", href: features_admin_organisation_path(organisation, locale: I18n.default_locale), current: false },
       { label: "Pages", href: admin_organisation_corporate_information_pages_path(organisation), current: true },
       { label: "Social media accounts", href: admin_organisation_social_media_accounts_path(organisation), current: false },
-      { label: "People", href: people_admin_organisation_path(organisation), current: false },
+      { label: "People", href: admin_organisation_people_path(organisation), current: false },
       { label: "Translations", href: admin_organisation_translations_path(organisation), current: false },
       { label: "Financial Reports", href: admin_organisation_financial_reports_path(organisation), current: false },
     ]
@@ -49,7 +49,7 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
       { label: "Features (Français)", href: features_admin_organisation_path(organisation, locale: "fr"), current: false },
       { label: "Pages", href: admin_organisation_corporate_information_pages_path(organisation), current: false },
       { label: "Social media accounts", href: admin_organisation_social_media_accounts_path(organisation), current: false },
-      { label: "People", href: people_admin_organisation_path(organisation), current: false },
+      { label: "People", href: admin_organisation_people_path(organisation), current: false },
       { label: "Translations", href: admin_organisation_translations_path(organisation), current: false },
       { label: "Financial Reports", href: admin_organisation_financial_reports_path(organisation), current: false },
     ]
@@ -68,7 +68,7 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
       { label: "Features", href: features_admin_organisation_path(organisation, locale: I18n.default_locale), current: false },
       { label: "Pages", href: admin_organisation_corporate_information_pages_path(organisation), current: false },
       { label: "Social media accounts", href: admin_organisation_social_media_accounts_path(organisation), current: false },
-      { label: "People", href: people_admin_organisation_path(organisation), current: false },
+      { label: "People", href: admin_organisation_people_path(organisation), current: false },
       { label: "Translations", href: admin_organisation_translations_path(organisation), current: false },
       { label: "Financial Reports", href: admin_organisation_financial_reports_path(organisation), current: true },
     ]

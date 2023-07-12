@@ -5,7 +5,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with url: order_people_admin_organisation_path(@organisation), method: :put do %>
+    <%= form_with url: order_admin_organisation_people_path(@organisation), method: :put do %>
       <%= hidden_field_tag :type, params[:type] %>
       <%= render "govuk_publishing_components/components/hint", {
         text: "Use the up and down buttons to reorder pages, or select and hold on a page to reorder using drag and drop.",
