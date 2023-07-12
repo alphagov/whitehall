@@ -1,135 +1,253 @@
 require "test_helper"
 
 class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   setup do
-    @asset_id = "asset-id"
-    @asset_url = "http://asset-manager/assets/#{@asset_id}"
+    @asset_manager_id = "asset-id"
+    @asset_url = "http://asset-manager/assets/#{@asset_manager_id}"
     @legacy_url_path = "legacy-url-path"
     @worker = AssetManager::AssetUpdater.new
     @redirect_url = "https://www.test.gov.uk/example"
     @attachment_data = FactoryBot.build(:attachment_data)
   end
 
-  test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_url, "deleted" => true)
+  describe "called with legacy_url_path" do
+    test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_url, "deleted" => true)
 
-    @attachment_data.stubs(:deleted?).returns(false)
+      @attachment_data.stubs(:deleted?).returns(false)
 
-    assert_raises(AssetManager::AssetUpdater::AssetAlreadyDeleted) do
-      @worker.call(@attachment_data, @legacy_url_path, { "draft" => false })
+      assert_raises(AssetManager::AssetUpdater::AssetAlreadyDeleted) do
+        @worker.call(nil, @attachment_data, @legacy_url_path, { "draft" => false })
+      end
+    end
+
+    test "does not update asset if no attributes are supplied" do
+      Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
+              .returns("id" => @asset_url)
+      Services.asset_manager.expects(:update_asset).never
+
+      assert_raises(AssetManager::AssetUpdater::AssetAttributesEmpty) do
+        @worker.call(nil, @attachment_data, @legacy_url_path)
+      end
+    end
+
+    test "marks draft asset as published" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id, "draft" => true)
+      Services.asset_manager.expects(:update_asset).with(@asset_manager_id, { "draft" => false })
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "draft" => false })
+    end
+
+    test "does not mark asset as published if already published" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id, "draft" => false)
+      Services.asset_manager.expects(:update_asset).never
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "draft" => false })
+    end
+
+    test "mark published asset as draft" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id, "draft" => false)
+      Services.asset_manager.expects(:update_asset).with(@asset_manager_id, { "draft" => true })
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "draft" => true })
+    end
+
+    test "does not mark asset as draft if already draft" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id, "draft" => true)
+      Services.asset_manager.expects(:update_asset).never
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "draft" => true })
+    end
+
+    test "sets redirect_url on asset if not already set" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id)
+      Services.asset_manager.expects(:update_asset)
+              .with(@asset_manager_id, { "redirect_url" => @redirect_url })
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "redirect_url" => @redirect_url })
+    end
+
+    test "sets redirect_url on asset if already set to different value" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id, "redirect_url" => "#{@redirect_url}-another")
+      Services.asset_manager.expects(:update_asset)
+              .with(@asset_manager_id, { "redirect_url" => @redirect_url })
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "redirect_url" => @redirect_url })
+    end
+
+    test "does not set redirect_url on asset if already set" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id, "redirect_url" => @redirect_url)
+      Services.asset_manager.expects(:update_asset).never
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "redirect_url" => @redirect_url })
+    end
+
+    test "marks asset as access-limited" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id)
+      Services.asset_manager.expects(:update_asset)
+              .with(@asset_manager_id, { "access_limited" => %w[uid-1] })
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "access_limited" => %w[uid-1] })
+    end
+
+    test "does not mark asset as access-limited if already set" do
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id, "access_limited" => %w[uid-1])
+      Services.asset_manager.expects(:update_asset).never
+
+      @worker.call(nil, @attachment_data, @legacy_url_path, { "access_limited" => %w[uid-1] })
+    end
+
+    test "marks asset as replaced by another asset" do
+      replacement_legacy_url_path = "replacement-legacy-url-path"
+      replacement_id = "replacement-id"
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id)
+      @worker.stubs(:find_asset_by).with(replacement_legacy_url_path)
+             .returns("id" => replacement_id)
+      Services.asset_manager.expects(:update_asset)
+              .with(@asset_manager_id, { "replacement_id" => replacement_id })
+
+      attributes = { "replacement_legacy_url_path" => replacement_legacy_url_path }
+      @worker.call(nil, @attachment_data, @legacy_url_path, attributes)
+    end
+
+    test "does not mark asset as replaced if already replaced by same asset" do
+      replacement_legacy_url_path = "replacement-legacy-url-path"
+      replacement_id = "replacement-id"
+      @worker.stubs(:find_asset_by).with(@legacy_url_path)
+             .returns("id" => @asset_manager_id, "replacement_id" => replacement_id)
+      @worker.stubs(:find_asset_by).with(replacement_legacy_url_path)
+             .returns("id" => replacement_id)
+      Services.asset_manager.expects(:update_asset).never
+
+      attributes = { "replacement_legacy_url_path" => replacement_legacy_url_path }
+      @worker.call(nil, @attachment_data, @legacy_url_path, attributes)
     end
   end
 
-  test "does not update asset if no attributes are supplied" do
-    Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
-      .returns("id" => @asset_url)
-    Services.asset_manager.expects(:update_asset).never
+  describe "called with asset_manager_id" do
+    test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_url, "deleted" => true)
+      @attachment_data.stubs(:deleted?).returns(false)
 
-    assert_raises(AssetManager::AssetUpdater::AssetAttributesEmpty) do
-      @worker.call(@attachment_data, @legacy_url_path)
+      assert_raises(AssetManager::AssetUpdater::AssetAlreadyDeleted) do
+        @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => false })
+      end
     end
-  end
 
-  test "marks draft asset as published" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id, "draft" => true)
-    Services.asset_manager.expects(:update_asset).with(@asset_id, { "draft" => false })
+    test "does not update asset if no attributes are supplied" do
+      assert_raises(AssetManager::AssetUpdater::AssetAttributesEmpty) do
+        @worker.call(@asset_manager_id, @attachment_data, @legacy_url_path)
+      end
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "draft" => false })
-  end
+    test "marks draft asset as published" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id, "draft" => true)
+      Services.asset_manager.expects(:update_asset).with(@asset_manager_id, { "draft" => false })
 
-  test "does not mark asset as published if already published" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id, "draft" => false)
-    Services.asset_manager.expects(:update_asset).never
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => false })
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "draft" => false })
-  end
+    test "does not mark asset as published if already published" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id, "draft" => false)
+      Services.asset_manager.expects(:update_asset).never
 
-  test "mark published asset as draft" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id, "draft" => false)
-    Services.asset_manager.expects(:update_asset).with(@asset_id, { "draft" => true })
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => false })
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "draft" => true })
-  end
+    test "mark published asset as draft" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id, "draft" => false)
+      Services.asset_manager.expects(:update_asset).with(@asset_manager_id, { "draft" => true })
 
-  test "does not mark asset as draft if already draft" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id, "draft" => true)
-    Services.asset_manager.expects(:update_asset).never
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => true })
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "draft" => true })
-  end
+    test "does not mark asset as draft if already draft" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id, "draft" => true)
+      Services.asset_manager.expects(:update_asset).never
 
-  test "sets redirect_url on asset if not already set" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id)
-    Services.asset_manager.expects(:update_asset)
-      .with(@asset_id, { "redirect_url" => @redirect_url })
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => true })
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "redirect_url" => @redirect_url })
-  end
+    test "sets redirect_url on asset if not already set" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id)
+      Services.asset_manager.expects(:update_asset)
+              .with(@asset_manager_id, { "redirect_url" => @redirect_url })
 
-  test "sets redirect_url on asset if already set to different value" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id, "redirect_url" => "#{@redirect_url}-another")
-    Services.asset_manager.expects(:update_asset)
-      .with(@asset_id, { "redirect_url" => @redirect_url })
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "redirect_url" => @redirect_url })
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "redirect_url" => @redirect_url })
-  end
+    test "sets redirect_url on asset if already set to different value" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id, "redirect_url" => "#{@redirect_url}-another")
+      Services.asset_manager.expects(:update_asset)
+              .with(@asset_manager_id, { "redirect_url" => @redirect_url })
 
-  test "does not set redirect_url on asset if already set" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id, "redirect_url" => @redirect_url)
-    Services.asset_manager.expects(:update_asset).never
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "redirect_url" => @redirect_url })
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "redirect_url" => @redirect_url })
-  end
+    test "does not set redirect_url on asset if already set" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id, "redirect_url" => @redirect_url)
+      Services.asset_manager.expects(:update_asset).never
 
-  test "marks asset as access-limited" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id)
-    Services.asset_manager.expects(:update_asset)
-      .with(@asset_id, { "access_limited" => %w[uid-1] })
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "redirect_url" => @redirect_url })
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "access_limited" => %w[uid-1] })
-  end
+    test "marks asset as access-limited" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id)
+      Services.asset_manager.expects(:update_asset)
+              .with(@asset_manager_id, { "access_limited" => %w[uid-1] })
 
-  test "does not mark asset as access-limited if already set" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id, "access_limited" => %w[uid-1])
-    Services.asset_manager.expects(:update_asset).never
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "access_limited" => %w[uid-1] })
+    end
 
-    @worker.call(@attachment_data, @legacy_url_path, { "access_limited" => %w[uid-1] })
-  end
+    test "does not mark asset as access-limited if already set" do
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id, "access_limited" => %w[uid-1])
+      Services.asset_manager.expects(:update_asset).never
 
-  test "marks asset as replaced by another asset" do
-    replacement_legacy_url_path = "replacement-legacy-url-path"
-    replacement_id = "replacement-id"
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id)
-    @worker.stubs(:find_asset_by).with(replacement_legacy_url_path)
-      .returns("id" => replacement_id)
-    Services.asset_manager.expects(:update_asset)
-      .with(@asset_id, { "replacement_id" => replacement_id })
+      @worker.call(@asset_manager_id, @attachment_data, nil, { "access_limited" => %w[uid-1] })
+    end
 
-    attributes = { "replacement_legacy_url_path" => replacement_legacy_url_path }
-    @worker.call(@attachment_data, @legacy_url_path, attributes)
-  end
+    test "marks asset as replaced by another asset" do
+      replacement_id = "replacement-id"
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id)
+      Services.asset_manager.expects(:update_asset)
+              .with(@asset_manager_id, { "replacement_id" => replacement_id })
 
-  test "does not mark asset as replaced if already replaced by same asset" do
-    replacement_legacy_url_path = "replacement-legacy-url-path"
-    replacement_id = "replacement-id"
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_id, "replacement_id" => replacement_id)
-    @worker.stubs(:find_asset_by).with(replacement_legacy_url_path)
-      .returns("id" => replacement_id)
-    Services.asset_manager.expects(:update_asset).never
+      attributes = { "replacement_id" => replacement_id }
+      @worker.call(@asset_manager_id, @attachment_data, nil, attributes)
+    end
 
-    attributes = { "replacement_legacy_url_path" => replacement_legacy_url_path }
-    @worker.call(@attachment_data, @legacy_url_path, attributes)
+    test "does not mark asset as replaced if already replaced by same asset" do
+      replacement_id = "replacement-id"
+      @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
+             .returns("id" => @asset_manager_id, "replacement_id" => replacement_id)
+      Services.asset_manager.expects(:update_asset).never
+
+      attributes = { "replacement_id" => replacement_id }
+      @worker.call(@asset_manager_id, @attachment_data, nil, attributes)
+    end
   end
 end

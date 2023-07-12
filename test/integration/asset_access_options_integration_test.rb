@@ -19,31 +19,67 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     context "given a draft document with file attachment" do
       let(:edition) { create(:news_article, organisations: [organisation]) }
 
-      before do
-        setup_publishing_api_for(edition)
-        stub_publishing_api_has_linkables([], document_type: "topic")
-
-        add_file_attachment("logo.png", to: edition)
-        edition.attachments[0].attachment_data.uploaded_to_asset_manager!
-        edition.save!
-
-        stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
-      end
-
-      context "when document is marked as access limited in Whitehall" do
+      context "updates with legacy_url_path" do
         before do
-          visit edit_admin_news_article_path(edition)
-          check "Limit access to producing organisations prior to publication"
-          click_button "Save"
-          assert_text "The document has been saved"
+          setup_publishing_api_for(edition)
+          stub_publishing_api_has_linkables([], document_type: "topic")
+
+          add_file_attachment("logo.png", to: edition)
+          edition.attachments[0].attachment_data.uploaded_to_asset_manager!
+          edition.save!
+
+          stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
         end
 
-        it "marks attachment as access limited in Asset Manager" do
-          Services.asset_manager
-                  .expects(:update_asset)
-                  .at_least_once.with("asset-id", has_entry("access_limited", %w[user-uid]))
+        context "when document is marked as access limited in Whitehall" do
+          before do
+            visit edit_admin_news_article_path(edition)
+            check "Limit access to producing organisations prior to publication"
+            click_button "Save"
+            assert_text "The document has been saved"
+          end
 
-          AssetManagerAttachmentMetadataWorker.drain
+          it "marks attachment as access limited in Asset Manager" do
+            Services.asset_manager
+                    .expects(:update_asset)
+                    .at_least_once.with("asset-id", has_entry("access_limited", %w[user-uid]))
+
+            AssetManagerAttachmentMetadataWorker.drain
+          end
+        end
+      end
+
+      context "updates with asset_manager_id" do
+        let(:asset_manager_id) { "asset-id" }
+        let(:variant) { Asset.variants[:original] }
+
+        before do
+          setup_publishing_api_for(edition)
+          stub_publishing_api_has_linkables([], document_type: "topic")
+
+          add_file_attachment("logo.png", to: edition)
+          edition.attachments[0].attachment_data.assets.create!(asset_manager_id:, variant:)
+          edition.attachments[0].attachment_data.uploaded_to_asset_manager!
+          edition.save!
+
+          stub_asset(asset_manager_id, draft: true)
+        end
+
+        context "when document is marked as access limited in Whitehall" do
+          before do
+            visit edit_admin_news_article_path(edition)
+            check "Limit access to producing organisations prior to publication"
+            click_button "Save"
+            assert_text "The document has been saved"
+          end
+
+          it "marks attachment as access limited in Asset Manager" do
+            Services.asset_manager
+                    .expects(:update_asset)
+                    .at_least_once.with(asset_manager_id, has_entry("access_limited", %w[user-uid]))
+
+            AssetManagerAttachmentMetadataWorker.drain
+          end
         end
       end
     end
@@ -79,8 +115,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       before do
         setup_publishing_api_for(edition)
-
-        stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
       end
 
       context "when an attachment is added to the draft document" do
@@ -176,8 +210,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       before do
         setup_publishing_api_for(edition)
         stub_publishing_api_has_linkables([], document_type: "topic")
-
-        stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
       end
 
       context "when an attachment is added to the consultation's outcome" do
@@ -227,51 +259,108 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     context "given an access-limited draft document with file attachment" do
       let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
 
-      before do
-        setup_publishing_api_for(edition)
-        stub_publishing_api_has_linkables([], document_type: "topic")
-
-        add_file_attachment("logo.png", to: edition)
-        edition.attachments[0].attachment_data.uploaded_to_asset_manager!
-
-        stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
-      end
-
-      context "when document is unmarked as access limited in Whitehall" do
+      context "updates with legacy_url_path" do
         before do
-          visit edit_admin_news_article_path(edition)
-          uncheck "Limit access to producing organisations prior to publication"
-          click_button "Save"
-          assert_text "The document has been saved"
+          setup_publishing_api_for(edition)
+          stub_publishing_api_has_linkables([], document_type: "topic")
+
+          add_file_attachment("logo.png", to: edition)
+          edition.attachments[0].attachment_data.uploaded_to_asset_manager!
+
+          stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
         end
 
-        it "unmarks attachment as access limited in Asset Manager" do
-          Services.asset_manager
-                  .expects(:update_asset)
-                  .at_least_once.with("asset-id", has_entry("access_limited", []))
-
-          AssetManagerAttachmentMetadataWorker.drain
-        end
-      end
-
-      context "when attachment is replaced" do
-        before do
-          visit admin_news_article_path(edition)
-          click_link "Modify attachments"
-          click_link "Edit"
-          attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
-          click_button "Save"
-          assert_text "Attachment 'logo.png' updated"
-        end
-
-        it "marks replacement attachment as access limited in Asset Manager" do
-          Services.asset_manager.expects(:create_whitehall_asset).with do |params|
-            params[:legacy_url_path] =~ /big-cheese/ &&
-              params[:access_limited] == %w[user-uid] &&
-              params[:auth_bypass_ids] == [edition.auth_bypass_id]
+        context "when document is unmarked as access limited in Whitehall" do
+          before do
+            visit edit_admin_news_article_path(edition)
+            uncheck "Limit access to producing organisations prior to publication"
+            click_button "Save"
+            assert_text "The document has been saved"
           end
 
-          AssetManagerCreateWhitehallAssetWorker.drain
+          it "unmarks attachment as access limited in Asset Manager" do
+            Services.asset_manager
+                    .expects(:update_asset)
+                    .at_least_once.with("asset-id", has_entry("access_limited", []))
+
+            AssetManagerAttachmentMetadataWorker.drain
+          end
+        end
+
+        context "when attachment is replaced" do
+          before do
+            visit admin_news_article_path(edition)
+            click_link "Modify attachments"
+            click_link "Edit"
+            attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
+            click_button "Save"
+            assert_text "Attachment 'logo.png' updated"
+          end
+
+          it "marks replacement attachment as access limited in Asset Manager" do
+            Services.asset_manager.expects(:create_whitehall_asset).with do |params|
+              params[:legacy_url_path] =~ /big-cheese/ &&
+                params[:access_limited] == %w[user-uid] &&
+                params[:auth_bypass_ids] == [edition.auth_bypass_id]
+            end
+
+            AssetManagerCreateWhitehallAssetWorker.drain
+          end
+        end
+      end
+
+      context "updates with asset_manager_id" do
+        let(:asset_manager_id) { "asset-id" }
+        let(:variant) { Asset.variants[:original] }
+
+        before do
+          setup_publishing_api_for(edition)
+          stub_publishing_api_has_linkables([], document_type: "topic")
+
+          add_file_attachment("logo.png", to: edition)
+
+          edition.attachments[0].attachment_data.assets.create!(asset_manager_id:, variant:)
+          edition.attachments[0].attachment_data.uploaded_to_asset_manager!
+
+          stub_asset(asset_manager_id, draft: true)
+        end
+
+        context "when document is unmarked as access limited in Whitehall" do
+          before do
+            visit edit_admin_news_article_path(edition)
+            uncheck "Limit access to producing organisations prior to publication"
+            click_button "Save"
+            assert_text "The document has been saved"
+          end
+
+          it "unmarks attachment as access limited in Asset Manager" do
+            Services.asset_manager
+                    .expects(:update_asset)
+                    .at_least_once.with(asset_manager_id, has_entry("access_limited", []))
+
+            AssetManagerAttachmentMetadataWorker.drain
+          end
+        end
+
+        context "when attachment is replaced" do
+          before do
+            visit admin_news_article_path(edition)
+            click_link "Modify attachments"
+            click_link "Edit"
+            attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
+            click_button "Save"
+            assert_text "Attachment 'logo.png' updated"
+          end
+
+          it "marks replacement attachment as access limited in Asset Manager" do
+            Services.asset_manager.expects(:create_whitehall_asset).with do |params|
+              params[:legacy_url_path] =~ /big-cheese/ &&
+                params[:access_limited] == %w[user-uid] &&
+                params[:auth_bypass_ids] == [edition.auth_bypass_id]
+            end
+
+            AssetManagerCreateWhitehallAssetWorker.drain
+          end
         end
       end
     end
@@ -306,6 +395,13 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       url_id = "http://asset-manager/assets/#{attributes[:id]}"
       Services.asset_manager.stubs(:whitehall_asset)
               .with(&ends_with(filename))
+              .returns(attributes.merge(id: url_id).stringify_keys)
+    end
+
+    def stub_asset(asset_manger_id, attributes = {})
+      url_id = "http://asset-manager/assets/#{asset_manger_id}"
+      Services.asset_manager.stubs(:asset)
+              .with(asset_manger_id)
               .returns(attributes.merge(id: url_id).stringify_keys)
     end
 

@@ -11,7 +11,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     attachment_data = FactoryBot.create(:attachment_data, file: File.open(Rails.root.join("test/fixtures/sample.csv")))
     expected_legacy_url_path = expected_legacy_url("attachment_data", attachment_data.id, "sample.csv")
 
-    AssetManager::AssetUpdater.expects(:call).with(attachment_data, expected_legacy_url_path, @auth_bypass_id_attributes)
+    AssetManager::AssetUpdater.expects(:call).with(nil, attachment_data, expected_legacy_url_path, @auth_bypass_id_attributes)
 
     AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
@@ -22,8 +22,8 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     expected_legacy_url_path = expected_legacy_url("attachment_data", attachment_data.id, "greenpaper.pdf")
     expected_legacy_url_thumbnail_path = expected_legacy_url("attachment_data", attachment_data.id, "thumbnail_greenpaper.pdf.png")
 
-    AssetManager::AssetUpdater.expects(:call).with(attachment_data, expected_legacy_url_path, @auth_bypass_id_attributes)
-    AssetManager::AssetUpdater.expects(:call).with(attachment_data, expected_legacy_url_thumbnail_path, @auth_bypass_id_attributes)
+    AssetManager::AssetUpdater.expects(:call).with(nil, attachment_data, expected_legacy_url_path, @auth_bypass_id_attributes)
+    AssetManager::AssetUpdater.expects(:call).with(nil, attachment_data, expected_legacy_url_thumbnail_path, @auth_bypass_id_attributes)
 
     AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
@@ -41,7 +41,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
       s216_minister-of-funk.960x640.jpg
     ].each do |filename|
       path = expected_legacy_url("image_data", image_data.id, filename)
-      AssetManager::AssetUpdater.expects(:call).with(image_data, path, @auth_bypass_id_attributes).once
+      AssetManager::AssetUpdater.expects(:call).with(nil, image_data, path, @auth_bypass_id_attributes).once
     end
 
     AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ImageData", image_data.id, @auth_bypass_id_attributes)
@@ -52,7 +52,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     response_form = FactoryBot.create(:consultation_response_form)
     form_data = response_form.consultation_response_form_data
     expected_legacy_url_path = expected_legacy_url("consultation_response_form_data", form_data.id, "two-pages.pdf")
-    AssetManager::AssetUpdater.expects(:call).with(form_data, expected_legacy_url_path, @auth_bypass_id_attributes)
+    AssetManager::AssetUpdater.expects(:call).with(nil, form_data, expected_legacy_url_path, @auth_bypass_id_attributes)
 
     AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ConsultationResponseFormData", form_data.id, @auth_bypass_id_attributes)
     AssetManagerUpdateWhitehallAssetWorker.drain
