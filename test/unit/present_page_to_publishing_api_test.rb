@@ -23,6 +23,10 @@ class PresentPageToPublishingApiTest < ActiveSupport::TestCase
     end
   end
 
+  test "sends the world index page to publishing api" do
+    assert_content_is_presented_to_publishing_api(PublishingApi::WorldIndexPresenter)
+  end
+
   def assert_content_is_presented_to_publishing_api(presenter_class, locale: "en")
     presenter = presenter_class.new
     expected_content = presenter.content

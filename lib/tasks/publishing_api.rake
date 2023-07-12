@@ -93,6 +93,11 @@ namespace :publishing_api do
     task republish_embassies_index: :environment do
       PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
     end
+
+    desc "Republish the world index page to Publishing API"
+    task republish_world_index: :environment do
+      PresentPageToPublishingApi.new.publish(PublishingApi::WorldIndexPresenter)
+    end
   end
 
   namespace :patch_links do
