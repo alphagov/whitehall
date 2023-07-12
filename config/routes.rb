@@ -25,8 +25,6 @@ Whitehall::Application.routes.draw do
   root to: redirect("/admin/"),
        constraints: ->(request) { AdminRequest.valid_admin_host?(request.host) }
 
-  rack_404 = proc { [404, {}, ["Not found"]] }
-
   # This API is documented here:
   # https://github.com/alphagov/whitehall/blob/master/docs/api.md
   namespace "api" do
@@ -384,9 +382,6 @@ Whitehall::Application.routes.draw do
 
   get "healthcheck/overdue" => "healthcheck#overdue"
   get "healthcheck/unenqueued_scheduled_editions" => "healthcheck#unenqueued_scheduled_editions"
-
-  # TODO: Remove when paths for new content can be generated without a route helper
-  get "/guidance/:id(.:locale)", as: "detailed_guide", constraints: { id: /[A-z0-9-]+/, locale: valid_locales_regex }, to: rack_404
 
   resources :broken_links_export_request, path: "/export/broken_link_reports", param: :export_id, only: [:show]
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
