@@ -28,13 +28,16 @@ When(/^I force-publish the "([^"]*)" corporate information page for the worldwid
   publish(force: true)
 end
 
-Then(/^I should see the corporate information on the public worldwide organisation page$/) do
+Then(/^I should see the corporate information on the worldwide organisation corporate information pages page/) do
   worldwide_organisation = WorldwideOrganisation.last
-  info_page = worldwide_organisation.corporate_information_pages.last
-  visit worldwide_organisation.public_path
-  expect(page).to have_content(info_page.title)
-  click_link info_page.title
-  expect(page).to have_content(info_page.body)
+  visit admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation)
+
+  corporate_information_page = worldwide_organisation.corporate_information_pages.last
+
+  expect(page).to have_content(corporate_information_page.title)
+
+  click_link corporate_information_page.title
+  expect(page).to have_content(corporate_information_page.title)
 end
 
 When(/^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |corp_page, worldwide_org|
@@ -51,13 +54,14 @@ When(/^I translate the "([^"]*)" corporate information page for the worldwide or
   click_on "Save"
 end
 
-Then(/^I should be able to read the translated "([^"]*)" corporate information page for the worldwide organisation "([^"]*)" on the site$/) do |corp_page, worldwide_org|
+Then(/^I should be able to see the "([^"]*)" translation for the corporate information page of the worldwide organisation "([^"]*)"$/) do |language, worldwide_org|
   worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_org)
-  visit worldwide_organisation.public_path
+  corporate_information_page = worldwide_organisation.corporate_information_pages.last
+  visit admin_worldwide_organisation_corporate_information_page_path(worldwide_organisation, corporate_information_page)
 
-  click_link corp_page
-  click_link "Français"
+  expect(page).to have_content("Translations")
 
-  expect(page).to have_selector(".govuk-body-l", text: "Le summary")
-  expect(page).to have_selector(".body", text: "Le body")
+  within(".govuk-table") do
+    expect(page).to have_content(language)
+  end
 end
