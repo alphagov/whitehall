@@ -5,7 +5,7 @@ class Admin::TopicalEventOrganisationsControllerTest < ActionController::TestCas
 
   setup do
     @topical_event = create(:topical_event)
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   view_test "GET :index renders headings and links" do

@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   should_be_an_admin_controller
@@ -60,7 +60,7 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   test "GET :confirm_destroy works for GDS editors" do
     group = create(:policy_group)
 
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
     get :confirm_destroy, params: { id: group }
 
     assert_equal group, assigns(:policy_group)
@@ -78,7 +78,7 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   test "DELETE :destroy works for GDS editors" do
     group = create(:policy_group)
 
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
     delete :destroy, params: { id: group }
 
     assert_response :redirect
