@@ -14,27 +14,29 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   def new
     @worldwide_organisation.build_default_news_image
-    render :legacy_new
+    render_design_system(:new, :legacy_new)
   end
 
   def create
     if @worldwide_organisation.update(worldwide_organisation_params)
       redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation created successfully"
     else
-      render :legacy_new
+      @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
+      render_design_system(:new, :legacy_new)
     end
   end
 
   def edit
-    @worldwide_organisation.build_default_news_image
-    render :legacy_edit
+    @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
+    render_design_system(:edit, :legacy_edit)
   end
 
   def update
     if @worldwide_organisation.update(worldwide_organisation_params)
       redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation updated successfully"
     else
-      render :legacy_edit
+      @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
+      render_design_system(:edit, :legacy_edit)
     end
   end
 
@@ -65,7 +67,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index new create edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

@@ -1,0 +1,93 @@
+<%= form_with model: worldwide_organisation, url: [:admin, worldwide_organisation], multipart: true do |form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Name (required)"
+    },
+    name: "worldwide_organisation[name]",
+    id: "worldwide_organisation_name",
+    value: worldwide_organisation.name,
+    heading_size: "l",
+    error_items: errors_for(worldwide_organisation.errors, :name)
+  } %>
+
+  <%= render "components/autocomplete", {
+    id: "worldwide_organisation_world_locations",
+    name: "worldwide_organisation[world_location_ids][]",
+    error_items: errors_for(worldwide_organisation.errors, :world_locations),
+    label: {
+      text: "World locations",
+      heading_size: "l",
+    },
+    select: {
+      options: WorldLocation.ordered_by_name.map do |world_location|
+        [
+          world_location.name,
+          world_location.id,
+        ]
+      end,
+      multiple: true,
+      selected: worldwide_organisation.world_location_ids,
+    },
+  } %>
+
+  <%= render "components/autocomplete", {
+    id: "worldwide_organisation_sponsoring_organisations",
+    name: "worldwide_organisation[sponsoring_organisation_ids][]",
+    error_items: errors_for(worldwide_organisation.errors, :sponsoring_organisations),
+    label: {
+      text: "Sponsoring organisations",
+      heading_size: "l",
+    },
+    select: {
+      options: Organisation.all.map do |organisation|
+        [
+          organisation.name,
+          organisation.id,
+        ]
+      end,
+      multiple: true,
+      selected: worldwide_organisation.sponsoring_organisation_ids,
+    },
+  } %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Logo formatted name",
+      heading_size: "l",
+    },
+    name: "worldwide_organisation[logo_formatted_name]",
+    id: "worldwide_organisation_logo_formatted_name",
+    value: worldwide_organisation.logo_formatted_name,
+    error_items: errors_for(worldwide_organisation.errors, :logo_formatted_name),
+    rows: 4,
+  } %>
+
+  <%= render "components/single-image-upload", {
+    title: "Default news image",
+    name: "worldwide_organisation[default_news_image_attributes]",
+    id: "worldwide_organisation_default_news_image",
+    image_id: "worldwide_organisation_default_news_image_file",
+    image_name: "worldwide_organisation[default_news_image_attributes][file]",
+    remove_alt_text_field: true,
+    filename: worldwide_organisation.default_news_image.file.identifier,
+    page_errors: worldwide_organisation.errors.any?,
+    error_items: errors_for(worldwide_organisation.default_news_image.errors, :default_news_image),
+    image_src: worldwide_organisation.default_news_image.file.url,
+    image_cache_name: "worldwide_organisation[default_news_image_attributes][file_cache]",
+    image_cache: (worldwide_organisation.default_news_image.file_cache if worldwide_organisation.default_news_image.file_cache.present?)
+  } %>
+
+  <div class="govuk-button-group govuk-!-margin-top-8">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+         module: "gem-track-click",
+         "track-category": "form-button",
+         "track-action": "worldwide-organisation-button",
+         "track-label": "Save"
+       }
+    } %>
+
+    <%= link_to "Cancel", worldwide_organisation.persisted? ? admin_worldwide_organisation_path(worldwide_organisation) : admin_worldwide_organisations_path, class: "govuk-link" %>
+  </div>
+<% end %>

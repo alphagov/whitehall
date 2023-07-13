@@ -16,7 +16,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "presents a form to create a new worldwide organisation" do
     get :new
-    assert_template :legacy_new
+    assert_template :new
     assert_kind_of WorldwideOrganisation, assigns(:worldwide_organisation)
   end
 
@@ -44,7 +44,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
            },
          }
 
-    assert_select "form#new_worldwide_organisation .errors"
+    assert_select ".govuk-error-summary"
   end
 
   test "shows an edit page for an existing worldwide organisation" do
