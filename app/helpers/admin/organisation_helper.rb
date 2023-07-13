@@ -135,4 +135,27 @@ module Admin::OrganisationHelper
   def organisation_context_block(current_user, organisation)
     current_user.organisation == organisation ? "My organisation" : "Organisation"
   end
+
+  def organisation_index_rows(user_organisation, organisations)
+    organisations = ([user_organisation] + organisations).compact
+
+    organisations.each_with_index.map do |organisation, _index|
+      [
+        {
+          text: tag.span(organisation.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: organisation.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(organisation.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation), class: "govuk-link") +
+            if organisation.destroyable?
+              link_to(sanitize("Delete #{tag.span(organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-3")
+            else
+              ""
+            end,
+        },
+      ]
+    end
+  end
 end

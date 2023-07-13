@@ -107,6 +107,7 @@ Whitehall::Application.routes.draw do
           member do
             get "/features(.:locale)", as: "features", to: "organisations#features", constraints: { locale: valid_locales_regex }
             get :people
+            get :confirm_destroy
           end
           resources :financial_reports, except: [:show] do
             get :confirm_destroy, on: :member

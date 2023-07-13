@@ -1,34 +1,28 @@
 <% content_for :page_title, "Organisations" %>
-<% content_for :context, organisation_context_block(current_user, @organisation)  %>
+<% content_for :title, "Organisations" %>
+
 <% if can?(:create, Organisation) %>
   <%= render "govuk_publishing_components/components/button", {
-    text: "Create organisation",
+    text: "Create new organisation",
     href: new_admin_organisation_path,
-    secondary_solid: true,
     margin_bottom: 6
   } %>
 <% end %>
 
 <% if @organisations.present? %>
-  <div class="app-c-govuk-table--filterable app-view-organisation-index__table">
+  <div class="app-c-govuk-table--filterable app-view-organisation-index__table govuk-table--with-actions">
     <%= render "govuk_publishing_components/components/table", {
       filterable: true,
-      label: "Filter organisations",
+      label: "Filter by organisation name",
       head: [
         {
-          text: "Acronym"
-        },
-        {
           text: "Name",
-        },
-        {
-          text: "Type",
         },
         {
           text: "Status",
         },
         {
-          text: "Link",
+          text: tag.span("Actions", class: "govuk-visually-hidden"),
         }
       ],
       rows: organisation_index_rows(@user_organisation, @organisations.all)
