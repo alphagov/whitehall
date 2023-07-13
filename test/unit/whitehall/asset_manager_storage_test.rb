@@ -180,7 +180,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   end
 
   test "queues the call to delete the asset from asset manager" do
-    AssetManagerDeleteAssetWorker.expects(:perform_async).with(@asset_url_path)
+    AssetManagerDeleteAssetWorker.expects(:perform_async).with(@asset_url_path, nil)
 
     @file.delete
   end

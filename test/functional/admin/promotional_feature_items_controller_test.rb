@@ -79,7 +79,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     legacy_url_path = promotional_feature_item.image.file&.instance_variable_get("@legacy_url_path")
 
     Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
-    AssetManager::AssetDeleter.expects(:call).once.with(legacy_url_path)
+    AssetManager::AssetDeleter.expects(:call).once.with(legacy_url_path, nil)
 
     put :update,
         params: { organisation_id: @organisation,
@@ -103,7 +103,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
     legacy_url_path = promotional_feature_item.image.file&.instance_variable_get("@legacy_url_path")
 
-    AssetManager::AssetDeleter.expects(:call).once.with(legacy_url_path)
+    AssetManager::AssetDeleter.expects(:call).once.with(legacy_url_path, nil)
 
     put :update,
         params: { organisation_id: @organisation,
