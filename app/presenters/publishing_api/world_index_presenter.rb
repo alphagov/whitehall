@@ -49,9 +49,13 @@ module PublishingApi
     def format_locations(locations)
       locations.map do |location|
         {
+          active: location.active,
+          analytics_identifier: location.analytics_identifier,
+          content_id: location.content_id,
+          iso2: location.iso2,
           name: location.name,
           slug: location.slug,
-          active: location.active,
+          updated_at: location.updated_at,
         }
       end
     end
