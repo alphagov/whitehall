@@ -208,6 +208,16 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert organisation.contact_shown_on_home_page?(contact)
   end
 
+  test "GET :should be able to visit confirm_destroy page for a contact" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)
+
+    get :confirm_destroy, params: { organisation_id: organisation, id: contact }
+
+    assert_response :success
+    assert_equal contact, assigns(:contact)
+  end
+
   test "DELETE on :destroy destroys the contact" do
     organisation = create(:organisation)
     contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)

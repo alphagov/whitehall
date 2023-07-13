@@ -1,6 +1,6 @@
 class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
-  before_action :find_contact, only: %i[edit update destroy remove_from_home_page add_to_home_page]
+  before_action :find_contact, only: %i[edit update destroy remove_from_home_page add_to_home_page confirm_destroy]
   before_action :destroy_blank_contact_numbers, only: %i[create update]
   layout :get_layout
 
@@ -39,13 +39,13 @@ class Admin::ContactsController < Admin::BaseController
       render :new
     end
   end
-
+  def confirm_destroy; end
   def destroy
     title = @contact.title
     if @contact.destroy
       redirect_to [:admin, @contact.contactable, Contact], notice: %("#{title}" deleted successfully)
     else
-      render :edit
+      render_design_system(:edit, :legacy_edit)
     end
   end
 
@@ -58,7 +58,7 @@ class Admin::ContactsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
+    design_system_actions = %w[confirm_destroy]
     design_system_actions += %w[new edit create update index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)

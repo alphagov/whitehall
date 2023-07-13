@@ -89,6 +89,7 @@ Whitehall::Application.routes.draw do
             member do
               post :remove_from_home_page
               post :add_to_home_page
+              get :confirm_destroy
             end
             post :reorder_for_home_page, on: :collection
           end

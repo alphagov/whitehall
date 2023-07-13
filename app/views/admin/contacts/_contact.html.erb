@@ -15,7 +15,7 @@
       end),
     {
       label: "Delete",
-      href: [:admin, contactable, contact],
+      href: polymorphic_path([:confirm_destroy, :admin, contactable, contact]),
       destructive: true
     }
   ]
