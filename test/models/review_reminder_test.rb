@@ -59,4 +59,12 @@ class ReviewReminderTest < ActiveSupport::TestCase
     reminder = build(:review_reminder, review_at: 1.day.from_now)
     assert_not reminder.review_due?
   end
+
+  test "it resets reminder_sent_at when the review_at date is changed" do
+    reminder = create(:review_reminder, :with_reminder_sent_at)
+
+    reminder.update!(review_at: Time.zone.now + 10.days)
+
+    assert_nil reminder.reload.reminder_sent_at
+  end
 end
