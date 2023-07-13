@@ -14,25 +14,27 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   def new
     @worldwide_organisation.build_default_news_image
+    render :legacy_new
   end
 
   def create
     if @worldwide_organisation.update(worldwide_organisation_params)
       redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation created successfully"
     else
-      render :new
+      render :legacy_new
     end
   end
 
   def edit
     @worldwide_organisation.build_default_news_image
+    render :legacy_edit
   end
 
   def update
     if @worldwide_organisation.update(worldwide_organisation_params)
       redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation updated successfully"
     else
-      render :edit
+      render :legacy_edit
     end
   end
 

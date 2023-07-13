@@ -16,7 +16,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "presents a form to create a new worldwide organisation" do
     get :new
-    assert_template "worldwide_organisations/new"
+    assert_template :legacy_new
     assert_kind_of WorldwideOrganisation, assigns(:worldwide_organisation)
   end
 
