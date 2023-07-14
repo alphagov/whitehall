@@ -12,7 +12,6 @@ class Admin::EditionsController < Admin::BaseController
   before_action :build_edition, only: %i[new create]
   before_action :detect_other_active_editors, only: %i[edit update]
   before_action :set_edition_defaults, only: :new
-  before_action :build_edition_dependencies, only: %i[new edit]
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise]
   before_action :enforce_permissions!
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
@@ -84,7 +83,6 @@ class Admin::EditionsController < Admin::BaseController
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      build_edition_dependencies
       render :new
     end
   end
@@ -107,7 +105,6 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
-      build_edition_dependencies
       fetch_version_and_remark_trails
       construct_similar_slug_warning_error
       render :edit
@@ -116,7 +113,6 @@ class Admin::EditionsController < Admin::BaseController
     flash.now[:alert] = "This document has been saved since you opened it"
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
-    build_edition_dependencies
     render :edit
   end
 
@@ -342,10 +338,6 @@ private
     edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["alternative_url"] = nil unless checked
   end
 
-  def build_edition_dependencies
-    build_blank_image
-  end
-
   def set_edition_defaults
     build_default_organisation
     set_default_edition_locations
@@ -371,13 +363,6 @@ private
     end
     if edition_params[:supporting_organisation_ids]
       edition_params[:supporting_organisation_ids] = edition_params[:supporting_organisation_ids].reject(&:blank?)
-    end
-  end
-
-  def build_blank_image
-    if @edition.allows_image_attachments? && @edition.images.none?(&:new_record?)
-      image = @edition.images.build
-      image.build_image_data
     end
   end
 
