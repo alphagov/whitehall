@@ -6,7 +6,7 @@ class AttachemntTest < ActiveSupport::TestCase
 
     output = attachment.publishing_api_details
     assert_equal output.keys,
-                 %i[attachment_type id title url accessible alternative_format_contact_email filename]
+                 %i[attachment_type id title url accessible alternative_format_contact_email content_type filename]
   end
 
   test ".publishing_api_details includes publication attachment details for " \

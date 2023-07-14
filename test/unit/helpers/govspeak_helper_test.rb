@@ -103,7 +103,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should convert single document to govspeak" do
-    document = build(:published_publication, body: "## test")
+    document = build(:published_news_article, body: "## test")
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h2"
   end
@@ -113,28 +113,49 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should optionally not wrap output in a govspeak class" do
-    document = build(:published_publication, body: "govspeak-text")
+    document = build(:published_news_article, body: "govspeak-text")
     html = bare_govspeak_edition_to_html(document)
     assert_select_within_html html, ".govspeak", false
     assert_select_within_html html, "p", "govspeak-text"
   end
 
-  test "should add block attachments inline" do
-    text = "#Heading\n\n!@1\n\n##Subheading"
-    document = build(:published_detailed_guide, :with_file_attachment, body: text)
-    html = govspeak_edition_to_html(document)
-    assert_select_within_html html, "h1"
-    assert_select_within_html html, ".attachment.embedded"
-    assert_select_within_html html, "h2"
+  def edition_with_attachment(body:)
+    attachment = build(:file_attachment, title: "Green paper")
+    create(:published_detailed_guide, :with_file_attachment, attachments: [attachment], body:)
   end
 
-  test "should add inline attachments inline" do
-    text = "#Heading\n\nText about my [InlineAttachment:1]."
-    document = build(:published_detailed_guide, :with_file_attachment, body: text)
-    html = govspeak_edition_to_html(document)
-    assert_select_within_html html, "h1"
-    assert_select_within_html html, ".attachment-inline"
-    assert_includes strip_tags(html).gsub("\n", ""), " (PDF, )."
+  {
+    "legacy syntax" => "!@1",
+    "Govspeak syntax" => "[Attachment: greenpaper.pdf]",
+  }.each do |name, embed_code|
+    test "should embed block attachments using #{name}" do
+      body = "#Heading\n\n#{embed_code}\n\n##Subheading"
+      document = edition_with_attachment(body:)
+      html = govspeak_edition_to_html(document)
+      assert_select_within_html html, "h1", text: "Heading"
+      assert_select_within_html html, ".govspeak > p", count: 0
+      assert_select_within_html html, ".gem-c-attachment" do
+        assert_select ".gem-c-attachment__title", text: "Green paper"
+      end
+      assert_select_within_html html, "h2", text: "Subheading"
+    end
+  end
+
+  {
+    "legacy syntax" => "[InlineAttachment:1]",
+    "Govspeak syntax" => "[AttachmentLink: greenpaper.pdf]",
+  }.each do |name, embed_code|
+    test "should embed attachment links inline using #{name}" do
+      body = "#Heading\n\nText about my #{embed_code}."
+      document = edition_with_attachment(body:)
+      html = govspeak_edition_to_html(document)
+      assert_select_within_html html, "h1"
+      assert_select_within_html html, "p", count: 1 do |paragraph|
+        assert_equal "Text about my Green paper (PDF, 3.39 KB, 1 page).", collapse_whitespace(paragraph.text)
+      end
+      assert_select_within_html html, ".gem-c-attachment-link"
+      assert_select_within_html html, ".govuk-link"
+    end
   end
 
   test "should ignore missing block attachments" do
@@ -142,7 +163,7 @@ class GovspeakHelperTest < ActionView::TestCase
     document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
-    refute_select_within_html html, ".attachment.embedded"
+    refute_select_within_html html, ".gem-c-attachment"
     assert_select_within_html html, "h2"
   end
 
@@ -151,53 +172,67 @@ class GovspeakHelperTest < ActionView::TestCase
     document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
-    refute_select_within_html html, ".attachment-inline"
+    refute_select_within_html html, ".gem-c-attachment-link"
   end
 
   test "should not convert documents with no block attachments" do
     text = "#Heading\n\n!@2"
     document = build(:published_detailed_guide, body: text)
     html = govspeak_edition_to_html(document)
-    refute_select_within_html html, ".attachment.embedded"
+    refute_select_within_html html, ".gem-c-attachment"
   end
 
   test "should not convert documents with no inline attachments" do
     text = "#Heading\n\nText about my [InlineAttachment:2]."
     document = build(:published_detailed_guide, body: text)
     html = govspeak_edition_to_html(document)
-    refute_select_within_html html, ".attachment-inline"
+    refute_select_within_html html, ".gem-c-attachment-link"
   end
 
-  test "should convert multiple block attachments" do
-    text = "#heading\n\n!@1\n\n!@2"
-    document = build(
-      :published_detailed_guide,
-      :with_file_attachment,
-      body: text,
-      attachments: [
-        attachment1 = build(:file_attachment, id: 1),
-        attachment2 = build(:file_attachment, id: 2),
-      ],
-    )
-    html = govspeak_edition_to_html(document)
-    assert_select_within_html html, "#attachment_#{attachment1.id}"
-    assert_select_within_html html, "#attachment_#{attachment2.id}"
+  {
+    "legacy syntax" => "#heading\n\n!@1\n\n!@2",
+    "Govspeak syntax" => "#heading\n\n[Attachment: greenpaper.pdf]\n\n[Attachment: sample.csv]",
+    "a mixture of both legacy and Govspeak syntax" => "#heading\n\n[Attachment: greenpaper.pdf]\n\n!@2",
+  }.each do |name, document_body|
+    test "should convert multiple block attachments using #{name}" do
+      document = build(
+        :published_detailed_guide,
+        body: document_body,
+        attachments: [
+          create(:file_attachment, title: "First attachment", file: upload_fixture("greenpaper.pdf", "application/pdf")),
+          create(:file_attachment, title: "Second attachment", file: upload_fixture("sample.csv", "text/csv")),
+        ],
+      )
+      html = govspeak_edition_to_html(document)
+      assert_select_within_html html, ".govspeak > p", count: 0
+      assert_select_within_html html, ".govspeak h2", count: 2 do |matches|
+        assert_equal "First attachment", matches[0].text.strip
+        assert_equal "Second attachment", matches[1].text.strip
+      end
+    end
   end
 
-  test "should convert multiple inline attachments" do
-    text = "#Heading\n\nText about my [InlineAttachment:2] and [InlineAttachment:1]."
-    document = build(
-      :published_detailed_guide,
-      :with_file_attachment,
-      body: text,
-      attachments: [
-        attachment1 = build(:file_attachment, id: 1),
-        attachment2 = build(:file_attachment, id: 2),
-      ],
-    )
-    html = govspeak_edition_to_html(document)
-    assert_select_within_html html, "#attachment_#{attachment1.id}"
-    assert_select_within_html html, "#attachment_#{attachment2.id}"
+  {
+    "legacy syntax" => "#Heading\n\nText about my [InlineAttachment:1] and [InlineAttachment:2].",
+    "Govspeak syntax" => "#Heading\n\nText about my [AttachmentLink: greenpaper.pdf] and [AttachmentLink: sample.csv].",
+    "a mixture of both legacy and Govspeak syntax" => "#Heading\n\nText about my [AttachmentLink: greenpaper.pdf] and [InlineAttachment:2].",
+  }.each do |name, document_body|
+    test "should convert multiple inline attachments using #{name}" do
+      document = build(
+        :published_detailed_guide,
+        body: document_body,
+        attachments: [
+          create(:file_attachment, title: "First attachment", file: upload_fixture("greenpaper.pdf", "application/pdf")),
+          create(:file_attachment, title: "Second attachment", file: upload_fixture("sample.csv", "text/csv")),
+        ],
+      )
+      html = govspeak_edition_to_html(document)
+      assert_select_within_html html, "p", count: 1
+      assert_select_within_html html, ".gem-c-attachment-link", count: 2 do |matches|
+        assert_equal "First attachment (PDF, 3.39 KB, 1 page)", collapse_whitespace(matches[0].text)
+        assert_equal "Second attachment (CSV, 132 Bytes)", collapse_whitespace(matches[1].text)
+      end
+    end
   end
 
   test "should not escape embedded attachment when attachment embed code only separated by one newline from a previous paragraph" do
@@ -205,10 +240,10 @@ class GovspeakHelperTest < ActionView::TestCase
     document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_not html.include?("&lt;div"), "should not escape embedded attachment"
-    assert_select_within_html html, ".attachment.embedded"
+    assert_select_within_html html, ".gem-c-attachment__thumbnail"
   end
 
-  test "embeds image urls when using !!number as a markdown" do
+  test "embeds images using !!number syntax" do
     edition = build(:published_news_article, body: "!!1")
     image_data = create(:image_data, id: 1)
     edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg", image_data: ImageData.find(image_data.id))])
@@ -216,7 +251,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
   end
 
-  test "embeds image urls when using filename as a markdown" do
+  test "embeds images using [Image:] syntax" do
     edition = build(:published_news_article, body: "[Image: minister-of-funk.960x640.jpg]")
     image_data = create(:image_data, id: 1)
     edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg", image_data: ImageData.find(image_data.id))])
@@ -228,7 +263,7 @@ class GovspeakHelperTest < ActionView::TestCase
     remover = stub("remover")
     remover.expects(:remove).returns("remover return value")
     Whitehall::ExtraQuoteRemover.stubs(:new).returns(remover)
-    edition = build(:published_publication, body: %(He said:\n> "I'm not sure what you mean!"\nOr so we thought.))
+    edition = build(:published_news_article, body: %(He said:\n> "I'm not sure what you mean!"\nOr so we thought.))
     assert_match %r{remover return value}, govspeak_edition_to_html(edition)
   end
 
@@ -394,44 +429,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "span.fraction > img[alt='1/x']"
   end
 
-  test "govspeak_with_attachments_and_alt_format_information" do
-    body = "#Heading\n\n!@1\n\n##Subheading"
-    document = build(:published_detailed_guide, :with_file_attachment, body:)
-    attachments = document.attachments
-    html = govspeak_with_attachments_to_html(body, attachments, "batman@wayne.technology")
-    assert html.include? ">batman@wayne.technology</a>"
-  end
-
-  test "should not sanitise Details element for Editions that allow inline attachments" do
-    text = "#Heading\n\n!@1\n\n##Subheading."
-    document = build(
-      :published_detailed_guide,
-      :with_file_attachment,
-      body: text,
-      attachments: [build(:file_attachment, id: 1)],
-    )
-    html = govspeak_edition_to_html(document)
-    assert html.include?("<details class=\"gem-c-details")
-  end
-
-  test "should sanitise Details for Editions that do not allow inline attachments " do
-    text = "#Heading\n\n!@1\n\n##Subheading"
-    document = build(
-      :consultation_with_outcome_file_attachment,
-      body: text,
-    )
-    html = govspeak_edition_to_html(document)
-    assert_not html.include?("<details class=\"gem-c-details")
-  end
-
-  test "should not sanitise Details element for documents with attachments" do
-    body = "#Heading\n\n!@1\n\n##Subheading"
-    document = build(:published_detailed_guide, :with_file_attachment, body:)
-    attachments = document.attachments
-    html = govspeak_with_attachments_to_html(body, attachments, "email@example.com")
-    assert html.include?("<details class=\"gem-c-details")
-  end
-
   test "should convert a HTML attachment" do
     html_attachment = create(:html_attachment, body: "## A heading")
     html = govspeak_html_attachment_to_html(html_attachment)
@@ -463,5 +460,34 @@ class GovspeakHelperTest < ActionView::TestCase
     html_attachment = create(:html_attachment, body: "## A heading", manually_numbered_headings: true)
     html = govspeak_html_attachment_to_html(html_attachment)
     assert_select_within_html html, ".govspeak h2", text: "A heading", count: 1
+  end
+
+  test "HTML attachments cannot embed attachments from their parent edition" do
+    body = <<~MARKDOWN
+      Every way to embed an attachment:
+
+      [InlineAttachment:1]
+      [AttachmentLink:sample.csv]
+      !@1
+      [Attachment:sample.csv]
+    MARKDOWN
+
+    create(
+      :published_publication,
+      attachments: [
+        build(:file_attachment, file: upload_fixture("sample.csv", "text/csv")),
+        html_attachment = build(:html_attachment, body:),
+      ],
+      alternative_format_provider: build(:organisation, :with_alternative_format_contact_email),
+    )
+
+    html = govspeak_html_attachment_to_html(html_attachment)
+    assert_equivalent_html '<div class="govspeak"><p>Every way to embed an attachment:</p></div>', html
+  end
+
+private
+
+  def collapse_whitespace(string)
+    string.gsub(/\s+/, " ").strip
   end
 end

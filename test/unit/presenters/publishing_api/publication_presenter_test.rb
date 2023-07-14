@@ -1,8 +1,6 @@
 require "test_helper"
 
 class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
-  include InlineSvg::ActionView::Helpers
-
   def present(edition)
     edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
     PublishingApi::PublicationPresenter.new(edition)
@@ -43,7 +41,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
           browse_pages: [],
           topics: [],
         },
-        documents: ["<section class=\"attachment embedded\" data-ga4-attachment-link=\"\" id=\"attachment_#{publication.attachments.first.id}\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" tabindex=\"-1\" href=\"/government/publications/publication-title/#{publication.attachments.first.title}\">#{inline_svg_tag('attachment-icons/html.svg', aria_hidden: true)}</a>\n  </div>\n  <div class=\"attachment-details\">\n    <h3 class=\"title govuk-!-font-size-27 govuk-!-font-weight-regular\"><a class=\"govuk-link\" href=\"/government/publications/publication-title/#{publication.attachments.first.title}\">#{publication.attachments.first.title}</a></h3>\n    <p class=\"govuk-body metadata\">\n        <span class=\"type\">HTML</span>\n    </p>\n\n\n  </div>\n</section>"],
+        documents: Whitehall::GovspeakRenderer.new.block_attachments(publication.attachments),
         first_public_at: publication.first_public_at,
         change_history: [
           { public_timestamp: publication.public_timestamp, note: "change-note" }.as_json,
