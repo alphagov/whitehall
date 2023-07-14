@@ -172,7 +172,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "use_non_legacy_endpoints is false - POST :create triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = valid_file_attachment_params
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
@@ -182,7 +182,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_file_attachment_params
     variant = Asset.variants[:original]
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, kind_of(Integer), variant, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, kind_of(Integer), variant, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
@@ -357,7 +357,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "use_non_legacy_endpoints is false - PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = create(:file_attachment, attachable: @edition)
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     put :update,
         params: {
@@ -376,7 +376,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:file_attachment, attachable: @edition)
     variant = Asset.variants[:original]
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, kind_of(Integer), variant, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, kind_of(Integer), variant, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     put :update,
         params: {
@@ -447,8 +447,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
     whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), regexp_matches(/whitepaper/), anything, anything, anything, anything, anything, anything).never
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), regexp_matches(/greenpaper/), anything, anything, anything, anything, anything, anything).times(2)
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), regexp_matches(/whitepaper/), anything, anything, anything, anything).never
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), regexp_matches(/greenpaper/), anything, anything, anything, anything).times(2)
 
     post :create,
          params: {
@@ -468,8 +468,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
     whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), regexp_matches(/whitepaper/), anything, anything, anything, anything, anything, anything).never
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), regexp_matches(/greenpaper/), anything, anything, anything, anything, anything, anything).times(2)
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), regexp_matches(/whitepaper/), anything, anything, anything, anything).never
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), regexp_matches(/greenpaper/), anything, anything, anything, anything).times(2)
 
     put :update,
         params: {

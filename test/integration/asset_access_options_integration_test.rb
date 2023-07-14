@@ -13,9 +13,9 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       login_as managing_editor
+      @current_user = managing_editor
       stub_publishing_api_has_linkables([], document_type: "topic")
     end
-
     context "given a draft document with file attachment" do
       let(:edition) { create(:news_article, organisations: [organisation]) }
 
@@ -109,7 +109,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "given an access-limited draft document" do
+    context "given an access-limited draft document when user does not have use_non_legacy_endpoints permission" do
       # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
       let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
 
@@ -201,7 +201,69 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "given a consultation" do
+    context "given an access-limited draft document when user has use_non_legacy_endpoints permission" do
+      # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
+      let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
+
+      before do
+        setup_user_with_required_permission
+        setup_publishing_api_for(edition)
+      end
+
+      context "when an attachment is added to the draft document" do
+        before do
+          visit admin_news_article_path(edition)
+          click_link "Add attachments"
+          click_link "Upload new file attachment"
+          fill_in "Title", with: "asset-title"
+          attach_file "File", path_to_attachment("logo.png")
+          click_button "Save"
+          assert_text "Attachment 'asset-title' uploaded"
+        end
+
+        it "marks attachment as access limited and sends it with an auth_bypass_id in Asset Manager" do
+          Services.asset_manager.expects(:create_asset).with(
+            has_entries(
+              access_limited: %w[user-uid],
+              auth_bypass_ids: [edition.auth_bypass_id],
+            ),
+          ).returns("id" => "http://asset-manager/assets/some-id")
+          AssetManagerCreateAssetWorker.drain
+        end
+      end
+
+      context "when bulk uploaded to draft document" do
+        before do
+          setup_user_with_required_permission
+          visit admin_news_article_path(edition)
+          click_link "Add attachments"
+          click_link "Bulk upload from Zip file"
+          attach_file "Zip file", path_to_attachment("sample_attachment.zip")
+          click_button "Upload zip"
+          fill_in "Title", with: "file-title"
+          click_button "Save"
+          assert find("table td a", text: "greenpaper.pdf")
+        end
+        it "marks attachment as access limited in Asset Manager" do
+          Services.asset_manager.expects(:create_asset).with(
+            has_entries(
+              access_limited: %w[user-uid],
+              auth_bypass_ids: [edition.auth_bypass_id],
+            ),
+          ).returns("id" => "http://asset-manager/assets/some-id")
+          Services.asset_manager.expects(:create_asset).with(
+            has_entries(
+              access_limited: %w[user-uid],
+              auth_bypass_ids: [edition.auth_bypass_id],
+            ),
+          ).returns("id" => "http://asset-manager/assets/some-id")
+
+          AssetManagerCreateAssetWorker.drain
+        end
+      end
+    end
+
+    context "given a consultation when user does not have use_non_legacy_endpoints permission" do
       # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
       let(:edition) { create(:consultation, organisations: [organisation], access_limited: true) }
       let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
@@ -256,6 +318,42 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
+    context "given a consultation when user has use_non_legacy_endpoints permission" do
+      # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
+      let(:edition) { create(:consultation, organisations: [organisation], access_limited: true) }
+      let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
+      let!(:outcome) { edition.create_outcome!(outcome_attributes) }
+
+      before do
+        setup_user_with_required_permission
+        setup_publishing_api_for(edition)
+        stub_publishing_api_has_linkables([], document_type: "topic")
+      end
+
+      context "when an attachment is added to the consultation's outcome" do
+        before do
+          visit admin_consultation_path(edition)
+          click_link "Edit draft"
+          click_link "Final outcome"
+          click_link "Upload new file attachment"
+          fill_in "Title", with: "asset-title"
+          attach_file "File", path_to_attachment("logo.png")
+          click_button "Save"
+          assert_text "Attachment 'asset-title' uploaded"
+        end
+
+        it "marks attachment as access limited in Asset Manager and sends with the consultation's auth_bypass_id" do
+          Services.asset_manager.expects(:create_asset).with(
+            has_entries(
+              access_limited: %w[user-uid],
+              auth_bypass_ids: [edition.auth_bypass_id],
+            ),
+          ).returns("id" => "http://asset-manager/assets/some-id")
+          AssetManagerCreateAssetWorker.drain
+        end
+      end
+    end
+
     context "given an access-limited draft document with file attachment" do
       let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
 
@@ -288,23 +386,46 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         end
 
         context "when attachment is replaced" do
-          before do
-            visit admin_news_article_path(edition)
-            click_link "Modify attachments"
-            click_link "Edit"
-            attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
-            click_button "Save"
-            assert_text "Attachment 'logo.png' updated"
-          end
-
-          it "marks replacement attachment as access limited in Asset Manager" do
-            Services.asset_manager.expects(:create_whitehall_asset).with do |params|
-              params[:legacy_url_path] =~ /big-cheese/ &&
-                params[:access_limited] == %w[user-uid] &&
-                params[:auth_bypass_ids] == [edition.auth_bypass_id]
+          context "with user not having USE_NON_LEGACY_ENDPOINTS permission" do
+            before do
+              visit admin_news_article_path(edition)
+              click_link "Modify attachments"
+              click_link "Edit"
+              attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
+              click_button "Save"
+              assert_text "Attachment 'logo.png' updated"
             end
 
-            AssetManagerCreateWhitehallAssetWorker.drain
+            it "marks replacement attachment as access limited in Asset Manager" do
+              Services.asset_manager.expects(:create_whitehall_asset).with do |params|
+                params[:legacy_url_path] =~ /big-cheese/ &&
+                  params[:access_limited] == %w[user-uid] &&
+                  params[:auth_bypass_ids] == [edition.auth_bypass_id]
+              end
+
+              AssetManagerCreateWhitehallAssetWorker.drain
+            end
+          end
+
+          context "with user having USE_NON_LEGACY_ENDPOINTS permission" do
+            before do
+              @current_user.permissions << User::Permissions::USE_NON_LEGACY_ENDPOINTS
+              visit admin_news_article_path(edition)
+              click_link "Modify attachments"
+              click_link "Edit"
+              attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
+              click_button "Save"
+              assert_text "Attachment 'logo.png' updated"
+            end
+
+            it "marks replacement attachment as access limited in Asset Manager" do
+              Services.asset_manager.expects(:create_asset).with { |params|
+                params[:access_limited] == %w[user-uid] &&
+                  params[:auth_bypass_ids] == [edition.auth_bypass_id]
+              }.returns("id" => "http://asset-manager/assets/some-id")
+
+              AssetManagerCreateAssetWorker.drain
+            end
           end
         end
       end
@@ -339,27 +460,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
                     .at_least_once.with(asset_manager_id, has_entry("access_limited", []))
 
             AssetManagerAttachmentMetadataWorker.drain
-          end
-        end
-
-        context "when attachment is replaced" do
-          before do
-            visit admin_news_article_path(edition)
-            click_link "Modify attachments"
-            click_link "Edit"
-            attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
-            click_button "Save"
-            assert_text "Attachment 'logo.png' updated"
-          end
-
-          it "marks replacement attachment as access limited in Asset Manager" do
-            Services.asset_manager.expects(:create_whitehall_asset).with do |params|
-              params[:legacy_url_path] =~ /big-cheese/ &&
-                params[:access_limited] == %w[user-uid] &&
-                params[:auth_bypass_ids] == [edition.auth_bypass_id]
-            end
-
-            AssetManagerCreateWhitehallAssetWorker.drain
           end
         end
       end
@@ -407,6 +507,10 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
     def ends_with(expected)
       ->(actual) { actual.end_with?(expected) }
+    end
+
+    def setup_user_with_required_permission
+      @current_user.permissions << User::Permissions::USE_NON_LEGACY_ENDPOINTS
     end
   end
 end

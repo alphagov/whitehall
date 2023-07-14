@@ -49,8 +49,8 @@ class AssetManagerIntegrationTest
       end
 
       test "sends the attachment to Asset Manager" do
-        Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
-                .returns("id" => "http://asset-manager/assets/asset_manager_id")
+        Services.asset_manager.expects(:asset).with(anything).returns("id" => "http://asset-manager/assets/asset_manager_id")
+        Services.asset_manager.expects(:create_asset).with(file_matching(/#{@filename}/)).returns("id" => "http://asset-manager/assets/asset_manager_id")
 
         Sidekiq::Testing.inline! do
           @attachment.save!
@@ -58,7 +58,8 @@ class AssetManagerIntegrationTest
       end
 
       test "marks the attachment as draft in Asset Manager" do
-        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
+        Services.asset_manager.expects(:asset).with(anything).returns("id" => "http://asset-manager/assets/asset_manager_id")
+        Services.asset_manager.expects(:create_asset).with(has_entry(draft: true))
                 .returns("id" => "http://asset-manager/assets/asset_manager_id")
 
         Sidekiq::Testing.inline! do
@@ -74,10 +75,10 @@ class AssetManagerIntegrationTest
         @attachment.attachment_data.attachable = consultation
         @attachment.save!
 
-        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+        Services.asset_manager.expects(:create_asset).with(has_entry(access_limited: [user.uid]))
                 .returns("id" => "http://asset-manager/assets/asset_manager_id")
 
-        AssetManagerCreateWhitehallAssetWorker.drain
+        AssetManagerCreateAssetWorker.drain
       end
     end
   end
