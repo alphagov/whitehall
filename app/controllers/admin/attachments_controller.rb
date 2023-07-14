@@ -108,7 +108,7 @@ private
   end
 
   def attachment_params
-    params.fetch(:attachment, {}).permit(
+    attachment_params = params.fetch(:attachment, {}).permit(
       :title,
       :locale,
       :isbn,
@@ -123,6 +123,8 @@ private
       govspeak_content_attributes: %i[id body manually_numbered_headings],
       attachment_data_attributes: %i[file to_replace_id file_cache],
     ).merge(attachable:)
+
+    clear_file_cache(attachment_params)
   end
 
   def type
@@ -204,5 +206,13 @@ private
 
   def use_non_legacy_endpoints?
     current_user.can_use_non_legacy_endpoints?
+  end
+
+  def clear_file_cache(attachment_params)
+    if attachment_params.dig(:attachment_data_attributes, :file_cache).present? && attachment_params.dig(:attachment_data_attributes, :file).present?
+      attachment_params[:attachment_data_attributes].delete(:file_cache)
+    end
+
+    attachment_params
   end
 end

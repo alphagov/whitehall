@@ -442,6 +442,47 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal "whitepaper.pdf", attachment.filename
   end
 
+  test "POST :discards file_cache when a file is provided" do
+    greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
+    whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
+    whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
+
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), regexp_matches(/whitepaper/), anything, anything, anything, anything, anything, anything).never
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), regexp_matches(/greenpaper/), anything, anything, anything, anything, anything, anything).times(2)
+
+    post :create,
+         params: {
+           edition_id: @edition,
+           type: "file",
+           attachment: {
+             title: "New title",
+             attachment_data_attributes: { file: greenpaper_pdf, file_cache: whitepaper_attachment_data.file_cache },
+           },
+         }
+  end
+
+  test "PUT :discards file_cache when a file is provided" do
+    attachment = create(:file_attachment, attachable: @edition)
+    attachment_data = attachment.attachment_data
+    greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
+    whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
+    whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
+
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), regexp_matches(/whitepaper/), anything, anything, anything, anything, anything, anything).never
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), regexp_matches(/greenpaper/), anything, anything, anything, anything, anything, anything).times(2)
+
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment.id,
+          type: "file",
+          attachment: {
+            title: "New title",
+            attachment_data_attributes: { file: greenpaper_pdf, file_cache: whitepaper_attachment_data.file_cache, to_replace_id: attachment_data.id },
+          },
+        }
+  end
+
   test "attachment access is forbidden for users without access to the edition" do
     login_as :world_editor
     get :new, params: { edition_id: @edition }
