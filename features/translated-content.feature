@@ -8,7 +8,7 @@ Feature: Providing translated content from gov.uk/government
     And I have drafted a translatable document "Military officer exchange"
     When I add a french translation "Échange officier de l'armée" to the "Military officer exchange" document
     Then I should see on the admin edition page that "Military officer exchange" has a french translation "Échange officier de l'armée"
-
+  @design-system-wip
   Scenario: Adding a translation for contact details
     Given I am a GDS editor
     And the organisation "Wales Office" is translated into Welsh and has a contact "Wales Office, Cardiff"

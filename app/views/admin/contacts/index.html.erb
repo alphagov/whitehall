@@ -14,6 +14,8 @@
 
 <%= render "govuk_publishing_components/components/heading", {
   text: "Contacts",
+  heading_level: 2,
+  font_size: "l",
   margin_bottom: 6,
 } %>
 
@@ -26,26 +28,7 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @contactable.contacts.present? %>
       <%= render "govuk_publishing_components/components/tabs", {
-        tabs: [
-          *(
-            if @contactable.contacts.reject(&:foi?).present?
-              [{
-                 id: "general_and_media_contacts",
-                 title: "General and media contacts",
-                 label: "General and media contacts",
-                 content: render(@contactable.contacts.reject(&:foi?), contactable: @contactable) || content_tag(:p, 'No contacts')
-               }]
-            end),
-          *(
-            if @contactable.contacts.select(&:foi?).present?
-              [{
-                 id: "freedom_of_information_contacts",
-                 title: "Freedom of information contacts",
-                 label: "Freedom of information contacts",
-                 content: render(@contactable.contacts.select(&:foi?), contactable: @contactable) || content_tag(:p, 'No contacts')
-               }]
-            end),
-        ]
+        tabs: contact_tabs(@contactable.contacts,@contactable)
       }
       %>
     <% else %>

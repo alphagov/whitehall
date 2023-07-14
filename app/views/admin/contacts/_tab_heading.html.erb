@@ -1,0 +1,11 @@
+<div class="govuk-body">
+  <%= render "govuk_publishing_components/components/heading", {
+    text: title_text,
+    heading_level: 2,
+    font_size: "m",
+    margin_bottom: 4,
+  } %>
+  <% if @contactable.contacts.many? %>
+    <%= link_to("Reorder", "", class: "govuk-link") %>
+  <% end %>
+</div>
