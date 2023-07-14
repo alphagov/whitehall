@@ -26,9 +26,11 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     if should_save_an_asset?
       model_id = uploader.model.id
       asset_variant = legacy_url_path.include?("thumbnail") ? Asset.variants[:thumbnail] : Asset.variants[:original]
+      AssetManagerCreateAssetWorker.perform_async(temporary_location, model_id, asset_variant, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
+    else
+      AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path, model_id, asset_variant, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
     end
 
-    AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path, model_id, asset_variant, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
     File.new(uploader.store_path)
   end
 
