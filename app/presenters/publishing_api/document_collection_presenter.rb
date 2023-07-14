@@ -43,6 +43,7 @@ module PublishingApi
         %i[organisations topics parent government],
       )
       links[:documents] = item.content_ids.uniq
+      links[:taxonomy_topic_email_override] = [item.taxonomy_topic_email_override] if item.taxonomy_topic_email_override
       links.merge!(PayloadBuilder::TopicalEvents.for(item))
     end
 
