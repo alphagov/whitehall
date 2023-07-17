@@ -1,4 +1,4 @@
-class Admin::AuditTrailEntryComponent < ViewComponent::Base
+class Admin::LegacyAuditTrailEntryComponent < ViewComponent::Base
   include ApplicationHelper
 
   attr_reader :version

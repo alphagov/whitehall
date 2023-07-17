@@ -38,6 +38,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
                   .versions_desc
                   .page(params[:page])
                   .per(VERSIONS_PER_PAGE)
+    render :legacy_show
   end
 
   def access_info
