@@ -1,11 +1,13 @@
 <div class="govuk-body">
-  <%= render "govuk_publishing_components/components/heading", {
-    text: title_text,
-    heading_level: 2,
-    font_size: "m",
-    margin_bottom: 4,
+  <%= render "govuk_publishing_components/components/summary_list", {
+    title: title_text,
+    edit: if (contactable.home_page_contacts.many? && contacts.none?(&:foi?))
+            {
+              href: reorder_admin_organisation_contacts_path,
+              link_text: "Reorder",
+            }
+          else
+            {}
+          end
   } %>
-  <% if @contactable.contacts.many? %>
-    <%= link_to("Reorder", "", class: "govuk-link") %>
-  <% end %>
 </div>

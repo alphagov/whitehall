@@ -14,32 +14,32 @@ module Admin::ContactsHelper
 
   def general_and_media_contacts_tab(contacts, contactable)
     title_text = "General and media contacts"
-    general_contacts = contacts.reject(&:foi?)
+    general_contacts = (contactable.home_page_contacts+contacts.reject(&:foi?)).uniq
     if general_contacts.present?
       {
         id: "general_and_media_contacts",
-        title: tab_title(title_text, general_contacts),
+        title: tab_title(title_text, general_contacts,contactable),
         label: title_text,
         content: render("admin/contacts/contacts", contacts: general_contacts, contactable:, title: "Translated general and media contacts")
       }
     end
   end
 
-  def freedom_of_information_contacts_tab(contacts, contactable)
+  def freedom_of_information_contacts_tab(contacts,contactable)
     title_text = "Freedom of information contacts"
     foi_contacts = contacts.select(&:foi?)
     if foi_contacts.present?
       {
         id: "freedom_of_information_contacts",
-        title: tab_title(title_text, foi_contacts),
+        title: tab_title(title_text, foi_contacts,contactable),
         label: title_text,
         content: render("admin/contacts/contacts", contacts: foi_contacts, contactable:, title: "Translated freedom of information contacts")
       }
     end
   end
 
-  def tab_title(title_text, contacts)
-    render("admin/contacts/tab_heading", title_text: title_text, contacts: contacts)
+  def tab_title(title_text, contacts,contactable)
+    render("admin/contacts/tab_heading", title_text: title_text, contacts: contacts,contactable:contactable)
   end
 
   def contact_rows(contact, contactable)

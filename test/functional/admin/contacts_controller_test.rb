@@ -252,6 +252,16 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert organisation.contact_shown_on_home_page?(contact)
   end
 
+  view_test "GET :should be able to visit reorder page" do
+    organisation = create(:organisation)
+
+    get :reorder, params: {organisation_id: organisation }
+
+    assert_template :reorder
+    assert_response :success
+    assert_select "h1", "Reorder contacts"
+  end
+
   test "POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this" do
     organisation = create(:organisation)
     contact1 = organisation.contacts.create!(title: "Head office", contact_type: ContactType::General)

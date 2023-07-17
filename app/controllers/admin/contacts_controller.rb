@@ -48,6 +48,7 @@ class Admin::ContactsController < Admin::BaseController
       render_design_system(:edit, :legacy_edit)
     end
   end
+  def reorder; end
 
   extend Admin::HomePageListController
   is_home_page_list_controller_for :contacts,
@@ -59,7 +60,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[new edit create update index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[new edit create update index reorder] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
