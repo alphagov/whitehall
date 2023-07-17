@@ -35,15 +35,4 @@ class AdminAnalyticsTest < ActionDispatch::IntegrationTest
     visit admin_root_path
     assert_dimension_is_set(8, with_value: "(not set)")
   end
-
-  test "does not send GA event for logged in users on non admin pages with the preview design system permission" do
-    organisation = create(:worldwide_organisation)
-
-    login_as(create(:user, :with_preview_design_system, name: "user-name", email: "user@example.com", organisation_slug: "ministry-of-lindy-hop"))
-    visit admin_root_path
-    assert_dimension_is_set(8, with_value: "ministry-of-lindy-hop")
-
-    visit worldwide_organisation_path(organisation)
-    refute_dimension_is_set(8)
-  end
 end

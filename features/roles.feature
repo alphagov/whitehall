@@ -21,14 +21,12 @@ Feature: Administering Roles
     And a person called "Giles Paxman"
     When I add a new "Ambassador" role named "Her Majesty's Ambassador to Spain" to the "British embassy in Spain" worldwide organisation
     Then I should be able to appoint "Giles Paxman" to the new role
-    And I should see him listed as "Her Majesty's Ambassador to Spain" on the worldwide organisation page
 
   Scenario: Adding a deputy role to a worldwide organisation
     Given the worldwide organisation "British embassy in Spain" exists
     And a person called "Andrew Tomkins"
     When I add a new "Deputy head of mission" role named "Deputy Head of Mission" to the "British embassy in Spain" worldwide organisation
     Then I should be able to appoint "Andrew Tomkins" to the new role
-    And I should see him listed as "Deputy Head of Mission" on the worldwide organisation page
 
   Scenario: Adding a new translation
     Given the worldwide organisation "British embassy in Spain" exists

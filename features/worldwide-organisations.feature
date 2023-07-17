@@ -22,35 +22,24 @@ Feature: Administering worldwide organisation
   Scenario: Creating worldwide organisation
     Given the organisation "Department of Beards" exists
     When I create a worldwide organisation "Department of Beards in France" sponsored by the "Department of Beards"
-    Then I should see the worldwide organisation information on the public website
-    And the "Department of Beards in France" logo should show correctly with the HMG crest
-    And I should see that it is part of the "Department of Beards"
+    Then I should be able to see "Department of Beards in France" in the list of worldwide organisations
     Then I should see a create record in the audit trail for the worldwide organisation
     When I update the worldwide organisation to set the name to "Department of Beards and Moustaches in France"
-    Then I should see the updated worldwide organisation information on the public website
+    Then I should be able to see "Department of Beards and Moustaches in France" in the list of worldwide organisations
     Then I should see an update record in the audit trail for the worldwide organisation
     When I delete the worldwide organisation
-    Then the worldwide organisation should not be visible from the public website
+    Then I should not be able to see "Department of Beards and Moustaches in France" in the list of worldwide organisations
 
   Scenario: Managing social media links
     Given a worldwide organisation "Department of Beards in France"
     Given a social media service "Twooter"
     When I add a "Twooter" social media link "http://twooter.com/beards-in-france" to the worldwide organisation
-    Then the "Twooter" social link should be shown on the public website for the worldwide organisation
-
-  Scenario: Managing social media links in multiple locales
-    Given a worldwide organisation "Department of Beards in France" exists with a translation for the locale "Français"
-    Given a social media service "Twooter"
-    When I add a "Twooter" social media link "http://twooter.com/beards-in-france" with the title "Link in English" to the worldwide organisation
-    Then the "Twooter" social link called "Link in English" should be shown on the public website for the worldwide organisation
-    When I edit a "Twooter" social media link "http://twooter.com/beards-in-france-in-french" with the title "Link in French" for the locale "fr" for the worldwide organisation
-    Then the "Twooter" social link called "Link in French" should be shown on the public website with locale "fr" for the worldwide organisation
+    Then I should be able to see the "Twooter" social service for the worldwide organisation
 
   Scenario: Managing office information
     Given a worldwide organisation "Department of Beards in France"
     When I add an "Hair division" office for the home page with address, phone number, and some services
-    Then the "Hair division" office details should be shown on the public website
-    And I should be able to remove all services from the "Hair division" office
+    Then I should be able to remove all services from the "Hair division" office
 
   Scenario: Creating a worldwide organisation in a particular world location
     Given that the world location "France" exists
@@ -60,17 +49,15 @@ Feature: Administering worldwide organisation
   Scenario: Choosing the main office for a worldwide organisation with multiple offices
     Given a worldwide organisation "Department of Beards in France" with offices "Head office" and "Branch office"
     When I choose "Branch office" to be the main office
-    Then the "Branch office" should be shown as the main office on the public website
+    Then the "Branch office" should be marked as the main office
     When I choose "Head office" to be the main office
-    Then the "Head office" should be shown as the main office on the public website
+    Then the "Head office" should be marked as the main office
 
   Scenario: Adding default access information to a worldwide organisation
     Given a worldwide organisation "Department of Beards in France" with offices "Head office" and "Branch office"
     When I add default access information to the worldwide organisation
     Then I should see the default access information on the edit "Head office" office page
     And I should see the default access information on the edit "Branch office" office page
-    And I should see a link on the worldwide organisation page to the access details of the "Head office" office
-    And I should see a link on the worldwide organisation page to the access details of the "Branch office" office
 
   Scenario: Editing the default access information for a worldwide organisation
     Given a worldwide organisation "Department of Beards in France" with default access information
@@ -83,8 +70,6 @@ Feature: Administering worldwide organisation
     When I give "Head office" custom access information
     Then I should see custom access information on the edit "Head office" office page
     And I should see the default access information on the edit "Branch office" office page
-    And I should see a link on the worldwide organisation page to the access details of the "Head office" office
-    And I should see a link on the worldwide organisation page to the access details of the "Branch office" office
 
   Scenario: Adding a corporate information page to a worldwide organisation
     Given a worldwide organisation "Department of Beards in France"
@@ -97,15 +82,7 @@ Feature: Administering worldwide organisation
     When I add a new translation to the worldwide organisation "Department of Beards in France" with:
       | locale | Français                         |
       | name   | Département des barbes en France |
-    Then when viewing the worldwide organisation "Department of Beards in France" with the locale "fr" I should see:
-      | name | Département des barbes en France |
-
-  Scenario: Editing an existing translation
-    Given a worldwide organisation "Department of Beards in France" exists with a translation for the locale "Français"
-    When I edit the "Français" translation for the worldwide organisation "Department of Beards in France" setting:
-      | name | Le super département des barbes en France |
-    Then when viewing the worldwide organisation "Department of Beards in France" with the locale "fr" I should see:
-      | name | Le super département des barbes en France |
+    Then I should see the language "Français" ("French") for "Département des barbes en France" ("Department of Beards in France") when viewing the worldwide organisation translations
 
   Scenario: Translating a corporate information page for a worldwide organisation
     Given a worldwide organisation "Department of Beards in France"
