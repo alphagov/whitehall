@@ -9,6 +9,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
+  before_action :set_creator_for_review_reminder, only: %i[create update]
   before_action :build_edition, only: %i[new create]
   before_action :detect_other_active_editors, only: %i[edit update]
   before_action :set_edition_defaults, only: :new
@@ -293,7 +294,6 @@ private
               id
               email_address
               review_at
-              creator_id
               _destroy
             ],
           },
@@ -352,6 +352,12 @@ private
   def build_nation_params(nation_id:, checked:)
     edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["excluded"] = checked ? "1" : "0"
     edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["alternative_url"] = nil unless checked
+  end
+
+  def set_creator_for_review_reminder
+    return if edition_params.dig("document_attributes", "review_reminder_attributes").blank?
+
+    edition_params["document_attributes"]["review_reminder_attributes"]["creator_id"] = current_user.id
   end
 
   def build_edition_dependencies

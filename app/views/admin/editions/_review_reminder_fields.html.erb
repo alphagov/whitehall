@@ -1,8 +1,6 @@
 <div class="govuk-!-margin-bottom-8">
   <%= form.fields_for :document do |document_form| %>
     <%= document_form.fields_for :review_reminder do |review_reminder_form| %>
-      <%= hidden_field_tag "edition[document_attributes][review_reminder_attributes][creator_id]", current_user.id %>
-
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: "review_reminder",
         id: "review_reminder",
