@@ -44,12 +44,15 @@ describe('GOVUK.Modules.EditionForm', function () {
       editionForm.init()
     })
 
-    it('should hide the ministers and organisation fields on page load', function () {
+    it('should hide the ministers field & reset and hide the organisation fields on page load', function () {
       var ministersFields = form.querySelector('.app-view-edit-edition__appointment-fields')
       var organisationFields = form.querySelector('.app-view-edit-edition__organisation-fields')
 
       expect(ministersFields.classList).toContain('app-view-edit-edition__appointment-fields--hidden')
       expect(organisationFields.classList).toContain('app-view-edit-edition__organisation-fields--hidden')
+      organisationFields.querySelectorAll('select').forEach(function (select) {
+        expect(select.value).toBe('')
+      })
     })
 
     it('should reset & hide the locale & world location fields, and show the organisation and ministers fields when WorldNewsStory is deselected', function () {
