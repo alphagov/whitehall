@@ -46,7 +46,9 @@ private
   end
 
   def state
-    if edition.force_published?
+    if edition.force_scheduled?
+      "Force scheduled"
+    elsif edition.force_published?
       "Force published"
     elsif edition.unpublishing.present? && !edition.withdrawn?
       "Unpublished"
@@ -57,7 +59,7 @@ private
 
   def colour(label)
     case label
-    when "Force published", "Link warnings"
+    when "Force published", "Link warnings", "Force scheduled"
       "govuk-tag--yellow"
     when "Draft"
       "govuk-tag--blue"
