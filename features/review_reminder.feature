@@ -13,7 +13,7 @@ Feature: Review reminders
 
   Scenario: Creating a review date for a published publication
     Given a published publication "Standard Beard Lengths" with a PDF attachment
-    When I click the button "Create new review date" on the edition summary page for "Standard Beard Lengths"
+    When I click the button "Set review date" on the edition summary page for "Standard Beard Lengths"
     And I add a review date of "2033-1-1" and the email address "test@gmail.com"
     Then I should see the review date of "1 January 2033" on the edition summary page
 

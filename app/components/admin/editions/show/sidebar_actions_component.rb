@@ -250,7 +250,7 @@ private
   def add_review_reminder_action
     if @edition.publicly_visible? && @edition.document.latest_edition == @edition
       review_reminder = @edition.document.review_reminder
-      text = review_reminder.present? ? "Edit review date" : "Create new review date"
+      text = review_reminder.present? ? "Edit review date" : "Set review date"
       href = review_reminder.present? ? edit_admin_document_review_reminder_path(@edition.document, @edition.document.review_reminder) : new_admin_document_review_reminder_path(@edition.document)
       actions << render("govuk_publishing_components/components/button", {
         text:,
