@@ -701,6 +701,10 @@ EXISTS (
     website_root + public_path(options)
   end
 
+  def force_scheduled?
+    force_published? && state == "scheduled"
+  end
+
 private
 
   def date_for_government
