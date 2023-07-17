@@ -1,0 +1,35 @@
+<% content_for :context, params[:title] %>
+<% content_for :page_title, "Reorder list" %>
+<% content_for :title, "Reorder list" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: order_admin_organisation_people_path(@organisation), method: :put do %>
+      <%= hidden_field_tag :type, params[:type] %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Use the up and down buttons to reorder pages, or select and hold on a page to reorder using drag and drop.",
+        margin_bottom: 4,
+      } %>
+
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        items: @organisation_roles.map do |organisation_role|
+          {
+            id: organisation_role.id,
+            title: organisation_role.role.name,
+            description: organisation_role.role.current_person ? organisation_role.role.current_person_name : "Vacant",
+            value: organisation_role.ordering
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update order",
+        } %>
+
+        <%= link_to("Cancel", :back, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -28,21 +28,6 @@ class Admin::OrganisationsController < Admin::BaseController
     render_design_system(:show, :legacy_show)
   end
 
-  def people
-    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.ministerial).order(:ordering)
-    @management_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.management).order(:ordering)
-    @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.traffic_commissioner).order(:ordering)
-    @military_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.military).order(:ordering)
-    @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.special_representative).order(:ordering)
-    @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role)
-                                        .merge(Role.chief_professional_officer).order(:ordering)
-  end
-
   def features
     @feature_list = @organisation.load_or_create_feature_list(params[:locale])
     @locale = Locale.new(params[:locale] || :en)
@@ -93,9 +78,14 @@ class Admin::OrganisationsController < Admin::BaseController
 
 private
 
+  def organisation_roles(type)
+    @organisation.organisation_roles.joins(:role)
+                 .merge(Role.public_send(type)).order(:ordering)
+  end
+
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[index show features] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show features people] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

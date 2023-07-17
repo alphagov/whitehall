@@ -104,9 +104,12 @@ Whitehall::Application.routes.draw do
               get :confirm_destroy, on: :member
             end
           end
+          resources :people, controller: "organisation_people", only: [:index] do
+            get :reorder, on: :collection
+            put :order, on: :collection
+          end
           member do
             get "/features(.:locale)", as: "features", to: "organisations#features", constraints: { locale: valid_locales_regex }
-            get :people
             get :confirm_destroy
           end
           resources :financial_reports, except: [:show] do

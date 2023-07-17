@@ -31,7 +31,7 @@ module Admin::OrganisationHelper
     tabs["Corporate information pages"] = admin_organisation_corporate_information_pages_path(organisation)
     tabs["More"] = {
       "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
-      "People" => people_admin_organisation_path(organisation),
+      "People" => admin_organisation_people_path(organisation),
       "Translations" => admin_organisation_translations_path(organisation),
       "Financial Reports" => admin_organisation_financial_reports_path(organisation),
     }
@@ -88,8 +88,8 @@ module Admin::OrganisationHelper
 
     tabs << {
       label: "People",
-      href: people_admin_organisation_path(organisation),
-      current: current_path == people_admin_organisation_path(organisation),
+      href: admin_organisation_people_path(organisation),
+      current: current_path == admin_organisation_people_path(organisation),
     }
 
     tabs << {
@@ -157,5 +157,19 @@ module Admin::OrganisationHelper
         },
       ]
     end
+  end
+
+  def people_tab(organisation_roles, title, type)
+    [{
+      id: "#{title.downcase.gsub(' ', '_')}_tab",
+      label: title,
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "organisation-people-tab",
+        "track-label": title,
+      },
+      content: render("admin/organisation_people/order", organisation_roles:, title:, type:),
+    }]
   end
 end

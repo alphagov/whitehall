@@ -215,9 +215,34 @@ Given(/^an organisation and some documents exist$/) do
   ]
 end
 
+And(/^the following roles exist within the "([^"]*)":$/) do |organisation_name, roles|
+  organisation = Organisation.find_by!(name: organisation_name)
+
+  roles.hashes.each.each do |hash|
+    role = create(:role, name: hash[:name])
+    create(:organisation_role, organisation:, role:)
+  end
+end
+
 When(/^I go to the organisation feature page$/) do
   visit admin_organisation_path(@organisation)
   click_link "Features"
+end
+
+When(/^I visit the "([^"]*)" "([^"]*)" page$/) do |organisation_name, page|
+  organisation = Organisation.find_by!(name: organisation_name)
+
+  visit admin_organisation_path(organisation)
+
+  if using_design_system?
+    within ".app-c-secondary-navigation__list" do
+      click_link page
+    end
+  else
+    within ".dropdown-menu" do
+      click_link page
+    end
+  end
 end
 
 Then(/^I can filter instantaneously the list of documents by title, author, organisation, and document type$/) do
@@ -271,5 +296,43 @@ Then(/^I can see that the organisation "(.*?)" has been superseded with the orga
     expect(page).to have_xpath("//dt[.='Superseded by']/following-sibling::dd[.='#{superseding_org_name}']")
   else
     expect(page).to have_xpath("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
+  end
+end
+
+And(/^I set the order of roles for "([^"]*)" to:$/) do |organisation_name, role_order|
+  organisation = Organisation.find_by!(name: organisation_name)
+
+  if using_design_system?
+    click_link "Reorder"
+
+    role_order.hashes.each do |hash|
+      organisation_role = organisation.organisation_roles.select { |f| f.role.name == hash[:name] }.first
+      fill_in "ordering[#{organisation_role.id}]", with: hash[:order]
+    end
+
+    click_button "Update order"
+  else
+    role_order.hashes.each_with_index do |hash, index|
+      fill_in "organisation[organisation_roles_attributes][#{index}][ordering]", with: hash[:order]
+    end
+
+    click_on "Save"
+  end
+end
+
+Then(/^the roles should be in the following order:$/) do |roles|
+  if using_design_system?
+    role_names = all(".gem-c-summary__block h2").map(&:text)
+
+  else
+    within ".dropdown-menu" do
+      click_link "People"
+    end
+
+    role_names = all(".sortable a").map(&:text)
+
+  end
+  roles.hashes.each_with_index do |hash, index|
+    expect(hash[:name]).to eq(role_names[index])
   end
 end
