@@ -1,4 +1,4 @@
-class Admin::AuditTrailComponent < ViewComponent::Base
+class Admin::LegacyAuditTrailComponent < ViewComponent::Base
   attr_reader :versions
 
   def initialize(versions:)
