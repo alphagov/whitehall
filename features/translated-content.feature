@@ -3,11 +3,6 @@ Feature: Providing translated content from gov.uk/government
   I want to be able to read information about the UK government in my own language
   So that I can better understand it's relationship to the locales that I am interested in
 
-  Scenario: Maintaining locale between pages
-    Given a worldwide organisation that is translated exists
-    Given I visit the world organisation that is translated
-    Then I should see the translation of that world organisation
-
   Scenario: Adding a translation to a draft translatable document
     Given I am a GDS editor
     And I have drafted a translatable document "Military officer exchange"

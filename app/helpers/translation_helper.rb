@@ -9,10 +9,6 @@ module TranslationHelper
     t("document.type.#{document.display_type_key}", count:)
   end
 
-  def t_lang_translated_locales(object)
-    "lang=en" unless object.translated_locales.include?(I18n.locale)
-  end
-
   def t_delivery_title(document)
     if document.delivered_by_minister?
       t("document.speech.#{document.speech_type.owner_key_group}.minister")

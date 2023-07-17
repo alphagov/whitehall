@@ -125,20 +125,4 @@ class TranslationHelperTest < ActionView::TestCase
       assert_equal "lang=en", t_lang("document.one")
     end
   end
-
-  test "t_lang_translated_locales returns lang=en if translation does not exist" do
-    @model.stubs(:translated_locales).returns(%i[en es de])
-
-    I18n.with_locale(:fr) do
-      assert_equal "lang=en", t_lang_translated_locales(@model)
-    end
-  end
-
-  test "t_lang_translated_locales returns nil if translation does exist" do
-    @model.stubs(:translated_locales).returns(%i[en es de])
-
-    I18n.with_locale(:de) do
-      assert_nil t_lang_translated_locales(@model)
-    end
-  end
 end

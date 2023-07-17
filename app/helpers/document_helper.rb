@@ -145,13 +145,4 @@ Please tell us:
   def native_language_name_for(locale)
     Locale.new(locale).native_language_name
   end
-
-  def link_to_translation(locale)
-    options = {}
-
-    options[:locale] = locale
-    options[:locale] = nil if locale.to_s == "en"
-
-    link_to native_language_name_for(locale), options, lang: locale, class: "govuk-link"
-  end
 end

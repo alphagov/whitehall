@@ -76,26 +76,4 @@ class DocumentHelperTest < ActionView::TestCase
     assert_equal "English", native_language_name_for(:en)
     assert_equal "Español", native_language_name_for(:es)
   end
-
-  test "#link_to_translation should generate a link based on the current controller action with the given locale" do
-    controller.stubs(:url_options).returns(
-      action: "show",
-      controller: "worldwide_organisations",
-      locale: "de",
-      id: "a-world-organisation",
-    )
-    assert_dom_equal %(<a lang="de" class="govuk-link" href="/world/organisations/a-world-organisation.de">Deutsch</a>),
-                     link_to_translation(:de)
-  end
-
-  test "#link_to_translation should not suffix URLs with 'en'" do
-    controller.stubs(:url_options).returns(
-      action: "show",
-      controller: "worldwide_organisations",
-      locale: "it",
-      id: "a-world-organisation",
-    )
-    assert_dom_equal %(<a lang="en"  class="govuk-link" href="/world/organisations/a-world-organisation">English</a>),
-                     link_to_translation(:en)
-  end
 end
