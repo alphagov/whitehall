@@ -35,3 +35,8 @@ textarea {
   font-family: var(--monospace);
   padding: 0.5rem;
 }
+
+/* Don't distort Bootstrap Icons */
+.codex-editor svg.bi path {
+  stroke: none;
+}
