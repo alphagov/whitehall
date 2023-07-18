@@ -24,10 +24,14 @@ Then(/^I should see that it is part of the "([^"]*)"$/) do |sponsoring_organisat
 end
 
 Then(/^I should see the worldwide location name "([^"]*)" on the worldwide organisation page$/) do |location_name|
-  location = WorldLocation.find_by(name: location_name)
-  worldwide_organisation = WorldwideOrganisation.last
-  within record_css_selector(worldwide_organisation) do
-    expect(page).to have_content(location.name)
+  if using_design_system?
+    assert_selector ".govuk-summary-list__value", text: location_name
+  else
+    location = WorldLocation.find_by(name: location_name)
+    worldwide_organisation = WorldwideOrganisation.last
+    within record_css_selector(worldwide_organisation) do
+      expect(page).to have_content(location.name)
+    end
   end
 end
 
@@ -217,7 +221,11 @@ end
 Then(/^I should see a create record in the audit trail for the worldwide organisation/) do
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
 
-  history_component = page.find(".audit-history-component")
+  history_component = if using_design_system?
+                        page.find(".app-c-audit-trail-entry-component")
+                      else
+                        page.find(".audit-history-component")
+                      end
 
   within history_component do
     expect(page).to have_content("Document created")
@@ -228,7 +236,11 @@ end
 Then(/^I should see an update record in the audit trail for the worldwide organisation/) do
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
 
-  history_component = page.find(".audit-history-component", match: :first)
+  history_component = if using_design_system?
+                        page.find(".app-c-audit-trail-entry-component", match: :first)
+                      else
+                        page.find(".audit-history-component", match: :first)
+                      end
 
   within history_component do
     expect(page).to have_content("Document updated")
