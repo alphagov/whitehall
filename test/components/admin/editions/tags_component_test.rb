@@ -10,6 +10,11 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
       label_text: "Force published",
     },
     {
+      state: :force_scheduled,
+      expected_tag_classes: "govuk-tag govuk-tag--s govuk-tag--yellow",
+      label_text: "Force scheduled",
+    },
+    {
       state: :draft,
       expected_tag_classes: "govuk-tag govuk-tag--s govuk-tag--blue",
       label_text: "Draft",

@@ -125,6 +125,12 @@ FactoryBot.define do
       scheduled_publication { 7.days.from_now }
     end
 
+    trait(:force_scheduled) do
+      state { "scheduled" }
+      force_published { true }
+      scheduled_publication { 7.days.from_now }
+    end
+
     trait(:access_limited) { access_limited { true } }
 
     trait(:with_alternative_format_provider) do

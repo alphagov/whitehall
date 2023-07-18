@@ -958,6 +958,21 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.versioning_completed?
   end
 
+  test "#force_scheduled? returns true when state is scheduled and #force_published? returns true" do
+    edition = build(:edition, :force_scheduled)
+    assert edition.force_scheduled?
+  end
+
+  test "#force_scheduled? returns false for a force published document" do
+    edition = build(:edition, :force_published)
+    assert_not edition.force_scheduled?
+  end
+
+  test "#force_scheduled? returns false for a scheduled document" do
+    edition = build(:edition, :scheduled)
+    assert_not edition.force_scheduled?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
