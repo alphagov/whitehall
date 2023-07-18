@@ -107,6 +107,8 @@ class Edition < ApplicationRecord
 
   after_update :republish_topical_event_to_publishing_api
 
+  accepts_nested_attributes_for :document
+
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
       significant_changed_attributes(record).each do |attribute|

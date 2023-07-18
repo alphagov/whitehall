@@ -12,6 +12,10 @@
           { field: "Status", value: status_text(@edition) },
           { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
           *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
+          {
+            field: "Review date",
+            value: @edition.document.review_reminder.present? ? @edition.document.review_reminder.review_at.strftime('%-d %B %Y') : "Not set",
+          }
         ]
       } %>
     </div>

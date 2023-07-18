@@ -99,6 +99,16 @@ class MailNotifications < ApplicationMailer
               subject: "Reminder: Call for evidence \"#{@title}\" closed 8 weeks ago"
   end
 
+  def review_reminder(edition, recipient_address:)
+    @title = edition.title
+    @format_name = edition.format_name
+    @link_to_summary_page = admin_edition_url(edition)
+
+    view_mail template_id,
+              to: recipient_address,
+              subject: "#{edition.format_name.capitalize} '#{edition.title}' has reached its set review date"
+  end
+
   helper_method :production?
 
   def production?

@@ -63,6 +63,10 @@ Whitehall::Application.routes.draw do
 
         resources :users, only: %i[index show edit update]
 
+        resources :documents, only: [] do
+          resources :review_reminders, only: %i[new create edit update]
+        end
+
         resources :authors, only: [:show]
         resource :document_searches, only: [:show]
         resources :document_collections, path: "collections", except: [:index] do

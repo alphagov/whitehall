@@ -5,6 +5,23 @@
     <meta name="custom-dimension:<%= key %>" content="<%= value %>">
   <% end %>
 <% end %>
+<% if @edition.document.review_reminder&.review_due? %>
+  <% content_for :banner do %>
+  <%= render "govuk_publishing_components/components/notice", {
+    title: "Review reminder",
+    show_banner_title: true,
+    description: sanitize(tag.p("A review date was set for #{@edition.document.review_reminder.review_at.strftime('%-d %B %Y')}. You should review your content and either:") +
+      render("govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "update the content if it needs changing",
+          "set a new review date if the content is up to date"
+        ]
+      }))
+  } %>
+  <% end %>
+<% end %>
+
 
 <%= render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 

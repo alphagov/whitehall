@@ -164,7 +164,7 @@ class Consultation < Publicationesque
   end
 
   def all_nation_applicability_selected?
-    newly_created = document.nil?
+    newly_created = document.nil? || document.new_record?
     newly_created ? false : all_nation_applicability
   end
 

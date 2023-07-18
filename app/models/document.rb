@@ -37,6 +37,8 @@ class Document < ApplicationRecord
   has_many :edition_versions, through: :editions, source: :versions
   has_many :editorial_remarks, through: :editions
 
+  has_one :review_reminder, inverse_of: :document, dependent: :destroy
+
   has_many :withdrawals,
            -> { where(unpublishing_reason_id: UnpublishingReason::Withdrawn).order(unpublished_at: :asc, id: :asc) },
            through: :editions, source: :unpublishing
@@ -44,6 +46,8 @@ class Document < ApplicationRecord
   validates :content_id, presence: true
 
   after_create :ensure_document_has_a_slug
+
+  accepts_nested_attributes_for :review_reminder, allow_destroy: true
 
   attr_accessor :sluggable_string
 
@@ -77,7 +81,7 @@ class Document < ApplicationRecord
   end
 
   def update_slug_if_possible(new_title)
-    return if live?
+    return if live? || invalid?
 
     candidate_slug = normalize_friendly_id(new_title)
     unless candidate_slug == slug

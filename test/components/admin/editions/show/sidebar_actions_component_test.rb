@@ -19,8 +19,9 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:published_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 3
+    assert_selector "li", count: 4
     assert_selector "button", text: "Create new edition"
+    assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a[href='https://www.test.gov.uk/government/generic-editions/#{edition.title}']", text: "View on website (opens in new tab)"
   end
@@ -30,8 +31,9 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:non_english_published_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 3
+    assert_selector "li", count: 4
     assert_selector "button", text: "Create new edition"
+    assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a[href='https://www.test.gov.uk/government/generic-editions/#{edition.document.id}.cy']", text: "View on website (opens in new tab)"
   end
@@ -89,8 +91,9 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:withdrawn_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 3
+    assert_selector "li", count: 4
     assert_selector "a", text: "Unwithdraw"
+    assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a", text: "View on website (opens in new tab)"
   end
@@ -124,8 +127,9 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:published_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 4
+    assert_selector "li", count: 5
     assert_selector "button", text: "Create new edition"
+    assert_selector "a", text: "Set review date"
     assert_selector "a", text: "Withdraw or unpublish"
     assert_selector "a", text: "View data about page"
     assert_selector "a", text: "View on website (opens in new tab)"
@@ -199,9 +203,10 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:withdrawn_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 4
+    assert_selector "li", count: 5
     assert_selector "a", text: "Unwithdraw"
     assert_selector "a", text: "Edit withdrawal explanation"
+    assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a", text: "View on website (opens in new tab)"
   end

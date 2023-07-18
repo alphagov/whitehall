@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_29_135717) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_03_131507) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "attachment_data_id", null: false
@@ -827,6 +827,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_135717) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["edition_id"], name: "index_related_mainstreams_on_edition_id"
+  end
+
+  create_table "review_reminders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "document_id"
+    t.integer "creator_id"
+    t.string "email_address"
+    t.datetime "review_at", precision: nil
+    t.datetime "reminder_sent_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["creator_id"], name: "index_review_reminders_on_creator_id"
+    t.index ["document_id"], name: "index_review_reminders_on_document_id"
   end
 
   create_table "role_appointments", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|

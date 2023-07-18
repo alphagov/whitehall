@@ -9,9 +9,11 @@ class Admin::EditionsController < Admin::BaseController
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
+  before_action :set_creator_for_review_reminder, only: %i[create update]
   before_action :build_edition, only: %i[new create]
   before_action :detect_other_active_editors, only: %i[edit update]
   before_action :set_edition_defaults, only: :new
+  before_action :build_edition_dependencies, only: %i[new edit]
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise]
   before_action :enforce_permissions!
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
@@ -83,6 +85,7 @@ class Admin::EditionsController < Admin::BaseController
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
+      build_edition_dependencies
       render :new
     end
   end
@@ -105,6 +108,7 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
+      build_edition_dependencies
       fetch_version_and_remark_trails
       construct_similar_slug_warning_error
       render :edit
@@ -113,6 +117,7 @@ class Admin::EditionsController < Admin::BaseController
     flash.now[:alert] = "This document has been saved since you opened it"
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
+    build_edition_dependencies
     render :edit
   end
 
@@ -282,6 +287,17 @@ private
         ],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
+        document_attributes: [
+          :id,
+          {
+            review_reminder_attributes: %i[
+              id
+              email_address
+              review_at
+              _destroy
+            ],
+          },
+        ],
       },
       :auth_bypass_id,
     ]
@@ -336,6 +352,17 @@ private
   def build_nation_params(nation_id:, checked:)
     edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["excluded"] = checked ? "1" : "0"
     edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["alternative_url"] = nil unless checked
+  end
+
+  def set_creator_for_review_reminder
+    return if edition_params.dig("document_attributes", "review_reminder_attributes").blank?
+
+    edition_params["document_attributes"]["review_reminder_attributes"]["creator_id"] = current_user.id
+  end
+
+  def build_edition_dependencies
+    @edition.build_document if @edition.document.blank?
+    @edition.document.build_review_reminder if @edition.document.review_reminder.blank?
   end
 
   def set_edition_defaults
@@ -423,6 +450,10 @@ private
       edition_params["first_published_at(3i)"] = ""
       edition_params["first_published_at(4i)"] = ""
       edition_params["first_published_at(5i)"] = ""
+    end
+
+    if params[:review_reminder].blank? && edition_params.dig("document_attributes", "review_reminder_attributes").present?
+      edition_params["document_attributes"]["review_reminder_attributes"]["_destroy"] = "1"
     end
   end
 
