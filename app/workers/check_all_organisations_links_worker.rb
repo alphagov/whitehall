@@ -6,17 +6,17 @@ class CheckAllOrganisationsLinksWorker
 
   def perform
     GovukStatsd.time("link-checking-debug.check-all-organisations-worker") do
-      logger.info("[link-checking-debug][job_#{jid}]: Queuing #{organisations.count} jobs to check organisations")
-      organisations.each do |organisation|
-        CheckOrganisationLinksWorker.perform_async(organisation.id)
+      logger.info("[link-checking-debug][job_#{jid}]: Queuing #{organisation_ids.count} jobs to check organisations")
+      organisation_ids.each do |organisation_id|
+        CheckOrganisationLinksWorker.perform_async(organisation_id)
       end
-      logger.info("[link-checking-debug][job_#{jid}]: Done queuing #{organisations.count} jobs to check organisations")
+      logger.info("[link-checking-debug][job_#{jid}]: Done queuing #{organisation_ids.count} jobs to check organisations")
     end
   end
 
 private
 
-  def organisations
-    Organisation.all
+  def organisation_ids
+    @organisation_ids ||= Organisation.all.pluck(:id)
   end
 end
