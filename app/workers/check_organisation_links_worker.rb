@@ -3,6 +3,7 @@ class CheckOrganisationLinksWorker
   include Rails.application.routes.url_helpers
   include Sidekiq::Worker
   ORGANISATION_EDITION_LIMIT = 500
+  FIND_EACH_BATCH_SIZE = 50
 
   sidekiq_options queue: "link_checks", retry: 6
   # Stop retrying jobs within a day as new jobs are enqueued each day,
@@ -20,7 +21,7 @@ class CheckOrganisationLinksWorker
       logger.info("[link-checking-debug][org_#{organisation_id}][job_#{jid}]: Requesting link checks for #{editions.count}")
 
       ignored = 0
-      editions.each do |edition|
+      editions.find_each(batch_size: FIND_EACH_BATCH_SIZE) do |edition|
         if LinkCheckerApiService.has_links?(edition)
           LinkCheckerApiService.check_links(edition, admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")))
         else
@@ -39,6 +40,7 @@ private
   end
 
   def public_editions(organisation)
-    Edition.includes(:link_check_reports).publicly_visible.with_translations.in_organisation(organisation).order("link_checker_api_reports.updated_at").limit(ORGANISATION_EDITION_LIMIT)
+    least_recently_checked = Edition.includes(:link_check_reports).publicly_visible.with_translations.in_organisation(organisation).order("link_checker_api_reports.updated_at").limit(ORGANISATION_EDITION_LIMIT)
+    Edition.where(id: least_recently_checked.pluck(:id))
   end
 end
