@@ -113,6 +113,7 @@ Whitehall::Application.routes.draw do
             put :order, on: :collection
           end
           member do
+            get :about, to: "organisations_about#show", as: :about
             get "/features(.:locale)", as: "features", to: "organisations#features", constraints: { locale: valid_locales_regex }
             get :confirm_destroy
           end
