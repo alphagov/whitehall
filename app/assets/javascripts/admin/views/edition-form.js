@@ -58,6 +58,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     if (subtypeSelect.value === worldNewsArticleTypeId) {
       ministersDiv.classList.add('app-view-edit-edition__appointment-fields--hidden')
       organisationsDiv.classList.add('app-view-edit-edition__organisation-fields--hidden')
+      organisationsDiv.querySelectorAll('select').forEach(function (select) {
+        select.value = ''
+      })
     } else {
       worldOrganisationDiv.classList.add('app-view-edit-edition__world-organisation-fields--hidden')
     }
