@@ -45,4 +45,8 @@
       } %>
     <% end %>
   </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render Admin::AuditTrailComponent.new(versions: @versions) %>
+  </div>
 </div>
