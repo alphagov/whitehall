@@ -46,6 +46,11 @@ module Admin::OrganisationHelper
         current: current_path == admin_organisation_path(organisation),
       },
       {
+        label: "About",
+        href: about_admin_organisation_path(organisation),
+        current: current_path == about_admin_organisation_path(organisation),
+      },
+      {
         label: "Contacts",
         href: admin_organisation_contacts_path(organisation),
         current: current_path == admin_organisation_contacts_path(organisation),
