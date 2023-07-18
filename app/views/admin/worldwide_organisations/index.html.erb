@@ -7,6 +7,12 @@
     text: "Create worldwide organisation",
     href: new_admin_worldwide_organisation_path,
     margin_bottom: 6,
+    data_attributes: {
+      module: "gem-track-click",
+      "track-category": "form-button",
+      "track-action": "worldwide-organisation-button",
+      "track-label": "Create worldwide organisation"
+    }
   } %>
   <% if @worldwide_organisations.present? %>
     <div class="app-c-govuk-table--filterable govuk-table--with-actions">
