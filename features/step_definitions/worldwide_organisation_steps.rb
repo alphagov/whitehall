@@ -225,24 +225,42 @@ Then(/^I should not be able to see "([^"]*)" in the list of worldwide organisati
 end
 
 Then(/^I should see a create record in the audit trail for the worldwide organisation/) do
-  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  if using_design_system?
+    visit history_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+    history_component = page.find(".app-c-audit-trail-entry-component", match: :first)
 
-  history_component = page.find(".audit-history-component")
+    within history_component do
+      expect(page).to have_content("Organisation created")
+      expect(page).to have_content(@user.name)
+    end
+  else
+    visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+    history_component = page.find(".audit-history-component", match: :first)
 
-  within history_component do
-    expect(page).to have_content("Document created")
-    expect(page).to have_content(@user.name)
+    within history_component do
+      expect(page).to have_content("Document created")
+      expect(page).to have_content(@user.name)
+    end
   end
 end
 
 Then(/^I should see an update record in the audit trail for the worldwide organisation/) do
-  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  if using_design_system?
+    visit history_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+    history_component = page.find(".app-c-audit-trail-entry-component", match: :first)
 
-  history_component = page.find(".audit-history-component", match: :first)
+    within history_component do
+      expect(page).to have_content("Organisation updated")
+      expect(page).to have_content(@user.name)
+    end
+  else
+    visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+    history_component = page.find(".audit-history-component", match: :first)
 
-  within history_component do
-    expect(page).to have_content("Document updated")
-    expect(page).to have_content(@user.name)
+    within history_component do
+      expect(page).to have_content("Document updated")
+      expect(page).to have_content(@user.name)
+    end
   end
 end
 

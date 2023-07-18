@@ -1,0 +1,14 @@
+<ul class="govuk-list govuk-list--spaced">
+  <li class="app-c-audit-trail-entry-component">
+    <%= render "govuk_publishing_components/components/heading", {
+    text: action,
+    font_size: "s",
+    heading_level: 3,
+    margin_bottom: 0
+    } %>
+
+    <p class="app-view-editions-audit-trail-entry__list-item-datetime govuk-body-s govuk-!-margin-bottom-0 govuk-!-margin-top-0">
+      <%= time %> by <%= actor %>
+    </p>
+  </li>
+</ul>

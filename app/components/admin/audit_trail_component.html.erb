@@ -1,0 +1,15 @@
+<div class="app-c-audit-trail-component">
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "History",
+    font_size: "l",
+    margin_bottom: 4,
+  } %>
+
+  <%= render "govuk_publishing_components/components/list", {
+    items: versions.map do |version|
+      render(Admin::AuditTrailEntryComponent.new(version: version))
+    end
+  } %>
+
+  <%= paginate(@versions, theme: 'govuk_paginator') %>
+</div>
