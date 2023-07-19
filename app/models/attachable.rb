@@ -36,6 +36,7 @@ module Attachable
         def process_associations_after_save(edition)
           @edition.attachments.each do |attachment|
             edition.attachments << attachment.deep_clone
+            raise "Your edition failed to create successfully. Please contact GOV.UK support." unless attachment.save!
           end
         end
       end
