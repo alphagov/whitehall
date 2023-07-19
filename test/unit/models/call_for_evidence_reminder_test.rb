@@ -1,7 +1,10 @@
 require "test_helper"
 
 class CallForEvidenceReminderTest < ActiveSupport::TestCase
-  setup { Timecop.freeze("2018/05/02 01:00:00".in_time_zone) }
+  setup do
+    Timecop.freeze("2018/05/02 01:00:00".in_time_zone)
+    ActionMailer::Base.deliveries.clear
+  end
   teardown { ActionMailer::Base.deliveries.clear }
 
   test ".send_reminder notifies authors of call for evidence reminder if today (past 24h) is exactly 8 weeks after close date without an outcome" do
