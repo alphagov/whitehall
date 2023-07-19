@@ -65,14 +65,6 @@ private
     expires_in Whitehall.default_cache_max_age, public: true
   end
 
-  def set_api_cache_control_headers
-    expires_in Whitehall.default_api_cache_max_age, public: true
-  end
-
-  def set_api_access_control_allow_origin_headers
-    response.headers["Access-Control-Allow-Origin"] = "*"
-  end
-
   def restrict_request_formats
     unless can_handle_format?(request.format)
       render status: :not_acceptable, plain: "Request format #{request.format} not handled."
