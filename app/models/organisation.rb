@@ -514,7 +514,6 @@ class Organisation < ApplicationRecord
       department-for-education
       department-for-environment-food-rural-affairs
       hm-revenue-customs
-      marine-management-organisation
       natural-england
     ]
   end
