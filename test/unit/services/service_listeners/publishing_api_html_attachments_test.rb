@@ -345,6 +345,24 @@ module ServiceListeners
           )
           call(publication)
         end
+
+        test "for a publication with a translated HTML attachment publishes a withdrawal with the expected locale for each attachment" do
+          en_attachment = build(:html_attachment)
+          cy_attachment = build(:html_attachment, locale: "cy")
+          attachments = [en_attachment, cy_attachment]
+          publication = create(:withdrawn_publication, attachments:)
+
+          attachments.each do |attachment|
+            PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+              attachment.content_id,
+              "content was withdrawn",
+              attachment.locale || I18n.default_locale.to_s,
+              false,
+              publication.unpublishing.unpublished_at.to_s,
+            )
+          end
+          call(publication)
+        end
       end
 
       class Delete < PublishingApiHtmlAttachmentsTest
