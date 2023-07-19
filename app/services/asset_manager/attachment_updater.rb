@@ -82,8 +82,6 @@ class AssetManager::AttachmentUpdater
       draft_edition.public_url(draft: true)
     elsif visible_edition.present?
       visible_edition.public_url
-    else
-      []
     end
   end
 
