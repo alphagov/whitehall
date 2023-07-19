@@ -515,7 +515,6 @@ class Organisation < ApplicationRecord
       department-for-environment-food-rural-affairs
       hm-revenue-customs
       marine-management-organisation
-      maritime-and-coastguard-agency
       natural-england
     ]
   end
