@@ -7,6 +7,7 @@ class Admin::WorldwideOrganisationsHelperTest < ActionView::TestCase
 
     expected_output = [
       { label: "Details", href: admin_worldwide_organisation_path(worldwide_organisation), current: true },
+      { label: "About", href: about_admin_worldwide_organisation_path(worldwide_organisation), current: true },
       { label: "Translations", href: admin_worldwide_organisation_translations_path(worldwide_organisation), current: false },
       { label: "Offices", href: admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation), current: false },
       { label: "Access and opening times", href: access_info_admin_worldwide_organisation_path(worldwide_organisation), current: false },
