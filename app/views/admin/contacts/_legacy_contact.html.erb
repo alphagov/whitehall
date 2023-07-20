@@ -33,9 +33,9 @@
   <% if contactable.respond_to? :home_page_contacts %>
     <% unless contact.foi? %>
       <% if contactable.contact_shown_on_home_page?(contact) %>
-        <%= button_to "Remove from home page", [:remove_from_home_page, :admin, contactable, contact], class: 'btn btn-default btn-sm' %>
+        <%= button_to "Remove from home page", [:remove_from_home_page, :admin, contactable, contact], class: 'btn btn-default btn-sm',method: :post %>
       <% else %>
-        <%= button_to "Add to home page", [:add_to_home_page, :admin, contactable, contact], class: 'btn btn-default btn-sm' %>
+        <%= button_to "Add to home page", [:add_to_home_page, :admin, contactable, contact], class: 'btn btn-default btn-sm',method: :post %>
       <% end %>
     <% end %>
   <% end %>

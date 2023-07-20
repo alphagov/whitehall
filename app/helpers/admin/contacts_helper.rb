@@ -14,41 +14,41 @@ module Admin::ContactsHelper
 
   def general_and_media_contacts_tab(contacts, contactable)
     title_text = "General and media contacts"
-    general_contacts = (contactable.home_page_contacts+contacts.reject(&:foi?)).uniq
+    general_contacts = (contactable.home_page_contacts + contacts.reject(&:foi?)).uniq
     if general_contacts.present?
       {
         id: "general_and_media_contacts",
-        title: tab_title(title_text, general_contacts,contactable),
+        title: tab_title(title_text, general_contacts, contactable),
         label: title_text,
-        content: render("admin/contacts/contacts", contacts: general_contacts, contactable:, title: "Translated general and media contacts")
+        content: render("admin/contacts/contacts", contacts: general_contacts, contactable:, title: "Translated general and media contacts"),
       }
     end
   end
 
-  def freedom_of_information_contacts_tab(contacts,contactable)
+  def freedom_of_information_contacts_tab(contacts, contactable)
     title_text = "Freedom of information contacts"
     foi_contacts = contacts.select(&:foi?)
     if foi_contacts.present?
       {
         id: "freedom_of_information_contacts",
-        title: tab_title(title_text, foi_contacts,contactable),
+        title: tab_title(title_text, foi_contacts, contactable),
         label: title_text,
-        content: render("admin/contacts/contacts", contacts: foi_contacts, contactable:, title: "Translated freedom of information contacts")
+        content: render("admin/contacts/contacts", contacts: foi_contacts, contactable:, title: "Translated freedom of information contacts"),
       }
     end
   end
 
-  def tab_title(title_text, contacts,contactable)
-    render("admin/contacts/tab_heading", title_text: title_text, contacts: contacts,contactable:contactable)
+  def tab_title(title_text, contacts, contactable)
+    render("admin/contacts/tab_heading", title_text:, contacts:, contactable:)
   end
 
-  def contact_rows(contact, contactable)
+  def contact_rows(contact, _contactable)
     rows = contact_numbers(contact)
     rows << contact_email(contact)
     rows << contact_url(contact)
     rows << { key: "Contact type", value: contact.contact_type.name }
     rows << contact_address(contact)
-    rows << set_homepage_contacts(contact, contactable)
+    rows << homepage_contacts(contact)
     rows << { key: "Markdown code", value: "[Contact:#{contact.id}]" }
     rows << contact_comments(contact)
     rows.compact
@@ -67,7 +67,7 @@ module Admin::ContactsHelper
     if contact.email?
       {
         key: "Email",
-        value: contact.email
+        value: contact.email,
       }
     end
   end
@@ -76,7 +76,7 @@ module Admin::ContactsHelper
     if contact.contact_form_url.present?
       {
         key: "Contact form",
-        value: link_to(contact.contact_form_url.truncate(25), contact.contact_form_url)
+        value: link_to(contact.contact_form_url.truncate(25), contact.contact_form_url),
       }
     end
   end
@@ -85,27 +85,15 @@ module Admin::ContactsHelper
     if render_hcard_address(contact).present?
       {
         key: "Address",
-        value: render_hcard_address(contact)
+        value: render_hcard_address(contact),
       }
     end
   end
 
-  def set_homepage_contacts(contact, contactable)
+  def homepage_contacts(contact)
     {
       key: "On homepage",
       value: contact_shown_on_home_page_text(contact.contactable, contact),
-      actions:
-        if contactable.contact_shown_on_home_page?(contact)
-          [{
-            label: "Set to No",
-            href: [:remove_from_home_page, :admin, contactable, contact]
-          }]
-        else
-          [{
-            label: "Set to Yes",
-            href: [:add_to_home_page, :admin, contactable, contact]
-          }]
-        end,
     }
   end
 
@@ -113,7 +101,7 @@ module Admin::ContactsHelper
     if contact.comments.present?
       {
         key: "",
-        value: format_with_html_line_breaks(h(contact.comments))
+        value: format_with_html_line_breaks(h(contact.comments)),
       }
     end
   end

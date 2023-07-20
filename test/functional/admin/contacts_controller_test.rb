@@ -255,7 +255,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
   view_test "GET :should be able to visit reorder page" do
     organisation = create(:organisation)
 
-    get :reorder, params: {organisation_id: organisation }
+    get :reorder, params: { organisation_id: organisation }
 
     assert_template :reorder
     assert_response :success

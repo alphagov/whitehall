@@ -39,7 +39,9 @@ class Admin::ContactsController < Admin::BaseController
       render :new
     end
   end
+
   def confirm_destroy; end
+
   def destroy
     title = @contact.title
     if @contact.destroy
@@ -48,6 +50,7 @@ class Admin::ContactsController < Admin::BaseController
       render_design_system(:edit, :legacy_edit)
     end
   end
+
   def reorder; end
 
   extend Admin::HomePageListController

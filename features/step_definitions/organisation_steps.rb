@@ -215,7 +215,6 @@ Then(/^I should see the "([^"]*)" contact in the admin interface with address "(
       expect(page).to have_selector(".vcard", text: address)
     end
   end
-
 end
 
 Given(/^an organisation and some documents exist$/) do
