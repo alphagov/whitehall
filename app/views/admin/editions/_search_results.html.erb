@@ -29,7 +29,7 @@
         filter.editions.map do |edition|
           [
              {
-               text: index_table_title_row(edition)
+               text: tag.span(index_table_title_row(edition), class: "govuk-!-font-weight-bold")
              },
              {
                text: tag.p("#{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-0") +
