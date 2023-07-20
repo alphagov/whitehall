@@ -19,6 +19,8 @@
 <% if @topical_event_about_page.present? %>
   <%= render "govuk_publishing_components/components/summary_list", {
     title: "About page",
+    heading_level: 2,
+    heading_size: "l",
     items: [
       {
         field: "Name",
