@@ -18,6 +18,11 @@ module Admin::WorldwideOrganisationsHelper
         current: current_path == admin_worldwide_organisation_path(worldwide_organisation),
       },
       {
+        label: "About",
+        href: about_admin_worldwide_organisation_path(worldwide_organisation),
+        current: current_path == about_admin_worldwide_organisation_path(worldwide_organisation),
+      },
+      {
         label: "Translations",
         href: admin_worldwide_organisation_translations_path(worldwide_organisation),
         current: current_path == admin_worldwide_organisation_translations_path(worldwide_organisation),
