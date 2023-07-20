@@ -10,6 +10,12 @@
   items: secondary_navigation_tabs_items(@organisation, request.path)
 } %>
 
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Corporate information pages",
+  font_size: "l",
+  margin_bottom: 6,
+} %>
+
 <% if @organisation.unused_corporate_information_page_types.any? %>
   <%= render "govuk_publishing_components/components/button", {
     text: "Create new corporate information page",

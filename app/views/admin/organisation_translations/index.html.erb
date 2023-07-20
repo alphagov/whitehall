@@ -16,6 +16,12 @@
   </div>
 
   <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Translations",
+      font_size: "l",
+      margin_bottom: 6,
+    } %>
+
     <% if @organisation.non_english_translated_locales.present? %>
       <div class="govuk-table--with-actions">
         <%= render "govuk_publishing_components/components/table", {
