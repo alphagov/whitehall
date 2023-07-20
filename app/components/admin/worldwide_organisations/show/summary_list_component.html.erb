@@ -1,0 +1,11 @@
+<div class="gem-c-summary-list--with-image">
+  <%= render "govuk_publishing_components/components/summary_list", {
+    title: "Details",
+    heading_size: "l",
+    items:,
+    edit: {
+      href: edit_admin_worldwide_organisation_path(@worldwide_organisation),
+      link_text: "Edit",
+    }
+  } %>
+</div>

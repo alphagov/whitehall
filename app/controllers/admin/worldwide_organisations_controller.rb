@@ -45,7 +45,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
                   .versions_desc
                   .page(params[:page])
                   .per(VERSIONS_PER_PAGE)
-    render :legacy_show
+    render_design_system(:show, :legacy_show)
   end
 
   def access_info
@@ -68,7 +68,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[index new create edit update] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show new create edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

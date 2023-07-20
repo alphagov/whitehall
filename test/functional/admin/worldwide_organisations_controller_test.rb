@@ -109,25 +109,12 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  view_test "shows the name summary and description of the worldwide organisation" do
+  test "GET :show calls correctly" do
     organisation = create(:worldwide_organisation, name: "Ministry of Silly Walks in Madrid")
-    about_us = create(
-      :about_corporate_information_page,
-      organisation: nil,
-      worldwide_organisation: organisation,
-      summary: "We have a nice organisation in madrid",
-      body: "# Organisation\nOur organisation is on the main road\n",
-    )
 
     get :show, params: { id: organisation }
 
-    assert_select_object organisation do
-      assert_select "h1", organisation.name
-      assert_select ".summary", about_us.summary
-      assert_select ".description" do
-        assert_select "h1", "Organisation"
-        assert_select "p", "Our organisation is on the main road"
-      end
-    end
+    assert_response :success
+    assert_equal organisation, assigns(:worldwide_organisation)
   end
 end

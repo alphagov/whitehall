@@ -11,7 +11,7 @@ end
 When(/^I add a "([^"]*)" corporate information page to the worldwide organisation$/) do |page_type|
   worldwide_organisation = WorldwideOrganisation.last
   visit admin_worldwide_organisation_path(worldwide_organisation)
-  click_link "Corporate information pages"
+  click_link using_design_system? ? "Pages" : "Corporate information pages"
   click_link using_design_system? ? "Create new corporate information page" : "New corporate information page"
   fill_in "Body", with: "This is a new #{page_type} page"
   select page_type, from: "Type"
@@ -23,7 +23,7 @@ When(/^I force-publish the "([^"]*)" corporate information page for the worldwid
   info_page = organisation.corporate_information_pages.last
   stub_publishing_api_links_with_taxons(info_page.content_id, %w[a-taxon-content-id])
   visit admin_worldwide_organisation_path(organisation)
-  click_link "Corporate information pages"
+  click_link using_design_system? ? "Pages" : "Corporate information pages"
   click_link page_type
   publish(force: true)
 end
@@ -43,7 +43,7 @@ end
 When(/^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |corp_page, worldwide_org|
   worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_org)
   visit admin_worldwide_organisation_path(worldwide_organisation)
-  click_link "Corporate information pages"
+  click_link using_design_system? ? "Pages" : "Corporate information pages"
   click_link corp_page
   click_link "Add translation"
 

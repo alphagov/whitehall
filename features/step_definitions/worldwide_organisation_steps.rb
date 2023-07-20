@@ -24,10 +24,14 @@ Then(/^I should see that it is part of the "([^"]*)"$/) do |sponsoring_organisat
 end
 
 Then(/^I should see the worldwide location name "([^"]*)" on the worldwide organisation page$/) do |location_name|
-  location = WorldLocation.find_by(name: location_name)
-  worldwide_organisation = WorldwideOrganisation.last
-  within record_css_selector(worldwide_organisation) do
-    expect(page).to have_content(location.name)
+  if using_design_system?
+    assert_selector ".govuk-summary-list__value", text: location_name
+  else
+    location = WorldLocation.find_by(name: location_name)
+    worldwide_organisation = WorldwideOrganisation.last
+    within record_css_selector(worldwide_organisation) do
+      expect(page).to have_content(location.name)
+    end
   end
 end
 
