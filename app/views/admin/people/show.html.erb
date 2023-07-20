@@ -17,11 +17,6 @@
       aria_label: "People navigation tabs",
       items: secondary_navigation_tabs_items(@person, request.path)
     } %>
-    <% unless @person.destroyable? %>
-      <%= render "govuk_publishing_components/components/inset_text", {
-        text: "Note: This person cannot be deleted as they are currently assigned to a role"
-      } %>
-    <% end %>
 
     <div class="gem-c-summary-list--with-image app-view-people-details__summary_list">
       <%= render "govuk_publishing_components/components/summary_list", {
