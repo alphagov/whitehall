@@ -83,6 +83,16 @@ class PublishingApiRake < ActiveSupport::TestCase
       end
     end
 
+    describe "#worldwide_organisation_by_slug" do
+      let(:task) { Rake::Task["publishing_api:republish:worldwide_organisation_by_slug"] }
+
+      test "Republishes worldwide organisation by slug" do
+        record = create(:worldwide_organisation)
+        WorldwideOrganisation.any_instance.expects(:publish_to_publishing_api)
+        capture_io { task.invoke(record.slug) }
+      end
+    end
+
     describe "#person_by_slug" do
       let(:task) { Rake::Task["publishing_api:republish:person_by_slug"] }
 

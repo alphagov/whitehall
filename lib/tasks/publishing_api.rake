@@ -53,6 +53,11 @@ namespace :publishing_api do
       Organisation.find_by!(slug: args[:slug]).publish_to_publishing_api
     end
 
+    desc "Republish a worldwide organisation to the Publishing API"
+    task :worldwide_organisation_by_slug, [:slug] => :environment do |_, args|
+      WorldwideOrganisation.find_by!(slug: args[:slug]).publish_to_publishing_api
+    end
+
     desc "Republish a person to the Publishing API"
     task :person_by_slug, [:slug] => :environment do |_, args|
       Person.find_by!(slug: args[:slug]).publish_to_publishing_api
