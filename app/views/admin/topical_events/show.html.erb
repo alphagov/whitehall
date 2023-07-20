@@ -19,6 +19,8 @@
 
 <%= render "govuk_publishing_components/components/summary_list", {
   title: "Details",
+  heading_level: 2,
+  heading_size: "l",
   items: [
     { field: "Summary", value: @topical_event.summary },
     { field: "Description", value: govspeak_to_html(@topical_event.description) },
