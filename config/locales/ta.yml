@@ -84,9 +84,6 @@ ta:
       unnumbered_hoc_paper: எண்ணிடப்படாத சட்ட ஆவணம்
     opendocument:
       help_html: இந்தக் கோப்பு <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> வடிவில் உள்ளது
-    virus_check:
-      intro: இந்த இணைப்பில் நச்சுநிரல் சோதிக்கப்பட்டது.
-      message: நச்சுநிரல் சரிபார்க்கப்படும்வரை தற்போதைக்கு இந்த இணைப்பை தடுப்பில் வைத்திருக்கிறோம். விரைவில் மூல இடத்தில் இணைப்பு கிடைக்கப்பெறும்.
   broken_links:
     broken:
       subheading: இந்த ஆவணத்தில் உடைந்த இணைப்புகள் இருக்கலாமென்பதைக் கண்டறிந்துள்ளோம்

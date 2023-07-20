@@ -84,9 +84,6 @@ gu:
       unnumbered_hoc_paper: સંખ્યા વિનાના એક્ટ પેપર
     opendocument:
       help_html: આ ફાઇલ એક <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">ઓપન ડૉક્યુમેન્ટ</a> ફોરમેટમાં છે
-    virus_check:
-      intro: આ એટેચમેંટની વાઇરસ માટે ચકાસણી થઈ રહી છે.
-      message: તેની વાઇરસ માટેની ચકાસણી થાય ત્યાં સુધી અમે હાલ પૂરતી આ એટેચમેંટને ક્વારંટાઇનમાં રાખી મૂકીએ છીએ.
   broken_links:
     broken:
       subheading: ટૂંક સમયમાં જ આ એટેચમેંટ મૂળ લોકેશન પર ઉપલબ્ધ થશે

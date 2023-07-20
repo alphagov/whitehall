@@ -85,9 +85,6 @@ hr:
       unnumbered_hoc_paper: Nebrojeni papir akta
     opendocument:
       help_html: Ova je datoteka u formatu <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formatu
-    virus_check:
-      intro: Ovaj privitak provjerava se na viruse.
-      message: Ovaj privitak trenutno držimo u karanteni dok se ne provjeri virus. Privitak će uskoro biti dostupan na izvornom mjestu.
   broken_links:
     broken:
       subheading: U ovom smo dokumentu pronašli veze koje bi mogle biti neispravne

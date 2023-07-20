@@ -69,9 +69,6 @@ en:
       unnumbered_hoc_paper: Unnumbered act paper
     opendocument:
       help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
-    virus_check:
-      intro: This attachment is being virus checked.
-      message: We are currently holding this attachment in quarantine until it has been virus checked. The attachment will be available at the original location shortly.
   broken_links:
     broken:
       subheading: We’ve found links in this document that may be broken

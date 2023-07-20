@@ -85,9 +85,6 @@ fr:
       unnumbered_hoc_paper: Document de loi non numéroté
     opendocument:
       help_html: Ce fichier est dans un format <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Cette pièce jointe est soumise à un contrôle anti-virus.
-      message: Nous plaçons pour le moment cette pièce jointe en quarantaine en attendant qu'elle soit soumise à un contrôle antivirus. La pièce jointe sera bientôt disponible à l'emplacement d'origine.
   broken_links:
     broken:
       subheading: Nous avons détecté dans ce document des liens qui pourraient être cassés

@@ -84,9 +84,6 @@ gd:
       unnumbered_hoc_paper: Doiciméad gníomhais gan uimhir
     opendocument:
       help_html: Sábháiltear an comhad seo i bhformáid <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">Tairseach Oscailte</a>.
-    virus_check:
-      intro: Tá an taispeántas seo faoi réir scanadh víris.
-      message: Táimid ag cur an iatáin seo i gCoraintín faoi láthair agus muid ag déanamh scanadh víris. Beidh an comhad seo ar fáil go luath san áit bhunaidh.
   broken_links:
     broken:
       subheading: Tá naisc sa doiciméad seo aitheanta againn a d’fhéadfaí a bhriseadh.

@@ -84,9 +84,6 @@ uz:
       unnumbered_hoc_paper: Рақамсиз ҳаракатлар ҳужжати
     opendocument:
       help_html: Ушбу файл <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> форматда тақдим этилган
-    virus_check:
-      intro: Ушбу илова вирусларга текширилмоқда.
-      message: Жорий пайтда илова унинг вирусларга текширилиши пайтигача карантинга жойлаштирилган.
   broken_links:
     broken:
       subheading: Биз ушбу ҳужжатда шикастланган бўлиши мумкин бўлган ҳаволаларни аниқладик

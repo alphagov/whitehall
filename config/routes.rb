@@ -376,8 +376,6 @@ Whitehall::Application.routes.draw do
     end
 
     get "/policy-topics" => redirect("/topics")
-
-    get "/placeholder" => "placeholder#show", as: :placeholder
   end
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }

@@ -84,9 +84,6 @@ zh-tw:
       unnumbered_hoc_paper: 未編碼的行動文件
     opendocument:
       help_html: 本檔案於 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">開放文件</a> 格式
-    virus_check:
-      intro: 此附件正在掃毒。
-      message: 目前正在隔離此附件，直到對其完成掃毒。附件將很快在原位置提供。
   broken_links:
     broken:
       subheading: 我們發現此文檔中的連結可能已損壞

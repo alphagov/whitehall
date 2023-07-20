@@ -84,9 +84,6 @@ uk:
       unnumbered_hoc_paper: Акт без номеру
     opendocument:
       help_html: Цей файл знаходиться у форматі <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Це вкладення перевіряється на віруси.
-      message: Наразі ми тримаємо це вкладення на карантині, доки його не перевірять на вірус. Незабаром вкладений файл буде доступний у вихідному місці.
   broken_links:
     broken:
       subheading: У цьому документі ми знайшли посилання, які можуть бути порушені

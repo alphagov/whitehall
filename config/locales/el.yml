@@ -84,9 +84,6 @@ el:
       unnumbered_hoc_paper: Μη αριθμημένο νομοθετικό έγγραφο
     opendocument:
       help_html: Αυτό το αρχείο είναι σε μορφή <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Αυτό το συνημμένο ελέγχεται για ιούς.
-      message: Αυτή τη στιγμή κρατάμε αυτό το συνημμένο σε καραντίνα μέχρι να ελεγχθεί από ιούς. Το συνημμένο θα είναι διαθέσιμο στην αρχική τοποθεσία σύντομα.
   broken_links:
     broken:
       subheading: Βρήκαμε συνδέσμους σε αυτό το έγγραφο που ενδέχεται να είναι κατεστραμμένοι

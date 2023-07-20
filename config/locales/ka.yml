@@ -85,9 +85,6 @@ ka:
       unnumbered_hoc_paper: აქტის დაუნომრავი დოკუმენტი
     opendocument:
       help_html: ეს ფაილი არის <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> ფორმატში
-    virus_check:
-      intro: დანართი შემოწმებულია ვირუსებზე.
-      message: ჩვენ ამჟამად გავაჩერებთ ამ დანართს კარანტინში, სანამ არ შემოწმდება ვირუსებზე. დანართი ხელმისაწვდომი იქნება თავდაპირველ ადგილას უახლოეს მომავალში.
   broken_links:
     broken:
       subheading: ამ დოკუმენტში ჩვენ ვიპოვეთ ბმულები, რომლებიც შესაძლოა ხარვეზიანი იყოს

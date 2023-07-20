@@ -82,9 +82,6 @@ ru:
       unnumbered_hoc_paper: Актовый документ без номера
     opendocument:
       help_html: Этот файл находится в формате <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Данное приложение проверяется на наличие вирусов.
-      message: В настоящий момент это приложение находится в карантине до тех пор, пока оно не будет проверено на наличие вирусов. Вскоре оно будет доступно в исходном местоположении.
   broken_links:
     broken:
       subheading: Мы обнаружили в данном документе ссылки, которые могут быть недействительными

@@ -84,9 +84,6 @@ de:
       unnumbered_hoc_paper: Nicht nummeriertes Aktpapier
     opendocument:
       help_html: Diese Datei liegt im <a href='https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation'>OpenDocument</a> Format vor
-    virus_check:
-      intro: Dieser Anhang wird auf Viren geprüft.
-      message: Wir halten diesen Anhang derzeit in Quarantäne, bis er auf Viren geprüft worden ist. Der Anhang wird in Kürze an der ursprünglichen Stelle verfügbar sein.
   broken_links:
     broken:
       subheading: Wir haben in diesem Dokument Links gefunden, die möglicherweise nicht mehr funktionieren.

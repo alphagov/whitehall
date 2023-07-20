@@ -85,9 +85,6 @@ sq:
       unnumbered_hoc_paper: Letër akti pa numër
     opendocument:
       help_html: Ky skedar është në një <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">format</a> OpenDocument
-    virus_check:
-      intro: Kjo bashkëngjitje po kontrollohet nga viruset.
-      message: Ne aktualisht po e mbajmë këtë bashkëngjitje në karantinë derisa të jetë kontrolluar nga virusi. Bashkëngjitja do të jetë e disponueshme së shpejti në vendndodhjen origjinale.
   broken_links:
     broken:
       subheading: Ne kemi gjetur lidhje në këtë dokument që mund të prishen

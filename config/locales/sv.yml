@@ -85,9 +85,6 @@ sv:
       unnumbered_hoc_paper: Onnumrerat dokument om handling
     opendocument:
       help_html: Denna fil är i ett <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
-    virus_check:
-      intro: Den här bilagan håller på att viruskontrolleras.
-      message: Vi håller för närvarande denna bilaga i karantän tills den har viruskontrollerats. Bilagan kommer att vara tillgänglig på den ursprungliga platsen inom kort.
   broken_links:
     broken:
       subheading: Vi har hittat länkar i det här dokumentet som kan vara trasiga

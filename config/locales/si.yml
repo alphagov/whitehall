@@ -84,9 +84,6 @@ si:
       unnumbered_hoc_paper: අංකනය නොකළ නීති පත්‍රිකාව
     opendocument:
       help_html: මෙම ගොනුව <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">විවෘතලේඛන</a> ආකෘතියේ ඇත
-    virus_check:
-      intro: මෙම ඇමුණුම වෛරස් සඳහා පරීක්ෂා කෙරෙමින් පවතී.
-      message: වෛරසය පරීක්ෂා කරන තෙක් අපි දැනට මෙම ඇමුණුම නිරෝධායනයේ තබා ගනිමු. ඇමුණුම කෙටි වේලාවකින් මුල් ස්ථානයේ ලබා ගත හැකිය.
   broken_links:
     broken:
       subheading: අපි මෙම ලේඛනයේ බිඳිය හැකි සබැඳි අපි සොයාගෙන ඇත්තෙමු

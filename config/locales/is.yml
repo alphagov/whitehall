@@ -84,9 +84,6 @@ is:
       unnumbered_hoc_paper: Ónúmerað laga skjal
     opendocument:
       help_html: Þessi skrá er á <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> sniði
-    virus_check:
-      intro: Verið að vírusleita í viðhenginu.
-      message: Við höldum þessu viðhengi í einangrun þar til vírusleitinni er lokið. Viðhengið verður aðgengilegt á upprunalegum stað innan skamms.
   broken_links:
     broken:
       subheading: Við fundum hlekki í þessu skjali sem gætu verið óvirkir

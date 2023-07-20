@@ -82,9 +82,6 @@ be:
       unnumbered_hoc_paper: Ненумераваны акт
     opendocument:
       help_html: Гэты файл у <a href='https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> фармаце
-    virus_check:
-      intro: Гэты дадатак правяраецца на вірусы.
-      message: У цяперашні час мы трымаем гэты дадатак у карантыне да таго часу, пакуль яно не будзе праверана на вірусы. Дадатак будзе даступна ў зыходным месцы ў бліжэйшы час.
   broken_links:
     broken:
       subheading: Мы знайшлі спасылкі ў гэтым дакуменце, якія могуць быць парушаныя

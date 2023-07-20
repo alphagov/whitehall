@@ -82,9 +82,6 @@ mt:
       unnumbered_hoc_paper: Dokument tal-att mhux innumerat
     opendocument:
       help_html: Il-fajl jinsab <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
-    virus_check:
-      intro: L-anness qed jiġi ċċekkjat għal viruses.
-      message: Bħalissa qed inżommu l-anness fi kwarantina sakemm jiġi ċċekkjat minħabba viruses. L-anness daqt ser ikun disponibbli fil-post oriġinali.
   broken_links:
     broken:
       subheading: Sibna links f'dan id-dokument li jistgħu jkunu miksura

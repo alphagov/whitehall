@@ -84,9 +84,6 @@ id:
       unnumbered_hoc_paper: Kertas UU tidak bernomor
     opendocument:
       help_html: File ini berformat <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Lampiran ini sedang dicek untuk virus.
-      message: Kami saat ini menaruh lampiran ini dalam karantina hingga virus telah dicek. Lampiran ini akan tersedia pada lokasi asal tidak lama lagi.
   broken_links:
     broken:
       subheading: Kami menemukan tautan yang mungkin terputus di dalam dokumen ini

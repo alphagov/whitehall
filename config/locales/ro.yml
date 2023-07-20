@@ -84,9 +84,6 @@ ro:
       unnumbered_hoc_paper: Document de lege nenumerotat
     opendocument:
       help_html: Acest fișier este în format <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Acest atașament este verificat pentru viruși.
-      message: Ținem acest fișier momentan în carantină până când este verificat de viruși. Atașamentul va fi disponibil în locația originală într-un timp scurt.
   broken_links:
     broken:
       subheading: Am găsit linkuri în acest document care pot fi rupte

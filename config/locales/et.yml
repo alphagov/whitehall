@@ -84,9 +84,6 @@ et:
       unnumbered_hoc_paper: Nummerdamata akt
     opendocument:
       help_html: See fail on <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> vormingus
-    virus_check:
-      intro: Manusele on tehtud viirusekontroll.
-      message: Hoiame seda manust praegu karantiinis, kuni sellele on tehtud viirusekontroll. Manus on peagi algses asukohas saadaval.
   broken_links:
     broken:
       subheading: Leidsime sellest dokumendist lingid, mis võivad olla katki

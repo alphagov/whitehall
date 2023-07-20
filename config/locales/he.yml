@@ -85,9 +85,6 @@ he:
       unnumbered_hoc_paper: נייר אקט ללא מספר
     opendocument:
       help_html: 'קובץ זה בפורמט <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> '
-    virus_check:
-      intro: קובץ מצורף זה נסרק לאיתור וירוסים.
-      message: כרגע אנו מחזיקים קובץ מצורף זה בהסגר עד לבדיקת וירוסים. הקובץ המצורף יהיה זמין במיקום המקורי בקרוב.
   broken_links:
     broken:
       subheading: מצאנו במסמך קישורים שעלולים להיפגע

@@ -85,9 +85,6 @@ sk:
       unnumbered_hoc_paper: Nečíslovaný dokument
     opendocument:
       help_html: Tento súbor je vo formáte <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Táto príloha sa kontroluje na prítomnosť vírusov.
-      message: V súčasnosti držíme túto prílohu v karanténe, kým nebude skontrolovaná na prítomnosť vírusov. Príloha bude čoskoro k dispozícii na pôvodnom mieste.
   broken_links:
     broken:
       subheading: V tomto dokumente sme našli odkazy, ktoré môžu byť nefunkčné

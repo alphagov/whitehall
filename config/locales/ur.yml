@@ -84,9 +84,6 @@ ur:
       unnumbered_hoc_paper: غیر نمبر شدہ ایکٹ کا صفحہ
     opendocument:
       help_html: یہ فائل <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> فارمیٹ میں ہے
-    virus_check:
-      intro: اس منسلکہ میں وائرس کی جانچ کی گئی ہے۔
-      message: جب تک اس منسلکہ میں وائرس کی جانچ نہ کی جائے ہم فی الوقت اسے روک رہے ہیں۔ منسلکہ جلد ہی اصل مقام پر دستیاب ہو گی۔
   broken_links:
     broken:
       subheading: ہمیں اس دستاویز میں لنکس ملے ہیں جو ٹوٹے ہوئے ہو سکتے ہیں

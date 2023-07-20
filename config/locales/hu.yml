@@ -84,9 +84,6 @@ hu:
       unnumbered_hoc_paper: Számozatlan jogi aktus
     opendocument:
       help_html: Ez a fájlt <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formátumú
-    virus_check:
-      intro: A csatolmány vírusellenőrzése folyamatban.
-      message: A csatolmányt jelenleg karanténban tartjuk, amíg a vírusellenőrzése befejeződik. A csatolmány hamarosan elérhető lesz az eredeti helyén.
   broken_links:
     broken:
       subheading: Olyan hivatkozásokat találtunk a dokumentumban, amelyek elképzelhető, hogy nem működnek

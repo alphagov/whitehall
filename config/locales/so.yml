@@ -84,9 +84,6 @@ so:
       unnumbered_hoc_paper: Warqada xeerka aan lambarada lahayn
     opendocument:
       help_html: Faylkani waa <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
-    virus_check:
-      intro: Lifaaqan waxa laga hubiyay inuu fayras la socdo.
-      message: Waxaan hada haynaa lifaaqan inta lagu jiro karantiilka ilaa iyo inta fayraska laga hubinayo. Lifaaqa waxa laga heli doonaa meeshiisii asalka ahayd dhawaan.
   broken_links:
     broken:
       subheading: Waxaan helnay linkiyada dhokumantigan kaasoo la jabsaday

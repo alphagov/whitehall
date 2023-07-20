@@ -85,11 +85,6 @@ dr:
       unnumbered_hoc_paper: اوراق قانون بدون شماره
     opendocument:
       help_html: این فایل در یک فارمت<a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">سند باز</a>است
-    virus_check:
-      intro: این فایل ضمیمه در حال بررسی ویروس است.
-      message: |-
-        ما در حال حاضر این ضمیمه را در قرنطینه نگهداری میکنیم تا ویروس آن بررسی شود.
-        فایل ضمیمه به زودی در موقعیت اصلی خود موجود میباشد.
   broken_links:
     broken:
       subheading: ما لنک هایی در این سند پیدا کردیم که ممکن است مخرب باشند.

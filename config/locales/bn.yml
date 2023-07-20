@@ -84,9 +84,6 @@ bn:
       unnumbered_hoc_paper: নম্বরবিহীন আইনপত্র
     opendocument:
       help_html: এই নথিটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> ফরম্যাটে আছে
-    virus_check:
-      intro: এই সংযুক্তিটির ভাইরাস পরীক্ষা করা হয়েছে।
-      message: এই সংযুক্তিটির ভাইরাস পরীক্ষা না করা পর্যন্ত আমরা এটি কোয়ারেন্টিন করে রাখছি। শীঘ্রই সংযুক্তিটি মূল অবস্থানে উপলভ্য হবে।
   broken_links:
     broken:
       subheading: আমরা এই নথিতে এমন কিছু লিংক পেয়েছি যেগুলো অকার্যকর হতে পারে

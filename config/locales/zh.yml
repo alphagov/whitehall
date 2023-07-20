@@ -84,9 +84,6 @@ zh:
       unnumbered_hoc_paper: 未编号的法案书
     opendocument:
       help_html: 本文件是 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">开放式文本</a> 格式
-    virus_check:
-      intro: 正在对本附件进行病毒检查。
-      message: 我们目前将此附件隔离，直到对其进行病毒检查。附件将很快在原址提供。
   broken_links:
     broken:
       subheading: 我们在这份文件中发现了可能被破坏的链接

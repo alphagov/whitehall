@@ -84,9 +84,6 @@ ne:
       unnumbered_hoc_paper: संख्या नभएको अधिनियम पृष्ठ
     opendocument:
       help_html: यो फाइल एक <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> ढाँचामा छ
-    virus_check:
-      intro: यो संलग्न भाइरस जाँच हुँदैछ।
-      message: हामी हाल यो संलग्नलाई भाइरस जाँच नगरिए सम्म क्वारेन्टाइनमा राख्छौं। संलग्न चाँडै मूल स्थानमा उपलब्ध हुनेछ।
   broken_links:
     broken:
       subheading: हामीले यस कागजातमा फेला फरेका लिंकहरू काम नगर्ने हुनसक्छन्

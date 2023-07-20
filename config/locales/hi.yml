@@ -85,9 +85,6 @@ hi:
       unnumbered_hoc_paper: संख्यारहित अधिनियम पेपर
     opendocument:
       help_html: यह फाइल एक <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">ओपनडॉक्यूमेंट</a> प्रारूप में है
-    virus_check:
-      intro: इस अटैचमेंट में वायरस की जांच की जा रही है।
-      message: हम फिलहाल इस अटैचमेंट को तब तक क्वारंटाइन में रख रहे हैं जब तक इसमें वायरस की जांच नहीं हो जाती। अटैचमेंट शीघ्र ही मूल स्थान पर उपलब्ध होगा।
   broken_links:
     broken:
       subheading: हमें इस डॉक्यूमेंट में ऐसे लिंक मिले हैं जो ब्रोकन हो सकते हैं

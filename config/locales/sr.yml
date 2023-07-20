@@ -85,9 +85,6 @@ sr:
       unnumbered_hoc_paper: Nenumerisani dokument zakona
     opendocument:
       help_html: Ova datoteka je u formatu <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: U toku je provera da li ovaj prilog sadrži viruse.
-      message: Trenutno držimo ovaj dokument u karantinu dok ne proverimo da li sadrži viruse. Prilog će uskoro biti dostupan na prvobitnoj lokaciji.
   broken_links:
     broken:
       subheading: Pronašli smo veze u ovom dokumentu koje možda ne rade

@@ -84,9 +84,6 @@ bg:
       unnumbered_hoc_paper: Неномериран законов документ
     opendocument:
       help_html: Този файл е във <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">формат OpenDocument</a>
-    virus_check:
-      intro: Прикаченият файл се проверява за вируси.
-      message: В момента сме поставили този прикачен файл под карантина, докато бъде проверен за вируси. След малко прикаченият файл бъде наличен на първоначалното му място.
   broken_links:
     broken:
       subheading: В документа открихме линкове, които може да са повредени
