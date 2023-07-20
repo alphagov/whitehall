@@ -82,9 +82,6 @@ pl:
       unnumbered_hoc_paper: Nienumerowany akt
     opendocument:
       help_html: Ten plik jest w formacie <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Ten załącznik jest sprawdzany pod kątem obecności wirusów.
-      message: Obecnie trzymamy ten załącznik w kwarantannie do czasu sprawdzenia go pod kątem wirusów. Wkrótce załącznik będzie dostępny w pierwotnej lokalizacji.
   broken_links:
     broken:
       subheading: Linki znalezione w tym dokumencie mogą być uszkodzone

@@ -85,9 +85,6 @@ fi:
       unnumbered_hoc_paper: Numeroimaton toimintapaperi
     opendocument:
       help_html: Tämä tiedosto on <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation"> OpenDocument</a> muodossa.
-    virus_check:
-      intro: Tämä liitetiedosto on virustarkastuksessa.
-      message: Pidämme tätä liitettä karanteenissa, kunnes virus on tarkistettu. Liite on pian saatavilla alkuperäisessä paikassa.
   broken_links:
     broken:
       subheading: Olemme löytäneet tästä asiakirjasta linkkejä, jotka saattavat olla katkenneet

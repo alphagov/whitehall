@@ -82,9 +82,6 @@ es:
       unnumbered_hoc_paper: Documento de acta sin numerar
     opendocument:
       help_html: Este archivo tiene el formato <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Se está comprobando la presencia de virus en este archivo adjunto.
-      message: Actualmente estamos manteniendo este archivo adjunto en cuarentena hasta que se haya comprobado la presencia de virus. El archivo adjunto estará disponible en la ubicación original en breve.
   broken_links:
     broken:
       subheading: Hemos encontrado enlaces en este documento que pueden estar rotos

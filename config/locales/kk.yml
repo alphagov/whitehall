@@ -84,9 +84,6 @@ kk:
       unnumbered_hoc_paper: Нөмірсіз қаулы қағазы
     opendocument:
       help_html: Бұл файл <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> пішімінде
-    virus_check:
-      intro: Бұл тіркеме вирусқа тексерілуде.
-      message: Біз қазір бұл тіркемені вирус тексерілгенше карантинде ұстаймыз. Тіркеме жақын арада бастапқы орнында қолжетімді болады.
   broken_links:
     broken:
       subheading: Біз бұл құжатта бұзылуы мүмкін сілтемелерді таптық

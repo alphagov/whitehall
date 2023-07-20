@@ -85,9 +85,6 @@ hy:
       unnumbered_hoc_paper: Չհամարակալված օրինական փաստաթուղթ
     opendocument:
       help_html: Այս ֆայլը <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> ձևաչափով է
-    virus_check:
-      intro: Կցված ֆայլը վիրուսներից ստուգման փուլում է։
-      message: 'Այս պահին կցված այս ֆայլը պահում ենք կարանտինում, քանի դեռ վիրուսների ստուգման փուլը չի ավարտվել։ Քիչ անց կցված ֆայլը հասանելի կլինի սկզբնական տեղադրված վայրում:'
   broken_links:
     broken:
       subheading: Այս փաստաթղթում նկատել ենք հղումներ, որոնք հնարավոր է՝ այլևս չեն գործում

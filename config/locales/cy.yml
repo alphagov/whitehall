@@ -84,9 +84,6 @@ cy:
       unnumbered_hoc_paper: Papur deddf heb rif
     opendocument:
       help_html: Mae'r ffeil hon mewn fformat <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">Dogfen Agored</a>
-    virus_check:
-      intro: Mae'r atodiad hwn yn cael ei wirio am feirysau.
-      message: Rydyn ni'n dal yr atodiad hwn mewn cwarantîn ar hyn o bryd tan iddo gael ei wirio am feirysau. Bydd yr atodiad ar gael yn y lleoliad gwreiddiol cyn bo hir.
   broken_links:
     broken:
       subheading: Rydyn ni wedi dod o hyd i ddolenni yn y ddogfen hon sydd o bosib wedi torri

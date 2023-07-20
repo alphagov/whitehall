@@ -84,9 +84,6 @@ sw:
       unnumbered_hoc_paper: Hati ya sheria isiyo na nambari
     opendocument:
       help_html: Faili hii ni ya muundo wa <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Kiambatisho hiki kinakaguliwa ili kubaini iwapo kina virusi.
-      message: Tumezuia kiambatisho hiki kwa sasa hadi kikaguliwe kubaini iwapo kina virusi. Kiambatisho kitapatikana katika eneo halisi baada ya muda mfupi.
   broken_links:
     broken:
       subheading: Tumepata viungo katika hati hii ambavyo huenda havijakamilika

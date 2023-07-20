@@ -84,9 +84,6 @@ th:
       unnumbered_hoc_paper: เอกสารพระราชบัญญัติที่ไม่มีเลขที่
     opendocument:
       help_html: ไฟล์นี้อยู่ในรูปแบบ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: เอกสารแนบนี้กำลังได้รับการตรวจสอบไวรัส
-      message: เอกสารแนบนี้ถูกกักกันอยู่ในขณะนี้ จนกว่าจะมีการตรวจสอบไวรัส เอกสารแนบจะพร้อมใช้งานได้ในตำแหน่งเดิมในไม่ช้า
   broken_links:
     broken:
       subheading: เราพบว่าลิงก์ในเอกสารนี้อาจใช้ไม่ได้

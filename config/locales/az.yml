@@ -85,9 +85,6 @@ az:
       unnumbered_hoc_paper: Nömrələnməmiş akt sənədi
     opendocument:
       help_html: Bu fayl <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formatındadır
-    virus_check:
-      intro: Bu əlavə viruslara qarşı yoxlanılıb.
-      message: Biz bu əlavə virusa qarşı yoxlanana qədər, onu hal-hazırda karantində saxlayırıq. Əlavə tezliklə ilkin yerində mövcud olacaq.
   broken_links:
     broken:
       subheading: Biz bu sənəddə pozulmuş keçid aşkar etmişik

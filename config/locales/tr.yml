@@ -84,9 +84,6 @@ tr:
       unnumbered_hoc_paper: Sayı verilmemiş kanun belgesi
     opendocument:
       help_html: Bu dosya bir <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formatındadır
-    virus_check:
-      intro: Bu ekin virüs kontrolü yapılıyor.
-      message: Virüs kontrol edilene kadar şu an da bu eki karantinada tutuyoruz. Eke kısa süre içinde orijinal konumdan ulaşılabilir.
   broken_links:
     broken:
       subheading: Bu belgede kırık olabilecek linkler bulduk

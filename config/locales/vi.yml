@@ -84,9 +84,6 @@ vi:
       unnumbered_hoc_paper: Văn kiện luật không được đánh số
     opendocument:
       help_html: Tệp này có định dạng <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Đang quét vi-rút cho tệp đính kèm này.
-      message: Chúng tôi hiện đang cách ly tệp đính kèm này cho đến khi hoàn tất quy trình kiểm tra vi-rút. Tệp đính kèm sẽ sớm có sẵn tại vị trí ban đầu.
   broken_links:
     broken:
       subheading: Chúng tôi đã tìm thấy các liên kết có thể bị hỏng trong tài liệu này

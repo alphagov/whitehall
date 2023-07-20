@@ -82,9 +82,6 @@ lv:
       unnumbered_hoc_paper: Tiesību akta dokuments bez numura
     opendocument:
       help_html: Šis fails ir <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formātā
-    virus_check:
-      intro: Tiek pārbaudīts, vai šajā pielikumā nav vīrusu.
-      message: Pašlaik šis pielikums atrodas karantīnā, līdz būs pārbaudīts, vai tajā nav vīrusu. Pielikums drīz būs pieejams oriģinālajā atrašanās vietā.
   broken_links:
     broken:
       subheading: Šajā dokumentā ir atrastas saites, kas, iespējams, ir bojātas

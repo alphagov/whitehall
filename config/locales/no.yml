@@ -85,9 +85,6 @@
       unnumbered_hoc_paper: Unummerert aktskriv
     opendocument:
       help_html: Denne filen er i formatet <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>-format
-    virus_check:
-      intro: Dette vedlegget blir sjekket for virus.
-      message: Vi holder for øyeblikket dette vedlegget i karantene til det er blitt kontrollert for virus. Vedlegget vil være tilgjengelig på den opprinnelige plasseringen innen kort tid.
   broken_links:
     broken:
       subheading: Vi har funnet koblinger i dette dokumentet som kan være ødelagte

@@ -85,9 +85,6 @@ da:
       unnumbered_hoc_paper: Ikke-nummereret aktdokument
     opendocument:
       help_html: <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
-    virus_check:
-      intro: Denne vedhæftede fil er ved at blive viruskontrolleret.
-      message: Vi holder denne vedhæftede fil i øjeblikket i karantæne, indtil den er blevet viruskontrolleret. Den vedhæftede fil vil snart være tilgængelig på det oprindelige sted.
   broken_links:
     broken:
       subheading: Vi har fundet links i dette dokument, som muligvis er brudt

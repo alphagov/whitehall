@@ -82,9 +82,6 @@ pa-pk:
       unnumbered_hoc_paper: اَن نمبرڈ کمانڈ پیپر
     opendocument:
       help_html: فائل <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">دستاویز کھولنا</a>شکل
-    virus_check:
-      intro: ایس اٹیچمینٹ دا وائرس ویکھ لیا گیا اے۔
-      message: اسی ہون ایہ اٹیچمنٹ کورنٹائن دے وچ روک رئے ہیں کیوں جے ایندا وائرس ویکھ لیا ہے۔ تھوڑی دیر بعد ایہ اٹیچمینٹ اپنی اصل تھاں تے ہوئے گی۔
   broken_links:
     broken:
       subheading: اسی ایس دستاویز وچ اینج دے لنکس ویکھے جہیڑے ٹُٹ وی سکدے نیں

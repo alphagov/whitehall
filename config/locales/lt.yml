@@ -82,9 +82,6 @@ lt:
       unnumbered_hoc_paper: Nenumeruotas akto dokumentas
     opendocument:
       help_html: Šis failas pateiktas <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formatu
-    virus_check:
-      intro: Tikrinama, ar priede nėra virusų.
-      message: Priedas bus karantinuotas, iki kol patikrinsime, ar jame nėra virusų. Jis netrukus bus prieinamas.
   broken_links:
     broken:
       subheading: Šiame dokumente aptikome nuorodų, kurios gali būti pažeistos

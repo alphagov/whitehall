@@ -85,9 +85,6 @@ sl:
       unnumbered_hoc_paper: Neoštevilčen dokument ukrepa
     opendocument:
       help_html: Dokument je formata <a hren="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">Odpri dokument</a>
-    virus_check:
-      intro: Preverjajo se morebitni virusi v prilogi.
-      message: Trenutno je priloga v karanteni, dokler ne preverimo, ali vsebuje viruse.  Priloga bo kmalu na voljo na prvotni lokaciji.
   broken_links:
     broken:
       subheading: V tem dokumentu smo našli povezave, ki so morda prekinjene

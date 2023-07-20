@@ -85,9 +85,6 @@ it:
       unnumbered_hoc_paper: Carta atto non numerata
     opendocument:
       help_html: Questo file è un <a href=”https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation”>Documento Aperto</a> format
-    virus_check:
-      intro: Questo allegato è in fase di controllo antivirus.
-      message: Al momento stiamo tenendo questo allegato in quarantena fino a quando non sarà stato controllato dai virus. L'allegato sarà disponibile a breve nella posizione originale.
   broken_links:
     broken:
       subheading: Abbiamo trovato collegamenti in questo documento che potrebbero essere interrotti

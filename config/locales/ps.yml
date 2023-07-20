@@ -85,9 +85,6 @@ ps:
       unnumbered_hoc_paper: بې شمیره د عمل کاغذ
     opendocument:
       help_html: دا فایل په <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> ب formatه کې دی
-    virus_check:
-      intro: دا ضمیمه د ویروس معاینه کیږي.
-      message: موږ دا مهال دا ضمیمه په قرنطین کې ساتو تر هغه چې دا ویروس معاینه شوی نه وي. ضمیمه به په لنډ وخت کې اصلي ځای کې شتون ولري.
   broken_links:
     broken:
       subheading: موږ پدې سند کې لینکونه موندلي چې ممکن مات شي

@@ -85,9 +85,6 @@ ms:
       unnumbered_hoc_paper: Kertas tindakan tidak bernombor
     opendocument:
       help_html: Fail ini terdapat dalam <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">format</a> OpenDocument
-    virus_check:
-      intro: Pemeriksaan virus sedang dibuat pada lampiran ini.
-      message: Lampiran ini berada dalam kuarantin hingga pemeriksaan virus selesai. Lampiran akan tersedia di lokasi asal tidak lama lagi.
   broken_links:
     broken:
       subheading: Kami menemui pautan dalam dokumen ini yang mungkin terputus

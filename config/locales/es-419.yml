@@ -85,9 +85,6 @@ es-419:
       unnumbered_hoc_paper: Documento de ley no enumerado
     opendocument:
       help_html: Este archivo está en formato <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">AbrirDocumento</a>
-    virus_check:
-      intro: Este archivo adjunto está sujeto a examen antivirus.
-      message: Actualmente mantenemos este archivo adjunto en cuarentena hasta que sea revisado por el antivirus. El archivo adjunto estará disponible en la ubicación actual en breve.
   broken_links:
     broken:
       subheading: Hemos encontrado enlaces en este documento que pueden estar rotos

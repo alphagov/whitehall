@@ -84,9 +84,6 @@ fa:
       unnumbered_hoc_paper: سند قانون بدون شماره
     opendocument:
       help_html: این فایل یک قالب <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">سند باز (OpenDocument)</a> است
-    virus_check:
-      intro: این پیوست در حال بررسی برای وجود ویروس است.
-      message: ما در حال حاضر این پیوست را در قرنطینه نگه می‌داریم تا زمانی که بررسی وجود ویروس در آن انجام شود. به زودی این پیوست در محل اصلی خود در دسترس خواهد بود.
   broken_links:
     broken:
       subheading: ما در این سند لینک‌های پیدا کردیم که ممکن است خراب باشند

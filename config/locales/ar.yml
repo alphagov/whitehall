@@ -82,9 +82,6 @@ ar:
       unnumbered_hoc_paper: ورقة عمل غير مرقمة
     opendocument:
       help_html: هذا الملف بتنسيق <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: يتم فحص هذا المرفق للتأكد من خلوه من الفيروس.
-      message: نحتفظ حاليًا بهذا المرفق في الحجر الصحي لحين فحصه للتأكد من خلوه من الفيروس. سيُتاح المرفق في الموقع الأصلي قريبًا.
   broken_links:
     broken:
       subheading: لقد وجدنا في هذا المستند ارتباطات قد تكون منقطعة

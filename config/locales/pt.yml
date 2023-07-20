@@ -85,9 +85,6 @@ pt:
       unnumbered_hoc_paper: Papel de ato não numerado
     opendocument:
       help_html: Este ficheiro está num formato <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Este anexo está a ser verificado por um antivírus.
-      message: Estamos atualmente a manter este anexo em quarentena até que se tenha verificado se contém vírus. O anexo estará disponível no local original em breve.
   broken_links:
     broken:
       subheading: Encontrámos links neste documento que podem ficar desfeitos

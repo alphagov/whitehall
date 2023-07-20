@@ -82,9 +82,6 @@ ja:
       unnumbered_hoc_paper: 番号のない決議書類
     opendocument:
       help_html: このファイルは、<a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>形式です。
-    virus_check:
-      intro: この添付ファイルはウイルスチェック中です。
-      message: 現在、この添付ファイルはウイルスチェックが行われるまで隔離されています。添付ファイルはまもなく元の場所で利用できるようになります。
   broken_links:
     broken:
       subheading: このドキュメントには、壊れている可能性のあるリンクが見つかりました

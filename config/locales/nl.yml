@@ -82,9 +82,6 @@ nl:
       unnumbered_hoc_paper: Ongenummerde akte
     opendocument:
       help_html: Dit bestand is in een <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formaat
-    virus_check:
-      intro: Deze bijlage wordt momenteel op virussen gecontroleerd.
-      message: Wij houden deze bijlage momenteel in quarantaine totdat deze is gecontroleerd op virussen. De bijlage zal binnenkort beschikbaar zijn op de oorspronkelijke locatie.
   broken_links:
     broken:
       subheading: We hebben links gevonden in dit document die gebroken kunnen zijn

@@ -84,9 +84,6 @@ tk:
       unnumbered_hoc_paper: Belgisiz iş kagyzy
     opendocument:
       help_html: Bu faýl <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">Açyk resminama</a> formatda
-    virus_check:
-      intro: Bu goşundy wirus howpy tarapy boýunça barlanyldy.
-      message: Häzirki wagtda bu goşundyny wirus howpy barlagy tamamlanýança karantinde saklaýarys. Goşundy gysga wagtdan asyl ýerleşýän ýerinde elýeterli bolar.
   broken_links:
     broken:
       subheading: Bu resminamada bozuk bolup biläýjek baglanyşyklary tapdyk

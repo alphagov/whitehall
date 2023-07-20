@@ -85,9 +85,6 @@ pa:
       unnumbered_hoc_paper: ਅਣਗਿਣਤ ਐਕਟ ਪੇਪਰ
     opendocument:
       help_html: ਇਹ ਫਾਈਲ ਇੱਕ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">ਓਪਨਡਾਕੂਮੈਂਟ</a> ਫਾਰਮੈਟ ਵਿੱਚ ਹੈ
-    virus_check:
-      intro: ਇਸ ਅਟੈਚਮੈਂਟ ਦੀ ਵਾਇਰਸ ਜਾਂਚ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ।
-      message: ਅਸੀਂ ਇਸ ਸਮੇਂ ਇਸ ਅਟੈਚਮੈਂਟ ਨੂੰ ਕੁਆਰੰਟੀਨ ਵਿੱਚ ਰੱਖ ਰਹੇ ਹਾਂ ਜਦੋਂ ਤੱਕ ਇਸ ਦੀ ਵਾਇਰਸ ਦੀ ਜਾਂਚ ਨਹੀਂ ਹੋ ਜਾਂਦੀ। ਅਟੈਚਮੈਂਟ ਛੇਤੀ ਹੀ ਅਸਲ ਸਥਾਨ ਤੇ ਉਪਲਬਧ ਹੋਵੇਗੀ।
   broken_links:
     broken:
       subheading: ਸਾਨੂੰ ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਲਿੰਕ ਮਿਲੇ ਹਨ ਜੋ ਟੁੱਟ ਸਕਦੇ ਹਨ

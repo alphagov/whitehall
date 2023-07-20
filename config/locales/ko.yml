@@ -84,9 +84,6 @@ ko:
       unnumbered_hoc_paper: 번호를 매기지 않은 법안 문서
     opendocument:
       help_html: 이 파일은 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> 포맷입니다
-    virus_check:
-      intro: 이 첨부 파일은 바이러스 확인을 거쳤습니다.
-      message: '현재 이 첨부 파일을 바이러스가 확인될 때까지 격리 상태로 유지합니다. 첨부 파일은 기존 위치에서 잠시 이용할 수 있을 것입니다. '
   broken_links:
     broken:
       subheading: 이 문서에서 손상된 링크가 발견되었습니다
