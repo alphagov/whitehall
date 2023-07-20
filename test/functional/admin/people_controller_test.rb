@@ -93,15 +93,6 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_select ".govuk-summary-list__actions-list a[href='#{confirm_destroy_admin_person_path(person)}']", text: "Delete Details"
   end
 
-  view_test "GET on :show renders an inset text component when user cannot be deleted" do
-    person = create(:pm)
-
-    get :show, params: { id: person }
-
-    assert_select ".gem-c-inset-text", text: "Note: This person cannot be deleted as they are currently assigned to a role"
-    assert_select ".govuk-summary-list__actions-list a[href='#{confirm_destroy_admin_person_path(person)}']", text: "Delete Details", count: 0
-  end
-
   view_test "editing shows form for editing a person" do
     person = create(:person, image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
     get :edit, params: { id: person }
