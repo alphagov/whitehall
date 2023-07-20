@@ -6,6 +6,8 @@
     <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
 <% end %>
 
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
 <% if filter.editions.blank? %>
   <p class="govuk-body app-view-edition-search-results__no_documents">No documents found</p>
 <% else %>
