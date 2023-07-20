@@ -22,14 +22,14 @@ bn:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: সংযুক্ত নথি
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: সংযুক্ত আদেশ পত্র নম্বর
         hoc_paper_number: হাউজ অব কমন্সের পেপার নাম্বার
@@ -51,19 +51,19 @@ bn:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -91,10 +91,10 @@ bn:
       subheading: লিংকগুলোতে আমরা কিছু বিষয় পেয়েছি, যেগুলো সমস্যা নির্দেশ করতে পারে, এগুলোর সাথে লিংক করতে আপনার সতর্ক হওয়া উচিত
     title: অকার্যকর লিংকসমূহ
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: বন্ধ হয়ে গেছে
     closing_today: আজকে বন্ধ হচ্ছে
@@ -175,11 +175,11 @@ bn:
         one: ব্লগ পোস্ট
         other: ব্লগ পোস্টসমূহ
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: ক্যাম্পেইন
         other: ক্যাম্পেইনসমূহ
@@ -190,8 +190,8 @@ bn:
         one: কেস স্টাডি
         other: কেস স্টাডিসমূহ
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: ক্লোজড কনসাল্টেশন
         other: ক্লোজড কনসাল্টেশন
@@ -274,8 +274,8 @@ bn:
         one: সদস্যপদ
         other: সদস্যপদ
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: জাতীয় পরিসংখ্যান
         other: জাতীয় পরিসংখ্যান
@@ -295,8 +295,8 @@ bn:
         one: দাপ্তরিক পরিসংখ্যান
         other: দাপ্তরিক পরিসংখ্যান
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: উম্মুক্ত পরামর্শ
         other: উম্মুক্ত পরামর্শসমূহ
@@ -404,72 +404,72 @@ bn:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
+    ar: 
+    az: 
+    be: 
+    bg: 
     bn: বাংলা
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: এখনও কোনো আপডেট নেই।
     title: সাম্প্রতিক
@@ -481,7 +481,7 @@ bn:
       organisation_chart: আমাদের প্রতিষ্ঠানের চার্ট
       transparency: স্বচ্ছতার তথ্য
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: কর্পোরেট তথ্য
       corporate_reports: কর্পোরেট রিপোর্টসমূহ
@@ -498,10 +498,10 @@ bn:
   see_all:
     announcement: আমাদের সকল ঘোষণা দেখুন
     authored_article: আমাদের লেখকের উৎস সহ সকল নিবন্ধ দেখুন
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: আমাদের সকল কেস স্টাডি দেখুন
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: আমাদের সকল ক্লোজড কনসাল্টেশন দেখুন
     consultation: আমাদের সকল কনসাল্টেশন দেখুন
     consultation_outcome: আমাদের সকল কনসাল্টেশনের ফলাফল দেখুন
@@ -524,7 +524,7 @@ bn:
     news_article: আমাদের সকল সংবাদপত্রের নিবন্ধ দেখুন
     news_story: আমাদের সকল সংবাদের বিষয় দেখুন
     notice: আমাদের সকল বিজ্ঞপ্তি দেখুন
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: আমাদের সকল উম্মুক্ত পরামর্শ দেখুন
     oral_statement: সংসদে আমাদের সকল মৌখিক বিবৃতি দেখুন
     policy: আমাদের সকল নীতিমালা দেখুন
@@ -558,15 +558,15 @@ bn:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: দেশ বা অঞ্চল হিসেবে অনুসন্ধান করুন
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: আন্তর্জাতিক প্রতিনিধি

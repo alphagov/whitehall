@@ -22,14 +22,14 @@ el:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Το συνημμένο αρχείο
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: Αριθμός συνημμένου εγγράφου εντολής
         hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
@@ -51,19 +51,19 @@ el:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -91,10 +91,10 @@ el:
       subheading: Βρήκαμε ορισμένα προβλήματα με τους συνδέσμους που μπορεί να ενέχουν κίνδυνο. Θα πρέπει να είστε προσεκτικοί κατά τη σύνδεση σε αυτούς
     title: Σπασμένοι σύνδεσμοι
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: Κλειστό
     closing_today: Κλείνει σήμερα
@@ -175,11 +175,11 @@ el:
         one: Ανάρτηση ιστολογίου
         other: Αναρτήσεις ιστολογίου
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: Καμπάνια
         other: Καμπάνιες
@@ -190,8 +190,8 @@ el:
         one: Μελέτη περίπτωσης
         other: Μελέτες περιπτώσεων
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: Κλειστή διαβούλευση
         other: Κλειστές διαβουλεύσεις
@@ -274,8 +274,8 @@ el:
         one: Ιδιότητα μέλους
         other: Ιδιότητα μέλους
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: Εθνική Στατιστική Υπηρεσία
         other: Εθνική Στατιστική Υπηρεσία
@@ -295,8 +295,8 @@ el:
         one: Επίσημη Στατιστικά Στοιχεία
         other: Επίσημη Στατιστικά Στοιχεία
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: Ανοιχτή διαβούλευση
         other: Ανοιχτές διαβουλεύσεις
@@ -404,72 +404,72 @@ el:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
     el: Ελληνικά
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: Δεν υπάρχουν ακόμα ενημερώσεις.
     title: Πιο πρόσφατα
@@ -481,7 +481,7 @@ el:
       organisation_chart: Το οργανόγραμμα μας
       transparency: Δεδομένα διαφάνειας
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: Εταιρικές πληροφορίες
       corporate_reports: Εταιρικές εκθέσεις
@@ -498,10 +498,10 @@ el:
   see_all:
     announcement: Δείτε όλες τις ανακοινώσεις
     authored_article: Δείτε όλα τα άρθρα
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: Δείτε όλες τις μελέτες περιπτώσεων
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: Δείτε όλες τις κλειστές διαβουλεύσεις
     consultation: Δείτε όλες τις διαβουλεύσεις
     consultation_outcome: Δείτε όλα τα αποτελέσματα της διαβούλευσης
@@ -524,7 +524,7 @@ el:
     news_article: Δείτε όλα τα άρθρα ειδήσεων
     news_story: Δείτε όλες τις ειδήσεις
     notice: Δείτε όλες τις ειδοποιήσεις
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: Δείτε όλες τις ανοιχτές διαβουλεύσεις
     oral_statement: Δείτε όλες τις προφορικές δηλώσεις στη Βουλή
     policy: Δείτε όλες τις πολιτικές
@@ -558,15 +558,15 @@ el:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: Αναζήτηση ανά χώρα ή περιοχή
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: Διεθνής αντιπροσωπεία
