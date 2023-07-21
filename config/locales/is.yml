@@ -22,14 +22,14 @@ is:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Skráin í viðhengi
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: Skjal númer fyrirskipana í viðhengi
         hoc_paper_number: Skjal númer neðri deildar Þingsins
@@ -51,19 +51,19 @@ is:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -91,10 +91,10 @@ is:
       subheading: Við fundum vandamál með hlekki sem gætu leitt til vandræða, þú ætti að fara varlega í að tengjast þeim
     title: Óvirkir hlekkir
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: Lokað
     closing_today: Lokar í dag
@@ -175,11 +175,11 @@ is:
         one: Bloggfærsla
         other: Bloggfærslur
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: Herferð
         other: Herferðir
@@ -190,8 +190,8 @@ is:
         one: Ferilsathugun
         other: Ferilsathuganir
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: Lokuð ráðgjöf
         other: Lokaðar ráðgjafir
@@ -274,8 +274,8 @@ is:
         one: Aðild
         other: Aðild
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: Hagstofa
         other: Hagstofa
@@ -295,8 +295,8 @@ is:
         one: Opinber tölfræði
         other: Opinber tölfræði
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: Opin ráðgjöf
         other: Opnar ráðgjafir
@@ -404,72 +404,72 @@ is:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
     is: Íslenska
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: Það eru engar uppfærslur.
     title: Nýjasta
@@ -481,7 +481,7 @@ is:
       organisation_chart: Skipurit okkar
       transparency: Gögn um gagnsæi
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: Upplýsingar um fyrirtæki
       corporate_reports: Skýrslur fyrirtækis
@@ -498,10 +498,10 @@ is:
   see_all:
     announcement: Sjá allar okkar tilkynningar
     authored_article: Sjá allar okkar samdar greinar
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: Sjá allar okkar ferilsathuganir
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: Sjá allar okkar lokaðar ráðgjafir
     consultation: Sjá allar okkar ráðgjafir
     consultation_outcome: Sjá allar okkar útkomur úr ráðgjöfum
@@ -524,7 +524,7 @@ is:
     news_article: Sjá allar fréttagreinar okkar
     news_story: Sjá allar fréttir okkar
     notice: Sjá allar tilkynningar okkar
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: Sjá allar opnar ráðgjafir okkar
     oral_statement: Sjá allar munnlegar yfirlýsingar okkar til Þingsins
     policy: Sjá allar stefnur okkar
@@ -558,15 +558,15 @@ is:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: Leita eftir landi eða landsvæði
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: Alþjóðleg sendinefnd

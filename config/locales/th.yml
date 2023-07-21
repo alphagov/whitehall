@@ -22,14 +22,14 @@ th:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: เอกสารแนบ
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: เลขที่เอกสารคำสั่งแนบ
         hoc_paper_number: เลขที่เอกสารสภาสามัญ
@@ -51,19 +51,19 @@ th:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -91,10 +91,10 @@ th:
       subheading: เราพบประเด็นบางอย่างเกี่ยวกับลิงก์ที่อาจบ่งชี้ว่าลิงก์นี้มีปัญหา คุณควรใช้ความระมัดระวังในการเปิดลิงก์เหล่านั้น
     title: ลิงค์ใช้ไม่ได้
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: ปิดแล้ว
     closing_today: กำลังปิดวันนี้
@@ -167,9 +167,9 @@ th:
       blog_post:
         other: โพสต์บล็อก
       call_for_evidence:
-        other:
+        other: 
       call_for_evidence_outcome:
-        other:
+        other: 
       campaign:
         other: การรณรงค์
       careers:
@@ -177,7 +177,7 @@ th:
       case_study:
         other: กรณีศึกษา
       closed_call_for_evidence:
-        other:
+        other: 
       closed_consultation:
         other: การให้คำปรึกษาที่ปิดแล้ว
       complaints_procedure:
@@ -233,7 +233,7 @@ th:
       membership:
         other: สมาชิก
       modern_slavery_statement:
-        other:
+        other: 
       national_statistics:
         other: สถิติแห่งชาติ
       news_article:
@@ -247,7 +247,7 @@ th:
       official_statistics:
         other: สถิติของราชการ
       open_call_for_evidence:
-        other:
+        other: 
       open_consultation:
         other: การให้คำปรึกษาที่เปิดอยู่
       oral_statement:
@@ -324,72 +324,72 @@ th:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
     th: ไทย
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: ยังไม่มีการปรับปรุง
     title: ล่าสุด
@@ -401,7 +401,7 @@ th:
       organisation_chart: แผนผังองค์กรของเรา
       transparency: ข้อมูลความโปร่งใส
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: ข้อมูลองค์กร
       corporate_reports: รายงานของบริษัท
@@ -418,10 +418,10 @@ th:
   see_all:
     announcement: ดูประกาศทั้งหมดของเรา
     authored_article: ดูบทความโดยผู้เขียนทั้งหมดของเรา
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: ดูกรณีศึกษาทั้งหมดของเรา
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: ดูการให้คำปรึกษาที่ปิดแล้วทั้งหมดของเรา
     consultation: ดูการให้คำปรึกษาที่ปิดแล้วทั้งหมดของเรา
     consultation_outcome: ดูผลลัพธ์จากการให้คำปรึกษาทั้งหมดของเรา
@@ -444,7 +444,7 @@ th:
     news_article: ดูบทความข่าวทั้งหมดของเรา
     news_story: ดูเนื้อหาข่าวทั้งหมดของเรา
     notice: ดูประกาศทั้งหมดของเรา
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: ดูการให้คำปรึกษาที่เปิดอยู่ทั้งหมดของเรา
     oral_statement: ดูแถลงการณ์ด้วยวาจาต่อรัฐสภาทั้งหมดของเรา
     policy: ดูนโยบายทั้งหมดของเรา
@@ -478,15 +478,15 @@ th:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: ค้นหาด้วยประเทศหรือดินแดน
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         other: คณะผู้แทนระหว่างประเทศ

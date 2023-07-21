@@ -22,14 +22,14 @@ si:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: අමුණා ඇති ගොනුව
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
         hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
@@ -51,19 +51,19 @@ si:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -91,10 +91,10 @@ si:
       subheading: ප්‍රශ්න පෙන්විය හැකි සබැඳි වල ගැටළු ඇති බව අපි සොයා ගෙන ඇත, ඔබ ඒවාට සම්බන්ධ වීමේදී ප්රවේශම් විය යුතුය
     title: කැඩුණු සබැඳි
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: වසා ඇත
     closing_today: අද දින වසා දැමේ
@@ -175,11 +175,11 @@ si:
         one: බ්ලොග් පළ කිරීම
         other: බ්ලොග් පළ කිරීම්
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: ව්යාපාරය
         other: ව්යාපාර
@@ -190,8 +190,8 @@ si:
         one: සිද්ධි අධ්යයනය
         other: සිද්ධි අධ්යයන
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: සංවෘත උපදේශනය
         other: සංවෘත උපදේශන
@@ -274,8 +274,8 @@ si:
         one: සාමාජිකත්වය
         other: සාමාජිකත්වය
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: ජාතික සංඛ්යාලේඛන
         other: ජාතික සංඛ්යාලේඛන
@@ -295,8 +295,8 @@ si:
         one: නිල සංඛ්යාලේඛන
         other: නිල සංඛ්යාලේඛන
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: විවෘත උපදේශනය
         other: විවෘත උපදේශන
@@ -404,72 +404,72 @@ si:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
     si: සිංහල
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: තවම යාවත්කාලීන කිසිවක් නොමැත.
     title: නවතම
@@ -481,7 +481,7 @@ si:
       organisation_chart: අපේ සංවිධාන සටහන
       transparency: විනිවිදභාව දත්ත
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: ආයතනික තොරතුරු
       corporate_reports: ආයතනික වාර්තා
@@ -498,10 +498,10 @@ si:
   see_all:
     announcement: අපේ සියලු නිවේදන බලන්න
     authored_article: අපේ සියලුම රචනා කළ ලිපි බලන්න
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: අපේ සියලු සිද්ධි අධ්යයන බලන්න
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: අපේ සියලු සංවෘත උපදේශන බලන්න
     consultation: අපේ සියලු උපදේශන බලන්න
     consultation_outcome: අපේ සියලු උපදේශන ප්‍රතිඵල බලන්න
@@ -524,7 +524,7 @@ si:
     news_article: අපේ සියලු පුවත් ලිපි බලන්න
     news_story: අපේ සියලු පුවත් කථා බලන්න
     notice: අපේ සියලු දැන්වීම් බලන්න
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: අපේ සියලු විවෘත උපදේශන බලන්න
     oral_statement: අපේ පාර්ලිමේන්තුවට කළ ප්‍රකාශන සියල්ල බලන්න
     policy: අපේ සියලු ප්රතිපත්ති බලන්න
@@ -558,15 +558,15 @@ si:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: රට හෝ භූමිය අනුව සොයන්න
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: ජාත්යන්තර නියෝජිත පිරිස

@@ -22,14 +22,14 @@ dr:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: فایل ضمیمه
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: شماره اوراق فرمان ضمیمه
         hoc_paper_number: مجلس اوراق عام با شماره
@@ -51,19 +51,19 @@ dr:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |-
@@ -92,10 +92,10 @@ dr:
       subheading: ما برخی موضوعات را در این لنک ها پیدا نموده ایم که ممکن است نشان دهندهء مشکلاتی باشند، در ضمیمه نمودن آنها باید احتیاط نمایید.
     title: لنک هایی تخریب شده
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: بسته شد
     closing_today: امروز بسته میشود
@@ -176,11 +176,11 @@ dr:
         one: پوست وبلاک
         other: پوست هایی وبلاگ
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: کمپاین
         other: کمپاین ها
@@ -191,8 +191,8 @@ dr:
         one: مطالعهء موردی
         other: مطالعهء موردی ها
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: مشاورهء متوقف شده
         other: مشاوره هایی متوقف شده
@@ -275,8 +275,8 @@ dr:
         one: عضویت
         other: عضویت
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: آما ملی
         other: آمار ملی
@@ -296,8 +296,8 @@ dr:
         one: آمار رسمی
         other: آمار رسمی
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: مشاورهء آزاد
         other: مشاوره هایی آزاد
@@ -405,72 +405,72 @@ dr:
   i18n:
     direction: rtl
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
     dr: دری
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: کدام آپدیتی تا هنوز موجود نیست
     title: جدیدترین ها
@@ -482,7 +482,7 @@ dr:
       organisation_chart: چارت سازمانی ما
       transparency: داده هایی شفافیت
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: اطلاعات شرکت
       corporate_reports: گزارشات شرکت
@@ -499,10 +499,10 @@ dr:
   see_all:
     announcement: تمام اعلانات ما را مشاهده نمایید
     authored_article: تمام مقالات تألیف شدهء ما را مشاهده نمایید
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: تمام مطالعات موردی مارا مشاهده نمایید
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: تمام مشاوره های تمام شدهء مارا مشاهده نمایید
     consultation: تمام مشاوره هایی ما را مشاهده نمایید
     consultation_outcome: نتایج تمام مشاوره هایی مارا مشاهده نمایید
@@ -525,7 +525,7 @@ dr:
     news_article: تمام مقلات خبری ما را مشاهده نمایید
     news_story: تمام گزارشات خبری ما را مشاهده نمایید
     notice: تمام اعلامیه هایی ما را مشاهده نمایید
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: تمام مشاوره هایی آزاد ما را مشاهده نمایید
     oral_statement: تمام بیانیه هایی شفاهی ما به پارلمان را مشاهده نمایید
     policy: تمام سیاست/خط مشی هایی ما را مشاهده نمایید
@@ -559,15 +559,15 @@ dr:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: جستجو به اساس کشور یا قلمرو
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: هیٔت بین المللی

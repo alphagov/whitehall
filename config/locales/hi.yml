@@ -22,14 +22,14 @@ hi:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: संलग्न हुई फा़इल
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: अटैचमेंट कमांड पेपर नंबर
         hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
@@ -51,19 +51,19 @@ hi:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -92,10 +92,10 @@ hi:
       subheading: हमें लिंक में कुछ समस्याएं मिली हैं जिनसे दिक्कतों का संकेत मिल सकता है, आपको उन्हें लिंक करते समय सावधानी बरतनी चाहिए
     title: ब्रोकन लिंक
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: बंद हो गया
     closing_today: आज बंद हो रहा है
@@ -176,11 +176,11 @@ hi:
         one: ब्लॉग पोस्ट
         other: ब्लॉग पोस्ट
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: अभियान
         other: अभियान
@@ -191,8 +191,8 @@ hi:
         one: विषय अध्ययन
         other: विषय अध्ययन
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: बंद कमरे में परामर्श
         other: बंद कमरे में परामर्श
@@ -275,8 +275,8 @@ hi:
         one: सदस्यता
         other: सदस्यता
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: राष्ट्रीय सांख्यिकी
         other: राष्ट्रीय सांख्यिकी
@@ -296,8 +296,8 @@ hi:
         one: आधिकारिक सांख्यिकी
         other: आधिकारिक सांख्यिकी
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: खुला परामर्श
         other: खुले परामर्श
@@ -405,72 +405,72 @@ hi:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
     hi: हिंदी
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: अभी तक कोई नए समाचार नहीं हैं।
     title: नवीनतम
@@ -482,7 +482,7 @@ hi:
       organisation_chart: हमारी संस्था का चार्ट
       transparency: पारदर्शिता आंकड़े
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: कारपोरेट सूचना
       corporate_reports: कॉरपोरेट विवरण
@@ -499,10 +499,10 @@ hi:
   see_all:
     announcement: देखें हमारे सभी घोषणाएं
     authored_article: देखें हमारे सभी मूल आलेख
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: देखें हमारे सभी विषय अध्ययन
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: देखें हमारे सभी बंद कमरे में परामर्श
     consultation: देखें हमारे सभी परामर्श
     consultation_outcome: देखें हमारे सभी परामर्श के नतीजे
@@ -525,7 +525,7 @@ hi:
     news_article: देखें हमारे सभी समाचार लेख
     news_story: देखें हमारे सभी समाचार कथाएं
     notice: हमारी सभी नोटिस देखें
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: देखें हमारे सभी खुले परामर्श
     oral_statement: देखें हमारे सभी संसद में मौखिक बयान
     policy: देखें हमारे सभी नीतियां
@@ -559,15 +559,15 @@ hi:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: देश या क्षेत्र से खोजें
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: अंतर्राष्ट्रीय प्रतिनिधिमंडल

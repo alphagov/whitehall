@@ -22,14 +22,14 @@ ps:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: ضمیمه شوې فایل
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: د ضمیمې قوماندې کاغذ شمیره
         hoc_paper_number: د ولسي جرګې د کاغذ شمیره
@@ -51,19 +51,19 @@ ps:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -92,10 +92,10 @@ ps:
       subheading: موږ د لینکونو سره ځینې مسلې موندلي چې ممکن ستونزې په ګوته کړي ، تاسو باید د دوی سره وصل کیدو کې احتیاط وکړئ
     title: مات شوي لینکونه
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: تړل شوی
     closing_today: نن ورځ تړل
@@ -176,11 +176,11 @@ ps:
         one: د بلاګ پوسټ
         other: د بلاګ پوسټونه
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: کمپاین
         other: کمپاینونه
@@ -191,8 +191,8 @@ ps:
         one: د قضیې مطالعه
         other: د قضیې مطالعات
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: تړلې مشوره
         other: تړلې مشورې
@@ -275,8 +275,8 @@ ps:
         one: غړیتوب
         other: غړیتوب
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: ملي احصایې
         other: ملي احصایې
@@ -296,8 +296,8 @@ ps:
         one: رسمي احصایې
         other: رسمي احصایې
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: خلاص مشوره
         other: مشورې خلاص کړئ
@@ -405,72 +405,72 @@ ps:
   i18n:
     direction: rtl
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
     ps: جرمني
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: تراوسه کوم تازه معلومات نشته.
     title: وروستی
@@ -482,7 +482,7 @@ ps:
       organisation_chart: زموږ د سازمان چارټ
       transparency: د شفافیت ډاټا
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: د شرکت معلومات
       corporate_reports: د شرکت راپورونه
@@ -499,10 +499,10 @@ ps:
   see_all:
     announcement: زموږ ټول اعلانونه وګورئ
     authored_article: زموږ ټولې لیکل شوې مقالې وګورئ
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: زموږ ټولې قضیې مطالعات وګورئ
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: زموږ ټولې تړلې مشورې وګورئ
     consultation: زموږ ټولې مشورې وګورئ
     consultation_outcome: زموږ د مشورې ټولې پایلې وګورئ
@@ -525,7 +525,7 @@ ps:
     news_article: زموږ ټولې خبري مقالې وګورئ
     news_story: زموږ ټول خبرونه وګورئ
     notice: زموږ ټول خبرتیاوې وګورئ
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: زموږ ټولې خلاصې مشورې وګورئ
     oral_statement: پارلمان ته زموږ ټولې شفاهي څرګندونې وګورئ
     policy: زموږ ټولې پالیسۍ وګورئ
@@ -559,15 +559,15 @@ ps:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: د هیواد یا سیمې له مخې لټون
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: نړیوال پلاوی

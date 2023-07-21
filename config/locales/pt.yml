@@ -22,14 +22,14 @@ pt:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: O ficheiro anexo
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: Número de papel de comando do anexo
         hoc_paper_number: Número de papel da Câmara dos Comuns
@@ -51,19 +51,19 @@ pt:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -92,10 +92,10 @@ pt:
       subheading: Encontrámos alguns problemas com links que podem indicar dificuldades – deve ter cautela ao estabelecer ligações com elas
     title: Links desfeitos
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: Fechado
     closing_today: Encerra hoje
@@ -176,11 +176,11 @@ pt:
         one: Publicação no blogue
         other: Publicações no blogue
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: Campanha
         other: Campanhas
@@ -191,8 +191,8 @@ pt:
         one: Estudo de caso
         other: Estudos de caso
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: Consulta encerrada
         other: Consultas encerradas
@@ -275,8 +275,8 @@ pt:
         one: Adesão
         other: Adesão
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: Estatísticas Nacionais
         other: Estatísticas Nacionais
@@ -296,8 +296,8 @@ pt:
         one: Estatísticas Oficiais
         other: Estatísticas Oficiais
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: Consulta aberta
         other: Consultas abertas
@@ -405,72 +405,72 @@ pt:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
     pt: Português
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: Ainda não há atualizações.
     title: Mais recentes
@@ -482,7 +482,7 @@ pt:
       organisation_chart: O nosso organigrama
       transparency: Dados de transparência
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: Informações da empresa
       corporate_reports: Relatórios empresariais
@@ -499,10 +499,10 @@ pt:
   see_all:
     announcement: Ver todos os nossos anúncios
     authored_article: Ver todos os nossos artigos de autor
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: Ver todos os nossos estudos de caso
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: Ver todas as nossas consultas encerradas
     consultation: Ver todas as nossas consultas
     consultation_outcome: Ver todos os resultados da nossa consulta
@@ -525,7 +525,7 @@ pt:
     news_article: Ver todos os nossos artigos noticiosos
     news_story: Ver todas as nossas reportagens
     notice: Ver todos os nossos avisos
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: Ver todas as nossas consultas abertas
     oral_statement: Ver todas as nossas declarações orais ao Parlamento
     policy: Ver todas as nossas políticas
@@ -559,15 +559,15 @@ pt:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: Pesquisa por país ou território
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: Delegação internacional

@@ -22,14 +22,14 @@ nl:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Het bijgevoegde bestand
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: Nummer van het bijgevoegde document
         hoc_paper_number: Nummer Lagerhuisdocument
@@ -51,19 +51,19 @@ nl:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: "Als u ondersteunende technologie gebruikt (zoals een schermlezer) en een\r\nversie van dit document in een meer toegankelijk formaat nodig heeft, stuur dan een e-mail naar %{email}.\r\nVertel ons welk formaat u nodig hebt. Het zal ons helpen als u zegt welke ondersteunende technologie u gebruikt.\r\n"
@@ -89,10 +89,10 @@ nl:
       subheading: We hebben enkele problemen gevonden met links die op problemen kunnen wijzen, wees daarom voorzichtig met het linken naar deze links
     title: Gebroken links
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: Gesloten
     closing_today: Sluiting vandaag
@@ -173,11 +173,11 @@ nl:
         one: Blog bericht
         other: Blog berichten
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: Campagne
         other: Campagnes
@@ -188,8 +188,8 @@ nl:
         one: Casestudy
         other: Casestudies
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: Gesloten consultatie
         other: Gesloten consultaties
@@ -272,8 +272,8 @@ nl:
         one: Lidmaatschap
         other: Lidmaatschap
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: Nationale Statistieken
         other: Nationale Statistieken
@@ -293,8 +293,8 @@ nl:
         one: Officiële statistieken
         other: Officiële statistieken
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: Openbare raadpleging
         other: Openbare raadplegingen
@@ -402,72 +402,72 @@ nl:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
     nl: Nederlands
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: Er zijn nog geen updates.
     title: Laatste
@@ -479,7 +479,7 @@ nl:
       organisation_chart: Ons organigram
       transparency: Transparantiegegevens
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: Bedrijfsinformatie
       corporate_reports: Bedrijfsrapporten
@@ -496,10 +496,10 @@ nl:
   see_all:
     announcement: Bekijk al onze aankondigingen
     authored_article: Bekijk al onze geschreven artikelen
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: Bekijk al onze case studies
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: Bekijk al onze gesloten consultaties
     consultation: Bekijk al onze raadplegingen
     consultation_outcome: Bekijk alle uitkomsten van onze raadplegingen
@@ -522,7 +522,7 @@ nl:
     news_article: Bekijk al onze nieuwsartikelen
     news_story: Bekijk al onze nieuwsberichten
     notice: Bekijk al onze aankondigingen
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: Bekijk al onze openbare raadplegingen
     oral_statement: Bekijk al onze mondelinge verklaringen aan het Parlement
     policy: Bekijk al ons beleid
@@ -556,15 +556,15 @@ nl:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: Zoeken op land of gebied
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: Internationale delegatie

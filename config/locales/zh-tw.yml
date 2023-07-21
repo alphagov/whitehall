@@ -22,14 +22,14 @@ zh-tw:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: 附件
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: 附件命令文件編號
         hoc_paper_number: 下議院文件編碼
@@ -51,19 +51,19 @@ zh-tw:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -91,10 +91,10 @@ zh-tw:
       subheading: 我們發現了一些可能表明存在問題的連結問題，你在應謹慎連結。
     title: 連結損壞
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: 關閉
     closing_today: 今日關閉
@@ -167,9 +167,9 @@ zh-tw:
       blog_post:
         other: 部落格文章
       call_for_evidence:
-        other:
+        other: 
       call_for_evidence_outcome:
-        other:
+        other: 
       campaign:
         other: 活動
       careers:
@@ -177,7 +177,7 @@ zh-tw:
       case_study:
         other: 案例分析
       closed_call_for_evidence:
-        other:
+        other: 
       closed_consultation:
         other: 非公開協商
       complaints_procedure:
@@ -233,7 +233,7 @@ zh-tw:
       membership:
         other: 會員資格
       modern_slavery_statement:
-        other:
+        other: 
       national_statistics:
         other: 國家統計
       news_article:
@@ -247,7 +247,7 @@ zh-tw:
       official_statistics:
         other: 官方統計
       open_call_for_evidence:
-        other:
+        other: 
       open_consultation:
         other: 公開諮詢
       oral_statement:
@@ -324,71 +324,71 @@ zh-tw:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
+    ta: 
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
     zh-tw: 繁體中文
   latest_feed:
     no_updates: 尚未更新
@@ -418,10 +418,10 @@ zh-tw:
   see_all:
     announcement: 查看我們所有公告
     authored_article: 查看我們所有授權文章
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: 查看我們所有案例分析
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: 查看我們所有未公開諮詢
     consultation: 查看我們所有諮詢
     consultation_outcome: 查看我們所有諮詢結果
@@ -444,7 +444,7 @@ zh-tw:
     news_article: 查看我們所有新聞文章
     news_story: 查看我們所有新聞報導
     notice: 查看我們所有通知
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: 查看我們所有公開諮詢
     oral_statement: 查看我們所有對議會的口頭聲明
     policy: 查看我們所有政策
@@ -478,15 +478,15 @@ zh-tw:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: 按國家或地區搜索
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         other: 國際代表團

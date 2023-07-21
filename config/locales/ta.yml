@@ -22,14 +22,14 @@ ta:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: இணைக்கப்பட்ட கோப்பு
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
         command_paper_number: இணைப்பு கட்டளை ஆவண எண்
         hoc_paper_number: கீழ்ச்சபை ஆவண எண்
@@ -51,19 +51,19 @@ ta:
   admin:
     whats_new:
       guidance:
-        body_govspeak:
-        heading:
+        body_govspeak: 
+        heading: 
       introduction:
-        body_govspeak:
-        heading:
-      last_updated:
+        body_govspeak: 
+        heading: 
+      last_updated: 
       recent_changes:
-        heading:
-        updates:
-      summary:
-      title:
+        heading: 
+        updates: 
+      summary: 
+      title: 
       upcoming_changes:
-        heading:
+        heading: 
   attachment:
     accessibility:
       full_help_html: |
@@ -91,10 +91,10 @@ ta:
       subheading: பிரச்சினைகளைச் சுட்டிக்காட்டக்கூடிய இணைப்புகளுடன் சில பிரச்சினைகளைக் கண்டறிந்துள்ளோம். அவற்றைத் தொடர்வதில் கவனமாய் இருக்கவும்
     title: முறிந்த இணைப்புகள்
   call_for_evidence:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 
+    closing_today: 
+    closing_tomorrow: 
+    days_left: 
   consultation:
     closed: மூடப்பட்டது
     closing_today: இன்று மூடப்படுகிறது
@@ -175,11 +175,11 @@ ta:
         one: வலைப்பூப் பதிவு
         other: வலைப்பூப் பதிவுகள்
       call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       call_for_evidence_outcome:
-        one:
-        other:
+        one: 
+        other: 
       campaign:
         one: பிரச்சாரம்
         other: பிரச்சாரங்கள்
@@ -190,8 +190,8 @@ ta:
         one: நிகழ்வு ஆய்வு
         other: நிகழ்வு ஆய்வுகள்
       closed_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       closed_consultation:
         one: மூடிய கலந்தாய்வு
         other: மூடிய கலந்தாய்வுகள்
@@ -274,8 +274,8 @@ ta:
         one: உறுப்பினர் நிலை
         other: உறுப்பினர் நிலை
       modern_slavery_statement:
-        one:
-        other:
+        one: 
+        other: 
       national_statistics:
         one: தேசிய புள்ளியியல்
         other: தேசிய புள்ளியியல்
@@ -295,8 +295,8 @@ ta:
         one: அதிகாரப்பூர்வ புள்ளியியல்
         other: அதிகாரப்பூர்வ புள்ளியியல்
       open_call_for_evidence:
-        one:
-        other:
+        one: 
+        other: 
       open_consultation:
         one: திறந்த கலந்தாலோசனை
         other: திறந்த கலந்தாலோசனைகள்
@@ -404,72 +404,72 @@ ta:
   i18n:
     direction: ltr
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
+    ar: 
+    az: 
+    be: 
+    bg: 
+    bn: 
+    cs: 
+    cy: 
+    da: 
+    de: 
+    dr: 
+    el: 
+    en: 
+    es: 
+    es-419: 
+    et: 
+    fa: 
+    fi: 
+    fr: 
+    gd: 
+    gu: 
+    he: 
+    hi: 
+    hr: 
+    hu: 
+    hy: 
+    id: 
+    is: 
+    it: 
+    ja: 
+    ka: 
+    kk: 
+    ko: 
+    lt: 
+    lv: 
+    ms: 
+    mt: 
+    ne: 
+    nl: 
+    'no': 
+    pa: 
+    pa-pk: 
+    pl: 
+    ps: 
+    pt: 
+    ro: 
+    ru: 
+    si: 
+    sk: 
+    sl: 
+    so: 
+    sq: 
+    sr: 
+    sv: 
+    sw: 
     ta: தமிழ்
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    yi:
-    zh:
-    zh-hk:
-    zh-tw:
+    th: 
+    tk: 
+    tr: 
+    uk: 
+    ur: 
+    uz: 
+    vi: 
+    yi: 
+    zh: 
+    zh-hk: 
+    zh-tw: 
   latest_feed:
     no_updates: எந்த புதுப்பித்தல்களும் இல்லை.
     title: சமீபத்தியது
@@ -481,7 +481,7 @@ ta:
       organisation_chart: எங்கள் அமைப்பு வரைபடம்
       transparency: வெளிப்படையான தரவு
     embassies:
-      find_an_embassy_title:
+      find_an_embassy_title: 
     headings:
       corporate_information: குழுமத் தகவல்கள்
       corporate_reports: குழும அறிக்கைகள்
@@ -498,10 +498,10 @@ ta:
   see_all:
     announcement: எங்கள் அனைத்து அறிவிப்புகளையும் காண்க
     authored_article: எங்கள் அனைத்து எழுதப்பட்ட கட்டுரைகளையும் காண்க
-    call_for_evidence:
-    call_for_evidence_outcome:
+    call_for_evidence: 
+    call_for_evidence_outcome: 
     case_study: எங்கள் அனைத்து நிகழ்வு ஆய்வுகளையும் காண்க
-    closed_call_for_evidence:
+    closed_call_for_evidence: 
     closed_consultation: எங்கள் அனைத்து மூடிய கலந்தாலோசனைகளையும் காண்க
     consultation: எங்கள் அனைத்து கலந்தாலோசனைகளையும் காண்க
     consultation_outcome: எங்கள் அனைத்து கலந்தாலோசனை பலன்களையும் காண்க
@@ -524,7 +524,7 @@ ta:
     news_article: எங்கள் அனைத்து செய்திக் கட்டுரைகளையும் காண்க
     news_story: எங்கள் அனைத்து செய்திகளையும் காண்க
     notice: எங்கள் அனைத்து அறிவிப்புகளையும் காண்க
-    open_call_for_evidence:
+    open_call_for_evidence: 
     open_consultation: எங்கள் அனைத்து திறந்த கலந்தாலோசனைகளையும் காண்க
     oral_statement: எங்கள் அனைத்து நாடாளுமன்றத்துக்கான வாய்வழி அறிவிப்புகளையும் காண்க
     policy: எங்கள் அனைத்து கொள்கைகளையும் காண்க
@@ -558,15 +558,15 @@ ta:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
+      complete_list: 
+      find_out: 
+      heading: 
+      list_link: 
     headings:
       search: நாடு அல்லது பிரதேசம் வாரியாகத் தேடு
     search_description:
-      international_delegation:
-      world_location:
+      international_delegation: 
+      world_location: 
     type:
       international_delegation:
         one: சர்வதேச தூதுக்குழு
