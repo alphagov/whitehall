@@ -2,7 +2,11 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
   before_action :find_worldwide_office, only: %i[edit update destroy add_to_home_page remove_from_home_page]
 
-  def index; end
+  layout :get_layout
+
+  def index
+    render_design_system(:index, :legacy_index)
+  end
 
   def new
     @worldwide_office = @worldwide_organisation.offices.build
@@ -53,6 +57,17 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
