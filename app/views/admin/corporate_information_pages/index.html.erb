@@ -1,3 +1,8 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_organisations_path
+  } %>
+<% end %>
 <% content_for :page_title, @organisation.name %>
 <% content_for :context, organisation_context_block(current_user, @organisation)  %>
 <% content_for :title, @organisation.name %>
