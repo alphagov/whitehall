@@ -78,14 +78,6 @@ class WorldLocationTest < ActiveSupport::TestCase
     end
   end
 
-  test "all_by_type should group world locations by type sorting the types by their sort order and locations by their name" do
-    location1 = create(:world_location, world_location_type: "world_location", name: "Narnia")
-    location2 = create(:world_location, world_location_type: "international_delegation", name: "Neverland")
-    location3 = create(:world_location, world_location_type: "world_location", name: "Middle Earth")
-
-    assert_equal({ "world_location" => [location3, location1], "international_delegation" => [location2] }, WorldLocation.all_by_type)
-  end
-
   test "we can find those that are countries" do
     world_location = create(:world_location)
     international_delegation = create(:international_delegation)

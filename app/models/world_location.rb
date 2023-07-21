@@ -62,10 +62,6 @@ class WorldLocation < ApplicationRecord
     name
   end
 
-  def self.all_by_type
-    ordered_by_name.in_order_of(:world_location_type, %w[world_location international_delegation]).group_by(&:world_location_type)
-  end
-
   def self.countries
     where(world_location_type: "world_location").ordered_by_name
   end

@@ -2,7 +2,6 @@
 jQuery(function ($) {
   $('.govspeak').enhanceYoutubeVideoLinks()
 
-  GOVUK.worldLocationFilter.init()
   GOVUK.hideDepartmentChildren.init()
   GOVUK.filterListItems.init()
   GOVUK.showHide.init()

@@ -3,13 +3,7 @@
 Whitehall is deployed in two modes:
 
 - 'admin' for publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>)
-- 'frontend' for rendering content to the public that has yet to be migrated to using Publishing API (see live examples that follow)
-
-## Live examples (public facing frontend)
-
-### World Information
-
-- Help and services around the world: [https://www.gov.uk/world](https://www.gov.uk/world)
+- 'frontend' is a legacy mode that was used for rendering content to the public that had yet to be migrated to using Publishing API work to remove this is being carried out by the Publishing Platform team
 
 ## Running the Application
 
