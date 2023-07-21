@@ -20,6 +20,12 @@
       items: secondary_navigation_tabs_items(@person, request.path)
     } %>
 
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Translations",
+      font_size: "l",
+      margin_bottom: 6,
+    } %>
+
     <% if @person.non_english_translated_locales.present? %>
       <div class="govuk-table--with-actions">
         <%= render "govuk_publishing_components/components/table", {

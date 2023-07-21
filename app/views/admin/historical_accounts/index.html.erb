@@ -20,6 +20,12 @@
      items: secondary_navigation_tabs_items(@person, request.path)
     } %>
 
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Historical accounts",
+      font_size: "l",
+      margin_bottom: 6,
+    } %>
+
     <% if @person.can_have_historical_accounts? && @historical_accounts.present? %>
       <%= render "govuk_publishing_components/components/button", {
         text: "Create new historical account",
