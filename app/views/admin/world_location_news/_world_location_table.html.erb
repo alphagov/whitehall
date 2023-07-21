@@ -13,7 +13,7 @@
         text: "Translations"
       },
       {
-        text: tag.span("Edit", class: "govuk-visually-hidden")
+        text: tag.span("View", class: "govuk-visually-hidden")
       }
     ],
     rows:
@@ -41,7 +41,7 @@
               end
           },
           {
-            text: link_to(sanitize("Edit#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link")
+            text: link_to(sanitize("View#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link")
           }
         ]
       end
