@@ -1,90 +1,14 @@
-<%# page_title @worldwide_organisation.name %>
-
-<% content_for :page_title, @worldwide_organisation.name %>
-<% content_for :title, @worldwide_organisation.name %>
-<% content_for :context, "World organisations" %>
-<% content_for :title_margin_bottom, 4 %>
-
-<p class="govuk-body"><%= view_on_website_link_for @worldwide_organisation %></p>
+<% page_title @worldwide_organisation.name %>
 
 <%= content_tag_for(:div, @worldwide_organisation) do %>
-<!--
   <div class="organisation-header">
     <h1><%= @worldwide_organisation.name %></h1>
     <%= view_on_website_link_for @worldwide_organisation %>
   </div>
--->
-
-<%= render "components/secondary_navigation", {
-  aria_label: "Worldwide organisation office navigation tabs",
-  items: secondary_navigation_tabs_items(@worldwide_organisation, request.path)
-} %>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Offices",
-      font_size: "l",
-      # margin_bottom: 3
-    } %>
-
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Add office",
-      margin_bottom: 6,
-      href: new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation)
-      # data_attributes: {
-        #   module: "gem-track-click",
-        #   "track-category": "form-button",
-        #   "track-action": "financial-report-button",
-        #   "track-label": "Create new report"
-        # }
-    } %>
-
-    <%# @worldwide_office %>
-
-    <% if @worldwide_organisation.offices.any? %>
-      <% @worldwide_organisation.offices.each do |office| %>
-        <%= office.to_json %>
-
-        <%= render "components/summary_card_component", {
-          title: "Title",
-          rows:
-          [
-            {
-              key: "Office type",
-              value: "valueOne"
-            },
-            {
-              key: "Contact type",
-              value: "valueTwo"
-            },
-            {
-              key: "On home page?",
-              value: "valueThree"
-            }
-          ],
-          summary_card_actions: [
-            {
-              label: "Edit",
-              href: "#1"
-            },
-            {
-              label: "Delete",
-              href: "#2",
-              destructive: true
-            }
-          ]
-        } %>
-      <% end %>
-    <% else %>
-      <p class="no-content no-content-bordered">No offices</p>
-    <% end %>
-  </div>
-</div>
 
   <section class="organisation-details">
     <%= tab_navigation_for(@worldwide_organisation) do %>
-      <!-- <h2>Offices</h2>
+      <h2>Offices</h2>
       <div class="tabbable">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#manage-all" data-toggle="tab">All</a></li>
