@@ -6,13 +6,17 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
     render_design_system(:index, :legacy_index)
   end
 
-  def edit; end
+  def edit
+    render_design_system(:edit, :legacy_edit)
+  end
+
+  def confirm_destroy; end
 
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index confirm_destroy] if preview_design_system?(next_release: false)
+    design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[index edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

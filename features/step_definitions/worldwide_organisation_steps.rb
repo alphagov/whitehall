@@ -189,11 +189,12 @@ Then(/^I should see the language "([^"]*)" \("([^"]*)"\) for "([^"]*)" \("([^"]*
 
   if using_design_system?
     click_link "Edit #{language}"
+    expect(page).to have_content("Edit translation")
   else
     click_link language
+    expect(page).to have_content("Edit ‘#{language} (#{language_in_english})’ translation for: #{worldwide_organisation_in_english}")
   end
 
-  expect(page).to have_content("Edit ‘#{language} (#{language_in_english})’ translation for: #{worldwide_organisation_in_english}")
   expect(page).to have_field("Name", with: worldwide_organisation)
 end
 

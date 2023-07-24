@@ -70,7 +70,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
   view_test "edit indicates which language is being translated to" do
     create(:worldwide_organisation, translated_into: [:fr])
     get :edit, params: { worldwide_organisation_id: @worldwide_organisation, id: "fr" }
-    assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
+    assert_select "h1", text: /Edit translation/
   end
 
   view_test "edit presents a form to update an existing translation" do
@@ -87,7 +87,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
 
     assert_select "form[action=?]", translation_path do
       assert_select "input[type=text][name='worldwide_organisation[name]'][value='Département des barbes en France']"
-      assert_select "input[type=submit][value=Save]"
+      assert_select "button", text: "Save"
     end
   end
 
@@ -97,7 +97,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, id: "ar" }
 
     assert_select "form" do
-      assert_select "fieldset.right-to-left input[type=text][name='worldwide_organisation[name]']"
+      assert_select "input[type=text][name='worldwide_organisation[name]'][dir='rtl']"
     end
   end
 
