@@ -293,7 +293,7 @@ Then(/^I can see that the organisation "(.*?)" has been superseded with the orga
   visit admin_organisation_path(organisation)
 
   if using_design_system?
-    expect(page).to have_xpath("//dt[.='Superseded by']/following-sibling::dd[.='#{superseding_org_name}']")
+    expect(page).to have_xpath("//dt[.='Superseding organisation']/following-sibling::dd[.='#{superseding_org_name}']")
   else
     expect(page).to have_xpath("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
   end

@@ -15,27 +15,95 @@ private
 
   def rows
     [
-      type_row,
+      name_row,
       acronym_row,
+      logo_formatted_name_row,
+      logo_crest_row,
+      brand_colour_row,
+      default_news_image_row,
       url_row,
+      type_row,
+      alternative_format_contact_email_row,
       status_row,
+      govuk_closed_status_row,
       closed_on_row,
       superseding_organisations_row,
-      description_row,
-      alternative_format_contact_email_row,
       organisation_chart_url_row,
-      custom_jobs_url_row,
+      recruitment_url_row,
+      political_row,
       parent_organisations_row,
       topical_events_row,
-      social_media_accounts_rows,
-      crest_row,
-      brand_colour_row,
-      analytics_identifier_row,
+      featured_links_position_row,
       featured_links_row,
-      default_news_image_row,
+      management_team_row,
+      foi_exempt_row,
+      analytics_identifier_row,
     ]
     .flatten
     .compact
+  end
+
+  def name_row
+    {
+      field: "Name",
+      value: organisation.name,
+    }
+  end
+
+  def acronym_row
+    return if organisation.acronym.blank?
+
+    {
+      field: "Acronym",
+      value: organisation.acronym,
+    }
+  end
+
+  def logo_formatted_name_row
+    {
+      field: "Logo formatted name",
+      value: organisation.logo_formatted_name,
+    }
+  end
+
+  def logo_crest_row
+    return if organisation.organisation_logo_type.blank?
+
+    {
+      field: "Logo crest",
+      value: organisation.organisation_logo_type.title,
+    }
+  end
+
+  def brand_colour_row
+    return if organisation.organisation_brand_colour.blank?
+
+    {
+      field: "Brand colour",
+      value: organisation.organisation_brand_colour.title,
+    }
+  end
+
+  def default_news_image_row
+    return if organisation.default_news_image.blank?
+
+    {
+      field: "Default news image",
+      value: image_tag(organisation.default_news_image.file.url(:s300)),
+    }
+  end
+
+  def url_row
+    return if organisation.url.blank?
+
+    {
+      field: "Organisation’s URL",
+      value: organisation.url,
+      edit: {
+        href: organisation.url,
+        link_text: "View",
+      },
+    }
   end
 
   def type_row
@@ -45,17 +113,12 @@ private
     }
   end
 
-  def acronym_row
-    {
-      field: "Acronym",
-      value: organisation.acronym,
-    }
-  end
+  def alternative_format_contact_email_row
+    return if organisation.alternative_format_contact_email.blank?
 
-  def url_row
     {
-      field: "URL",
-      value: link_to(organisation.url, organisation.url, class: "govuk-link"),
+      field: "Accessible formats request email",
+      value: organisation.alternative_format_contact_email,
     }
   end
 
@@ -63,6 +126,15 @@ private
     {
       field: "Status on GOV.UK",
       value: organisation.govuk_status.titleize,
+    }
+  end
+
+  def govuk_closed_status_row
+    return if organisation.govuk_closed_status.blank?
+
+    {
+      field: "Reason for closure",
+      value: organisation.govuk_closed_status,
     }
   end
 
@@ -76,122 +148,150 @@ private
   end
 
   def superseding_organisations_row
-    return unless organisation.closed? && organisation.superseding_organisations.any?
+    return unless organisation.closed? && superseding_organisations.any?
 
-    {
-      field: "Superseded by",
-      value: organisation.superseding_organisations.map { |org| link_to(org.name, admin_organisation_path(org), class: "govuk-link") }.join(", ").html_safe,
-    }
-  end
-
-  def description_row
-    {
-      field: "Description #{tag.br}To edit this, select the 'Corporate Information pages' tab. Click on 'About us' and edit the 'Summary' field in a new edition".html_safe,
-      value: govspeak_to_html(organisation.summary),
-    }
-  end
-
-  def alternative_format_contact_email_row
-    {
-      field: "Email address for ordering attached files in an alternative format",
-      value: organisation.alternative_format_contact_email,
-    }
+    associations_rows(superseding_organisations, "Superseding organisation")
   end
 
   def organisation_chart_url_row
+    return if organisation.organisation_chart_url.blank?
+
     {
       field: "Organisation chart URL",
-      value: (link_to(organisation.organisation_chart_url, organisation.organisation_chart_url, class: "govuk-link") if organisation.organisation_chart_url.present?),
+      value: organisation.organisation_chart_url,
+      edit: {
+        href: organisation.organisation_chart_url,
+        link_text: "View",
+      },
     }
   end
 
-  def custom_jobs_url_row
+  def recruitment_url_row
+    return if organisation.custom_jobs_url.blank?
+
     {
-      field: "Custom jobs URL",
-      value: (link_to(organisation.custom_jobs_url, organisation.custom_jobs_url, class: "govuk-link") if organisation.custom_jobs_url.present?),
+      field: "Recruitment URL",
+      value: organisation.custom_jobs_url,
+      edit: {
+        href: organisation.custom_jobs_url,
+        link_text: "View",
+      },
+    }
+  end
+
+  def political_row
+    return unless organisation.political
+
+    {
+      field: "Publishes content associated with the current government",
+      value: "Yes",
     }
   end
 
   def parent_organisations_row
-    {
-      field: "Sponsoring organisations",
-      value: if organisation.parent_organisations.any?
-               organisation.parent_organisations.map { |org| link_to(org.name, [:admin, org], class: "govuk-link") }.to_sentence.html_safe
-             else
-               "None"
-             end,
-    }
+    return if parent_organisations.blank?
+
+    associations_rows(parent_organisations, "Sponsoring organisation")
   end
 
   def topical_events_row
+    return if topical_events.blank?
+
+    associations_rows(topical_events, "Topical event")
+  end
+
+  def featured_links_position_row
     {
-      field: "Topical events",
-      value: if organisation.topical_events.any?
-               organisation.topical_events.map { |topical_event| link_to(topical_event.name, [:admin, topical_event], class: "govuk-link") }.to_sentence.html_safe
-             else
-               "None"
-             end,
+      field: "Featured link position",
+      value: organisation.homepage_type == "news" ? "News priority" : "Service priority",
     }
   end
 
-  def social_media_accounts_rows
-    return [] if organisation.social_media_accounts.blank?
+  def featured_links_row
+    return if featured_links.blank?
 
-    organisation.social_media_accounts.map do |account|
+    mutliple_links = featured_links.many?
+
+    featured_links.each_with_index.map do |featured_link, index|
       {
-        field: account.social_media_service.name,
-        value: link_to(account.url, account.url, class: "govuk-link"),
+        field: "Featured link #{index + 1 if mutliple_links}".strip,
+        value: featured_link.title,
+        edit: {
+          href: featured_link.url,
+          link_text: "View",
+        },
       }
     end
   end
 
-  def crest_row
+  def management_team_row
+    return if organisation.important_board_members.blank?
+
     {
-      field: "Crest",
-      value: organisation.organisation_logo_type.title,
+      field: "Management team images on homepage",
+      value: organisation.important_board_members,
     }
   end
 
-  def brand_colour_row
+  def foi_exempt_row
+    return unless organisation.foi_exempt
+
     {
-      field: "Brand colour",
-      value: if organisation.organisation_brand_colour
-               organisation.organisation_brand_colour.title
-             else
-               "None"
-             end,
+      field: "Exempt from Freedom of Information requests",
+      value: "Yes",
     }
   end
 
   def analytics_identifier_row
+    return if organisation.analytics_identifier.blank?
+
     {
       field: "Analytics identifier",
       value: organisation.analytics_identifier,
     }
   end
 
-  def featured_links_row
+  def edit
+    return {} unless editable
+
     {
-      field: "Featured links",
-      value: if organisation.featured_links.any?
-               render("govuk_publishing_components/components/list", {
-                 visible_counters: true,
-                 items: organisation.featured_links.map do |link|
-                   link_to(link.title, link.url, class: "govuk-link")
-                 end,
-               })
-             else
-               "None"
-             end,
+      href: edit_admin_organisation_path(organisation),
+      link_text: "Edit",
     }
   end
 
-  def default_news_image_row
-    return unless organisation.default_news_image
+  def superseding_organisations
+    @superseding_organisations ||= organisation.superseding_organisations
+  end
 
+  def parent_organisations
+    @parent_organisations ||= organisation.parent_organisations
+  end
+
+  def topical_events
+    @topical_events ||= organisation.topical_events
+  end
+
+  def featured_links
+    @featured_links ||= organisation.featured_links
+  end
+
+  def associations_rows(associated_models, label)
+    mutliple_associations = associated_models.many?
+
+    associated_models.each_with_index.map do |model, index|
+      {
+        field: "#{label} #{index + 1 if mutliple_associations}".strip,
+        value: model.name,
+        edit: view_link(model),
+      }
+    end
+  end
+
+  def view_link(model)
     {
-      field: "Default news image",
-      value: image_tag(organisation.default_news_image.file.url(:s300)),
+      href: model.public_url,
+      link_text: "View",
     }
   end
 end
