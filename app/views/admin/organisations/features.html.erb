@@ -56,6 +56,20 @@
       ),
     },
     {
+      id: "topical_events_tab",
+      label: "Topical events",
+      tab_data_attributes: {
+        module: "gem-track-click",
+        "track-category": "tab",
+        "track-action": "organisation-topical-events-tab",
+        "track-label": "Topical events"
+      },
+      content: render("admin/feature_lists/featureable_topical_events",
+        feature_list: @feature_list,
+        featurable_topical_events: featurable_topical_events_for_feature_list(@featurable_topical_events, @feature_list),
+      ),
+    },
+    {
       id: "non_govuk_government_links_tab",
       label: "Non-GOV.UK government links",
       tab_data_attributes: {
