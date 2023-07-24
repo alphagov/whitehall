@@ -25,6 +25,7 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
 
     expected_output = [
       { label: "Details", href: admin_organisation_path(organisation), current: false },
+      { label: "About", href: about_admin_organisation_path(organisation), current: false },
       { label: "Contacts", href: admin_organisation_contacts_path(organisation), current: false },
       { label: "Features", href: features_admin_organisation_path(organisation, locale: I18n.default_locale), current: false },
       { label: "Pages", href: admin_organisation_corporate_information_pages_path(organisation), current: true },
@@ -44,6 +45,7 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
 
     expected_output = [
       { label: "Details", href: admin_organisation_path(organisation), current: true },
+      { label: "About", href: about_admin_organisation_path(organisation), current: false },
       { label: "Contacts", href: admin_organisation_contacts_path(organisation), current: false },
       { label: "Features", href: features_admin_organisation_path(organisation, locale: I18n.default_locale), current: false },
       { label: "Features (Français)", href: features_admin_organisation_path(organisation, locale: "fr"), current: false },
@@ -63,6 +65,7 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
 
     expected_output = [
       { label: "Details", href: admin_organisation_path(organisation), current: false },
+      { label: "About", href: about_admin_organisation_path(organisation), current: false },
       { label: "Contacts", href: admin_organisation_contacts_path(organisation), current: false },
       { label: "Promotional features", href: admin_organisation_promotional_features_path(organisation), current: false },
       { label: "Features", href: features_admin_organisation_path(organisation, locale: I18n.default_locale), current: false },
