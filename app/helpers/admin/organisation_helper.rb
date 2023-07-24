@@ -133,7 +133,8 @@ module Admin::OrganisationHelper
   end
 
   def organisation_context_block(current_user, organisation)
-    current_user.organisation == organisation ? "My organisation" : "Organisation"
+    name = organisation.class.name.underscore.humanize
+    current_user.organisation == organisation ? "My #{name.downcase}" : name
   end
 
   def organisation_index_rows(user_organisation, organisations)
