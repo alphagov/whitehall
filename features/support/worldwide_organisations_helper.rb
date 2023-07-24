@@ -12,7 +12,13 @@ module WorldwideOrganisationsHelper
     click_link "Translations"
 
     select translation["locale"], from: "Locale"
-    click_on "Create translation"
+
+    if using_design_system?
+      click_on "Next"
+    else
+      click_on "Create translation"
+    end
+
     fill_in "Name", with: translation["name"]
     click_on "Save"
   end

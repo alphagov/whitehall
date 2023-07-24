@@ -187,7 +187,12 @@ end
 Then(/^I should see the language "([^"]*)" \("([^"]*)"\) for "([^"]*)" \("([^"]*)"\) when viewing the worldwide organisation translations$/) do |language, language_in_english, worldwide_organisation, worldwide_organisation_in_english|
   visit admin_worldwide_organisation_translations_path(WorldwideOrganisation.last)
 
-  click_link language
+  if using_design_system?
+    click_link "Edit #{language}"
+  else
+    click_link language
+  end
+
   expect(page).to have_content("Edit ‘#{language} (#{language_in_english})’ translation for: #{worldwide_organisation_in_english}")
   expect(page).to have_field("Name", with: worldwide_organisation)
 end

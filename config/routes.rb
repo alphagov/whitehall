@@ -165,7 +165,10 @@ Whitehall::Application.routes.draw do
             get :about, to: "worldwide_organisations_about#show", as: :about
           end
           resource :access_and_opening_time, path: "access_info", except: %i[index show new]
-          resources :translations, controller: "worldwide_organisations_translations"
+          resources :translations, controller: "worldwide_organisations_translations" do
+            get :confirm_destroy, on: :member
+          end
+
           resources :worldwide_offices, path: "offices", except: [:show] do
             member do
               post :remove_from_home_page
