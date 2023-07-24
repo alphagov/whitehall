@@ -1,5 +1,7 @@
 module PublishingApi
   class WorldIndexPresenter
+    include WorldLocationHelper
+
     attr_accessor :update_type
 
     def initialize(update_type: nil)
@@ -47,7 +49,7 @@ module PublishingApi
   private
 
     def format_locations(locations)
-      locations.map do |location|
+      sort(locations).map do |location|
         {
           active: location.active,
           analytics_identifier: location.analytics_identifier,
