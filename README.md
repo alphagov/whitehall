@@ -12,14 +12,9 @@ Whitehall is deployed in two modes:
 
 ## Live examples (public facing frontend)
 
-### Static Content
-
-- Virus checking placeholder: [https://www.gov.uk/government/placeholder](https://www.gov.uk/government/placeholder)
-
 ### World Information
 
 - Help and services around the world: [https://www.gov.uk/world](https://www.gov.uk/world)
-- Worldwide Organisation pages: [https://www.gov.uk/world/organisations/british-embassy-paris](https://www.gov.uk/world/organisations/british-embassy-paris)
 
 ## Running the Application
 
