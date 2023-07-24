@@ -12,6 +12,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def new
     @organisation = Organisation.new
     build_topical_event_organisations
+    render :legacy_new
   end
 
   def create
@@ -20,7 +21,7 @@ class Admin::OrganisationsController < Admin::BaseController
       publish_services_and_information_page
       redirect_to admin_organisations_path
     else
-      render :new
+      render :legacy_new
     end
   end
 
@@ -57,6 +58,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def edit
     build_topical_event_organisations
     build_default_news_image
+    render :legacy_edit
   end
 
   def update
@@ -65,7 +67,7 @@ class Admin::OrganisationsController < Admin::BaseController
       publish_services_and_information_page
       redirect_to admin_organisation_path(@organisation)
     else
-      render :edit
+      render :legacy_edit
     end
   end
 

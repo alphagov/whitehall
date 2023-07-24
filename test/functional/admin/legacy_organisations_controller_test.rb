@@ -110,7 +110,7 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
       post :create, params: { organisation: attributes.merge(name: "") }
     end
     assert_response :success
-    assert_template :new
+    assert_template :legacy_new
   end
 
   test "GET on :show loads the organisation and renders the show template" do
@@ -126,7 +126,7 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
     get :edit, params: { id: organisation }
 
     assert_response :success
-    assert_template :edit
+    assert_template :legacy_edit
     assert_equal organisation, assigns(:organisation)
   end
 
@@ -203,7 +203,7 @@ class Admin::LegacyOrganisationsControllerTest < ActionController::TestCase
     put :update, params: { id: organisation, organisation: { name: "" } }
 
     assert_response :success
-    assert_template :edit
+    assert_template :legacy_edit
 
     assert_equal "org name", organisation.reload.name
   end
