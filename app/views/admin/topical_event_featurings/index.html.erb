@@ -1,3 +1,8 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_topical_events_path
+  } %>
+<% end %>
 <% content_for :page_title, @topical_event.name %>
 <% content_for :title, @topical_event.name %>
 <% content_for :context, "Topical events" %>

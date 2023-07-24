@@ -1,3 +1,8 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: :admin_world_location_news_index
+  } %>
+<% end %>
 <% content_for :page_title, @world_location_news.name %>
 <% content_for :context, "World location news" %>
 <% content_for :title, @world_location_news.name %>
