@@ -55,7 +55,7 @@
         ].reject { |row| row[:value].blank? },
         edit: {
           href: [:edit, :admin, @person],
-          link_text: "Edit details",
+          link_text: "Edit",
         },
         delete: {
           href: (confirm_destroy_admin_person_path(@person) if @person.destroyable?),

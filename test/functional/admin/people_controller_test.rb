@@ -89,7 +89,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_select ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: "OBE"
     assert_select ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Biography"
     assert_select ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "He is the PM."
-    assert_select ".govuk-summary-list__actions-list a[href='#{edit_admin_person_path(person)}']", text: /Edit details/
+    assert_select ".govuk-summary-list__actions-list a[href='#{edit_admin_person_path(person)}']", text: /Edit Details/
     assert_select ".govuk-summary-list__actions-list a[href='#{confirm_destroy_admin_person_path(person)}']", text: "Delete Details"
   end
 
