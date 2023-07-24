@@ -1,0 +1,11 @@
+<% page_title "Edit " + @worldwide_organisation.name %>
+<div class="row">
+  <section class="col-md-8">
+    <h1>Edit Worldwide organisation</h1>
+    <p class="warning">Warning: changes to worldwide organisations appear instantly on the live site.</p>
+    <%= render partial: "legacy_form", locals: {worldwide_organisation: @worldwide_organisation} %>
+  </section>
+  <div class="col-md-4">
+    <%= render partial: "legacy_sidebar" %>
+  </div>
+</div>

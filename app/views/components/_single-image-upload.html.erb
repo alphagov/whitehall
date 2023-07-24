@@ -11,6 +11,7 @@
   image_name ||= "#{name}[image]"
   image_id ||= "#{id}_image"
   image_cache_name ||= "#{name}[image_cache]"
+  remove_alt_text_field ||= false
 
   root_classes = %w(app-c-single-image-upload govuk-form-group)
 %>
@@ -33,16 +34,19 @@
     <% if page_errors %>
       <%= hidden_field_tag image_cache_name, image_cache %>
       <p class="govuk-body"><strong>File name: </strong><%= filename %></p>
-      <p class="govuk-body"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
+      <% unless remove_alt_text_field %>
+        <p class="govuk-body"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
+      <% end %>
     <% else %>
       <div class="govuk-grid-row app-c-single-image-upload__uploaded-image">
         <div class="govuk-grid-column-one-quarter">
           <img src="<%= image_src %>" alt="" class="app-view-edition-images__image">
         </div>
-
-        <div class="govuk-grid-column-three-quarters">
-          <p class="govuk-body govuk-!-margin-0"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
-        </div>
+        <% unless remove_alt_text_field %>
+          <div class="govuk-grid-column-three-quarters">
+            <p class="govuk-body govuk-!-margin-0"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
+          </div>
+        <% end %>
       </div>
     <% end %>
 
@@ -67,12 +71,14 @@
     error_items: error_items
   } %>
 
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: "Image description (alt text)"
-    },
-    name: alt_text_name,
-    id: alt_text_id,
-    value: image_alt
-  } %>
+  <% unless remove_alt_text_field %>
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: "Image description (alt text)"
+      },
+      name: alt_text_name,
+      id: alt_text_id,
+      value: image_alt
+    } %>
+  <% end %>
 <% end %>

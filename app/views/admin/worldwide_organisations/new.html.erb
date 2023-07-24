@@ -1,12 +1,17 @@
-<% page_title "New Worldwide organisation" %>
+<% content_for :page_title, "New worldwide organisation" %>
+<% content_for :title, "New worldwide organisation" %>
+<% content_for :title_margin_bottom, 8 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @worldwide_organisation)) %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>New worldwide organisation</h1>
-    <p class="warning">Warning: changes to worldwide organisations appear instantly on the live site.</p>
-    <%= render partial: "form", locals: { worldwide_organisation: @worldwide_organisation } %>
-  </section>
-  <div class="col-md-4">
-    <%= render partial: "sidebar" %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "Changes to worldwide organisations appear instantly on the live site."
+    } %>
+    <%= render "form", worldwide_organisation: @worldwide_organisation %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar %>
   </div>
 </div>

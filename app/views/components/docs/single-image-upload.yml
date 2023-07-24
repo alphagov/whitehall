@@ -52,3 +52,9 @@ examples:
       image_src: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/5/No10DoorAjar-2.jpg
       filename: No10DoorAjar-2.jpg,
       image_cache: 1686052895-990540429428995-0004-6416/No10DoorAjar-2.jpg
+  with_no_alt_text_fields:
+    data:
+      id: single-image-upload-with-no-alt-text-field
+      name: single-image-upload-with-no-alt-text-field
+      image_src: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/promotional_feature_item/image/5/No10DoorAjar-2.jpg
+      remove_alt_text_field: true
