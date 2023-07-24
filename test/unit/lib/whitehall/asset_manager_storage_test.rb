@@ -23,71 +23,6 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     FileUtils.remove_dir(Whitehall.asset_manager_tmp_dir, true)
   end
 
-  test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with do |actual_path, _|
-      uploaded_file_name = File.basename(@file.path)
-      expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9-]+/#{uploaded_file_name}}
-      actual_path =~ expected_path
-    end
-
-    @uploader.store!(@file)
-  end
-
-  test "creates a sidekiq job and sets the legacy url path to the location that it would have been stored on disk" do
-    @uploader.store_dir = "store-dir"
-
-    expected_filename = File.basename(@file.path)
-    expected_path = File.join("/government/uploads/store-dir", expected_filename)
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, expected_path, anything, anything, anything, anything, anything, anything)
-
-    @uploader.store!(@file)
-  end
-
-  test "creates a sidekiq job and sets draft to false if the uploader's assets_protected? returns false" do
-    @uploader.assets_protected = false
-
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, false, anything, anything, anything)
-
-    @uploader.store!(@file)
-  end
-
-  test "creates a sidekiq job and sets draft to true if the uploader's assets_protected? returns true" do
-    @uploader.assets_protected = true
-
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, true, anything, anything, anything)
-
-    @uploader.store!(@file)
-  end
-
-  test "creates a sidekiq job and passes through the model class and id and auth_bypass_id if if the model responds to attachable" do
-    model = AttachmentData.new(attachable: Consultation.new(id: 1, auth_bypass_id: @auth_bypass_id))
-    @uploader.stubs(:model).returns(model)
-
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, anything, "Consultation", 1, [@auth_bypass_id])
-
-    @uploader.store!(@file)
-  end
-
-  test "creates a sidekiq job with and passes through the auth_bypass_id but not model class or id if the uploader's model responds to images" do
-    model = build(:image_data)
-    model.stubs(:auth_bypass_ids).returns([@auth_bypass_id])
-    @uploader.stubs(:model).returns(model)
-
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, anything, nil, nil, [@auth_bypass_id])
-
-    @uploader.store!(@file)
-  end
-
-  test "creates a sidekiq job with and passes through the auth_bypass_id but not model class or id if the uploader's model responds to consultation_response_form" do
-    model = ConsultationResponseFormData.new
-    model.stubs(:auth_bypass_ids).returns([@auth_bypass_id])
-    @uploader.stubs(:model).returns(model)
-
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, anything, nil, nil, [@auth_bypass_id])
-
-    @uploader.store!(@file)
-  end
-
   test "store! returns an asset manager file" do
     AssetManagerCreateWhitehallAssetWorker.stubs(:perform_async)
 
@@ -113,61 +48,143 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     storage = Whitehall::AssetManagerStorage.new(@uploader)
     assert_equal file, storage.retrieve!("identifier")
   end
-
-  describe "invokes worker with necessary arguments to create an asset record" do
-    context "attachment is a file" do
-      setup do
-        @model = create(:attachment_data)
-        @uploader.stubs(:model).returns(@model)
-      end
-
-      context "use_non_legacy_endpoints permission is true" do
-        setup do
-          @model.use_non_legacy_endpoints = true
-        end
-
-        test "calls worker with model_id and default origin asset_variant" do
-          variant = Asset.variants[:original]
-
-          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, variant, anything, anything, anything, anything)
-
-          @uploader.store!(@file)
-        end
-
-        test "calls worker with model_id and variant/thumbnail asset_variant" do
-          variant = Asset.variants[:thumbnail]
-          @uploader.stubs(:store_path).returns("asset-path/thumbnail_file_name")
-
-          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, @model.id, variant, anything, anything, anything, anything)
-
-          @uploader.store!(@file)
-        end
-      end
-
-      context "use_non_legacy_endpoints permission is false" do
-        setup do
-          @model.use_non_legacy_endpoints = false
-        end
-
-        test "calls worker with nil model_id and asset_variant" do
-          AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, nil, nil, anything, anything)
-
-          @uploader.store!(@file)
-        end
-      end
-    end
-
-    context "attachment is not a file" do
-      setup do
-        model = create(:image_data)
+  describe "when use_non_legacy_endpoints permission is false and uploader model is not an AttachmentData" do
+    context "uploader.model.instance_of?(AttachmentData) is false" do
+      test "creates a sidekiq job with and passes through the auth_bypass_id but not model class or id if the uploader's model responds to images" do
+        model = build(:image_data)
+        model.stubs(:auth_bypass_ids).returns([@auth_bypass_id])
         @uploader.stubs(:model).returns(model)
-      end
 
-      test "calls worker with nil model_id and asset_variant" do
-        AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, nil, nil, anything, anything)
+        AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, nil, nil, [@auth_bypass_id])
 
         @uploader.store!(@file)
       end
+
+      test "creates a sidekiq job with and passes through the auth_bypass_id but not model class or id if the uploader's model responds to consultation_response_form" do
+        model = ConsultationResponseFormData.new
+        model.stubs(:auth_bypass_ids).returns([@auth_bypass_id])
+        @uploader.stubs(:model).returns(model)
+
+        AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, nil, nil, [@auth_bypass_id])
+
+        @uploader.store!(@file)
+      end
+    end
+  end
+  describe "when use_non_legacy_endpoints permission is false and uploader model is AttachmentData" do
+    setup do
+      model = build(:attachment_data)
+      model.stubs(:use_non_legacy_endpoints).returns(false)
+      @uploader.stubs(:model).returns(model)
+    end
+    test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
+      AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with do |actual_path, _|
+        uploaded_file_name = File.basename(@file.path)
+        expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9-]+/#{uploaded_file_name}}
+        actual_path =~ expected_path
+      end
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and sets the legacy url path to the location that it would have been stored on disk" do
+      @uploader.store_dir = "store-dir"
+
+      expected_filename = File.basename(@file.path)
+      expected_path = File.join("/government/uploads/store-dir", expected_filename)
+      AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, expected_path, anything, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and sets draft to true if the uploader's assets_protected? returns true" do
+      @uploader.assets_protected = true
+
+      AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, true, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and sets draft to false if the uploader's assets_protected? returns false" do
+      @uploader.assets_protected = false
+
+      AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, false, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and passes through the model class and id and auth_bypass_id if the model responds to attachable" do
+      model = AttachmentData.new(attachable: Consultation.new(id: 1, auth_bypass_id: @auth_bypass_id))
+      @uploader.stubs(:model).returns(model)
+
+      AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, "Consultation", 1, [@auth_bypass_id])
+
+      @uploader.store!(@file)
+    end
+
+    test "calls worker with nil model_id and asset_variant" do
+      AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, anything, anything)
+
+      @uploader.store!(@file)
+    end
+  end
+
+  describe "when use_non_legacy_endpoints permission is true and uploader model is AttachmentData" do
+    setup do
+      model = build(:attachment_data)
+      model.stubs(:use_non_legacy_endpoints).returns(true)
+      model.id = 1
+      @uploader.stubs(:model).returns(model)
+    end
+    test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
+      AssetManagerCreateAssetWorker.expects(:perform_async).with do |actual_path, _|
+        uploaded_file_name = File.basename(@file.path)
+        expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9-]+/#{uploaded_file_name}}
+        actual_path =~ expected_path
+      end
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and sets draft to true if the uploader's assets_protected? returns true" do
+      @uploader.assets_protected = true
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, true, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and sets draft to false if the uploader's assets_protected? returns false" do
+      @uploader.assets_protected = false
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, false, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and passes through the model class and id and auth_bypass_id if the model responds to attachable" do
+      model = AttachmentData.new(attachable: Consultation.new(id: 1, auth_bypass_id: @auth_bypass_id))
+      model.stubs(:use_non_legacy_endpoints).returns(true)
+      @uploader.stubs(:model).returns(model)
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, "Consultation", 1, [@auth_bypass_id])
+
+      @uploader.store!(@file)
+    end
+
+    test "calls worker with model_id and default origin asset_variant" do
+      variant = Asset.variants[:original]
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, @uploader.model.id, variant, anything, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "calls worker with model_id and variant/thumbnail asset_variant" do
+      variant = Asset.variants[:thumbnail]
+      @uploader.stubs(:store_path).returns("asset-path/thumbnail_file_name")
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, @uploader.model.id, variant, anything, anything, anything, anything)
+
+      @uploader.store!(@file)
     end
   end
 end

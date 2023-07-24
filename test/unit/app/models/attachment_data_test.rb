@@ -1,10 +1,12 @@
 require "test_helper"
 
 class AttachmentDataTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
   include ActionDispatch::TestProcess
 
   setup do
     AttachmentUploader.enable_processing = true
+    @asset_manager_id = "asset_manager_id"
   end
 
   teardown do
@@ -148,24 +150,38 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert attachment.url(:thumbnail).ends_with?("thumbnail_greenpaper.pdf.png"), "unexpected url ending: #{attachment.url(:thumbnail)}"
   end
 
-  test "should successfully create PNG thumbnail from the file_cache after a validation failure" do
-    greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
-    attachment = build(:attachment_data, file: greenpaper_pdf)
+  describe "when use_non_legacy_endpoints is true" do
+    test "should successfully create PDF and PNG thumbnail from the file_cache after a validation failure" do
+      greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
+      attachment = build(:attachment_data, file: greenpaper_pdf)
 
-    Services.asset_manager.stubs(:create_whitehall_asset)
-    Services.asset_manager.expects(:create_whitehall_asset).with do |value|
-      if value[:file].path.ends_with?(".png")
-        type = `file -b --mime-type "#{value[:file].path}"`
-        assert_equal "image/png", type.strip
-      end
+      Services.asset_manager.expects(:create_asset).twice.with { |value|
+        (value[:file].path.ends_with? "greenpaper.pdf") || (value[:file].path.ends_with? "greenpaper.pdf.png")
+      }.returns("id" => "http://asset-manager/assets/#{@asset_manager_id}")
+
+      second_attempt_attachment = build(:attachment_data, file: nil, file_cache: attachment.file_cache)
+      second_attempt_attachment.use_non_legacy_endpoints = true
+      assert second_attempt_attachment.save
+
+      AssetManagerCreateAssetWorker.drain
     end
-
-    second_attempt_attachment = build(:attachment_data, file: nil, file_cache: attachment.file_cache)
-    assert second_attempt_attachment.save
-
-    AssetManagerCreateWhitehallAssetWorker.drain
   end
+  describe "when use_non_legacy_endpoints is false" do
+    test "should successfully create PDF and PNG thumbnail from the file_cache after a validation failure" do
+      greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
+      attachment = build(:attachment_data, file: greenpaper_pdf)
 
+      Services.asset_manager.expects(:create_whitehall_asset).twice.with { |value|
+        (value[:file].path.ends_with? "greenpaper.pdf") || (value[:file].path.ends_with? "greenpaper.pdf.png")
+      }.returns("id" => "http://asset-manager/assets/#{@asset_manager_id}")
+
+      second_attempt_attachment = build(:attachment_data, file: nil, file_cache: attachment.file_cache)
+      second_attempt_attachment.use_non_legacy_endpoints = false
+      assert second_attempt_attachment.save
+
+      AssetManagerCreateWhitehallAssetWorker.drain
+    end
+  end
   test "should return nil file extension when no uploader present" do
     attachment = build(:attachment_data)
     attachment.stubs(file: nil)

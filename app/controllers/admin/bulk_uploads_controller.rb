@@ -26,6 +26,7 @@ class Admin::BulkUploadsController < Admin::BaseController
     @bulk_upload.attachments_attributes = create_params[:attachments_attributes]
     @bulk_upload.attachments.each do |attachment|
       attachment.attachment_data.attachable = @edition
+      attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints?
     end
     if @bulk_upload.save_attachments
       redirect_to admin_edition_attachments_path(@edition)
@@ -42,6 +43,10 @@ private
 
   def enforce_permissions!
     enforce_permission!(:update, @edition)
+  end
+
+  def use_non_legacy_endpoints?
+    current_user.can_use_non_legacy_endpoints?
   end
 
   def create_params
