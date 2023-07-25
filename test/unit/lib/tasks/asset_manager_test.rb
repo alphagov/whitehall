@@ -13,7 +13,7 @@ class AssetManagerRake < ActiveSupport::TestCase
     test "updates attachments with auth_bypass_ids when its latest edition is a draft" do
       edition = create(:draft_detailed_guide)
       file_attachment = create(:file_attachment, attachable: edition)
-      expected_attributes = { auth_bypass_ids: [edition.auth_bypass_id] }
+      expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
@@ -83,7 +83,7 @@ class AssetManagerRake < ActiveSupport::TestCase
       participation = create(:consultation_participation, consultation: edition)
       consultation_response_form = create(:consultation_response_form, consultation_participation: participation)
 
-      expected_attributes = { auth_bypass_ids: [edition.auth_bypass_id] }
+      expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
@@ -153,7 +153,7 @@ class AssetManagerRake < ActiveSupport::TestCase
       outcome = create(:consultation_outcome, consultation: edition)
       file_attachment = create(:file_attachment, attachable: outcome)
 
-      expected_attributes = { auth_bypass_ids: [edition.auth_bypass_id] }
+      expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
@@ -170,7 +170,7 @@ class AssetManagerRake < ActiveSupport::TestCase
       feedback = create(:consultation_public_feedback, consultation: edition)
       file_attachment = create(:file_attachment, attachable: feedback)
 
-      expected_attributes = { auth_bypass_ids: [edition.auth_bypass_id] }
+      expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
@@ -189,7 +189,7 @@ class AssetManagerRake < ActiveSupport::TestCase
     test "updates an image with auth_bypass_id when it is part of the latest edition which is a draft" do
       edition = create(:draft_case_study)
       image = create(:image, edition:)
-      expected_attributes = { auth_bypass_ids: [edition.auth_bypass_id] }
+      expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
