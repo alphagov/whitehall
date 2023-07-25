@@ -3,6 +3,7 @@ class Admin::OrganisationsController < Admin::BaseController
   before_action :load_organisation, except: %i[index new create]
   before_action :enforce_permissions!, only: %i[new create edit update]
   before_action :build_dependencies, only: %i[new edit]
+  before_action :clean_organisation_params, only: %i[create update]
   layout :get_layout
 
   def index
@@ -177,5 +178,32 @@ private
     build_topical_event_organisations
     @organisation.build_default_news_image if @organisation.default_news_image.blank?
     @organisation.featured_links.build if @organisation.featured_links.blank?
+  end
+
+  def clean_organisation_params
+    return if organisation_params.blank?
+
+    clean_logo_params
+    clean_non_departmental_public_body_params
+  end
+
+  def clean_logo_params
+    return if organisation_params["organisation_logo_type_id"].blank? || organisation_params["organisation_logo_type_id"] == OrganisationLogoType::CustomLogo.id.to_s
+
+    organisation_params[:logo] = nil
+    organisation_params.delete(:logo_cache) if organisation_params[:logo_cache].present?
+  end
+
+  def clean_non_departmental_public_body_params
+    return if organisation_params[:organisation_type_key].blank?
+
+    type_param_is_non_departmental_public_body = OrganisationType::DATA.dig(organisation_params[:organisation_type_key].to_sym, :non_departmental_public_body)
+
+    return if type_param_is_non_departmental_public_body
+
+    organisation_params[:ocpa_regulated] = nil
+    organisation_params[:public_meetings] = nil
+    organisation_params[:public_minutes] = nil
+    organisation_params[:regulatory_function] = nil
   end
 end

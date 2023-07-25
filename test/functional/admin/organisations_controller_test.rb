@@ -182,6 +182,36 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_match %r{logo.png}, organisation.reload.logo.file.filename
   end
 
+  test "PUT :update cleans logo param when custom logo id is not passed to controller" do
+    organisation = create(:organisation, organisation_logo_type_id: OrganisationLogoType::CustomLogo.id, logo: upload_fixture("logo.png"))
+    put :update,
+        params: { id: organisation,
+                  organisation: {
+                    organisation_logo_type_id: OrganisationLogoType::SingleIdentity.id,
+                    logo: upload_fixture("logo.png"),
+                  } }
+
+    assert_nil organisation.reload.logo.file
+  end
+
+  test "PUT :update cleans the non_departmental_public_body params when org type is not a non_departmental_public_body" do
+    organisation = create(:organisation, ocpa_regulated: true, public_meetings: true, public_minutes: true, regulatory_function: true)
+    put :update,
+        params: { id: organisation,
+                  organisation: {
+                    organisation_type_key: "executive_office",
+                    ocpa_regulated: true,
+                    public_meetings: true,
+                    public_minutes: true,
+                    regulatory_function: true,
+                  } }
+
+    assert_nil organisation.reload.ocpa_regulated
+    assert_nil organisation.public_meetings
+    assert_nil organisation.public_minutes
+    assert_nil organisation.regulatory_function
+  end
+
   test "PUT :update can set default news image" do
     organisation = create(:organisation)
     put :update,
