@@ -1,7 +1,6 @@
 <%= render "components/summary_card_component", {
   title: translated_contact.title,
-  rows: contact_rows(translated_contact, contactable),
-
+  rows: contact_rows(translated_contact),
   summary_card_actions: [
     {
       label: "Edit",

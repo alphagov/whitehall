@@ -42,7 +42,7 @@ module Admin::ContactsHelper
     render("admin/contacts/tab_heading", title_text:, contacts:, contactable:)
   end
 
-  def contact_rows(contact, _contactable)
+  def contact_rows(contact)
     rows = contact_numbers(contact)
     rows << contact_email(contact)
     rows << contact_url(contact)
@@ -76,7 +76,13 @@ module Admin::ContactsHelper
     if contact.contact_form_url.present?
       {
         key: "Contact form",
-        value: link_to(contact.contact_form_url.truncate(25), contact.contact_form_url),
+        value: contact.contact_form_url.truncate(25),
+        actions: [
+          {
+            label: "View",
+            href: contact.contact_form_url,
+          },
+        ],
       }
     end
   end
@@ -100,9 +106,13 @@ module Admin::ContactsHelper
   def contact_comments(contact)
     if contact.comments.present?
       {
-        key: "",
-        value: format_with_html_line_breaks(h(contact.comments)),
+        key: "Comments",
+        value: contact.comments,
       }
     end
+  end
+
+  def any_translated_contacts?(contactable)
+    contactable.contacts.any? { |contact| contact.non_english_localised_models([:contact_numbers]).present? }
   end
 end

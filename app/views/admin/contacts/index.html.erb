@@ -1,3 +1,8 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_organisations_path
+  } %>
+<% end %>
 <% content_for :page_title, @contactable.name %>
 <% content_for :title, @contactable.name %>
 <% content_for :context, organisation_context_block(current_user, @contactable) %>
@@ -8,7 +13,7 @@
 </p>
 
 <%= render "components/secondary_navigation", {
-  aria_label: "Contacts navigation tabs",
+  aria_label: "Organisation navigation tabs",
   items: secondary_navigation_tabs_items(@contactable, request.path)
 } %>
 
@@ -28,7 +33,7 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @contactable.contacts.present? %>
       <%= render "govuk_publishing_components/components/tabs", {
-        tabs: contact_tabs(@contactable.contacts,@contactable)
+        tabs: contact_tabs(@contactable.contacts, @contactable)
       }
       %>
     <% else %>
@@ -36,6 +41,5 @@
         text: "No Contacts"
       } %>
     <% end %>
-
   </div>
 </div>

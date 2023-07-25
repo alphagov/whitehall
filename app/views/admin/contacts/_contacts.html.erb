@@ -1,8 +1,15 @@
 <%= render(contacts, contactable: contactable) %>
 
+<% if any_translated_contacts?(contactable) %>
+<div class="govuk-body govuk-!-margin-top-8">
+  <%= render "govuk_publishing_components/components/heading", {
+    text: title,
+    margin_bottom: 4,
+  } %>
+</div>
+<% end %>
 <% contacts.each do |contact| %>
   <% contact.non_english_localised_models([:contact_numbers]).each do |translated_contact| %>
-    <h2 class="govuk-heading-m"><%= title %></h2>
-    <%= render "translated_contact", translated_contact: translated_contact, contactable: contactable %>
+    <%= render "translated_contact", translated_contact: translated_contact, contactable: contactable,contact:contact %>
   <% end %>
 <% end %>
