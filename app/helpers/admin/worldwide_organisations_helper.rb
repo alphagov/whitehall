@@ -47,6 +47,11 @@ module Admin::WorldwideOrganisationsHelper
         href: admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation),
         current: current_path == admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation),
       },
+      {
+        label: "History",
+        href: history_admin_worldwide_organisation_path(worldwide_organisation),
+        current: current_path == history_admin_worldwide_organisation_path(worldwide_organisation),
+      },
     ]
   end
 

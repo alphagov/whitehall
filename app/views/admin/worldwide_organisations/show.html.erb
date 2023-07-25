@@ -1,51 +1,24 @@
-<% page_title @worldwide_organisation.name %>
+<% content_for :page_title, @worldwide_organisation.name %>
+<% content_for :title, @worldwide_organisation.name %>
+<% content_for :title_margin_bottom, 4 %>
+<% content_for :context, "Worldwide organisation" %>
 
-<%= content_tag_for(:div, @worldwide_organisation) do %>
-  <div class="organisation-header">
-    <h1><%= @worldwide_organisation.name %></h1>
-    <%= view_on_website_link_for @worldwide_organisation %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <p class="govuk-body govuk-!-margin-bottom-4">
+      <%= view_on_website_link_for @worldwide_organisation, class: "govuk-link" %>
+    </p>
+
+    <%= render "components/secondary_navigation", {
+      aria_label: "Worldwide organisation navigation tabs",
+      items: secondary_navigation_tabs_items(@worldwide_organisation, request.path)
+    } %>
   </div>
 
-  <section class="organisation-details">
-    <%= tab_navigation_for(@worldwide_organisation) do %>
-        <div class="row">
-          <div class="col-md-8">
-            <h2>Details</h2>
-            <article class="document">
-              <p class="sponsoring-organisations">
-                Part
-                of <%= @worldwide_organisation.sponsoring_organisations.map { |o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
-              </p>
-
-              <div class="summary">
-                <div class="content">
-                  <%= @worldwide_organisation.summary %>
-                </div>
-              </div>
-
-              <div class="body description">
-                <div class="content govspeak">
-                  <%= govspeak_to_html @worldwide_organisation.body %>
-                </div>
-              </div>
-            </article>
-
-            <% if @worldwide_organisation.default_news_image %>
-              <div class="document">
-                <p>Default News Image</p>
-                <%= image_tag @worldwide_organisation.default_news_image.file.url(:s300) %>
-              </div>
-            <% end %>
-
-            <div class="form-actions">
-              <%= link_to "Edit", edit_admin_worldwide_organisation_path(@worldwide_organisation), class: "btn btn-lg btn-primary" %>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <%= render Admin::AuditTrailComponent.new(versions: @versions) %>
-          </div>
-        </div>
-    <% end %>
-  </section>
-<% end %>
+  <div class="govuk-grid-column-two-thirds">
+    <%= render Admin::WorldwideOrganisations::Show::SummaryListComponent.new(
+      worldwide_organisation: @worldwide_organisation,
+    ) %>
+  </div>
+</div>

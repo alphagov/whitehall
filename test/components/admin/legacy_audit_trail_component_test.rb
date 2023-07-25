@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::AuditTrailComponentTest < ViewComponent::TestCase
+class Admin::LegacyAuditTrailComponentTest < ViewComponent::TestCase
   setup do
     @non_editionable_item = create(:worldwide_organisation)
   end
@@ -10,9 +10,9 @@ class Admin::AuditTrailComponentTest < ViewComponent::TestCase
     create(:version, event: "update", item: @non_editionable_item)
     versions = @non_editionable_item.versions_desc.page(1)
 
-    render_inline(Admin::AuditTrailComponent.new(versions:))
+    render_inline(Admin::LegacyAuditTrailComponent.new(versions:))
 
-    assert_selector "h3", text: "Organisation created"
-    assert_selector "h3", text: "Organisation updated"
+    assert_selector "h4", text: "Document created"
+    assert_selector "h4", text: "Document updated"
   end
 end

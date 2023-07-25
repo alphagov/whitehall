@@ -1,4 +1,4 @@
-class Admin::AuditTrailEntryComponent < ViewComponent::Base
+class Admin::LegacyAuditTrailEntryComponent < ViewComponent::Base
   include ApplicationHelper
 
   attr_reader :version
@@ -11,8 +11,8 @@ private
 
   def action
     case version.event
-    when "update" then "Organisation updated"
-    when "create" then "Organisation created"
+    when "update" then "Document updated"
+    when "create" then "Document created"
     when "initial" then "No history before this time"
     else "Unknown action"
     end
