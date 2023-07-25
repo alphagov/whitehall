@@ -2,6 +2,9 @@ class Admin::ContactTranslationsController < Admin::BaseController
   include TranslationControllerConcern
   layout :get_layout
 
+  def edit
+    render_design_system(:edit, :legacy_edit)
+  end
 private
 
   def get_layout
