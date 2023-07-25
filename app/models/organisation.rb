@@ -146,7 +146,7 @@ class Organisation < ApplicationRecord
               if: :requires_alternative_format?,
               message: "can't be blank as there are editions which use this organisation as the alternative format provider",
             }
-  validates :govuk_status, inclusion: { in: %w[live joining exempt transitioning closed] }
+  validates :govuk_status, presence: true, inclusion: { in: %w[live joining exempt transitioning closed] }
   validates :govuk_closed_status, inclusion: { in: %w[no_longer_exists replaced split merged changed_name left_gov devolved] }, presence: true, if: :closed?
   validates :organisation_logo_type_id, presence: true
   validates :logo, presence: true, if: :custom_logo_selected?
