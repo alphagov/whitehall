@@ -85,7 +85,7 @@ Whitehall::Application.routes.draw do
             resources :translations, controller: "corporate_information_pages_translations"
           end
           resources :contacts do
-            resources :translations, controller: "contact_translations", only: %i[create edit update destroy] do
+            resources :translations, controller: "contact_translations", only: %i[create edit update destroy index] do
               member do
                 get :confirm_destroy
               end

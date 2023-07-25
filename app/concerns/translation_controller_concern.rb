@@ -3,7 +3,7 @@ module TranslationControllerConcern
 
   included do
     before_action :load_translatable_item
-    before_action :load_translated_models, except: %i[index new]
+    before_action :load_translated_models, except: %i[index new index]
     helper_method :translation_locale
   end
 

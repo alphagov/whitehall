@@ -117,5 +117,6 @@ class Admin::ContactsHelperTest < ActionView::TestCase
     contacts = []
 
     assert_equal 0, contact_tabs(contacts, organisation).count
+
   end
 end
