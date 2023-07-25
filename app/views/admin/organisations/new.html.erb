@@ -1,0 +1,13 @@
+<% content_for :page_title, "New organisation" %>
+<% content_for :title, "New organisation" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @organisation)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "form", organisation: @organisation %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar %>
+  </div>
+</div>

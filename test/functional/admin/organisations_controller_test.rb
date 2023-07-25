@@ -109,7 +109,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       post :create, params: { organisation: attributes.merge(name: "") }
     end
     assert_response :success
-    assert_template :legacy_new
+    assert_template :new
   end
 
   test "GET on :show loads the organisation and renders the show template" do
@@ -125,7 +125,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :edit, params: { id: organisation }
 
     assert_response :success
-    assert_template :legacy_edit
+    assert_template :edit
     assert_equal organisation, assigns(:organisation)
   end
 
@@ -202,7 +202,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     put :update, params: { id: organisation, organisation: { name: "" } }
 
     assert_response :success
-    assert_template :legacy_edit
+    assert_template :edit
 
     assert_equal "org name", organisation.reload.name
   end
@@ -263,17 +263,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     login_as(writer)
 
     get :edit, params: { id: organisation }
-    refute_select ".homepage-priority"
+    refute_select "#organisation_homepage_type"
 
     managing_editor = create(:managing_editor, :with_preview_design_system, organisation:)
     login_as(managing_editor)
     get :edit, params: { id: organisation }
-    assert_select ".homepage-priority"
+    assert_select "#organisation_homepage_type"
 
     gds_editor = create(:gds_editor, :with_preview_design_system, organisation:)
     login_as(gds_editor)
     get :edit, params: { id: organisation }
-    assert_select ".homepage-priority"
+    assert_select "#organisation_homepage_type"
   end
 
   test "Non-admins can only edit their own organisations or children" do
@@ -323,17 +323,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     login_as(writer)
 
     get :edit, params: { id: organisation }
-    refute_select ".political-status"
+    refute_select "#organisation_political"
 
     managing_editor = create(:managing_editor, :with_preview_design_system, organisation:)
     login_as(managing_editor)
     get :edit, params: { id: organisation }
-    refute_select ".political-status"
+    refute_select "#organisation_political"
 
     gds_editor = create(:gds_editor, :with_preview_design_system, organisation:)
     login_as(gds_editor)
     get :edit, params: { id: organisation }
-    assert_select ".political-status"
+    assert_select "#organisation_political"
   end
 
   view_test "the featurables tab should display information regarding max documents" do

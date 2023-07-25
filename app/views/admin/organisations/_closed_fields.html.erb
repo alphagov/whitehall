@@ -1,0 +1,87 @@
+<%= render "components/select-with-search", {
+  label: "Reason for closure (required)",
+  name: "organisation[govuk_closed_status]",
+  id: "organisation_govuk_closed_status",
+  heading_size: "m",
+  error_message: errors_for_input(organisation.errors, :govuk_closed_status),
+  include_blank: true,
+  options: [
+    {
+      text: "No longer exists",
+      value: "no_longer_exists",
+      selected: organisation.govuk_closed_status == "no_longer_exists"
+    },
+    {
+      text: "Replaced",
+      value: "replaced",
+      selected: organisation.govuk_closed_status == "replaced"
+    },
+    {
+      text: "Split into parts",
+      value: "split",
+      selected: organisation.govuk_closed_status == "split"
+    },
+    {
+      text: "Merged with other organisation",
+      value: "merged",
+      selected: organisation.govuk_closed_status == "merged"
+    },
+    {
+      text: "Change of name",
+      value: "changed_name",
+      selected: organisation.govuk_closed_status == "changed_name"
+    },
+    {
+      text: "Left central government",
+      value: "left_gov",
+      selected: organisation.govuk_closed_status == "left_gov"
+    },
+    {
+      text: "Devolved to regional government",
+      value: "devolved",
+      selected: organisation.govuk_closed_status == "devolved"
+    }
+  ]
+} %>
+
+<%= render "components/autocomplete", {
+  id: "organisation_superseding_organisation_ids",
+  name: "organisation[superseding_organisation_ids][]",
+  label: {
+    text: "Superseding organisations",
+    heading_size: "m",
+  },
+  select: {
+    options: [""] +
+      (Organisation.with_translations(:en) - [organisation]).map do |org|
+        [
+          org.name,
+          org.id,
+        ]
+      end,
+    multiple: true,
+    selected: organisation.superseding_organisation_ids,
+  },
+} %>
+
+<%= render "components/datetime_fields", {
+  date_only: true,
+  prefix: "organisation",
+  field_name: "closed_at",
+  id: "organisation_closed_at",
+  heading_size: "m",
+  date_hint: "For example, 01 August 2022",
+  date_heading: "Closed date",
+  year: {
+    value: organisation.closed_at&.year,
+    start_year: Date.today.year - 5,
+    end_year: Date.today.year,
+  },
+  month: {
+    value: organisation.closed_at&.month
+  },
+  day: {
+    value: organisation.closed_at&.day,
+  },
+  error_items: errors_for(organisation.errors, :closed_at)
+} %>

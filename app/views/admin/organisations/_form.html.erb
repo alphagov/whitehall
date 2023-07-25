@@ -1,0 +1,478 @@
+<%= form_for [:admin, organisation], html: { class: 'app-view-organisation__form js-view-organisation__form' }, data: { module: "OrganisationForm" }, multipart: true do |form| %>
+  <%= render "govuk_publishing_components/components/warning_text", {
+    text: "Changes to organisations appear instantly on the live site."
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Name (required)",
+      heading_size: "l"
+    },
+    name: "organisation[name]",
+    id: "organisation_name",
+    value: organisation.name,
+    error_items: errors_for(organisation.errors, :name)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Acronym",
+      heading_size: "l"
+    },
+    name: "organisation[acronym]",
+    id: "organisation_acronym",
+    value: organisation.acronym,
+    error_items: errors_for(organisation.errors, :acronym)
+  } %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Logo formatted name (required)",
+      heading_size: "l",
+    },
+    name: "organisation[logo_formatted_name]",
+    id: "organisation_logo_formatted_name",
+    value: organisation.logo_formatted_name,
+    rows: 4,
+    error_items: errors_for(organisation.errors, :logo_formatted_name)
+  } %>
+
+  <%= render "components/select-with-search", {
+    label: "Logo crest (required)",
+    name: "organisation[organisation_logo_type_id]",
+    id: "organisation_organisation_logo_type_id",
+    heading_size: "l",
+    error_message: errors_for_input(organisation.errors, :organisation_logo_type_id),
+    include_blank: true,
+    options: OrganisationLogoType.all.map do |logo_type|
+      {
+        text: logo_type.title,
+        value: logo_type.id,
+        selected: logo_type.id == organisation.organisation_logo_type_id,
+      }
+    end
+  } %>
+
+  <div class="app-view-organisation__form__custom_logo js-view-organisation__form__custom_logo <%= "app-view-organisation__form__custom_logo--hidden" unless organisation.organisation_logo_type_id == OrganisationLogoType::CustomLogo.id %>">
+    <%= render "components/single-image-upload", {
+      title: "Custom logo (required)",
+      name: "organisation",
+      id: "organisation",
+      image_id: "organisation_logo",
+      image_name: "organisation[logo]",
+      remove_alt_text_field: true,
+      filename: organisation.logo&.filename,
+      page_errors: organisation.errors.any?,
+      error_items: errors_for(organisation.errors, :logo),
+      image_src: organisation.logo.url,
+      image_cache_name: "organisation[logo_cache]",
+      image_cache: organisation.logo_cache.presence,
+    } %>
+  </div>
+
+  <%= render "components/select-with-search", {
+    label: "Brand colour",
+    name: "organisation[organisation_brand_colour_id]",
+    id: "organisation_organisation_brand_colour_id",
+    heading_size: "l",
+    error_message: errors_for_input(organisation.errors, :organisation_brand_colour_id),
+    include_blank: true,
+    options: OrganisationBrandColour.all.map do |brand_colour|
+      {
+        text: brand_colour.title,
+        value: brand_colour.id,
+        selected: brand_colour.id == organisation.organisation_brand_colour_id,
+      }
+    end
+  } %>
+
+  <%= form.fields_for :default_news_image do |image_fields| %>
+    <%= render "components/single-image-upload", {
+      title: "Default news image",
+      name: "organisation[default_news_image_attributes]",
+      id: "organisation_default_news_image",
+      image_id: "organisation_default_news_image_file",
+      image_name: "organisation[default_news_image_attributes][file]",
+      remove_alt_text_field: true,
+      filename: organisation.default_news_image.file.identifier,
+      page_errors: organisation.errors.any?,
+      error_items: errors_for(organisation.default_news_image.errors, :default_news_image),
+      image_src: organisation.default_news_image.file.url,
+      image_cache_name: "organisation[default_news_image_attributes][file_cache]",
+      image_cache: (organisation.default_news_image.file_cache if organisation.default_news_image.file_cache.present?)
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Organisation’s URL",
+      heading_size: "l"
+    },
+    name: "organisation[url]",
+    id: "organisation_url",
+    value: organisation.url,
+    error_items: errors_for(organisation.errors, :url)
+  } %>
+
+  <%= render "components/select-with-search", {
+    label: "Organisation type (required)",
+    name: "organisation[organisation_type_key]",
+    id: "organisation_organisation_type_key",
+    heading_size: "l",
+    error_message: errors_for_input(organisation.errors, :organisation_type_key),
+    include_blank: true,
+    options: OrganisationType.in_listing_order.map do |type|
+      {
+        text: type.name,
+        value: type.key,
+        selected: type.key == organisation.organisation_type_key,
+      }
+    end
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Accessible formats request email",
+      heading_size: "l"
+    },
+    name: "organisation[alternative_format_contact_email]",
+    id: "organisation_alternative_format_contact_email",
+    value: organisation.alternative_format_contact_email,
+    error_items: errors_for(organisation.errors, :alternative_format_contact_email)
+  } %>
+
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Status on GOV.UK (required)",
+    heading_size: "l",
+    name: "organisation[govuk_status]",
+    id: "organisation_govuk_status",
+    items: [
+      {
+        text: "Currently live",
+        value: "live",
+        checked: organisation.govuk_status == "live"
+      },
+      {
+        text: "Coming soon",
+        value: "joining",
+        checked: organisation.govuk_status == "joining"
+      },
+      {
+        text: "Exempt from joining",
+        value: "exempt",
+        checked: organisation.govuk_status == "exempt"
+      },
+      {
+        text: "Currently transitioning",
+        value: "transitioning",
+        checked: organisation.govuk_status == "transitioning"
+      },
+      {
+        text: "Closed",
+        value: "closed",
+        checked: organisation.govuk_status == "closed",
+        conditional: render("closed_fields", organisation: organisation)
+      },
+    ]
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Organisation’s URL",
+      heading_size: "l"
+    },
+    name: "organisation[url]",
+    id: "organisation_url",
+    value: organisation.url,
+    error_items: errors_for(organisation.errors, :url)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Organisation chart URL",
+      heading_size: "l"
+    },
+    name: "organisation[organisation_chart_url]",
+    id: "organisation_organisation_chart_url",
+    value: organisation.organisation_chart_url,
+    error_items: errors_for(organisation.errors, :organisation_chart_url)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Recruitment URL",
+      heading_size: "l"
+    },
+    name: "organisation[custom_jobs_url]",
+    id: "organisation_custom_jobs_url",
+    value: organisation.custom_jobs_url,
+    error_items: errors_for(organisation.errors, :custom_jobs_url)
+  } %>
+
+  <% if current_user.gds_editor? %>
+    <%= render "govuk_publishing_components/components/radio", {
+      heading: "Publishes content associated with the current government",
+      heading_size: "l",
+      name: "organisation[political]",
+      id: "organisation_political",
+      error_items: errors_for(organisation.errors, :political),
+      items: [
+        {
+          value: "1",
+          text: "Yes",
+          checked: organisation.political
+        },
+        {
+          value: "0",
+          text: "No",
+          checked: !organisation.political
+        },
+      ]
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Associations",
+    heading_size: "l"
+  } do %>
+    <%= render "components/autocomplete", {
+      id: "organisation_parent_organisation_ids",
+      name: "organisation[parent_organisation_ids][]",
+      label: {
+        text: "Sponsoring organisations",
+        heading_size: "m",
+      },
+      select: {
+        options: [""] +
+          (Organisation.with_translations(:en) - [organisation]).map do |org|
+            [
+              org.name,
+              org.id,
+            ]
+          end,
+        multiple: true,
+        selected: organisation.parent_organisation_ids,
+      },
+    } %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Topical events",
+      font_size: "m",
+      margin_bottom: 3
+    } %>
+
+    <% form.object.topical_event_organisations.each do |topical_event_organisation| %>
+      <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][ordering]", topical_event_organisation.ordering %>
+      <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][id]", topical_event_organisation.id %>
+
+      <%= render "components/select-with-search", {
+        label: "Topical Event #{topical_event_organisation.ordering + 1}",
+        name: "organisation[topical_event_organisations_attributes][][topical_event_id]",
+        id: "organisation_topical_event_ids_#{topical_event_organisation.ordering}",
+        heading_size: "s",
+        include_blank: true,
+        options: TopicalEvent.all.map do |topical_event|
+          {
+            text: topical_event.name,
+            value: topical_event.id,
+            selected: topical_event.id == topical_event_organisation.topical_event_id,
+          }
+        end
+      } %>
+    <% end %>
+  <% end %>
+
+  <% if can?(:manage_featured_links, @organisation) %>
+    <%= render "govuk_publishing_components/components/radio", {
+      heading: "Position of featured links on organisation homepage",
+      heading_size: "l",
+      name: "organisation[homepage_type]",
+      id: "organisation_homepage_type",
+      error_items: errors_for(@organisation.errors, :homepage_type),
+      items: [
+        {
+          value: "news",
+          text: "News priority",
+          hint_text: "Up to 5 links",
+          checked: @organisation.homepage_type == "news"
+        },
+        {
+          value: "service",
+          text: "Service priority",
+          hint_text: "Up to 10 links",
+          checked:  @organisation.homepage_type == "service"
+        }
+      ]
+    } %>
+
+    <div class="app-view-organisation__featured_links">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Featured links",
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <%= render 'admin/shared/featured_link_fields', form: form, remove_banner: true %>
+    </div>
+  <% end %>
+
+  <div class="govuk-!-margin-top-6">
+    <% if can?(:manage_important_board_members, @organisation) && @organisation.management_roles.any? %>
+      <%= render "govuk_publishing_components/components/select", {
+        name: "organisation[important_board_members]",
+        id: "organisation_important_board_members",
+        label: "Display management team images (required)",
+        heading_size: "l",
+        error_message: errors_for_input(@organisation.errors, :important_board_members),
+        options: (1..@organisation.management_roles.count).map do |n|
+          {
+            text: n,
+            value: n,
+            selected: @organisation.management_roles.count == n
+          }
+        end
+      } %>
+    <% end %>
+  </div>
+
+  <div class="app-view-organisation__form__non-departmental-public-body-field js-view-organisation__form__non-departmental-public-body-fields <%= 'app-view-organisation__form__non-departmental-public-body-fields--hidden' unless organisation.type&.non_departmental_public_body? %>">
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "Non-Departmental Public Body Information",
+      heading_size: "l"
+    } do %>
+      <%= render "govuk_publishing_components/components/select", {
+        name: "organisation[ocpa_regulated]",
+        id: "organisation_ocpa_regulated",
+        label: "OCPA Regulated",
+        heading_size: "m",
+        full_width: true,
+        error_message: errors_for_input(@organisation.errors, :ocpa_regulated),
+        options: [
+          {
+            text: "",
+            value: "",
+          },
+          {
+            text: "OCPA Regulated",
+            value: "1",
+            selected: @organisation.ocpa_regulated,
+          },
+          {
+            text: "Not OCPA Regulated",
+            value: "0",
+            selected: @organisation.ocpa_regulated == false,
+          }
+        ]
+      } %>
+
+      <%= render "govuk_publishing_components/components/select", {
+        name: "organisation[public_meetings]",
+        id: "organisation_public_meetings",
+        label: "Public Meetings",
+        heading_size: "m",
+        full_width: true,
+        error_message: errors_for_input(@organisation.errors, :public_meetings),
+        options: [
+          {
+            text: "",
+            value: "",
+          },
+          {
+            text: "Public Meetings",
+            value: "1",
+            selected: @organisation.public_meetings,
+          },
+          {
+            text: "No Public Meetings",
+            value: "0",
+            selected: @organisation.public_meetings == false,
+          }
+        ]
+      } %>
+
+      <%= render "govuk_publishing_components/components/select", {
+        name: "organisation[public_minutes]",
+        id: "organisation_public_minutes",
+        label: "Public Minutes",
+        heading_size: "m",
+        full_width: true,
+        error_message: errors_for_input(@organisation.errors, :public_minutes),
+        options: [
+          {
+            text: "",
+            value: "",
+          },
+          {
+            text: "Public Minutes",
+            value: "1",
+            selected: @organisation.public_minutes,
+          },
+          {
+            text: "No Public Minutes",
+            value: "0",
+            selected: @organisation.public_minutes == false,
+          }
+        ]
+      } %>
+
+      <%= render "govuk_publishing_components/components/select", {
+        name: "organisation[regulatory_function]",
+        id: "organisation_regulatory_function",
+        label: "Regulatory Function",
+        heading_size: "m",
+        full_width: true,
+        error_message: errors_for_input(@organisation.errors, :regulatory_function),
+        options: [
+          {
+            text: "",
+            value: "",
+          },
+          {
+            text: "Regulatory Function",
+            value: "1",
+            selected: @organisation.regulatory_function,
+          },
+          {
+            text: "No Regulatory Function",
+            value: "0",
+            selected: @organisation.regulatory_function == false,
+          }
+        ]
+      } %>
+    <% end %>
+  </div>
+
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Exempt from Freedom of Information requests (required)",
+    heading_size: "l",
+    name: "organisation[foi_exempt]",
+    id: "organisation_foi_exempt",
+    error_items: errors_for(organisation.errors, :foi_exempt),
+    items: [
+      {
+        value: "1",
+        text: "Yes",
+        checked: organisation.foi_exempt
+      },
+      {
+        value: "0",
+        text: "No",
+        checked: !organisation.foi_exempt
+      },
+    ]
+  } %>
+
+  <div class="govuk-button-group govuk-!-margin-top-8">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "organisation-button",
+        "track-label": "Save"
+      }
+    } %>
+
+    <%= link_to("Cancel", @organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path, class: "govuk-link govuk-link--no-visited-state") %>
+  </div>
+<% end %>
