@@ -131,7 +131,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_not corporate_information_page.valid?
   end
 
-  test "should be invalid if it refers to the same document of another page" do
+  test "should be invalid if a CIP of the same type already exists for the organisation" do
     organisation = create(:organisation)
     corporate_information_page1 = build(
       :corporate_information_page,
@@ -150,6 +150,28 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_not corporate_information_page2.valid?
 
     assert corporate_information_page2.errors.full_messages.include?("Another 'About' page was already published for this organisation")
+  end
+
+  test "should be invalid if a CIP of the same type already exists for the worldwide organisation" do
+    worldwide_organisation = create(:worldwide_organisation)
+    corporate_information_page1 = build(
+      :published_worldwide_organisation_corporate_information_page,
+      worldwide_organisation:,
+      corporate_information_page_type: CorporateInformationPageType::AboutUs,
+      state: "published",
+      major_change_published_at: Time.zone.now,
+    )
+    corporate_information_page1.save!
+
+    corporate_information_page2 = build(
+      :corporate_information_page,
+      organisation: nil,
+      worldwide_organisation:,
+      corporate_information_page_type: CorporateInformationPageType::AboutUs,
+    )
+    assert_not corporate_information_page2.valid?
+
+    assert corporate_information_page2.errors.full_messages.include?("Another 'About' page was already published for this worldwide organisation")
   end
 
   test "should be valid if it is a new draft of the same document" do
