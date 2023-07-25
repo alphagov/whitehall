@@ -2,14 +2,6 @@ require "test_helper"
 
 class PublishingApi::WorldIndexPresenterTest < ActiveSupport::TestCase
   setup do
-    @world_location_1 = create(
-      :world_location,
-      name: "Location 1",
-      slug: "location-1",
-      active: true,
-      analytics_identifier: "A1",
-      iso2: "AB",
-    )
     @world_location_2 = create(
       :world_location,
       name: "Location 2",
@@ -17,6 +9,14 @@ class PublishingApi::WorldIndexPresenterTest < ActiveSupport::TestCase
       active: false,
       analytics_identifier: "B2",
       iso2: "CD",
+    )
+    @world_location_1 = create(
+      :world_location,
+      name: "Location 1",
+      slug: "location-1",
+      active: true,
+      analytics_identifier: "A1",
+      iso2: "AB",
     )
     @international_delegation = create(
       :international_delegation,
@@ -28,7 +28,7 @@ class PublishingApi::WorldIndexPresenterTest < ActiveSupport::TestCase
     )
   end
 
-  test "presents a valid content item" do
+  test "presents a valid content item with locations sorted into the correct order" do
     expected_hash = {
       base_path: "/world",
       details: {
