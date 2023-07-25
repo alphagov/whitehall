@@ -7,7 +7,7 @@ gem "addressable"
 gem "babosa"
 gem "bootsnap", require: false
 gem "bootstrap-kaminari-views"
-gem "carrierwave", "< 3" # pin at v2 to avoid breaking changes
+gem "carrierwave", "< 4" # pin at v2 to avoid breaking changes
 gem "carrierwave-i18n"
 gem "chronic"
 gem "dalli"
