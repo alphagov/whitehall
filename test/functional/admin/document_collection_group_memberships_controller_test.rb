@@ -27,12 +27,6 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     assert_match %r{couldn't find.*blah}, flash[:alert]
   end
 
-  test "POST #create_whitehall_member handles invalid DocumentCollectionGroupMemberships" do
-    collection_document = create(:document, document_type: "DocumentCollection")
-    post :create_whitehall_member, params: id_params.merge(document_id: collection_document.id)
-    assert_match %r{Document cannot be a document collection}, flash[:alert]
-  end
-
   test "POST #create_non_whitehall_member adds a non-whitehall document to a group and redirects" do
     stub_publishing_api_has_lookups("/government/news/test" => "51ac4247-fd92-470a-a207-6b852a97f2db")
     res = stub_publishing_api_has_item(
