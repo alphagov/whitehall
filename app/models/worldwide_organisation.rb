@@ -145,4 +145,8 @@ class WorldwideOrganisation < ApplicationRecord
 
     offices.each { |office| Whitehall::PublishingApi.republish_async(office) }
   end
+
+  def search_index
+    super.merge("world_locations" => world_locations.map(&:slug))
+  end
 end
