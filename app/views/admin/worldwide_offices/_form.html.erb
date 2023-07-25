@@ -1,58 +1,152 @@
-<%= form_for [:admin, worldwide_organisation,worldwide_office], html: {class: "well"} do |office_form| %>
-  <%= office_form.errors %>
-  <fieldset class="contact">
-    <%= office_form.fields_for(:contact) do |contact_form| %>
-      <%= contact_form.text_field :title %>
-      <%= contact_form.text_area :comments, rows: 2, placeholder: "Optional instructions for this contact e.g. opening hours, rules of use…" %>
-      <div class="form-group">
-        <%= office_form.label :worldwide_office_type_id, 'Office type' %>
-        <%= office_form.select :worldwide_office_type_id,
-            grouped_options_for_select(
-              worldwide_office_type_options,
-              office_form.object.worldwide_office_type_id || WorldwideOfficeType::Other.id
-            ),
-            {},
-            class: ['chzn-select', 'form-control'],
-            data: { placeholder: "Choose office type…" } %>
-      </div>
-      <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: office_form.object.contact } %>
-      <%= render partial: 'admin/contacts/legacy_contact_type_details_form', locals: { contact_form: contact_form } %>
-      <div class="radio">
-        <p class="bold add-label-margin">Feature on home page?</p>
-        <% if worldwide_organisation.is_main_office?(office_form.object) %>
-          <p>Yes (as the main office)</p>
-        <% else %>
-          <%= office_form.labelled_radio_button('yes', :show_on_home_page, '1', checked: worldwide_organisation.office_shown_on_home_page?(office_form.object)) %>
-          <%= office_form.labelled_radio_button('no', :show_on_home_page, '0', checked: !worldwide_organisation.office_shown_on_home_page?(office_form.object)) %>
-        <% end %>
-      </div>
+<%= form_for [:admin, worldwide_organisation, worldwide_office] do |office_form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Title (required)"
+    },
+    name: "worldwide_office[contact_attributes][title]",
+    id: "worldwide_office_contact_title",
+    value: office_form.object.title,
+    heading_level: 2,
+    heading_size: "l",
+    error_items: errors_for(office_form.object.contact.errors, :title),
+  } %>
 
-      <fieldset class="services">
-        <legend>Services</legend>
-        <% # without this hidden field, once a service has been selected and saved, all services cannot be de-selected.
-           # http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-check_box-label-Gotcha %>
-        <%= hidden_field_tag 'worldwide_office[service_ids][]', nil %>
-        <% WorldwideService.all.group_by{|ws| ws.service_type}.each do |service_type, services| %>
-          <div class="form-group">
-            <p class="bold add-label-margin"><%= service_type.name %></p>
-            <% services.each do |service| %>
-              <div class="checkbox">
-                <%= label_tag "worldwide_office_service_ids_#{service.id}" do %>
-                  <%= check_box_tag 'worldwide_office[service_ids][]', service.id,
-                    office_form.object.services.include?(service), id: "worldwide_office_service_ids_#{service.id}" %>
-                  <%= service.name %>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </fieldset>
+  <%
+    options = [{text: "Select an office type", value: ""}]
+    options.concat(
+      worldwide_office_type_options.map do |option|
+        {
+          text: option.name,
+          value: option.id,
+          selected: option.id == office_form.object.worldwide_office_type_id
+        }
+      end
+    )
+  %>
 
-      <%= render partial: 'admin/contacts/legacy_form_fields', locals: { contact_form: contact_form } %>
+  <%= render "govuk_publishing_components/components/select", {
+    name: "worldwide_office[worldwide_office_type_id]",
+    id: "worldwide_office_worldwide_office_type_id",
+    label: "Office type (required)",
+    full_width: true,
+    heading_size: "l",
+    options: options,
+    error_message: errors_for_input(office_form.object.errors, :worldwide_office_type_id)
+  } %>
+
+  <%
+    items = ContactType.all.map do |type|
+      {
+        value: type.id,
+        text: type.name,
+        checked: type.id == office_form.object.contact_type_id
+      }
+    end
+  %>
+
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Contact type (required)",
+    name: "worldwide_office[contact_attributes][contact_type_id]",
+    id: "worldwide_office_contact_contact_type",
+    heading_size: "l",
+    error_items: errors_for(office_form.object.contact.errors, :contact_type),
+    items: items
+  } %>
+
+  <%= render "components/govspeak-editor", {
+    label: {
+      text: "Access and opening times (required)",
+      heading_size: "l",
+    },
+    name: "worldwide_office[access_and_opening_times]",
+    id: "worldwide_office_access_and_opening_times",
+    value: office_form.object.access_and_opening_times,
+  } %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Comments",
+      heading_size: "l",
+    },
+    name: "worldwide_office[contact_attributes][comments]",
+    id: "worldwide_office_contact_attributes_comments",
+    value: office_form.object.comments,
+    hint: "Optional instructions for this contact"
+  } %>
+
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Homepage feature",
+    name: "worldwide_office[show_on_home_page]",
+    inline: true,
+    heading_level: 2,
+    heading_size: "l",
+    items: [
+      {
+        value: 1,
+        text: "Yes",
+        id: "worldwide_office_show_on_home_page_1",
+        checked: worldwide_organisation.office_shown_on_home_page?(office_form.object)
+      },
+      {
+        value: 0,
+        text: "No",
+        id: "worldwide_office_show_on_home_page_0",
+        checked: !worldwide_organisation.office_shown_on_home_page?(office_form.object)
+      }
+    ]
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Email"
+    },
+    name: "worldwide_office[contact_attributes][email]",
+    id: "worldwide_office_contact_attributes_email",
+    value: office_form.object.email,
+    heading_level: 2,
+    heading_size: "l"
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Contact form URL"
+    },
+    name: "worldwide_office[contact_attributes][contact_form_url]",
+    id: "worldwide_office_contact_attributes_contact_form_url",
+    value: office_form.object.contact_form_url,
+    heading_size: "l"
+  } %>
+
+  <div class="govuk-!-margin-bottom-8">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Services",
+      font_size: "l",
+      margin_bottom: 2
+    } %>
+
+    <% # without this hidden field, once a service has been selected and saved, all services cannot be de-selected.
+       # http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-check_box-label-Gotcha %>
+    <%= hidden_field_tag 'worldwide_office[service_ids][]', nil %>
+
+    <% WorldwideService.all.group_by{|ws| ws.service_type}.each do |service_type, services| %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "worldwide_office[service_ids][]",
+        heading: service_type.name,
+        no_hint_text: true,
+        items: services.each.map do |service|
+          {
+            label: service.name,
+            value: service.id,
+            checked: office_form.object.services.include?(service)
+          }
+        end
+      } %>
     <% end %>
-  </fieldset>
+  </div>
 
-  <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: office_form, name: "worldwide_office[contact_attributes]", id: "worldwide_office_contact_attributes" } %>
+  <%= office_form.fields_for(:contact) do |contact_form| %>
+    <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form, name: "worldwide_office[contact_attributes]", id: "worldwide_office_contact_attributes" } %>
+  <% end %>
 
   <div class="govuk-button-group">
     <%= render "govuk_publishing_components/components/button", {

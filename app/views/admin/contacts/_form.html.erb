@@ -13,7 +13,7 @@
         error_items: errors_for(contact_form.object.errors, :title)
       } %>
 
-      <%= render partial: 'admin/contacts/contact_type_details_form', locals: { contact_form: contact_form } %>
+      <%= render partial: 'admin/contacts/contact_type_details_form', locals: { contact_form: contact_form, name: "contact", id: "contact" } %>
 
       <%= render "govuk_publishing_components/components/textarea", {
         label: {
@@ -87,7 +87,7 @@
         } %>
       </div>
 
-      <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form } %>
+      <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form, name: "contact", id: "contact" } %>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {

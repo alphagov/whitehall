@@ -43,7 +43,13 @@ module ApplicationHelper
   end
 
   def worldwide_office_type_options
-    WorldwideOfficeType.by_grouping.map do |grouping, types|
+    WorldwideOfficeType.by_grouping.map do |types|
+      types
+    end
+  end
+
+  def legacy_worldwide_office_type_options
+    WorldwideOfficeType.legacy_by_grouping.map do |grouping, types|
       [
         grouping,
         types.map { |t| [t.name, t.id] },

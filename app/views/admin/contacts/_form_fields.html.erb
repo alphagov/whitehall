@@ -9,8 +9,8 @@
         label: {
           text: "Recipient"
         },
-        name: "contact[recipient]",
-        id: "contact_recipient",
+        name: "#{name}[recipient]",
+        id: "#{id}_recipient",
         heading_size: "m",
         hint: "Organisation, division, team, unit or person name",
         value: contact_form.object.recipient,
@@ -23,8 +23,8 @@
         label: {
           text: "Street address"
         },
-        name: "contact[street_address]",
-        id: "contact_street_address",
+        name: "#{name}[street_address]",
+        id: "#{id}_street_address",
         heading_size: "m",
         value: contact_form.object.street_address,
         error_items: errors_for(contact_form.object.errors, :street_address)
@@ -36,8 +36,8 @@
         label: {
           text: "Town or city"
         },
-        name: "contact[locality]",
-        id: "contact_locality",
+        name: "#{name}[locality]",
+        id: "#{id}_locality",
         heading_size: "m",
         value: contact_form.object.locality,
         error_items: errors_for(contact_form.object.errors, :locality)
@@ -49,8 +49,8 @@
         label: {
           text: "State or county"
         },
-        name: "contact[region]",
-        id: "contact_region",
+        name: "#{name}[region]",
+        id: "#{id}_region",
         heading_size: "m",
         value: contact_form.object.region,
         error_items: errors_for(contact_form.object.errors, :region)
@@ -62,8 +62,8 @@
         label: {
           text: "Postal code"
         },
-        name: "contact[postal_code]",
-        id: "contact_postal_code",
+        name: "#{name}[postal_code]",
+        id: "#{id}_postal_code",
         heading_size: "m",
         value: contact_form.object.postal_code,
         error_items: errors_for(contact_form.object.errors, :postal_code)
@@ -83,8 +83,8 @@
 
     <div class="govuk-!-margin-bottom-0">
       <%= render "govuk_publishing_components/components/select", {
-        id: "contact_country_id",
-        name: "contact[country_id]",
+        id: "#{id}_country_id",
+        name: "#{name}[country_id]",
         label: "Country",
         full_width: true,
         heading_size: "m",
@@ -108,8 +108,8 @@
             label: {
               text: "Label"
             },
-            name: "contact[contact_numbers_attributes][#{contact_number_form.index}][label]",
-            id: "contact_contact_numbers_attributes_#{contact_number_form.index}_label",
+            name: "#{name}[contact_numbers_attributes][#{contact_number_form.index}][label]",
+            id: "#{id}_contact_numbers_attributes_#{contact_number_form.index}_label",
             heading_size: "m",
             value: contact_number_form.object.label
           } %>
@@ -118,8 +118,8 @@
             label: {
               text: "Number"
             },
-            name: "contact[contact_numbers_attributes][#{contact_number_form.index}][number]",
-            id: "contact_contact_numbers_attributes_#{contact_number_form.index}_number",
+            name: "#{name}[contact_numbers_attributes][#{contact_number_form.index}][number]",
+            id: "#{id}_contact_numbers_attributes_#{contact_number_form.index}_number",
             heading_size: "m",
             value: contact_number_form.object.number
           } %>
