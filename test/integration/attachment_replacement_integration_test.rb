@@ -35,8 +35,8 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
             stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
             visit admin_news_article_path(edition)
             click_link "Modify attachments"
-            within row_containing(filename) do
-              click_link "Edit"
+            within page.find("li", text: filename) do
+              click_link "Edit attachment"
             end
             fill_in "Title", with: "Attachment Title"
             attach_file "Replace file", path_to_attachment(replacement_filename)
@@ -68,8 +68,8 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
             visit admin_news_article_path(edition)
             click_button "Create new edition"
             click_link "Attachments 1"
-            within row_containing(filename) do
-              click_link "Edit"
+            within page.find("li", text: filename) do
+              click_link "Edit attachment"
             end
             attach_file "Replace file", path_to_attachment(replacement_filename)
             click_button "Save"
@@ -112,8 +112,8 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
             stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
             visit admin_news_article_path(edition)
             click_link "Modify attachments"
-            within row_containing(filename) do
-              click_link "Edit"
+            within page.find("li", text: filename) do
+              click_link "Edit attachment"
             end
             fill_in "Title", with: "Attachment Title"
             attach_file "Replace file", path_to_attachment(replacement_filename)
@@ -146,8 +146,8 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
             visit admin_news_article_path(edition)
             click_button "Create new edition"
             click_link "Attachments 1"
-            within row_containing(filename) do
-              click_link "Edit"
+            within page.find("li", text: filename) do
+              click_link "Edit attachment"
             end
             attach_file "Replace file", path_to_attachment(replacement_filename)
             click_button "Save"

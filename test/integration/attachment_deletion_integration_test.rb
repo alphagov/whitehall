@@ -45,8 +45,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           before do
             visit admin_news_article_path(edition)
             click_link "Modify attachments"
-            within row_containing(first_attachment.title) do
-              click_link "Delete"
+            within page.find("li", text: first_attachment.title) do
+              click_link "Delete attachment"
             end
             click_button "Delete attachment"
             assert_text "Attachment deleted"
@@ -121,8 +121,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           before do
             visit admin_news_article_path(edition)
             click_link "Modify attachments"
-            within row_containing(first_attachment.title) do
-              click_link "Delete"
+            within page.find("li", text: first_attachment.title) do
+              click_link "Delete attachment"
             end
             click_button "Delete attachment"
             assert_text "Attachment deleted"

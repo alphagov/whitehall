@@ -27,32 +27,31 @@ class AttachableEditionTest < ActionController::TestCase
 end
 
 class AttachableEditionsWithInlineSupportTest < ActionController::TestCase
-  tests Admin::NewsArticlesController
+  tests Admin::AttachmentsController
 
   setup { login_as :writer }
 
-  view_test "GET :edit lists the attachments with markdown hint for editions that support inline attachments" do
+  view_test "GET :index lists the attachments with markdown hint for editions that support inline attachments" do
     edition = create(:news_article, :with_file_attachment)
-    get :edit, params: { id: edition }
+    get :index, params: { edition_id: edition }
     attachment = edition.attachments.first
 
-    assert_select "#govspeak_tab", text: /Attachments/
     assert_select "li", text: %r{#{attachment.title}}
-    assert_select "li code", text: "!@1"
+    assert_select "input", value: "[InlineAttachment: 1]"
   end
 end
 
 class AttachableEditionWithoutInlineSupportTest < ActionController::TestCase
-  tests Admin::PublicationsController
+  tests Admin::AttachmentsController
 
   setup { login_as :writer }
 
-  view_test "GET :edit does not list the attachments for editions that do not support inline attachments" do
+  view_test "GET :index does not list the attachments for editions that do not support inline attachments" do
     edition = create(:publication, :with_file_attachment)
-    get :edit, params: { id: edition }
+    get :index, params: { edition_id: edition }
     attachment = edition.attachments.first
 
-    assert_select "li", text: %r{#{attachment.title}}, count: 0
-    assert_select "li code", count: 0
+    assert_select "li", text: %r{#{attachment.title}}
+    assert_select "input", count: 0
   end
 end

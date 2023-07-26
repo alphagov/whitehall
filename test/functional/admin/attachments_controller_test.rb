@@ -48,7 +48,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       get :index, params: { param_name => attachable.id }
 
       assert_response :success
-      assert_select "table td", "Lorem Ipsum"
+      assert_select "p.govuk-body", "Title: Lorem Ipsum"
     end
 
     view_test "GET :new handles #{type} as attachable" do
@@ -97,7 +97,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :index, params: { edition_id: @edition }
 
     assert_response :success
-    assert_select "table td", text: "An HTML attachment"
+    assert_select "p.govuk-body", text: "Title: An HTML attachment"
   end
 
   view_test "GET :index renders the uploading banner when an attachment hasn't been uploaded to asset manager" do
@@ -110,10 +110,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :index, params: { edition_id: @edition }
 
     assert_response :success
-    assert_select ".govuk-table__cell", text: "An HTML attachment"
-    assert_select ".govuk-table__cell", text: "An uploaded file attachment"
-    assert_select ".govuk-table__cell", text: "An uploading file attachment Uploading"
-    assert_select ".govuk-table__cell", text: "An external attachment"
+    assert_select "p.govuk-body", text: "Title: An HTML attachment"
+    assert_select "p.govuk-body", text: "Title: An uploaded file attachment"
+    assert_select "p.govuk-body", text: "Title: An uploading file attachment Uploading"
+    assert_select "p.govuk-body", text: "Title: An external attachment"
   end
 
   test "POST :create handles html attachments when attachable allows them" do
@@ -203,7 +203,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :index, params: { edition_id: @edition }
 
     assert_response :success
-    assert_select "table td", text: "An external attachment"
+    assert_select "p.govuk-body", text: "Title: An external attachment"
   end
 
   test "POST :create handles external attachments when attachable allows them" do

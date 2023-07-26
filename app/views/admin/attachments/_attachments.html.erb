@@ -2,37 +2,41 @@
 <p class="govuk-body"><%= link_to 'Reorder attachments', [:reorder, :admin, typecast_for_attachable_routing(attachable), Attachment], class: "govuk-link govuk-link--no-visited-state" %></p>
 <% end %>
 
-<%= render "govuk_publishing_components/components/table", {
-  head: [
-    {
-      text: "Title"
-    },
-    {
-      text: "Type"
-    },
-    {
-      text: "Attachment"
-    },
-    {},
-    {}
-  ],
-  rows: attachable.attachments.includes(:attachment_data).map do |attachment|
-    [
-      {
-        text: sanitize("#{attachment.title} #{tag.span("Uploading", class: 'govuk-tag govuk-tag--green') unless attachment.attachment_data.blank? || attachment.attachment_data.uploaded_to_asset_manager?}")
-      },
-      {
-        text: attachment.is_a?(HtmlAttachment) ? attachment.readable_type : attachment.readable_type.capitalize
-      },
-      {
-        text: link_to_attachment(attachment, preview: true, full_url: true, class: "govuk-link govuk-link--no-visited-state")
-      },
-      {
-        text: link_to('Edit', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state")
-      },
-      {
-        text: link_to("Delete", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state gem-link--destructive")
-      }
-    ]
-  end
-} %>
+<ul class="govuk-list">
+  <% attachable.attachments.includes(:attachment_data).map.with_index(1) do |attachment, index| %>
+    <li class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <p class="govuk-body">
+          <strong>Title:</strong> <%= attachment.title %> <% unless attachment.attachment_data.blank? || attachment.attachment_data.uploaded_to_asset_manager? %><span class="govuk-tag govuk-tag--green">Uploading</span><% end %>
+        </p>
+        <p class="govuk-body">
+          <strong>Type: </strong><%= attachment.is_a?(HtmlAttachment) ? attachment.readable_type : attachment.readable_type.capitalize %>
+        </p>
+        <p class="govuk-body">
+          <strong>Attachment: </strong><%= link_to_attachment(attachment, preview: true, full_url: true, class: "govuk-link govuk-link--no-visited-state") %>
+        </p>
+        <% if attachable.allows_inline_attachments? %>
+          <%= render "govuk_publishing_components/components/copy_to_clipboard", {
+            label: tag.strong("Link to this attachment:"),
+            copyable_content: "[AttachmentLink: #{attachment_component_params(attachment)[:id]}]",
+            button_text: "Copy Markdown"
+          } %>
+          <div class="app-view-edition-resource__markdown--padded">
+            <%= render "govuk_publishing_components/components/copy_to_clipboard", {
+              label: tag.strong("Embed this attachment:"),
+              copyable_content: "[Attachment: #{attachment_component_params(attachment)[:id]}]",
+              button_text: "Copy Markdown"
+            } %>
+          </div>
+        <% end %>
+      </div>
+      <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
+        <%= link_to('Edit attachment', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Delete attachment", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state gem-link--destructive") %>
+      </div>
+    </li>
+    <% if attachment != attachable.attachments.includes(:attachment_data).last %>
+      <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
+    <% end %>
+  <% end %>
+</ul>
