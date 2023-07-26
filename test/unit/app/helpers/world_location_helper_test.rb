@@ -98,5 +98,18 @@ class WorldLocationHelperTest < ActionView::TestCase
 
       assert_equal expected_order, sort(unsorted)
     end
+
+    test "ignores case when sorting" do
+      world_location_1 = create(:world_location, name: "UK Mission to ASEAN")
+      world_location_2 = create(:world_location, name: "UK and the Commonwealth")
+      unsorted = [world_location_1, world_location_2]
+
+      expected_order = [
+        world_location_2,
+        world_location_1,
+      ]
+
+      assert_equal expected_order, sort(unsorted)
+    end
   end
 end
