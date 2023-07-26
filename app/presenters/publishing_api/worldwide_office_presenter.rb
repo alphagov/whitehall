@@ -19,6 +19,8 @@ module PublishingApi
       content.merge!(
         details: {
           access_and_opening_times:,
+          services:,
+          type: item.worldwide_office_type.name,
         },
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
@@ -49,6 +51,15 @@ module PublishingApi
       return if item.access_and_opening_times.blank?
 
       Whitehall::GovspeakRenderer.new.govspeak_to_html(item.access_and_opening_times)
+    end
+
+    def services
+      item.services.map do |service|
+        {
+          title: service.name,
+          type: service.service_type.name,
+        }
+      end
     end
   end
 end

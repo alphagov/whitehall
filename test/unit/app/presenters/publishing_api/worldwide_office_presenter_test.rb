@@ -7,7 +7,8 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
 
   test "presents a Worldwide Office ready for adding to the publishing API" do
     access_and_opening_times = "## About us\r\n\r\nVisit our [profile page](https://www.gov.uk/government/world/organisations/british-consulate-general-atlanta)"
-    worldwide_office = create(:worldwide_office, access_and_opening_times:)
+    worldwide_office = build(:worldwide_office, access_and_opening_times:)
+    worldwide_office_service = create(:worldwide_office_worldwide_service, worldwide_office:)
     public_path = worldwide_office.public_path
 
     expected_hash = {
@@ -23,6 +24,13 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
       redirects: [],
       details: {
         access_and_opening_times: Whitehall::GovspeakRenderer.new.govspeak_to_html(worldwide_office.access_and_opening_times),
+        services: [
+          {
+            title: worldwide_office_service.worldwide_service.name,
+            type: worldwide_office_service.worldwide_service.service_type.name,
+          },
+        ],
+        type: worldwide_office.worldwide_office_type.name,
       },
       update_type: "major",
     }
