@@ -35,7 +35,7 @@
           },
           {
             key: "Body",
-            value: simple_format(truncate(@organisation.body, length: 500)),
+            value: simple_format(truncate(@organisation.body, length: 500, class: "govuk-!-margin-top-0")),
           },
         ].reject { |row| row[:value].blank? },
         summary_card_actions: [
