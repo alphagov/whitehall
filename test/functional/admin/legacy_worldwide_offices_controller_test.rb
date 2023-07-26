@@ -1,8 +1,10 @@
 require "test_helper"
 
-class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
+class Admin::LegacyWorldwideOfficesControllerTest < ActionController::TestCase
+  tests Admin::WorldwideOfficesController
+
   setup do
-    login_as_preview_design_system_user :departmental_editor
+    login_as :departmental_editor
   end
 
   should_be_an_admin_controller
@@ -366,19 +368,6 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
     assert_equal %(Offices on home page reordered successfully), flash[:notice]
     assert_equal [office], worldwide_organisation.reload.home_page_offices
-  end
-
-  test "GET :confirm_destroy calls correctly" do
-    worldwide_organisation, office = create_worldwide_organisation_and_office
-
-    get :confirm_destroy, params: {
-      worldwide_organisation_id: worldwide_organisation.id,
-      id: office.id,
-    }
-
-    assert_response :success
-    assert_equal worldwide_organisation, assigns(:worldwide_organisation)
-    assert_equal office, assigns(:worldwide_office)
   end
 
 private
