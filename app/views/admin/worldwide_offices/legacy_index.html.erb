@@ -17,7 +17,9 @@
         <div class="tab-content add-top-margin">
           <div class="tab-pane active" id="manage-all">
             <% if @worldwide_organisation.offices.any? %>
-              <%= render @worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation %>
+              <% @worldwide_organisation.offices.each do |office| %>
+                <%= render "legacy_worldwide_office", worldwide_office: office, worldwide_organisation: @worldwide_organisation %>
+              <% end %>
             <% else %>
               <p class="no-content no-content-bordered">No offices</p>
             <% end %>
