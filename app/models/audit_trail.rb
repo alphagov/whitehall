@@ -6,11 +6,11 @@ module AuditTrail
   end
 
   def self.acting_as(actor)
-    original_actor = AuditTrail.whodunnit
-    AuditTrail.whodunnit = actor
+    original_actor = Current.user
+    Current.user = actor
     yield
   ensure
-    AuditTrail.whodunnit = original_actor
+    Current.user = original_actor
   end
 
   included do
@@ -39,7 +39,7 @@ module AuditTrail
 private
 
   def record_create
-    user = AuditTrail.whodunnit
+    user = Current.user
     state = try(:state)
     versions.create!(event: "create", user:, state:)
     alert!(user)
@@ -47,7 +47,7 @@ private
 
   def record_update
     if changed.any?
-      user = AuditTrail.whodunnit
+      user = Current.user
       state = try(:state)
       versions.build(event: "update", user:, state:)
       alert!(user)
