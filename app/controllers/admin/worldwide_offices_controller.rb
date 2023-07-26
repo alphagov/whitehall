@@ -2,7 +2,9 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
   before_action :find_worldwide_office, only: %i[edit update destroy add_to_home_page remove_from_home_page]
 
-  def index; end
+  def index
+    render :legacy_index
+  end
 
   def new
     @worldwide_office = @worldwide_organisation.offices.build
