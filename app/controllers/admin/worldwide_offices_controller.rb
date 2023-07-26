@@ -1,6 +1,6 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
-  before_action :find_worldwide_office, only: %i[edit update destroy add_to_home_page remove_from_home_page]
+  before_action :find_worldwide_office, only: %i[edit update confirm_destroy destroy add_to_home_page remove_from_home_page]
 
   def index; end
 
@@ -34,9 +34,13 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     end
   end
 
+  def confirm_destroy; end
+
   def destroy
+    title = @worldwide_office.title
+
     if @worldwide_office.destroy
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice]
+      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{title} has been deleted"
     else
       render :edit
     end
@@ -53,6 +57,16 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = %w[confirm_destroy]
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])

@@ -170,6 +170,7 @@ Whitehall::Application.routes.draw do
 
           resources :worldwide_offices, path: "offices", except: [:show] do
             member do
+              get :confirm_destroy
               post :remove_from_home_page
               post :add_to_home_page
             end
