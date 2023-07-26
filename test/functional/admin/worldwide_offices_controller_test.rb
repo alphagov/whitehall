@@ -370,6 +370,19 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal [office], worldwide_organisation.reload.home_page_offices
   end
 
+  test "GET :confirm_destroy calls correctly" do
+    worldwide_organisation, office = create_worldwide_organisation_and_office
+
+    get :confirm_destroy, params: {
+      worldwide_organisation_id: worldwide_organisation.id,
+      id: office.id
+    }
+
+    assert_response :success
+    assert_equal worldwide_organisation, assigns(:worldwide_organisation)
+    assert_equal office, assigns(:worldwide_office)
+  end
+
 private
 
   def create_worldwide_organisation_and_office
