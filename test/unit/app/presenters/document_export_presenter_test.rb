@@ -13,8 +13,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "includes a collection of users involved with the document" do
     creator = create(:user)
-    AuditTrail.whodunnit = creator
-    edition = create(:publication)
+    edition = AuditTrail.acting_as(creator) { create(:publication) }
     author = edition.authors.first
     remarker = create(:user)
     create(:editorial_remark, author: remarker, edition:)
@@ -286,12 +285,10 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "includes history information" do
     user1 = create(:user)
-    AuditTrail.whodunnit = user1
-    edition = create(:edition)
+    edition = AuditTrail.acting_as(user1) { create(:edition) }
 
     user2 = create(:user)
-    AuditTrail.whodunnit = user2
-    edition.update!(change_note: "changed")
+    AuditTrail.acting_as(user2) { edition.update!(change_note: "changed") }
 
     result = DocumentExportPresenter.new(edition.document).as_json
     expected = [

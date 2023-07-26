@@ -1,10 +1,6 @@
 module AuditTrail
   extend ActiveSupport::Concern
 
-  class << self
-    attr_accessor :whodunnit
-  end
-
   def self.acting_as(actor)
     original_actor = Current.user
     Current.user = actor

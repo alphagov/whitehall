@@ -275,37 +275,32 @@ class EditionTest < ActiveSupport::TestCase
     publication = create(:submitted_publication)
     user = create(:writer)
     user2 = create(:writer)
-    AuditTrail.whodunnit = user
-    publication.reject!
-    AuditTrail.whodunnit = user2
-    publication.update!(title: "new title")
+    AuditTrail.acting_as(user) { publication.reject! }
+    AuditTrail.acting_as(user2) { publication.update!(title: "new title") }
     assert_equal user, publication.rejected_by
   end
 
   test "#rejected_by should not be confused by editorial remarks" do
     publication = create(:submitted_publication)
     user = create(:writer)
-    AuditTrail.whodunnit = user
-    create(:editorial_remark, edition: publication)
+    AuditTrail.acting_as(user) { create(:editorial_remark, edition: publication) }
     assert_nil publication.reload.rejected_by
   end
 
   test "#submitted_by uses information from the audit trail" do
     publication = create(:draft_publication)
     user = create(:writer)
-    AuditTrail.whodunnit = user
-    publication.submit!
+    AuditTrail.acting_as(user) { publication.submit! }
     assert_equal user, publication.submitted_by
   end
 
   test "#submitted_by gets original submitter even if updates are made while in submitted state" do
     submitter = create(:writer)
-    publication = create(:submitted_publication, submitter:)
     reviewer = create(:writer)
-    AuditTrail.whodunnit = reviewer
-    publication.body = "updated body"
-    publication.save!
+    publication = create(:submitted_publication, submitter:)
+    AuditTrail.acting_as(reviewer) { publication.update!(body: "updated body") }
     assert_equal submitter, publication.submitted_by
+    assert_equal reviewer, publication.versions.last.user
   end
 
   test "#published_by uses information from the audit trail" do
