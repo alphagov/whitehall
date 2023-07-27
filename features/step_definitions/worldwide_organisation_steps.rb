@@ -109,17 +109,31 @@ When(/^I choose "([^"]*)" to be the main office$/) do |contact_title|
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Offices"
-  within record_css_selector(worldwide_office) do
-    click_button "Set as main office"
+  if using_design_system?
+    click_link "Set main office"
+    choose contact_title
+    click_button "Save"
+  else
+    within record_css_selector(worldwide_office) do
+      click_button "Set as main office"
+    end
   end
 end
 
 Then(/^the "([^"]*)" should be marked as the main office$/) do |contact_title|
   admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
 
-  office_container = page.find("h3", text: contact_title).ancestor(".worldwide_office")
-  within office_container do
-    expect(page).to have_content("(Main office)")
+  if using_design_system?
+    within ".app-vc-worldwide-offices-index-office-summary-card-component", match: :first do
+      expect(page).to have_content contact_title
+      assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Main office"
+      assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "Yes"
+    end
+  else
+    office_container = page.find("h3", text: contact_title).ancestor(".worldwide_office")
+    within office_container do
+      expect(page).to have_content("(Main office)")
+    end
   end
 end
 

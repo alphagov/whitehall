@@ -52,6 +52,8 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     @access_and_opening_times = @worldwide_organisation.default_access_and_opening_times
   end
 
+  def choose_main_office; end
+
   def set_main_office
     @worldwide_organisation.update!(main_office_params)
     redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "Main office updated successfully"
@@ -67,7 +69,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_destroy]
+    design_system_actions = %w[confirm_destroy choose_main_office]
     design_system_actions += %w[index show new create edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
