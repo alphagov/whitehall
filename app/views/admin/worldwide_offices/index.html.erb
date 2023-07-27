@@ -1,0 +1,68 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_worldwide_organisations_path
+  } %>
+<% end %>
+<% content_for :page_title, "#{@worldwide_organisation.name} offices" %>
+<% content_for :title, @worldwide_organisation.name %>
+<% content_for :context, "Worldwide organisation" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <p class="govuk-body govuk-!-margin-bottom-4">
+      <%= view_on_website_link_for @worldwide_organisation, class: "govuk-link" %>
+    </p>
+
+    <%= render "components/secondary_navigation", {
+      aria_label: "Worldwide organisation navigation tabs",
+      items: secondary_navigation_tabs_items(@worldwide_organisation, request.path)
+    } %>
+  </div>
+
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Offices",
+      font_size: "l",
+      margin_bottom: 6,
+    } %>
+
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Create new office",
+      href: new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation),
+      margin_bottom: 8,
+    } %>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Offices within this organisation",
+          font_size: "m",
+          margin_bottom: 6,
+        } %>
+      </div>
+
+      <% if @worldwide_organisation.home_page_offices.many? %>
+        <div class="govuk-grid-column-one-third">
+          <p class="govuk-body govuk-!-text-align-right">
+            <%= link_to "Reorder", "#", class: "govuk-link" %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-two-thirds">
+    <% if @worldwide_organisation.offices.any? %>
+      <% ordered_worldwide_offices(@worldwide_organisation).each do |worldwide_office| %>
+        <%= render Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(worldwide_office: worldwide_office, worldwide_organisation: @worldwide_organisation, contact: worldwide_office.contact) %>
+      <% end %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No offices."
+      } %>
+    <% end %>
+  </div>
+</div>
