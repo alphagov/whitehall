@@ -55,7 +55,7 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
 
   test "does not raise an error if an email cannot be sent via notify" do
     raises_exception = lambda { |_url, _address, _title|
-      response = MiniTest::Mock.new
+      response = Minitest::Mock.new
       ENV["SENTRY_CURRENT_ENV"] = "integration-blue-aws"
       response.expect :code, 400
       response.expect :body, "Can't send to this recipient using a team-only API key"
@@ -77,7 +77,7 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
 
   test "raises an error if an email cannot be sent via notify in production" do
     raises_exception = lambda { |_url, _address, _title|
-      response = MiniTest::Mock.new
+      response = Minitest::Mock.new
       ENV["SENTRY_CURRENT_ENV"] = "production"
       response.expect :code, 400
       response.expect :body, "Can't send to this recipient using a team-only API key"

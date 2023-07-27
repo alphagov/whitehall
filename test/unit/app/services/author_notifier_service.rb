@@ -85,7 +85,7 @@ class AuthorNotifierTest < ActiveSupport::TestCase
 
   test "does not raise an error if an email cannot be sent via notify in integration" do
     raises_exception = lambda { |_author, _edition, _edition_admin_url, _public_document_url|
-      response = MiniTest::Mock.new
+      response = Minitest::Mock.new
       ENV["SENTRY_CURRENT_ENV"] = "integration-blue-aws"
       response.expect :code, 400
       response.expect :body, "Can't send to this recipient using a team-only API key"
@@ -103,7 +103,7 @@ class AuthorNotifierTest < ActiveSupport::TestCase
 
   test "it raises an error if an email cannot be sent via notify in Production" do
     raises_exception = lambda { |_author, _edition, _edition_admin_url, _public_document_url|
-      response = MiniTest::Mock.new
+      response = Minitest::Mock.new
       ENV["SENTRY_CURRENT_ENV"] = "production"
       response.expect :code, 400
       response.expect :body, "Can't send to this recipient using a team-only API key"

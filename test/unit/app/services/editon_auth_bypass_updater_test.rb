@@ -5,7 +5,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
   describe "#call" do
     let(:user) { create(:user) }
-    let(:updater) { MiniTest::Mock.new }
+    let(:updater) { Minitest::Mock.new }
     let(:uid) { SecureRandom.uuid }
 
     before do
