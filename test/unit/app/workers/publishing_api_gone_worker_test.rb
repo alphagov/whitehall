@@ -62,10 +62,10 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
   end
 
   test "sends an error to sentry if there is a problem with the request" do
-    govukerror_notify = MiniTest::Mock.new
+    govukerror_notify = Minitest::Mock.new
     govukerror_notify.expect :call, nil, [GdsApi::HTTPUnprocessableEntity]
 
-    publishing_api = MiniTest::Mock.new
+    publishing_api = Minitest::Mock.new
     def publishing_api.unpublish(_content_id, _options)
       raise GdsApi::HTTPUnprocessableEntity, "test"
     end

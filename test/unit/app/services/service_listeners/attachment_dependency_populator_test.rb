@@ -4,7 +4,7 @@ require "mocha/minitest"
 require "govspeak/contacts_extractor"
 
 module ServiceListeners
-  class AttachmentDependencyPopulatorTest < MiniTest::Test
+  class AttachmentDependencyPopulatorTest < Minitest::Test
     class TestAssociation
       attr_reader :collection
 
