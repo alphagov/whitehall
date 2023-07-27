@@ -2,7 +2,7 @@ class CorporateInformationPage < Edition
   include ::Attachable
   include Searchable
 
-  after_commit :republish_owning_organisation_to_publishing_api
+  after_save :republish_owning_organisation_to_publishing_api
   after_commit :republish_about_page_to_publishing_api, unless: :about_page?
   after_save :reindex_organisation_in_search_index, if: :about_page?
 
