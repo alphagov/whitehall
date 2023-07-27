@@ -166,6 +166,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
       AssetManagerCreateAssetWorker.drain
     end
   end
+
   describe "when use_non_legacy_endpoints is false" do
     test "should successfully create PDF and PNG thumbnail from the file_cache after a validation failure" do
       greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
@@ -182,6 +183,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
       AssetManagerCreateWhitehallAssetWorker.drain
     end
   end
+
   test "should return nil file extension when no uploader present" do
     attachment = build(:attachment_data)
     attachment.stubs(file: nil)

@@ -181,8 +181,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     login_as_use_non_legacy_endpoints_user :gds_editor
     attachment = valid_file_attachment_params
     variant = Asset.variants[:original]
+    model_type = AttachmentData.to_s
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, kind_of(Integer), variant, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => variant, "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
@@ -319,8 +320,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:html_attachment, attachable: @edition)
 
     Whitehall::PublishingApi
-    .expects(:save_draft)
-    .with(@edition)
+      .expects(:save_draft)
+      .with(@edition)
 
     Whitehall::PublishingApi
       .expects(:save_draft)
@@ -375,8 +376,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     login_as_use_non_legacy_endpoints_user :gds_editor
     attachment = create(:file_attachment, attachable: @edition)
     variant = Asset.variants[:original]
+    model_type = attachment.attachment_data.class.to_s
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, kind_of(Integer), variant, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => variant, "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     put :update,
         params: {
@@ -442,7 +444,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal "whitepaper.pdf", attachment.filename
   end
 
-  test "POST :discards file_cache when a file is provided" do
+  test "use_non_legacy_endpoints is false - POST :discards file_cache when a file is provided" do
     greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
     whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
     whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
@@ -461,7 +463,27 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
          }
   end
 
-  test "PUT :discards file_cache when a file is provided" do
+  test "use_non_legacy_endpoints is true - POST :discards file_cache when a file is provided" do
+    login_as_use_non_legacy_endpoints_user :gds_editor
+    greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
+    whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
+    whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(2)
+
+    post :create,
+         params: {
+           edition_id: @edition,
+           type: "file",
+           attachment: {
+             title: "New title",
+             attachment_data_attributes: { file: greenpaper_pdf, file_cache: whitepaper_attachment_data.file_cache },
+           },
+         }
+  end
+
+  test "use_non_legacy_endpoints is false - PUT :discards file_cache when a file is provided" do
     attachment = create(:file_attachment, attachable: @edition)
     attachment_data = attachment.attachment_data
     greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
@@ -470,6 +492,29 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), regexp_matches(/whitepaper/), anything, anything, anything, anything).never
     AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), regexp_matches(/greenpaper/), anything, anything, anything, anything).times(2)
+
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment.id,
+          type: "file",
+          attachment: {
+            title: "New title",
+            attachment_data_attributes: { file: greenpaper_pdf, file_cache: whitepaper_attachment_data.file_cache, to_replace_id: attachment_data.id },
+          },
+        }
+  end
+
+  test "use_non_legacy_endpoints is true - PUT :discards file_cache when a file is provided" do
+    login_as_use_non_legacy_endpoints_user :gds_editor
+    attachment = create(:file_attachment, attachable: @edition)
+    attachment_data = attachment.attachment_data
+    greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
+    whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
+    whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(2)
 
     put :update,
         params: {

@@ -7,25 +7,28 @@ class AssetTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without an asset_manager_id" do
-    asset = Asset.new(attachment_data: @attachment_data, variant: @variant)
+    asset = Asset.new(assetable: @attachment_data, variant: @variant)
 
     assert_not asset.valid?
+    assert_equal asset.errors.messages[:asset_manager_id], ["can't be blank"]
   end
 
-  test "should be invalid without an attachment_data" do
+  test "should be invalid without an assetable" do
     asset = Asset.new(asset_manager_id: "asset_manager_id", variant: @variant)
 
     assert_not asset.valid?
+    assert_equal asset.errors.messages[:assetable], ["can't be blank"]
   end
 
   test "should be invalid without a variant" do
-    asset = Asset.new(asset_manager_id: "asset_manager_id", attachment_data: @attachment_data)
+    asset = Asset.new(asset_manager_id: "asset_manager_id", assetable: @attachment_data)
 
     assert_not asset.valid?
+    assert_equal asset.errors.messages[:variant], ["can't be blank"]
   end
 
   test "should be valid if all fields present" do
-    asset = Asset.new(attachment_data: @attachment_data, asset_manager_id: "asset_manager_id", variant: @variant)
+    asset = Asset.new(assetable: @attachment_data, asset_manager_id: "asset_manager_id", variant: @variant)
 
     assert asset.valid?
   end
