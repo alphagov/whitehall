@@ -44,8 +44,6 @@ Whitehall::Application.routes.draw do
   # Routes rendered by Whitehall to the public under the /world scope
   scope "/world" do
     get "(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }
-
-    get "/organisations/:id(.:locale)", as: "worldwide_organisation", to: "worldwide_organisations#show", constraints: { locale: valid_locales_regex }
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
