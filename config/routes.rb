@@ -41,6 +41,8 @@ Whitehall::Application.routes.draw do
   # This can be removed once Slimmer is removed from Whitehall.
   get "/auth/failure", to: "admin/base#auth_failure", as: "auth_failure_fixed"
 
+  get '/world/organisations/*org/about/about', to: redirect('/world/organisations')
+
   # Routes rendered by Whitehall to the public under the /world scope
   scope "/world" do
     get "(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }
