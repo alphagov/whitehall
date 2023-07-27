@@ -6,8 +6,9 @@ module PolicyGroupHelper
   end
 
   def insert_attachment_markdown_into_policy_group_description(attachment, group)
+    visit admin_policy_group_attachments_path(group)
+    markdown = first("li:contains('#{attachment.title}') input").value
     visit edit_admin_policy_group_path(group)
-    markdown = find_markdown_snippet_to_insert_attachment(attachment)
     fill_in "Description", with: "#{group.description}\n\n#{markdown}"
     click_button "Save"
   end

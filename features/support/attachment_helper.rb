@@ -37,10 +37,6 @@ module AttachmentHelper
     create_external_attachment("http://www.example.com/example", "Example doc")
     visit location
   end
-
-  def find_markdown_snippet_to_insert_attachment(attachment)
-    find("strong:contains('#{attachment.title}') + code").text
-  end
 end
 
 World(AttachmentHelper)
