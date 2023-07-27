@@ -375,7 +375,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
     get :confirm_destroy, params: {
       worldwide_organisation_id: worldwide_organisation.id,
-      id: office.id
+      id: office.id,
     }
 
     assert_response :success
