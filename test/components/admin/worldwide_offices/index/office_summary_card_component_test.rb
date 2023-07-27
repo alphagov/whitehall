@@ -214,4 +214,66 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Access and opening times"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: worldwide_office.access_and_opening_times
   end
+
+  test "does not render the add translation action when the contact is a non-english translation and there are missing translations for a contact" do
+    contact = create(:contact, translated_into: [:es])
+    translated_contact = contact.non_english_localised_models([:contact_numbers]).last
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
+
+    contact.stubs(:missing_translations).returns([:fr])
+
+    render_inline(
+      Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
+        worldwide_office:,
+        worldwide_organisation: @worldwide_organisation,
+        contact: translated_contact,
+      ),
+    )
+
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#']", text: "Add translation", count: 0
+  end
+
+  test "renders the correct values when contact is a translation" do
+    contact_number = create(:contact_number)
+    contact = create(
+      :contact_with_country,
+      translated_into: [:fr],
+      title: "title",
+      comments: "comments",
+      email: "email.com",
+      contact_form_url: "https://wwww.contact-me.org",
+      contact_numbers: [contact_number],
+    )
+    translated_contact = contact.non_english_localised_models([:contact_numbers]).last
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
+
+    render_inline(
+      Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
+        worldwide_office:,
+        worldwide_organisation: @worldwide_organisation,
+        contact: translated_contact,
+      ),
+    )
+
+    assert_selector ".govuk-summary-card__title", text: translated_contact.title
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{edit_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, worldwide_office, translated_contact.translation_locale)}']"
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{confirm_destroy_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, worldwide_office, translated_contact.translation_locale)}']"
+    assert_selector ".govuk-summary-list__row", count: 8
+    assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Office type"
+    assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: worldwide_office.worldwide_office_type.name
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Contact type"
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: contact.contact_type.name
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "Comments"
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: translated_contact.comments
+    assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Email"
+    assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: translated_contact.email
+    assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Address"
+    assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: translated_contact.street_address
+    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Contact form URL"
+    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: translated_contact.contact_form_url
+    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: contact_number.label
+    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__value", text: contact_number.number
+    assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__key", text: "Markdown code"
+    assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__value", text: "[Contact:#{translated_contact.id}]"
+  end
 end

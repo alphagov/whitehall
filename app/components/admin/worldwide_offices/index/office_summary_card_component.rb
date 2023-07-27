@@ -55,6 +55,8 @@ private
   end
 
   def homepage_row
+    return if non_english_translation?
+
     {
       key: "On homepage",
       value: worldwide_organisation.office_shown_on_home_page?(worldwide_office) ? "Yes" : "No",
@@ -62,7 +64,7 @@ private
   end
 
   def services_row
-    return if worldwide_office.services.blank?
+    return if worldwide_office.services.blank? || non_english_translation?
 
     {
       key: "Services",
@@ -115,6 +117,8 @@ private
   end
 
   def main_office_row
+    return if non_english_translation?
+
     {
       key: "Main office",
       value: worldwide_office == worldwide_organisation.main_office ? "Yes" : "No",
@@ -129,7 +133,7 @@ private
   end
 
   def access_and_opening_times_row
-    return if worldwide_office.access_and_opening_times.blank?
+    return if worldwide_office.access_and_opening_times.blank? || non_english_translation?
 
     {
       key: "Access and opening times",
@@ -146,14 +150,21 @@ private
   end
 
   def edit_action
-    {
-      label: "Edit",
-      href: edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation, worldwide_office),
-    }
+    if non_english_translation?
+      {
+        label: "Edit",
+        href: edit_admin_worldwide_organisation_worldwide_office_translation_path(worldwide_organisation, worldwide_office, contact.translation_locale),
+      }
+    else
+      {
+        label: "Edit",
+        href: edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation, worldwide_office),
+      }
+    end
   end
 
   def add_translation_action
-    return if contact.missing_translations.blank?
+    return if contact.missing_translations.blank? || non_english_translation?
 
     {
       label: "Add translation",
@@ -162,10 +173,22 @@ private
   end
 
   def confirm_delete_action
-    {
-      label: "Delete",
-      href: confirm_destroy_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation, worldwide_office),
-      destructive: true,
-    }
+    if non_english_translation?
+      {
+        label: "Delete",
+        href: confirm_destroy_admin_worldwide_organisation_worldwide_office_translation_path(worldwide_organisation, worldwide_office, contact.translation_locale),
+        destructive: true,
+      }
+    else
+      {
+        label: "Delete",
+        href: confirm_destroy_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation, worldwide_office),
+        destructive: true,
+      }
+    end
+  end
+
+  def non_english_translation?
+    contact.translation_locale.code != :en
   end
 end

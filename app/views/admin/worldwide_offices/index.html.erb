@@ -59,6 +59,20 @@
       <% ordered_worldwide_offices(@worldwide_organisation).each do |worldwide_office| %>
         <%= render Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(worldwide_office: worldwide_office, worldwide_organisation: @worldwide_organisation, contact: worldwide_office.contact) %>
       <% end %>
+
+      <% if any_translated_worldwide_offices?(@worldwide_organisation) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Translated",
+          font_size: "m",
+          margin_bottom: 6,
+        } %>
+
+        <% ordered_worldwide_offices(@worldwide_organisation).each do |worldwide_office| %>
+          <% worldwide_office.contact.non_english_localised_models([:contact_numbers]).each do |translated_contact| %>
+            <%= render Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(worldwide_office: worldwide_office, worldwide_organisation: @worldwide_organisation, contact: translated_contact) %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
         text: "No offices."
