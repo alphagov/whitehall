@@ -1,0 +1,27 @@
+<% content_for :context, @worldwide_organisation.name %>
+<% content_for :page_title, "Reorder offices" %>
+<% content_for :title, "Reorder offices" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= form_with url: [:reorder_for_home_page, :admin, @worldwide_organisation, WorldwideOffice] do %>
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        items: @reorderable_offices.map do |office|
+          {
+            id: office.id,
+            title: office.title,
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+        } %>
+
+        <%= link_to("Cancel", admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>
