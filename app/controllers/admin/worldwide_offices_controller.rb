@@ -18,7 +18,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     worldwide_office_params[:service_ids] ||= []
     if @worldwide_office.update(worldwide_office_params)
       handle_show_on_home_page_param
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice]
+      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been edited"
     else
       render :edit
     end
@@ -28,7 +28,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     @worldwide_office = @worldwide_organisation.offices.build(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice]
+      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been added"
     else
       render :edit
     end
