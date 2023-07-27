@@ -16,6 +16,8 @@ $govuk-page-width: 1140px;
 @import "./admin/overrides";
 @import "./admin/layout";
 
+@import "./admin/views/components/worldwide_offices/index/office-summary-card-component";
+
 @import "./admin/views/add-another";
 @import "./admin/views/audit-trail";
 @import "./admin/views/contacts";

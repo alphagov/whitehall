@@ -69,7 +69,7 @@ When(/^I add an "([^"]*)" office for the home page with address, phone number, a
   service3 = create(:worldwide_service, name: "Beard grooming")
 
   visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
-  click_link "Add"
+  click_link using_design_system? ? "Create new office" : "Add"
   legacy_fill_in_contact_details(title: description, feature_on_home_page: "yes")
   select WorldwideOfficeType.all.sample.name, from: "Office type"
 
