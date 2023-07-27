@@ -7,6 +7,7 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
     let(:updater) { AssetManager::AttachmentUpdater }
     let(:attachment_data) { attachment.attachment_data }
     let(:update_service) { mock("asset-manager-update-asset-worker") }
+    let(:organisation) { FactoryBot.create(:organisation) }
 
     around do |test|
       AssetManager.stub_const(:AssetUpdater, update_service) do
@@ -22,7 +23,7 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
         AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
 
         access_limited_object = stub("access-limited-object")
-        AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(%w[user-uid])
+        AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns([organisation.content_id])
 
         attachment_data.stubs(:access_limited?).returns(true)
         attachment_data.stubs(:access_limited_object).returns(access_limited_object)
@@ -30,7 +31,7 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
 
       it "updates the access limited state of the asset" do
         update_service.expects(:call)
-                      .with(nil, attachment_data, attachment.file.asset_manager_path, { "access_limited" => %w[user-uid] })
+                      .with(nil, attachment_data, attachment.file.asset_manager_path, { "access_limited" => [organisation.content_id] })
 
         updater.call(attachment_data, access_limited: true)
       end
@@ -44,7 +45,7 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
         AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
 
         access_limited_object = stub("access-limited-object")
-        AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(%w[user-uid])
+        AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns([organisation.content_id])
 
         attachment_data.stubs(:access_limited?).returns(true)
         attachment_data.stubs(:access_limited_object).returns(access_limited_object)
@@ -52,9 +53,9 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport:
 
       it "updates the access limited state of the asset and it's thumbnail" do
         update_service.expects(:call)
-                      .with(nil, attachment_data, attachment.file.asset_manager_path, { "access_limited" => %w[user-uid] })
+                      .with(nil, attachment_data, attachment.file.asset_manager_path, { "access_limited" => [organisation.content_id] })
         update_service.expects(:call)
-                      .with(nil, attachment_data, attachment.file.thumbnail.asset_manager_path, { "access_limited" => %w[user-uid] })
+                      .with(nil, attachment_data, attachment.file.thumbnail.asset_manager_path, { "access_limited" => [organisation.content_id] })
 
         updater.call(attachment_data, access_limited: true)
       end

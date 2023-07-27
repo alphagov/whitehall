@@ -13,8 +13,8 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
     if attachable_model_class && attachable_model_id
       attachable_model = attachable_model_class.constantize.find(attachable_model_id)
       if attachable_model.respond_to?(:access_limited?) && attachable_model.access_limited?
-        authorised_user_uids = AssetManagerAccessLimitation.for(attachable_model)
-        asset_options[:access_limited] = authorised_user_uids
+        organisation_ids = AssetManagerAccessLimitation.for(attachable_model)
+        asset_options[:access_limited_organisation_ids] = organisation_ids
       end
     end
 

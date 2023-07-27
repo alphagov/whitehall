@@ -47,7 +47,7 @@ class AssetManager::AttachmentUpdater
 
   def self.get_asset_attributes(attachment_data, asset, access_limited, draft_status, link_header, redirect_url, replacement_id)
     new_attributes = {
-      access_limited: access_limited ? get_access_limited(attachment_data) : nil,
+      access_limited_organisation_ids: access_limited ? get_access_limited(attachment_data) : nil,
       draft: draft_status ? get_draft(attachment_data) : nil,
       parent_document_url: link_header ? get_link_header(attachment_data) : nil,
       replacement_id: replacement_id ? get_replacement_id(attachment_data, asset) : nil,

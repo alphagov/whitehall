@@ -42,7 +42,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           it "marks attachment as access limited in Asset Manager" do
             Services.asset_manager
                     .expects(:update_asset)
-                    .at_least_once.with("asset-id", has_entry("access_limited", %w[user-uid]))
+                    .at_least_once.with("asset-id", has_entry("access_limited", [organisation.content_id]))
 
             AssetManagerAttachmentMetadataWorker.drain
           end
@@ -82,7 +82,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           it "marks replacement attachment as access limited in Asset Manager" do
             Services.asset_manager.expects(:create_whitehall_asset).with do |params|
               params[:legacy_url_path] =~ /big-cheese/ &&
-                params[:access_limited] == %w[user-uid] &&
+                params[:access_limited_organisation_ids] == [organisation.content_id] &&
                 params[:auth_bypass_ids] == [edition.auth_bypass_id]
             end
 
@@ -139,7 +139,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             Services.asset_manager.expects(:create_whitehall_asset).with(
               has_entries(
                 legacy_url_path: regexp_matches(/logo\.png/),
-                access_limited: %w[user-uid],
+                access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
             )
@@ -191,14 +191,14 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             Services.asset_manager.expects(:create_whitehall_asset).with(
               has_entries(
                 legacy_url_path: regexp_matches(/greenpaper\.pdf/),
-                access_limited: %w[user-uid],
+                access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
             )
             Services.asset_manager.expects(:create_whitehall_asset).with(
               has_entries(
                 legacy_url_path: regexp_matches(/thumbnail_greenpaper\.pdf\.png/),
-                access_limited: %w[user-uid],
+                access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
             )
@@ -235,7 +235,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             Services.asset_manager.expects(:create_whitehall_asset).with(
               has_entries(
                 legacy_url_path: regexp_matches(/logo\.png/),
-                access_limited: %w[user-uid],
+                access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
             )
@@ -292,7 +292,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           it "marks attachment as access limited and sends it with an auth_bypass_id in Asset Manager" do
             Services.asset_manager.expects(:create_asset).with(
               has_entries(
-                access_limited: %w[user-uid],
+                access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
             ).returns("id" => "http://asset-manager/assets/some-id")
@@ -315,13 +315,13 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           it "marks attachment as access limited in Asset Manager" do
             Services.asset_manager.expects(:create_asset).with(
               has_entries(
-                access_limited: %w[user-uid],
+                access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
             ).returns("id" => "http://asset-manager/assets/some-id")
             Services.asset_manager.expects(:create_asset).with(
               has_entries(
-                access_limited: %w[user-uid],
+                access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
             ).returns("id" => "http://asset-manager/assets/some-id")
@@ -353,7 +353,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             it "marks attachment as access limited in Asset Manager" do
               Services.asset_manager
                       .expects(:update_asset)
-                      .at_least_once.with(asset_manager_id, has_entry("access_limited", %w[user-uid]))
+                      .at_least_once.with(asset_manager_id, has_entry("access_limited_organisation_ids", [organisation.content_id]))
 
               AssetManagerAttachmentMetadataWorker.drain
             end
@@ -370,7 +370,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             it "unmarks attachment as access limited in Asset Manager" do
               Services.asset_manager
                       .expects(:update_asset)
-                      .at_least_once.with(asset_manager_id, has_entry("access_limited", []))
+                      .at_least_once.with(asset_manager_id, has_entry("access_limited_organisation_ids", []))
 
               AssetManagerAttachmentMetadataWorker.drain
             end
@@ -388,7 +388,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
             it "marks replacement attachment as access limited in Asset Manager" do
               Services.asset_manager.expects(:create_asset).with { |params|
-                params[:access_limited] == %w[user-uid] &&
+                params[:access_limited_organisation_ids] == [organisation.content_id] &&
                   params[:auth_bypass_ids] == [edition.auth_bypass_id]
               }.returns("id" => "http://asset-manager/assets/some-id")
 
@@ -442,7 +442,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           it "marks attachment as access limited in Asset Manager and sends with the consultation's auth_bypass_id" do
             Services.asset_manager.expects(:create_asset).with(
               has_entries(
-                access_limited: %w[user-uid],
+                access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
             ).returns("id" => "http://asset-manager/assets/some-id")

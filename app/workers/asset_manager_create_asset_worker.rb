@@ -10,8 +10,8 @@ class AssetManagerCreateAssetWorker < WorkerBase
 
     assetable_id, assetable_type, asset_variant = asset_params.values_at("assetable_id", "assetable_type", "asset_variant")
     asset_options = { file:, auth_bypass_ids:, draft: }
-    authorised_user_uids = get_authorised_user_ids(attachable_model_class, attachable_model_id)
-    asset_options[:access_limited] = authorised_user_uids if authorised_user_uids
+    authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
+    asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
 
     response = asset_manager.create_asset(asset_options)
     save_asset_id_to_assets(assetable_id, assetable_type, asset_variant, response)
@@ -27,7 +27,7 @@ class AssetManagerCreateAssetWorker < WorkerBase
 
 private
 
-  def get_authorised_user_ids(attachable_model_class, attachable_model_id)
+  def get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
     if attachable_model_class && attachable_model_id
       attachable_model = attachable_model_class.constantize.find(attachable_model_id)
       if attachable_model.respond_to?(:access_limited?) && attachable_model.access_limited?

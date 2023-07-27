@@ -4,8 +4,7 @@ module PublishingApi
       def self.for(item)
         return {} unless item.access_limited? && !item.publicly_visible?
 
-        users = User.where(organisation: item.organisations)
-        { access_limited: { users: users.pluck(:uid).compact } }
+        { access_limited: { organisations: item.organisations.pluck(:content_id).compact } }
       end
     end
   end
