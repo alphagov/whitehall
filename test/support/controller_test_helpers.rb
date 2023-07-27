@@ -2,7 +2,7 @@ module ControllerTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
-    LAYOUT_ALWAYS_DESIGN_SYSTEM = %w[reorder update_order confirm_destroy].freeze
+    LAYOUT_ALWAYS_DESIGN_SYSTEM = %w[reorder update_order confirm_destroy choose_main_office].freeze
 
     def should_be_an_admin_controller
       test "should be an admin controller" do

@@ -157,6 +157,7 @@ Whitehall::Application.routes.draw do
 
         resources :worldwide_organisations do
           member do
+            get :choose_main_office
             put :set_main_office
             get :access_info
             get :confirm_destroy
