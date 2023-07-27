@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_slimmer_application_name
   before_action :set_slimmer_show_organisations_filter
-  before_action :set_audit_trail_whodunnit
+  before_action :set_current_user
   before_action :set_authenticated_user_header
 
   layout "frontend"
@@ -20,8 +20,11 @@ class ApplicationController < ActionController::Base
 
 private
 
-  def set_audit_trail_whodunnit
-    AuditTrail.whodunnit = current_user
+  def set_current_user
+    # current_user is only available within the controller whereas
+    # Current.user is available globally for the duration of the
+    # user's HTTP request (e.g. within models and service objects)
+    Current.user = current_user
   end
 
   def skip_slimmer

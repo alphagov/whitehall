@@ -5,13 +5,11 @@ module GdsSsoHelper
 
   def login_as(user)
     GDS::SSO.test_user = user
-    AuditTrail.whodunnit = user
     super(user) # warden
   end
 
   def log_out
     GDS::SSO.test_user = nil
-    AuditTrail.whodunnit = nil
     logout # warden
   end
 
