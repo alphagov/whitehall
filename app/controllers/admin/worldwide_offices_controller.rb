@@ -37,6 +37,10 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     end
   end
 
+  def reorder
+    @reorderable_offices = @worldwide_organisation.home_page_offices
+  end
+
   def confirm_destroy; end
 
   def destroy
@@ -62,7 +66,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_destroy]
+    design_system_actions = %w[confirm_destroy reorder]
     design_system_actions += %w[index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
