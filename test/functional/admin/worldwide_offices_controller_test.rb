@@ -26,6 +26,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
     assert_equal 1, worldwide_organisation.reload.offices.count
     assert_equal "Main office", worldwide_organisation.offices.first.contact.title
+    assert_equal "Main office has been added", flash[:notice]
   end
 
   test "post create creates worldwide office on the home page of the world org if told to" do
@@ -158,6 +159,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
         }
 
     assert_equal "Head office", office.reload.contact.title
+    assert_equal "Head office has been edited", flash[:notice]
   end
 
   test "put update updates an office adding it to the home page of the world org if told to" do
