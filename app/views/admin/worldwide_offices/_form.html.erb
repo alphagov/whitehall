@@ -52,5 +52,19 @@
     <% end %>
   </fieldset>
 
-  <%= office_form.save_or_cancel(cancel: admin_worldwide_organisation_path(worldwide_organisation)) %>
+  <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: office_form, name: "worldwide_office[contact_attributes]", id: "worldwide_office_contact_attributes" } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "worldwide-office-button",
+        "track-label": "Save"
+      }
+    } %>
+
+    <%= link_to "Cancel", admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link govuk-link--no-visited-state" %>
+  </div>
 <% end %>
