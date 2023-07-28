@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 class AdminRequest
   def self.matches?(request)
     # Allow access to all routes in development, and restrict to the
@@ -405,23 +407,7 @@ Whitehall::Application.routes.draw do
   resources :broken_links_export_request, path: "/export/broken_link_reports", param: :export_id, only: [:show]
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
 
-  if Rails.env.development?
-    class DisableSlimmer
-      def initialize(app)
-        @app = app
-      end
-
-      def call(*args)
-        status, headers, body = @app.call(*args)
-        headers[Slimmer::Headers::SKIP_HEADER] = "true"
-
-        [status, headers, body]
-      end
-    end
-
-    require "sidekiq/web"
-    mount DisableSlimmer.new(Sidekiq::Web), at: "/sidekiq"
-  end
+  constraints(AdminRequest) { mount SidekiqGdsSsoMiddleware, at: "/sidekiq" }
 
   mount GovukPublishingComponents::Engine, at: "/component-guide" unless Rails.env.production?
 end
