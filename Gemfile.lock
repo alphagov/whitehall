@@ -275,7 +275,7 @@ GEM
     govuk_personalisation (0.14.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (35.12.0)
+    govuk_publishing_components (35.13.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -417,7 +417,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
-    net-imap (0.3.6)
+    net-imap (0.3.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -770,7 +770,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rexml (3.2.5)
+    rexml (3.2.6)
     rinku (2.0.6)
     rouge (4.1.2)
     rspec (3.11.0)
@@ -928,14 +928,14 @@ GEM
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.8.1)
     webrobots (0.1.2)
-    websocket-driver (0.7.5)
+    websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.8)
+    zeitwerk (2.6.9)
 
 PLATFORMS
   aarch64-linux
