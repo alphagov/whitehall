@@ -7,7 +7,7 @@
       title: "New translation"
     } %>
 
-    <%= form_with url: admin_organisation_contact_translations_path(@contactable, @contact) do |form| %>
+    <%= form_with url:admin_organisation_contact_translations_path(@contactable,@contact) do |form| %>
       <%= render "govuk_publishing_components/components/select", {
         id: "translation_locale",
         name: "translation_locale",

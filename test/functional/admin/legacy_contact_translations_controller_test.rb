@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::LegacyContactTranslationsControllerTest < ActionController::TestCase
-  tests Admin::ContactTranslationsControllerTest
+  tests Admin::ContactTranslationsController
   setup do
     login_as :departmental_editor
   end

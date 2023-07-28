@@ -2,16 +2,17 @@ class Admin::ContactTranslationsController < Admin::BaseController
   include TranslationControllerConcern
   layout :get_layout
 
-  def index
-  end
+  def index; end
+
   def edit
     render_design_system(:edit, :legacy_edit)
   end
+
 private
 
   def get_layout
-    design_system_actions = %w[index confirm_destroy]
-    design_system_actions += %w[edit] if preview_design_system?(next_release: false)
+    design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[edit index update] if preview_design_system?(next_release: false)
     if design_system_actions.include?(action_name)
       "design_system"
     else
