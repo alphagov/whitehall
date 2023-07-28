@@ -24,7 +24,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     if should_save_an_asset?
       assetable_id = uploader.model.id
       assetable_type = uploader.model.class.to_s
-      asset_variant = legacy_url_path.include?("thumbnail") ? Asset.variants[:thumbnail] : Asset.variants[:original]
+      asset_variant = uploader.version_name ? Asset.variants[uploader.version_name] : Asset.variants[:original]
       asset_params = { assetable_id:, asset_variant:, assetable_type: }.deep_stringify_keys
 
       # Separating the journey based on feature flag so its easier to make future changes and also decommission old journey
@@ -78,7 +78,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 private
 
   def should_save_an_asset?
-    uploader.model.instance_of?(AttachmentData) &&
+    (uploader.model.instance_of?(AttachmentData) || uploader.model.instance_of?(ImageData)) &&
       uploader.model.use_non_legacy_endpoints
   end
 end

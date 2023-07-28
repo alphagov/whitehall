@@ -26,6 +26,7 @@ class Admin::EditionImagesController < Admin::BaseController
     @new_image.build_image_data(image_params["image_data"])
 
     @new_image.image_data.validate_on_image = @new_image
+    @new_image.image_data.use_non_legacy_endpoints = use_non_legacy_endpoints?
 
     if @new_image.save
       redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
@@ -81,5 +82,9 @@ private
 
   def image_params
     params.fetch(:image, {}).permit(image_data: [:file])
+  end
+
+  def use_non_legacy_endpoints?
+    current_user.can_use_non_legacy_endpoints?
   end
 end

@@ -86,6 +86,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
         expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9-]+/#{uploaded_file_name}}
         actual_path =~ expected_path
       end
+
       @uploader.store!(@file)
     end
 
@@ -131,7 +132,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     end
   end
 
-  describe "when use_non_legacy_endpoints permission is true and uploader model is AttachmentData" do
+  describe "when use_non_legacy_endpoints permission is true" do
     setup do
       model = build(:attachment_data)
       model.stubs(:use_non_legacy_endpoints).returns(true)
@@ -175,23 +176,54 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       @uploader.store!(@file)
     end
 
-    test "calls worker with model_id and default origin asset_variant" do
-      variant = Asset.variants[:original]
-      asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+    context "uploader model is AttachmentData" do
+      test "calls worker with assetable and default original asset_variant" do
+        variant = Asset.variants[:original]
+        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
 
-      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
 
-      @uploader.store!(@file)
+        @uploader.store!(@file)
+      end
+
+      test "calls worker with assetable and variant" do
+        variant = Asset.variants[:thumbnail]
+        @uploader.stubs(:version_name).returns(:thumbnail)
+        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+
+        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+
+        @uploader.store!(@file)
+      end
     end
 
-    test "calls worker with model_id and variant/thumbnail asset_variant" do
-      variant = Asset.variants[:thumbnail]
-      @uploader.stubs(:store_path).returns("asset-path/thumbnail_file_name")
-      asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+    context "uploader model is ImageData" do
+      setup do
+        model = build(:image_data)
+        model.stubs(:use_non_legacy_endpoints).returns(true)
+        model.id = 1
+        @uploader.stubs(:model).returns(model)
+        @assetable_type = ImageData.name
+      end
 
-      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+      test "calls worker with assetable and default original variant" do
+        variant = Asset.variants[:original]
+        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
 
-      @uploader.store!(@file)
+        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+
+        @uploader.store!(@file)
+      end
+
+      test "calls worker with assetable and variant" do
+        variant = Asset.variants[:s960]
+        @uploader.stubs(:version_name).returns(:s960)
+        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+
+        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+
+        @uploader.store!(@file)
+      end
     end
   end
 end
