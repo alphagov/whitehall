@@ -5,8 +5,11 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <%= form_with url: [:admin, @contact.contactable, @contact], method: :delete do %>
-      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete "<%= @contact.title %>"?</p>
+    <%= form_with url: [:admin, @contact.contactable, @contact, @translation_locale], method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">
+        Are you sure you want to delete the "<%= @translation_locale.native_and_english_language_name %>" translation
+        for "<%= @contact.title %>"?
+      </p>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
@@ -15,10 +18,10 @@
           data_attributes: {
             module: "gem-track-click",
             "track-category": "form-button",
-            "track-action": "contact-button",
+            "track-action": "contact-translations-button",
             "track-label": "Delete"
           }
-          } %>
+        } %>
 
         <%= link_to("Cancel", [:admin, @contact.contactable, Contact], class: "govuk-link govuk-link--no-visited-state") %>
       </div>
