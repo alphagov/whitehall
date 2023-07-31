@@ -5,7 +5,9 @@ class AttachmentData < ApplicationRecord
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
   has_many :attachments, -> { order(:attachable_id) }, inverse_of: :attachment_data
-  has_many :assets, inverse_of: :attachment_data
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
 
   delegate :url, :path, to: :file, allow_nil: true
 

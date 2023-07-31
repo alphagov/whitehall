@@ -21,13 +21,14 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
     logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model&.id || 'nil'}")
 
-    # Keeping the file attachments flow distinct from images and other flows that also use carrierwave
-    # until implementation is complete
     if should_save_an_asset?
-      model_id = uploader.model.id
+      assetable_id = uploader.model.id
+      assetable_type = uploader.model.class.to_s
       asset_variant = legacy_url_path.include?("thumbnail") ? Asset.variants[:thumbnail] : Asset.variants[:original]
+      asset_params = { assetable_id:, asset_variant:, assetable_type: }.deep_stringify_keys
+
       # Separating the journey based on feature flag so its easier to make future changes and also decommission old journey
-      AssetManagerCreateAssetWorker.perform_async(temporary_location, model_id, asset_variant, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
+      AssetManagerCreateAssetWorker.perform_async(temporary_location, asset_params, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
     else
       AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
     end

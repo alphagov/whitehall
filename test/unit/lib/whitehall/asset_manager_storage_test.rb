@@ -48,6 +48,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     storage = Whitehall::AssetManagerStorage.new(@uploader)
     assert_equal file, storage.retrieve!("identifier")
   end
+
   describe "when use_non_legacy_endpoints permission is false and uploader model is not an AttachmentData" do
     context "uploader.model.instance_of?(AttachmentData) is false" do
       test "creates a sidekiq job with and passes through the auth_bypass_id but not model class or id if the uploader's model responds to images" do
@@ -71,12 +72,14 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       end
     end
   end
+
   describe "when use_non_legacy_endpoints permission is false and uploader model is AttachmentData" do
     setup do
       model = build(:attachment_data)
       model.stubs(:use_non_legacy_endpoints).returns(false)
       @uploader.stubs(:model).returns(model)
     end
+
     test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
       AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with do |actual_path, _|
         uploaded_file_name = File.basename(@file.path)
@@ -134,7 +137,9 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       model.stubs(:use_non_legacy_endpoints).returns(true)
       model.id = 1
       @uploader.stubs(:model).returns(model)
+      @assetable_type = AttachmentData.name
     end
+
     test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
       AssetManagerCreateAssetWorker.expects(:perform_async).with do |actual_path, _|
         uploaded_file_name = File.basename(@file.path)
@@ -147,7 +152,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     test "creates a sidekiq job and sets draft to true if the uploader's assets_protected? returns true" do
       @uploader.assets_protected = true
 
-      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, true, anything, anything, anything)
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, true, anything, anything, anything)
 
       @uploader.store!(@file)
     end
@@ -155,7 +160,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     test "creates a sidekiq job and sets draft to false if the uploader's assets_protected? returns false" do
       @uploader.assets_protected = false
 
-      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, false, anything, anything, anything)
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, false, anything, anything, anything)
 
       @uploader.store!(@file)
     end
@@ -165,15 +170,16 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       model.stubs(:use_non_legacy_endpoints).returns(true)
       @uploader.stubs(:model).returns(model)
 
-      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, "Consultation", 1, [@auth_bypass_id])
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, "Consultation", 1, [@auth_bypass_id])
 
       @uploader.store!(@file)
     end
 
     test "calls worker with model_id and default origin asset_variant" do
       variant = Asset.variants[:original]
+      asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
 
-      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, @uploader.model.id, variant, anything, anything, anything, anything)
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
 
       @uploader.store!(@file)
     end
@@ -181,8 +187,9 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     test "calls worker with model_id and variant/thumbnail asset_variant" do
       variant = Asset.variants[:thumbnail]
       @uploader.stubs(:store_path).returns("asset-path/thumbnail_file_name")
+      asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
 
-      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, @uploader.model.id, variant, anything, anything, anything, anything)
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
 
       @uploader.store!(@file)
     end
