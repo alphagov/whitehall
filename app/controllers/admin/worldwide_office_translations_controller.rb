@@ -4,6 +4,10 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
 
   def index; end
 
+  def edit
+    render :legacy_edit
+  end
+
 private
 
   def get_layout
