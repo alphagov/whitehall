@@ -5,8 +5,7 @@ class HtmlAttachment < Attachment
 
   has_one :govspeak_content,
           autosave: true,
-          inverse_of: :html_attachment,
-          dependent: :destroy
+          inverse_of: :html_attachment
 
   before_validation :clear_slug_if_non_english_locale
 
