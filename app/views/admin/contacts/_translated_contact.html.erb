@@ -1,0 +1,15 @@
+<%= render "components/summary_card_component", {
+  title: translated_contact.title,
+  rows: contact_rows(translated_contact),
+  summary_card_actions: [
+    {
+      label: "Edit",
+      href: edit_polymorphic_path([:admin, contactable, contact, translated_contact.translation_locale]),
+    },
+    {
+      label: "Delete",
+      href: confirm_destroy_admin_organisation_contact_translation_path(contactable,contact,translated_contact.translation_locale),
+      destructive: true
+    }
+  ]
+} %>

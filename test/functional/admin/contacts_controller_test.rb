@@ -208,6 +208,16 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert organisation.contact_shown_on_home_page?(contact)
   end
 
+  test "GET :should be able to visit confirm_destroy page for a contact" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)
+
+    get :confirm_destroy, params: { organisation_id: organisation, id: contact }
+
+    assert_response :success
+    assert_equal contact, assigns(:contact)
+  end
+
   test "DELETE on :destroy destroys the contact" do
     organisation = create(:organisation)
     contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)
@@ -240,6 +250,16 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %("#{contact.title}" added to home page successfully), flash[:notice]
     assert organisation.contact_shown_on_home_page?(contact)
+  end
+
+  view_test "GET :should be able to visit reorder page" do
+    organisation = create(:organisation)
+
+    get :reorder, params: { organisation_id: organisation }
+
+    assert_template :reorder
+    assert_response :success
+    assert_select "h1", "Reorder contacts"
   end
 
   test "POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this" do

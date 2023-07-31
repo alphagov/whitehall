@@ -1,0 +1,27 @@
+<% content_for :context, @contact.title %>
+<% content_for :page_title, "Delete Contact" %>
+<% content_for :title, "Delete Contact" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with url: [:admin, @contact.contactable, @contact], method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete "<%= @contact.title %>"?</p>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "contact-button",
+            "track-label": "Delete"
+          }
+          } %>
+
+        <%= link_to("Cancel", [:admin, @contact.contactable, Contact], class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

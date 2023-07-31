@@ -1,57 +1,45 @@
-<% page_title @contactable.name %>
-<div class="organisation-header">
-  <h1><%= @contactable.name %></h1>
-  <%= view_on_website_link_for @contactable %>
-</div>
-
-<%= tab_navigation_for(@contactable) do %>
-  <h2>Contacts</h2>
-  <% if @contactable.respond_to?(:home_page_contacts) %>
-    <div class="tabbable">
-      <ul class="nav nav-tabs">
-        <li class="active"><a href="#manage-all" data-toggle="tab">All</a></li>
-        <li><a href="#on-home-page" data-toggle="tab">Order on home page</a></li>
-      </ul>
-      <div class="tab-content add-top-margin">
-        <div class="tab-pane active" id="manage-all">
-  <% end %>
-  <%= render(@contactable.contacts, contactable: @contactable) || content_tag(:p, 'No contacts') %>
-  <div class="form-actions">
-    <%= link_to icon("Add"), new_polymorphic_path([:admin, @contactable, Contact.new]), class: "btn btn-lg btn-primary"%>
-  </div>
-  <% if @contactable.respond_to?(:home_page_contacts) %>
-        </div>
-        <div class="tab-pane" id="on-home-page">
-          <% if @contactable.respond_to?(:foi_contacts) && @contactable.foi_contacts.any? %>
-            <h3>FOI Contacts</h3>
-            <p>All FOI contacts are always shown on the home page in static order.</p>
-            <% @contactable.foi_contacts.each do |foi_contact| %>
-              <div class="well">
-                <p><%= foi_contact.title %></p>
-              </div>
-            <% end %>
-            <h3>Other contacts</h3>
-          <% end %>
-          <p>Drag up and down to re-order then click "Update contact list order" at the bottom of the form</p>
-          <p class="warning">Warning: changes to contacts appear instantly on the live site.</p>
-          <%= form_tag [:reorder_for_home_page, :admin, @contactable, Contact], method: :post do %>
-            <fieldset class="sortable">
-              <% @contactable.home_page_contacts.each.with_index do |contact, idx| %>
-                <div class="well">
-                  <%= label_tag "ordering-#{contact.id}" do %>
-                    <%= contact.title %>
-                  <% end %>
-
-                  <%= text_field_tag "ordering[#{contact.id}]", idx, id: "ordering-#{contact.id}", class: "ordering" %>
-                </div>
-              <% end %>
-            </fieldset>
-            <div class="form-actions">
-              <%= submit_tag "Update contact list order", class: "btn btn-primary" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_organisations_path
+  } %>
 <% end %>
+<% content_for :page_title, @contactable.name %>
+<% content_for :title, @contactable.name %>
+<% content_for :context, organisation_context_block(current_user, @contactable) %>
+<% content_for :title_margin_bottom, 4 %>
+
+<p class="govuk-body">
+  <%= view_on_website_link_for @contactable, class: "govuk-link" %>
+</p>
+
+<%= render "components/secondary_navigation", {
+  aria_label: "Organisation navigation tabs",
+  items: secondary_navigation_tabs_items(@contactable, request.path)
+} %>
+
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Contacts",
+  heading_level: 2,
+  font_size: "l",
+  margin_bottom: 6,
+} %>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: "Add contact",
+  href: new_polymorphic_path([:admin, @contactable, Contact.new]),
+  margin_bottom: 6
+} %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <% if @contactable.contacts.present? %>
+      <%= render "govuk_publishing_components/components/tabs", {
+        tabs: contact_tabs(@contactable.contacts, @contactable)
+      }
+      %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No Contacts"
+      } %>
+    <% end %>
+  </div>
+</div>

@@ -5,7 +5,11 @@ class Admin::ContactTranslationsController < Admin::BaseController
 private
 
   def get_layout
-    "admin"
+    if action_name == "confirm_destroy"
+      "design_system"
+    else
+      "admin"
+    end
   end
 
   def create_redirect_path

@@ -85,10 +85,16 @@ Whitehall::Application.routes.draw do
             resources :translations, controller: "corporate_information_pages_translations"
           end
           resources :contacts do
-            resources :translations, controller: "contact_translations", only: %i[create edit update destroy]
+            resources :translations, controller: "contact_translations", only: %i[create edit update destroy] do
+              member do
+                get :confirm_destroy
+              end
+            end
+            get :reorder, on: :collection
             member do
               post :remove_from_home_page
               post :add_to_home_page
+              get :confirm_destroy
             end
             post :reorder_for_home_page, on: :collection
           end

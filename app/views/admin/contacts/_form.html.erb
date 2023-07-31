@@ -35,7 +35,9 @@
             font_size: "l",
             heading_level: 2
           } %>
-          <p class="govuk-body">Yes (in FOI section)</p>
+          <%= render "govuk_publishing_components/components/inset_text", {
+            text: "Since it's a FOI contact, it will be shown on the homepage by default."
+          } %>
         <% else %>
           <%= render "govuk_publishing_components/components/radio", {
             heading: "Homepage feature",
