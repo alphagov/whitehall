@@ -1,13 +1,14 @@
 require "test_helper"
 
 class HtmlAttachmentTest < ActiveSupport::TestCase
-  test "associated govspeak content is deleted with the html attachment" do
+  test "when HTML attachment is soft deleted, the associated Govspeak content remains intact" do
     attachment = create(:html_attachment)
-    govspeak_content = attachment.govspeak_content
 
-    attachment.destroy!
+    attachment.destroy! # this is a 'soft' delete
+    attachment.reload
 
-    assert_not GovspeakContent.exists?(govspeak_content.id)
+    assert attachment.deleted?
+    assert attachment.govspeak_content.present?
   end
 
   test "#deep_clone deep clones the HTML attachment, body, content_id and slug" do
