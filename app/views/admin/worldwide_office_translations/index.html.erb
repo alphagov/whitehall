@@ -1,0 +1,38 @@
+<% content_for :page_title, "New translation for #{@worldwide_office.title}" %>
+<% content_for :title, "New translation" %>
+<% content_for :context, @worldwide_office.title %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, @worldwide_office) do %>
+      <%= render "govuk_publishing_components/components/select", {
+        id: "translation_locale",
+        name: "translation_locale",
+        label: "Select language",
+        hint: "This is the first step before creating a translated version of this content",
+        heading_size: "l",
+        full_width: true,
+        options: @contact.missing_translations.map do |locale|
+          {
+            value: locale.code,
+            text: Locale.coerce(locale).native_and_english_language_name,
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-top-8">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Next",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "worldwide-office-translation-button",
+            "track-label": "Next"
+          }
+        } %>
+
+        <%= link_to("Cancel", admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>
