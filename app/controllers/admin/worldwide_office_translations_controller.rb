@@ -5,13 +5,14 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
   def index; end
 
   def edit
-    render :legacy_edit
+    render_design_system(:edit, :legacy_edit)
   end
 
 private
 
   def get_layout
     design_system_actions = %w[index confirm_destroy]
+    design_system_actions += %w[edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
