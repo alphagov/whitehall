@@ -24,24 +24,6 @@ class SpecialRoute
         document_type: "get_involved",
         schema_name: "get_involved",
       },
-      {
-        base_path: "/api/governments",
-        content_id: "2d5bafcc-2c45-4a84-8fbc-525b75dd6d19",
-        title: "Governments API",
-        description: "API exposing all governments on GOV.UK.",
-      },
-      {
-        base_path: "/api/world-locations",
-        content_id: "2a63b605-77be-4af5-932d-224a054dd5a5",
-        title: "World Locations API",
-        description: "API exposing all world locations on GOV.UK.",
-      },
-      {
-        base_path: "/api/worldwide-organisations",
-        content_id: "736f8a5a-ce6f-4a6f-b0cb-954442aa23c1",
-        title: "Worldwide Organisations API",
-        description: "API exposing all worldwide organisations on GOV.UK.",
-      },
     ]
   end
 end
