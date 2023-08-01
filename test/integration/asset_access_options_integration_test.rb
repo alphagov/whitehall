@@ -177,7 +177,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           click_button "Upload zip"
           fill_in "Title", with: "file-title"
           click_button "Save"
-          assert find("table td a", text: "greenpaper.pdf")
+          assert find("li a", text: "greenpaper.pdf")
         end
 
         it "marks attachment as access limited in Asset Manager" do
@@ -242,7 +242,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           click_button "Upload zip"
           fill_in "Title", with: "file-title"
           click_button "Save"
-          assert find("table td a", text: "greenpaper.pdf")
+          assert find("li a", text: "greenpaper.pdf")
         end
         it "marks attachment as access limited in Asset Manager" do
           Services.asset_manager.expects(:create_asset).with(

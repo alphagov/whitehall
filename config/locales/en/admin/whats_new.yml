@@ -25,6 +25,12 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: New Markdown for attachments
+            area: Creating and updating documents
+            type: improvement
+            date: 1 August 2023
+            body_govspeak: |
+              We have updated the way you can add attachments. The attachment tab now includes the Markdown to add to your document and a ‘copy to clipboard’ button, similar to images. The Markdown you will use will now be based on the file name of the document, rather than `!@1` or `[InlineAttachment:1]`, although this will still work.
           - heading: Review dates and email reminders on all content types
             area: Creating and updating documents
             type: new

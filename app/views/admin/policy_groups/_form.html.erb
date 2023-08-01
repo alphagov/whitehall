@@ -45,22 +45,6 @@
     rows: 20,
   } %>
 
-  <%= render "govuk_publishing_components/components/heading", {
-    text: "Attachments",
-    margin_bottom: 4,
-    font_size: "l"
-  } %>
-
-  <% if policy_group.persisted? %>
-    <%= render 'admin/attachments/markdown_codes', attachable: policy_group %>
-  <% else %>
-    <p class="govuk-body">
-      If you’d like to add an attachment to this group,
-      please save it first. You’ll then find a tab at the top of the page
-      that you can use to upload, edit and delete attachments.
-    </p>
-  <% end %>
-
   <div class="govuk-button-group govuk-!-margin-top-8">
     <%= render "govuk_publishing_components/components/button", {
       text: "Save",

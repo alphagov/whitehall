@@ -20,7 +20,7 @@
 <div class="govuk-grid-row">
   <% if lead_image %>
     <div class="govuk-grid-column-one-third">
-      <img src="<%= lead_image[:url] %>" alt="<%= lead_image[:preview_alt_text] %>" class="app-view-edition-images__image">
+      <img src="<%= lead_image[:url] %>" alt="<%= lead_image[:preview_alt_text] %>" class="app-view-edition-resource__preview">
     </div>
     <div class="govuk-grid-column-two-thirds">
       <p class="govuk-body"><strong>Caption: </strong><%= lead_image[:caption] %></p>
@@ -30,7 +30,7 @@
 
   <% if lead_image || @edition.type == "CaseStudy" %>
     <%= form_with(url: update_image_display_option_admin_edition_path(@edition), method: :patch) do |form| %>
-      <div class="app-view-edition-images__actions govuk-grid-column-full govuk-button-group">
+      <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
         <% if @edition.type == "CaseStudy" %>
           <%= hidden_field_tag "edition[image_display_option]", new_image_display_option %>
           <%= render "govuk_publishing_components/components/button", {
@@ -65,7 +65,7 @@
     <% document_images.each do |image| %>
       <li class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
-          <img src="<%= image[:url] %>" alt="<%= image[:preview_alt_text] %>" class="app-view-edition-images__image">
+          <img src="<%= image[:url] %>" alt="<%= image[:preview_alt_text] %>" class="app-view-edition-resource__preview">
         </div>
         <div class="govuk-grid-column-two-thirds">
           <p class="govuk-body"><strong>Caption: </strong><%= image[:caption] %></p>
@@ -76,12 +76,12 @@
             button_text: "Copy Markdown"
           } %>
         </div>
-        <div class="app-view-edition-images__actions govuk-grid-column-full govuk-button-group">
+        <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
           <% image[:links].each do |link| %><%= link %><% end %>
         </div>
       </li>
       <% if image != document_images.last %>
-        <li aria-hidden="true"><hr class="app-view-edition-images__section-break govuk-section-break govuk-section-break--visible"></li>
+        <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
       <% end %>
     <% end %>
   </ul>
