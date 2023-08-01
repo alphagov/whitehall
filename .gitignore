@@ -28,5 +28,3 @@
 /failures
 /node_modules
 /yarn-error.log
-
-spec/reports/pacts

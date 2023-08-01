@@ -16,8 +16,6 @@ node {
           echo "Running a subset of the tests to check the content schema changes"
           govuk.runRakeTask("test:publishing_schemas --trace")
         } else {
-          // Run rake default tasks except for pact:verify as that is ran via
-          // a separate GitHub action.
           sh("bundle exec rake lint test cucumber jasmine")
         }
       }
