@@ -702,7 +702,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.1)
-    rack (2.2.7)
+    rack (2.2.8)
     rack-protection (3.0.5)
       rack
     rack-proxy (0.7.6)
