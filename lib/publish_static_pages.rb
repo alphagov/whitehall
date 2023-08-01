@@ -25,22 +25,6 @@ class PublishStaticPages
         description: "Find out how you can engage with government directly, and take part locally, nationally or internationally.",
         base_path: "/government/get-involved",
       },
-      {
-        content_id: "a34e9bb6-f4af-4e4f-a21c-8127e3d2edbf",
-        title: "Statistics",
-        document_type: "finder",
-        description: "Find statistics publications from across government, including statistical releases, live data tables, and National Statistics.",
-        base_path: "/government/statistics",
-        locales: Locale.non_english.map(&:code),
-      },
-      {
-        content_id: "324e4708-2285-40a0-b3aa-cb13af14ec5f",
-        title: "Ministers",
-        document_type: "finder",
-        description: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business",
-        base_path: "/government/ministers",
-        locales: Locale.non_english.map(&:code),
-      },
     ]
   end
 
