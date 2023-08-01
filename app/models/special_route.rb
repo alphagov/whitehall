@@ -16,6 +16,15 @@ class SpecialRoute
         type: "exact",
       },
       {
+        base_path: "/government/get-involved",
+        content_id: "dbe329f1-359c-43f7-8944-580d4742aa91",
+        title: "Get involved",
+        description: "Find out how you can engage with government directly, and take part locally, nationally or internationally.",
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        document_type: "get_involved",
+        schema_name: "get_involved",
+      },
+      {
         base_path: "/api/governments",
         content_id: "2d5bafcc-2c45-4a84-8fbc-525b75dd6d19",
         title: "Governments API",
