@@ -62,15 +62,15 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal "/world/organisations/#{worldwide_organisation.name}/about/#{corporate_information_page.slug}", corporate_information_page.base_path
   end
 
-  test "#base_path appends /about/about to WorldwideOrganisation base_path when about page" do
+  test "base_path appends /about to the associated Worldwide Organisation base_path when about page" do
     worldwide_organisation = create(:worldwide_organisation)
     corporate_information_page = create(
       :about_corporate_information_page,
       organisation: nil,
       worldwide_organisation:,
-    )
+      )
 
-    assert_equal "/world/organisations/#{worldwide_organisation.name}/about/about", corporate_information_page.base_path
+    assert_equal "/world/organisations/#{worldwide_organisation.name}/about", corporate_information_page.base_path
   end
 
   test "republishes owning organisation after commit when present" do

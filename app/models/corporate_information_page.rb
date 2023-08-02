@@ -175,8 +175,7 @@ class CorporateInformationPage < Edition
     return if owning_organisation.blank?
 
     url = owning_organisation.base_path + "/about/#{slug}"
-    url.gsub!("/about/about", "/about") if organisation.present?
-    url
+    url.gsub("/about/about", "/about")
   end
 
 private
