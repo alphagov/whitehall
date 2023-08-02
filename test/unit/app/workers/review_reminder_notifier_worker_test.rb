@@ -2,8 +2,10 @@ require "test_helper"
 
 class ReviewReminderNotifierWorkerTest < ActiveSupport::TestCase
   setup do
-    @edition = create(:edition)
-    @review_reminder = create(:review_reminder, document: @edition.document)
+    Timecop.travel(2.days.ago) do
+      @edition = create(:edition)
+      @review_reminder = create(:review_reminder, document: @edition.document, review_at: Time.zone.tomorrow)
+    end
   end
 
   test "calls MailNotifications#review_reminder and updates reminder_sent_at to now when reminder_sent_at is nil" do
@@ -24,7 +26,7 @@ class ReviewReminderNotifierWorkerTest < ActiveSupport::TestCase
 
   test "does not call MailNotifications#review_reminder or update reminder_sent_at when reminder_sent_at is present" do
     reminder_sent_at = Time.zone.now
-    @review_reminder.update!(reminder_sent_at:)
+    @review_reminder.update_columns(reminder_sent_at:)
 
     Timecop.travel(1.day.from_now) do
       MailNotifications
