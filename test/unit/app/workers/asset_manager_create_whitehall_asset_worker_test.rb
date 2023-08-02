@@ -12,34 +12,34 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
       args[:file].path == @file.path
     end
 
-    @worker.perform(@file.path, @legacy_url_path, false, nil, nil, [])
+    @worker.perform(@file.path, @legacy_url_path)
   end
 
   test "creates a whitehall asset using the legacy_url_path passed to the worker" do
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(legacy_url_path: @legacy_url_path))
 
-    @worker.perform(@file.path, @legacy_url_path, false, nil, nil, [])
+    @worker.perform(@file.path, @legacy_url_path)
   end
 
   test "does not mark the asset as draft by default" do
     Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
 
-    @worker.perform(@file.path, @legacy_url_path, false, nil, nil, [])
+    @worker.perform(@file.path, @legacy_url_path)
   end
 
   test "marks the asset as draft if instructed" do
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
 
-    @worker.perform(@file.path, @legacy_url_path, true, nil, nil, [])
+    @worker.perform(@file.path, @legacy_url_path, true)
   end
 
   test "removes the file after it has been successfully uploaded" do
-    @worker.perform(@file.path, @legacy_url_path, true, nil, nil, [])
+    @worker.perform(@file.path, @legacy_url_path)
     assert_not File.exist?(@file.path)
   end
 
   test "removes the directory after it has been successfully uploaded" do
-    @worker.perform(@file.path, @legacy_url_path, false, nil, nil, [])
+    @worker.perform(@file.path, @legacy_url_path)
     assert_not Dir.exist?(File.dirname(@file))
   end
 
@@ -52,7 +52,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
 
-    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id, [])
+    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id)
   end
 
   test "marks attachments belonging to consultation responses as access limited" do
@@ -65,7 +65,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
 
-    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id, [])
+    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id)
   end
 
   test "does not mark attachments belonging to policy groups as access limited" do
@@ -77,7 +77,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:access_limited)))
 
-    @worker.perform(@file.path, @legacy_url_path, true, policy_group.class.to_s, policy_group.id, [])
+    @worker.perform(@file.path, @legacy_url_path, true, policy_group.class.to_s, policy_group.id)
   end
 
   test "sends auth bypass ids to asset manager when these are passed through in the params" do
@@ -97,34 +97,6 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_whitehall_asset).never
 
-    @worker.perform(path, @legacy_url_path, false, nil, nil, [])
-  end
-
-  test "should invoke perform_with_assets_params with optional asset related params when they are not passed to perform method" do
-    consultation = FactoryBot.create(:consultation)
-    response = FactoryBot.create(:consultation_outcome, consultation:)
-    attachment = FactoryBot.create(:file_attachment, attachable: response)
-    attachment.attachment_data.attachable = consultation
-    @worker.expects(:perform_with_assets_params).once.with(@file.path, @legacy_url_path, nil, nil, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
-
-    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
-  end
-
-  test "should invoke both perform_with_assets_params with optional asset related params when they are passed to perform method" do
-    consultation = FactoryBot.create(:consultation)
-    response = FactoryBot.create(:consultation_outcome, consultation:)
-    attachment = FactoryBot.create(:file_attachment, attachable: response)
-    attachment.attachment_data.attachable = consultation
-    @worker.expects(:perform_with_assets_params).once.with(@file.path, @legacy_url_path, "optional_param_1", "optional_param_1", true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
-    @worker.expects(:perform_without_assets_params).never
-
-    @worker.perform(@file.path, @legacy_url_path, "optional_param_1", "optional_param_1", true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
-  end
-
-  test "should raise an exception when number of arguments passed are not valid" do
-    exception = assert_raises RuntimeError do
-      @worker.perform(@file.path, @legacy_url_path)
-    end
-    assert_equal("invalid parameter count in sidekiq job", exception.message)
+    @worker.perform(path, @legacy_url_path)
   end
 end
