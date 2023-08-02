@@ -1,11 +1,16 @@
 <% content_for :page_class, 'document-collection-email-groups edit' %>
 <% page_title 'Edit email notifications' %>
 
-<div class="row">
-    <h1>Email notifications</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
     <%= render "components/secondary_navigation", {
       aria_label: "Document navigation tabs",
       items: secondary_navigation_tabs_items(@collection, request.path)
     } %>
-    <div>Choose the type of email updates users will get if they sign up for notifications.</div>
+
+    <h2 class="govuk-heading-l">Email notifications</h2>
+    <p class="govuk-body">Choose the type of email updates users will get if they sign up for notifications.</p>
+
+    <%= render partial: 'form' %>
+  </div>
 </div>
