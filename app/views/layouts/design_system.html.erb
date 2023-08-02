@@ -1,5 +1,15 @@
 <% environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment %>
 
+<% if ENV["GOOGLE_TAG_MANAGER_ID"] %>
+  <% content_for :head do %>
+    <%= render "govuk_publishing_components/components/google_tag_manager_script", {
+      gtm_id: ENV["GOOGLE_TAG_MANAGER_ID"],
+      gtm_auth: ENV["GOOGLE_TAG_MANAGER_AUTH"],
+      gtm_preview: ENV["GOOGLE_TAG_MANAGER_PREVIEW"]
+    } %>
+  <% end %>
+<% end %>
+
 <% if user_signed_in? %>
   <% content_for :head do %>
     <meta name="custom-dimension:8" content="<%= current_user.organisation_slug.presence || '(not set)' %>">
