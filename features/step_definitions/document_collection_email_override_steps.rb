@@ -17,3 +17,23 @@ Then(/^I click on the tab "Email notifications/) do
   expect(page).to have_content("\nEmails about this page\n")
   expect(page).to have_content("\nEmails about the topic\n")
 end
+
+And(/^I choose "Emails about this topic"/) do
+  page.choose(name: "override_email_subscriptions", option: "true")
+end
+
+And(/^I select "([^"]*)"$/) do |topic_label|
+  select topic_label, from: "selected_taxon_content_id"
+end
+
+And(/^I click the checkbox to confirm my selection./) do
+  check("email_override_confirmation-0")
+end
+
+And(/^I click "Save"/) do
+  click_on("Save")
+end
+
+Then(/^I am redirected to the document collection edit page/) do
+  assert_current_path edit_admin_document_collection_path(@document_collection)
+end
