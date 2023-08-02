@@ -11,6 +11,9 @@ When(/^I visit the edit document collection page/) do
   visit edit_admin_document_collection_path(@document_collection)
 end
 
-Then(/^I see the tab "Email notifications/) do
+Then(/^I click on the tab "Email notifications/) do
   expect(page).to have_content("Email notifications")
+  click_on("Email notifications")
+  expect(page).to have_content("\nEmails about this page\n")
+  expect(page).to have_content("\nEmails about the topic\n")
 end

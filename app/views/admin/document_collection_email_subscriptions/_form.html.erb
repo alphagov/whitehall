@@ -1,0 +1,36 @@
+<%= form_for [:admin, @collection], url: root_path, method: "put" do |form| %>
+  <%= render "govuk_publishing_components/components/radio", {
+    name: "override_email_subscriptions",
+    id: "email_override_email_subscription_choice",
+    items: [
+      {
+        value: false,
+        text: "Emails about this page",
+        hint_text: "Users will get an email when the document collection or any of the content listed on it is updated.",
+        checked: true,
+        bold: true,
+      },
+      {
+        value: true,
+        text: "Emails about the topic",
+        bold: true,
+        hint_text: "Users will get an email when any content related to the topic is updated. You choose the topic from the topic taxonomy.",
+        checked: false,
+        conditional: render("taxonomy_choice"),
+      },
+    ],
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "update-email-subscriptions-button",
+        "track-label": "Save",
+      },
+    } %>
+    <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
+  </div>
+<% end %>
