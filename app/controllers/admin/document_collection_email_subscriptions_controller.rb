@@ -1,6 +1,7 @@
 class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseController
   before_action :load_document_collection
   before_action :authorise_user
+  layout "design_system"
 
   def edit; end
 
