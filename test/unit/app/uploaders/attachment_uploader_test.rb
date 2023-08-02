@@ -257,17 +257,18 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   describe "use non legacy endpoints true" do
-    test "should store an actual PNG using create asset" do
-      attachment_data = AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), use_non_legacy_endpoints: true)
-      attachment_data.save!
+    test "should store an actual PNG as thumbnail" do
+      AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), use_non_legacy_endpoints: true)
+
       Asset.expects(:create!).twice.with(anything, anything, anything)
       expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png_using_create_asset
+
       AssetManagerCreateAssetWorker.drain
     end
 
     test "should scale the thumbnail down proportionally to A4" do
-      attachment_data = AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), use_non_legacy_endpoints: true)
-      attachment_data.save!
+      AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), use_non_legacy_endpoints: true)
+
       Asset.expects(:create!).twice.with(anything, anything, anything)
       expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally_create_asset
 
@@ -275,20 +276,18 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
     end
 
     test "should use a generic thumbnail if conversion fails" do
-      AttachmentData.any_instance.stubs(:use_non_legacy_endpoints).returns(true)
       AttachmentUploader.any_instance.stubs(:pdf_thumbnail_command).returns("false")
-      attachment_data = AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), use_non_legacy_endpoints: true)
-      attachment_data.save!
+      AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), use_non_legacy_endpoints: true)
+
       expect_fallback_thumbnail_to_be_uploaded_to_asset_manager_create_asset
 
       AssetManagerCreateAssetWorker.drain
     end
 
     test "should use a generic thumbnail if conversion takes longer than 10 seconds to complete" do
-      AttachmentData.any_instance.stubs(:use_non_legacy_endpoints).returns(true)
       AttachmentUploader.any_instance.stubs(:pdf_thumbnail_command).raises(Timeout::Error)
-      attachment_data = AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), use_non_legacy_endpoints: true)
-      attachment_data.save!
+      AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), use_non_legacy_endpoints: true)
+
       expect_fallback_thumbnail_to_be_uploaded_to_asset_manager_create_asset
 
       AssetManagerCreateAssetWorker.drain

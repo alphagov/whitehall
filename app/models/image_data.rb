@@ -1,7 +1,7 @@
 require "mini_magick"
 
 class ImageData < ApplicationRecord
-  attr_accessor :validate_on_image
+  attr_accessor :validate_on_image, :use_non_legacy_endpoints
 
   VALID_WIDTH = 960
   VALID_HEIGHT = 640
