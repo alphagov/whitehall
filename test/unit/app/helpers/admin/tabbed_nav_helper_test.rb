@@ -4,6 +4,14 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   include Rails.application.routes.url_helpers
   include Admin::EditionRoutesHelper
 
+  def current_user
+    @user
+  end
+
+  setup do
+    @user = create(:user)
+  end
+
   test "#secondary_navigation_tabs_items for persisted consultations with no attachments" do
     consultation = build_stubbed(:consultation)
 
@@ -121,6 +129,31 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         label: "Collection documents",
         href: admin_document_collection_groups_path(document_collection),
         current: true,
+      },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(document_collection, admin_document_collection_groups_path(document_collection))
+  end
+
+  test "#secondary_navigation_tabs_items contains email notifications tab when the current user has the relevant permission" do
+    document_collection = build_stubbed(:document_collection)
+    @user = create(:user, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR])
+
+    expected_output = [
+      {
+        label: "Document",
+        href: edit_admin_edition_path(document_collection),
+        current: false,
+      },
+      {
+        label: "Collection documents",
+        href: admin_document_collection_groups_path(document_collection),
+        current: true,
+      },
+      {
+        label: "Email notifications",
+        href: admin_document_collection_edit_email_subscription_path(document_collection),
+        current: false,
       },
     ]
 

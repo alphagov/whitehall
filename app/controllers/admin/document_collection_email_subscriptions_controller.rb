@@ -1,4 +1,5 @@
 class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseController
+  layout "design_system"
   def edit
     @collection = DocumentCollection.find(params[:document_collection_id])
 
