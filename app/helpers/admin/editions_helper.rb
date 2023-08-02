@@ -217,6 +217,10 @@ module Admin::EditionsHelper
       if edition.is_a?(DocumentCollection) && !edition.new_record?
         tabs["Collection documents"] = admin_document_collection_groups_path(edition)
       end
+
+      if edition.is_a?(DocumentCollection) && current_user.can_edit_email_overrides?
+        tabs["Email notifications"] = admin_document_collection_edit_email_subscription_path(edition)
+      end
     end
   end
 

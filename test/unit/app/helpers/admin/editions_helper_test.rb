@@ -5,6 +5,14 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     []
   end
 
+  def current_user
+    @user
+  end
+
+  setup do
+    @user = create(:user)
+  end
+
   test "warn_about_lack_of_contacts_in_body? says no if the edition is not a news article" do
     (Edition.descendants - [NewsArticle] - NewsArticle.descendants).each do |not_a_news_article|
       assert_not warn_about_lack_of_contacts_in_body?(not_a_news_article.new)
@@ -32,6 +40,16 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     assert_not_includes default_edition_tabs(document_collection).keys, "Collection documents"
     document_collection = create(:document_collection)
     assert_includes default_edition_tabs(document_collection).keys, "Collection documents"
+  end
+
+  test "default_edition_tabs includes email notifications tab when the user has the appropriate permission" do
+    document_collection = create(:document_collection)
+
+    @user = create(:user)
+    assert_not_includes default_edition_tabs(document_collection).keys, "Email notifications"
+
+    @user = create(:user, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR])
+    assert_includes default_edition_tabs(document_collection).keys, "Email notifications"
   end
 
   test "#admin_author_filter_options excludes disabled users" do
