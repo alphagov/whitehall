@@ -9,28 +9,28 @@ class Admin::AuditTrailEntryComponentTest < ViewComponent::TestCase
     version = create(:version, event: "create", item: @non_editionable_item)
 
     render_inline(Admin::AuditTrailEntryComponent.new(version:))
-    assert_equal page.find("h3").text, "Organisation created"
+    assert_selector "h3", text: "Organisation created"
   end
 
   test "shows `Organisation updated` when the version has an `update` event" do
     version = create(:version, item: @non_editionable_item)
 
     render_inline(Admin::AuditTrailEntryComponent.new(version:))
-    assert_equal page.find("h3").text, "Organisation updated"
+    assert_selector "h3", text: "Organisation updated"
   end
 
   test "shows `No history before this time` when the version has an `initial` event" do
     version = create(:version, event: "initial", item: @non_editionable_item)
 
     render_inline(Admin::AuditTrailEntryComponent.new(version:))
-    assert_equal page.find("h3").text, "No history before this time"
+    assert_selector "h3", text: "No history before this time"
   end
 
   test "shows `Unknown action` when the version has an event that is not `create` or `update`" do
     version = create(:version, event: "something-else", item: @non_editionable_item)
 
     render_inline(Admin::AuditTrailEntryComponent.new(version:))
-    assert_equal page.find("h3").text, "Unknown action"
+    assert_selector "h3", text: "Unknown action"
   end
 
   test "shows the author of the event and the time when the version was created" do
