@@ -1,4 +1,4 @@
-<%= form_for [:admin, @collection], url: root_path, method: "put" do |form| %>
+<%= form_for [:admin, @collection], url: admin_document_collection_update_email_subscription_path(@collection), method: "put" do |form| %>
   <%= render "govuk_publishing_components/components/radio", {
     name: "override_email_subscriptions",
     id: "email_override_email_subscription_choice",
@@ -31,6 +31,6 @@
         "track-label": "Save"
       }
     } %>
-    <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
+    <%= link_to("Cancel", admin_document_collection_path(@collection), class: "govuk-link govuk-link--no-visited-state") %>
   </div>
 <% end %>
