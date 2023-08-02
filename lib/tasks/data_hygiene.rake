@@ -32,15 +32,4 @@ namespace :data_hygiene do
       speech.save!(validate: false)
     end
   end
-
-  desc "Update all Worldwide Organisations' sponsoring organisation from FCO to FCDO"
-  task update_sponsoring_organisation_from_fco_to_fcdo: :environment do
-    fco = Organisation.find_by(slug: "foreign-commonwealth-office")
-    fcdo = Organisation.find_by(slug: "foreign-commonwealth-development-office")
-
-    Sponsorship.where(organisation: fco).each do |sponsorship|
-      sponsorship.update!(organisation: fcdo)
-      puts "#{sponsorship.worldwide_organisation.name} updated from FCO to FCDO."
-    end
-  end
 end
