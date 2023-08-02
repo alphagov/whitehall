@@ -2,16 +2,14 @@ require "test_helper"
 
 class ReviewReminderNotifierWorkerTest < ActiveSupport::TestCase
   setup do
-    document = create(:document)
-    @review_reminder = create(:review_reminder, document:)
-    @email_address = @review_reminder.email_address
-    @editon = create(:edition, document:)
+    @edition = create(:edition)
+    @review_reminder = create(:review_reminder, document: @edition.document)
   end
 
   test "calls MailNotifications#review_reminder and updates reminder_sent_at to now when reminder_sent_at is nil" do
     MailNotifications
       .expects(:review_reminder)
-      .with(@editon, recipient_address: @email_address)
+      .with(@edition, recipient_address: @review_reminder.email_address)
       .returns(mailer = mock)
 
     mailer.expects(:deliver_now)
