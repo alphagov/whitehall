@@ -237,6 +237,48 @@
     </section>
   <% end %>
 
+  <% if @edition.allows_image_attachments? %>
+    <section class="app-view-summary__section app-view-summary__section--attachments">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Images",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <% if @edition.editable? %>
+        <p class="govuk-body">
+          <%= link_to("#{@edition.images.any? ? "Modify" : "Add"} images",
+                      admin_edition_attachments_path(@edition.id),
+                      class: 'govuk-link',
+                      data: {
+                        module: "gem-track-click",
+                        "track-category": "button-clicked",
+                        "track-action": "#{@edition.model_name.singular.dasherize}-button",
+                        "track-label": "Modify images",
+                      }) %>
+        </p>
+      <% end %>
+
+      <% if @edition.images.any? %>
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
+            {
+              text: "Filename"
+            }
+          ],
+          rows: @edition.images.map do | image |
+            [
+              { text: sanitize("#{image.filename} #{tag.span("Lead image", class: 'govuk-tag app-view-summary__tag') if @edition.is_a? Edition::FirstImagePulledOut and image == @edition.images.first}") },
+            ]
+          end
+        } %>
+      <% else %>
+        <p class="govuk-body">No images for this document</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if @edition.allows_attachments? %>
     <section class="app-view-summary__section app-view-summary__section--attachments">
       <%= render "govuk_publishing_components/components/heading", {
