@@ -9,14 +9,15 @@ class ReviewReminderNotifierWorkerTest < ActiveSupport::TestCase
   end
 
   test "calls MailNotifications#review_reminder and updates reminder_sent_at to now when reminder_sent_at is nil" do
+    MailNotifications
+      .expects(:review_reminder)
+      .with(@editon, recipient_address: @email_address)
+      .returns(mailer = mock)
+
+    mailer.expects(:deliver_now)
+
+    # Freeze time so we can assert against the current time without it changing
     Timecop.freeze do
-      MailNotifications
-        .expects(:review_reminder)
-        .with(@editon, recipient_address: @email_address)
-        .returns(mailer = mock)
-
-      mailer.expects(:deliver_now)
-
       ReviewReminderNotifierWorker.new.perform(@review_reminder.id)
 
       assert_equal Time.zone.now, @review_reminder.reload.reminder_sent_at
