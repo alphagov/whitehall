@@ -350,3 +350,13 @@ Then(/^the roles should be in the following order:$/) do |roles|
     expect(hash[:name]).to eq(role_names[index])
   end
 end
+
+Given(/^an active topical event called "([^"]*)" exists$/) do |name|
+  @topical_event = create(:topical_event, :active, name:)
+end
+
+And(/^I visit the the organisation feature page for "([^"]*)"$/) do |name|
+  organisation = Organisation.find_by!(name:)
+  visit admin_organisation_path(organisation)
+  click_link "Features"
+end

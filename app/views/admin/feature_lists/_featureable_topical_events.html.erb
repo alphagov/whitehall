@@ -1,0 +1,44 @@
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Feature topical events",
+  margin_bottom: 6,
+} %>
+
+<% if featurable_topical_events.any? %>
+  <p class="govuk-heading-s govuk-!-margin-bottom-3">
+    <%= pluralize(number_with_delimiter(featurable_topical_events.count), "document") %>
+  </p>
+
+  <div class="app-view-features-offsite-links__table govuk-table--with-actions">
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Title"
+        },
+        {
+          text: "Published/duration",
+        },
+        {
+          text: tag.span("Actions", class: "govuk-visually-hidden"),
+        }
+      ],
+      rows: featurable_topical_events.map do |topical_event|
+        [
+          {
+            text: tag.p(topical_event.name, class: "govuk-!-margin-0 govuk-!-font-weight-bold"),
+          },
+          {
+            text: "#{l(topical_event.start_date.to_date)} to #{l(topical_event.end_date.to_date)}",
+          },
+          {
+            text: link_to(sanitize("Edit #{tag.span(topical_event.name, class: "govuk-visually-hidden")}"), polymorphic_url([:edit, :admin, topical_event]), class: "govuk-link") +
+                    link_to(sanitize("Feature #{tag.span(topical_event.name, class: "govuk-visually-hidden")}"), polymorphic_url([:new, :admin, feature_list, :feature], topical_event_id: topical_event.id), class: 'govuk-link govuk-!-margin-left-2'),
+          }
+        ]
+      end
+    } %>
+  </div>
+<% else %>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "There are currently no featurable topical events."
+  } %>
+<% end %>
