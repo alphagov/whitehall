@@ -24,4 +24,15 @@ module ErrorsHelper
     }
     .presence
   end
+
+  def errors_from_flash(flash)
+    return nil if flash.blank?
+
+    flash.map do |array|
+      {
+        href: "##{array.first}",
+        text: array.last,
+      }
+    end
+  end
 end
