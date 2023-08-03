@@ -102,4 +102,30 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_take_part_pages_path
   end
+
+  test "POST : create calls worker with asset args if use_non_legacy_endpoints is true" do
+    setup_user_with_required_permission
+
+    model_type = TakePartPage.to_s
+    variants = Asset.variants.values
+
+    AssetManagerCreateAssetWorker
+      .expects(:perform_async)
+      .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything)
+      .times(7)
+
+    take_part_page_attrs = attributes_for(:take_part_page, title: "Wear a monocle!")
+                             .merge(
+                               image: upload_fixture(
+                                 "minister-of-funk.960x640.jpg",
+                                 "image/jpg",
+                               ),
+                             )
+
+    post :create, params: { take_part_page: take_part_page_attrs }
+  end
+
+  def setup_user_with_required_permission
+    @current_user.permissions << User::Permissions::USE_NON_LEGACY_ENDPOINTS
+  end
 end

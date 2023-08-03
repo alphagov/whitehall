@@ -16,6 +16,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def create
     @take_part_page = TakePartPage.new(take_part_page_params)
+    @take_part_page.use_non_legacy_endpoints = use_non_legacy_endpoints?
     if @take_part_page.save
       redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" created!)
     else

@@ -410,7 +410,7 @@ class AssetManagerIntegrationTest
       @feature = FactoryBot.build(
         :feature,
         image: File.open(fixture_path.join(@filename)),
-        )
+      )
     end
 
     context "use_non_legacy_endpoints is true" do
@@ -475,6 +475,45 @@ class AssetManagerIntegrationTest
 
         Sidekiq::Testing.inline! do
           @topical_event.save!
+        end
+      end
+    end
+  end
+
+  class CreatingATakePartPageImage < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
+    setup do
+      @filename = "minister-of-funk.960x640.jpg"
+      @take_part_page = FactoryBot.build(
+        :take_part_page,
+        image: File.open(fixture_path.join(@filename)),
+      )
+    end
+
+    context "use_non_legacy_endpoints is true" do
+      setup do
+        @take_part_page.use_non_legacy_endpoints = true
+      end
+
+      test "does not mark the image as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_asset).with(has_entry(draft: false)).returns("id" => "http://asset-manager/assets/asset_manager_id").times(7)
+
+        Sidekiq::Testing.inline! do
+          @take_part_page.save!
+        end
+      end
+
+      test "sends original and each version of the person image to Asset Manager" do
+        expected_file_names = %w[minister-of-funk.960x640.jpg s960_minister-of-funk.960x640.jpg s712_minister-of-funk.960x640.jpg s630_minister-of-funk.960x640.jpg s465_minister-of-funk.960x640.jpg s300_minister-of-funk.960x640.jpg s216_minister-of-funk.960x640.jpg]
+
+        Services.asset_manager.expects(:create_asset).with { |params|
+          file = params[:file].path.split("/").last
+          assert expected_file_names.include?(file)
+        }.times(7).returns("id" => "http://asset-manager/assets/some-id")
+
+        Sidekiq::Testing.inline! do
+          @take_part_page.save!
         end
       end
     end

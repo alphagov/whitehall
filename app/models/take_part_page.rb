@@ -1,4 +1,10 @@
 class TakePartPage < ApplicationRecord
+  attr_accessor :use_non_legacy_endpoints
+
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
+
   validates_with SafeHtmlValidator
   validates :title, :summary, presence: true, length: { maximum: 255 }
   validates :body, presence: true, length: { maximum: (16.megabytes - 1) }
