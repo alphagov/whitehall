@@ -7,7 +7,7 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 18 July 2023
+      last_updated: Last updated 3 August 2023
       introduction:
         heading: Our roadmap
         body_govspeak: |
@@ -25,6 +25,12 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: New images 
+            area: Creating and updating documents
+            type: new
+            date: 3 August 2023
+            body_govspeak: |
+              Images that have been added now display on the document summary page, before you publish. You can also go to the images edit screen from the document summary.
           - heading: New Markdown for attachments
             area: Creating and updating documents
             type: improvement
