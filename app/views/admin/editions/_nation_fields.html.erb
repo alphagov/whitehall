@@ -10,7 +10,7 @@
 <%= render "govuk_publishing_components/components/checkboxes", {
   name: "edition[all_nation_applicability][]",
   id: "edition_nation_inapplicabilities",
-  heading: "Excluded nations",
+  heading: "Excluded nations (required)",
   heading_size: "m",
   error: errors_for_input(edition.errors, :nation_inapplicabilities),
   no_hint_text: true,
