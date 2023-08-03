@@ -22,6 +22,14 @@ class FileAttachment < Attachment
 
   validate :filename_is_unique
 
+  def filename_changed?
+    previous_attachment_data_id = attachment_data_id_was
+    previous_attachment_data = AttachmentData.find(previous_attachment_data_id)
+    current_attachment_data = attachment_data
+
+    previous_attachment_data.filename != current_attachment_data.filename
+  end
+
   def file?
     true
   end

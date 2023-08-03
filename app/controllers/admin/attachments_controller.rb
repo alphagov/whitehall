@@ -31,12 +31,15 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def update
     attachment.attributes = attachment_params
+    message = "Attachment '#{attachment.title}' updated"
     if attachment.is_a?(FileAttachment)
       attachment.attachment_data.attachable = attachable
+      if attachment.filename_changed? && attachable.allows_inline_attachments?
+        message += ". You must replace the attachment markdown with the new markdown below."
+      end
     end
     if save_attachment
       attachment_updater(attachment.attachment_data)
-      message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
     else
       render :edit
