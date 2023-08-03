@@ -89,4 +89,32 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
     assert_equal edition.document_id, Feature.last.document_id
   end
+
+  test "POST : create calls worker with asset args if use_non_legacy_endpoints is true" do
+    setup_user_with_required_permission
+
+    edition = create(:published_speech)
+    world_location_news = build(:world_location_news)
+    create(:world_location, world_location_news:)
+    feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
+
+    model_type = Feature.to_s
+    variants = Asset.variants.values
+
+    AssetManagerCreateAssetWorker
+      .expects(:perform_async)
+      .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything)
+      .times(7)
+
+    params = {
+      document_id: edition.document_id,
+      image: upload_fixture("images/960x640_gif.gif"),
+      alt_text: "some text",
+    }
+    post :create, params: { feature_list_id: feature_list.id, feature: params }
+  end
+
+  def setup_user_with_required_permission
+    @current_user.permissions << User::Permissions::USE_NON_LEGACY_ENDPOINTS
+  end
 end

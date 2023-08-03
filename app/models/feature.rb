@@ -1,8 +1,14 @@
 class Feature < ApplicationRecord
+  attr_accessor :use_non_legacy_endpoints
+
   belongs_to :document
   belongs_to :topical_event
   belongs_to :offsite_link
   belongs_to :feature_list
+
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
 
   mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
   validates :document, presence: true, unless: ->(feature) { feature.topical_event_id.present? || feature.offsite_link_id.present? }

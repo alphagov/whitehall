@@ -52,6 +52,7 @@ private
 
   def build_feature
     @feature = @feature_list.features.build(feature_params)
+    @feature.use_non_legacy_endpoints = use_non_legacy_endpoints?
   end
 
   def feature_params
