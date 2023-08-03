@@ -16,6 +16,7 @@ class Admin::TopicalEventsController < Admin::BaseController
 
   def create
     @topical_event = TopicalEvent.new(object_params)
+    @topical_event.use_non_legacy_endpoints = use_non_legacy_endpoints?
     if @topical_event.save
       redirect_to [:admin, @topical_event], notice: "Topical event created"
     else

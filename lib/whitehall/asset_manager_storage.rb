@@ -82,6 +82,7 @@ private
       uploader.model.instance_of?(ImageData) ||
       uploader.model.instance_of?(Person) ||
       uploader.model.instance_of?(Feature) ||
+      uploader.model.instance_of?(TopicalEvent) ||
       uploader.model.instance_of?(Organisation)) &&
       uploader.model.use_non_legacy_endpoints
   end

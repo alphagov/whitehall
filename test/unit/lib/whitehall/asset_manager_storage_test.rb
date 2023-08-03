@@ -276,6 +276,35 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
         @uploader.store!(@file)
       end
     end
+
+    context "uploader model is TopicalEvent" do
+      setup do
+        model = build(:topical_event)
+        model.stubs(:use_non_legacy_endpoints).returns(true)
+        model.id = 1
+        @uploader.stubs(:model).returns(model)
+        @assetable_type = TopicalEvent.name
+      end
+
+      test "calls worker with assetable and default original variant" do
+        variant = Asset.variants[:original]
+        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+
+        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+
+        @uploader.store!(@file)
+      end
+
+      test "calls worker with assetable and variant" do
+        variant = Asset.variants[:s712]
+        @uploader.stubs(:version_name).returns(:s712)
+        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+
+        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+
+        @uploader.store!(@file)
+      end
+    end
   end
 end
 

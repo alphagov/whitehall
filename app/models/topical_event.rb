@@ -3,6 +3,8 @@ class TopicalEvent < ApplicationRecord
   include Searchable
   include SimpleWorkflow
 
+  attr_accessor :use_non_legacy_endpoints
+
   searchable title: :name,
              link: :search_link,
              content: :description,
@@ -69,6 +71,10 @@ class TopicalEvent < ApplicationRecord
   has_many :editions,
            -> { where("editions.state" => "published") },
            through: :topical_event_memberships
+
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
 
   scope :active, -> { where("end_date > ?", Time.zone.today) }
   scope :alphabetical, -> { order("name ASC") }

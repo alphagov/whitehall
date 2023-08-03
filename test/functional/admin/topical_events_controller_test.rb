@@ -83,4 +83,29 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert topical_event.reload.deleted?
   end
+
+  test "POST : create calls worker with asset args if use_non_legacy_endpoints is true" do
+    setup_user_with_required_permission
+
+    model_type = TopicalEvent.to_s
+    variants = Asset.variants.values
+
+    AssetManagerCreateAssetWorker
+      .expects(:perform_async)
+      .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything)
+      .times(7)
+
+    post :create, params: {
+      topical_event: {
+        name: "Event",
+        description: "Event description",
+        summary: "Event summary",
+        logo: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
+      },
+    }
+  end
+
+  def setup_user_with_required_permission
+    @current_user.permissions << User::Permissions::USE_NON_LEGACY_ENDPOINTS
+  end
 end
