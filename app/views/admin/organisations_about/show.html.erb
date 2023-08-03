@@ -1,3 +1,8 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_organisations_path
+  } %>
+<% end %>
 <% content_for :page_title, @organisation.name %>
 <% content_for :title, @organisation.name %>
 <% content_for :context, organisation_context_block(current_user, @organisation)  %>
@@ -30,7 +35,7 @@
           },
           {
             key: "Body",
-            value: simple_format(truncate(@organisation.body, length: 500)),
+            value: simple_format(truncate(@organisation.body, length: 500, class: "govuk-!-margin-top-0")),
           },
         ].reject { |row| row[:value].blank? },
         summary_card_actions: [

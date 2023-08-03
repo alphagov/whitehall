@@ -1,3 +1,8 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_worldwide_organisations_path
+  } %>
+<% end %>
 <% content_for :page_title, @worldwide_organisation.name %>
 <% content_for :title, @worldwide_organisation.name %>
 <% content_for :title_margin_bottom, 4 %>
@@ -5,7 +10,6 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-
     <p class="govuk-body govuk-!-margin-bottom-4">
       <%= view_on_website_link_for @worldwide_organisation, class: "govuk-link" %>
     </p>
