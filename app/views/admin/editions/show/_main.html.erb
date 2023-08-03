@@ -249,7 +249,7 @@
       <% if @edition.editable? %>
         <p class="govuk-body">
           <%= link_to("#{@edition.images.any? ? "Modify" : "Add"} images",
-                      admin_edition_attachments_path(@edition.id),
+                      admin_edition_images_path(@edition.id),
                       class: 'govuk-link',
                       data: {
                         module: "gem-track-click",
