@@ -1,6 +1,8 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
 
+  attr_accessor :use_non_legacy_endpoints
+
   mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
 
   has_many :role_appointments, -> { order(:order) }
@@ -21,6 +23,10 @@ class Person < ApplicationRecord
   has_many :organisations, through: :organisation_roles
 
   has_many :historical_accounts, inverse_of: :person
+
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
 
   validates :name, presence: true
   validates_with SafeHtmlValidator

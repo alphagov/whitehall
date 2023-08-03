@@ -183,41 +183,74 @@ class AssetManagerIntegrationTest
   end
 
   class CreatingAPersonImage < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
     setup do
       @filename = "minister-of-funk.960x640.jpg"
       @person = FactoryBot.build(
         :person,
         image: File.open(fixture_path.join(@filename)),
       )
-
-      Services.asset_manager.stubs(:create_whitehall_asset)
     end
 
-    test "sends the person image to Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+    context "use_non_legacy_endpoints is false" do
+      setup do
+        Services.asset_manager.stubs(:create_whitehall_asset)
+      end
 
-      Sidekiq::Testing.inline! do
-        @person.save!
+      test "sends the person image to Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+
+        Sidekiq::Testing.inline! do
+          @person.save!
+        end
+      end
+
+      test "does not mark the image as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: false))
+
+        Sidekiq::Testing.inline! do
+          @person.save!
+        end
+      end
+
+      test "sends each version of the person image to Asset Manager" do
+        ImageUploader.versions.each_key do |version_prefix|
+          Services.asset_manager.expects(:create_whitehall_asset).with(
+            file_and_legacy_url_path_matching(/#{version_prefix}_#{@filename}/),
+          )
+        end
+
+        Sidekiq::Testing.inline! do
+          @person.save!
+        end
       end
     end
 
-    test "does not mark the image as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: false))
-
-      Sidekiq::Testing.inline! do
-        @person.save!
-      end
-    end
-
-    test "sends each version of the person image to Asset Manager" do
-      ImageUploader.versions.each_key do |version_prefix|
-        Services.asset_manager.expects(:create_whitehall_asset).with(
-          file_and_legacy_url_path_matching(/#{version_prefix}_#{@filename}/),
-        )
+    context "use_non_legacy_endpoints is true" do
+      setup do
+        @person.use_non_legacy_endpoints = true
       end
 
-      Sidekiq::Testing.inline! do
-        @person.save!
+      test "does not mark the image as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_asset).with(has_entry(draft: false)).returns("id" => "http://asset-manager/assets/asset_manager_id").times(7)
+
+        Sidekiq::Testing.inline! do
+          @person.save!
+        end
+      end
+
+      test "sends original and each version of the person image to Asset Manager" do
+        expected_file_names = %w[minister-of-funk.960x640.jpg s960_minister-of-funk.960x640.jpg s712_minister-of-funk.960x640.jpg s630_minister-of-funk.960x640.jpg s465_minister-of-funk.960x640.jpg s300_minister-of-funk.960x640.jpg s216_minister-of-funk.960x640.jpg]
+
+        Services.asset_manager.expects(:create_asset).with { |params|
+          file = params[:file].path.split("/").last
+          assert expected_file_names.include?(file)
+        }.times(7).returns("id" => "http://asset-manager/assets/some-id")
+
+        Sidekiq::Testing.inline! do
+          @person.save!
+        end
       end
     end
   end

@@ -13,6 +13,7 @@ class Admin::PeopleController < Admin::BaseController
 
   def create
     @person = Person.new(person_params)
+    @person.use_non_legacy_endpoints = use_non_legacy_endpoints?
     if @person.save
       redirect_to [:admin, @person], notice: %("#{@person.name}" created.)
     else

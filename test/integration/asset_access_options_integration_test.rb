@@ -388,6 +388,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
             it "marks replacement attachment as access limited in Asset Manager" do
               Services.asset_manager.expects(:create_asset).with { |params|
+                # byebug
                 params[:access_limited] == %w[user-uid] &&
                   params[:auth_bypass_ids] == [edition.auth_bypass_id]
               }.returns("id" => "http://asset-manager/assets/some-id")
