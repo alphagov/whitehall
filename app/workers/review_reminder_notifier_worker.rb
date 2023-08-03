@@ -12,7 +12,7 @@ class ReviewReminderNotifierWorker < WorkerBase
         recipient_address: email_address,
       ).deliver_now
 
-      review_reminder.update!(reminder_sent_at: Time.zone.now)
+      review_reminder.update_columns(reminder_sent_at: Time.zone.now)
     end
   end
 end
