@@ -27,6 +27,10 @@
   }
 }
 
+.app-view-summary__tag {
+  margin-left: govuk-spacing(1);
+}
+
 .app-view-summary__section--attachments .govuk-table__cell {
   overflow-wrap: break-word;
   word-break: break-word;
