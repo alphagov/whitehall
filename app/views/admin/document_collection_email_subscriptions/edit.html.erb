@@ -1,7 +1,15 @@
 <% content_for :page_title, "Email notification settings" %>
 <% content_for :title_margin_bottom, 8 %>
 <% content_for :page_class, "document-collection-email-groups edit" %>
+<% errors = errors_from_flash(flash) %>
 
+  <% if errors.present? %>
+  <%= render "govuk_publishing_components/components/error_summary", {
+    id: "error-summary",
+    title: "There are some problems",
+    items: errors,
+  } %>
+<% end %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "components/secondary_navigation", {

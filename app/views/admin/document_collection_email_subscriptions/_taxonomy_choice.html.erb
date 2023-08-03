@@ -4,6 +4,8 @@
   <%= render "govuk_publishing_components/components/select", {
     id: "selected_taxon_content_id",
     label: "Choose a topic from the topic taxonomy. You can only choose one.",
+    error_message: flash["selected_taxon_content_id"],
+    error_id: flash["selected_taxon_content_id"],
     options: [
       { text: "", value: "" },
       { text: "Topic One", value: "9b889c60-2191-11ee-be56-0242ac120002" },
@@ -17,6 +19,7 @@
     heading_size: "s",
     heading: "You cannot change the email notification settings after the collection is published.",
     no_hint_text: true,
+    error: flash["email_override_confirmation"],
     items: [
       {
         label: "Select this box to confirm you're happy with what you've selected.",

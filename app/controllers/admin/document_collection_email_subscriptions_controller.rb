@@ -8,10 +8,10 @@ class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseControl
   def update
     if user_has_selected_taxonomy_topic_emails?
       if params[:selected_taxon_content_id].blank?
-        flash["selected_taxon_content_id"] = "You must choose a topic"
+        build_flash("selected_taxon_content_id")
         return redirect_to admin_document_collection_edit_email_subscription_path(@collection)
-      elsif params[:email_override_confirmation].blank?
-        flash["email_override_confirmation"] = "You must confirm you’re happy with the email notification settings"
+      elsif params["email_override_confirmation"].blank?
+        build_flash("email_override_confirmation")
         return redirect_to admin_document_collection_edit_email_subscription_path(@collection)
       else
         @collection.update!(taxonomy_topic_email_override: params[:selected_taxon_content_id])
@@ -19,7 +19,7 @@ class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseControl
     else
       @collection.update!(taxonomy_topic_email_override: nil)
     end
-    flash["notice"] = "You’ve selected the email notification settings. You cannot change these settings after the collection is published",
+    build_flash("notice")
     redirect_to edit_admin_document_collection_path(@collection)
   end
 
@@ -33,7 +33,35 @@ private
     redirect_to edit_admin_document_collection_path(@collection) unless current_user.can_edit_email_overrides?
   end
 
+  def build_flash(key)
+    flash[key] = {
+      "selected_taxon_content_id" => "You must choose a topic",
+      "email_override_confirmation" => "You must confirm you’re happy with the email notification settings",
+      "notice" => "You’ve selected the email notification settings. #{confirmation_message}. You will not be able to change these settings after you publish the collection.",
+    }[key]
+  end
+
+  def confirmation_message
+    if @collection.taxonomy_topic_email_override.present?
+      "You’ve chosen ‘Emails about the topic’ and the topic #{taxonomy_topic_email_override_title}"
+    else
+      "You’ve chosen ‘Emails about the page’"
+    end
+  end
+
   def user_has_selected_taxonomy_topic_emails?
     params[:override_email_subscriptions] == "true"
+  end
+
+  def taxonomy_topic_email_override_title
+    taxonomy_topic_content_item.fetch("title", "")
+  end
+
+  def taxonomy_topic_content_item
+    @taxonomy_topic_content_item ||= Services.publishing_api
+                                             .get_content(@collection.taxonomy_topic_email_override)
+                                             .to_h
+  rescue GdsApi::HTTPNotFound
+    {}
   end
 end

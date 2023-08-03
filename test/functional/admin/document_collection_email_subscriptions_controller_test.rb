@@ -13,6 +13,7 @@ class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionControll
       email_override_confirmation: "true",
     }
     login_as @user_without_permission
+    stub_publishing_api_has_item(content_id: "9b889c60-2191-11ee-be56-0242ac120002", title: "Topic One")
   end
 
   should_be_an_admin_controller

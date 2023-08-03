@@ -14,8 +14,7 @@ end
 Then(/^I click on the tab "Email notifications/) do
   expect(page).to have_content("Email notifications")
   click_on("Email notifications")
-  expect(page).to have_content("\nEmails about this page\n")
-  expect(page).to have_content("\nEmails about the topic\n")
+  expect(page).to have_content("Choose the type of email updates users will get if they sign up for notifications.")
 end
 
 And(/^I choose "Emails about this topic"/) do
@@ -31,9 +30,16 @@ And(/^I click the checkbox to confirm my selection./) do
 end
 
 And(/^I click "Save"/) do
+  stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/content})
+    .to_return(body: { base_path: "/topic-one", content_id: "9b889c60-2191-11ee-be56-0242ac120002", title: "Topic One" }.to_json)
   click_on("Save")
 end
 
-Then(/^I am redirected to the document collection edit page/) do
+Then(/^I see the success message "([^"]*)"$/) do |message|
   assert_current_path edit_admin_document_collection_path(@document_collection)
+  expect(page).to have_content(message)
+end
+
+Then(/^I see the error "([^"]*)" prompting me to confirm my selection./) do |error_message|
+  expect(page).to have_content(error_message)
 end
