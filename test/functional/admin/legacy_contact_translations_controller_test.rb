@@ -1,22 +1,13 @@
 require "test_helper"
 
-class Admin::ContactTranslationsControllerTest < ActionController::TestCase
+class Admin::LegacyContactTranslationsControllerTest < ActionController::TestCase
+  tests Admin::ContactTranslationsController
   setup do
-    login_as_preview_design_system_user(:departmental_editor)
+    login_as :departmental_editor
   end
 
   should_be_an_admin_controller
   should_render_bootstrap_implementation_with_preview_next_release
-
-  view_test "should be able to visit new index page for adding translations " do
-    organisation = create(:organisation)
-    contact = create(:contact, contactable: organisation, title: "english-title")
-
-    get :index, params: { organisation_id: organisation, contact_id: contact, id: "fr" }
-
-    assert_select "h1", text: "New translation"
-    assert_equal contact, assigns(:contact)
-  end
 
   test "create redirects to edit for the chosen language" do
     organisation = create(:organisation)
@@ -33,7 +24,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
 
     get :edit, params: { organisation_id: organisation, contact_id: contact, id: "fr" }
 
-    assert_select "h1", text: "Edit Français (French) translation"
+    assert_select "h1", text: "Edit ‘Français (French)’ translation for: english-title"
   end
 
   view_test "edit displays translation boxes for contact numbers" do
@@ -67,16 +58,6 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to admin_organisation_contacts_path(organisation)
-  end
-
-  test "GET :should be able to visit confirm_destroy page for a  translated contact" do
-    organisation = create(:organisation)
-    contact = create(:contact, contactable: organisation, translated_into: [:fr])
-
-    get :confirm_destroy, params: { organisation_id: organisation, contact_id: contact, id: "fr" }
-
-    assert_response :success
-    assert_equal contact, assigns(:contact)
   end
 
   test "destroy removes translation and redirects to contacts list" do

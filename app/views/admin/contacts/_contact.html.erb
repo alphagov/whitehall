@@ -10,7 +10,8 @@
       if contact.missing_translations.any?
         [{
            label: "Add translation",
-           href: "#"
+           href: admin_organisation_contact_translations_path(contactable,contact)
+
          }]
       end),
     {

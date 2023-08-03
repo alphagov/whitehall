@@ -1,0 +1,40 @@
+<% content_for :page_title, "New translation" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      context: @contact.title,
+      title: "New translation"
+    } %>
+
+    <%= form_with url:admin_organisation_contact_translations_path(@contactable,@contact) do |form| %>
+      <%= render "govuk_publishing_components/components/select", {
+        id: "translation_locale",
+        name: "translation_locale",
+        label: "Select language",
+        hint: "This is the first step before creating a translated version of this content",
+        heading_size: "l",
+        full_width: true,
+        options: options_for_locales(@contact.missing_translations).map do |language, value|
+          {
+            text: language,
+            value: value,
+          }
+        end
+      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Next",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "contact-translation-button",
+            "track-label": "Next"
+          }
+        } %>
+        <%= link_to("Cancel", [:admin, @contact.contactable, Contact], class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
