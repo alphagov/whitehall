@@ -7,8 +7,8 @@ class NewsArticleType
 
   FORMAT_ADVICE = {
     1 => "<p>News written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.</p>",
-    2 => "<p>Unedited press releases as sent to the media, and official statements from the organisation or a minister.</p><p>Do <em>not</em> use for: statements to Parliament. Use the “Speech” format for those.</p>",
-    3 => "<p>Government statements in response to media coverage, such as rebuttals and ‘myth busters’.</p><p>Do <em>not</em> use for: statements to Parliament. Use the “Speech” format for those.</p>",
+    2 => "<p>Unedited press releases as sent to the media, and official statements from the organisation or a minister.</p><p>Do not use for: statements to Parliament. Use the “Speech” format for those.</p>",
+    3 => "<p>Government statements in response to media coverage, such as rebuttals and ‘myth busters’.</p><p>Do not use for: statements to Parliament. Use the “Speech” format for those.</p>",
     4 => "<p>Announcements specific to one or more world location. Don’t duplicate news published by another department.</p>",
   }.to_json.freeze
 
