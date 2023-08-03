@@ -14,8 +14,7 @@ end
 Then(/^I click on the tab "Email notifications/) do
   expect(page).to have_content("Email notifications")
   click_on("Email notifications")
-  expect(page).to have_content("\nEmails about this page\n")
-  expect(page).to have_content("\nEmails about the topic\n")
+  expect(page).to have_content("Choose the type of email updates users will get if they sign up for notifications.")
 end
 
 And(/^I choose "Emails about this topic"/) do
@@ -34,6 +33,11 @@ And(/^I click "Save"/) do
   click_on("Save")
 end
 
-Then(/^I am redirected to the document collection edit page/) do
+Then(/^I see the success message "([^"]*)"$/) do |message|
   assert_current_path edit_admin_document_collection_path(@document_collection)
+  expect(page).to have_content(message)
+end
+
+Then(/^I see the error "([^"]*)" prompting me to confirm my selection./) do |error_message|
+  expect(page).to have_content(error_message)
 end
