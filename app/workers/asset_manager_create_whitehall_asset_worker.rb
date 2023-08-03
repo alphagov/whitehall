@@ -7,8 +7,7 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
     return unless File.exist?(file_path)
 
     file = File.open(file_path)
-    asset_options = { file:, legacy_url_path:, auth_bypass_ids: }
-    asset_options[:draft] = true if draft
+    asset_options = { file:, legacy_url_path:, auth_bypass_ids:, draft: }
 
     if attachable_model_class && attachable_model_id
       attachable_model = attachable_model_class.constantize.find(attachable_model_id)

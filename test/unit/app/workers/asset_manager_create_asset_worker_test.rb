@@ -20,10 +20,11 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @asset_args)
   end
 
-  test "marks the asset as draft if instructed" do
-    Services.asset_manager.expects(:create_asset).with(has_entry(draft: true)).returns(@asset_manager_response)
+  test "marks the asset with provided draft value" do
+    draft = true
+    Services.asset_manager.expects(:create_asset).with(has_entry(draft:)).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args, true)
+    @worker.perform(@file.path, @asset_args, draft)
   end
 
   test "removes the file after it has been successfully uploaded" do

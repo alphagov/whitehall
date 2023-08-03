@@ -102,7 +102,7 @@ class AssetManagerIntegrationTest
     end
 
     test "does not mark the logo as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
+      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: false))
 
       Sidekiq::Testing.inline! do
         @organisation.save!
@@ -174,7 +174,7 @@ class AssetManagerIntegrationTest
     end
 
     test "does not mark the image as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
+      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: false))
 
       Sidekiq::Testing.inline! do
         @person.save!
@@ -275,7 +275,7 @@ class AssetManagerIntegrationTest
     end
 
     test "does not mark the consultation response form data as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
+      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: false))
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.save!
