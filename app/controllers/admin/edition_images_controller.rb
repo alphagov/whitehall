@@ -83,8 +83,4 @@ private
   def image_params
     params.fetch(:image, {}).permit(image_data: [:file])
   end
-
-  def use_non_legacy_endpoints?
-    current_user.can_use_non_legacy_endpoints?
-  end
 end

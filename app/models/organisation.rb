@@ -4,6 +4,8 @@ class Organisation < ApplicationRecord
   include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
 
+  attr_accessor :use_non_legacy_endpoints
+
   DEFAULT_JOBS_URL = "https://www.civilservicejobs.service.gov.uk/csr".freeze
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
@@ -103,6 +105,9 @@ class Organisation < ApplicationRecord
   has_and_belongs_to_many :superseded_organisations, class_name: "Organisation", foreign_key: :superseding_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseded_organisation_id
 
   has_many :offsite_links, as: :parent
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
 
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists

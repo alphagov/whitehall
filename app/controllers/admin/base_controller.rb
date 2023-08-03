@@ -75,4 +75,8 @@ private
   def handle_unverified_request
     raise ActionController::InvalidAuthenticityToken
   end
+
+  def use_non_legacy_endpoints?
+    current_user.can_use_non_legacy_endpoints?
+  end
 end

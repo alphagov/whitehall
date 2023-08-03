@@ -84,6 +84,8 @@ class AssetManagerIntegrationTest
   end
 
   class CreatingAnOrganisationLogo < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
     setup do
       @filename = "960x640_jpeg.jpg"
       @organisation = FactoryBot.build(
@@ -93,19 +95,45 @@ class AssetManagerIntegrationTest
       )
     end
 
-    test "sends the logo to Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+    context "use_non_legacy_endpoints is false" do
+      test "sends the logo to Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
-      Sidekiq::Testing.inline! do
-        @organisation.save!
+        Sidekiq::Testing.inline! do
+          @organisation.save!
+        end
+      end
+
+      test "does not mark the logo as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entries(draft: false))
+
+        Sidekiq::Testing.inline! do
+          @organisation.save!
+        end
       end
     end
 
-    test "does not mark the logo as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: false))
+    context "use_non_legacy_endpoints is true" do
+      setup do
+        @organisation.use_non_legacy_endpoints = true
+      end
 
-      Sidekiq::Testing.inline! do
-        @organisation.save!
+      test "sends the logo to Asset Manager" do
+        Services.asset_manager.expects(:create_asset).with { |params|
+          params[:file].path =~ /#{@filename}/
+        }.once.returns("id" => "http://asset-manager/assets/asset_manager_id")
+
+        Sidekiq::Testing.inline! do
+          @organisation.save!
+        end
+      end
+
+      test "does not mark the logo as draft in Asset Manager" do
+        Services.asset_manager.expects(:create_asset).with(has_entry(draft: false)).returns("id" => "http://asset-manager/assets/asset_manager_id")
+
+        Sidekiq::Testing.inline! do
+          @organisation.save!
+        end
       end
     end
   end

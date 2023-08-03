@@ -344,4 +344,28 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert_match(/A maximum of 6 documents will be featured on GOV.UK.*/, response.body)
   end
+
+  test "POST : create calls worker with asset args if use_non_legacy_endpoints is true" do
+    setup_user_with_required_permission
+
+    model_type = Organisation.to_s
+    variant = Asset.variants[:original]
+
+    AssetManagerCreateAssetWorker
+      .expects(:perform_async)
+      .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => variant, "assetable_type" => model_type), anything, anything, anything, anything)
+
+    post :create,
+         params: {
+           organisation: example_organisation_attributes
+                           .merge(
+                             organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+                             logo: upload_fixture("logo.png", "image/png"),
+                           ),
+         }
+  end
+
+  def setup_user_with_required_permission
+    @current_user.permissions << User::Permissions::USE_NON_LEGACY_ENDPOINTS
+  end
 end

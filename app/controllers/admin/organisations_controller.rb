@@ -16,6 +16,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def create
     @organisation = Organisation.new(organisation_params)
+    @organisation.use_non_legacy_endpoints = use_non_legacy_endpoints?
     if @organisation.save
       publish_services_and_information_page
       redirect_to admin_organisations_path

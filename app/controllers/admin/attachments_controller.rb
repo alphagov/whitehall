@@ -204,10 +204,6 @@ private
     ServiceListeners::AttachmentUpdater.call(attachment_data:)
   end
 
-  def use_non_legacy_endpoints?
-    current_user.can_use_non_legacy_endpoints?
-  end
-
   def clear_file_cache(attachment_params)
     if attachment_params.dig(:attachment_data_attributes, :file_cache).present? && attachment_params.dig(:attachment_data_attributes, :file).present?
       attachment_params[:attachment_data_attributes].delete(:file_cache)

@@ -78,7 +78,9 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 private
 
   def should_save_an_asset?
-    (uploader.model.instance_of?(AttachmentData) || uploader.model.instance_of?(ImageData)) &&
+    (uploader.model.instance_of?(AttachmentData) ||
+      uploader.model.instance_of?(ImageData) ||
+      uploader.model.instance_of?(Organisation)) &&
       uploader.model.use_non_legacy_endpoints
   end
 end
