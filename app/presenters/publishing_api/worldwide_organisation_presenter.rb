@@ -3,11 +3,12 @@ module PublishingApi
     include Rails.application.routes.url_helpers
     include ActionView::Helpers::UrlHelper
 
-    attr_accessor :item, :update_type
+    attr_accessor :item, :update_type, :state
 
-    def initialize(item, update_type: nil)
+    def initialize(item, update_type: nil, state: "published")
       self.item = item
       self.update_type = update_type || "major"
+      self.state = state
     end
 
     delegate :content_id, to: :item
@@ -56,11 +57,20 @@ module PublishingApi
     end
 
     def description
-      item.summary
+      if state == "draft"
+        item.draft_summary
+      else
+        item.summary
+      end
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item.about_us) || ""
+      about_us = if state == "draft"
+                   item.draft_about_us
+                 else
+                   item.about_us
+                 end
+      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(about_us) || ""
     end
 
     def main_office

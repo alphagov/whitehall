@@ -105,11 +105,22 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test "republishes owning worldwide organisation after commit when present" do
     worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page = create(:corporate_information_page, organisation: nil, worldwide_organisation:)
+    corporate_information_page = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation:)
 
-    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once
+    Services.publishing_api.expects(:put_content).once
 
     corporate_information_page.update!(body: "new body")
+  end
+
+  test "republishes owning worldwide organisation after commit when present and updates draft corporate information page" do
+    worldwide_organisation = create(:worldwide_organisation)
+    corporate_information_page = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation:)
+
+    Services.publishing_api.expects(:put_content).once
+
+    corporate_information_page.update!(body: "new body")
+
+    assert_equal "new body", corporate_information_page.body
   end
 
   test "does not republish owning organisation when absent" do
