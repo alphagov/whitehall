@@ -35,7 +35,8 @@ When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
   fill_in "Logo formatted name", with: organisation_name
   select "Ministerial department", from: "Organisation type"
   select "Jazz Bizniz", from: "organisation_topical_event_ids_0"
-  within ".featured-links" do
+  selector = using_design_system? ? ".app-view-organisation__featured_links" : ".featured-links"
+  within selector do
     expect(page).to_not have_content("English:")
     fill_in "Title", with: "Top task 1"
     fill_in "URL", with: "http://mainstream.co.uk"
@@ -115,8 +116,15 @@ end
 
 When(/^I delete the organisation "([^"]*)"$/) do |name|
   organisation = Organisation.find_by!(name:)
-  visit edit_admin_organisation_path(organisation)
-  click_button "delete"
+
+  if using_design_system?
+    visit admin_organisations_path
+    click_link "Delete #{organisation.name}", match: :first
+    click_button "Delete"
+  else
+    visit edit_admin_organisation_path(organisation)
+    click_button "delete"
+  end
 end
 
 Then(/^there should not be an organisation called "([^"]*)"$/) do |name|
@@ -296,9 +304,13 @@ end
 When(/^I close the organisation "(.*?)", superseding it with the organisation "(.*?)"$/) do |org_name, superseding_org_name|
   organisation = Organisation.find_by!(name: org_name)
   visit edit_admin_organisation_path(organisation.slug)
-  select "Closed", from: "Status on GOV.UK"
+  if using_design_system?
+    choose "Closed"
+  else
+    select "Closed", from: "Status on GOV.UK"
+  end
   select "Replaced", from: "Reason for closure"
-  select superseding_org_name, from: "Superseded by"
+  select superseding_org_name, from: using_design_system? ? "Superseding organisations" : "Superseded by"
   click_on "Save"
 end
 

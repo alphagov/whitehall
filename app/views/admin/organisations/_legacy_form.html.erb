@@ -1,0 +1,156 @@
+<%
+  initialise_script "GOVUK.organisationsForm"
+  show_instantly_live_warning ||= false
+  show_consult_gds_warning ||= false
+%>
+
+<%= form_for [:admin, organisation], as: :organisation, html: {class: 'organisation-form'} do |organisation_form| %>
+  <%= organisation_form.errors %>
+  <fieldset>
+    <p><%= organisation_form.text_field :name %></p>
+    <p><%= organisation_form.text_field :acronym %></p>
+    <p><%= organisation_form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %></p>
+    <p>
+      <%= organisation_form.label :organisation_logo_type_id, 'Logo crest' %>
+      <%= organisation_form.select :organisation_logo_type_id, options_from_collection_for_select(OrganisationLogoType.all, "id", "title", organisation.organisation_logo_type_id), {}, class: 'chzn-select form-control', data: { placeholder: "Choose logo crest…"} %>
+    </p>
+    <p class="organisation-custom-logo <%= logo_visibility_css(organisation) %>">
+      <%= organisation_form.label :logo, 'Custom logo' %>
+      <%= image_tag(organisation.logo.url) if organisation.logo? %>
+      <%= organisation_form.file_field :logo %>
+      <%= organisation_form.hidden_field :logo_cache %>
+    </p>
+    <p>
+      <%= organisation_form.label :organisation_brand_colour_id, 'Brand colour' %>
+      <%= organisation_form.select :organisation_brand_colour_id, options_from_collection_for_select(OrganisationBrandColour.all, "id", "title", organisation.organisation_brand_colour_id), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose brand colour…"} %>
+    </p>
+    <%= organisation_form.fields_for :default_news_image do |image_fields| %>
+      <%= render partial: "admin/shared/default_news_image_fields", locals: {image_fields: image_fields} %>
+    <% end %>
+    <p>
+      <%= organisation_form.text_field :url %>
+    </p>
+    <p>
+      <%= organisation_form.label :organisation_type_key, "Organisation type" %>
+      <%= organisation_form.select :organisation_type_key, options_from_collection_for_select(OrganisationType.in_listing_order, "key", "name", organisation.organisation_type_key), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the organisation type…" } %>
+    </p>
+    <p>
+      <%= organisation_form.text_field :alternative_format_contact_email, label_text: "Email address for ordering attached files in an alternative format" %>
+    </p>
+    <p>
+      <%= organisation_form.label :govuk_status, "Status on GOV.UK" %>
+      <%= organisation_form.select :govuk_status, [["Currently live", "live"], ["Coming soon", "joining"], ["Exempt from joining", "exempt"], ["Currently transitioning", "transitioning"], ["Closed", "closed"]], {}, class: 'chzn-select form-control' %>
+    </p>
+    <p class="js-closed-organisation-field">
+      <%= organisation_form.label :govuk_closed_status, "Reason for closure" %>
+      <%= organisation_form.select :govuk_closed_status, [["No longer exists", "no_longer_exists"], ["Replaced", "replaced"], ["Split into parts", "split"], ["Merged with other organisation", "merged"], ["Change of name", "changed_name"], ["Left central government", "left_gov"], ["Devolved to regional government", "devolved"]], {}, class: 'chzn-select form-control' %>
+    </p>
+    <p class="js-closed-organisation-field js-superseded-organisation-field">
+      <%= organisation_form.label :superseding_organisation_ids, "Superseded by" %>
+      <%= organisation_form.select :superseding_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en) - [organisation_form.object], 'id', 'select_name', organisation.superseding_organisation_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose which organisation(s) this organisation has been superseded by…" } %>
+    </p>
+    <div class="js-closed-organisation-field">
+      <div class="form-group">
+        <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
+        <div class="form-inline">
+          <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date form-control" } %>
+        </div>
+      </div>
+    </div>
+    <p>
+      <%= organisation_form.text_field :organisation_chart_url %>
+    </p>
+    <p>
+      <%= organisation_form.text_field :custom_jobs_url  %>
+    </p>
+    <% if current_user.gds_editor? %>
+      <div class="political-status">
+        <%= organisation_form.check_box :political, label_text: "Organisation publishes content associated with the current government" %>
+      </div>
+    <% end %>
+  </fieldset>
+  <fieldset>
+    <legend>Associations</legend>
+    <%= hidden_field_tag "organisation[parent_organisation_ids][]", "", id: "organisation_parent_organisation_ids_default" %>
+    <p>
+      <%= organisation_form.label :parent_organisation_ids, 'Sponsoring organisations' %>
+      <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en) - [organisation_form.object], 'id', 'select_name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose parent organisations…" } %>
+    </p>
+
+    <h3>Topical events</h3>
+    <% organisation_form.object.topical_event_organisations.each do |oc| %>
+      <p>
+        <%= label_tag "organisation_topical_event_ids_#{oc.ordering}" do %>
+          Topical Event <%= oc.ordering + 1 %>
+          <%= select_tag "organisation[topical_event_organisations_attributes][][topical_event_id]", options_from_collection_for_select(TopicalEvent.all, 'id', 'name', oc.topical_event_id), include_blank: true, multiple: false, class: 'chzn-select form-control', data: { placeholder: "Choose topical events…"}, id: "organisation_topical_event_ids_#{oc.ordering}" %>
+          <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][ordering]", oc.ordering %>
+          <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][id]", oc.id %>
+        <% end %>
+      </p>
+    <% end %>
+  </fieldset>
+
+  <% if can?(:manage_featured_links, @organisation) %>
+    <fieldset class="homepage-priority">
+      <legend>Position of featured links on organisation homepage</legend>
+
+      <div class="radio">
+        <%= organisation_form.label :homepage_type_news, class: 'news' do %>
+          <%= organisation_form.radio_button(:homepage_type, :news) %>
+          <span>News priority (up to 5 links)</span>
+        <% end %>
+      </div>
+      <div class="radio">
+        <%= organisation_form.label :homepage_type_service, class: 'service' do %>
+          <%= organisation_form.radio_button(:homepage_type, :service) %>
+          <span>Service priority (up to 10 links)</span>
+        <% end %>
+      </div>
+    </fieldset>
+
+    <%= render 'admin/shared/legacy_featured_link_fields', form: organisation_form %>
+  <% end %>
+
+  <% if can?(:manage_important_board_members, @organisation) && @organisation.management_roles.any? %>
+    <fieldset>
+      <div class="form-group">
+        <%= organisation_form.label :important_board_members, 'Number of important members of the management team' %>
+        <%= organisation_form.select :important_board_members, (1..@organisation.management_roles.count), {}, {class: 'form-control input-md-1'} %>
+      </div>
+    </fieldset>
+  <% end %>
+
+  <% if organisation.type && organisation.type.non_departmental_public_body? %>
+    <fieldset>
+      <legend>Non-Departmental Public Body Information</legend>
+      <p>
+        <%= organisation_form.label :ocpa_regulated, 'OCPA Regulated' %>
+        <%= organisation_form.select :ocpa_regulated, [["OCPA Regulated", true], ["Not OCPA Regulated", false]], include_blank: true %>
+      </p>
+      <p>
+        <%= organisation_form.label :public_meetings, 'Public Meetings' %>
+        <%= organisation_form.select :public_meetings, [["Public Meetings", true], ["No Public Meetings", false]], include_blank: true %>
+      </p>
+      <p>
+        <%= organisation_form.label :public_minutes, 'Public Minutes' %>
+        <%= organisation_form.select :public_minutes, [["Public Minutes", true], ["No Public Minutes", false]], include_blank: true %>
+      </p>
+      <p>
+        <%= organisation_form.label :regulatory_function, 'Regulatory Function' %>
+        <%= organisation_form.select :regulatory_function, [["Regulatory Function", true], ["No Regulatory Function", false]], include_blank: true %>
+      </p>
+    </fieldset>
+  <% end %>
+
+  <fieldset>
+    <legend>Freedom of Information</legend>
+    <%= organisation_form.check_box :foi_exempt, label_text: 'Exempt from Freedom of Information requests' %>
+  </fieldset>
+
+  <p class="warning">
+    <% if show_instantly_live_warning %>
+      Warning: changes to organisations appear instantly on the live site.
+    <% end %>
+  </p>
+  <%= organisation_form.save_or_cancel(cancel: (@organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path)) %>
+<% end %>

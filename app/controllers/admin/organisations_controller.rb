@@ -1,6 +1,9 @@
 class Admin::OrganisationsController < Admin::BaseController
+  before_action :build_organisation, only: %i[new create]
   before_action :load_organisation, except: %i[index new create]
   before_action :enforce_permissions!, only: %i[new create edit update]
+  before_action :build_dependencies, only: %i[new edit]
+  before_action :clean_organisation_params, only: %i[create update]
   layout :get_layout
 
   def index
@@ -10,17 +13,18 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def new
-    @organisation = Organisation.new
-    build_topical_event_organisations
+    render_design_system(:new, :legacy_new)
   end
 
   def create
-    @organisation = Organisation.new(organisation_params)
+    @organisation.assign_attributes(organisation_params)
+
     if @organisation.save
       publish_services_and_information_page
       redirect_to admin_organisations_path
     else
-      render :new
+      build_dependencies
+      render_design_system(:new, :legacy_new)
     end
   end
 
@@ -55,8 +59,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def edit
-    build_topical_event_organisations
-    build_default_news_image
+    render_design_system(:edit, :legacy_edit)
   end
 
   def update
@@ -65,7 +68,8 @@ class Admin::OrganisationsController < Admin::BaseController
       publish_services_and_information_page
       redirect_to admin_organisation_path(@organisation)
     else
-      render :edit
+      build_dependencies
+      render_design_system(:edit, :legacy_edit)
     end
   end
 
@@ -85,7 +89,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
-    design_system_actions += %w[index show features people] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index show features people new create edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
@@ -104,7 +108,7 @@ private
   end
 
   def organisation_params
-    params.require(:organisation).permit(
+    @organisation_params ||= params.require(:organisation).permit(
       :name,
       :acronym,
       :logo_formatted_name,
@@ -129,7 +133,7 @@ private
       :homepage_type,
       :political,
       superseding_organisation_ids: [],
-      default_news_image_attributes: %i[file file_cache],
+      default_news_image_attributes: %i[file file_cache id],
       organisation_roles_attributes: %i[id ordering],
       parent_organisation_ids: [],
       topical_event_organisations_attributes: %i[topical_event_id ordering id _destroy],
@@ -147,10 +151,6 @@ private
     end
   end
 
-  def build_default_news_image
-    @organisation.build_default_news_image
-  end
-
   def delete_absent_topical_event_organisations
     return unless params[:organisation] &&
       params[:organisation][:topical_event_organisations_attributes]
@@ -162,11 +162,48 @@ private
     end
   end
 
+  def build_organisation
+    @organisation = Organisation.new
+  end
+
   def load_organisation
     @organisation = Organisation.friendly.find(params[:id])
   end
 
   def publish_services_and_information_page
     Whitehall::PublishingApi.publish_services_and_information_async(@organisation.id)
+  end
+
+  def build_dependencies
+    build_topical_event_organisations
+    @organisation.build_default_news_image if @organisation.default_news_image.blank?
+    @organisation.featured_links.build if @organisation.featured_links.blank?
+  end
+
+  def clean_organisation_params
+    return if organisation_params.blank?
+
+    clean_logo_params
+    clean_non_departmental_public_body_params
+  end
+
+  def clean_logo_params
+    return if organisation_params["organisation_logo_type_id"].blank? || organisation_params["organisation_logo_type_id"] == OrganisationLogoType::CustomLogo.id.to_s
+
+    organisation_params[:logo] = nil
+    organisation_params.delete(:logo_cache) if organisation_params[:logo_cache].present?
+  end
+
+  def clean_non_departmental_public_body_params
+    return if organisation_params[:organisation_type_key].blank?
+
+    type_param_is_non_departmental_public_body = OrganisationType::DATA.dig(organisation_params[:organisation_type_key].to_sym, :non_departmental_public_body)
+
+    return if type_param_is_non_departmental_public_body
+
+    organisation_params[:ocpa_regulated] = nil
+    organisation_params[:public_meetings] = nil
+    organisation_params[:public_minutes] = nil
+    organisation_params[:regulatory_function] = nil
   end
 end

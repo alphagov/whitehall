@@ -24,6 +24,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_not new_organisation.valid?
   end
 
+  test "should be invalid if govuk status is nil" do
+    new_organisation = build(:organisation, govuk_status: nil)
+    assert new_organisation.invalid?
+  end
+
   test "should be valid if govuk status is live" do
     new_organisation = build(:organisation, govuk_status: "live")
     assert new_organisation.valid?

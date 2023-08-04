@@ -1,13 +1,14 @@
-<% page_title "Edit " + @organisation.name %>
+<% content_for :page_title, "Edit #{@organisation.name}" %>
+<% content_for :title, "Edit organisation" %>
+<% content_for :context, @organisation.name %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @organisation)) %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>Edit organisation</h1>
-    <p class="warning">Warning: changes to organisations appear instantly on the live site.</p>
-    <%= render partial: "form", locals: {organisation: @organisation, show_instantly_live_warning: true} %>
-  </section>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "form", organisation: @organisation %>
+  </div>
 
-  <div class="col-md-4">
-    <%= render partial: "sidebar" %>
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar %>
   </div>
 </div>

@@ -8,11 +8,15 @@
   else
     visible_links = FeaturedLink::DEFAULT_SET_SIZE
   end
+
+  remove_banner ||= false
 %>
 
-<%= render "govuk_publishing_components/components/inset_text", {
-  text: "Only the first #{visible_links} links will be shown on the public site."
-} %>
+<% unless remove_banner %>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "Only the first #{visible_links} links will be shown on the public site."
+  } %>
+<% end %>
 
 <div data-module="AddAnother" data-add-text="Add another featured link">
   <%= form.fields_for :featured_links do |featured_link_form| %>

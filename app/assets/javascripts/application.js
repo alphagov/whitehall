@@ -25,6 +25,7 @@
 
 //= require admin/views/broken-links-report
 //= require admin/views/edition-form
+//= require admin/views/organisation-form
 //= require admin/views/track-selected-taxons
 //= require admin/views/unpublish-display-conditions
 //= require admin/views/unpublish-tracking
