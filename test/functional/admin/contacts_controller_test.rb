@@ -6,7 +6,6 @@ class Admin::ContactsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   test "POST on :create creates contact" do
     organisation = create(:organisation)
