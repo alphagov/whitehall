@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_26_110128) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_04_105900) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -834,7 +834,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_110128) do
     t.integer "document_id"
     t.integer "creator_id"
     t.string "email_address"
-    t.datetime "review_at", precision: nil
+    t.date "review_at"
     t.datetime "reminder_sent_at", precision: nil
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
