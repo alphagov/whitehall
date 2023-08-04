@@ -18,6 +18,10 @@ class ReviewReminder < ApplicationRecord
     Time.zone.today >= review_at
   end
 
+  def reminder_due?
+    review_due? && reminder_sent_at.nil? && document.latest_edition.first_published_at?
+  end
+
 private
 
   def review_date_cannot_be_in_the_past

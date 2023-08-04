@@ -1,41 +1,33 @@
 require "test_helper"
 
 class ReviewReminderNotifierWorkerTest < ActiveSupport::TestCase
-  setup do
-    Timecop.travel(2.days.ago) do
-      @edition = create(:edition)
-      @review_reminder = create(:review_reminder, document: @edition.document, review_at: Time.zone.tomorrow)
-    end
-  end
+  test "calls MailNotifications#review_reminder and updates reminder_sent_at" do
+    reminder = create(:review_reminder, :reminder_due)
+    edition = reminder.document.latest_edition
+    recipient_address = reminder.email_address
 
-  test "calls MailNotifications#review_reminder and updates reminder_sent_at to now when reminder_sent_at is nil" do
     MailNotifications
       .expects(:review_reminder)
-      .with(@edition, recipient_address: @review_reminder.email_address)
+      .with(edition, recipient_address:)
       .returns(mailer = mock)
 
     mailer.expects(:deliver_now)
 
     # Freeze time so we can assert against the current time without it changing
     Timecop.freeze do
-      ReviewReminderNotifierWorker.new.perform(@review_reminder.id)
+      ReviewReminderNotifierWorker.new.perform(reminder.id)
 
-      assert_equal Time.zone.now, @review_reminder.reload.reminder_sent_at
+      assert_equal Time.zone.now, reminder.reload.reminder_sent_at
     end
   end
 
-  test "does not call MailNotifications#review_reminder or update reminder_sent_at when reminder_sent_at is present" do
-    reminder_sent_at = Time.zone.now
-    @review_reminder.update_columns(reminder_sent_at:)
+  test "does nothing if reminder does not need to be sent" do
+    MailNotifications.expects(:review_reminder).never
 
-    Timecop.travel(1.day.from_now) do
-      MailNotifications
-        .expects(:review_reminder)
-        .never
+    not_due_yet = create(:review_reminder, :not_due_yet)
+    ReviewReminderNotifierWorker.new.perform(not_due_yet.id)
 
-      ReviewReminderNotifierWorker.new.perform(@review_reminder.id)
-
-      assert_equal reminder_sent_at, @review_reminder.reload.reminder_sent_at
-    end
+    already_sent = create(:review_reminder, :reminder_sent)
+    ReviewReminderNotifierWorker.new.perform(already_sent.id)
   end
 end

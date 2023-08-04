@@ -68,6 +68,16 @@ class ReviewReminderTest < ActiveSupport::TestCase
     assert_nil reminder.reload.reminder_sent_at
   end
 
+  test "#reminder_due? returns true when the reminder email needs to be sent" do
+    assert build(:review_reminder, :reminder_due).reminder_due?
+  end
+
+  test "#reminder_due? returns false when the reminder email does not need to be sent" do
+    assert_not build(:review_reminder, :not_due_yet).reminder_due?
+    assert_not build(:review_reminder, :due_but_never_published).reminder_due?
+    assert_not build(:review_reminder, :reminder_sent).reminder_due?
+  end
+
   test ".reminder_due scope returns reminders that are due to be sent" do
     reminders = [
       due = build(:review_reminder, :reminder_due),
