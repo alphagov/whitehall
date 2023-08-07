@@ -72,10 +72,6 @@ sv:
         Vänligen tala om för oss vilket format du behöver. Det underlättar för oss om du anger vilken hjälpmedelsteknik du använder.
       intro: Den här filen kanske inte är lämplig för användare av hjälpmedel.
       request_a_different_format: Begär ett tillgängligt format.
-    csv:
-      cannot_preview: Den här filen kunde inte förhandsgranskas.
-      download: Ladda ner filen för att se hela innehållet.
-      truncated_message: Den här förhandsgranskningen visar endast de första %{rows} raderna och %{columns} kolumnerna.
     headings:
       order_a_copy: Beställ ett exemplar
       order_a_copy_full: Beställ ett exemplar av publikationen
@@ -91,16 +87,6 @@ sv:
     caution:
       subheading: Vi har hittat några problem med länkar som kan tyda på problem, du bör vara försiktig när du länkar till dem
     title: Trasiga länkar
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Stängd
-    closing_today: Stänger idag
-    closing_tomorrow: Stänger i morgon
-    days_left: "%{days_left} dagar kvar"
   contact:
     access_and_opening_times: Tillgång och öppettider
     contact_form: Kontaktformulär
@@ -137,10 +123,7 @@ sv:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Innehåll
-    latest: Senaste dokumenten
     published: publicerad
-    see_all: Se alla
     speech:
       author_title:
         minister: Minister
@@ -395,13 +378,7 @@ sv:
   document_filters:
     world_locations:
       all: Alla platser
-      label: Platser i världen
       no_locations_filter: Inga platser i världen matchar det filtret.
-  fatality_notice:
-    british_fatalities: Brittiska dödsfall
-    none_added: Det har ännu inte lagts till några meddelanden om dödsfall för detta verksamhetsområde.
-  feeds:
-    latest_activity: Senaste aktivitet
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,17 @@ sv:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Det finns inga uppdateringar ännu.
-    title: Senaste
   organisation:
     corporate_information:
-      access_our_info: Få tillgång till vår information
       jobs: Jobb
-      jobs_and_contacts: Jobb och kontrakt
       organisation_chart: Vårt organisationsschema
-      transparency: Uppgifter om öppenhet
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Företagsinformation
-      corporate_reports: Företagsrapporter
-    support:
-      administered_by: Administreras av
-      agencies_and_public_bodies: byråer och offentliga organ
-      part_of: Del av
-      public_body: offentligt organ
-      works_with: Arbetar med
-    type:
-      courts_and_tribunals: Domstolar och domstolar
   roles:
     unassigned: Ingen har tilldelats denna roll
-  see_all:
-    announcement: Se alla våra tillkännagivanden
-    authored_article: Se alla våra författade artiklar
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Se alla våra fallstudier
-    closed_call_for_evidence: 
-    closed_consultation: Se alla våra avslutade samråd
-    consultation: Se alla våra samråd
-    consultation_outcome: Se alla våra samrådsresultat
-    corporate_report: Se alla våra företagsrapporter
-    correspondence: Se alla våra korrespondenser
-    decision: Se alla våra beslut
-    detailed_guidance: Se alla våra riktlinjer
-    document_collection: Se alla våra samlingar
-    draft_text: Se alla våra utkast till texter
-    fatality_notice: Se alla våra meddelanden om dödsfall
-    foi_release: Se alla våra FOI-meddelanden
-    form: Se alla våra blanketter
-    government_response: Se alla våra myndighetssvar
-    guidance: Se all vår vägledning
-    impact_assessment: Se alla våra konsekvensbedömningar
-    imported: Se alla våra oberoende rapporter
-    international_treaty: Se alla våra internationella fördrag
-    map: Se alla våra kartor
-    national_statistics: Se all vår nationella statistik
-    news_article: Se alla våra nyhetsartiklar
-    news_story: Se alla våra nyheter
-    notice: Se alla våra meddelanden
-    open_call_for_evidence: 
-    open_consultation: Se alla våra öppna samråd
-    oral_statement: Se alla våra muntliga uttalanden inför parlamentet
-    policy: Se all vår politik
-    policy_paper: Se alla våra policydokument
-    press_release: Se alla våra pressmeddelanden
-    promotional: Se allt vårt reklammaterial
-    publication: Se alla våra publikationer
-    regulation: Se alla våra förordningar
-    research: Se all vår forskning och analys
-    speaking_notes: Se alla våra föredrag
-    speech: Se alla våra tal
-    statement_to_parliament: Se alla våra uttalanden inför parlamentet
-    statistical_data_set: Se alla våra statistiska uppgifter
-    statistics: Se all vår statistik
-    statutory_guidance: Se alla våra lagstadgade riktlinjer
-    transcript: Se alla våra utskrifter
-    transparency: Se alla våra uppgifter om öppenhet
-    written_statement: Se alla våra skriftliga uttalanden till parlamentet
   support:
     download: Ladda ner
     field_of_operation: 'Verksamhetsområde:'
-    fields_of_operation: Verksamhetsområden
     pagination:
       next_html: Nästa <span class="visuallyhidden">sida</span> <span class="page-numbers">%{current_page} av %{total_pages}</span>
       next_page: Nästa sida
@@ -565,9 +476,6 @@ sv:
       list_link: 
     headings:
       search: Sök efter land eller område
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Internationell delegation
@@ -584,11 +492,3 @@ sv:
       publication_scheme_html: Läs om vilka typer av information vi rutinmässigt publicerar i vår %{link}.
       social_media_use_html: Läs vår policy för %{link}.
       welsh_language_scheme_html: Ta reda på vårt åtagande om %{link}.
-    find_out_more: Se hela profilen och alla kontaktuppgifter
-    headings:
-      contact_us: Kontakta oss
-      corporate_information: Företagsinformation
-      follow_us: Följ oss
-      our_people: Vår personal
-    location: Plats
-    part_of: Del av

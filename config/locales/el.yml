@@ -71,10 +71,6 @@ el:
         Πείτε μας τι μορφή χρειάζεστε. Θα μας βοηθήσει αν πείτε ποια βοηθητική τεχνολογία χρησιμοποιείτε.
       intro: Αυτό το αρχείο ενδέχεται να μην είναι κατάλληλο για χρήστες βοηθητικής τεχνολογίας.
       request_a_different_format: Ζητήστε μια προσβάσιμη μορφή.
-    csv:
-      cannot_preview: Δεν ήταν δυνατή η προεπισκόπηση αυτού του αρχείου.
-      download: Κατεβάστε το αρχείο για να δείτε το πλήρες περιεχόμενό του.
-      truncated_message: Αυτή η προεπισκόπηση εμφανίζει μόνο τις πρώτες %{rows} σειρές και %{columns} στήλες.
     headings:
       order_a_copy: Παραγγείλετε ένα αντίγραφο
       order_a_copy_full: Παραγγείλετε ένα αντίγραφο της δημοσίευσης
@@ -90,16 +86,6 @@ el:
     caution:
       subheading: Βρήκαμε ορισμένα προβλήματα με τους συνδέσμους που μπορεί να ενέχουν κίνδυνο. Θα πρέπει να είστε προσεκτικοί κατά τη σύνδεση σε αυτούς
     title: Σπασμένοι σύνδεσμοι
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Κλειστό
-    closing_today: Κλείνει σήμερα
-    closing_tomorrow: Κλείνει αύριο
-    days_left: Απομένουν %{days_left} ημέρες
   contact:
     access_and_opening_times: Πρόσβαση και ώρες λειτουργίας
     contact_form: Φόρμα επικοινωνίας
@@ -136,10 +122,7 @@ el:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Περιεχόμενα
-    latest: Τελευταία έγγραφα
     published: δημοσιεύθηκε
-    see_all: Προβολή όλων
     speech:
       author_title:
         minister: Υπουργός
@@ -394,13 +377,7 @@ el:
   document_filters:
     world_locations:
       all: Όλες οι τοποθεσίες
-      label: Παγκόσμιες τοποθεσίες
       no_locations_filter: Καμία τοποθεσία στον κόσμο δεν ταιριάζει με αυτό το φίλτρο.
-  fatality_notice:
-    british_fatalities: Θάνατοι στην Βρετανία
-    none_added: Δεν έχουν προστεθεί ακόμη ανακοινώσεις θανάτου για αυτό το πεδίο λειτουργίας.
-  feeds:
-    latest_activity: Τελευταία δραστηριότητα
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,17 @@ el:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Δεν υπάρχουν ακόμα ενημερώσεις.
-    title: Πιο πρόσφατα
   organisation:
     corporate_information:
-      access_our_info: Πρόσβαση στις πληροφορίες μας
       jobs: Θέσεις εργασίας
-      jobs_and_contacts: Θέσεις εργασίας και συμβάσεις
       organisation_chart: Το οργανόγραμμα μας
-      transparency: Δεδομένα διαφάνειας
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Εταιρικές πληροφορίες
-      corporate_reports: Εταιρικές εκθέσεις
-    support:
-      administered_by: Διοικείται από
-      agencies_and_public_bodies: φορείς και δημόσιοι οργανισμοί
-      part_of: Μέρος του
-      public_body: δημόσιου φορέα
-      works_with: Δουλεύει με
-    type:
-      courts_and_tribunals: Δικαστήρια και Διαιτητικά όργανα
   roles:
     unassigned: Σε κανέναν δεν έχει ανατεθεί αυτός ο ρόλος
-  see_all:
-    announcement: Δείτε όλες τις ανακοινώσεις
-    authored_article: Δείτε όλα τα άρθρα
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Δείτε όλες τις μελέτες περιπτώσεων
-    closed_call_for_evidence: 
-    closed_consultation: Δείτε όλες τις κλειστές διαβουλεύσεις
-    consultation: Δείτε όλες τις διαβουλεύσεις
-    consultation_outcome: Δείτε όλα τα αποτελέσματα της διαβούλευσης
-    corporate_report: Δείτε όλες τις εταιρικές εκθέσεις
-    correspondence: Δείτε όλες τις αλληλογραφίες
-    decision: Δείτε όλες τις αποφάσεις
-    detailed_guidance: Δείτε όλες τις οδηγίες
-    document_collection: Δείτε όλες τις συλλογές
-    draft_text: Δείτε όλα τα προσχέδια κειμένων
-    fatality_notice: Δείτε όλες τις ανακοινώσεις θανάτου
-    foi_release: Δείτε όλες τις εκδόσεις FOI
-    form: Δείτε όλες τις φόρμες
-    government_response: Δείτε όλες τις κυβερνητικές απαντήσεις
-    guidance: Δείτε όλες τις οδηγίες
-    impact_assessment: Δείτε όλες τις εκτιμήσεις επιπτώσεων
-    imported: Δείτε όλες τις ανεξάρτητες εκθέσεις
-    international_treaty: Δείτε όλες τις διεθνείς συνθήκες
-    map: Δείτε όλους τους χάρτες
-    national_statistics: Δείτε όλες τις εκδόσεις της εθνικής στατιστικής υπηρεσίας
-    news_article: Δείτε όλα τα άρθρα ειδήσεων
-    news_story: Δείτε όλες τις ειδήσεις
-    notice: Δείτε όλες τις ειδοποιήσεις
-    open_call_for_evidence: 
-    open_consultation: Δείτε όλες τις ανοιχτές διαβουλεύσεις
-    oral_statement: Δείτε όλες τις προφορικές δηλώσεις στη Βουλή
-    policy: Δείτε όλες τις πολιτικές
-    policy_paper: Δείτε όλα τα έγγραφα πολιτικής
-    press_release: Δείτε όλα τα δελτία τύπου
-    promotional: Δείτε όλο το προωθητικό υλικό
-    publication: Δείτε όλες τις δημοσιεύσεις
-    regulation: Δείτε όλους τους κανονισμούς
-    research: Δείτε όλη την έρευνα και ανάλυση
-    speaking_notes: Δείτε όλες τις σημειώσεις ομιλίας
-    speech: Δείτε όλες τις ομιλίες
-    statement_to_parliament: Δείτε όλες τις δηλώσεις στη Βουλή
-    statistical_data_set: Δείτε όλα τα σύνολα στατιστικών δεδομένων
-    statistics: Δείτε όλα τα στατιστικά
-    statutory_guidance: Δείτε όλες τις νομικές οδηγίες
-    transcript: Δείτε όλες τις μεταγραφές
-    transparency: Δείτε όλα τα δεδομένα διαφάνειας
-    written_statement: Δείτε όλες τις γραπτές δηλώσεις στη Βουλή
   support:
     download: Κατεβάστε
     field_of_operation: 'Πεδίο λειτουργίας:'
-    fields_of_operation: Πεδία λειτουργίας
     pagination:
       next_html: Επόμενη <span class="visuallyhidden">σελίδα</span> <span class="page-numbers">%{current_page} από %{total_pages}</span>
       next_page: Επόμενη σελίδα
@@ -564,9 +475,6 @@ el:
       list_link: 
     headings:
       search: Αναζήτηση ανά χώρα ή περιοχή
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Διεθνής αντιπροσωπεία
@@ -583,11 +491,3 @@ el:
       publication_scheme_html: Διαβάστε σχετικά με τους τύπους πληροφοριών που δημοσιεύουμε συνήθως στο %{link}.
       social_media_use_html: Διαβάστε την πολιτική μας στο %{link}.
       welsh_language_scheme_html: Μάθετε για τη δέσμευσή μας στο %{link}.
-    find_out_more: Δείτε το πλήρες προφίλ και όλα τα στοιχεία επικοινωνίας
-    headings:
-      contact_us: Επικοινωνήστε μαζί μας
-      corporate_information: Εταιρικές πληροφορίες
-      follow_us: Ακολουθήστε μας
-      our_people: Οι άνθρωποί μας
-    location: Τοποθεσία
-    part_of: Μέρος του

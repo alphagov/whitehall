@@ -72,10 +72,6 @@ he:
         אנא ספר לנו איזה פורמט אתה צריך. זה יעזור לנו אם תגיד באיזו טכנולוגיה מסייעת אתה משתמש.
       intro: ייתכן שקובץ זה אינו מתאים למשתמשי טכנולוגיה מסייעת.
       request_a_different_format: בקש פורמט נגיש.
-    csv:
-      cannot_preview: לא ניתן לצפות בתצוגה מקדימה של קובץ זה.
-      download: הורד את הקובץ כדי לצפות בתוכנו המלא.
-      truncated_message: 'תצוגה מקדימה זו מציגה רק את %{rows} השורות ואת %{columns} העמודות הראשונות. '
     headings:
       order_a_copy: הזמן עותק
       order_a_copy_full: הזמן עותק של הפרסום
@@ -91,16 +87,6 @@ he:
     caution:
       subheading: 'מצאנו כמה בעיות עם קישורים שעשויים להצביע על בעיות, עליך לנקוט משנה זהירות בקישור אליהם '
     title: קישורים מנותקים
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: סגור
-    closing_today: נסגר היום
-    closing_tomorrow: נסגר מחר
-    days_left: נותרו %{days_left} ימים
   contact:
     access_and_opening_times: זמני גישה ופתיחה
     contact_form: טופס יצירת קשר
@@ -137,10 +123,7 @@ he:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: תוכן
-    latest: מסמכים אחרונים
     published: פורסם
-    see_all: ראה הכול
     speech:
       author_title:
         minister: שר
@@ -395,13 +378,7 @@ he:
   document_filters:
     world_locations:
       all: כל המיקומים
-      label: מיקומים גלובאליים
       no_locations_filter: אין מיקומים גלובאליים התואמים את המסנן הזה.
-  fatality_notice:
-    british_fatalities: הרוגים בריטים
-    none_added: עדיין לא נוספו הודעות פטירה על תחום פעולה זה.
-  feeds:
-    latest_activity: פעילות אחרונה
   i18n:
     direction: rtl
   language_names:
@@ -471,83 +448,17 @@ he:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: אין עדכונים נוספים.
-    title: אחרון
   organisation:
     corporate_information:
-      access_our_info: גישה למידע
       jobs: עבודות
-      jobs_and_contacts: משרות וחוזים
       organisation_chart: תרשים הארגון שלנו
-      transparency: שקיפות מידע
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: מידע תאגידי
-      corporate_reports: דו"חות משותפים
-    support:
-      administered_by: 'מנוהל על ידי '
-      agencies_and_public_bodies: סוכנויות וגופים ציבוריים
-      part_of: חלק של
-      public_body: גוף ציבורי
-      works_with: עובד עם
-    type:
-      courts_and_tribunals: בתי משפט ובתי דין
   roles:
     unassigned: לאף אחד אין תפקיד זה
-  see_all:
-    announcement: ראה כל הודעות
-    authored_article: ראה כל מאמרים מאושרים
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: ראה כל מקרי בוחן
-    closed_call_for_evidence: 
-    closed_consultation: ראה כל דיונים סגורים
-    consultation: ראה כל דיונים
-    consultation_outcome: ראה כל תוצאות דיונים
-    corporate_report: ראה כל דו"חות משותפים
-    correspondence: ראה כל תכתובות
-    decision: ראה כל ההחלטות
-    detailed_guidance: ראה כל הדרכה
-    document_collection: ראה כל האוספים
-    draft_text: ראה כל טיוטות
-    fatality_notice: ראה כל הודעות פטירה
-    foi_release: ראה כל פרסומי חופש מידע
-    form: ראה כל טפסים
-    government_response: ראה כל תגובות ממשלתיות
-    guidance: ראה כל הדרכה
-    impact_assessment: ראה כל הערכות השפעות
-    imported: ראה כל דו"ות עצמאיים
-    international_treaty: ראה כל ההסכמים הבינלאומיים
-    map: ראה כל מפות
-    national_statistics: ראה כל סטטסטיקה לאומית
-    news_article: ראה כל מאמרי חדשות
-    news_story: ראה כל חדשות
-    notice: ראה כל הודעות
-    open_call_for_evidence: 
-    open_consultation: ראה כל דיונים  פתוחים
-    oral_statement: ראה כל הצהרות בעל פה לפרלמנט
-    policy: ראה כל מדיניות
-    policy_paper: ראה כל ניירות מדיניות
-    press_release: ראה כל הודעות לעיתונות
-    promotional: ראה כל חומר פרסומי
-    publication: ראה כל פרסומים
-    regulation: ראה כל התקנות
-    research: ראה כל מחקר וניתוח
-    speaking_notes: ראה כל נאומים
-    speech: ראה כל נאומים
-    statement_to_parliament: ראה כל הצהרות לפרלמנט
-    statistical_data_set: ראה כל מערכי נתונים סטטיסטיים
-    statistics: ראה כל נתונים
-    statutory_guidance: ראה כל מערכי הדרכה סטטוטורית
-    transcript: ראה כל תמלולים
-    transparency: ראה כל שקיפות מידע
-    written_statement: ראה כל הצהרות בכתב לפרלמנט
   support:
     download: הורדה
     field_of_operation: 'תחום הפעולה:'
-    fields_of_operation: תחומי פעולה
     pagination:
       next_html: הדף <span class="visuallyhidden">הבא</span> <span class="page-numbers">%{current_page} של %{total_pages}</span>
       next_page: הדף הבא
@@ -565,9 +476,6 @@ he:
       list_link: 
     headings:
       search: חפש לפי מדינה או שטח
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: משלחת בינלאומית
@@ -584,11 +492,3 @@ he:
       publication_scheme_html: קרא על סוגי המידע שאנו מפרסמים באופן שגרתי ב- %{link} שלנו
       social_media_use_html: קרא/י אודות המדיניות שלנו %{link}
       welsh_language_scheme_html: מידע נוסף על המחויבות שלנו לפרסום %{link}.
-    find_out_more: ראה/י פרופיל מלא ופרטי התקשרות
-    headings:
-      contact_us: צור קשר
-      corporate_information: מידע תאגידי
-      follow_us: עקבו אחרינו
-      our_people: הצוות שלנו
-    location: מיקום
-    part_of: חלק של

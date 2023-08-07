@@ -69,10 +69,6 @@ mt:
       full_help_html: "Jekk tuża teknoloġija assistiva (bħal qarrej ta' skrin) u għandek bżonn verżjoni ta' dan id-dokument f'format iktar aċċessibbli, jekk jogħġbok ibgħat imejl %{email}. \nJekk jogħġbok igħidilna x'format għandek bżonn.  Ser jgħinna jekk tgħidilna x'teknoloġija assistiva qed tuża'.\n"
       intro: Dan il-fajl jista' ma jkunx adattat għal utenti ta' teknoloġija assistiva.
       request_a_different_format: Itlob format aċċessibbli.
-    csv:
-      cannot_preview: Il-fajl ma setax jintwera qabel.
-      download: Niżżel il-fajl biex tara l-kontenut kollu tiegħu.
-      truncated_message: Dan il-preview juri biss l-ewwel %{rows} ringiela u %{columns} kolonni.
     headings:
       order_a_copy: Ordna kopja
       order_a_copy_full: Ordna kopja tal-pubblikazzjoni
@@ -88,16 +84,6 @@ mt:
     caution:
       subheading: Sibna xi affarijiet fil-links li jistgħu jindikaw problemi, oqgħod attent meta tagħmel link magħhom
     title: Links maqsuma
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Magħluq
-    closing_today: Magħluq illum
-    closing_tomorrow: Jagħlaq għada
-    days_left: Fadal %{days_left} ġurnata
   contact:
     access_and_opening_times: Aċċess u ħinijiet tal-ftuħ
     contact_form: Formola ta' kuntatt
@@ -134,10 +120,7 @@ mt:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Werrej
-    latest: L-aħħar dokumenti
     published: ippubblikat
-    see_all: Ara kull
     speech:
       author_title:
         minister: Ministru
@@ -552,13 +535,7 @@ mt:
   document_filters:
     world_locations:
       all: Postijiet kollha
-      label: Postijiet fid-dinja
       no_locations_filter: L-ebda postijiet fid-dinja ma jaqblu mal-filter.
-  fatality_notice:
-    british_fatalities: Fatalitajiet ingliżi
-    none_added: Ma kien hemm l-ebda avviżi ta' fatalitajiet miżjuda għal din l-operazzjoni.
-  feeds:
-    latest_activity: L-aħħar attività
   i18n:
     direction: ltr
   language_names:
@@ -628,83 +605,17 @@ mt:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Għad m'hemmx aġġornamenti.
-    title: L-iktar riċenti
   organisation:
     corporate_information:
-      access_our_info: Aċċessa l-informazzjoni tagħna
       jobs: Impjiegi
-      jobs_and_contacts: Impjiegi u kuntratti
       organisation_chart: Iċ-chart organizzatorja tagħna
-      transparency: Data għat-trasparenza
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informazzjoni korporattiva
-      corporate_reports: Raporti korporattivi
-    support:
-      administered_by: Amministrati minn
-      agencies_and_public_bodies: aġenzi u korpi pubbliċi
-      part_of: Parti minn
-      public_body: korp pubbliku
-      works_with: Jaħdem ma'
-    type:
-      courts_and_tribunals: Qorti u Tribunali
   roles:
     unassigned: Ħadd m'għandu dan ir-rwol
-  see_all:
-    announcement: Ara l-avviżi tagħna kollha
-    authored_article: Ara l-artikli tagħna kollha li ktibna
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Ara l-istudji dwar il-każi tagħna kollha
-    closed_call_for_evidence: 
-    closed_consultation: Ara l-konsultazzjonijiet magħluqa tagħna kollha
-    consultation: Ara l-konsultazzjonijiet tagħna kollha
-    consultation_outcome: Ara r-riżultati tal-konsultazzjoni tagħna
-    corporate_report: Ara r-rapporti korporattivi tagħna
-    correspondence: Ara l-korrispondenza tagħna kollha
-    decision: Ara d-deċiżjonijiet tagħna kollha
-    detailed_guidance: Ara l-gwida tagħna kollha
-    document_collection: Ara l-kollezzjonijiet tagħna kollha
-    draft_text: Ara l-abbozz tat-testijiet tagħna kollha
-    fatality_notice: Ara l-avviżi dwar il-fatalità tagħna kollha
-    foi_release: Ara r-rilaxxi tagħna kollha dwar il-libertà għall-informazzjoni
-    form: Ara l-formoli tagħna kollha
-    government_response: Ara r-risposti tal-gvern kollha
-    guidance: Ara l-gwida tagħna kollha
-    impact_assessment: Ara l-assessjar tal-impatt tagħna kollu
-    imported: Ara r-rapporti indipendenti tagħna kollha
-    international_treaty: Ara t-trattati internazzjonali tagħna kollha
-    map: Ara l-mapep tagħna kollha
-    national_statistics: Ara l-iStatistiċi Nazzjonali tagħna kollha
-    news_article: Ara l-artikli bl-aħbarijiet tagħna kollha
-    news_story: Ara l-istejjer bl-aħbarijiet tagħna kollha
-    notice: Ara l-avviżi tagħna kollha
-    open_call_for_evidence: 
-    open_consultation: Ara l-konsultazzjonijiet miftuħa tagħna kollha
-    oral_statement: Ara d-dikjarazzjonijiet verbali tagħna kollha lill-Parlament
-    policy: Ara l-politiki tagħna kollha
-    policy_paper: Ara d-dokumenti tal-politika tagħna kollha
-    press_release: Ara l-istqarrijiet għall-istampa tagħna kollha
-    promotional: Ara l-materjal promozzjonali tagħna kollu
-    publication: Ara l-pubblikazzjonijiet tagħna kollha
-    regulation: Ara r-regolamenti tagħna kollha
-    research: Ara r-riċerka u l-analiżi tagħna kolllha
-    speaking_notes: Ara n-noti għad-diskors tagħna kollha
-    speech: Ara d-diskorsi tagħna kollha
-    statement_to_parliament: Ara d-dikjarazzjonijiet tagħna kollha lill-Parlament
-    statistical_data_set: Ara s-settijiet tad-dejta bl-istatistiċi tagħna kollha
-    statistics: Ara l-istatistiċi tagħna kollha
-    statutory_guidance: Ara l-gwida statutorja tagħna kollha
-    transcript: Ara t-transkripts tagħna kollha
-    transparency: Ara d-dejta dwar it-trasparenza tagħna kollha
-    written_statement: Ara d-dikjarazzjonijiet bil-miktub tagħna kollha lill-Parlament
   support:
     download: Niżżel
     field_of_operation: 'Qasam ta'' operazzjoni:'
-    fields_of_operation: Oqsma ta' operazzjoni
     pagination:
       next_html: Li jmiss<span class="visuallyhidden">paġna</span> <span class="page-numbers">%{current_page} ta ' %{total_pages}</span>
       next_page: Paġna li jmiss
@@ -722,9 +633,6 @@ mt:
       list_link: 
     headings:
       search: Fittex permezz tal-pajjiż jew territorju
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -745,11 +653,3 @@ mt:
       publication_scheme_html: 'Aqra dwar it-tipi ta'' informazzjoni li aħna nippubblikaw regolarment fil- %{link}. '
       social_media_use_html: Aqra dwar il-politika tagħna fuq  %{link}.
       welsh_language_scheme_html: Skopri iktar dwar l-impenn tagħna għal %{link}.
-    find_out_more: Ara l-profil kollu u d-dettalji tal-kuntatt
-    headings:
-      contact_us: Ikkuntattjana
-      corporate_information: Informazzjoni korporattiva
-      follow_us: Segwina
-      our_people: In-nies tagħna
-    location: Post
-    part_of: Parti minn

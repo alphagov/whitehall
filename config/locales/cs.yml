@@ -72,10 +72,6 @@ cs:
         Sdělte nám, jaký formát potřebujete. Pomůže nám, když uvedete, jakou asistenční technologii používáte.
       intro: Tento soubor nemusí být vhodný pro uživatele asistenčních technologií.
       request_a_different_format: Vyžádejte si přístupný formát.
-    csv:
-      cannot_preview: Tento soubor nebylo možné zobrazit.
-      download: Stáhněte si soubor a prohlédněte si jeho úplný obsah.
-      truncated_message: Tento náhled zobrazuje pouze první řádky %{rows} a sloupce %{columns}.
     headings:
       order_a_copy: Objednat kopii
       order_a_copy_full: Objednejte si výtisk publikace
@@ -91,16 +87,6 @@ cs:
     caution:
       subheading: Zjistili jsme několik problémů s odkazy, které mohou naznačovat problémy, a proto byste měli být při odkazování na ně opatrní
     title: Poškozené odkazy
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Uzavřeno
-    closing_today: Dnešní uzávěrka
-    closing_tomorrow: Uzavírá se zítra
-    days_left: "%{days_left} zbývající dny"
   contact:
     access_and_opening_times: Přístup a otevírací doba
     contact_form: Kontaktní formulář
@@ -137,10 +123,7 @@ cs:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Obsah
-    latest: Nejnovější dokumenty
     published: zveřejněno
-    see_all: Zobrazit všechny
     speech:
       author_title:
         minister: Ministr
@@ -475,13 +458,7 @@ cs:
   document_filters:
     world_locations:
       all: Všechna místa
-      label: Místa ve světě
       no_locations_filter: Žádná světová místa neodpovídají tomuto filtru.
-  fatality_notice:
-    british_fatalities: Britské úmrtí
-    none_added: Pro tuto oblast činnosti zatím nebyla přidána žádná oznámení o úmrtí.
-  feeds:
-    latest_activity: Poslední aktivita
   i18n:
     direction: ltr
   language_names:
@@ -551,83 +528,17 @@ cs:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Zatím nejsou k dispozici žádné aktualizace.
-    title: Nejnovější
   organisation:
     corporate_information:
-      access_our_info: Přístup k našim informacím
       jobs: Úlohy
-      jobs_and_contacts: Pracovní místa a smlouvy
       organisation_chart: Naše organizační schéma
-      transparency: Údaje o transparentnosti
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Firemní informace
-      corporate_reports: Podnikové zprávy
-    support:
-      administered_by: Spravovány
-      agencies_and_public_bodies: agentury a veřejné orgány
-      part_of: Část
-      public_body: subjekt veřejné správy
-      works_with: Pracuje se
-    type:
-      courts_and_tribunals: Soudy a tribunály
   roles:
     unassigned: Tato role není nikomu přidělena
-  see_all:
-    announcement: Podívejte se na všechna naše oznámení
-    authored_article: Podívejte se na všechny naše autorské články
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Podívejte se na všechny naše případové studie
-    closed_call_for_evidence: 
-    closed_consultation: Podívejte se na všechny naše uzavřené konzultace
-    consultation: Podívejte se na všechny naše konzultace
-    consultation_outcome: Podívejte se na všechny výsledky našich konzultací
-    corporate_report: Podívejte se na všechny naše firemní zprávy
-    correspondence: Podívejte se na veškerou naši korespondenci
-    decision: Podívejte se na všechna naše rozhodnutí
-    detailed_guidance: Podívejte se na všechny naše pokyny
-    document_collection: Podívejte se na všechny naše kolekce
-    draft_text: Podívejte se na všechny naše návrhy textů
-    fatality_notice: Podívejte se na všechna naše oznámení o úmrtí
-    foi_release: Podívejte se na všechny naše zprávy
-    form: Podívejte se na všechny naše formuláře
-    government_response: Podívejte se na všechny naše odpovědi vlády
-    guidance: Podívejte se na všechny naše pokyny
-    impact_assessment: Podívejte se na všechna naše hodnocení dopadů
-    imported: Podívejte se na všechny naše nezávislé zprávy
-    international_treaty: Podívejte se na všechny naše mezinárodní smlouvy
-    map: Podívejte se na všechny naše mapy
-    national_statistics: Podívejte se na všechny naše národní statistiky
-    news_article: Podívejte se na všechny naše zpravodajské články
-    news_story: Podívejte se na všechny naše novinky
-    notice: Podívejte se na všechna naše oznámení
-    open_call_for_evidence: 
-    open_consultation: Podívejte se na všechny naše otevřené konzultace
-    oral_statement: Podívejte se na všechny ústní prohlášení pro Parlament
-    policy: Podívejte se na všechny naše zásady
-    policy_paper: Podívejte se na všechny naše strategické dokumenty
-    press_release: Podívejte se na všechny naše tiskové zprávy
-    promotional: Podívejte se na všechny naše propagační materiály
-    publication: Podívejte se na všechny naše publikace
-    regulation: Podívejte se na všechny naše předpisy
-    research: Podívejte se na všechny naše výzkumy a analýzy
-    speaking_notes: Podívejte se na všechny naše poznámky k projevům
-    speech: Podívejte se na všechny naše projevy
-    statement_to_parliament: Podívejte se na všechna naše prohlášení pro Parlament
-    statistical_data_set: Podívejte se na všechny naše soubory statistických dat
-    statistics: Podívejte se na všechny naše statistiky
-    statutory_guidance: Podívejte se na všechny naše zákonné pokyny
-    transcript: Podívejte se na všechny naše přepisy
-    transparency: Podívejte se na všechny naše údaje o transparentnosti
-    written_statement: Podívejte se na všechna naše písemná prohlášení pro Parlament
   support:
     download: Stáhnout
     field_of_operation: 'Oblast provozu:'
-    fields_of_operation: Oblast provozu
     pagination:
       next_html: Další <span class="visuallyhidden">stránka</span> <span class="page-numbers">%{current_page} z %{total_pages}</span>
       next_page: Další stránka
@@ -645,9 +556,6 @@ cs:
       list_link: 
     headings:
       search: Vyhledávání podle země nebo území
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -666,11 +574,3 @@ cs:
       publication_scheme_html: Přečtěte si, jaké informace běžně zveřejňujeme v našem %{link}.
       social_media_use_html: Přečtěte si naše zásady na %{link}.
       welsh_language_scheme_html: Přečtěte si o našem závazku k %{link}.
-    find_out_more: Zobrazit celý profil a všechny kontaktní údaje
-    headings:
-      contact_us: Kontaktujte nás
-      corporate_information: Firemní informace
-      follow_us: Sledujte nás
-      our_people: Naši lidé
-    location: Sídlo
-    part_of: Část

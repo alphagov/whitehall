@@ -72,10 +72,6 @@ az:
         Sizə hansı formatın lazım olduğunu bizə söyləyin. Hansı köməkçi texnologiyadan istifadə etdiyinizi bildirməyiniz bizə kömək edəcək.
       intro: Bu fayl köməkçi texnologiya istifadəçiləri üçün uyğun olmaya bilər.
       request_a_different_format: İstifadə edilə bilən format tələb edin.
-    csv:
-      cannot_preview: Bu faylın ilkin nəzərdən keçirilməsi mümkün olmadı.
-      download: Bu faylın bütün məzmunlarına baxmaq üçün onu endirin.
-      truncated_message: Bu ilkin baxışda yalnız birinci %{rows} sıra və %{columns} sütun göstərilir.
     headings:
       order_a_copy: Surətini sifariş edin
       order_a_copy_full: Nəşrin surətini sifariş edin
@@ -91,16 +87,6 @@ az:
     caution:
       subheading: Biz problemləri göstərə biləcək keçidlərdə bəzi məsələlər tapmışıq, onlara qoşulan zaman ehtiyatlı olmalısınız
     title: Pozulmuş keçidlər
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Bağlıdır
-    closing_today: Bu gün bağlanır
-    closing_tomorrow: Sabah bağlanır
-    days_left: "%{days_left} gün qalıb"
   contact:
     access_and_opening_times: Giriş və iş vaxtı
     contact_form: Əlaqə saxlamaq üçün forma
@@ -137,10 +123,7 @@ az:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Məzmunlar
-    latest: Ən son ortaya çıxan sənədlər
     published: dərc edilib
-    see_all: Hamısına baxın
     speech:
       author_title:
         minister: Nazir
@@ -395,13 +378,7 @@ az:
   document_filters:
     world_locations:
       all: Bütün yerlər
-      label: Dünya üzrə yerləri
       no_locations_filter: Dünya üzrə yerləri həmin süzgəcə uyğun gəlmir.
-  fatality_notice:
-    british_fatalities: Britaniya ölüm hadisələri
-    none_added: Bu iş sahəsi üzrə hələ heç bir ölüm hadisəsi bildirişləri əlavə edilməyib.
-  feeds:
-    latest_activity: Ən son fəaliyyət
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,17 @@ az:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Hələ yenilənmələr yoxdur.
-    title: Ən son
   organisation:
     corporate_information:
-      access_our_info: Məlumatlarımıza daxil olun
       jobs: İşlər
-      jobs_and_contacts: İşlər və müqavilələr
       organisation_chart: Təşkilat sxemimiz
-      transparency: Məlumatla bağlı şəffaflıq
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Korporativ məlumat
-      corporate_reports: Şirkətin fəaliyyəti üzrə hesabatlar
-    support:
-      administered_by: Agentliklər
-      agencies_and_public_bodies: və dövlət orqanları tərəfindən idarə edilir
-      part_of: Dövlət orqanının
-      public_body: bir hissəsi
-      works_with: Məhkəmə və məhkəmə kollegiyaları
-    type:
-      courts_and_tribunals: ilə işlər
   roles:
     unassigned: Bu vəzifəyə heç kim təyin edilməyib
-  see_all:
-    announcement: Bütün elanlarımıza baxın
-    authored_article: Müəlliflik edilmiş bütün məqalələrimizə baxın
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Nümunə üzrə bütün araşdırmalarımıza baxın
-    closed_call_for_evidence: 
-    closed_consultation: Bütün qapalı məsləhətləşmələrimizə baxın
-    consultation: Bütün məsləhətləşmələrimizə baxın
-    consultation_outcome: Bütün məsləhətləşmə nəticələrimizə baxın
-    corporate_report: Şirkətin fəaliyyəti üzrə bütün hesabatlarımıza baxın
-    correspondence: Bütün yazışmalarımıza baxın
-    decision: Bütün qərarlarımıza baxın
-    detailed_guidance: Bütün göstərişlərimizə baxın
-    document_collection: Bütün yığımlarımıza baxın
-    draft_text: Bütün hazırlanan mətnlərimizə baxın
-    fatality_notice: Bütün ğlüm hadisəsi bildirişlərimizə baxın
-    foi_release: Bütün məlumat əldə etmə azadlığı buraxılışlarımıza baxın
-    form: Bütün formalarımıza baxın
-    government_response: Hökumətimizin bütün reaksiyalarına baxın
-    guidance: Bütün göstərişlərimizə baxın
-    impact_assessment: Bizim bütün təsir dəyərləndirilmələrimizə baxın
-    imported: Bütün müstəqil hesabatlarımıza baxın
-    international_treaty: Bütün beynəlxalq sazişlərimizə baxın
-    map: Bütün xəritələrimizə baxın
-    national_statistics: Bütün Milli statistikamıza baxın
-    news_article: Xəbərləri əks etdirən bütün məqalələrimizə baxın
-    news_story: Xəbərləri əks etdirən bütün materiallarımıza baxın
-    notice: Bütün bildirişlərimizə baxın
-    open_call_for_evidence: 
-    open_consultation: Bütün açıq məsləhətləşmələrimizə baxın
-    oral_statement: Parlamentə edilmiş bütün şifahi müraciətlərimizə baxın
-    policy: Bütün siyasətlərimizə baxın
-    policy_paper: Bütün siyasət sənədlərimizə baxın
-    press_release: Bütün press-relizlərimizə baxın
-    promotional: Bütün reklam materialımıza baxın
-    publication: Bütün nəşrlərimizə baxın
-    regulation: Bütün tənzimləmələrimizə baxın
-    research: Bütün araşdırma və təhlillərimizə baxın
-    speaking_notes: Bütün şifahi qeydlərimizə baxın
-    speech: Bütün nitqlərimizə baxın
-    statement_to_parliament: Parlamentə edilmiş bütün müraciətlərimizə baxın
-    statistical_data_set: Bütün statistik məlumat paketlərimizə baxın
-    statistics: Bütün statistikamıza baxın
-    statutory_guidance: Bütün normativ göstərişlərimizə baxın
-    transcript: Bütün çıxarışlarımıza baxın
-    transparency: Bütün şəffaf malumatlarımıza baxın
-    written_statement: Parlamentə edilmiş bütün yazılı müraciətlərimizə baxın
   support:
     download: Endirin
     field_of_operation: 'Əməliyyat sahəsi:'
-    fields_of_operation: Əməliyyat sahələri
     pagination:
       next_html: '%{total_pages}</span>-ın sonrakı <span class="visuallyhidden">səhifəsi</span> <span class="page-numbers">%{current_page}'
       next_page: Sonrakı səhifə
@@ -565,9 +476,6 @@ az:
       list_link: 
     headings:
       search: Ölkəyə və ya əraziyə əsasən axtarın
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Beynəlxalq səlahiyyətin ötürülməsi
@@ -584,11 +492,3 @@ az:
       publication_scheme_html: "%{link}-də adətən istifadə etdiyimiz məlumatların növləri barədə oxuyun."
       social_media_use_html: "%{link}-də siyasətmizi oxuyun."
       welsh_language_scheme_html: "%{link} ilə bağlı öhdəliyimiz barədə öyrənin."
-    find_out_more: Tam profil və əlaqə məlumatlarımıza baxın
-    headings:
-      contact_us: Bizimlə əlaqə saxlayın
-      corporate_information: Korporativ məlumat
-      follow_us: Bizi təqib edin
-      our_people: İnsanlarımız
-    location: Yer
-    part_of: Dövlət orqanının

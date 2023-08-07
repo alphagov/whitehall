@@ -71,10 +71,6 @@ ko:
         필요한 양식을 알려주십시오. 사용하시는 지원 기술에 대해 알려주시면 도움이 됩니다.
       intro: '본 파일은 지원 기술이 필요한 분들께 적합하지 않을 수 있습니다. '
       request_a_different_format: 다른 포맷으로 요청
-    csv:
-      cannot_preview: 이 파일은 미리 볼 수 없을 수 있습니다.
-      download: 파일을 다운로드하여 전체 콘텐츠를 확인하십시오.
-      truncated_message: 이 미리보기는 첫 번째 %{rows} 행과 %{columns} 열만을 보여줍니다.
     headings:
       order_a_copy: 카피 주문하기
       order_a_copy_full: 본 문서의 카피 주문하기
@@ -90,16 +86,6 @@ ko:
     caution:
       subheading: 링크에서 문제를 나타낼 수 있는 몇 가지 문제가 발견되었으므로, 링크할 때 주의해야 합니다
     title: 손상된 링크
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: 종결됨
-    closing_today: 오늘 종결됨
-    closing_tomorrow: 내일 종결
-    days_left: "%{days_left} 일 남음"
   contact:
     access_and_opening_times: 액세스 및 공개 시간
     contact_form: 콘택트 폼
@@ -136,10 +122,7 @@ ko:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 콘텐츠
-    latest: 최근 문서
     published: 발행
-    see_all: 모두 보기
     speech:
       author_title:
         minister: 장관
@@ -314,13 +297,7 @@ ko:
   document_filters:
     world_locations:
       all: 모든 로케이션
-      label: 월드 로케이션
       no_locations_filter: 해당 필터와 일치하는 세계 필터란 없습니다.
-  fatality_notice:
-    british_fatalities: 영국 사망자
-    none_added: 이 운영 분야의 사망 통지는 아직 추가되지 않았습니다.
-  feeds:
-    latest_activity: 최근 활동
   i18n:
     direction: ltr
   language_names:
@@ -390,83 +367,17 @@ ko:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: 관련 내용이 아직 없습니다.
-    title: 최신
   organisation:
     corporate_information:
-      access_our_info: 정보 접근
       jobs: 채용
-      jobs_and_contacts: 채용 및 연락처
       organisation_chart: 조직 차트
-      transparency: 투명성 데이터
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: 기업 정보
-      corporate_reports: 기업 보고서
-    support:
-      administered_by: 관리자
-      agencies_and_public_bodies: 에이전시 및 공공 기관
-      part_of: 파트
-      public_body: 공공 기관
-      works_with: 협업 대상
-    type:
-      courts_and_tribunals: 상위 법원 및 법원
   roles:
     unassigned: 이 역할에 아무도 할당되지 않았습니다
-  see_all:
-    announcement: 공지 모두 둘러보기
-    authored_article: 기사 모두 둘러보기
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: 케이스 스터디 모두 둘러보기
-    closed_call_for_evidence: 
-    closed_consultation: 비공개 협의 모두 둘러보기
-    consultation: 협의 모두 둘러보기
-    consultation_outcome: 협의 결과 모두 둘러보기
-    corporate_report: 기업 레포트 모두 둘러보기
-    correspondence: 서신 모두 둘러보기
-    decision: 결정 모두 보기
-    detailed_guidance: 상세 안내 모두 둘러보기
-    document_collection: 컬렉션 모두 보기
-    draft_text: 드래프트 택스트 모두 둘러보기
-    fatality_notice: 사상자 공지 모두 둘러보기
-    foi_release: 였다 보도자료 모두 둘러보기
-    form: 문서 모두 둘러보기
-    government_response: 정부 대책 모두 둘러보기
-    guidance: 안내 모두 둘러보기
-    impact_assessment: 임팩트 평가 모두 둘러보기
-    imported: 수입 - 대기 모두 둘러보기
-    international_treaty: 국제 조약 모두 둘러보기
-    map: 지도 모두 둘러보기
-    national_statistics: 통계 - 국가 통계 모두 둘러보기
-    news_article: 뉴스 모두 둘러보기
-    news_story: 뉴스 스토리 모두 둘러보기
-    notice: 공지 모두 둘러보기
-    open_call_for_evidence: 
-    open_consultation: 오픈 컨설테이션 모두 둘러보기
-    oral_statement: 의회로 구두 성명 모두 둘러보기
-    policy: 정책 논문 모두 둘러보기
-    policy_paper: 정책 논문 모두 둘러보기
-    press_release: 보도자료 모두 둘러보기
-    promotional: 홍보물 모두 둘러보기
-    publication: 간행물 모두 둘러보기
-    regulation: 규제 모두 둘러보기
-    research: 리써치 및 분석 모두 둘러보기
-    speaking_notes: 요점사항 모두 둘러보기
-    speech: 연설문 모두 둘러보기
-    statement_to_parliament: 의회로 성명 모두 둘러보기
-    statistical_data_set: 통계 데이터 세트 모두 둘러보기
-    statistics: 통계 모두 둘러보기
-    statutory_guidance: 법적 지침 모두 둘러보기
-    transcript: 트랜스크립트 모두 둘러보기
-    transparency: 투명성 데이타 모두 둘러보기
-    written_statement: 의회로 서면 성명 모두 둘러보기
   support:
     download: 다운로드
     field_of_operation: '운영 영역:'
-    fields_of_operation: 운영 영역
     pagination:
       next_html: 다음 span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: 다음 페이지
@@ -484,9 +395,6 @@ ko:
       list_link: 
     headings:
       search: 국가 또는 영토로 검색하기
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: 국제 대표단
@@ -501,11 +409,3 @@ ko:
       publication_scheme_html: 정기적으로 공개되는 %{link} 정보에 대한 안내.
       social_media_use_html: "%{link} 에서 정책 정보 확인."
       welsh_language_scheme_html: "%{link} 에서 정보 공개에 대한 내용."
-    find_out_more: 프로필과 연락처 보기
-    headings:
-      contact_us: 연락처
-      corporate_information: 대사관 정보
-      follow_us: 소셜네트워크
-      our_people: 직원
-    location: 로케이션
-    part_of: 파트

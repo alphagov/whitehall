@@ -71,10 +71,6 @@ si:
         කරුණාකර ඔබට අවශ්ය ආකෘතිය කුමක්දැයි අපට කියන්න. ඔබ භාවිතා කරන ආධාරක තාක්ෂණය කුමක්දැයි ඔබ පැවසුවහොත් එය අපට උපකාරී වනු ඇත.
       intro: මෙම ගොනුව ආධාරක තාක්ෂණය භාවිතා කරන්නන් සඳහා සුදුසු නොවිය හැක.
       request_a_different_format: පිවිසිය හැකි ආකෘතියක් ඉල්ලන්න.
-    csv:
-      cannot_preview: මෙම ගොනුව පෙරදසුන් කළ නොහැක.
-      download: ගොනුවේ සම්පූර්ණ අන්තර්ගතය බැලීමට එය බාගනන.
-      truncated_message: මෙම පෙරදසුන පෙන්වන්නේ පළමු පේළී %{rows} ක් සහ තීරු %{columns} ක් පමණි.
     headings:
       order_a_copy: පිටපතක් ඇණවුම් කරන්න
       order_a_copy_full: ප්රකාශනයේ පිටපතක් ඇණවුම් කරන්න
@@ -90,16 +86,6 @@ si:
     caution:
       subheading: ප්‍රශ්න පෙන්විය හැකි සබැඳි වල ගැටළු ඇති බව අපි සොයා ගෙන ඇත, ඔබ ඒවාට සම්බන්ධ වීමේදී ප්රවේශම් විය යුතුය
     title: කැඩුණු සබැඳි
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: වසා ඇත
-    closing_today: අද දින වසා දැමේ
-    closing_tomorrow: හෙට වසා දැමේ
-    days_left: දවස් {days_left} ක් ඉතිරිව ඇත
   contact:
     access_and_opening_times: පිවිසුම සහ විවෘත කරන වේලාවන්
     contact_form: සබඳතා ආකෘතිය
@@ -136,10 +122,7 @@ si:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: අන්තර්ගත
-    latest: නවතම ලේඛන
     published: පළ කළේ
-    see_all: සියල්ල බලන්න
     speech:
       author_title:
         minister: අමාත්ය
@@ -394,13 +377,7 @@ si:
   document_filters:
     world_locations:
       all: සියලුම ස්ථාන
-      label: ලෝක ස්ථාන
       no_locations_filter: කිසිදු ලෝක ස්ථානයක් එම පෙරණයට නොගැලපේ.
-  fatality_notice:
-    british_fatalities: බ්රිතාන්ය මරණ
-    none_added: මෙම මෙහෙයුම් ක්ෂේත්රයට තවමත් මරණ දැන්වීම් එකතු කර නොමැත.
-  feeds:
-    latest_activity: නවතම ක්රියාකාරකම
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,17 @@ si:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: තවම යාවත්කාලීන කිසිවක් නොමැත.
-    title: නවතම
   organisation:
     corporate_information:
-      access_our_info: අපේ තොරතුරු වෙත පිවිසෙන්න
       jobs: රැකියා
-      jobs_and_contacts: රැකියා සහ කොන්ත්රාත්තු
       organisation_chart: අපේ සංවිධාන සටහන
-      transparency: විනිවිදභාව දත්ත
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: ආයතනික තොරතුරු
-      corporate_reports: ආයතනික වාර්තා
-    support:
-      administered_by: විසින් පරිපාලනය කරනු ලබන්නේ
-      agencies_and_public_bodies: නියෝජිතායතන සහ පොදු ආයතන
-      part_of: කොටසක්
-      public_body: පොදු ආයතන
-      works_with: සමඟ වැඩ කරයි
-    type:
-      courts_and_tribunals: අධිකරණ හා විනිශ්චය මණ්ඩල
   roles:
     unassigned: මෙම භූමිකාව කිසිවෙකුට පවරා නැත
-  see_all:
-    announcement: අපේ සියලු නිවේදන බලන්න
-    authored_article: අපේ සියලුම රචනා කළ ලිපි බලන්න
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: අපේ සියලු සිද්ධි අධ්යයන බලන්න
-    closed_call_for_evidence: 
-    closed_consultation: අපේ සියලු සංවෘත උපදේශන බලන්න
-    consultation: අපේ සියලු උපදේශන බලන්න
-    consultation_outcome: අපේ සියලු උපදේශන ප්‍රතිඵල බලන්න
-    corporate_report: අපේ සියලුම ආයතනික වාර්තා බලන්න
-    correspondence: අපේ සියලු ලිපි හුවමාරු බලන්න
-    decision: අපේ සියලු තීරණ බලන්න
-    detailed_guidance: අපේ සියලු මඟපෙන්වීම් බලන්න
-    document_collection: අපේ සියලු එකතු බලන්න
-    draft_text: අපේ සියලු කෙටුම්පත් පෙළ බලන්න
-    fatality_notice: අපේ සියලු මරණ දැන්වීම් බලන්න
-    foi_release: අපේ සියලුම FOI නිකුත් කිරීම් බලන්න
-    form: අපේ සියලු ආකෘති පත්‍ර බලන්න
-    government_response: අපේ රජයේ සියලු ප්රතිචාර බලන්න
-    guidance: අපේ සියලු මඟපෙන්වීම් බලන්න
-    impact_assessment: අපේ සියලු බලපෑම් ඇගයීම බලන්න
-    imported: අපේ සියලු ස්වාධීන වාර්තා බලන්න
-    international_treaty: අපේ සියලු ජාත්යන්තර ගිවිසුම් බලන්න
-    map: අපේ සියලු සිතියම් බලන්න
-    national_statistics: අපේ සියලු ජාතික සංඛ්යා ලේඛන බලන්න
-    news_article: අපේ සියලු පුවත් ලිපි බලන්න
-    news_story: අපේ සියලු පුවත් කථා බලන්න
-    notice: අපේ සියලු දැන්වීම් බලන්න
-    open_call_for_evidence: 
-    open_consultation: අපේ සියලු විවෘත උපදේශන බලන්න
-    oral_statement: අපේ පාර්ලිමේන්තුවට කළ ප්‍රකාශන සියල්ල බලන්න
-    policy: අපේ සියලු ප්රතිපත්ති බලන්න
-    policy_paper: අපේ සියලු ප්රතිපත්ති පත්රිකා බලන්න
-    press_release: අපේ සියලු මාධ්‍ය නිවේදන බලන්න
-    promotional: අපේ සියලු ප්රවර්ධන ද්රව්ය බලන්න
-    publication: අපේ සියලු ප්රකාශන බලන්න
-    regulation: අපේ සියලු රෙගුලාසි බලන්න
-    research: අපේ සියලු පර්යේෂණ හා විශ්ලේෂණ බලන්න
-    speaking_notes: අපේ සියලු කතා සටහන් බලන්න
-    speech: අපේ සියලු කතා බලන්න
-    statement_to_parliament: පාර්ලිමේන්තුවට කළ ප්‍රකාශන සියල්ල බලන්න
-    statistical_data_set: අපේ සියලු සංඛ්යාලේඛන දත්ත කට්ටල බලන්න
-    statistics: අපේ සියලු සංඛ්යා ලේඛන බලන්න
-    statutory_guidance: අපේ සියලු ව්යවස්ථාපිත මාර්ගෝපදේශ බලන්න
-    transcript: අපේ සියලු අනුපත් බලන්න
-    transparency: අපේ සියලු විනිවිදභාව දත්ත බලන්න
-    written_statement: පාර්ලිමේන්තුවට කළ අපේ ලිඛිත ප්‍රකාශන සියල්ල බලන්න
   support:
     download: බාගන්න
     field_of_operation: 'මෙහෙයුම් ක්ෂේත්රය:'
-    fields_of_operation: මෙහෙයුම් ක්ෂේත්ර
     pagination:
       next_html: ඊළඟ <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: ඊළඟ පිටුව
@@ -564,9 +475,6 @@ si:
       list_link: 
     headings:
       search: රට හෝ භූමිය අනුව සොයන්න
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: ජාත්යන්තර නියෝජිත පිරිස
@@ -583,11 +491,3 @@ si:
       publication_scheme_html: අපේ %{link} තුල අපි ආකාරික ලෙස ප්රකාශයට පත් කරන තොරතුරු වර්ග ගැන කියවන්න.
       social_media_use_html: අපේ ප්රතිපත්තිය කියවන්න %{link}.
       welsh_language_scheme_html: "%{link} සඳහා අපේ කැපවීම ගැන සොයා බලන්න."
-    find_out_more: සම්පූර්ණ පැතිකඩ සහ සියලු සබඳතා විස්තර බලන්න
-    headings:
-      contact_us: අපව සම්බන්ධ කරගන්න
-      corporate_information: ආයතනික තොරතුරු
-      follow_us: අපව අනුගමනය කරන්න
-      our_people: අපේ ජනතාව
-    location: ස්ථානය
-    part_of: කොටසක්

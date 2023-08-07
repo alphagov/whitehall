@@ -71,10 +71,6 @@ is:
         Vinsamlegast segðu okkur hvaða snið þú þarft. Vinsamlegast segðu okkur hvaða snið þú þarft.
       intro: Það hjálpar okkur ef þú tekur fram hvaða stoðtækni þú notast við.
       request_a_different_format: Óska eftir aðgengilegu sniði.
-    csv:
-      cannot_preview: Það er ekki hægt að forskoða þessa skrá.
-      download: Sæktu skránna til sjá allt efni hennar
-      truncated_message: Þessi forskoðun sýnir bara fyrstu %{rows} raðirnar og %{columns} dálkana.
     headings:
       order_a_copy: Panta eintak
       order_a_copy_full: Panta eintak af útgáfunni
@@ -90,16 +86,6 @@ is:
     caution:
       subheading: Við fundum vandamál með hlekki sem gætu leitt til vandræða, þú ætti að fara varlega í að tengjast þeim
     title: Óvirkir hlekkir
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Lokað
-    closing_today: Lokar í dag
-    closing_tomorrow: Lokar á morgun
-    days_left: "%{days_left} daga eftir"
   contact:
     access_and_opening_times: Aðgengi og opnunartímar
     contact_form: Eyðublað til að hafa samband
@@ -136,10 +122,7 @@ is:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Efni
-    latest: Nýjustu skjölin
     published: gefið út
-    see_all: Sjá allt
     speech:
       author_title:
         minister: Ráðherra
@@ -394,13 +377,7 @@ is:
   document_filters:
     world_locations:
       all: Allar staðsetningar
-      label: Staðsetningar í heiminum
       no_locations_filter: Engar staðsetningar í heiminum passa við þessa síu.
-  fatality_notice:
-    british_fatalities: Bresk dauðsföll
-    none_added: Engum tilkynningum um dauðsföll hefur verið bætt við fyrir þetta starfsvið.
-  feeds:
-    latest_activity: Nýjasta virkni
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,17 @@ is:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Það eru engar uppfærslur.
-    title: Nýjasta
   organisation:
     corporate_information:
-      access_our_info: Fáðu aðgang að okkar upplýsingum
       jobs: Störf
-      jobs_and_contacts: Störf og samningar
       organisation_chart: Skipurit okkar
-      transparency: Gögn um gagnsæi
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Upplýsingar um fyrirtæki
-      corporate_reports: Skýrslur fyrirtækis
-    support:
-      administered_by: Stýrt af
-      agencies_and_public_bodies: umboðum og opinberum stofnunum
-      part_of: Hluti af
-      public_body: opinber stofnun
-      works_with: Starfar með
-    type:
-      courts_and_tribunals: Réttir og dómstólar
   roles:
     unassigned: Enginn er settur í þetta hlutverk
-  see_all:
-    announcement: Sjá allar okkar tilkynningar
-    authored_article: Sjá allar okkar samdar greinar
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Sjá allar okkar ferilsathuganir
-    closed_call_for_evidence: 
-    closed_consultation: Sjá allar okkar lokaðar ráðgjafir
-    consultation: Sjá allar okkar ráðgjafir
-    consultation_outcome: Sjá allar okkar útkomur úr ráðgjöfum
-    corporate_report: Sjá allar okkar skýrslur fyrirtækja
-    correspondence: Sjá öll okkar samskipti
-    decision: Sjá allar okkar ákvarðanir
-    detailed_guidance: Sjá allar okkar leiðbeiningar
-    document_collection: Sjá öll okkar söfn
-    draft_text: Sjá öll okkar textadrög
-    fatality_notice: Sjá allar tilkynningar okkar um dauðsföll
-    foi_release: Sjá allar okkar FOI útgáfur
-    form: Sjá öll okkar eyðublöð
-    government_response: Sjá öll okkar opinber svör
-    guidance: Sjá allar okkar leiðbeiningar
-    impact_assessment: Sjá öll okkar áhrifamöt
-    imported: Sjá allar okkar sjálfstæðu skýrslur
-    international_treaty: Sjá alla alþjóðasamninga okkar
-    map: Sjá öll okkar kort
-    national_statistics: Sjá alla Hagstofu okkar
-    news_article: Sjá allar fréttagreinar okkar
-    news_story: Sjá allar fréttir okkar
-    notice: Sjá allar tilkynningar okkar
-    open_call_for_evidence: 
-    open_consultation: Sjá allar opnar ráðgjafir okkar
-    oral_statement: Sjá allar munnlegar yfirlýsingar okkar til Þingsins
-    policy: Sjá allar stefnur okkar
-    policy_paper: Sjá allar stefnu ritgerðir okkar
-    press_release: Sjá allar fréttatilkynningar okkar
-    promotional: Sjá allt kynningarefni okkar
-    publication: Sjá allar okkar útgáfur
-    regulation: Sjá allar reglugerðir okkar
-    research: Sjá allar rannsóknir og greiningu okkar
-    speaking_notes: Sjá alla ræðupunkta okkar
-    speech: Sjá allar ræður okkar
-    statement_to_parliament: Sjá allar okkar yfirlýsingar til Þingsins
-    statistical_data_set: Sjá öll tölfræðileg gagnsett okkar
-    statistics: Sjá allar okkar tölfræði
-    statutory_guidance: Sjá allar lagalegar leiðbeiningar okkar
-    transcript: Sjá öll okkar handrit
-    transparency: Sjá öll gögn okkar um gagnsæi
-    written_statement: Sjá allar skriflegar yfirlýsingar okkar til Þingsins
   support:
     download: Sækja
     field_of_operation: 'Starfsvið:'
-    fields_of_operation: Starfsvið
     pagination:
       next_html: næsta <span class="visuallyhidden">síða</span> <span class="page-numbers">%{current_page} af %{total_pages}</span>
       next_page: Næsta síða
@@ -564,9 +475,6 @@ is:
       list_link: 
     headings:
       search: Leita eftir landi eða landsvæði
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Alþjóðleg sendinefnd
@@ -583,11 +491,3 @@ is:
       publication_scheme_html: Lestu um hvaða upplýsingar við birtum reglulega í %{link} okkar.
       social_media_use_html: Lestu stefnuna okkar varðandi %{link}.
       welsh_language_scheme_html: Kynntu þér skuldbindingu okkar við %{link}.
-    find_out_more: Sjá allan prófílinn og allar upplýsingar til að hafa samband
-    headings:
-      contact_us: Hafa samband við okkur
-      corporate_information: Upplýsingar um fyrirtæki
-      follow_us: Fylgja okkur
-      our_people: Okkar fólk
-    location: Staðsetning
-    part_of: Hluti af

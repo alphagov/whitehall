@@ -71,10 +71,6 @@ de:
         Bitte teilen Sie uns mit, welches Format Sie benötigen. Es erleichtert uns die Arbeit, wenn Sie uns mitteilen, welche Hilfsmittel Sie verwenden.
       intro: Diese Datei ist möglicherweise nicht für Hilfsmittel-Nutzer geeignet.
       request_a_different_format: Fordern Sie ein zugängliches Format an.
-    csv:
-      cannot_preview: Diese Datei konnte nicht in der Vorschau angezeigt werden.
-      download: Laden Sie die Datei herunter, um den vollständigen Inhalt zu sehen.
-      truncated_message: Diese Vorschau zeigt nur die ersten %{rows} Zeilen und %{columns} Spalten.
     headings:
       order_a_copy: Eine Kopie bestellen
       order_a_copy_full: Eine Kopie der Publikation bestellen
@@ -90,16 +86,6 @@ de:
     caution:
       subheading: Wir haben einige Links gefunden, die auf Probleme hindeuten. Sie sollten bei der Verlinkung auf diese Links vorsichtig sein.
     title: Kaputte Links
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Geschlossen
-    closing_today: Schließt heute
-    closing_tomorrow: Schließt morgen
-    days_left: Noch %{days_left} Tage
   contact:
     access_and_opening_times: Zugang und Öffnungszeiten
     contact_form: Kontaktformular
@@ -136,10 +122,7 @@ de:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Inhalte
-    latest: Aktuelle Dokumente
     published: veröffentlicht
-    see_all: Alle ansehen
     speech:
       author_title:
         minister: Minister
@@ -394,13 +377,7 @@ de:
   document_filters:
     world_locations:
       all: Alle Standorte
-      label: Weltweite Standorte
       no_locations_filter: Kein Ort der Welt entspricht diesem Filter.
-  fatality_notice:
-    british_fatalities: Britische Todesfälle
-    none_added: Für dieses Einsatzgebiet wurden noch keine Meldungen über Todesfälle hinzugefügt.
-  feeds:
-    latest_activity: Letzte Aktivität
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,17 @@ de:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Es liegen noch keine Aktualisierungen vor.
-    title: Neueste
   organisation:
     corporate_information:
-      access_our_info: Auf unsere Informationen zugreifen
       jobs: Stellenangebote
-      jobs_and_contacts: Arbeitsplätze und Verträge
       organisation_chart: Unser Organisationsplan
-      transparency: Transparenzdaten
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Unternehmensinformationen
-      corporate_reports: Unternehmensberichte
-    support:
-      administered_by: Verwaltet durch
-      agencies_and_public_bodies: Agenturen und öffentliche Einrichtungen
-      part_of: Teil von
-      public_body: öffentliche Einrichtung
-      works_with: Arbeitet mit
-    type:
-      courts_and_tribunals: Gerichte und Gerichtshöfe
   roles:
     unassigned: Diese Funktion wurde niemandem zugewiesen
-  see_all:
-    announcement: Alle unsere Ankündigungen
-    authored_article: Alle unsere Namensartikel
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Alle unsere Fallstudien
-    closed_call_for_evidence: 
-    closed_consultation: Alle unsere abgeschlossenen Beratungen
-    consultation: Alle unsere Beratungen
-    consultation_outcome: Alle unsere Beratungsergebnisse
-    corporate_report: Alle unsere Geschäftsberichte
-    correspondence: Alle unsere Korrespondenz
-    decision: Alle unsere Entscheidungen
-    detailed_guidance: Alle unsere Detaillierten Hinweise
-    document_collection: Alle unsere Sammlungen
-    draft_text: Alle unsere Entwürfe
-    fatality_notice: Alle unsere Todesfallmeldungen
-    foi_release: Alle unsere Veröffentlichungen zum Informationsfreiheitsgesetz
-    form: Alle unsere Formulare
-    government_response: Alle unsere Antworten der Regierung
-    guidance: Alle unsere Detaillierten Hinweise
-    impact_assessment: Alle unsere Folgenabschätzungen
-    imported: Alle unsere unabhängigen Berichte
-    international_treaty: Alle unsere internationalen Verträge
-    map: Alle unsere Karten
-    national_statistics: Alle unsere nationalen Statistiken
-    news_article: Alle unsere Nachrichtenartikel
-    news_story: Alle unsere Nachrichtenberichte
-    notice: Alle unsere Mitteilungen
-    open_call_for_evidence: 
-    open_consultation: Alle unsere offenen Beratungen
-    oral_statement: Alle unsere mündlichen Erklärungen vor dem Parlament
-    policy: Alle unsere Richtlinien
-    policy_paper: Alle unsere Grundsatzpapiere
-    press_release: Alle unsere Pressemitteilungen
-    promotional: Alle unsere Werbematerialien
-    publication: Alle unsere Veröffentlichungen
-    regulation: Alle unsere Regulierungen
-    research: Alle unsere Forschung und Analyse
-    speaking_notes: Alle unsere Redenotizen
-    speech: Alle unsere Reden
-    statement_to_parliament: Alle unsere Erklärungen vor dem Parlament
-    statistical_data_set: Alle unsere Statistischen Datensätze
-    statistics: Alle unsere Statistiken
-    statutory_guidance: Alle unsere gesetzlichen Leitlinien
-    transcript: All unsere Transkripte
-    transparency: All unsere Transparenzdaten
-    written_statement: Alle unsere schriftlichen Erklärungen vor dem Parlament
   support:
     download: Herunterladen
     field_of_operation: 'Tätigkeitsbereich:'
-    fields_of_operation: Tätigkeitsbereiche
     pagination:
       next_html: Nächste <span class="visuallyhidden">Seite</span> <span class="page-numbers">%{current_page} von %{total_pages}</span>
       next_page: Nächste Seite
@@ -564,9 +475,6 @@ de:
       list_link: 
     headings:
       search: Nach Land oder Gebiet suchen
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Internationale Delegation
@@ -583,11 +491,3 @@ de:
       publication_scheme_html: Lesen Sie in unserem %{link}, welche Arten von Informationen wir regelmäßig veröffentlichen.
       social_media_use_html: Lesen Sie unsere Richtlinie zu %{link}.
       welsh_language_scheme_html: Informieren Sie sich über unser Engagement für %{link}.
-    find_out_more: Vollständiges Profil und alle Kontaktdaten anzeigen
-    headings:
-      contact_us: Kontaktieren Sie uns
-      corporate_information: Unternehmensinformationen
-      follow_us: Folgen Sie uns
-      our_people: Unsere Mitarbeiter
-    location: Standort
-    part_of: Teil von

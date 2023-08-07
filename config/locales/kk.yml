@@ -71,10 +71,6 @@ kk:
         Сізге қандай пішім қажет екенін айтыңыз. Қандай көмекші технологияларды қолданатыныңызды айтсаңыз, бұл бізге көмектеседі.
       intro: Бұл файл көмекші технология қолданушыларына сәйкес келмеуі мүмкін.
       request_a_different_format: Қолжетімді пішімді сұраңыз.
-    csv:
-      cannot_preview: Бұл файлды алдын ала қарау мүмкін болмады.
-      download: Файлды толық мазмұнды көру үшін жүктеп алыңыз.
-      truncated_message: Бұл алдын ала қарау тек бірінші %{rows} жолдар мен %{columns} бағандарын көрсетеді.
     headings:
       order_a_copy: Көшірмесіне тапсырыс беру
       order_a_copy_full: Басылымның көшірмесіне тапсырыс беріңіз
@@ -90,16 +86,6 @@ kk:
     caution:
       subheading: Біз сілтемелерде мәселелерді көрсетуі мүмкін кейбір ақауларды таптық, оларға сілтеме жасағанда абай болу керек
     title: Бұзылған сілтемелер
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Жабық
-    closing_today: Бүгін жабылады
-    closing_tomorrow: Ертең жабылады
-    days_left: "%{days_left} күн қалды"
   contact:
     access_and_opening_times: Кіру және ашу уақыттары
     contact_form: Байланысу формасы
@@ -136,10 +122,7 @@ kk:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Мазмұны
-    latest: Ең соңғы құжаттар
     published: жарияланды
-    see_all: Барлығын қарау
     speech:
       author_title:
         minister: Министр
@@ -394,13 +377,7 @@ kk:
   document_filters:
     world_locations:
       all: Барлық орындар
-      label: Әлемдегі орындар
       no_locations_filter: Бұл сүзгіге сәйкес келетін әлем орындары жоқ.
-  fatality_notice:
-    british_fatalities: Ұлыбританиядағы өлімдер
-    none_added: Бұл жұмыс саласы үшін өлім туралы хабарламалар әлі қосылмады.
-  feeds:
-    latest_activity: Ең соңғы әрекет
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,17 @@ kk:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Әлі жаңартулар жоқ.
-    title: Ең соңғы
   organisation:
     corporate_information:
-      access_our_info: Біздің ақпаратқа қатынасу
       jobs: Жұмыстар
-      jobs_and_contacts: Жұмыстар мен келісімшарттар
       organisation_chart: Біздің ұйым жарғысы
-      transparency: Ашықтық деректері
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Корпоративтік ақпарат
-      corporate_reports: Корпоративтік есептер
-    support:
-      administered_by: Басқаратын
-      agencies_and_public_bodies: агенттіктер мен мемлекеттік органдар
-      part_of: Бөлігі
-      public_body: мемлекеттік орган
-      works_with: Мынамен жұмыс істейді
-    type:
-      courts_and_tribunals: Соттар мен сот орындары
   roles:
     unassigned: Бұл рөлге ешкім тағайындалмаған
-  see_all:
-    announcement: Біздің барлық хабарландыруларды қараңыз
-    authored_article: Біздің авторлық мақалалардың барлығын қараңыз
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Біздің барлық жағдайлық зерттеулерімізді қараңыз
-    closed_call_for_evidence: 
-    closed_consultation: Біздің барлық жабық кеңестерді қараңыз
-    consultation: Біздің барлық кеңестерді қараңыз
-    consultation_outcome: Біздің кеңестің барлық нәтижелерін қараңыз
-    corporate_report: Біздің барлық корпоративтік есептерді қараңыз
-    correspondence: Біздің барлық хат-алмасуларды қараңыз
-    decision: Біздің барлық шешімдерімізді қараңыз
-    detailed_guidance: Біздің барлық нұсқаулықты қараңыз
-    document_collection: Біздің барлық топтамаларымызды қараңыз
-    draft_text: Біздің барлық жобалық мәтіндерді қараңыз
-    fatality_notice: Біздің өлім туралы барлық ескертулерді қараңыз
-    foi_release: Біздің барлық FOI шығарылымдарымызды қараңыз
-    form: Біздің барлық формаларымызды қараңыз
-    government_response: Біздің мемлекеттің барлық жауаптарын қараңыз
-    guidance: Біздің барлық нұсқаулықты қараңыз
-    impact_assessment: Біздің барлық ықпалының бағалауларын қараңыз
-    imported: Біздің барлық тәуелсіз есептерді қараңыз
-    international_treaty: Біздің барлық халықаралық келісімдерді қараңыз
-    map: Біздің барлық карталарды қараңыз
-    national_statistics: Біздің барлық Ұлттық статистиканы қараңыз
-    news_article: Біздің барлық жаңалықтар мақалаларын қараңыз
-    news_story: Біздің барлық жаңалықтар оқиғаларын қараңыз
-    notice: Біздің барлық ескертулерді қараңыз
-    open_call_for_evidence: 
-    open_consultation: Біздің барлық ашық кеңестерді қараңыз
-    oral_statement: Парламентке біздің барлық ауызша мәлімдемелерімізді қараңыз
-    policy: Біздің барлық саясаттарымызды қараңыз
-    policy_paper: Біздің барлық саяси құжаттарымызды қараңыз
-    press_release: Біздің барлық пресс-релиздерімізді қараңыз
-    promotional: Біздің барлық жарнамалық материалдарды қараңыз
-    publication: Біздің барлық жарияланымдарды қараңыз
-    regulation: Біздің барлық ережелерімізді қараңыз
-    research: Біздің барлық зерттеулер мен талдауларды қараңыз
-    speaking_notes: Біздің барлық жазбаларымызды қараңыз
-    speech: Біздің барлық сөздерімізді қараңыз
-    statement_to_parliament: Парламентке біздің барлық мәлімдемелерімізді қараңыз
-    statistical_data_set: Біздің барлық статистикалық мәліметтер жиынтығын қараңыз
-    statistics: Біздің барлық статистикамызды қараңыз
-    statutory_guidance: Біздің заңды нұсқаулықтардың барлығын қараңыз
-    transcript: Біздің барлық стенограммаларымызды қараңыз
-    transparency: Біздің ашықтық туралы барлық деректерді қараңыз
-    written_statement: Парламентке біздің барлық жазбаша мәлімдемелерімізді қараңыз
   support:
     download: Жүктеп алу
     field_of_operation: 'Жұмыс аймағы:'
-    fields_of_operation: Жұмыс аймақтары
     pagination:
       next_html: Келесі <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Келесі бет
@@ -564,9 +475,6 @@ kk:
       list_link: 
     headings:
       search: Елі немесе территориясы бойынша іздеу
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Халықаралық делегация
@@ -583,11 +491,3 @@ kk:
       publication_scheme_html: Біз үнемі %{link} бөлімінде жариялайтын ақпарат түрлері туралы оқыңыз.
       social_media_use_html: "%{link} мекенжайындағы саясатымызды оқыңыз."
       welsh_language_scheme_html: "%{link} қосқан үлесіміз туралы оқыңыз."
-    find_out_more: Толық профильді және барлық байланыс мәліметтерін қараңыз
-    headings:
-      contact_us: Бізбен байланысыңыз
-      corporate_information: Корпоративтік ақпарат
-      follow_us: Бізге жазылыңыз
-      our_people: Біздің адамдар
-    location: Орны
-    part_of: Бөлігі

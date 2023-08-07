@@ -56,10 +56,6 @@ en:
         Please tell us what format you need. It will help us if you say what assistive technology you use.
       intro: This file may not be suitable for users of assistive technology.
       request_a_different_format: Request an accessible format.
-    csv:
-      cannot_preview: This file could not be previewed.
-      download: Download the file to view its full contents.
-      truncated_message: This preview only shows the first %{rows} rows and %{columns} columns.
     headings:
       order_a_copy: Order a copy
       order_a_copy_full: Order a copy of the publication
@@ -75,16 +71,6 @@ en:
     caution:
       subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
     title: Broken links
-  call_for_evidence:
-    closed: Closed
-    closing_today: Closing today
-    closing_tomorrow: Closes tomorrow
-    days_left: "%{days_left} days left"
-  consultation:
-    closed: Closed
-    closing_today: Closing today
-    closing_tomorrow: Closes tomorrow
-    days_left: "%{days_left} days left"
   contact:
     access_and_opening_times: Access and opening times
     contact_form: Contact form
@@ -121,10 +107,7 @@ en:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Contents
-    latest: Latest documents
     published: published
-    see_all: See all
     speech:
       author_title:
         minister: Minister
@@ -379,13 +362,7 @@ en:
   document_filters:
     world_locations:
       all: All locations
-      label: World locations
       no_locations_filter: No world locations match that filter.
-  fatality_notice:
-    british_fatalities: British fatalities
-    none_added: There have been no fatality notices added for this field of operation yet.
-  feeds:
-    latest_activity: Latest activity
   i18n:
     direction: ltr
   language_names:
@@ -455,83 +432,17 @@ en:
     zh: Chinese
     zh-hk: Cantonese
     zh-tw: Traditional Chinese
-  latest_feed:
-    no_updates: There are no updates yet.
-    title: Latest
   organisation:
     corporate_information:
-      access_our_info: Access our information
       jobs: Jobs
-      jobs_and_contacts: Jobs and contracts
       organisation_chart: Our organisation chart
-      transparency: Transparency data
     embassies:
       find_an_embassy_title: Find a British embassy, high commission or consulate
-    headings:
-      corporate_information: Corporate information
-      corporate_reports: Corporate reports
-    support:
-      administered_by: Administered by
-      agencies_and_public_bodies: agencies and public bodies
-      part_of: Part of
-      public_body: public body
-      works_with: Works with
-    type:
-      courts_and_tribunals: Courts and Tribunals
   roles:
     unassigned: No one is assigned to this role
-  see_all:
-    announcement: See all our announcements
-    authored_article: See all our authored articles
-    call_for_evidence: See all our calls for evidence
-    call_for_evidence_outcome: See all our calls for evidence outcomes
-    case_study: See all our case studies
-    closed_call_for_evidence: See all our closed calls for evidence
-    closed_consultation: See all our closed consultations
-    consultation: See all our consultations
-    consultation_outcome: See all our consultation outcomes
-    corporate_report: See all our corporate reports
-    correspondence: See all our correspondences
-    decision: See all our decisions
-    detailed_guidance: See all our guidance
-    document_collection: See all our collections
-    draft_text: See all our draft texts
-    fatality_notice: See all our fatality notices
-    foi_release: See all our FOI releases
-    form: See all our forms
-    government_response: See all our government responses
-    guidance: See all our guidance
-    impact_assessment: See all our impact assessments
-    imported: See all our independent reports
-    international_treaty: See all our international treaties
-    map: See all our maps
-    national_statistics: See all our National Statistics
-    news_article: See all our news articles
-    news_story: See all our news stories
-    notice: See all our notices
-    open_call_for_evidence: See all our open calls for evidence
-    open_consultation: See all our open consultations
-    oral_statement: See all our oral statements to Parliament
-    policy: See all our policies
-    policy_paper: See all our policy papers
-    press_release: See all our press releases
-    promotional: See all our promotional material
-    publication: See all our publications
-    regulation: See all our regulations
-    research: See all our research and analysis
-    speaking_notes: See all our speaking notes
-    speech: See all our speeches
-    statement_to_parliament: See all our statements to Parliament
-    statistical_data_set: See all our statistical data sets
-    statistics: See all our statistics
-    statutory_guidance: See all our statutory guidance
-    transcript: See all our transcripts
-    transparency: See all our transparency data
-    written_statement: See all our written statements to Parliament
   support:
     download: Download
     field_of_operation: 'Field of operation:'
-    fields_of_operation: Fields of operation
     pagination:
       next_html: Next <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} of %{total_pages}</span>
       next_page: Next page
@@ -549,9 +460,6 @@ en:
       list_link: list of overseas Foreign, Commonwealth & Development Office posts
     headings:
       search: Search by country or territory
-    search_description:
-      international_delegation: Updates, news and events from the UK government in %{name}.
-      world_location: Services if you're visiting, studying, working or living in %{name}. Includes information about trading with and doing business in the UK and %{name}.
     type:
       international_delegation:
         one: International delegation
@@ -568,11 +476,3 @@ en:
       publication_scheme_html: Read about the types of information we routinely publish in our %{link}.
       social_media_use_html: Read our policy on %{link}.
       welsh_language_scheme_html: Find out about our commitment to %{link}.
-    find_out_more: See full profile and all contact details
-    headings:
-      contact_us: Contact us
-      corporate_information: Corporate information
-      follow_us: Follow us
-      our_people: Our people
-    location: Location
-    part_of: Part of

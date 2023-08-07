@@ -72,10 +72,6 @@ it:
         Comunicaci quale formato ti serve. Se ci comunichi quale tecnologia assistiva usi ci sarà di aiuto.
       intro: Questo file potrebbe non essere adatto per utenti di tecnologia assistiva.
       request_a_different_format: Richiedi un formato accessibile.
-    csv:
-      cannot_preview: Non è possibile vedere in anteprima questo file.
-      download: Scarica il file per vedere il suo contenuto completo.
-      truncated_message: Questa anteprima mostra solo le prime righe %{rows} e colonne %{columns}.
     headings:
       order_a_copy: Ordina una copia
       order_a_copy_full: Ordina una copia della pubblicazione
@@ -91,16 +87,6 @@ it:
     caution:
       subheading: Abbiamo riscontrato alcune questioni con i collegamenti che potrebbero indicare problemi, dovresti prestare attenzione nel collegarli
     title: Collegamenti interrotti
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Chiuso
-    closing_today: In chiusura oggi
-    closing_tomorrow: Si chiude domani
-    days_left: "%{days_left} giorni rimasti"
   contact:
     access_and_opening_times: Orari di accesso e di apertura
     contact_form: Modulo di contatto
@@ -137,10 +123,7 @@ it:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Contenuti
-    latest: Ultimi documenti
     published: pubblicato
-    see_all: Vedi tutto
     speech:
       author_title:
         minister: Ministro
@@ -395,13 +378,7 @@ it:
   document_filters:
     world_locations:
       all: Tutte le posizioni
-      label: Località del mondo
       no_locations_filter: Nessuna località del mondo corrisponde a quel filtro.
-  fatality_notice:
-    british_fatalities: Vittime britanniche
-    none_added: Non sono stati ancora aggiunti avvisi di morte per questo campo di attività.
-  feeds:
-    latest_activity: Ultima attività
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,17 @@ it:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Non ci sono ancora aggiornamenti.
-    title: Ultimo
   organisation:
     corporate_information:
-      access_our_info: Accedi alle nostre informazioni
       jobs: Lavori
-      jobs_and_contacts: Lavori e contratti
       organisation_chart: Il nostro organigramma
-      transparency: Dati sulla trasparenza
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informazioni aziendali
-      corporate_reports: Report aziendali
-    support:
-      administered_by: Amministrato da
-      agencies_and_public_bodies: agenzie ed enti pubblici
-      part_of: Parte di
-      public_body: ente pubblico
-      works_with: Lavora con
-    type:
-      courts_and_tribunals: Corti e tribunali
   roles:
     unassigned: Nessuno è assegnato a questo ruolo
-  see_all:
-    announcement: Vedi tutti i nostri annunci
-    authored_article: Vedi tutti i nostri articoli d’autore
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Vedi tutti i nostri casi di studio
-    closed_call_for_evidence: 
-    closed_consultation: Vedi tutte le nostre consultazioni chiuse
-    consultation: Vedi tutte le nostre consultazioni
-    consultation_outcome: Vedi tutti i nostri esiti di consultazione
-    corporate_report: Vedi tutti i nostri report aziendali
-    correspondence: Vedi tutte le nostre corrispondenze
-    decision: Vedi tutte le nostre decisioni
-    detailed_guidance: Vedi tutte le nostre guide
-    document_collection: Vedi tutte le nostre raccolte
-    draft_text: Vedi tutte le nostre bozze di testo
-    fatality_notice: Vedi tutti i nostri avvisi di morte
-    foi_release: Vedi tutte le nostre pubblicazioni sulla libertà d’informazione (FOI)
-    form: Vedi tutti i nostri moduli
-    government_response: Vedi tutte le nostre risposte del governo
-    guidance: Vedi tutte le nostre guide
-    impact_assessment: Vedi tutte le nostre valutazioni dell’impatto
-    imported: Vedi tutti i nostri report indipendenti
-    international_treaty: Vedi tutti i nostri trattati internazionali
-    map: Vedi tutte le nostre mappe
-    national_statistics: Vedi tutte le nostre statistiche nazionali
-    news_article: Vedi tutti i nostri articoli di notizie
-    news_story: Vedi tutte le nostre storie di notizie
-    notice: Vedi tutti i nostri avvisi
-    open_call_for_evidence: 
-    open_consultation: Vedi tutte le nostre consultazioni aperte
-    oral_statement: Vedi tutte le nostre dichiarazioni orali al Parlamento
-    policy: Vedi tutte le nostre informative
-    policy_paper: Vedi tutti i nostri documenti sulle politiche
-    press_release: Vedi tutti i nostri comunicati stampa
-    promotional: Vedi tutto il nostro materiale promozionale
-    publication: Vedi tutte le nostre pubblicazioni
-    regulation: Vedi tutti i nostri regolamenti
-    research: Vedi tutte le nostre ricerche e analisi
-    speaking_notes: Vedi tutte le nostre note parlanti
-    speech: Vedi tutti i nostri discorsi
-    statement_to_parliament: Vedi tutte le nostre dichiarazioni al Parlamento
-    statistical_data_set: Vedi tutti i nostri set di dati statistici
-    statistics: Vedi tutte le nostre statistiche
-    statutory_guidance: Vedi tutte le nostre guide statutarie
-    transcript: Vedi tutte le nostre trascrizioni
-    transparency: Vedi tutti i nostri dati sulla trasparenza
-    written_statement: Vedi tutte le nostre dichiarazioni scritte al Parlamento
   support:
     download: Download
     field_of_operation: 'Campo operativo:'
-    fields_of_operation: Campi operativi
     pagination:
       next_html: Pagina <span class=”visuallyhidden”>successiva</span> <span class=”page-numbers”>%{current_page} di %{total_pages}</span>
       next_page: Pagina successiva
@@ -565,9 +476,6 @@ it:
       list_link: 
     headings:
       search: Cerca per stato o territorio
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Delegazione internazionale
@@ -584,11 +492,3 @@ it:
       publication_scheme_html: Leggi i tipi di informazioni che pubblichiamo abitualmente nel nostro %{link}.
       social_media_use_html: Leggi la nostra informativa su %{link}.
       welsh_language_scheme_html: Scopri il nostro impegno per %{link}.
-    find_out_more: Vedi il profilo completo e tutti i dettagli di contatto
-    headings:
-      contact_us: Contattaci
-      corporate_information: Informazioni aziendali
-      follow_us: Seguici
-      our_people: Il nostro personale
-    location: Posizione
-    part_of: Parte di

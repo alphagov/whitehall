@@ -71,10 +71,6 @@ ta:
         எந்த வடிவம் உங்களுக்குத் தேவை என்று தயவுசெய்து கூறவும். நீங்கள் எந்த உதவக்கூடிய தொழில்நுட்பத்தை நீங்கள் பயன்படுத்துகிறீர்கள் என்று கூறினால் அது எங்களுக்கு உதவியாய் இருக்கும்.
       intro: உதவக்கூடிய தொழில்நுட்பப் பயனர்களுக்கு இந்தக் கோப்பு பொருந்தாது.
       request_a_different_format: அணுகக்கூடிய வடிவத்தைக் கோருக.
-    csv:
-      cannot_preview: இந்தக் கோப்புக்கு முன்னோட்டமில்லை.
-      download: கோப்பின் முழு உள்ளடக்கத்தையும் காண பதிவிறக்கவும்.
-      truncated_message: இந்த முன்னோட்டமானது முதல் %{rows} வரிசைகளையும் %{columns} பத்திகளையும் மட்டுமே காட்டும்.
     headings:
       order_a_copy: ஒரு பிரதிக்கு தாக்கீது செய்க
       order_a_copy_full: பிரசுரத்தின் ஒரு பிரதிக்கு தாக்கீது செய்க
@@ -90,16 +86,6 @@ ta:
     caution:
       subheading: பிரச்சினைகளைச் சுட்டிக்காட்டக்கூடிய இணைப்புகளுடன் சில பிரச்சினைகளைக் கண்டறிந்துள்ளோம். அவற்றைத் தொடர்வதில் கவனமாய் இருக்கவும்
     title: முறிந்த இணைப்புகள்
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: மூடப்பட்டது
-    closing_today: இன்று மூடப்படுகிறது
-    closing_tomorrow: நாளை மூடப்படுகிறது
-    days_left: "%{days_left} நாட்கள் எஞ்சியுள்ளன"
   contact:
     access_and_opening_times: அணுகுதல் மற்றும் திறக்கும் நேரங்கள்
     contact_form: தொடர்பு படிவம்
@@ -136,10 +122,7 @@ ta:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: உள்ளடக்கம்
-    latest: சமீபத்திய ஆவணங்கள்
     published: வெளியிடப்பட்டது
-    see_all: அனைத்தையும் பார்க்க
     speech:
       author_title:
         minister: அமைச்சர்
@@ -394,13 +377,7 @@ ta:
   document_filters:
     world_locations:
       all: அனைத்து இருப்பிடங்கள்
-      label: உலக இருப்பிடங்கள்
       no_locations_filter: எந்த உலக இருப்பிடங்களும் தேடலுடன் பொருந்தவில்லை.
-  fatality_notice:
-    british_fatalities: பிரிட்டிஷ் உயிரிழப்புகள்
-    none_added: இந்த செயல்பாட்டுத் தளத்தில் எந்த உயிரிழப்பு அறிவிப்புகளும் இன்னும் சேர்க்கப்படவில்லை.
-  feeds:
-    latest_activity: சமீபத்திய நடவடிக்கை
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,17 @@ ta:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: எந்த புதுப்பித்தல்களும் இல்லை.
-    title: சமீபத்தியது
   organisation:
     corporate_information:
-      access_our_info: எங்கள் தகவலை அணுகவும்
       jobs: வேலைகள்
-      jobs_and_contacts: வேலைகளும் ஒப்பந்தங்களும்
       organisation_chart: எங்கள் அமைப்பு வரைபடம்
-      transparency: வெளிப்படையான தரவு
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: குழுமத் தகவல்கள்
-      corporate_reports: குழும அறிக்கைகள்
-    support:
-      administered_by: நிர்வகிப்பவர்
-      agencies_and_public_bodies: முகமைகளும் பொது நிறுவனங்களும்
-      part_of: பகுதி
-      public_body: பொது நிறுவனம்
-      works_with: இதனுடன் பணியாற்றுகிறது
-    type:
-      courts_and_tribunals: நீதிமன்றங்களும் தீர்ப்பாயங்களும்
   roles:
     unassigned: இந்தப் பதவிக்கு யாரும் நியமிக்கப்படவில்லை
-  see_all:
-    announcement: எங்கள் அனைத்து அறிவிப்புகளையும் காண்க
-    authored_article: எங்கள் அனைத்து எழுதப்பட்ட கட்டுரைகளையும் காண்க
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: எங்கள் அனைத்து நிகழ்வு ஆய்வுகளையும் காண்க
-    closed_call_for_evidence: 
-    closed_consultation: எங்கள் அனைத்து மூடிய கலந்தாலோசனைகளையும் காண்க
-    consultation: எங்கள் அனைத்து கலந்தாலோசனைகளையும் காண்க
-    consultation_outcome: எங்கள் அனைத்து கலந்தாலோசனை பலன்களையும் காண்க
-    corporate_report: எங்கள் அனைத்து குழும அறிக்கைகளையும் காண்க
-    correspondence: எங்கள் அனைத்து கடிதத் தொடர்புகளையும் காண்க
-    decision: எங்கள் அனைத்து முடிவுகளையும் காண்க
-    detailed_guidance: எங்கள் அனைத்து வழிகாட்டுதல்களையும் காண்க
-    document_collection: எங்கள் அனைத்து சேகரிப்புகளையும் காண்க
-    draft_text: எங்கள் அனைத்து வரைவு உரைகளையும் காண்க
-    fatality_notice: எங்கள் அனைத்து இறப்பு அறிவிப்புகளையும் காண்க
-    foi_release: எங்கள் அனைத்து தகவல் சுதந்திர வெளியீடுகளையும் காண்க
-    form: எங்கள் அனைத்து படிவங்களையும் காண்க
-    government_response: எங்கள் அனைத்து அரசு பதில்களையும் காண்க
-    guidance: எங்கள் அனைத்து வழிகாட்டுதல்களையும் காண்க
-    impact_assessment: எங்கள் அனைத்து தாக்க மதிப்பீடுகளையும் காண்க
-    imported: எங்கள் அனைத்து சார்பிலா அறிக்கைகளையும் காண்க
-    international_treaty: எங்கள் அனைத்து சர்வதேச உடன்படிக்கைகளையும் காண்க
-    map: எங்கள் அனைத்து வரைபடங்களையும் காண்க
-    national_statistics: எங்கள் அனைத்து தேச புள்ளியியல்களையும் காண்க
-    news_article: எங்கள் அனைத்து செய்திக் கட்டுரைகளையும் காண்க
-    news_story: எங்கள் அனைத்து செய்திகளையும் காண்க
-    notice: எங்கள் அனைத்து அறிவிப்புகளையும் காண்க
-    open_call_for_evidence: 
-    open_consultation: எங்கள் அனைத்து திறந்த கலந்தாலோசனைகளையும் காண்க
-    oral_statement: எங்கள் அனைத்து நாடாளுமன்றத்துக்கான வாய்வழி அறிவிப்புகளையும் காண்க
-    policy: எங்கள் அனைத்து கொள்கைகளையும் காண்க
-    policy_paper: எங்கள் அனைத்து கொள்கை ஆவணங்களையும் காண்க
-    press_release: எங்கள் அனைத்து செய்திக்குறிப்புகளையும் காண்க
-    promotional: எங்கள் அனைத்து விளம்பரப் பொருட்களையும் காண்க
-    publication: எங்கள் அனைத்து வெளியீடுகளையும் காண்க
-    regulation: எங்கள் அனைத்து ஒழுங்குமுறைகளையும் காண்க
-    research: 'எங்கள் அனைத்து ஆராய்ச்சி மற்றும் பகுப்பாய்வுகளையும் காண்க '
-    speaking_notes: 'எங்கள் அனைத்து பேச்சுக் குறிப்புகளையும் காண்க '
-    speech: எங்கள் அனைத்து பேச்சுகளையும் காண்க
-    statement_to_parliament: எங்கள் அனைத்து நாடாளுமன்றத்துக்கான அறிவிப்புகளையும் காண்க
-    statistical_data_set: 'எங்கள் அனைத்து புள்ளியியல் தரவுத் தொகுப்புகளையும் காண்க '
-    statistics: எங்கள் அனைத்து புள்ளியியலையும் காண்க
-    statutory_guidance: எங்கள் அனைத்து சட்டப்பூர்வ வழிகாட்டுதல்களையும் காண்க
-    transcript: எங்கள் அனைத்து எழுத்துப்படிவங்களையும் காண்க
-    transparency: எங்கள் அனைத்து வெளிப்படையான தரவுகளையும் காண்க
-    written_statement: எங்கள் அனைத்து நாடாளுமன்றத்துக்கான எழுத்துப்பூர்வ அறிவிப்புகளையும் காண்க
   support:
     download: பதிவிறக்கம்
     field_of_operation: 'இயங்குதளம்:'
-    fields_of_operation: இயங்குதளம்
     pagination:
       next_html: அடுத்த <span class="visuallyhidden">பக்கம்</span> <span class="page-numbers">%{total_pages}-ல் %{current_page} of</span>
       next_page: அடுத்த பக்கம்
@@ -564,9 +475,6 @@ ta:
       list_link: 
     headings:
       search: நாடு அல்லது பிரதேசம் வாரியாகத் தேடு
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: சர்வதேச தூதுக்குழு
@@ -583,11 +491,3 @@ ta:
       publication_scheme_html: எங்கள் %{link}-ல் நாங்கள் வழக்கமாக வெளியிடும் தகவல்களின் வகைகள் குறித்து வாசியுங்கள்..
       social_media_use_html: "%{link}-ல் எங்கள் கொள்கை குறித்து வாசியுங்கள்."
       welsh_language_scheme_html: "%{link}-க்கு எங்கள் கடப்பாடு குறித்துக் கண்டறியுங்கள்."
-    find_out_more: முழு சுயவிபரத்தையும் அனைத்து தொடர்பு விபரங்களையும் காண்க
-    headings:
-      contact_us: எங்களைத் தொடர்பு கொள்ளுங்கள்
-      corporate_information: குழுமத் தகவல்கள்
-      follow_us: எங்களைப் பின்தொடர்க
-      our_people: எங்கள் மக்கள்
-    location: இருப்பிடம்
-    part_of: பகுதி

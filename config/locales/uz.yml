@@ -71,10 +71,6 @@ uz:
         Сизга қандай формат кераклигини хабар қилинг. Сиз қайси ёрдамчи технологиялардан фойдаланаётганлигингизни билишимиз зарур.
       intro: Ушбу файл ёрдамчи технологиялардан фойдаланаётган шахслар учун мос келмаслиги мумкин.
       request_a_different_format: Бошқа форматдаги ҳужжатни сўраш.
-    csv:
-      cannot_preview: Ушбу файлни олдиндан кўриш имконияти йўқ.
-      download: Файлнинг тўлиқ таркибини кўриш учун, уни юклаб олинг.
-      truncated_message: Ушбу олдиндан кўриш фақат биринчи %{rows} сатрларни ва %{columns} устунларни акс эттиради.
     headings:
       order_a_copy: Нусха буюртириш
       order_a_copy_full: Нашрнинг нусхасини буюртириш
@@ -90,16 +86,6 @@ uz:
     caution:
       subheading: Биз томондан бузилишга кўрсатиши мумкин бўлган ҳаволаларга тааллуқли маълум муаммолар аниқланди. Сизга улар орқали ўтишда эҳтиёткорликка риоя қилиш лозим бўлади
     title: шикастланган ҳаволалар
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Ёпиқ
-    closing_today: Бугун ёпилади
-    closing_tomorrow: Эртага ёпилади
-    days_left: "%{days_left} кун қолди"
   contact:
     access_and_opening_times: Кириш ва очилиш вақти
     contact_form: Алоқа шакли
@@ -136,10 +122,7 @@ uz:
       default: "%e %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Мундарижа
-    latest: Охирги ҳужжатлар
     published: нашр қилинди
-    see_all: Барчасини кўриш
     speech:
       author_title:
         minister: Вазир
@@ -394,13 +377,7 @@ uz:
   document_filters:
     world_locations:
       all: Барча жойлашиш жойлари
-      label: Дунёдаги жойлашиш жойлари
       no_locations_filter: Дунёдаги жойлашиш жойларининг ҳеч бири ушбу фильтр учун мос келмади.
-  fatality_notice:
-    british_fatalities: Британияликлар орасида ўлим ҳолатлари
-    none_added: Ушбу фаолият соҳасида ўлим ҳолатлари ҳақида хабарномалар ҳали қўшилмаган.
-  feeds:
-    latest_activity: Энг сўнгги фаолият
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,17 @@ uz:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Янгиланишлар мавжуд эмас.
-    title: Энг сўнгги
   organisation:
     corporate_information:
-      access_our_info: Биз ҳақимизда маълумотга эга бўлинг
       jobs: Иш турлари
-      jobs_and_contacts: Иш ва шартномалар
       organisation_chart: Ташкилий тузилмани бизнинг схемамиз
-      transparency: Очиқликка оид маълумотлар
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Корпоратив маълумот
-      corporate_reports: Корпорация фаолияти тўғрисида ҳисоботлар
-    support:
-      administered_by: Бошқаруви остида
-      agencies_and_public_bodies: агентликлар ва давлат органлари
-      part_of: Қисм
-      public_body: давлат органи
-      works_with: билан ишлар
-    type:
-      courts_and_tribunals: Судлар ва трибуналлар
   roles:
     unassigned: Ушбу рольга ҳеч бир шахс тайинланмаган
-  see_all:
-    announcement: Бизнинг барча эълонларимизни кўринг
-    authored_article: Бизнинг барча муаллифлик мақолаларимизни кўринг
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Бизнинг барча ҳолатни ўрганилишларимизни кўринг
-    closed_call_for_evidence: 
-    closed_consultation: Бизнинг барча ёпиқ маслаҳатларимизни кўринг
-    consultation: Бизнинг барча маслаҳатларимизни кўринг
-    consultation_outcome: Бизнинг барча маслаҳатларимиз натижаларини кўринг
-    corporate_report: Бизнинг барча корпоратив ҳисоботларимизни кўринг
-    correspondence: Бизнинг барча ёзишмаларимизни кўринг
-    decision: Бизнинг барча қарорларимизни кўринг
-    detailed_guidance: Бизнинг барча қўлланмаларимизни кўринг
-    document_collection: Бизнинг барча тўпламларимизни кўринг
-    draft_text: Бизнинг барча матн лойиҳаларимизни кўринг
-    fatality_notice: Бизнинг барча ўлим оқибатли бахтсиз ҳодиса ҳақидаги хабарномаларимизни кўринг
-    foi_release: Бизнинг барча маълумотга эркин киришга бағишланган нашрларимизни кўринг
-    form: Бизнинг барча шаклларимизни кўринг
-    government_response: Бизнинг барча ҳукумат жавобларини кўринг
-    guidance: Бизнинг барча қўлланмаларимизни кўринг
-    impact_assessment: Бизнинг барча таъсир этувчи омиллар ҳақидаги таҳлилларимизни кўринг
-    imported: Бизнинг барча мустақил ҳисоботларимизни кўринг
-    international_treaty: Бизнинг барча халқаро шартномаларимизни кўринг
-    map: Бизнинг барча хариталаримизни кўринг
-    national_statistics: Бизнинг барча миллий статистикаларимизни кўринг
-    news_article: Бизнинг барча янги мақолаларимизни кўринг
-    news_story: Бизнинг барча янгиликларимизни кўринг
-    notice: Бизнинг барча хабарномаларимизни кўринг
-    open_call_for_evidence: 
-    open_consultation: Бизнинг барча очиқ маслаҳатларимизни кўринг
-    oral_statement: Бизнинг барча парламентга оғзаки баёнотларимизни кўринг
-    policy: Бизнинг барча дастурларимизни кўринг
-    policy_paper: Бизнинг барча дастурга оид ҳужжатларимизни кўринг
-    press_release: Бизнинг барча матбуот релизларимизни кўринг
-    promotional: Бизнинг барча реклама материалларимизни кўринг
-    publication: Бизнинг барча нашрларимизни кўринг
-    regulation: Бизнинг барча меъёрий ҳужжатларимизни кўринг
-    research: Бизнинг барча тадқиқот ва таҳлиллларимизни кўринг
-    speaking_notes: Бизнинг барча оғзаки танбеҳларимизни кўринг
-    speech: Бизнинг барча нутқларимизни кўринг
-    statement_to_parliament: Бизнинг барча парламентга ҳисоботларимизни кўринг
-    statistical_data_set: Бизнинг барча статистик маълумотлар жамланмаларимизни кўринг
-    statistics: Бизнинг барча статистикамизни кўринг
-    statutory_guidance: Бизнинг барча меъёрий қўлланмаларимизни кўринг
-    transcript: Бизнинг барча стенограммаларимизни кўринг
-    transparency: Бизнинг барча шаффоф маълумотларимизни кўринг
-    written_statement: Бизнинг барча парламентга ёзма ҳисоботларимизни кўринг
   support:
     download: Юклаш
     field_of_operation: 'Фаолият соҳаси:'
-    fields_of_operation: Фаолият соҳалари
     pagination:
       next_html: Кейинги <span class = "visuallyhidden">саҳифа</span> <span class = "page-numbers">%{current_page} из %{total_pages}</span>
       next_page: Кейинги саҳифа
@@ -564,9 +475,6 @@ uz:
       list_link: 
     headings:
       search: Мамлакат ёки минтақа бўйича излаш
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Халқаро делегация
@@ -583,11 +491,3 @@ uz:
       publication_scheme_html: Биз доимий тарзда нашр этаётган маълумотлар ҳақида %{link} ўқинг.
       social_media_use_html: Бизнинг дастуримиз ҳақида батафсил маълумотларни %{link} ўқинг.
       welsh_language_scheme_html: Нашр этиш учун биз олиб бораётган фаолиятимиз ҳақида %{link} ўқинг.
-    find_out_more: Тўлиқ профиль ва боғланиш учун маълумотларни кўринг
-    headings:
-      contact_us: Биз билан боғланинг
-      corporate_information: Корпоратив маълумот
-      follow_us: Бизга аъзо бўлинг
-      our_people: Бизнинг одамлар
-    location: Жойлашиш жойи
-    part_of: Қисми

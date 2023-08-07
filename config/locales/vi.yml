@@ -71,10 +71,6 @@ vi:
         Vui lòng cho chúng tôi biết bạn cần định dạng nào. Vui lòng cho biết bạn sử dụng công nghệ hỗ trợ nào.
       intro: Tệp này có thể không phù hợp với người dùng công nghệ hỗ trợ.
       request_a_different_format: Yêu cầu một định dạng có thể truy cập.
-    csv:
-      cannot_preview: Không thể xem trước tệp này.
-      download: Tải xuống tệp để xem toàn bộ nội dung.
-      truncated_message: Bản xem trước này chỉ hiển thị %{row} hàng và %{column} cột đầu tiên.
     headings:
       order_a_copy: Đặt hàng một bản sao
       order_a_copy_full: Đặt hàng một bản sao của ấn phẩm
@@ -90,16 +86,6 @@ vi:
     caution:
       subheading: Chúng tôi đã tìm thấy một số vấn đề với các liên kết có thể là dấu hiệu cho thấy sự cố, bạn nên thận trọng khi truy cập các liên kết đó
     title: Liên kết đã hỏng
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Đã đóng
-    closing_today: Đóng hôm nay
-    closing_tomorrow: Đóng vào ngày mai
-    days_left: Còn %{days_left} ngày
   contact:
     access_and_opening_times: Thời gian làm việc và mở cửa
     contact_form: Biểu mẫu liên hệ
@@ -136,10 +122,7 @@ vi:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Mục lục
-    latest: Tài liệu mới nhất
     published: đã xuất bản
-    see_all: Xem tất cả
     speech:
       author_title:
         minister: Bộ trưởng
@@ -314,13 +297,7 @@ vi:
   document_filters:
     world_locations:
       all: Tất cả vị trí
-      label: Các vị trí trên thế giới
       no_locations_filter: Không có vị trí nào trên thế giới phù hợp với bộ lọc đó.
-  fatality_notice:
-    british_fatalities: Số người Anh tử vong
-    none_added: Chưa có thông báo tử vong nào được thêm vào cho lĩnh vực hoạt động này.
-  feeds:
-    latest_activity: Hoạt động mới nhất
   i18n:
     direction: ltr
   language_names:
@@ -390,83 +367,17 @@ vi:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Chưa có cập nhật.
-    title: Mới nhất
   organisation:
     corporate_information:
-      access_our_info: Truy cập thông tin của chúng tôi
       jobs: Việc làm
-      jobs_and_contacts: Việc làm và hợp đồng
       organisation_chart: Sơ đồ tổ chức của chúng tôi
-      transparency: Dữ liệu về tính minh bạch
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Thông tin doanh nghiệp
-      corporate_reports: Báo cáo của doanh nghiệp
-    support:
-      administered_by: Quản lý bởi
-      agencies_and_public_bodies: các cơ quan và cơ quan công quyền
-      part_of: Một phần của
-      public_body: cơ quan công quyền
-      works_with: Làm việc với
-    type:
-      courts_and_tribunals: Tòa án và Tòa án cấp thấp
   roles:
     unassigned: Không ai được bổ nhiệm vai trò này
-  see_all:
-    announcement: Xem tất cả các thông báo của chúng tôi
-    authored_article: Xem tất cả các bài viết có tác giả của chúng tôi
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Xem tất cả các nghiên cứu điển hình của chúng tôi
-    closed_call_for_evidence: 
-    closed_consultation: Xem tất cả các buổi tham vấn kín của chúng tôi
-    consultation: Xem tất cả các buổi tham vấn của chúng tôi
-    consultation_outcome: Xem tất cả các kết quả tham vấn của chúng tôi
-    corporate_report: Xem tất cả các báo cáo doanh nghiệp của chúng tôi
-    correspondence: Xem tất cả thư từ của chúng tôi
-    decision: Xem tất cả các quyết định của chúng tôi
-    detailed_guidance: Xem tất cả hướng dẫn của chúng tôi
-    document_collection: Xem tất cả các bộ sưu tập của chúng tôi
-    draft_text: Xem tất cả các dự thảo của chúng tôi
-    fatality_notice: Xem tất cả các thông báo tử vong của chúng tôi
-    foi_release: Xem tất cả các công bố FOI của chúng tôi
-    form: Xem tất cả các biểu mẫu của chúng tôi
-    government_response: Xem tất cả phản hồi chính phủ của chúng tôi
-    guidance: Xem tất cả hướng dẫn của chúng tôi
-    impact_assessment: Xem tất cả các đánh giá tác động của chúng tôi
-    imported: Xem tất cả các báo cáo độc lập của chúng tôi
-    international_treaty: Xem tất cả các hiệp ước quốc tế của chúng tôi
-    map: Xem tất cả các bản đồ của chúng tôi
-    national_statistics: Xem tất cả các Thống kê Quốc gia của chúng tôi
-    news_article: Xem tất cả các bài báo của chúng tôi
-    news_story: Xem tất cả các bài phóng sự của chúng tôi
-    notice: Xem tất cả các thông báo của chúng tôi
-    open_call_for_evidence: 
-    open_consultation: Xem tất cả các buổi tham vấn mở của chúng tôi
-    oral_statement: Xem tất cả các tuyên bố bằng lời của chúng tôi trước Nghị viện
-    policy: Xem tất cả các chính sách của chúng tôi
-    policy_paper: Xem tất cả các tài liệu chính sách của chúng tôi
-    press_release: Xem tất cả các thông cáo báo chí của chúng tôi
-    promotional: Xem tất cả các tài liệu quảng cáo của chúng tôi
-    publication: Xem tất cả các ấn phẩm của chúng tôi
-    regulation: Xem tất cả các quy định của chúng tôi
-    research: Xem tất cả các nghiên cứu và phân tích của chúng tôi
-    speaking_notes: Xem tất cả các ghi chú cho bài nói của chúng tôi
-    speech: Xem tất cả các bài phát biểu của chúng tôi
-    statement_to_parliament: Xem tất cả các tuyên bố của chúng tôi trước Nghị viện
-    statistical_data_set: Xem tất cả các bộ dữ liệu thống kê của chúng tôi
-    statistics: Xem tất cả thống kê của chúng tôi
-    statutory_guidance: Xem tất cả các hướng dẫn theo luật định của chúng tôi
-    transcript: Xem tất cả các bản ghi nội dung của chúng tôi
-    transparency: Xem tất cả dữ liệu về tính minh bạch của chúng tôi
-    written_statement: Xem tất cả các tuyên bố bằng văn bản của chúng tôi trước Nghị viện
   support:
     download: Tải xuống
     field_of_operation: 'Lĩnh vực hoạt động:'
-    fields_of_operation: Lĩnh vực hoạt động
     pagination:
       next_html: Trang <span class="visuallyhidden">tiếp theo</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Trang tiếp theo
@@ -484,9 +395,6 @@ vi:
       list_link: 
     headings:
       search: Tìm kiếm theo quốc gia hoặc lãnh thổ
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: Phái đoàn quốc tế
@@ -501,11 +409,3 @@ vi:
       publication_scheme_html: Tìm hiểu về các loại thông tin chúng tôi thường xuyên xuất bản trong %{link} của chúng tôi.
       social_media_use_html: Đọc chính sách của chúng tôi trên %{link}.
       welsh_language_scheme_html: Tìm hiểu về cam kết của chúng tôi đối với %{link}.
-    find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ
-    headings:
-      contact_us: Liên hệ với chúng tôi
-      corporate_information: Thông tin doanh nghiệp
-      follow_us: Theo dõi chúng tôi
-      our_people: Đội ngũ của chúng tôi
-    location: Vị trí
-    part_of: Một phần của

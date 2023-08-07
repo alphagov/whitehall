@@ -69,10 +69,6 @@ nl:
       full_help_html: "Als u ondersteunende technologie gebruikt (zoals een schermlezer) en een\r\nversie van dit document in een meer toegankelijk formaat nodig heeft, stuur dan een e-mail naar %{email}.\r\nVertel ons welk formaat u nodig hebt. Het zal ons helpen als u zegt welke ondersteunende technologie u gebruikt.\r\n"
       intro: Dit bestand is mogelijk niet geschikt voor gebruikers van ondersteunende technologie.
       request_a_different_format: Vraag een toegankelijk formaat aan.
-    csv:
-      cannot_preview: Dit bestand kon niet worden voorvertoond.
-      download: Download het bestand om de volledige inhoud te bekijken.
-      truncated_message: Dit voorbeeld toont alleen de eerste %{rows} rijen en %{columns} kolommen.
     headings:
       order_a_copy: Een exemplaar bestellen
       order_a_copy_full: Bestel een exemplaar van de publicatie
@@ -88,16 +84,6 @@ nl:
     caution:
       subheading: We hebben enkele problemen gevonden met links die op problemen kunnen wijzen, wees daarom voorzichtig met het linken naar deze links
     title: Gebroken links
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Gesloten
-    closing_today: Sluiting vandaag
-    closing_tomorrow: Sluit morgen
-    days_left: "%{days_left} resterende dagen"
   contact:
     access_and_opening_times: Toegang en openingstijden
     contact_form: Contactformulier
@@ -134,10 +120,7 @@ nl:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Inhoud
-    latest: Laatste documenten
     published: gepubliceerd
-    see_all: Zie alle
     speech:
       author_title:
         minister: Minister
@@ -392,13 +375,7 @@ nl:
   document_filters:
     world_locations:
       all: Alle locaties
-      label: Wereld locaties
       no_locations_filter: Geen locaties in de wereld komen overeen met dat filter.
-  fatality_notice:
-    british_fatalities: Britse sterfgevallen
-    none_added: Er zijn nog geen meldingen van sterfgevallen toegevoegd voor dit werkgebied.
-  feeds:
-    latest_activity: Laatste activiteit
   i18n:
     direction: ltr
   language_names:
@@ -468,83 +445,17 @@ nl:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Er zijn nog geen updates.
-    title: Laatste
   organisation:
     corporate_information:
-      access_our_info: Toegang tot onze informatie
       jobs: Banen
-      jobs_and_contacts: Banen en contracten
       organisation_chart: Ons organigram
-      transparency: Transparantiegegevens
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Bedrijfsinformatie
-      corporate_reports: Bedrijfsrapporten
-    support:
-      administered_by: Beheerd door
-      agencies_and_public_bodies: agentschappen en openbare organen
-      part_of: Onderdeel van
-      public_body: openbaar lichaam
-      works_with: Werkt samen met
-    type:
-      courts_and_tribunals: Hoven en rechtbanken
   roles:
     unassigned: Er is niemand toegewezen aan deze functie
-  see_all:
-    announcement: Bekijk al onze aankondigingen
-    authored_article: Bekijk al onze geschreven artikelen
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Bekijk al onze case studies
-    closed_call_for_evidence: 
-    closed_consultation: Bekijk al onze gesloten consultaties
-    consultation: Bekijk al onze raadplegingen
-    consultation_outcome: Bekijk alle uitkomsten van onze raadplegingen
-    corporate_report: Bekijk al onze bedrijfsrapporten
-    correspondence: Bekijk al onze correspondentie
-    decision: Bekijk al onze besluiten
-    detailed_guidance: Bekijk al onze adviezen
-    document_collection: Bekijk al onze collecties
-    draft_text: Bekijk al onze ontwerpteksten
-    fatality_notice: Bekijk al onze kennisgevingen van sterfgevallen
-    foi_release: Bekijk al onze Vrijheid van informatie-berichten
-    form: Bekijk al onze formulieren
-    government_response: Bekijk al onze regeringsreacties
-    guidance: Bekijk al onze richtlijnen
-    impact_assessment: Bekijk al onze effectbeoordelingen
-    imported: Bekijk al onze onafhankelijke rapporten
-    international_treaty: Bekijk al onze internationale verdragen
-    map: Bekijk al onze kaarten
-    national_statistics: Bekijk al onze nationale statistieken
-    news_article: Bekijk al onze nieuwsartikelen
-    news_story: Bekijk al onze nieuwsberichten
-    notice: Bekijk al onze aankondigingen
-    open_call_for_evidence: 
-    open_consultation: Bekijk al onze openbare raadplegingen
-    oral_statement: Bekijk al onze mondelinge verklaringen aan het Parlement
-    policy: Bekijk al ons beleid
-    policy_paper: Bekijk al onze beleidsdocumenten
-    press_release: Bekijk al onze persberichten
-    promotional: Bekijk al ons promotiemateriaal
-    publication: Bekijk al onze publicaties
-    regulation: Bekijk al onze verordeningen
-    research: Bekijk al onze onderzoeken en analyses
-    speaking_notes: Bekijk al onze speeches
-    speech: Bekijk al onze toespraken
-    statement_to_parliament: Bekijk al onze verklaringen aan het Parlement
-    statistical_data_set: Bekijk al onze statistische gegevens
-    statistics: Bekijk al onze statistieken
-    statutory_guidance: Bekijk al onze statutaire richtlijnen
-    transcript: Bekijk al onze transcripties
-    transparency: Bekijk al onze transparantiegegevens
-    written_statement: Bekijk al onze schriftelijke verklaringen aan het Parlement
   support:
     download: Downloaden
     field_of_operation: 'Werkterrein:'
-    fields_of_operation: Werkterreinen
     pagination:
       next_html: Volgende <span class="visueel verborgen">pagina</span> <span class="paginanummers">%{current_page} van %{total_pages}</span>
       next_page: Volgende pagina
@@ -562,9 +473,6 @@ nl:
       list_link: 
     headings:
       search: Zoeken op land of gebied
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Internationale delegatie
@@ -581,11 +489,3 @@ nl:
       publication_scheme_html: Lees over de soorten informatie die wij routinematig publiceren in onze %{link}.
       social_media_use_html: Lees ons beleid inzake %{link}.
       welsh_language_scheme_html: Lees meer over onze inzet voor %{link}.
-    find_out_more: Bekijk het volledige profiel en alle contactgegevens
-    headings:
-      contact_us: Neem contact met ons op
-      corporate_information: Bedrijfsinformatie
-      follow_us: Volg ons op
-      our_people: Onze mensen
-    location: Vestiging
-    part_of: Deel van

@@ -71,10 +71,6 @@ gd:
         Cuir in iúl an fhormáid atá uait. Ligfidh sé seo dúinn soiléiriú a dhéanamh ar an teicneolaíocht chúnta atá á húsáid agat.
       intro: B’fhéidir nach mbeidh an comhad seo oiriúnach d’úsáideoirí feistí cúnta.
       request_a_different_format: Is féidir leat formáid inrochtana a iarraidh.
-    csv:
-      cannot_preview: Ní fhéadfaí réamhamharc a dhéanamh ar an gcomhad seo.
-      download: Íoslódáil an leabhar chun a ábhar iomlán a fheiceáil.
-      truncated_message: Ní chuimsíonn an réamhamharc seo ach na chéad sraitheanna %{rows} agus %{columns}  colúin.
     headings:
       order_a_copy: Coinnigh cóip
       order_a_copy_full: Cóip den fhoilseachán a ordú
@@ -90,16 +86,6 @@ gd:
     caution:
       subheading: Táimid tar éis teacht ar naisc a d'fhéadfadh lochtanna a léiriú agus molaimid duit a bheith cúramach agus tú ag nascadh leis na suíomhanna seo.
     title: Naisc bhriste
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Gnólacht
-    closing_today: Dúnta inniu
-    closing_tomorrow: Ag dúnadh amárach
-    days_left: "%{days_left} lá fágtha"
   contact:
     access_and_opening_times: Uaireanta rochtana agus oscailte
     contact_form: Foirm teagmhála
@@ -136,10 +122,7 @@ gd:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Clár ábhair
-    latest: Doiciméid is déanaí
     published: Fhoilsiú
-    see_all: Amharc ar gach
     speech:
       author_title:
         minister: Aire
@@ -554,13 +537,7 @@ gd:
   document_filters:
     world_locations:
       all: Gach láthair
-      label: Áit ar domhan
       no_locations_filter: Níl aon áit ar domhan comhoiriúnach leis an scagaire seo.
-  fatality_notice:
-    british_fatalities: Dola báis na Breataine
-    none_added: Níor cuireadh aon fhógra báis leis an réimse gníomhaíochta seo.
-  feeds:
-    latest_activity: Gníomhaíocht dheireanach
   i18n:
     direction: ltr
   language_names:
@@ -630,83 +607,17 @@ gd:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Gan nuashonrú fós.
-    title: le déanaí
   organisation:
     corporate_information:
-      access_our_info: Rochtain ar ár gcuid faisnéise
       jobs: Obair
-      jobs_and_contacts: Poist agus conarthaí
       organisation_chart: Ár gcairt eagraíochta
-      transparency: Sonraí trédhearcachta
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Faisnéis cuideachta
-      corporate_reports: Tuarascálacha cuideachta
-    support:
-      administered_by: Riartha ag
-      agencies_and_public_bodies: Institiúidí agus grúpaí poiblí
-      part_of: Chuid
-      public_body: Institiúidí poiblí
-      works_with: Agus
-    type:
-      courts_and_tribunals: Cúirteanna agus binsí
   roles:
     unassigned: Níl aon duine i gceannas ar an ról seo
-  see_all:
-    announcement: Féach ar ár bhfógraí uile
-    authored_article: Féach ar ár n-alt scríofa go léir
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Féach ar ár gcás-staidéir go léir
-    closed_call_for_evidence: 
-    closed_consultation: Féach ar ár gcomhairliúcháin dúnta go léir
-    consultation: Féach ar ár bhfiosrúcháin go léir
-    consultation_outcome: Féach ar thorthaí uile ár gcomhairliúcháin
-    corporate_report: Féach ar ár dtuarascálacha cuideachta go léir
-    correspondence: Féach ar ár dteagmhálaithe go léir
-    decision: Féach ar ár gcinntí go léir
-    detailed_guidance: Féach ár dtreoracha go léir
-    document_collection: Féach ar ár sraith go léir
-    draft_text: Féach ar ár ndréachtaí go léir
-    fatality_notice: Féach ar ár n-obituaries go léir
-    foi_release: Féach ar ár bpreaseisiúintí uile um Shaoráil Faisnéise
-    form: Féach ar ár bhfoirmeacha go léir
-    government_response: Féach ar gach idirghabháil rialtais
-    guidance: Féach ár dtreoracha go léir
-    impact_assessment: Féach ar ár gcuid staidéir iarmharta go léir
-    imported: Féach ar ár dtuarascálacha neamhspleácha go léir
-    international_treaty: Féach ar ár gconarthaí idirnáisiúnta go léir
-    map: Féach ar ár gcártaí go léir
-    national_statistics: Féach ar ár staitisticí tíre go léir
-    news_article: Féach ar ár n-alt nuachta go léir
-    news_story: Féach ar ár n-alt nuachta go léir
-    notice: Féach ar ár n-athbhreithnithe go léir
-    open_call_for_evidence: 
-    open_consultation: Féach ar ár gcomhairliúcháin phoiblí go léir
-    oral_statement: Féach ar ár ráitis ó bhéal go léir sa Pharlaimint
-    policy: Féach ar ár mbeartais go léir
-    policy_paper: Féach ar ár ndoiciméid treorach go léir
-    press_release: Féach ar ár bpreaseisiúintí go léir
-    promotional: Féach ar ár n-ábhar poiblíochta go léir
-    publication: Féach ar ár bhfoilseacháin uile
-    regulation: Féach ar ár rialacháin go léir
-    research: Féach ar ár gcuid taighde agus anailíse go léir
-    speaking_notes: Féach ar ár nótaí idirghabhála go léir
-    speech: Féach ar ár n-óráidí go léir
-    statement_to_parliament: Féach ar ár ráitis uile chun na parlaiminte
-    statistical_data_set: Féach ar ár gcuid tacair sonraí staidrimh go léir
-    statistics: Féach ar ár staitisticí go léir
-    statutory_guidance: Féach ar ár dtreoirlínte reachtúla uile
-    transcript: Féach ar ár dtrascríbhinní uile
-    transparency: Féach ar ár gcuid sonraí trédhearcachta go léir
-    written_statement: Féach ar ár ráitis scríofa uile a cuireadh faoi bhráid na comhairle
   support:
     download: Téigh íoslódáil
     field_of_operation: 'Réimsí idirghabhála:'
-    fields_of_operation: Limistéar idirghabhála
     pagination:
       next_html: Ar Aghaidh <span class="visuallyhidden">leathanach</span> <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: An chéad leathanach eile
@@ -724,9 +635,6 @@ gd:
       list_link: 
     headings:
       search: Cuardaigh de réir tíre nó réigiúin
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -747,11 +655,3 @@ gd:
       publication_scheme_html: Faigh amach na príomhchineálacha faisnéise a ndéanaimid cumarsáid rialta inár %{link}.
       social_media_use_html: Léigh ár mbeartas ar %{link}.
       welsh_language_scheme_html: Faigh amach ár gcomhréiteach ar an %{link}.
-    find_out_more: Féach ar phróifíl iomlán agus faisnéis teagmhála
-    headings:
-      contact_us: Glaoigh orainn
-      corporate_information: Faisnéis cuideachta
-      follow_us: Lean orainn
-      our_people: Ár gcomhoibritheoirí
-    location: Suíomh
-    part_of: Chuid

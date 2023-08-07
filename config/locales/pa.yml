@@ -72,10 +72,6 @@ pa:
         ਕਿਰਪਾ ਕਰਕੇ ਸਾਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਨੂੰ ਕਿਸ ਫਾਰਮੈਟ ਦੀ ਜ਼ਰੂਰਤ ਹੈ। ਇਹ ਸਾਡੀ ਸਹਾਇਤਾ ਕਰੇਗਾ ਜੇ ਤੁਸੀਂ ਕਹੋ ਕਿ ਤੁਸੀਂ ਕਿਹੜੀ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ।
       intro: ਇਹ ਫਾਈਲ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੇ ਉਪਯੋਗਕਰਤਾਵਾਂ ਲਈ ਢੁਕਵੀਂ ਨਹੀਂ ਹੋ ਸਕਦੀ।
       request_a_different_format: ਇੱਕ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਦੀ ਬੇਨਤੀ ਕਰੋ।
-    csv:
-      cannot_preview: ਇਸ ਫ਼ਾਈਲ ਦਾ ਪੂਰਵਦਰਸ਼ਨ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।
-      download: ਫਾਈਲ ਦੀ ਪੂਰੀ ਸਮਗਰੀ ਨੂੰ ਵੇਖਣ ਲਈ ਡਾਉਨਲੋਡ ਕਰੋ।
-      truncated_message: ਇਹ ਝਲਕ ਸਿਰਫ ਪਹਿਲੀ %{rows} ਕਤਾਰਾਂ ਅਤੇ %{columns} ਕਾਲਮ ਦਿਖਾਉਂਦੀ ਹੈ।
     headings:
       order_a_copy: ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
       order_a_copy_full: ਪ੍ਰਕਾਸ਼ਨ ਦੀ ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
@@ -91,16 +87,6 @@ pa:
     caution:
       subheading: ਸਾਨੂੰ ਲਿੰਕਾਂ ਦੇ ਨਾਲ ਕੁਝ ਸਮੱਸਿਆਵਾਂ ਮਿਲੀਆਂ ਹਨ ਜੋ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸੰਕੇਤ ਦੇ ਸਕਦੀਆਂ ਹਨ, ਤੁਹਾਨੂੰ ਉਹਨਾਂ ਨਾਲ ਜੋੜਨ ਵਿੱਚ ਸਾਵਧਾਨੀ ਵਰਤਣੀ ਚਾਹੀਦੀ ਹੈ
     title: ਟੁੱਟੇ ਲਿੰਕ
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: ਬੰਦ
-    closing_today: ਅੱਜ ਬੰਦ
-    closing_tomorrow: ਭਲਕੇ ਬੰਦ
-    days_left: "%{days_left} ਦਿਨ ਬਾਕੀ"
   contact:
     access_and_opening_times: ਪਹੁੰਚ ਅਤੇ ਖੋਲ੍ਹਣ ਦੇ ਸਮੇਂ
     contact_form: ਸੰਪਰਕ ਫਾਰਮ
@@ -137,10 +123,7 @@ pa:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: ਸਮਗਰੀ
-    latest: ਨਵੀਨਤਮ ਦਸਤਾਵੇਜ਼
     published: ਪ੍ਰਕਾਸ਼ਿਤ
-    see_all: ਸਾਰੇ ਵੇਖੋ
     speech:
       author_title:
         minister: ਮੰਤਰੀ
@@ -395,13 +378,7 @@ pa:
   document_filters:
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
-      label: ਵਿਸ਼ਵ ਸਥਾਨ
       no_locations_filter: ਕੋਈ ਵੀ ਵਿਸ਼ਵ ਸਥਾਨ ਉਸ ਫਿਲਟਰ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।
-  fatality_notice:
-    british_fatalities: ਬ੍ਰਿਟਿਸ਼ ਦੀ ਮੌਤ
-    none_added: ਇਸ ਕਾਰਜ ਦੇ ਖੇਤਰ ਵਿੱਚ ਅਜੇ ਤੱਕ ਕੋਈ ਘਾਤਕ ਸੂਚਨਾ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤੀ ਗਈ ਹੈ।
-  feeds:
-    latest_activity: ਨਵੀਨਤਮ ਗਤੀਵਿਧੀ
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,17 @@ pa:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: ਅਜੇ ਕੋਈ ਅਪਡੇਟ ਨਹੀਂ ਹਨ।
-    title: ਨਵੀਨਤਮ
   organisation:
     corporate_information:
-      access_our_info: ਸਾਡੀ ਜਾਣਕਾਰੀ ਤੱਕ ਪਹੁੰਚ ਕਰੋ
       jobs: ਨੌਕਰੀਆਂ
-      jobs_and_contacts: ਨੌਕਰੀਆਂ ਅਤੇ ਇਕਰਾਰਨਾਮੇ
       organisation_chart: ਸਾਡਾ ਸੰਗਠਨ ਚਾਰਟ
-      transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: ਕਾਰਪੋਰੇਟ ਜਾਣਕਾਰੀ
-      corporate_reports: ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ
-    support:
-      administered_by: ਦੁਆਰਾ ਪ੍ਰਬੰਧਿਤ
-      agencies_and_public_bodies: ਏਜੰਸੀਆਂ ਅਤੇ ਜਨਤਕ ਸੰਸਥਾਵਾਂ
-      part_of: ਦਾ ਹਿੱਸਾ
-      public_body: ਜਨਤਕ ਸੰਸਥਾ
-      works_with: ਨਾਲ ਕੰਮ ਕਰਦਾ ਹੈ
-    type:
-      courts_and_tribunals: ਅਦਾਲਤਾਂ ਅਤੇ ਟ੍ਰਿਬਿਊਨਲ
   roles:
     unassigned: ਇਸ ਭੂਮਿਕਾ ਲਈ ਕਿਸੇ ਨੂੰ ਵੀ ਨਿਯੁਕਤ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ
-  see_all:
-    announcement: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਵੇਖੋ
-    authored_article: ਸਾਡੇ ਸਾਰੇ ਲੇਖਕ ਲੇਖ ਵੇਖੋ
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: ਸਾਡੇ ਸਾਰੇ ਕੇਸ ਅਧਿਐਨ ਵੇਖੋ
-    closed_call_for_evidence: 
-    closed_consultation: ਸਾਡੇ ਸਾਰੇ ਬੰਦ ਕੀਤੇ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
-    consultation: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
-    consultation_outcome: ਸਾਡੇ ਸਾਰੇ ਸਲਾਹ -ਮਸ਼ਵਰੇ ਦੇ ਨਤੀਜੇ ਵੇਖੋ
-    corporate_report: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ ਵੇਖੋ
-    correspondence: ਸਾਡੇ ਸਾਰੇ ਪੱਤਰ ਵਿਹਾਰ ਵੇਖੋ
-    decision: ਸਾਡੇ ਸਾਰੇ ਫੈਸਲੇ ਵੇਖੋ
-    detailed_guidance: ਸਾਡੀ ਸਾਰੀ ਸੇਧ ਵੇਖੋ
-    document_collection: ਸਾਡੇ ਸਾਰੇ ਸੰਗ੍ਰਹਿ ਵੇਖੋ
-    draft_text: ਸਾਡੇ ਸਾਰੇ ਡਰਾਫਟ ਟੈਕਸਟ ਵੇਖੋ
-    fatality_notice: ਸਾਡੇ ਸਾਰੇ ਘਾਤਕ ਨੋਟਿਸ ਵੇਖੋ
-    foi_release: ਸਾਡੇ ਸਾਰੇ FOI (ਜਾਣਕਾਰੀ ਦੀ ਆਜ਼ਾਦੀ) ਰੀਲੀਜ਼ ਵੇਖੋ
-    form: ਸਾਡੇ ਸਾਰੇ ਰੂਪ ਵੇਖੋ
-    government_response: ਸਾਡੇ ਸਾਰੇ ਸਰਕਾਰੀ ਜਵਾਬ ਵੇਖੋ
-    guidance: ਸਾਡੀ ਸਾਰੀ ਸੇਧ ਵੇਖੋ
-    impact_assessment: ਸਾਡੇ ਸਾਰੇ ਪ੍ਰਭਾਵ ਮੁਲਾਂਕਣ ਵੇਖੋ
-    imported: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਸੁਤੰਤਰ ਰਿਪੋਰਟਾਂ ਵੇਖੋ
-    international_treaty: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਅੰਤਰਰਾਸ਼ਟਰੀ ਸੰਧੀਆਂ ਵੇਖੋ
-    map: ਸਾਡੇ ਸਾਰੇ ਨਕਸ਼ੇ ਵੇਖੋ
-    national_statistics: ਸਾਡੇ ਸਾਰੇ ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ ਵੇਖੋ
-    news_article: ਸਾਡੇ ਸਾਰੇ ਖਬਰ ਲੇਖ ਵੇਖੋ
-    news_story: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਖ਼ਬਰਾਂ ਵੇਖੋ
-    notice: ਸਾਡੇ ਸਾਰੇ ਨੋਟਿਸ ਵੇਖੋ
-    open_call_for_evidence: 
-    open_consultation: ਸਾਡੇ ਸਾਰੇ ਖੁੱਲੇ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
-    oral_statement: ਸੰਸਦ ਨੂੰ ਸਾਡੇ ਸਾਰੇ ਜ਼ਬਾਨੀ ਬਿਆਨ ਵੇਖੋ
-    policy: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਨੀਤੀਆਂ ਵੇਖੋ
-    policy_paper: ਸਾਡੇ ਸਾਰੇ ਨੀਤੀ ਪੱਤਰ ਵੇਖੋ
-    press_release: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਪ੍ਰੈਸ ਰਿਲੀਜ਼ਾਂ ਵੇਖੋ
-    promotional: ਸਾਡੀ ਸਾਰੀ ਪ੍ਰਚਾਰ ਸਮੱਗਰੀ ਵੇਖੋ
-    publication: ਸਾਡੇ ਸਾਰੇ ਪ੍ਰਕਾਸ਼ਨ ਵੇਖੋ
-    regulation: ਸਾਡੇ ਸਾਰੇ ਨਿਯਮ ਵੇਖੋ
-    research: ਸਾਡੀ ਸਾਰੀ ਖੋਜ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ ਵੇਖੋ
-    speaking_notes: ਸਾਡੇ ਬੋਲਣ ਵਾਲੇ ਸਾਰੇ ਨੋਟ ਵੇਖੋ
-    speech: ਸਾਡੇ ਸਾਰੇ ਭਾਸ਼ਣ ਵੇਖੋ
-    statement_to_parliament: ਸੰਸਦ ਨੂੰ ਸਾਡੇ ਸਾਰੇ ਬਿਆਨ ਵੇਖੋ
-    statistical_data_set: ਸਾਡੇ ਸਾਰੇ ਅੰਕੜਾ ਡਾਟਾ ਸੈੱਟ ਵੇਖੋ
-    statistics: ਸਾਡੇ ਸਾਰੇ ਅੰਕੜੇ ਵੇਖੋ
-    statutory_guidance: ਸਾਡੀ ਸਾਰੀ ਕਨੂੰਨੀ ਸੇਧ ਵੇਖੋ
-    transcript: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਟ੍ਰਾਂਸਕ੍ਰਿਪਟਾਂ ਵੇਖੋ
-    transparency: ਸਾਡਾ ਸਾਰਾ ਪਾਰਦਰਸ਼ਤਾ ਡੇਟਾ ਵੇਖੋ
-    written_statement: ਸੰਸਦ ਨੂੰ ਸਾਡੇ ਸਾਰੇ ਲਿਖਤੀ ਬਿਆਨ ਵੇਖੋ
   support:
     download: ਡਾਉਨਲੋਡ ਕਰੋ
     field_of_operation: 'ਕਾਰਜ ਖੇਤਰ:'
-    fields_of_operation: ਕਾਰਜ ਦੇ ਖੇਤਰ
     pagination:
       next_html: ਅਗਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page} ਦਾ %{total_pages}</span>
       next_page: ਅਗਲਾ ਪੇਜ
@@ -565,9 +476,6 @@ pa:
       list_link: 
     headings:
       search: ਦੇਸ਼ ਜਾਂ ਖੇਤਰ ਦੁਆਰਾ ਖੋਜ ਕਰੋ
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ
@@ -584,11 +492,3 @@ pa:
       publication_scheme_html: ਉਹਨਾਂ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਿਸਮਾਂ ਬਾਰੇ ਪੜ੍ਹੋ ਜੋ ਅਸੀਂ ਨਿਯਮਿਤ ਤੌਰ ਤੇ ਸਾਡੇ %{link} ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਤ ਕਰਦੇ ਹਾਂ।
       social_media_use_html: "%{link} 'ਤੇ ਸਾਡੀ ਨੀਤੀ ਪੜ੍ਹੋ।"
       welsh_language_scheme_html: "%{link} ਪ੍ਰਤੀ ਸਾਡੀ ਵਚਨਬੱਧਤਾ ਬਾਰੇ ਜਾਣੋ."
-    find_out_more: ਪੂਰਾ ਪ੍ਰੋਫਾਈਲ ਅਤੇ ਸਾਰੇ ਸੰਪਰਕ ਵੇਰਵੇ ਵੇਖੋ
-    headings:
-      contact_us: ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ
-      corporate_information: ਕਾਰਪੋਰੇਟ ਜਾਣਕਾਰੀ
-      follow_us: ਸਾਨੂੰ ਫਾਲੋ ਕਰੋ
-      our_people: ਸਾਡੇ ਲੋਕ
-    location: ਟਿਕਾਣਾ
-    part_of: ਦਾ ਹਿੱਸਾ

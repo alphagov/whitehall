@@ -72,10 +72,6 @@ ka:
         გთხოვთ, გვითხრათ თუ რა ფორმატი გჭირდებათ.  ასევე დაგვეხმარება, თუ თქვენ შეგვატყობინებთ რომელ დამხმარე ტექნოლოგიას იყენებთ.
       intro: ეს ფაილი შესაძლოა არ იყოს შესაფერისი დამხმარე ტექნოლოგიის მომხმარებლებისთვოს.
       request_a_different_format: მოითხოვეთ ხელმისაწვდომი ფორმატი.
-    csv:
-      cannot_preview: ფაილის წინასწარ ნახვა არ არის შესაძლებელი.
-      download: ჩამოტვირთეთ ფაილი შემადგენლობის სრულად სანახავად.
-      truncated_message: წინასწარი ნახვა აჩვენებს რიგების და სვეტების მხოლოდ პირველ %{rows} და %{columns}.
     headings:
       order_a_copy: გამოიწერეთ ასლი
       order_a_copy_full: გამოიწერეთ პუბლიკაციის ასლი
@@ -91,16 +87,6 @@ ka:
     caution:
       subheading: ჩვენ აღმოვაჩინეთ ხარვეზები ბმულებში, რაც შესაძლო პრობლემებზე მიანიშნებს, თქვენ ყურადღება უნდა გამოიჩინოთ მათი გამოყენებისას
     title: ხარვეზიანი ბმულები
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: დახურულია
-    closing_today: იხურება დღეს
-    closing_tomorrow: იხურება ხვალ
-    days_left: "%{days_left} დარჩა დღეები"
   contact:
     access_and_opening_times: ხელმისაწვდომობა და გახსნის დროები
     contact_form: საკონტაქტო ფორმა
@@ -137,10 +123,7 @@ ka:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: შემადგენლობა
-    latest: 
     published: გამოქვეყნებულია
-    see_all: ყველას ნახვა
     speech:
       author_title:
         minister: მინისტრი
@@ -395,13 +378,7 @@ ka:
   document_filters:
     world_locations:
       all: ყველა ლოკაცია
-      label: მსოფლიო ლოკაციები
       no_locations_filter: არც ერთი მსოფლიო ლოკაცია არ ემთხვევა ამ ფილტრს.
-  fatality_notice:
-    british_fatalities: ბრიტანული ფატალურობები
-    none_added: ფატალურობის შეტყობინება ჯერ არ დამატებულა ოპერაციის ამ სფეროში.
-  feeds:
-    latest_activity: ბოლო აქტივობა
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,17 @@ ka:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: სიახლეები ჯერ არ ყოფილა.
-    title: ბოლო
   organisation:
     corporate_information:
-      access_our_info: მიიღეთ წვდომა ჩვენს ინფორმაციაზე
       jobs: ვაკანსიები
-      jobs_and_contacts: ვაკანსიები და კონტრაქტები
       organisation_chart: ჩვენი ორგანიზაციის ქარტია
-      transparency: გამჭირვალობის მონაცემები
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: კორპორატიული ინფორმაცია
-      corporate_reports: კორპორატიული ანგარიშები
-    support:
-      administered_by: ადმინისტრირებულია
-      agencies_and_public_bodies: სააგენტოები და საჯარო ორგანოები
-      part_of: ნაწილი
-      public_body: საჯარო ორგანო
-      works_with: მუშაობს
-    type:
-      courts_and_tribunals: სასამართლოებთან და ტრიბუნალებთან
   roles:
     unassigned: არავისთვის არ მიუნიჭებიათ ეს როლი
-  see_all:
-    announcement: იხილეთ ჩვენი ყველა განცხადება
-    authored_article: იხილეთ ჩვენი ყველა საავტორო სტატია
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: იხილეთ ჩვენი ყველა შემთხვევის კვლევა
-    closed_call_for_evidence: 
-    closed_consultation: იხილეთ ჩვენი ყველა დახურული კონსულტაცია
-    consultation: იხილეთ ჩვენი ყველა კონსულტაცია
-    consultation_outcome: იხილეთ ჩვენი ყველა კონსულტაციის შედეგი
-    corporate_report: იხილეთ ჩვენი ყველა კორპორატიული ანგარიში
-    correspondence: იხილეთ ჩვენი ყველა მიმოწერა
-    decision: იხილეთ ჩვენი ყველა გადაწყვეტილება
-    detailed_guidance: იხილეთ ყველა ჩვენი მითითება
-    document_collection: იხილეთ ჩვენი ყველა კოლექცია
-    draft_text: იხილეთ ჩვენი ყველა სამუშაო ტექსტი
-    fatality_notice: იხილეთ ყველა ჩვენი ფატალურობის შეტყობინება
-    foi_release: იხილეთ ჩვენი ყველა ინფორმაციის თავისუფლების შესახებ რელიზი
-    form: იხილეთ ჩვენი ყველა ფორმა
-    government_response: იხილეთ ჩვენი ყველა მთავრობის პასუხი
-    guidance: იხილეთ ჩვენი ყველა მითითება
-    impact_assessment: იხილეთ ჩვენი ყველა ზეგავლენის შეფასება
-    imported: იხილეთ ჩვენი ყველა დამოუკიდებელი ანგარიში
-    international_treaty: იხილეთ ჩვენი ყველა საერთაშორისო ხელშეკრულება
-    map: იხილეთ ჩვენი ყველა რუკა
-    national_statistics: იხილეთ ჩვენი ყველა ეროვნული სტატისტიკა
-    news_article: იხილეთ ჩვენი ყველა საინფორმაციო სტატია
-    news_story: იხილეთ ჩვენი ყველა სიახლე
-    notice: იხილეთ ჩვენი ყველა შეტყობინება
-    open_call_for_evidence: 
-    open_consultation: იხილეთ ყველა ჩვენი ღია კონსულტაცია
-    oral_statement: იხილეთ ჩვენი ყველა ზეპირი განცხადება პარლამენტში
-    policy: იხილეთ ჩვენი ყველა კანონი
-    policy_paper: იხილეთ ჩვენი ყველა საკანონომდებლო დოკუმენტი
-    press_release: იხილეთ ჩვენი ყველა პრეს რელიზი
-    promotional: იხილეთ ჩვენი ყველა პრომო მასალა
-    publication: იხილეთ ჩვენი ყველა პუბლიკაცია
-    regulation: იხილეთ ჩვენი ყველა რეგულაცია
-    research: იხილეთ ჩვენი ყველა კვლევა და ანალიზი
-    speaking_notes: იხილეთ ჩვენი ყველა სასაუბრო შენიშვნა
-    speech: იხილეთ ჩვენი ყველა სიტყვით გამოსვლა
-    statement_to_parliament: იხილეთ ჩვენი ყველა განცხადება პარლამენტში
-    statistical_data_set: იხილეთ ჩვენი ყველა სტატისტიკური მონაცემების ნაკრები
-    statistics: იხილეთ ჩვენი ყველა სტატისტიკა
-    statutory_guidance: იხილეთ ჩვენი ყველა საკანონომდებლო მართვა
-    transcript: იხილეთ ჩვენი ყველა ტრანსქრიფტი
-    transparency: იხილეთ ჩვენი ყველა გამჭვირვალობის მონაცემი
-    written_statement: იხილეთ ყველა ჩვენი წერილობითი განცხადება პარლამენტისთვის
   support:
     download: ჩამოტვირთეთ
     field_of_operation: 'ოპერაციის სფერო:'
-    fields_of_operation: ოპერაციის სფეროები
     pagination:
       next_html: შემდეგ <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page} -ის %{total_pages}</span>
       next_page: შემდეგი გვერდი
@@ -565,9 +476,6 @@ ka:
       list_link: 
     headings:
       search: მოძებნეთ ქვეყნის ან ტერიტორიის მიხედვით
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: საერთაშორისო დელეგაცია
@@ -584,11 +492,3 @@ ka:
       publication_scheme_html: წაიკითხეთ ინფორმაციის ტიპების შესახებ, რომელსაც ჩვენ რეგულარულად ვაქვეყნებთ ჩვენს %{link}-ზე.
       social_media_use_html: წაიკითხეთ ჩვენი პოლიტიკა %{link}-ზე.
       welsh_language_scheme_html: გაეცანით ჩვენს ვალდებულებას %{link}.
-    find_out_more: იხილეთ სრული პროფილი და ყველა საკონტაქტო ინფორმაცია
-    headings:
-      contact_us: დაგვიკავშირდით
-      corporate_information: კორპორატიული ინფორმაცია
-      follow_us: გამოგვყევით
-      our_people: ჩვენი ხალხი
-    location: მდებარეობა
-    part_of: ნაწილი

@@ -72,10 +72,6 @@ fi:
         Kerro meille, missä muodossa tarvitset. Se auttaa meitä, jos sanot, mitä apuvälineteknologiaa käytät.
       intro: Tämä tiedosto ei ehkä sovellu apuvälineen käyttäjille.
       request_a_different_format: Pyydä helppokäyttöistä muotoa.
-    csv:
-      cannot_preview: Tätä tiedostoa ei voitu esikatsella.
-      download: Lataa tiedosto, niin voit tarkastella sen koko sisältöä.
-      truncated_message: Tässä esikatselussa näkyvät vain ensimmäiset %{rows} riviä ja %{columns} saraketta.
     headings:
       order_a_copy: Tilaa kopio
       order_a_copy_full: Tilaa kopio julkaisusta
@@ -91,16 +87,6 @@ fi:
     caution:
       subheading: Olemme löytäneet joitakin ongelmia linkeissä, jotka voivat viitata ongelmiin, sinun on noudatettava varovaisuutta linkittämällä niihin
     title: Katkenneet linkit
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Suljettu
-    closing_today: Suljetaan tänään
-    closing_tomorrow: Sulkeutuu huomenna
-    days_left: "%{days_left} päivää jäljellä"
   contact:
     access_and_opening_times: Pääsy ja aukioloajat
     contact_form: Yhteydenottolomake
@@ -137,10 +123,7 @@ fi:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Sisällys
-    latest: Uusimmat asiakirjat
     published: julkaistu
-    see_all: Näytä kaikki
     speech:
       author_title:
         minister: Ministeri
@@ -395,13 +378,7 @@ fi:
   document_filters:
     world_locations:
       all: Kaikki sijainnit
-      label: Maailman sijainnit
       no_locations_filter: Mikään maailman sijainnit eivät vastaa tätä suodatinta.
-  fatality_notice:
-    british_fatalities: Britannian kuolemantapauksia
-    none_added: Kuolemantapauksia ei ole ilmoitettu lisätty tälle toiminta-alueelle.
-  feeds:
-    latest_activity: Viimeisin toiminta
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,17 @@ fi:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Ei vielä päivityksiä.
-    title: Uusin
   organisation:
     corporate_information:
-      access_our_info: Pääsy tietoihimme
       jobs: Työpaikat
-      jobs_and_contacts: Työt ja sopimukset
       organisation_chart: Organisaatiomme kaavio
-      transparency: Avoimuustiedot
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Yritystiedot
-      corporate_reports: Yritysraportit
-    support:
-      administered_by: Hallinnoija
-      agencies_and_public_bodies: virastot ja julkiset elimet
-      part_of: Osa
-      public_body: julkinen elin
-      works_with: Toimii
-    type:
-      courts_and_tribunals: Tuomioistuimet
   roles:
     unassigned: Ketään ei ole määrätty tähän rooliin
-  see_all:
-    announcement: Katso kaikki ilmoituksemme
-    authored_article: Katso kaikki kirjoittamamme artikkelit
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Katso kaikki tapaustutkimuksemme
-    closed_call_for_evidence: 
-    closed_consultation: Katso kaikki suljetut konsultaatiomme
-    consultation: Katso kaikki konsultaatiomme
-    consultation_outcome: Katso kaikki kuulemistuloksemme
-    corporate_report: Katso kaikki yritysraporttimme
-    correspondence: Katso kaikki kirjeenvaihtomme
-    decision: Katso kaikki päätöksemme
-    detailed_guidance: Katso kaikki oppaamme
-    document_collection: Katso kaikki kokoelmamme
-    draft_text: Katso kaikki luonnosluonnoksemme
-    fatality_notice: Katso kaikki kuolemantapauksemme
-    foi_release: Katso kaikki tiedonvälityksen vapautta tiedotteemme
-    form: Katso kaikki lomakkeemme
-    government_response: Katso kaikki hallituksen vastaukset
-    guidance: Katso kaikki oppaamme
-    impact_assessment: Katso kaikki vaikutustenarviointimme
-    imported: Katso kaikki riippumattomat raporttimme
-    international_treaty: Katso kaikki kansainväliset sopimuksemme
-    map: Katso kaikki karttamme
-    national_statistics: Katso kaikki kansalliset tilastot
-    news_article: Katso kaikki uutiset
-    news_story: Katso kaikki uutisemme
-    notice: Katso kaikki ilmoituksemme
-    open_call_for_evidence: 
-    open_consultation: Katso kaikki avoimet neuvottelumme
-    oral_statement: Katso kaikki suulliset lausuntomme parlamentille
-    policy: Tutustu kaikkiin käytäntöihimme
-    policy_paper: Katso kaikki käytäntöasiakirjamme
-    press_release: Katso kaikki lehdistötiedotteemme
-    promotional: Katso kaikki mainosmateriaalimme
-    publication: Katso kaikki julkaisumme
-    regulation: Katso kaikki asetuksemme
-    research: Katso kaikki tutkimuksemme ja analyysimme
-    speaking_notes: Katso kaikki puhemuistiinpanomme
-    speech: Katso kaikki puheemme
-    statement_to_parliament: Katso kaikki lausuntomme parlamentille
-    statistical_data_set: Katso kaikki tilastotietoaineistomme
-    statistics: Katso kaikki tilastomme
-    statutory_guidance: Katso kaikki lakisääteiset ohjeemme
-    transcript: Katso kaikki transkriptiomme
-    transparency: Katso kaikki läpinäkyvyysdatamme
-    written_statement: Katso kaikki parlamentille antamamme kirjalliset lausunnot
   support:
     download: Ladata
     field_of_operation: 'Toiminta -alue:'
-    fields_of_operation: Toiminta -alueet
     pagination:
       next_html: Seuraava <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Seuraava sivu
@@ -565,9 +476,6 @@ fi:
       list_link: 
     headings:
       search: Hae maan tai alueen mukaan
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Kansainvälinen valtuuskunta
@@ -584,11 +492,3 @@ fi:
       publication_scheme_html: Lue, millaisia tietoja julkaisemme rutiininomaisesti %{link}.
       social_media_use_html: Lue käytäntömme osoitteesta %{link}.
       welsh_language_scheme_html: Tutustu sitoumukseemme %{link}.
-    find_out_more: Katso koko profiili ja kaikki yhteystiedot
-    headings:
-      contact_us: Ota yhteyttä
-      corporate_information: Yritystiedot
-      follow_us: Seuraa meitä
-      our_people: Meidän ihmiset
-    location: Sijainti
-    part_of: Osa

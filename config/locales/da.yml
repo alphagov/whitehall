@@ -72,10 +72,6 @@ da:
         Venligst fortæl os, hvilket format du har brug for. Det vil hjælpe os, hvis du fortæller os, hvilken hjælpeteknologi du bruger.
       intro: Denne fil er muligvis ikke egnet til brugere af hjælpeteknologi.
       request_a_different_format: Anmod om et tilgængeligt format.
-    csv:
-      cannot_preview: Denne fil kunne ikke fremvises.
-      download: Download filen for at se dens fulde indhold.
-      truncated_message: Denne visning viser kun de første %{rows} rækker og %{columns} kolonner.
     headings:
       order_a_copy: Bestil et eksemplar
       order_a_copy_full: Bestil et eksemplar af publikationen
@@ -91,16 +87,6 @@ da:
     caution:
       subheading: Vi har fundet nogle problemer med links, der kan indikere problemer, og du bør være forsigtig med at linke til dem
     title: Brudte links
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Luk
-    closing_today: Lukning i dag
-    closing_tomorrow: Lukker i morgen
-    days_left: "%{days_left} dage tilbage"
   contact:
     access_and_opening_times: Adgang til kontoret og åbningstider
     contact_form: Kontaktformular
@@ -137,10 +123,7 @@ da:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Indhold
-    latest: Seneste dokumenter
     published: offentliggjort
-    see_all: emne
     speech:
       author_title:
         minister: Minister
@@ -395,13 +378,7 @@ da:
   document_filters:
     world_locations:
       all: Alle steder
-      label: Verden Placeringer
       no_locations_filter: Ingen verdensrangliste matcher det filter.
-  fatality_notice:
-    british_fatalities: Britiske dødsfald
-    none_added: Der er ikke tilføjet nogen dødsfald for dette operationsområde endnu.
-  feeds:
-    latest_activity: Seneste aktivitet
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,17 @@ da:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Der er ingen opdateringer endnu.
-    title: Senest
   organisation:
     corporate_information:
-      access_our_info: Få adgang til vores oplysninger
       jobs: Job
-      jobs_and_contacts: Job og kontrakter
       organisation_chart: Vores organisationsdiagram
-      transparency: Data om gennemsigtighed
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Virksomhedsoplysninger
-      corporate_reports: Virksomhedsrapporter
-    support:
-      administered_by: Administreret af
-      agencies_and_public_bodies: agenturer og offentlige organer
-      part_of: del af
-      public_body: offentligt organ
-      works_with: Virker med
-    type:
-      courts_and_tribunals: Domstole og domstole
   roles:
     unassigned: Der er ingen, der er tildelt denne rolle
-  see_all:
-    announcement: Se alle vores meddelelser
-    authored_article: Se alle vores forfattede artikler
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Se alle vores casestudier
-    closed_call_for_evidence: 
-    closed_consultation: Se alle vores lukkede konsultationer
-    consultation: Se alle vores konsultationer
-    consultation_outcome: Se alle vores høringsresultater
-    corporate_report: Se alle vores virksomhedsrapporter
-    correspondence: Se alle vores korrespondancer
-    decision: Se alle vores afgørelser
-    detailed_guidance: Se alle vores vejledninger
-    document_collection: Se alle vores kollektioner
-    draft_text: Se alle vores udkast til tekster
-    fatality_notice: Se alle vores meddelelser om dødsfald
-    foi_release: Se alle vores informationsfrihedsudgivelser
-    form: Se alle vores kollektioner
-    government_response: Se alle vores svar fra regeringen
-    guidance: Se alle vores vejledninger
-    impact_assessment: Se alle vores konsekvensanalyser
-    imported: Se alle vores virksomhedsrapporter
-    international_treaty: Se alle vores internationale traktater
-    map: Se alle vores kollektioner
-    national_statistics: Se alle vores nationale statistikker
-    news_article: Se alle vores nyhedsartikler
-    news_story: Se alle vores nyhedshistorier
-    notice: Se alle vores meddelelser
-    open_call_for_evidence: 
-    open_consultation: Se alle vores lukkede konsultationer
-    oral_statement: Se alle vores skriftlige erklæringer til Parlamentet
-    policy: Se alle vores meddelelser
-    policy_paper: Se alle vores meddelelser
-    press_release: Se alle vores informationsfrihedsudgivelser
-    promotional: Se alt vores reklamemateriale
-    publication: Se alle vores Publikation
-    regulation: Se alle vores Forordning
-    research: Se alle vores undersøgelser og analyser
-    speaking_notes: Se alle vores talenoter
-    speech: Se alle vores tale
-    statement_to_parliament: Se alle vores skriftlige erklæringer til Parlamentet
-    statistical_data_set: Se alle vores statistiske datasæt
-    statistics: Se alle vores Statistik
-    statutory_guidance: Se alle vores vejledninger
-    transcript: Se alle vores Udskrift
-    transparency: Se alle vores gennemsigtighedsdata
-    written_statement: Se alle vores skriftlige erklæringer til Parlamentet
   support:
     download: Downloade
     field_of_operation: 'Operationsområde:'
-    fields_of_operation: Operationsområder
     pagination:
       next_html: Næste<span class="visuallyhidden">side</span> <span class="page-numbers">%{current_page} på %{total_pages}</span>
       next_page: Næste side
@@ -565,9 +476,6 @@ da:
       list_link: 
     headings:
       search: Søg efter land eller område
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Internationale delegation
@@ -584,11 +492,3 @@ da:
       publication_scheme_html: Læs om de typer af oplysninger, som vi rutinemæssigt offentliggør i vores %{link}.
       social_media_use_html: Læs vores politik om %{link}.
       welsh_language_scheme_html: Learn more about our commitment to% {link}.
-    find_out_more: Se hele profilen og alle kontaktoplysninger
-    headings:
-      contact_us: Kontakt os
-      corporate_information: Virksomhedsoplysninger
-      follow_us: Følg os
-      our_people: Vores folk
-    location: Placering
-    part_of: del af

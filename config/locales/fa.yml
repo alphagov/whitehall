@@ -71,10 +71,6 @@ fa:
         لطفاً به ما بگویید که به چه قالبی نیاز دارید. اگر بگویید که از چه فناوری کمکی استفاده می‌کنید، بهتر خواهد بود و به ما کمک خواهد کرد.
       intro: این فایل ممکن است برای کاربران فناوری‌های کمکی مناسب نباشد.
       request_a_different_format: درخواست یک قالب با قابلیت دسترسی بهتر.
-    csv:
-      cannot_preview: امکان پیش‌نمایش این فایل وجود ندارد.
-      download: برای مشاهده محتوای کامل فایل، آن را دانلود کنید.
-      truncated_message: این پیش‌نمایش تنها %{rows} سطر و %{columns} ستون اول را نمایش می‌دهد.
     headings:
       order_a_copy: سفارش یک نسخه کپی
       order_a_copy_full: سفارش یک نسخه کپی از سند
@@ -90,16 +86,6 @@ fa:
     caution:
       subheading: ما در مورد برخی از لینک‌ها به مسائلی برخوردیم که ممکن است نشان دهنده وجود مشکلاتی باشند، در ارتباط با آنها باید احتیاط کنید
     title: لینک‌های خراب
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: بسته شده
-    closing_today: امروز بسته شده
-    closing_tomorrow: فردا بسته می‌شود
-    days_left: "%{days_left} روز باقی‌مانده"
   contact:
     access_and_opening_times: دفعات دسترسی و باز شدن
     contact_form: فرم تماس
@@ -136,10 +122,7 @@ fa:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: محتوا
-    latest: آخرین اسناد
     published: منتشر شده
-    see_all: مشاهده همه
     speech:
       author_title:
         minister: وزیر
@@ -394,13 +377,7 @@ fa:
   document_filters:
     world_locations:
       all: تمام مکان‌ها
-      label: مکان‌های جهانی
       no_locations_filter: هیچ یک از مکان‌های جهانی با این فلیتر مطابقت ندارند.
-  fatality_notice:
-    british_fatalities: مرگ‌و‌میر بریتانیایی‌ها
-    none_added: هنوز هیچ اعلامیه مرگ‌و‌میری برای این زمینه فعالیت اضافه نشده است.
-  feeds:
-    latest_activity: آخرین فعالیت
   i18n:
     direction: rtl
   language_names:
@@ -470,83 +447,17 @@ fa:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: هنوز هیچ بروزرسانی وجود ندارد.
-    title: آخرین
   organisation:
     corporate_information:
-      access_our_info: دسترسی به اطلاعات ما
       jobs: شغل‌ها
-      jobs_and_contacts: شغل‌ها و قراردادها
       organisation_chart: نمودار سازمانی ما
-      transparency: داده‌های شفافیت
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: اطلاعات شرکت
-      corporate_reports: گزارشات شرکتی
-    support:
-      administered_by: با مدیریت
-      agencies_and_public_bodies: آژانس‌ها و نهادهای عمومی
-      part_of: بخشی از
-      public_body: نهاد عمومی
-      works_with: همکاری می‌کند با
-    type:
-      courts_and_tribunals: دادگاه‌ها و محکمه‌ها
   roles:
     unassigned: هیچ فردی به این نقش تخصیص نیافته است
-  see_all:
-    announcement: مشاهده تمام اعلامیه‌های ما
-    authored_article: مشاهده تمام مقالات تألیف شده ما
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: مشاهده تمام مطالعات موردی ما
-    closed_call_for_evidence: 
-    closed_consultation: مشاهده تمام مشاوره‌های بسته ما
-    consultation: مشاهده تمام مشاوره‌های ما
-    consultation_outcome: مشاهده تمام نتایج مشاوره‌های ما
-    corporate_report: مشاهده تمام گزارشات شرکتی ما
-    correspondence: مشاهده تمام مکاتبات ما
-    decision: مشاهده تمام تصمیمات ما
-    detailed_guidance: مشاهده تمام راهنمایی‌ها ما
-    document_collection: مشاهده تمام مجموعه‌های ما
-    draft_text: مشاهده تمام متون پیش‌نویس ما
-    fatality_notice: مشاهده تمام اطلاعیه‌های مرگ‌و‌میر ما
-    foi_release: مشاهده تمام بیانیه‌های آزادی اطلاعات ما
-    form: مشاهده تمام فرم‌های ما
-    government_response: مشاهده تمام پاسخ‌های دولتی ما
-    guidance: مشاهده تمام راهنمایی‌ها ما
-    impact_assessment: مشاهده تمام ارزیابی‌های تأثیر ما
-    imported: مشاهده تمام گزارشات مستقل ما
-    international_treaty: مشاهده تمام معاهدات بین‌المللی ما
-    map: مشاهده تمام نقشه‌های ما
-    national_statistics: مشاهده تمام آمار ملی ما
-    news_article: مشاهده تمام مقالات خبری ما
-    news_story: مشاهده تمام گزارشات خبری ما
-    notice: مشاهده تمام اطلاعیه‌های ما
-    open_call_for_evidence: 
-    open_consultation: مشاهده تمام مشاوره‌های باز ما
-    oral_statement: مشاهده تمام بیانیه‌های شفاهی ما به پارلمان
-    policy: مشاهده تمام سیاست‌های ما
-    policy_paper: مشاهده تمام اسناد سیاست ما
-    press_release: مشاهده تمام بیانیه‌های مطبوعاتی ما
-    promotional: مشاهده تمام محتوای تبلیغاتی ما
-    publication: مشاهده تمام موارد منتشر شده ما
-    regulation: مشاهده تمام مقررات ما
-    research: مشاهده تمام تحقیق و تحلیل‌های ما
-    speaking_notes: مشاهده تمام نکات گفتاری ما
-    speech: مشاهده تمام سخنرانی‌های ما
-    statement_to_parliament: مشاهده تمام بیانیه‌های ما به پارلمان
-    statistical_data_set: مشاهده تمام مجموعه داده‌های آماری ما
-    statistics: مشاهده تمام آمار ما
-    statutory_guidance: مشاهده تمام راهنمایی‌های قانونی ما
-    transcript: مشاهده تمام متون ما
-    transparency: مشاهده تمام داده‌های شفافیت ما
-    written_statement: مشاهده تمام بیانیه‌های کتبی ما به پارلمان
   support:
     download: دانلود
     field_of_operation: 'زمینه فعالیت:'
-    fields_of_operation: زمینه‌های فعالیت
     pagination:
       next_html: بعدی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page} از %{total_pages}</span>
       next_page: صفحه بعد
@@ -564,9 +475,6 @@ fa:
       list_link: 
     headings:
       search: جستجو بر اساس کشور یا قلمرو
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: هیأت بین‌المللی
@@ -583,11 +491,3 @@ fa:
       publication_scheme_html: درباره انواع اطلاعاتی که معمولاً در %{link} خود منتشر می‌کنیم، اطلاعات بیشتری کسب کنید.
       social_media_use_html: سیاست ما را درباره %{link} مطالعه کنید.
       welsh_language_scheme_html: درباره تعهد ما نسبت به %{link} اطلاعات کسب کنید.
-    find_out_more: مشاهده پروفایل کامل و تمام جزئیات تماس
-    headings:
-      contact_us: تماس با ما
-      corporate_information: اطلاعات شرکت
-      follow_us: ما را دنبال کنید
-      our_people: افراد ما
-    location: موقعیت مکانی
-    part_of: بخشی از

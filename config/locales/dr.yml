@@ -72,10 +72,6 @@ dr:
         به ما کمک خواهد کرد اگر بگویید که از چه تکنالوژی کمکی استفاده مینمایید.
       intro: این فایل ممکن است برای استفاده کننده گان تکنالوژی کمکی مناسب نباشد.
       request_a_different_format: یک فارمتی قابل دسترس را درخواست نمایید.
-    csv:
-      cannot_preview: پیش نمایش این فایل امکان پذیر نیست.
-      download: جهت مشاهدهء تمام محتوا، فایل را دانلود نمایید.
-      truncated_message: این پیش نمایش فقط%{rows} سطر ها%{columns}وستون هایی اول را نشان میدهد.
     headings:
       order_a_copy: یک نسخه سفارش دهید
       order_a_copy_full: یک نسخه از این نشریه را سفارش دهید
@@ -91,16 +87,6 @@ dr:
     caution:
       subheading: ما برخی موضوعات را در این لنک ها پیدا نموده ایم که ممکن است نشان دهندهء مشکلاتی باشند، در ضمیمه نمودن آنها باید احتیاط نمایید.
     title: لنک هایی تخریب شده
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: بسته شد
-    closing_today: امروز بسته میشود
-    closing_tomorrow: فردا بسته میشود
-    days_left: "%{days_left} روز ها باقی مانده"
   contact:
     access_and_opening_times: زمان باز کردن و دسترسی
     contact_form: فورم تماس
@@ -137,10 +123,7 @@ dr:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: محتوا
-    latest: جدیدترین اسناد
     published: نشر شده
-    see_all: همه را مشاهده نمایید
     speech:
       author_title:
         minister: وزیر
@@ -395,13 +378,7 @@ dr:
   document_filters:
     world_locations:
       all: تمام موقعیت ها
-      label: موقعیت هایی جهان
       no_locations_filter: هیچ مکان جهان با آن فلتر مطابقت ندارد.
-  fatality_notice:
-    british_fatalities: مرگ و میر بریتانیایی ها
-    none_added: هنوز هیچ خبر مرگ و میر در این بخش عملیات اضافه نشده است.
-  feeds:
-    latest_activity: جدیدترین فعالیت ها
   i18n:
     direction: rtl
   language_names:
@@ -471,83 +448,17 @@ dr:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: کدام آپدیتی تا هنوز موجود نیست
-    title: جدیدترین ها
   organisation:
     corporate_information:
-      access_our_info: به اطلاعات ما دسترسی یابید
       jobs: وظایف
-      jobs_and_contacts: وظایف و قرارداد ها
       organisation_chart: چارت سازمانی ما
-      transparency: داده هایی شفافیت
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: اطلاعات شرکت
-      corporate_reports: گزارشات شرکت
-    support:
-      administered_by: اداره شده توسط
-      agencies_and_public_bodies: نماینده گی ها و نهاد هایی عامه
-      part_of: بخشی از
-      public_body: نهاد عامه
-      works_with: کار مینماید با
-    type:
-      courts_and_tribunals: محاکم و دادگاه ها
   roles:
     unassigned: هیچ کسی به این وظیفه گماشته نشده است
-  see_all:
-    announcement: تمام اعلانات ما را مشاهده نمایید
-    authored_article: تمام مقالات تألیف شدهء ما را مشاهده نمایید
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: تمام مطالعات موردی مارا مشاهده نمایید
-    closed_call_for_evidence: 
-    closed_consultation: تمام مشاوره های تمام شدهء مارا مشاهده نمایید
-    consultation: تمام مشاوره هایی ما را مشاهده نمایید
-    consultation_outcome: نتایج تمام مشاوره هایی مارا مشاهده نمایید
-    corporate_report: تمام گزارشات شرکت ما را مشاهده نمایید
-    correspondence: تمام مکاتیب ما را مشاهده نمایید
-    decision: تمام تصمیمات ما را مشاهده نمایید
-    detailed_guidance: تمام راهنمای هایی مارا مشاهده نمایید
-    document_collection: تمام مجموعه هایی ما را مشاهده نمایید
-    draft_text: تمام پیش نویس متون ما را مشاهده نمایید
-    fatality_notice: تمام اعلامیه هایی مرگ و میر ما را مشاهده نمایید
-    foi_release: تمام انتشارات آزادی اطلاعات مارا مشاهده نمایید
-    form: تمام فارم هایی مارا مشاهده نمایید
-    government_response: تمام پاسخ هایی حکومت ما را مشاهده نمایید
-    guidance: تمام راهنمای هایی ما را مشاهده نمایید
-    impact_assessment: تمام ارزیابی های تأثیر ما را مشاهده نمایید
-    imported: تمام گزارشات مستقل ما را مشاهده نمایید
-    international_treaty: تمام معاهدات بین المللی ما را مشاهده نمایید
-    map: تمام نقشه هایی ما را مشاهده نمایید
-    national_statistics: تمام آمار ملی ما را مشاهده نمایید
-    news_article: تمام مقلات خبری ما را مشاهده نمایید
-    news_story: تمام گزارشات خبری ما را مشاهده نمایید
-    notice: تمام اعلامیه هایی ما را مشاهده نمایید
-    open_call_for_evidence: 
-    open_consultation: تمام مشاوره هایی آزاد ما را مشاهده نمایید
-    oral_statement: تمام بیانیه هایی شفاهی ما به پارلمان را مشاهده نمایید
-    policy: تمام سیاست/خط مشی هایی ما را مشاهده نمایید
-    policy_paper: تمام مقالات سیاست ما را مشاهده نمایید
-    press_release: تمام اطلاعیه هایی مطبوعاتی ما را مشاهده نمایید
-    promotional: تمام مواد تبلیغاتی ما را مشاهده نمایید
-    publication: تمام نشریات ما را مشاهده نمایید
-    regulation: تمام قوانین ما را مشاهده نمایید
-    research: تمام تحقیقات و تحلیل هایی ما را مشاهده نمایید
-    speaking_notes: تمام یاد داشت هایی سخنرانی ما را مشاهده نمایید
-    speech: تمام سخنرانی هایی ما را مشاهده نمایید
-    statement_to_parliament: تمام بیانیه های ما به پارلمان را مشاهده نمایید
-    statistical_data_set: تمام مجموعه هایی داده های آماری ما را مشاهده نمایید
-    statistics: تمام آمار هایی ما را مشاهده نمایید
-    statutory_guidance: تمام رهنمای قانونی ما را مشاهده نمایید
-    transcript: تمام متن هایی ما را مشاهده نمایید
-    transparency: تمام داده هایی شفافیت ما را مشاهده نمایید
-    written_statement: تمام بیانیه های کتبی ما به پارلمان را مشاهده نمایید
   support:
     download: دانلود نمایید
     field_of_operation: ساحهء عملیات
-    fields_of_operation: ساحات عملیات
     pagination:
       next_html: بعدی<span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page}از%{total_pages}</span>
       next_page: صفحه بعدی
@@ -565,9 +476,6 @@ dr:
       list_link: 
     headings:
       search: جستجو به اساس کشور یا قلمرو
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: هیٔت بین المللی
@@ -584,11 +492,3 @@ dr:
       publication_scheme_html: 'دربارهٔ اطلاعاتی که به طور معمول در%{link} نشر مینماییم، بخوانید '
       social_media_use_html: سیایت مارا در%{link} بخوانید
       welsh_language_scheme_html: در مورد تعهدات ما به%{link} بدانید
-    find_out_more: تمام پروفایل و جزیٔیات تماس با ما را مشاهده نماید
-    headings:
-      contact_us: با ما به تماس شوید
-      corporate_information: اطلاعات شرکت
-      follow_us: مارا دنبال نمایید
-      our_people: مردم ما
-    location: موقعیت
-    part_of: بخشی از
