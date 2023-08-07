@@ -461,9 +461,6 @@ hy:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: 'Դեռևս թարմացումներ չկան:'
-    title: Թարմացումներ
   organisation:
     corporate_information:
       access_our_info: Հասանելիություն մեր տվյալներին

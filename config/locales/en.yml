@@ -445,9 +445,6 @@ en:
     zh: Chinese
     zh-hk: Cantonese
     zh-tw: Traditional Chinese
-  latest_feed:
-    no_updates: There are no updates yet.
-    title: Latest
   organisation:
     corporate_information:
       access_our_info: Access our information

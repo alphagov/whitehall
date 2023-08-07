@@ -460,9 +460,6 @@ bg:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Все още няма актуализация.
-    title: Последни
   organisation:
     corporate_information:
       access_our_info: Достъп до нашата информация

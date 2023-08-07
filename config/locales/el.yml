@@ -460,9 +460,6 @@ el:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Δεν υπάρχουν ακόμα ενημερώσεις.
-    title: Πιο πρόσφατα
   organisation:
     corporate_information:
       access_our_info: Πρόσβαση στις πληροφορίες μας

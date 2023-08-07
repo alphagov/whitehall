@@ -461,9 +461,6 @@ fi:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Ei vielä päivityksiä.
-    title: Uusin
   organisation:
     corporate_information:
       access_our_info: Pääsy tietoihimme

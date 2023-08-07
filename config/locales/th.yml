@@ -380,9 +380,6 @@ th:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: ยังไม่มีการปรับปรุง
-    title: ล่าสุด
   organisation:
     corporate_information:
       access_our_info: เข้าถึงข้อมูลของเรา
