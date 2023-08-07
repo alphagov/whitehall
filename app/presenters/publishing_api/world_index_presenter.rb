@@ -1,7 +1,5 @@
 module PublishingApi
   class WorldIndexPresenter
-    include WorldLocationHelper
-
     attr_accessor :update_type
 
     def initialize(update_type: nil)
@@ -44,6 +42,13 @@ module PublishingApi
 
     def base_path
       "/world"
+    end
+
+    def sort(locations)
+      locations
+        .map { |location| [ActiveSupport::Inflector.transliterate(location.name_without_prefix), location] }
+        .sort_by { |transliterated_name, _location| transliterated_name.downcase }
+        .map { |_transliterated_name, location| location }
     end
 
   private
