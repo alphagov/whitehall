@@ -72,10 +72,6 @@ sl:
         Prosimo, povejte nam, kateri format potrebujete. V pomoč nam bo, če nam poveste, katero podporno tehnologijo uporabljate.
       intro: Ta datoteka morda ni primerna za uporabnike podporne tehnologije.
       request_a_different_format: Zahtevajte dostopen format.
-    csv:
-      cannot_preview: Pregled te datoteke ni bil mogoč.
-      download: Prenesite datoteko, če si želite ogledati njeno celotno vsebino.
-      truncated_message: Ta predogled prikazuje samo prvih %{rows} vrstic in %{columns} stolpcev.
     headings:
       order_a_copy: Naročite izvod
       order_a_copy_full: Naročite izvod publikacije

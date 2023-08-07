@@ -72,10 +72,6 @@ sr:
         Recite nam koji vam format treba. Bilo bi od pomoći da znamo koju vrstu pomoćne tehnologije koristite.
       intro: Ova datoteka možda nije pogodna za korisnike pomoćne tehnologije.
       request_a_different_format: Zatražite format kom možete da pristupite.
-    csv:
-      cannot_preview: Nije moguće pregledati ovu datoteku.
-      download: Preuzmite datoteku da biste videli ceo sadržaj.
-      truncated_message: Ovaj pregled prikazuje samo prvih %{rows} redova i %{columns} kolona.
     headings:
       order_a_copy: Zatražite primerak
       order_a_copy_full: Zatražite primerak publikacije

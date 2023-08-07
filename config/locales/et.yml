@@ -71,10 +71,6 @@ et:
         Palun öelge meile, millist vormingut vajate. See aitab meid, kui ütlete, millist hõlbustustehnoloogiat kasutate.
       intro: See fail ei pruugi hõlbustustehnoloogia kasutajatele sobida.
       request_a_different_format: Taotlege juurdepääsetavat vormingut.
-    csv:
-      cannot_preview: Selle faili eelvaadet ei saanud vaadata.
-      download: Laadige fail alla, et näha selle täielikku sisu.
-      truncated_message: See eelvaade näitab ainult %{rows} esimest rida ja %{columns} veergu.
     headings:
       order_a_copy: Telli koopia
       order_a_copy_full: Telli publikatsioonist koopia

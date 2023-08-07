@@ -72,10 +72,6 @@
         Fortell oss hvilket format du trenger. Det vil hjelpe oss hvis du forteller hvilken hjelpeteknologi du bruker.
       intro: Denne filen er muligens ikke egnet for brukere av hjelpeteknologi.
       request_a_different_format: Be om et tilgjengelig format.
-    csv:
-      cannot_preview: Denne filen kunne ikke forhåndsvises.
-      download: Last ned filen for å se hele innholdet.
-      truncated_message: Denne forhåndsvisningen viser bare de første %{rows} radene og %{columns} kolonnene.
     headings:
       order_a_copy: Bestill en kopi
       order_a_copy_full: Bestill en kopi av publikasjonen

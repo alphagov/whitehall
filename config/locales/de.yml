@@ -71,10 +71,6 @@ de:
         Bitte teilen Sie uns mit, welches Format Sie benötigen. Es erleichtert uns die Arbeit, wenn Sie uns mitteilen, welche Hilfsmittel Sie verwenden.
       intro: Diese Datei ist möglicherweise nicht für Hilfsmittel-Nutzer geeignet.
       request_a_different_format: Fordern Sie ein zugängliches Format an.
-    csv:
-      cannot_preview: Diese Datei konnte nicht in der Vorschau angezeigt werden.
-      download: Laden Sie die Datei herunter, um den vollständigen Inhalt zu sehen.
-      truncated_message: Diese Vorschau zeigt nur die ersten %{rows} Zeilen und %{columns} Spalten.
     headings:
       order_a_copy: Eine Kopie bestellen
       order_a_copy_full: Eine Kopie der Publikation bestellen

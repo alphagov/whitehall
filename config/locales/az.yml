@@ -72,10 +72,6 @@ az:
         Sizə hansı formatın lazım olduğunu bizə söyləyin. Hansı köməkçi texnologiyadan istifadə etdiyinizi bildirməyiniz bizə kömək edəcək.
       intro: Bu fayl köməkçi texnologiya istifadəçiləri üçün uyğun olmaya bilər.
       request_a_different_format: İstifadə edilə bilən format tələb edin.
-    csv:
-      cannot_preview: Bu faylın ilkin nəzərdən keçirilməsi mümkün olmadı.
-      download: Bu faylın bütün məzmunlarına baxmaq üçün onu endirin.
-      truncated_message: Bu ilkin baxışda yalnız birinci %{rows} sıra və %{columns} sütun göstərilir.
     headings:
       order_a_copy: Surətini sifariş edin
       order_a_copy_full: Nəşrin surətini sifariş edin

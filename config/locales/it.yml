@@ -72,10 +72,6 @@ it:
         Comunicaci quale formato ti serve. Se ci comunichi quale tecnologia assistiva usi ci sarà di aiuto.
       intro: Questo file potrebbe non essere adatto per utenti di tecnologia assistiva.
       request_a_different_format: Richiedi un formato accessibile.
-    csv:
-      cannot_preview: Non è possibile vedere in anteprima questo file.
-      download: Scarica il file per vedere il suo contenuto completo.
-      truncated_message: Questa anteprima mostra solo le prime righe %{rows} e colonne %{columns}.
     headings:
       order_a_copy: Ordina una copia
       order_a_copy_full: Ordina una copia della pubblicazione

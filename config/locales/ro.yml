@@ -71,10 +71,6 @@ ro:
         Spuneți-ne de ce format aveți nevoie. Ne va ajuta dacă ne spuneți ce tehnologie de asistență folosiți.
       intro: Este posibil ca acest fișier să nu fie potrivit pentru utilizatorii de tehnologie de asistență.
       request_a_different_format: Solicitați un format accesibil.
-    csv:
-      cannot_preview: Acest fișier nu a putut fi previzualizat.
-      download: Descărcați fișierul pentru a-i vizualiza conținutul complet.
-      truncated_message: Această previzualizare afișează doar primele %{rows} rânduri și %{columns} coloane.
     headings:
       order_a_copy: Comandați o copie
       order_a_copy_full: Comandați o copie a publicației

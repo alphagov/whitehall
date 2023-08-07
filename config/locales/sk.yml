@@ -72,10 +72,6 @@ sk:
         Povedzte nám, aký formát potrebujete. Pomôže nám, ak poviete, akú asistenčnú technológiu používate.
       intro: Tento súbor nemusí byť vhodný pre používateľov asistenčných technológií.
       request_a_different_format: Vyžiadajte si prístupný formát.
-    csv:
-      cannot_preview: Tento súbor nebolo možné zobraziť.
-      download: Stiahnite si súbor a pozrite si jeho úplný obsah.
-      truncated_message: Tento náhľad zobrazuje len prvé %{rows} riadkov a %{columns} stĺpcov.
     headings:
       order_a_copy: Objednať kópiu
       order_a_copy_full: Objednajte si kópiu publikácie

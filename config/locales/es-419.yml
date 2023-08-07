@@ -72,10 +72,6 @@ es-419:
         Por favor, indíquenos qué formato necesita. Nos ayudaría que nos dijeras qué tecnología de asistencia utilizas.
       intro: Este archivo puede no ser adecuado para los usuarios de tecnología de asistencia.
       request_a_different_format: Solicite un formato accesible.
-    csv:
-      cannot_preview: Este archivo no ha podido ser previsualizado.
-      download: Descargue el archivo para ver su contenido completo.
-      truncated_message: Esta vista previa sólo muestra las primeras %{rows} filas y %{columns} columnas.
     headings:
       order_a_copy: Solicite una copia
       order_a_copy_full: Solicite un ejemplar de la publicación

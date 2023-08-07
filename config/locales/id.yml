@@ -71,10 +71,6 @@ id:
         Silakan beri tahu kami format yang dibutuhkan. Ini akan membantu kami jika Anda mengatakan teknologi bantuan apa yang Anda gunakan.
       intro: File ini mungkin tidak sesuai untuk pengguna teknologi bantuan.
       request_a_different_format: Minta format yang dapat diakses.
-    csv:
-      cannot_preview: File ini tidak dapat dipratinjau.
-      download: Unduh file untuk melihat konten lengkapnya.
-      truncated_message: Pratinjau ini hanya menampilkan %{rows} baris dan %{columns} kolom pertama.
     headings:
       order_a_copy: Pesan salinan
       order_a_copy_full: Pesan salinan publikasi

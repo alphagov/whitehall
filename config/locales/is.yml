@@ -71,10 +71,6 @@ is:
         Vinsamlegast segðu okkur hvaða snið þú þarft. Vinsamlegast segðu okkur hvaða snið þú þarft.
       intro: Það hjálpar okkur ef þú tekur fram hvaða stoðtækni þú notast við.
       request_a_different_format: Óska eftir aðgengilegu sniði.
-    csv:
-      cannot_preview: Það er ekki hægt að forskoða þessa skrá.
-      download: Sæktu skránna til sjá allt efni hennar
-      truncated_message: Þessi forskoðun sýnir bara fyrstu %{rows} raðirnar og %{columns} dálkana.
     headings:
       order_a_copy: Panta eintak
       order_a_copy_full: Panta eintak af útgáfunni

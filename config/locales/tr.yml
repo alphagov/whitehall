@@ -71,10 +71,6 @@ tr:
         Lütfen bize hangi formata ihtiyaç duyduğunuzu söyleyin. Hangi destekleyici teknolojiyi kullandığınızı söylemeniz bize yardımcı olur.
       intro: Bu dosya destekleyici teknoloji kullanıcıları için uygun olmayabilir.
       request_a_different_format: Erişilebilir bir format talep edin.
-    csv:
-      cannot_preview: Bu dosya ön izlenemedi.
-      download: Dosyanın tüm içeriğini görüntülemek üzere indirin.
-      truncated_message: Bu ön izlemede yalnızca ilk %{rows} sıra ve %{columns} sütun gösterilir.
     headings:
       order_a_copy: Bir nüsha sipariş edin
       order_a_copy_full: Yayının bir nüshasını sipariş edin

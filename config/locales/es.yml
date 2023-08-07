@@ -69,10 +69,6 @@ es:
       full_help_html: Si utiliza tecnología de asistencia (como un lector de pantalla) y necesita una versión de este documento en una formato más accesible, envíe un correo electrónico a %{email}. Díganos qué formato necesita. Para nosotros es importante saber qué tecnología de asistencia utiliza.
       intro: Este archivo puede estar no disponible para usuarios con tecnología asistida
       request_a_different_format: Solicítelo en un formato diferente
-    csv:
-      cannot_preview: No se ha podido previsualizar este archivo.
-      download: Descargue el archivo para ver su contenido completo.
-      truncated_message: Esta vista previa solamente muestra las primeras filas %{rows} y columnas %{columns}.
     headings:
       order_a_copy: Pida una copia
       order_a_copy_full: Pida una copa de la publicación

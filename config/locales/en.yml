@@ -56,10 +56,6 @@ en:
         Please tell us what format you need. It will help us if you say what assistive technology you use.
       intro: This file may not be suitable for users of assistive technology.
       request_a_different_format: Request an accessible format.
-    csv:
-      cannot_preview: This file could not be previewed.
-      download: Download the file to view its full contents.
-      truncated_message: This preview only shows the first %{rows} rows and %{columns} columns.
     headings:
       order_a_copy: Order a copy
       order_a_copy_full: Order a copy of the publication

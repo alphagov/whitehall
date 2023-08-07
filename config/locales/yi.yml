@@ -69,10 +69,6 @@ yi:
       full_help_html: 
       intro: 
       request_a_different_format: 
-    csv:
-      cannot_preview: 
-      download: 
-      truncated_message: 
     headings:
       order_a_copy: 
       order_a_copy_full: 

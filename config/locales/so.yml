@@ -71,10 +71,6 @@ so:
         Fadlan noo sheeg nooca qaabka aad u baahantahay. Waxay naga caawinaysaa hadii aad dhahdo waa maxay tiknoolajiyada aad isticmaasho.
       intro: Faylkani waxa laga yaabaa inaanu ku haboonayn isticmaalayaasha tiknoolajiyada caawinta.
       request_a_different_format: Codso nidaam la gali karo.
-    csv:
-      cannot_preview: Faylka si hordhac ah looma sii eegi karo.
-      download: Dejiso faylka si aad u eegto waxyaabaha uu ka koobanyahay dhamaan.
-      truncated_message: Si aad u eegto kaliya wuxuu ku tusinayaa laynka %{rows} koowaad iyo %{columns} kolomka.
     headings:
       order_a_copy: Dalbo nuqul
       order_a_copy_full: Dalbo nuqul daabacaada ah

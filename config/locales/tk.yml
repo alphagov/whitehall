@@ -71,10 +71,6 @@ tk:
         Size haýsy format gerekdigini aýdyň. Haýsy kömekçi tehnologiýany ulanýandygyňyzy aýtsaňyz bu bize kömek bolar.
       intro: Bu faýl kömekçi tehnologiýany ulanyjylar üçin elýeter bolman biler.
       request_a_different_format: Elýeterli formaty talap etmek.
-    csv:
-      cannot_preview: Bu faýly öňünden görüp bolmaz.
-      download: Doly mazmunyny görmek üçin faýly göçürip alyň.
-      truncated_message: Bu öňünden görüş diňe birinji %{rows} setiri we %{columns} sütüni görkezýär.
     headings:
       order_a_copy: Göçürmäni sargyt ediň
       order_a_copy_full: Neşiriň bir göçürmesini sargyt ediň

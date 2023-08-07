@@ -69,10 +69,6 @@ mt:
       full_help_html: "Jekk tuża teknoloġija assistiva (bħal qarrej ta' skrin) u għandek bżonn verżjoni ta' dan id-dokument f'format iktar aċċessibbli, jekk jogħġbok ibgħat imejl %{email}. \nJekk jogħġbok igħidilna x'format għandek bżonn.  Ser jgħinna jekk tgħidilna x'teknoloġija assistiva qed tuża'.\n"
       intro: Dan il-fajl jista' ma jkunx adattat għal utenti ta' teknoloġija assistiva.
       request_a_different_format: Itlob format aċċessibbli.
-    csv:
-      cannot_preview: Il-fajl ma setax jintwera qabel.
-      download: Niżżel il-fajl biex tara l-kontenut kollu tiegħu.
-      truncated_message: Dan il-preview juri biss l-ewwel %{rows} ringiela u %{columns} kolonni.
     headings:
       order_a_copy: Ordna kopja
       order_a_copy_full: Ordna kopja tal-pubblikazzjoni

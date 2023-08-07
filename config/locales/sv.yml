@@ -72,10 +72,6 @@ sv:
         Vänligen tala om för oss vilket format du behöver. Det underlättar för oss om du anger vilken hjälpmedelsteknik du använder.
       intro: Den här filen kanske inte är lämplig för användare av hjälpmedel.
       request_a_different_format: Begär ett tillgängligt format.
-    csv:
-      cannot_preview: Den här filen kunde inte förhandsgranskas.
-      download: Ladda ner filen för att se hela innehållet.
-      truncated_message: Den här förhandsgranskningen visar endast de första %{rows} raderna och %{columns} kolumnerna.
     headings:
       order_a_copy: Beställ ett exemplar
       order_a_copy_full: Beställ ett exemplar av publikationen

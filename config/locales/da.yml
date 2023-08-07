@@ -72,10 +72,6 @@ da:
         Venligst fortæl os, hvilket format du har brug for. Det vil hjælpe os, hvis du fortæller os, hvilken hjælpeteknologi du bruger.
       intro: Denne fil er muligvis ikke egnet til brugere af hjælpeteknologi.
       request_a_different_format: Anmod om et tilgængeligt format.
-    csv:
-      cannot_preview: Denne fil kunne ikke fremvises.
-      download: Download filen for at se dens fulde indhold.
-      truncated_message: Denne visning viser kun de første %{rows} rækker og %{columns} kolonner.
     headings:
       order_a_copy: Bestil et eksemplar
       order_a_copy_full: Bestil et eksemplar af publikationen

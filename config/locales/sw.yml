@@ -71,10 +71,6 @@ sw:
         Tafadhali tuambie muundo unaohitaji. Itatusaidia ikiwa utatufahamisha kifaa cha usaidizi unachotumia.
       intro: Faili hii huenda haitumiki kwa watumiaji wanaotumia vifaa vya usaidizi.
       request_a_different_format: Omba muundo unaoweza kutumika.
-    csv:
-      cannot_preview: Imeshindwa kuonyesha onyesho la kukagua faili hii.
-      download: Pakua faili ili uone maudhui yake yote.
-      truncated_message: Onyesho hili la kukagua linaonyesha tu safu mlalo %{rows} na safu wima %{columns}.
     headings:
       order_a_copy: Agiza nakala
       order_a_copy_full: Agiza nakala ya chapisho

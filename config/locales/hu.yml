@@ -71,10 +71,6 @@ hu:
         Kérjük, mondja el, hogy milyen formátumra van szüksége. Ha elmondja, hogy milyen segítő technológiát használ, az is nagy segítség.
       intro: Elképzelhető, hogy ez a fájl nem megfelelő a segítő technológiák felhasználói számára.
       request_a_different_format: Kérjen hozzáférhető formátumot.
-    csv:
-      cannot_preview: A fájl nem rendelkezik előnézettel.
-      download: Töltse le a fájlt és tekintse meg a teljes tartalmát.
-      truncated_message: Az előnézet csak az első %{rows} sort és %{columns} oszlopot mutatja meg.
     headings:
       order_a_copy: Példány megrendelése
       order_a_copy_full: A publikáció másolatának megrendelése

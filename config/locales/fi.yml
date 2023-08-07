@@ -72,10 +72,6 @@ fi:
         Kerro meille, missä muodossa tarvitset. Se auttaa meitä, jos sanot, mitä apuvälineteknologiaa käytät.
       intro: Tämä tiedosto ei ehkä sovellu apuvälineen käyttäjille.
       request_a_different_format: Pyydä helppokäyttöistä muotoa.
-    csv:
-      cannot_preview: Tätä tiedostoa ei voitu esikatsella.
-      download: Lataa tiedosto, niin voit tarkastella sen koko sisältöä.
-      truncated_message: Tässä esikatselussa näkyvät vain ensimmäiset %{rows} riviä ja %{columns} saraketta.
     headings:
       order_a_copy: Tilaa kopio
       order_a_copy_full: Tilaa kopio julkaisusta

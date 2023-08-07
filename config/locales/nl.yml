@@ -69,10 +69,6 @@ nl:
       full_help_html: "Als u ondersteunende technologie gebruikt (zoals een schermlezer) en een\r\nversie van dit document in een meer toegankelijk formaat nodig heeft, stuur dan een e-mail naar %{email}.\r\nVertel ons welk formaat u nodig hebt. Het zal ons helpen als u zegt welke ondersteunende technologie u gebruikt.\r\n"
       intro: Dit bestand is mogelijk niet geschikt voor gebruikers van ondersteunende technologie.
       request_a_different_format: Vraag een toegankelijk formaat aan.
-    csv:
-      cannot_preview: Dit bestand kon niet worden voorvertoond.
-      download: Download het bestand om de volledige inhoud te bekijken.
-      truncated_message: Dit voorbeeld toont alleen de eerste %{rows} rijen en %{columns} kolommen.
     headings:
       order_a_copy: Een exemplaar bestellen
       order_a_copy_full: Bestel een exemplaar van de publicatie

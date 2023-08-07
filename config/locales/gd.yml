@@ -71,10 +71,6 @@ gd:
         Cuir in iúl an fhormáid atá uait. Ligfidh sé seo dúinn soiléiriú a dhéanamh ar an teicneolaíocht chúnta atá á húsáid agat.
       intro: B’fhéidir nach mbeidh an comhad seo oiriúnach d’úsáideoirí feistí cúnta.
       request_a_different_format: Is féidir leat formáid inrochtana a iarraidh.
-    csv:
-      cannot_preview: Ní fhéadfaí réamhamharc a dhéanamh ar an gcomhad seo.
-      download: Íoslódáil an leabhar chun a ábhar iomlán a fheiceáil.
-      truncated_message: Ní chuimsíonn an réamhamharc seo ach na chéad sraitheanna %{rows} agus %{columns}  colúin.
     headings:
       order_a_copy: Coinnigh cóip
       order_a_copy_full: Cóip den fhoilseachán a ordú

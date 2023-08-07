@@ -71,10 +71,6 @@ zh-tw:
         請告訴我們需要什麼格式。這將很幫助，如果能告知所使用的輔助科技。
       intro: 此文檔可能不適合輔助科技用戶。
       request_a_different_format: 請求可參閱格式。
-    csv:
-      cannot_preview: 無法預覽此檔案。
-      download: 下載文件以查看其完整內容。
-      truncated_message: 此預覽僅顯示前 %{rows} 行和 %{columns} 列。
     headings:
       order_a_copy: 預定副本
       order_a_copy_full: 預定出版副本

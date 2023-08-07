@@ -72,10 +72,6 @@ fr:
         Veuillez nous préciser le format dont vous avez besoin. Nous serons plus efficaces si vous nous dites quelle technologie d'assistance vous utilisez.
       intro: Ce fichier est susceptible de ne pas convenir aux utilisateurs de la technologie d'assistance.
       request_a_different_format: Demander un format accessible
-    csv:
-      cannot_preview: Impossible d'avoir un aperçu de ce fichier.
-      download: Téléchargez le fichier pour voir son contenu complet.
-      truncated_message: Cet aperçu affiche uniquement les premières %{rows} lignes et %{columns} colonnes.
     headings:
       order_a_copy: Commander une copie
       order_a_copy_full: Commander une copie du document

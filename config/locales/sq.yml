@@ -72,10 +72,6 @@ sq:
         Ju lutemi na tregoni se çfarë formati ju nevojitet. Do të na ndihmojë nëse thoni çfarë teknologjie ndihmëse përdorni.
       intro: Ky skedar mund të mos jetë i përshtatshëm për përdoruesit e teknologjisë ndihmëse.
       request_a_different_format: Kërkoni një format të arritshëm.
-    csv:
-      cannot_preview: Ky skedar nuk mund të shikohej paraprakisht.
-      download: Shkarkoni skedarin për të parë përmbajtjen e tij të plotë.
-      truncated_message: Ky pamje paraqet vetëm rreshtat %{rows} dhe kolonat %{columns} e para.
     headings:
       order_a_copy: Porosit një kopje
       order_a_copy_full: Porositni një kopje të botimit

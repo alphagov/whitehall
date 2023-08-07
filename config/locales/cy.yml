@@ -71,10 +71,6 @@ cy:
         Rhowch wybod i ni pa fformat sydd ei angen arnoch. Bydd yn ein helpu os byddwch chi'n dweud pa dechnoleg gynorthwyol rydych chi'n ei defnyddio.
       intro: Efallai na fydd y ffeil hon yn addas i ddefnyddwyr technoleg gynorthwyol.
       request_a_different_format: Gwneud cais am fformat hygyrch.
-    csv:
-      cannot_preview: Nid oedd modd gweld rhagolwg o'r ffeil hon.
-      download: Llwythwch y ffeil i lawr i weld ei chynnwys yn llawn.
-      truncated_message: Dim ond y %{rows} rhes a'r %{columns} colofn gyntaf mae'r rhagolwg hwn yn eu dangos.
     headings:
       order_a_copy: Archebu copi
       order_a_copy_full: Archebwch gopi o'r cyhoeddiad

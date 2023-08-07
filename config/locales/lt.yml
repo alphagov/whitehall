@@ -69,10 +69,6 @@ lt:
       full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio, audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną bei leidinio pavadinimą .Prašome pasakyti, kokio formato jums reikia. Mums padės, jei pasakysite, kokią pagalbinę technologiją naudojate.
       intro: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
       request_a_different_format: Paprašykite kito formato.
-    csv:
-      cannot_preview: Failo negalima peržiūrėti.
-      download: Atsisiųskite failą, kad peržiūrėtumėte jo turinį.
-      truncated_message: Peržiūros režime galite peržiūrėti tik pirmąsias %{rows} eilutes ir pirmuosius %{columns} stulpelius.
     headings:
       order_a_copy: Užsisakykite leidinį
       order_a_copy_full: Užsisakykite leidinį

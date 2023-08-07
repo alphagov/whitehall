@@ -72,10 +72,6 @@ ms:
         Sila beritahu kami format yang anda perlukan. Lebih mudah bagi kami jika anda memberitahu teknologi bantu apa yang anda gunakan.
       intro: Fail ini mungkin tidak sesuai untuk pengguna teknologi bantu.
       request_a_different_format: Minta format yang boleh diakses.
-    csv:
-      cannot_preview: Fail ini tidak dapat dipratunjuk.
-      download: Muat turun fail untuk melihat kandungannya yang lengkap.
-      truncated_message: Pratunjuk ini hanya menunjukkan baris %{rows} dan lajur %{columns} pertama.
     headings:
       order_a_copy: Pesan satu salinan
       order_a_copy_full: Pesan satu salinan terbitan

@@ -69,10 +69,6 @@ lv:
       full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā, kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
       intro: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
       request_a_different_format: Pieprasīt citā formātā.
-    csv:
-      cannot_preview: Failu nevar priekšskatīt.
-      download: Lejupielādējiet failu, lai skatītu tā saturu pilnībā.
-      truncated_message: Šajā priekšskatījumā ir redzamas tikai pirmās %{rows} rindas un %{columns} kolonnas.
     headings:
       order_a_copy: Pasūtīt
       order_a_copy_full: Pasūtīt publikāciju

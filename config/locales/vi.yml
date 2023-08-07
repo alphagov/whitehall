@@ -71,10 +71,6 @@ vi:
         Vui lòng cho chúng tôi biết bạn cần định dạng nào. Vui lòng cho biết bạn sử dụng công nghệ hỗ trợ nào.
       intro: Tệp này có thể không phù hợp với người dùng công nghệ hỗ trợ.
       request_a_different_format: Yêu cầu một định dạng có thể truy cập.
-    csv:
-      cannot_preview: Không thể xem trước tệp này.
-      download: Tải xuống tệp để xem toàn bộ nội dung.
-      truncated_message: Bản xem trước này chỉ hiển thị %{row} hàng và %{column} cột đầu tiên.
     headings:
       order_a_copy: Đặt hàng một bản sao
       order_a_copy_full: Đặt hàng một bản sao của ấn phẩm

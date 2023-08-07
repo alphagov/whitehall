@@ -71,10 +71,6 @@ zh:
         请告诉我们您需要什么格式。如果您能说出自己使用的辅助技术，这对我们很有帮助。
       intro: 此文件可能不适合辅助技术用户使用。
       request_a_different_format: 申请可访问格式。
-    csv:
-      cannot_preview: 无法预览本文件。
-      download: 下载本文件以查看其全部内容。
-      truncated_message: 本预览仅显示前 %{rows} 行和 %{columns} 列。
     headings:
       order_a_copy: 订购副本
       order_a_copy_full: 订购本发布的副本

@@ -71,10 +71,6 @@ zh-hk:
         假如您說明您所使用的輔助技術，將對我們大為有助。
       intro: 此檔案不適合使用輔助技術的使用者。
       request_a_different_format: 索取可閱讀之格式。
-    csv:
-      cannot_preview: 此文檔無法預覽。
-      download: 下載文件以查閱全部內容。
-      truncated_message: 此預覽僅顯示首 %{rows} 行及 %{columns} 列。
     headings:
       order_a_copy: 訂閱副本
       order_a_copy_full: 訂閱報告副本
