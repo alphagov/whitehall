@@ -27,19 +27,6 @@ Whitehall::Application.routes.draw do
   root to: redirect("/admin/"),
        constraints: ->(request) { AdminRequest.valid_admin_host?(request.host) }
 
-  # Temporary addition in response to Whitehall's public API's being retired
-  deprecated_api_410 = proc { [410, {}, ["This API has been deprecated. See [GOVUK RFC-159](https://github.com/alphagov/govuk-rfcs/blob/main/rfc-159-switch-off-whitehall-apis.md)."]] }
-
-  # This API is documented here:
-  # https://github.com/alphagov/whitehall/blob/master/docs/api.md
-  namespace "api" do
-    resources :governments, to: deprecated_api_410
-    resources :world_locations, path: "world-locations", to: deprecated_api_410 do
-      resources :worldwide_organisations, path: "organisations", to: deprecated_api_410
-    end
-    resources :worldwide_organisations, path: "worldwide-organisations", to: deprecated_api_410
-  end
-
   # Override the /auth/failure route in gds-sso, as Slimmer gets
   # involved and causes the page to fail to render
   #
