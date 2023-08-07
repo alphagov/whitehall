@@ -458,7 +458,6 @@ hr:
   document_filters:
     world_locations:
       all: Sve lokacije
-      label: Svjetske lokacije
       no_locations_filter: Nijedna svjetska lokacija ne odgovara tom filtru.
   i18n:
     direction: ltr

@@ -535,7 +535,6 @@ pl:
   document_filters:
     world_locations:
       all: Wszystkie lokalizacje
-      label: Lokalizacje na świecie
       no_locations_filter: Żadne lokalizacje na świecie nie pasują do tego filtra.
   i18n:
     direction: ltr

@@ -377,7 +377,6 @@ tk:
   document_filters:
     world_locations:
       all: Ähli ýerler
-      label: Dünýä ýerleri
       no_locations_filter: Bu gözlege gabat gelýän dünýä ýerleri ýok.
   i18n:
     direction: ltr

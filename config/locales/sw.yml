@@ -377,7 +377,6 @@ sw:
   document_filters:
     world_locations:
       all: Maeneo yote
-      label: Maeneo ya kimataifa
       no_locations_filter: Hamna maeneo ya kimataifa yanayolingana na kichujio hicho.
   i18n:
     direction: ltr

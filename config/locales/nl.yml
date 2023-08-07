@@ -375,7 +375,6 @@ nl:
   document_filters:
     world_locations:
       all: Alle locaties
-      label: Wereld locaties
       no_locations_filter: Geen locaties in de wereld komen overeen met dat filter.
   i18n:
     direction: ltr

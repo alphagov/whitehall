@@ -375,7 +375,6 @@ yi:
   document_filters:
     world_locations:
       all: 
-      label: 
       no_locations_filter: 
   i18n:
     direction: rtl

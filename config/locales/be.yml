@@ -535,7 +535,6 @@ be:
   document_filters:
     world_locations:
       all: Усе месцазнаходжанні
-      label: Мы ў свеце
       no_locations_filter: Ні адно месцазнаходжанне ў свеце не адпавядае гэтаму фільтру.
   i18n:
     direction: ltr

@@ -297,7 +297,6 @@ zh:
   document_filters:
     world_locations:
       all: 全部地点
-      label: 世界地点
       no_locations_filter: 世界上没有任何地点匹配这个过滤器。
   i18n:
     direction: ltr

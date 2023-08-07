@@ -362,7 +362,6 @@ en:
   document_filters:
     world_locations:
       all: All locations
-      label: World locations
       no_locations_filter: No world locations match that filter.
   i18n:
     direction: ltr

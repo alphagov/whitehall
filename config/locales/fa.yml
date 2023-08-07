@@ -377,7 +377,6 @@ fa:
   document_filters:
     world_locations:
       all: تمام مکان‌ها
-      label: مکان‌های جهانی
       no_locations_filter: هیچ یک از مکان‌های جهانی با این فلیتر مطابقت ندارند.
   i18n:
     direction: rtl

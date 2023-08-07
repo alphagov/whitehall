@@ -297,7 +297,6 @@ th:
   document_filters:
     world_locations:
       all: สถานที่ตั้งทุกแห่ง
-      label: สถานที่ทั่วโลก
       no_locations_filter: ไม่มีสถานที่ในโลกใดๆ ที่ตรงกับตัวกรอง
   i18n:
     direction: ltr

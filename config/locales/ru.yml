@@ -535,7 +535,6 @@ ru:
   document_filters:
     world_locations:
       all: Все места нахождения
-      label: Место нахождения в мире
       no_locations_filter: Ни одно место нахождения в мире не соответствует этому фильтру.
   i18n:
     direction: ltr

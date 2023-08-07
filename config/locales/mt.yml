@@ -535,7 +535,6 @@ mt:
   document_filters:
     world_locations:
       all: Postijiet kollha
-      label: Postijiet fid-dinja
       no_locations_filter: L-ebda postijiet fid-dinja ma jaqblu mal-filter.
   i18n:
     direction: ltr

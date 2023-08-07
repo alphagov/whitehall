@@ -377,7 +377,6 @@ gu:
   document_filters:
     world_locations:
       all: તમામ લોકેશન્સ
-      label: વૈશ્વિક લોકેશન્સ
       no_locations_filter: આ ફિલ્ટર સાથે કોઈ પણ વૈશ્વિક લોકેશન મેળ ખાતું નથી.
   i18n:
     direction: ltr

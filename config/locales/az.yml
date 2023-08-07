@@ -378,7 +378,6 @@ az:
   document_filters:
     world_locations:
       all: Bütün yerlər
-      label: Dünya üzrə yerləri
       no_locations_filter: Dünya üzrə yerləri həmin süzgəcə uyğun gəlmir.
   i18n:
     direction: ltr

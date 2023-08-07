@@ -378,7 +378,6 @@ pa:
   document_filters:
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
-      label: ਵਿਸ਼ਵ ਸਥਾਨ
       no_locations_filter: ਕੋਈ ਵੀ ਵਿਸ਼ਵ ਸਥਾਨ ਉਸ ਫਿਲਟਰ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।
   i18n:
     direction: ltr

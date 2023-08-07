@@ -297,7 +297,6 @@ zh-hk:
   document_filters:
     world_locations:
       all: 所有駐點
-      label: 全球駐點
       no_locations_filter: 無世界範圍內之地點滿足此一篩選。
   i18n:
     direction: ltr

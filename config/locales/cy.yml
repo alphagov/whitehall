@@ -697,7 +697,6 @@ cy:
   document_filters:
     world_locations:
       all: Pob lleoliad
-      label: Lleoliadau byd-eang
       no_locations_filter: Does dim lleoliadau byd-eang yn cyd-fynd â'r hidlydd hwnnw.
   i18n:
     direction: ltr

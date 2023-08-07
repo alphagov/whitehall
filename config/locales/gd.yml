@@ -537,7 +537,6 @@ gd:
   document_filters:
     world_locations:
       all: Gach láthair
-      label: Áit ar domhan
       no_locations_filter: Níl aon áit ar domhan comhoiriúnach leis an scagaire seo.
   i18n:
     direction: ltr

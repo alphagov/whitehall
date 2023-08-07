@@ -378,7 +378,6 @@ dr:
   document_filters:
     world_locations:
       all: تمام موقعیت ها
-      label: موقعیت هایی جهان
       no_locations_filter: هیچ مکان جهان با آن فلتر مطابقت ندارد.
   i18n:
     direction: rtl

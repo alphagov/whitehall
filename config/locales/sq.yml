@@ -378,7 +378,6 @@ sq:
   document_filters:
     world_locations:
       all: Të gjitha vendndodhjet
-      label: Vendndodhjet globale
       no_locations_filter: Asnjë vendndodhje botërore nuk përputhet me atë filtër.
   i18n:
     direction: ltr

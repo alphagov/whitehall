@@ -377,7 +377,6 @@ hu:
   document_filters:
     world_locations:
       all: Minden ország
-      label: Helyszínek a világban
       no_locations_filter: Nincs olyan helyszín a világban, ami megfelelne ennek a szűrőnek.
   i18n:
     direction: ltr

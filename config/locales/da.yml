@@ -378,7 +378,6 @@ da:
   document_filters:
     world_locations:
       all: Alle steder
-      label: Verden Placeringer
       no_locations_filter: Ingen verdensrangliste matcher det filter.
   i18n:
     direction: ltr

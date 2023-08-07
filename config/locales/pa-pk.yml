@@ -375,7 +375,6 @@ pa-pk:
   document_filters:
     world_locations:
       all: ساریاں تھاواں
-      label: دُنیا دیاں تھاواں
       no_locations_filter: دُنیا دی کوئی وی تھاں چھانن نال نئیں ملدی
   i18n:
     direction: rtl

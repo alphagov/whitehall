@@ -377,7 +377,6 @@ bg:
   document_filters:
     world_locations:
       all: Всички местоположения
-      label: Местоположения по света
       no_locations_filter: Нито едно местоположение в света не отговаря на това филтриране.
   i18n:
     direction: ltr

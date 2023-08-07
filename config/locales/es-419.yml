@@ -378,7 +378,6 @@ es-419:
   document_filters:
     world_locations:
       all: Todas las ubicaciones
-      label: Ubicaciones en el mundo
       no_locations_filter: Ninguna ubicación del mundo coincide con ese filtro.
   i18n:
     direction: ltr

@@ -377,7 +377,6 @@ el:
   document_filters:
     world_locations:
       all: Όλες οι τοποθεσίες
-      label: Παγκόσμιες τοποθεσίες
       no_locations_filter: Καμία τοποθεσία στον κόσμο δεν ταιριάζει με αυτό το φίλτρο.
   i18n:
     direction: ltr

@@ -377,7 +377,6 @@ et:
   document_filters:
     world_locations:
       all: Kõik asukohad
-      label: Maailma asukohad
       no_locations_filter: Ükski maailma asukoht ei vasta sellele filtrile.
   i18n:
     direction: ltr

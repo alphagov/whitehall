@@ -377,7 +377,6 @@ kk:
   document_filters:
     world_locations:
       all: Барлық орындар
-      label: Әлемдегі орындар
       no_locations_filter: Бұл сүзгіге сәйкес келетін әлем орындары жоқ.
   i18n:
     direction: ltr

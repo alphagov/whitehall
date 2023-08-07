@@ -375,7 +375,6 @@ es:
   document_filters:
     world_locations:
       all: Todos los lugares
-      label: Lugares del mundo
       no_locations_filter: Ninguna ubicación mundial coincide con ese filtro.
   i18n:
     direction: ltr

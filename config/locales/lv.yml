@@ -375,7 +375,6 @@ lv:
   document_filters:
     world_locations:
       all: Visas vietas
-      label: Vietas pasaulē
       no_locations_filter: Neviena vieta pasaulē neatbilst šim filtram.
   i18n:
     direction: ltr

@@ -297,7 +297,6 @@ id:
   document_filters:
     world_locations:
       all: Semua lokasi
-      label: Lokasi dunia
       no_locations_filter: Tidak ada lokasi dunia yang cocok dengan filter itu.
   i18n:
     direction: ltr

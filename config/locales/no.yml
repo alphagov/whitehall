@@ -378,7 +378,6 @@
   document_filters:
     world_locations:
       all: Alle steder
-      label: Steder i verden
       no_locations_filter: Ingen steder i verden samsvarer med det filteret.
   i18n:
     direction: ltr

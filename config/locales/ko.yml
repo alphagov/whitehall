@@ -297,7 +297,6 @@ ko:
   document_filters:
     world_locations:
       all: 모든 로케이션
-      label: 월드 로케이션
       no_locations_filter: 해당 필터와 일치하는 세계 필터란 없습니다.
   i18n:
     direction: ltr

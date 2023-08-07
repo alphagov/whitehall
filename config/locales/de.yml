@@ -377,7 +377,6 @@ de:
   document_filters:
     world_locations:
       all: Alle Standorte
-      label: Weltweite Standorte
       no_locations_filter: Kein Ort der Welt entspricht diesem Filter.
   i18n:
     direction: ltr

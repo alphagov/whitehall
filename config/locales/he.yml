@@ -378,7 +378,6 @@ he:
   document_filters:
     world_locations:
       all: כל המיקומים
-      label: מיקומים גלובאליים
       no_locations_filter: אין מיקומים גלובאליים התואמים את המסנן הזה.
   i18n:
     direction: rtl

@@ -457,7 +457,6 @@ ro:
   document_filters:
     world_locations:
       all: Toate locațiile
-      label: Locații pe glob
       no_locations_filter: Nicio locație de pe glob nu se potrivește acestui filtru.
   i18n:
     direction: ltr

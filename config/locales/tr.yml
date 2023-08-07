@@ -377,7 +377,6 @@ tr:
   document_filters:
     world_locations:
       all: Tüm konumlar
-      label: Dünya geneli konumlar
       no_locations_filter: Dünya genelinde bu filtreyle eşleşen hiçbir konum yok.
   i18n:
     direction: ltr

@@ -378,7 +378,6 @@ fi:
   document_filters:
     world_locations:
       all: Kaikki sijainnit
-      label: Maailman sijainnit
       no_locations_filter: Mikään maailman sijainnit eivät vastaa tätä suodatinta.
   i18n:
     direction: ltr

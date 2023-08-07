@@ -377,7 +377,6 @@ si:
   document_filters:
     world_locations:
       all: සියලුම ස්ථාන
-      label: ලෝක ස්ථාන
       no_locations_filter: කිසිදු ලෝක ස්ථානයක් එම පෙරණයට නොගැලපේ.
   i18n:
     direction: ltr

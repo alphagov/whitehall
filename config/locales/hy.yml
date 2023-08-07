@@ -378,7 +378,6 @@ hy:
   document_filters:
     world_locations:
       all: Բոլոր վայրերը
-      label: Գտնվելու վայրերը
       no_locations_filter: 'Ոչ մի վայր չի համապատասխանում այդ ֆիլտրին:'
   i18n:
     direction: ltr

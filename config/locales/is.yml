@@ -377,7 +377,6 @@ is:
   document_filters:
     world_locations:
       all: Allar staðsetningar
-      label: Staðsetningar í heiminum
       no_locations_filter: Engar staðsetningar í heiminum passa við þessa síu.
   i18n:
     direction: ltr

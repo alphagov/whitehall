@@ -377,7 +377,6 @@ so:
   document_filters:
     world_locations:
       all: Dhamaan goobaha
-      label: Goobaha Dunida
       no_locations_filter: Majirto meel dunida ah oo waafqaysa baadhistaa.
   i18n:
     direction: ltr

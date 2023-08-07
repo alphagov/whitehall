@@ -377,7 +377,6 @@ ur:
   document_filters:
     world_locations:
       all: تمام مقامات
-      label: عالمی مقامات
       no_locations_filter: دنیا کا کوئی مقام اس فلٹر سے میچ نہیں کرتا۔
   i18n:
     direction: rtl

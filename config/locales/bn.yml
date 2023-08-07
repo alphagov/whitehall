@@ -377,7 +377,6 @@ bn:
   document_filters:
     world_locations:
       all: সকল স্থান
-      label: বিশ্বের অবস্থানসমূহ
       no_locations_filter: ঐ ফিল্টারের সাথে বিশ্বের কোনো অবস্থান মিলছে না।
   i18n:
     direction: ltr

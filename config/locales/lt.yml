@@ -455,7 +455,6 @@ lt:
   document_filters:
     world_locations:
       all: Visos geografinės vietos
-      label: Geografinės vietos pasaulyje
       no_locations_filter: Nė viena geografinė vieta neatitinka filtro.
   i18n:
     direction: ltr

@@ -378,7 +378,6 @@ ps:
   document_filters:
     world_locations:
       all: ټول ځایونه
-      label: د نړۍ موقعیتونه
       no_locations_filter: د نړۍ هیڅ ځایونه د دې فلټر سره سمون نه خوري.
   i18n:
     direction: rtl
