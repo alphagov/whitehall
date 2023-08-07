@@ -382,7 +382,6 @@ ko:
   support:
     download: 다운로드
     field_of_operation: '운영 영역:'
-    fields_of_operation: 운영 영역
     pagination:
       next_html: 다음 span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: 다음 페이지

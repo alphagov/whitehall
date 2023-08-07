@@ -462,7 +462,6 @@ sw:
   support:
     download: Pakua
     field_of_operation: 'Sehemu ya kazi:'
-    fields_of_operation: Sehemu za kazi
     pagination:
       next_html: Unaofuata <span class="visuallyhidden">ukurasa wa</span> <span class="page-numbers">%{current_page} kati ya %{total_pages}</span>
       next_page: Ukurasa unaofuata

@@ -620,7 +620,6 @@ be:
   support:
     download: Скачаць
     field_of_operation: Аперацыйнае поле
-    fields_of_operation: Аперацыйныя поля
     pagination:
       next_html: Наступная <span class="visuallyhidden">старонка</span> <span class="page-numbers">%{current_page} з %{total_pages}</span>
       next_page: Наступная старонка

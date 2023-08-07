@@ -463,7 +463,6 @@ fr:
   support:
     download: Télécharger
     field_of_operation: 'Domaine d''intervention :'
-    fields_of_operation: Domaines d'intervention
     pagination:
       next_html: <span class="visuallyhidden">Page</span> suivante <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: Page suivante

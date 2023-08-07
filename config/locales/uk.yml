@@ -622,7 +622,6 @@ uk:
   support:
     download: Завантажити
     field_of_operation: 'Сфера діяльності:'
-    fields_of_operation: Сфера діяльності
     pagination:
       next_html: Наступна <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} %{total_pages}</span>
       next_page: Наступна сторінка

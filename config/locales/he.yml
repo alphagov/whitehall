@@ -463,7 +463,6 @@ he:
   support:
     download: הורדה
     field_of_operation: 'תחום הפעולה:'
-    fields_of_operation: תחומי פעולה
     pagination:
       next_html: הדף <span class="visuallyhidden">הבא</span> <span class="page-numbers">%{current_page} של %{total_pages}</span>
       next_page: הדף הבא

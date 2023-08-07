@@ -462,7 +462,6 @@ ur:
   support:
     download: ڈاؤن لوڈ کریں
     field_of_operation: 'کارروائی کی فیلڈ:'
-    fields_of_operation: کارروائی کی فیلڈ
     pagination:
       next_html: اگلے <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page} کی %{total_pages}</span>
       next_page: اگلا صفحہ

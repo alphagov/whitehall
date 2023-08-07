@@ -462,7 +462,6 @@ kk:
   support:
     download: Жүктеп алу
     field_of_operation: 'Жұмыс аймағы:'
-    fields_of_operation: Жұмыс аймақтары
     pagination:
       next_html: Келесі <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Келесі бет

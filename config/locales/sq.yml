@@ -463,7 +463,6 @@ sq:
   support:
     download: Shkarkoni
     field_of_operation: 'Fusha e funksionimit:'
-    fields_of_operation: Fushat e funksionimt
     pagination:
       next_html: Pastaj <span class="visuallyhidden">faqja</span> <span class="page-numbers">%{current_page} nga %{total_pages}</span>
       next_page: Faqja tjetër

@@ -463,7 +463,6 @@ ka:
   support:
     download: ჩამოტვირთეთ
     field_of_operation: 'ოპერაციის სფერო:'
-    fields_of_operation: ოპერაციის სფეროები
     pagination:
       next_html: შემდეგ <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page} -ის %{total_pages}</span>
       next_page: შემდეგი გვერდი

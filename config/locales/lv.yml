@@ -460,7 +460,6 @@ lv:
   support:
     download: Lejupielādēt
     field_of_operation: 'Darbības joma:'
-    fields_of_operation: Darbības jomas
     pagination:
       next_html: Nākamā <span class="visuallyhidden">lapa</span> <span class="page-numbers">%{current_page} no %{total_pages}</span>
       next_page: Nākamā lapa

@@ -460,7 +460,6 @@ pa-pk:
   support:
     download: ڈاؤن لوڈ
     field_of_operation: 'عمل دی تھاں:'
-    fields_of_operation: عملدیاں تھاواں
     pagination:
       next_html: اگلا<span class="visuallyhidden">ورقہ</span> <span class="page-numbers">%{current_page}اوندا %{total_pages}</span>
       next_page: اگلا ورقہ

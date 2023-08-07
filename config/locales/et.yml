@@ -462,7 +462,6 @@ et:
   support:
     download: Laadi alla
     field_of_operation: 'Tegevusvaldkond:'
-    fields_of_operation: Tegevusvaldkonnad
     pagination:
       next_html: Järgmine <span class="visuallyhidden">lk</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Järgmine leht

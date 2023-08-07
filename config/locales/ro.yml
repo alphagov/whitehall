@@ -542,7 +542,6 @@ ro:
   support:
     download: Descărcați
     field_of_operation: 'Domeniul de activitate:'
-    fields_of_operation: Domenii de activitate
     pagination:
       next_html: Următoarea <span class="visuallyhidden">pagina</span> <span class="page-numbers">%{current_page} din %{total_pages}</span>
       next_page: Următoarea pagină

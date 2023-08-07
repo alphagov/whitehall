@@ -622,7 +622,6 @@ gd:
   support:
     download: Téigh íoslódáil
     field_of_operation: 'Réimsí idirghabhála:'
-    fields_of_operation: Limistéar idirghabhála
     pagination:
       next_html: Ar Aghaidh <span class="visuallyhidden">leathanach</span> <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: An chéad leathanach eile

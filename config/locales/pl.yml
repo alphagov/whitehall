@@ -620,7 +620,6 @@ pl:
   support:
     download: Pobierz
     field_of_operation: 'Zakres działania:'
-    fields_of_operation: Zakres działania
     pagination:
       next_html: Następna <span class="visuallyhidden">strona</span> <span class="page-numbers">%{current_page} z %{total_pages}</span>
       next_page: Następna strona

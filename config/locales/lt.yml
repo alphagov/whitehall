@@ -540,7 +540,6 @@ lt:
   support:
     download: Atsisiųsti
     field_of_operation: 'Veiklos sritis:'
-    fields_of_operation: Veiklos sritys
     pagination:
       next_html: Kitas <span class="visuallyhidden">puslapį</span> <span class="page-numbers">%{current_page} apie %{total_pages}</span>
       next_page: Kitas puslapis

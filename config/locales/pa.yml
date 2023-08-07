@@ -463,7 +463,6 @@ pa:
   support:
     download: ਡਾਉਨਲੋਡ ਕਰੋ
     field_of_operation: 'ਕਾਰਜ ਖੇਤਰ:'
-    fields_of_operation: ਕਾਰਜ ਦੇ ਖੇਤਰ
     pagination:
       next_html: ਅਗਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page} ਦਾ %{total_pages}</span>
       next_page: ਅਗਲਾ ਪੇਜ

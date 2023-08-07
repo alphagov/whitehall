@@ -462,7 +462,6 @@ so:
   support:
     download: Dejiso
     field_of_operation: 'Hawalaha dibada:'
-    fields_of_operation: Hawalaha dibada
     pagination:
       next_html: Kuxiga <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page} ah %{total_pages}</span>
       next_page: Boga xiga

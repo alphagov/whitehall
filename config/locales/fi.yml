@@ -463,7 +463,6 @@ fi:
   support:
     download: Ladata
     field_of_operation: 'Toiminta -alue:'
-    fields_of_operation: Toiminta -alueet
     pagination:
       next_html: Seuraava <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Seuraava sivu

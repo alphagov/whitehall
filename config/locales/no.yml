@@ -463,7 +463,6 @@
   support:
     download: Last ned
     field_of_operation: 'Driftsområde:'
-    fields_of_operation: Driftsområder
     pagination:
       next_html: Neste <span class="visuallyhidden">side</span> <span class="page-numbers">%{current_page} av %{total_pages}</span>
       next_page: Neste side

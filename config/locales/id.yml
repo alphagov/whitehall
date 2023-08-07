@@ -382,7 +382,6 @@ id:
   support:
     download: Unduh
     field_of_operation: 'Bidang operasi:'
-    fields_of_operation: Bidang operasi
     pagination:
       next_html: <span class="visuallyhidden">Halaman</span> selanjutnya <span class="page-numbers">%{current_page} dari %{total_pages}</span>
       next_page: Halaman selanjutnya

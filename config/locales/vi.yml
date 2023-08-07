@@ -382,7 +382,6 @@ vi:
   support:
     download: Tải xuống
     field_of_operation: 'Lĩnh vực hoạt động:'
-    fields_of_operation: Lĩnh vực hoạt động
     pagination:
       next_html: Trang <span class="visuallyhidden">tiếp theo</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Trang tiếp theo

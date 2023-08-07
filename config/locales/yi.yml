@@ -460,7 +460,6 @@ yi:
   support:
     download: 
     field_of_operation: 
-    fields_of_operation: 
     pagination:
       next_html: 
       next_page: 

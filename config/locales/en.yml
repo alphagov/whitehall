@@ -447,7 +447,6 @@ en:
   support:
     download: Download
     field_of_operation: 'Field of operation:'
-    fields_of_operation: Fields of operation
     pagination:
       next_html: Next <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} of %{total_pages}</span>
       next_page: Next page

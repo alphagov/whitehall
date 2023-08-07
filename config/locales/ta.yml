@@ -462,7 +462,6 @@ ta:
   support:
     download: பதிவிறக்கம்
     field_of_operation: 'இயங்குதளம்:'
-    fields_of_operation: இயங்குதளம்
     pagination:
       next_html: அடுத்த <span class="visuallyhidden">பக்கம்</span> <span class="page-numbers">%{total_pages}-ல் %{current_page} of</span>
       next_page: அடுத்த பக்கம்

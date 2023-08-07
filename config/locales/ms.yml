@@ -383,7 +383,6 @@ ms:
   support:
     download: Muat turun
     field_of_operation: 'Medan operasi:'
-    fields_of_operation: Medan operasi
     pagination:
       next_html: Halaman <span class="visuallyhidden">seterusnya</span> <span class="page-numbers">%{current_page} daripada %{total_pages}</span>
       next_page: Halaman seterusnya

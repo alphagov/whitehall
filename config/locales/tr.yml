@@ -462,7 +462,6 @@ tr:
   support:
     download: İndir
     field_of_operation: 'Faaliyet alanı:'
-    fields_of_operation: 'Faaliyet alanları:'
     pagination:
       next_html: Sonraki <span class="visuallyhidden">sayfa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Sonraki sayfa

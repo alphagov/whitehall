@@ -463,7 +463,6 @@ pt:
   support:
     download: Transferir
     field_of_operation: 'Campo de operação:'
-    fields_of_operation: Campos de operação
     pagination:
       next_html: Seguinte <span class="visuallyhidden">página</span> <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: Página seguinte

@@ -462,7 +462,6 @@ ne:
   support:
     download: डाउनलोड गर्नुहोस्
     field_of_operation: 'सञ्चालन क्षेत्र:'
-    fields_of_operation: सञ्चालन क्षेत्रहरु
     pagination:
       next_html: अर्को<span class="visuallyhidden">पृष्ठ</span> <span class="page-numbers">%{current_page} को %{total_pages}</span>
       next_page: अर्को पाना

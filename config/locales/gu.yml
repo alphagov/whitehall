@@ -462,7 +462,6 @@ gu:
   support:
     download: ડાઉનલોડ કરો
     field_of_operation: 'કામગીરીનું ક્ષેત્ર:'
-    fields_of_operation: 'કામગીરીના ક્ષેત્રો:'
     pagination:
       next_html: આગળનું <span class="visuallyhidden">પૃષ્ઠ</span> <span class="page-numbers">%{current_page} નું %{total_pages}</span>
       next_page: આગામી પાનું

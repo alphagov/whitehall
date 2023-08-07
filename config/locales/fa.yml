@@ -462,7 +462,6 @@ fa:
   support:
     download: دانلود
     field_of_operation: 'زمینه فعالیت:'
-    fields_of_operation: زمینه‌های فعالیت
     pagination:
       next_html: بعدی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page} از %{total_pages}</span>
       next_page: صفحه بعد

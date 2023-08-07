@@ -460,7 +460,6 @@ nl:
   support:
     download: Downloaden
     field_of_operation: 'Werkterrein:'
-    fields_of_operation: Werkterreinen
     pagination:
       next_html: Volgende <span class="visueel verborgen">pagina</span> <span class="paginanummers">%{current_page} van %{total_pages}</span>
       next_page: Volgende pagina

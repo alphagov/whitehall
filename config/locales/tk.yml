@@ -462,7 +462,6 @@ tk:
   support:
     download: Göçüriň
     field_of_operation: 'Iş meýdany:'
-    fields_of_operation: Iş meýdanlary
     pagination:
       next_html: Indiki <span class="visuallyhidden">sahypa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Indiki sahypa

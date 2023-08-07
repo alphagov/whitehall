@@ -462,7 +462,6 @@ el:
   support:
     download: Κατεβάστε
     field_of_operation: 'Πεδίο λειτουργίας:'
-    fields_of_operation: Πεδία λειτουργίας
     pagination:
       next_html: Επόμενη <span class="visuallyhidden">σελίδα</span> <span class="page-numbers">%{current_page} από %{total_pages}</span>
       next_page: Επόμενη σελίδα

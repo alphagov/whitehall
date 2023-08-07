@@ -462,7 +462,6 @@ hu:
   support:
     download: Letöltés
     field_of_operation: 'Működési terület:'
-    fields_of_operation: Működési területek
     pagination:
       next_html: Követekző <span class="visuallyhidden">oldal</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Következő oldal

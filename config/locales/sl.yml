@@ -623,7 +623,6 @@ sl:
   support:
     download: Prenos
     field_of_operation: 'Področje delovanja:'
-    fields_of_operation: 'Področja delovanja:'
     pagination:
       next_html: Naslednja <span class="visuallyhidden">stran</span> <span class="page-numbers">%{current_page} od %{total_pages}</span>
       next_page: Naslednja stran

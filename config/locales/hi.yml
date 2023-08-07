@@ -463,7 +463,6 @@ hi:
   support:
     download: डाउनलोड करें
     field_of_operation: 'संचालन का क्षेत्र:'
-    fields_of_operation: संचालन के क्षेत्र
     pagination:
       next_html: अगला <span class="visuallyhidden">पेज</span> <span class="page-numbers">%{total_pages} का %{current_page}</span>
       next_page: अगला पेज

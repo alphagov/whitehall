@@ -543,7 +543,6 @@ sk:
   support:
     download: Stiahnuť
     field_of_operation: 'Oblasť činnosti:'
-    fields_of_operation: Oblasti činnosti
     pagination:
       next_html: Ďalšia <span class="visuallyhidden">strana</span> <span class="page-numbers">%{current_page} z %{total_pages}</span>
       next_page: Ďalšia stránka

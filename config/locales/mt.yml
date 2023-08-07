@@ -620,7 +620,6 @@ mt:
   support:
     download: Niżżel
     field_of_operation: 'Qasam ta'' operazzjoni:'
-    fields_of_operation: Oqsma ta' operazzjoni
     pagination:
       next_html: Li jmiss<span class="visuallyhidden">paġna</span> <span class="page-numbers">%{current_page} ta ' %{total_pages}</span>
       next_page: Paġna li jmiss

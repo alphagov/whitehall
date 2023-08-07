@@ -382,7 +382,6 @@ zh-hk:
   support:
     download: 下載
     field_of_operation: 營運領域：
-    fields_of_operation: 營運領域
     pagination:
       next_html: 下一頁 <span class="visuallyhidden">第</span> <span class="page-numbers">%{current_page} 頁，共 %{total_pages}</span> 頁
       next_page: 下一頁

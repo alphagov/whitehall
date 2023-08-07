@@ -463,7 +463,6 @@ az:
   support:
     download: Endirin
     field_of_operation: 'Əməliyyat sahəsi:'
-    fields_of_operation: Əməliyyat sahələri
     pagination:
       next_html: '%{total_pages}</span>-ın sonrakı <span class="visuallyhidden">səhifəsi</span> <span class="page-numbers">%{current_page}'
       next_page: Sonrakı səhifə

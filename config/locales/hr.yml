@@ -543,7 +543,6 @@ hr:
   support:
     download: Preuzmite
     field_of_operation: 'Područje djelovanja:'
-    fields_of_operation: Područja djelovanja
     pagination:
       next_html: Sljedeći <span class="visuallyhidden">stranica</span> <span class="page-numbers">%{current_page} od %{total_pages}</span>
       next_page: Sljedeća stranica

@@ -462,7 +462,6 @@ bn:
   support:
     download: ডাউনলোড করুন
     field_of_operation: কার্যক্রমের ক্ষেত্র
-    fields_of_operation: কার্যক্রমের ক্ষেত্রসমূহ
     pagination:
       next_html: পরবর্তী <span class="visuallyhidden">পেজ</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: পরবর্তী পেজ

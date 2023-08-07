@@ -462,7 +462,6 @@ de:
   support:
     download: Herunterladen
     field_of_operation: 'Tätigkeitsbereich:'
-    fields_of_operation: Tätigkeitsbereiche
     pagination:
       next_html: Nächste <span class="visuallyhidden">Seite</span> <span class="page-numbers">%{current_page} von %{total_pages}</span>
       next_page: Nächste Seite

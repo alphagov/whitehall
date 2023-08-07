@@ -463,7 +463,6 @@ es-419:
   support:
     download: Descargar
     field_of_operation: 'Campo de operación:'
-    fields_of_operation: Campos de operación
     pagination:
       next_html: Siguiente <span class="visuallyhidden">página</span> <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: Página siguiente

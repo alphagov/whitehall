@@ -782,7 +782,6 @@ cy:
   support:
     download: Llwytho i lawr
     field_of_operation: 'Maes gweithredu:'
-    fields_of_operation: 'Meysydd gweithredu:'
     pagination:
       next_html: Y dudalen <span class="visuallyhidden">nesaf</span> <span class="page-numbers">%{current_page} o %{total_pages}</span>
       next_page: Y dudalen nesaf

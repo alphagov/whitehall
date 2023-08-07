@@ -463,7 +463,6 @@ hy:
   support:
     download: Ներբեռնել
     field_of_operation: Գործունեության ոլորտ՝
-    fields_of_operation: Գործունեության ոլորտներ
     pagination:
       next_html: Հաջորդ <span class="visuallyhidden">էջը</span> <span class="page-numbers">%{current_page} %{total_pages} էջից</span>
       next_page: Հաջորդ էջ

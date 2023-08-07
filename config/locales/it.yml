@@ -463,7 +463,6 @@ it:
   support:
     download: Download
     field_of_operation: 'Campo operativo:'
-    fields_of_operation: Campi operativi
     pagination:
       next_html: Pagina <span class=”visuallyhidden”>successiva</span> <span class=”page-numbers”>%{current_page} di %{total_pages}</span>
       next_page: Pagina successiva

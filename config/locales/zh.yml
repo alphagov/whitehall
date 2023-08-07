@@ -382,7 +382,6 @@ zh:
   support:
     download: 下载
     field_of_operation: 经营领域：
-    fields_of_operation: 经营领域
     pagination:
       next_html: '%{total_pages}</span>的后<span class="visuallyhidden">页</span> <span class="page-numbers">%{current_page}'
       next_page: 下一页

@@ -780,7 +780,6 @@ ar:
   support:
     download: تنزيل
     field_of_operation: 'ساحة العمليات:'
-    fields_of_operation: ساحات العمليات
     pagination:
       next_html: الصفحة <span class="visuallyhidden">التالية</span> <span class="page-numbers">%{current_page} من%{total_pages}</span>
       next_page: الصفحة التالية

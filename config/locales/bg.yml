@@ -462,7 +462,6 @@ bg:
   support:
     download: Изтегляне
     field_of_operation: 'Област на действие:'
-    fields_of_operation: Области на действие
     pagination:
       next_html: Следваща <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} от %{total_pages}</span>
       next_page: Следваща страница

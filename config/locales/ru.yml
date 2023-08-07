@@ -620,7 +620,6 @@ ru:
   support:
     download: Загрузить
     field_of_operation: 'Поле деятельности:'
-    fields_of_operation: Поле деятельности
     pagination:
       next_html: Следующая <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} из %{total_pages}</span>
       next_page: Следующая страница

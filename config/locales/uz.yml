@@ -462,7 +462,6 @@ uz:
   support:
     download: Юклаш
     field_of_operation: 'Фаолият соҳаси:'
-    fields_of_operation: Фаолият соҳалари
     pagination:
       next_html: Кейинги <span class = "visuallyhidden">саҳифа</span> <span class = "page-numbers">%{current_page} из %{total_pages}</span>
       next_page: Кейинги саҳифа

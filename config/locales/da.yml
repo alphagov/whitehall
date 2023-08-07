@@ -463,7 +463,6 @@ da:
   support:
     download: Downloade
     field_of_operation: 'Operationsområde:'
-    fields_of_operation: Operationsområder
     pagination:
       next_html: Næste<span class="visuallyhidden">side</span> <span class="page-numbers">%{current_page} på %{total_pages}</span>
       next_page: Næste side

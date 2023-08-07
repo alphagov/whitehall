@@ -462,7 +462,6 @@ si:
   support:
     download: බාගන්න
     field_of_operation: 'මෙහෙයුම් ක්ෂේත්රය:'
-    fields_of_operation: මෙහෙයුම් ක්ෂේත්ර
     pagination:
       next_html: ඊළඟ <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: ඊළඟ පිටුව

@@ -543,7 +543,6 @@ cs:
   support:
     download: Stáhnout
     field_of_operation: 'Oblast provozu:'
-    fields_of_operation: Oblast provozu
     pagination:
       next_html: Další <span class="visuallyhidden">stránka</span> <span class="page-numbers">%{current_page} z %{total_pages}</span>
       next_page: Další stránka

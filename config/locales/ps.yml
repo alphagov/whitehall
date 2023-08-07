@@ -463,7 +463,6 @@ ps:
   support:
     download: کښته کول
     field_of_operation: 'د عملیاتو ساحه:'
-    fields_of_operation: د عملیاتو ساحې
     pagination:
       next_html: بل <span class = "visuallyhidden"> پا </ه </span> <span class = "page-numbers">%{current_page} د%{total_pages} </span>
       next_page: بل مخ

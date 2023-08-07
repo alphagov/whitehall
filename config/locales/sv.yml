@@ -463,7 +463,6 @@ sv:
   support:
     download: Ladda ner
     field_of_operation: 'Verksamhetsområde:'
-    fields_of_operation: Verksamhetsområden
     pagination:
       next_html: Nästa <span class="visuallyhidden">sida</span> <span class="page-numbers">%{current_page} av %{total_pages}</span>
       next_page: Nästa sida

@@ -382,7 +382,6 @@ th:
   support:
     download: ดาวน์โหลด
     field_of_operation: 'พื้นที่ปฏิบัติการ:'
-    fields_of_operation: พื้นที่ปฏิบัติการ
     pagination:
       next_html: <span class="visuallyhidden">หน้า</span> ถัดไป <span class="page-numbers">%{current_page} จาก %{total_pages} หน้า</span>
       next_page: หน้าถัดไป

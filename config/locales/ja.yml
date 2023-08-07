@@ -380,7 +380,6 @@ ja:
   support:
     download: ダウンロード
     field_of_operation: 運用分野：
-    fields_of_operation: 運用分野
     pagination:
       next_html: 次 <span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page} の %{total_pages}</span>
       next_page: 次のページ

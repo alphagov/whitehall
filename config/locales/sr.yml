@@ -543,7 +543,6 @@ sr:
   support:
     download: Preuzmi
     field_of_operation: 'Oblast delovanja:'
-    fields_of_operation: Oblasti delovanja
     pagination:
       next_html: Sledeće <span class="visuallyhidden">stranica</span> <span class="page-numbers">%{current_page} od %{total_pages}</span>
       next_page: Sledeća stranica

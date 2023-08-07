@@ -462,7 +462,6 @@ is:
   support:
     download: Sækja
     field_of_operation: 'Starfsvið:'
-    fields_of_operation: Starfsvið
     pagination:
       next_html: næsta <span class="visuallyhidden">síða</span> <span class="page-numbers">%{current_page} af %{total_pages}</span>
       next_page: Næsta síða
