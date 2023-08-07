@@ -379,8 +379,6 @@ ur:
       all: تمام مقامات
       label: عالمی مقامات
       no_locations_filter: دنیا کا کوئی مقام اس فلٹر سے میچ نہیں کرتا۔
-  feeds:
-    latest_activity: تازہ ترین سرگرمی
   i18n:
     direction: rtl
   language_names:

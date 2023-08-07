@@ -380,8 +380,6 @@ es-419:
       all: Todas las ubicaciones
       label: Ubicaciones en el mundo
       no_locations_filter: Ninguna ubicación del mundo coincide con ese filtro.
-  feeds:
-    latest_activity: Actividad más reciente
   i18n:
     direction: ltr
   language_names:

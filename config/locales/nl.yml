@@ -377,8 +377,6 @@ nl:
       all: Alle locaties
       label: Wereld locaties
       no_locations_filter: Geen locaties in de wereld komen overeen met dat filter.
-  feeds:
-    latest_activity: Laatste activiteit
   i18n:
     direction: ltr
   language_names:

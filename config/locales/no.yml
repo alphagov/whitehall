@@ -380,8 +380,6 @@
       all: Alle steder
       label: Steder i verden
       no_locations_filter: Ingen steder i verden samsvarer med det filteret.
-  feeds:
-    latest_activity: Siste aktivitet
   i18n:
     direction: ltr
   language_names:

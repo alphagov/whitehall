@@ -379,8 +379,6 @@ bg:
       all: Всички местоположения
       label: Местоположения по света
       no_locations_filter: Нито едно местоположение в света не отговаря на това филтриране.
-  feeds:
-    latest_activity: Последна дейност
   i18n:
     direction: ltr
   language_names:

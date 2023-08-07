@@ -380,8 +380,6 @@ dr:
       all: تمام موقعیت ها
       label: موقعیت هایی جهان
       no_locations_filter: هیچ مکان جهان با آن فلتر مطابقت ندارد.
-  feeds:
-    latest_activity: جدیدترین فعالیت ها
   i18n:
     direction: rtl
   language_names:

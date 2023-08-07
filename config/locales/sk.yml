@@ -460,8 +460,6 @@ sk:
       all: Všetky lokality
       label: Svetové lokality
       no_locations_filter: Tomuto filtru nezodpovedajú žiadne svetové lokality.
-  feeds:
-    latest_activity: Posledná aktivita
   i18n:
     direction: ltr
   language_names:

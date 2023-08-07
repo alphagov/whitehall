@@ -539,8 +539,6 @@ uk:
       all: Усі локації
       label: Світові локації
       no_locations_filter: Жодна світова локація не відповідає цьому фільтру.
-  feeds:
-    latest_activity: Остання активність
   i18n:
     direction: ltr
   language_names:

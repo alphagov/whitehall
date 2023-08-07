@@ -537,8 +537,6 @@ mt:
       all: Postijiet kollha
       label: Postijiet fid-dinja
       no_locations_filter: L-ebda postijiet fid-dinja ma jaqblu mal-filter.
-  feeds:
-    latest_activity: L-aħħar attività
   i18n:
     direction: ltr
   language_names:

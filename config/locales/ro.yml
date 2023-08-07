@@ -459,8 +459,6 @@ ro:
       all: Toate locațiile
       label: Locații pe glob
       no_locations_filter: Nicio locație de pe glob nu se potrivește acestui filtru.
-  feeds:
-    latest_activity: Cea mai recentă activitate
   i18n:
     direction: ltr
   language_names:

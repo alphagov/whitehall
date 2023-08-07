@@ -537,8 +537,6 @@ be:
       all: Усе месцазнаходжанні
       label: Мы ў свеце
       no_locations_filter: Ні адно месцазнаходжанне ў свеце не адпавядае гэтаму фільтру.
-  feeds:
-    latest_activity: Апошнія аднаўленні
   i18n:
     direction: ltr
   language_names:

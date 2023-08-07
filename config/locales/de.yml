@@ -379,8 +379,6 @@ de:
       all: Alle Standorte
       label: Weltweite Standorte
       no_locations_filter: Kein Ort der Welt entspricht diesem Filter.
-  feeds:
-    latest_activity: Letzte Aktivität
   i18n:
     direction: ltr
   language_names:

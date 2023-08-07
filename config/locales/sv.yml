@@ -380,8 +380,6 @@ sv:
       all: Alla platser
       label: Platser i världen
       no_locations_filter: Inga platser i världen matchar det filtret.
-  feeds:
-    latest_activity: Senaste aktivitet
   i18n:
     direction: ltr
   language_names:

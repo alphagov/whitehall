@@ -299,8 +299,6 @@ id:
       all: Semua lokasi
       label: Lokasi dunia
       no_locations_filter: Tidak ada lokasi dunia yang cocok dengan filter itu.
-  feeds:
-    latest_activity: Aktivitas terbaru
   i18n:
     direction: ltr
   language_names:

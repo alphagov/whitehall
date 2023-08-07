@@ -699,8 +699,6 @@ cy:
       all: Pob lleoliad
       label: Lleoliadau byd-eang
       no_locations_filter: Does dim lleoliadau byd-eang yn cyd-fynd â'r hidlydd hwnnw.
-  feeds:
-    latest_activity: Gweithgarwch diweddaraf
   i18n:
     direction: ltr
   language_names:

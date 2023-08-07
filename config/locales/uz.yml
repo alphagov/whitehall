@@ -379,8 +379,6 @@ uz:
       all: Барча жойлашиш жойлари
       label: Дунёдаги жойлашиш жойлари
       no_locations_filter: Дунёдаги жойлашиш жойларининг ҳеч бири ушбу фильтр учун мос келмади.
-  feeds:
-    latest_activity: Энг сўнгги фаолият
   i18n:
     direction: ltr
   language_names:

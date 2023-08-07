@@ -380,8 +380,6 @@ it:
       all: Tutte le posizioni
       label: Località del mondo
       no_locations_filter: Nessuna località del mondo corrisponde a quel filtro.
-  feeds:
-    latest_activity: Ultima attività
   i18n:
     direction: ltr
   language_names:

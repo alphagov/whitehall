@@ -379,8 +379,6 @@ bn:
       all: সকল স্থান
       label: বিশ্বের অবস্থানসমূহ
       no_locations_filter: ঐ ফিল্টারের সাথে বিশ্বের কোনো অবস্থান মিলছে না।
-  feeds:
-    latest_activity: সর্বশেষ কার্যকলাপ
   i18n:
     direction: ltr
   language_names:

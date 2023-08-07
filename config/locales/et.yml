@@ -379,8 +379,6 @@ et:
       all: Kõik asukohad
       label: Maailma asukohad
       no_locations_filter: Ükski maailma asukoht ei vasta sellele filtrile.
-  feeds:
-    latest_activity: Viimane tegevus
   i18n:
     direction: ltr
   language_names:

@@ -380,8 +380,6 @@ da:
       all: Alle steder
       label: Verden Placeringer
       no_locations_filter: Ingen verdensrangliste matcher det filter.
-  feeds:
-    latest_activity: Seneste aktivitet
   i18n:
     direction: ltr
   language_names:

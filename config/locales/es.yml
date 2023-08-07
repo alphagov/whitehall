@@ -377,8 +377,6 @@ es:
       all: Todos los lugares
       label: Lugares del mundo
       no_locations_filter: Ninguna ubicación mundial coincide con ese filtro.
-  feeds:
-    latest_activity: Actividad reciente
   i18n:
     direction: ltr
   language_names:

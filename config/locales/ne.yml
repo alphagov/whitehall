@@ -379,8 +379,6 @@ ne:
       all: सबै स्थानहरु
       label: विश्व स्थानहरु
       no_locations_filter: त्यस फिल्टर सँग कुनै विश्व स्थानहरु मेल खाँदैनन्।
-  feeds:
-    latest_activity: पछिल्लो गतिविधि
   i18n:
     direction: ltr
   language_names:

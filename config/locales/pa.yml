@@ -380,8 +380,6 @@ pa:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਸਥਾਨ
       no_locations_filter: ਕੋਈ ਵੀ ਵਿਸ਼ਵ ਸਥਾਨ ਉਸ ਫਿਲਟਰ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।
-  feeds:
-    latest_activity: ਨਵੀਨਤਮ ਗਤੀਵਿਧੀ
   i18n:
     direction: ltr
   language_names:

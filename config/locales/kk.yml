@@ -379,8 +379,6 @@ kk:
       all: Барлық орындар
       label: Әлемдегі орындар
       no_locations_filter: Бұл сүзгіге сәйкес келетін әлем орындары жоқ.
-  feeds:
-    latest_activity: Ең соңғы әрекет
   i18n:
     direction: ltr
   language_names:

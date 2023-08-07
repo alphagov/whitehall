@@ -537,8 +537,6 @@ pl:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie
       no_locations_filter: Żadne lokalizacje na świecie nie pasują do tego filtra.
-  feeds:
-    latest_activity: Najnowsza czynność
   i18n:
     direction: ltr
   language_names:

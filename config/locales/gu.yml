@@ -379,8 +379,6 @@ gu:
       all: તમામ લોકેશન્સ
       label: વૈશ્વિક લોકેશન્સ
       no_locations_filter: આ ફિલ્ટર સાથે કોઈ પણ વૈશ્વિક લોકેશન મેળ ખાતું નથી.
-  feeds:
-    latest_activity: નવીનતમ પ્રવૃત્તિ
   i18n:
     direction: ltr
   language_names:

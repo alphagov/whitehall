@@ -379,8 +379,6 @@ hu:
       all: Minden ország
       label: Helyszínek a világban
       no_locations_filter: Nincs olyan helyszín a világban, ami megfelelne ennek a szűrőnek.
-  feeds:
-    latest_activity: Legfrissebb aktivitás
   i18n:
     direction: ltr
   language_names:

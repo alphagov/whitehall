@@ -380,8 +380,6 @@ pt:
       all: Todos os locais
       label: Locais mundiais
       no_locations_filter: Nenhum local mundial corresponde a esse filtro.
-  feeds:
-    latest_activity: Atividade mais recente
   i18n:
     direction: ltr
   language_names:

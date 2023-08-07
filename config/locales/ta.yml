@@ -379,8 +379,6 @@ ta:
       all: அனைத்து இருப்பிடங்கள்
       label: உலக இருப்பிடங்கள்
       no_locations_filter: எந்த உலக இருப்பிடங்களும் தேடலுடன் பொருந்தவில்லை.
-  feeds:
-    latest_activity: சமீபத்திய நடவடிக்கை
   i18n:
     direction: ltr
   language_names:

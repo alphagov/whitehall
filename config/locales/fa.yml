@@ -379,8 +379,6 @@ fa:
       all: تمام مکان‌ها
       label: مکان‌های جهانی
       no_locations_filter: هیچ یک از مکان‌های جهانی با این فلیتر مطابقت ندارند.
-  feeds:
-    latest_activity: آخرین فعالیت
   i18n:
     direction: rtl
   language_names:

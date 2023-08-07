@@ -539,8 +539,6 @@ gd:
       all: Gach láthair
       label: Áit ar domhan
       no_locations_filter: Níl aon áit ar domhan comhoiriúnach leis an scagaire seo.
-  feeds:
-    latest_activity: Gníomhaíocht dheireanach
   i18n:
     direction: ltr
   language_names:

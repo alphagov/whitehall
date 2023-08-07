@@ -377,8 +377,6 @@ pa-pk:
       all: ساریاں تھاواں
       label: دُنیا دیاں تھاواں
       no_locations_filter: دُنیا دی کوئی وی تھاں چھانن نال نئیں ملدی
-  feeds:
-    latest_activity: پچھلی سرگرمی
   i18n:
     direction: rtl
   language_names:

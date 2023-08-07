@@ -300,8 +300,6 @@ ms:
       all: Semua lokasi
       label: Lokasi dunia
       no_locations_filter: Tidak ada lokasi dunia yang sepadan dengan penapis itu.
-  feeds:
-    latest_activity: Aktiviti terkini
   i18n:
     direction: ltr
   language_names:

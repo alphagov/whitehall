@@ -380,8 +380,6 @@ fi:
       all: Kaikki sijainnit
       label: Maailman sijainnit
       no_locations_filter: Mikään maailman sijainnit eivät vastaa tätä suodatinta.
-  feeds:
-    latest_activity: Viimeisin toiminta
   i18n:
     direction: ltr
   language_names:

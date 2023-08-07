@@ -299,8 +299,6 @@ th:
       all: สถานที่ตั้งทุกแห่ง
       label: สถานที่ทั่วโลก
       no_locations_filter: ไม่มีสถานที่ในโลกใดๆ ที่ตรงกับตัวกรอง
-  feeds:
-    latest_activity: กิจกรรมล่าสุด
   i18n:
     direction: ltr
   language_names:

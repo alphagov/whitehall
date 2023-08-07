@@ -380,8 +380,6 @@ hy:
       all: Բոլոր վայրերը
       label: Գտնվելու վայրերը
       no_locations_filter: 'Ոչ մի վայր չի համապատասխանում այդ ֆիլտրին:'
-  feeds:
-    latest_activity: Վերջին գործողությունը
   i18n:
     direction: ltr
   language_names:

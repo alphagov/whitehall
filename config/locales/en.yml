@@ -364,8 +364,6 @@ en:
       all: All locations
       label: World locations
       no_locations_filter: No world locations match that filter.
-  feeds:
-    latest_activity: Latest activity
   i18n:
     direction: ltr
   language_names:

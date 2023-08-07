@@ -380,8 +380,6 @@ sq:
       all: Të gjitha vendndodhjet
       label: Vendndodhjet globale
       no_locations_filter: Asnjë vendndodhje botërore nuk përputhet me atë filtër.
-  feeds:
-    latest_activity: Akiviteti më i fundit
   i18n:
     direction: ltr
   language_names:

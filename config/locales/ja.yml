@@ -297,8 +297,6 @@ ja:
       all: すべての場所
       label: 世界の場所
       no_locations_filter: そのフィルターに一致する世界の場所はありません。
-  feeds:
-    latest_activity: 最新の活動
   i18n:
     direction: ltr
   language_names:

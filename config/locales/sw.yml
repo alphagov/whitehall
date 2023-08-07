@@ -379,8 +379,6 @@ sw:
       all: Maeneo yote
       label: Maeneo ya kimataifa
       no_locations_filter: Hamna maeneo ya kimataifa yanayolingana na kichujio hicho.
-  feeds:
-    latest_activity: Shughuli mpya
   i18n:
     direction: ltr
   language_names:

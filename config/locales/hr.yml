@@ -460,8 +460,6 @@ hr:
       all: Sve lokacije
       label: Svjetske lokacije
       no_locations_filter: Nijedna svjetska lokacija ne odgovara tom filtru.
-  feeds:
-    latest_activity: Najnovija aktivnost
   i18n:
     direction: ltr
   language_names:

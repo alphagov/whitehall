@@ -457,8 +457,6 @@ lt:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
       no_locations_filter: Nė viena geografinė vieta neatitinka filtro.
-  feeds:
-    latest_activity: Paskutinės naujienos
   i18n:
     direction: ltr
   language_names:

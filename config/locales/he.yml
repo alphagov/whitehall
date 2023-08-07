@@ -380,8 +380,6 @@ he:
       all: כל המיקומים
       label: מיקומים גלובאליים
       no_locations_filter: אין מיקומים גלובאליים התואמים את המסנן הזה.
-  feeds:
-    latest_activity: פעילות אחרונה
   i18n:
     direction: rtl
   language_names:

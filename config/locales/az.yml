@@ -380,8 +380,6 @@ az:
       all: Bütün yerlər
       label: Dünya üzrə yerləri
       no_locations_filter: Dünya üzrə yerləri həmin süzgəcə uyğun gəlmir.
-  feeds:
-    latest_activity: Ən son fəaliyyət
   i18n:
     direction: ltr
   language_names:

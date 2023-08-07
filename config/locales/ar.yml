@@ -697,8 +697,6 @@ ar:
       all: جميع المواقع
       label: المواقع العالمية
       no_locations_filter: لا توجد مواقع عالمية تطابق عامل التصفية هذا.
-  feeds:
-    latest_activity: أحدث نشاط
   i18n:
     direction: rtl
   language_names:

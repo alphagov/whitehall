@@ -379,8 +379,6 @@ so:
       all: Dhamaan goobaha
       label: Goobaha Dunida
       no_locations_filter: Majirto meel dunida ah oo waafqaysa baadhistaa.
-  feeds:
-    latest_activity: Hawsha ugu dambaysay
   i18n:
     direction: ltr
   language_names:

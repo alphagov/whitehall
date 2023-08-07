@@ -380,8 +380,6 @@ fr:
       all: Tous les emplacements
       label: Emplacements dans le monde
       no_locations_filter: Aucun emplacement dans le monde ne correspond à ce filtre.
-  feeds:
-    latest_activity: Activités récentes
   i18n:
     direction: ltr
   language_names:

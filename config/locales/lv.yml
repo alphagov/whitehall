@@ -377,8 +377,6 @@ lv:
       all: Visas vietas
       label: Vietas pasaulē
       no_locations_filter: Neviena vieta pasaulē neatbilst šim filtram.
-  feeds:
-    latest_activity: Jaunumi
   i18n:
     direction: ltr
   language_names:

@@ -379,8 +379,6 @@ el:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες
       no_locations_filter: Καμία τοποθεσία στον κόσμο δεν ταιριάζει με αυτό το φίλτρο.
-  feeds:
-    latest_activity: Τελευταία δραστηριότητα
   i18n:
     direction: ltr
   language_names:
