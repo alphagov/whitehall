@@ -78,6 +78,24 @@ class ReviewReminderTest < ActiveSupport::TestCase
     assert_not build(:review_reminder, :reminder_sent).reminder_due?
   end
 
+  test "#reminder_sent! marks the reminder as sent without changing updated_at" do
+    # Travel back so the review_at date is in the past
+    reminder = Timecop.travel(1.week.ago) { create(:review_reminder, :reminder_due) }
+
+    assert reminder.reminder_due?
+    assert_nil reminder.reminder_sent_at
+    original_updated_at = reminder.updated_at
+
+    # Freeze time so we can assert against Time.zone.now without it changing
+    Timecop.freeze do
+      reminder.reminder_sent!
+
+      assert_not reminder.reminder_due?
+      assert_equal Time.zone.now, reminder.reminder_sent_at
+      assert_equal original_updated_at, reminder.updated_at
+    end
+  end
+
   test ".reminder_due scope returns reminders that are due to be sent" do
     reminders = [
       due = build(:review_reminder, :reminder_due),
