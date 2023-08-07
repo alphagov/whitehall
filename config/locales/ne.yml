@@ -86,11 +86,6 @@ ne:
     caution:
       subheading: हामीले लिंकहरू सँग केहि समस्याहरु भएको थाहा पाएका छौं, तपाईं उनीहरुलाई जोड्ने कार्य गर्दा सावधानी अपनाउनु पर्छ
     title: काम नगर्ने लिंक
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: पहुँच र खुल्ने समय
     contact_form: सम्पर्क फारम

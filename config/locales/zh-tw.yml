@@ -86,11 +86,6 @@ zh-tw:
     caution:
       subheading: 我們發現了一些可能表明存在問題的連結問題，你在應謹慎連結。
     title: 連結損壞
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: 訪問與開啟時間
     contact_form: 聯繫表

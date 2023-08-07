@@ -87,11 +87,6 @@ az:
     caution:
       subheading: Biz problemləri göstərə biləcək keçidlərdə bəzi məsələlər tapmışıq, onlara qoşulan zaman ehtiyatlı olmalısınız
     title: Pozulmuş keçidlər
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Giriş və iş vaxtı
     contact_form: Əlaqə saxlamaq üçün forma

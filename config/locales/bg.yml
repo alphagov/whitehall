@@ -86,11 +86,6 @@ bg:
     caution:
       subheading: Открихме някои проблеми с линковете, които могат да покажат нередности, и трябва да бъдете внимателни при тяхното използване
     title: Повредени линкове
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Часове за достъп и отваряне
     contact_form: Формуляр за контакт

@@ -87,11 +87,6 @@ hi:
     caution:
       subheading: हमें लिंक में कुछ समस्याएं मिली हैं जिनसे दिक्कतों का संकेत मिल सकता है, आपको उन्हें लिंक करते समय सावधानी बरतनी चाहिए
     title: ब्रोकन लिंक
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: एक्सेस और खुलने का समय
     contact_form: संपर्क प्रपत्र

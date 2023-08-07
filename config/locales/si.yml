@@ -86,11 +86,6 @@ si:
     caution:
       subheading: ප්‍රශ්න පෙන්විය හැකි සබැඳි වල ගැටළු ඇති බව අපි සොයා ගෙන ඇත, ඔබ ඒවාට සම්බන්ධ වීමේදී ප්රවේශම් විය යුතුය
     title: කැඩුණු සබැඳි
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: පිවිසුම සහ විවෘත කරන වේලාවන්
     contact_form: සබඳතා ආකෘතිය

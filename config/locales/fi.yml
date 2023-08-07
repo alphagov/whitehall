@@ -87,11 +87,6 @@ fi:
     caution:
       subheading: Olemme löytäneet joitakin ongelmia linkeissä, jotka voivat viitata ongelmiin, sinun on noudatettava varovaisuutta linkittämällä niihin
     title: Katkenneet linkit
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Pääsy ja aukioloajat
     contact_form: Yhteydenottolomake

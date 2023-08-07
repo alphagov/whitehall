@@ -86,11 +86,6 @@ zh:
     caution:
       subheading: 我们已经发现一些链接的问题，这可能表明存在问题，您应该在链接到它们时小心
     title: 被破坏的链接
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: 访问和打开次数
     contact_form: 联系表单

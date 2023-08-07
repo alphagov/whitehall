@@ -86,11 +86,6 @@ et:
     caution:
       subheading: Leidsime lingidega küsitavusi, mis võivad viidata probleemidele, olge nende kasutamisel ettevaatlik
     title: Katkised lingid
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Juurdepääs ja lahtiolekuajad
     contact_form: Kontaktivorm

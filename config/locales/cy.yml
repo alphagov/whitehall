@@ -86,11 +86,6 @@ cy:
     caution:
       subheading: Rydyn ni wedi canfod rhai materion gyda dolenni a allai ddangos bod problem. Dylech fod yn ofalus wrth gysylltu â nhw
     title: Dolenni wedi torri
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Mynediad ac amseroedd agor
     contact_form: Ffurflen gysylltu

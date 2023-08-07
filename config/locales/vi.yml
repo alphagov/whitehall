@@ -86,11 +86,6 @@ vi:
     caution:
       subheading: Chúng tôi đã tìm thấy một số vấn đề với các liên kết có thể là dấu hiệu cho thấy sự cố, bạn nên thận trọng khi truy cập các liên kết đó
     title: Liên kết đã hỏng
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Thời gian làm việc và mở cửa
     contact_form: Biểu mẫu liên hệ

@@ -86,11 +86,6 @@ el:
     caution:
       subheading: Βρήκαμε ορισμένα προβλήματα με τους συνδέσμους που μπορεί να ενέχουν κίνδυνο. Θα πρέπει να είστε προσεκτικοί κατά τη σύνδεση σε αυτούς
     title: Σπασμένοι σύνδεσμοι
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Πρόσβαση και ώρες λειτουργίας
     contact_form: Φόρμα επικοινωνίας

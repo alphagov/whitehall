@@ -87,11 +87,6 @@ it:
     caution:
       subheading: Abbiamo riscontrato alcune questioni con i collegamenti che potrebbero indicare problemi, dovresti prestare attenzione nel collegarli
     title: Collegamenti interrotti
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Orari di accesso e di apertura
     contact_form: Modulo di contatto

@@ -86,11 +86,6 @@ ko:
     caution:
       subheading: 링크에서 문제를 나타낼 수 있는 몇 가지 문제가 발견되었으므로, 링크할 때 주의해야 합니다
     title: 손상된 링크
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: 액세스 및 공개 시간
     contact_form: 콘택트 폼

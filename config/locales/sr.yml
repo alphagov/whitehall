@@ -87,11 +87,6 @@ sr:
     caution:
       subheading: Pronašli smo neke nedoumice sa vezama koji možda ukazuju probleme, budite oprezni pri praćenju veza
     title: Prekinute veze
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Pristup i radno vreme
     contact_form: Kontakt obrazac

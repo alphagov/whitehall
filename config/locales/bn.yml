@@ -86,11 +86,6 @@ bn:
     caution:
       subheading: লিংকগুলোতে আমরা কিছু বিষয় পেয়েছি, যেগুলো সমস্যা নির্দেশ করতে পারে, এগুলোর সাথে লিংক করতে আপনার সতর্ক হওয়া উচিত
     title: অকার্যকর লিংকসমূহ
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: প্রবেশ ও খোলার সময়
     contact_form: যোগাযোগের ফর্ম

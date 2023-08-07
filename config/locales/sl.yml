@@ -87,11 +87,6 @@ sl:
     caution:
       subheading: Našli smo nekaj težav s povezavami, ki lahko kažejo na težave. Pri povezovanju z njimi bodite previdni
     title: Prekinjene povezave
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Dostop do pisarne in odpiralni čas
     contact_form: Dostop in odpiralni čas

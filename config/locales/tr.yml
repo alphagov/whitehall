@@ -86,11 +86,6 @@ tr:
     caution:
       subheading: Linklerde problem göstergesi olabilecek bazı sorunlar bulduk, bunlara bağlantı kurarken dikkatli olmalısınız
     title: Kırık linkler
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Giriş ve açılma saatleri
     contact_form: İrtibat formu

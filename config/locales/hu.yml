@@ -86,11 +86,6 @@ hu:
     caution:
       subheading: Olyan problémákat találtunk a hivatkozásokkal kapcsolatban, amelyek problémákra utalhatnak; legyen óvatos a továbbhivatkozásuk során
     title: Nem működő hivatkozások
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Hozzáférési és nyitási idők
     contact_form: Kapcsolatfelvételi űrlap

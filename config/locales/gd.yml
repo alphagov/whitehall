@@ -86,11 +86,6 @@ gd:
     caution:
       subheading: Táimid tar éis teacht ar naisc a d'fhéadfadh lochtanna a léiriú agus molaimid duit a bheith cúramach agus tú ag nascadh leis na suíomhanna seo.
     title: Naisc bhriste
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Uaireanta rochtana agus oscailte
     contact_form: Foirm teagmhála

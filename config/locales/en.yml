@@ -71,11 +71,6 @@ en:
     caution:
       subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
     title: Broken links
-  call_for_evidence:
-    closed: Closed
-    closing_today: Closing today
-    closing_tomorrow: Closes tomorrow
-    days_left: "%{days_left} days left"
   contact:
     access_and_opening_times: Access and opening times
     contact_form: Contact form

@@ -87,11 +87,6 @@ hr:
     caution:
       subheading: Otkrili smo neke probleme s vezama koji mogu ukazivati na probleme. Morate biti oprezni pri povezivanju s njima
     title: Neispravni linkovi
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Vrijeme pristupa i otvaranje
     contact_form: Kontakt obrazac

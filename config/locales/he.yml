@@ -87,11 +87,6 @@ he:
     caution:
       subheading: 'מצאנו כמה בעיות עם קישורים שעשויים להצביע על בעיות, עליך לנקוט משנה זהירות בקישור אליהם '
     title: קישורים מנותקים
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: זמני גישה ופתיחה
     contact_form: טופס יצירת קשר

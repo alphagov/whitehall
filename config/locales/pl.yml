@@ -84,11 +84,6 @@ pl:
     caution:
       subheading: Wykryliśmy kilka problemów z linkami. Zachowaj ostrożność podczas łączenia się z nimi.
     title: Uszkodzone linki
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Czas dostępu i otwarcia
     contact_form: Formularz kontaktowy

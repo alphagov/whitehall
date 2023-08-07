@@ -84,11 +84,6 @@ ar:
     caution:
       subheading: لقد وجدنا بعض المسائل المتعلقة بالارتباطات التي قد تشير إلى وجود مشكلات، وينبغي لك أن تتوخى الحذر عند إضافة الارتباطات بها
     title: ارتباطات منقطعة
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: أوقات الوصول والفتح
     contact_form: نموذج الاتصال

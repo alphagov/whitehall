@@ -87,11 +87,6 @@ es-419:
     caution:
       subheading: Hemos encontrado algunos problemas con los enlaces que pueden indicar problemas, debe tener precaución al acceder a ellos
     title: Enlaces rotos
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Acceso y horarios de aperturaAcceso y inicio
     contact_form: Formulario de contacto

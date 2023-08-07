@@ -86,11 +86,6 @@ th:
     caution:
       subheading: เราพบประเด็นบางอย่างเกี่ยวกับลิงก์ที่อาจบ่งชี้ว่าลิงก์นี้มีปัญหา คุณควรใช้ความระมัดระวังในการเปิดลิงก์เหล่านั้น
     title: ลิงค์ใช้ไม่ได้
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: การเข้าถึงและเวลาเปิดทำการ
     contact_form: แบบฟอร์มการติดต่อ

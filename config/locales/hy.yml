@@ -87,11 +87,6 @@ hy:
     caution:
       subheading: Մենք նկատել ենք խնդրահարույց հղումների հետ կապված որոշ խնդիրներ․ դուք պետք է զգույշ լինեք դրանց կցելու ժամանակ
     title: Չգործող հղումներ
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Մուտք և հասանելիության ժամեր
     contact_form: Կոնտակտային ձև

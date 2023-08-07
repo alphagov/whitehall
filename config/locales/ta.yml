@@ -86,11 +86,6 @@ ta:
     caution:
       subheading: பிரச்சினைகளைச் சுட்டிக்காட்டக்கூடிய இணைப்புகளுடன் சில பிரச்சினைகளைக் கண்டறிந்துள்ளோம். அவற்றைத் தொடர்வதில் கவனமாய் இருக்கவும்
     title: முறிந்த இணைப்புகள்
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: அணுகுதல் மற்றும் திறக்கும் நேரங்கள்
     contact_form: தொடர்பு படிவம்

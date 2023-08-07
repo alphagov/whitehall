@@ -86,11 +86,6 @@ ro:
     caution:
       subheading: Am găsit niște erori la linkuri ce pot indica probleme, trebuie să le urmați cu atenție
     title: Linkuri rupte
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Orele de acces și deschidere
     contact_form: 'Formular de contact:'

@@ -84,11 +84,6 @@ lv:
     caution:
       subheading: Tika konstatētas problēmas ar saitēm, tāpēc ieteicams ievērot piesardzību, veidojot savienojumus uz tām
     title: Bojātas saites
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Piekļuves un atvēršanas laiks
     contact_form: Saziņas forma

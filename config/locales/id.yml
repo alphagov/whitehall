@@ -86,11 +86,6 @@ id:
     caution:
       subheading: Kami menemukan masalah dengan tautan yang mungkin menandakan adanya masalah, Anda harus berhati-hati saat mengklik tautan itu
     title: Tautan terputus
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Waktu akses dan buka
     contact_form: Formulir kontak

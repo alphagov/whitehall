@@ -84,11 +84,6 @@ es:
     caution:
       subheading: Hemos encontrado algunos problemas con enlaces que pueden indicar errores, debe tener cuidado al vincularse a estos
     title: Vínculos roto
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: Horarios de acceso y apertura
     contact_form: Formulario de contacto
