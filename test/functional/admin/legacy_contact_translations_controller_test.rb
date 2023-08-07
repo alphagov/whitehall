@@ -7,7 +7,6 @@ class Admin::LegacyContactTranslationsControllerTest < ActionController::TestCas
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   test "create redirects to edit for the chosen language" do
     organisation = create(:organisation)
