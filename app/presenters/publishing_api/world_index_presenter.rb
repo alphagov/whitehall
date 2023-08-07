@@ -20,7 +20,7 @@ module PublishingApi
         details:,
         document_type: "world_index",
         public_updated_at: Time.zone.now,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: "world_index",
       )
 
