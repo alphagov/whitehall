@@ -27,7 +27,13 @@
 <%= render "govuk_publishing_components/components/button", {
   text: "Add contact",
   href: new_polymorphic_path([:admin, @contactable, Contact.new]),
-  margin_bottom: 6
+  margin_bottom: 6,
+  data_attributes: {
+    module: "gem-track-click",
+    "track-category": "form-button",
+    "track-action": "contact-button",
+    "track-label": "Add contact"
+  }
 } %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
