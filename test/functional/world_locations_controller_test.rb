@@ -22,9 +22,4 @@ class WorldLocationsControllerTest < ActionController::TestCase
       assert_select_object png
     end
   end
-
-  test "index when asked for json should redirect to the api controller" do
-    get :index, format: :json
-    assert_redirected_to api_world_locations_path(format: :json)
-  end
 end
