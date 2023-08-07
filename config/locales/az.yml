@@ -496,54 +496,6 @@ az:
       courts_and_tribunals: ilə işlər
   roles:
     unassigned: Bu vəzifəyə heç kim təyin edilməyib
-  see_all:
-    announcement: Bütün elanlarımıza baxın
-    authored_article: Müəlliflik edilmiş bütün məqalələrimizə baxın
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Nümunə üzrə bütün araşdırmalarımıza baxın
-    closed_call_for_evidence: 
-    closed_consultation: Bütün qapalı məsləhətləşmələrimizə baxın
-    consultation: Bütün məsləhətləşmələrimizə baxın
-    consultation_outcome: Bütün məsləhətləşmə nəticələrimizə baxın
-    corporate_report: Şirkətin fəaliyyəti üzrə bütün hesabatlarımıza baxın
-    correspondence: Bütün yazışmalarımıza baxın
-    decision: Bütün qərarlarımıza baxın
-    detailed_guidance: Bütün göstərişlərimizə baxın
-    document_collection: Bütün yığımlarımıza baxın
-    draft_text: Bütün hazırlanan mətnlərimizə baxın
-    fatality_notice: Bütün ğlüm hadisəsi bildirişlərimizə baxın
-    foi_release: Bütün məlumat əldə etmə azadlığı buraxılışlarımıza baxın
-    form: Bütün formalarımıza baxın
-    government_response: Hökumətimizin bütün reaksiyalarına baxın
-    guidance: Bütün göstərişlərimizə baxın
-    impact_assessment: Bizim bütün təsir dəyərləndirilmələrimizə baxın
-    imported: Bütün müstəqil hesabatlarımıza baxın
-    international_treaty: Bütün beynəlxalq sazişlərimizə baxın
-    map: Bütün xəritələrimizə baxın
-    national_statistics: Bütün Milli statistikamıza baxın
-    news_article: Xəbərləri əks etdirən bütün məqalələrimizə baxın
-    news_story: Xəbərləri əks etdirən bütün materiallarımıza baxın
-    notice: Bütün bildirişlərimizə baxın
-    open_call_for_evidence: 
-    open_consultation: Bütün açıq məsləhətləşmələrimizə baxın
-    oral_statement: Parlamentə edilmiş bütün şifahi müraciətlərimizə baxın
-    policy: Bütün siyasətlərimizə baxın
-    policy_paper: Bütün siyasət sənədlərimizə baxın
-    press_release: Bütün press-relizlərimizə baxın
-    promotional: Bütün reklam materialımıza baxın
-    publication: Bütün nəşrlərimizə baxın
-    regulation: Bütün tənzimləmələrimizə baxın
-    research: Bütün araşdırma və təhlillərimizə baxın
-    speaking_notes: Bütün şifahi qeydlərimizə baxın
-    speech: Bütün nitqlərimizə baxın
-    statement_to_parliament: Parlamentə edilmiş bütün müraciətlərimizə baxın
-    statistical_data_set: Bütün statistik məlumat paketlərimizə baxın
-    statistics: Bütün statistikamıza baxın
-    statutory_guidance: Bütün normativ göstərişlərimizə baxın
-    transcript: Bütün çıxarışlarımıza baxın
-    transparency: Bütün şəffaf malumatlarımıza baxın
-    written_statement: Parlamentə edilmiş bütün yazılı müraciətlərimizə baxın
   support:
     download: Endirin
     field_of_operation: 'Əməliyyat sahəsi:'

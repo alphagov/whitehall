@@ -415,54 +415,6 @@ zh-hk:
       courts_and_tribunals: 法院及裁判庭
   roles:
     unassigned: 未有人擔任此一職位
-  see_all:
-    announcement: 查閱我們所有的其他公告
-    authored_article: 查閱我們所有的其他撰寫文章
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: 查閱我們所有的其他案例研究
-    closed_call_for_evidence: 
-    closed_consultation: 查閱我們所有的其他專屬諮詢
-    consultation: 查閱我們所有的其他諮詢
-    consultation_outcome: 查閱我們所有的其他諮詢結果
-    corporate_report: 查閱我們所有的其他政府報告
-    correspondence: 查閱我們所有的其他通信
-    decision: 查閱我們所有的決定
-    detailed_guidance: 查閱我們所有的其他詳細指引
-    document_collection: 查閱我們所有的系列
-    draft_text: 查閱我們所有的其他內容
-    fatality_notice: 查閱我們所有的其他安全事故通知
-    foi_release: 查閱我們所有的其他資訊自由(FOI)資訊發布
-    form: 查閱我們所有的其他表格
-    government_response: 查閱我們所有的政府其他回應
-    guidance: 查閱我們所有的其他指引
-    impact_assessment: 查閱我們所有的其他影響評估
-    imported: 查閱我們所有的輸入-等待類型中
-    international_treaty: 查閱我們所有的其他國際條約
-    map: 查閱我們所有的其他地圖
-    national_statistics: 查閱我們所有的其他國家統計數據
-    news_article: 查閱我們所有的其他新聞
-    news_story: 查閱我們所有的其他新聞
-    notice: 查閱我們所有的其他通知
-    open_call_for_evidence: 
-    open_consultation: 查閱我們所有的其他公開諮詢
-    oral_statement: 查閱我們所有的提交國會的其他口頭聲明
-    policy: 查閱我們所有的其他政策
-    policy_paper: 查閱我們所有的其他政策文件
-    press_release: 查閱我們所有的其他新聞稿
-    promotional: 查閱我們所有的其他宣傳資料
-    publication: 查閱我們所有的其他出版物
-    regulation: 查閱我們所有的其他規定
-    research: 查閱我們所有的其他研究與分析
-    speaking_notes: 查閱我們所有的其他演講稿
-    speech: 查閱我們所有的其他演講
-    statement_to_parliament: 查閱我們所有的提交國會的其他聲明
-    statistical_data_set: 查閱我們所有的其他統計數據資料
-    statistics: 查閱我們所有的其他統計資料
-    statutory_guidance: 查閱我們所有的法定指引
-    transcript: 查閱我們所有的其他談話副本
-    transparency: 查閱我們所有的其他透明化數據
-    written_statement: 查閱我們所有的提交國會的其他書面聲明
   support:
     download: 下載
     field_of_operation: 營運領域：

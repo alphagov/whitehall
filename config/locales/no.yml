@@ -496,54 +496,6 @@
       courts_and_tribunals: Domstoler og domstoler
   roles:
     unassigned: Ingen er tildelt denne rollen
-  see_all:
-    announcement: Se alle våre kunngjøringer
-    authored_article: Se alle våre forfatterartikler
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Se alle våre casestudier
-    closed_call_for_evidence: 
-    closed_consultation: Se alle våre lukkede konsultasjoner
-    consultation: Se alle våre konsultasjoner
-    consultation_outcome: Se alle våre konsultasjonsresultater
-    corporate_report: Se alle våre bedriftsrapporter
-    correspondence: Se alle våre korrespondanser
-    decision: Se alle våre beslutninger
-    detailed_guidance: Se all vår veiledning
-    document_collection: Se alle samlingene våre
-    draft_text: Se alle våre utkast til tekster
-    fatality_notice: Se alle våre meldinger om dødsfall
-    foi_release: Se alle våre Informasjonsfrihet-utgivelser
-    form: Se alle skjemaene våre
-    government_response: Se alle svarene fra regjeringen
-    guidance: Se all vår veiledning
-    impact_assessment: Se alle våre konsekvensanalyser
-    imported: Se alle våre uavhengige rapporter
-    international_treaty: Se alle våre internasjonale traktater
-    map: Se alle kartene våre
-    national_statistics: Se all vår nasjonale statistikk
-    news_article: Se alle våre nyhetsartikler
-    news_story: Se alle våre nyhetshistorier
-    notice: Se alle våre oppslag
-    open_call_for_evidence: 
-    open_consultation: Se alle våre åpne konsultasjoner
-    oral_statement: Se alle våre muntlige uttalelser til Stortinget
-    policy: Se alle retningslinjene våre
-    policy_paper: Se alle retningslinjeskrivene våre
-    press_release: Se alle våre pressemeldinger
-    promotional: Se alt vårt reklamemateriell
-    publication: Se alle våre publikasjoner
-    regulation: Se alle våre forskrifter
-    research: Se all vår forskning og analyse
-    speaking_notes: Se alle våre talende notater
-    speech: Se alle våre taler
-    statement_to_parliament: Se alle våre uttalelser til Stortinget
-    statistical_data_set: Se alle våre statistikkdatasett
-    statistics: Se all vår statistikk
-    statutory_guidance: Se alle våre lovpålagte retningslinjer
-    transcript: Se alle transkripsjonene våre
-    transparency: Se alle våre åpenhetsdata
-    written_statement: Se alle våre skriftlige uttalelser til Stortinget
   support:
     download: Last ned
     field_of_operation: 'Driftsområde:'

@@ -653,54 +653,6 @@ pl:
       courts_and_tribunals: Sądy i Trybunały
   roles:
     unassigned: Nikt nie został przypisany do tej roli
-  see_all:
-    announcement: Zobacz wszystkie nasze ogłoszenia
-    authored_article: Zobacz wszystkie nasze dokumenty utworzone przez
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Zobacz wszystkie nasze studia przypadku
-    closed_call_for_evidence: 
-    closed_consultation: Zobacz wszystkie nasze konsultacje zamknięte
-    consultation: Zobacz wszystkie nasze konsultacje
-    consultation_outcome: Zobacz wszystkie nasze wyniki konsultacji
-    corporate_report: Zobacz wszystkie nasze raporty korporacyjne
-    correspondence: Zobacz wszystkie nasze korespondencje
-    decision: Zobacz wszystkie nasze decyzje
-    detailed_guidance: Zobacz wszystkie nasze szczegółowe wskazówki
-    document_collection: Zobacz wszystkie nasze serie
-    draft_text: Zobacz wszystkie nasze teksty robocze
-    fatality_notice: Zobacz wszystkie nasze informacje o śmierci
-    foi_release: Zobacz wszystkie nasze informacje zgodnie z ustawą o wolności informacji
-    form: Zobacz wszystkie nasze formularze
-    government_response: Zobacz wszystkie nasze odpowiedzi rządu
-    guidance: Zobacz wszystkie nasze wskazówki
-    impact_assessment: Zobacz wszystkie nasze oceny oddziaływania
-    imported: Zobacz wszystkie nasze zaimportowany - oczekuje typu
-    international_treaty: Zobacz wszystkie nasze traktaty międzynarodowe
-    map: Zobacz wszystkie nasze mapy
-    national_statistics: Zobacz wszystkie nasze statystyki - statystyki narodowe
-    news_article: Zobacz wszystkie nasze artykuły prasowe
-    news_story: Zobacz wszystkie nasze aktualności
-    notice: Zobacz wszystkie nasze powiadomienia
-    open_call_for_evidence: 
-    open_consultation: Zobacz wszystkie nasze konsultacje otwarte
-    oral_statement: Zobacz wszystkie nasze ustne oświadczenia przed parlamentem
-    policy: Zobacz wszystkie nasze polityki
-    policy_paper: Zobacz wszystkie nasze dokumenty programowe
-    press_release: Zobacz wszystkie nasze informacje prasowe
-    promotional: Zobacz wszystkie nasze materiał promocyjny
-    publication: Zobacz wszystkie nasze publikacje
-    regulation: Zobacz wszystkie nasze rozporządzenia
-    research: Zobacz wszystkie nasze badania i analiza
-    speaking_notes: Zobacz wszystkie nasze notatki do prelekcji
-    speech: Zobacz wszystkie nasze przemówienia
-    statement_to_parliament: Zobacz wszystkie nasze wystapienia przed parlamentem
-    statistical_data_set: Zobacz wszystkie nasze zestawy danych statystycznych
-    statistics: Zobacz wszystkie nasze statystyki
-    statutory_guidance: Zobacz wszystkie nasze wytyczne ustawowe
-    transcript: Zobacz wszystkie nasze transkrypcje
-    transparency: Zobacz wszystkie nasze dane o transparentności
-    written_statement: Zobacz wszystkie nasze pisemne oświadczenia przed parlamentem
   support:
     download: Pobierz
     field_of_operation: 'Zakres działania:'

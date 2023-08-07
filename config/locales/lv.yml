@@ -493,54 +493,6 @@ lv:
       courts_and_tribunals: Tiesas un šķīrējtiesas
   roles:
     unassigned: Neviens šai lomai nav piešķirts
-  see_all:
-    announcement: Skatīt visas paziņojumi
-    authored_article: Skatīt visas autora raksti
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Skatīt visas piemēri
-    closed_call_for_evidence: 
-    closed_consultation: Skatīt visas slēgta tipa konsultācijas
-    consultation: Skatīt visas konsultācijas
-    consultation_outcome: Skatīt visas konsultāciju rezultāti
-    corporate_report: Skatīt visas korporatīvie ziņojumi
-    correspondence: Skatīt visas sarakstes
-    decision: Skatīt visus lēmumus
-    detailed_guidance: Skatīt visas detalizētas norādes
-    document_collection: Skatīt visas sērijas
-    draft_text: Skatīt visas teksta uzmetumi
-    fatality_notice: Skatīt visas nāves paziņojumi
-    foi_release: Skatīt visas informācijas atklātības datu publicēšana
-    form: Skatīt visas formas
-    government_response: Skatīt visas valdības atbildes
-    guidance: Skatīt visas norādes
-    impact_assessment: Skatīt visas ietekmes novērtējumi
-    imported: Skatīt visas importēts-gaidīšanas režīmā
-    international_treaty: Skatīt visus starptautiskos līgumus
-    map: Skatīt visas kartes
-    national_statistics: Skatīt visas statistika - valsts dati
-    news_article: Skatīt visas raksti
-    news_story: Skatīt visas ziņas
-    notice: Skatīt visus paziņojumus
-    open_call_for_evidence: 
-    open_consultation: Skatīt visas atklātas konsultācijas
-    oral_statement: Skatīt visas mutiski paziņojumi parlamentam
-    policy: Skatīt visas darbības jomas
-    policy_paper: Skatīt visas politikas dokumenti
-    press_release: Skatīt visas paziņojumi presei
-    promotional: Skatīt visas reklāmas materiāli
-    publication: Skatīt visas publikācijas
-    regulation: Skatīt visas regulas
-    research: Skatīt visas izpēte un analīze
-    speaking_notes: Skatīt visas runas piezīmes
-    speech: Skatīt visas runas
-    statement_to_parliament: Skatīt visas ziņojumi parlamentam
-    statistical_data_set: Skatīt visas statistikas datu kopumi
-    statistics: Skatīt visas statistika
-    statutory_guidance: Skatīt saistošās vadlīnijas
-    transcript: Skatīt visas noraksti
-    transparency: Skatīt visas atklātības dati
-    written_statement: Skatīt visas rakstiski ziņojumi parlamentam
   support:
     download: Lejupielādēt
     field_of_operation: 'Darbības joma:'

@@ -576,54 +576,6 @@ sr:
       courts_and_tribunals: Sudovi i tribunali
   roles:
     unassigned: Niko nije imenovan za ovu funkciju
-  see_all:
-    announcement: Pogledajte sva naša saopštenja
-    authored_article: Pogledajte sve naše autorske članke
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Pogledajte sve naše studije slučajeva
-    closed_call_for_evidence: 
-    closed_consultation: Pogledajte sve naše zatvorene konsultacije
-    consultation: Pogledajte sve naše konsultacije
-    consultation_outcome: Pogledajte sve naše ishode konsultacija
-    corporate_report: Pogledajte sve naše organizacione izveštaje
-    correspondence: Pogledajte sve naše prepiske
-    decision: Pogledajte sve naše odluke
-    detailed_guidance: Pogledajte sva naša detaljna uputstva
-    document_collection: Pogledajte sve naše kolekcije
-    draft_text: Pogledajte sve naše radne verzije teksta
-    fatality_notice: Pogledajte sva naša obaveštenja o smrtnim slučajevima
-    foi_release: Pogledajte sve naše odgovore na zahteve za pristup informacijama od javnog značaja
-    form: Pogledajte sve naše obrasce
-    government_response: Pogledajte sve naše odgovore vlade
-    guidance: Pogledajte sva naša detaljna uputstva
-    impact_assessment: Pogledajte sve naše procene efekata
-    imported: Pogledajte sve naše nezavisne izveštaje
-    international_treaty: Pogledajte sve naše međunarodne sporazume
-    map: Pogledajte sve naše mape
-    national_statistics: Pogledajte sve naše državne statističke podatke
-    news_article: Pogledajte sve naše članke vesti
-    news_story: Pogledajte sve naše vesti
-    notice: Pogledajte sva naša obaveštenja
-    open_call_for_evidence: 
-    open_consultation: Pogledajte sve naše otvorene konsultacije
-    oral_statement: Pogledajte sva naša usmena obraćanja Parlamentu
-    policy: Pogledajte sve naše politike
-    policy_paper: Pogledajte sve naše predloge politika
-    press_release: Pogledajte sva naša saopštenja za medije
-    promotional: Pogledajte sve naše promotivne materijale
-    publication: Pogledajte sve naše publikacije
-    regulation: Pogledajte sve naše propise
-    research: Pogledajte sva naša istraživanje i analize
-    speaking_notes: Pogledajte sve naše teze za govor
-    speech: Pogledajte sve naše govore
-    statement_to_parliament: Pogledajte sva naša obraćanja Parlamentu
-    statistical_data_set: Pogledajte sve naše setove statističkih podataka
-    statistics: Pogledajte sve naše statističke podatke
-    statutory_guidance: Pogledajte sva naša zakonska uputstva
-    transcript: Pogledajte sve naše transkripte
-    transparency: Pogledajte sve naše podatke o transparentnosti
-    written_statement: Pogledajte sve naše pismene predstavke Parlamentu
   support:
     download: Preuzmi
     field_of_operation: 'Oblast delovanja:'

@@ -495,54 +495,6 @@ fa:
       courts_and_tribunals: دادگاه‌ها و محکمه‌ها
   roles:
     unassigned: هیچ فردی به این نقش تخصیص نیافته است
-  see_all:
-    announcement: مشاهده تمام اعلامیه‌های ما
-    authored_article: مشاهده تمام مقالات تألیف شده ما
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: مشاهده تمام مطالعات موردی ما
-    closed_call_for_evidence: 
-    closed_consultation: مشاهده تمام مشاوره‌های بسته ما
-    consultation: مشاهده تمام مشاوره‌های ما
-    consultation_outcome: مشاهده تمام نتایج مشاوره‌های ما
-    corporate_report: مشاهده تمام گزارشات شرکتی ما
-    correspondence: مشاهده تمام مکاتبات ما
-    decision: مشاهده تمام تصمیمات ما
-    detailed_guidance: مشاهده تمام راهنمایی‌ها ما
-    document_collection: مشاهده تمام مجموعه‌های ما
-    draft_text: مشاهده تمام متون پیش‌نویس ما
-    fatality_notice: مشاهده تمام اطلاعیه‌های مرگ‌و‌میر ما
-    foi_release: مشاهده تمام بیانیه‌های آزادی اطلاعات ما
-    form: مشاهده تمام فرم‌های ما
-    government_response: مشاهده تمام پاسخ‌های دولتی ما
-    guidance: مشاهده تمام راهنمایی‌ها ما
-    impact_assessment: مشاهده تمام ارزیابی‌های تأثیر ما
-    imported: مشاهده تمام گزارشات مستقل ما
-    international_treaty: مشاهده تمام معاهدات بین‌المللی ما
-    map: مشاهده تمام نقشه‌های ما
-    national_statistics: مشاهده تمام آمار ملی ما
-    news_article: مشاهده تمام مقالات خبری ما
-    news_story: مشاهده تمام گزارشات خبری ما
-    notice: مشاهده تمام اطلاعیه‌های ما
-    open_call_for_evidence: 
-    open_consultation: مشاهده تمام مشاوره‌های باز ما
-    oral_statement: مشاهده تمام بیانیه‌های شفاهی ما به پارلمان
-    policy: مشاهده تمام سیاست‌های ما
-    policy_paper: مشاهده تمام اسناد سیاست ما
-    press_release: مشاهده تمام بیانیه‌های مطبوعاتی ما
-    promotional: مشاهده تمام محتوای تبلیغاتی ما
-    publication: مشاهده تمام موارد منتشر شده ما
-    regulation: مشاهده تمام مقررات ما
-    research: مشاهده تمام تحقیق و تحلیل‌های ما
-    speaking_notes: مشاهده تمام نکات گفتاری ما
-    speech: مشاهده تمام سخنرانی‌های ما
-    statement_to_parliament: مشاهده تمام بیانیه‌های ما به پارلمان
-    statistical_data_set: مشاهده تمام مجموعه داده‌های آماری ما
-    statistics: مشاهده تمام آمار ما
-    statutory_guidance: مشاهده تمام راهنمایی‌های قانونی ما
-    transcript: مشاهده تمام متون ما
-    transparency: مشاهده تمام داده‌های شفافیت ما
-    written_statement: مشاهده تمام بیانیه‌های کتبی ما به پارلمان
   support:
     download: دانلود
     field_of_operation: 'زمینه فعالیت:'

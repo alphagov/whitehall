@@ -576,54 +576,6 @@ hr:
       courts_and_tribunals: Sudovi i tribunali
   roles:
     unassigned: Nitko nije dodijeljen ovoj ulozi
-  see_all:
-    announcement: Pogledajte sve naše obavijesti
-    authored_article: Pogledajte sve naše autorske članke
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Pogledajte sve naše studije slučaja
-    closed_call_for_evidence: 
-    closed_consultation: Pogledajte sve naše zatvorene konzultacije
-    consultation: Pogledajte sve naše konzultacije
-    consultation_outcome: Pogledajte sve naše rezultate konzultacija
-    corporate_report: Pogledajte sva naša korporativna izvješća
-    correspondence: Pogledajte svu našu korespondenciju
-    decision: Pogledajte sve naše odluke
-    detailed_guidance: Pogledajte sve naše upute
-    document_collection: Pogledajte sve naše kolekcije
-    draft_text: Pogledajte sve naše nacrte tekstova
-    fatality_notice: Pogledajte sve naše obavijesti o smrtnom slučaju
-    foi_release: Pogledajte sva naša izdanja o slobodi informacija
-    form: Pogledajte sve naše obrasce
-    government_response: Pogledajte sve odgovore naše vlade
-    guidance: Pogledajte sve naše upute
-    impact_assessment: Pogledajte sve naše procjene utjecaja
-    imported: Pogledajte sva naša neovisna izvješća
-    international_treaty: Pogledajte sve naše međunarodne ugovore
-    map: Pogledajte sve naše karte
-    national_statistics: Pogledajte sve naše nacionalne statistike
-    news_article: Pogledajte sve naše članke
-    news_story: Pogledajte sve naše vijesti
-    notice: Pogledajte sve naše obavijesti
-    open_call_for_evidence: 
-    open_consultation: Pogledajte sve naše otvorene konzultacije
-    oral_statement: Pogledajte sve naše usmene izjave Parlamentu
-    policy: Pogledajte sva naša pravila
-    policy_paper: Pogledajte sve naše dokumente o politici
-    press_release: Pogledajte sva naša priopćenja za javnost
-    promotional: Pogledajte sav naš promotivni materijal
-    publication: Pogledajte sva naša izdanja
-    regulation: Pogledajte sve naše propise
-    research: Pogledajte sva naša istraživanja i analize
-    speaking_notes: Pogledajte sve naše bilješke o govoru
-    speech: Pogledajte sve naše govore
-    statement_to_parliament: Pogledajte sve naše izjave Parlamentu
-    statistical_data_set: Pogledajte sve naše skupove statističkih podataka
-    statistics: Pogledajte sve naše statistike
-    statutory_guidance: Pogledajte sve naše zakonske upute
-    transcript: Pogledajte sve naše prijepise
-    transparency: Pogledajte sve naše podatke o transparentnosti
-    written_statement: Pogledajte sve naše pisane izjave Parlamentu
   support:
     download: Preuzmite
     field_of_operation: 'Područje djelovanja:'

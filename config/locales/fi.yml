@@ -496,54 +496,6 @@ fi:
       courts_and_tribunals: Tuomioistuimet
   roles:
     unassigned: Ketään ei ole määrätty tähän rooliin
-  see_all:
-    announcement: Katso kaikki ilmoituksemme
-    authored_article: Katso kaikki kirjoittamamme artikkelit
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Katso kaikki tapaustutkimuksemme
-    closed_call_for_evidence: 
-    closed_consultation: Katso kaikki suljetut konsultaatiomme
-    consultation: Katso kaikki konsultaatiomme
-    consultation_outcome: Katso kaikki kuulemistuloksemme
-    corporate_report: Katso kaikki yritysraporttimme
-    correspondence: Katso kaikki kirjeenvaihtomme
-    decision: Katso kaikki päätöksemme
-    detailed_guidance: Katso kaikki oppaamme
-    document_collection: Katso kaikki kokoelmamme
-    draft_text: Katso kaikki luonnosluonnoksemme
-    fatality_notice: Katso kaikki kuolemantapauksemme
-    foi_release: Katso kaikki tiedonvälityksen vapautta tiedotteemme
-    form: Katso kaikki lomakkeemme
-    government_response: Katso kaikki hallituksen vastaukset
-    guidance: Katso kaikki oppaamme
-    impact_assessment: Katso kaikki vaikutustenarviointimme
-    imported: Katso kaikki riippumattomat raporttimme
-    international_treaty: Katso kaikki kansainväliset sopimuksemme
-    map: Katso kaikki karttamme
-    national_statistics: Katso kaikki kansalliset tilastot
-    news_article: Katso kaikki uutiset
-    news_story: Katso kaikki uutisemme
-    notice: Katso kaikki ilmoituksemme
-    open_call_for_evidence: 
-    open_consultation: Katso kaikki avoimet neuvottelumme
-    oral_statement: Katso kaikki suulliset lausuntomme parlamentille
-    policy: Tutustu kaikkiin käytäntöihimme
-    policy_paper: Katso kaikki käytäntöasiakirjamme
-    press_release: Katso kaikki lehdistötiedotteemme
-    promotional: Katso kaikki mainosmateriaalimme
-    publication: Katso kaikki julkaisumme
-    regulation: Katso kaikki asetuksemme
-    research: Katso kaikki tutkimuksemme ja analyysimme
-    speaking_notes: Katso kaikki puhemuistiinpanomme
-    speech: Katso kaikki puheemme
-    statement_to_parliament: Katso kaikki lausuntomme parlamentille
-    statistical_data_set: Katso kaikki tilastotietoaineistomme
-    statistics: Katso kaikki tilastomme
-    statutory_guidance: Katso kaikki lakisääteiset ohjeemme
-    transcript: Katso kaikki transkriptiomme
-    transparency: Katso kaikki läpinäkyvyysdatamme
-    written_statement: Katso kaikki parlamentille antamamme kirjalliset lausunnot
   support:
     download: Ladata
     field_of_operation: 'Toiminta -alue:'

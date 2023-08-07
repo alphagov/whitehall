@@ -496,54 +496,6 @@ es-419:
       courts_and_tribunals: Juzgados y Tribunales
   roles:
     unassigned: No hay nadie asignado a esta función
-  see_all:
-    announcement: Ver todos los anuncios
-    authored_article: Ver todos los artículos de autoría
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Ver todos los estudios de casos
-    closed_call_for_evidence: 
-    closed_consultation: Ver todas las consultas cerradas
-    consultation: Ver todas las consultas
-    consultation_outcome: Ver todos los resultados de nuestras consultas
-    corporate_report: Ver todos los informes corporativos
-    correspondence: Ver toda la correspondencia
-    decision: Ver todas las decisiones
-    detailed_guidance: Ver todas las orientaciones
-    document_collection: Ver todas las colecciones
-    draft_text: Ver todos los borradores
-    fatality_notice: Ver todos los anuncios de víctimas fatales
-    foi_release: Ver todos los comunicados FOI
-    form: Ver todos los formularios
-    government_response: Ver todas las respuestas gubernamentales
-    guidance: Ver todas las orientaciones
-    impact_assessment: Ver todas las evaluaciones de impacto
-    imported: Ver todos los informes independientes
-    international_treaty: Ver todos los tratados internacionales
-    map: Ver todos los mapas
-    national_statistics: Ver todas las estadísticas nacionales
-    news_article: Ver todos los artículos de noticias
-    news_story: Ver todos los reportajes
-    notice: Ver todos los avisos
-    open_call_for_evidence: 
-    open_consultation: Ver todas las consultas abiertas
-    oral_statement: Ver todas las declaraciones orales ante el Parlamento
-    policy: Ver todas nuestras políticas
-    policy_paper: Ver todos los documentos normativos
-    press_release: Ver todos los comunicados de prensa
-    promotional: Ver todo nuestro material promocional
-    publication: Ver todas las publicaciones
-    regulation: Ver toda nuestra normativa
-    research: Ver todos los Investigación y análisis
-    speaking_notes: Ver todas las notas de presentación
-    speech: Ver todos los discursos
-    statement_to_parliament: Ver todas las declaraciones ante el Parlamento
-    statistical_data_set: Ver todos los grupos de datos estadísticos
-    statistics: Ver todas las estadísticas
-    statutory_guidance: Ver todas las orientaciones reglamentarias
-    transcript: Ver todas las transcripciones
-    transparency: Ver todos los datos de transparencia
-    written_statement: Ver todas las declaraciones escritas al Parlamento
   support:
     download: Descargar
     field_of_operation: 'Campo de operación:'

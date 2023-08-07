@@ -493,54 +493,6 @@ es:
       courts_and_tribunals: Juzgados y Tribunales
   roles:
     unassigned: No hay nadie asignado a esta función
-  see_all:
-    announcement: Ver toda nuestra anuncios
-    authored_article: Ver toda nuestra artículos de autor
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Ver toda nuestra casos de estudio práctico
-    closed_call_for_evidence: 
-    closed_consultation: Ver toda nuestra consultas cerradas
-    consultation: Ver toda nuestra consultas
-    consultation_outcome: Ver toda nuestra resultados de la consulta
-    corporate_report: Ver toda nuestra informes corporativos
-    correspondence: Ver toda nuestra correspondencias
-    decision: Ver todas nuestras decisiones
-    detailed_guidance: Ver toda nuestra orientación detallada
-    document_collection: Ver todas nuestras colecciones
-    draft_text: Ver toda nuestra borradores
-    fatality_notice: Ver toda nuestra avisos de defunción
-    foi_release: Ver toda nuestra boletines de foi
-    form: Ver toda nuestra formularios
-    government_response: Ver toda nuestra respuestas gubernamentales
-    guidance: Ver toda nuestra instrucciones
-    impact_assessment: Ver toda nuestra evaluaciones del impacto
-    imported: Ver todos nuestros informes independientes
-    international_treaty: Ver todos nuestros tratados internacionales
-    map: Ver toda nuestra mapas
-    national_statistics: Ver toda nuestra estadísticas - cifras nacionales
-    news_article: Ver toda nuestra artículos
-    news_story: Ver toda nuestra noticias
-    notice: Ver todos nuestros avisos
-    open_call_for_evidence: 
-    open_consultation: Ver toda nuestra consultas abiertas
-    oral_statement: Ver toda nuestra declaraciones formuladas oralmente
-    policy: Ver toda nuestra políticas
-    policy_paper: Ver toda nuestra informes sobre políticas gubernamentales
-    press_release: Ver toda nuestra notas de prensa
-    promotional: Ver toda nuestra material de promoción
-    publication: Ver toda nuestra publicación
-    regulation: Ver todos nuestros reglamentos
-    research: Ver toda nuestra investigación y análisis
-    speaking_notes: Ver toda nuestra speaking notes
-    speech: Ver toda nuestra discursos
-    statement_to_parliament: Ver toda nuestra declaraciones ante el parlamento
-    statistical_data_set: Ver toda nuestra conjuntos de datos estadísticos
-    statistics: Ver toda nuestra estadísticas
-    statutory_guidance: Ver todas nuestras directirces estatutarias
-    transcript: Ver toda nuestra transcripciones
-    transparency: Ver toda nuestra datos sobre transparencia
-    written_statement: Ver toda nuestra declaraciones escritas
   support:
     download: Descargar
     field_of_operation: 'Campo de operación:'

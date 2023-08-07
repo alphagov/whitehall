@@ -575,54 +575,6 @@ ro:
       courts_and_tribunals: Instanțe și tribunale
   roles:
     unassigned: În această funcție nu este repartizată nicio persoană
-  see_all:
-    announcement: Vedeți toate anunțurile noastre
-    authored_article: Vedeți toate articolele noastre publicate
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Vedeți toate studiile noastre de caz
-    closed_call_for_evidence: 
-    closed_consultation: Vedeți toate consultațiile noastre închise
-    consultation: Vedeți toate consultațiile noastre
-    consultation_outcome: Vedeți toate rezultatele consultațiilor noastre
-    corporate_report: Vedeți toate rapoartele noastre de companie
-    correspondence: Vedeți toate corespondențele noastre
-    decision: Vedeți toate deciziile noastre
-    detailed_guidance: Vedeți toate orientările noastre
-    document_collection: Vedeți toate colecțiile noastre
-    draft_text: Vedeți toate proiectele noastre de text
-    fatality_notice: Vedeți toate notificările noastre de accident mortal
-    foi_release: Vedeți toate documentele noastre eliberate pentru libertatea de informație
-    form: Vedeți toate formularele noastre
-    government_response: Vedeți toate răspunsurile guvernului
-    guidance: Vedeți toate orientările noastre
-    impact_assessment: Vedeți toate evaluările noastre ale impactului
-    imported: Vedeți toate rapoartele noastre independente
-    international_treaty: Vedeți toate tratatele noastre internaționale
-    map: Vedeți toate hărțile noastre
-    national_statistics: Vedeți toate statisticile noastre naționale
-    news_article: Vedeți toate articolele noastre de știri
-    news_story: Vedeți toate reportajele noastre de știri
-    notice: Vedeți toate notificările noastre
-    open_call_for_evidence: 
-    open_consultation: Vedeți toate consultațiile noastre deschise
-    oral_statement: Vedeți toate expunerile noastre orale către Parlament
-    policy: Vedeți toate politicile noastre
-    policy_paper: Vedeți toate documentele noastre privind politicile
-    press_release: Vedeți toate comunicatele noastre de presă
-    promotional: Vedeți toate materialele noastre promoționale
-    publication: Vedeți toate publicațiile noastre
-    regulation: Vedeți toate reglementările noastre
-    research: Vedeți toate cercetările și analizele noastre
-    speaking_notes: Vedeți notele noastre de discuție
-    speech: Vedeți toate discursurile noastre
-    statement_to_parliament: Vedeți toate expunerile către Parlament
-    statistical_data_set: Vedeți toate seturile noastre de date statistice
-    statistics: Vedeți toate statisticile noastre
-    statutory_guidance: Vedeți toate orientările noastre privind dispozițiile legale
-    transcript: Vedeți toate transcrierile noastre
-    transparency: Vedeți toate datele noastre privind transparența
-    written_statement: Vedeți toate expunerile noastre orale către Parlament
   support:
     download: Descărcați
     field_of_operation: 'Domeniul de activitate:'

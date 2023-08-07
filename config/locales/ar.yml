@@ -813,54 +813,6 @@ ar:
       courts_and_tribunals: المحاكم والهيئات القضائية
   roles:
     unassigned: لم يتم تعيين أي شخص لهذا الدور.
-  see_all:
-    announcement: اطلع على جميع إعلاناتنا
-    authored_article: اطلع على جميع مقالاتنا المؤلفة
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: اطلع على جميع دراسات الحالة لدينا
-    closed_call_for_evidence: 
-    closed_consultation: اطلع على جميع استشاراتنا المغلقة
-    consultation: اطلع على جميع استشاراتنا
-    consultation_outcome: اطلع على جميع نتائج استشاراتنا
-    corporate_report: اطلع على جميع تقارير الشركات لدينا
-    correspondence: اطلع على جميع مراسلاتنا
-    decision: اطلع على جميع قراراتنا
-    detailed_guidance: اطلع على كل توجيهاتنا
-    document_collection: اطلع على جميع مجموعاتنا
-    draft_text: اطلع على جميع مشاريع النصوص لدينا
-    fatality_notice: اطلع على جميع إشعاراتنا حول الوفيات
-    foi_release: اطلع على جميع إصدارات حرية تداول المعلومات لدينا
-    form: اطلع على جميع نماذجنا
-    government_response: اطلع على جميع استجابات الحكومة لدينا
-    guidance: اطلع على جميع توجيهاتنا
-    impact_assessment: اطلع على جميع تقييمات الأثر لدينا
-    imported: اطلع على جميع تقاريرنا المستقلة
-    international_treaty: اطلع على جميع معاهداتنا الدولية
-    map: اطلع على جميع خرائطنا
-    national_statistics: اطلع على جميع إحصاءاتنا الوطنية
-    news_article: اطلع على جميع مقالاتنا الإخبارية
-    news_story: اطلع على جميع قصصنا الصحفية
-    notice: اطلع على جميع إشعاراتنا
-    open_call_for_evidence: 
-    open_consultation: اطلع على جميع استشاراتنا المفتوحة
-    oral_statement: اطلع على جميع بياناتنا الشفوية إلى البرلمان
-    policy: اطلع على جميع سياساتنا
-    policy_paper: اطلع على جميع أوراق السياسة لدينا
-    press_release: اطلع على جميع بياناتنا الصحفية
-    promotional: اطلع على جميع موادنا الترويجية
-    publication: اطلع على جميع منشوراتنا
-    regulation: اطلع على جميع لوائحنا
-    research: اطلع على جميع أبحاثنا وتحليلاتنا
-    speaking_notes: اطلع على جميع الملاحظات التحضيرية لخطاباتنا
-    speech: اطلع على جميع خطاباتنا
-    statement_to_parliament: اطلع على جميع بياناتنا إلى البرلمان
-    statistical_data_set: اطلع على جميع مجموعات البيانات الإحصائية لدينا
-    statistics: اطلع على جميع إحصائياتنا
-    statutory_guidance: اطلع على جميع توجيهاتنا القانونية
-    transcript: اطلع على جميع نصوصنا
-    transparency: اطلع على جميع بيانات الشفافية لدينا
-    written_statement: اطلع على جميع بياناتنا الخطيَّة إلى البرلمان
   support:
     download: تنزيل
     field_of_operation: 'ساحة العمليات:'

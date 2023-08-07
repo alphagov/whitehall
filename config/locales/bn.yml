@@ -495,54 +495,6 @@ bn:
       courts_and_tribunals: আদালত ও ট্রাইব্যুনাল
   roles:
     unassigned: এই ভূমিকায় কাউকে দায়িত্ব দেওয়া হয়নি
-  see_all:
-    announcement: আমাদের সকল ঘোষণা দেখুন
-    authored_article: আমাদের লেখকের উৎস সহ সকল নিবন্ধ দেখুন
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: আমাদের সকল কেস স্টাডি দেখুন
-    closed_call_for_evidence: 
-    closed_consultation: আমাদের সকল ক্লোজড কনসাল্টেশন দেখুন
-    consultation: আমাদের সকল কনসাল্টেশন দেখুন
-    consultation_outcome: আমাদের সকল কনসাল্টেশনের ফলাফল দেখুন
-    corporate_report: আমাদের সকল কর্পোরেট রিপোর্ট দেখুন
-    correspondence: আমাদের সকল যোগাযোগ দেখুন
-    decision: আমাদের সকল সিদ্ধান্ত দেখুন
-    detailed_guidance: আমাদের সকল নির্দেশনা দেখুন
-    document_collection: আমাদের সকল সংগ্রহ দেখুন
-    draft_text: আমাদের সকল খসড়া টেক্সট দেখুন
-    fatality_notice: আমাদের সকল বিপর্যয় সম্পর্কিত বিজ্ঞপ্তি দেখুন
-    foi_release: আমাদের সকল ফ্রিডম অব ইনফর্মেশন-এর প্রকাশনা দেখুন
-    form: আমাদের সকল ফর্ম দেখুন
-    government_response: আমাদের সকল সরকারের সাড়া দেখুন
-    guidance: আমাদের সকল নির্দেশনা দেখুন
-    impact_assessment: আমাদের সকল প্রভাব মূল্যায়ন দেখুন
-    imported: আমাদের সকল স্বতন্ত্র রিপোর্ট দেখুন
-    international_treaty: আমাদের সকল আন্তর্জাতিক চুক্তি দেখুন
-    map: আমাদের সকল মানচিত্র দেখুন
-    national_statistics: আমাদের সকল জাতীয় পরিসংখ্যান দেখুন
-    news_article: আমাদের সকল সংবাদপত্রের নিবন্ধ দেখুন
-    news_story: আমাদের সকল সংবাদের বিষয় দেখুন
-    notice: আমাদের সকল বিজ্ঞপ্তি দেখুন
-    open_call_for_evidence: 
-    open_consultation: আমাদের সকল উম্মুক্ত পরামর্শ দেখুন
-    oral_statement: সংসদে আমাদের সকল মৌখিক বিবৃতি দেখুন
-    policy: আমাদের সকল নীতিমালা দেখুন
-    policy_paper: আমাদের সকল পলিসি পেপার দেখুন
-    press_release: আমাদের সকল প্রেস রিলিজ দেখুন
-    promotional: আমাদের সকল প্রোমোশন সম্পর্কিত উপকরণ দেখুন
-    publication: আমাদের সকল প্রকাশনা দেখুন
-    regulation: আমাদের সকল বিধিবিধান দেখুন
-    research: আমাদের সকল গবেষণা ও বিশ্লেষণ দেখুন
-    speaking_notes: আমাদের সকল বক্তব্যের টীকা দেখুন
-    speech: আমাদের সকল বক্তব্য দেখুন
-    statement_to_parliament: সংসদে আমাদের সকল বিবৃতি দেখুন
-    statistical_data_set: আমাদের সকল পরিসংখ্যানগত তথ্য সংকলন দেখুন
-    statistics: আমাদের সকল পরিসংখ্যান দেখুন
-    statutory_guidance: আমাদের সকল বিধিবদ্ধ নির্দেশনা দেখুন
-    transcript: আমাদের সকল ট্রান্সক্রিপ্ট দেখুন
-    transparency: আমাদের সকল স্বচ্ছতার তথ্য দেখুন
-    written_statement: সংসদে আমাদের সকল লিখিত বিবৃতি দেখুন
   support:
     download: ডাউনলোড করুন
     field_of_operation: কার্যক্রমের ক্ষেত্র

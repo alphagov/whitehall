@@ -653,54 +653,6 @@ mt:
       courts_and_tribunals: Qorti u Tribunali
   roles:
     unassigned: Ħadd m'għandu dan ir-rwol
-  see_all:
-    announcement: Ara l-avviżi tagħna kollha
-    authored_article: Ara l-artikli tagħna kollha li ktibna
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Ara l-istudji dwar il-każi tagħna kollha
-    closed_call_for_evidence: 
-    closed_consultation: Ara l-konsultazzjonijiet magħluqa tagħna kollha
-    consultation: Ara l-konsultazzjonijiet tagħna kollha
-    consultation_outcome: Ara r-riżultati tal-konsultazzjoni tagħna
-    corporate_report: Ara r-rapporti korporattivi tagħna
-    correspondence: Ara l-korrispondenza tagħna kollha
-    decision: Ara d-deċiżjonijiet tagħna kollha
-    detailed_guidance: Ara l-gwida tagħna kollha
-    document_collection: Ara l-kollezzjonijiet tagħna kollha
-    draft_text: Ara l-abbozz tat-testijiet tagħna kollha
-    fatality_notice: Ara l-avviżi dwar il-fatalità tagħna kollha
-    foi_release: Ara r-rilaxxi tagħna kollha dwar il-libertà għall-informazzjoni
-    form: Ara l-formoli tagħna kollha
-    government_response: Ara r-risposti tal-gvern kollha
-    guidance: Ara l-gwida tagħna kollha
-    impact_assessment: Ara l-assessjar tal-impatt tagħna kollu
-    imported: Ara r-rapporti indipendenti tagħna kollha
-    international_treaty: Ara t-trattati internazzjonali tagħna kollha
-    map: Ara l-mapep tagħna kollha
-    national_statistics: Ara l-iStatistiċi Nazzjonali tagħna kollha
-    news_article: Ara l-artikli bl-aħbarijiet tagħna kollha
-    news_story: Ara l-istejjer bl-aħbarijiet tagħna kollha
-    notice: Ara l-avviżi tagħna kollha
-    open_call_for_evidence: 
-    open_consultation: Ara l-konsultazzjonijiet miftuħa tagħna kollha
-    oral_statement: Ara d-dikjarazzjonijiet verbali tagħna kollha lill-Parlament
-    policy: Ara l-politiki tagħna kollha
-    policy_paper: Ara d-dokumenti tal-politika tagħna kollha
-    press_release: Ara l-istqarrijiet għall-istampa tagħna kollha
-    promotional: Ara l-materjal promozzjonali tagħna kollu
-    publication: Ara l-pubblikazzjonijiet tagħna kollha
-    regulation: Ara r-regolamenti tagħna kollha
-    research: Ara r-riċerka u l-analiżi tagħna kolllha
-    speaking_notes: Ara n-noti għad-diskors tagħna kollha
-    speech: Ara d-diskorsi tagħna kollha
-    statement_to_parliament: Ara d-dikjarazzjonijiet tagħna kollha lill-Parlament
-    statistical_data_set: Ara s-settijiet tad-dejta bl-istatistiċi tagħna kollha
-    statistics: Ara l-istatistiċi tagħna kollha
-    statutory_guidance: Ara l-gwida statutorja tagħna kollha
-    transcript: Ara t-transkripts tagħna kollha
-    transparency: Ara d-dejta dwar it-trasparenza tagħna kollha
-    written_statement: Ara d-dikjarazzjonijiet bil-miktub tagħna kollha lill-Parlament
   support:
     download: Niżżel
     field_of_operation: 'Qasam ta'' operazzjoni:'

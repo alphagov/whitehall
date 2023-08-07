@@ -416,54 +416,6 @@ ms:
       courts_and_tribunals: Mahkamah dan Tribunal
   roles:
     unassigned: Tiada siapa yang ditugaskan untuk peranan ini
-  see_all:
-    announcement: Lihat semua pengumuman kami
-    authored_article: Lihat semua artikel ditulis penulis kami
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Lihat semua kajian kes kami
-    closed_call_for_evidence: 
-    closed_consultation: Lihat semua rundingan tertutup kami
-    consultation: Lihat semua rundingan kami
-    consultation_outcome: Lihat semua hasil perundingan kami
-    corporate_report: Lihat semua laporan korporat kami
-    correspondence: Lihat semua perwakilan kami
-    decision: Lihat semua keputusan kami
-    detailed_guidance: Lihat semua panduan kami
-    document_collection: Lihat semua koleksi kami
-    draft_text: Lihat semua teks draf kami
-    fatality_notice: Lihat semua notis kematian kami
-    foi_release: Lihat semua hebahan Kebebasan Maklumat kami (FOI)
-    form: Lihat semua borang kami
-    government_response: Lihat semua respons kerajaan kami
-    guidance: Lihat semua panduan kami
-    impact_assessment: Lihat semua penilaian impak kami
-    imported: Lihat semua laporan bebas kami
-    international_treaty: Lihat semua perjanjian antarabangsa kami
-    map: Lihat semua peta kami
-    national_statistics: Lihat semua Statistik Nasional kami
-    news_article: Lihat semua artikel berita kami
-    news_story: Lihat semua berita kami
-    notice: Lihat semua notis kami
-    open_call_for_evidence: 
-    open_consultation: Lihat semua rundingan terbuka kami
-    oral_statement: Lihat semua kenyataan lisan kami kepada Parlimen
-    policy: Lihat semua dasar kami
-    policy_paper: Lihat semua kertas dasar kami
-    press_release: Lihat semua siaran akhbar kami
-    promotional: Lihat semua bahan promosi kami
-    publication: Lihat semua terbitan kami
-    regulation: Lihat semua peraturan kami
-    research: Lihat semua penyelidikan dan analisis kami
-    speaking_notes: Lihat semua nota perbincangan kami
-    speech: Lihat semua ucapan kami
-    statement_to_parliament: Lihat semua kenyataan kami kepada Parlimen
-    statistical_data_set: Lihat semua set data statistik kami
-    statistics: Lihat semua statistik kami
-    statutory_guidance: Lihat semua panduan berkanun kami
-    transcript: Lihat semua transkrip kami
-    transparency: Lihat semua data ketelusan kami
-    written_statement: Lihat semua kenyataan bertulis kami kepada Parlimen
   support:
     download: Muat turun
     field_of_operation: 'Medan operasi:'

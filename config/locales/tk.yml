@@ -495,54 +495,6 @@ tk:
       courts_and_tribunals: Kazyýet we Kazylar
   roles:
     unassigned: Bu wezipä hiç kim bellenmedi
-  see_all:
-    announcement: Biziň ähli bildirişlerimize serediň
-    authored_article: Biziň ähli ygtyýarlandyrylan statýalarymyza serediň
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Biziň ähli ýagdaý seljermelerimize serediň
-    closed_call_for_evidence: 
-    closed_consultation: Biziň ähli ýapyk maslahatlarymyza serediň
-    consultation: Biziň ähli maslahatlarymyza serediň
-    consultation_outcome: Biziň ähli maslahat netijelerimize serediň
-    corporate_report: Biziň ähli korperatiw hasabatlarymyza serediň
-    correspondence: Biziň ähli hat alyşmalarymyza serediň
-    decision: Biziň ähli kararlarymyza serediň
-    detailed_guidance: Biziň ähli görkezmelerimize serediň
-    document_collection: Biziň ähli toplamalarymyza serediň
-    draft_text: Biziň ähli taslama tekstlerimize serediň
-    fatality_notice: Biziň ähli ölüm howpy barada duýduryşlarymyza serediň
-    foi_release: Biziň ähli FOI goýberişlerimize serediň
-    form: Biziň ähli formalarymyza serediň
-    government_response: Biziň ähli hökümet jogaplarymyza serediň
-    guidance: Biziň ähli görkezmelerimize serediň
-    impact_assessment: Biziň ähli täsir bahalandyrmalarymyza serediň
-    imported: Biziň ähli garaşsyz hasabatlarymyza serediň
-    international_treaty: Biziň ähli halkara şertnamalarymyza serediň
-    map: Biziň ähli kartalarymyza serediň
-    national_statistics: Biziň ähli milli statistikalarymyza serediň
-    news_article: Biziň ähli habar makalalarymyza serediň
-    news_story: Biziň ähli habarlarymyza serediň
-    notice: Biziň ähli belliklerimize serediň
-    open_call_for_evidence: 
-    open_consultation: Biziň ähli açyk maslahatlarymyza serediň
-    oral_statement: Biziň ähli Mejlise edilen dilden beýanlarymyza serediň
-    policy: Biziň ähli syýasatymyza serediň
-    policy_paper: Biziň ähli syýasat kagyzlarymyza serediň
-    press_release: Biziň ähli goýberişlerimize serediň
-    promotional: Biziň ähli mahabat materiallarymyza serediň
-    publication: Biziň ähli neşirlerimize serediň
-    regulation: Biziň ähli düzgünnamalarymyza serediň
-    research: Biziň ähli gözleg we derňewlerimize serediň
-    speaking_notes: Biziň ähli gepleşik belliklerimize serediň
-    speech: Biziň ähli çykyşlarymyza serediň
-    statement_to_parliament: Biziň ähli Mejlise edilen beýanlarymyza serediň
-    statistical_data_set: Biziň ähli statistiki maglumat toplumlarymyza serediň
-    statistics: Biziň ähli statistikamyza serediň
-    statutory_guidance: Biziň ähli kanun boýunça görkezmelerimize serediň
-    transcript: Biziň ähli ýazgylarymyza serediň
-    transparency: Biziň ähli aç-açanlyk maglumatlarymyza serediň
-    written_statement: Biziň ähli Mejlise edilen ýazmaça beýanlarymyza serediň
   support:
     download: Göçüriň
     field_of_operation: 'Iş meýdany:'

@@ -576,54 +576,6 @@ sk:
       courts_and_tribunals: Súdy a tribunály
   roles:
     unassigned: Táto úloha nie je nikomu pridelená
-  see_all:
-    announcement: Pozrite si všetky naše oznámenia
-    authored_article: Pozrite si všetky naše autorské články
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Pozrite si všetky naše prípadové štúdie
-    closed_call_for_evidence: 
-    closed_consultation: Pozrite si všetky naše uzavreté konzultácie
-    consultation: Pozrite si všetky naše konzultácie
-    consultation_outcome: Pozrite si všetky výsledky našich konzultácií
-    corporate_report: Pozrite si všetky naše firemné správy
-    correspondence: Pozrite si všetku našu korešpondenciu
-    decision: Pozrite si všetky naše rozhodnutia
-    detailed_guidance: Pozrite si všetky naše usmernenia
-    document_collection: Pozrite si všetky naše kolekcie
-    draft_text: Pozrite si všetky naše návrhy textov
-    fatality_notice: Pozrite si všetky naše oznámenia o úmrtiach
-    foi_release: Pozrite si všetky naše správy FOI
-    form: Pozrite si všetky naše formuláre
-    government_response: Pozrite si všetky odpovede našej vlády
-    guidance: Pozrite si všetky naše usmernenia
-    impact_assessment: Pozrite si všetky naše hodnotenia vplyvu
-    imported: Pozrite si všetky naše nezávislé správy
-    international_treaty: Pozrite si všetky naše medzinárodné zmluvy
-    map: Pozrite si všetky naše mapy
-    national_statistics: Pozrite si všetky naše národné štatistiky
-    news_article: Pozrite si všetky naše novinové články
-    news_story: Pozrite si všetky naše novinky
-    notice: Pozrite si všetky naše oznámenia
-    open_call_for_evidence: 
-    open_consultation: Pozrite si všetky naše otvorené konzultácie
-    oral_statement: Pozrite si všetky naše ústne vyhlásenia v Parlamente
-    policy: Pozrite si všetky naše zásady
-    policy_paper: Pozrite si všetky naše strategické dokumenty
-    press_release: Pozrite si všetky naše tlačové správy
-    promotional: Pozrite si všetky naše propagačné materiály
-    publication: Pozrite si všetky naše publikácie
-    regulation: Pozrite si všetky naše predpisy
-    research: Pozrite si všetky naše výskumy a analýzy
-    speaking_notes: Pozrite si všetky naše poznámky k prejavom
-    speech: Pozrite si všetky naše prejavy
-    statement_to_parliament: Pozrite si všetky naše vyhlásenia pre Parlament
-    statistical_data_set: Pozrite si všetky naše súbory štatistických údajov
-    statistics: Pozrite si všetky naše štatistiky
-    statutory_guidance: Pozrite si všetky naše zákonné usmernenia
-    transcript: Pozrite si všetky naše prepisy
-    transparency: Pozrite si všetky naše údaje o transparentnosti
-    written_statement: Pozrite si všetky naše písomné vyhlásenia pre Parlament
   support:
     download: Stiahnuť
     field_of_operation: 'Oblasť činnosti:'

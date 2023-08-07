@@ -496,54 +496,6 @@ fr:
       courts_and_tribunals: Cours et Tribunaux
   roles:
     unassigned: Personne n'est affecté à ce rôle
-  see_all:
-    announcement: Afficher toutes nos annonces
-    authored_article: Afficher toutes nos articles signés
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Afficher toutes nos etudes de cas
-    closed_call_for_evidence: 
-    closed_consultation: Afficher toutes nos consultations fermées
-    consultation: Afficher toutes nos consultations
-    consultation_outcome: Afficher tous nos résultats de consultation
-    corporate_report: Afficher tous nos rapports d'entreprise
-    correspondence: Afficher toutes nos correspondances
-    decision: Afficher toutes nos décisions
-    detailed_guidance: Afficher toutes nos orientations
-    document_collection: Afficher toutes nos collections
-    draft_text: Afficher toutes nos projets de textes
-    fatality_notice: Afficher tous nos avis de décès
-    foi_release: Afficher tous nos communiqués d'accès à l'information
-    form: Afficher tous nos formulaires
-    government_response: Afficher toutes nos réponses du gouvernement
-    guidance: Afficher toutes nos orientations
-    impact_assessment: Afficher toutes nos évaluations de l'impact
-    imported: Afficher tous nos rapports indépendants
-    international_treaty: Afficher tous nos traités internationaux
-    map: Afficher toutes nos cartes
-    national_statistics: Afficher toutes nos statistiques nationales
-    news_article: Afficher tous nos articles d'actualité
-    news_story: Afficher toutes nos actualités
-    notice: Afficher tous nos avis
-    open_call_for_evidence: 
-    open_consultation: Afficher toutes nos consultations ouvertes
-    oral_statement: Afficher toutes nos déclarations orales au parlement
-    policy: Afficher toutes nos politiques générales
-    policy_paper: Afficher tous nos documents de politique générale
-    press_release: Afficher tous nos communiqués de presse
-    promotional: Afficher tous nos matériel promotionnel
-    publication: Afficher toutes nos publications
-    regulation: Afficher toutes nos régulations
-    research: Afficher toutes nos recherche et analyse
-    speaking_notes: Afficher toutes nos notes d'allocution
-    speech: Afficher tous nos discours
-    statement_to_parliament: Afficher toutes nos déclarations au parlement
-    statistical_data_set: Afficher tous nos ensembles de données statistiques
-    statistics: Afficher toutes nos statistiques
-    statutory_guidance: Afficher toutes nos orientations statutaires
-    transcript: Afficher toutes nos transcriptions
-    transparency: Afficher toutes nos données de transparence
-    written_statement: Afficher toutes nos déclarations écrites au Parlement
   support:
     download: Télécharger
     field_of_operation: 'Domaine d''intervention :'

@@ -495,54 +495,6 @@ si:
       courts_and_tribunals: අධිකරණ හා විනිශ්චය මණ්ඩල
   roles:
     unassigned: මෙම භූමිකාව කිසිවෙකුට පවරා නැත
-  see_all:
-    announcement: අපේ සියලු නිවේදන බලන්න
-    authored_article: අපේ සියලුම රචනා කළ ලිපි බලන්න
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: අපේ සියලු සිද්ධි අධ්යයන බලන්න
-    closed_call_for_evidence: 
-    closed_consultation: අපේ සියලු සංවෘත උපදේශන බලන්න
-    consultation: අපේ සියලු උපදේශන බලන්න
-    consultation_outcome: අපේ සියලු උපදේශන ප්‍රතිඵල බලන්න
-    corporate_report: අපේ සියලුම ආයතනික වාර්තා බලන්න
-    correspondence: අපේ සියලු ලිපි හුවමාරු බලන්න
-    decision: අපේ සියලු තීරණ බලන්න
-    detailed_guidance: අපේ සියලු මඟපෙන්වීම් බලන්න
-    document_collection: අපේ සියලු එකතු බලන්න
-    draft_text: අපේ සියලු කෙටුම්පත් පෙළ බලන්න
-    fatality_notice: අපේ සියලු මරණ දැන්වීම් බලන්න
-    foi_release: අපේ සියලුම FOI නිකුත් කිරීම් බලන්න
-    form: අපේ සියලු ආකෘති පත්‍ර බලන්න
-    government_response: අපේ රජයේ සියලු ප්රතිචාර බලන්න
-    guidance: අපේ සියලු මඟපෙන්වීම් බලන්න
-    impact_assessment: අපේ සියලු බලපෑම් ඇගයීම බලන්න
-    imported: අපේ සියලු ස්වාධීන වාර්තා බලන්න
-    international_treaty: අපේ සියලු ජාත්යන්තර ගිවිසුම් බලන්න
-    map: අපේ සියලු සිතියම් බලන්න
-    national_statistics: අපේ සියලු ජාතික සංඛ්යා ලේඛන බලන්න
-    news_article: අපේ සියලු පුවත් ලිපි බලන්න
-    news_story: අපේ සියලු පුවත් කථා බලන්න
-    notice: අපේ සියලු දැන්වීම් බලන්න
-    open_call_for_evidence: 
-    open_consultation: අපේ සියලු විවෘත උපදේශන බලන්න
-    oral_statement: අපේ පාර්ලිමේන්තුවට කළ ප්‍රකාශන සියල්ල බලන්න
-    policy: අපේ සියලු ප්රතිපත්ති බලන්න
-    policy_paper: අපේ සියලු ප්රතිපත්ති පත්රිකා බලන්න
-    press_release: අපේ සියලු මාධ්‍ය නිවේදන බලන්න
-    promotional: අපේ සියලු ප්රවර්ධන ද්රව්ය බලන්න
-    publication: අපේ සියලු ප්රකාශන බලන්න
-    regulation: අපේ සියලු රෙගුලාසි බලන්න
-    research: අපේ සියලු පර්යේෂණ හා විශ්ලේෂණ බලන්න
-    speaking_notes: අපේ සියලු කතා සටහන් බලන්න
-    speech: අපේ සියලු කතා බලන්න
-    statement_to_parliament: පාර්ලිමේන්තුවට කළ ප්‍රකාශන සියල්ල බලන්න
-    statistical_data_set: අපේ සියලු සංඛ්යාලේඛන දත්ත කට්ටල බලන්න
-    statistics: අපේ සියලු සංඛ්යා ලේඛන බලන්න
-    statutory_guidance: අපේ සියලු ව්යවස්ථාපිත මාර්ගෝපදේශ බලන්න
-    transcript: අපේ සියලු අනුපත් බලන්න
-    transparency: අපේ සියලු විනිවිදභාව දත්ත බලන්න
-    written_statement: පාර්ලිමේන්තුවට කළ අපේ ලිඛිත ප්‍රකාශන සියල්ල බලන්න
   support:
     download: බාගන්න
     field_of_operation: 'මෙහෙයුම් ක්ෂේත්රය:'

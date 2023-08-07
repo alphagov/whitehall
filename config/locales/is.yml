@@ -495,54 +495,6 @@ is:
       courts_and_tribunals: Réttir og dómstólar
   roles:
     unassigned: Enginn er settur í þetta hlutverk
-  see_all:
-    announcement: Sjá allar okkar tilkynningar
-    authored_article: Sjá allar okkar samdar greinar
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Sjá allar okkar ferilsathuganir
-    closed_call_for_evidence: 
-    closed_consultation: Sjá allar okkar lokaðar ráðgjafir
-    consultation: Sjá allar okkar ráðgjafir
-    consultation_outcome: Sjá allar okkar útkomur úr ráðgjöfum
-    corporate_report: Sjá allar okkar skýrslur fyrirtækja
-    correspondence: Sjá öll okkar samskipti
-    decision: Sjá allar okkar ákvarðanir
-    detailed_guidance: Sjá allar okkar leiðbeiningar
-    document_collection: Sjá öll okkar söfn
-    draft_text: Sjá öll okkar textadrög
-    fatality_notice: Sjá allar tilkynningar okkar um dauðsföll
-    foi_release: Sjá allar okkar FOI útgáfur
-    form: Sjá öll okkar eyðublöð
-    government_response: Sjá öll okkar opinber svör
-    guidance: Sjá allar okkar leiðbeiningar
-    impact_assessment: Sjá öll okkar áhrifamöt
-    imported: Sjá allar okkar sjálfstæðu skýrslur
-    international_treaty: Sjá alla alþjóðasamninga okkar
-    map: Sjá öll okkar kort
-    national_statistics: Sjá alla Hagstofu okkar
-    news_article: Sjá allar fréttagreinar okkar
-    news_story: Sjá allar fréttir okkar
-    notice: Sjá allar tilkynningar okkar
-    open_call_for_evidence: 
-    open_consultation: Sjá allar opnar ráðgjafir okkar
-    oral_statement: Sjá allar munnlegar yfirlýsingar okkar til Þingsins
-    policy: Sjá allar stefnur okkar
-    policy_paper: Sjá allar stefnu ritgerðir okkar
-    press_release: Sjá allar fréttatilkynningar okkar
-    promotional: Sjá allt kynningarefni okkar
-    publication: Sjá allar okkar útgáfur
-    regulation: Sjá allar reglugerðir okkar
-    research: Sjá allar rannsóknir og greiningu okkar
-    speaking_notes: Sjá alla ræðupunkta okkar
-    speech: Sjá allar ræður okkar
-    statement_to_parliament: Sjá allar okkar yfirlýsingar til Þingsins
-    statistical_data_set: Sjá öll tölfræðileg gagnsett okkar
-    statistics: Sjá allar okkar tölfræði
-    statutory_guidance: Sjá allar lagalegar leiðbeiningar okkar
-    transcript: Sjá öll okkar handrit
-    transparency: Sjá öll gögn okkar um gagnsæi
-    written_statement: Sjá allar skriflegar yfirlýsingar okkar til Þingsins
   support:
     download: Sækja
     field_of_operation: 'Starfsvið:'

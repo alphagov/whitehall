@@ -495,54 +495,6 @@ tr:
       courts_and_tribunals: Mahkemeler
   roles:
     unassigned: Bu göreve kimse atanmamış
-  see_all:
-    announcement: Tüm duyurularımıza bakın
-    authored_article: Tüm yazar makalelerimize bakın
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Tüm vaka incelemelerimize bakın
-    closed_call_for_evidence: 
-    closed_consultation: Tüm tamamlanan danışmalarımıza bakın
-    consultation: Tüm danışmalarımıza bakın
-    consultation_outcome: Tüm danışma sonuçlarımıza bakın
-    corporate_report: Tüm kurumsal raporlarımıza bakın
-    correspondence: Tüm yazışmalarımıza bakın
-    decision: Tüm kararlarımıza bakın
-    detailed_guidance: Tüm kılavuzumuza bakın
-    document_collection: Tüm yazışmalarımıza bakın
-    draft_text: Tüm taslak metinlerimize bakın
-    fatality_notice: Tüm ölüm oranı bildirimlerimize bakın
-    foi_release: Tüm Bilgi Özgürlüğü duyurularımıza bakın
-    form: Tüm formlarımıza bakın
-    government_response: Tüm hükümet yanıtlarımıza  bakın
-    guidance: Tüm kılavuzumuza bakın
-    impact_assessment: Tüm etki değerlendirmelerimize bakın
-    imported: Tüm bağımsız raporlarımıza bakın
-    international_treaty: Tüm uluslararası anlaşmalarımıza bakın
-    map: Tüm haritalarımıza bakın
-    national_statistics: Tüm Ulusal İstatistiklerimize bakın
-    news_article: Tüm haber makalelerimize bakın
-    news_story: Tüm haber hikayelerimize bakın
-    notice: Tüm bildirimlerimize bakın
-    open_call_for_evidence: 
-    open_consultation: Tüm tamamlanan danışmalarımıza bakın
-    oral_statement: Parlamentoya tüm sözlü açıklamalarımıza bakın
-    policy: Tüm politikalarımıza bakın
-    policy_paper: Tüm politika belgelerimize bakın
-    press_release: Tüm basın duyurularımıza bakın
-    promotional: Tüm promosyon malzememize bakın
-    publication: Tüm yayınlarımıza bakın
-    regulation: Tüm mevzuatımıza bakın
-    research: Tüm araştırma ve analizimize bakın
-    speaking_notes: Tüm konuşma notlarımıza bakın
-    speech: Tüm konuşmalarımıza bakın
-    statement_to_parliament: Parlamentoya tüm sözlü açıklamalarımıza bakın
-    statistical_data_set: Tüm istatistiki veri kümelerimize bakın
-    statistics: Tüm istatistiklerimize bakın
-    statutory_guidance: Tüm yasa kılavuzumuza bakın
-    transcript: Tüm konuşma dökümlerimize bakın
-    transparency: Tüm şeffaflık verilerimize bakın
-    written_statement: Parlamentoya tüm sözlü açıklamalarımıza bakın
   support:
     download: İndir
     field_of_operation: 'Faaliyet alanı:'

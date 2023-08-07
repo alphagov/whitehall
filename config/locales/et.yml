@@ -495,54 +495,6 @@ et:
       courts_and_tribunals: Kohtud
   roles:
     unassigned: Sellesse rolli pole kedagi määratud
-  see_all:
-    announcement: Vaata kõiki meie teadaandeid
-    authored_article: Vaata kõiki meie kirjutatud artikleid
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Vaata kõiki meie juhtumianalüüse
-    closed_call_for_evidence: 
-    closed_consultation: Vaata kõiki meie suletud konsultatsioone
-    consultation: Vaata kõiki meie konsultatsioone
-    consultation_outcome: Vaata kõiki meie konsultatsioonitulemusi
-    corporate_report: Vaata kõiki meie ettevõttearuandeid
-    correspondence: Vaata kõiki meie korrespondentse
-    decision: Vaata kõiki meie otsuseid
-    detailed_guidance: Vaata kõiki meie juhiseid
-    document_collection: Vaata kõiki meie kollektsioone
-    draft_text: Vaata kõiki meie mustandite tekste
-    fatality_notice: Vaata kõiki meie surmateateid
-    foi_release: Vaata kõiki meie FOI väljaandeid
-    form: Vaata kõiki meie vorme
-    government_response: Vaata kõiki meie valitsuse vastuseid
-    guidance: Vaata kõiki meie juhiseid
-    impact_assessment: Vaata kõiki meie mõjuhinnanguid
-    imported: Vaata kõiki meie sõltumatuid aruandeid
-    international_treaty: Vaata kõiki meie rahvusvahelisi lepinguid
-    map: Vaata kõiki meie kaarte
-    national_statistics: Vaata kogu meie riiklikku statistikat
-    news_article: Vaata kõiki meie uudiseartikleid
-    news_story: Vaata kõiki meie uudislugusid
-    notice: Vaata kõiki meie teateid
-    open_call_for_evidence: 
-    open_consultation: Vaata kõiki meie avatud konsultatsioone
-    oral_statement: Vaata kõiki meie suulisi avaldusi parlamendile
-    policy: Vaata kõiki meie eeskirju
-    policy_paper: Vaata kõiki meie eeskirjade dokumente
-    press_release: Vaata kõiki meie pressiteateid
-    promotional: Vaata kogu meie reklaammaterjali
-    publication: Vaata kõiki meie publikatsioone
-    regulation: Vaata kõiki meie määruseid
-    research: Vaata kõiki meie uurimisi ja analüüse
-    speaking_notes: Vaata kõiki meie kõnemärkmeid
-    speech: Vaata kõiki meie kõnesid
-    statement_to_parliament: Vaata kõiki meie avaldusi parlamendile
-    statistical_data_set: Vaata kõiki meie statistilisi andmekogusid
-    statistics: Vaata kogu meie statistikat
-    statutory_guidance: Vaata kõiki meie seadusjärgseid juhendeid
-    transcript: Vaata kõiki meie transkriptsioone
-    transparency: Vaata kõiki meie läbipaistvusandmeid
-    written_statement: Vaata kõiki meie kirjalikke avaldusi parlamendile
   support:
     download: Laadi alla
     field_of_operation: 'Tegevusvaldkond:'

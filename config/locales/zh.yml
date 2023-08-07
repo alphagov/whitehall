@@ -415,54 +415,6 @@ zh:
       courts_and_tribunals: 法院和法庭
   roles:
     unassigned: 没有人被分配到这个职责
-  see_all:
-    announcement: 查看我们的全部公告
-    authored_article: 查看我们的全部撰写文章
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: 查看我们的全部案例研究
-    closed_call_for_evidence: 
-    closed_consultation: 看看我们的全部封闭咨询
-    consultation: 查看我们的全部咨询
-    consultation_outcome: 查看我们的全部咨询结果
-    corporate_report: 查看我们的全部公司报告
-    correspondence: 查看我们的全部通信
-    decision: 查看我们的全部决策
-    detailed_guidance: 查看我们的全部指南
-    document_collection: 查看我们的全部收藏
-    draft_text: 查看我们的全部草稿
-    fatality_notice: 查看我们的全部死亡通知
-    foi_release: 查看我们的全部 FOI 发布
-    form: 查看我们的全部表格
-    government_response: 查看我们的全部政府回应
-    guidance: 查看我们的全部指南
-    impact_assessment: 查看我们的全部影响评估
-    imported: 查看我们的全部独立报告
-    international_treaty: 看看我们的全部国际条约
-    map: 查看我们的全部地图
-    national_statistics: 查看我们的全部国家统计数据
-    news_article: 查看我们的全部新闻文章
-    news_story: 查看我们的全部新闻故事
-    notice: 查看我们的全部通知
-    open_call_for_evidence: 
-    open_consultation: 看看我们的全部开放咨询
-    oral_statement: 查看我们的全部议会口头声明
-    policy: 查看我们的全部政策
-    policy_paper: 查看我们的全部政策文件
-    press_release: 查看我们的全部新闻发布
-    promotional: 查看我们的全部宣传材料
-    publication: 查看我们的全部发布
-    regulation: 查看我们的全部法规
-    research: 查看我们的全部研究和分析
-    speaking_notes: 查看我们的全部发演讲稿
-    speech: 查看我们的全部演讲
-    statement_to_parliament: 查看我们的全部议会声明
-    statistical_data_set: 查看我们的全部统计数据集
-    statistics: 查看我们的全部统计数据
-    statutory_guidance: 查看我们的全部法定指南
-    transcript: 查看我们的全部文字记录
-    transparency: 查看我们的全部透明度数据
-    written_statement: 查看我们的全部议会书面声明
   support:
     download: 下载
     field_of_operation: 经营领域：

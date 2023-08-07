@@ -815,54 +815,6 @@ cy:
       courts_and_tribunals: Llysoedd a Thribiwnlysoedd
   roles:
     unassigned: Does neb wedi'i bennu ar gyfer y rôl hon.
-  see_all:
-    announcement: Gweld ein holl gyhoeddiadau
-    authored_article: Gweld ein holl erthyglau ag awdur wedi'i enwi
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Gweld ein holl astudiaethau achos
-    closed_call_for_evidence: 
-    closed_consultation: Gweld ein holl ymgynghoriadau caeedig
-    consultation: Gweld ein holl ymgynghoriadau
-    consultation_outcome: Gweld ein holl ganlyniadau o ymgynghoriadau
-    corporate_report: Gweld ein holl adroddiadau corfforaethol
-    correspondence: Gweld ein holl ohebiaeth
-    decision: Gweld ein holl benderfyniadau
-    detailed_guidance: Gweld ein holl ganllawiau
-    document_collection: Gweld ein holl gasgliadau
-    draft_text: Gweld ein holl destunau drafft
-    fatality_notice: Gweld ein holl hysbysiadau o farwolaethau
-    foi_release: Gweld ein holl wybodaeth a ryddhawyd o dan FOI
-    form: Gweld ein holl ffurflenni
-    government_response: Gweld ein holl ymatebion llywodraeth
-    guidance: Gweld ein holl ganllawiau
-    impact_assessment: Gweld ein holl asesiadau o effaith
-    imported: Gweld ein holl adroddiadau annibynnol
-    international_treaty: Gweld ein holl gytuniadau rhyngwladol
-    map: Gweld ein holl fapiau
-    national_statistics: Gweld ein holl Ystadegau Gwladol
-    news_article: Gweld ein holl erthyglau newyddion
-    news_story: Gweld ein holl straeon newyddion
-    notice: Gweld ein holl hysbysiadau
-    open_call_for_evidence: 
-    open_consultation: Gweld ein holl ymgynghoriadau agored
-    oral_statement: Gweld ein holl ddatganiadau llafar i'r Senedd
-    policy: Gweld ein holl bolisïau
-    policy_paper: Gweld ein holl bapurau polisi
-    press_release: Gweld ein holl ddatganiadau i'r wasg
-    promotional: Gweld ein holl ddeunyddiau hyrwyddo
-    publication: Gweld ein holl gyhoeddiadau
-    regulation: Gweld ein holl reoliadau
-    research: Gweld ein holl ymchwil a dadansoddi
-    speaking_notes: Gweld ein holl nodiadau annerch
-    speech: Gweld ein holl anerchiadau
-    statement_to_parliament: Gweld ein holl ddatganiadau i'r Senedd
-    statistical_data_set: Gweld ein holl setiau data ystadegol
-    statistics: Gweld ein holl ystadegau
-    statutory_guidance: Gweld ein holl ganllawiau statudol
-    transcript: Gweld ein holl drawsgrifiadau
-    transparency: Gweld ein holl ddata tryloywder
-    written_statement: Gweld ein holl ddatganiadau ysgrifenedig i'r Senedd
   support:
     download: Llwytho i lawr
     field_of_operation: 'Maes gweithredu:'

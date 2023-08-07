@@ -496,54 +496,6 @@ it:
       courts_and_tribunals: Corti e tribunali
   roles:
     unassigned: Nessuno è assegnato a questo ruolo
-  see_all:
-    announcement: Vedi tutti i nostri annunci
-    authored_article: Vedi tutti i nostri articoli d’autore
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Vedi tutti i nostri casi di studio
-    closed_call_for_evidence: 
-    closed_consultation: Vedi tutte le nostre consultazioni chiuse
-    consultation: Vedi tutte le nostre consultazioni
-    consultation_outcome: Vedi tutti i nostri esiti di consultazione
-    corporate_report: Vedi tutti i nostri report aziendali
-    correspondence: Vedi tutte le nostre corrispondenze
-    decision: Vedi tutte le nostre decisioni
-    detailed_guidance: Vedi tutte le nostre guide
-    document_collection: Vedi tutte le nostre raccolte
-    draft_text: Vedi tutte le nostre bozze di testo
-    fatality_notice: Vedi tutti i nostri avvisi di morte
-    foi_release: Vedi tutte le nostre pubblicazioni sulla libertà d’informazione (FOI)
-    form: Vedi tutti i nostri moduli
-    government_response: Vedi tutte le nostre risposte del governo
-    guidance: Vedi tutte le nostre guide
-    impact_assessment: Vedi tutte le nostre valutazioni dell’impatto
-    imported: Vedi tutti i nostri report indipendenti
-    international_treaty: Vedi tutti i nostri trattati internazionali
-    map: Vedi tutte le nostre mappe
-    national_statistics: Vedi tutte le nostre statistiche nazionali
-    news_article: Vedi tutti i nostri articoli di notizie
-    news_story: Vedi tutte le nostre storie di notizie
-    notice: Vedi tutti i nostri avvisi
-    open_call_for_evidence: 
-    open_consultation: Vedi tutte le nostre consultazioni aperte
-    oral_statement: Vedi tutte le nostre dichiarazioni orali al Parlamento
-    policy: Vedi tutte le nostre informative
-    policy_paper: Vedi tutti i nostri documenti sulle politiche
-    press_release: Vedi tutti i nostri comunicati stampa
-    promotional: Vedi tutto il nostro materiale promozionale
-    publication: Vedi tutte le nostre pubblicazioni
-    regulation: Vedi tutti i nostri regolamenti
-    research: Vedi tutte le nostre ricerche e analisi
-    speaking_notes: Vedi tutte le nostre note parlanti
-    speech: Vedi tutti i nostri discorsi
-    statement_to_parliament: Vedi tutte le nostre dichiarazioni al Parlamento
-    statistical_data_set: Vedi tutti i nostri set di dati statistici
-    statistics: Vedi tutte le nostre statistiche
-    statutory_guidance: Vedi tutte le nostre guide statutarie
-    transcript: Vedi tutte le nostre trascrizioni
-    transparency: Vedi tutti i nostri dati sulla trasparenza
-    written_statement: Vedi tutte le nostre dichiarazioni scritte al Parlamento
   support:
     download: Download
     field_of_operation: 'Campo operativo:'

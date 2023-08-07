@@ -493,54 +493,6 @@ pa-pk:
       courts_and_tribunals: کورٹ تے عدالتاں
   roles:
     unassigned: ایہ کردار کسے نوں نئیں دتا گیا
-  see_all:
-    announcement: ساڈے سارے اعلانات ویکھو
-    authored_article: ساڈے سارے لکھے ہوئے مضمون ویکھو
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: سادے سارے کیس نوں ویکھو
-    closed_call_for_evidence: 
-    closed_consultation: ساڈی ساری ختم ہوئی مشاورت ویکھو
-    consultation: ساڈی ساری مشاورت ویکھو
-    consultation_outcome: ساڈی ساری مشاور ت دے نتیجے ویکھو
-    corporate_report: ساڈے ادارے دیاں رپورٹاں ویکھو
-    correspondence: ساڈے سارے خظ ویکھو
-    decision: ساڈے سارے فیصلے ویکھو
-    detailed_guidance: ساڈی ساری رہنمائی ویکھو
-    document_collection: ساڈے سارے مجموعے ویکھو
-    draft_text: ساڈا سارا لکھیا ہوا مواد ویکھو
-    fatality_notice: ساڈے سارے موت بارے نوٹس ویکھو
-    foi_release: ساڈے سارے فریڈم آف انفارمیشن ریلزز ویکھو
-    form: ساڈے سارے فارمز ویکھو
-    government_response: ساڈے سارے حکومتی جواب ویکھو
-    guidance: ساڈی ساری رہنمائی ویکھو
-    impact_assessment: ساڈی ساری جانچ دا اثر ویکھو
-    imported: ساڈی ساریاں خود مُختار رپورٹاں ویکھو
-    international_treaty: ساڈے ساے بین الاقوامی معاہدے ویکھو
-    map: ساڈے سارے نقشے ویکھو
-    national_statistics: ساڈی ساے قومی اعدادوشمار ویکھو
-    news_article: ساڈے سارے خبراں دے مضمون ویکھو
-    news_story: ساڈیاں ساریاں خبراں دیاں کہانیاں ویکھو
-    notice: ساڈے سارے نوٹسز ویکھو
-    open_call_for_evidence: 
-    open_consultation: ساڈی ساری کُھلی مشاورت ویکھو
-    oral_statement: ساڈے سارے قومی مجلس دے سامنے بیان ویکھو
-    policy: ساڈی ساری حکمت عملی ویکھو
-    policy_paper: ساڈی سارے پالیسی دے کاغذات ویکھو
-    press_release: ساڈیاں ساریاں خبراں ویکھو
-    promotional: ساڈا سارا اشتہاری مواد ویکھو
-    publication: ساڈی ساری اشاعت ویکھو
-    regulation: ساڈے سارے قوانین ویکھو
-    research: ساڈے سارے تجزیے تے کھوج دیکھو
-    speaking_notes: ساڈے سارے گل بات دے نوٹسز
-    speech: ساڈیاں ساریاں تقریراں ویکھو
-    statement_to_parliament: قومی مجلس دے سامنے ساڈے سارے بیان ویکھو
-    statistical_data_set: ساڈے سارے اعداوشمار دے سیٹ ویکھو
-    statistics: ساڈے سارے اعدادوشمار ویکھو
-    statutory_guidance: ساڈی ساری قانونی رہنمائی ویکھو
-    transcript: ساڈے سارے بیان ویکھو
-    transparency: ساڈی ساری شفافیت دی معلومات ویکھو
-    written_statement: قومی مجلس دے سامنے ساڈے سارے تحریری بیان ویکھو
   support:
     download: ڈاؤن لوڈ
     field_of_operation: 'عمل دی تھاں:'

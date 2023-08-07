@@ -496,54 +496,6 @@ ps:
       courts_and_tribunals: محکمې او محکمې
   roles:
     unassigned: هیڅوک دې رول ته ندي ګمارل شوي
-  see_all:
-    announcement: زموږ ټول اعلانونه وګورئ
-    authored_article: زموږ ټولې لیکل شوې مقالې وګورئ
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: زموږ ټولې قضیې مطالعات وګورئ
-    closed_call_for_evidence: 
-    closed_consultation: زموږ ټولې تړلې مشورې وګورئ
-    consultation: زموږ ټولې مشورې وګورئ
-    consultation_outcome: زموږ د مشورې ټولې پایلې وګورئ
-    corporate_report: زموږ ټول کارپوریټ راپورونه وګورئ
-    correspondence: زموږ ټول لیکونه وګورئ
-    decision: زموږ ټولې پریکړې وګورئ
-    detailed_guidance: زموږ ټول لارښوونې وګورئ
-    document_collection: زموږ ټول ټولګه وګورئ
-    draft_text: زموږ ټول مسوده متنونه وګورئ
-    fatality_notice: زموږ د مړینې ټول خبرتیاوې وګورئ
-    foi_release: زموږ د FOI ټولې خپرونې وګورئ
-    form: زموږ ټولې بې وګورئ
-    government_response: زموږ د حکومت ټول ځوابونه وګورئ
-    guidance: زموږ ټول لارښوونې وګورئ
-    impact_assessment: زموږ ټولې اغیزې ارزونې وګورئ
-    imported: زموږ ټول خپلواک راپورونه وګورئ
-    international_treaty: زموږ ټول نړیوال تړونونه وګورئ
-    map: زموږ ټولې نقشې وګورئ
-    national_statistics: زموږ ټول ملي احصایې وګورئ
-    news_article: زموږ ټولې خبري مقالې وګورئ
-    news_story: زموږ ټول خبرونه وګورئ
-    notice: زموږ ټول خبرتیاوې وګورئ
-    open_call_for_evidence: 
-    open_consultation: زموږ ټولې خلاصې مشورې وګورئ
-    oral_statement: پارلمان ته زموږ ټولې شفاهي څرګندونې وګورئ
-    policy: زموږ ټولې پالیسۍ وګورئ
-    policy_paper: زموږ ټولې پالیسي پا papersې وګورئ
-    press_release: زموږ ټولې مطبوعاتي اعلامیې وګورئ
-    promotional: زموږ ټول پروموشنل توکي وګورئ
-    publication: زموږ ټولې خپرونې وګورئ
-    regulation: زموږ ټول مقررات وګورئ
-    research: زموږ ټولې څیړنې او تحلیلونه وګورئ
-    speaking_notes: زموږ ټولې خبرې یادونې وګورئ
-    speech: زموږ ټولې ویناوې وګورئ
-    statement_to_parliament: پارلمان ته زموږ ټولې څرګندونې وګورئ
-    statistical_data_set: زموږ ټول احصایوي ډیټا سیټونه وګورئ
-    statistics: زموږ ټول احصایې وګورئ
-    statutory_guidance: زموږ ټول قانوني لارښود وګورئ
-    transcript: زموږ ټول نقلونه وګورئ
-    transparency: زموږ ټول شفافیت ډاټا وګورئ
-    written_statement: پارلمان ته زموږ ټول لیکل شوي بیانات وګورئ
   support:
     download: کښته کول
     field_of_operation: 'د عملیاتو ساحه:'

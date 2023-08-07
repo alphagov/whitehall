@@ -496,54 +496,6 @@ sv:
       courts_and_tribunals: Domstolar och domstolar
   roles:
     unassigned: Ingen har tilldelats denna roll
-  see_all:
-    announcement: Se alla våra tillkännagivanden
-    authored_article: Se alla våra författade artiklar
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Se alla våra fallstudier
-    closed_call_for_evidence: 
-    closed_consultation: Se alla våra avslutade samråd
-    consultation: Se alla våra samråd
-    consultation_outcome: Se alla våra samrådsresultat
-    corporate_report: Se alla våra företagsrapporter
-    correspondence: Se alla våra korrespondenser
-    decision: Se alla våra beslut
-    detailed_guidance: Se alla våra riktlinjer
-    document_collection: Se alla våra samlingar
-    draft_text: Se alla våra utkast till texter
-    fatality_notice: Se alla våra meddelanden om dödsfall
-    foi_release: Se alla våra FOI-meddelanden
-    form: Se alla våra blanketter
-    government_response: Se alla våra myndighetssvar
-    guidance: Se all vår vägledning
-    impact_assessment: Se alla våra konsekvensbedömningar
-    imported: Se alla våra oberoende rapporter
-    international_treaty: Se alla våra internationella fördrag
-    map: Se alla våra kartor
-    national_statistics: Se all vår nationella statistik
-    news_article: Se alla våra nyhetsartiklar
-    news_story: Se alla våra nyheter
-    notice: Se alla våra meddelanden
-    open_call_for_evidence: 
-    open_consultation: Se alla våra öppna samråd
-    oral_statement: Se alla våra muntliga uttalanden inför parlamentet
-    policy: Se all vår politik
-    policy_paper: Se alla våra policydokument
-    press_release: Se alla våra pressmeddelanden
-    promotional: Se allt vårt reklammaterial
-    publication: Se alla våra publikationer
-    regulation: Se alla våra förordningar
-    research: Se all vår forskning och analys
-    speaking_notes: Se alla våra föredrag
-    speech: Se alla våra tal
-    statement_to_parliament: Se alla våra uttalanden inför parlamentet
-    statistical_data_set: Se alla våra statistiska uppgifter
-    statistics: Se all vår statistik
-    statutory_guidance: Se alla våra lagstadgade riktlinjer
-    transcript: Se alla våra utskrifter
-    transparency: Se alla våra uppgifter om öppenhet
-    written_statement: Se alla våra skriftliga uttalanden till parlamentet
   support:
     download: Ladda ner
     field_of_operation: 'Verksamhetsområde:'

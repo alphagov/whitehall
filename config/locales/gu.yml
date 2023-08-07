@@ -495,54 +495,6 @@ gu:
       courts_and_tribunals: ન્યાયાલયો અને ટ્રિબ્યુનલ્સ
   roles:
     unassigned: આ ભૂમિકા કોઈને પણ સોંપવામાં આવેલ નથી
-  see_all:
-    announcement: અમારી તમામ ઘોષણાઓ જુઓ
-    authored_article: અમારા તમામ લેખિત લેખો જુઓ
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: અમારી તમામ કેસ સ્ટડીઝ જુઓ
-    closed_call_for_evidence: 
-    closed_consultation: અમારા તમામ બંધ થયેલ પરામર્શ જુઓ
-    consultation: અમારા તમામ પરામર્શ જુઓ
-    consultation_outcome: અમારા પરામર્શના તમામ પરિણામો જુઓ
-    corporate_report: અમારા તમામ કોર્પોરેટ અહેવાલો જુઓ
-    correspondence: અમારો બધો જ પત્રવ્યવહાર જુઓ
-    decision: અમારા તમામ નિર્ણયો જુઓ
-    detailed_guidance: અમારા તમામ માર્ગદર્શનો જુઓ
-    document_collection: અમારા તમામ સંગ્રહો જુઓ
-    draft_text: અમારા તમામ ડ્રાફ્ટ ટેક્સ્ટ જુઓ
-    fatality_notice: અમારી તમામ જાનહાનિ સૂચનાઓ જુઓ
-    foi_release: અમારી તમામ માહિતીની સ્વતંત્રતા પ્રકાશનો જુઓ
-    form: અમારા તમામ પત્રકો જુઓ
-    government_response: અમારા તમામ સરકારી જવાબો જુઓ
-    guidance: અમારા તમામ માર્ગદર્શનો જુઓ
-    impact_assessment: અમારા તમામ અસરના મૂલ્યાંકનો જુઓ
-    imported: અમારા તમામ સ્વતંત્ર અહેવાલો જુઓ
-    international_treaty: અમારી તમામ આંતરરાષ્ટ્રીય સંધિઓ જુઓ
-    map: અમારા તમામ નકશા જુઓ
-    national_statistics: અમારા તમામ રાષ્ટ્રીય આંકડા જુઓ
-    news_article: અમારા તમામ ન્યૂઝ આર્ટિકલ્સ જુઓ
-    news_story: અમારી તમામ ન્યૂઝ સ્ટોરીઝ જુઓ
-    notice: અમારી તમામ સૂચનાઓ જુઓ
-    open_call_for_evidence: 
-    open_consultation: અમારા તમામ ખુલ્લા પરામર્શ જુઓ
-    oral_statement: અમારા સંસદમાં કરેલ તમામ મૌખિક નિવેદનો જુઓ
-    policy: અમારી બધી નીતિઓ જુઓ
-    policy_paper: અમારા તમામ પોલિસી પેપર્સ જુઓ
-    press_release: અમારા તમામ પ્રેસ રીલીઝ જુઓ
-    promotional: અમારી તમામ પ્રચાર સામગ્રી જુઓ
-    publication: અમારા તમામ પ્રકાશનો જુઓ
-    regulation: અમારા તમામ નિયમનો જુઓ
-    research: અમારા તમામ સંશોધન અને વિશ્લેષણ જુઓ
-    speaking_notes: અમારી તમામ સ્પીકિંગ નોટ્સ જુઓ
-    speech: અમારા તમામ ભાષણો જુઓ
-    statement_to_parliament: અમારા સંસદમાં કરેલ તમામ નિવેદનો જુઓ
-    statistical_data_set: અમારા તમામ આંકડાકીય ડેટા સેટ્સ જુઓ
-    statistics: અમારા તમામ આંકડા જુઓ
-    statutory_guidance: અમારા તમામ વૈધાનિક માર્ગદર્શન જુઓ
-    transcript: અમારી તમામ ટ્રાન્સસ્ક્રિપ્ટ્સ જુઓ
-    transparency: અમારો તમામ પારદર્શિતા ડેટા જુઓ
-    written_statement: અમારા સંસદમાં કરેલ તમામ લેખિત નિવેદનો જુઓ
   support:
     download: ડાઉનલોડ કરો
     field_of_operation: 'કામગીરીનું ક્ષેત્ર:'

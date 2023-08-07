@@ -415,54 +415,6 @@ th:
       courts_and_tribunals: ศาลและตุลาการ
   roles:
     unassigned: ไม่มีใครได้รับการแต่งตั้งในบทบาทนี้
-  see_all:
-    announcement: ดูประกาศทั้งหมดของเรา
-    authored_article: ดูบทความโดยผู้เขียนทั้งหมดของเรา
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: ดูกรณีศึกษาทั้งหมดของเรา
-    closed_call_for_evidence: 
-    closed_consultation: ดูการให้คำปรึกษาที่ปิดแล้วทั้งหมดของเรา
-    consultation: ดูการให้คำปรึกษาที่ปิดแล้วทั้งหมดของเรา
-    consultation_outcome: ดูผลลัพธ์จากการให้คำปรึกษาทั้งหมดของเรา
-    corporate_report: ดูรายงานองค์กรทั้งหมดของเรา
-    correspondence: ดูจดหมายโต้ตอบทั้งหมดของเรา
-    decision: ดูการตัดสินใจทั้งหมดของเรา
-    detailed_guidance: ดูคำแนะนำทั้งหมดของเรา
-    document_collection: ดูคอลเล็กชั่นทั้งหมดของเรา
-    draft_text: ดูข้อความฉบับร่างทั้งหมดของเรา
-    fatality_notice: ดูประกาศการเสียชีวิตทั้งหมดของเรา
-    foi_release: ดูข่าวประชาสัมพันธ์เกี่ยวกับ FOI ทั้งหมดของเรา
-    form: ดูแบบฟอร์มทั้งหมดของเรา
-    government_response: ดูคำตอบของรัฐบาลทั้งหมดของเรา
-    guidance: ดูคำแนะนำทั้งหมดของเรา
-    impact_assessment: ดูการประเมินผลกระทบทั้งหมดของเรา
-    imported: ดูรายงานอิสระทั้งหมดของเรา
-    international_treaty: ดูสนธิสัญญาระหว่างประเทศทั้งหมดของเรา
-    map: ดูแผนที่ทั้งหมดของเรา
-    national_statistics: ดูสถิติแห่งชาติทั้งหมดของเรา
-    news_article: ดูบทความข่าวทั้งหมดของเรา
-    news_story: ดูเนื้อหาข่าวทั้งหมดของเรา
-    notice: ดูประกาศทั้งหมดของเรา
-    open_call_for_evidence: 
-    open_consultation: ดูการให้คำปรึกษาที่เปิดอยู่ทั้งหมดของเรา
-    oral_statement: ดูแถลงการณ์ด้วยวาจาต่อรัฐสภาทั้งหมดของเรา
-    policy: ดูนโยบายทั้งหมดของเรา
-    policy_paper: ดูเอกสารนโยบายทั้งหมดของเรา
-    press_release: ดูข่าวประชาสัมพันธ์ทั้งหมดของเรา
-    promotional: ดูสื่อส่งเสริมการขายทั้งหมดของเรา
-    publication: ดูสิ่งพิมพ์ทั้งหมดของเรา
-    regulation: ดูระเบียบข้อบังคับทั้งหมดของเรา
-    research: ดูงานวิจัยและการวิเคราะห์ทั้งหมดของเรา
-    speaking_notes: ดูบันทึกสุนทรพจน์ทั้งหมดของเรา
-    speech: ดูสุนทรพจน์ทั้งหมดของเรา
-    statement_to_parliament: ดูแถลงการณ์ต่อรัฐสภาทั้งหมดของเรา
-    statistical_data_set: ดูชุดข้อมูลสถิติทั้งหมดของเรา
-    statistics: ดูสถิติทั้งหมดของเรา
-    statutory_guidance: ดูคำแนะนำทางกฎหมายทั้งหมดของเรา
-    transcript: ดูการถอดเสียงทั้งหมดของเรา
-    transparency: ดูข้อมูลความโปร่งใสทั้งหมดของเรา
-    written_statement: ดูแถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภาทั้งหมดของเรา
   support:
     download: ดาวน์โหลด
     field_of_operation: 'พื้นที่ปฏิบัติการ:'

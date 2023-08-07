@@ -656,54 +656,6 @@ sl:
       courts_and_tribunals: Sodišča
   roles:
     unassigned: Ta vloga ni dodeljena nikomur
-  see_all:
-    announcement: Oglejte si vse naše razglase
-    authored_article: Oglejte si vse naše avtorske članke
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Oglejte si naše študije primerov
-    closed_call_for_evidence: 
-    closed_consultation: Oglejte si vsa naša tesna posvetovanja
-    consultation: Oglejte si vsa naša posvetovanja
-    consultation_outcome: Oglejte si vse rezultate naših posvetovanj
-    corporate_report: Oglejte si vsa naša poročila o podjetjih
-    correspondence: Oglejte si vso našo korespondenco
-    decision: Oglejte si vse naše odločitve
-    detailed_guidance: Oglejte si vse naše usmeritve
-    document_collection: Oglejte si vse naše zbirke
-    draft_text: Oglejte si vse naše osnutke besedila
-    fatality_notice: Oglejte si vsa naša obvestila o smrti
-    foi_release: Oglejte si vse naše objave o prostem dostopu do informacij
-    form: Oglejte si vse naše obrazce
-    government_response: Oglejte si vse naše odzive vlade
-    guidance: Oglejte si vse naše usmeritve
-    impact_assessment: Oglejte si vse naše presoje vpliva
-    imported: Oglejte si vsa naša neodvisna poročila
-    international_treaty: Oglejte si vse naše mednarodne sporazume
-    map: Oglejte si vse naše zemljevide
-    national_statistics: Oglejte si vso našo državno statistiko
-    news_article: Oglejte si vse naše časopisne članke
-    news_story: Oglejte si vse naše časopisne zgodbe
-    notice: Oglejte si vsa naša obvestila
-    open_call_for_evidence: 
-    open_consultation: Oglejte si vsa naša odprta posvetovanja
-    oral_statement: Oglejte si vse naše ustne izjave za parlament
-    policy: Oglejte si vsa naša politike
-    policy_paper: Oglejte si vse naše dokumente o politiki
-    press_release: Oglejte si vsa naša sporočila za javnost
-    promotional: Oglejte si vse naše promocijske materiale
-    publication: Oglejte si vse naše publikacije
-    regulation: Oglejte si vse naše uredbe
-    research: Oglejte si vse naše raziskave in analize
-    speaking_notes: Oglejte si vse naše točke za govor
-    speech: Oglejte si vse naše govore
-    statement_to_parliament: Oglejte si vse naše izjave za parlament
-    statistical_data_set: Oglejte si vse naše statistične podatkovne nize
-    statistics: Oglejte si vso našo statistiko
-    statutory_guidance: Oglejte si vse naše zakonske napotke
-    transcript: Oglejte si vse naše prepise
-    transparency: Oglejte si vse naše podatke o preglednosti
-    written_statement: Oglejte si vse naše pisne izjave za parlament
   support:
     download: Prenos
     field_of_operation: 'Področje delovanja:'

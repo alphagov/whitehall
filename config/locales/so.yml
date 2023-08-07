@@ -495,54 +495,6 @@ so:
       courts_and_tribunals: Maxkamadaha iyo Xukunada
   roles:
     unassigned: Qofna looma qoondayn doorkan
-  see_all:
-    announcement: Eeg dhamaan ku dhawaaqisahayaga
-    authored_article: Eeg dhamaan qoraalaada la ogalyahay
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Eeg dhamaan cilmi baadhisahayaga
-    closed_call_for_evidence: 
-    closed_consultation: Eeg dhamaan latilinahayaga dhaw
-    consultation: Eeg dhamaan la talinahayaga oo dhan
-    consultation_outcome: Eeg dhamaan maxsuulada la talinahayaga oo dhan
-    corporate_report: Eeg dhamaan warbixinaha isku dhafan
-    correspondence: Eeg dhamaan xidhiidhadayaga oo dhan
-    decision: Eeg dhamaan go'aanadayada oo dhan
-    detailed_guidance: Eeg dhamaan tilmaamahayga oo dhan
-    document_collection: Eeg dhamaan xidhmooyinkayaga oo dhan
-    draft_text: Eeg dhamaan qoraalaadayada qabyada ah oo dhan
-    fatality_notice: Eeg dhamaan ogaysiisyadayada muhiimka ah
-    foi_release: Eeg dhamaan baahinahayaga FOI
-    form: Eeg dhamaan foomamkayaga oo dhan
-    government_response: Eeg dhamaan jawaabahayaga Dawlada
-    guidance: Eeg dhamaan tilmaamahayga oo dhan
-    impact_assessment: Eeg dhamaan saamayntayada qiimaynaha
-    imported: Eeg dhamaan warbixinahayaga madaxa banaan
-    international_treaty: Eeg dhamaan caqabahayaga caalamiga ah
-    map: Eeg dhamaan khariidadahayaga oo dhan
-    national_statistics: Eeg dhamaan xog ururinaha Heer qaran
-    news_article: Eeg dhamaan qoraalaada wararka
-    news_story: Eeg dhamaan sheekoyinkayaga wararka
-    notice: Eeg dhamaan ogaysiisyadaya
-    open_call_for_evidence: 
-    open_consultation: Eeg dhamaan latilinahayaga furan
-    oral_statement: Eeg dhammaan hadalada aan afka u sheegnay ee Baarlamaanka
-    policy: Eeg dhamaan siyaasadahayaga
-    policy_paper: Eeg dhamaan waraaqaha siyaasadahayaga
-    press_release: Eeg dhamaan baahinahayaga warsaxaadeed
-    promotional: Eeg dhamaan agabkayaga xayaysiinta
-    publication: Eeg dhamaan daabacadahayaga
-    regulation: Eeg dhamaan xeerarkayaga
-    research: Eeg dhamaan cilmi baadhisyadayada iyo falanqayn
-    speaking_notes: Eeg dhamaan qoraaladayada hadalka
-    speech: Eeg dhamaan hadaladayada
-    statement_to_parliament: Eeg dhammaan bayaanada aan udirnay Baarlamaanka
-    statistical_data_set: Eeg dhamaan dejimahayaga macluumaadaka xog ururinta
-    statistics: Eeg dhamaan xog ururinahayaga
-    statutory_guidance: Eeg dhamaan tilmaamahayga muhiimka ah
-    transcript: Eeg dhamaan qoraaladayada
-    transparency: Eeg dhamaan xogtayada daaha furan
-    written_statement: Eeg dhammaan bayaanadayada qoraalka ah ee loo diray Baarlamaanka
   support:
     download: Dejiso
     field_of_operation: 'Hawalaha dibada:'

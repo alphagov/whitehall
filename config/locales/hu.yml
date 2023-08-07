@@ -495,54 +495,6 @@ hu:
       courts_and_tribunals: Bíróságok
   roles:
     unassigned: Ehhez a szerepkörhöz senki nincs hozzárendelve
-  see_all:
-    announcement: Minden bejelentés megtekintése
-    authored_article: Minden publicisztika megtekintése
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Minden esettanulmány megtekintése
-    closed_call_for_evidence: 
-    closed_consultation: Minden lezárt konzultáció megtekintése
-    consultation: Minden konzultáció megtekintése
-    consultation_outcome: Minden konzultációs eredmény megtekintése
-    corporate_report: Minden testületi beszámoló megtekintése
-    correspondence: Minden levelezés megtekintése
-    decision: Minden döntés megtekintése
-    detailed_guidance: Minden útmutató megtekintése
-    document_collection: Minden gyűjtemény megtekintése
-    draft_text: Minden szövegtervezet megtekintése
-    fatality_notice: Minden halálesettel kapcsolatos értesítés megtekintése
-    foi_release: Minden információhoz való joggal kapcsolatos kiadvány megtekintése
-    form: Minden űrlap megtekintése
-    government_response: Minden kormányválasz megtekintése
-    guidance: Minden útmutató megtekintése
-    impact_assessment: Minden hatásvizsgálat megtekintése
-    imported: Minden független jelentés megtekintése
-    international_treaty: Minden nemzetközi egyezmény megtekintése
-    map: Minden térkép megtekintése
-    national_statistics: Minden nemzeti statisztika megtekintése
-    news_article: Minden cikk megtekintése
-    news_story: Minden hír megtekintése
-    notice: Minden értesítés megtekintése
-    open_call_for_evidence: 
-    open_consultation: Minden nyílt konzultáció megtekintése
-    oral_statement: Minden parlamenti felszólalás megtekintése
-    policy: Minden irányelv megtekintése
-    policy_paper: Minden irányelvdokumentum megtekintése
-    press_release: Minden sajtóközlemény megtekintése
-    promotional: Minden promóciós anyag megtekintése
-    publication: Minden kiadvány megtekintése
-    regulation: Minden szabályozás megtekintése
-    research: Minden kutatás és elemzés megtekintése
-    speaking_notes: Minden feljegyzés megtekintése
-    speech: Minden beszéd megtekintése
-    statement_to_parliament: Minden parlamenti nyilatkozat megtekintése
-    statistical_data_set: Minden statisztikai adatkészlet megtekintése
-    statistics: Minden statisztika megtekintése
-    statutory_guidance: Minden törvényi előírás megtekintése
-    transcript: Minden leirat megtekintése
-    transparency: Minden átláthatósági adat megtekintése
-    written_statement: Minden írásbeli parlamenti nyilatkozat megtekintése
   support:
     download: Letöltés
     field_of_operation: 'Működési terület:'

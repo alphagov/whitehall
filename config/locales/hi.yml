@@ -496,54 +496,6 @@ hi:
       courts_and_tribunals: न्यायालय और न्यायाधिकरण
   roles:
     unassigned: यह भूमिका किसी को असाइन नहीं की गई है
-  see_all:
-    announcement: देखें हमारे सभी घोषणाएं
-    authored_article: देखें हमारे सभी मूल आलेख
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: देखें हमारे सभी विषय अध्ययन
-    closed_call_for_evidence: 
-    closed_consultation: देखें हमारे सभी बंद कमरे में परामर्श
-    consultation: देखें हमारे सभी परामर्श
-    consultation_outcome: देखें हमारे सभी परामर्श के नतीजे
-    corporate_report: देखें हमारे सभी कॉरपोरेट विवरण
-    correspondence: देखें हमारे सभी पत्र व्यवहार
-    decision: हमारे सभी फैसले देखें
-    detailed_guidance: देखें हमारे सभी मार्गदर्शन
-    document_collection: हमारी सभी श्रृंखलाएं देखें
-    draft_text: देखें हमारे सभी मसौदे के पाठ
-    fatality_notice: देखें हमारे सभी विपत्ति की सूचना
-    foi_release: देखें हमारे सभी एफओआई की विज्ञप्तियां
-    form: देखें हमारे सभी प्रपत्र
-    government_response: देखें हमारे सभी सरकारी जवाब
-    guidance: देखें हमारे सभी मार्गदर्शन
-    impact_assessment: देखें हमारे सभी प्रभाव का आंकलन
-    imported: देखें हमारे सभी आयातित - प्रतीक्षा का प्रकार
-    international_treaty: हमारी सभी अंतरराष्ट्रीय संधियां देखें
-    map: देखें हमारे सभी मानचित्रों
-    national_statistics: देखें हमारे सभी सांख्यिकी - राष्ट्रीय सांख्यिकी
-    news_article: देखें हमारे सभी समाचार लेख
-    news_story: देखें हमारे सभी समाचार कथाएं
-    notice: हमारी सभी नोटिस देखें
-    open_call_for_evidence: 
-    open_consultation: देखें हमारे सभी खुले परामर्श
-    oral_statement: देखें हमारे सभी संसद में मौखिक बयान
-    policy: देखें हमारे सभी नीतियां
-    policy_paper: देखें हमारे सभी नीति पत्र
-    press_release: देखें हमारे सभी प्रेस विज्ञप्तियां
-    promotional: देखें हमारे सभी प्रचार सामग्री
-    publication: देखें हमारे सभी प्रकाशन
-    regulation: हमारे सभी विनियम देखें
-    research: देखें हमारे सभी अनुसंधान एवं विश्लेषण
-    speaking_notes: देखें हमारे सभी उदबोधन अंश
-    speech: देखें हमारे सभी भाषण
-    statement_to_parliament: देखें हमारे सभी संसद में बयान
-    statistical_data_set: देखें हमारे सभी सांख्यिकीय आंकड़े का समूह
-    statistics: देखें हमारे सभी आंकड़े
-    statutory_guidance: हमारे सभी वैधानिक मार्गदर्शन देखें
-    transcript: देखें हमारे सभी प्रतिलिपियां
-    transparency: देखें हमारे सभी पारदर्शिता आंकड़े
-    written_statement: देखें हमारे सभी संसद में लिखित बयान
   support:
     download: डाउनलोड करें
     field_of_operation: 'संचालन का क्षेत्र:'

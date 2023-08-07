@@ -655,54 +655,6 @@ gd:
       courts_and_tribunals: Cúirteanna agus binsí
   roles:
     unassigned: Níl aon duine i gceannas ar an ról seo
-  see_all:
-    announcement: Féach ar ár bhfógraí uile
-    authored_article: Féach ar ár n-alt scríofa go léir
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Féach ar ár gcás-staidéir go léir
-    closed_call_for_evidence: 
-    closed_consultation: Féach ar ár gcomhairliúcháin dúnta go léir
-    consultation: Féach ar ár bhfiosrúcháin go léir
-    consultation_outcome: Féach ar thorthaí uile ár gcomhairliúcháin
-    corporate_report: Féach ar ár dtuarascálacha cuideachta go léir
-    correspondence: Féach ar ár dteagmhálaithe go léir
-    decision: Féach ar ár gcinntí go léir
-    detailed_guidance: Féach ár dtreoracha go léir
-    document_collection: Féach ar ár sraith go léir
-    draft_text: Féach ar ár ndréachtaí go léir
-    fatality_notice: Féach ar ár n-obituaries go léir
-    foi_release: Féach ar ár bpreaseisiúintí uile um Shaoráil Faisnéise
-    form: Féach ar ár bhfoirmeacha go léir
-    government_response: Féach ar gach idirghabháil rialtais
-    guidance: Féach ár dtreoracha go léir
-    impact_assessment: Féach ar ár gcuid staidéir iarmharta go léir
-    imported: Féach ar ár dtuarascálacha neamhspleácha go léir
-    international_treaty: Féach ar ár gconarthaí idirnáisiúnta go léir
-    map: Féach ar ár gcártaí go léir
-    national_statistics: Féach ar ár staitisticí tíre go léir
-    news_article: Féach ar ár n-alt nuachta go léir
-    news_story: Féach ar ár n-alt nuachta go léir
-    notice: Féach ar ár n-athbhreithnithe go léir
-    open_call_for_evidence: 
-    open_consultation: Féach ar ár gcomhairliúcháin phoiblí go léir
-    oral_statement: Féach ar ár ráitis ó bhéal go léir sa Pharlaimint
-    policy: Féach ar ár mbeartais go léir
-    policy_paper: Féach ar ár ndoiciméid treorach go léir
-    press_release: Féach ar ár bpreaseisiúintí go léir
-    promotional: Féach ar ár n-ábhar poiblíochta go léir
-    publication: Féach ar ár bhfoilseacháin uile
-    regulation: Féach ar ár rialacháin go léir
-    research: Féach ar ár gcuid taighde agus anailíse go léir
-    speaking_notes: Féach ar ár nótaí idirghabhála go léir
-    speech: Féach ar ár n-óráidí go léir
-    statement_to_parliament: Féach ar ár ráitis uile chun na parlaiminte
-    statistical_data_set: Féach ar ár gcuid tacair sonraí staidrimh go léir
-    statistics: Féach ar ár staitisticí go léir
-    statutory_guidance: Féach ar ár dtreoirlínte reachtúla uile
-    transcript: Féach ar ár dtrascríbhinní uile
-    transparency: Féach ar ár gcuid sonraí trédhearcachta go léir
-    written_statement: Féach ar ár ráitis scríofa uile a cuireadh faoi bhráid na comhairle
   support:
     download: Téigh íoslódáil
     field_of_operation: 'Réimsí idirghabhála:'

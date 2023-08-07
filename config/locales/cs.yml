@@ -576,54 +576,6 @@ cs:
       courts_and_tribunals: Soudy a tribunály
   roles:
     unassigned: Tato role není nikomu přidělena
-  see_all:
-    announcement: Podívejte se na všechna naše oznámení
-    authored_article: Podívejte se na všechny naše autorské články
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Podívejte se na všechny naše případové studie
-    closed_call_for_evidence: 
-    closed_consultation: Podívejte se na všechny naše uzavřené konzultace
-    consultation: Podívejte se na všechny naše konzultace
-    consultation_outcome: Podívejte se na všechny výsledky našich konzultací
-    corporate_report: Podívejte se na všechny naše firemní zprávy
-    correspondence: Podívejte se na veškerou naši korespondenci
-    decision: Podívejte se na všechna naše rozhodnutí
-    detailed_guidance: Podívejte se na všechny naše pokyny
-    document_collection: Podívejte se na všechny naše kolekce
-    draft_text: Podívejte se na všechny naše návrhy textů
-    fatality_notice: Podívejte se na všechna naše oznámení o úmrtí
-    foi_release: Podívejte se na všechny naše zprávy
-    form: Podívejte se na všechny naše formuláře
-    government_response: Podívejte se na všechny naše odpovědi vlády
-    guidance: Podívejte se na všechny naše pokyny
-    impact_assessment: Podívejte se na všechna naše hodnocení dopadů
-    imported: Podívejte se na všechny naše nezávislé zprávy
-    international_treaty: Podívejte se na všechny naše mezinárodní smlouvy
-    map: Podívejte se na všechny naše mapy
-    national_statistics: Podívejte se na všechny naše národní statistiky
-    news_article: Podívejte se na všechny naše zpravodajské články
-    news_story: Podívejte se na všechny naše novinky
-    notice: Podívejte se na všechna naše oznámení
-    open_call_for_evidence: 
-    open_consultation: Podívejte se na všechny naše otevřené konzultace
-    oral_statement: Podívejte se na všechny ústní prohlášení pro Parlament
-    policy: Podívejte se na všechny naše zásady
-    policy_paper: Podívejte se na všechny naše strategické dokumenty
-    press_release: Podívejte se na všechny naše tiskové zprávy
-    promotional: Podívejte se na všechny naše propagační materiály
-    publication: Podívejte se na všechny naše publikace
-    regulation: Podívejte se na všechny naše předpisy
-    research: Podívejte se na všechny naše výzkumy a analýzy
-    speaking_notes: Podívejte se na všechny naše poznámky k projevům
-    speech: Podívejte se na všechny naše projevy
-    statement_to_parliament: Podívejte se na všechna naše prohlášení pro Parlament
-    statistical_data_set: Podívejte se na všechny naše soubory statistických dat
-    statistics: Podívejte se na všechny naše statistiky
-    statutory_guidance: Podívejte se na všechny naše zákonné pokyny
-    transcript: Podívejte se na všechny naše přepisy
-    transparency: Podívejte se na všechny naše údaje o transparentnosti
-    written_statement: Podívejte se na všechna naše písemná prohlášení pro Parlament
   support:
     download: Stáhnout
     field_of_operation: 'Oblast provozu:'

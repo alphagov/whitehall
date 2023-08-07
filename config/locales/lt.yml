@@ -573,54 +573,6 @@ lt:
       courts_and_tribunals: Teismai ir tribunolai
   roles:
     unassigned: Niekam nepriskirta įi funkcija
-  see_all:
-    announcement: Pažiūrėkite  mūsų pranešimai
-    authored_article: Pažiūrėkite  mūsų autorių straipsniai
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Pažiūrėkite  mūsų atvejų analizės
-    closed_call_for_evidence: 
-    closed_consultation: Pažiūrėkite  mūsų pasibaigusios konsultacijos
-    consultation: Pažiūrėkite  mūsų konsultacijos
-    consultation_outcome: Pažiūrėkite  mūsų konsultacijos rezultatai
-    corporate_report: Pažiūrėkite  mūsų bendros ataskaitos
-    correspondence: Pažiūrėkite  mūsų korespondencija
-    decision: Peržiūrėkite mūsų sprendimai
-    detailed_guidance: Pažiūrėkite  mūsų detalesnė informacija
-    document_collection: Peržiūrėkite mūsų skelbimai
-    draft_text: Pažiūrėkite  mūsų pirminiai teksto variantai
-    fatality_notice: Pažiūrėkite  mūsų pranešimas apie nelaimes
-    foi_release: 'Pažiūrėkite  mūsų informacijos laisvė: pranešimai'
-    form: Pažiūrėkite  mūsų formos
-    government_response: Pažiūrėkite  mūsų vyriausybės atsakai
-    guidance: Pažiūrėkite  mūsų informacija
-    impact_assessment: Pažiūrėkite  mūsų poveikio įvertinimai
-    imported: Pažiūrėkite  mūsų patalpinta - laukiama publikavimo
-    international_treaty: Pažiūrėkite  mūsų tarptautines sutartis
-    map: Pažiūrėkite  mūsų žemėlapiai
-    national_statistics: Pažiūrėkite  mūsų statistika - nacionalinė statistika
-    news_article: Pažiūrėkite  mūsų straipsniai
-    news_story: Pažiūrėkite  mūsų naujienos
-    notice: Pažiūrėkite  mūsų pranešimus
-    open_call_for_evidence: 
-    open_consultation: Pažiūrėkite  mūsų atviros konsultacijos
-    oral_statement: Pažiūrėkite  mūsų žodiniai kreipimaisi į parlamentą
-    policy: Pažiūrėkite  mūsų strategija
-    policy_paper: Pažiūrėkite  mūsų strategijų dokumentai
-    press_release: Pažiūrėkite  mūsų pranešimai spaudai
-    promotional: Pažiūrėkite  mūsų reklaminė medžiaga
-    publication: Pažiūrėkite  mūsų leidiniai
-    regulation: Peržiūrėkite mūsų reglamentai
-    research: Pažiūrėkite  mūsų tyrimai ir analizės
-    speaking_notes: Pažiūrėkite  mūsų kalbos santrauka
-    speech: Pažiūrėkite  mūsų kalbos
-    statement_to_parliament: Pažiūrėkite  mūsų kreipimaisi į parlamentą
-    statistical_data_set: Pažiūrėkite  mūsų statistiniai duomenys
-    statistics: Pažiūrėkite  mūsų statistika
-    statutory_guidance: Peržiūrėkite mūsų įstatyminė informacija
-    transcript: Pažiūrėkite  mūsų kalbų tekstai
-    transparency: Pažiūrėkite  mūsų skaidrumo informacija
-    written_statement: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
   support:
     download: Atsisiųsti
     field_of_operation: 'Veiklos sritis:'

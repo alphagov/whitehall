@@ -415,54 +415,6 @@ vi:
       courts_and_tribunals: Tòa án và Tòa án cấp thấp
   roles:
     unassigned: Không ai được bổ nhiệm vai trò này
-  see_all:
-    announcement: Xem tất cả các thông báo của chúng tôi
-    authored_article: Xem tất cả các bài viết có tác giả của chúng tôi
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Xem tất cả các nghiên cứu điển hình của chúng tôi
-    closed_call_for_evidence: 
-    closed_consultation: Xem tất cả các buổi tham vấn kín của chúng tôi
-    consultation: Xem tất cả các buổi tham vấn của chúng tôi
-    consultation_outcome: Xem tất cả các kết quả tham vấn của chúng tôi
-    corporate_report: Xem tất cả các báo cáo doanh nghiệp của chúng tôi
-    correspondence: Xem tất cả thư từ của chúng tôi
-    decision: Xem tất cả các quyết định của chúng tôi
-    detailed_guidance: Xem tất cả hướng dẫn của chúng tôi
-    document_collection: Xem tất cả các bộ sưu tập của chúng tôi
-    draft_text: Xem tất cả các dự thảo của chúng tôi
-    fatality_notice: Xem tất cả các thông báo tử vong của chúng tôi
-    foi_release: Xem tất cả các công bố FOI của chúng tôi
-    form: Xem tất cả các biểu mẫu của chúng tôi
-    government_response: Xem tất cả phản hồi chính phủ của chúng tôi
-    guidance: Xem tất cả hướng dẫn của chúng tôi
-    impact_assessment: Xem tất cả các đánh giá tác động của chúng tôi
-    imported: Xem tất cả các báo cáo độc lập của chúng tôi
-    international_treaty: Xem tất cả các hiệp ước quốc tế của chúng tôi
-    map: Xem tất cả các bản đồ của chúng tôi
-    national_statistics: Xem tất cả các Thống kê Quốc gia của chúng tôi
-    news_article: Xem tất cả các bài báo của chúng tôi
-    news_story: Xem tất cả các bài phóng sự của chúng tôi
-    notice: Xem tất cả các thông báo của chúng tôi
-    open_call_for_evidence: 
-    open_consultation: Xem tất cả các buổi tham vấn mở của chúng tôi
-    oral_statement: Xem tất cả các tuyên bố bằng lời của chúng tôi trước Nghị viện
-    policy: Xem tất cả các chính sách của chúng tôi
-    policy_paper: Xem tất cả các tài liệu chính sách của chúng tôi
-    press_release: Xem tất cả các thông cáo báo chí của chúng tôi
-    promotional: Xem tất cả các tài liệu quảng cáo của chúng tôi
-    publication: Xem tất cả các ấn phẩm của chúng tôi
-    regulation: Xem tất cả các quy định của chúng tôi
-    research: Xem tất cả các nghiên cứu và phân tích của chúng tôi
-    speaking_notes: Xem tất cả các ghi chú cho bài nói của chúng tôi
-    speech: Xem tất cả các bài phát biểu của chúng tôi
-    statement_to_parliament: Xem tất cả các tuyên bố của chúng tôi trước Nghị viện
-    statistical_data_set: Xem tất cả các bộ dữ liệu thống kê của chúng tôi
-    statistics: Xem tất cả thống kê của chúng tôi
-    statutory_guidance: Xem tất cả các hướng dẫn theo luật định của chúng tôi
-    transcript: Xem tất cả các bản ghi nội dung của chúng tôi
-    transparency: Xem tất cả dữ liệu về tính minh bạch của chúng tôi
-    written_statement: Xem tất cả các tuyên bố bằng văn bản của chúng tôi trước Nghị viện
   support:
     download: Tải xuống
     field_of_operation: 'Lĩnh vực hoạt động:'

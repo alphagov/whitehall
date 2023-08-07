@@ -413,54 +413,6 @@ ja:
       courts_and_tribunals: 裁判所および審判
   roles:
     unassigned: この役割には誰も割り当てられていません
-  see_all:
-    announcement: すべての発表を見る
-    authored_article: すべての執筆記事を見る
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: すべてのケーススタディを見る
-    closed_call_for_evidence: 
-    closed_consultation: すべてのケーススタディを見る
-    consultation: すべての非公開審議を見る
-    consultation_outcome: すべての非公開協議結果を見る
-    corporate_report: すべての企業報告を見る
-    correspondence: 私たちのすべての対応を見る
-    decision: 私たちのすべての決定を見る
-    detailed_guidance: すべてのガイダンスを見る
-    document_collection: すべてのコレクションを見る
-    draft_text: すべての下書きテキストを見る
-    fatality_notice: すべての死亡通知を見る
-    foi_release: すべての FOI（情報公開）発表
-    form: すべてのフォームを見る
-    government_response: すべての政府の対応を見る
-    guidance: すべてのガイダンスを見る
-    impact_assessment: すべての影響評価を見る
-    imported: すべての第三者による報告を見る
-    international_treaty: すべての国際条約を見る
-    map: すべての地図を見る
-    national_statistics: すべての国家統計を見る
-    news_article: すべてのニュース記事を見る
-    news_story: すべてのニュースストーリーを見る
-    notice: すべての通知を見る
-    open_call_for_evidence: 
-    open_consultation: すべての公開審議を見る
-    oral_statement: すべての議会への頭声明を見る
-    policy: すべての方針を見る
-    policy_paper: すべての方針書を見る
-    press_release: すべてのプレスリリースを見る
-    promotional: すべての販促資料を見る
-    publication: すべての出版物を見る
-    regulation: すべての規制を見る
-    research: すべての調査と分析を見る
-    speaking_notes: すべての発言ノートを見る
-    speech: すべての発言を見る
-    statement_to_parliament: すべての議会へ声明を見る
-    statistical_data_set: すべての統計データセットを見る
-    statistics: すべての統計を見る
-    statutory_guidance: すべての法定ガイダンスを見る
-    transcript: すべての口述記録を見る
-    transparency: すべての透明性データを見る
-    written_statement: すべての議会への書面による声明を見る
   support:
     download: ダウンロード
     field_of_operation: 運用分野：

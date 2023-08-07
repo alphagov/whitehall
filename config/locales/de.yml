@@ -495,54 +495,6 @@ de:
       courts_and_tribunals: Gerichte und Gerichtshöfe
   roles:
     unassigned: Diese Funktion wurde niemandem zugewiesen
-  see_all:
-    announcement: Alle unsere Ankündigungen
-    authored_article: Alle unsere Namensartikel
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Alle unsere Fallstudien
-    closed_call_for_evidence: 
-    closed_consultation: Alle unsere abgeschlossenen Beratungen
-    consultation: Alle unsere Beratungen
-    consultation_outcome: Alle unsere Beratungsergebnisse
-    corporate_report: Alle unsere Geschäftsberichte
-    correspondence: Alle unsere Korrespondenz
-    decision: Alle unsere Entscheidungen
-    detailed_guidance: Alle unsere Detaillierten Hinweise
-    document_collection: Alle unsere Sammlungen
-    draft_text: Alle unsere Entwürfe
-    fatality_notice: Alle unsere Todesfallmeldungen
-    foi_release: Alle unsere Veröffentlichungen zum Informationsfreiheitsgesetz
-    form: Alle unsere Formulare
-    government_response: Alle unsere Antworten der Regierung
-    guidance: Alle unsere Detaillierten Hinweise
-    impact_assessment: Alle unsere Folgenabschätzungen
-    imported: Alle unsere unabhängigen Berichte
-    international_treaty: Alle unsere internationalen Verträge
-    map: Alle unsere Karten
-    national_statistics: Alle unsere nationalen Statistiken
-    news_article: Alle unsere Nachrichtenartikel
-    news_story: Alle unsere Nachrichtenberichte
-    notice: Alle unsere Mitteilungen
-    open_call_for_evidence: 
-    open_consultation: Alle unsere offenen Beratungen
-    oral_statement: Alle unsere mündlichen Erklärungen vor dem Parlament
-    policy: Alle unsere Richtlinien
-    policy_paper: Alle unsere Grundsatzpapiere
-    press_release: Alle unsere Pressemitteilungen
-    promotional: Alle unsere Werbematerialien
-    publication: Alle unsere Veröffentlichungen
-    regulation: Alle unsere Regulierungen
-    research: Alle unsere Forschung und Analyse
-    speaking_notes: Alle unsere Redenotizen
-    speech: Alle unsere Reden
-    statement_to_parliament: Alle unsere Erklärungen vor dem Parlament
-    statistical_data_set: Alle unsere Statistischen Datensätze
-    statistics: Alle unsere Statistiken
-    statutory_guidance: Alle unsere gesetzlichen Leitlinien
-    transcript: All unsere Transkripte
-    transparency: All unsere Transparenzdaten
-    written_statement: Alle unsere schriftlichen Erklärungen vor dem Parlament
   support:
     download: Herunterladen
     field_of_operation: 'Tätigkeitsbereich:'

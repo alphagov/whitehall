@@ -480,54 +480,6 @@ en:
       courts_and_tribunals: Courts and Tribunals
   roles:
     unassigned: No one is assigned to this role
-  see_all:
-    announcement: See all our announcements
-    authored_article: See all our authored articles
-    call_for_evidence: See all our calls for evidence
-    call_for_evidence_outcome: See all our calls for evidence outcomes
-    case_study: See all our case studies
-    closed_call_for_evidence: See all our closed calls for evidence
-    closed_consultation: See all our closed consultations
-    consultation: See all our consultations
-    consultation_outcome: See all our consultation outcomes
-    corporate_report: See all our corporate reports
-    correspondence: See all our correspondences
-    decision: See all our decisions
-    detailed_guidance: See all our guidance
-    document_collection: See all our collections
-    draft_text: See all our draft texts
-    fatality_notice: See all our fatality notices
-    foi_release: See all our FOI releases
-    form: See all our forms
-    government_response: See all our government responses
-    guidance: See all our guidance
-    impact_assessment: See all our impact assessments
-    imported: See all our independent reports
-    international_treaty: See all our international treaties
-    map: See all our maps
-    national_statistics: See all our National Statistics
-    news_article: See all our news articles
-    news_story: See all our news stories
-    notice: See all our notices
-    open_call_for_evidence: See all our open calls for evidence
-    open_consultation: See all our open consultations
-    oral_statement: See all our oral statements to Parliament
-    policy: See all our policies
-    policy_paper: See all our policy papers
-    press_release: See all our press releases
-    promotional: See all our promotional material
-    publication: See all our publications
-    regulation: See all our regulations
-    research: See all our research and analysis
-    speaking_notes: See all our speaking notes
-    speech: See all our speeches
-    statement_to_parliament: See all our statements to Parliament
-    statistical_data_set: See all our statistical data sets
-    statistics: See all our statistics
-    statutory_guidance: See all our statutory guidance
-    transcript: See all our transcripts
-    transparency: See all our transparency data
-    written_statement: See all our written statements to Parliament
   support:
     download: Download
     field_of_operation: 'Field of operation:'

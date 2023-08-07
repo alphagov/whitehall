@@ -495,54 +495,6 @@ ur:
       courts_and_tribunals: عدالتیں اور ٹریبیونلز
   roles:
     unassigned: کسی کو یہ کردار تفویض نہیں کیا گیا
-  see_all:
-    announcement: ہمارے تمام اعلانات دکھائیں
-    authored_article: ہمارے تمام مصنف کے نام کے ساتھ لکھے مضامین دیکھیں
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: ہماری تمام کیس اسٹڈیز دیکھیں
-    closed_call_for_evidence: 
-    closed_consultation: ہماری تمام محدود مشاورتیں دیکھیں
-    consultation: ہماری تمام مشاورتیں دیکھیں
-    consultation_outcome: ہماری تمام مشاورتوں کے نتائج دیکھیں
-    corporate_report: ہماری تمام کارپوریٹ رپورٹس دیکھیں
-    correspondence: ہماری تمام خط و کتابت دیکھیں
-    decision: ہمارے تمام فیصلے دیکھیں
-    detailed_guidance: ہماری تمام رہنمائی دیکھیں
-    document_collection: ہماری تمام کلیکشنز دیکھیں
-    draft_text: ہمارے ڈرافٹ کے متن دیکھیں
-    fatality_notice: ہمارے تمام موت کے نوٹسز دیکھیں
-    foi_release: ہماری تمام FOI ریلیزز دیکھیں
-    form: ہمارے تمام فارمز دیکھین
-    government_response: ہمارے تمام حکومتی جوابات دیکھیں
-    guidance: ہماری تمام رہنمائی دیکھیں
-    impact_assessment: ہماری تمام اثر کی جانچیں دیکھیں
-    imported: ہماری تمام خودمختار رپورٹس دیکھیں
-    international_treaty: ہمارے تمام عالمی معاہدے دیکھیں
-    map: ہمارے تمام نقشے دیکھیں
-    national_statistics: ہماری تمام قومی شماریات دیکھیں
-    news_article: ہمارے تمام خبروں کے مضامین دیکھیں
-    news_story: ہماری تمام خبروں کی کہانیاں دیکھیں
-    notice: ہمارے تمام نوٹسز دیکھیں
-    open_call_for_evidence: 
-    open_consultation: ہماری تمام آزاد مشاورتیں دیکھیں
-    oral_statement: ہمارے تمام پارلیمان کے لیے زبانی بیانات دیکھیں
-    policy: ہماری تمام پالیسیاں دیکھیں
-    policy_paper: ہمارے تمام پالیسی کا کاغذات دیکھیں
-    press_release: ہماری تمام پریس ریلیزز دیکھیں
-    promotional: ہمارا تمام تشہیری مواد دیکھیں
-    publication: ہماری تمام پبلیکیشنز دیکھیں
-    regulation: ہمارے تمام ضابطے دیکھیں
-    research: ہماری تمام تحقیق اور تجزیہ دیکھیں
-    speaking_notes: ہمارے تمام صوتی نوٹس دیکھیں
-    speech: ہماری تمام تقاریر دیکھیں
-    statement_to_parliament: ہمارے تمام پارلیمان میں دیے گئے بیانات دیکھیں
-    statistical_data_set: ہمارے تمام شماریاتی ڈیٹا سیٹس دیکھیں
-    statistics: ہماری تمام شماریات دیکھیں
-    statutory_guidance: ہمارے تمام قانونی رہنمائی دیکھیں
-    transcript: ہماری تمام ٹرانسکرپٹس دیکھیں
-    transparency: ہمارا تمام شفافیت دیکھیں
-    written_statement: ہمارے تمام پارلیمان میں دیے گئے زبانی بیانات دیکھیں
   support:
     download: ڈاؤن لوڈ کریں
     field_of_operation: 'کارروائی کی فیلڈ:'

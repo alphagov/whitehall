@@ -496,54 +496,6 @@ he:
       courts_and_tribunals: בתי משפט ובתי דין
   roles:
     unassigned: לאף אחד אין תפקיד זה
-  see_all:
-    announcement: ראה כל הודעות
-    authored_article: ראה כל מאמרים מאושרים
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: ראה כל מקרי בוחן
-    closed_call_for_evidence: 
-    closed_consultation: ראה כל דיונים סגורים
-    consultation: ראה כל דיונים
-    consultation_outcome: ראה כל תוצאות דיונים
-    corporate_report: ראה כל דו"חות משותפים
-    correspondence: ראה כל תכתובות
-    decision: ראה כל ההחלטות
-    detailed_guidance: ראה כל הדרכה
-    document_collection: ראה כל האוספים
-    draft_text: ראה כל טיוטות
-    fatality_notice: ראה כל הודעות פטירה
-    foi_release: ראה כל פרסומי חופש מידע
-    form: ראה כל טפסים
-    government_response: ראה כל תגובות ממשלתיות
-    guidance: ראה כל הדרכה
-    impact_assessment: ראה כל הערכות השפעות
-    imported: ראה כל דו"ות עצמאיים
-    international_treaty: ראה כל ההסכמים הבינלאומיים
-    map: ראה כל מפות
-    national_statistics: ראה כל סטטסטיקה לאומית
-    news_article: ראה כל מאמרי חדשות
-    news_story: ראה כל חדשות
-    notice: ראה כל הודעות
-    open_call_for_evidence: 
-    open_consultation: ראה כל דיונים  פתוחים
-    oral_statement: ראה כל הצהרות בעל פה לפרלמנט
-    policy: ראה כל מדיניות
-    policy_paper: ראה כל ניירות מדיניות
-    press_release: ראה כל הודעות לעיתונות
-    promotional: ראה כל חומר פרסומי
-    publication: ראה כל פרסומים
-    regulation: ראה כל התקנות
-    research: ראה כל מחקר וניתוח
-    speaking_notes: ראה כל נאומים
-    speech: ראה כל נאומים
-    statement_to_parliament: ראה כל הצהרות לפרלמנט
-    statistical_data_set: ראה כל מערכי נתונים סטטיסטיים
-    statistics: ראה כל נתונים
-    statutory_guidance: ראה כל מערכי הדרכה סטטוטורית
-    transcript: ראה כל תמלולים
-    transparency: ראה כל שקיפות מידע
-    written_statement: ראה כל הצהרות בכתב לפרלמנט
   support:
     download: הורדה
     field_of_operation: 'תחום הפעולה:'

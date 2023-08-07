@@ -495,54 +495,6 @@ sw:
       courts_and_tribunals: Mahakama na Mabaraza ya Uamuzi
   roles:
     unassigned: Hakuna mtu aliyekabidhiwa nafasi hii
-  see_all:
-    announcement: Angalia matangazo yetu yote
-    authored_article: Angalia makala yetu yote yaliyo na maelezo ya mwandishi
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Angalia uchunguzi kifani wetu wote
-    closed_call_for_evidence: 
-    closed_consultation: Angalia mashauriano yetu yote ya watu wachache
-    consultation: Angalia mashauriano yetu yote
-    consultation_outcome: Angalia matokeo ya mashauriano yetu yote
-    corporate_report: Angalia ripoti zetu zote za shirika
-    correspondence: Angalia mawasiliano yetu yote
-    decision: Angalia maamuzi yetu yote
-    detailed_guidance: Angalia mwongozo wetu wote
-    document_collection: Angalia mikusanyiko yetu yote
-    draft_text: Angalia maandishi yetu yote ya rasimu
-    fatality_notice: Angalia notisi zetu zote za idadi ya vifo
-    foi_release: Angalia taarifa zetu zote za FOI
-    form: Angalia fomu zetu zote
-    government_response: Angalia hatua zetu zote zilizochukuliwa na serikali
-    guidance: Angalia mwongozo wetu wote
-    impact_assessment: Angalia utathmini wetu wa athari
-    imported: Angalia ripoti zetu zote huru
-    international_treaty: Angalia mikataba yetu yote ya kimataifa
-    map: Angalia ramani zetu zote
-    national_statistics: Angalia Takwimu zetu zote za Kitaifa
-    news_article: Angalia makala yetu yote ya habari
-    news_story: Angalia taarifa zetu zote za habari
-    notice: Angalia notisi zetu zote
-    open_call_for_evidence: 
-    open_consultation: Angalia mashauriano yetu yote ya watu wengi
-    oral_statement: Angalia taarifa zetu za matamshi kwa Bunge
-    policy: Angalia sera zetu zote
-    policy_paper: Angalia hati zetu zote za sera
-    press_release: Angalia taarifa zetu zote kwa vyombo vya habari
-    promotional: Angalia nyenzo zetu zote za matangazo
-    publication: Angalia machapisho yetu yote
-    regulation: Angalia kanuni zetu zote
-    research: Angalia tafiti na uchanganuzi wetu wote
-    speaking_notes: Angalia madokezo yetu yote ya kutamka
-    speech: Angalia hotuba zetu zote
-    statement_to_parliament: Angalia taarifa zetu za kwa Bunge
-    statistical_data_set: Angalia vikundi vyetu vyote vya data ya takwimu
-    statistics: Angalia takwimu zetu zote
-    statutory_guidance: Angalia mwongozo wetu wote wa kisheria
-    transcript: Angalia hati zetu zote
-    transparency: Angalia data yetu yote ya uwazi
-    written_statement: Angalia taarifa zetu za maandishi kwa Bunge
   support:
     download: Pakua
     field_of_operation: 'Sehemu ya kazi:'

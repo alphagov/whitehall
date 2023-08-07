@@ -415,54 +415,6 @@ zh-tw:
       courts_and_tribunals: 法庭與審裁處
   roles:
     unassigned: 該角色未被指派
-  see_all:
-    announcement: 查看我們所有公告
-    authored_article: 查看我們所有授權文章
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: 查看我們所有案例分析
-    closed_call_for_evidence: 
-    closed_consultation: 查看我們所有未公開諮詢
-    consultation: 查看我們所有諮詢
-    consultation_outcome: 查看我們所有諮詢結果
-    corporate_report: 查看我們所有企業報告
-    correspondence: 查看我們所有信函
-    decision: 查看我們所有決定
-    detailed_guidance: 查看我們所有指導
-    document_collection: 查看我們所有收集
-    draft_text: 查看我們所有草稿文本
-    fatality_notice: 查看我們所有死亡通知
-    foi_release: 查看我們所有資訊自由發布
-    form: 查看我們所有形式
-    government_response: 查看我們所有政府回應
-    guidance: 查看我們所有指導
-    impact_assessment: 查看我們所有影響評估
-    imported: 查看我們所有獨立報告
-    international_treaty: 查看我們所有國際條約
-    map: 查看我們所有地圖
-    national_statistics: 查看我們所有國家統計
-    news_article: 查看我們所有新聞文章
-    news_story: 查看我們所有新聞報導
-    notice: 查看我們所有通知
-    open_call_for_evidence: 
-    open_consultation: 查看我們所有公開諮詢
-    oral_statement: 查看我們所有對議會的口頭聲明
-    policy: 查看我們所有政策
-    policy_paper: 查看我們所有政策文件
-    press_release: 查看我們所有新聞稿
-    promotional: 查看我們所有宣傳資料
-    publication: 查看我們所有出版
-    regulation: 查看我們所有法規
-    research: 查看我們所有研究與分析
-    speaking_notes: 查看我們所有發言筆記
-    speech: 查看我們所有演說
-    statement_to_parliament: 查看我們所有向議會發表聲明
-    statistical_data_set: 查看我們所有統計數據組
-    statistics: 查看我們所有統計數據
-    statutory_guidance: 查看我們所有法定指南
-    transcript: 查看我們所有副本
-    transparency: 查看我們所有透明數據
-    written_statement: 查看我們所有對議會的書面聲明
   support:
     download: 下載
     field_of_operation: 經營領域：

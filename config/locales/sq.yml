@@ -496,54 +496,6 @@ sq:
       courts_and_tribunals: Gjykatat dhe Tribunalet
   roles:
     unassigned: Askush nuk është caktuar për këtë rol
-  see_all:
-    announcement: Shihni të gjitha njoftimet tona
-    authored_article: Shihni të gjithë artikujt tanë të shkruar
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Shihni të gjitha studimet tona të rasteve
-    closed_call_for_evidence: 
-    closed_consultation: Shihni të gjitha konsultimet tona të mbyllura
-    consultation: Shihni të gjitha konsultimet tona
-    consultation_outcome: Shihni të gjitha rezultatet e konsultimit tonë
-    corporate_report: Shihni të gjitha raportet tona të korporatës
-    correspondence: Shihni të gjitha konsultimet tona
-    decision: Shihni të gjitha vendimet tona
-    detailed_guidance: Shihni të gjitha udhëzimet tona
-    document_collection: Shihni të gjitha koleksionet tona
-    draft_text: Shihni të gjitha draft tekstet tona
-    fatality_notice: Shihni të gjitha njoftimet tona të fataliteteve
-    foi_release: Shihni të gjitha publikimet tona të FOI
-    form: Shihni të gjithë formularët tonë
-    government_response: Shihni të gjitha përgjigjet e qeverisë sonë
-    guidance: Shihni të gjitha udhëzimet tona
-    impact_assessment: Shihni të gjitha vlerësimet tona të ndikimit
-    imported: Shihni të gjitha raportet tona të pavarura
-    international_treaty: Shihni të gjitha traktatet tona ndërkombëtare
-    map: Shihni të gjitha hartat tona
-    national_statistics: Shihni të gjitha Statistikat tona Kombëtare
-    news_article: Shihni të gjitha artikujt tanë të lajmeve
-    news_story: Shihni të gjitha ngjarjet
-    notice: Shihni të gjitha njoftimet tona
-    open_call_for_evidence: 
-    open_consultation: Shihni të gjitha konsultimet tona të hapura
-    oral_statement: Shihni të gjitha deklaratat tona verbale në Parlament
-    policy: Shihni të gjitha politikat tona
-    policy_paper: Shihni të gjitha dokumentet tona të politikave
-    press_release: Shihni të gjitha njoftimet tona për shtyp
-    promotional: Shihni të gjithë materialin tonë promovues
-    publication: Shihni të gjitha publikimet tona
-    regulation: Shihni të gjitha rregulloret tona
-    research: Shihni të gjitha hulumtimet dhe analizat tona
-    speaking_notes: Shihni të gjitha shënimet tona të të folurit
-    speech: Shihni të gjitha fjalimet tona
-    statement_to_parliament: Shihni të gjitha deklaratat tona në Parlament
-    statistical_data_set: Shikoni të gjitha grupet tona të të dhënave statistikore
-    statistics: Shihni të gjitha statistikat tona
-    statutory_guidance: Shihni të gjitha udhëzimet tona ligjore
-    transcript: Shihni të gjitha transkriptet tona
-    transparency: Shikoni të gjitha të dhënat tona të transparencës
-    written_statement: Shihni të gjitha deklaratat tona me shkrim në Parlament
   support:
     download: Shkarkoni
     field_of_operation: 'Fusha e funksionimit:'

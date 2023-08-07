@@ -495,54 +495,6 @@ el:
       courts_and_tribunals: Δικαστήρια και Διαιτητικά όργανα
   roles:
     unassigned: Σε κανέναν δεν έχει ανατεθεί αυτός ο ρόλος
-  see_all:
-    announcement: Δείτε όλες τις ανακοινώσεις
-    authored_article: Δείτε όλα τα άρθρα
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Δείτε όλες τις μελέτες περιπτώσεων
-    closed_call_for_evidence: 
-    closed_consultation: Δείτε όλες τις κλειστές διαβουλεύσεις
-    consultation: Δείτε όλες τις διαβουλεύσεις
-    consultation_outcome: Δείτε όλα τα αποτελέσματα της διαβούλευσης
-    corporate_report: Δείτε όλες τις εταιρικές εκθέσεις
-    correspondence: Δείτε όλες τις αλληλογραφίες
-    decision: Δείτε όλες τις αποφάσεις
-    detailed_guidance: Δείτε όλες τις οδηγίες
-    document_collection: Δείτε όλες τις συλλογές
-    draft_text: Δείτε όλα τα προσχέδια κειμένων
-    fatality_notice: Δείτε όλες τις ανακοινώσεις θανάτου
-    foi_release: Δείτε όλες τις εκδόσεις FOI
-    form: Δείτε όλες τις φόρμες
-    government_response: Δείτε όλες τις κυβερνητικές απαντήσεις
-    guidance: Δείτε όλες τις οδηγίες
-    impact_assessment: Δείτε όλες τις εκτιμήσεις επιπτώσεων
-    imported: Δείτε όλες τις ανεξάρτητες εκθέσεις
-    international_treaty: Δείτε όλες τις διεθνείς συνθήκες
-    map: Δείτε όλους τους χάρτες
-    national_statistics: Δείτε όλες τις εκδόσεις της εθνικής στατιστικής υπηρεσίας
-    news_article: Δείτε όλα τα άρθρα ειδήσεων
-    news_story: Δείτε όλες τις ειδήσεις
-    notice: Δείτε όλες τις ειδοποιήσεις
-    open_call_for_evidence: 
-    open_consultation: Δείτε όλες τις ανοιχτές διαβουλεύσεις
-    oral_statement: Δείτε όλες τις προφορικές δηλώσεις στη Βουλή
-    policy: Δείτε όλες τις πολιτικές
-    policy_paper: Δείτε όλα τα έγγραφα πολιτικής
-    press_release: Δείτε όλα τα δελτία τύπου
-    promotional: Δείτε όλο το προωθητικό υλικό
-    publication: Δείτε όλες τις δημοσιεύσεις
-    regulation: Δείτε όλους τους κανονισμούς
-    research: Δείτε όλη την έρευνα και ανάλυση
-    speaking_notes: Δείτε όλες τις σημειώσεις ομιλίας
-    speech: Δείτε όλες τις ομιλίες
-    statement_to_parliament: Δείτε όλες τις δηλώσεις στη Βουλή
-    statistical_data_set: Δείτε όλα τα σύνολα στατιστικών δεδομένων
-    statistics: Δείτε όλα τα στατιστικά
-    statutory_guidance: Δείτε όλες τις νομικές οδηγίες
-    transcript: Δείτε όλες τις μεταγραφές
-    transparency: Δείτε όλα τα δεδομένα διαφάνειας
-    written_statement: Δείτε όλες τις γραπτές δηλώσεις στη Βουλή
   support:
     download: Κατεβάστε
     field_of_operation: 'Πεδίο λειτουργίας:'

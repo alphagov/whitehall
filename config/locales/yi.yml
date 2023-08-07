@@ -493,54 +493,6 @@ yi:
       courts_and_tribunals: 
   roles:
     unassigned: 
-  see_all:
-    announcement: 
-    authored_article: 
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: 
-    closed_call_for_evidence: 
-    closed_consultation: 
-    consultation: 
-    consultation_outcome: 
-    corporate_report: 
-    correspondence: 
-    decision: 
-    detailed_guidance: 
-    document_collection: 
-    draft_text: 
-    fatality_notice: 
-    foi_release: 
-    form: 
-    government_response: 
-    guidance: גיידאַנס
-    impact_assessment: 
-    imported: 
-    international_treaty: 
-    map: 
-    national_statistics: 
-    news_article: 
-    news_story: 
-    notice: 
-    open_call_for_evidence: 
-    open_consultation: 
-    oral_statement: 
-    policy: 
-    policy_paper: 
-    press_release: 
-    promotional: 
-    publication: 
-    regulation: 
-    research: 
-    speaking_notes: 
-    speech: 
-    statement_to_parliament: 
-    statistical_data_set: 
-    statistics: 
-    statutory_guidance: 
-    transcript: 
-    transparency: 
-    written_statement: 
   support:
     download: 
     field_of_operation: 
