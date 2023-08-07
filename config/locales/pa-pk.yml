@@ -477,17 +477,6 @@ pa-pk:
       transparency: شفافیت دی معلومات
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: کاروبار دی معلومات
-      corporate_reports: کاروبار دیاں خبراں
-    support:
-      administered_by: جنے انتظام کیتا
-      agencies_and_public_bodies: ایجنیسز تے عوامی ادارے
-      part_of: ایندا حصہ
-      public_body: عوامی ادارہ
-      works_with: جندے نال کم کر دا اے
-    type:
-      courts_and_tribunals: کورٹ تے عدالتاں
   roles:
     unassigned: ایہ کردار کسے نوں نئیں دتا گیا
   support:

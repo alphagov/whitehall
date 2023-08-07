@@ -480,17 +480,6 @@ es-419:
       transparency: Transparencia de datos
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Información corporativa
-      corporate_reports: Informes de la empresa
-    support:
-      administered_by: Administrado por
-      agencies_and_public_bodies: agencias y organismos públicos
-      part_of: Parte de
-      public_body: organismo público
-      works_with: Trabaja con
-    type:
-      courts_and_tribunals: Juzgados y Tribunales
   roles:
     unassigned: No hay nadie asignado a esta función
   support:

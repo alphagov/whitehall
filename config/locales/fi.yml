@@ -480,17 +480,6 @@ fi:
       transparency: Avoimuustiedot
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Yritystiedot
-      corporate_reports: Yritysraportit
-    support:
-      administered_by: Hallinnoija
-      agencies_and_public_bodies: virastot ja julkiset elimet
-      part_of: Osa
-      public_body: julkinen elin
-      works_with: Toimii
-    type:
-      courts_and_tribunals: Tuomioistuimet
   roles:
     unassigned: Ketään ei ole määrätty tähän rooliin
   support:

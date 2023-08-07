@@ -479,17 +479,6 @@ el:
       transparency: Δεδομένα διαφάνειας
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Εταιρικές πληροφορίες
-      corporate_reports: Εταιρικές εκθέσεις
-    support:
-      administered_by: Διοικείται από
-      agencies_and_public_bodies: φορείς και δημόσιοι οργανισμοί
-      part_of: Μέρος του
-      public_body: δημόσιου φορέα
-      works_with: Δουλεύει με
-    type:
-      courts_and_tribunals: Δικαστήρια και Διαιτητικά όργανα
   roles:
     unassigned: Σε κανέναν δεν έχει ανατεθεί αυτός ο ρόλος
   support:

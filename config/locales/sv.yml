@@ -480,17 +480,6 @@ sv:
       transparency: Uppgifter om öppenhet
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Företagsinformation
-      corporate_reports: Företagsrapporter
-    support:
-      administered_by: Administreras av
-      agencies_and_public_bodies: byråer och offentliga organ
-      part_of: Del av
-      public_body: offentligt organ
-      works_with: Arbetar med
-    type:
-      courts_and_tribunals: Domstolar och domstolar
   roles:
     unassigned: Ingen har tilldelats denna roll
   support:

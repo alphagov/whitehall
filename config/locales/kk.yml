@@ -479,17 +479,6 @@ kk:
       transparency: Ашықтық деректері
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Корпоративтік ақпарат
-      corporate_reports: Корпоративтік есептер
-    support:
-      administered_by: Басқаратын
-      agencies_and_public_bodies: агенттіктер мен мемлекеттік органдар
-      part_of: Бөлігі
-      public_body: мемлекеттік орган
-      works_with: Мынамен жұмыс істейді
-    type:
-      courts_and_tribunals: Соттар мен сот орындары
   roles:
     unassigned: Бұл рөлге ешкім тағайындалмаған
   support:

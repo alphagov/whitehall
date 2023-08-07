@@ -480,17 +480,6 @@ ka:
       transparency: გამჭირვალობის მონაცემები
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: კორპორატიული ინფორმაცია
-      corporate_reports: კორპორატიული ანგარიშები
-    support:
-      administered_by: ადმინისტრირებულია
-      agencies_and_public_bodies: სააგენტოები და საჯარო ორგანოები
-      part_of: ნაწილი
-      public_body: საჯარო ორგანო
-      works_with: მუშაობს
-    type:
-      courts_and_tribunals: სასამართლოებთან და ტრიბუნალებთან
   roles:
     unassigned: არავისთვის არ მიუნიჭებიათ ეს როლი
   support:

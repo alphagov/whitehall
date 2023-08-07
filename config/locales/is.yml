@@ -479,17 +479,6 @@ is:
       transparency: Gögn um gagnsæi
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Upplýsingar um fyrirtæki
-      corporate_reports: Skýrslur fyrirtækis
-    support:
-      administered_by: Stýrt af
-      agencies_and_public_bodies: umboðum og opinberum stofnunum
-      part_of: Hluti af
-      public_body: opinber stofnun
-      works_with: Starfar með
-    type:
-      courts_and_tribunals: Réttir og dómstólar
   roles:
     unassigned: Enginn er settur í þetta hlutverk
   support:

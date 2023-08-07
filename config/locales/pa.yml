@@ -480,17 +480,6 @@ pa:
       transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: ਕਾਰਪੋਰੇਟ ਜਾਣਕਾਰੀ
-      corporate_reports: ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ
-    support:
-      administered_by: ਦੁਆਰਾ ਪ੍ਰਬੰਧਿਤ
-      agencies_and_public_bodies: ਏਜੰਸੀਆਂ ਅਤੇ ਜਨਤਕ ਸੰਸਥਾਵਾਂ
-      part_of: ਦਾ ਹਿੱਸਾ
-      public_body: ਜਨਤਕ ਸੰਸਥਾ
-      works_with: ਨਾਲ ਕੰਮ ਕਰਦਾ ਹੈ
-    type:
-      courts_and_tribunals: ਅਦਾਲਤਾਂ ਅਤੇ ਟ੍ਰਿਬਿਊਨਲ
   roles:
     unassigned: ਇਸ ਭੂਮਿਕਾ ਲਈ ਕਿਸੇ ਨੂੰ ਵੀ ਨਿਯੁਕਤ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ
   support:

@@ -637,17 +637,6 @@ ru:
       transparency: Данные о прозрачности
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Корпоративная информация
-      corporate_reports: Корпоративные отчеты
-    support:
-      administered_by: Под управлением
-      agencies_and_public_bodies: агентств и государственных органов
-      part_of: Является частью
-      public_body: государственного органа
-      works_with: Работает с
-    type:
-      courts_and_tribunals: Судами и Трибуналами
   roles:
     unassigned: Никто не назначен на эту роль
   support:

@@ -479,17 +479,6 @@ et:
       transparency: Läbipaistvuse andmed
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Ettevõtte teave
-      corporate_reports: Ettevõtte aruanded
-    support:
-      administered_by: Haldab
-      agencies_and_public_bodies: asutused
-      part_of: Osa
-      public_body: avalik-õiguslik asutus
-      works_with: Töötab koos
-    type:
-      courts_and_tribunals: Kohtud
   roles:
     unassigned: Sellesse rolli pole kedagi määratud
   support:

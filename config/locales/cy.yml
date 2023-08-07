@@ -799,17 +799,6 @@ cy:
       transparency: Data tryloywder
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Gwybodaeth gorfforaethol
-      corporate_reports: Adroddiadau corfforaethol
-    support:
-      administered_by: Gweinyddwyd gan
-      agencies_and_public_bodies: asiantaethau a chyrff cyhoeddus
-      part_of: Rhan o
-      public_body: corff cyhoeddus
-      works_with: Yn gweithio gyda
-    type:
-      courts_and_tribunals: Llysoedd a Thribiwnlysoedd
   roles:
     unassigned: Does neb wedi'i bennu ar gyfer y rôl hon.
   support:

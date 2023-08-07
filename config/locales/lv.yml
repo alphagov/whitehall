@@ -477,17 +477,6 @@ lv:
       transparency: Atklātība
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Korporatīvā informācija
-      corporate_reports: Korporatīvie ziņojumi
-    support:
-      administered_by: Pārvalda
-      agencies_and_public_bodies: aģentūras un sabiedriskās iestādes
-      part_of: Daļa no
-      public_body: sabiedriskā iestāde
-      works_with: Strādā ar
-    type:
-      courts_and_tribunals: Tiesas un šķīrējtiesas
   roles:
     unassigned: Neviens šai lomai nav piešķirts
   support:

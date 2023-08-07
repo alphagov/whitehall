@@ -479,17 +479,6 @@ ne:
       transparency: पारदर्शिता जानकारी
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: निगम जानकारी
-      corporate_reports: निगम प्रतिवेदनहरू
-    support:
-      administered_by: द्वारा प्रशासित
-      agencies_and_public_bodies: एजेन्सीहरु र सार्वजनिक निकायहरु
-      part_of: को भाग
-      public_body: सार्वजनिक निकाय
-      works_with: सँग काम गर्दछ
-    type:
-      courts_and_tribunals: अदालत र न्यायाधिकरण
   roles:
     unassigned: यो भूमिका को लागी कसैलाई तोकिएको छैन
   support:

@@ -399,17 +399,6 @@ vi:
       transparency: Dữ liệu về tính minh bạch
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Thông tin doanh nghiệp
-      corporate_reports: Báo cáo của doanh nghiệp
-    support:
-      administered_by: Quản lý bởi
-      agencies_and_public_bodies: các cơ quan và cơ quan công quyền
-      part_of: Một phần của
-      public_body: cơ quan công quyền
-      works_with: Làm việc với
-    type:
-      courts_and_tribunals: Tòa án và Tòa án cấp thấp
   roles:
     unassigned: Không ai được bổ nhiệm vai trò này
   support:

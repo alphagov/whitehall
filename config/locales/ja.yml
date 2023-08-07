@@ -397,17 +397,6 @@ ja:
       transparency: 透明度データ
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: 企業情報
-      corporate_reports: 企業報告
-    support:
-      administered_by: 管理元：
-      agencies_and_public_bodies: 機関および公共団体
-      part_of: 次の一部：
-      public_body: 公共団体
-      works_with: 以下と働：
-    type:
-      courts_and_tribunals: 裁判所および審判
   roles:
     unassigned: この役割には誰も割り当てられていません
   support:

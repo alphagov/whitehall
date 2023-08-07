@@ -639,17 +639,6 @@ uk:
       transparency: Дані прозорості
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Корпоративна інформація
-      corporate_reports: Звіти про діяльність корпорації
-    support:
-      administered_by: Адмініструється
-      agencies_and_public_bodies: агентства та державні органи
-      part_of: Частина
-      public_body: державний орган
-      works_with: Працює з
-    type:
-      courts_and_tribunals: Суди та арбітражні суди
   roles:
     unassigned: На цю посаду ніхто не призначений
   support:

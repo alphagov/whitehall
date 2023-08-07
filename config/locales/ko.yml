@@ -399,17 +399,6 @@ ko:
       transparency: 투명성 데이터
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: 기업 정보
-      corporate_reports: 기업 보고서
-    support:
-      administered_by: 관리자
-      agencies_and_public_bodies: 에이전시 및 공공 기관
-      part_of: 파트
-      public_body: 공공 기관
-      works_with: 협업 대상
-    type:
-      courts_and_tribunals: 상위 법원 및 법원
   roles:
     unassigned: 이 역할에 아무도 할당되지 않았습니다
   support:

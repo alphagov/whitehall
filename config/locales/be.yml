@@ -637,17 +637,6 @@ be:
       transparency: Адкрытыя дадзеныя
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Карпаратыўная іфармацыя
-      corporate_reports: Карпаратыўныя справаздачы
-    support:
-      administered_by: Кіруецца
-      agencies_and_public_bodies: ўстановы і дзяржаўныя органы
-      part_of: Частка
-      public_body: дзяржаўны орган
-      works_with: Праца з
-    type:
-      courts_and_tribunals: Суды і Трыбуналы
   roles:
     unassigned: Ніхто не прызначаны на гэтую ролю
   support:

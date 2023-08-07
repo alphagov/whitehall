@@ -479,17 +479,6 @@ gu:
       transparency: પારદર્શિતા ડેટા
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: કોર્પોરેટ માહિતી
-      corporate_reports: કોર્પોરેટ અહેવાલો
-    support:
-      administered_by: દ્વારા સંચાલિત
-      agencies_and_public_bodies: એજન્સીઓ અને જાહેર સંસ્થાઓ
-      part_of: નો ભાગ
-      public_body: જાહેર સંસ્થા
-      works_with: સાથે કામ કરે છે
-    type:
-      courts_and_tribunals: ન્યાયાલયો અને ટ્રિબ્યુનલ્સ
   roles:
     unassigned: આ ભૂમિકા કોઈને પણ સોંપવામાં આવેલ નથી
   support:

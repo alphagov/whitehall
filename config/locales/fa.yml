@@ -479,17 +479,6 @@ fa:
       transparency: داده‌های شفافیت
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: اطلاعات شرکت
-      corporate_reports: گزارشات شرکتی
-    support:
-      administered_by: با مدیریت
-      agencies_and_public_bodies: آژانس‌ها و نهادهای عمومی
-      part_of: بخشی از
-      public_body: نهاد عمومی
-      works_with: همکاری می‌کند با
-    type:
-      courts_and_tribunals: دادگاه‌ها و محکمه‌ها
   roles:
     unassigned: هیچ فردی به این نقش تخصیص نیافته است
   support:

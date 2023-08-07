@@ -560,17 +560,6 @@ sr:
       transparency: Podaci o transparentnosti
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Poslovni podaci
-      corporate_reports: Organizacioni izveštaji
-    support:
-      administered_by: Upravlja
-      agencies_and_public_bodies: agencije i javna tela
-      part_of: Deo
-      public_body: javno telo
-      works_with: Sarađuje sa
-    type:
-      courts_and_tribunals: Sudovi i tribunali
   roles:
     unassigned: Niko nije imenovan za ovu funkciju
   support:

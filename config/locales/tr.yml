@@ -479,17 +479,6 @@ tr:
       transparency: Şeffaflık verileri
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Kurumsal bilgiler
-      corporate_reports: Kurumsal raporlar
-    support:
-      administered_by: Yöneten
-      agencies_and_public_bodies: kuruluşlar ve kamu kurumlar
-      part_of: Şunun kısmı
-      public_body: kamu kuruluşu
-      works_with: Şununla çalışıyor
-    type:
-      courts_and_tribunals: Mahkemeler
   roles:
     unassigned: Bu göreve kimse atanmamış
   support:

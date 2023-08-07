@@ -480,17 +480,6 @@ fr:
       transparency: Données de transparence
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informations sur l'entreprise
-      corporate_reports: Rapports d'entreprise
-    support:
-      administered_by: Administrés par
-      agencies_and_public_bodies: agences et organismes publics
-      part_of: Partie de
-      public_body: organisme public
-      works_with: Travaille avec
-    type:
-      courts_and_tribunals: Cours et Tribunaux
   roles:
     unassigned: Personne n'est affecté à ce rôle
   support:

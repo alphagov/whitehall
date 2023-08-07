@@ -480,17 +480,6 @@ it:
       transparency: Dati sulla trasparenza
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informazioni aziendali
-      corporate_reports: Report aziendali
-    support:
-      administered_by: Amministrato da
-      agencies_and_public_bodies: agenzie ed enti pubblici
-      part_of: Parte di
-      public_body: ente pubblico
-      works_with: Lavora con
-    type:
-      courts_and_tribunals: Corti e tribunali
   roles:
     unassigned: Nessuno è assegnato a questo ruolo
   support:

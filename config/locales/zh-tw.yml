@@ -399,17 +399,6 @@ zh-tw:
       transparency: 透明數據
     embassies:
       find_an_embassy_title: 查找英國大使館、辦事處或領事館
-    headings:
-      corporate_information: 公司資訊
-      corporate_reports: 企業報告
-    support:
-      administered_by: 監管方
-      agencies_and_public_bodies: 機構和公共機構
-      part_of: 部分
-      public_body: 公共機構
-      works_with: 共事
-    type:
-      courts_and_tribunals: 法庭與審裁處
   roles:
     unassigned: 該角色未被指派
   support:

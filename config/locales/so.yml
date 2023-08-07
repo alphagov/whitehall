@@ -479,17 +479,6 @@ so:
       transparency: Xog daah furan
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Macluumaadka shirkada
-      corporate_reports: Warbixinaha shirkada
-    support:
-      administered_by: Ay maamushay
-      agencies_and_public_bodies: wakaaladaha iyo qaybaha dawlada
-      part_of: Ka qeyba
-      public_body: dawlada
-      works_with: Ee la shaqaysa
-    type:
-      courts_and_tribunals: Maxkamadaha iyo Xukunada
   roles:
     unassigned: Qofna looma qoondayn doorkan
   support:

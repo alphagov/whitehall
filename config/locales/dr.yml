@@ -480,17 +480,6 @@ dr:
       transparency: داده هایی شفافیت
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: اطلاعات شرکت
-      corporate_reports: گزارشات شرکت
-    support:
-      administered_by: اداره شده توسط
-      agencies_and_public_bodies: نماینده گی ها و نهاد هایی عامه
-      part_of: بخشی از
-      public_body: نهاد عامه
-      works_with: کار مینماید با
-    type:
-      courts_and_tribunals: محاکم و دادگاه ها
   roles:
     unassigned: هیچ کسی به این وظیفه گماشته نشده است
   support:

@@ -797,17 +797,6 @@ ar:
       transparency: بيانات الشفافية
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: معلومات الشركة
-      corporate_reports: تقارير الشركة
-    support:
-      administered_by: يُدار بواسطة
-      agencies_and_public_bodies: الوكالات والهيئات العامة
-      part_of: جزء من
-      public_body: هيئة عامة
-      works_with: يعمل لدى
-    type:
-      courts_and_tribunals: المحاكم والهيئات القضائية
   roles:
     unassigned: لم يتم تعيين أي شخص لهذا الدور.
   support:

@@ -557,17 +557,6 @@ lt:
       transparency: Skaidrumo informacija
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Korporatyvinė informacija
-      corporate_reports: Korporatyvinės ataskaitos
-    support:
-      administered_by: Administruoja
-      agencies_and_public_bodies: agentūros ir viešosios įstaigos
-      part_of: Dalis
-      public_body: viešoji įstaiga
-      works_with: Dirba su
-    type:
-      courts_and_tribunals: Teismai ir tribunolai
   roles:
     unassigned: Niekam nepriskirta įi funkcija
   support:

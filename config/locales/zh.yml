@@ -399,17 +399,6 @@ zh:
       transparency: 透明度数据
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: 公司信息
-      corporate_reports: 公司报告
-    support:
-      administered_by: 管理者
-      agencies_and_public_bodies: 机构及公共机构
-      part_of: 一部分
-      public_body: 公共机构
-      works_with: 合作者
-    type:
-      courts_and_tribunals: 法院和法庭
   roles:
     unassigned: 没有人被分配到这个职责
   support:

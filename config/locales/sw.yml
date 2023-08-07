@@ -479,17 +479,6 @@ sw:
       transparency: Data ya uwazi
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Maelezo ya shirika
-      corporate_reports: Ripoti za shirika
-    support:
-      administered_by: Imetolewa na
-      agencies_and_public_bodies: mashirika na mashirika ya serikali
-      part_of: Sehemu ya
-      public_body: shirika la serikali
-      works_with: Hushirikiana na
-    type:
-      courts_and_tribunals: Mahakama na Mabaraza ya Uamuzi
   roles:
     unassigned: Hakuna mtu aliyekabidhiwa nafasi hii
   support:

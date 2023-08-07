@@ -399,17 +399,6 @@ th:
       transparency: ข้อมูลความโปร่งใส
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: ข้อมูลองค์กร
-      corporate_reports: รายงานของบริษัท
-    support:
-      administered_by: บริหารโดย
-      agencies_and_public_bodies: หน่วยงานและหน่วยงานราชการ
-      part_of: ส่วนหนึ่งของ
-      public_body: หน่วยงานราชการ
-      works_with: ทำงานร่วมกับ
-    type:
-      courts_and_tribunals: ศาลและตุลาการ
   roles:
     unassigned: ไม่มีใครได้รับการแต่งตั้งในบทบาทนี้
   support:

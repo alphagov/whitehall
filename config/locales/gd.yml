@@ -639,17 +639,6 @@ gd:
       transparency: Sonraí trédhearcachta
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Faisnéis cuideachta
-      corporate_reports: Tuarascálacha cuideachta
-    support:
-      administered_by: Riartha ag
-      agencies_and_public_bodies: Institiúidí agus grúpaí poiblí
-      part_of: Chuid
-      public_body: Institiúidí poiblí
-      works_with: Agus
-    type:
-      courts_and_tribunals: Cúirteanna agus binsí
   roles:
     unassigned: Níl aon duine i gceannas ar an ról seo
   support:

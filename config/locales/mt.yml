@@ -637,17 +637,6 @@ mt:
       transparency: Data għat-trasparenza
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informazzjoni korporattiva
-      corporate_reports: Raporti korporattivi
-    support:
-      administered_by: Amministrati minn
-      agencies_and_public_bodies: aġenzi u korpi pubbliċi
-      part_of: Parti minn
-      public_body: korp pubbliku
-      works_with: Jaħdem ma'
-    type:
-      courts_and_tribunals: Qorti u Tribunali
   roles:
     unassigned: Ħadd m'għandu dan ir-rwol
   support:

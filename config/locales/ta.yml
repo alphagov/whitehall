@@ -479,17 +479,6 @@ ta:
       transparency: வெளிப்படையான தரவு
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: குழுமத் தகவல்கள்
-      corporate_reports: குழும அறிக்கைகள்
-    support:
-      administered_by: நிர்வகிப்பவர்
-      agencies_and_public_bodies: முகமைகளும் பொது நிறுவனங்களும்
-      part_of: பகுதி
-      public_body: பொது நிறுவனம்
-      works_with: இதனுடன் பணியாற்றுகிறது
-    type:
-      courts_and_tribunals: நீதிமன்றங்களும் தீர்ப்பாயங்களும்
   roles:
     unassigned: இந்தப் பதவிக்கு யாரும் நியமிக்கப்படவில்லை
   support:

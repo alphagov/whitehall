@@ -560,17 +560,6 @@ cs:
       transparency: Údaje o transparentnosti
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Firemní informace
-      corporate_reports: Podnikové zprávy
-    support:
-      administered_by: Spravovány
-      agencies_and_public_bodies: agentury a veřejné orgány
-      part_of: Část
-      public_body: subjekt veřejné správy
-      works_with: Pracuje se
-    type:
-      courts_and_tribunals: Soudy a tribunály
   roles:
     unassigned: Tato role není nikomu přidělena
   support:

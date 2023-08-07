@@ -479,17 +479,6 @@ hu:
       transparency: Átláthatósági adatok
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Vállalati adatok
-      corporate_reports: Testületi beszámolók
-    support:
-      administered_by: 'Adminisztrálta:'
-      agencies_and_public_bodies: ügynökségek és hivatalos szervek
-      part_of: 'Része a következőnek:'
-      public_body: hivatalos szerv
-      works_with: 'A következővel dolgozik:'
-    type:
-      courts_and_tribunals: Bíróságok
   roles:
     unassigned: Ehhez a szerepkörhöz senki nincs hozzárendelve
   support:

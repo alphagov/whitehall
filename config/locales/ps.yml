@@ -480,17 +480,6 @@ ps:
       transparency: د شفافیت ډاټا
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: د شرکت معلومات
-      corporate_reports: د شرکت راپورونه
-    support:
-      administered_by: لخوا اداره کیږي
-      agencies_and_public_bodies: ادارې او عامه ادارې
-      part_of: برخه
-      public_body: عامه اداره
-      works_with: سره کار کوي
-    type:
-      courts_and_tribunals: محکمې او محکمې
   roles:
     unassigned: هیڅوک دې رول ته ندي ګمارل شوي
   support:

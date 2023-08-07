@@ -560,17 +560,6 @@ hr:
       transparency: Podaci o transparentnosti
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Korporativne informacije
-      corporate_reports: Korporativna izvješća
-    support:
-      administered_by: Administrira
-      agencies_and_public_bodies: agencije i javna tijela
-      part_of: Dio
-      public_body: javnog tijela
-      works_with: Radi s
-    type:
-      courts_and_tribunals: Sudovi i tribunali
   roles:
     unassigned: Nitko nije dodijeljen ovoj ulozi
   support:

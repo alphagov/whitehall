@@ -480,17 +480,6 @@ hi:
       transparency: पारदर्शिता आंकड़े
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: कारपोरेट सूचना
-      corporate_reports: कॉरपोरेट विवरण
-    support:
-      administered_by: प्रशासक
-      agencies_and_public_bodies: एजेंसियां और सार्वजनिक निकाय
-      part_of: का भाग
-      public_body: सार्वजनिक निकाय
-      works_with: इसके साथ काम करता है
-    type:
-      courts_and_tribunals: न्यायालय और न्यायाधिकरण
   roles:
     unassigned: यह भूमिका किसी को असाइन नहीं की गई है
   support:

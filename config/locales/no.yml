@@ -480,17 +480,6 @@
       transparency: Åpenhetstsdata
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Bedriftsinformasjon
-      corporate_reports: Bedriftsrapporter
-    support:
-      administered_by: Administreres av
-      agencies_and_public_bodies: byråer og offentlige instanser
-      part_of: Del av
-      public_body: offentlig instans
-      works_with: Arbeider med
-    type:
-      courts_and_tribunals: Domstoler og domstoler
   roles:
     unassigned: Ingen er tildelt denne rollen
   support:

@@ -399,17 +399,6 @@ zh-hk:
       transparency: 透明化數據
     embassies:
       find_an_embassy_title: 搜尋英國大使館、高級專員公署或領事館
-    headings:
-      corporate_information: 公司資訊
-      corporate_reports: 公司報告
-    support:
-      administered_by: 管理者
-      agencies_and_public_bodies: 代理及公共機構
-      part_of: 部份
-      public_body: 公共機構
-      works_with: 公共機構
-    type:
-      courts_and_tribunals: 法院及裁判庭
   roles:
     unassigned: 未有人擔任此一職位
   support:

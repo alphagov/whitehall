@@ -479,17 +479,6 @@ de:
       transparency: Transparenzdaten
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Unternehmensinformationen
-      corporate_reports: Unternehmensberichte
-    support:
-      administered_by: Verwaltet durch
-      agencies_and_public_bodies: Agenturen und öffentliche Einrichtungen
-      part_of: Teil von
-      public_body: öffentliche Einrichtung
-      works_with: Arbeitet mit
-    type:
-      courts_and_tribunals: Gerichte und Gerichtshöfe
   roles:
     unassigned: Diese Funktion wurde niemandem zugewiesen
   support:

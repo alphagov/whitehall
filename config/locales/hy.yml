@@ -480,17 +480,6 @@ hy:
       transparency: Թափանցիկության տվյալներ
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Կորպորատիվ տեղեկություն
-      corporate_reports: Կորպորատիվ զեկույցներ
-    support:
-      administered_by: Կառավարվում է՝
-      agencies_and_public_bodies: գործակալություններ և հասարակական կազմակերպություններ
-      part_of: Մաս է՝
-      public_body: հասարակական կազմակերպություն
-      works_with: Համագործակցում է
-    type:
-      courts_and_tribunals: Դատարաններ և Տրիբունալներ
   roles:
     unassigned: Այս պաշտոնին նշանակված մարդ չկա
   support:

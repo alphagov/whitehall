@@ -464,17 +464,6 @@ en:
       transparency: Transparency data
     embassies:
       find_an_embassy_title: Find a British embassy, high commission or consulate
-    headings:
-      corporate_information: Corporate information
-      corporate_reports: Corporate reports
-    support:
-      administered_by: Administered by
-      agencies_and_public_bodies: agencies and public bodies
-      part_of: Part of
-      public_body: public body
-      works_with: Works with
-    type:
-      courts_and_tribunals: Courts and Tribunals
   roles:
     unassigned: No one is assigned to this role
   support:

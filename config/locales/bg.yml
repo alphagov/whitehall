@@ -479,17 +479,6 @@ bg:
       transparency: Данни за прозрачност
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Фирмена информация
-      corporate_reports: Фирмени доклади
-    support:
-      administered_by: Администриране от
-      agencies_and_public_bodies: агенции и публични органи
-      part_of: Част от
-      public_body: публичен орган
-      works_with: Работи с
-    type:
-      courts_and_tribunals: Съдилища и арбитражи
   roles:
     unassigned: Няма назначен на тази длъжност
   support:

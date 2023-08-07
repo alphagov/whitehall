@@ -559,17 +559,6 @@ ro:
       transparency: Date privind transparența
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informații despre corporație
-      corporate_reports: Rapoarte de companie
-    support:
-      administered_by: Administrat de
-      agencies_and_public_bodies: Agenții și instituții publice
-      part_of: Parte din
-      public_body: instituție publică
-      works_with: Lucrează cu
-    type:
-      courts_and_tribunals: Instanțe și tribunale
   roles:
     unassigned: În această funcție nu este repartizată nicio persoană
   support:

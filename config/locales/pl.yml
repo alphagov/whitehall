@@ -637,17 +637,6 @@ pl:
       transparency: Dane o transparentności
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informacje korporacyjne
-      corporate_reports: Sprawozdania korporacyjne
-    support:
-      administered_by: Zarządzane przez
-      agencies_and_public_bodies: agencje i organy publiczne
-      part_of: Część
-      public_body: organ publiczny
-      works_with: Pracuje z
-    type:
-      courts_and_tribunals: Sądy i Trybunały
   roles:
     unassigned: Nikt nie został przypisany do tej roli
   support:

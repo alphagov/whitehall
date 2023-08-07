@@ -480,17 +480,6 @@ he:
       transparency: שקיפות מידע
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: מידע תאגידי
-      corporate_reports: דו"חות משותפים
-    support:
-      administered_by: 'מנוהל על ידי '
-      agencies_and_public_bodies: סוכנויות וגופים ציבוריים
-      part_of: חלק של
-      public_body: גוף ציבורי
-      works_with: עובד עם
-    type:
-      courts_and_tribunals: בתי משפט ובתי דין
   roles:
     unassigned: לאף אחד אין תפקיד זה
   support:

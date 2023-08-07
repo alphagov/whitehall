@@ -480,17 +480,6 @@ sq:
       transparency: Të dhënat e transparencës
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informacioni i korporatës
-      corporate_reports: Raportet e korporatës
-    support:
-      administered_by: Administruar nga
-      agencies_and_public_bodies: agjencitë dhe organet publike
-      part_of: Pjesë e
-      public_body: organit publik
-      works_with: Punon me
-    type:
-      courts_and_tribunals: Gjykatat dhe Tribunalet
   roles:
     unassigned: Askush nuk është caktuar për këtë rol
   support:

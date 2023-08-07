@@ -479,17 +479,6 @@ bn:
       transparency: স্বচ্ছতার তথ্য
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: কর্পোরেট তথ্য
-      corporate_reports: কর্পোরেট রিপোর্টসমূহ
-    support:
-      administered_by: পরিচালনাকারী
-      agencies_and_public_bodies: সংস্থা ও সরকারি প্রতিষ্ঠান
-      part_of: এর অংশ
-      public_body: সরকারি প্রতিষ্ঠান
-      works_with: যার সাথে কাজ করে
-    type:
-      courts_and_tribunals: আদালত ও ট্রাইব্যুনাল
   roles:
     unassigned: এই ভূমিকায় কাউকে দায়িত্ব দেওয়া হয়নি
   support:

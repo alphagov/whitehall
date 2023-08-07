@@ -640,17 +640,6 @@ sl:
       transparency: Podatki o preglednosti
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informacije o podjetju
-      corporate_reports: Poročila podjetja
-    support:
-      administered_by: Upravljanje v rokah
-      agencies_and_public_bodies: agencije in javna telesa
-      part_of: Del
-      public_body: javno telo
-      works_with: Sodeluje z
-    type:
-      courts_and_tribunals: Sodišča
   roles:
     unassigned: Ta vloga ni dodeljena nikomur
   support:

@@ -477,17 +477,6 @@ yi:
       transparency: 
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: 
-      corporate_reports: 
-    support:
-      administered_by: 
-      agencies_and_public_bodies: 
-      part_of: 
-      public_body: 
-      works_with: 
-    type:
-      courts_and_tribunals: 
   roles:
     unassigned: 
   support:

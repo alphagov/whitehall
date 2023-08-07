@@ -560,17 +560,6 @@ sk:
       transparency: Údaje o transparentnosti
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Firemné informácie
-      corporate_reports: Podnikové správy
-    support:
-      administered_by: Spravuje
-      agencies_and_public_bodies: agentúry a verejné orgány
-      part_of: Časť
-      public_body: verejný orgán
-      works_with: Spolupracuje s
-    type:
-      courts_and_tribunals: Súdy a tribunály
   roles:
     unassigned: Táto úloha nie je nikomu pridelená
   support:

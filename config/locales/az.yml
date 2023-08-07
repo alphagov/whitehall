@@ -480,17 +480,6 @@ az:
       transparency: Məlumatla bağlı şəffaflıq
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Korporativ məlumat
-      corporate_reports: Şirkətin fəaliyyəti üzrə hesabatlar
-    support:
-      administered_by: Agentliklər
-      agencies_and_public_bodies: və dövlət orqanları tərəfindən idarə edilir
-      part_of: Dövlət orqanının
-      public_body: bir hissəsi
-      works_with: Məhkəmə və məhkəmə kollegiyaları
-    type:
-      courts_and_tribunals: ilə işlər
   roles:
     unassigned: Bu vəzifəyə heç kim təyin edilməyib
   support:

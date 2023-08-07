@@ -400,17 +400,6 @@ ms:
       transparency: Data ketelusan
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Maklumat korporat
-      corporate_reports: Laporan korporat
-    support:
-      administered_by: Ditadbir oleh
-      agencies_and_public_bodies: agensi dan badan awam
-      part_of: Sebahagian daripada
-      public_body: badan awam
-      works_with: Bekerja dengan
-    type:
-      courts_and_tribunals: Mahkamah dan Tribunal
   roles:
     unassigned: Tiada siapa yang ditugaskan untuk peranan ini
   support:

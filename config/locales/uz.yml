@@ -479,17 +479,6 @@ uz:
       transparency: Очиқликка оид маълумотлар
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Корпоратив маълумот
-      corporate_reports: Корпорация фаолияти тўғрисида ҳисоботлар
-    support:
-      administered_by: Бошқаруви остида
-      agencies_and_public_bodies: агентликлар ва давлат органлари
-      part_of: Қисм
-      public_body: давлат органи
-      works_with: билан ишлар
-    type:
-      courts_and_tribunals: Судлар ва трибуналлар
   roles:
     unassigned: Ушбу рольга ҳеч бир шахс тайинланмаган
   support:

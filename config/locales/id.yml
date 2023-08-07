@@ -399,17 +399,6 @@ id:
       transparency: Data transparansi
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informasi korporat
-      corporate_reports: Laporan korporat
-    support:
-      administered_by: Diadministrasikan oleh
-      agencies_and_public_bodies: lembaga dan badan publik
-      part_of: Bagian dari
-      public_body: badan publik
-      works_with: Bekerja bersama
-    type:
-      courts_and_tribunals: Pengadilan dan Persidangan
   roles:
     unassigned: Belum ada yang ditetapkan untuk peran ini
   support:

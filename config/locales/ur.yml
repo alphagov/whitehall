@@ -479,17 +479,6 @@ ur:
       transparency: شفافیت کا ڈیٹا
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: کارپوریٹ معلومات
-      corporate_reports: کارپوریٹ رپورٹس
-    support:
-      administered_by: منتظم کردہ از
-      agencies_and_public_bodies: ایجنسیاں اور عوامی دھڑے
-      part_of: حصہ از
-      public_body: عوامی دھڑا
-      works_with: شریک کار
-    type:
-      courts_and_tribunals: عدالتیں اور ٹریبیونلز
   roles:
     unassigned: کسی کو یہ کردار تفویض نہیں کیا گیا
   support:

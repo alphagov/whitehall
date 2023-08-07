@@ -477,17 +477,6 @@ nl:
       transparency: Transparantiegegevens
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Bedrijfsinformatie
-      corporate_reports: Bedrijfsrapporten
-    support:
-      administered_by: Beheerd door
-      agencies_and_public_bodies: agentschappen en openbare organen
-      part_of: Onderdeel van
-      public_body: openbaar lichaam
-      works_with: Werkt samen met
-    type:
-      courts_and_tribunals: Hoven en rechtbanken
   roles:
     unassigned: Er is niemand toegewezen aan deze functie
   support:

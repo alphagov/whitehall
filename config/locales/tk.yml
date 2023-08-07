@@ -479,17 +479,6 @@ tk:
       transparency: Aç-açanlyk maglumatlar
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Korporatiw maglumatlar
-      corporate_reports: Korperatiw hasabatlar
-    support:
-      administered_by: Dolandyryjy
-      agencies_and_public_bodies: agentlikler we jemgyýetçilik guramalary
-      part_of: Bir bölegi
-      public_body: jemgyýetçilik guramasy
-      works_with: Bilelikde işleýär
-    type:
-      courts_and_tribunals: Kazyýet we Kazylar
   roles:
     unassigned: Bu wezipä hiç kim bellenmedi
   support:

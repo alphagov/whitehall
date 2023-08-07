@@ -479,17 +479,6 @@ si:
       transparency: විනිවිදභාව දත්ත
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: ආයතනික තොරතුරු
-      corporate_reports: ආයතනික වාර්තා
-    support:
-      administered_by: විසින් පරිපාලනය කරනු ලබන්නේ
-      agencies_and_public_bodies: නියෝජිතායතන සහ පොදු ආයතන
-      part_of: කොටසක්
-      public_body: පොදු ආයතන
-      works_with: සමඟ වැඩ කරයි
-    type:
-      courts_and_tribunals: අධිකරණ හා විනිශ්චය මණ්ඩල
   roles:
     unassigned: මෙම භූමිකාව කිසිවෙකුට පවරා නැත
   support:
