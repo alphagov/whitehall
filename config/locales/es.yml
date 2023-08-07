@@ -130,10 +130,7 @@ es:
       default: "%e %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Contenido
-    latest: Documentos más recientes
     published: Publicado
-    see_all: Ver todo
     speech:
       author_title:
         minister: Ministro

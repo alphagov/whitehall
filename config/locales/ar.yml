@@ -130,10 +130,7 @@ ar:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: المحتويات
-    latest: أحدث المستندات
     published: منشورة
-    see_all: عرض الكل
     speech:
       author_title:
         minister: وزير

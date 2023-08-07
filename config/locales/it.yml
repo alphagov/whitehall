@@ -133,10 +133,7 @@ it:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Contenuti
-    latest: Ultimi documenti
     published: pubblicato
-    see_all: Vedi tutto
     speech:
       author_title:
         minister: Ministro

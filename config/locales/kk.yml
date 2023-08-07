@@ -132,10 +132,7 @@ kk:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Мазмұны
-    latest: Ең соңғы құжаттар
     published: жарияланды
-    see_all: Барлығын қарау
     speech:
       author_title:
         minister: Министр

@@ -132,10 +132,7 @@ zh-tw:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 內容
-    latest: 最新文檔
     published: 發布
-    see_all: 查看全部
     speech:
       author_title:
         minister: 部長

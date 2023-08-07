@@ -132,10 +132,7 @@ de:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Inhalte
-    latest: Aktuelle Dokumente
     published: veröffentlicht
-    see_all: Alle ansehen
     speech:
       author_title:
         minister: Minister

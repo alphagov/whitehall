@@ -132,10 +132,7 @@ ko:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 콘텐츠
-    latest: 최근 문서
     published: 발행
-    see_all: 모두 보기
     speech:
       author_title:
         minister: 장관

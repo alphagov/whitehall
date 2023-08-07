@@ -132,10 +132,7 @@ hu:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Tartalomjegyzék
-    latest: Legfrissebb dokumentumok
     published: közzététel dátuma
-    see_all: Mind megtekintése
     speech:
       author_title:
         minister: Miniszter

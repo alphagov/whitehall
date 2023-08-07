@@ -130,10 +130,7 @@ ru:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Содержание
-    latest: Последний документ
     published: Опубликовано
-    see_all: Посмотреть все
     speech:
       author_title:
         minister: Министр

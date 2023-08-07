@@ -130,10 +130,7 @@ lt:
       default: "%Y %B %d"
       long_ordinal: "%Y %B %e"
   document:
-    contents: Turinys
-    latest: Naujausi dokumentai
     published: publikuota
-    see_all: Žiūrėti viską
     speech:
       author_title:
         minister: Ministras

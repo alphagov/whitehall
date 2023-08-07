@@ -132,10 +132,7 @@ ne:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: विषयवस्तु
-    latest: नवीनतम कागजातहरू
     published: प्रकाशित
-    see_all: सबै हेर
     speech:
       author_title:
         minister: मन्त्री

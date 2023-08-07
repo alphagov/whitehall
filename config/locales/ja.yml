@@ -130,10 +130,7 @@ ja:
       default: "％d％B％Y"
       long_ordinal: "％e％B％Y"
   document:
-    contents: コンテンツ
-    latest: 最新のドキュメント
     published: 公開
-    see_all: すべてを見る
     speech:
       author_title:
         minister: 大臣

@@ -133,10 +133,7 @@ pa:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: ਸਮਗਰੀ
-    latest: ਨਵੀਨਤਮ ਦਸਤਾਵੇਜ਼
     published: ਪ੍ਰਕਾਸ਼ਿਤ
-    see_all: ਸਾਰੇ ਵੇਖੋ
     speech:
       author_title:
         minister: ਮੰਤਰੀ

@@ -130,10 +130,7 @@ be:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Змест
-    latest: Апошнія дакументы
     published: Апублікаваны
-    see_all: Глядзець усе
     speech:
       author_title:
         minister: Міністр

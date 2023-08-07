@@ -133,10 +133,7 @@ ka:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: შემადგენლობა
-    latest: 
     published: გამოქვეყნებულია
-    see_all: ყველას ნახვა
     speech:
       author_title:
         minister: მინისტრი

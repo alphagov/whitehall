@@ -132,10 +132,7 @@ tk:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Mazmuny
-    latest: Iň täze resminamalar
     published: çap edilen
-    see_all: Ählisine serediň
     speech:
       author_title:
         minister: Ministr

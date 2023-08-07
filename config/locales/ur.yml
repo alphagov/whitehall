@@ -132,10 +132,7 @@ ur:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: مشمولات
-    latest: تازہ ترین دستاویزات
     published: شائع کردہ
-    see_all: تمام کو دیکھیں
     speech:
       author_title:
         minister: وزیر

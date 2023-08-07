@@ -133,10 +133,7 @@ fi:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Sisällys
-    latest: Uusimmat asiakirjat
     published: julkaistu
-    see_all: Näytä kaikki
     speech:
       author_title:
         minister: Ministeri

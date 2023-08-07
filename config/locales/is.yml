@@ -132,10 +132,7 @@ is:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Efni
-    latest: Nýjustu skjölin
     published: gefið út
-    see_all: Sjá allt
     speech:
       author_title:
         minister: Ráðherra

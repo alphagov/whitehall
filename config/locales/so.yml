@@ -132,10 +132,7 @@ so:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Waxyaabaha uu ka koobanyahay
-    latest: Dukumentiyadii u danbeeyey
     published: Daabacaada
-    see_all: Eeg dhamaan
     speech:
       author_title:
         minister: Wasiirka

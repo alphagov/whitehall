@@ -132,10 +132,7 @@ et:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Sisu
-    latest: Viimased dokumendid
     published: avaldatud
-    see_all: Vaata kõiki
     speech:
       author_title:
         minister: Minister

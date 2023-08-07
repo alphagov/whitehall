@@ -132,10 +132,7 @@ th:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: เนื้อหา
-    latest: เอกสารล่าสุด
     published: เผยแพร่แล้ว
-    see_all: ดูทั้งหมด
     speech:
       author_title:
         minister: รัฐมนตรี

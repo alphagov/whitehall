@@ -132,10 +132,7 @@ si:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: අන්තර්ගත
-    latest: නවතම ලේඛන
     published: පළ කළේ
-    see_all: සියල්ල බලන්න
     speech:
       author_title:
         minister: අමාත්ය

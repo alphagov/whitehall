@@ -133,10 +133,7 @@ dr:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: محتوا
-    latest: جدیدترین اسناد
     published: نشر شده
-    see_all: همه را مشاهده نمایید
     speech:
       author_title:
         minister: وزیر

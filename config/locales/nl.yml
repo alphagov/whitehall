@@ -130,10 +130,7 @@ nl:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Inhoud
-    latest: Laatste documenten
     published: gepubliceerd
-    see_all: Zie alle
     speech:
       author_title:
         minister: Minister

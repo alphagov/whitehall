@@ -133,10 +133,7 @@
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Innhold
-    latest: Siste dokumenter
     published: publisert
-    see_all: Se alle
     speech:
       author_title:
         minister: Minister

@@ -132,10 +132,7 @@ uz:
       default: "%e %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Мундарижа
-    latest: Охирги ҳужжатлар
     published: нашр қилинди
-    see_all: Барчасини кўриш
     speech:
       author_title:
         minister: Вазир

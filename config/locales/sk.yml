@@ -133,10 +133,7 @@ sk:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Obsah
-    latest: Najnovšie dokumenty
     published: zverejnené
-    see_all: Zobraziť všetky
     speech:
       author_title:
         minister: Minister

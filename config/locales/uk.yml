@@ -132,10 +132,7 @@ uk:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Зміст
-    latest: Останні документи
     published: опубліковано
-    see_all: Дивитися всі
     speech:
       author_title:
         minister: Міністр

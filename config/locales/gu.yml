@@ -132,10 +132,7 @@ gu:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: સામગ્રી
-    latest: નવીનતમ દસ્તાવેજો
     published: પ્રકાશિત થયું
-    see_all: બધુ જુઓ
     speech:
       author_title:
         minister: મંત્રી

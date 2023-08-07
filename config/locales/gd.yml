@@ -132,10 +132,7 @@ gd:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Clár ábhair
-    latest: Doiciméid is déanaí
     published: Fhoilsiú
-    see_all: Amharc ar gach
     speech:
       author_title:
         minister: Aire

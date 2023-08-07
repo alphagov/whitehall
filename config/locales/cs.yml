@@ -133,10 +133,7 @@ cs:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Obsah
-    latest: Nejnovější dokumenty
     published: zveřejněno
-    see_all: Zobrazit všechny
     speech:
       author_title:
         minister: Ministr

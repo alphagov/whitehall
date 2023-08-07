@@ -133,10 +133,7 @@ az:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Məzmunlar
-    latest: Ən son ortaya çıxan sənədlər
     published: dərc edilib
-    see_all: Hamısına baxın
     speech:
       author_title:
         minister: Nazir

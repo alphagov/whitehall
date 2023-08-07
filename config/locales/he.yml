@@ -133,10 +133,7 @@ he:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: תוכן
-    latest: מסמכים אחרונים
     published: פורסם
-    see_all: ראה הכול
     speech:
       author_title:
         minister: שר

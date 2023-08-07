@@ -132,10 +132,7 @@ ro:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Conținut
-    latest: Cele mai recente documente
     published: publicat
-    see_all: Vedeți pe toate
     speech:
       author_title:
         minister: Ministru

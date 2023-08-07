@@ -132,10 +132,7 @@ cy:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Cynnwys
-    latest: Dogfennau diweddaraf
     published: cyhoeddwyd
-    see_all: Gweld popeth
     speech:
       author_title:
         minister: Gweinidog

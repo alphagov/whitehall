@@ -130,10 +130,7 @@ lv:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Saturs
-    latest: Jaunākie dokumenti
     published: publicēts
-    see_all: Skatīt visu
     speech:
       author_title:
         minister: Ministrs

@@ -132,10 +132,7 @@ sw:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Maudhui
-    latest: Hati mpya
     published: ilichapishwa
-    see_all: Angalia yote
     speech:
       author_title:
         minister: Waziri

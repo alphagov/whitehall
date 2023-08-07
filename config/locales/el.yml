@@ -132,10 +132,7 @@ el:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Περιεχόμενα
-    latest: Τελευταία έγγραφα
     published: δημοσιεύθηκε
-    see_all: Προβολή όλων
     speech:
       author_title:
         minister: Υπουργός

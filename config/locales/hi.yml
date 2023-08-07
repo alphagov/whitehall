@@ -133,10 +133,7 @@ hi:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: विषय-वस्तु
-    latest: नवीनतम दस्तावेज
     published: प्रकाशित
-    see_all: सब देखें
     speech:
       author_title:
         minister: मंत्री

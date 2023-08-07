@@ -132,10 +132,7 @@ fa:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: محتوا
-    latest: آخرین اسناد
     published: منتشر شده
-    see_all: مشاهده همه
     speech:
       author_title:
         minister: وزیر

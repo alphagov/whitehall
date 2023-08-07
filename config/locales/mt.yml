@@ -130,10 +130,7 @@ mt:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Werrej
-    latest: L-aħħar dokumenti
     published: ippubblikat
-    see_all: Ara kull
     speech:
       author_title:
         minister: Ministru

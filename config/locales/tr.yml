@@ -132,10 +132,7 @@ tr:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: İçerikler
-    latest: En yeni belgeler
     published: yayınlanan
-    see_all: Hepsini gör
     speech:
       author_title:
         minister: Bakan

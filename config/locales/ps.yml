@@ -133,10 +133,7 @@ ps:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: منځپانګې
-    latest: وروستي اسناد
     published: خپور شوی
-    see_all: ټول وګوره
     speech:
       author_title:
         minister: وزیر

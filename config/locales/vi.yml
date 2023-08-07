@@ -132,10 +132,7 @@ vi:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Mục lục
-    latest: Tài liệu mới nhất
     published: đã xuất bản
-    see_all: Xem tất cả
     speech:
       author_title:
         minister: Bộ trưởng

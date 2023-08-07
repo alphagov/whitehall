@@ -133,10 +133,7 @@ sr:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Sadržaj
-    latest: Najnoviji dokumentu
     published: objavljeno
-    see_all: Prikaži sve
     speech:
       author_title:
         minister: Ministar

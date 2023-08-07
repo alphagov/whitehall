@@ -133,10 +133,7 @@ sq:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Përmbajtje
-    latest: Dokumentet më të fundit
     published: publikuar
-    see_all: Shih të gjitha
     speech:
       author_title:
         minister: Ministri

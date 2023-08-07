@@ -130,10 +130,7 @@ pa-pk:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: مواد
-    latest: تازہ ترین دستاویزات
     published: اشاعت کیتا ہویا
-    see_all: سب کُج ویکھو
     speech:
       author_title:
         minister: وزیر

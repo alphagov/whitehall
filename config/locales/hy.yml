@@ -133,10 +133,7 @@ hy:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Բովանդակություն
-    latest: Թարմացված փաստաթղթեր
     published: հրապարակված
-    see_all: Դիտել բոլորը
     speech:
       author_title:
         minister: Նախարար

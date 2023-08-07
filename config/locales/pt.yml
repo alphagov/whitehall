@@ -133,10 +133,7 @@ pt:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Conteúdos
-    latest: Documentos recentes
     published: publicado
-    see_all: Ver tudo
     speech:
       author_title:
         minister: Ministro

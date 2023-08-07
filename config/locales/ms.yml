@@ -133,10 +133,7 @@ ms:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Kandungan
-    latest: Dokumen terkini
     published: diterbitkan
-    see_all: Lihat semua
     speech:
       author_title:
         minister: Menteri

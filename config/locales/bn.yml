@@ -132,10 +132,7 @@ bn:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: বিষয়সূচী
-    latest: সর্বশেষ নথিসমূহ
     published: প্রকাশিত হয়েছে
-    see_all: সবগুলো দেখুন
     speech:
       author_title:
         minister: মন্ত্রী
