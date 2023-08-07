@@ -455,7 +455,6 @@ da:
       jobs: Job
       jobs_and_contacts: Job og kontrakter
       organisation_chart: Vores organisationsdiagram
-      transparency: Data om gennemsigtighed
     embassies:
       find_an_embassy_title: 
   roles:
