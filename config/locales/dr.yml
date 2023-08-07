@@ -92,11 +92,6 @@ dr:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: بسته شد
-    closing_today: امروز بسته میشود
-    closing_tomorrow: فردا بسته میشود
-    days_left: "%{days_left} روز ها باقی مانده"
   contact:
     access_and_opening_times: زمان باز کردن و دسترسی
     contact_form: فورم تماس

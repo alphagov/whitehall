@@ -91,11 +91,6 @@ is:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Lokað
-    closing_today: Lokar í dag
-    closing_tomorrow: Lokar á morgun
-    days_left: "%{days_left} daga eftir"
   contact:
     access_and_opening_times: Aðgengi og opnunartímar
     contact_form: Eyðublað til að hafa samband

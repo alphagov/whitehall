@@ -91,11 +91,6 @@ gu:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: બંધ થયું
-    closing_today: આજે બંધ થાય છે
-    closing_tomorrow: આવતી કાલે બંધ થાય છે
-    days_left: "%{days_left} દિવસ બાકી રહ્યા"
   contact:
     access_and_opening_times: 'એક્સેસ અને ઓપનિંગ સમય '
     contact_form: સંપર્ક પત્રક

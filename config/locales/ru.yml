@@ -89,11 +89,6 @@ ru:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Закрыто
-    closing_today: День закрытия
-    closing_tomorrow: Закрывается завтра
-    days_left: "%{days_left} дней осталось"
   contact:
     access_and_opening_times: Время доступа и открытия
     contact_form: Форма обратной связи

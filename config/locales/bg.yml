@@ -91,11 +91,6 @@ bg:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Закрито
-    closing_today: Закрито днес
-    closing_tomorrow: Закрива се утре
-    days_left: "%{days_left} останали дни"
   contact:
     access_and_opening_times: Часове за достъп и отваряне
     contact_form: Формуляр за контакт

@@ -92,11 +92,6 @@
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Lukket
-    closing_today: Stenger i dag
-    closing_tomorrow: Stenger i morgen
-    days_left: "%{days_left} dager igjen"
   contact:
     access_and_opening_times: Tilgang og åpningstider
     contact_form: Kontaktskjema

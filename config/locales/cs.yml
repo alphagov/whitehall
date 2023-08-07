@@ -92,11 +92,6 @@ cs:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Uzavřeno
-    closing_today: Dnešní uzávěrka
-    closing_tomorrow: Uzavírá se zítra
-    days_left: "%{days_left} zbývající dny"
   contact:
     access_and_opening_times: Přístup a otevírací doba
     contact_form: Kontaktní formulář

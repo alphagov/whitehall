@@ -92,11 +92,6 @@ hi:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: बंद हो गया
-    closing_today: आज बंद हो रहा है
-    closing_tomorrow: कल बंद होगा
-    days_left: "%{days_left} दिन बाकी"
   contact:
     access_and_opening_times: एक्सेस और खुलने का समय
     contact_form: संपर्क प्रपत्र

@@ -91,11 +91,6 @@ id:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Ditutup
-    closing_today: Hari ini ditutup
-    closing_tomorrow: Ditutup besok
-    days_left: "%{days_left} hari tersisa"
   contact:
     access_and_opening_times: Waktu akses dan buka
     contact_form: Formulir kontak

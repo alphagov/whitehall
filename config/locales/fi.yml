@@ -92,11 +92,6 @@ fi:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Suljettu
-    closing_today: Suljetaan tänään
-    closing_tomorrow: Sulkeutuu huomenna
-    days_left: "%{days_left} päivää jäljellä"
   contact:
     access_and_opening_times: Pääsy ja aukioloajat
     contact_form: Yhteydenottolomake

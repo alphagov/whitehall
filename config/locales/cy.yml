@@ -91,11 +91,6 @@ cy:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Wedi cau
-    closing_today: Yn cau heddiw
-    closing_tomorrow: Yn cau yfory
-    days_left: "%{days_left} o ddyddiau ar ôl"
   contact:
     access_and_opening_times: Mynediad ac amseroedd agor
     contact_form: Ffurflen gysylltu

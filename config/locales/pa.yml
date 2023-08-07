@@ -92,11 +92,6 @@ pa:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: ਬੰਦ
-    closing_today: ਅੱਜ ਬੰਦ
-    closing_tomorrow: ਭਲਕੇ ਬੰਦ
-    days_left: "%{days_left} ਦਿਨ ਬਾਕੀ"
   contact:
     access_and_opening_times: ਪਹੁੰਚ ਅਤੇ ਖੋਲ੍ਹਣ ਦੇ ਸਮੇਂ
     contact_form: ਸੰਪਰਕ ਫਾਰਮ

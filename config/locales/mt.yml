@@ -89,11 +89,6 @@ mt:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Magħluq
-    closing_today: Magħluq illum
-    closing_tomorrow: Jagħlaq għada
-    days_left: Fadal %{days_left} ġurnata
   contact:
     access_and_opening_times: Aċċess u ħinijiet tal-ftuħ
     contact_form: Formola ta' kuntatt

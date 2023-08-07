@@ -91,11 +91,6 @@ vi:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Đã đóng
-    closing_today: Đóng hôm nay
-    closing_tomorrow: Đóng vào ngày mai
-    days_left: Còn %{days_left} ngày
   contact:
     access_and_opening_times: Thời gian làm việc và mở cửa
     contact_form: Biểu mẫu liên hệ

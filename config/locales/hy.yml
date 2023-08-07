@@ -92,11 +92,6 @@ hy:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Ավարտվել է
-    closing_today: Այսօր ավարտվում է
-    closing_tomorrow: Ավարտվում է վաղը
-    days_left: Մնացել է %{days_left} օր
   contact:
     access_and_opening_times: Մուտք և հասանելիության ժամեր
     contact_form: Կոնտակտային ձև

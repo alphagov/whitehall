@@ -92,11 +92,6 @@ sq:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Mbyllur
-    closing_today: Mbyllet sot
-    closing_tomorrow: Mbyllet nesër
-    days_left: "%{days_left} ditë të mbetura"
   contact:
     access_and_opening_times: Orari i hyrjes dhe hapjes
     contact_form: Formular kontakti

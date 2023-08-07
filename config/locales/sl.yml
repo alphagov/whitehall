@@ -92,11 +92,6 @@ sl:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Zaprto
-    closing_today: Zapira se danes
-    closing_tomorrow: Zapira se jutri
-    days_left: Še %{days_left} dni
   contact:
     access_and_opening_times: Dostop do pisarne in odpiralni čas
     contact_form: Dostop in odpiralni čas

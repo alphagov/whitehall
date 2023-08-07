@@ -89,11 +89,6 @@ pa-pk:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: بند ہویا
-    closing_today: اج بند ہو ریئا اے
-    closing_tomorrow: کل بند ہوئے گا
-    days_left: جنے دن رہ گئے نیں {days_left}%
   contact:
     access_and_opening_times: پہنچ تے کُھلن دا ویلہ
     contact_form: رابطے دا فارم

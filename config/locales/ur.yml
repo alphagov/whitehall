@@ -91,11 +91,6 @@ ur:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: بند
-    closing_today: آج بند ہونا ہے۔
-    closing_tomorrow: کل بند ہونا ہے۔
-    days_left: "%{days_left} دن باقی ہیں"
   contact:
     access_and_opening_times: رسائی اور کھولنے کے اوقات
     contact_form: رابطے کا فارم

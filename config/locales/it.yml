@@ -92,11 +92,6 @@ it:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Chiuso
-    closing_today: In chiusura oggi
-    closing_tomorrow: Si chiude domani
-    days_left: "%{days_left} giorni rimasti"
   contact:
     access_and_opening_times: Orari di accesso e di apertura
     contact_form: Modulo di contatto

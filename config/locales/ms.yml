@@ -92,11 +92,6 @@ ms:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Ditutup
-    closing_today: Tutup hari ini
-    closing_tomorrow: Tutup esok
-    days_left: Tinggal %{days_left} hari
   contact:
     access_and_opening_times: Akses dan waktu pembukaan
     contact_form: Borang hubungan

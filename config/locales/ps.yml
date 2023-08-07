@@ -92,11 +92,6 @@ ps:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: تړل شوی
-    closing_today: نن ورځ تړل
-    closing_tomorrow: سبا بندېږي
-    days_left: "%{days_left} ورځې پاتې دي"
   contact:
     access_and_opening_times: د لاسرسي او خلاصیدو وختونه
     contact_form: د اړیکې فورمه

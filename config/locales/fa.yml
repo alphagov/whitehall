@@ -91,11 +91,6 @@ fa:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: بسته شده
-    closing_today: امروز بسته شده
-    closing_tomorrow: فردا بسته می‌شود
-    days_left: "%{days_left} روز باقی‌مانده"
   contact:
     access_and_opening_times: دفعات دسترسی و باز شدن
     contact_form: فرم تماس

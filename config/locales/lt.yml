@@ -89,11 +89,6 @@ lt:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Pasibaigusi
-    closing_today: Baigiasi šiandien
-    closing_tomorrow: Baigiasi rytoj
-    days_left: Liko %{days_left} dienų
   contact:
     access_and_opening_times: Prieiga ir  pradžios laikas
     contact_form: Parašykite mums

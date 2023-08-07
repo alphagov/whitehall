@@ -91,11 +91,6 @@ kk:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Жабық
-    closing_today: Бүгін жабылады
-    closing_tomorrow: Ертең жабылады
-    days_left: "%{days_left} күн қалды"
   contact:
     access_and_opening_times: Кіру және ашу уақыттары
     contact_form: Байланысу формасы

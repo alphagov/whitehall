@@ -89,11 +89,6 @@ pl:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Zamknięte
-    closing_today: Zamknięcie dziś
-    closing_tomorrow: Zamknięcie jutro
-    days_left: Pozostało %{days_left} dni
   contact:
     access_and_opening_times: Czas dostępu i otwarcia
     contact_form: Formularz kontaktowy

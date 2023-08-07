@@ -92,11 +92,6 @@ ka:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: დახურულია
-    closing_today: იხურება დღეს
-    closing_tomorrow: იხურება ხვალ
-    days_left: "%{days_left} დარჩა დღეები"
   contact:
     access_and_opening_times: ხელმისაწვდომობა და გახსნის დროები
     contact_form: საკონტაქტო ფორმა

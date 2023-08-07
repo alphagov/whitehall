@@ -91,11 +91,6 @@ zh:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: 关闭
-    closing_today: 今天关闭
-    closing_tomorrow: 明天关闭
-    days_left: 还剩 %{days_left} 天
   contact:
     access_and_opening_times: 访问和打开次数
     contact_form: 联系表单

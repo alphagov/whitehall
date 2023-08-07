@@ -92,11 +92,6 @@ da:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Luk
-    closing_today: Lukning i dag
-    closing_tomorrow: Lukker i morgen
-    days_left: "%{days_left} dage tilbage"
   contact:
     access_and_opening_times: Adgang til kontoret og åbningstider
     contact_form: Kontaktformular

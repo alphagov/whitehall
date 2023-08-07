@@ -92,11 +92,6 @@ az:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Bağlıdır
-    closing_today: Bu gün bağlanır
-    closing_tomorrow: Sabah bağlanır
-    days_left: "%{days_left} gün qalıb"
   contact:
     access_and_opening_times: Giriş və iş vaxtı
     contact_form: Əlaqə saxlamaq üçün forma

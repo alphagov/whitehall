@@ -91,11 +91,6 @@ ko:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: 종결됨
-    closing_today: 오늘 종결됨
-    closing_tomorrow: 내일 종결
-    days_left: "%{days_left} 일 남음"
   contact:
     access_and_opening_times: 액세스 및 공개 시간
     contact_form: 콘택트 폼

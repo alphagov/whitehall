@@ -91,11 +91,6 @@ uz:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Ёпиқ
-    closing_today: Бугун ёпилади
-    closing_tomorrow: Эртага ёпилади
-    days_left: "%{days_left} кун қолди"
   contact:
     access_and_opening_times: Кириш ва очилиш вақти
     contact_form: Алоқа шакли

@@ -92,11 +92,6 @@ sv:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Stängd
-    closing_today: Stänger idag
-    closing_tomorrow: Stänger i morgon
-    days_left: "%{days_left} dagar kvar"
   contact:
     access_and_opening_times: Tillgång och öppettider
     contact_form: Kontaktformulär

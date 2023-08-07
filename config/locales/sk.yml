@@ -92,11 +92,6 @@ sk:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Zatvorené
-    closing_today: Uzatvára sa dnes
-    closing_tomorrow: Uzatvára sa zajtra
-    days_left: "%{days_left} zostávajúcich dní"
   contact:
     access_and_opening_times: Prístup a otváracie hodiny
     contact_form: Kontaktný formulár

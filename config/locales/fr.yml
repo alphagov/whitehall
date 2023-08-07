@@ -92,11 +92,6 @@ fr:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Fermé
-    closing_today: Fermeture aujourd'hui
-    closing_tomorrow: Ferme demain
-    days_left: "%{days_left} jours restants"
   contact:
     access_and_opening_times: Horaires d'accès et d'ouverture
     contact_form: Formulaire de contact

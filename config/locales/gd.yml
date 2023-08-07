@@ -91,11 +91,6 @@ gd:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Gnólacht
-    closing_today: Dúnta inniu
-    closing_tomorrow: Ag dúnadh amárach
-    days_left: "%{days_left} lá fágtha"
   contact:
     access_and_opening_times: Uaireanta rochtana agus oscailte
     contact_form: Foirm teagmhála

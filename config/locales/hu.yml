@@ -91,11 +91,6 @@ hu:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Lezárva
-    closing_today: Ma zárul
-    closing_tomorrow: Holnap zárul
-    days_left: "%{days_left} nap van hátra"
   contact:
     access_and_opening_times: Hozzáférési és nyitási idők
     contact_form: Kapcsolatfelvételi űrlap

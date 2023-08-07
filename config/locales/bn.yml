@@ -91,11 +91,6 @@ bn:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: বন্ধ হয়ে গেছে
-    closing_today: আজকে বন্ধ হচ্ছে
-    closing_tomorrow: আগামীকাল বন্ধ হচ্ছে
-    days_left: "%{days_left} দিন বাকি আছে"
   contact:
     access_and_opening_times: প্রবেশ ও খোলার সময়
     contact_form: যোগাযোগের ফর্ম

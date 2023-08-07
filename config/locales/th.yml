@@ -91,11 +91,6 @@ th:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: ปิดแล้ว
-    closing_today: กำลังปิดวันนี้
-    closing_tomorrow: ปิดพรุ่งนี้
-    days_left: เหลืออีก %{days_left} วัน
   contact:
     access_and_opening_times: การเข้าถึงและเวลาเปิดทำการ
     contact_form: แบบฟอร์มการติดต่อ

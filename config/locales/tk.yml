@@ -91,11 +91,6 @@ tk:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Ýapyk
-    closing_today: Şu gün ýapylýar
-    closing_tomorrow: Ertir ýapylýar
-    days_left: "%{days_left} gün galdy"
   contact:
     access_and_opening_times: Giriş we açyk wagtlary
     contact_form: Habarlaşmak üçin forma

@@ -91,11 +91,6 @@ tr:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Kapatılan
-    closing_today: Bugün kapanıyor
-    closing_tomorrow: Yarın kapanıyor
-    days_left: "%{days_left} gün kaldı"
   contact:
     access_and_opening_times: Giriş ve açılma saatleri
     contact_form: İrtibat formu

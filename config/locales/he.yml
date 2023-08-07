@@ -92,11 +92,6 @@ he:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: סגור
-    closing_today: נסגר היום
-    closing_tomorrow: נסגר מחר
-    days_left: נותרו %{days_left} ימים
   contact:
     access_and_opening_times: זמני גישה ופתיחה
     contact_form: טופס יצירת קשר

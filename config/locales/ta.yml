@@ -91,11 +91,6 @@ ta:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: மூடப்பட்டது
-    closing_today: இன்று மூடப்படுகிறது
-    closing_tomorrow: நாளை மூடப்படுகிறது
-    days_left: "%{days_left} நாட்கள் எஞ்சியுள்ளன"
   contact:
     access_and_opening_times: அணுகுதல் மற்றும் திறக்கும் நேரங்கள்
     contact_form: தொடர்பு படிவம்

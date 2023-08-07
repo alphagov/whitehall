@@ -92,11 +92,6 @@ hr:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Zatvoreno
-    closing_today: Zatvara se danas
-    closing_tomorrow: Zatvara se sutra
-    days_left: "%{days_left} preostalo dana"
   contact:
     access_and_opening_times: Vrijeme pristupa i otvaranje
     contact_form: Kontakt obrazac

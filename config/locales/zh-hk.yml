@@ -91,11 +91,6 @@ zh-hk:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: 已關閉
-    closing_today: 今日關閉
-    closing_tomorrow: 明日關閉
-    days_left: 還剩 %{days_left} 日
   contact:
     access_and_opening_times: 訪問及開放時間
     contact_form: 聯絡資料表

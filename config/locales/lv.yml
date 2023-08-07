@@ -89,11 +89,6 @@ lv:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Aizvērts
-    closing_today: Aizveras šodien
-    closing_tomorrow: Aizvērsies rīt
-    days_left: 'Atlikušo dienu skaits: %{days_left}'
   contact:
     access_and_opening_times: Piekļuves un atvēršanas laiks
     contact_form: Saziņas forma

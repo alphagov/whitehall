@@ -91,11 +91,6 @@ si:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: වසා ඇත
-    closing_today: අද දින වසා දැමේ
-    closing_tomorrow: හෙට වසා දැමේ
-    days_left: දවස් {days_left} ක් ඉතිරිව ඇත
   contact:
     access_and_opening_times: පිවිසුම සහ විවෘත කරන වේලාවන්
     contact_form: සබඳතා ආකෘතිය

@@ -91,11 +91,6 @@ el:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Κλειστό
-    closing_today: Κλείνει σήμερα
-    closing_tomorrow: Κλείνει αύριο
-    days_left: Απομένουν %{days_left} ημέρες
   contact:
     access_and_opening_times: Πρόσβαση και ώρες λειτουργίας
     contact_form: Φόρμα επικοινωνίας

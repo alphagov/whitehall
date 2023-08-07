@@ -89,11 +89,6 @@ yi:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: 
     contact_form: 

@@ -89,11 +89,6 @@ be:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Закрыты
-    closing_today: Зачыняецца сёння
-    closing_tomorrow: Зачыняецца заўтра
-    days_left: "%{days_left} дзён засталося"
   contact:
     access_and_opening_times: Доступ і час працы
     contact_form: Кантактная форма

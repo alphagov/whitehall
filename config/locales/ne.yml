@@ -91,11 +91,6 @@ ne:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: बन्द
-    closing_today: आज बन्द हुँदैछ
-    closing_tomorrow: भोलि बन्द हुन्छ
-    days_left: "%{days_left} दिन बाँकी"
   contact:
     access_and_opening_times: पहुँच र खुल्ने समय
     contact_form: सम्पर्क फारम

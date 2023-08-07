@@ -89,11 +89,6 @@ ar:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: مغلق
-    closing_today: سيغلق اليوم
-    closing_tomorrow: سيغلق غدًا
-    days_left: "%{days_left} أيام متبقية"
   contact:
     access_and_opening_times: أوقات الوصول والفتح
     contact_form: نموذج الاتصال

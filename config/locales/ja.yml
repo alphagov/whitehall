@@ -89,11 +89,6 @@ ja:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: ご利用いただけません
-    closing_today: 本日は、ご利用いただけません
-    closing_tomorrow: 明日は、ご利用いただけません
-    days_left: 残り ％{days_left} 日
   contact:
     access_and_opening_times: アクセスと利用時間
     contact_form: お問い合わせフォーム

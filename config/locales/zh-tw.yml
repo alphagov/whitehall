@@ -91,11 +91,6 @@ zh-tw:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: 關閉
-    closing_today: 今日關閉
-    closing_tomorrow: 明日關閉
-    days_left: 剩餘 %{days_left} 日
   contact:
     access_and_opening_times: 訪問與開啟時間
     contact_form: 聯繫表

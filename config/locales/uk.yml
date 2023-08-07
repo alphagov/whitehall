@@ -91,11 +91,6 @@ uk:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Закрито
-    closing_today: Закривається сьогодні
-    closing_tomorrow: Закривається завтра
-    days_left: "%{days_left} днів лишилося"
   contact:
     access_and_opening_times: Доступ і час відкриття
     contact_form: Форма зв'язку

@@ -91,11 +91,6 @@ so:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Xidhan
-    closing_today: Xidhan maanta
-    closing_tomorrow: Beri xidhan
-    days_left: "%{days_left} maalmaha tagay"
   contact:
     access_and_opening_times: Wakhtiyada galitaanka iyo furitaanka
     contact_form: Foomka lagala xidhiidhayo

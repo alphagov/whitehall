@@ -91,11 +91,6 @@ sw:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Imefungwa
-    closing_today: Inafungwa leo
-    closing_tomorrow: Itafungwa kesho
-    days_left: Zimebaki siku %{days_left}
   contact:
     access_and_opening_times: Saa za upatikanaji na kufunguliwa
     contact_form: Fomu ya mawasiliano

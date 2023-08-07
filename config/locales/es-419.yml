@@ -92,11 +92,6 @@ es-419:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Cerrado
-    closing_today: Cierra hoy
-    closing_tomorrow: Cierra mañana
-    days_left: "%{days_left} días restantes"
   contact:
     access_and_opening_times: Acceso y horarios de aperturaAcceso y inicio
     contact_form: Formulario de contacto

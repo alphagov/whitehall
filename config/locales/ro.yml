@@ -91,11 +91,6 @@ ro:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Închis
-    closing_today: Se închide astăzi
-    closing_tomorrow: Se închide mâine
-    days_left: Mai sunt %{days_left}
   contact:
     access_and_opening_times: Orele de acces și deschidere
     contact_form: 'Formular de contact:'

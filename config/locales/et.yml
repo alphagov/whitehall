@@ -91,11 +91,6 @@ et:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Suletud
-    closing_today: Suletakse täna
-    closing_tomorrow: Suletakse homme
-    days_left: "%{days_left} päeva jäänud"
   contact:
     access_and_opening_times: Juurdepääs ja lahtiolekuajad
     contact_form: Kontaktivorm

@@ -89,11 +89,6 @@ nl:
     closing_today: 
     closing_tomorrow: 
     days_left: 
-  consultation:
-    closed: Gesloten
-    closing_today: Sluiting vandaag
-    closing_tomorrow: Sluit morgen
-    days_left: "%{days_left} resterende dagen"
   contact:
     access_and_opening_times: Toegang en openingstijden
     contact_form: Contactformulier
