@@ -139,6 +139,12 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "/government/calls-for-evidence/#{call_for_evidence.slug}/outcome/#{attachment.slug}", attachment.url
   end
 
+  test "#url works when call for evidence has html attachment" do
+    call_for_evidence = create(:call_for_evidence_with_html_attachment)
+    attachment = call_for_evidence.attachments.first
+    assert_equal "/government/calls-for-evidence/#{call_for_evidence.slug}/#{attachment.slug}", attachment.url
+  end
+
   test "slug is copied from previous edition's attachment" do
     edition = create(
       :published_publication,
