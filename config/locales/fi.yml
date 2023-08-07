@@ -536,11 +536,3 @@ fi:
       publication_scheme_html: Lue, millaisia tietoja julkaisemme rutiininomaisesti %{link}.
       social_media_use_html: Lue käytäntömme osoitteesta %{link}.
       welsh_language_scheme_html: Tutustu sitoumukseemme %{link}.
-    find_out_more: Katso koko profiili ja kaikki yhteystiedot
-    headings:
-      contact_us: Ota yhteyttä
-      corporate_information: Yritystiedot
-      follow_us: Seuraa meitä
-      our_people: Meidän ihmiset
-    location: Sijainti
-    part_of: Osa

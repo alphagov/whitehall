@@ -535,11 +535,3 @@ tr:
       publication_scheme_html: "%{link} bağlantımızda düzenli olarak yayınladığımız bilgi türlerini okuyun."
       social_media_use_html: "%{link} bağlantısındaki politikamızı okuyun."
       welsh_language_scheme_html: "%{link} bağlantısına taahhüdümüzü okuyun."
-    find_out_more: Tüm profil ve tüm irtibat bilgilerine bakın
-    headings:
-      contact_us: Bize Ulaşın
-      corporate_information: Kurumsal bilgiler
-      follow_us: Bizi takip edin
-      our_people: İnsan kaynağımız
-    location: Konum
-    part_of: Şunun kısmı

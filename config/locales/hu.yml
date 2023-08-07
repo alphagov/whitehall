@@ -535,11 +535,3 @@ hu:
       publication_scheme_html: 'Tekintse meg, hogy milyen jellegű információkat teszünk közzé: %{link}.'
       social_media_use_html: 'Bővebb információk az alábbi témával kapcsolatban: %{link}.'
       welsh_language_scheme_html: 'Tájékozódjon az információk közzétételével kapcsolatos elkötelezettségünkről: %{link}.'
-    find_out_more: A teljes profil és elérhetőség megtekintése
-    headings:
-      contact_us: Kapcsolat
-      corporate_information: Vállalati adatok
-      follow_us: Kövessen minket
-      our_people: Munkatársaink
-    location: Helyszín
-    part_of: 'Része a következőnek:'
