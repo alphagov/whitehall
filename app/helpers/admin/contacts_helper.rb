@@ -20,6 +20,12 @@ module Admin::ContactsHelper
         id: "general_and_media_contacts",
         title: tab_title(title_text, general_contacts, contactable),
         label: title_text,
+        tab_data_attributes: {
+          module: "gem-track-click",
+          "track-category": "tab",
+          "track-action": "contact-general-tab",
+          "track-label": title_text,
+        },
         content: render("admin/contacts/contacts", contacts: general_contacts, contactable:, title: "Translated general and media contacts"),
       }
     end
@@ -33,6 +39,12 @@ module Admin::ContactsHelper
         id: "freedom_of_information_contacts",
         title: tab_title(title_text, foi_contacts, contactable),
         label: title_text,
+        tab_data_attributes: {
+          module: "gem-track-click",
+          "track-category": "tab",
+          "track-action": "contact-foi-tab",
+          "track-label": title_text,
+        },
         content: render("admin/contacts/contacts", contacts: foi_contacts, contactable:, title: "Translated freedom of information contacts"),
       }
     end
