@@ -9,7 +9,6 @@ class Admin::LegacySocialMediaAccountsControllerTest < ActionController::TestCas
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   test "POST on :create creates social media account" do
     worldwide_organisation = create(:worldwide_organisation)

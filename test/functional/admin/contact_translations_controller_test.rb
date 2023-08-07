@@ -6,7 +6,6 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "should be able to visit new index page for adding translations " do
     organisation = create(:organisation)

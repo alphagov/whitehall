@@ -43,7 +43,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
 private
 
   def get_layout
-    if preview_design_system?(next_release: false)
+    if preview_design_system?(next_release: true)
       "design_system"
     else
       "admin"
@@ -78,6 +78,6 @@ private
 
   def offsite_link_params
     params.require(:offsite_link)
-    .permit(:title, :summary, :link_type, :url, :date)
+          .permit(:title, :summary, :link_type, :url, :date)
   end
 end
