@@ -114,13 +114,13 @@ module PublishingApi
       def corporate_information_groups
         [].tap do |groups|
           groups << {
-            name: translation_for_group(:access_our_info),
+            name: I18n.t("organisation.corporate_information.access_our_info"),
             contents: contents_for_access_our_info.compact,
           }
 
           unless organisation.court_or_hmcts_tribunal?
             groups << {
-              name: translation_for_group(:jobs_and_contacts),
+              name: I18n.t("organisation.corporate_information.jobs_and_contacts"),
               contents: contents_for_jobs_and_contacts.compact,
             }
           end
@@ -166,13 +166,9 @@ module PublishingApi
         return unless organisation_has_chart_url?
 
         {
-          title: translation_for_group(:organisation_chart),
+          title: I18n.t("organisation.corporate_information.organisation_chart"),
           url: organisation.organisation_chart_url,
         }
-      end
-
-      def translation_for_group(group, namespace = :corporate_information)
-        helpers.t("organisation.#{namespace}.#{group}")
       end
     end
 
