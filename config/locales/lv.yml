@@ -490,9 +490,6 @@ lv:
       list_link: 
     headings:
       search: Meklēt pēc valsts vai teritorijas
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Starptautiskā delegācija

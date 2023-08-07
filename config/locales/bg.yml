@@ -492,9 +492,6 @@ bg:
       list_link: 
     headings:
       search: Търсене по страна или територия
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Международна делегация

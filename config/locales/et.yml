@@ -492,9 +492,6 @@ et:
       list_link: 
     headings:
       search: Otsige riigi või territooriumi järgi
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Rahvusvaheline delegatsioon

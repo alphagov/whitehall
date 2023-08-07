@@ -493,9 +493,6 @@ fr:
       list_link: 
     headings:
       search: Recherche par pays ou territoire
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Délégation internationale

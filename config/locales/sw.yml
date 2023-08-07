@@ -492,9 +492,6 @@ sw:
       list_link: 
     headings:
       search: Tafuta kulingana na nchi au eneo
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Ujumbe wa kimataifa

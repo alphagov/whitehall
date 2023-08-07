@@ -493,9 +493,6 @@ he:
       list_link: 
     headings:
       search: חפש לפי מדינה או שטח
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: משלחת בינלאומית

@@ -410,9 +410,6 @@ ja:
       list_link: 
     headings:
       search: 国または地域で検索
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: 国際代表団

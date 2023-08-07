@@ -810,9 +810,6 @@ ar:
       list_link: 
     headings:
       search: البحث حسب البلد أو الإقليم
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 

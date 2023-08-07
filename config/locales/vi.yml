@@ -412,9 +412,6 @@ vi:
       list_link: 
     headings:
       search: Tìm kiếm theo quốc gia hoặc lãnh thổ
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: Phái đoàn quốc tế

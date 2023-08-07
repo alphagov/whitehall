@@ -573,9 +573,6 @@ hr:
       list_link: 
     headings:
       search: Pretražujte prema zemlji ili teritoriju
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 

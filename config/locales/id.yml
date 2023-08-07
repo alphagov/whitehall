@@ -412,9 +412,6 @@ id:
       list_link: 
     headings:
       search: Cari menurut negara atau teritori
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: Delegasi internasional

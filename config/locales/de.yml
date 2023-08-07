@@ -492,9 +492,6 @@ de:
       list_link: 
     headings:
       search: Nach Land oder Gebiet suchen
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Internationale Delegation

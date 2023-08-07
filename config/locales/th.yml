@@ -412,9 +412,6 @@ th:
       list_link: 
     headings:
       search: ค้นหาด้วยประเทศหรือดินแดน
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: คณะผู้แทนระหว่างประเทศ

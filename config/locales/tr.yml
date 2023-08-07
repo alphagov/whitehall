@@ -492,9 +492,6 @@ tr:
       list_link: 
     headings:
       search: Ülkeye veya bölgeye göre arama yapın
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Uluslararası delegasyon

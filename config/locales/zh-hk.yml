@@ -412,9 +412,6 @@ zh-hk:
       list_link: 
     headings:
       search: 按國家或地區搜尋
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: 國際代表

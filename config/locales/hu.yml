@@ -492,9 +492,6 @@ hu:
       list_link: 
     headings:
       search: Keresés ország vagy terület szerint
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Nemzetközi delegáció

@@ -492,9 +492,6 @@ ne:
       list_link: 
     headings:
       search: देश वा क्षेत्रको नामले खोज
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: अन्तर्राष्ट्रिय प्रतिनिधिमण्डल

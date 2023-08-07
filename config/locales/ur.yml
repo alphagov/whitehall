@@ -492,9 +492,6 @@ ur:
       list_link: 
     headings:
       search: ملک یا خطے کے لحاظ سے تلاش کریں
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: عالمی وفد

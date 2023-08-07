@@ -493,9 +493,6 @@ dr:
       list_link: 
     headings:
       search: جستجو به اساس کشور یا قلمرو
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: هیٔت بین المللی

@@ -492,9 +492,6 @@ uz:
       list_link: 
     headings:
       search: Мамлакат ёки минтақа бўйича излаш
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Халқаро делегация

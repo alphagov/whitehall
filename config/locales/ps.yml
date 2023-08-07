@@ -493,9 +493,6 @@ ps:
       list_link: 
     headings:
       search: د هیواد یا سیمې له مخې لټون
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: نړیوال پلاوی

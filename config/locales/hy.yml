@@ -493,9 +493,6 @@ hy:
       list_link: 
     headings:
       search: Որոնել ըստ երկրի կամ տարածաշրջանի
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Միջազգային պատվիրակություն

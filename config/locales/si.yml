@@ -492,9 +492,6 @@ si:
       list_link: 
     headings:
       search: රට හෝ භූමිය අනුව සොයන්න
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: ජාත්යන්තර නියෝජිත පිරිස

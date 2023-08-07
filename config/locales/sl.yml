@@ -653,9 +653,6 @@ sl:
       list_link: 
     headings:
       search: Išči po državah ali ozemljih
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 

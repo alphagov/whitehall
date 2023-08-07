@@ -492,9 +492,6 @@ is:
       list_link: 
     headings:
       search: Leita eftir landi eða landsvæði
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Alþjóðleg sendinefnd

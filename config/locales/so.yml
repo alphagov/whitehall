@@ -492,9 +492,6 @@ so:
       list_link: 
     headings:
       search: Ku raadi dalka ama dhulka
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Wafti caalami ah

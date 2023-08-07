@@ -493,9 +493,6 @@ hi:
       list_link: 
     headings:
       search: देश या क्षेत्र से खोजें
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: अंतर्राष्ट्रीय प्रतिनिधिमंडल

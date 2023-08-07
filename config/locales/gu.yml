@@ -492,9 +492,6 @@ gu:
       list_link: 
     headings:
       search: દેશ અથવા ટેરિટરીથી શોધો
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: આંતરરાષ્ટ્રીય પ્રતિનિધિમંડળ

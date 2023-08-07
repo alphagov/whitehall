@@ -493,9 +493,6 @@ pa:
       list_link: 
     headings:
       search: ਦੇਸ਼ ਜਾਂ ਖੇਤਰ ਦੁਆਰਾ ਖੋਜ ਕਰੋ
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ

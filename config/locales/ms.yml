@@ -413,9 +413,6 @@ ms:
       list_link: 
     headings:
       search: Cari mengikut negara atau wilayah
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: Perwakilan antarabangsa

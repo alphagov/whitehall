@@ -492,9 +492,6 @@ fa:
       list_link: 
     headings:
       search: جستجو بر اساس کشور یا قلمرو
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: هیأت بین‌المللی

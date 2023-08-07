@@ -493,9 +493,6 @@ fi:
       list_link: 
     headings:
       search: Hae maan tai alueen mukaan
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Kansainvälinen valtuuskunta

@@ -652,9 +652,6 @@ uk:
       list_link: 
     headings:
       search: Пошук за країною чи територією
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 

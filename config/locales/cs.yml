@@ -573,9 +573,6 @@ cs:
       list_link: 
     headings:
       search: Vyhledávání podle země nebo území
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 

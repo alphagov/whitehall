@@ -652,9 +652,6 @@ gd:
       list_link: 
     headings:
       search: Cuardaigh de réir tíre nó réigiúin
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 

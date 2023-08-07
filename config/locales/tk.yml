@@ -492,9 +492,6 @@ tk:
       list_link: 
     headings:
       search: Döwlet ýa-da territoriýa boýunça gözlemek
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Halkara delegasiýa

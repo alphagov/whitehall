@@ -492,9 +492,6 @@ kk:
       list_link: 
     headings:
       search: Елі немесе территориясы бойынша іздеу
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Халықаралық делегация

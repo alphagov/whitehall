@@ -492,9 +492,6 @@ bn:
       list_link: 
     headings:
       search: দেশ বা অঞ্চল হিসেবে অনুসন্ধান করুন
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: আন্তর্জাতিক প্রতিনিধি

@@ -650,9 +650,6 @@ ru:
       list_link: 
     headings:
       search: Поиск по стране или территории
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 

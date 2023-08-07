@@ -412,9 +412,6 @@ ko:
       list_link: 
     headings:
       search: 국가 또는 영토로 검색하기
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: 국제 대표단

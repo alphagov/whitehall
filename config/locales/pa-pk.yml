@@ -490,9 +490,6 @@ pa-pk:
       list_link: 
     headings:
       search: مُلک یا علاقے توں لبھو
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: بین الاقوامی وفد

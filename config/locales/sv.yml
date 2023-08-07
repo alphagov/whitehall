@@ -493,9 +493,6 @@ sv:
       list_link: 
     headings:
       search: Sök efter land eller område
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Internationell delegation

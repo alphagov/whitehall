@@ -572,9 +572,6 @@ ro:
       list_link: 
     headings:
       search: Căutați după țară sau teritoriu
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 

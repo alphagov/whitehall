@@ -493,9 +493,6 @@ az:
       list_link: 
     headings:
       search: Ölkəyə və ya əraziyə əsasən axtarın
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Beynəlxalq səlahiyyətin ötürülməsi

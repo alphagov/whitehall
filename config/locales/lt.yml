@@ -570,9 +570,6 @@ lt:
       list_link: 
     headings:
       search: Ieškoti pagal šalį ar teritoriją
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
