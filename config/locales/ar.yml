@@ -714,9 +714,6 @@ ar:
       all: جميع المواقع
       label: المواقع العالمية
       no_locations_filter: لا توجد مواقع عالمية تطابق عامل التصفية هذا.
-  fatality_notice:
-    british_fatalities: الوفيات من البريطانيين
-    none_added: لم تتم إضافة أي إشعارات حول الوفيات في ساحة العمليات هذه حتى الآن.
   feeds:
     latest_activity: أحدث نشاط
   i18n:

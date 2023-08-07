@@ -397,9 +397,6 @@ sv:
       all: Alla platser
       label: Platser i världen
       no_locations_filter: Inga platser i världen matchar det filtret.
-  fatality_notice:
-    british_fatalities: Brittiska dödsfall
-    none_added: Det har ännu inte lagts till några meddelanden om dödsfall för detta verksamhetsområde.
   feeds:
     latest_activity: Senaste aktivitet
   i18n:

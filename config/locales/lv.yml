@@ -394,9 +394,6 @@ lv:
       all: Visas vietas
       label: Vietas pasaulē
       no_locations_filter: Neviena vieta pasaulē neatbilst šim filtram.
-  fatality_notice:
-    british_fatalities: Britu bojāgājušie
-    none_added: Šajā darbības jomā vēl nav neviena paziņojuma par bojāgājušajiem.
   feeds:
     latest_activity: Jaunumi
   i18n:

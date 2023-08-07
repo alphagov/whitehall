@@ -397,9 +397,6 @@ ps:
       all: ټول ځایونه
       label: د نړۍ موقعیتونه
       no_locations_filter: د نړۍ هیڅ ځایونه د دې فلټر سره سمون نه خوري.
-  fatality_notice:
-    british_fatalities: د برتانیا تلفات
-    none_added: تر دې دمه د عملیاتو ساحې لپاره د مرګ خبرتیاوې ندي اضافه شوي.
   feeds:
     latest_activity: وروستي فعالیت
   i18n:

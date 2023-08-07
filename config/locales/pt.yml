@@ -397,9 +397,6 @@ pt:
       all: Todos os locais
       label: Locais mundiais
       no_locations_filter: Nenhum local mundial corresponde a esse filtro.
-  fatality_notice:
-    british_fatalities: Fatalidades britânicas
-    none_added: Ainda não foram adicionados avisos de fatalidade para este campo de operação.
   feeds:
     latest_activity: Atividade mais recente
   i18n:

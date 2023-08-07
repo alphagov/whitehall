@@ -317,9 +317,6 @@ ms:
       all: Semua lokasi
       label: Lokasi dunia
       no_locations_filter: Tidak ada lokasi dunia yang sepadan dengan penapis itu.
-  fatality_notice:
-    british_fatalities: Kematian warga British
-    none_added: Belum ada notis kematian yang ditambahkan untuk medan operasi ini.
   feeds:
     latest_activity: Aktiviti terkini
   i18n:

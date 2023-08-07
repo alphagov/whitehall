@@ -557,9 +557,6 @@ sl:
       all: Vse lokacije
       label: Lokacije po svetu
       no_locations_filter: Nobena lokacija na svetu se ne ujema s tem filtrom.
-  fatality_notice:
-    british_fatalities: Britanske smrtne žrtve
-    none_added: Za to področje delovanja še ni bilo dodanih obvestil o smrtnih žrtvah.
   feeds:
     latest_activity: Zadnja dejavnost
   i18n:

@@ -316,9 +316,6 @@ ko:
       all: 모든 로케이션
       label: 월드 로케이션
       no_locations_filter: 해당 필터와 일치하는 세계 필터란 없습니다.
-  fatality_notice:
-    british_fatalities: 영국 사망자
-    none_added: 이 운영 분야의 사망 통지는 아직 추가되지 않았습니다.
   feeds:
     latest_activity: 최근 활동
   i18n:

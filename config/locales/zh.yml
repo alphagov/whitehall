@@ -316,9 +316,6 @@ zh:
       all: 全部地点
       label: 世界地点
       no_locations_filter: 世界上没有任何地点匹配这个过滤器。
-  fatality_notice:
-    british_fatalities: 英国死亡事故
-    none_added: 目前还没有关于这一经营领域的死亡通知。
   feeds:
     latest_activity: 最新活动
   i18n:

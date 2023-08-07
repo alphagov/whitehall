@@ -397,9 +397,6 @@ ka:
       all: ყველა ლოკაცია
       label: მსოფლიო ლოკაციები
       no_locations_filter: არც ერთი მსოფლიო ლოკაცია არ ემთხვევა ამ ფილტრს.
-  fatality_notice:
-    british_fatalities: ბრიტანული ფატალურობები
-    none_added: ფატალურობის შეტყობინება ჯერ არ დამატებულა ოპერაციის ამ სფეროში.
   feeds:
     latest_activity: ბოლო აქტივობა
   i18n:

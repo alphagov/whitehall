@@ -394,9 +394,6 @@ es:
       all: Todos los lugares
       label: Lugares del mundo
       no_locations_filter: Ninguna ubicación mundial coincide con ese filtro.
-  fatality_notice:
-    british_fatalities: Defunciones británicas
-    none_added: Aún no se han agregado los avisos de defunción para este campo de operación.
   feeds:
     latest_activity: Actividad reciente
   i18n:

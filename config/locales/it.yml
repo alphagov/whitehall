@@ -397,9 +397,6 @@ it:
       all: Tutte le posizioni
       label: Località del mondo
       no_locations_filter: Nessuna località del mondo corrisponde a quel filtro.
-  fatality_notice:
-    british_fatalities: Vittime britanniche
-    none_added: Non sono stati ancora aggiunti avvisi di morte per questo campo di attività.
   feeds:
     latest_activity: Ultima attività
   i18n:

@@ -397,9 +397,6 @@ he:
       all: כל המיקומים
       label: מיקומים גלובאליים
       no_locations_filter: אין מיקומים גלובאליים התואמים את המסנן הזה.
-  fatality_notice:
-    british_fatalities: הרוגים בריטים
-    none_added: עדיין לא נוספו הודעות פטירה על תחום פעולה זה.
   feeds:
     latest_activity: פעילות אחרונה
   i18n:

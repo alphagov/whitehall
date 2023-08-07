@@ -477,9 +477,6 @@ hr:
       all: Sve lokacije
       label: Svjetske lokacije
       no_locations_filter: Nijedna svjetska lokacija ne odgovara tom filtru.
-  fatality_notice:
-    british_fatalities: Britanski smrtni slučajevi
-    none_added: Za ovo područje djelovanja još nema dodanih obavijesti o smrtnim slučajevima.
   feeds:
     latest_activity: Najnovija aktivnost
   i18n:

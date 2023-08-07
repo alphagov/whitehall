@@ -396,9 +396,6 @@ si:
       all: සියලුම ස්ථාන
       label: ලෝක ස්ථාන
       no_locations_filter: කිසිදු ලෝක ස්ථානයක් එම පෙරණයට නොගැලපේ.
-  fatality_notice:
-    british_fatalities: බ්රිතාන්ය මරණ
-    none_added: මෙම මෙහෙයුම් ක්ෂේත්රයට තවමත් මරණ දැන්වීම් එකතු කර නොමැත.
   feeds:
     latest_activity: නවතම ක්රියාකාරකම
   i18n:

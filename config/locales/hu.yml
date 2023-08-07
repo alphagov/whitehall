@@ -396,9 +396,6 @@ hu:
       all: Minden ország
       label: Helyszínek a világban
       no_locations_filter: Nincs olyan helyszín a világban, ami megfelelne ennek a szűrőnek.
-  fatality_notice:
-    british_fatalities: Brit halálesetek
-    none_added: Ehhez a működési területhez még nem lettek hozzáadva halálesetekkel kapcsolatos értesítések.
   feeds:
     latest_activity: Legfrissebb aktivitás
   i18n:

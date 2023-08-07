@@ -556,9 +556,6 @@ gd:
       all: Gach láthair
       label: Áit ar domhan
       no_locations_filter: Níl aon áit ar domhan comhoiriúnach leis an scagaire seo.
-  fatality_notice:
-    british_fatalities: Dola báis na Breataine
-    none_added: Níor cuireadh aon fhógra báis leis an réimse gníomhaíochta seo.
   feeds:
     latest_activity: Gníomhaíocht dheireanach
   i18n:

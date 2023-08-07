@@ -397,9 +397,6 @@ dr:
       all: تمام موقعیت ها
       label: موقعیت هایی جهان
       no_locations_filter: هیچ مکان جهان با آن فلتر مطابقت ندارد.
-  fatality_notice:
-    british_fatalities: مرگ و میر بریتانیایی ها
-    none_added: هنوز هیچ خبر مرگ و میر در این بخش عملیات اضافه نشده است.
   feeds:
     latest_activity: جدیدترین فعالیت ها
   i18n:

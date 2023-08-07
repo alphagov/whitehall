@@ -394,9 +394,6 @@ nl:
       all: Alle locaties
       label: Wereld locaties
       no_locations_filter: Geen locaties in de wereld komen overeen met dat filter.
-  fatality_notice:
-    british_fatalities: Britse sterfgevallen
-    none_added: Er zijn nog geen meldingen van sterfgevallen toegevoegd voor dit werkgebied.
   feeds:
     latest_activity: Laatste activiteit
   i18n:

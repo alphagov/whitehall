@@ -397,9 +397,6 @@
       all: Alle steder
       label: Steder i verden
       no_locations_filter: Ingen steder i verden samsvarer med det filteret.
-  fatality_notice:
-    british_fatalities: Britiske dødsfall
-    none_added: Det har ikke blitt lagt til noen meldinger om dødsfall for dette operasjonsfeltet ennå.
   feeds:
     latest_activity: Siste aktivitet
   i18n:

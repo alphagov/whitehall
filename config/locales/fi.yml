@@ -397,9 +397,6 @@ fi:
       all: Kaikki sijainnit
       label: Maailman sijainnit
       no_locations_filter: Mikään maailman sijainnit eivät vastaa tätä suodatinta.
-  fatality_notice:
-    british_fatalities: Britannian kuolemantapauksia
-    none_added: Kuolemantapauksia ei ole ilmoitettu lisätty tälle toiminta-alueelle.
   feeds:
     latest_activity: Viimeisin toiminta
   i18n:

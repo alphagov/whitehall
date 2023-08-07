@@ -394,9 +394,6 @@ pa-pk:
       all: ساریاں تھاواں
       label: دُنیا دیاں تھاواں
       no_locations_filter: دُنیا دی کوئی وی تھاں چھانن نال نئیں ملدی
-  fatality_notice:
-    british_fatalities: برطانوی اموات
-    none_added: موت دی کوئی وی اطلاع شامل نئیں کیتی گئی ایس تھاں تے کم کرن لئی
   feeds:
     latest_activity: پچھلی سرگرمی
   i18n:

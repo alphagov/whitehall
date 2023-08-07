@@ -397,9 +397,6 @@ da:
       all: Alle steder
       label: Verden Placeringer
       no_locations_filter: Ingen verdensrangliste matcher det filter.
-  fatality_notice:
-    british_fatalities: Britiske dødsfald
-    none_added: Der er ikke tilføjet nogen dødsfald for dette operationsområde endnu.
   feeds:
     latest_activity: Seneste aktivitet
   i18n:

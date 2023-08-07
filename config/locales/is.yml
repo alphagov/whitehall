@@ -396,9 +396,6 @@ is:
       all: Allar staðsetningar
       label: Staðsetningar í heiminum
       no_locations_filter: Engar staðsetningar í heiminum passa við þessa síu.
-  fatality_notice:
-    british_fatalities: Bresk dauðsföll
-    none_added: Engum tilkynningum um dauðsföll hefur verið bætt við fyrir þetta starfsvið.
   feeds:
     latest_activity: Nýjasta virkni
   i18n:

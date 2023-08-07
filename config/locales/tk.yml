@@ -396,9 +396,6 @@ tk:
       all: Ähli ýerler
       label: Dünýä ýerleri
       no_locations_filter: Bu gözlege gabat gelýän dünýä ýerleri ýok.
-  fatality_notice:
-    british_fatalities: Iňlis ölümleri
-    none_added: Bu ugurda entek ölüm howpy barada duýduryş habary ýok.
   feeds:
     latest_activity: Iň täze işjeňlik
   i18n:

@@ -397,9 +397,6 @@ pa:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਸਥਾਨ
       no_locations_filter: ਕੋਈ ਵੀ ਵਿਸ਼ਵ ਸਥਾਨ ਉਸ ਫਿਲਟਰ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।
-  fatality_notice:
-    british_fatalities: ਬ੍ਰਿਟਿਸ਼ ਦੀ ਮੌਤ
-    none_added: ਇਸ ਕਾਰਜ ਦੇ ਖੇਤਰ ਵਿੱਚ ਅਜੇ ਤੱਕ ਕੋਈ ਘਾਤਕ ਸੂਚਨਾ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤੀ ਗਈ ਹੈ।
   feeds:
     latest_activity: ਨਵੀਨਤਮ ਗਤੀਵਿਧੀ
   i18n:

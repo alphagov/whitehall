@@ -396,9 +396,6 @@ bn:
       all: সকল স্থান
       label: বিশ্বের অবস্থানসমূহ
       no_locations_filter: ঐ ফিল্টারের সাথে বিশ্বের কোনো অবস্থান মিলছে না।
-  fatality_notice:
-    british_fatalities: ব্রিটিশ বিপর্যয়সমূহ
-    none_added: এখনও এই পরিচালনার ফিল্ডের জন্য কোনো বিপর্যয়ের বিজ্ঞপ্তি যোগ করা হয়নি।
   feeds:
     latest_activity: সর্বশেষ কার্যকলাপ
   i18n:

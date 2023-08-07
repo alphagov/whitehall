@@ -397,9 +397,6 @@ sq:
       all: Të gjitha vendndodhjet
       label: Vendndodhjet globale
       no_locations_filter: Asnjë vendndodhje botërore nuk përputhet me atë filtër.
-  fatality_notice:
-    british_fatalities: Fatalitetet britanike
-    none_added: Ende nuk është shtuar asnjë njoftim për fatalitet për këtë fushë të funksionimit.
   feeds:
     latest_activity: Akiviteti më i fundit
   i18n:

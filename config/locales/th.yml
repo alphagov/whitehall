@@ -316,9 +316,6 @@ th:
       all: สถานที่ตั้งทุกแห่ง
       label: สถานที่ทั่วโลก
       no_locations_filter: ไม่มีสถานที่ในโลกใดๆ ที่ตรงกับตัวกรอง
-  fatality_notice:
-    british_fatalities: ผู้เสียชีวิตในอังกฤษ
-    none_added: ยังไม่มีการแจ้งการเสียชีวิตเพิ่มเติมสำหรับพื้นที่ปฏิบัติการนี้
   feeds:
     latest_activity: กิจกรรมล่าสุด
   i18n:

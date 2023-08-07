@@ -396,9 +396,6 @@ kk:
       all: Барлық орындар
       label: Әлемдегі орындар
       no_locations_filter: Бұл сүзгіге сәйкес келетін әлем орындары жоқ.
-  fatality_notice:
-    british_fatalities: Ұлыбританиядағы өлімдер
-    none_added: Бұл жұмыс саласы үшін өлім туралы хабарламалар әлі қосылмады.
   feeds:
     latest_activity: Ең соңғы әрекет
   i18n:

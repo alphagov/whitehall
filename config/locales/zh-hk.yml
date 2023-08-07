@@ -316,9 +316,6 @@ zh-hk:
       all: 所有駐點
       label: 全球駐點
       no_locations_filter: 無世界範圍內之地點滿足此一篩選。
-  fatality_notice:
-    british_fatalities: 英國死亡人數
-    none_added: 此運作領域仍未加入任何死亡通知。
   feeds:
     latest_activity: 最新的活動
   i18n:

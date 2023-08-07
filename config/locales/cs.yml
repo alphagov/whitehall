@@ -477,9 +477,6 @@ cs:
       all: Všechna místa
       label: Místa ve světě
       no_locations_filter: Žádná světová místa neodpovídají tomuto filtru.
-  fatality_notice:
-    british_fatalities: Britské úmrtí
-    none_added: Pro tuto oblast činnosti zatím nebyla přidána žádná oznámení o úmrtí.
   feeds:
     latest_activity: Poslední aktivita
   i18n:

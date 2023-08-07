@@ -396,9 +396,6 @@ ne:
       all: सबै स्थानहरु
       label: विश्व स्थानहरु
       no_locations_filter: त्यस फिल्टर सँग कुनै विश्व स्थानहरु मेल खाँदैनन्।
-  fatality_notice:
-    british_fatalities: ब्रिटिश मृत्यु
-    none_added: त्यहाँ सञ्चालन क्षेत्रको लागी अझै सम्म कुनै मृत्यु सूचनाहरु थपिएका छैनन्।
   feeds:
     latest_activity: पछिल्लो गतिविधि
   i18n:

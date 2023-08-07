@@ -316,9 +316,6 @@ vi:
       all: Tất cả vị trí
       label: Các vị trí trên thế giới
       no_locations_filter: Không có vị trí nào trên thế giới phù hợp với bộ lọc đó.
-  fatality_notice:
-    british_fatalities: Số người Anh tử vong
-    none_added: Chưa có thông báo tử vong nào được thêm vào cho lĩnh vực hoạt động này.
   feeds:
     latest_activity: Hoạt động mới nhất
   i18n:

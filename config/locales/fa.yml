@@ -396,9 +396,6 @@ fa:
       all: تمام مکان‌ها
       label: مکان‌های جهانی
       no_locations_filter: هیچ یک از مکان‌های جهانی با این فلیتر مطابقت ندارند.
-  fatality_notice:
-    british_fatalities: مرگ‌و‌میر بریتانیایی‌ها
-    none_added: هنوز هیچ اعلامیه مرگ‌و‌میری برای این زمینه فعالیت اضافه نشده است.
   feeds:
     latest_activity: آخرین فعالیت
   i18n:

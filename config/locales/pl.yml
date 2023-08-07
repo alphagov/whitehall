@@ -554,9 +554,6 @@ pl:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie
       no_locations_filter: Żadne lokalizacje na świecie nie pasują do tego filtra.
-  fatality_notice:
-    british_fatalities: Ofiary śmiertelne w Wielkiej Brytanii
-    none_added: Dla tego obszaru nie podano jeszcze żadnych informacji o ofiarach śmiertelnych.
   feeds:
     latest_activity: Najnowsza czynność
   i18n:

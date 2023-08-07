@@ -397,9 +397,6 @@ fr:
       all: Tous les emplacements
       label: Emplacements dans le monde
       no_locations_filter: Aucun emplacement dans le monde ne correspond à ce filtre.
-  fatality_notice:
-    british_fatalities: Décès en Grande-Bretagne
-    none_added: Aucun avis de décès n'a encore été ajouté pour ce domaine d'activité.
   feeds:
     latest_activity: Activités récentes
   i18n:

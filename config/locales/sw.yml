@@ -396,9 +396,6 @@ sw:
       all: Maeneo yote
       label: Maeneo ya kimataifa
       no_locations_filter: Hamna maeneo ya kimataifa yanayolingana na kichujio hicho.
-  fatality_notice:
-    british_fatalities: Idadi ya vifo nchini Uingereza
-    none_added: Bado hakuna notisi za idadi ya vifo zilizowekwa kwenye sehemu hii ya kazi.
   feeds:
     latest_activity: Shughuli mpya
   i18n:

@@ -396,9 +396,6 @@ et:
       all: Kõik asukohad
       label: Maailma asukohad
       no_locations_filter: Ükski maailma asukoht ei vasta sellele filtrile.
-  fatality_notice:
-    british_fatalities: Briti hukkunuid
-    none_added: Selle tegevusvaldkonna kohta ei ole surmajuhtumeid veel lisatud.
   feeds:
     latest_activity: Viimane tegevus
   i18n:

@@ -396,9 +396,6 @@ ur:
       all: تمام مقامات
       label: عالمی مقامات
       no_locations_filter: دنیا کا کوئی مقام اس فلٹر سے میچ نہیں کرتا۔
-  fatality_notice:
-    british_fatalities: برطانیہ کی حادثاتی اموات
-    none_added: اس کارروائی کی فیلڈ کے لیے ابھی تک کوئی موت کے نوٹسز شامل نہیں کیے گئے۔
   feeds:
     latest_activity: تازہ ترین سرگرمی
   i18n:

@@ -396,9 +396,6 @@ so:
       all: Dhamaan goobaha
       label: Goobaha Dunida
       no_locations_filter: Majirto meel dunida ah oo waafqaysa baadhistaa.
-  fatality_notice:
-    british_fatalities: Muhiimada British-ka
-    none_added: Ma jiraan wax ogaysiisyada muhiimka ah oo lagu daray goobtan shaqada wali.
   feeds:
     latest_activity: Hawsha ugu dambaysay
   i18n:

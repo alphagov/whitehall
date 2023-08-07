@@ -474,9 +474,6 @@ lt:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
       no_locations_filter: Nė viena geografinė vieta neatitinka filtro.
-  fatality_notice:
-    british_fatalities: Nelaimės Didžiojoje Britanijoje
-    none_added: Šioje srityje kol kas neskelbiamas apie nelaimes.
   feeds:
     latest_activity: Paskutinės naujienos
   i18n:

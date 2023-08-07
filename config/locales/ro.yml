@@ -476,9 +476,6 @@ ro:
       all: Toate locațiile
       label: Locații pe glob
       no_locations_filter: Nicio locație de pe glob nu se potrivește acestui filtru.
-  fatality_notice:
-    british_fatalities: Accidente fatale britanice
-    none_added: Încă nu au fost adăugate notificări de accidente mortale în acest domeniu de activitate.
   feeds:
     latest_activity: Cea mai recentă activitate
   i18n:

@@ -554,9 +554,6 @@ mt:
       all: Postijiet kollha
       label: Postijiet fid-dinja
       no_locations_filter: L-ebda postijiet fid-dinja ma jaqblu mal-filter.
-  fatality_notice:
-    british_fatalities: Fatalitajiet ingliżi
-    none_added: Ma kien hemm l-ebda avviżi ta' fatalitajiet miżjuda għal din l-operazzjoni.
   feeds:
     latest_activity: L-aħħar attività
   i18n:

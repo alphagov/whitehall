@@ -396,9 +396,6 @@ tr:
       all: Tüm konumlar
       label: Dünya geneli konumlar
       no_locations_filter: Dünya genelinde bu filtreyle eşleşen hiçbir konum yok.
-  fatality_notice:
-    british_fatalities: İngiltere ölüm oranları
-    none_added: Henüz bu faaliyet alanına eklenen hiçbir ölüm oranı bildirimi yok.
   feeds:
     latest_activity: En güncel faaliyet
   i18n:

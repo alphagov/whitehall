@@ -477,9 +477,6 @@ sk:
       all: Všetky lokality
       label: Svetové lokality
       no_locations_filter: Tomuto filtru nezodpovedajú žiadne svetové lokality.
-  fatality_notice:
-    british_fatalities: Úmrtia vo Veľkej Británii
-    none_added: Pre túto oblasť činnosti zatiaľ neboli pridané žiadne oznámenia o úmrtí.
   feeds:
     latest_activity: Posledná aktivita
   i18n:

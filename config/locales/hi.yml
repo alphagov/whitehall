@@ -397,9 +397,6 @@ hi:
       all: सभी स्थान
       label: वैश्विक स्थान
       no_locations_filter: कोई भी विश्व स्थान उस फिल्टर से मेल नहीं खाता।
-  fatality_notice:
-    british_fatalities: ब्रिटिश मौतें
-    none_added: संचालन के इस क्षेत्र में अभी तक कोई घातक नोटिस नहीं जोड़ा गया है।
   feeds:
     latest_activity: नवीनतम गतिविधि
   i18n:

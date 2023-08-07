@@ -396,9 +396,6 @@ gu:
       all: તમામ લોકેશન્સ
       label: વૈશ્વિક લોકેશન્સ
       no_locations_filter: આ ફિલ્ટર સાથે કોઈ પણ વૈશ્વિક લોકેશન મેળ ખાતું નથી.
-  fatality_notice:
-    british_fatalities: બ્રિટિશ જાનહાનિ
-    none_added: આ કામગીરીના ક્ષેત્રમાં હજુ સુધી કોઇ જાનહાનિ સૂચનાઓ ઉમેરાઈ નથી.
   feeds:
     latest_activity: નવીનતમ પ્રવૃત્તિ
   i18n:

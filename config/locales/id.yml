@@ -316,9 +316,6 @@ id:
       all: Semua lokasi
       label: Lokasi dunia
       no_locations_filter: Tidak ada lokasi dunia yang cocok dengan filter itu.
-  fatality_notice:
-    british_fatalities: Fatalitas Inggris
-    none_added: Belum ada pemberitahuan fatalitas yang ditambahkan untuk bidang operasi ini.
   feeds:
     latest_activity: Aktivitas terbaru
   i18n:

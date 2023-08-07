@@ -396,9 +396,6 @@ de:
       all: Alle Standorte
       label: Weltweite Standorte
       no_locations_filter: Kein Ort der Welt entspricht diesem Filter.
-  fatality_notice:
-    british_fatalities: Britische Todesfälle
-    none_added: Für dieses Einsatzgebiet wurden noch keine Meldungen über Todesfälle hinzugefügt.
   feeds:
     latest_activity: Letzte Aktivität
   i18n:

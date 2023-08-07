@@ -397,9 +397,6 @@ az:
       all: Bütün yerlər
       label: Dünya üzrə yerləri
       no_locations_filter: Dünya üzrə yerləri həmin süzgəcə uyğun gəlmir.
-  fatality_notice:
-    british_fatalities: Britaniya ölüm hadisələri
-    none_added: Bu iş sahəsi üzrə hələ heç bir ölüm hadisəsi bildirişləri əlavə edilməyib.
   feeds:
     latest_activity: Ən son fəaliyyət
   i18n:
