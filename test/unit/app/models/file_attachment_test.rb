@@ -55,4 +55,12 @@ class FileAttachmentTest < ActiveSupport::TestCase
     assert attachment.update(params), attachment.errors.full_messages.to_sentence
     assert_equal "Filename", attachment.title
   end
+
+  test "filename changed returns true when updated with a file with a new name" do
+    attachment = create(:file_attachment)
+
+    assert_not attachment.filename_changed?
+    attachment.attachment_data.file = {}
+    assert attachment.filename_changed?
+  end
 end

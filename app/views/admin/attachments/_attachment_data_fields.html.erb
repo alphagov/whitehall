@@ -12,7 +12,7 @@
     },
     name: "attachment[attachment_data_attributes][file]",
     id: "attachment_attachment_data_file",
-    hint: raw("You must upload attachments in an <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>."),
+    hint: raw(attachment_data_fields.object.filename ? "You must replace the attachment markdown in the body text" : "You must upload attachments in an <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>."),
     error_items: errors_for(attachment_data_fields.object.errors, :file),
   } %>
 
