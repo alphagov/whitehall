@@ -10,12 +10,6 @@ module ControllerTestHelpers
       end
     end
 
-    def should_be_a_public_facing_controller
-      test "should be a public facing controller" do
-        assert @controller.is_a?(PublicFacingController), "the controller should be a public facing controller"
-      end
-    end
-
     def should_render_bootstrap_implementation_with_preview_next_release
       test "should render the admin layout when the user has 'Preview next release' permission" do
         return unless @controller.class.private_method_defined?(:get_layout)
