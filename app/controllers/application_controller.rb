@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
-  include LegacyUrlHelper
 
   protect_from_forgery
 
