@@ -5,7 +5,7 @@
 <% end %>
 <% content_for :page_title, "#{@organisation.name} financial reports" %>
 <% content_for :title, @organisation.name %>
-<% content_for :context, "Organisation" %>
+<% content_for :context, organisation_context_block(current_user, @organisation) %>
 <% content_for :title_margin_bottom, 4 %>
 
 <div class="govuk-grid-row">
