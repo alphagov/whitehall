@@ -22,14 +22,14 @@ sq:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Skedari i bashkangjitur
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Numri i letrës së komandës së bashkëngjitjes
         hoc_paper_number: Numri i letrës së Dhomës së Komuneve
@@ -51,19 +51,19 @@ sq:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -159,11 +159,11 @@ sq:
         one: Postim blogu
         other: Postime blogu
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: Fushatë
         other: Fushata
@@ -174,8 +174,8 @@ sq:
         one: Rast studimi
         other: Raste studimesh
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: Konsultim i mbyllur
         other: Konsultime të mbyllura
@@ -258,8 +258,8 @@ sq:
         one: Anëtarësi
         other: Anëtarësi
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: Statistika kombëtare
         other: Statistika kombëtare
@@ -279,8 +279,8 @@ sq:
         one: Statistikat Zyrtare
         other: Statistikat Zyrtare
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: Konsultim i hapur
         other: Konsultime të hapura
@@ -375,79 +375,75 @@ sq:
         one: Deklaratë me shkrim në Parlament
         other: Deklarata me shkrim në Parlament
     updated: përditësuar
-  document_filters:
-    world_locations:
-      all: Të gjitha vendndodhjet
-      no_locations_filter: Asnjë vendndodhje botërore nuk përputhet me atë filtër.
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
     sq: Shqip
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Qasuni në informacionin tonë
@@ -455,7 +451,7 @@ sq:
       jobs_and_contacts: Vende pune dhe kontrata
       organisation_chart: Tabela e organizimit tonë
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Askush nuk është caktuar për këtë rol
   support:
@@ -471,13 +467,6 @@ sq:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: Kërkoni sipas vendit ose territorit
     type:
       international_delegation:
         one: Delegacion ndërkombëtar

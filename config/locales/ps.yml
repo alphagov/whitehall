@@ -22,14 +22,14 @@ ps:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: ضمیمه شوې فایل
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: د ضمیمې قوماندې کاغذ شمیره
         hoc_paper_number: د ولسي جرګې د کاغذ شمیره
@@ -51,19 +51,19 @@ ps:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -159,11 +159,11 @@ ps:
         one: د بلاګ پوسټ
         other: د بلاګ پوسټونه
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: کمپاین
         other: کمپاینونه
@@ -174,8 +174,8 @@ ps:
         one: د قضیې مطالعه
         other: د قضیې مطالعات
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: تړلې مشوره
         other: تړلې مشورې
@@ -258,8 +258,8 @@ ps:
         one: غړیتوب
         other: غړیتوب
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: ملي احصایې
         other: ملي احصایې
@@ -279,8 +279,8 @@ ps:
         one: رسمي احصایې
         other: رسمي احصایې
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: خلاص مشوره
         other: مشورې خلاص کړئ
@@ -375,79 +375,75 @@ ps:
         one: پارلمان ته لیکلې وینا
         other: پارلمان ته لیکلي بیانونه
     updated: تازه شوی
-  document_filters:
-    world_locations:
-      all: ټول ځایونه
-      no_locations_filter: د نړۍ هیڅ ځایونه د دې فلټر سره سمون نه خوري.
   i18n:
     direction: rtl
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
     ps: جرمني
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: زموږ معلوماتو ته لاسرسی ومومئ
@@ -455,7 +451,7 @@ ps:
       jobs_and_contacts: دندې او قراردادونه
       organisation_chart: زموږ د سازمان چارټ
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: هیڅوک دې رول ته ندي ګمارل شوي
   support:
@@ -471,13 +467,6 @@ ps:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: د هیواد یا سیمې له مخې لټون
     type:
       international_delegation:
         one: نړیوال پلاوی

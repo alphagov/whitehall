@@ -22,14 +22,14 @@ so:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Faylka lifaaqa
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Lifaaqa lambarka warqada amarka
         hoc_paper_number: lambarka warqada guriga Commons
@@ -51,19 +51,19 @@ so:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -158,11 +158,11 @@ so:
         one: Qoraalka boga
         other: Qoraalada boga
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: Xayaysiiska
         other: Xayaysiisyada
@@ -173,8 +173,8 @@ so:
         one: Daraasad
         other: Daraasado
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: Latalin Xidhan
         other: Latalino xidhan
@@ -257,8 +257,8 @@ so:
         one: Xubinimada
         other: Xubinimada
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: Tirokoobka qaranka
         other: Tirokoobka qaranka
@@ -278,8 +278,8 @@ so:
         one: Tirokoobka rasmiga ah
         other: Tirokoobka rasmiga ah
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: Latalin furan
         other: Latalino furan
@@ -374,79 +374,75 @@ so:
         one: Bayaan qoran oo loogu talogalay Baarlamaanka
         other: Bayaanada qoran ee loogu talogalay Baarlamaanka
     updated: la cusboonaysiiyay
-  document_filters:
-    world_locations:
-      all: Dhamaan goobaha
-      no_locations_filter: Majirto meel dunida ah oo waafqaysa baadhistaa.
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
     so: Soomaali
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Helitaankayaga macluumaadka
@@ -454,7 +450,7 @@ so:
       jobs_and_contacts: Shaqooyinka iyo qandaraasyada
       organisation_chart: Jaantuska ururkayaga
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Qofna looma qoondayn doorkan
   support:
@@ -470,13 +466,6 @@ so:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: Ku raadi dalka ama dhulka
     type:
       international_delegation:
         one: Wafti caalami ah

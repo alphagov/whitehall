@@ -27,11 +27,6 @@ Whitehall::Application.routes.draw do
   root to: redirect("/admin/"),
        constraints: ->(request) { AdminRequest.valid_admin_host?(request.host) }
 
-  # Routes rendered by Whitehall to the public under the /world scope
-  scope "/world" do
-    get "(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }
-  end
-
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 

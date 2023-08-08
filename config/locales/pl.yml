@@ -22,14 +22,14 @@ pl:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Załączony plik
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Numer dokumentu w załączniku
         hoc_paper_number: Numer dokumentu w Izbie Gmin
@@ -51,19 +51,19 @@ pl:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: "Aby otrzymać ten dokument w innym formacie, np. w alfabecie Braille'a. \nw formacie audio lub w innym rodzaju pliku prosimy wysłać email na adres %{email}.\n\n"
@@ -132,479 +132,475 @@ pl:
       written_on: 'Napisany w dniu:'
     type:
       about:
-        few: 
-        many: 
+        few:
+        many:
         one: O nas
         other: O nas
       about_our_services:
-        few: 
-        many: 
+        few:
+        many:
         one: O naszych usługach
         other: O naszych usługach
       access_and_opening:
-        few: 
-        many: 
+        few:
+        many:
         one: Dostęp i otwieranie
         other: Dostęp i otwieranie
       accessible_documents_policy:
-        few: 
-        many: 
+        few:
+        many:
         one: Polityka dot. dostępności dokumentów
         other: Polityki dot. dostępności dokumentów
       alert:
-        few: 
-        many: 
+        few:
+        many:
         one: Alert
         other: Alerty
       announcement:
-        few: 
-        many: 
+        few:
+        many:
         one: Ogłoszenie
         other: Ogłoszenia
       authored_article:
-        few: 
-        many: 
+        few:
+        many:
         one: Dokument utworzony przez
         other: Dokumenty utworzone przez
       blog_post:
-        few: 
-        many: 
+        few:
+        many:
         one: Wpis na blogu
         other: Wpisy na blogu
       call_for_evidence:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       call_for_evidence_outcome:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       campaign:
-        few: 
-        many: 
+        few:
+        many:
         one: Kampania
         other: Kampanie
       careers:
-        few: 
-        many: 
+        few:
+        many:
         one: Kariera
         other: kariera
       case_study:
-        few: 
-        many: 
+        few:
+        many:
         one: Studium przypadku
         other: Studia przypadku
       closed_call_for_evidence:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       closed_consultation:
-        few: 
-        many: 
+        few:
+        many:
         one: Konsultacja zamknięta
         other: Konsultacje zamknięte
       complaints_procedure:
-        few: 
-        many: 
+        few:
+        many:
         one: Procedura składania skarg
         other: Procedury składania skarg
       consultation:
-        few: 
-        many: 
+        few:
+        many:
         one: Konsultacja
         other: Konsultacje
       consultation_outcome:
-        few: 
-        many: 
+        few:
+        many:
         one: Wynik konsultacji
         other: Wyniki konsultacji
       corporate_report:
-        few: 
-        many: 
+        few:
+        many:
         one: Raport korporacyjny
         other: Raporty korporacyjne
       correspondence:
-        few: 
-        many: 
+        few:
+        many:
         one: Korespondencja
         other: Korespondencje
       decision:
-        few: 
-        many: 
+        few:
+        many:
         one: Decyzja
         other: Decyzje
       detailed_guidance:
-        few: 
-        many: 
+        few:
+        many:
         one: Szczegółowe wskazówki
         other: Szczegółowe wskazówki
       document_collection:
-        few: 
-        many: 
+        few:
+        many:
         one: Seria
         other: Serie
       draft_text:
-        few: 
-        many: 
+        few:
+        many:
         one: Tekst roboczy
         other: Teksty robocze
       edition:
-        few: 
-        many: 
+        few:
+        many:
         one: Wydanie
         other: Wydania
       edition_with_appointment:
-        few: 
-        many: 
+        few:
+        many:
         one: Wydanie po uzgodnieniu terminu
         other: Wydania po uzgodnieniu terminu
       equality_and_diversity:
-        few: 
-        many: 
+        few:
+        many:
         one: Równość i różnorodność
         other: Równość i różnorodność
       fatality_notice:
-        few: 
-        many: 
+        few:
+        many:
         one: Informacja o śmierci
         other: Informacje o śmierci
       foi_release:
-        few: 
-        many: 
+        few:
+        many:
         one: Informacja zgodnie z ustawą o wolnosci informacji
         other: Informacje zgodnie z ustawą o wolności informacji
       form:
-        few: 
-        many: 
+        few:
+        many:
         one: Formularz
         other: Formularze
       generic_edition:
-        few: 
-        many: 
+        few:
+        many:
         one: Wydanie ogólne
         other: Wydania ogólne
       government_response:
-        few: 
-        many: 
+        few:
+        many:
         one: Odpowiedź rządu
         other: Odpowiedzi rządu
       guidance:
-        few: 
-        many: 
+        few:
+        many:
         one: Wskazówki
         other: Wskazówki
       impact_assessment:
-        few: 
-        many: 
+        few:
+        many:
         one: Ocena oddziaływania
         other: Oceny oddziaływania
       imported:
-        few: 
-        many: 
+        few:
+        many:
         one: Zaimportowany - oczekuje typu
         other: Zaimportowany - oczekuje typu
       independent_report:
-        few: 
-        many: 
+        few:
+        many:
         one: Niezależny raport
         other: Niezależne raporty
       international_treaty:
-        few: 
-        many: 
+        few:
+        many:
         one: Traktat międzynarodowy
         other: Traktaty międzynarodowe
       manual:
-        few: 
-        many: 
+        few:
+        many:
         one: Instrukcja
         other: Instrukcje
       map:
-        few: 
-        many: 
+        few:
+        many:
         one: Mapa
         other: Mapy
       media_enquiries:
-        few: 
-        many: 
+        few:
+        many:
         one: Zapytanie do mediów
         other: Zapytania do mediów
       membership:
-        few: 
-        many: 
+        few:
+        many:
         one: Członkostwo
         other: Członkostwo
       modern_slavery_statement:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       national_statistics:
-        few: 
-        many: 
+        few:
+        many:
         one: Statystyki - statystyki narodowe
         other: Statystyki - statystyki narodowe
       news_article:
-        few: 
-        many: 
+        few:
+        many:
         one: Artykuł prasowy
         other: Artykuły prasowe
       news_story:
-        few: 
-        many: 
+        few:
+        many:
         one: Aktualności
         other: Aktualności
       nhs_content:
-        few: 
-        many: 
+        few:
+        many:
         one: Treść dot. Narodowej Służby Zdrowia
         other: Treść dot. Narodowej Służby Zdrowia
       notice:
-        few: 
-        many: 
+        few:
+        many:
         one: Powiadomienie
         other: Powiadomienia
       official_statistics:
-        few: 
-        many: 
+        few:
+        many:
         one: Statystyki
         other: Statystyki
       open_call_for_evidence:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       open_consultation:
-        few: 
-        many: 
+        few:
+        many:
         one: Konsultacje otwarte
         other: Konsultacje otwarte
       oral_statement:
-        few: 
-        many: 
+        few:
+        many:
         one: Ustne oświadczenie przed parlamentem
         other: Ustne oświadczenia przed parlamentem
       our_energy_use:
-        few: 
-        many: 
+        few:
+        many:
         one: Nasze zużycie energii
         other: Nasze zużycie energii
       our_governance:
-        few: 
-        many: 
+        few:
+        many:
         one: Nasz system zarządzania
         other: Nasz system zarządzania
       personal_information_charter:
-        few: 
-        many: 
+        few:
+        many:
         one: Statut dot. danych osobowych
         other: Statut dot. danych osobowych
       petitions_and_campaigns:
-        few: 
-        many: 
+        few:
+        many:
         one: Petycje i kampanie
         other: Petycje i kampanie
       policy_paper:
-        few: 
-        many: 
+        few:
+        many:
         one: Dokument programowy
         other: Dokumenty programowe
       press_release:
-        few: 
-        many: 
+        few:
+        many:
         one: Informacja prasowa
         other: Informacje prasowe
       procurement:
-        few: 
-        many: 
+        few:
+        many:
         one: Zamówienia
         other: Zamówienia
       promotional:
-        few: 
-        many: 
+        few:
+        many:
         one: Materiał promocyjny
         other: Materiał promocyjny
       publication:
-        few: 
-        many: 
+        few:
+        many:
         one: Publikacja
         other: Publikacje
       publication_scheme:
-        few: 
-        many: 
+        few:
+        many:
         one: System publikacji
         other: Systemy publikacji
       recruitment:
-        few: 
-        many: 
+        few:
+        many:
         one: Rekrutacja
         other: Rekrutacja
       regulation:
-        few: 
-        many: 
+        few:
+        many:
         one: Rozporządzenie
         other: Rozporządzenia
       research:
-        few: 
-        many: 
+        few:
+        many:
         one: Badania
         other: Badania
       service:
-        few: 
-        many: 
+        few:
+        many:
         one: Usługa
         other: Usługi
       social_media_use:
-        few: 
-        many: 
+        few:
+        many:
         one: Korzystanie z mediów społecznościowych
         other: Korzystanie z mediów społecznościowych
       speaking_notes:
-        few: 
-        many: 
+        few:
+        many:
         one: Notatki do prelekcji
         other: Notatki do prelekcji
       speech:
-        few: 
-        many: 
+        few:
+        many:
         one: Przemówienie
         other: Przemówienia
       staff_update:
-        few: 
-        many: 
+        few:
+        many:
         one: Aktualizacja informacji o personelu
         other: Aktualizacje informacji o personelu
       standard:
-        few: 
-        many: 
+        few:
+        many:
         one: Standard
         other: Standardy
       statement_to_parliament:
-        few: 
-        many: 
+        few:
+        many:
         one: Wystapienie przed parlamentem
         other: Wystapienia przed parlamentem
       statistical_data_set:
-        few: 
-        many: 
+        few:
+        many:
         one: Zestaw danych statystycznych
         other: Zestawy danych statystycznych
       statistics:
-        few: 
-        many: 
+        few:
+        many:
         one: Statystyki
         other: Statystyki
       statutory_guidance:
-        few: 
-        many: 
+        few:
+        many:
         one: Wytyczne ustawowe
         other: Wytyczne ustawowe
       terms_of_reference:
-        few: 
-        many: 
+        few:
+        many:
         one: Zakres zadań
         other: Zakres zadań
       transcript:
-        few: 
-        many: 
+        few:
+        many:
         one: Transkrypcja
         other: Transkrypcje
       transparency:
-        few: 
-        many: 
+        few:
+        many:
         one: Dane o transparentności
         other: Dane o transparentności
       welsh_language_scheme:
-        few: 
-        many: 
+        few:
+        many:
         one: Program języka walijskiego
         other: Programy języka walijskiego
       world_news_story:
-        few: 
-        many: 
+        few:
+        many:
         one: Wiadomość ze świata
         other: Wiadomości ze świata
       written_statement:
-        few: 
-        many: 
+        few:
+        many:
         one: Pisemne oświadczenie przed parlamentem
         other: Pisemne oświadczenia przed parlamentem
     updated: Zaktualizowany
-  document_filters:
-    world_locations:
-      all: Wszystkie lokalizacje
-      no_locations_filter: Żadne lokalizacje na świecie nie pasują do tego filtra.
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
     pl: Polski
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Uzyskaj dostęp do naszych informacji
@@ -612,7 +608,7 @@ pl:
       jobs_and_contacts: Stanowiska pracy i kontrakty
       organisation_chart: Nasza struktura organizacyjna
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Nikt nie został przypisany do tej roli
   support:
@@ -628,22 +624,15 @@ pl:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: Wyszukiwanie według kraju lub terytorium
     type:
       international_delegation:
-        few: 
-        many: 
+        few:
+        many:
         one: Delegacja międzynarodowa
         other: Delegacje międzynarodowe
       world_location:
-        few: 
-        many: 
+        few:
+        many:
         one: Lokalizacja na świecie
         other: Lokalizacje na świecie
   world_news:

@@ -22,14 +22,14 @@ pa-pk:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: اٹیچمینٹ فائل
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: اٹیچمینٹ کمانڈ پیپر نمبر
         hoc_paper_number: ہاؤس آف کامننز پیپر نمبر
@@ -51,19 +51,19 @@ pa-pk:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: اگر تُسی مدد گارٹیکنالوجی نوں استعمال کردے او ( جیویں کہ اک سکرین ریڈر) تے تہانوں ایس دستاویز دے ترجمے دی لوڑ اے جہیڑا اک بوہت پہنچ والی شکل وچ ہوئے گا، برائے مہربانی ای میل کریں {email}% برائے مہربانی سانوں ایہ دسو کہ تہانوں کس شکل دی لوڑ اے۔ ایس توں سانوں مدد ملے گی کہ تسی کس طراں دی مددگار ٹیکنالوجی استعمال کردے او۔
@@ -114,7 +114,7 @@ pa-pk:
         staff_update: نوکراں دیاں خبراں تے معلومات
         statistics: ایندے اعدادو شمار {organisation_name}%
         terms_of_reference: حوالے دیاں شرطاں
-        welsh_language_scheme: 
+        welsh_language_scheme:
   date:
     formats:
       default: "%d %B %Y"
@@ -156,11 +156,11 @@ pa-pk:
         one: بلاگ پوسٹ
         other: بلاگ پوسٹس
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: مہم
         other: مہمات
@@ -171,8 +171,8 @@ pa-pk:
         one: کیس دا مطالعہ
         other: کیس دا مطالعہ
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: بند مشورہ
         other: بند مشورے
@@ -255,8 +255,8 @@ pa-pk:
         one: ممبری
         other: ممبری
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: قومی اعدادوشمار
         other: قومی اعدادوشمار
@@ -276,8 +276,8 @@ pa-pk:
         one: سرکاری اعدادو شمار
         other: سرکاری اعدادو شمار
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: کُھلا مشورہ
         other: کُھلے مشورے
@@ -372,79 +372,75 @@ pa-pk:
         one: قومی مجلس دے سامنے تحریری بیان
         other: قومی مجلس دے سامنے تحریری بیانات
     updated: تازہ ترین حال
-  document_filters:
-    world_locations:
-      all: ساریاں تھاواں
-      no_locations_filter: دُنیا دی کوئی وی تھاں چھانن نال نئیں ملدی
   i18n:
     direction: rtl
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
     pa-pk: پنجابی شاہ مُکھی
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: ساڈی معلومات تک پہنچ
@@ -452,7 +448,7 @@ pa-pk:
       jobs_and_contacts: نوکریاں تے ٹھیکے
       organisation_chart: ساڈے ادارے دا چارٹ
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: ایہ کردار کسے نوں نئیں دتا گیا
   support:
@@ -468,13 +464,6 @@ pa-pk:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: مُلک یا علاقے توں لبھو
     type:
       international_delegation:
         one: بین الاقوامی وفد

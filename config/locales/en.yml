@@ -359,10 +359,6 @@ en:
         one: Written statement to Parliament
         other: Written statements to Parliament
     updated: updated
-  document_filters:
-    world_locations:
-      all: All locations
-      no_locations_filter: No world locations match that filter.
   i18n:
     direction: ltr
   language_names:
@@ -455,13 +451,6 @@ en:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: See the complete %{href}. This includes all embassies, high commissions and consulates.
-      find_out: Find out what help is available from the UK government if you're abroad.
-      heading: Help and services around the&nbsp;world
-      list_link: list of overseas Foreign, Commonwealth & Development Office posts
-    headings:
-      search: Search by country or territory
     type:
       international_delegation:
         one: International delegation

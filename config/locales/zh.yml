@@ -22,14 +22,14 @@ zh:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: 附件文件
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: 附件命令文件编号
         hoc_paper_number: 下议院文件编号
@@ -51,19 +51,19 @@ zh:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -150,9 +150,9 @@ zh:
       blog_post:
         other: 博客帖子
       call_for_evidence:
-        other: 
+        other:
       call_for_evidence_outcome:
-        other: 
+        other:
       campaign:
         other: 活动
       careers:
@@ -160,7 +160,7 @@ zh:
       case_study:
         other: 案例研究
       closed_call_for_evidence:
-        other: 
+        other:
       closed_consultation:
         other: 封闭咨询
       complaints_procedure:
@@ -216,7 +216,7 @@ zh:
       membership:
         other: 会员身份
       modern_slavery_statement:
-        other: 
+        other:
       national_statistics:
         other: 国家统计局
       news_article:
@@ -230,7 +230,7 @@ zh:
       official_statistics:
         other: 官方统计
       open_call_for_evidence:
-        other: 
+        other:
       open_consultation:
         other: 公开协商
       oral_statement:
@@ -294,79 +294,75 @@ zh:
       written_statement:
         other: 议会口头声明
     updated: 已更新
-  document_filters:
-    world_locations:
-      all: 全部地点
-      no_locations_filter: 世界上没有任何地点匹配这个过滤器。
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
     zh: 中文
-    zh-hk: 
-    zh-tw: 
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: 获取我们的信息
@@ -374,7 +370,7 @@ zh:
       jobs_and_contacts: 工作和联系人
       organisation_chart: 我们的组织机构图
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: 没有人被分配到这个职责
   support:
@@ -390,13 +386,6 @@ zh:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: 按国家或地区搜索
     type:
       international_delegation:
         other: 国际代表处

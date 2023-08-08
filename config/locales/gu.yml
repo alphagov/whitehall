@@ -22,14 +22,14 @@ gu:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: એટેચ કરેલ ફાઇલ
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: એટેચમેંટ આદેશ પેપર નંબર
         hoc_paper_number: હાઉસ ઓફ કૉમન્સ પેપર નંબર
@@ -51,19 +51,19 @@ gu:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -158,11 +158,11 @@ gu:
         one: બ્લૉગ પોસ્ટ
         other: બ્લૉગ પોસ્ટ્સ
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: ઝુંબેશ
         other: ઝુંબેશો
@@ -173,8 +173,8 @@ gu:
         one: કેસ સ્ટડી
         other: કેસ સ્ટડીઝ
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: બંધ થયેલ પરામર્શ
         other: બંધ થયેલ પરામર્શ
@@ -257,8 +257,8 @@ gu:
         one: સભ્યપદ
         other: સભ્યપદ
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: રાષ્ટ્રીય આંકડા
         other: રાષ્ટ્રીય આંકડા
@@ -278,8 +278,8 @@ gu:
         one: અધિકૃત આંકડા
         other: અધિકૃત આંકડા
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: ખુલ્લો પરામર્શ
         other: ખુલ્લા પરામર્શ
@@ -374,79 +374,75 @@ gu:
         one: સંસદમાં લેખિત નિવેદન
         other: સંસદમાં લેખિત નિવેદનો
     updated: અપડેટ કરેલ
-  document_filters:
-    world_locations:
-      all: તમામ લોકેશન્સ
-      no_locations_filter: આ ફિલ્ટર સાથે કોઈ પણ વૈશ્વિક લોકેશન મેળ ખાતું નથી.
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
     gu: જોર્જિયન
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: અમારી માહિતીને એક્સેસ કરો
@@ -454,7 +450,7 @@ gu:
       jobs_and_contacts: નોકરીઓ અને કરારો
       organisation_chart: અમારી સંસ્થાનો ચાર્ટ
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: આ ભૂમિકા કોઈને પણ સોંપવામાં આવેલ નથી
   support:
@@ -470,13 +466,6 @@ gu:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: દેશ અથવા ટેરિટરીથી શોધો
     type:
       international_delegation:
         one: આંતરરાષ્ટ્રીય પ્રતિનિધિમંડળ

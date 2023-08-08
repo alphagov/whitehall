@@ -3,491 +3,480 @@ yi:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
-      full_help_html: 
-      intro: 
-      request_a_different_format: 
+      full_help_html:
+      intro:
+      request_a_different_format:
     headings:
-      order_a_copy: 
-      order_a_copy_full: 
-      published: 
-      reference: 
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   contact:
-    access_and_opening_times: 
-    contact_form: 
-    email: 
+    access_and_opening_times:
+    contact_form:
+    email:
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        modern_slavery_statement: 
-        our_energy_use: 
-        our_governance: 
-        personal_information_charter: 
-        petitions_and_campaigns: 
-        procurement: 
-        publication_scheme: 
-        recruitment: 
-        research: 
-        social_media_use: 
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
-        welsh_language_scheme: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter:
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme:
+        recruitment:
+        research:
+        social_media_use:
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme:
   date:
     formats:
-      default: 
-      long_ordinal: 
+      default:
+      long_ordinal:
   document:
-    published: 
+    published:
     speech:
       author_title:
-        minister: 
-        speaker: 
-      delivered_on: 
+        minister:
+        speaker:
+      delivered_on:
       delivery_title:
-        minister: 
-        speaker: 
-      written_on: 
+        minister:
+        speaker:
+      written_on:
     type:
       about:
-        one: 
-        other: 
+        one:
+        other:
       about_our_services:
-        one: 
-        other: 
+        one:
+        other:
       access_and_opening:
-        one: 
-        other: 
+        one:
+        other:
       accessible_documents_policy:
-        one: 
-        other: 
+        one:
+        other:
       alert:
-        one: 
-        other: 
+        one:
+        other:
       announcement:
-        one: 
-        other: 
+        one:
+        other:
       authored_article:
-        one: 
-        other: 
+        one:
+        other:
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
-        one: 
-        other: 
+        one:
+        other:
       careers:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
-        one: 
-        other: 
+        one:
+        other:
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
-        one: 
-        other: 
+        one:
+        other:
       complaints_procedure:
-        one: 
-        other: 
+        one:
+        other:
       consultation:
-        one: 
-        other: 
+        one:
+        other:
       consultation_outcome:
-        one: 
-        other: 
+        one:
+        other:
       corporate_report:
-        one: 
-        other: 
+        one:
+        other:
       correspondence:
-        one: 
-        other: 
+        one:
+        other:
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
-        one: 
-        other: 
+        one:
+        other:
       document_collection:
-        one: 
-        other: 
+        one:
+        other:
       draft_text:
-        one: 
-        other: 
+        one:
+        other:
       edition:
-        one: 
-        other: 
+        one:
+        other:
       edition_with_appointment:
-        one: 
-        other: 
+        one:
+        other:
       equality_and_diversity:
-        one: 
-        other: 
+        one:
+        other:
       fatality_notice:
-        one: 
-        other: 
+        one:
+        other:
       foi_release:
-        one: 
-        other: 
+        one:
+        other:
       form:
-        one: 
-        other: 
+        one:
+        other:
       generic_edition:
-        one: 
-        other: 
+        one:
+        other:
       government_response:
-        one: 
-        other: 
+        one:
+        other:
       guidance:
-        one: 
-        other: 
+        one:
+        other:
       impact_assessment:
-        one: 
-        other: 
+        one:
+        other:
       imported:
-        one: 
-        other: 
+        one:
+        other:
       independent_report:
-        one: 
-        other: 
+        one:
+        other:
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
-        one: 
-        other: 
+        one:
+        other:
       media_enquiries:
-        one: 
-        other: 
+        one:
+        other:
       membership:
-        one: 
-        other: 
+        one:
+        other:
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
-        one: 
-        other: 
+        one:
+        other:
       news_article:
-        one: 
-        other: 
+        one:
+        other:
       news_story:
-        one: 
-        other: 
+        one:
+        other:
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
-        one: 
-        other: 
+        one:
+        other:
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
-        one: 
-        other: 
+        one:
+        other:
       oral_statement:
-        one: 
-        other: 
+        one:
+        other:
       our_energy_use:
-        one: 
-        other: 
+        one:
+        other:
       our_governance:
-        one: 
-        other: 
+        one:
+        other:
       personal_information_charter:
-        one: 
-        other: 
+        one:
+        other:
       petitions_and_campaigns:
-        one: 
-        other: 
+        one:
+        other:
       policy_paper:
-        one: 
-        other: 
+        one:
+        other:
       press_release:
-        one: 
-        other: 
+        one:
+        other:
       procurement:
-        one: 
-        other: 
+        one:
+        other:
       promotional:
-        one: 
-        other: 
+        one:
+        other:
       publication:
-        one: 
-        other: 
+        one:
+        other:
       publication_scheme:
-        one: 
-        other: 
+        one:
+        other:
       recruitment:
-        one: 
-        other: 
+        one:
+        other:
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
-        one: 
-        other: 
+        one:
+        other:
       service:
-        one: 
-        other: 
+        one:
+        other:
       social_media_use:
-        one: 
-        other: 
+        one:
+        other:
       speaking_notes:
-        one: 
-        other: 
+        one:
+        other:
       speech:
-        one: 
-        other: 
+        one:
+        other:
       staff_update:
-        one: 
-        other: 
+        one:
+        other:
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
-        one: 
-        other: 
+        one:
+        other:
       statistical_data_set:
-        one: 
-        other: 
+        one:
+        other:
       statistics:
-        one: 
-        other: 
+        one:
+        other:
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       terms_of_reference:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
-        one: 
-        other: 
+        one:
+        other:
       transparency:
-        one: 
-        other: 
+        one:
+        other:
       welsh_language_scheme:
-        one: 
-        other: 
+        one:
+        other:
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
-        one: 
-        other: 
-    updated: 
-  document_filters:
-    world_locations:
-      all: 
-      no_locations_filter: 
+        one:
+        other:
+    updated:
   i18n:
     direction: rtl
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
     yi: יידיש
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
-      access_our_info: 
-      jobs: 
-      jobs_and_contacts: 
-      organisation_chart: 
+      access_our_info:
+      jobs:
+      jobs_and_contacts:
+      organisation_chart:
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
-    unassigned: 
+    unassigned:
   support:
-    download: 
-    field_of_operation: 
+    download:
+    field_of_operation:
     pagination:
-      next_html: 
-      next_page: 
-      previous_html: 
-      previous_page: 
-    part_of_collection: 
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
-      long_ordinal: 
+      long_ordinal:
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: 
     type:
       international_delegation:
-        one: 
-        other: 
+        one:
+        other:
       world_location:
-        one: 
-        other: 
+        one:
+        other:
   world_news:
-    uk_updates_in_country: 
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
-      personal_information_charter_html: 
-      publication_scheme_html: 
-      social_media_use_html: 
-      welsh_language_scheme_html: 
+      about_our_services_html:
+      personal_information_charter_html:
+      publication_scheme_html:
+      social_media_use_html:
+      welsh_language_scheme_html:

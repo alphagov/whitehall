@@ -22,14 +22,14 @@ hy:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Կցված ֆայլը
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Կցված պաշտոնական փաստաթղթի համարը
         hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
@@ -51,19 +51,19 @@ hy:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -159,11 +159,11 @@ hy:
         one: Բլոգի գրառում
         other: Բլոգի գրառումներ
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: Արշավ
         other: Արշավներ
@@ -174,8 +174,8 @@ hy:
         one: Մասնավոր դեպքի ուսումնասիրություն
         other: Մասնավոր դեպքի ուսումնասիրություններ
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: Փակ խորհրդակցություն
         other: Փակ խորհրդակցություններ
@@ -258,8 +258,8 @@ hy:
         one: Անդամակցություն
         other: Անդամակցություն
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: Ազգային վիճակագրություն
         other: Ազգային վիճակագրություն
@@ -279,8 +279,8 @@ hy:
         one: Պաշտոնական վիճակագրություն
         other: Պաշտոնական վիճակագրություն
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: Բաց խորհրդակցություն
         other: Բաց խորհրդակցություններ
@@ -375,79 +375,75 @@ hy:
         one: Խորհրդարանին ուղղված գրավոր հայտարարություն
         other: Խորհրդարանին ուղղված գրավոր հայտարարություններ
     updated: Թարմացված
-  document_filters:
-    world_locations:
-      all: Բոլոր վայրերը
-      no_locations_filter: 'Ոչ մի վայր չի համապատասխանում այդ ֆիլտրին:'
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
     hy: Հայերեն
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Հասանելիություն մեր տվյալներին
@@ -455,7 +451,7 @@ hy:
       jobs_and_contacts: Աշխատանք և պայմանագրեր
       organisation_chart: Մեր կազմակերպության կառուցվածքը
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Այս պաշտոնին նշանակված մարդ չկա
   support:
@@ -471,13 +467,6 @@ hy:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: Որոնել ըստ երկրի կամ տարածաշրջանի
     type:
       international_delegation:
         one: Միջազգային պատվիրակություն

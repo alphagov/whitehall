@@ -22,14 +22,14 @@ sk:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Pripojený súbor
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Číslo príkazu na pripojenie papiera
         hoc_paper_number: Číslo dokumentu Dolnej snemovne
@@ -51,19 +51,19 @@ sk:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -135,399 +135,395 @@ sk:
       written_on: 'Napísané dňa:'
     type:
       about:
-        few: 
+        few:
         one: Informácie
         other: Informácie
       about_our_services:
-        few: 
+        few:
         one: O našich službách
         other: O našich službách
       access_and_opening:
-        few: 
+        few:
         one: Prístup a prevádzka
         other: Prístup a prevádzka
       accessible_documents_policy:
-        few: 
+        few:
         one: Politika prístupnosti dokumentov
         other: Politiky prístupnosti dokumentov
       alert:
-        few: 
+        few:
         one: Upozornenie
         other: Upozornenia
       announcement:
-        few: 
+        few:
         one: Oznámenie
         other: Oznámenia
       authored_article:
-        few: 
+        few:
         one: Autor článku
         other: Autorské články
       blog_post:
-        few: 
+        few:
         one: Príspevok na blogu
         other: Príspevky na blogu
       call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       call_for_evidence_outcome:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       campaign:
-        few: 
+        few:
         one: Kampaň
         other: Kampane
       careers:
-        few: 
+        few:
         one: Kariéra
         other: kariéra
       case_study:
-        few: 
+        few:
         one: Prípadová štúdia
         other: Prípadové štúdie
       closed_call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       closed_consultation:
-        few: 
+        few:
         one: Uzavretá konzultácia
         other: Uzavreté konzultácie
       complaints_procedure:
-        few: 
+        few:
         one: Postup podávania sťažností
         other: Postupy podávania sťažností
       consultation:
-        few: 
+        few:
         one: Konzultácia
         other: Konzultácie
       consultation_outcome:
-        few: 
+        few:
         one: Výsledok konzultácie
         other: Výsledky konzultácie
       corporate_report:
-        few: 
+        few:
         one: Podniková správa
         other: Podnikové správy
       correspondence:
-        few: 
+        few:
         one: Korešpondencia
         other: Korešpondencie
       decision:
-        few: 
+        few:
         one: Rozhodnutie
         other: Rozhodnutia
       detailed_guidance:
-        few: 
+        few:
         one: Poradenstvo
         other: Poradenstvo
       document_collection:
-        few: 
+        few:
         one: Zbierka
         other: Zbierky
       draft_text:
-        few: 
+        few:
         one: Návrh textu
         other: Návrhy textov
       edition:
-        few: 
+        few:
         one: Vydanie
         other: Vydania
       edition_with_appointment:
-        few: 
+        few:
         one: Vydanie s dohodnutým termínom
         other: Vydania s dohodnutým termínom
       equality_and_diversity:
-        few: 
+        few:
         one: Rovnosť a rozmanitosť
         other: Rovnosť a rozmanitosť
       fatality_notice:
-        few: 
+        few:
         one: Oznámenie o úmrtí
         other: Oznámenia o úmrtí
       foi_release:
-        few: 
+        few:
         one: Zverejnenie slobody informácií
         other: Zverejnenia slobody informácií
       form:
-        few: 
+        few:
         one: Formulár
         other: Formuláre
       generic_edition:
-        few: 
+        few:
         one: Všeobecné vydanie
         other: Všeobecné vydania
       government_response:
-        few: 
+        few:
         one: Odpoveď vlády
         other: Odpovede vlády
       guidance:
-        few: 
+        few:
         one: Poradenstvo
         other: Poradenstvo
       impact_assessment:
-        few: 
+        few:
         one: Posúdenie vplyvu
         other: Posúdenia vplyvu
       imported:
-        few: 
+        few:
         one: importované - čaká sa na typ
         other: importované - čaká sa na typ
       independent_report:
-        few: 
+        few:
         one: Nezávislá správa
         other: Nezávislé správy
       international_treaty:
-        few: 
+        few:
         one: Medzinárodná zmluva
         other: Medzinárodné zmluvy
       manual:
-        few: 
+        few:
         one: Príručka
         other: Príručky
       map:
-        few: 
+        few:
         one: Mapa
         other: Mapy
       media_enquiries:
-        few: 
+        few:
         one: Požiadavka na médiá
         other: Požiadavky na médiá
       membership:
-        few: 
+        few:
         one: Členstvo
         other: Členstvo
       modern_slavery_statement:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       national_statistics:
-        few: 
+        few:
         one: Národné štatistiky
         other: Národné štatistiky
       news_article:
-        few: 
+        few:
         one: Spravodajský článok
         other: Spravodajské články
       news_story:
-        few: 
+        few:
         one: Spravodajský príbeh
         other: Spravodajské príbehy
       nhs_content:
-        few: 
+        few:
         one: Obsah NHS
         other: Obsah NHS
       notice:
-        few: 
+        few:
         one: Oznámenie
         other: Oznámenia
       official_statistics:
-        few: 
+        few:
         one: Oficiálne štatistiky
         other: Oficiálne štatistiky
       open_call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       open_consultation:
-        few: 
+        few:
         one: Otvorená konzultácia
         other: Otvorené konzultácie
       oral_statement:
-        few: 
+        few:
         one: Ústne vyhlásenie pred Parlamentom
         other: Ústne vyhlásenia pred Parlamentom
       our_energy_use:
-        few: 
+        few:
         one: Naše využívanie energie
         other: Naše využívanie energie
       our_governance:
-        few: 
+        few:
         one: Naše riadenie
         other: Naše riadenie
       personal_information_charter:
-        few: 
+        few:
         one: Charta osobných údajov
         other: Charty osobných údajov
       petitions_and_campaigns:
-        few: 
+        few:
         one: Petície a kampane
         other: Petície a kampane
       policy_paper:
-        few: 
+        few:
         one: Strategický dokument
         other: Strategické dokumenty
       press_release:
-        few: 
+        few:
         one: Tlačová správa
         other: Tlačové správy
       procurement:
-        few: 
+        few:
         one: Obstarávanie
         other: Obstarávanie
       promotional:
-        few: 
+        few:
         one: Propagačné materiály
         other: Propagačné materiály
       publication:
-        few: 
+        few:
         one: Publikácia
         other: Publikácie
       publication_scheme:
-        few: 
+        few:
         one: Systém zverejňovania
         other: Publikačné schémy
       recruitment:
-        few: 
+        few:
         one: Nábor
         other: Nábor
       regulation:
-        few: 
+        few:
         one: Nariadenie
         other: Nariadenia
       research:
-        few: 
+        few:
         one: Výskum
         other: Výskum
       service:
-        few: 
+        few:
         one: Služba
         other: Služby
       social_media_use:
-        few: 
+        few:
         one: Používanie sociálnych médií
         other: Používanie sociálnych médií
       speaking_notes:
-        few: 
+        few:
         one: Poznámky k prejavu
         other: Poznámky k prejavu
       speech:
-        few: 
+        few:
         one: Prejav
         other: Prejay
       staff_update:
-        few: 
+        few:
         one: Aktualizácia zamestnancov
         other: Aktualizácie zamestnancov
       standard:
-        few: 
+        few:
         one: Štandard
         other: Štandardy
       statement_to_parliament:
-        few: 
+        few:
         one: Vyhlásenie pre Parlament
         other: Vyhlásenia pre Parlament
       statistical_data_set:
-        few: 
+        few:
         one: Súbor štatistických údajov
         other: Súbory štatistických údajov
       statistics:
-        few: 
+        few:
         one: Štatistiky
         other: Štatistiky
       statutory_guidance:
-        few: 
+        few:
         one: Zákonné usmernenia
         other: Zákonné usmernenia
       terms_of_reference:
-        few: 
+        few:
         one: Referenčné podmienky
         other: Referenčné podmienky
       transcript:
-        few: 
+        few:
         one: Prepis
         other: Prepisy
       transparency:
-        few: 
+        few:
         one: Údaje o transparentnosti
         other: Údaje o transparentnosti
       welsh_language_scheme:
-        few: 
+        few:
         one: Program vo waleskom jazyku
         other: Programy vo waleskom jazyku
       world_news_story:
-        few: 
+        few:
         one: Celosvetové spravodajstvo
         other: Celosvetové spravodajstvo
       written_statement:
-        few: 
+        few:
         one: Písomné vyhlásenie pre Parlament
         other: Písomné vyhlásenia pre Parlament
     updated: aktualizované
-  document_filters:
-    world_locations:
-      all: Všetky lokality
-      no_locations_filter: Tomuto filtru nezodpovedajú žiadne svetové lokality.
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
     sk: Slovensky
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Prístup k našim informáciám
@@ -535,7 +531,7 @@ sk:
       jobs_and_contacts: Pracovné miesta a zmluvy
       organisation_chart: Naša organizačná schéma
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Táto úloha nie je nikomu pridelená
   support:
@@ -551,20 +547,13 @@ sk:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: Vyhľadávanie podľa krajiny alebo územia
     type:
       international_delegation:
-        few: 
+        few:
         one: Medzinárodná delegácia
         other: Medzinárodné delegácie
       world_location:
-        few: 
+        few:
         one: Umiestnenie vo svete
         other: Svetové lokality
   world_news:

@@ -22,14 +22,14 @@ lt:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Pridėtas failas
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Pridėto įsakymo dokumento numeris
         hoc_paper_number: Bendruomenių rūmų dokumento numeris
@@ -51,19 +51,19 @@ lt:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio, audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną bei leidinio pavadinimą .Prašome pasakyti, kokio formato jums reikia. Mums padės, jei pasakysite, kokią pagalbinę technologiją naudojate.
@@ -132,399 +132,395 @@ lt:
       written_on: 'Parašyta:'
     type:
       about:
-        few: 
+        few:
         one: Apie
         other: Apie
       about_our_services:
-        few: 
+        few:
         one: Apie mūsų paslaugas
         other: Apie mūsų paslaugas
       access_and_opening:
-        few: 
+        few:
         one: Prieiga ir pradžia
         other: Prieiga ir pradžia
       accessible_documents_policy:
-        few: 
+        few:
         one: Prieinama dokumentų strategija
         other: Prieinamos dokumentų strategijos
       alert:
-        few: 
+        few:
         one: Įspėjimas
         other: Šspėjimai
       announcement:
-        few: 
+        few:
         one: Pranešimas
         other: Pranešimai
       authored_article:
-        few: 
+        few:
         one: Autoriaus straipsnis
         other: Autorių straipsniai
       blog_post:
-        few: 
+        few:
         one: Tinklaraščio įrašas
         other: Tinklaraščio įrašai
       call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       call_for_evidence_outcome:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       campaign:
-        few: 
+        few:
         one: Kampanija
         other: Kampanijos
       careers:
-        few: 
+        few:
         one: Karjera
         other: karjera
       case_study:
-        few: 
+        few:
         one: Atvejo analizė
         other: Atvejų analizės
       closed_call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       closed_consultation:
-        few: 
+        few:
         one: Pasibaigusi konsultacija
         other: Pasibaigusios konsultacijos
       complaints_procedure:
-        few: 
+        few:
         one: Skundų teikimo procedūra
         other: Skundų teikimo procedūros
       consultation:
-        few: 
+        few:
         one: Konsultacija
         other: Konsultacijos
       consultation_outcome:
-        few: 
+        few:
         one: Konsultacijos rezultatas
         other: Konsultacijos rezultatai
       corporate_report:
-        few: 
+        few:
         one: Bendra ataskaita
         other: Bendros ataskaitos
       correspondence:
-        few: 
+        few:
         one: Korespondencija
         other: Korespondencija
       decision:
-        few: 
+        few:
         one: Sprendimas
         other: Sprendimai
       detailed_guidance:
-        few: 
+        few:
         one: Detalesnė informacija
         other: Detalesnė informacija
       document_collection:
-        few: 
+        few:
         one: Serijos
         other: Serijos
       draft_text:
-        few: 
+        few:
         one: Pirminis teksto variantas
         other: Pirminiai teksto variantai
       edition:
-        few: 
+        few:
         one: Leidimas
         other: Leidimai
       edition_with_appointment:
-        few: 
+        few:
         one: Leidimas su paskyrimu
         other: Leidimai su paskyrimu
       equality_and_diversity:
-        few: 
+        few:
         one: Lygybė ir įvairovė
         other: Lygybė ir įvairovė
       fatality_notice:
-        few: 
+        few:
         one: Pranešimas apie nelaimę
         other: Pranešimai apie nelaimes
       foi_release:
-        few: 
+        few:
         one: 'Informacijos laisvė: pranešimas'
         other: 'Informacijos laisvė: pranešimai'
       form:
-        few: 
+        few:
         one: Forma
         other: Formos
       generic_edition:
-        few: 
+        few:
         one: Bendras leidimas
         other: Bendri leidimai
       government_response:
-        few: 
+        few:
         one: Vyriausybės atsakas
         other: Vyriausybės atsakai
       guidance:
-        few: 
+        few:
         one: Informacija
         other: Informacija
       impact_assessment:
-        few: 
+        few:
         one: Poveikio įvertinimas
         other: Poveikio įvertinimai
       imported:
-        few: 
+        few:
         one: patalpinta - laukiama publikavimo
         other: patalpinta - laukiama publikavimo
       independent_report:
-        few: 
+        few:
         one: Nepriklausoma ataskaita
         other: Nepriklausomos ataskaitos
       international_treaty:
-        few: 
+        few:
         one: Tarptautinė sutartis
         other: Tarptautinės sutartys
       manual:
-        few: 
+        few:
         one: Vadovas
         other: Vadovai
       map:
-        few: 
+        few:
         one: Žemėlapis
         other: Žemėlapiai
       media_enquiries:
-        few: 
+        few:
         one: Žiniasklaidos užklausa
         other: Žiniasklaidos užklausos
       membership:
-        few: 
+        few:
         one: Narystė
         other: Narystė
       modern_slavery_statement:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       national_statistics:
-        few: 
+        few:
         one: Statistika - nacionalinė statistika
         other: Statistika - nacionalinė statistika
       news_article:
-        few: 
+        few:
         one: Straipsnis
         other: Straipsniai
       news_story:
-        few: 
+        few:
         one: Naujiena
         other: Naujienos
       nhs_content:
-        few: 
+        few:
         one: NHS turinys
         other: NHS turinys
       notice:
-        few: 
+        few:
         one: Pranešimas
         other: Pranešimai
       official_statistics:
-        few: 
+        few:
         one: Statistika
         other: Statistika
       open_call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       open_consultation:
-        few: 
+        few:
         one: Atvira konsultacija
         other: Atviros konsultacijos
       oral_statement:
-        few: 
+        few:
         one: Žodinis kreipimasis į parlamentą
         other: Žodiniai kreipimaisi į parlamentą
       our_energy_use:
-        few: 
+        few:
         one: Mūsų energijos naudojimas
         other: Mūsų energijos naudojimas
       our_governance:
-        few: 
+        few:
         one: Mūsų valdymas
         other: Mūsų valdymas
       personal_information_charter:
-        few: 
+        few:
         one: Teisė į asmens informaciją
         other: Teisė į asmens informaciją
       petitions_and_campaigns:
-        few: 
+        few:
         one: Peticijos ir kampanijos
         other: Peticijos ir kampanijos
       policy_paper:
-        few: 
+        few:
         one: Strategijos dokumentas
         other: Strategijų dokumentai
       press_release:
-        few: 
+        few:
         one: Pranešimas spaudai
         other: Pranešimai spaudai
       procurement:
-        few: 
+        few:
         one: Pirkimai
         other: Pirkimai
       promotional:
-        few: 
+        few:
         one: Reklaminė medžiaga
         other: Reklaminė medžiaga
       publication:
-        few: 
+        few:
         one: Leidinys
         other: Leidiniai
       publication_scheme:
-        few: 
+        few:
         one: Publikavimo planas
         other: Publikavimo planai
       recruitment:
-        few: 
+        few:
         one: Įdarbinimas
         other: Įdarbinimas
       regulation:
-        few: 
+        few:
         one: Reglamentas
         other: Reglamentai
       research:
-        few: 
+        few:
         one: Tyrimas ir analizė
         other: Tyrimai ir analizės
       service:
-        few: 
+        few:
         one: Paslauga
         other: Paslaugos
       social_media_use:
-        few: 
+        few:
         one: Socialinės medijos naudojimas
         other: Socialinės medijos naudojimas
       speaking_notes:
-        few: 
+        few:
         one: Kalbos santrauka
         other: Kalbos santrauka
       speech:
-        few: 
+        few:
         one: Kalba
         other: Kalbos
       staff_update:
-        few: 
+        few:
         one: Nauja informacija apie personalą
         other: Nauja informacija apie personalą
       standard:
-        few: 
+        few:
         one: Standartas
         other: Standartai
       statement_to_parliament:
-        few: 
+        few:
         one: Kreipimasis į parlamentą
         other: Kreipimaisi į parlamentą
       statistical_data_set:
-        few: 
+        few:
         one: Statistiniai duomenys
         other: Statistiniai duomenys
       statistics:
-        few: 
+        few:
         one: Statistika
         other: Statistika
       statutory_guidance:
-        few: 
+        few:
         one: Įstatyminė informacija
         other: Įstatyminė informacija
       terms_of_reference:
-        few: 
+        few:
         one: Techninės užduotys
         other: Techninės užduotys
       transcript:
-        few: 
+        few:
         one: Kalbos tekstas
         other: Kalbų tekstai
       transparency:
-        few: 
+        few:
         one: Skaidrumo informacija
         other: Skaidrumo informacija
       welsh_language_scheme:
-        few: 
+        few:
         one: Valų kalbos schema
         other: Valų kalbos schemos
       world_news_story:
-        few: 
+        few:
         one: Pasaulio naujienos
         other: Pasaulio naujienos
       written_statement:
-        few: 
+        few:
         one: Rašytinis kreipimasis į parlamentą
         other: Rašytiniai kreipimaisi į parlamentą
     updated: atnaujinta
-  document_filters:
-    world_locations:
-      all: Visos geografinės vietos
-      no_locations_filter: Nė viena geografinė vieta neatitinka filtro.
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
     lt: Lietuvių
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Prieiga prie mūsų informacijos
@@ -532,7 +528,7 @@ lt:
       jobs_and_contacts: Darbai ir sutartys
       organisation_chart: Mūsų organizacijos schema
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Niekam nepriskirta įi funkcija
   support:
@@ -548,20 +544,13 @@ lt:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: Ieškoti pagal šalį ar teritoriją
     type:
       international_delegation:
-        few: 
+        few:
         one: Tarptautinė delegacija
         other: Tarptautinės delegacijos
       world_location:
-        few: 
+        few:
         one: Geografinė vieta
         other: Geografinės vietos
   world_news:

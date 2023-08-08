@@ -22,14 +22,14 @@ ms:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Fail dilampirkan
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Lampiran nombor kertas perintah
         hoc_paper_number: Nombor kertas Dewan Rakyat
@@ -51,19 +51,19 @@ ms:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -151,9 +151,9 @@ ms:
       blog_post:
         other: Siaran blog
       call_for_evidence:
-        other: 
+        other:
       call_for_evidence_outcome:
-        other: 
+        other:
       campaign:
         other: Kempen
       careers:
@@ -161,7 +161,7 @@ ms:
       case_study:
         other: Kajian kes
       closed_call_for_evidence:
-        other: 
+        other:
       closed_consultation:
         other: Rundingan tertutup
       complaints_procedure:
@@ -217,7 +217,7 @@ ms:
       membership:
         other: Keanggotaan
       modern_slavery_statement:
-        other: 
+        other:
       national_statistics:
         other: Statistik Nasional
       news_article:
@@ -231,7 +231,7 @@ ms:
       official_statistics:
         other: Statistik Rasmi
       open_call_for_evidence:
-        other: 
+        other:
       open_consultation:
         other: Rundingan terbuka
       oral_statement:
@@ -295,79 +295,75 @@ ms:
       written_statement:
         other: Kenyataan bertulis kepada Parlimen
     updated: dikemas kini
-  document_filters:
-    world_locations:
-      all: Semua lokasi
-      no_locations_filter: Tidak ada lokasi dunia yang sepadan dengan penapis itu.
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
     ms: Bahasa Melayu
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Akses maklumat kami
@@ -375,7 +371,7 @@ ms:
       jobs_and_contacts: Pekerjaan dan kontrak
       organisation_chart: Carta organisasi kami
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Tiada siapa yang ditugaskan untuk peranan ini
   support:
@@ -391,13 +387,6 @@ ms:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: Cari mengikut negara atau wilayah
     type:
       international_delegation:
         other: Perwakilan antarabangsa

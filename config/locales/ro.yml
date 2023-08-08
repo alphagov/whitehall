@@ -22,14 +22,14 @@ ro:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Fișierul atașat
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Număr document comandă atașament
         hoc_paper_number: Numărul documentului de la Camera Comunelor
@@ -51,19 +51,19 @@ ro:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -134,399 +134,395 @@ ro:
       written_on: 'Scris pe:'
     type:
       about:
-        few: 
+        few:
         one: Despre
         other: Despre
       about_our_services:
-        few: 
+        few:
         one: Despre serviciile noastre
         other: Despre serviciile noastre
       access_and_opening:
-        few: 
+        few:
         one: Acces și deschidere
         other: Acces și deschidere
       accessible_documents_policy:
-        few: 
+        few:
         one: Politica privind documentele accesibile
         other: Politicile privind documentele accesibile
       alert:
-        few: 
+        few:
         one: Alertă
         other: Alerte
       announcement:
-        few: 
+        few:
         one: Anunț
         other: Anunțuri
       authored_article:
-        few: 
+        few:
         one: Articol publicat
         other: Articole publicate
       blog_post:
-        few: 
+        few:
         one: Postare pe blog
         other: Postări pe blog
       call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       call_for_evidence_outcome:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       campaign:
-        few: 
+        few:
         one: Campanie
         other: Campanii
       careers:
-        few: 
+        few:
         one: Cariere
         other: cariere
       case_study:
-        few: 
+        few:
         one: Studiu de caz
         other: Studii de caz
       closed_call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       closed_consultation:
-        few: 
+        few:
         one: Consultație închisă
         other: Consultații închise
       complaints_procedure:
-        few: 
+        few:
         one: Procedură de reclamație
         other: Proceduri de reclamație
       consultation:
-        few: 
+        few:
         one: Consultație
         other: Consultații
       consultation_outcome:
-        few: 
+        few:
         one: Rezultatul consultației
         other: Rezultatele consultației
       corporate_report:
-        few: 
+        few:
         one: Raport de companie
         other: Rapoarte de companie
       correspondence:
-        few: 
+        few:
         one: Corespondență
         other: Corespondențe
       decision:
-        few: 
+        few:
         one: Decizie
         other: Decizii
       detailed_guidance:
-        few: 
+        few:
         one: Orientări
         other: Orientări
       document_collection:
-        few: 
+        few:
         one: Colecție
         other: Colecții
       draft_text:
-        few: 
+        few:
         one: Proiect de text
         other: Proiecte de text
       edition:
-        few: 
+        few:
         one: Ediție
         other: Ediții
       edition_with_appointment:
-        few: 
+        few:
         one: Ediție cu programare
         other: Ediții cu programare
       equality_and_diversity:
-        few: 
+        few:
         one: Egalitate și diversitate
         other: Egalitate și diversitate
       fatality_notice:
-        few: 
+        few:
         one: Notificare accident mortal
         other: Notificări accident mortal
       foi_release:
-        few: 
+        few:
         one: Document eliberat privind libertatea informației
         other: Documente eliberate privind libertatea informației
       form:
-        few: 
+        few:
         one: Formular
         other: Formulare
       generic_edition:
-        few: 
+        few:
         one: Ediție generică
         other: Ediții generice
       government_response:
-        few: 
+        few:
         one: Răspunsul guvernului
         other: Răspunsurile guvernului
       guidance:
-        few: 
+        few:
         one: Orientări
         other: Orientări
       impact_assessment:
-        few: 
+        few:
         one: Evaluarea impactului
         other: Evaluările impactului
       imported:
-        few: 
+        few:
         one: importat - se așteaptă tipul
         other: importat - se așteaptă tipul
       independent_report:
-        few: 
+        few:
         one: Raport independent
         other: Rapoarte independente
       international_treaty:
-        few: 
+        few:
         one: Tratat internațional
         other: Tratate internaționale
       manual:
-        few: 
+        few:
         one: Manual
         other: Manuale
       map:
-        few: 
+        few:
         one: Hartă
         other: Hărți
       media_enquiries:
-        few: 
+        few:
         one: Investigație în mass-media
         other: Investigații în mass-media
       membership:
-        few: 
+        few:
         one: Abonament
         other: Abonament
       modern_slavery_statement:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       national_statistics:
-        few: 
+        few:
         one: Statistică națională
         other: Statistică națională
       news_article:
-        few: 
+        few:
         one: Articol de știri
         other: Articole de știri
       news_story:
-        few: 
+        few:
         one: Reportaj de știri
         other: Reportaje de știri
       nhs_content:
-        few: 
+        few:
         one: Conținut NHS
         other: Conținut NHS
       notice:
-        few: 
+        few:
         one: Notificare
         other: Notificări
       official_statistics:
-        few: 
+        few:
         one: Statistică oficială
         other: Statistică oficială
       open_call_for_evidence:
-        few: 
-        one: 
-        other: 
+        few:
+        one:
+        other:
       open_consultation:
-        few: 
+        few:
         one: Consultație deschisă
         other: Consultație deschise
       oral_statement:
-        few: 
+        few:
         one: Expunere orală către Parlament
         other: Expuneri orale către Parlament
       our_energy_use:
-        few: 
+        few:
         one: Consumul nostru de energie
         other: Consumul nostru de energie
       our_governance:
-        few: 
+        few:
         one: Guvernarea noastră
         other: Guvernarea noastră
       personal_information_charter:
-        few: 
+        few:
         one: Carta informațiilor cu caracter personal
         other: Cartele informațiilor cu caracter personal
       petitions_and_campaigns:
-        few: 
+        few:
         one: Petiții și campanii
         other: Petiții și campanii
       policy_paper:
-        few: 
+        few:
         one: Document de politică
         other: Documente de politică
       press_release:
-        few: 
+        few:
         one: Comunicat de presă
         other: Comunicate de presă
       procurement:
-        few: 
+        few:
         one: Achiziții
         other: Achiziții
       promotional:
-        few: 
+        few:
         one: Material promoțional
         other: Material promoțional
       publication:
-        few: 
+        few:
         one: Publicație
         other: Publicații
       publication_scheme:
-        few: 
+        few:
         one: Schemă de publicare
         other: Scheme de publicare
       recruitment:
-        few: 
+        few:
         one: Angajare
         other: Angajare
       regulation:
-        few: 
+        few:
         one: Reglementare
         other: Reglementări
       research:
-        few: 
+        few:
         one: Cercetare
         other: Cercetare
       service:
-        few: 
+        few:
         one: Serviciu
         other: Servicii
       social_media_use:
-        few: 
+        few:
         one: Utilizarea rețelelor de socializare
         other: Utilizarea rețelelor de socializare
       speaking_notes:
-        few: 
+        few:
         one: Note de discuție
         other: Note de discuție
       speech:
-        few: 
+        few:
         one: Discurs
         other: Discursuri
       staff_update:
-        few: 
+        few:
         one: Actualizare personal
         other: Actualizări personal
       standard:
-        few: 
+        few:
         one: Standard
         other: Standarde
       statement_to_parliament:
-        few: 
+        few:
         one: Declarație către Parlament
         other: Declarații către Parlament
       statistical_data_set:
-        few: 
+        few:
         one: Set de date statistice
         other: Seturi de date statistice
       statistics:
-        few: 
+        few:
         one: Statistici
         other: Statistici
       statutory_guidance:
-        few: 
+        few:
         one: Orientări privind dispozițiile legale
         other: Orientări privind dispozițiile legale
       terms_of_reference:
-        few: 
+        few:
         one: Termeni de referință
         other: Termeni de referință
       transcript:
-        few: 
+        few:
         one: Transcriere
         other: Transcrieri
       transparency:
-        few: 
+        few:
         one: Date privind transparența
         other: Date privind transparența
       welsh_language_scheme:
-        few: 
+        few:
         one: Schema limbii galeze
         other: Schemele limbii galeze
       world_news_story:
-        few: 
+        few:
         one: Reportaj de știri global
         other: Reportaje de știri globale
       written_statement:
-        few: 
+        few:
         one: Declarație scrisă către Parlament
         other: Declarații scrise către Parlament
     updated: actualizat
-  document_filters:
-    world_locations:
-      all: Toate locațiile
-      no_locations_filter: Nicio locație de pe glob nu se potrivește acestui filtru.
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
     ro: Română
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Accesați informațiile noastre
@@ -534,7 +530,7 @@ ro:
       jobs_and_contacts: Locuri de muncă și contracte
       organisation_chart: Graficul nostru organizațional
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: În această funcție nu este repartizată nicio persoană
   support:
@@ -550,20 +546,13 @@ ro:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
-    headings:
-      search: Căutați după țară sau teritoriu
     type:
       international_delegation:
-        few: 
+        few:
         one: Delegare internațională
         other: Delegări internaționale
       world_location:
-        few: 
+        few:
         one: Locație pe glob
         other: Locații pe glob
   world_news:
