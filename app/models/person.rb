@@ -119,6 +119,10 @@ class Person < ApplicationRecord
     current_role_appointments.collect(&:role_name).to_sentence
   end
 
+  def publishing_api_presenter
+    PublishingApi::PersonPresenter
+  end
+
 private
 
   def name_as_words(*elements)

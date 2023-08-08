@@ -33,4 +33,8 @@ class StatisticalDataSet < Publicationesque
   def public_path(options = {})
     append_url_options(base_path, options)
   end
+
+  def publishing_api_presenter
+    PublishingApi::StatisticalDataSetPresenter
+  end
 end

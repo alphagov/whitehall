@@ -163,6 +163,10 @@ class RoleAppointment < ApplicationRecord
     historical_account.present?
   end
 
+  def publishing_api_presenter
+    PublishingApi::RoleAppointmentPresenter
+  end
+
 private
 
   def make_other_current_appointments_non_current

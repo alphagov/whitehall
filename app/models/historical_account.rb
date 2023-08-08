@@ -97,6 +97,10 @@ class HistoricalAccount < ApplicationRecord
     super && previous_prime_minister?
   end
 
+  def publishing_api_presenter
+    PublishingApi::HistoricalAccountPresenter
+  end
+
 private
 
   def previous_prime_minister?

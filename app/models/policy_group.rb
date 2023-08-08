@@ -83,4 +83,8 @@ class PolicyGroup < ApplicationRecord
              link: :public_path,
              content: :summary_or_name,
              description: :summary
+
+  def publishing_api_presenter
+    PublishingApi::WorkingGroupPresenter
+  end
 end

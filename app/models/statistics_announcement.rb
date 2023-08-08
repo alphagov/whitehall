@@ -213,6 +213,10 @@ class StatisticsAnnouncement < ApplicationRecord
     unpublished? || publication_has_been_published?
   end
 
+  def publishing_api_presenter
+    PublishingApi::StatisticsAnnouncementPresenter
+  end
+
 private
 
   def publication_has_been_published?

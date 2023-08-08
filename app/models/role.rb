@@ -169,6 +169,10 @@ class Role < ApplicationRecord
     Plek.website_root + public_path(options)
   end
 
+  def publishing_api_presenter
+    PublishingApi::RolePresenter
+  end
+
 private
 
   def prevent_destruction_unless_destroyable

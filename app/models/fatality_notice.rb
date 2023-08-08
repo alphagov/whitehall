@@ -43,4 +43,8 @@ class FatalityNotice < Announcement
   def base_path
     "/government/fatalities/#{slug}"
   end
+
+  def publishing_api_presenter
+    PublishingApi::FatalityNoticePresenter
+  end
 end

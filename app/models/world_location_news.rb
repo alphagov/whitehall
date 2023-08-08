@@ -88,4 +88,8 @@ class WorldLocationNews < ApplicationRecord
 
   extend FriendlyId
   friendly_id
+
+  def publishing_api_presenter
+    PublishingApi::WorldLocationNewsPresenter
+  end
 end

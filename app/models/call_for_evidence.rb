@@ -170,6 +170,10 @@ class CallForEvidence < Publicationesque
     "/government/calls-for-evidence/#{slug}"
   end
 
+  def publishing_api_presenter
+    PublishingApi::CallForEvidencePresenter
+  end
+
 private
 
   def validate_closes_after_opens

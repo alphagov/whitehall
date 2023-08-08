@@ -128,6 +128,10 @@ class DetailedGuide < Edition
     "/guidance/#{slug}"
   end
 
+  def publishing_api_presenter
+    PublishingApi::DetailedGuidePresenter
+  end
+
 private
 
   def date_for_government
