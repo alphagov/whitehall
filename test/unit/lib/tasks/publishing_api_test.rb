@@ -367,7 +367,7 @@ class PublishingApiRake < ActiveSupport::TestCase
     describe "#worldwide_corporate_information_pages" do
       let(:task) { Rake::Task["publishing_api:bulk_republish:worldwide_corporate_information_pages"] }
 
-      test "republishes published worldwide corporate information pages (including about pages)" do
+      test "republishes published worldwide corporate information pages (including about pages) by default" do
         create(
           :published_worldwide_organisation_corporate_information_page,
           corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
@@ -388,6 +388,29 @@ class PublishingApiRake < ActiveSupport::TestCase
         PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).twice
 
         capture_io { task.invoke }
+      end
+
+      test "republishes worldwide corporate information pages (including about pages) by state when provided as pipe separated args" do
+        create(
+          :published_worldwide_organisation_corporate_information_page,
+          corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
+        )
+
+        create(
+          :published_worldwide_organisation_corporate_information_page,
+          corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id,
+        )
+
+        create(:corporate_information_page, :draft, worldwide_organisation: create(:worldwide_organisation), organisation: nil)
+
+        create(
+          :published_corporate_information_page,
+          corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id,
+        )
+
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).times(3)
+
+        capture_io { task.invoke("published|draft") }
       end
     end
 
