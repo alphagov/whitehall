@@ -1,4 +1,4 @@
-module PersonHelper
+module Admin::PersonHelper
   def disambiguated_people_names
     people = Person.includes(:current_roles)
     name_counts = Hash.new(0)
