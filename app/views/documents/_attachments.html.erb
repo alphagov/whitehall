@@ -1,6 +1,0 @@
-<% object_with_attachments.attachments.each do |attachment| %>
-  <%= render partial: "documents/attachment", object: attachment, locals: {
-    alternative_format_contact_email: 
-      object_with_attachments.respond_to?(:alternative_format_contact_email) ? object_with_attachments.alternative_format_contact_email : nil
-  } %>
-<% end %>
