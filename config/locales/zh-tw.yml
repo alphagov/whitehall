@@ -22,14 +22,14 @@ zh-tw:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: 附件
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: 附件命令文件編號
         hoc_paper_number: 下議院文件編碼
@@ -51,19 +51,19 @@ zh-tw:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -150,9 +150,9 @@ zh-tw:
       blog_post:
         other: 部落格文章
       call_for_evidence:
-        other: 
+        other:
       call_for_evidence_outcome:
-        other: 
+        other:
       campaign:
         other: 活動
       careers:
@@ -160,7 +160,7 @@ zh-tw:
       case_study:
         other: 案例分析
       closed_call_for_evidence:
-        other: 
+        other:
       closed_consultation:
         other: 非公開協商
       complaints_procedure:
@@ -216,7 +216,7 @@ zh-tw:
       membership:
         other: 會員資格
       modern_slavery_statement:
-        other: 
+        other:
       national_statistics:
         other: 國家統計
       news_article:
@@ -230,7 +230,7 @@ zh-tw:
       official_statistics:
         other: 官方統計
       open_call_for_evidence:
-        other: 
+        other:
       open_consultation:
         other: 公開諮詢
       oral_statement:
@@ -301,71 +301,71 @@ zh-tw:
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
     zh-tw: 繁體中文
   organisation:
     corporate_information:
@@ -391,10 +391,10 @@ zh-tw:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
+      complete_list:
+      find_out:
+      heading:
+      list_link:
     headings:
       search: 按國家或地區搜索
     type:

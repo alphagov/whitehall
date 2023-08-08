@@ -22,14 +22,14 @@ et:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Lisatud fail
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Manuse käsudokumendi number
         hoc_paper_number: Alamkoja dokumendinumber
@@ -51,19 +51,19 @@ et:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -158,11 +158,11 @@ et:
         one: Blogi postitus
         other: Blogi postitused
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: Kampaania
         other: Kampaaniad
@@ -173,8 +173,8 @@ et:
         one: Juhtumiuuring
         other: Juhtumiuuringud
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: Suletud konsultatsioon
         other: Suletud konsultatsioonid
@@ -257,8 +257,8 @@ et:
         one: Liikmelisus
         other: Liikmelisus
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: Riiklik statistika
         other: Riiklik statistika
@@ -278,8 +278,8 @@ et:
         one: Ametlik statistika
         other: Ametlik statistika
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: Avatud konsultatsioon
         other: Avatud konsultatsioonid
@@ -381,72 +381,72 @@ et:
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
     et: Eesti
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Juurdepääs meie teabele
@@ -454,7 +454,7 @@ et:
       jobs_and_contacts: Töökohad ja lepingud
       organisation_chart: Meie organisatsiooni skeem
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Sellesse rolli pole kedagi määratud
   support:
@@ -471,10 +471,10 @@ et:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
+      complete_list:
+      find_out:
+      heading:
+      list_link:
     headings:
       search: Otsige riigi või territooriumi järgi
     type:

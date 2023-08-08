@@ -22,14 +22,14 @@ vi:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Tệp đính kèm
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: Số văn kiện lệnh đính kèm
         hoc_paper_number: Số văn kiện của Hạ viện
@@ -51,19 +51,19 @@ vi:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -150,9 +150,9 @@ vi:
       blog_post:
         other: Bài viết trên blog
       call_for_evidence:
-        other: 
+        other:
       call_for_evidence_outcome:
-        other: 
+        other:
       campaign:
         other: Chiến dịch
       careers:
@@ -160,7 +160,7 @@ vi:
       case_study:
         other: Nghiên cứu điển hình
       closed_call_for_evidence:
-        other: 
+        other:
       closed_consultation:
         other: Tham vấn kín
       complaints_procedure:
@@ -216,7 +216,7 @@ vi:
       membership:
         other: Tư cách thành viên
       modern_slavery_statement:
-        other: 
+        other:
       national_statistics:
         other: Thống kê Quốc gia
       news_article:
@@ -230,7 +230,7 @@ vi:
       official_statistics:
         other: Thống kê Chính thức
       open_call_for_evidence:
-        other: 
+        other:
       open_consultation:
         other: Tham vấn mở
       oral_statement:
@@ -301,72 +301,72 @@ vi:
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
     vi: Tiếng Việt
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: Truy cập thông tin của chúng tôi
@@ -374,7 +374,7 @@ vi:
       jobs_and_contacts: Việc làm và hợp đồng
       organisation_chart: Sơ đồ tổ chức của chúng tôi
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: Không ai được bổ nhiệm vai trò này
   support:
@@ -391,10 +391,10 @@ vi:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
+      complete_list:
+      find_out:
+      heading:
+      list_link:
     headings:
       search: Tìm kiếm theo quốc gia hoặc lãnh thổ
     type:

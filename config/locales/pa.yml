@@ -22,14 +22,14 @@ pa:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
         hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
@@ -51,19 +51,19 @@ pa:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -159,11 +159,11 @@ pa:
         one: ਬਲੌਗ ਪੋਸਟ
         other: ਬਲੌਗ ਪੋਸਟਾਂ
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: ਮੁਹਿੰਮ
         other: ਮੁਹਿੰਮਾਂ
@@ -174,8 +174,8 @@ pa:
         one: ਕੇਸ ਅਧਿਐਨ
         other: ਕੇਸ ਅਧਿਐਨ
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: ਬੰਦ ਸਲਾਹ -ਮਸ਼ਵਰਾ
         other: ਬੰਦ ਸਲਾਹ ਮਸ਼ਵਰੇ
@@ -258,8 +258,8 @@ pa:
         one: ਮੈਂਬਰਸ਼ਿਪ
         other: ਮੈਂਬਰਸ਼ਿਪ
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
         other: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
@@ -279,8 +279,8 @@ pa:
         one: ਅਧਿਕਾਰਤ ਅੰਕੜੇ
         other: ਅਧਿਕਾਰਤ ਅੰਕੜੇ
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: ਖੁੱਲ੍ਹਾ ਸਲਾਹ-ਮਸ਼ਵਰਾ
         other: ਖੁੱਲ੍ਹੇ ਸਲਾਹ-ਮਸ਼ਵਰੇ
@@ -382,72 +382,72 @@ pa:
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
     pa: ਪੰਜਾਬੀ ਗੁਰਮੁਖੀ
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: ਸਾਡੀ ਜਾਣਕਾਰੀ ਤੱਕ ਪਹੁੰਚ ਕਰੋ
@@ -455,7 +455,7 @@ pa:
       jobs_and_contacts: ਨੌਕਰੀਆਂ ਅਤੇ ਇਕਰਾਰਨਾਮੇ
       organisation_chart: ਸਾਡਾ ਸੰਗਠਨ ਚਾਰਟ
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: ਇਸ ਭੂਮਿਕਾ ਲਈ ਕਿਸੇ ਨੂੰ ਵੀ ਨਿਯੁਕਤ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ
   support:
@@ -472,10 +472,10 @@ pa:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
+      complete_list:
+      find_out:
+      heading:
+      list_link:
     headings:
       search: ਦੇਸ਼ ਜਾਂ ਖੇਤਰ ਦੁਆਰਾ ਖੋਜ ਕਰੋ
     type:

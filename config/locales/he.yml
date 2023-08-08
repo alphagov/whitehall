@@ -22,14 +22,14 @@ he:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: הקובץ המצורף
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: מספר נייר הפקודה המצורפת
         hoc_paper_number: מספר הנייר של בית הנבחרים
@@ -51,19 +51,19 @@ he:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: |
@@ -159,11 +159,11 @@ he:
         one: רשומת בלוג
         other: רשומות בלוג
       call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       call_for_evidence_outcome:
-        one: 
-        other: 
+        one:
+        other:
       campaign:
         one: קמפיין
         other: קמפיינים
@@ -174,8 +174,8 @@ he:
         one: מקרה בוחן
         other: מקרי בוחן
       closed_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       closed_consultation:
         one: דיון סגור
         other: דיונים סגורים
@@ -258,8 +258,8 @@ he:
         one: חברות
         other: חברות
       modern_slavery_statement:
-        one: 
-        other: 
+        one:
+        other:
       national_statistics:
         one: סטטיסטיקה לאומית
         other: סטטיסטיקה לאומית
@@ -279,8 +279,8 @@ he:
         one: סטטיסטיקה רשמית
         other: סטטיסטיקה רשמית
       open_call_for_evidence:
-        one: 
-        other: 
+        one:
+        other:
       open_consultation:
         one: דיון פתוח
         other: דיונים  פתוחים
@@ -382,72 +382,72 @@ he:
   i18n:
     direction: rtl
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
     he: עברית
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
-    ja: 
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: גישה למידע
@@ -455,7 +455,7 @@ he:
       jobs_and_contacts: משרות וחוזים
       organisation_chart: תרשים הארגון שלנו
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: לאף אחד אין תפקיד זה
   support:
@@ -472,10 +472,10 @@ he:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
     content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
+      complete_list:
+      find_out:
+      heading:
+      list_link:
     headings:
       search: חפש לפי מדינה או שטח
     type:

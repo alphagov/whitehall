@@ -22,14 +22,14 @@ ja:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: 添付ファイル
       response/call_for_evidence_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/call_for_evidence_response_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
         command_paper_number: 添付勅令書類番号
         hoc_paper_number: 庶民院の書類番号
@@ -51,19 +51,19 @@ ja:
   admin:
     whats_new:
       guidance:
-        body_govspeak: 
-        heading: 
+        body_govspeak:
+        heading:
       introduction:
-        body_govspeak: 
-        heading: 
-      last_updated: 
+        body_govspeak:
+        heading:
+      last_updated:
       recent_changes:
-        heading: 
-        updates: 
-      summary: 
-      title: 
+        heading:
+        updates:
+      summary:
+      title:
       upcoming_changes:
-        heading: 
+        heading:
   attachment:
     accessibility:
       full_help_html: お客様が支援技術（スクリーンリーダーなど）を使用していて、このドキュメントよりアクセスしやすい形式のバージョンが必要な場合は、必要なフォーマットや使用している支援技術を添え％{email}にEメールをお送くりください。
@@ -148,9 +148,9 @@ ja:
       blog_post:
         other: ブログ投稿
       call_for_evidence:
-        other: 
+        other:
       call_for_evidence_outcome:
-        other: 
+        other:
       campaign:
         other: キャンペーン
       careers:
@@ -158,7 +158,7 @@ ja:
       case_study:
         other: ケーススタディ
       closed_call_for_evidence:
-        other: 
+        other:
       closed_consultation:
         other: 非公開の審議
       complaints_procedure:
@@ -214,7 +214,7 @@ ja:
       membership:
         other: メンバーシップ
       modern_slavery_statement:
-        other: 
+        other:
       national_statistics:
         other: 国家統計
       news_article:
@@ -228,7 +228,7 @@ ja:
       official_statistics:
         other: 公式統計
       open_call_for_evidence:
-        other: 
+        other:
       open_consultation:
         other: 公開審議
       oral_statement:
@@ -299,72 +299,72 @@ ja:
   i18n:
     direction: ltr
   language_names:
-    ar: 
-    az: 
-    be: 
-    bg: 
-    bn: 
-    cs: 
-    cy: 
-    da: 
-    de: 
-    dr: 
-    el: 
-    en: 
-    es: 
-    es-419: 
-    et: 
-    fa: 
-    fi: 
-    fr: 
-    gd: 
-    gu: 
-    he: 
-    hi: 
-    hr: 
-    hu: 
-    hy: 
-    id: 
-    is: 
-    it: 
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
     ja: 日本
-    ka: 
-    kk: 
-    ko: 
-    lt: 
-    lv: 
-    ms: 
-    mt: 
-    ne: 
-    nl: 
-    'no': 
-    pa: 
-    pa-pk: 
-    pl: 
-    ps: 
-    pt: 
-    ro: 
-    ru: 
-    si: 
-    sk: 
-    sl: 
-    so: 
-    sq: 
-    sr: 
-    sv: 
-    sw: 
-    ta: 
-    th: 
-    tk: 
-    tr: 
-    uk: 
-    ur: 
-    uz: 
-    vi: 
-    yi: 
-    zh: 
-    zh-hk: 
-    zh-tw: 
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   organisation:
     corporate_information:
       access_our_info: 情報にアクセスする
@@ -372,7 +372,7 @@ ja:
       jobs_and_contacts: 仕事と契約
       organisation_chart: 組織図
     embassies:
-      find_an_embassy_title: 
+      find_an_embassy_title:
   roles:
     unassigned: この役割には誰も割り当てられていません
   support:
@@ -389,10 +389,10 @@ ja:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     content:
-      complete_list: 
-      find_out: 
-      heading: 
-      list_link: 
+      complete_list:
+      find_out:
+      heading:
+      list_link:
     headings:
       search: 国または地域で検索
     type:
