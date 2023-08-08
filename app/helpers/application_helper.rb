@@ -22,16 +22,6 @@ module ApplicationHelper
     content_for(:page_class, css_class)
   end
 
-  def atom_discovery_link_tag(url = nil, title = nil)
-    # This helper is used to get *and* set data for
-    # rendering an atom feed URL.
-    # rubocop:disable Rails/HelperInstanceVariable
-    @atom_discovery_link_url = url if url.present?
-    @atom_discovery_link_title = title if title.present?
-    auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url(format: :atom), title: @atom_discovery_link_title || "Recent updates")
-    # rubocop:enable Rails/HelperInstanceVariable
-  end
-
   def format_in_paragraphs(string, options = {})
     safe_join(
       String(string)
@@ -52,32 +42,6 @@ module ApplicationHelper
     link_to name, attachment.url(options), class: html_class
   end
 
-  def text_for_role_appointment(appointment)
-    if appointment.current?
-      appointment.role.name
-    else
-      "#{appointment.role.name} (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
-    end
-  end
-
-  def publication_type_options
-    [
-      ["", [""]],
-      ["Common types",
-       PublicationType.primary.map do |publication_type|
-         [publication_type.singular_name, publication_type.id]
-       end],
-      ["Less common types",
-       PublicationType.less_common.map do |publication_type|
-         [publication_type.singular_name, publication_type.id]
-       end],
-      ["Use discouraged",
-       PublicationType.use_discouraged.map do |publication_type|
-         [publication_type.singular_name, publication_type.id]
-       end],
-    ]
-  end
-
   def worldwide_office_type_options
     WorldwideOfficeType.by_grouping.map do |grouping, types|
       [
@@ -85,26 +49,6 @@ module ApplicationHelper
         types.map { |t| [t.name, t.id] },
       ]
     end
-  end
-
-  def news_article_type_options
-    [
-      ["", [""]],
-      ["Common types",
-       NewsArticleType.all.map do |type|
-         [type.singular_name, type.id]
-       end],
-    ]
-  end
-
-  def speech_type_options
-    [
-      ["", [""]],
-      ["Common types",
-       SpeechType.primary.map do |type|
-         [type.singular_name, type.id]
-       end],
-    ]
   end
 
   def role_type_options
@@ -156,15 +100,6 @@ module ApplicationHelper
 
   def right_to_left?
     Locale.new(I18n.locale).rtl?
-  end
-
-  def content_tag_if_not_empty(name, options = {}, &block)
-    content = capture(&block)
-    if content.present? && content.strip
-      content_tag(name, content, **options)
-    else
-      ""
-    end
   end
 
   def joined_list(elements)
