@@ -13,7 +13,6 @@ require File.expand_path("../config/environment", __dir__)
 require "maxitest/autorun"
 require "rails/test_help"
 require "mocha/minitest"
-require "slimmer/test"
 require "factories"
 require "webmock/minitest"
 require "whitehall/search_index"

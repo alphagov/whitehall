@@ -4,7 +4,6 @@ class DocumentsController < PublicFacingController
 
   before_action :redirect_to_canonical_url
   before_action :find_document, only: [:show]
-  before_action :set_slimmer_headers_for_document, only: [:show]
 
   def show; end
 
@@ -78,16 +77,6 @@ private
 
   def canonical_redirect_path(redir_params)
     url_for(redir_params)
-  end
-
-  def set_slimmer_headers_for_document
-    organisations = @document.importance_ordered_organisations
-    organisations += @document.worldwide_organisations if @document.can_be_associated_with_worldwide_organisations?
-    set_slimmer_organisations_header(organisations)
-
-    set_slimmer_page_owner_header(@document.lead_organisations.first)
-
-    set_slimmer_world_locations_header(@document.world_locations) if @document.can_be_associated_with_world_locations?
   end
 
   def filter_query_array(arr)

@@ -59,8 +59,6 @@ Whitehall::Application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
-  config.slimmer.asset_host = "http://tests-should-not-depend-on-external-host.com"
-
   # These environment variables are required for Plek. Conditionally setting
   # them here means we don't have to explicitly set them just to run tests.
   ENV["GOVUK_APP_DOMAIN"] ||= "test.gov.uk"
@@ -74,7 +72,5 @@ Whitehall::Application.configure do
   # or
   # config.assets.js_compressor = Terser.new(mangle: false)
 end
-
-require Rails.root.join("test/support/skip_slimmer")
 
 Whitehall.skip_safe_html_validation = true

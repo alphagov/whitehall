@@ -1,12 +1,4 @@
-require "slimmer/test"
-
-Before("@javascript") do
-  ENV["USE_SLIMMER"] = "true"
-end
-
 After("@javascript") do
-  ENV.delete("USE_SLIMMER")
-
   errors = page.driver.browser.logs.get(:browser)
   if errors.present?
     errors.each do |error|
