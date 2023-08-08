@@ -11,6 +11,10 @@ on:
   pull_request:
 
 jobs:
+  commit-message-check:
+    name: Commit Message Check
+    uses: ./.github/workflows/commit-message-check.yml
+
   security-analysis:
     name: Security Analysis
     uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yml@main

@@ -1,0 +1,16 @@
+name: Commit Message Check
+on:
+  pull_request:
+  push:
+
+jobs:
+  commit-message-check:
+    name: Commit Message Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run standard commit message checks
+        uses: mristin/opinionated-commit-message@v3.0.0
+        with:
+          allow-one-liners: 'true'
+          skip-body-check: 'true'
+
