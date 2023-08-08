@@ -554,6 +554,10 @@ class Organisation < ApplicationRecord
     website_root + public_path(options)
   end
 
+  def publishing_api_presenter
+    PublishingApi::OrganisationPresenter
+  end
+
 private
 
   def organisations_with_scoped_search

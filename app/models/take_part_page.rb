@@ -59,6 +59,10 @@ class TakePartPage < ApplicationRecord
     Plek.website_root + public_path(options)
   end
 
+  def publishing_api_presenter
+    PublishingApi::TakePartPresenter
+  end
+
 protected
 
   def image_changed?

@@ -180,6 +180,10 @@ class Consultation < Publicationesque
     "/government/consultations/#{slug}"
   end
 
+  def publishing_api_presenter
+    PublishingApi::ConsultationPresenter
+  end
+
 private
 
   def validate_closes_after_opens

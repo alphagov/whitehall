@@ -87,6 +87,10 @@ class NewsArticle < Announcement
     !non_english_edition?
   end
 
+  def publishing_api_presenter
+    PublishingApi::NewsArticlePresenter
+  end
+
 private
 
   def image_url

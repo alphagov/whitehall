@@ -64,4 +64,8 @@ class WorldwideOffice < ApplicationRecord
   def public_url(options = {})
     Plek.website_root + public_path(options)
   end
+
+  def publishing_api_presenter
+    PublishingApi::WorldwideOfficePresenter
+  end
 end

@@ -92,4 +92,8 @@ class WorldLocation < ApplicationRecord
     PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
     PresentPageToPublishingApi.new.publish(PublishingApi::WorldIndexPresenter) if I18n.locale == :en
   end
+
+  def publishing_api_presenter
+    PublishingApi::WorldLocationPresenter
+  end
 end

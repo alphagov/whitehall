@@ -67,6 +67,10 @@ class Speech < Announcement
     "/government/speeches/#{slug}"
   end
 
+  def publishing_api_presenter
+    PublishingApi::SpeechPresenter
+  end
+
 private
 
   def date_for_government

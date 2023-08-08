@@ -57,6 +57,10 @@ class DocumentCollection < Edition
     mapped_specialist_topic_content_id.present?
   end
 
+  def publishing_api_presenter
+    PublishingApi::DocumentCollectionPresenter
+  end
+
 private
 
   def string_for_slug

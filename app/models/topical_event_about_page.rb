@@ -42,4 +42,8 @@ class TopicalEventAboutPage < ApplicationRecord
   def republish_topical_event_to_publishing_api
     Whitehall::PublishingApi.republish_async(topical_event)
   end
+
+  def publishing_api_presenter
+    PublishingApi::TopicalEventAboutPagePresenter
+  end
 end

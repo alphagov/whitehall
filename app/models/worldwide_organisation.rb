@@ -149,4 +149,8 @@ class WorldwideOrganisation < ApplicationRecord
   def search_index
     super.merge("world_locations" => world_locations.map(&:slug))
   end
+
+  def publishing_api_presenter
+    PublishingApi::WorldwideOrganisationPresenter
+  end
 end

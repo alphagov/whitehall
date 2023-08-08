@@ -34,6 +34,10 @@ class Government < ApplicationRecord
     end_date.present?
   end
 
+  def publishing_api_presenter
+    PublishingApi::GovernmentPresenter
+  end
+
 private
 
   def before?(other)

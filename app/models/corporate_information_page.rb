@@ -179,6 +179,16 @@ class CorporateInformationPage < Edition
     url
   end
 
+  def publishing_api_presenter
+    if worldwide_organisation.present? && !about_page?
+      PublishingApi::WorldwideCorporateInformationPagePresenter
+    elsif organisation.present?
+      PublishingApi::CorporateInformationPagePresenter
+    else
+      PublishingApi::GenericEditionPresenter
+    end
+  end
+
 private
 
   def string_for_slug

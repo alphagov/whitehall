@@ -101,6 +101,10 @@ class HtmlAttachment < Attachment
     end
   end
 
+  def publishing_api_presenter
+    PublishingApi::HtmlAttachmentPresenter
+  end
+
 private
 
   def public_path(options = {})

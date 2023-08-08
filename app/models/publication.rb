@@ -163,6 +163,10 @@ class Publication < Publicationesque
     "/government/publications/#{slug}"
   end
 
+  def publishing_api_presenter
+    PublishingApi::PublicationPresenter
+  end
+
 private
 
   def attachment_required_before_moving_out_of_draft

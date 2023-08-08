@@ -215,6 +215,10 @@ class TopicalEvent < ApplicationRecord
     end
   end
 
+  def publishing_api_presenter
+    PublishingApi::TopicalEventPresenter
+  end
+
 private
 
   delegate :any?, to: :features

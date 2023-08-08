@@ -27,4 +27,8 @@ class CaseStudy < Edition
   def base_path
     "/government/case-studies/#{slug}"
   end
+
+  def publishing_api_presenter
+    PublishingApi::CaseStudyPresenter
+  end
 end
