@@ -1,4 +1,8 @@
 module Admin::ContactsHelper
+  def render_hcard_address(contact)
+    AddressFormatter::HCard.from_contact(contact).render
+  end
+
   def contact_translation_css_class(translated_contact)
     c = %w[contact-translation]
     c << "right-to-left" if translated_contact.translation_locale.rtl?
