@@ -71,10 +71,6 @@ bn:
         আপনার কোন ফরম্যাট প্রয়োজন অনুগ্রহ করে তা আমাদেরকে জানান। আপনি কোন সহায়তামূলক প্রযুক্তি ব্যবহার করেন তা জানালে আমাদের জন্য সহায়ক হবে।
       intro: এই নথিটি সহায়তামূলক প্রযুক্তি ব্যবহারকারীগণের জন্য উপযুক্ত নাও হতে পারে।
       request_a_different_format: একটি প্রবেশযোগ্য ফরম্যাটের অনুরোধ করুন।
-    csv:
-      cannot_preview: এই ফাইলটি প্রিভিউ করা যায়নি।
-      download: ফাইলটির পুরো বিষয়বস্তু দেখতে এটি ডাউনলোড করুন।
-      truncated_message: এই প্রিভিউটি শুধু প্রথম %{rows}টি সারি ও %{columns}টি কলাম দেখায়।
     headings:
       order_a_copy: একটি অনুলিপির অর্ডার করুন
       order_a_copy_full: প্রকাশনার একটি অনুলিপির অর্ডার করুন
@@ -90,16 +86,6 @@ bn:
     caution:
       subheading: লিংকগুলোতে আমরা কিছু বিষয় পেয়েছি, যেগুলো সমস্যা নির্দেশ করতে পারে, এগুলোর সাথে লিংক করতে আপনার সতর্ক হওয়া উচিত
     title: অকার্যকর লিংকসমূহ
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: বন্ধ হয়ে গেছে
-    closing_today: আজকে বন্ধ হচ্ছে
-    closing_tomorrow: আগামীকাল বন্ধ হচ্ছে
-    days_left: "%{days_left} দিন বাকি আছে"
   contact:
     access_and_opening_times: প্রবেশ ও খোলার সময়
     contact_form: যোগাযোগের ফর্ম
@@ -136,10 +122,7 @@ bn:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: বিষয়সূচী
-    latest: সর্বশেষ নথিসমূহ
     published: প্রকাশিত হয়েছে
-    see_all: সবগুলো দেখুন
     speech:
       author_title:
         minister: মন্ত্রী
@@ -394,13 +377,7 @@ bn:
   document_filters:
     world_locations:
       all: সকল স্থান
-      label: বিশ্বের অবস্থানসমূহ
       no_locations_filter: ঐ ফিল্টারের সাথে বিশ্বের কোনো অবস্থান মিলছে না।
-  fatality_notice:
-    british_fatalities: ব্রিটিশ বিপর্যয়সমূহ
-    none_added: এখনও এই পরিচালনার ফিল্ডের জন্য কোনো বিপর্যয়ের বিজ্ঞপ্তি যোগ করা হয়নি।
-  feeds:
-    latest_activity: সর্বশেষ কার্যকলাপ
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,19 @@ bn:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: এখনও কোনো আপডেট নেই।
-    title: সাম্প্রতিক
   organisation:
     corporate_information:
       access_our_info: আমাদের তথ্যে প্রবেশাধিকার
       jobs: চাকরী
       jobs_and_contacts: চাকরী ও চুক্তিসমূহ
       organisation_chart: আমাদের প্রতিষ্ঠানের চার্ট
-      transparency: স্বচ্ছতার তথ্য
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: কর্পোরেট তথ্য
-      corporate_reports: কর্পোরেট রিপোর্টসমূহ
-    support:
-      administered_by: পরিচালনাকারী
-      agencies_and_public_bodies: সংস্থা ও সরকারি প্রতিষ্ঠান
-      part_of: এর অংশ
-      public_body: সরকারি প্রতিষ্ঠান
-      works_with: যার সাথে কাজ করে
-    type:
-      courts_and_tribunals: আদালত ও ট্রাইব্যুনাল
   roles:
     unassigned: এই ভূমিকায় কাউকে দায়িত্ব দেওয়া হয়নি
-  see_all:
-    announcement: আমাদের সকল ঘোষণা দেখুন
-    authored_article: আমাদের লেখকের উৎস সহ সকল নিবন্ধ দেখুন
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: আমাদের সকল কেস স্টাডি দেখুন
-    closed_call_for_evidence: 
-    closed_consultation: আমাদের সকল ক্লোজড কনসাল্টেশন দেখুন
-    consultation: আমাদের সকল কনসাল্টেশন দেখুন
-    consultation_outcome: আমাদের সকল কনসাল্টেশনের ফলাফল দেখুন
-    corporate_report: আমাদের সকল কর্পোরেট রিপোর্ট দেখুন
-    correspondence: আমাদের সকল যোগাযোগ দেখুন
-    decision: আমাদের সকল সিদ্ধান্ত দেখুন
-    detailed_guidance: আমাদের সকল নির্দেশনা দেখুন
-    document_collection: আমাদের সকল সংগ্রহ দেখুন
-    draft_text: আমাদের সকল খসড়া টেক্সট দেখুন
-    fatality_notice: আমাদের সকল বিপর্যয় সম্পর্কিত বিজ্ঞপ্তি দেখুন
-    foi_release: আমাদের সকল ফ্রিডম অব ইনফর্মেশন-এর প্রকাশনা দেখুন
-    form: আমাদের সকল ফর্ম দেখুন
-    government_response: আমাদের সকল সরকারের সাড়া দেখুন
-    guidance: আমাদের সকল নির্দেশনা দেখুন
-    impact_assessment: আমাদের সকল প্রভাব মূল্যায়ন দেখুন
-    imported: আমাদের সকল স্বতন্ত্র রিপোর্ট দেখুন
-    international_treaty: আমাদের সকল আন্তর্জাতিক চুক্তি দেখুন
-    map: আমাদের সকল মানচিত্র দেখুন
-    national_statistics: আমাদের সকল জাতীয় পরিসংখ্যান দেখুন
-    news_article: আমাদের সকল সংবাদপত্রের নিবন্ধ দেখুন
-    news_story: আমাদের সকল সংবাদের বিষয় দেখুন
-    notice: আমাদের সকল বিজ্ঞপ্তি দেখুন
-    open_call_for_evidence: 
-    open_consultation: আমাদের সকল উম্মুক্ত পরামর্শ দেখুন
-    oral_statement: সংসদে আমাদের সকল মৌখিক বিবৃতি দেখুন
-    policy: আমাদের সকল নীতিমালা দেখুন
-    policy_paper: আমাদের সকল পলিসি পেপার দেখুন
-    press_release: আমাদের সকল প্রেস রিলিজ দেখুন
-    promotional: আমাদের সকল প্রোমোশন সম্পর্কিত উপকরণ দেখুন
-    publication: আমাদের সকল প্রকাশনা দেখুন
-    regulation: আমাদের সকল বিধিবিধান দেখুন
-    research: আমাদের সকল গবেষণা ও বিশ্লেষণ দেখুন
-    speaking_notes: আমাদের সকল বক্তব্যের টীকা দেখুন
-    speech: আমাদের সকল বক্তব্য দেখুন
-    statement_to_parliament: সংসদে আমাদের সকল বিবৃতি দেখুন
-    statistical_data_set: আমাদের সকল পরিসংখ্যানগত তথ্য সংকলন দেখুন
-    statistics: আমাদের সকল পরিসংখ্যান দেখুন
-    statutory_guidance: আমাদের সকল বিধিবদ্ধ নির্দেশনা দেখুন
-    transcript: আমাদের সকল ট্রান্সক্রিপ্ট দেখুন
-    transparency: আমাদের সকল স্বচ্ছতার তথ্য দেখুন
-    written_statement: সংসদে আমাদের সকল লিখিত বিবৃতি দেখুন
   support:
     download: ডাউনলোড করুন
     field_of_operation: কার্যক্রমের ক্ষেত্র
-    fields_of_operation: কার্যক্রমের ক্ষেত্রসমূহ
     pagination:
       next_html: পরবর্তী <span class="visuallyhidden">পেজ</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: পরবর্তী পেজ
@@ -564,9 +477,6 @@ bn:
       list_link: 
     headings:
       search: দেশ বা অঞ্চল হিসেবে অনুসন্ধান করুন
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: আন্তর্জাতিক প্রতিনিধি
@@ -583,11 +493,3 @@ bn:
       publication_scheme_html: আমরা নিয়মিতভাবে যে প্রকারের সংবাদ প্রকাশ করি তা আমাদের %{link}-এ পড়ুন।
       social_media_use_html: "%{link}-এ আমাদের নীতিমালা পড়ুন।"
       welsh_language_scheme_html: "%{link}-এ আপনার আমাদের অঙ্গীকার সম্পর্কে জানুন।"
-    find_out_more: সম্পূর্ণ প্রোফাইল ও সকল কন্টাক্টের বিস্তারিত তথ্য দেখুন
-    headings:
-      contact_us: আমাদের সাথে যোগাযোগ
-      corporate_information: কর্পোরেট তথ্য
-      follow_us: আমাদেরকে অনুসরণ করুন
-      our_people: আমাদের লোকজন
-    location: অবস্থান
-    part_of: এর অংশ

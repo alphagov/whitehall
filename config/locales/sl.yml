@@ -72,10 +72,6 @@ sl:
         Prosimo, povejte nam, kateri format potrebujete. V pomoč nam bo, če nam poveste, katero podporno tehnologijo uporabljate.
       intro: Ta datoteka morda ni primerna za uporabnike podporne tehnologije.
       request_a_different_format: Zahtevajte dostopen format.
-    csv:
-      cannot_preview: Pregled te datoteke ni bil mogoč.
-      download: Prenesite datoteko, če si želite ogledati njeno celotno vsebino.
-      truncated_message: Ta predogled prikazuje samo prvih %{rows} vrstic in %{columns} stolpcev.
     headings:
       order_a_copy: Naročite izvod
       order_a_copy_full: Naročite izvod publikacije
@@ -91,16 +87,6 @@ sl:
     caution:
       subheading: Našli smo nekaj težav s povezavami, ki lahko kažejo na težave. Pri povezovanju z njimi bodite previdni
     title: Prekinjene povezave
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Zaprto
-    closing_today: Zapira se danes
-    closing_tomorrow: Zapira se jutri
-    days_left: Še %{days_left} dni
   contact:
     access_and_opening_times: Dostop do pisarne in odpiralni čas
     contact_form: Dostop in odpiralni čas
@@ -137,10 +123,7 @@ sl:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Vsebina
-    latest: Najnovejši dokumenti
     published: objavljeni
-    see_all: Poglej vse
     speech:
       author_title:
         minister: Minister
@@ -555,13 +538,7 @@ sl:
   document_filters:
     world_locations:
       all: Vse lokacije
-      label: Lokacije po svetu
       no_locations_filter: Nobena lokacija na svetu se ne ujema s tem filtrom.
-  fatality_notice:
-    british_fatalities: Britanske smrtne žrtve
-    none_added: Za to področje delovanja še ni bilo dodanih obvestil o smrtnih žrtvah.
-  feeds:
-    latest_activity: Zadnja dejavnost
   i18n:
     direction: ltr
   language_names:
@@ -631,83 +608,19 @@ sl:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Posodobitve še niso na voljo.
-    title: Najnovejše
   organisation:
     corporate_information:
       access_our_info: Dostopajte do naših informacij
       jobs: Delovna mesta
       jobs_and_contacts: Delovna mesta in pogodbe
       organisation_chart: Naša organizacijska shema
-      transparency: Podatki o preglednosti
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informacije o podjetju
-      corporate_reports: Poročila podjetja
-    support:
-      administered_by: Upravljanje v rokah
-      agencies_and_public_bodies: agencije in javna telesa
-      part_of: Del
-      public_body: javno telo
-      works_with: Sodeluje z
-    type:
-      courts_and_tribunals: Sodišča
   roles:
     unassigned: Ta vloga ni dodeljena nikomur
-  see_all:
-    announcement: Oglejte si vse naše razglase
-    authored_article: Oglejte si vse naše avtorske članke
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Oglejte si naše študije primerov
-    closed_call_for_evidence: 
-    closed_consultation: Oglejte si vsa naša tesna posvetovanja
-    consultation: Oglejte si vsa naša posvetovanja
-    consultation_outcome: Oglejte si vse rezultate naših posvetovanj
-    corporate_report: Oglejte si vsa naša poročila o podjetjih
-    correspondence: Oglejte si vso našo korespondenco
-    decision: Oglejte si vse naše odločitve
-    detailed_guidance: Oglejte si vse naše usmeritve
-    document_collection: Oglejte si vse naše zbirke
-    draft_text: Oglejte si vse naše osnutke besedila
-    fatality_notice: Oglejte si vsa naša obvestila o smrti
-    foi_release: Oglejte si vse naše objave o prostem dostopu do informacij
-    form: Oglejte si vse naše obrazce
-    government_response: Oglejte si vse naše odzive vlade
-    guidance: Oglejte si vse naše usmeritve
-    impact_assessment: Oglejte si vse naše presoje vpliva
-    imported: Oglejte si vsa naša neodvisna poročila
-    international_treaty: Oglejte si vse naše mednarodne sporazume
-    map: Oglejte si vse naše zemljevide
-    national_statistics: Oglejte si vso našo državno statistiko
-    news_article: Oglejte si vse naše časopisne članke
-    news_story: Oglejte si vse naše časopisne zgodbe
-    notice: Oglejte si vsa naša obvestila
-    open_call_for_evidence: 
-    open_consultation: Oglejte si vsa naša odprta posvetovanja
-    oral_statement: Oglejte si vse naše ustne izjave za parlament
-    policy: Oglejte si vsa naša politike
-    policy_paper: Oglejte si vse naše dokumente o politiki
-    press_release: Oglejte si vsa naša sporočila za javnost
-    promotional: Oglejte si vse naše promocijske materiale
-    publication: Oglejte si vse naše publikacije
-    regulation: Oglejte si vse naše uredbe
-    research: Oglejte si vse naše raziskave in analize
-    speaking_notes: Oglejte si vse naše točke za govor
-    speech: Oglejte si vse naše govore
-    statement_to_parliament: Oglejte si vse naše izjave za parlament
-    statistical_data_set: Oglejte si vse naše statistične podatkovne nize
-    statistics: Oglejte si vso našo statistiko
-    statutory_guidance: Oglejte si vse naše zakonske napotke
-    transcript: Oglejte si vse naše prepise
-    transparency: Oglejte si vse naše podatke o preglednosti
-    written_statement: Oglejte si vse naše pisne izjave za parlament
   support:
     download: Prenos
     field_of_operation: 'Področje delovanja:'
-    fields_of_operation: 'Področja delovanja:'
     pagination:
       next_html: Naslednja <span class="visuallyhidden">stran</span> <span class="page-numbers">%{current_page} od %{total_pages}</span>
       next_page: Naslednja stran
@@ -725,9 +638,6 @@ sl:
       list_link: 
     headings:
       search: Išči po državah ali ozemljih
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -748,11 +658,3 @@ sl:
       publication_scheme_html: Več o vrstah informacij, ki jih redno objavljamo, preberite v naši %{link}.
       social_media_use_html: Preberite si našo politiko na %{link}.
       welsh_language_scheme_html: Izvedite več o naši zavezanosti %{link}.
-    find_out_more: Oglejte si celoten profil in vse kontaktne podatke
-    headings:
-      contact_us: Obrnite se na nas
-      corporate_information: Informacije o podjetju
-      follow_us: Sledite nam
-      our_people: Naši ljudje
-    location: Lokacija
-    part_of: Del

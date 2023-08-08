@@ -71,10 +71,6 @@ tr:
         Lütfen bize hangi formata ihtiyaç duyduğunuzu söyleyin. Hangi destekleyici teknolojiyi kullandığınızı söylemeniz bize yardımcı olur.
       intro: Bu dosya destekleyici teknoloji kullanıcıları için uygun olmayabilir.
       request_a_different_format: Erişilebilir bir format talep edin.
-    csv:
-      cannot_preview: Bu dosya ön izlenemedi.
-      download: Dosyanın tüm içeriğini görüntülemek üzere indirin.
-      truncated_message: Bu ön izlemede yalnızca ilk %{rows} sıra ve %{columns} sütun gösterilir.
     headings:
       order_a_copy: Bir nüsha sipariş edin
       order_a_copy_full: Yayının bir nüshasını sipariş edin
@@ -90,16 +86,6 @@ tr:
     caution:
       subheading: Linklerde problem göstergesi olabilecek bazı sorunlar bulduk, bunlara bağlantı kurarken dikkatli olmalısınız
     title: Kırık linkler
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Kapatılan
-    closing_today: Bugün kapanıyor
-    closing_tomorrow: Yarın kapanıyor
-    days_left: "%{days_left} gün kaldı"
   contact:
     access_and_opening_times: Giriş ve açılma saatleri
     contact_form: İrtibat formu
@@ -136,10 +122,7 @@ tr:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: İçerikler
-    latest: En yeni belgeler
     published: yayınlanan
-    see_all: Hepsini gör
     speech:
       author_title:
         minister: Bakan
@@ -394,13 +377,7 @@ tr:
   document_filters:
     world_locations:
       all: Tüm konumlar
-      label: Dünya geneli konumlar
       no_locations_filter: Dünya genelinde bu filtreyle eşleşen hiçbir konum yok.
-  fatality_notice:
-    british_fatalities: İngiltere ölüm oranları
-    none_added: Henüz bu faaliyet alanına eklenen hiçbir ölüm oranı bildirimi yok.
-  feeds:
-    latest_activity: En güncel faaliyet
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,19 @@ tr:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Henüz hiç güncelleme yok.
-    title: En güncel
   organisation:
     corporate_information:
       access_our_info: Bilgilerimize erişin
       jobs: İşler
       jobs_and_contacts: İşler ve sözleşmeler
       organisation_chart: Kuruluş şemamız
-      transparency: Şeffaflık verileri
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Kurumsal bilgiler
-      corporate_reports: Kurumsal raporlar
-    support:
-      administered_by: Yöneten
-      agencies_and_public_bodies: kuruluşlar ve kamu kurumlar
-      part_of: Şunun kısmı
-      public_body: kamu kuruluşu
-      works_with: Şununla çalışıyor
-    type:
-      courts_and_tribunals: Mahkemeler
   roles:
     unassigned: Bu göreve kimse atanmamış
-  see_all:
-    announcement: Tüm duyurularımıza bakın
-    authored_article: Tüm yazar makalelerimize bakın
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Tüm vaka incelemelerimize bakın
-    closed_call_for_evidence: 
-    closed_consultation: Tüm tamamlanan danışmalarımıza bakın
-    consultation: Tüm danışmalarımıza bakın
-    consultation_outcome: Tüm danışma sonuçlarımıza bakın
-    corporate_report: Tüm kurumsal raporlarımıza bakın
-    correspondence: Tüm yazışmalarımıza bakın
-    decision: Tüm kararlarımıza bakın
-    detailed_guidance: Tüm kılavuzumuza bakın
-    document_collection: Tüm yazışmalarımıza bakın
-    draft_text: Tüm taslak metinlerimize bakın
-    fatality_notice: Tüm ölüm oranı bildirimlerimize bakın
-    foi_release: Tüm Bilgi Özgürlüğü duyurularımıza bakın
-    form: Tüm formlarımıza bakın
-    government_response: Tüm hükümet yanıtlarımıza  bakın
-    guidance: Tüm kılavuzumuza bakın
-    impact_assessment: Tüm etki değerlendirmelerimize bakın
-    imported: Tüm bağımsız raporlarımıza bakın
-    international_treaty: Tüm uluslararası anlaşmalarımıza bakın
-    map: Tüm haritalarımıza bakın
-    national_statistics: Tüm Ulusal İstatistiklerimize bakın
-    news_article: Tüm haber makalelerimize bakın
-    news_story: Tüm haber hikayelerimize bakın
-    notice: Tüm bildirimlerimize bakın
-    open_call_for_evidence: 
-    open_consultation: Tüm tamamlanan danışmalarımıza bakın
-    oral_statement: Parlamentoya tüm sözlü açıklamalarımıza bakın
-    policy: Tüm politikalarımıza bakın
-    policy_paper: Tüm politika belgelerimize bakın
-    press_release: Tüm basın duyurularımıza bakın
-    promotional: Tüm promosyon malzememize bakın
-    publication: Tüm yayınlarımıza bakın
-    regulation: Tüm mevzuatımıza bakın
-    research: Tüm araştırma ve analizimize bakın
-    speaking_notes: Tüm konuşma notlarımıza bakın
-    speech: Tüm konuşmalarımıza bakın
-    statement_to_parliament: Parlamentoya tüm sözlü açıklamalarımıza bakın
-    statistical_data_set: Tüm istatistiki veri kümelerimize bakın
-    statistics: Tüm istatistiklerimize bakın
-    statutory_guidance: Tüm yasa kılavuzumuza bakın
-    transcript: Tüm konuşma dökümlerimize bakın
-    transparency: Tüm şeffaflık verilerimize bakın
-    written_statement: Parlamentoya tüm sözlü açıklamalarımıza bakın
   support:
     download: İndir
     field_of_operation: 'Faaliyet alanı:'
-    fields_of_operation: 'Faaliyet alanları:'
     pagination:
       next_html: Sonraki <span class="visuallyhidden">sayfa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Sonraki sayfa
@@ -564,9 +477,6 @@ tr:
       list_link: 
     headings:
       search: Ülkeye veya bölgeye göre arama yapın
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Uluslararası delegasyon
@@ -583,11 +493,3 @@ tr:
       publication_scheme_html: "%{link} bağlantımızda düzenli olarak yayınladığımız bilgi türlerini okuyun."
       social_media_use_html: "%{link} bağlantısındaki politikamızı okuyun."
       welsh_language_scheme_html: "%{link} bağlantısına taahhüdümüzü okuyun."
-    find_out_more: Tüm profil ve tüm irtibat bilgilerine bakın
-    headings:
-      contact_us: Bize Ulaşın
-      corporate_information: Kurumsal bilgiler
-      follow_us: Bizi takip edin
-      our_people: İnsan kaynağımız
-    location: Konum
-    part_of: Şunun kısmı

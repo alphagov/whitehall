@@ -72,10 +72,6 @@ sq:
         Ju lutemi na tregoni se çfarë formati ju nevojitet. Do të na ndihmojë nëse thoni çfarë teknologjie ndihmëse përdorni.
       intro: Ky skedar mund të mos jetë i përshtatshëm për përdoruesit e teknologjisë ndihmëse.
       request_a_different_format: Kërkoni një format të arritshëm.
-    csv:
-      cannot_preview: Ky skedar nuk mund të shikohej paraprakisht.
-      download: Shkarkoni skedarin për të parë përmbajtjen e tij të plotë.
-      truncated_message: Ky pamje paraqet vetëm rreshtat %{rows} dhe kolonat %{columns} e para.
     headings:
       order_a_copy: Porosit një kopje
       order_a_copy_full: Porositni një kopje të botimit
@@ -91,16 +87,6 @@ sq:
     caution:
       subheading: Ne kemi gjetur disa çështje me lidhjet që mund të tregojnë probleme, duhet të jeni të kujdesshëm në lidhjen me to
     title: Lidhje të prishura
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Mbyllur
-    closing_today: Mbyllet sot
-    closing_tomorrow: Mbyllet nesër
-    days_left: "%{days_left} ditë të mbetura"
   contact:
     access_and_opening_times: Orari i hyrjes dhe hapjes
     contact_form: Formular kontakti
@@ -137,10 +123,7 @@ sq:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Përmbajtje
-    latest: Dokumentet më të fundit
     published: publikuar
-    see_all: Shih të gjitha
     speech:
       author_title:
         minister: Ministri
@@ -395,13 +378,7 @@ sq:
   document_filters:
     world_locations:
       all: Të gjitha vendndodhjet
-      label: Vendndodhjet globale
       no_locations_filter: Asnjë vendndodhje botërore nuk përputhet me atë filtër.
-  fatality_notice:
-    british_fatalities: Fatalitetet britanike
-    none_added: Ende nuk është shtuar asnjë njoftim për fatalitet për këtë fushë të funksionimit.
-  feeds:
-    latest_activity: Akiviteti më i fundit
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,19 @@ sq:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Ende nuk ka përditësime.
-    title: Më të fundit
   organisation:
     corporate_information:
       access_our_info: Qasuni në informacionin tonë
       jobs: Vende pune
       jobs_and_contacts: Vende pune dhe kontrata
       organisation_chart: Tabela e organizimit tonë
-      transparency: Të dhënat e transparencës
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informacioni i korporatës
-      corporate_reports: Raportet e korporatës
-    support:
-      administered_by: Administruar nga
-      agencies_and_public_bodies: agjencitë dhe organet publike
-      part_of: Pjesë e
-      public_body: organit publik
-      works_with: Punon me
-    type:
-      courts_and_tribunals: Gjykatat dhe Tribunalet
   roles:
     unassigned: Askush nuk është caktuar për këtë rol
-  see_all:
-    announcement: Shihni të gjitha njoftimet tona
-    authored_article: Shihni të gjithë artikujt tanë të shkruar
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Shihni të gjitha studimet tona të rasteve
-    closed_call_for_evidence: 
-    closed_consultation: Shihni të gjitha konsultimet tona të mbyllura
-    consultation: Shihni të gjitha konsultimet tona
-    consultation_outcome: Shihni të gjitha rezultatet e konsultimit tonë
-    corporate_report: Shihni të gjitha raportet tona të korporatës
-    correspondence: Shihni të gjitha konsultimet tona
-    decision: Shihni të gjitha vendimet tona
-    detailed_guidance: Shihni të gjitha udhëzimet tona
-    document_collection: Shihni të gjitha koleksionet tona
-    draft_text: Shihni të gjitha draft tekstet tona
-    fatality_notice: Shihni të gjitha njoftimet tona të fataliteteve
-    foi_release: Shihni të gjitha publikimet tona të FOI
-    form: Shihni të gjithë formularët tonë
-    government_response: Shihni të gjitha përgjigjet e qeverisë sonë
-    guidance: Shihni të gjitha udhëzimet tona
-    impact_assessment: Shihni të gjitha vlerësimet tona të ndikimit
-    imported: Shihni të gjitha raportet tona të pavarura
-    international_treaty: Shihni të gjitha traktatet tona ndërkombëtare
-    map: Shihni të gjitha hartat tona
-    national_statistics: Shihni të gjitha Statistikat tona Kombëtare
-    news_article: Shihni të gjitha artikujt tanë të lajmeve
-    news_story: Shihni të gjitha ngjarjet
-    notice: Shihni të gjitha njoftimet tona
-    open_call_for_evidence: 
-    open_consultation: Shihni të gjitha konsultimet tona të hapura
-    oral_statement: Shihni të gjitha deklaratat tona verbale në Parlament
-    policy: Shihni të gjitha politikat tona
-    policy_paper: Shihni të gjitha dokumentet tona të politikave
-    press_release: Shihni të gjitha njoftimet tona për shtyp
-    promotional: Shihni të gjithë materialin tonë promovues
-    publication: Shihni të gjitha publikimet tona
-    regulation: Shihni të gjitha rregulloret tona
-    research: Shihni të gjitha hulumtimet dhe analizat tona
-    speaking_notes: Shihni të gjitha shënimet tona të të folurit
-    speech: Shihni të gjitha fjalimet tona
-    statement_to_parliament: Shihni të gjitha deklaratat tona në Parlament
-    statistical_data_set: Shikoni të gjitha grupet tona të të dhënave statistikore
-    statistics: Shihni të gjitha statistikat tona
-    statutory_guidance: Shihni të gjitha udhëzimet tona ligjore
-    transcript: Shihni të gjitha transkriptet tona
-    transparency: Shikoni të gjitha të dhënat tona të transparencës
-    written_statement: Shihni të gjitha deklaratat tona me shkrim në Parlament
   support:
     download: Shkarkoni
     field_of_operation: 'Fusha e funksionimit:'
-    fields_of_operation: Fushat e funksionimt
     pagination:
       next_html: Pastaj <span class="visuallyhidden">faqja</span> <span class="page-numbers">%{current_page} nga %{total_pages}</span>
       next_page: Faqja tjetër
@@ -565,9 +478,6 @@ sq:
       list_link: 
     headings:
       search: Kërkoni sipas vendit ose territorit
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Delegacion ndërkombëtar
@@ -584,11 +494,3 @@ sq:
       publication_scheme_html: Lexoni për llojet e informacionit që publikojmë në mënyrë rutinore në %{link} tonë.
       social_media_use_html: Lexoni politikën tonë në %{link}.
       welsh_language_scheme_html: Mësoni rreth angazhimit tonë ndaj %{link}.
-    find_out_more: Shikoni profilin e plotë dhe të gjitha detajet e kontaktit
-    headings:
-      contact_us: Na kontaktoni
-      corporate_information: Informacioni i korporatës
-      follow_us: Na ndiqni
-      our_people: Njerëzit tanë
-    location: Vendndodhja
-    part_of: Pjesë e

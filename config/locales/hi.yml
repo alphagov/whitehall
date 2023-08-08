@@ -72,10 +72,6 @@ hi:
         कृपया हमें बताएं कि आपको किस प्रारूप की आवश्यकता है। यदि आप कहते हैं कि आप किस सहायक तकनीक का उपयोग करते हैं तो इससे हमें मदद मिलेगी।
       intro: यह फाइल शायद सहायक तकनीक के उपयोगकर्ताओं के लिए उपयुक्त न हो।
       request_a_different_format: एक सुलभ प्रारूप का अनुरोध करें।
-    csv:
-      cannot_preview: इस फाइल का पूर्वावलोकन नहीं किया जा सका।
-      download: फाइल डाउनलोड करके इसकी पूरी सामग्री देखें।
-      truncated_message: इस पूर्वावलोकन में केवल पहली %{rows} पंक्तियां और %{columns} कॉलम दिखाई देते हैं।
     headings:
       order_a_copy: एक प्रति ऑर्डर करें
       order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ
@@ -91,16 +87,6 @@ hi:
     caution:
       subheading: हमें लिंक में कुछ समस्याएं मिली हैं जिनसे दिक्कतों का संकेत मिल सकता है, आपको उन्हें लिंक करते समय सावधानी बरतनी चाहिए
     title: ब्रोकन लिंक
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: बंद हो गया
-    closing_today: आज बंद हो रहा है
-    closing_tomorrow: कल बंद होगा
-    days_left: "%{days_left} दिन बाकी"
   contact:
     access_and_opening_times: एक्सेस और खुलने का समय
     contact_form: संपर्क प्रपत्र
@@ -137,10 +123,7 @@ hi:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: विषय-वस्तु
-    latest: नवीनतम दस्तावेज
     published: प्रकाशित
-    see_all: सब देखें
     speech:
       author_title:
         minister: मंत्री
@@ -395,13 +378,7 @@ hi:
   document_filters:
     world_locations:
       all: सभी स्थान
-      label: वैश्विक स्थान
       no_locations_filter: कोई भी विश्व स्थान उस फिल्टर से मेल नहीं खाता।
-  fatality_notice:
-    british_fatalities: ब्रिटिश मौतें
-    none_added: संचालन के इस क्षेत्र में अभी तक कोई घातक नोटिस नहीं जोड़ा गया है।
-  feeds:
-    latest_activity: नवीनतम गतिविधि
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,19 @@ hi:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: अभी तक कोई नए समाचार नहीं हैं।
-    title: नवीनतम
   organisation:
     corporate_information:
       access_our_info: हमारी सूचना तक पहुंचें
       jobs: नौकरियां
       jobs_and_contacts: नौकरी एवं अनुबंध
       organisation_chart: हमारी संस्था का चार्ट
-      transparency: पारदर्शिता आंकड़े
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: कारपोरेट सूचना
-      corporate_reports: कॉरपोरेट विवरण
-    support:
-      administered_by: प्रशासक
-      agencies_and_public_bodies: एजेंसियां और सार्वजनिक निकाय
-      part_of: का भाग
-      public_body: सार्वजनिक निकाय
-      works_with: इसके साथ काम करता है
-    type:
-      courts_and_tribunals: न्यायालय और न्यायाधिकरण
   roles:
     unassigned: यह भूमिका किसी को असाइन नहीं की गई है
-  see_all:
-    announcement: देखें हमारे सभी घोषणाएं
-    authored_article: देखें हमारे सभी मूल आलेख
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: देखें हमारे सभी विषय अध्ययन
-    closed_call_for_evidence: 
-    closed_consultation: देखें हमारे सभी बंद कमरे में परामर्श
-    consultation: देखें हमारे सभी परामर्श
-    consultation_outcome: देखें हमारे सभी परामर्श के नतीजे
-    corporate_report: देखें हमारे सभी कॉरपोरेट विवरण
-    correspondence: देखें हमारे सभी पत्र व्यवहार
-    decision: हमारे सभी फैसले देखें
-    detailed_guidance: देखें हमारे सभी मार्गदर्शन
-    document_collection: हमारी सभी श्रृंखलाएं देखें
-    draft_text: देखें हमारे सभी मसौदे के पाठ
-    fatality_notice: देखें हमारे सभी विपत्ति की सूचना
-    foi_release: देखें हमारे सभी एफओआई की विज्ञप्तियां
-    form: देखें हमारे सभी प्रपत्र
-    government_response: देखें हमारे सभी सरकारी जवाब
-    guidance: देखें हमारे सभी मार्गदर्शन
-    impact_assessment: देखें हमारे सभी प्रभाव का आंकलन
-    imported: देखें हमारे सभी आयातित - प्रतीक्षा का प्रकार
-    international_treaty: हमारी सभी अंतरराष्ट्रीय संधियां देखें
-    map: देखें हमारे सभी मानचित्रों
-    national_statistics: देखें हमारे सभी सांख्यिकी - राष्ट्रीय सांख्यिकी
-    news_article: देखें हमारे सभी समाचार लेख
-    news_story: देखें हमारे सभी समाचार कथाएं
-    notice: हमारी सभी नोटिस देखें
-    open_call_for_evidence: 
-    open_consultation: देखें हमारे सभी खुले परामर्श
-    oral_statement: देखें हमारे सभी संसद में मौखिक बयान
-    policy: देखें हमारे सभी नीतियां
-    policy_paper: देखें हमारे सभी नीति पत्र
-    press_release: देखें हमारे सभी प्रेस विज्ञप्तियां
-    promotional: देखें हमारे सभी प्रचार सामग्री
-    publication: देखें हमारे सभी प्रकाशन
-    regulation: हमारे सभी विनियम देखें
-    research: देखें हमारे सभी अनुसंधान एवं विश्लेषण
-    speaking_notes: देखें हमारे सभी उदबोधन अंश
-    speech: देखें हमारे सभी भाषण
-    statement_to_parliament: देखें हमारे सभी संसद में बयान
-    statistical_data_set: देखें हमारे सभी सांख्यिकीय आंकड़े का समूह
-    statistics: देखें हमारे सभी आंकड़े
-    statutory_guidance: हमारे सभी वैधानिक मार्गदर्शन देखें
-    transcript: देखें हमारे सभी प्रतिलिपियां
-    transparency: देखें हमारे सभी पारदर्शिता आंकड़े
-    written_statement: देखें हमारे सभी संसद में लिखित बयान
   support:
     download: डाउनलोड करें
     field_of_operation: 'संचालन का क्षेत्र:'
-    fields_of_operation: संचालन के क्षेत्र
     pagination:
       next_html: अगला <span class="visuallyhidden">पेज</span> <span class="page-numbers">%{total_pages} का %{current_page}</span>
       next_page: अगला पेज
@@ -565,9 +478,6 @@ hi:
       list_link: 
     headings:
       search: देश या क्षेत्र से खोजें
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
@@ -584,11 +494,3 @@ hi:
       publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम अपने %{link} में नियमित रूप से प्रकाशित करते हैं।
       social_media_use_html: इस बारे में हमारी नीतियां पढ़ें %{link}।
       welsh_language_scheme_html: हमारी प्रकाशन के प्रति वचनबद्धता के बारे में जानें %{link}।
-    find_out_more: पूरी रूप रेखा और समस्त संपर्क विवरण देखें
-    headings:
-      contact_us: हमसे संपर्क करें
-      corporate_information: कारपोरेट सूचना
-      follow_us: हमें फॉलो करें
-      our_people: हमारे लोग
-    location: स्थान
-    part_of: का भाग

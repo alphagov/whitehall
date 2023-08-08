@@ -71,10 +71,6 @@ gu:
         તમને કયા ફોરમેટની જરૂર છે, તે કૃપા કરીને અમને જણાવો.તમે કઈ સહાયક ટેક્નોલૉજીનો ઉપયોગ કરો છો, તે જણાવશો, તો અમને મદદ થશે.
       intro: આ ફાઇલ સહાયક ટેક્નોલૉજીના યુઝર્સ માટે કદાચ અનુકૂળ નહીં હોય.
       request_a_different_format: કોઈ એક્સેસિબલ ફોરમેટ માટે વિનંતી કરો.
-    csv:
-      cannot_preview: આ ફાઇલનો પ્રીવ્યૂ જોઈ શકાશે નહીં.
-      download: ફાઇલની તમામ સામગ્રી જોવા માટે ફાઇલને ડાઉનલોડ કરો.
-      truncated_message: આ પ્રીવ્યૂ માત્ર પહેલી %{rows} રોઝ અને %{columns} કોલમ્સ દર્શાવે છે.
     headings:
       order_a_copy: એક નકલ મંગાવી લો
       order_a_copy_full: આ પ્રકાશનની એક નકલ મંગાવી લો
@@ -90,16 +86,6 @@ gu:
     caution:
       subheading: અમને આ દસ્તાવેજમાં લિંક્સ મળેલ છે, જે તૂટેલી હોય શકે છે આ લિંક્સમાં અમને કેટલીક સમસ્યાઓ મળી આવી છે જે મુશ્કેલી તરફ ઈશારો કરતી હોઈ શકે છે. તેની સાથે જોડાતી વખતે તમારે સાવચેતી રાખવી જોઈએ
     title: તૂટેલી લિંક્સ
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: બંધ થયું
-    closing_today: આજે બંધ થાય છે
-    closing_tomorrow: આવતી કાલે બંધ થાય છે
-    days_left: "%{days_left} દિવસ બાકી રહ્યા"
   contact:
     access_and_opening_times: 'એક્સેસ અને ઓપનિંગ સમય '
     contact_form: સંપર્ક પત્રક
@@ -136,10 +122,7 @@ gu:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: સામગ્રી
-    latest: નવીનતમ દસ્તાવેજો
     published: પ્રકાશિત થયું
-    see_all: બધુ જુઓ
     speech:
       author_title:
         minister: મંત્રી
@@ -394,13 +377,7 @@ gu:
   document_filters:
     world_locations:
       all: તમામ લોકેશન્સ
-      label: વૈશ્વિક લોકેશન્સ
       no_locations_filter: આ ફિલ્ટર સાથે કોઈ પણ વૈશ્વિક લોકેશન મેળ ખાતું નથી.
-  fatality_notice:
-    british_fatalities: બ્રિટિશ જાનહાનિ
-    none_added: આ કામગીરીના ક્ષેત્રમાં હજુ સુધી કોઇ જાનહાનિ સૂચનાઓ ઉમેરાઈ નથી.
-  feeds:
-    latest_activity: નવીનતમ પ્રવૃત્તિ
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,19 @@ gu:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: હજુ સુધી કોઈ અપડેટ્સ નથી.
-    title: નવીનતમ
   organisation:
     corporate_information:
       access_our_info: અમારી માહિતીને એક્સેસ કરો
       jobs: નોકરીઓ
       jobs_and_contacts: નોકરીઓ અને કરારો
       organisation_chart: અમારી સંસ્થાનો ચાર્ટ
-      transparency: પારદર્શિતા ડેટા
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: કોર્પોરેટ માહિતી
-      corporate_reports: કોર્પોરેટ અહેવાલો
-    support:
-      administered_by: દ્વારા સંચાલિત
-      agencies_and_public_bodies: એજન્સીઓ અને જાહેર સંસ્થાઓ
-      part_of: નો ભાગ
-      public_body: જાહેર સંસ્થા
-      works_with: સાથે કામ કરે છે
-    type:
-      courts_and_tribunals: ન્યાયાલયો અને ટ્રિબ્યુનલ્સ
   roles:
     unassigned: આ ભૂમિકા કોઈને પણ સોંપવામાં આવેલ નથી
-  see_all:
-    announcement: અમારી તમામ ઘોષણાઓ જુઓ
-    authored_article: અમારા તમામ લેખિત લેખો જુઓ
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: અમારી તમામ કેસ સ્ટડીઝ જુઓ
-    closed_call_for_evidence: 
-    closed_consultation: અમારા તમામ બંધ થયેલ પરામર્શ જુઓ
-    consultation: અમારા તમામ પરામર્શ જુઓ
-    consultation_outcome: અમારા પરામર્શના તમામ પરિણામો જુઓ
-    corporate_report: અમારા તમામ કોર્પોરેટ અહેવાલો જુઓ
-    correspondence: અમારો બધો જ પત્રવ્યવહાર જુઓ
-    decision: અમારા તમામ નિર્ણયો જુઓ
-    detailed_guidance: અમારા તમામ માર્ગદર્શનો જુઓ
-    document_collection: અમારા તમામ સંગ્રહો જુઓ
-    draft_text: અમારા તમામ ડ્રાફ્ટ ટેક્સ્ટ જુઓ
-    fatality_notice: અમારી તમામ જાનહાનિ સૂચનાઓ જુઓ
-    foi_release: અમારી તમામ માહિતીની સ્વતંત્રતા પ્રકાશનો જુઓ
-    form: અમારા તમામ પત્રકો જુઓ
-    government_response: અમારા તમામ સરકારી જવાબો જુઓ
-    guidance: અમારા તમામ માર્ગદર્શનો જુઓ
-    impact_assessment: અમારા તમામ અસરના મૂલ્યાંકનો જુઓ
-    imported: અમારા તમામ સ્વતંત્ર અહેવાલો જુઓ
-    international_treaty: અમારી તમામ આંતરરાષ્ટ્રીય સંધિઓ જુઓ
-    map: અમારા તમામ નકશા જુઓ
-    national_statistics: અમારા તમામ રાષ્ટ્રીય આંકડા જુઓ
-    news_article: અમારા તમામ ન્યૂઝ આર્ટિકલ્સ જુઓ
-    news_story: અમારી તમામ ન્યૂઝ સ્ટોરીઝ જુઓ
-    notice: અમારી તમામ સૂચનાઓ જુઓ
-    open_call_for_evidence: 
-    open_consultation: અમારા તમામ ખુલ્લા પરામર્શ જુઓ
-    oral_statement: અમારા સંસદમાં કરેલ તમામ મૌખિક નિવેદનો જુઓ
-    policy: અમારી બધી નીતિઓ જુઓ
-    policy_paper: અમારા તમામ પોલિસી પેપર્સ જુઓ
-    press_release: અમારા તમામ પ્રેસ રીલીઝ જુઓ
-    promotional: અમારી તમામ પ્રચાર સામગ્રી જુઓ
-    publication: અમારા તમામ પ્રકાશનો જુઓ
-    regulation: અમારા તમામ નિયમનો જુઓ
-    research: અમારા તમામ સંશોધન અને વિશ્લેષણ જુઓ
-    speaking_notes: અમારી તમામ સ્પીકિંગ નોટ્સ જુઓ
-    speech: અમારા તમામ ભાષણો જુઓ
-    statement_to_parliament: અમારા સંસદમાં કરેલ તમામ નિવેદનો જુઓ
-    statistical_data_set: અમારા તમામ આંકડાકીય ડેટા સેટ્સ જુઓ
-    statistics: અમારા તમામ આંકડા જુઓ
-    statutory_guidance: અમારા તમામ વૈધાનિક માર્ગદર્શન જુઓ
-    transcript: અમારી તમામ ટ્રાન્સસ્ક્રિપ્ટ્સ જુઓ
-    transparency: અમારો તમામ પારદર્શિતા ડેટા જુઓ
-    written_statement: અમારા સંસદમાં કરેલ તમામ લેખિત નિવેદનો જુઓ
   support:
     download: ડાઉનલોડ કરો
     field_of_operation: 'કામગીરીનું ક્ષેત્ર:'
-    fields_of_operation: 'કામગીરીના ક્ષેત્રો:'
     pagination:
       next_html: આગળનું <span class="visuallyhidden">પૃષ્ઠ</span> <span class="page-numbers">%{current_page} નું %{total_pages}</span>
       next_page: આગામી પાનું
@@ -564,9 +477,6 @@ gu:
       list_link: 
     headings:
       search: દેશ અથવા ટેરિટરીથી શોધો
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: આંતરરાષ્ટ્રીય પ્રતિનિધિમંડળ
@@ -583,11 +493,3 @@ gu:
       publication_scheme_html: અમે અમારી %{link} માં સામાન્ય રીતે કઈ પ્રકારની માહિતી પ્રકાશિત કરીએ છીએ તે વાંચો
       social_media_use_html: "%{link} પર અમારી નીતિ વાંચો."
       welsh_language_scheme_html: "%{link} પ્રત્યે અમારી પ્રતિબદ્ધતા અંગે જાણો."
-    find_out_more: સંપૂર્ણ પ્રોફાઇલ અને તમામ સંપર્ક વિગતો જુઓ
-    headings:
-      contact_us: અમારો સંપર્ક કરો
-      corporate_information: કોર્પોરેટ માહિતી
-      follow_us: અમને ફોલો કરો
-      our_people: અમારા લોકો
-    location: લોકેશન
-    part_of: નો ભાગ

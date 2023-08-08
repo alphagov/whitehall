@@ -71,10 +71,6 @@ hu:
         Kérjük, mondja el, hogy milyen formátumra van szüksége. Ha elmondja, hogy milyen segítő technológiát használ, az is nagy segítség.
       intro: Elképzelhető, hogy ez a fájl nem megfelelő a segítő technológiák felhasználói számára.
       request_a_different_format: Kérjen hozzáférhető formátumot.
-    csv:
-      cannot_preview: A fájl nem rendelkezik előnézettel.
-      download: Töltse le a fájlt és tekintse meg a teljes tartalmát.
-      truncated_message: Az előnézet csak az első %{rows} sort és %{columns} oszlopot mutatja meg.
     headings:
       order_a_copy: Példány megrendelése
       order_a_copy_full: A publikáció másolatának megrendelése
@@ -90,16 +86,6 @@ hu:
     caution:
       subheading: Olyan problémákat találtunk a hivatkozásokkal kapcsolatban, amelyek problémákra utalhatnak; legyen óvatos a továbbhivatkozásuk során
     title: Nem működő hivatkozások
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Lezárva
-    closing_today: Ma zárul
-    closing_tomorrow: Holnap zárul
-    days_left: "%{days_left} nap van hátra"
   contact:
     access_and_opening_times: Hozzáférési és nyitási idők
     contact_form: Kapcsolatfelvételi űrlap
@@ -136,10 +122,7 @@ hu:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Tartalomjegyzék
-    latest: Legfrissebb dokumentumok
     published: közzététel dátuma
-    see_all: Mind megtekintése
     speech:
       author_title:
         minister: Miniszter
@@ -394,13 +377,7 @@ hu:
   document_filters:
     world_locations:
       all: Minden ország
-      label: Helyszínek a világban
       no_locations_filter: Nincs olyan helyszín a világban, ami megfelelne ennek a szűrőnek.
-  fatality_notice:
-    british_fatalities: Brit halálesetek
-    none_added: Ehhez a működési területhez még nem lettek hozzáadva halálesetekkel kapcsolatos értesítések.
-  feeds:
-    latest_activity: Legfrissebb aktivitás
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,19 @@ hu:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Még nincs frissebb változat.
-    title: Legfrissebb
   organisation:
     corporate_information:
       access_our_info: Hozzáférés információinkhoz
       jobs: Állások
       jobs_and_contacts: Állások és szerződések
       organisation_chart: Szervezeti térképünk
-      transparency: Átláthatósági adatok
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Vállalati adatok
-      corporate_reports: Testületi beszámolók
-    support:
-      administered_by: 'Adminisztrálta:'
-      agencies_and_public_bodies: ügynökségek és hivatalos szervek
-      part_of: 'Része a következőnek:'
-      public_body: hivatalos szerv
-      works_with: 'A következővel dolgozik:'
-    type:
-      courts_and_tribunals: Bíróságok
   roles:
     unassigned: Ehhez a szerepkörhöz senki nincs hozzárendelve
-  see_all:
-    announcement: Minden bejelentés megtekintése
-    authored_article: Minden publicisztika megtekintése
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Minden esettanulmány megtekintése
-    closed_call_for_evidence: 
-    closed_consultation: Minden lezárt konzultáció megtekintése
-    consultation: Minden konzultáció megtekintése
-    consultation_outcome: Minden konzultációs eredmény megtekintése
-    corporate_report: Minden testületi beszámoló megtekintése
-    correspondence: Minden levelezés megtekintése
-    decision: Minden döntés megtekintése
-    detailed_guidance: Minden útmutató megtekintése
-    document_collection: Minden gyűjtemény megtekintése
-    draft_text: Minden szövegtervezet megtekintése
-    fatality_notice: Minden halálesettel kapcsolatos értesítés megtekintése
-    foi_release: Minden információhoz való joggal kapcsolatos kiadvány megtekintése
-    form: Minden űrlap megtekintése
-    government_response: Minden kormányválasz megtekintése
-    guidance: Minden útmutató megtekintése
-    impact_assessment: Minden hatásvizsgálat megtekintése
-    imported: Minden független jelentés megtekintése
-    international_treaty: Minden nemzetközi egyezmény megtekintése
-    map: Minden térkép megtekintése
-    national_statistics: Minden nemzeti statisztika megtekintése
-    news_article: Minden cikk megtekintése
-    news_story: Minden hír megtekintése
-    notice: Minden értesítés megtekintése
-    open_call_for_evidence: 
-    open_consultation: Minden nyílt konzultáció megtekintése
-    oral_statement: Minden parlamenti felszólalás megtekintése
-    policy: Minden irányelv megtekintése
-    policy_paper: Minden irányelvdokumentum megtekintése
-    press_release: Minden sajtóközlemény megtekintése
-    promotional: Minden promóciós anyag megtekintése
-    publication: Minden kiadvány megtekintése
-    regulation: Minden szabályozás megtekintése
-    research: Minden kutatás és elemzés megtekintése
-    speaking_notes: Minden feljegyzés megtekintése
-    speech: Minden beszéd megtekintése
-    statement_to_parliament: Minden parlamenti nyilatkozat megtekintése
-    statistical_data_set: Minden statisztikai adatkészlet megtekintése
-    statistics: Minden statisztika megtekintése
-    statutory_guidance: Minden törvényi előírás megtekintése
-    transcript: Minden leirat megtekintése
-    transparency: Minden átláthatósági adat megtekintése
-    written_statement: Minden írásbeli parlamenti nyilatkozat megtekintése
   support:
     download: Letöltés
     field_of_operation: 'Működési terület:'
-    fields_of_operation: Működési területek
     pagination:
       next_html: Követekző <span class="visuallyhidden">oldal</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Következő oldal
@@ -564,9 +477,6 @@ hu:
       list_link: 
     headings:
       search: Keresés ország vagy terület szerint
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Nemzetközi delegáció
@@ -583,11 +493,3 @@ hu:
       publication_scheme_html: 'Tekintse meg, hogy milyen jellegű információkat teszünk közzé: %{link}.'
       social_media_use_html: 'Bővebb információk az alábbi témával kapcsolatban: %{link}.'
       welsh_language_scheme_html: 'Tájékozódjon az információk közzétételével kapcsolatos elkötelezettségünkről: %{link}.'
-    find_out_more: A teljes profil és elérhetőség megtekintése
-    headings:
-      contact_us: Kapcsolat
-      corporate_information: Vállalati adatok
-      follow_us: Kövessen minket
-      our_people: Munkatársaink
-    location: Helyszín
-    part_of: 'Része a következőnek:'

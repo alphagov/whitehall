@@ -71,10 +71,6 @@ bg:
         Моля, посочете ни какъв формат ви е необходим. Ще ни улесните, ако посочите какви помощни технологии използвате.
       intro: Този файл може да не е подходящ за потребители на помощни технологии.
       request_a_different_format: Поискайте достъпен формат.
-    csv:
-      cannot_preview: Този файл не може да бъде прегледан.
-      download: Изтеглете файла, за да видите пълното му съдържание.
-      truncated_message: На този преглед са показани само първите %{rows} реда и %{columns} колони.
     headings:
       order_a_copy: Поръчайте копие
       order_a_copy_full: Поръчайте копие на публикацията
@@ -90,16 +86,6 @@ bg:
     caution:
       subheading: Открихме някои проблеми с линковете, които могат да покажат нередности, и трябва да бъдете внимателни при тяхното използване
     title: Повредени линкове
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Закрито
-    closing_today: Закрито днес
-    closing_tomorrow: Закрива се утре
-    days_left: "%{days_left} останали дни"
   contact:
     access_and_opening_times: Часове за достъп и отваряне
     contact_form: Формуляр за контакт
@@ -136,10 +122,7 @@ bg:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Съдържание
-    latest: Най-нови документи
     published: публикуван
-    see_all: Вижте всички
     speech:
       author_title:
         minister: Министър
@@ -394,13 +377,7 @@ bg:
   document_filters:
     world_locations:
       all: Всички местоположения
-      label: Местоположения по света
       no_locations_filter: Нито едно местоположение в света не отговаря на това филтриране.
-  fatality_notice:
-    british_fatalities: Смъртни случаи във Великобритания
-    none_added: Все още няма добавени съобщения за смъртни случаи в тази област на дейност.
-  feeds:
-    latest_activity: Последна дейност
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,19 @@ bg:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Все още няма актуализация.
-    title: Последни
   organisation:
     corporate_information:
       access_our_info: Достъп до нашата информация
       jobs: Работни места
       jobs_and_contacts: Работни места и договори
       organisation_chart: Нашата организационна схема
-      transparency: Данни за прозрачност
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Фирмена информация
-      corporate_reports: Фирмени доклади
-    support:
-      administered_by: Администриране от
-      agencies_and_public_bodies: агенции и публични органи
-      part_of: Част от
-      public_body: публичен орган
-      works_with: Работи с
-    type:
-      courts_and_tribunals: Съдилища и арбитражи
   roles:
     unassigned: Няма назначен на тази длъжност
-  see_all:
-    announcement: Вижте всички наши съобщения
-    authored_article: Вижте всички наши авторски статии
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Вижте всички наши казуси
-    closed_call_for_evidence: 
-    closed_consultation: Вижте всички наши закрити консултации
-    consultation: Вижте всички наши консултации
-    consultation_outcome: Вижте всички резултати от нашите консултации
-    corporate_report: Вижте всички наши фирмени доклади
-    correspondence: Вижте всички наши кореспонденции
-    decision: Вижте всички наши решения
-    detailed_guidance: Вижте всички наши насоки
-    document_collection: Вижте всички наши колекции
-    draft_text: Вижте всички наши проектотекстове
-    fatality_notice: Вижте всички наши съобщения за смъртни случаи
-    foi_release: Вижте всички наши издания за Свобода на информацията
-    form: Вижте всички наши формуляри
-    government_response: Вижте всички наши отговори на правителството
-    guidance: Вижте всички наши насоки
-    impact_assessment: Вижте всички наши оценки на въздействието
-    imported: Вижте всички наши независими доклади
-    international_treaty: Вижте всички наши международни договори
-    map: Вижте всички наши карти
-    national_statistics: Вижте всички наши национални статистики
-    news_article: Вижте всички наши информационни статии
-    news_story: Вижте всички наши новинарски материали
-    notice: Вижте всички наши съобщения
-    open_call_for_evidence: 
-    open_consultation: Вижте всички наши открити консултации
-    oral_statement: Вижте всички наши устни изявления в Парламента
-    policy: Вижте всички наши политики
-    policy_paper: Вижте всички наши политически документи
-    press_release: Вижте всички наши съобщения за пресата
-    promotional: Вижте всички наши рекламни материали
-    publication: Вижте всички наши публикации
-    regulation: Вижте всички наши наредби
-    research: Вижте всички наши проучвания и анализи
-    speaking_notes: Вижте всички наши бележки за изказвания
-    speech: Вижте всички наши речи
-    statement_to_parliament: Вижте всички наши устни изявления в парламента
-    statistical_data_set: Вижте всички наши набори от статистически данни
-    statistics: Вижте всички наши статистики
-    statutory_guidance: Вижте всички наши законови указания
-    transcript: Вижте всички наши текстове
-    transparency: Вижте всички наши данни за прозрачност
-    written_statement: Вижте всички наши писмени изявления в парламента
   support:
     download: Изтегляне
     field_of_operation: 'Област на действие:'
-    fields_of_operation: Области на действие
     pagination:
       next_html: Следваща <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} от %{total_pages}</span>
       next_page: Следваща страница
@@ -564,9 +477,6 @@ bg:
       list_link: 
     headings:
       search: Търсене по страна или територия
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Международна делегация
@@ -583,11 +493,3 @@ bg:
       publication_scheme_html: Прочетете за видовете информация, които обичайно публикуваме на нашата %{link}.
       social_media_use_html: Прочетете нашите правила на %{link}.
       welsh_language_scheme_html: Научете повече за нашия ангажимент към %{link}.
-    find_out_more: Вижте пълния профил и всички данни за контакт
-    headings:
-      contact_us: Свържете се с нас
-      corporate_information: Фирмена информация
-      follow_us: Следвайте ни
-      our_people: Нашият народ
-    location: Местоположение
-    part_of: Част от

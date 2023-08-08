@@ -71,10 +71,6 @@ so:
         Fadlan noo sheeg nooca qaabka aad u baahantahay. Waxay naga caawinaysaa hadii aad dhahdo waa maxay tiknoolajiyada aad isticmaasho.
       intro: Faylkani waxa laga yaabaa inaanu ku haboonayn isticmaalayaasha tiknoolajiyada caawinta.
       request_a_different_format: Codso nidaam la gali karo.
-    csv:
-      cannot_preview: Faylka si hordhac ah looma sii eegi karo.
-      download: Dejiso faylka si aad u eegto waxyaabaha uu ka koobanyahay dhamaan.
-      truncated_message: Si aad u eegto kaliya wuxuu ku tusinayaa laynka %{rows} koowaad iyo %{columns} kolomka.
     headings:
       order_a_copy: Dalbo nuqul
       order_a_copy_full: Dalbo nuqul daabacaada ah
@@ -90,16 +86,6 @@ so:
     caution:
       subheading: Waxaan helnay arimaha qaar linkiyadooda kaasoo dhib muujinaya, waa inaad ka taxadartaa marka aad ka codsanayso linki iyaga
     title: Linkiyada la jabsaday
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Xidhan
-    closing_today: Xidhan maanta
-    closing_tomorrow: Beri xidhan
-    days_left: "%{days_left} maalmaha tagay"
   contact:
     access_and_opening_times: Wakhtiyada galitaanka iyo furitaanka
     contact_form: Foomka lagala xidhiidhayo
@@ -136,10 +122,7 @@ so:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Waxyaabaha uu ka koobanyahay
-    latest: Dukumentiyadii u danbeeyey
     published: Daabacaada
-    see_all: Eeg dhamaan
     speech:
       author_title:
         minister: Wasiirka
@@ -394,13 +377,7 @@ so:
   document_filters:
     world_locations:
       all: Dhamaan goobaha
-      label: Goobaha Dunida
       no_locations_filter: Majirto meel dunida ah oo waafqaysa baadhistaa.
-  fatality_notice:
-    british_fatalities: Muhiimada British-ka
-    none_added: Ma jiraan wax ogaysiisyada muhiimka ah oo lagu daray goobtan shaqada wali.
-  feeds:
-    latest_activity: Hawsha ugu dambaysay
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,19 @@ so:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Wali wax cusub ma jiraan.
-    title: Ugu dambeeyay
   organisation:
     corporate_information:
       access_our_info: Helitaankayaga macluumaadka
       jobs: Shaqooyinka
       jobs_and_contacts: Shaqooyinka iyo qandaraasyada
       organisation_chart: Jaantuska ururkayaga
-      transparency: Xog daah furan
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Macluumaadka shirkada
-      corporate_reports: Warbixinaha shirkada
-    support:
-      administered_by: Ay maamushay
-      agencies_and_public_bodies: wakaaladaha iyo qaybaha dawlada
-      part_of: Ka qeyba
-      public_body: dawlada
-      works_with: Ee la shaqaysa
-    type:
-      courts_and_tribunals: Maxkamadaha iyo Xukunada
   roles:
     unassigned: Qofna looma qoondayn doorkan
-  see_all:
-    announcement: Eeg dhamaan ku dhawaaqisahayaga
-    authored_article: Eeg dhamaan qoraalaada la ogalyahay
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Eeg dhamaan cilmi baadhisahayaga
-    closed_call_for_evidence: 
-    closed_consultation: Eeg dhamaan latilinahayaga dhaw
-    consultation: Eeg dhamaan la talinahayaga oo dhan
-    consultation_outcome: Eeg dhamaan maxsuulada la talinahayaga oo dhan
-    corporate_report: Eeg dhamaan warbixinaha isku dhafan
-    correspondence: Eeg dhamaan xidhiidhadayaga oo dhan
-    decision: Eeg dhamaan go'aanadayada oo dhan
-    detailed_guidance: Eeg dhamaan tilmaamahayga oo dhan
-    document_collection: Eeg dhamaan xidhmooyinkayaga oo dhan
-    draft_text: Eeg dhamaan qoraalaadayada qabyada ah oo dhan
-    fatality_notice: Eeg dhamaan ogaysiisyadayada muhiimka ah
-    foi_release: Eeg dhamaan baahinahayaga FOI
-    form: Eeg dhamaan foomamkayaga oo dhan
-    government_response: Eeg dhamaan jawaabahayaga Dawlada
-    guidance: Eeg dhamaan tilmaamahayga oo dhan
-    impact_assessment: Eeg dhamaan saamayntayada qiimaynaha
-    imported: Eeg dhamaan warbixinahayaga madaxa banaan
-    international_treaty: Eeg dhamaan caqabahayaga caalamiga ah
-    map: Eeg dhamaan khariidadahayaga oo dhan
-    national_statistics: Eeg dhamaan xog ururinaha Heer qaran
-    news_article: Eeg dhamaan qoraalaada wararka
-    news_story: Eeg dhamaan sheekoyinkayaga wararka
-    notice: Eeg dhamaan ogaysiisyadaya
-    open_call_for_evidence: 
-    open_consultation: Eeg dhamaan latilinahayaga furan
-    oral_statement: Eeg dhammaan hadalada aan afka u sheegnay ee Baarlamaanka
-    policy: Eeg dhamaan siyaasadahayaga
-    policy_paper: Eeg dhamaan waraaqaha siyaasadahayaga
-    press_release: Eeg dhamaan baahinahayaga warsaxaadeed
-    promotional: Eeg dhamaan agabkayaga xayaysiinta
-    publication: Eeg dhamaan daabacadahayaga
-    regulation: Eeg dhamaan xeerarkayaga
-    research: Eeg dhamaan cilmi baadhisyadayada iyo falanqayn
-    speaking_notes: Eeg dhamaan qoraaladayada hadalka
-    speech: Eeg dhamaan hadaladayada
-    statement_to_parliament: Eeg dhammaan bayaanada aan udirnay Baarlamaanka
-    statistical_data_set: Eeg dhamaan dejimahayaga macluumaadaka xog ururinta
-    statistics: Eeg dhamaan xog ururinahayaga
-    statutory_guidance: Eeg dhamaan tilmaamahayga muhiimka ah
-    transcript: Eeg dhamaan qoraaladayada
-    transparency: Eeg dhamaan xogtayada daaha furan
-    written_statement: Eeg dhammaan bayaanadayada qoraalka ah ee loo diray Baarlamaanka
   support:
     download: Dejiso
     field_of_operation: 'Hawalaha dibada:'
-    fields_of_operation: Hawalaha dibada
     pagination:
       next_html: Kuxiga <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page} ah %{total_pages}</span>
       next_page: Boga xiga
@@ -564,9 +477,6 @@ so:
       list_link: 
     headings:
       search: Ku raadi dalka ama dhulka
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Wafti caalami ah
@@ -583,11 +493,3 @@ so:
       publication_scheme_html: Akhri waxyaabaha ku saabsan nooca macluumaadka aan si joogto ugu daabacno %{link}.
       social_media_use_html: Ka akhri siyaasadayahaga %{link}.
       welsh_language_scheme_html: Raadi waxyaabaha ku saabsan ka go'naanshahayaga %{link}.
-    find_out_more: Eeg borofaayl dhamaystiran iyo dhamaan faahfaahinta meesha lagala xidhiidhayo
-    headings:
-      contact_us: Nagala soo xidhiidh
-      corporate_information: Macluumaadka shirkada
-      follow_us: Nagala soco
-      our_people: Dadkayaga
-    location: Goobta
-    part_of: Ka qeyba

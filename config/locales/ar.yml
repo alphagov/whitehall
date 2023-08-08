@@ -69,10 +69,6 @@ ar:
       full_help_html: "إذا كنت تستخدم تكنولوجيا مساعدة (مثل قارئ الشاشة) وكنت بحاجة لنسخة من هذا المستند بتنسيق أيسر استخدامًا، فيُرجى التواصل معنا على البريد الإلكتروني %{email}. \nمن فضلك أخبرنا بالتنسيق الذي تحتاجه. إذا أخبرتنا بالتكنولوجيا المساعدة التي تستخدمها، فهذا سيساعدنا.\n"
       intro: قد لا يكون هذا الملف مناسبًا لمستخدمي التكنولوجيا المساعدة.
       request_a_different_format: طلب تنسيق يمكن الاطلاع عليه.
-    csv:
-      cannot_preview: لا يمكن معاينة هذا الملف.
-      download: قم بتنزيل الملف لعرض محتوياته بالكامل.
-      truncated_message: لا تُظهر هذه المعاينة سوى أول %{rows} صفوف و %{columns} أعمدة فقط.
     headings:
       order_a_copy: طلب نسخة
       order_a_copy_full: اطلب نسخة من المنشور
@@ -88,16 +84,6 @@ ar:
     caution:
       subheading: لقد وجدنا بعض المسائل المتعلقة بالارتباطات التي قد تشير إلى وجود مشكلات، وينبغي لك أن تتوخى الحذر عند إضافة الارتباطات بها
     title: ارتباطات منقطعة
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: مغلق
-    closing_today: سيغلق اليوم
-    closing_tomorrow: سيغلق غدًا
-    days_left: "%{days_left} أيام متبقية"
   contact:
     access_and_opening_times: أوقات الوصول والفتح
     contact_form: نموذج الاتصال
@@ -134,10 +120,7 @@ ar:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: المحتويات
-    latest: أحدث المستندات
     published: منشورة
-    see_all: عرض الكل
     speech:
       author_title:
         minister: وزير
@@ -712,13 +695,7 @@ ar:
   document_filters:
     world_locations:
       all: جميع المواقع
-      label: المواقع العالمية
       no_locations_filter: لا توجد مواقع عالمية تطابق عامل التصفية هذا.
-  fatality_notice:
-    british_fatalities: الوفيات من البريطانيين
-    none_added: لم تتم إضافة أي إشعارات حول الوفيات في ساحة العمليات هذه حتى الآن.
-  feeds:
-    latest_activity: أحدث نشاط
   i18n:
     direction: rtl
   language_names:
@@ -788,83 +765,19 @@ ar:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: لا توجد تحديثات بعد.
-    title: الأحدث
   organisation:
     corporate_information:
       access_our_info: الوصول إلى معلوماتنا
       jobs: الوظائف
       jobs_and_contacts: الوظائف والعقود
       organisation_chart: مخططنا التنظيمي
-      transparency: بيانات الشفافية
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: معلومات الشركة
-      corporate_reports: تقارير الشركة
-    support:
-      administered_by: يُدار بواسطة
-      agencies_and_public_bodies: الوكالات والهيئات العامة
-      part_of: جزء من
-      public_body: هيئة عامة
-      works_with: يعمل لدى
-    type:
-      courts_and_tribunals: المحاكم والهيئات القضائية
   roles:
     unassigned: لم يتم تعيين أي شخص لهذا الدور.
-  see_all:
-    announcement: اطلع على جميع إعلاناتنا
-    authored_article: اطلع على جميع مقالاتنا المؤلفة
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: اطلع على جميع دراسات الحالة لدينا
-    closed_call_for_evidence: 
-    closed_consultation: اطلع على جميع استشاراتنا المغلقة
-    consultation: اطلع على جميع استشاراتنا
-    consultation_outcome: اطلع على جميع نتائج استشاراتنا
-    corporate_report: اطلع على جميع تقارير الشركات لدينا
-    correspondence: اطلع على جميع مراسلاتنا
-    decision: اطلع على جميع قراراتنا
-    detailed_guidance: اطلع على كل توجيهاتنا
-    document_collection: اطلع على جميع مجموعاتنا
-    draft_text: اطلع على جميع مشاريع النصوص لدينا
-    fatality_notice: اطلع على جميع إشعاراتنا حول الوفيات
-    foi_release: اطلع على جميع إصدارات حرية تداول المعلومات لدينا
-    form: اطلع على جميع نماذجنا
-    government_response: اطلع على جميع استجابات الحكومة لدينا
-    guidance: اطلع على جميع توجيهاتنا
-    impact_assessment: اطلع على جميع تقييمات الأثر لدينا
-    imported: اطلع على جميع تقاريرنا المستقلة
-    international_treaty: اطلع على جميع معاهداتنا الدولية
-    map: اطلع على جميع خرائطنا
-    national_statistics: اطلع على جميع إحصاءاتنا الوطنية
-    news_article: اطلع على جميع مقالاتنا الإخبارية
-    news_story: اطلع على جميع قصصنا الصحفية
-    notice: اطلع على جميع إشعاراتنا
-    open_call_for_evidence: 
-    open_consultation: اطلع على جميع استشاراتنا المفتوحة
-    oral_statement: اطلع على جميع بياناتنا الشفوية إلى البرلمان
-    policy: اطلع على جميع سياساتنا
-    policy_paper: اطلع على جميع أوراق السياسة لدينا
-    press_release: اطلع على جميع بياناتنا الصحفية
-    promotional: اطلع على جميع موادنا الترويجية
-    publication: اطلع على جميع منشوراتنا
-    regulation: اطلع على جميع لوائحنا
-    research: اطلع على جميع أبحاثنا وتحليلاتنا
-    speaking_notes: اطلع على جميع الملاحظات التحضيرية لخطاباتنا
-    speech: اطلع على جميع خطاباتنا
-    statement_to_parliament: اطلع على جميع بياناتنا إلى البرلمان
-    statistical_data_set: اطلع على جميع مجموعات البيانات الإحصائية لدينا
-    statistics: اطلع على جميع إحصائياتنا
-    statutory_guidance: اطلع على جميع توجيهاتنا القانونية
-    transcript: اطلع على جميع نصوصنا
-    transparency: اطلع على جميع بيانات الشفافية لدينا
-    written_statement: اطلع على جميع بياناتنا الخطيَّة إلى البرلمان
   support:
     download: تنزيل
     field_of_operation: 'ساحة العمليات:'
-    fields_of_operation: ساحات العمليات
     pagination:
       next_html: الصفحة <span class="visuallyhidden">التالية</span> <span class="page-numbers">%{current_page} من%{total_pages}</span>
       next_page: الصفحة التالية
@@ -882,9 +795,6 @@ ar:
       list_link: 
     headings:
       search: البحث حسب البلد أو الإقليم
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -909,11 +819,3 @@ ar:
       publication_scheme_html: اقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في %{link}.
       social_media_use_html: اقرأ سياستنا على %{link}.
       welsh_language_scheme_html: تعرف على التزامنا بشأن %{link}.
-    find_out_more: اطلع على الملف الكامل وجميع تفاصيل الاتصال
-    headings:
-      contact_us: اتصل بنا
-      corporate_information: معلومات الشركة
-      follow_us: تابعنا
-      our_people: موظفونا
-    location: الموقع
-    part_of: جزء من

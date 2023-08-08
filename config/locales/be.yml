@@ -69,10 +69,6 @@ be:
       full_help_html: "Калі вы выкарыстоўваеце дапаможную праграму (напрыклад, праграму для чытання з экрана) і вам патрэбна версія гэтага дакумента ў больш даступным фармаце, то калі ласка напішыце на  электронную пошту %{email}. \nКалі ласка, скажыце нам, які фармат вам патрэбны. Нам таксама дапаможа, калі вы назавеце, якую дапаможную праграму вы выкарыстоўваеце."
       intro: Гэты файл можа быць непрыдатным для карыстальнікаў дапаможных тэхналогій.
       request_a_different_format: Запрасіць файл у іншым фармаце.
-    csv:
-      cannot_preview: Гэты файл не ўдалося праглядзець загадзя.
-      download: Скачаць файл, каб праглядзець яго поўнае змесціва.
-      truncated_message: У гэтым папярэднім праглядзе адлюстроўваюцца толькі першыя % {rows} радкоў і %{columns} слупкоў.
     headings:
       order_a_copy: Замовіць копію
       order_a_copy_full: Замовіць копію гэтай публікацыі
@@ -88,16 +84,6 @@ be:
     caution:
       subheading: Мы выявілі некаторыя праблемы са спасылкамі, якія могуць паказваць на праблемы, вам варта праяўляць асцярожнасць пры спасылках на іх
     title: Непрацуючыя спасылкі
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Закрыты
-    closing_today: Зачыняецца сёння
-    closing_tomorrow: Зачыняецца заўтра
-    days_left: "%{days_left} дзён засталося"
   contact:
     access_and_opening_times: Доступ і час працы
     contact_form: Кантактная форма
@@ -134,10 +120,7 @@ be:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Змест
-    latest: Апошнія дакументы
     published: Апублікаваны
-    see_all: Глядзець усе
     speech:
       author_title:
         minister: Міністр
@@ -552,13 +535,7 @@ be:
   document_filters:
     world_locations:
       all: Усе месцазнаходжанні
-      label: Мы ў свеце
       no_locations_filter: Ні адно месцазнаходжанне ў свеце не адпавядае гэтаму фільтру.
-  fatality_notice:
-    british_fatalities: Паведамленні на англійскам
-    none_added: Для гэтага аперацыйнага поля яшчэ не было дададзена ніякіх паведамленняў аб смерцi.
-  feeds:
-    latest_activity: Апошнія аднаўленні
   i18n:
     direction: ltr
   language_names:
@@ -628,83 +605,19 @@ be:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Ніякіх абнаўленняў пакуль няма.
-    title: Апошняе
   organisation:
     corporate_information:
       access_our_info: Доступ да нашай інфармацыі
       jobs: Праца
       jobs_and_contacts: Праца і кантакты
       organisation_chart: Наша арганізацыйная структура
-      transparency: Адкрытыя дадзеныя
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Карпаратыўная іфармацыя
-      corporate_reports: Карпаратыўныя справаздачы
-    support:
-      administered_by: Кіруецца
-      agencies_and_public_bodies: ўстановы і дзяржаўныя органы
-      part_of: Частка
-      public_body: дзяржаўны орган
-      works_with: Праца з
-    type:
-      courts_and_tribunals: Суды і Трыбуналы
   roles:
     unassigned: Ніхто не прызначаны на гэтую ролю
-  see_all:
-    announcement: Паглядзець усе Аб'явы
-    authored_article: Паглядзець усе Аўтарскія артыкулы
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Паглядзець усе Тэматычныя даследаванні
-    closed_call_for_evidence: 
-    closed_consultation: Паглядзець усе Закрытыя кансультацыі
-    consultation: Паглядзець усе Кансультацыі
-    consultation_outcome: Паглядзець усе Вынікі кансультацыі
-    corporate_report: Паглядзець усе Карпаратыўныя справаздачы
-    correspondence: Паглядзець усе Перапіска
-    decision: Паглядзець усе Падрабязнае кіраўніцтва
-    detailed_guidance: Паглядзець усе Кіраўніцтва
-    document_collection: Паглядзець усе Чарнавікі
-    draft_text: Паглядзець ўсе Праекты тэкстаў
-    fatality_notice: Паглядзець усе Паведамлення аб смерцi
-    foi_release: Паглядзець усе Рэлізы ў межах Закона аб свабодзе інфармацыі
-    form: Паглядзець усе Формы
-    government_response: Паглядзець усе Адказы ўрада
-    guidance: Паглядзець усе Кіраўніцтва
-    impact_assessment: Паглядзець усе Ацэнкі ўплыву
-    imported: Паглядзець усе Незалежныя справаздачы
-    international_treaty: Паглядзець усе Міжнародныя дагаворы
-    map: Паглядзець усе Карты
-    national_statistics: Паглядзець усе Нацыянальная статыстыка
-    news_article: Паглядзець усе Артыкулы
-    news_story: Паглядзець усе Навіны
-    notice: Паглядзець усе Паведамленнi
-    open_call_for_evidence: 
-    open_consultation: Паглядзець усе Адкрытыя кансультацыі
-    oral_statement: Паглядзець усе Вусныя заявы ў парламенце
-    policy: Паглядзець усе Напрамкі дзейнасці
-    policy_paper: Паглядзець усе Праграмныя дакументы
-    press_release: Паглядзець усе Прэс-рэлізы
-    promotional: Паглядзець усе Рэкламныя матэрыялы
-    publication: Паглядзець усе Публікацыі
-    regulation: Паглядзець усе Нарматыўныя дакументы
-    research: Паглядзець усе Даследаванні і аналіз
-    speaking_notes: Паглядзець усе Нататкі да выступу
-    speech: Паглядзець усе Выступы
-    statement_to_parliament: Паглядзець усе Заявы ў парламенце
-    statistical_data_set: Паглядзець усе Статыстычныя дадзеныя
-    statistics: Паглядзець усе Статыстыка
-    statutory_guidance: Паглядзець усе Заканадаўчае кіраўніцтва
-    transcript: Паглядзець увесь Поўны тэкст
-    transparency: Паглядзець усе Адкрытыя дадзеныя
-    written_statement: Паглядзець усе Пісьмовыя заявы ў парламенце
   support:
     download: Скачаць
     field_of_operation: Аперацыйнае поле
-    fields_of_operation: Аперацыйныя поля
     pagination:
       next_html: Наступная <span class="visuallyhidden">старонка</span> <span class="page-numbers">%{current_page} з %{total_pages}</span>
       next_page: Наступная старонка
@@ -722,9 +635,6 @@ be:
       list_link: 
     headings:
       search: Пошук па краіне або тэрыторыі
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -745,11 +655,3 @@ be:
       publication_scheme_html: Чытайце пра тыпы інфармацыі, якую мы рэгулярна публікуем, у нашым %{link}.
       social_media_use_html: Прачытайце пра нашу палітыку датычна %{link}.
       welsh_language_scheme_html: Даведайцеся аб нашых абавязках да публікацыі ў %{link}.
-    find_out_more: Паглядзець усю інфармацыю і кантактныя дадзеныя
-    headings:
-      contact_us: Звяжыцеся з намі
-      corporate_information: Карпаратыўная іфармацыя
-      follow_us: Сачыце за намі
-      our_people: Нашы людзі
-    location: Месцазнаходжанне
-    part_of: Частка

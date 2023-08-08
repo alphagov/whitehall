@@ -71,10 +71,6 @@ ne:
         कृपया हामीलाई भन्नुहोस् तपाईंलाई कुन ढाँचा चाहिन्छ। तपाईं कुन सहायक टेक्नोलोजी तपाईं प्रयोग गर्नुहुन्छ बारेमा हामीलाई जानकारी दिएर मद्दत गर्न सक्नुहुन्छ।
       intro: यो फाइल सहायक टेक्नोलोजीको प्रयोगकर्ताहरुको लागी उपयुक्त नहुन सक्छ।
       request_a_different_format: एउटा सुलभ ढाँचा अनुरोध गर्नुहोस्।
-    csv:
-      cannot_preview: यो फाइल पूर्वावलोकन गर्न सकिएन।
-      download: फाइल डाउनलोड गरेर यसको पूर्ण सामग्री हेर्नुहोस्।
-      truncated_message: यो पूर्वावलोकन मात्र पहिलो %{rows} पङ्क्ति र %{columns} कलम देखाउँछ।
     headings:
       order_a_copy: एउटा प्रति अर्डर गर्नुहोस्
       order_a_copy_full: प्रकाशनको एउटा प्रति अर्डर गर्नुहोस्
@@ -90,16 +86,6 @@ ne:
     caution:
       subheading: हामीले लिंकहरू सँग केहि समस्याहरु भएको थाहा पाएका छौं, तपाईं उनीहरुलाई जोड्ने कार्य गर्दा सावधानी अपनाउनु पर्छ
     title: काम नगर्ने लिंक
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: बन्द
-    closing_today: आज बन्द हुँदैछ
-    closing_tomorrow: भोलि बन्द हुन्छ
-    days_left: "%{days_left} दिन बाँकी"
   contact:
     access_and_opening_times: पहुँच र खुल्ने समय
     contact_form: सम्पर्क फारम
@@ -136,10 +122,7 @@ ne:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: विषयवस्तु
-    latest: नवीनतम कागजातहरू
     published: प्रकाशित
-    see_all: सबै हेर
     speech:
       author_title:
         minister: मन्त्री
@@ -394,13 +377,7 @@ ne:
   document_filters:
     world_locations:
       all: सबै स्थानहरु
-      label: विश्व स्थानहरु
       no_locations_filter: त्यस फिल्टर सँग कुनै विश्व स्थानहरु मेल खाँदैनन्।
-  fatality_notice:
-    british_fatalities: ब्रिटिश मृत्यु
-    none_added: त्यहाँ सञ्चालन क्षेत्रको लागी अझै सम्म कुनै मृत्यु सूचनाहरु थपिएका छैनन्।
-  feeds:
-    latest_activity: पछिल्लो गतिविधि
   i18n:
     direction: ltr
   language_names:
@@ -470,83 +447,19 @@ ne:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: अहिले सम्म कुनै अद्यावधिक छैन।
-    title: पछिल्लो
   organisation:
     corporate_information:
       access_our_info: हाम्रो जानकारीको पहुँच पाउनुहोस्
       jobs: जागिरहरु
       jobs_and_contacts: जागिर र अनुबंधहरू
       organisation_chart: हाम्रो सङ्गठनको तालिका
-      transparency: पारदर्शिता जानकारी
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: निगम जानकारी
-      corporate_reports: निगम प्रतिवेदनहरू
-    support:
-      administered_by: द्वारा प्रशासित
-      agencies_and_public_bodies: एजेन्सीहरु र सार्वजनिक निकायहरु
-      part_of: को भाग
-      public_body: सार्वजनिक निकाय
-      works_with: सँग काम गर्दछ
-    type:
-      courts_and_tribunals: अदालत र न्यायाधिकरण
   roles:
     unassigned: यो भूमिका को लागी कसैलाई तोकिएको छैन
-  see_all:
-    announcement: हाम्रा सबै घोषणाहरु हेर्नुहोस्
-    authored_article: हाम्रो सबै लेखिएको लेखहरू हेर्नुहोस्
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: हाम्रो सबै मामिलाहरू अध्ययन हेर्नुहोस्
-    closed_call_for_evidence: 
-    closed_consultation: हाम्रो सबै बन्द परामर्शहरू हेर्नुहोस्
-    consultation: हाम्रो सबै परामर्शहरू हेर्नुहोस्
-    consultation_outcome: हाम्रो सबै परामर्श परिणामहरु हेर्नुहोस्
-    corporate_report: हाम्रो सबै निगम प्रतिवेदनहरु हेर्नुहोस्
-    correspondence: हाम्रा सबै पत्राचारहरु हेर्नुहोस्
-    decision: हाम्रा सबै निर्णयहरु हेर्नुहोस्
-    detailed_guidance: हाम्रो सबै मार्गदर्शन हेर्नुहोस्
-    document_collection: हाम्रो सबै संग्रहहरू हेर्नुहोस्
-    draft_text: हाम्रो सबै मस्यौदा पाठहरू हेर्नुहोस्
-    fatality_notice: हाम्रा सबै मृत्यु सूचनाहरु हेर्नुहोस्
-    foi_release: हाम्रो सबै जानकारीको स्वतन्त्रता विज्ञप्तिहरु हेर्नुहोस्
-    form: हाम्रा सबै फारमहरू हेर्नुहोस्
-    government_response: हाम्रा सबै सरकारी प्रतिक्रियाहरु हेर्नुहोस्
-    guidance: हाम्रो सबै मार्गदर्शन हेर्नुहोस्
-    impact_assessment: हाम्रो सबै प्रभाव मूल्यांकनहरू हेर्नुहोस्
-    imported: हाम्रो सबै स्वतन्त्र प्रतिवेदनहरू हेर्नुहोस्
-    international_treaty: हाम्रा सबै अन्तर्राष्ट्रिय सन्धिहरु हेर्नुहोस्
-    map: हाम्रो सबै नक्साहरू हेर्नुहोस्
-    national_statistics: हाम्रो सबै राष्ट्रिय तथ्याङ्क हेर्नुहोस्
-    news_article: हाम्रो सबै समाचार लेखहरू हेर्नुहोस्
-    news_story: हाम्रा सबै समाचार कथाहरु हेर्नुहोस्
-    notice: हाम्रा सबै सूचनाहरु हेर्नुहोस्
-    open_call_for_evidence: 
-    open_consultation: हाम्रो सबै खुला परामर्शहरू हेर्नुहोस्
-    oral_statement: हाम्रो सबै संसदमा मौखिक वक्तव्यहरू हेर्नुहोस्
-    policy: हाम्रा सबै नीतिहरु हेर्नुहोस्
-    policy_paper: हाम्रा सबै नीति पत्रहरु हेर्नुहोस्
-    press_release: हाम्रो सबै प्रेस विज्ञप्तिहरू हेर्नुहोस्
-    promotional: हाम्रो सबै प्रचार सामग्री हेर्नुहोस्
-    publication: हाम्रा सबै प्रकाशनहरु हेर्नुहोस्
-    regulation: हाम्रा सबै नियमहरु हेर्नुहोस्
-    research: हाम्रो सबै अनुसन्धान र विश्लेषण हेर्नुहोस्
-    speaking_notes: हाम्रा सबै बोल्ने टिप्पणीहरू हेर्नुहोस्
-    speech: हाम्रा सबै भाषणहरु हेर्नुहोस्
-    statement_to_parliament: हाम्रो संसदको सबै वक्तव्यहरू हेर्नुहोस्
-    statistical_data_set: हाम्रो सबै तथ्याङ्क जानकारी समुहहरू हेर्नुहोस्
-    statistics: हाम्रो सबै तथ्याङ्क हेर्नुहोस्
-    statutory_guidance: हाम्रो सबै वैधानिक मार्गदर्शन हेर्नुहोस्
-    transcript: हाम्रो सबै प्रतिलिपिहरू हेर्नुहोस्
-    transparency: हाम्रो सबै पारदर्शिता जानकारी हेर्नुहोस्
-    written_statement: संसदमा हाम्रा सबै लिखित वक्तव्यहरू हेर्नुहोस्
   support:
     download: डाउनलोड गर्नुहोस्
     field_of_operation: 'सञ्चालन क्षेत्र:'
-    fields_of_operation: सञ्चालन क्षेत्रहरु
     pagination:
       next_html: अर्को<span class="visuallyhidden">पृष्ठ</span> <span class="page-numbers">%{current_page} को %{total_pages}</span>
       next_page: अर्को पाना
@@ -564,9 +477,6 @@ ne:
       list_link: 
     headings:
       search: देश वा क्षेत्रको नामले खोज
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: अन्तर्राष्ट्रिय प्रतिनिधिमण्डल
@@ -583,11 +493,3 @@ ne:
       publication_scheme_html: हामी नियमित रूपमा हाम्रो %{link} मा प्रकाशित जानकारीको प्रकारको बारेमा पढ्नुहोस्।
       social_media_use_html: "%{link} मा हाम्रो नीति पढ्नुहोस्।"
       welsh_language_scheme_html: "%{link} को हाम्रो प्रतिबद्धताको बारेमा जानकारी पाउनुहोस्।"
-    find_out_more: पूर्ण प्रोफाइल र सबै सम्पर्क विवरण हेर्नुहोस्
-    headings:
-      contact_us: हामीलाई सम्पर्क गर्नुहोस
-      corporate_information: निगम जानकारी
-      follow_us: हमीलाई अनुगमन गर्नुहोस्
-      our_people: हाम्रा जनता
-    location: स्थान
-    part_of: को भाग

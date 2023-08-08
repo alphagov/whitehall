@@ -72,10 +72,6 @@
         Fortell oss hvilket format du trenger. Det vil hjelpe oss hvis du forteller hvilken hjelpeteknologi du bruker.
       intro: Denne filen er muligens ikke egnet for brukere av hjelpeteknologi.
       request_a_different_format: Be om et tilgjengelig format.
-    csv:
-      cannot_preview: Denne filen kunne ikke forhåndsvises.
-      download: Last ned filen for å se hele innholdet.
-      truncated_message: Denne forhåndsvisningen viser bare de første %{rows} radene og %{columns} kolonnene.
     headings:
       order_a_copy: Bestill en kopi
       order_a_copy_full: Bestill en kopi av publikasjonen
@@ -91,16 +87,6 @@
     caution:
       subheading: Vi har funnet noen uregelmessigheter med lenker som kan indikere problemer. Du bør være forsiktig når du lenker til dem
     title: Brutte koblinger
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Lukket
-    closing_today: Stenger i dag
-    closing_tomorrow: Stenger i morgen
-    days_left: "%{days_left} dager igjen"
   contact:
     access_and_opening_times: Tilgang og åpningstider
     contact_form: Kontaktskjema
@@ -137,10 +123,7 @@
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Innhold
-    latest: Siste dokumenter
     published: publisert
-    see_all: Se alle
     speech:
       author_title:
         minister: Minister
@@ -395,13 +378,7 @@
   document_filters:
     world_locations:
       all: Alle steder
-      label: Steder i verden
       no_locations_filter: Ingen steder i verden samsvarer med det filteret.
-  fatality_notice:
-    british_fatalities: Britiske dødsfall
-    none_added: Det har ikke blitt lagt til noen meldinger om dødsfall for dette operasjonsfeltet ennå.
-  feeds:
-    latest_activity: Siste aktivitet
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,19 @@
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Det er ingen oppdateringer ennå.
-    title: Siste
   organisation:
     corporate_information:
       access_our_info: Få tilgang til informasjonen vår
       jobs: Arbeidsplasser
       jobs_and_contacts: Jobb og kontrakter
       organisation_chart: Vårt organisasjonskart
-      transparency: Åpenhetstsdata
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Bedriftsinformasjon
-      corporate_reports: Bedriftsrapporter
-    support:
-      administered_by: Administreres av
-      agencies_and_public_bodies: byråer og offentlige instanser
-      part_of: Del av
-      public_body: offentlig instans
-      works_with: Arbeider med
-    type:
-      courts_and_tribunals: Domstoler og domstoler
   roles:
     unassigned: Ingen er tildelt denne rollen
-  see_all:
-    announcement: Se alle våre kunngjøringer
-    authored_article: Se alle våre forfatterartikler
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Se alle våre casestudier
-    closed_call_for_evidence: 
-    closed_consultation: Se alle våre lukkede konsultasjoner
-    consultation: Se alle våre konsultasjoner
-    consultation_outcome: Se alle våre konsultasjonsresultater
-    corporate_report: Se alle våre bedriftsrapporter
-    correspondence: Se alle våre korrespondanser
-    decision: Se alle våre beslutninger
-    detailed_guidance: Se all vår veiledning
-    document_collection: Se alle samlingene våre
-    draft_text: Se alle våre utkast til tekster
-    fatality_notice: Se alle våre meldinger om dødsfall
-    foi_release: Se alle våre Informasjonsfrihet-utgivelser
-    form: Se alle skjemaene våre
-    government_response: Se alle svarene fra regjeringen
-    guidance: Se all vår veiledning
-    impact_assessment: Se alle våre konsekvensanalyser
-    imported: Se alle våre uavhengige rapporter
-    international_treaty: Se alle våre internasjonale traktater
-    map: Se alle kartene våre
-    national_statistics: Se all vår nasjonale statistikk
-    news_article: Se alle våre nyhetsartikler
-    news_story: Se alle våre nyhetshistorier
-    notice: Se alle våre oppslag
-    open_call_for_evidence: 
-    open_consultation: Se alle våre åpne konsultasjoner
-    oral_statement: Se alle våre muntlige uttalelser til Stortinget
-    policy: Se alle retningslinjene våre
-    policy_paper: Se alle retningslinjeskrivene våre
-    press_release: Se alle våre pressemeldinger
-    promotional: Se alt vårt reklamemateriell
-    publication: Se alle våre publikasjoner
-    regulation: Se alle våre forskrifter
-    research: Se all vår forskning og analyse
-    speaking_notes: Se alle våre talende notater
-    speech: Se alle våre taler
-    statement_to_parliament: Se alle våre uttalelser til Stortinget
-    statistical_data_set: Se alle våre statistikkdatasett
-    statistics: Se all vår statistikk
-    statutory_guidance: Se alle våre lovpålagte retningslinjer
-    transcript: Se alle transkripsjonene våre
-    transparency: Se alle våre åpenhetsdata
-    written_statement: Se alle våre skriftlige uttalelser til Stortinget
   support:
     download: Last ned
     field_of_operation: 'Driftsområde:'
-    fields_of_operation: Driftsområder
     pagination:
       next_html: Neste <span class="visuallyhidden">side</span> <span class="page-numbers">%{current_page} av %{total_pages}</span>
       next_page: Neste side
@@ -565,9 +478,6 @@
       list_link: 
     headings:
       search: Søk etter land eller territorium
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Internasjonal delegasjon
@@ -584,11 +494,3 @@
       publication_scheme_html: Les om informasjonstypene vi rutinemessig publiserer i %{link}.
       social_media_use_html: Les retningslinjene våre på %{link}.
       welsh_language_scheme_html: Finn ut mer om vårt engasjement for %{link}.
-    find_out_more: Se hele profilen og alle kontaktdetaljer
-    headings:
-      contact_us: Kontakt oss
-      corporate_information: Bedriftsinformasjon
-      follow_us: Følg oss
-      our_people: Våre folk
-    location: Sted
-    part_of: Del av

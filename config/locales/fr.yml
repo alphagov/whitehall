@@ -72,10 +72,6 @@ fr:
         Veuillez nous préciser le format dont vous avez besoin. Nous serons plus efficaces si vous nous dites quelle technologie d'assistance vous utilisez.
       intro: Ce fichier est susceptible de ne pas convenir aux utilisateurs de la technologie d'assistance.
       request_a_different_format: Demander un format accessible
-    csv:
-      cannot_preview: Impossible d'avoir un aperçu de ce fichier.
-      download: Téléchargez le fichier pour voir son contenu complet.
-      truncated_message: Cet aperçu affiche uniquement les premières %{rows} lignes et %{columns} colonnes.
     headings:
       order_a_copy: Commander une copie
       order_a_copy_full: Commander une copie du document
@@ -91,16 +87,6 @@ fr:
     caution:
       subheading: Certains liens que nous avons trouvés peuvent présenter des problèmes. Nous vous recommandons de faire preuve de prudence lorsque vous établissez des liens vers ces derniers
     title: Liens brisés
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Fermé
-    closing_today: Fermeture aujourd'hui
-    closing_tomorrow: Ferme demain
-    days_left: "%{days_left} jours restants"
   contact:
     access_and_opening_times: Horaires d'accès et d'ouverture
     contact_form: Formulaire de contact
@@ -137,10 +123,7 @@ fr:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Contenu
-    latest: Documents les plus récents
     published: publié
-    see_all: Tout afficher
     speech:
       author_title:
         minister: Ministre
@@ -395,13 +378,7 @@ fr:
   document_filters:
     world_locations:
       all: Tous les emplacements
-      label: Emplacements dans le monde
       no_locations_filter: Aucun emplacement dans le monde ne correspond à ce filtre.
-  fatality_notice:
-    british_fatalities: Décès en Grande-Bretagne
-    none_added: Aucun avis de décès n'a encore été ajouté pour ce domaine d'activité.
-  feeds:
-    latest_activity: Activités récentes
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,19 @@ fr:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Aucune mise à jour n'a encore été effectuée.
-    title: Récent
   organisation:
     corporate_information:
       access_our_info: Accéder à nos informations
       jobs: Emplois
       jobs_and_contacts: Emplois et contrats
       organisation_chart: Notre charte organisationnelle
-      transparency: Données de transparence
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informations sur l'entreprise
-      corporate_reports: Rapports d'entreprise
-    support:
-      administered_by: Administrés par
-      agencies_and_public_bodies: agences et organismes publics
-      part_of: Partie de
-      public_body: organisme public
-      works_with: Travaille avec
-    type:
-      courts_and_tribunals: Cours et Tribunaux
   roles:
     unassigned: Personne n'est affecté à ce rôle
-  see_all:
-    announcement: Afficher toutes nos annonces
-    authored_article: Afficher toutes nos articles signés
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Afficher toutes nos etudes de cas
-    closed_call_for_evidence: 
-    closed_consultation: Afficher toutes nos consultations fermées
-    consultation: Afficher toutes nos consultations
-    consultation_outcome: Afficher tous nos résultats de consultation
-    corporate_report: Afficher tous nos rapports d'entreprise
-    correspondence: Afficher toutes nos correspondances
-    decision: Afficher toutes nos décisions
-    detailed_guidance: Afficher toutes nos orientations
-    document_collection: Afficher toutes nos collections
-    draft_text: Afficher toutes nos projets de textes
-    fatality_notice: Afficher tous nos avis de décès
-    foi_release: Afficher tous nos communiqués d'accès à l'information
-    form: Afficher tous nos formulaires
-    government_response: Afficher toutes nos réponses du gouvernement
-    guidance: Afficher toutes nos orientations
-    impact_assessment: Afficher toutes nos évaluations de l'impact
-    imported: Afficher tous nos rapports indépendants
-    international_treaty: Afficher tous nos traités internationaux
-    map: Afficher toutes nos cartes
-    national_statistics: Afficher toutes nos statistiques nationales
-    news_article: Afficher tous nos articles d'actualité
-    news_story: Afficher toutes nos actualités
-    notice: Afficher tous nos avis
-    open_call_for_evidence: 
-    open_consultation: Afficher toutes nos consultations ouvertes
-    oral_statement: Afficher toutes nos déclarations orales au parlement
-    policy: Afficher toutes nos politiques générales
-    policy_paper: Afficher tous nos documents de politique générale
-    press_release: Afficher tous nos communiqués de presse
-    promotional: Afficher tous nos matériel promotionnel
-    publication: Afficher toutes nos publications
-    regulation: Afficher toutes nos régulations
-    research: Afficher toutes nos recherche et analyse
-    speaking_notes: Afficher toutes nos notes d'allocution
-    speech: Afficher tous nos discours
-    statement_to_parliament: Afficher toutes nos déclarations au parlement
-    statistical_data_set: Afficher tous nos ensembles de données statistiques
-    statistics: Afficher toutes nos statistiques
-    statutory_guidance: Afficher toutes nos orientations statutaires
-    transcript: Afficher toutes nos transcriptions
-    transparency: Afficher toutes nos données de transparence
-    written_statement: Afficher toutes nos déclarations écrites au Parlement
   support:
     download: Télécharger
     field_of_operation: 'Domaine d''intervention :'
-    fields_of_operation: Domaines d'intervention
     pagination:
       next_html: <span class="visuallyhidden">Page</span> suivante <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: Page suivante
@@ -565,9 +478,6 @@ fr:
       list_link: 
     headings:
       search: Recherche par pays ou territoire
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Délégation internationale
@@ -584,11 +494,3 @@ fr:
       publication_scheme_html: En savoir plus sur le type d'information très souvent publié dans notre %{link}.
       social_media_use_html: Lire notre politique générale dans %{link}.
       welsh_language_scheme_html: En savoir plus sur notre engagement envers %{link}.
-    find_out_more: Afficher le profil complet et toutes les coordonnées
-    headings:
-      contact_us: Contactez-nous
-      corporate_information: Informations sur l'entreprise
-      follow_us: Suivez-nous
-      our_people: Notre équipe
-    location: Localisation
-    part_of: Fait partie de

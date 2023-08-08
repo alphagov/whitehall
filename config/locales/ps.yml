@@ -72,10 +72,6 @@ ps:
         مهرباني وکړئ موږ ته ووایاست چې کوم شکل ته اړتیا لرئ. دا به زموږ سره مرسته وکړي که تاسو ووایاست کوم مرستندویه ټیکنالوژي تاسو کاروئ.
       intro: دا فایل ممکن د مرستندویه ټیکنالوژۍ کاروونکو لپاره مناسب نه وي.
       request_a_different_format: د لاسرسي وړ فارمټ غوښتنه وکړئ.
-    csv:
-      cannot_preview: دا فایل نشو کتلی.
-      download: د بشپړ مینځپانګو لیدو لپاره فایل ډاونلوډ کړئ.
-      truncated_message: دا له مخکې کته یوازې لومړۍ %{rows} روګانې او %{columns}  کالمونه ښئي.
     headings:
       order_a_copy: یوه کاپي امر کړئ
       order_a_copy_full: د خپرونې یوه کاپي امر کړئ
@@ -91,16 +87,6 @@ ps:
     caution:
       subheading: موږ د لینکونو سره ځینې مسلې موندلي چې ممکن ستونزې په ګوته کړي ، تاسو باید د دوی سره وصل کیدو کې احتیاط وکړئ
     title: مات شوي لینکونه
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: تړل شوی
-    closing_today: نن ورځ تړل
-    closing_tomorrow: سبا بندېږي
-    days_left: "%{days_left} ورځې پاتې دي"
   contact:
     access_and_opening_times: د لاسرسي او خلاصیدو وختونه
     contact_form: د اړیکې فورمه
@@ -137,10 +123,7 @@ ps:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: منځپانګې
-    latest: وروستي اسناد
     published: خپور شوی
-    see_all: ټول وګوره
     speech:
       author_title:
         minister: وزیر
@@ -395,13 +378,7 @@ ps:
   document_filters:
     world_locations:
       all: ټول ځایونه
-      label: د نړۍ موقعیتونه
       no_locations_filter: د نړۍ هیڅ ځایونه د دې فلټر سره سمون نه خوري.
-  fatality_notice:
-    british_fatalities: د برتانیا تلفات
-    none_added: تر دې دمه د عملیاتو ساحې لپاره د مرګ خبرتیاوې ندي اضافه شوي.
-  feeds:
-    latest_activity: وروستي فعالیت
   i18n:
     direction: rtl
   language_names:
@@ -471,83 +448,19 @@ ps:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: تراوسه کوم تازه معلومات نشته.
-    title: وروستی
   organisation:
     corporate_information:
       access_our_info: زموږ معلوماتو ته لاسرسی ومومئ
       jobs: دندې
       jobs_and_contacts: دندې او قراردادونه
       organisation_chart: زموږ د سازمان چارټ
-      transparency: د شفافیت ډاټا
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: د شرکت معلومات
-      corporate_reports: د شرکت راپورونه
-    support:
-      administered_by: لخوا اداره کیږي
-      agencies_and_public_bodies: ادارې او عامه ادارې
-      part_of: برخه
-      public_body: عامه اداره
-      works_with: سره کار کوي
-    type:
-      courts_and_tribunals: محکمې او محکمې
   roles:
     unassigned: هیڅوک دې رول ته ندي ګمارل شوي
-  see_all:
-    announcement: زموږ ټول اعلانونه وګورئ
-    authored_article: زموږ ټولې لیکل شوې مقالې وګورئ
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: زموږ ټولې قضیې مطالعات وګورئ
-    closed_call_for_evidence: 
-    closed_consultation: زموږ ټولې تړلې مشورې وګورئ
-    consultation: زموږ ټولې مشورې وګورئ
-    consultation_outcome: زموږ د مشورې ټولې پایلې وګورئ
-    corporate_report: زموږ ټول کارپوریټ راپورونه وګورئ
-    correspondence: زموږ ټول لیکونه وګورئ
-    decision: زموږ ټولې پریکړې وګورئ
-    detailed_guidance: زموږ ټول لارښوونې وګورئ
-    document_collection: زموږ ټول ټولګه وګورئ
-    draft_text: زموږ ټول مسوده متنونه وګورئ
-    fatality_notice: زموږ د مړینې ټول خبرتیاوې وګورئ
-    foi_release: زموږ د FOI ټولې خپرونې وګورئ
-    form: زموږ ټولې بې وګورئ
-    government_response: زموږ د حکومت ټول ځوابونه وګورئ
-    guidance: زموږ ټول لارښوونې وګورئ
-    impact_assessment: زموږ ټولې اغیزې ارزونې وګورئ
-    imported: زموږ ټول خپلواک راپورونه وګورئ
-    international_treaty: زموږ ټول نړیوال تړونونه وګورئ
-    map: زموږ ټولې نقشې وګورئ
-    national_statistics: زموږ ټول ملي احصایې وګورئ
-    news_article: زموږ ټولې خبري مقالې وګورئ
-    news_story: زموږ ټول خبرونه وګورئ
-    notice: زموږ ټول خبرتیاوې وګورئ
-    open_call_for_evidence: 
-    open_consultation: زموږ ټولې خلاصې مشورې وګورئ
-    oral_statement: پارلمان ته زموږ ټولې شفاهي څرګندونې وګورئ
-    policy: زموږ ټولې پالیسۍ وګورئ
-    policy_paper: زموږ ټولې پالیسي پا papersې وګورئ
-    press_release: زموږ ټولې مطبوعاتي اعلامیې وګورئ
-    promotional: زموږ ټول پروموشنل توکي وګورئ
-    publication: زموږ ټولې خپرونې وګورئ
-    regulation: زموږ ټول مقررات وګورئ
-    research: زموږ ټولې څیړنې او تحلیلونه وګورئ
-    speaking_notes: زموږ ټولې خبرې یادونې وګورئ
-    speech: زموږ ټولې ویناوې وګورئ
-    statement_to_parliament: پارلمان ته زموږ ټولې څرګندونې وګورئ
-    statistical_data_set: زموږ ټول احصایوي ډیټا سیټونه وګورئ
-    statistics: زموږ ټول احصایې وګورئ
-    statutory_guidance: زموږ ټول قانوني لارښود وګورئ
-    transcript: زموږ ټول نقلونه وګورئ
-    transparency: زموږ ټول شفافیت ډاټا وګورئ
-    written_statement: پارلمان ته زموږ ټول لیکل شوي بیانات وګورئ
   support:
     download: کښته کول
     field_of_operation: 'د عملیاتو ساحه:'
-    fields_of_operation: د عملیاتو ساحې
     pagination:
       next_html: بل <span class = "visuallyhidden"> پا </ه </span> <span class = "page-numbers">%{current_page} د%{total_pages} </span>
       next_page: بل مخ
@@ -565,9 +478,6 @@ ps:
       list_link: 
     headings:
       search: د هیواد یا سیمې له مخې لټون
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: نړیوال پلاوی
@@ -584,11 +494,3 @@ ps:
       publication_scheme_html: د هغه معلوماتو ډولونو په اړه ولولئ چې موږ یې په منظم ډول زموږ په %{link} کې خپروو.
       social_media_use_html: زموږ پالیسي په %{link} ولولئ.
       welsh_language_scheme_html: "%{link} ته زموږ د ژمنتیا په اړه معلومات ترلاسه کړئ."
-    find_out_more: بشپړ پروفایل او د اړیکې ټول توضیحات وګورئ
-    headings:
-      contact_us: موږ سره اړیکه ونیسئ
-      corporate_information: د شرکت معلومات
-      follow_us: مونږ پسی راځه
-      our_people: زموږ خلک
-    location: ځای
-    part_of: برخه

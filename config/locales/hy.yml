@@ -72,10 +72,6 @@ hy:
         Խնդրում ենք նշել, թե ինչ ձևաչափով եք ցանկանում ստանալ փաստաթուղթը: Մեզ կօգնի նաև, եթե նշեք՝ ինչ օժանդակ տեխնոլոգիայից եք օգտվում:
       intro: 'Այս ֆայլը կարող է համապատասխան չլինել օժանդակ տեխնոլոգիայից օգտվողների համար:'
       request_a_different_format: 'Նշեք համապատասխան ձևաչափ:'
-    csv:
-      cannot_preview: 'Այս ֆայլը հնարավոր չէ նախադիտել:'
-      download: 'Ներբեռնեք ֆայլը ամբողջ բովանդակությունը դիտելու համար:'
-      truncated_message: 'Նախադիտման մեջ երևում են միայն առաջին %{rows} տողերը և %{columns} սյունակները:'
     headings:
       order_a_copy: Պատվիրել պատճենը
       order_a_copy_full: Պատվիրել հրապարակման պատճենը
@@ -91,16 +87,6 @@ hy:
     caution:
       subheading: Մենք նկատել ենք խնդրահարույց հղումների հետ կապված որոշ խնդիրներ․ դուք պետք է զգույշ լինեք դրանց կցելու ժամանակ
     title: Չգործող հղումներ
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Ավարտվել է
-    closing_today: Այսօր ավարտվում է
-    closing_tomorrow: Ավարտվում է վաղը
-    days_left: Մնացել է %{days_left} օր
   contact:
     access_and_opening_times: Մուտք և հասանելիության ժամեր
     contact_form: Կոնտակտային ձև
@@ -137,10 +123,7 @@ hy:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Բովանդակություն
-    latest: Թարմացված փաստաթղթեր
     published: հրապարակված
-    see_all: Դիտել բոլորը
     speech:
       author_title:
         minister: Նախարար
@@ -395,13 +378,7 @@ hy:
   document_filters:
     world_locations:
       all: Բոլոր վայրերը
-      label: Գտնվելու վայրերը
       no_locations_filter: 'Ոչ մի վայր չի համապատասխանում այդ ֆիլտրին:'
-  fatality_notice:
-    british_fatalities: Բրիտանական դժբախտ պատահարներ
-    none_added: 'Գործունեության այս ոլորտի համար դժբախտ պատահարի ծանուցումներ դեռևս չեն ավելացվել:'
-  feeds:
-    latest_activity: Վերջին գործողությունը
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,19 @@ hy:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: 'Դեռևս թարմացումներ չկան:'
-    title: Թարմացումներ
   organisation:
     corporate_information:
       access_our_info: Հասանելիություն մեր տվյալներին
       jobs: Աշխատանք
       jobs_and_contacts: Աշխատանք և պայմանագրեր
       organisation_chart: Մեր կազմակերպության կառուցվածքը
-      transparency: Թափանցիկության տվյալներ
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Կորպորատիվ տեղեկություն
-      corporate_reports: Կորպորատիվ զեկույցներ
-    support:
-      administered_by: Կառավարվում է՝
-      agencies_and_public_bodies: գործակալություններ և հասարակական կազմակերպություններ
-      part_of: Մաս է՝
-      public_body: հասարակական կազմակերպություն
-      works_with: Համագործակցում է
-    type:
-      courts_and_tribunals: Դատարաններ և Տրիբունալներ
   roles:
     unassigned: Այս պաշտոնին նշանակված մարդ չկա
-  see_all:
-    announcement: Դիտել մեր բոլոր հայտարարությունները
-    authored_article: Դիտել մեր բոլոր հեղինակային հոդվածները
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Դիտել մեր բոլոր դեպքերի ուսումնասիրությունները
-    closed_call_for_evidence: 
-    closed_consultation: Դիտել մեր բոլոր փակ խորհրդակցությունները
-    consultation: Դիտել մեր բոլոր խորհրդակցությունները
-    consultation_outcome: Դիտել մեր բոլոր խորհրդակցությունների արդյունքները
-    corporate_report: Դիտել մեր բոլոր կորպորատիվ զեկույցները
-    correspondence: Դիտել մեր բոլոր նամակագրությունները
-    decision: Դիտել մեր բոլոր որոշումները
-    detailed_guidance: Դիտել մեր բոլոր ուղեցույցները
-    document_collection: Դիտել մեր բոլոր հավաքագրումները
-    draft_text: Դիտել մեր բոլոր նախնական տեքստերը
-    fatality_notice: Դիտել մեր բոլոր դժբախտ պատահարների ծանուցումները
-    foi_release: Դիտել տեղեկատվության ազատության (FOI) մեր բոլոր հրապարակումները
-    form: Դիտել մեր բոլոր ձևաթղթերը
-    government_response: Դիտել մեր կառավարության բոլոր արձագանքները
-    guidance: Դիտել մեր բոլոր ուղեցույցները
-    impact_assessment: Դիտել մեր բոլոր ազդեցության գնահատումները
-    imported: Դիտել մեր բոլոր անկախ զեկույցները
-    international_treaty: Դիտել մեր բոլոր միջազգային պայմանագրերը
-    map: Դիտել մեր բոլոր քարտեզները
-    national_statistics: Դիտել մեր ամբողջ Ազգային վիճակագրության տվյալները
-    news_article: Դիտել մեր բոլոր տեղեկատվական հոդվածները
-    news_story: Դիտել մեր բոլոր ամսագրային հոդվածները
-    notice: Դիտել մեր բոլոր ծանուցումները
-    open_call_for_evidence: 
-    open_consultation: Դիտել մեր բոլոր բաց խորհրդակցությունները
-    oral_statement: Դիտել խորհրդարանին ուղղված մեր բոլոր բանավոր հայտարարությունները
-    policy: Դիտել մեր բոլոր քաղաքականությունները
-    policy_paper: Դիտել քաղաքականության մեր բոլոր փաստաթղթերը
-    press_release: Դիտել մեր բոլոր կոմյունիկեները
-    promotional: Դիտել մեր բոլոր գովազդային նյութերը
-    publication: Դիտել մեր բոլոր հրապարակումները
-    regulation: Դիտել մեր բոլոր կանոնադրությունները
-    research: Դիտել մեր հետազոտությունները և վերլուծությունները
-    speaking_notes: Դիտել հրապարակային խոսքի մեր բոլոր ամփոփ տեղեկությունները
-    speech: Դիտել մեր բոլոր հրապարակային խոսքերը
-    statement_to_parliament: Դիտել խորհրդարանին ուղղված մեր բոլոր հայտարարությունները
-    statistical_data_set: Դիտել մեր վիճակագրական տվյալների ողջ կազմը
-    statistics: Դիտել մեր ամբողջ վիճակագրությունը
-    statutory_guidance: Դիտել մեր բոլոր կանոնադրական ուղեցույցները
-    transcript: Դիտել մեր բոլոր սղագրություններ
-    transparency: Դիտել թափանցիկության մեր բոլոր տվյալներ
-    written_statement: Դիտել խորհրդարանին ուղղված մեր բոլոր գրավոր հայտարարությունները
   support:
     download: Ներբեռնել
     field_of_operation: Գործունեության ոլորտ՝
-    fields_of_operation: Գործունեության ոլորտներ
     pagination:
       next_html: Հաջորդ <span class="visuallyhidden">էջը</span> <span class="page-numbers">%{current_page} %{total_pages} էջից</span>
       next_page: Հաջորդ էջ
@@ -565,9 +478,6 @@ hy:
       list_link: 
     headings:
       search: Որոնել ըստ երկրի կամ տարածաշրջանի
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Միջազգային պատվիրակություն
@@ -584,11 +494,3 @@ hy:
       publication_scheme_html: Կարդալ մեր %{link}-ում պարբերաբար հրապարակվող տեղեկությունների տեսակների մասին։
       social_media_use_html: 'Կարդալ մեր քաղաքականությունը %{link} հղումով:'
       welsh_language_scheme_html: 'Տեղեկանալ մեր աշխատանքի մասին %{link} հղումով:'
-    find_out_more: Դիտել ամբողջական պրոֆիլը և կոնտակտային բոլոր տվյալները
-    headings:
-      contact_us: Կապը մեզ հետ
-      corporate_information: Կորպորատիվ տեղեկություն
-      follow_us: Հետևել մեզ
-      our_people: Մեր անձնակազմը
-    location: Տեղանք
-    part_of: Մաս է՝

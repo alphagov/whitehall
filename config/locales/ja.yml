@@ -69,10 +69,6 @@ ja:
       full_help_html: お客様が支援技術（スクリーンリーダーなど）を使用していて、このドキュメントよりアクセスしやすい形式のバージョンが必要な場合は、必要なフォーマットや使用している支援技術を添え％{email}にEメールをお送くりください。
       intro: このファイルは、支援技術のユーザーには適していない可能性があります。
       request_a_different_format: アクセス可能なフォーマットをリクエストしてください。
-    csv:
-      cannot_preview: このファイルはプレビューできませんでした。
-      download: ファイルをダウンロードして、その全内容を表示します。
-      truncated_message: このプレビューには、最初の ％{rows} 行と ％{columns} 列のみが表示されます。
     headings:
       order_a_copy: コピーを注文する
       order_a_copy_full: 出版物のコピーを注文する
@@ -88,16 +84,6 @@ ja:
     caution:
       subheading: リンクにいくつかの問題が見つかりました。リンクを表示する際には注意が必要です
     title: リンク切れ
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: ご利用いただけません
-    closing_today: 本日は、ご利用いただけません
-    closing_tomorrow: 明日は、ご利用いただけません
-    days_left: 残り ％{days_left} 日
   contact:
     access_and_opening_times: アクセスと利用時間
     contact_form: お問い合わせフォーム
@@ -134,10 +120,7 @@ ja:
       default: "％d％B％Y"
       long_ordinal: "％e％B％Y"
   document:
-    contents: コンテンツ
-    latest: 最新のドキュメント
     published: 公開
-    see_all: すべてを見る
     speech:
       author_title:
         minister: 大臣
@@ -312,13 +295,7 @@ ja:
   document_filters:
     world_locations:
       all: すべての場所
-      label: 世界の場所
       no_locations_filter: そのフィルターに一致する世界の場所はありません。
-  fatality_notice:
-    british_fatalities: 英国の死亡者数
-    none_added: この活動分野での死亡通知はまだ追加されていません。
-  feeds:
-    latest_activity: 最新の活動
   i18n:
     direction: ltr
   language_names:
@@ -388,83 +365,19 @@ ja:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: まだ更新はありません。
-    title: 最新
   organisation:
     corporate_information:
       access_our_info: 情報にアクセスする
       jobs: 仕事
       jobs_and_contacts: 仕事と契約
       organisation_chart: 組織図
-      transparency: 透明度データ
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: 企業情報
-      corporate_reports: 企業報告
-    support:
-      administered_by: 管理元：
-      agencies_and_public_bodies: 機関および公共団体
-      part_of: 次の一部：
-      public_body: 公共団体
-      works_with: 以下と働：
-    type:
-      courts_and_tribunals: 裁判所および審判
   roles:
     unassigned: この役割には誰も割り当てられていません
-  see_all:
-    announcement: すべての発表を見る
-    authored_article: すべての執筆記事を見る
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: すべてのケーススタディを見る
-    closed_call_for_evidence: 
-    closed_consultation: すべてのケーススタディを見る
-    consultation: すべての非公開審議を見る
-    consultation_outcome: すべての非公開協議結果を見る
-    corporate_report: すべての企業報告を見る
-    correspondence: 私たちのすべての対応を見る
-    decision: 私たちのすべての決定を見る
-    detailed_guidance: すべてのガイダンスを見る
-    document_collection: すべてのコレクションを見る
-    draft_text: すべての下書きテキストを見る
-    fatality_notice: すべての死亡通知を見る
-    foi_release: すべての FOI（情報公開）発表
-    form: すべてのフォームを見る
-    government_response: すべての政府の対応を見る
-    guidance: すべてのガイダンスを見る
-    impact_assessment: すべての影響評価を見る
-    imported: すべての第三者による報告を見る
-    international_treaty: すべての国際条約を見る
-    map: すべての地図を見る
-    national_statistics: すべての国家統計を見る
-    news_article: すべてのニュース記事を見る
-    news_story: すべてのニュースストーリーを見る
-    notice: すべての通知を見る
-    open_call_for_evidence: 
-    open_consultation: すべての公開審議を見る
-    oral_statement: すべての議会への頭声明を見る
-    policy: すべての方針を見る
-    policy_paper: すべての方針書を見る
-    press_release: すべてのプレスリリースを見る
-    promotional: すべての販促資料を見る
-    publication: すべての出版物を見る
-    regulation: すべての規制を見る
-    research: すべての調査と分析を見る
-    speaking_notes: すべての発言ノートを見る
-    speech: すべての発言を見る
-    statement_to_parliament: すべての議会へ声明を見る
-    statistical_data_set: すべての統計データセットを見る
-    statistics: すべての統計を見る
-    statutory_guidance: すべての法定ガイダンスを見る
-    transcript: すべての口述記録を見る
-    transparency: すべての透明性データを見る
-    written_statement: すべての議会への書面による声明を見る
   support:
     download: ダウンロード
     field_of_operation: 運用分野：
-    fields_of_operation: 運用分野
     pagination:
       next_html: 次 <span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page} の %{total_pages}</span>
       next_page: 次のページ
@@ -482,9 +395,6 @@ ja:
       list_link: 
     headings:
       search: 国または地域で検索
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: 国際代表団
@@ -499,11 +409,3 @@ ja:
       publication_scheme_html: "％{link} で、定期的に公開している情報の種類についてご覧ください。"
       social_media_use_html: "％{link} に関する方針をご覧ください。"
       welsh_language_scheme_html: "％{link} への取り組みについてご覧ください。"
-    find_out_more: プロフィール全体とすべての連絡先の詳細を見る
-    headings:
-      contact_us: お問い合わせ
-      corporate_information: 企業情報
-      follow_us: フォローする
-      our_people: 人々
-    location: 場所
-    part_of: 次の一部：

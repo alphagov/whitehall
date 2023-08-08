@@ -71,10 +71,6 @@ uk:
         Повідомте, який формат вам потрібен. Нам допоможе, якщо ви повідомите нам, які допоміжні технології використовуєте.
       intro: Цей файл може не підходити для користувачів допоміжних технологій.
       request_a_different_format: Надішліть запит на доступний формат.
-    csv:
-      cannot_preview: Не вдалося переглянути цей файл.
-      download: Завантажте файл, щоб переглянути його повний вміст.
-      truncated_message: У цьому попередньому перегляді відображаються лише перші %{rows} та %{columns}.
     headings:
       order_a_copy: Замовити копію
       order_a_copy_full: Замовте примірник публікації
@@ -90,16 +86,6 @@ uk:
     caution:
       subheading: Ми виявили деякі розбіжності посилань, які можуть вказувати на проблеми, тому слід бути обережними, посилаючись на них
     title: Порушені посилання
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Закрито
-    closing_today: Закривається сьогодні
-    closing_tomorrow: Закривається завтра
-    days_left: "%{days_left} днів лишилося"
   contact:
     access_and_opening_times: Доступ і час відкриття
     contact_form: Форма зв'язку
@@ -136,10 +122,7 @@ uk:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Зміст
-    latest: Останні документи
     published: опубліковано
-    see_all: Дивитися всі
     speech:
       author_title:
         minister: Міністр
@@ -554,13 +537,7 @@ uk:
   document_filters:
     world_locations:
       all: Усі локації
-      label: Світові локації
       no_locations_filter: Жодна світова локація не відповідає цьому фільтру.
-  fatality_notice:
-    british_fatalities: Нещасні випадки зі смертельним наслідком у Великій Британії
-    none_added: Поки що не було додано жодних повідомлень про нещасні випадки зі смертельним наслідком в цій сфері діяльності.
-  feeds:
-    latest_activity: Остання активність
   i18n:
     direction: ltr
   language_names:
@@ -630,83 +607,19 @@ uk:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Оновлення поки немає.
-    title: Останні
   organisation:
     corporate_information:
       access_our_info: Отримайте доступ до нашої інформації
       jobs: Вакансії
       jobs_and_contacts: Вакансії та контракти
       organisation_chart: Структурна схема нашої організації
-      transparency: Дані прозорості
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Корпоративна інформація
-      corporate_reports: Звіти про діяльність корпорації
-    support:
-      administered_by: Адмініструється
-      agencies_and_public_bodies: агентства та державні органи
-      part_of: Частина
-      public_body: державний орган
-      works_with: Працює з
-    type:
-      courts_and_tribunals: Суди та арбітражні суди
   roles:
     unassigned: На цю посаду ніхто не призначений
-  see_all:
-    announcement: Перегляньте всі наші оголошення
-    authored_article: Перегляньте всі наші авторські статті
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Перегляньте всі наші аналізи ситуацій
-    closed_call_for_evidence: 
-    closed_consultation: Перегляньте всі наші закриті консультації
-    consultation: Перегляньте всі наші консультації
-    consultation_outcome: Перегляньте всі результати наших консультацій
-    corporate_report: Перегляньте всі наші корпоративні звіти
-    correspondence: Перегляньте всі наші листування
-    decision: Перегляньте всі наші рішення
-    detailed_guidance: Перегляньте всі наші керівництва
-    document_collection: Перегляньте всі наші Збір
-    draft_text: Перегляньте всі наші проекти текстів
-    fatality_notice: Перегляньте всі наші повідомлення про нещасні випадки зі смертельним наслідком
-    foi_release: Перегляньте всі наші оприлюднення закону про свободу інформації
-    form: Перегляньте всі наші форми
-    government_response: Перегляньте всі відповіді уряду
-    guidance: Перегляньте всі наші керівництва
-    impact_assessment: Перегляньте всі наші оцінки впливу
-    imported: Перегляньте всі наші незалежні звіти
-    international_treaty: Перегляньте всі наші міжнародні договори
-    map: Перегляньте всі наші карти
-    national_statistics: Перегляньте всю нашу національну статистику
-    news_article: Перегляньте всі наші авторські статті
-    news_story: Перегляньте всі наші сюжети новин
-    notice: Перегляньте всі наші повідомлення
-    open_call_for_evidence: 
-    open_consultation: Перегляньте всі наші відкриті консультації
-    oral_statement: Перегляньте всі наші усні заяви до парламенту
-    policy: Перегляньте всі наші політики
-    policy_paper: Перегляньте всі наші програмні документи
-    press_release: Перегляньте всі наші пресрелізи
-    promotional: Перегляньте весь наш рекламний матеріал
-    publication: Перегляньте всі наші публікації
-    regulation: Перегляньте всі наші правила
-    research: Перегляньте всі наші дослідження та аналізи
-    speaking_notes: Перегляньте всі наші тези виступів
-    speech: Перегляньте всі наші виступи
-    statement_to_parliament: Перегляньте всі наші заяви до парламенту
-    statistical_data_set: Перегляньте всі наші набори статистичних даних
-    statistics: Перегляньте всю нашу статистику
-    statutory_guidance: Перегляньте всі наші статутні керівництва
-    transcript: Перегляньте всі наші стенограми
-    transparency: Перегляньте всі наші дані про прозорість
-    written_statement: Перегляньте всі наші письмові заяви до парламенту
   support:
     download: Завантажити
     field_of_operation: 'Сфера діяльності:'
-    fields_of_operation: Сфера діяльності
     pagination:
       next_html: Наступна <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} %{total_pages}</span>
       next_page: Наступна сторінка
@@ -724,9 +637,6 @@ uk:
       list_link: 
     headings:
       search: Пошук за країною чи територією
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -747,11 +657,3 @@ uk:
       publication_scheme_html: Про те, які типи інформації ми регулярно публікуємо, читайте у нашому %{link}.
       social_media_use_html: Ознайомтеся із нашою політикою на %{link}.
       welsh_language_scheme_html: Дізнайтесь про дотримання нами %{link}.
-    find_out_more: Дивіться повний профіль та всі контактні дані
-    headings:
-      contact_us: Зв'яжіться з нами
-      corporate_information: Корпоративна інформація
-      follow_us: Слідкуйте за нами
-      our_people: Наші співробітники
-    location: Розташування
-    part_of: Частина

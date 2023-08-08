@@ -71,10 +71,6 @@ th:
         โปรดบอกเราว่าคุณต้องการรูปแบบไฟล์แบบใด จะเป็นการช่วยเราอย่างมาก หากคุณบอกว่าคุณใช้เทคโนโลยีเพื่อการช่วยเหลือแบบใด
       intro: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยีเพื่อการช่วยเหลือ
       request_a_different_format: ขอรูปแบบไฟล์ที่สามารถเข้าถึงได้
-    csv:
-      cannot_preview: ไม่สามารถดูตัวอย่างไฟล์นี้ได้
-      download: ดาวน์โหลดไฟล์เพื่อดูเนื้อหาทั้งหมด
-      truncated_message: ตัวอย่างนี้แสดงเฉพาะ %{rows} แถวแรกและ %{columns} คอลัมน์แรกเท่านั้น
     headings:
       order_a_copy: สั่งซื้อสำเนา
       order_a_copy_full: สั่งซื้อสำเนาสิ่งพิมพ์
@@ -90,16 +86,6 @@ th:
     caution:
       subheading: เราพบประเด็นบางอย่างเกี่ยวกับลิงก์ที่อาจบ่งชี้ว่าลิงก์นี้มีปัญหา คุณควรใช้ความระมัดระวังในการเปิดลิงก์เหล่านั้น
     title: ลิงค์ใช้ไม่ได้
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: ปิดแล้ว
-    closing_today: กำลังปิดวันนี้
-    closing_tomorrow: ปิดพรุ่งนี้
-    days_left: เหลืออีก %{days_left} วัน
   contact:
     access_and_opening_times: การเข้าถึงและเวลาเปิดทำการ
     contact_form: แบบฟอร์มการติดต่อ
@@ -136,10 +122,7 @@ th:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: เนื้อหา
-    latest: เอกสารล่าสุด
     published: เผยแพร่แล้ว
-    see_all: ดูทั้งหมด
     speech:
       author_title:
         minister: รัฐมนตรี
@@ -314,13 +297,7 @@ th:
   document_filters:
     world_locations:
       all: สถานที่ตั้งทุกแห่ง
-      label: สถานที่ทั่วโลก
       no_locations_filter: ไม่มีสถานที่ในโลกใดๆ ที่ตรงกับตัวกรอง
-  fatality_notice:
-    british_fatalities: ผู้เสียชีวิตในอังกฤษ
-    none_added: ยังไม่มีการแจ้งการเสียชีวิตเพิ่มเติมสำหรับพื้นที่ปฏิบัติการนี้
-  feeds:
-    latest_activity: กิจกรรมล่าสุด
   i18n:
     direction: ltr
   language_names:
@@ -390,83 +367,19 @@ th:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: ยังไม่มีการปรับปรุง
-    title: ล่าสุด
   organisation:
     corporate_information:
       access_our_info: เข้าถึงข้อมูลของเรา
       jobs: งาน
       jobs_and_contacts: งานและสัญญา
       organisation_chart: แผนผังองค์กรของเรา
-      transparency: ข้อมูลความโปร่งใส
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: ข้อมูลองค์กร
-      corporate_reports: รายงานของบริษัท
-    support:
-      administered_by: บริหารโดย
-      agencies_and_public_bodies: หน่วยงานและหน่วยงานราชการ
-      part_of: ส่วนหนึ่งของ
-      public_body: หน่วยงานราชการ
-      works_with: ทำงานร่วมกับ
-    type:
-      courts_and_tribunals: ศาลและตุลาการ
   roles:
     unassigned: ไม่มีใครได้รับการแต่งตั้งในบทบาทนี้
-  see_all:
-    announcement: ดูประกาศทั้งหมดของเรา
-    authored_article: ดูบทความโดยผู้เขียนทั้งหมดของเรา
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: ดูกรณีศึกษาทั้งหมดของเรา
-    closed_call_for_evidence: 
-    closed_consultation: ดูการให้คำปรึกษาที่ปิดแล้วทั้งหมดของเรา
-    consultation: ดูการให้คำปรึกษาที่ปิดแล้วทั้งหมดของเรา
-    consultation_outcome: ดูผลลัพธ์จากการให้คำปรึกษาทั้งหมดของเรา
-    corporate_report: ดูรายงานองค์กรทั้งหมดของเรา
-    correspondence: ดูจดหมายโต้ตอบทั้งหมดของเรา
-    decision: ดูการตัดสินใจทั้งหมดของเรา
-    detailed_guidance: ดูคำแนะนำทั้งหมดของเรา
-    document_collection: ดูคอลเล็กชั่นทั้งหมดของเรา
-    draft_text: ดูข้อความฉบับร่างทั้งหมดของเรา
-    fatality_notice: ดูประกาศการเสียชีวิตทั้งหมดของเรา
-    foi_release: ดูข่าวประชาสัมพันธ์เกี่ยวกับ FOI ทั้งหมดของเรา
-    form: ดูแบบฟอร์มทั้งหมดของเรา
-    government_response: ดูคำตอบของรัฐบาลทั้งหมดของเรา
-    guidance: ดูคำแนะนำทั้งหมดของเรา
-    impact_assessment: ดูการประเมินผลกระทบทั้งหมดของเรา
-    imported: ดูรายงานอิสระทั้งหมดของเรา
-    international_treaty: ดูสนธิสัญญาระหว่างประเทศทั้งหมดของเรา
-    map: ดูแผนที่ทั้งหมดของเรา
-    national_statistics: ดูสถิติแห่งชาติทั้งหมดของเรา
-    news_article: ดูบทความข่าวทั้งหมดของเรา
-    news_story: ดูเนื้อหาข่าวทั้งหมดของเรา
-    notice: ดูประกาศทั้งหมดของเรา
-    open_call_for_evidence: 
-    open_consultation: ดูการให้คำปรึกษาที่เปิดอยู่ทั้งหมดของเรา
-    oral_statement: ดูแถลงการณ์ด้วยวาจาต่อรัฐสภาทั้งหมดของเรา
-    policy: ดูนโยบายทั้งหมดของเรา
-    policy_paper: ดูเอกสารนโยบายทั้งหมดของเรา
-    press_release: ดูข่าวประชาสัมพันธ์ทั้งหมดของเรา
-    promotional: ดูสื่อส่งเสริมการขายทั้งหมดของเรา
-    publication: ดูสิ่งพิมพ์ทั้งหมดของเรา
-    regulation: ดูระเบียบข้อบังคับทั้งหมดของเรา
-    research: ดูงานวิจัยและการวิเคราะห์ทั้งหมดของเรา
-    speaking_notes: ดูบันทึกสุนทรพจน์ทั้งหมดของเรา
-    speech: ดูสุนทรพจน์ทั้งหมดของเรา
-    statement_to_parliament: ดูแถลงการณ์ต่อรัฐสภาทั้งหมดของเรา
-    statistical_data_set: ดูชุดข้อมูลสถิติทั้งหมดของเรา
-    statistics: ดูสถิติทั้งหมดของเรา
-    statutory_guidance: ดูคำแนะนำทางกฎหมายทั้งหมดของเรา
-    transcript: ดูการถอดเสียงทั้งหมดของเรา
-    transparency: ดูข้อมูลความโปร่งใสทั้งหมดของเรา
-    written_statement: ดูแถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภาทั้งหมดของเรา
   support:
     download: ดาวน์โหลด
     field_of_operation: 'พื้นที่ปฏิบัติการ:'
-    fields_of_operation: พื้นที่ปฏิบัติการ
     pagination:
       next_html: <span class="visuallyhidden">หน้า</span> ถัดไป <span class="page-numbers">%{current_page} จาก %{total_pages} หน้า</span>
       next_page: หน้าถัดไป
@@ -484,9 +397,6 @@ th:
       list_link: 
     headings:
       search: ค้นหาด้วยประเทศหรือดินแดน
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: คณะผู้แทนระหว่างประเทศ
@@ -501,11 +411,3 @@ th:
       publication_scheme_html: อ่านเกี่ยวกับประเภทข้อมูลที่เราเผยแพร่เป็นประจำใน %{link} ของเรา
       social_media_use_html: อ่านนโยบายของเราที่ %{link}
       welsh_language_scheme_html: ดูข้อมูลเพิ่มเติมเกี่ยวกับพันธกิจของเราสำหรับ %{link}
-    find_out_more: ดูรายแฟ้มประวัติฉบับเต็มและรายละเอียดการติดต่อทั้งหมด
-    headings:
-      contact_us: ติดต่อเรา
-      corporate_information: ข้อมูลองค์กร
-      follow_us: ติดตามเรา
-      our_people: บุคลากรของเรา
-    location: ตำแหน่งที่ตั้ง
-    part_of: ส่วนหนึ่งของ

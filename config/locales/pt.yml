@@ -72,10 +72,6 @@ pt:
         Por favor, diga-nos qual o formato de que necessita. Está a ajudar-nos se disser qual a tecnologia assistiva que utiliza.
       intro: Este ficheiro pode não ser adequado para utilizadores de tecnologia assistiva.
       request_a_different_format: Solicitar um formato acessível.
-    csv:
-      cannot_preview: Não foi possível pré-visualizar este ficheiro.
-      download: Descarregue o ficheiro para ver o seu conteúdo completo.
-      truncated_message: Esta pré-visualização mostra apenas as primeiras %{rows} linhas e %{columns} colunas.
     headings:
       order_a_copy: Encomendar uma cópia
       order_a_copy_full: Encomende uma cópia da publicação.
@@ -91,16 +87,6 @@ pt:
     caution:
       subheading: Encontrámos alguns problemas com links que podem indicar dificuldades – deve ter cautela ao estabelecer ligações com elas
     title: Links desfeitos
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Fechado
-    closing_today: Encerra hoje
-    closing_tomorrow: Fecha amanhã
-    days_left: "%{days_left} dias restantes"
   contact:
     access_and_opening_times: Horários de acesso e abertura
     contact_form: Formulário de contacto
@@ -137,10 +123,7 @@ pt:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Conteúdos
-    latest: Documentos recentes
     published: publicado
-    see_all: Ver tudo
     speech:
       author_title:
         minister: Ministro
@@ -395,13 +378,7 @@ pt:
   document_filters:
     world_locations:
       all: Todos os locais
-      label: Locais mundiais
       no_locations_filter: Nenhum local mundial corresponde a esse filtro.
-  fatality_notice:
-    british_fatalities: Fatalidades britânicas
-    none_added: Ainda não foram adicionados avisos de fatalidade para este campo de operação.
-  feeds:
-    latest_activity: Atividade mais recente
   i18n:
     direction: ltr
   language_names:
@@ -471,83 +448,19 @@ pt:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Ainda não há atualizações.
-    title: Mais recentes
   organisation:
     corporate_information:
       access_our_info: Aceda à nossa informação
       jobs: Empregos
       jobs_and_contacts: Empregos e contratos
       organisation_chart: O nosso organigrama
-      transparency: Dados de transparência
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informações da empresa
-      corporate_reports: Relatórios empresariais
-    support:
-      administered_by: Administrado por
-      agencies_and_public_bodies: agências e organismos públicos
-      part_of: Parte de
-      public_body: organismo público
-      works_with: Trabalha com
-    type:
-      courts_and_tribunals: Tribunais
   roles:
     unassigned: Ninguém está atribuído a esta função
-  see_all:
-    announcement: Ver todos os nossos anúncios
-    authored_article: Ver todos os nossos artigos de autor
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Ver todos os nossos estudos de caso
-    closed_call_for_evidence: 
-    closed_consultation: Ver todas as nossas consultas encerradas
-    consultation: Ver todas as nossas consultas
-    consultation_outcome: Ver todos os resultados da nossa consulta
-    corporate_report: Ver todos os nossos relatórios empresariais
-    correspondence: Ver todas as nossas correspondências
-    decision: Ver todas as nossas decisões
-    detailed_guidance: Ver todas a nossa orientação
-    document_collection: Ver todas as nossas colecções
-    draft_text: Ver todos os nossos textos provisórios
-    fatality_notice: Ver todos os nossos avisos de fatalidade
-    foi_release: Ver todos os nossos comunicados de Liberdade de Informação
-    form: Ver todos os nossos formulários
-    government_response: Ver todas as nossas respostas governamentais
-    guidance: Ver todas a nossa orientação
-    impact_assessment: Ver todas as nossas avaliações de impacto
-    imported: Ver todos os nossos relatórios independentes
-    international_treaty: Ver todos os nossos tratados internacionais
-    map: Ver todos os nossos mapas
-    national_statistics: Ver todas as nossas Estatísticas Nacionais
-    news_article: Ver todos os nossos artigos noticiosos
-    news_story: Ver todas as nossas reportagens
-    notice: Ver todos os nossos avisos
-    open_call_for_evidence: 
-    open_consultation: Ver todas as nossas consultas abertas
-    oral_statement: Ver todas as nossas declarações orais ao Parlamento
-    policy: Ver todas as nossas políticas
-    policy_paper: Ver todos os nossos documentos de políticas
-    press_release: Ver todos os nossos comunicados de imprensa
-    promotional: Ver todo o nosso material promocional
-    publication: Ver todas as nossas publicações
-    regulation: Ver todos os nossos regulamentos
-    research: Ver todas a nossa investigação e análise
-    speaking_notes: Ver todas as nossas notas orais
-    speech: Ver todos os nossos discursos
-    statement_to_parliament: Ver todas as nossas declarações ao Parlamento
-    statistical_data_set: Ver todos os nossos conjuntos de dados estatísticos
-    statistics: Ver todas as nossas estatísticas
-    statutory_guidance: Ver todas as nossas orientações estatutárias
-    transcript: Ver todas as nossas transcrições
-    transparency: Ver todos os nossos dados sobre transparência
-    written_statement: Ver todas as nossas declarações escritas ao Parlamento
   support:
     download: Transferir
     field_of_operation: 'Campo de operação:'
-    fields_of_operation: Campos de operação
     pagination:
       next_html: Seguinte <span class="visuallyhidden">página</span> <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: Página seguinte
@@ -565,9 +478,6 @@ pt:
       list_link: 
     headings:
       search: Pesquisa por país ou território
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Delegação internacional
@@ -584,11 +494,3 @@ pt:
       publication_scheme_html: Leia sobre os tipos de informação que publicamos no nosso %{link}.
       social_media_use_html: Leia a nossa política em %{link}.
       welsh_language_scheme_html: Saiba mais sobre o nosso compromisso para com %{link}.
-    find_out_more: Ver o perfil completo e todas as informações de contacto
-    headings:
-      contact_us: Contacte-nos
-      corporate_information: Informações da empresa
-      follow_us: Siga-nos
-      our_people: As nossas pessoas
-    location: Local
-    part_of: Parte de

@@ -69,10 +69,6 @@ ru:
       full_help_html: "Если вы используете вспомогательные технологии (например, программу чтения с экрана), \nи вам нужна версия этого документа в более доступном формате, отправьте \nписьмо по адресу электронной почты %{email}.\nВ нем укажите, какой формат вам нужен. Хорошо было бы, если бы вы также указали, какие вспомогательные технологии вы используете.\n"
       intro: Данный документ может быть не доступен лицам, использующим вспомогательные технологии.
       request_a_different_format: Запросить в доступном формате.
-    csv:
-      cannot_preview: Для этого файла недоступен предварительный просмотр.
-      download: Загрузите файл, чтобы посмотреть все его содержимое.
-      truncated_message: "Данный предварительный просмотр показывает только первые %{rows} ряды и \n%{columns} столбцы."
     headings:
       order_a_copy: Заказать копию
       order_a_copy_full: Заказать копию публикации
@@ -88,16 +84,6 @@ ru:
     caution:
       subheading: Мы обнаружили неполадки, связанные со ссылками, которые могут указывать на наличие проблем. Будьте осторожны при подключении к ним
     title: Недействительные ссылки
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Закрыто
-    closing_today: День закрытия
-    closing_tomorrow: Закрывается завтра
-    days_left: "%{days_left} дней осталось"
   contact:
     access_and_opening_times: Время доступа и открытия
     contact_form: Форма обратной связи
@@ -134,10 +120,7 @@ ru:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Содержание
-    latest: Последний документ
     published: Опубликовано
-    see_all: Посмотреть все
     speech:
       author_title:
         minister: Министр
@@ -552,13 +535,7 @@ ru:
   document_filters:
     world_locations:
       all: Все места нахождения
-      label: Место нахождения в мире
       no_locations_filter: Ни одно место нахождения в мире не соответствует этому фильтру.
-  fatality_notice:
-    british_fatalities: Погибшие британцы
-    none_added: Уведомления о летальных исходах для этой области операций еще не добавлены.
-  feeds:
-    latest_activity: Последние действия
   i18n:
     direction: ltr
   language_names:
@@ -628,83 +605,19 @@ ru:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Обновлений нет.
-    title: Последние новости
   organisation:
     corporate_information:
       access_our_info: Доступ к нашей информации
       jobs: Рабочие места
       jobs_and_contacts: Рабочие места и контракты
       organisation_chart: Хартия нашей организации
-      transparency: Данные о прозрачности
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Корпоративная информация
-      corporate_reports: Корпоративные отчеты
-    support:
-      administered_by: Под управлением
-      agencies_and_public_bodies: агентств и государственных органов
-      part_of: Является частью
-      public_body: государственного органа
-      works_with: Работает с
-    type:
-      courts_and_tribunals: Судами и Трибуналами
   roles:
     unassigned: Никто не назначен на эту роль
-  see_all:
-    announcement: Посмотреть все наши объявления
-    authored_article: Посмотреть все наши авторские статьи
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Посмотреть все наши ситуационные исследования
-    closed_call_for_evidence: 
-    closed_consultation: Посмотреть все наши закрытые консультации
-    consultation: Посмотреть все наши консультации
-    consultation_outcome: Посмотреть все наши результаты консультаций
-    corporate_report: Посмотреть все наши корпоративные отчеты
-    correspondence: Посмотреть всю нашу корреспонденцию
-    decision: Посмотреть все наши решения
-    detailed_guidance: Посмотреть все наше руководство
-    document_collection: Посмотреть все наши коллекции
-    draft_text: Посмотреть все наши проекты текстов
-    fatality_notice: Посмотреть все наши уведомления о летальных исходах
-    foi_release: Посмотреть все наши публикации о свободном распространении информации
-    form: Посмотреть все наши формы
-    government_response: Посмотреть все наши ответы правительства
-    guidance: Посмотреть все наше руководство
-    impact_assessment: Посмотреть все наши оценки воздействия
-    imported: Посмотреть все наши независимые отчеты
-    international_treaty: Посмотреть все наши международные соглашения
-    map: Посмотреть все наши карты
-    national_statistics: Посмотреть всю нашу Национальную статистику
-    news_article: Посмотреть все наши новостные статьи
-    news_story: Посмотреть все наши новостные сюжеты
-    notice: Посмотреть все наши уведомления
-    open_call_for_evidence: 
-    open_consultation: Посмотреть все наши открытые консультации
-    oral_statement: Посмотреть все наши устные заявления Парламенту
-    policy: Посмотреть все наши политики
-    policy_paper: Посмотреть все наши директивные документы
-    press_release: Посмотреть все наши пресс-релизы
-    promotional: Посмотреть все наши рекламные материалы
-    publication: Посмотреть все наши публикации
-    regulation: Посмотреть все наши положения
-    research: Посмотреть все наши исследования и аналитику
-    speaking_notes: Посмотреть все наши тезисы выступления
-    speech: Посмотреть все наши тексты выступлений
-    statement_to_parliament: Посмотреть все наши заявления Парламенту
-    statistical_data_set: Посмотреть все наши наборы статистических данных
-    statistics: Посмотреть всю нашу статистику
-    statutory_guidance: Посмотреть все наши официальные рекомендации
-    transcript: Посмотреть все наши тексты
-    transparency: Посмотреть все наши данные о прозрачности
-    written_statement: Посмотреть все наши письменные заявления Парламенту
   support:
     download: Загрузить
     field_of_operation: 'Поле деятельности:'
-    fields_of_operation: Поле деятельности
     pagination:
       next_html: Следующая <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} из %{total_pages}</span>
       next_page: Следующая страница
@@ -722,9 +635,6 @@ ru:
       list_link: 
     headings:
       search: Поиск по стране или территории
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -745,11 +655,3 @@ ru:
       publication_scheme_html: Ознакомьтесь с типами информации, которую мы обычно публикуем, по указанной %{link}.
       social_media_use_html: Ознакомиться с нашей политикой по %{link}.
       welsh_language_scheme_html: Ознакомиться с нашими обязательствами можно по %{link}.
-    find_out_more: Общая информация и контакты
-    headings:
-      contact_us: Обратная связь
-      corporate_information: Корпоративная информация
-      follow_us: Следите за нами
-      our_people: Наши сотрудники
-    location: Расположение
-    part_of: Является частью

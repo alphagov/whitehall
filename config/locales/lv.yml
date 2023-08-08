@@ -69,10 +69,6 @@ lv:
       full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā, kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
       intro: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
       request_a_different_format: Pieprasīt citā formātā.
-    csv:
-      cannot_preview: Failu nevar priekšskatīt.
-      download: Lejupielādējiet failu, lai skatītu tā saturu pilnībā.
-      truncated_message: Šajā priekšskatījumā ir redzamas tikai pirmās %{rows} rindas un %{columns} kolonnas.
     headings:
       order_a_copy: Pasūtīt
       order_a_copy_full: Pasūtīt publikāciju
@@ -88,16 +84,6 @@ lv:
     caution:
       subheading: Tika konstatētas problēmas ar saitēm, tāpēc ieteicams ievērot piesardzību, veidojot savienojumus uz tām
     title: Bojātas saites
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Aizvērts
-    closing_today: Aizveras šodien
-    closing_tomorrow: Aizvērsies rīt
-    days_left: 'Atlikušo dienu skaits: %{days_left}'
   contact:
     access_and_opening_times: Piekļuves un atvēršanas laiks
     contact_form: Saziņas forma
@@ -134,10 +120,7 @@ lv:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Saturs
-    latest: Jaunākie dokumenti
     published: publicēts
-    see_all: Skatīt visu
     speech:
       author_title:
         minister: Ministrs
@@ -392,13 +375,7 @@ lv:
   document_filters:
     world_locations:
       all: Visas vietas
-      label: Vietas pasaulē
       no_locations_filter: Neviena vieta pasaulē neatbilst šim filtram.
-  fatality_notice:
-    british_fatalities: Britu bojāgājušie
-    none_added: Šajā darbības jomā vēl nav neviena paziņojuma par bojāgājušajiem.
-  feeds:
-    latest_activity: Jaunumi
   i18n:
     direction: ltr
   language_names:
@@ -468,83 +445,19 @@ lv:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Pagaidām jaunumu nav
-    title: Jaunākais
   organisation:
     corporate_information:
       access_our_info: Piekļūt informācijai
       jobs: Darbinieki
       jobs_and_contacts: Darbs un līgumi
       organisation_chart: Mūsu organizācijas shēma
-      transparency: Atklātība
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Korporatīvā informācija
-      corporate_reports: Korporatīvie ziņojumi
-    support:
-      administered_by: Pārvalda
-      agencies_and_public_bodies: aģentūras un sabiedriskās iestādes
-      part_of: Daļa no
-      public_body: sabiedriskā iestāde
-      works_with: Strādā ar
-    type:
-      courts_and_tribunals: Tiesas un šķīrējtiesas
   roles:
     unassigned: Neviens šai lomai nav piešķirts
-  see_all:
-    announcement: Skatīt visas paziņojumi
-    authored_article: Skatīt visas autora raksti
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Skatīt visas piemēri
-    closed_call_for_evidence: 
-    closed_consultation: Skatīt visas slēgta tipa konsultācijas
-    consultation: Skatīt visas konsultācijas
-    consultation_outcome: Skatīt visas konsultāciju rezultāti
-    corporate_report: Skatīt visas korporatīvie ziņojumi
-    correspondence: Skatīt visas sarakstes
-    decision: Skatīt visus lēmumus
-    detailed_guidance: Skatīt visas detalizētas norādes
-    document_collection: Skatīt visas sērijas
-    draft_text: Skatīt visas teksta uzmetumi
-    fatality_notice: Skatīt visas nāves paziņojumi
-    foi_release: Skatīt visas informācijas atklātības datu publicēšana
-    form: Skatīt visas formas
-    government_response: Skatīt visas valdības atbildes
-    guidance: Skatīt visas norādes
-    impact_assessment: Skatīt visas ietekmes novērtējumi
-    imported: Skatīt visas importēts-gaidīšanas režīmā
-    international_treaty: Skatīt visus starptautiskos līgumus
-    map: Skatīt visas kartes
-    national_statistics: Skatīt visas statistika - valsts dati
-    news_article: Skatīt visas raksti
-    news_story: Skatīt visas ziņas
-    notice: Skatīt visus paziņojumus
-    open_call_for_evidence: 
-    open_consultation: Skatīt visas atklātas konsultācijas
-    oral_statement: Skatīt visas mutiski paziņojumi parlamentam
-    policy: Skatīt visas darbības jomas
-    policy_paper: Skatīt visas politikas dokumenti
-    press_release: Skatīt visas paziņojumi presei
-    promotional: Skatīt visas reklāmas materiāli
-    publication: Skatīt visas publikācijas
-    regulation: Skatīt visas regulas
-    research: Skatīt visas izpēte un analīze
-    speaking_notes: Skatīt visas runas piezīmes
-    speech: Skatīt visas runas
-    statement_to_parliament: Skatīt visas ziņojumi parlamentam
-    statistical_data_set: Skatīt visas statistikas datu kopumi
-    statistics: Skatīt visas statistika
-    statutory_guidance: Skatīt saistošās vadlīnijas
-    transcript: Skatīt visas noraksti
-    transparency: Skatīt visas atklātības dati
-    written_statement: Skatīt visas rakstiski ziņojumi parlamentam
   support:
     download: Lejupielādēt
     field_of_operation: 'Darbības joma:'
-    fields_of_operation: Darbības jomas
     pagination:
       next_html: Nākamā <span class="visuallyhidden">lapa</span> <span class="page-numbers">%{current_page} no %{total_pages}</span>
       next_page: Nākamā lapa
@@ -562,9 +475,6 @@ lv:
       list_link: 
     headings:
       search: Meklēt pēc valsts vai teritorijas
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: Starptautiskā delegācija
@@ -581,11 +491,3 @@ lv:
       publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta mūsu %{link}.
       social_media_use_html: Iepazīsties ar mūsu nostāju par %{link}.
       welsh_language_scheme_html: Vairāk par mūsu apņemšanos nodrošināt informācijas pieejamību %{link}.
-    find_out_more: Skatīt pilnu profilu un kontaktinformāciju
-    headings:
-      contact_us: Sazinies ar mums
-      corporate_information: Korporatīvā informācija
-      follow_us: Seko mums
-      our_people: Darbinieki
-    location: Atrašanās vieta
-    part_of: Daļa no

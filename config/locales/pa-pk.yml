@@ -69,10 +69,6 @@ pa-pk:
       full_help_html: اگر تُسی مدد گارٹیکنالوجی نوں استعمال کردے او ( جیویں کہ اک سکرین ریڈر) تے تہانوں ایس دستاویز دے ترجمے دی لوڑ اے جہیڑا اک بوہت پہنچ والی شکل وچ ہوئے گا، برائے مہربانی ای میل کریں {email}% برائے مہربانی سانوں ایہ دسو کہ تہانوں کس شکل دی لوڑ اے۔ ایس توں سانوں مدد ملے گی کہ تسی کس طراں دی مددگار ٹیکنالوجی استعمال کردے او۔
       intro: ایہ فائل مدد گار ٹیکنالوجی استعمال کرن والایاں لئی مناسب نئیں ہو سکدی۔
       request_a_different_format: اک قابلِ پُہنچ دی شکل دی درخواست دیوؤ۔
-    csv:
-      cannot_preview: ایس فائل دا پری ویو نہیں ہو سکدا۔
-      download: سارا مواد ویکھن لئی ایس فائل نوں ڈاؤن لوڈ کرو۔
-      truncated_message: ایہ پری ویو صرف پہلی {rows} %رو تے {columns} % کالم وکھاندا اے.
     headings:
       order_a_copy: اک نقل دی درخواست دیوؤ
       order_a_copy_full: اشاعت دی نقل دی دخواست دیوؤ
@@ -88,16 +84,6 @@ pa-pk:
     caution:
       subheading: سانوں ایناں لنکس دے بارے کجھ مشکلاں دا پتہ لگیا جو کہ مشکلاں دا اشارہ کردا اے، تہانوں ایندے نال جوڑن لئی احتیاط کرن دی لوڑ اے
     title: ٹُٹے ہوئے لنک
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: بند ہویا
-    closing_today: اج بند ہو ریئا اے
-    closing_tomorrow: کل بند ہوئے گا
-    days_left: جنے دن رہ گئے نیں {days_left}%
   contact:
     access_and_opening_times: پہنچ تے کُھلن دا ویلہ
     contact_form: رابطے دا فارم
@@ -134,10 +120,7 @@ pa-pk:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: مواد
-    latest: تازہ ترین دستاویزات
     published: اشاعت کیتا ہویا
-    see_all: سب کُج ویکھو
     speech:
       author_title:
         minister: وزیر
@@ -392,13 +375,7 @@ pa-pk:
   document_filters:
     world_locations:
       all: ساریاں تھاواں
-      label: دُنیا دیاں تھاواں
       no_locations_filter: دُنیا دی کوئی وی تھاں چھانن نال نئیں ملدی
-  fatality_notice:
-    british_fatalities: برطانوی اموات
-    none_added: موت دی کوئی وی اطلاع شامل نئیں کیتی گئی ایس تھاں تے کم کرن لئی
-  feeds:
-    latest_activity: پچھلی سرگرمی
   i18n:
     direction: rtl
   language_names:
@@ -468,83 +445,19 @@ pa-pk:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: ہون تک کوئی تازہ ترین حال دا پتہ نئیں لگیا
-    title: تازہ ترین
   organisation:
     corporate_information:
       access_our_info: ساڈی معلومات تک پہنچ
       jobs: نوکریاں
       jobs_and_contacts: نوکریاں تے ٹھیکے
       organisation_chart: ساڈے ادارے دا چارٹ
-      transparency: شفافیت دی معلومات
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: کاروبار دی معلومات
-      corporate_reports: کاروبار دیاں خبراں
-    support:
-      administered_by: جنے انتظام کیتا
-      agencies_and_public_bodies: ایجنیسز تے عوامی ادارے
-      part_of: ایندا حصہ
-      public_body: عوامی ادارہ
-      works_with: جندے نال کم کر دا اے
-    type:
-      courts_and_tribunals: کورٹ تے عدالتاں
   roles:
     unassigned: ایہ کردار کسے نوں نئیں دتا گیا
-  see_all:
-    announcement: ساڈے سارے اعلانات ویکھو
-    authored_article: ساڈے سارے لکھے ہوئے مضمون ویکھو
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: سادے سارے کیس نوں ویکھو
-    closed_call_for_evidence: 
-    closed_consultation: ساڈی ساری ختم ہوئی مشاورت ویکھو
-    consultation: ساڈی ساری مشاورت ویکھو
-    consultation_outcome: ساڈی ساری مشاور ت دے نتیجے ویکھو
-    corporate_report: ساڈے ادارے دیاں رپورٹاں ویکھو
-    correspondence: ساڈے سارے خظ ویکھو
-    decision: ساڈے سارے فیصلے ویکھو
-    detailed_guidance: ساڈی ساری رہنمائی ویکھو
-    document_collection: ساڈے سارے مجموعے ویکھو
-    draft_text: ساڈا سارا لکھیا ہوا مواد ویکھو
-    fatality_notice: ساڈے سارے موت بارے نوٹس ویکھو
-    foi_release: ساڈے سارے فریڈم آف انفارمیشن ریلزز ویکھو
-    form: ساڈے سارے فارمز ویکھو
-    government_response: ساڈے سارے حکومتی جواب ویکھو
-    guidance: ساڈی ساری رہنمائی ویکھو
-    impact_assessment: ساڈی ساری جانچ دا اثر ویکھو
-    imported: ساڈی ساریاں خود مُختار رپورٹاں ویکھو
-    international_treaty: ساڈے ساے بین الاقوامی معاہدے ویکھو
-    map: ساڈے سارے نقشے ویکھو
-    national_statistics: ساڈی ساے قومی اعدادوشمار ویکھو
-    news_article: ساڈے سارے خبراں دے مضمون ویکھو
-    news_story: ساڈیاں ساریاں خبراں دیاں کہانیاں ویکھو
-    notice: ساڈے سارے نوٹسز ویکھو
-    open_call_for_evidence: 
-    open_consultation: ساڈی ساری کُھلی مشاورت ویکھو
-    oral_statement: ساڈے سارے قومی مجلس دے سامنے بیان ویکھو
-    policy: ساڈی ساری حکمت عملی ویکھو
-    policy_paper: ساڈی سارے پالیسی دے کاغذات ویکھو
-    press_release: ساڈیاں ساریاں خبراں ویکھو
-    promotional: ساڈا سارا اشتہاری مواد ویکھو
-    publication: ساڈی ساری اشاعت ویکھو
-    regulation: ساڈے سارے قوانین ویکھو
-    research: ساڈے سارے تجزیے تے کھوج دیکھو
-    speaking_notes: ساڈے سارے گل بات دے نوٹسز
-    speech: ساڈیاں ساریاں تقریراں ویکھو
-    statement_to_parliament: قومی مجلس دے سامنے ساڈے سارے بیان ویکھو
-    statistical_data_set: ساڈے سارے اعداوشمار دے سیٹ ویکھو
-    statistics: ساڈے سارے اعدادوشمار ویکھو
-    statutory_guidance: ساڈی ساری قانونی رہنمائی ویکھو
-    transcript: ساڈے سارے بیان ویکھو
-    transparency: ساڈی ساری شفافیت دی معلومات ویکھو
-    written_statement: قومی مجلس دے سامنے ساڈے سارے تحریری بیان ویکھو
   support:
     download: ڈاؤن لوڈ
     field_of_operation: 'عمل دی تھاں:'
-    fields_of_operation: عملدیاں تھاواں
     pagination:
       next_html: اگلا<span class="visuallyhidden">ورقہ</span> <span class="page-numbers">%{current_page}اوندا %{total_pages}</span>
       next_page: اگلا ورقہ
@@ -562,9 +475,6 @@ pa-pk:
       list_link: 
     headings:
       search: مُلک یا علاقے توں لبھو
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: بین الاقوامی وفد
@@ -581,11 +491,3 @@ pa-pk:
       publication_scheme_html: ایہ پڑھو کہ کیس طراں دی معلومات عام طور پر  اسی شائع کرنے آں {link}%.
       social_media_use_html: ایندے تے ساڈی پالیسی پڑھو {link}%.
       welsh_language_scheme_html: ساڈی وابستگی دے بارے جانو {link}%.
-    find_out_more: ساری تصویر تے رابطہ دی تفصیلات ویکھو
-    headings:
-      contact_us: ساڈے نال رابطہ کرو
-      corporate_information: کاروبار دیاں خبراں
-      follow_us: ساڈے پچھے آؤ
-      our_people: ساڈے لوک
-    location: تھاں
-    part_of: دا  حصہ

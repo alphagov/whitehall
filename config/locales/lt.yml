@@ -69,10 +69,6 @@ lt:
       full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio, audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną bei leidinio pavadinimą .Prašome pasakyti, kokio formato jums reikia. Mums padės, jei pasakysite, kokią pagalbinę technologiją naudojate.
       intro: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
       request_a_different_format: Paprašykite kito formato.
-    csv:
-      cannot_preview: Failo negalima peržiūrėti.
-      download: Atsisiųskite failą, kad peržiūrėtumėte jo turinį.
-      truncated_message: Peržiūros režime galite peržiūrėti tik pirmąsias %{rows} eilutes ir pirmuosius %{columns} stulpelius.
     headings:
       order_a_copy: Užsisakykite leidinį
       order_a_copy_full: Užsisakykite leidinį
@@ -88,16 +84,6 @@ lt:
     caution:
       subheading: Aptikome problemų dėl nuorodų, atidarykite jas atsargiai
     title: Pažeistos nuorodos
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Pasibaigusi
-    closing_today: Baigiasi šiandien
-    closing_tomorrow: Baigiasi rytoj
-    days_left: Liko %{days_left} dienų
   contact:
     access_and_opening_times: Prieiga ir  pradžios laikas
     contact_form: Parašykite mums
@@ -134,10 +120,7 @@ lt:
       default: "%Y %B %d"
       long_ordinal: "%Y %B %e"
   document:
-    contents: Turinys
-    latest: Naujausi dokumentai
     published: publikuota
-    see_all: Žiūrėti viską
     speech:
       author_title:
         minister: Ministras
@@ -472,13 +455,7 @@ lt:
   document_filters:
     world_locations:
       all: Visos geografinės vietos
-      label: Geografinės vietos pasaulyje
       no_locations_filter: Nė viena geografinė vieta neatitinka filtro.
-  fatality_notice:
-    british_fatalities: Nelaimės Didžiojoje Britanijoje
-    none_added: Šioje srityje kol kas neskelbiamas apie nelaimes.
-  feeds:
-    latest_activity: Paskutinės naujienos
   i18n:
     direction: ltr
   language_names:
@@ -548,83 +525,19 @@ lt:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Atnaujinimų nėra.
-    title: Paskutinės
   organisation:
     corporate_information:
       access_our_info: Prieiga prie mūsų informacijos
       jobs: Darbai
       jobs_and_contacts: Darbai ir sutartys
       organisation_chart: Mūsų organizacijos schema
-      transparency: Skaidrumo informacija
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Korporatyvinė informacija
-      corporate_reports: Korporatyvinės ataskaitos
-    support:
-      administered_by: Administruoja
-      agencies_and_public_bodies: agentūros ir viešosios įstaigos
-      part_of: Dalis
-      public_body: viešoji įstaiga
-      works_with: Dirba su
-    type:
-      courts_and_tribunals: Teismai ir tribunolai
   roles:
     unassigned: Niekam nepriskirta įi funkcija
-  see_all:
-    announcement: Pažiūrėkite  mūsų pranešimai
-    authored_article: Pažiūrėkite  mūsų autorių straipsniai
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Pažiūrėkite  mūsų atvejų analizės
-    closed_call_for_evidence: 
-    closed_consultation: Pažiūrėkite  mūsų pasibaigusios konsultacijos
-    consultation: Pažiūrėkite  mūsų konsultacijos
-    consultation_outcome: Pažiūrėkite  mūsų konsultacijos rezultatai
-    corporate_report: Pažiūrėkite  mūsų bendros ataskaitos
-    correspondence: Pažiūrėkite  mūsų korespondencija
-    decision: Peržiūrėkite mūsų sprendimai
-    detailed_guidance: Pažiūrėkite  mūsų detalesnė informacija
-    document_collection: Peržiūrėkite mūsų skelbimai
-    draft_text: Pažiūrėkite  mūsų pirminiai teksto variantai
-    fatality_notice: Pažiūrėkite  mūsų pranešimas apie nelaimes
-    foi_release: 'Pažiūrėkite  mūsų informacijos laisvė: pranešimai'
-    form: Pažiūrėkite  mūsų formos
-    government_response: Pažiūrėkite  mūsų vyriausybės atsakai
-    guidance: Pažiūrėkite  mūsų informacija
-    impact_assessment: Pažiūrėkite  mūsų poveikio įvertinimai
-    imported: Pažiūrėkite  mūsų patalpinta - laukiama publikavimo
-    international_treaty: Pažiūrėkite  mūsų tarptautines sutartis
-    map: Pažiūrėkite  mūsų žemėlapiai
-    national_statistics: Pažiūrėkite  mūsų statistika - nacionalinė statistika
-    news_article: Pažiūrėkite  mūsų straipsniai
-    news_story: Pažiūrėkite  mūsų naujienos
-    notice: Pažiūrėkite  mūsų pranešimus
-    open_call_for_evidence: 
-    open_consultation: Pažiūrėkite  mūsų atviros konsultacijos
-    oral_statement: Pažiūrėkite  mūsų žodiniai kreipimaisi į parlamentą
-    policy: Pažiūrėkite  mūsų strategija
-    policy_paper: Pažiūrėkite  mūsų strategijų dokumentai
-    press_release: Pažiūrėkite  mūsų pranešimai spaudai
-    promotional: Pažiūrėkite  mūsų reklaminė medžiaga
-    publication: Pažiūrėkite  mūsų leidiniai
-    regulation: Peržiūrėkite mūsų reglamentai
-    research: Pažiūrėkite  mūsų tyrimai ir analizės
-    speaking_notes: Pažiūrėkite  mūsų kalbos santrauka
-    speech: Pažiūrėkite  mūsų kalbos
-    statement_to_parliament: Pažiūrėkite  mūsų kreipimaisi į parlamentą
-    statistical_data_set: Pažiūrėkite  mūsų statistiniai duomenys
-    statistics: Pažiūrėkite  mūsų statistika
-    statutory_guidance: Peržiūrėkite mūsų įstatyminė informacija
-    transcript: Pažiūrėkite  mūsų kalbų tekstai
-    transparency: Pažiūrėkite  mūsų skaidrumo informacija
-    written_statement: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
   support:
     download: Atsisiųsti
     field_of_operation: 'Veiklos sritis:'
-    fields_of_operation: Veiklos sritys
     pagination:
       next_html: Kitas <span class="visuallyhidden">puslapį</span> <span class="page-numbers">%{current_page} apie %{total_pages}</span>
       next_page: Kitas puslapis
@@ -642,9 +555,6 @@ lt:
       list_link: 
     headings:
       search: Ieškoti pagal šalį ar teritoriją
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         few: 
@@ -663,11 +573,3 @@ lt:
       publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame puslapyje %{link}.
       social_media_use_html: Perskaitykite mūsų strategiją %{link}.
       welsh_language_scheme_html: Sužinokite apie mūsų įsipareigojimą skelbti %{link}.
-    find_out_more: Visa informacija apie mus ir  kontaktai
-    headings:
-      contact_us: Parašykite mums
-      corporate_information: Korporatyvinė informacija
-      follow_us: Sekite mus
-      our_people: Mūsų darbuotojai
-    location: Vieta
-    part_of: Dalis

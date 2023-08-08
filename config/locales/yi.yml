@@ -69,10 +69,6 @@ yi:
       full_help_html: 
       intro: 
       request_a_different_format: 
-    csv:
-      cannot_preview: 
-      download: 
-      truncated_message: 
     headings:
       order_a_copy: 
       order_a_copy_full: 
@@ -88,16 +84,6 @@ yi:
     caution:
       subheading: 
     title: 
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
   contact:
     access_and_opening_times: 
     contact_form: 
@@ -134,10 +120,7 @@ yi:
       default: 
       long_ordinal: 
   document:
-    contents: 
-    latest: 
     published: 
-    see_all: 
     speech:
       author_title:
         minister: 
@@ -392,13 +375,7 @@ yi:
   document_filters:
     world_locations:
       all: 
-      label: 
       no_locations_filter: 
-  fatality_notice:
-    british_fatalities: 
-    none_added: 
-  feeds:
-    latest_activity: 
   i18n:
     direction: rtl
   language_names:
@@ -468,83 +445,19 @@ yi:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: 
-    title: 
   organisation:
     corporate_information:
       access_our_info: 
       jobs: 
       jobs_and_contacts: 
       organisation_chart: 
-      transparency: 
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: 
-      corporate_reports: 
-    support:
-      administered_by: 
-      agencies_and_public_bodies: 
-      part_of: 
-      public_body: 
-      works_with: 
-    type:
-      courts_and_tribunals: 
   roles:
     unassigned: 
-  see_all:
-    announcement: 
-    authored_article: 
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: 
-    closed_call_for_evidence: 
-    closed_consultation: 
-    consultation: 
-    consultation_outcome: 
-    corporate_report: 
-    correspondence: 
-    decision: 
-    detailed_guidance: 
-    document_collection: 
-    draft_text: 
-    fatality_notice: 
-    foi_release: 
-    form: 
-    government_response: 
-    guidance: גיידאַנס
-    impact_assessment: 
-    imported: 
-    international_treaty: 
-    map: 
-    national_statistics: 
-    news_article: 
-    news_story: 
-    notice: 
-    open_call_for_evidence: 
-    open_consultation: 
-    oral_statement: 
-    policy: 
-    policy_paper: 
-    press_release: 
-    promotional: 
-    publication: 
-    regulation: 
-    research: 
-    speaking_notes: 
-    speech: 
-    statement_to_parliament: 
-    statistical_data_set: 
-    statistics: 
-    statutory_guidance: 
-    transcript: 
-    transparency: 
-    written_statement: 
   support:
     download: 
     field_of_operation: 
-    fields_of_operation: 
     pagination:
       next_html: 
       next_page: 
@@ -562,9 +475,6 @@ yi:
       list_link: 
     headings:
       search: 
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: 
@@ -581,11 +491,3 @@ yi:
       publication_scheme_html: 
       social_media_use_html: 
       welsh_language_scheme_html: 
-    find_out_more: 
-    headings:
-      contact_us: 
-      corporate_information: 
-      follow_us: 
-      our_people: 
-    location: 
-    part_of: 

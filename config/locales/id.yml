@@ -71,10 +71,6 @@ id:
         Silakan beri tahu kami format yang dibutuhkan. Ini akan membantu kami jika Anda mengatakan teknologi bantuan apa yang Anda gunakan.
       intro: File ini mungkin tidak sesuai untuk pengguna teknologi bantuan.
       request_a_different_format: Minta format yang dapat diakses.
-    csv:
-      cannot_preview: File ini tidak dapat dipratinjau.
-      download: Unduh file untuk melihat konten lengkapnya.
-      truncated_message: Pratinjau ini hanya menampilkan %{rows} baris dan %{columns} kolom pertama.
     headings:
       order_a_copy: Pesan salinan
       order_a_copy_full: Pesan salinan publikasi
@@ -90,16 +86,6 @@ id:
     caution:
       subheading: Kami menemukan masalah dengan tautan yang mungkin menandakan adanya masalah, Anda harus berhati-hati saat mengklik tautan itu
     title: Tautan terputus
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: Ditutup
-    closing_today: Hari ini ditutup
-    closing_tomorrow: Ditutup besok
-    days_left: "%{days_left} hari tersisa"
   contact:
     access_and_opening_times: Waktu akses dan buka
     contact_form: Formulir kontak
@@ -136,10 +122,7 @@ id:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: Konten
-    latest: Dokumen terbaru
     published: diterbitkan
-    see_all: Lihat semua
     speech:
       author_title:
         minister: Menteri
@@ -314,13 +297,7 @@ id:
   document_filters:
     world_locations:
       all: Semua lokasi
-      label: Lokasi dunia
       no_locations_filter: Tidak ada lokasi dunia yang cocok dengan filter itu.
-  fatality_notice:
-    british_fatalities: Fatalitas Inggris
-    none_added: Belum ada pemberitahuan fatalitas yang ditambahkan untuk bidang operasi ini.
-  feeds:
-    latest_activity: Aktivitas terbaru
   i18n:
     direction: ltr
   language_names:
@@ -390,83 +367,19 @@ id:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: Belum ada pembaruan.
-    title: Terbaru
   organisation:
     corporate_information:
       access_our_info: Akses informasi kami
       jobs: Pekerjaan
       jobs_and_contacts: Pekerjaan dan kontrak
       organisation_chart: Diagram organisasi kami
-      transparency: Data transparansi
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: Informasi korporat
-      corporate_reports: Laporan korporat
-    support:
-      administered_by: Diadministrasikan oleh
-      agencies_and_public_bodies: lembaga dan badan publik
-      part_of: Bagian dari
-      public_body: badan publik
-      works_with: Bekerja bersama
-    type:
-      courts_and_tribunals: Pengadilan dan Persidangan
   roles:
     unassigned: Belum ada yang ditetapkan untuk peran ini
-  see_all:
-    announcement: Lihat semua pengumuman kami
-    authored_article: Lihat semua artikel bersumber kami
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: Lihat semua studi kasus kami
-    closed_call_for_evidence: 
-    closed_consultation: Lihat semua konsultasi tertutup kami
-    consultation: Lihat semua konsultasi kami
-    consultation_outcome: Lihat semua hasil konsultasi kami
-    corporate_report: Lihat semua laporan korporat kami
-    correspondence: Lihat semua korespondensi kami
-    decision: Lihat semua keputusan kami
-    detailed_guidance: Lihat semua panduan kami
-    document_collection: Lihat semua koleksi kami
-    draft_text: Lihat semua teks rancangan kami
-    fatality_notice: Lihat semua pemberitahuan fatalitas kami
-    foi_release: Lihat semua rilis FOI kami
-    form: Lihat semua formulir kami
-    government_response: Lihat semua respons pemerintah kami
-    guidance: Lihat semua panduan kami
-    impact_assessment: Lihat semua penilaian dampak kami
-    imported: Lihat semua laporan independen kami
-    international_treaty: Lihat semua pakta internasional kami
-    map: Lihat semua peta kami
-    national_statistics: Lihat semua Statistik Nasional kami
-    news_article: Lihat semua artikel berita kami
-    news_story: Lihat semua cerita berita kami
-    notice: Lihat semua pemberitahuan kami
-    open_call_for_evidence: 
-    open_consultation: Lihat semua konsultasi terbuka kami
-    oral_statement: Lihat semua pernyataan lisan kami kepada Parlemen
-    policy: Lihat semua kebijakan kami
-    policy_paper: Lihat semua kertas kebijakan kami
-    press_release: Lihat semua siaran pers kami
-    promotional: Lihat semua bahan promosi kami
-    publication: Lihat semua publikasi kami
-    regulation: Lihat semua regulasi kami
-    research: Lihat semua riset dan analisis kami
-    speaking_notes: Lihat semua catatan bicara kami
-    speech: Lihat semua pidato kami
-    statement_to_parliament: Lihat semua pernyataan kami kepada Parlemen
-    statistical_data_set: Lihat semua set data statistik kami
-    statistics: Lihat semua statistik kami
-    statutory_guidance: Lihat semua panduan perundang-undangan kami
-    transcript: Lihat semua transkrip kami
-    transparency: Lihat semua data transparansi kami
-    written_statement: Lihat semua pernyataan tertulis kami kepada Parlemen
   support:
     download: Unduh
     field_of_operation: 'Bidang operasi:'
-    fields_of_operation: Bidang operasi
     pagination:
       next_html: <span class="visuallyhidden">Halaman</span> selanjutnya <span class="page-numbers">%{current_page} dari %{total_pages}</span>
       next_page: Halaman selanjutnya
@@ -484,9 +397,6 @@ id:
       list_link: 
     headings:
       search: Cari menurut negara atau teritori
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         other: Delegasi internasional
@@ -501,11 +411,3 @@ id:
       publication_scheme_html: Bacalah jenis-jenis informasi yang kami terbitkan secara rutin di %{link} kami.
       social_media_use_html: Baca kebijakan kami di %{link}.
       welsh_language_scheme_html: Cari tahu komitmen kami kepada %{link}.
-    find_out_more: Lihat profil lengkap dan semua detail kontak
-    headings:
-      contact_us: Hubungi kami
-      corporate_information: Informasi korporat
-      follow_us: Ikuti kami
-      our_people: Orang-orang kami
-    location: Lokasi
-    part_of: Bagian dari

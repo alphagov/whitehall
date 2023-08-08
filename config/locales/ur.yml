@@ -71,10 +71,6 @@ ur:
         براہ کرم ہمیں آگاہ کریں کہ آپ کو کون سا فارمیٹ درکار ہے۔ اگر آپ بتائیں کہ آپ کون سی معاونتی ٹیکنالوجی استعمال کرتے ہیں تو ہمیں اس سے مدد ملے گی۔
       intro: ہو سکتا ہے کہ یہ فائل معاونتی ٹیکنالوجی کے صارفین کے لیے موزوں نہ ہو۔
       request_a_different_format: قابل رسائی فارمیٹ کی درخواست دیں۔
-    csv:
-      cannot_preview: یہ فائل دیکھی نئی جا سکتی۔
-      download: اس فائل کے تمام مشمولات دیکھنے کے لیے فائل ڈاؤن لوڈ کریں۔
-      truncated_message: اس پیش منظر سے صرف پہلی %{rows} قطاریں اور %{columns} کالمز دکھائی دیتے ہیں۔
     headings:
       order_a_copy: نقل آرڈر کریں
       order_a_copy_full: پبلیکیشن کی نقل آرڈر کریں
@@ -90,16 +86,6 @@ ur:
     caution:
       subheading: ہمیں لنکس کے ساتھ کچھ درپیش مسائل کے بارے میں معلوم ہوا ہے جو کہ مسائل کی نشاندہی کر سکتے ہیں، آپ کو انہیں مربوط کرنے وقت احتیاط برتنی چاہیئے
     title: ٹوٹے ہوئے لنکس
-  call_for_evidence:
-    closed: 
-    closing_today: 
-    closing_tomorrow: 
-    days_left: 
-  consultation:
-    closed: بند
-    closing_today: آج بند ہونا ہے۔
-    closing_tomorrow: کل بند ہونا ہے۔
-    days_left: "%{days_left} دن باقی ہیں"
   contact:
     access_and_opening_times: رسائی اور کھولنے کے اوقات
     contact_form: رابطے کا فارم
@@ -136,10 +122,7 @@ ur:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: مشمولات
-    latest: تازہ ترین دستاویزات
     published: شائع کردہ
-    see_all: تمام کو دیکھیں
     speech:
       author_title:
         minister: وزیر
@@ -394,13 +377,7 @@ ur:
   document_filters:
     world_locations:
       all: تمام مقامات
-      label: عالمی مقامات
       no_locations_filter: دنیا کا کوئی مقام اس فلٹر سے میچ نہیں کرتا۔
-  fatality_notice:
-    british_fatalities: برطانیہ کی حادثاتی اموات
-    none_added: اس کارروائی کی فیلڈ کے لیے ابھی تک کوئی موت کے نوٹسز شامل نہیں کیے گئے۔
-  feeds:
-    latest_activity: تازہ ترین سرگرمی
   i18n:
     direction: rtl
   language_names:
@@ -470,83 +447,19 @@ ur:
     zh: 
     zh-hk: 
     zh-tw: 
-  latest_feed:
-    no_updates: ابھی تک کوئی اپ ڈیٹس نہیں ہیں۔
-    title: تازہ ترین
   organisation:
     corporate_information:
       access_our_info: ہماری معلومات تک رسائی کریں
       jobs: نوکریاں
       jobs_and_contacts: نوکریاں اور معاہدے
       organisation_chart: ہماری تنظیم کا چارٹ
-      transparency: شفافیت کا ڈیٹا
     embassies:
       find_an_embassy_title: 
-    headings:
-      corporate_information: کارپوریٹ معلومات
-      corporate_reports: کارپوریٹ رپورٹس
-    support:
-      administered_by: منتظم کردہ از
-      agencies_and_public_bodies: ایجنسیاں اور عوامی دھڑے
-      part_of: حصہ از
-      public_body: عوامی دھڑا
-      works_with: شریک کار
-    type:
-      courts_and_tribunals: عدالتیں اور ٹریبیونلز
   roles:
     unassigned: کسی کو یہ کردار تفویض نہیں کیا گیا
-  see_all:
-    announcement: ہمارے تمام اعلانات دکھائیں
-    authored_article: ہمارے تمام مصنف کے نام کے ساتھ لکھے مضامین دیکھیں
-    call_for_evidence: 
-    call_for_evidence_outcome: 
-    case_study: ہماری تمام کیس اسٹڈیز دیکھیں
-    closed_call_for_evidence: 
-    closed_consultation: ہماری تمام محدود مشاورتیں دیکھیں
-    consultation: ہماری تمام مشاورتیں دیکھیں
-    consultation_outcome: ہماری تمام مشاورتوں کے نتائج دیکھیں
-    corporate_report: ہماری تمام کارپوریٹ رپورٹس دیکھیں
-    correspondence: ہماری تمام خط و کتابت دیکھیں
-    decision: ہمارے تمام فیصلے دیکھیں
-    detailed_guidance: ہماری تمام رہنمائی دیکھیں
-    document_collection: ہماری تمام کلیکشنز دیکھیں
-    draft_text: ہمارے ڈرافٹ کے متن دیکھیں
-    fatality_notice: ہمارے تمام موت کے نوٹسز دیکھیں
-    foi_release: ہماری تمام FOI ریلیزز دیکھیں
-    form: ہمارے تمام فارمز دیکھین
-    government_response: ہمارے تمام حکومتی جوابات دیکھیں
-    guidance: ہماری تمام رہنمائی دیکھیں
-    impact_assessment: ہماری تمام اثر کی جانچیں دیکھیں
-    imported: ہماری تمام خودمختار رپورٹس دیکھیں
-    international_treaty: ہمارے تمام عالمی معاہدے دیکھیں
-    map: ہمارے تمام نقشے دیکھیں
-    national_statistics: ہماری تمام قومی شماریات دیکھیں
-    news_article: ہمارے تمام خبروں کے مضامین دیکھیں
-    news_story: ہماری تمام خبروں کی کہانیاں دیکھیں
-    notice: ہمارے تمام نوٹسز دیکھیں
-    open_call_for_evidence: 
-    open_consultation: ہماری تمام آزاد مشاورتیں دیکھیں
-    oral_statement: ہمارے تمام پارلیمان کے لیے زبانی بیانات دیکھیں
-    policy: ہماری تمام پالیسیاں دیکھیں
-    policy_paper: ہمارے تمام پالیسی کا کاغذات دیکھیں
-    press_release: ہماری تمام پریس ریلیزز دیکھیں
-    promotional: ہمارا تمام تشہیری مواد دیکھیں
-    publication: ہماری تمام پبلیکیشنز دیکھیں
-    regulation: ہمارے تمام ضابطے دیکھیں
-    research: ہماری تمام تحقیق اور تجزیہ دیکھیں
-    speaking_notes: ہمارے تمام صوتی نوٹس دیکھیں
-    speech: ہماری تمام تقاریر دیکھیں
-    statement_to_parliament: ہمارے تمام پارلیمان میں دیے گئے بیانات دیکھیں
-    statistical_data_set: ہمارے تمام شماریاتی ڈیٹا سیٹس دیکھیں
-    statistics: ہماری تمام شماریات دیکھیں
-    statutory_guidance: ہمارے تمام قانونی رہنمائی دیکھیں
-    transcript: ہماری تمام ٹرانسکرپٹس دیکھیں
-    transparency: ہمارا تمام شفافیت دیکھیں
-    written_statement: ہمارے تمام پارلیمان میں دیے گئے زبانی بیانات دیکھیں
   support:
     download: ڈاؤن لوڈ کریں
     field_of_operation: 'کارروائی کی فیلڈ:'
-    fields_of_operation: کارروائی کی فیلڈ
     pagination:
       next_html: اگلے <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page} کی %{total_pages}</span>
       next_page: اگلا صفحہ
@@ -564,9 +477,6 @@ ur:
       list_link: 
     headings:
       search: ملک یا خطے کے لحاظ سے تلاش کریں
-    search_description:
-      international_delegation: 
-      world_location: 
     type:
       international_delegation:
         one: عالمی وفد
@@ -583,11 +493,3 @@ ur:
       publication_scheme_html: ہماری %{link} میں ہماری جانب سے معمول کے حساب سے شائع کی جانے والی معلومات کی اقسام کے بارے میں پڑھیں۔
       social_media_use_html: "%{link} پر ہماری پالیسی کو پڑھیں۔"
       welsh_language_scheme_html: "%{link} کے ساتھ ہماری وابستگی کے بارے میں جانیں۔"
-    find_out_more: پوری پروفائل اور رابطے کی تمام تفصیلات دیکھیں
-    headings:
-      contact_us: ہمارے ساتھ رابطہ کریں
-      corporate_information: کارپوریٹ معلومات
-      follow_us: ہمیں فالو کریں
-      our_people: ہمارے لوگ
-    location: مقام
-    part_of: حصہ از
