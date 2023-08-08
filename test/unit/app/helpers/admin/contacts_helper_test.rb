@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Admin::ContactsHelperTest < ActionView::TestCase
-  include ContactsHelper
   include Admin::OrganisationHelper
 
   test "method contact_rows return correct default rows" do
