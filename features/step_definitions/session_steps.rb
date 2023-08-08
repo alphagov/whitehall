@@ -15,7 +15,6 @@ Given(/^I am (?:a|an) (writer|editor|admin|GDS editor|GDS admin|importer|managin
           when "managing editor"
             create(:managing_editor)
           end
-  @user.permissions << User::Permissions::PREVIEW_CALL_FOR_EVIDENCE
   @user.save!
   login_as @user
 end

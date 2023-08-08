@@ -145,16 +145,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_preview_next_release?
   end
 
-  test "cannot preview call for evidence by default" do
-    user = build(:user)
-    assert_not user.can_preview_call_for_evidence?
-  end
-
-  test "can preview call for evidence if given permission" do
-    user = build(:user, permissions: [User::Permissions::PREVIEW_CALL_FOR_EVIDENCE])
-    assert user.can_preview_call_for_evidence?
-  end
-
   test "cannot use non legacy endpoints" do
     user = build(:user)
     assert_not user.can_use_non_legacy_endpoints?
