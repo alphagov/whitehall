@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Edition::AppointmentTest < ActiveSupport::TestCase
-  class EditionWithAppointment < Edition
+  class EditionWithAppointment < GenericEdition
     include ::Edition::Searchable
     include ::Edition::Appointment
 
