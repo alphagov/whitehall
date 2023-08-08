@@ -83,10 +83,6 @@ private
     end
   end
 
-  def set_analytics_format
-    set_slimmer_format_header(Whitehall.analytics_format(analytics_format))
-  end
-
   def decorate_collection(collection, presenter_class)
     Whitehall::Decorators::CollectionDecorator.new(collection, presenter_class, view_context)
   end

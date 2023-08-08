@@ -52,7 +52,6 @@ gem "rubyzip"
 gem "sassc-rails"
 gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
-gem "slimmer"
 gem "sprockets-rails"
 gem "terser"
 gem "transitions", require: ["transitions", "active_record/transitions"]

@@ -27,12 +27,6 @@ Whitehall::Application.routes.draw do
   root to: redirect("/admin/"),
        constraints: ->(request) { AdminRequest.valid_admin_host?(request.host) }
 
-  # Override the /auth/failure route in gds-sso, as Slimmer gets
-  # involved and causes the page to fail to render
-  #
-  # This can be removed once Slimmer is removed from Whitehall.
-  get "/auth/failure", to: "admin/base#auth_failure", as: "auth_failure_fixed"
-
   # Routes rendered by Whitehall to the public under the /world scope
   scope "/world" do
     get "(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }

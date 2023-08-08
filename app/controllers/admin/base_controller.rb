@@ -3,7 +3,6 @@ class Admin::BaseController < ApplicationController
   include PermissionsChecker
 
   layout "admin"
-  prepend_before_action :skip_slimmer
   prepend_before_action :authenticate_user!, except: %i[auth_failure]
 
   def auth_failure

@@ -23,16 +23,6 @@ class SidekiqGdsSsoMiddlewareTest < ActiveSupport::TestCase
     assert_equal(body, ["Forbidden - access requires the \"#{SidekiqGdsSsoMiddleware::SIDEKIQ_SIGNON_PERMISSION}\" permission"])
   end
 
-  test "it adds a header to responses to disable slimmer middleware" do
-    @user.permissions = ["Sidekiq Admin"]
-    headers = {}
-
-    Sidekiq::Web.stubs(:call).returns([200, headers, %w[body]])
-    SidekiqGdsSsoMiddleware.call({ "warden" => @warden })
-
-    assert_equal({ Slimmer::Headers::SKIP_HEADER => "true" }, headers)
-  end
-
   test "it runs warden.authenticate! when a user is not authenticated" do
     @warden.expects(:authenticate!)
     @warden.stubs(:authenticated?, false)

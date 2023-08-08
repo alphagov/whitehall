@@ -68,8 +68,6 @@ module Whitehall
     # CSS that has same function names as SCSS such as max
     config.assets.css_compressor = nil
 
-    config.slimmer.wrapper_id = "whitehall-wrapper-slimmer"
-
     config.action_dispatch.ignore_accept_header = true
 
     # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

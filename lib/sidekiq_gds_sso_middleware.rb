@@ -13,8 +13,6 @@ class SidekiqGdsSsoMiddleware
   def call
     status, headers, body = authenticated_sidekiq_request
 
-    headers[Slimmer::Headers::SKIP_HEADER] = "true"
-
     [status, headers, body]
   end
 
