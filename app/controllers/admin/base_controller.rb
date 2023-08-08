@@ -1,6 +1,6 @@
 class Admin::BaseController < ApplicationController
   include Admin::EditionRoutesHelper
-  include PermissionsChecker
+  include PermissionsCheckerConcern
 
   layout "admin"
   prepend_before_action :authenticate_user!, except: %i[auth_failure]
