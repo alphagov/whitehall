@@ -5,8 +5,6 @@ class Admin::CallForEvidenceResponsesControllerTest < ActionController::TestCase
 
   setup do
     login_as :writer
-    @current_user.permissions << "Preview design system"
-    @current_user.permissions << User::Permissions::PREVIEW_CALL_FOR_EVIDENCE
     @call_for_evidence = create(:draft_call_for_evidence, opening_at: 2.days.ago, closing_at: 1.day.ago)
   end
 
