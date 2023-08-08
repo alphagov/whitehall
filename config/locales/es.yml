@@ -372,10 +372,6 @@ es:
         one: Declaración escrita
         other: Declaraciones escritas
     updated: Actualizado
-  document_filters:
-    world_locations:
-      all: Todos los lugares
-      no_locations_filter: Ninguna ubicación mundial coincide con ese filtro.
   i18n:
     direction: ltr
   language_names:
@@ -468,13 +464,6 @@ es:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Búsqueda por país o territorio
     type:
       international_delegation:
         one: Delegación internacional

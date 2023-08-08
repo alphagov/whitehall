@@ -375,10 +375,6 @@ pa:
         one: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ
         other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦਿੱਤੇ
     updated: ਅੱਪਡੇਟ ਕੀਤਾ
-  document_filters:
-    world_locations:
-      all: ਸਾਰੇ ਟਿਕਾਣੇ
-      no_locations_filter: ਕੋਈ ਵੀ ਵਿਸ਼ਵ ਸਥਾਨ ਉਸ ਫਿਲਟਰ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ pa:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: ਦੇਸ਼ ਜਾਂ ਖੇਤਰ ਦੁਆਰਾ ਖੋਜ ਕਰੋ
     type:
       international_delegation:
         one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ

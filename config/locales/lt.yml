@@ -452,10 +452,6 @@ lt:
         one: Rašytinis kreipimasis į parlamentą
         other: Rašytiniai kreipimaisi į parlamentą
     updated: atnaujinta
-  document_filters:
-    world_locations:
-      all: Visos geografinės vietos
-      no_locations_filter: Nė viena geografinė vieta neatitinka filtro.
   i18n:
     direction: ltr
   language_names:
@@ -548,13 +544,6 @@ lt:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Ieškoti pagal šalį ar teritoriją
     type:
       international_delegation:
         few:

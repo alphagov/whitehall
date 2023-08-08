@@ -375,10 +375,6 @@ pt:
         one: Declaração escrita ao Parlamento
         other: Declarações escritas ao Parlamento
     updated: atualizado em
-  document_filters:
-    world_locations:
-      all: Todos os locais
-      no_locations_filter: Nenhum local mundial corresponde a esse filtro.
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ pt:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Pesquisa por país ou território
     type:
       international_delegation:
         one: Delegação internacional

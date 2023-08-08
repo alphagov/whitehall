@@ -454,10 +454,6 @@ ro:
         one: Declarație scrisă către Parlament
         other: Declarații scrise către Parlament
     updated: actualizat
-  document_filters:
-    world_locations:
-      all: Toate locațiile
-      no_locations_filter: Nicio locație de pe glob nu se potrivește acestui filtru.
   i18n:
     direction: ltr
   language_names:
@@ -550,13 +546,6 @@ ro:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Căutați după țară sau teritoriu
     type:
       international_delegation:
         few:

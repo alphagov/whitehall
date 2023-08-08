@@ -375,10 +375,6 @@ hi:
         one: संसद में लिखित बयान
         other: संसद में लिखित बयान
     updated: अपडेट किया गया
-  document_filters:
-    world_locations:
-      all: सभी स्थान
-      no_locations_filter: कोई भी विश्व स्थान उस फिल्टर से मेल नहीं खाता।
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ hi:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: देश या क्षेत्र से खोजें
     type:
       international_delegation:
         one: अंतर्राष्ट्रीय प्रतिनिधिमंडल

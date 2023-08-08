@@ -375,10 +375,6 @@ it:
         one: Dichiarazione scritta al Parlamento
         other: Dichiarazioni scritte al Parlamento
     updated: aggiornato
-  document_filters:
-    world_locations:
-      all: Tutte le posizioni
-      no_locations_filter: Nessuna località del mondo corrisponde a quel filtro.
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ it:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Cerca per stato o territorio
     type:
       international_delegation:
         one: Delegazione internazionale

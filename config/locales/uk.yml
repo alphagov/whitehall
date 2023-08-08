@@ -534,10 +534,6 @@ uk:
         one: Письмова заява до Парламенту
         other: Письмові заяви до Парламенту
     updated: оновлено
-  document_filters:
-    world_locations:
-      all: Усі локації
-      no_locations_filter: Жодна світова локація не відповідає цьому фільтру.
   i18n:
     direction: ltr
   language_names:
@@ -630,13 +626,6 @@ uk:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Пошук за країною чи територією
     type:
       international_delegation:
         few:

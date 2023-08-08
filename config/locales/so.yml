@@ -374,10 +374,6 @@ so:
         one: Bayaan qoran oo loogu talogalay Baarlamaanka
         other: Bayaanada qoran ee loogu talogalay Baarlamaanka
     updated: la cusboonaysiiyay
-  document_filters:
-    world_locations:
-      all: Dhamaan goobaha
-      no_locations_filter: Majirto meel dunida ah oo waafqaysa baadhistaa.
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ so:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Ku raadi dalka ama dhulka
     type:
       international_delegation:
         one: Wafti caalami ah

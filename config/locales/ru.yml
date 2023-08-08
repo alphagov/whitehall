@@ -532,10 +532,6 @@ ru:
         one: Письменное заявление Парламенту
         other: Письменные заявления Парламенту
     updated: обновлено
-  document_filters:
-    world_locations:
-      all: Все места нахождения
-      no_locations_filter: Ни одно место нахождения в мире не соответствует этому фильтру.
   i18n:
     direction: ltr
   language_names:
@@ -628,13 +624,6 @@ ru:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Поиск по стране или территории
     type:
       international_delegation:
         few:

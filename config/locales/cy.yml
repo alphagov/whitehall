@@ -694,10 +694,6 @@ cy:
         two:
         zero:
     updated: diweddarwyd
-  document_filters:
-    world_locations:
-      all: Pob lleoliad
-      no_locations_filter: Does dim lleoliadau byd-eang yn cyd-fynd â'r hidlydd hwnnw.
   i18n:
     direction: ltr
   language_names:
@@ -790,13 +786,6 @@ cy:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Chwilio yn ôl gwlad neu diriogaeth
     type:
       international_delegation:
         few:

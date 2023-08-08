@@ -374,10 +374,6 @@ tr:
         one: Parlamentoya yazılı açıklama
         other: Parlamentoya yazılı açıklamalar
     updated: güncellenen
-  document_filters:
-    world_locations:
-      all: Tüm konumlar
-      no_locations_filter: Dünya genelinde bu filtreyle eşleşen hiçbir konum yok.
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ tr:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Ülkeye veya bölgeye göre arama yapın
     type:
       international_delegation:
         one: Uluslararası delegasyon

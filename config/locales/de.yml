@@ -374,10 +374,6 @@ de:
         one: Schriftliche Erklärung vor dem Parlament
         other: Schriftliche Erklärungen vor dem Parlament
     updated: aktualisiert
-  document_filters:
-    world_locations:
-      all: Alle Standorte
-      no_locations_filter: Kein Ort der Welt entspricht diesem Filter.
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ de:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Nach Land oder Gebiet suchen
     type:
       international_delegation:
         one: Internationale Delegation

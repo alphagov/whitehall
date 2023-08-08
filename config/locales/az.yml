@@ -375,10 +375,6 @@ az:
         one: Parlamentə yazılı müraciət
         other: Parlamentə yazılı müraciətlər
     updated: yenilənib
-  document_filters:
-    world_locations:
-      all: Bütün yerlər
-      no_locations_filter: Dünya üzrə yerləri həmin süzgəcə uyğun gəlmir.
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ az:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Ölkəyə və ya əraziyə əsasən axtarın
     type:
       international_delegation:
         one: Beynəlxalq səlahiyyətin ötürülməsi

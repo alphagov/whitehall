@@ -372,10 +372,6 @@ lv:
         one: Rakstisks ziņojums parlamentam
         other: Rakstiski ziņojumi parlamentam
     updated: atjaunināts
-  document_filters:
-    world_locations:
-      all: Visas vietas
-      no_locations_filter: Neviena vieta pasaulē neatbilst šim filtram.
   i18n:
     direction: ltr
   language_names:
@@ -468,13 +464,6 @@ lv:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Meklēt pēc valsts vai teritorijas
     type:
       international_delegation:
         one: Starptautiskā delegācija

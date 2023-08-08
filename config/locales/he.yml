@@ -375,10 +375,6 @@ he:
         one: הצהרה בכתב לפרלמנט
         other: הצהרות בכתב לפרלמנט
     updated: מעודכן
-  document_filters:
-    world_locations:
-      all: כל המיקומים
-      no_locations_filter: אין מיקומים גלובאליים התואמים את המסנן הזה.
   i18n:
     direction: rtl
   language_names:
@@ -471,13 +467,6 @@ he:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: חפש לפי מדינה או שטח
     type:
       international_delegation:
         one: משלחת בינלאומית

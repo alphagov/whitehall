@@ -292,10 +292,6 @@ ja:
       written_statement:
         other: 議会への書面による声明
     updated: 更新済み
-  document_filters:
-    world_locations:
-      all: すべての場所
-      no_locations_filter: そのフィルターに一致する世界の場所はありません。
   i18n:
     direction: ltr
   language_names:
@@ -388,13 +384,6 @@ ja:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: 国または地域で検索
     type:
       international_delegation:
         other: 国際代表団

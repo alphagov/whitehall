@@ -532,10 +532,6 @@ be:
         one: Пісьмовая заява ў парламенце
         other: Пісьмовыя заявы ў парламенце
     updated: Адноўлена
-  document_filters:
-    world_locations:
-      all: Усе месцазнаходжанні
-      no_locations_filter: Ні адно месцазнаходжанне ў свеце не адпавядае гэтаму фільтру.
   i18n:
     direction: ltr
   language_names:
@@ -628,13 +624,6 @@ be:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Пошук па краіне або тэрыторыі
     type:
       international_delegation:
         few:

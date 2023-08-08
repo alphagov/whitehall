@@ -374,10 +374,6 @@ is:
         one: Skrifleg yfirlýsing til Þingsins
         other: Skriflegar yfirlýsingar til Þingsins
     updated: uppfært
-  document_filters:
-    world_locations:
-      all: Allar staðsetningar
-      no_locations_filter: Engar staðsetningar í heiminum passa við þessa síu.
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ is:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Leita eftir landi eða landsvæði
     type:
       international_delegation:
         one: Alþjóðleg sendinefnd

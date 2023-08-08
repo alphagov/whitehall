@@ -375,10 +375,6 @@ fr:
         one: Déclaration écrite au Parlement
         other: Déclarations écrites au Parlement
     updated: mis à jour
-  document_filters:
-    world_locations:
-      all: Tous les emplacements
-      no_locations_filter: Aucun emplacement dans le monde ne correspond à ce filtre.
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ fr:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Recherche par pays ou territoire
     type:
       international_delegation:
         one: Délégation internationale

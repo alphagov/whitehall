@@ -375,10 +375,6 @@ sv:
         one: Skriftligt uttalande till parlamentet
         other: Skriftliga uttalanden till parlamentet
     updated: uppdaterad
-  document_filters:
-    world_locations:
-      all: Alla platser
-      no_locations_filter: Inga platser i världen matchar det filtret.
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ sv:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Sök efter land eller område
     type:
       international_delegation:
         one: Internationell delegation

@@ -374,10 +374,6 @@ si:
         one: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශය
         other: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශ
     updated: යාවත්කාලීන කෙරිණි
-  document_filters:
-    world_locations:
-      all: සියලුම ස්ථාන
-      no_locations_filter: කිසිදු ලෝක ස්ථානයක් එම පෙරණයට නොගැලපේ.
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ si:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: රට හෝ භූමිය අනුව සොයන්න
     type:
       international_delegation:
         one: ජාත්යන්තර නියෝජිත පිරිස

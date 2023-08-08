@@ -692,10 +692,6 @@ ar:
         two:
         zero:
     updated: تاريخ التحديث
-  document_filters:
-    world_locations:
-      all: جميع المواقع
-      no_locations_filter: لا توجد مواقع عالمية تطابق عامل التصفية هذا.
   i18n:
     direction: rtl
   language_names:
@@ -788,13 +784,6 @@ ar:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: البحث حسب البلد أو الإقليم
     type:
       international_delegation:
         few:

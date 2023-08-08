@@ -375,10 +375,6 @@ ka:
         one: წერილობითი განცხადება პარლამენტში
         other: წერილობითი განცხადებები პარლამენტში
     updated: განახლებულია
-  document_filters:
-    world_locations:
-      all: ყველა ლოკაცია
-      no_locations_filter: არც ერთი მსოფლიო ლოკაცია არ ემთხვევა ამ ფილტრს.
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ ka:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: მოძებნეთ ქვეყნის ან ტერიტორიის მიხედვით
     type:
       international_delegation:
         one: საერთაშორისო დელეგაცია

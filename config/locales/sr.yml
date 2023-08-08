@@ -455,10 +455,6 @@ sr:
         one: Pismena predstavka Parlamentu
         other: Pismene predstavke Parlamentu
     updated: ažurirano
-  document_filters:
-    world_locations:
-      all: Sve lokacije
-      no_locations_filter: Nema globalnih lokacija koje se podudaraju sa tim filterom.
   i18n:
     direction: ltr
   language_names:
@@ -551,13 +547,6 @@ sr:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Pretraga po zemlji ili teritoriji
     type:
       international_delegation:
         few:

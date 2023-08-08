@@ -372,10 +372,6 @@ pa-pk:
         one: قومی مجلس دے سامنے تحریری بیان
         other: قومی مجلس دے سامنے تحریری بیانات
     updated: تازہ ترین حال
-  document_filters:
-    world_locations:
-      all: ساریاں تھاواں
-      no_locations_filter: دُنیا دی کوئی وی تھاں چھانن نال نئیں ملدی
   i18n:
     direction: rtl
   language_names:
@@ -468,13 +464,6 @@ pa-pk:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: مُلک یا علاقے توں لبھو
     type:
       international_delegation:
         one: بین الاقوامی وفد

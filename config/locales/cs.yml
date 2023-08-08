@@ -455,10 +455,6 @@ cs:
         one: Písemné prohlášení pro Parlament
         other: Písemná prohlášení pro Parlament
     updated: aktualizováno
-  document_filters:
-    world_locations:
-      all: Všechna místa
-      no_locations_filter: Žádná světová místa neodpovídají tomuto filtru.
   i18n:
     direction: ltr
   language_names:
@@ -551,13 +547,6 @@ cs:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Vyhledávání podle země nebo území
     type:
       international_delegation:
         few:

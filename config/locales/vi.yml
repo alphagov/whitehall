@@ -294,10 +294,6 @@ vi:
       written_statement:
         other: Tuyên bố bằng văn bản trước Quốc hội
     updated: đã cập nhật
-  document_filters:
-    world_locations:
-      all: Tất cả vị trí
-      no_locations_filter: Không có vị trí nào trên thế giới phù hợp với bộ lọc đó.
   i18n:
     direction: ltr
   language_names:
@@ -390,13 +386,6 @@ vi:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Tìm kiếm theo quốc gia hoặc lãnh thổ
     type:
       international_delegation:
         other: Phái đoàn quốc tế

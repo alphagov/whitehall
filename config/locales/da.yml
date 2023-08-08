@@ -375,10 +375,6 @@ da:
         one: Mundtlig erklæring til Parlamentet
         other: Mundtlige erklæring til Parlamentet
     updated: Opdateret
-  document_filters:
-    world_locations:
-      all: Alle steder
-      no_locations_filter: Ingen verdensrangliste matcher det filter.
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ da:
     formats:
       long_ordinal: "%e %B %Y%:%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Søg efter land eller område
     type:
       international_delegation:
         one: Internationale delegation

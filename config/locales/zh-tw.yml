@@ -294,10 +294,6 @@ zh-tw:
       written_statement:
         other: 對議會的書面聲明
     updated: 更新
-  document_filters:
-    world_locations:
-      all: 所有地點
-      no_locations_filter: 沒有世界地點符合該過濾器。
   i18n:
     direction: ltr
   language_names:
@@ -390,13 +386,6 @@ zh-tw:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: 按國家或地區搜索
     type:
       international_delegation:
         other: 國際代表團

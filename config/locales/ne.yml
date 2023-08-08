@@ -374,10 +374,6 @@ ne:
         one: संसदमा लिखित वक्तव्य
         other: संसदमा लिखित वक्तव्यहरू
     updated: अद्यावधिक गरियो
-  document_filters:
-    world_locations:
-      all: सबै स्थानहरु
-      no_locations_filter: त्यस फिल्टर सँग कुनै विश्व स्थानहरु मेल खाँदैनन्।
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ ne:
     formats:
       long_ordinal: "%e %B %Y %l: %M %P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: देश वा क्षेत्रको नामले खोज
     type:
       international_delegation:
         one: अन्तर्राष्ट्रिय प्रतिनिधिमण्डल

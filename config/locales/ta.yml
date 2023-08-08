@@ -374,10 +374,6 @@ ta:
         one: பாராளுமன்றத்துக்கு எழுத்துப்பூர்வ அறிவிப்பு
         other: பாராளுமன்றத்துக்கு எழுத்துப்பூர்வ அறிவிப்புகள்
     updated: புதுப்பிக்கப்பட்டது
-  document_filters:
-    world_locations:
-      all: அனைத்து இருப்பிடங்கள்
-      no_locations_filter: எந்த உலக இருப்பிடங்களும் தேடலுடன் பொருந்தவில்லை.
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ ta:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: நாடு அல்லது பிரதேசம் வாரியாகத் தேடு
     type:
       international_delegation:
         one: சர்வதேச தூதுக்குழு

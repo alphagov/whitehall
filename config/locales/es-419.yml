@@ -375,10 +375,6 @@ es-419:
         one: Declaración escrita ante el Parlamento
         other: Declaraciones escritas ante el Parlamento
     updated: actualizado
-  document_filters:
-    world_locations:
-      all: Todas las ubicaciones
-      no_locations_filter: Ninguna ubicación del mundo coincide con ese filtro.
   i18n:
     direction: ltr
   language_names:
@@ -471,13 +467,6 @@ es-419:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Búsqueda por país o territorio
     type:
       international_delegation:
         one: Delegación internacional

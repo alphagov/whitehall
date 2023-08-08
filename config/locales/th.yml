@@ -294,10 +294,6 @@ th:
       written_statement:
         other: แถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภา
     updated: อัปเดตแล้ว
-  document_filters:
-    world_locations:
-      all: สถานที่ตั้งทุกแห่ง
-      no_locations_filter: ไม่มีสถานที่ในโลกใดๆ ที่ตรงกับตัวกรอง
   i18n:
     direction: ltr
   language_names:
@@ -390,13 +386,6 @@ th:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: ค้นหาด้วยประเทศหรือดินแดน
     type:
       international_delegation:
         other: คณะผู้แทนระหว่างประเทศ

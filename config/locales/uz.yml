@@ -374,10 +374,6 @@ uz:
         one: Парламентга ёзма баёнот
         other: Парламентга ёзма баёнотлар
     updated: янгиланди
-  document_filters:
-    world_locations:
-      all: Барча жойлашиш жойлари
-      no_locations_filter: Дунёдаги жойлашиш жойларининг ҳеч бири ушбу фильтр учун мос келмади.
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ uz:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Мамлакат ёки минтақа бўйича излаш
     type:
       international_delegation:
         one: Халқаро делегация

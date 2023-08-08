@@ -372,10 +372,6 @@ yi:
         one:
         other:
     updated:
-  document_filters:
-    world_locations:
-      all:
-      no_locations_filter:
   i18n:
     direction: rtl
   language_names:
@@ -468,13 +464,6 @@ yi:
     formats:
       long_ordinal:
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search:
     type:
       international_delegation:
         one:

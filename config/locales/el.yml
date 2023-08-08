@@ -374,10 +374,6 @@ el:
         one: Γραπτή δήλωση στη Βουλή
         other: Γραπτές δηλώσεις στη Βουλή
     updated: ενημερωμένο
-  document_filters:
-    world_locations:
-      all: Όλες οι τοποθεσίες
-      no_locations_filter: Καμία τοποθεσία στον κόσμο δεν ταιριάζει με αυτό το φίλτρο.
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ el:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Αναζήτηση ανά χώρα ή περιοχή
     type:
       international_delegation:
         one: Διεθνής αντιπροσωπεία

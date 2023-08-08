@@ -455,10 +455,6 @@ sk:
         one: Písomné vyhlásenie pre Parlament
         other: Písomné vyhlásenia pre Parlament
     updated: aktualizované
-  document_filters:
-    world_locations:
-      all: Všetky lokality
-      no_locations_filter: Tomuto filtru nezodpovedajú žiadne svetové lokality.
   i18n:
     direction: ltr
   language_names:
@@ -551,13 +547,6 @@ sk:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Vyhľadávanie podľa krajiny alebo územia
     type:
       international_delegation:
         few:

@@ -374,10 +374,6 @@ bn:
         one: সংসদে লিখিত বিবৃতি
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: হালনাগাদ করা হয়েছে
-  document_filters:
-    world_locations:
-      all: সকল স্থান
-      no_locations_filter: ঐ ফিল্টারের সাথে বিশ্বের কোনো অবস্থান মিলছে না।
   i18n:
     direction: ltr
   language_names:
@@ -470,13 +466,6 @@ bn:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: দেশ বা অঞ্চল হিসেবে অনুসন্ধান করুন
     type:
       international_delegation:
         one: আন্তর্জাতিক প্রতিনিধি

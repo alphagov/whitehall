@@ -295,10 +295,6 @@ ms:
       written_statement:
         other: Kenyataan bertulis kepada Parlimen
     updated: dikemas kini
-  document_filters:
-    world_locations:
-      all: Semua lokasi
-      no_locations_filter: Tidak ada lokasi dunia yang sepadan dengan penapis itu.
   i18n:
     direction: ltr
   language_names:
@@ -391,13 +387,6 @@ ms:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Cari mengikut negara atau wilayah
     type:
       international_delegation:
         other: Perwakilan antarabangsa

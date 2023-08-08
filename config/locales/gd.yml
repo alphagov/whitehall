@@ -534,10 +534,6 @@ gd:
         other: Ráitis i scríbhinn don Pharlaimint
         two:
     updated: arna chur suas
-  document_filters:
-    world_locations:
-      all: Gach láthair
-      no_locations_filter: Níl aon áit ar domhan comhoiriúnach leis an scagaire seo.
   i18n:
     direction: ltr
   language_names:
@@ -630,13 +626,6 @@ gd:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Cuardaigh de réir tíre nó réigiúin
     type:
       international_delegation:
         few:

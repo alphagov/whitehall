@@ -294,10 +294,6 @@ zh-hk:
       written_statement:
         other: 提交國會的書面聲明
     updated: 已更新
-  document_filters:
-    world_locations:
-      all: 所有駐點
-      no_locations_filter: 無世界範圍內之地點滿足此一篩選。
   i18n:
     direction: ltr
   language_names:
@@ -390,13 +386,6 @@ zh-hk:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: 按國家或地區搜尋
     type:
       international_delegation:
         other: 國際代表

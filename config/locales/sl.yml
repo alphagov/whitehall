@@ -535,10 +535,6 @@ sl:
         other: Pisne izjave za parlament
         two:
     updated: posodobljeno
-  document_filters:
-    world_locations:
-      all: Vse lokacije
-      no_locations_filter: Nobena lokacija na svetu se ne ujema s tem filtrom.
   i18n:
     direction: ltr
   language_names:
@@ -631,13 +627,6 @@ sl:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
-    content:
-      complete_list:
-      find_out:
-      heading:
-      list_link:
-    headings:
-      search: Išči po državah ali ozemljih
     type:
       international_delegation:
         few:
