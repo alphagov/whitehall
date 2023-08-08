@@ -1,7 +1,7 @@
 class Admin::OrganisationPeopleController < Admin::BaseController
   before_action :load_organisation
   before_action :enforce_permissions!, only: %i[reorder order]
-  layout :get_layout
+  layout "design_system"
 
   def index
     @render_reorder = can?(:edit, @organisation)
@@ -11,7 +11,6 @@ class Admin::OrganisationPeopleController < Admin::BaseController
     @military_organisation_roles = organisation_roles(:military)
     @special_representative_organisation_roles = organisation_roles(:special_representative)
     @chief_professional_officer_roles = organisation_roles(:chief_professional_officer)
-    render_design_system(:index, :legacy_index)
   end
 
   def reorder
@@ -27,19 +26,11 @@ class Admin::OrganisationPeopleController < Admin::BaseController
     redirect_to admin_organisation_people_path(@organisation), notice: "#{params[:type].capitalize.gsub('_', ' ')} roles re-ordered"
   end
 
-private
+  private
 
   def organisation_roles(type)
     @organisation.organisation_roles.joins(:role)
                  .merge(Role.send(type)).order(:ordering)
-  end
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
   end
 
   def enforce_permissions!

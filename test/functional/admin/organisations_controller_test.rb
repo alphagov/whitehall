@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::OrganisationsControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
   end
 
   should_be_an_admin_controller
@@ -21,19 +21,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "GET on :new denied if not a gds admin" do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     get :new
     assert_response :forbidden
   end
 
   test "POST on :create denied if not a gds admin" do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     post :create, params: { organisation: {} }
     assert_response :forbidden
   end
 
   view_test "Link to create organisation does not show if not a gds admin" do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     get :index
     refute_select ".govuk-button", text: "Create new organisation"
   end

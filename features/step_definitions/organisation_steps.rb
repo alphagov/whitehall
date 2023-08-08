@@ -256,15 +256,10 @@ When(/^I visit the "([^"]*)" "([^"]*)" page$/) do |organisation_name, page|
 
   visit admin_organisation_path(organisation)
 
-  if using_design_system?
-    within ".app-c-secondary-navigation__list" do
-      click_link page
-    end
-  else
-    within ".dropdown-menu" do
-      click_link page
-    end
+  within ".app-c-secondary-navigation__list" do
+    click_link page
   end
+
 end
 
 Then(/^I can filter instantaneously the list of documents by title, author, organisation, and document type$/) do
@@ -328,22 +323,15 @@ end
 And(/^I set the order of roles for "([^"]*)" to:$/) do |organisation_name, role_order|
   organisation = Organisation.find_by!(name: organisation_name)
 
-  if using_design_system?
-    click_link "Reorder"
+  click_link "Reorder"
 
-    role_order.hashes.each do |hash|
-      organisation_role = organisation.organisation_roles.select { |f| f.role.name == hash[:name] }.first
-      fill_in "ordering[#{organisation_role.id}]", with: hash[:order]
-    end
-
-    click_button "Update order"
-  else
-    role_order.hashes.each_with_index do |hash, index|
-      fill_in "organisation[organisation_roles_attributes][#{index}][ordering]", with: hash[:order]
-    end
-
-    click_on "Save"
+  role_order.hashes.each do |hash|
+    organisation_role = organisation.organisation_roles.select { |f| f.role.name == hash[:name] }.first
+    fill_in "ordering[#{organisation_role.id}]", with: hash[:order]
   end
+
+  click_button "Update order"
+
 end
 
 Then(/^the roles should be in the following order:$/) do |roles|
