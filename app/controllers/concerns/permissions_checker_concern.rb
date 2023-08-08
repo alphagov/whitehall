@@ -1,4 +1,4 @@
-module PermissionsChecker
+module PermissionsCheckerConcern
   extend ActiveSupport::Concern
 
   def can?(action, subject)
