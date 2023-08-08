@@ -707,10 +707,6 @@ EXISTS (
     force_published? && state == "scheduled"
   end
 
-  def publishing_api_presenter
-    PublishingApi::GenericEditionPresenter
-  end
-
 private
 
   def date_for_government
