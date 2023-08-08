@@ -729,10 +729,6 @@ EXISTS (
     force_published? && state == "scheduled"
   end
 
-  def publishing_api_presenter
-    PublishingApi::GenericEditionPresenter
-  end
-
   def can_have_custom_lead_image?
     is_a?(Edition::CustomLeadImage)
   end
