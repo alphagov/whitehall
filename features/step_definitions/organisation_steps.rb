@@ -51,7 +51,7 @@ When(/^I add a translation for an organisation called "([^"]*)"$/) do |organisat
   click_link "Translations"
 
   select "Cymraeg (Welsh)", from: "Locale"
-  click_button using_design_system? ? "Create new translation" : "Create translation"
+  click_button "Create new translation"
 
   fill_in "Name", with: "Organisation Name in another language"
   fill_in "Acronym", with: "ABC"
