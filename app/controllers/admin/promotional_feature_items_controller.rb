@@ -12,6 +12,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
 
   def create
     @promotional_feature_item = @promotional_feature.promotional_feature_items.build(promotional_feature_item_params)
+    @promotional_feature_item.use_non_legacy_endpoints = use_non_legacy_endpoints?
     if @promotional_feature_item.save
       Whitehall::PublishingApi.republish_async(@organisation)
       redirect_to_feature "Feature item added."

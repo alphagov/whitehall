@@ -1,6 +1,12 @@
 class PromotionalFeatureItem < ApplicationRecord
   VALID_YOUTUBE_URL_FORMAT = /\A(?:(?:https:\/\/youtu\.be\/)(.+)|(?:https:\/\/www.youtube\.com\/watch\?v=)(.*?)(?:&|#|$).*)\Z/
 
+  attr_accessor :use_non_legacy_endpoints
+
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
+
   belongs_to :promotional_feature, inverse_of: :promotional_feature_items
   has_one :organisation, through: :promotional_feature
   has_many :links, class_name: "PromotionalFeatureLink", dependent: :destroy, inverse_of: :promotional_feature_item
