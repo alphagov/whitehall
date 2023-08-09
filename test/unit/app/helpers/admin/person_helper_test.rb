@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PersonHelperTest < ActionView::TestCase
+class Admin::PersonHelperTest < ActionView::TestCase
   include ApplicationHelper
 
   test "it disambiguates names with trailing spaces" do

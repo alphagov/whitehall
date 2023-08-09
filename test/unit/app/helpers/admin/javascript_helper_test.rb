@@ -1,7 +1,7 @@
 require "test_helper"
 
-class JavascriptHelperTest < ActionView::TestCase
-  include JavascriptHelper
+class Admin::JavascriptHelperTest < ActionView::TestCase
+  include Admin::JavascriptHelper
 
   test "initialise_script should render a script initialisation to :javascript_initialisers" do
     stubs(:content_for).with do |yield_block, script|

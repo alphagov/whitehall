@@ -12,7 +12,7 @@ SimpleCov.merge_timeout 3600
 require "cucumber/rails"
 
 World DocumentHelper
-World PersonHelper
+World Admin::PersonHelper
 
 # frozen_string_literal: true
 
