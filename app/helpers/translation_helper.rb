@@ -28,10 +28,6 @@ module TranslationHelper
     end
   end
 
-  def t_locale(key, options = {})
-    t_fallback(key, options).presence
-  end
-
   def t_fallback(key, options = {})
     translation = I18n.t(key, **options, locale: I18n.locale, fallback: false, default: "fallback")
 
