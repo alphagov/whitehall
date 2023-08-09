@@ -1,12 +1,10 @@
 class Admin::OffsiteLinksController < Admin::BaseController
   before_action :load_parent
   before_action :load_offsite_link, except: %i[new create]
-  layout :get_layout
+  layout "design_system"
 
   def new
     @offsite_link = OffsiteLink.new
-
-    render_design_system(:new, :legacy_new)
   end
 
   def create
@@ -16,19 +14,17 @@ class Admin::OffsiteLinksController < Admin::BaseController
       flash[:notice] = "An offsite link has been created for #{@parent.name}"
       redirect_to offsite_links_path
     else
-      render_design_system(:new, :legacy_new)
+      render :new
     end
   end
 
-  def edit
-    render_design_system(:edit, :legacy_edit)
-  end
+  def edit; end
 
   def update
     if @offsite_link.update(offsite_link_params)
       redirect_to offsite_link_path(@offsite_link)
     else
-      render_design_system(:edit, :legacy_edit)
+      render :edit
     end
   end
 
@@ -40,15 +36,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
     redirect_to offsite_links_path
   end
 
-private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
+  private
 
   def load_parent
     @parent = WorldLocation.friendly.find(params[:world_location_news_id]).world_location_news if params[:world_location_news_id]
