@@ -1,8 +1,0 @@
-<% if links %>
-  <ul class="govuk-list featured-links" <%= lang if local_assigns[:lang] %> >
-    <% links.each do |link| %>
-      <% rel = is_external?(link.url) ? "external" : "internal" %>
-      <li><%= link_to link.title, link.url, rel: "#{rel}", class: "govuk-link" %></li>
-    <% end %>
-  </ul>
-<% end %>
