@@ -231,22 +231,16 @@ module PublishingApi::NewsArticlePresenterTest
   class NewsArticleWithImage < TestCase
     setup do
       self.news_article = create(:published_news_article)
+      news_article.stubs(
+        has_lead_image?: true,
+        lead_image_url: "/foo",
+        high_resolution_lead_image_url: "/foo-large",
+        lead_image_alt_text: "Bar",
+        lead_image_caption: "Baz",
+      )
     end
 
     test "image" do
-      ::NewsArticlePresenter
-        .expects(:new)
-        .with(news_article)
-        .returns(
-          stub(
-            has_lead_image?: true,
-            lead_image_url: "/foo",
-            high_resolution_lead_image_url: "/foo-large",
-            lead_image_alt_text: "Bar",
-            lead_image_caption: "Baz",
-          ),
-        )
-
       expected_image_caption = "Baz"
       expected_image_alt_text = "Bar"
 

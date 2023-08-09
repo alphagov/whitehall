@@ -74,9 +74,9 @@ module PublishingApi
 
     def image_details
       {
-        url: presented_case_study.lead_image_url,
-        alt_text: presented_case_study.lead_image_alt_text,
-        caption: presented_case_study.lead_image_caption,
+        url: item.lead_image_url,
+        alt_text: item.lead_image_alt_text,
+        caption: item.lead_image_caption,
       }
     end
 
@@ -90,10 +90,6 @@ module PublishingApi
 
     def emphasised_organisation_default_image_available?
       item.lead_organisations.first.default_news_image.present?
-    end
-
-    def presented_case_study
-      ::CaseStudyPresenter.new(item)
     end
   end
 end

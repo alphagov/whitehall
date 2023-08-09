@@ -118,7 +118,7 @@ module PublishingApi
       end
 
       def initialize(news_article)
-        self.news_article = ::NewsArticlePresenter.new(news_article)
+        self.news_article = news_article
       end
 
       def call

@@ -2,7 +2,7 @@ class Speech < Announcement
   include Edition::Appointment
   include Edition::HasDocumentCollections
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
-  include LeadImagePresenterHelper
+  include Edition::LeadImage
 
   validates :speech_type_id, presence: true
   validates :delivered_on, presence: true, unless: ->(speech) { speech.can_have_some_invalid_data? }

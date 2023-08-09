@@ -7,6 +7,7 @@ class CaseStudy < Edition
   include Edition::TaggableOrganisations
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
+  include Edition::LeadImage
 
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND

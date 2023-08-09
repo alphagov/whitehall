@@ -1,4 +1,6 @@
-module LeadImagePresenterHelper
+module Edition::LeadImage
+  extend ActiveSupport::Concern
+
   def has_lead_image?
     !image_data.nil?
   end
