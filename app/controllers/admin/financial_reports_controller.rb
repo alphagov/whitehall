@@ -1,19 +1,14 @@
 class Admin::FinancialReportsController < Admin::BaseController
   before_action :load_organisation
   before_action :load_financial_report, only: %i[edit update destroy]
-  layout :get_layout
+  layout "design_system"
 
-  def index
-    render_design_system(:index, :legacy_index)
-  end
+  def index; end
 
-  def edit
-    render_design_system(:edit, :legacy_edit)
-  end
+  def edit; end
 
   def new
     @financial_report = @organisation.financial_reports.build(year: Time.zone.now.year)
-    render_design_system(:new, :legacy_new)
   end
 
   def create
@@ -21,7 +16,7 @@ class Admin::FinancialReportsController < Admin::BaseController
     if @financial_report.save
       redirect_to [:admin, @organisation, FinancialReport], notice: "Created Financial Report"
     else
-      render_design_system(:new, :legacy_new)
+      render :new
     end
   end
 
@@ -29,7 +24,7 @@ class Admin::FinancialReportsController < Admin::BaseController
     if @financial_report.update(financial_report_params)
       redirect_to [:admin, @organisation, FinancialReport], notice: "Updated Financial Report"
     else
-      render_design_system(:edit, :legacy_edit)
+      render :edit
     end
   end
 
@@ -42,15 +37,7 @@ class Admin::FinancialReportsController < Admin::BaseController
     @financial_report = @organisation.financial_reports.find(params[:id])
   end
 
-private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
+  private
 
   def load_financial_report
     @financial_report = @organisation.financial_reports.find(params[:id])
