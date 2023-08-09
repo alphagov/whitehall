@@ -1,9 +1,0 @@
-@media print {
-  // Targeting (right to left) rtl languages
-  main[lang="ar"], // Arabic
-  main[lang="he"], // Hebrew
-  main[lang="ur"] { // Urdu
-    direction: rtl;
-    text-align: start;
-  }
-}
