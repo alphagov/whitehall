@@ -88,20 +88,12 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the organisation "(.*?)
   organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
 
-  if using_design_system?
     click_link "Create new link"
 
     fill_in "Title (required)", with: title
     select type, from: "offsite_link_link_type"
     fill_in "Summary (required)", with: "Summary"
     fill_in "URL (required)", with: "https://www.gov.uk/jobsearch"
-  else
-    click_link "Create a non-GOV.UK government link"
-    fill_in :offsite_link_title, with: title
-    select type, from: "offsite_link_link_type"
-    fill_in :offsite_link_summary, with: "summary"
-    fill_in :offsite_link_url, with: "http://gov.uk"
-  end
 
   click_button "Save"
 end
@@ -124,17 +116,9 @@ Then(/^there should not be an organisation called "([^"]*)"$/) do |name|
 end
 
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|
-  if using_design_system?
     within "#non_govuk_government_links_tab" do
       expect(find("table td:first").text).to eq title
     end
-  else
-    organisation = Organisation.find_by!(name: organisation_name)
-    offsite_link = OffsiteLink.find_by!(title:)
-    visit admin_organisation_path(organisation)
-    click_link "Features"
-    expect(page).to have_link(title, href: edit_admin_organisation_offsite_link_path(organisation.slug, offsite_link.id))
-  end
 end
 
 def navigate_to_organisation(page_name)
