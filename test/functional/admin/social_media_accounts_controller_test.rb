@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :departmental_editor
+    login_as :departmental_editor
     @social_media_service = create(:social_media_service)
   end
 
