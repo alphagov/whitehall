@@ -25,7 +25,7 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
-         - heading: New call for evidence content type
+          - heading: New call for evidence content type
             area: Creating and updating documents
             type: new
             date: 9 August 2023
