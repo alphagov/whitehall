@@ -7,13 +7,13 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 3 August 2023
+      last_updated: Last updated 9 August 2023
       introduction:
         heading: Our roadmap
         body_govspeak: |
           This quarter we are focussing on:
 
-          - finish our work on the design system
+          - finish our work on the move to the GOV.UK design system
           - explore how to improve the editor journey when creating or editing a draft
           - review how you navigate in Whitehall, as well as add document collections
 
@@ -25,7 +25,12 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
-          - heading: New images 
+          - heading: New call for evidence content type
+            area: Creating and updating documents
+            type: new
+            date: 9 August 2023
+            body_govspeak: |
+              We have released a call for evidence content type in Whitehall. This is similar to consultations, but is now available in the new document menu. Outcomes are optional, but for details [read more in the GOV.UK guidance](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/calls-for-evidence).
             area: Creating and updating documents
             type: new
             date: 3 August 2023
