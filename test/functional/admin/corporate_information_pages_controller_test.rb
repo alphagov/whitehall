@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::CorporateInformationPagesControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     @organisation = create(:organisation)
   end
 
