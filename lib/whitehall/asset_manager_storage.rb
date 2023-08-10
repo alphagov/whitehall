@@ -89,6 +89,16 @@ private
       Organisation.name,
     ]
 
-    allowed_models.include?(uploader.model.class.name) && uploader.model.use_non_legacy_endpoints
+    allowed_models.include?(uploader.model.class.name) && has_permission(uploader.model)
+  end
+
+  def has_permission(model)
+    return true if model.use_non_legacy_endpoints
+
+    if model.instance_of?(::PromotionalFeatureItem)
+      return model.promotional_feature.use_non_legacy_endpoints
+    end
+
+    false
   end
 end

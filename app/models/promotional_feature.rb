@@ -1,4 +1,6 @@
 class PromotionalFeature < ApplicationRecord
+  attr_accessor :use_non_legacy_endpoints
+
   belongs_to :organisation
   has_many :promotional_feature_items, inverse_of: :promotional_feature, dependent: :destroy
 

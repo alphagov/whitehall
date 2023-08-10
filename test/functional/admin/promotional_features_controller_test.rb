@@ -132,4 +132,45 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal promotional_feature, assigns(:promotional_feature)
   end
+
+  test "POST : create calls worker with asset args if use_non_legacy_endpoints is true" do
+    setup_user_with_required_permission
+
+    model_type = PromotionalFeatureItem.to_s
+    variants = Asset.variants.values - [Asset.variants[:thumbnail]]
+
+    AssetManagerCreateAssetWorker
+      .expects(:perform_async)
+      .with(regexp_matches(/minister-of-funk/), has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything)
+      .times(7)
+
+    AssetManagerCreateAssetWorker
+      .expects(:perform_async)
+      .with(regexp_matches(/big-cheese/), has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything)
+      .times(7)
+
+    post :create,
+         params: {
+           organisation_id: @organisation,
+           promotional_feature: {
+             title: "Promotional feature title",
+             promotional_feature_items_attributes: {
+               "0" => {
+                 summary: "Summary text",
+                 image_alt_text: "Alt text",
+                 image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
+               },
+               "1" => {
+                 summary: "Summary text",
+                 image_alt_text: "Alt text",
+                 image: upload_fixture("big-cheese.960x640.jpg", "image/jpg"),
+               },
+             },
+           },
+         }
+  end
+
+  def setup_user_with_required_permission
+    @current_user.permissions << User::Permissions::USE_NON_LEGACY_ENDPOINTS
+  end
 end

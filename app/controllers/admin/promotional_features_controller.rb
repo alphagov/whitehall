@@ -16,6 +16,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def create
     @promotional_feature = @organisation.promotional_features.build(promotional_feature_params)
+    @promotional_feature.use_non_legacy_endpoints = use_non_legacy_endpoints?
 
     if @promotional_feature.save
       Whitehall::PublishingApi.republish_async(@organisation)
