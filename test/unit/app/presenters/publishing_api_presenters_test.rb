@@ -149,7 +149,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     )
   end
 
-  test ".presenter_for returns a GenericEditionPresenter for an " \
+  test ".presenter_for returns a RedirectPresenter for an " \
     "AboutUs CorporateInformationPage belonging to an WorldwideOrganisation" do
     presenter = PublishingApiPresenters
       .presenter_for(
@@ -162,7 +162,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
       )
 
     assert_equal(
-      PublishingApi::GenericEditionPresenter,
+      PublishingApi::RedirectPresenter,
       presenter.class,
     )
   end

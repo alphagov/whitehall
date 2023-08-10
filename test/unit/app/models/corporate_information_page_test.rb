@@ -51,6 +51,17 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal "/government/organisations/#{organisation.name}/about", corporate_information_page.base_path
   end
 
+  test "base_path appends /about to the associated Worldwide Organisation base_path when about page" do
+    worldwide_organisation = create(:worldwide_organisation)
+    corporate_information_page = create(
+      :about_corporate_information_page,
+      organisation: nil,
+      worldwide_organisation:,
+    )
+
+    assert_equal "/world/organisations/#{worldwide_organisation.name}/about", corporate_information_page.base_path
+  end
+
   test "base_path appends Corporate Information Page path to the associated WorldwideOrganisation base_path" do
     worldwide_organisation = create(:worldwide_organisation)
     corporate_information_page = create(
@@ -62,7 +73,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal "/world/organisations/#{worldwide_organisation.name}/about/#{corporate_information_page.slug}", corporate_information_page.base_path
   end
 
-  test "#base_path appends /about/about to WorldwideOrganisation base_path when about page" do
+  test "api_presenter_redirect_to returns the base_path of the owning Worldwide Organisation for about us pages" do
     worldwide_organisation = create(:worldwide_organisation)
     corporate_information_page = create(
       :about_corporate_information_page,
@@ -70,7 +81,17 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       worldwide_organisation:,
     )
 
-    assert_equal "/world/organisations/#{worldwide_organisation.name}/about/about", corporate_information_page.base_path
+    assert_equal "/world/organisations/#{worldwide_organisation.name}", corporate_information_page.api_presenter_redirect_to
+  end
+
+  test "api_presenter_redirect_to returns a #{RuntimeError} when not a Worldwide Organisation about page" do
+    organisation = create(:organisation)
+    corporate_information_page = create(
+      :about_corporate_information_page,
+      organisation:,
+    )
+
+    assert_raises(RuntimeError, "only worldwide about pages should redirect") { corporate_information_page.api_presenter_redirect_to }
   end
 
   test "republishes owning organisation after commit when present" do

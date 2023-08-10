@@ -110,6 +110,12 @@ class CorporateInformationPage < Edition
     organisations
   end
 
+  def api_presenter_redirect_to
+    raise "only worldwide about pages should redirect" unless about_page? && worldwide_organisation.present?
+
+    worldwide_organisation.public_path(locale: I18n.locale)
+  end
+
   def self.for_slug(slug)
     if (type = CorporateInformationPageType.find(slug))
       find_by(corporate_information_page_type_id: type.id)
@@ -174,18 +180,20 @@ class CorporateInformationPage < Edition
   def base_path
     return if owning_organisation.blank?
 
-    url = owning_organisation.base_path + "/about/#{slug}"
-    url.gsub!("/about/about", "/about") if organisation.present?
-    url
+    if about_page?
+      "#{owning_organisation.base_path}/about"
+    else
+      "#{owning_organisation.base_path}/about/#{slug}"
+    end
   end
 
   def publishing_api_presenter
-    if worldwide_organisation.present? && !about_page?
+    if worldwide_organisation.present? && about_page?
+      PublishingApi::RedirectPresenter
+    elsif worldwide_organisation.present?
       PublishingApi::WorldwideCorporateInformationPagePresenter
-    elsif organisation.present?
-      PublishingApi::CorporateInformationPagePresenter
     else
-      PublishingApi::GenericEditionPresenter
+      PublishingApi::CorporateInformationPagePresenter
     end
   end
 
