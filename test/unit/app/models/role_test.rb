@@ -255,4 +255,15 @@ class RoleTest < ActiveSupport::TestCase
     role.update!(organisations: [organisation])
     role.update!(organisations: [])
   end
+
+  test "republishes a worldwide organisation when a role is updated" do
+    worldwide_organisation = create(:worldwide_organisation)
+    role = create(:role_without_organisations)
+    create(:worldwide_organisation_role, role:, worldwide_organisation:)
+    role.reload
+
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation)
+
+    role.update!(name: "New role name")
+  end
 end
