@@ -42,8 +42,8 @@
       margin-right: .2em;
       margin-left: -.2em;
     }
-    @import "../frontend/helpers/govspeak";
-    @import "../frontend/helpers/attachment";
+    @import "helpers/govspeak";
+    @import "helpers/attachment";
   }
 
   pre.body {

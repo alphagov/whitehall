@@ -11,10 +11,10 @@
 
 // Frontend styleguide is used for rendering govspeak and some other things
 // it probably shouldn't be used for (e.g. $gutter).
-@import "frontend/styleguide/dimensions";
-@import "frontend/styleguide/typography";
-@import "frontend/styleguide/colours";
-@import "frontend/styleguide/right-to-left";
+@import "styleguide/dimensions";
+@import "styleguide/typography";
+@import "styleguide/colours";
+@import "styleguide/right-to-left";
 
 @import "govuk_admin_template/emulate/forms";
 
