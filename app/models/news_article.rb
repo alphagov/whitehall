@@ -42,7 +42,7 @@ class NewsArticle < Announcement
   def search_index
     super.merge(
       "news_article_type" => news_article_type.slug,
-      "image_url" => image_url,
+      "image_url" => lead_image_url,
     )
   end
 
@@ -93,10 +93,6 @@ class NewsArticle < Announcement
   end
 
 private
-
-  def image_url
-    PublishingApi::NewsArticlePresenter::Image.for(self).dig(:image, :url)
-  end
 
   def organisations_are_not_associated
     if edition_organisations.present? && !all_edition_organisations_marked_for_destruction?
