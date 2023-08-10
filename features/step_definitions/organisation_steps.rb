@@ -157,14 +157,9 @@ end
 
 When(/^I edit the contact to have address "([^"]*)"$/) do |address|
   click_link "Contacts"
-  if using_design_system?
-    within ".govuk-summary-card__actions" do
-      click_link "Edit"
-    end
-  else
-    within ".contact" do
-      click_link "Edit"
-    end
+
+  within ".govuk-summary-card__actions" do
+    click_link "Edit"
   end
 
   fill_in "Street address", with: address
@@ -172,16 +167,9 @@ When(/^I edit the contact to have address "([^"]*)"$/) do |address|
 end
 
 Then(/^I should see the "([^"]*)" contact in the admin interface with address "([^"]*)"$/) do |contact_description, address|
-  if using_design_system?
-    within ".govuk-summary-card" do
-      expect(page).to have_selector("h2", text: contact_description)
-      expect(page).to have_selector(".govuk-summary-list__value", text: address)
-    end
-  else
-    within ".contact" do
-      expect(page).to have_selector("h3", text: contact_description)
-      expect(page).to have_selector(".vcard", text: address)
-    end
+  within ".govuk-summary-card" do
+    expect(page).to have_selector("h2", text: contact_description)
+    expect(page).to have_selector(".govuk-summary-list__value", text: address)
   end
 end
 
@@ -287,17 +275,8 @@ And(/^I set the order of roles for "([^"]*)" to:$/) do |organisation_name, role_
 end
 
 Then(/^the roles should be in the following order:$/) do |roles|
-  if using_design_system?
-    role_names = all(".gem-c-summary__block h2").map(&:text)
+  role_names = all(".gem-c-summary__block h2").map(&:text)
 
-  else
-    within ".dropdown-menu" do
-      click_link "People"
-    end
-
-    role_names = all(".sortable a").map(&:text)
-
-  end
   roles.hashes.each_with_index do |hash, index|
     expect(hash[:name]).to eq(role_names[index])
   end
