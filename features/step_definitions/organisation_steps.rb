@@ -276,11 +276,7 @@ Then(/^I can see that the organisation "(.*?)" has been superseded with the orga
   organisation = Organisation.find_by!(name: org_name)
   visit admin_organisation_path(organisation)
 
-  if using_design_system?
-    expect(page).to have_xpath("//dt[.='Superseding organisation']/following-sibling::dd[.='#{superseding_org_name}']")
-  else
-    expect(page).to have_xpath("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
-  end
+  expect(page).to have_xpath("//dt[.='Superseding organisation']/following-sibling::dd[.='#{superseding_org_name}']")
 end
 
 And(/^I set the order of roles for "([^"]*)" to:$/) do |organisation_name, role_order|
