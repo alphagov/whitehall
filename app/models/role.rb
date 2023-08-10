@@ -51,7 +51,7 @@ class Role < ApplicationRecord
 
   before_destroy :prevent_destruction_unless_destroyable
   after_update :touch_role_appointments
-  after_save :republish_organisations_to_publishing_api
+  after_save :republish_organisations_to_publishing_api, :republish_worldwide_organisations_to_publishing_api
 
   extend FriendlyId
   friendly_id
@@ -62,6 +62,12 @@ class Role < ApplicationRecord
   def republish_organisations_to_publishing_api
     organisations.each do |organisation|
       republish_organisation_to_publishing_api(organisation)
+    end
+  end
+
+  def republish_worldwide_organisations_to_publishing_api
+    worldwide_organisations.each do |worldwide_organisation|
+      republish_organisation_to_publishing_api(worldwide_organisation)
     end
   end
 
