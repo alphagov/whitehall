@@ -370,8 +370,6 @@ Whitehall::Application.routes.draw do
         post "/link-checker-api-callback" => "link_checker_api#callback"
       end
     end
-
-    get "/policy-topics" => redirect("/topics")
   end
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }

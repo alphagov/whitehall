@@ -5,11 +5,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
   include GdsApi::TestHelpers::ContentStore
   include TaxonomyHelper
 
-  test "visiting #{Whitehall.router_prefix}/policy-topics redirects to #{Whitehall.router_prefix}/topics" do
-    get "#{Whitehall.router_prefix}/policy-topics"
-    assert_redirected_to "#{Whitehall.router_prefix}/topics"
-  end
-
   test "visiting #{Whitehall.router_prefix} when not in frontend redirects to /" do
     get Whitehall.router_prefix
     assert_redirected_to "/"
