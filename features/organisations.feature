@@ -33,11 +33,6 @@ Feature: Administering Organisations
     And I feature "Super topical"
     Then I see that "Super topical" has been featured
 
-  @javascript @bootstrap-only
-  Scenario: Filtering items to feature on an organisation page
-    Given an organisation and some documents exist
-    When I go to the organisation feature page
-    Then I can filter instantaneously the list of documents by title, author, organisation, and document type
 
   Scenario: Requesting publications in alternative format
     And I set the alternative format contact email of "Ministry of Pop" to "alternative.format@ministry-of-pop.gov.uk"

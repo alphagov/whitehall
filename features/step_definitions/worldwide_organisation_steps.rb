@@ -70,7 +70,7 @@ When(/^I add an "([^"]*)" office for the home page with address, phone number, a
 
   visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Add"
-  fill_in_contact_details(title: description, feature_on_home_page: "yes")
+  legacy_fill_in_contact_details(title: description, feature_on_home_page: "yes")
   select WorldwideOfficeType.all.sample.name, from: "Office type"
 
   check service1.name

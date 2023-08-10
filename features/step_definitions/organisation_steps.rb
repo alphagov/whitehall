@@ -81,12 +81,12 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the organisation "(.*?)
   organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
 
-    click_link "Create new link"
+  click_link "Create new link"
 
-    fill_in "Title (required)", with: title
-    select type, from: "offsite_link_link_type"
-    fill_in "Summary (required)", with: "Summary"
-    fill_in "URL (required)", with: "https://www.gov.uk/jobsearch"
+  fill_in "Title (required)", with: title
+  select type, from: "offsite_link_link_type"
+  fill_in "Summary (required)", with: "Summary"
+  fill_in "URL (required)", with: "https://www.gov.uk/jobsearch"
 
   click_button "Save"
 end
@@ -103,10 +103,10 @@ Then(/^there should not be an organisation called "([^"]*)"$/) do |name|
   expect(Organisation.find_by(name:)).to_not be_present
 end
 
-Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|
-    within "#non_govuk_government_links_tab" do
-      expect(find("table td:first").text).to eq title
-    end
+Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, _organisation_name|
+  within "#non_govuk_government_links_tab" do
+    expect(find("table td:first").text).to eq title
+  end
 end
 
 def navigate_to_organisation(page_name)
@@ -173,18 +173,6 @@ Then(/^I should see the "([^"]*)" contact in the admin interface with address "(
   end
 end
 
-Given(/^an organisation and some documents exist$/) do
-  @organisation = create(:ministerial_department)
-  @organisation2 = create(:ministerial_department)
-  @author1 = create(:departmental_editor)
-  @author2 = create(:departmental_editor)
-  @documents = [
-    create(:published_news_article, title: "DOC1", organisations: [@organisation], creator: @author1),
-    create(:published_news_article, title: "DOC2", organisations: [@organisation2], creator: @author1),
-    create(:published_consultation, title: "DOC3", organisations: [@organisation2], creator: @author2),
-  ]
-end
-
 And(/^the following roles exist within the "([^"]*)":$/) do |organisation_name, roles|
   organisation = Organisation.find_by!(name: organisation_name)
 
@@ -194,11 +182,6 @@ And(/^the following roles exist within the "([^"]*)":$/) do |organisation_name, 
   end
 end
 
-When(/^I go to the organisation feature page$/) do
-  visit admin_organisation_path(@organisation)
-  click_link "Features"
-end
-
 When(/^I visit the "([^"]*)" "([^"]*)" page$/) do |organisation_name, page|
   organisation = Organisation.find_by!(name: organisation_name)
 
@@ -206,41 +189,6 @@ When(/^I visit the "([^"]*)" "([^"]*)" page$/) do |organisation_name, page|
 
   within ".app-c-secondary-navigation__list" do
     click_link page
-  end
-
-end
-
-Then(/^I can filter instantaneously the list of documents by title, author, organisation, and document type$/) do
-  fill_in "title", with: @documents.first.title
-  click_on "enter"
-  within "#search_results" do
-    expect(page).to have_selector(record_css_selector(@documents[0]))
-    expect(page).to_not have_selector(record_css_selector(@documents[1]))
-    expect(page).to_not have_selector(record_css_selector(@documents[2]))
-  end
-  click_link "Reset all fields"
-  within "#search_results" do
-    expect(page).to have_selector(record_css_selector(@documents[0]))
-    expect(page).to_not have_selector(record_css_selector(@documents[1]))
-    expect(page).to_not have_selector(record_css_selector(@documents[2]))
-  end
-  select @organisation2.name, from: "organisation"
-  within "#search_results" do
-    expect(page).to_not have_selector(record_css_selector(@documents[0]))
-    expect(page).to have_selector(record_css_selector(@documents[1]))
-    expect(page).to have_selector(record_css_selector(@documents[2]))
-  end
-  select @author2.name, from: "author"
-  within "#search_results" do
-    expect(page).to_not have_selector(record_css_selector(@documents[0]))
-    expect(page).to_not have_selector(record_css_selector(@documents[1]))
-    expect(page).to have_selector(record_css_selector(@documents[2]))
-  end
-  select "News articles", from: "type"
-  within "#search_results" do
-    expect(page).to_not have_selector(record_css_selector(@documents[0]))
-    expect(page).to_not have_selector(record_css_selector(@documents[1]))
-    expect(page).to_not have_selector(record_css_selector(@documents[2]))
   end
 end
 
@@ -271,7 +219,6 @@ And(/^I set the order of roles for "([^"]*)" to:$/) do |organisation_name, role_
   end
 
   click_button "Update order"
-
 end
 
 Then(/^the roles should be in the following order:$/) do |roles|

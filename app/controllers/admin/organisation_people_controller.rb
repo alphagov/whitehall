@@ -26,7 +26,7 @@ class Admin::OrganisationPeopleController < Admin::BaseController
     redirect_to admin_organisation_people_path(@organisation), notice: "#{params[:type].capitalize.gsub('_', ' ')} roles re-ordered"
   end
 
-  private
+private
 
   def organisation_roles(type)
     @organisation.organisation_roles.joins(:role)

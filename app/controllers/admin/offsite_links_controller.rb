@@ -36,7 +36,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
     redirect_to offsite_links_path
   end
 
-  private
+private
 
   def load_parent
     @parent = WorldLocation.friendly.find(params[:world_location_news_id]).world_location_news if params[:world_location_news_id]

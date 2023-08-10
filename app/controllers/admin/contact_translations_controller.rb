@@ -4,7 +4,7 @@ class Admin::ContactTranslationsController < Admin::BaseController
 
   def index; end
 
-  def edit ; end
+  def edit; end
 
 private
 
