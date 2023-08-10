@@ -7,11 +7,6 @@ Whitehall::Application.routes.draw do
     super(options[:prefix] + path)
   end
 
-  def external_redirect(path_prefix, target)
-    get path_prefix => redirect(target, prefix: "")
-    get "#{path_prefix}/*anything" => redirect(target, prefix: "")
-  end
-
   root to: redirect("/admin/")
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
