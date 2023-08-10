@@ -515,4 +515,36 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     create(:role_appointment, person: create(:person), role:)
   end
+
+  test "republishes a worldwide organisation when a role appointment is created" do
+    worldwide_organisation = create(:worldwide_organisation)
+    role = create(:role_without_organisations)
+    create(:worldwide_organisation_role, role:, worldwide_organisation:)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation)
+
+    create(:role_appointment, role:)
+  end
+
+  test "republishes a worldwide organisation when a role appointment is updated" do
+    worldwide_organisation = create(:worldwide_organisation)
+    role = create(:role_without_organisations)
+    create(:worldwide_organisation_role, role:, worldwide_organisation:)
+    role_appointment = create(:role_appointment, role:)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation)
+
+    role_appointment.update!(ended_at: Time.zone.now)
+  end
+
+  test "republishes a worldwide organisation when a role appointment is destroyed" do
+    worldwide_organisation = create(:worldwide_organisation)
+    role = create(:role_without_organisations)
+    create(:worldwide_organisation_role, role:, worldwide_organisation:)
+    role_appointment = create(:role_appointment, role:)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation)
+
+    role_appointment.destroy!
+  end
 end
