@@ -137,7 +137,8 @@
           {
             label: service.name,
             value: service.id,
-            checked: office_form.object.services.include?(service)
+            checked: office_form.object.services.include?(service),
+            id: "worldwide_office_service_ids_#{service.id}"
           }
         end
       } %>

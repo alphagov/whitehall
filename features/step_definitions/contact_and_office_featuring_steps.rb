@@ -32,7 +32,7 @@ When(/^I decide that one of the offices no longer belongs on the home page$/) do
 
   if using_design_system?
     click_link "Edit #{@the_removed_office.title}"
-    choose "no"
+    choose "No"
     click_on "Save"
   else
     @the_ordered_offices.delete(@the_removed_office)
