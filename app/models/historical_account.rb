@@ -46,41 +46,6 @@ class HistoricalAccount < ApplicationRecord
     PresentPageToPublishingApi.new.publish(PublishingApi::HistoricalAccountsIndexPresenter) unless role.slug != "prime-minister"
   end
 
-  def appointment_info_array
-    [
-      {
-        title: "Born",
-        text: born,
-      },
-      {
-        title: "Died",
-        text: died,
-      },
-      {
-        title: "Dates in office",
-        text: previous_dates_in_office,
-      },
-      {
-        title: "Political party",
-        text: political_membership,
-      },
-      {
-        title: "Major acts",
-        text: major_acts,
-      },
-      {
-        title: "Interesting facts",
-        text: interesting_facts,
-      },
-    ]
-  end
-
-  def previous_dates_in_office
-    role.previous_appointments.for_person(person)
-         .map { |r| RoleAppointmentPresenter.new(r, self).date_range }
-         .join(", ")
-  end
-
   def base_path
     "/government/history/past-prime-ministers/#{person.slug}" if previous_prime_minister?
   end
