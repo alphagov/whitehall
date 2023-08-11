@@ -1,8 +1,11 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
   before_action :find_worldwide_office, only: %i[edit update confirm_destroy destroy add_to_home_page remove_from_home_page]
+  layout :get_layout
 
-  def index; end
+  def index
+    render_design_system(:index, :legacy_index)
+  end
 
   def new
     @worldwide_office = @worldwide_organisation.offices.build
@@ -18,7 +21,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     worldwide_office_params[:service_ids] ||= []
     if @worldwide_office.update(worldwide_office_params)
       handle_show_on_home_page_param
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice]
+      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been edited"
     else
       render :edit
     end
@@ -28,7 +31,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     @worldwide_office = @worldwide_organisation.offices.build(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice]
+      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been added"
     else
       render :edit
     end
@@ -60,6 +63,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy]
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

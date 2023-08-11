@@ -1,64 +1,82 @@
-<% page_title @worldwide_organisation.name %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_worldwide_organisations_path
+  } %>
+<% end %>
+<% content_for :page_title, "#{@worldwide_organisation.name} offices" %>
+<% content_for :title, @worldwide_organisation.name %>
+<% content_for :context, "Worldwide organisation" %>
+<% content_for :title_margin_bottom, 4 %>
 
-<%= content_tag_for(:div, @worldwide_organisation) do %>
-  <div class="organisation-header">
-    <h1><%= @worldwide_organisation.name %></h1>
-    <%= view_on_website_link_for @worldwide_organisation %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <p class="govuk-body govuk-!-margin-bottom-4">
+      <%= view_on_website_link_for @worldwide_organisation, class: "govuk-link" %>
+    </p>
+
+    <%= render "components/secondary_navigation", {
+      aria_label: "Worldwide organisation navigation tabs",
+      items: secondary_navigation_tabs_items(@worldwide_organisation, request.path)
+    } %>
   </div>
 
-  <section class="organisation-details">
-    <%= tab_navigation_for(@worldwide_organisation) do %>
-      <h2>Offices</h2>
-      <div class="tabbable">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#manage-all" data-toggle="tab">All</a></li>
-          <li><a href="#on-home-page" data-toggle="tab">Order on home page</a></li>
-        </ul>
-        <div class="tab-content add-top-margin">
-          <div class="tab-pane active" id="manage-all">
-            <% if @worldwide_organisation.offices.any? %>
-              <%= render @worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation %>
-            <% else %>
-              <p class="no-content no-content-bordered">No offices</p>
-            <% end %>
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Offices",
+      font_size: "l",
+      margin_bottom: 6,
+    } %>
 
-            <div class="form-actions">
-              <%= link_to "Add", new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation), class: "btn btn-lg btn-primary"%>
-            </div>
-          </div>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Create new office",
+      href: new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation),
+      margin_bottom: 8,
+    } %>
+  </div>
 
-          <div class="tab-pane" id="on-home-page">
-            <% if @worldwide_organisation.offices.any? %>
-              <h3>Main office</h3>
-              <div class="well">
-                <%= @worldwide_organisation.main_office.title %> <br/>(always shown first)
-              </div>
-
-              <h3>Other offices</h3>
-              <p>Drag up and down to re-order then click "Update office list order" at the bottom of the form</p>
-              <p class="warning">Warning: changes to offices appear instantly on the live site.</p>
-              <%= form_tag [:reorder_for_home_page, :admin, @worldwide_organisation, WorldwideOffice], method: :post do %>
-                <fieldset class="sortable">
-                  <% @worldwide_organisation.home_page_offices.each.with_index do |office, idx| %>
-                    <div class="well">
-                      <%= label_tag "ordering-#{office.id}" do %>
-                        <%= office.title %>
-                      <% end %>
-
-                      <%= text_field_tag "ordering[#{office.id}]", idx, id: "ordering-#{office.id}", class: "ordering" %>
-                    </div>
-                  <% end %>
-                </fieldset>
-                <div class="form-actions">
-                  <%= submit_tag "Update office list order", class: "btn btn-primary" %>
-                </div>
-              <% end %>
-            <% else %>
-              <p>No offices</p>
-            <% end %>
-          </div>
-        </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Offices within this organisation",
+          font_size: "m",
+          margin_bottom: 6,
+        } %>
       </div>
+
+      <% if @worldwide_organisation.home_page_offices.many? %>
+        <div class="govuk-grid-column-one-third">
+          <p class="govuk-body govuk-!-text-align-right">
+            <%= link_to "Reorder", "#", class: "govuk-link" %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-two-thirds">
+    <% if @worldwide_organisation.offices.any? %>
+      <% ordered_worldwide_offices(@worldwide_organisation).each do |worldwide_office| %>
+        <%= render Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(worldwide_office: worldwide_office, worldwide_organisation: @worldwide_organisation, contact: worldwide_office.contact) %>
+      <% end %>
+
+      <% if any_translated_worldwide_offices?(@worldwide_organisation) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Translated",
+          font_size: "m",
+          margin_bottom: 6,
+        } %>
+
+        <% ordered_worldwide_offices(@worldwide_organisation).each do |worldwide_office| %>
+          <% worldwide_office.contact.non_english_localised_models([:contact_numbers]).each do |translated_contact| %>
+            <%= render Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(worldwide_office: worldwide_office, worldwide_organisation: @worldwide_organisation, contact: translated_contact) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "No offices."
+      } %>
     <% end %>
-  </section>
-<% end %>
+  </div>
+</div>

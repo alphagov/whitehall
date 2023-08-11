@@ -46,6 +46,7 @@ Feature: Administering worldwide organisation
     When I create a new worldwide organisation "Department of Beards in France" in "France"
     Then I should see the worldwide location name "France" on the worldwide organisation page
 
+  @design-system-wip
   Scenario: Choosing the main office for a worldwide organisation with multiple offices
     Given a worldwide organisation "Department of Beards in France" with offices "Head office" and "Branch office"
     When I choose "Branch office" to be the main office
@@ -64,6 +65,7 @@ Feature: Administering worldwide organisation
     When I edit the default access information for the worldwide organisation
     Then I should see the updated default access information
 
+  @bootstrap-only
   Scenario: Adding custom access information to a particular worldwide office
     Given a worldwide organisation "Department of Bananas" with default access information
     And the offices "Head office" and "Branch office"
