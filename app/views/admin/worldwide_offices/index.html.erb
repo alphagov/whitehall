@@ -30,8 +30,14 @@
     <%= render "govuk_publishing_components/components/button", {
       text: "Create new office",
       href: new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation),
-      margin_bottom: 8,
+      margin_bottom: 6,
     } %>
+
+    <% if @worldwide_organisation.offices.many? %>
+      <p class="govuk-body govuk-!-margin-bottom-6">
+        <%= link_to "Set main office", choose_main_office_admin_worldwide_organisation_path(@worldwide_organisation), class: "govuk-link" %>
+      </p>
+    <% end %>
   </div>
 
   <div class="govuk-grid-row">
