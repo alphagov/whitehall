@@ -47,7 +47,7 @@
       <% if @worldwide_organisation.home_page_offices.many? %>
         <div class="govuk-grid-column-one-third">
           <p class="govuk-body govuk-!-text-align-right">
-            <%= link_to "Reorder", "#", class: "govuk-link" %>
+            <%= link_to "Reorder", reorder_admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class: "govuk-link" %>
           </p>
         </div>
       <% end %>

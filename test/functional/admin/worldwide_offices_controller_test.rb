@@ -383,6 +383,23 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal office, assigns(:worldwide_office)
   end
 
+  test "GET :reorder calls correctly" do
+    worldwide_organisation = create_worldwide_organisation_with_main_office
+    office1 = create(:worldwide_office, worldwide_organisation:)
+    office2 = create(:worldwide_office, worldwide_organisation:)
+
+    worldwide_organisation.add_office_to_home_page!(office1)
+    worldwide_organisation.add_office_to_home_page!(office2)
+
+    get :reorder, params: {
+      worldwide_organisation_id: worldwide_organisation.id,
+    }
+
+    assert_response :success
+    assert_equal worldwide_organisation, assigns(:worldwide_organisation)
+    assert_equal [office1, office2], assigns(:reorderable_offices)
+  end
+
 private
 
   def create_worldwide_organisation_and_office
