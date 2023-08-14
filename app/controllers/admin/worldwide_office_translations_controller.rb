@@ -2,10 +2,19 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
   include TranslationControllerConcern
   layout :get_layout
 
+  def index; end
+
+  def edit
+    render_design_system(:edit, :legacy_edit)
+  end
+
 private
 
   def get_layout
-    if action_name == "confirm_destroy"
+    design_system_actions = %w[index confirm_destroy]
+    design_system_actions += %w[edit update] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"

@@ -168,7 +168,7 @@ private
 
     {
       label: "Add translation",
-      href: "#",
+      href: admin_worldwide_organisation_worldwide_office_translations_path(worldwide_organisation, worldwide_office, contact.translation_locale),
     }
   end
 

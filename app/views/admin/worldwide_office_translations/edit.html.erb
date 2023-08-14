@@ -1,8 +1,221 @@
-<% page_title "Edit translation for #{@contact.title}" %>
+<% content_for :page_title, "#{@translated_contact.translation.persisted? ? "Edit" : "New"} translation for #{@worldwide_office.title}" %>
+<% content_for :title, "#{@translated_contact.translation.persisted? ? "Edit" : "New"} translation" %>
+<% content_for :context, @worldwide_office.title %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @translated_contact)) %>
 
-<h1>Edit ‘<%= translation_locale.native_language_name %> (<%= translation_locale.english_language_name %>)’ translation for: <%= @contact.title %></h1>
 
-<%= render partial: 'admin/contact_translations/legacy_form',
-           locals: { translated_contact: @translated_contact,
-                     form_path: admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale),
-                     cancel_path: admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation, @worldwide_office) } %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @translated_contact, as: :contact, url: admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, translation_locale), method: :put do |form| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Title (required)"
+        },
+        name: "contact[title]",
+        id: "contact_title",
+        value: @translated_contact.title,
+        heading_size: "l",
+        error_items: errors_for(@translated_contact.errors, :title),
+        right_to_left: @translated_contact.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+        <p class="app-view-translation__english-content govuk-body"><%= @contact.title %></p>
+      </div>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Comments",
+          heading_size: "l",
+        },
+        name: "contact[comments]",
+        id: "contact_comments",
+        value: @translated_contact.comments,
+        rows: 10,
+        error_items: errors_for(@translated_contact.errors, :comments),
+        right_to_left: @translated_contact.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+        <p class="app-view-translation__english-content govuk-body"><%= @contact.comments %></p>
+      </div>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Recipient"
+        },
+        name: "contact[recipient]",
+        id: "contact_recipient",
+        value: @translated_contact.recipient,
+        heading_size: "l",
+        error_items: errors_for(@translated_contact.errors, :recipient),
+        right_to_left: @translated_contact.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+        <p class="app-view-translation__english-content govuk-body"><%= @contact.recipient %></p>
+      </div>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Street address",
+          heading_size: "l",
+        },
+        name: "contact[street_address]",
+        id: "contact_street_address",
+        value: @translated_contact.street_address,
+        rows: 10,
+        error_items: errors_for(@translated_contact.errors, :street_address),
+        right_to_left: @translated_contact.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+        <p class="app-view-translation__english-content govuk-body"><%= @contact.street_address %></p>
+      </div>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Locality"
+        },
+        name: "contact[locality]",
+        id: "contact_locality",
+        value: @translated_contact.locality,
+        heading_size: "l",
+        error_items: errors_for(@translated_contact.errors, :locality),
+        right_to_left: @translated_contact.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+        <p class="app-view-translation__english-content govuk-body"><%= @contact.locality %></p>
+      </div>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Region"
+        },
+        name: "contact[region]",
+        id: "contact_region",
+        value: @translated_contact.region,
+        heading_size: "l",
+        error_items: errors_for(@translated_contact.errors, :region),
+        right_to_left: @translated_contact.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+        <p class="app-view-translation__english-content govuk-body"><%= @contact.region %></p>
+      </div>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Email"
+        },
+        name: "contact[email]",
+        id: "contact_email",
+        value: @translated_contact.email,
+        heading_size: "l",
+        error_items: errors_for(@translated_contact.errors, :email),
+        right_to_left: @translated_contact.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+        <p class="app-view-translation__english-content govuk-body"><%= @contact.email %></p>
+      </div>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Contact form URL"
+        },
+        name: "contact[contact_form_url]",
+        id: "contact_contact_form_url",
+        value: @translated_contact.contact_form_url,
+        heading_size: "l",
+        error_items: errors_for(@translated_contact.errors, :contact_form_url),
+        right_to_left: @translated_contact.translation_locale.rtl?,
+        right_to_left_help: false
+      } %>
+
+      <div class="govuk-!-margin-bottom-8">
+        <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+        <p class="app-view-translation__english-content govuk-body"><%= @contact.contact_form_url %></p>
+      </div>
+
+      <% if @translated_contact.contact_numbers.present? %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Phone numbers",
+          margin_bottom: 6,
+          font_size: "l",
+        } %>
+
+        <%= form.fields_for :contact_numbers, @translated_contact.contact_numbers do |number_form| %>
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Label"
+            },
+            name: "contact[contact_numbers_attributes][#{number_form.index}][label]",
+            id: "contact_contact_number_#{number_form.index}_label",
+            value: number_form.object.label,
+            heading_size: "m",
+            error_items: errors_for(number_form.object.errors, :label),
+            right_to_left: number_form.object.translation_locale.rtl?,
+            right_to_left_help: false
+          } %>
+
+          <div class="govuk-!-margin-bottom-8">
+            <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+            <p class="app-view-translation__english-content govuk-body"><%= number_form.object.label %></p>
+          </div>
+
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Number"
+            },
+            name: "contact[contact_numbers_attributes][#{number_form.index}][number]",
+            id: "contact_contact_number_#{number_form.index}_number",
+            value: number_form.object.number,
+            heading_size: "m",
+            error_items: errors_for(number_form.object.errors, :number),
+            right_to_left: number_form.object.translation_locale.rtl?,
+            right_to_left_help: false
+          } %>
+
+          <div class="govuk-!-margin-bottom-8">
+            <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English:</h2>
+            <p class="app-view-translation__english-content govuk-body"><%= number_form.object.number %></p>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="govuk-button-group govuk-!-margin-top-8">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "worldwide-office-translation-button",
+            "track-label": "Save"
+          }
+        } %>
+
+        <% if @translated_contact.translation.persisted? %>
+          <%= link_to("Cancel", admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
+        <% else %>
+          <%= link_to("Cancel", admin_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, @worldwide_office), class: "govuk-link govuk-link--no-visited-state") %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -53,7 +53,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
       ),
     )
 
-    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#']", text: "Add translation"
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{admin_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, worldwide_office, contact.translation_locale)}']", text: "Add translation"
   end
 
   test "renders the correct values when the office is not a main office" do
