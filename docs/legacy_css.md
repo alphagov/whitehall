@@ -10,24 +10,7 @@ Please note that this documentation is now deprecated and will be removed with t
 
 Tech-debt creep in CSS is usually an symptom of a lack of confidence in changing or removing existing CSS. By structuring CSS in the following way, we can help reduce this risk by clearly communicating the scope of any given CSS.
 
-The stylesheets are split between frontend and admin. The frontend ones are in a much better state and should be the way the admin ones move in the future.
-
-They are structured to take advantage of the conditionals from the frontend_toolkit. This means you should put your IE fixes inline not in a separate file.
-
-Within the frontend folder the basic structure of the files looks like:
-
-    ./base.scss
-    ./base-ie6.scss
-    ./base-ie7.scss
-    ./base-ie8.scss
-    ./helpers/
-    ./views/
-    ./resets/
-    ./styleguide/
-
-The `base.scss` is the file that will be compiled with Sass.
-All other files should be referenced from it in the relevant sections.
-The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
+The stylesheets are structured to take advantage of the conditionals from the frontend_toolkit. This means you should put your IE fixes inline not in a separate file.
 
 ### `./helpers`
 

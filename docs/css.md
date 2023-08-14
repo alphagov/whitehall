@@ -69,8 +69,6 @@ Legacy files will remain in the following folders structures:
     - stylesheets
       - admin_legacy
         - ...
-      - frontend
-        - ...
       - vendor
       admin_legacy.scss
 ```

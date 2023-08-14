@@ -1,6 +1,6 @@
 ## Whitehall troubleshooting
 
-You may run into errors while working locally and trying to render pages on the Frontend.
+You may run into errors while working locally and trying to render pages.
 
 Problem:
 
@@ -36,7 +36,7 @@ Problem:
 /.rvm/rubies/ruby-2.7.2/lib/ruby/site_ruby/2.7.0/rubygems/core_ext/kernel_gem.rb:67:in `synchronize': dead
 ```
 
-Solution: 
+Solution:
 `gem update --system`
 
 Problem:
@@ -60,7 +60,7 @@ govuk-docker up search-api-app
 Problem:
 
 ```
-Error: Failed to load config "standard" to extend from 
+Error: Failed to load config "standard" to extend from
 ```
 
 Solution:

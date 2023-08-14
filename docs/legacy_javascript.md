@@ -12,9 +12,6 @@ Each JavaScript object should be stored in its own file with a filename reflecti
 
 ```
 ./helpers/
-./frontend/views/
-./frontend/modules/
-./frontend/helpers/
 ./admin_legacy/views/
 ./admin_legacy/modules/
 ./admin_legacy/helpers/

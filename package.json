@@ -1,6 +1,6 @@
 {
   "name": "whitehall",
-  "description": "Publishing and frontend rendering application for GOV.UK",
+  "description": "Publishing application for GOV.UK",
   "private": true,
   "author": "Government Digital Service",
   "license": "MIT",
