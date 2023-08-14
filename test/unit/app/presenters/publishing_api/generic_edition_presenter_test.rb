@@ -29,7 +29,7 @@ module PublishingApi
         locale: "en",
         public_updated_at: edition.updated_at,
         publishing_app: Whitehall::PublishingApp::WHITEHALL,
-        rendering_app: "government-frontend",
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         routes: [
           { path: public_path, type: "exact" },
         ],
