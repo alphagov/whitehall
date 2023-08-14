@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::WorldwideOffices::Index::OfficeSummaryCardComponent < ViewComponent::Base
-  include ContactsHelper
+  include Admin::ContactsHelper
   include ApplicationHelper
 
   attr_reader :worldwide_office, :worldwide_organisation, :contact
