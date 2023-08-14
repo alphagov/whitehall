@@ -554,10 +554,6 @@ EXISTS (
     end
   end
 
-  def rendering_app
-    Whitehall::RenderingApp::WHITEHALL_FRONTEND
-  end
-
   def format_name
     self.class.format_name
   end
