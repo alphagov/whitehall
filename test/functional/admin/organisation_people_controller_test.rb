@@ -2,14 +2,14 @@ require "test_helper"
 
 class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :gds_admin
+    login_as :gds_admin
   end
 
   should_be_an_admin_controller
 
   test "GET :reorder access denied if not a gds admin" do
     organisation = create(:organisation)
-    login_as_preview_design_system_user :writer
+    login_as :writer
     get :reorder, params: {
       type: "ministerial",
       organisation_id: organisation,
@@ -20,7 +20,7 @@ class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
   test "PUT :order access denied if not a gds admin" do
     organisation = create(:organisation)
     organisation_role = create(:organisation_role, organisation:)
-    login_as_preview_design_system_user :writer
+    login_as :writer
     put :order, params: {
       type: "ministerial",
       organisation_id: organisation,
@@ -46,7 +46,7 @@ class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
     role2 = build(:ministerial_role)
     create(:organisation_role, organisation:, role: role1)
     create(:organisation_role, organisation:, role: role2)
-    login_as_preview_design_system_user :writer
+    login_as :writer
     get :index, params: {
       organisation_id: organisation,
     }
@@ -59,7 +59,7 @@ class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
     role2 = build(:ministerial_role)
     create(:organisation_role, organisation:, role: role1)
     create(:organisation_role, organisation:, role: role2)
-    login_as_preview_design_system_user(:writer, organisation)
+    login_as(:writer, organisation)
     get :index, params: {
       organisation_id: organisation,
     }
@@ -73,7 +73,7 @@ class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
     role2 = build(:ministerial_role)
     create(:organisation_role, organisation: sub_organisation, role: role1)
     create(:organisation_role, organisation: sub_organisation, role: role2)
-    login_as_preview_design_system_user(:writer, parent_organisation)
+    login_as(:writer, parent_organisation)
     get :index, params: {
       organisation_id: sub_organisation,
     }

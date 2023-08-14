@@ -1,20 +1,10 @@
 class Admin::OrganisationTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-  layout :get_layout
+  layout "design_system"
 
-  def index
-    render_design_system(:index, :legacy_index)
-  end
+  def index; end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def create_redirect_path
     edit_admin_organisation_translation_path(@organisation, id: translation_locale)

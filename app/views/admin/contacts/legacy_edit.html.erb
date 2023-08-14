@@ -1,5 +1,0 @@
-<% page_title "Contact for: #{@contact.contactable.name}" %>
-<h1>Contact for: <%= @contact.contactable.name %></h1>
-<p><%= link_to "Back to #{@contact.contactable.name}", [:admin, @contactable, Contact] %></p>
-
-<%= render partial: "legacy_form", locals: {contact: @contact, contactable: @contactable} %>

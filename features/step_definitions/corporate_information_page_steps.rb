@@ -12,7 +12,7 @@ When(/^I add a "([^"]*)" corporate information page to the worldwide organisatio
   worldwide_organisation = WorldwideOrganisation.last
   visit admin_worldwide_organisation_path(worldwide_organisation)
   click_link using_design_system? ? "Pages" : "Corporate information pages"
-  click_link using_design_system? ? "Create new corporate information page" : "New corporate information page"
+  click_link "Create new corporate information page"
   fill_in "Body", with: "This is a new #{page_type} page"
   select page_type, from: "Type"
   click_button "Save"

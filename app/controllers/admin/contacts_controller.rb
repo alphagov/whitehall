@@ -2,21 +2,19 @@ class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
   before_action :find_contact, only: %i[edit update destroy remove_from_home_page add_to_home_page confirm_destroy]
   before_action :destroy_blank_contact_numbers, only: %i[create update]
-  layout :get_layout
+  layout "design_system"
 
-  def index
-    render_design_system(:index, :legacy_index)
-  end
+  def index; end
 
   def new
     @contact = @contactable.contacts.build
     @contact.contact_numbers.build
-    render_design_system(:new, :legacy_new)
+    render :new
   end
 
   def edit
     @contact.contact_numbers.build unless @contact.contact_numbers.any?
-    render_design_system(:edit, :legacy_edit)
+    render :edit
   end
 
   def update
@@ -47,7 +45,7 @@ class Admin::ContactsController < Admin::BaseController
     if @contact.destroy
       redirect_to [:admin, @contact.contactable, Contact], notice: %("#{title}" deleted successfully)
     else
-      render_design_system(:edit, :legacy_edit)
+      render :edit
     end
   end
 
@@ -60,14 +58,6 @@ class Admin::ContactsController < Admin::BaseController
                                    redirect_to: ->(container, _item) { [:admin, container, Contact] }
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def find_contactable
     @contactable = Organisation.friendly.find(params[:organisation_id])

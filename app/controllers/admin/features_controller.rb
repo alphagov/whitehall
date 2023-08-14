@@ -2,11 +2,9 @@ class Admin::FeaturesController < Admin::BaseController
   before_action :find_feature_list
   before_action :build_feature, only: %i[new create]
   before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
-  layout :get_layout
+  layout "design_system"
 
-  def new
-    render_design_system(:new, :legacy_new)
-  end
+  def new; end
 
   def create
     if @feature.save
@@ -15,7 +13,7 @@ class Admin::FeaturesController < Admin::BaseController
       redirect_to admin_feature_list_path(@feature_list), notice: "The document has been saved"
     else
       flash.now[:alert] = "Unable to create feature"
-      render_design_system(:new, :legacy_new)
+      render :new
     end
   end
 
@@ -37,14 +35,6 @@ class Admin::FeaturesController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def find_feature_list
     @feature_list = FeatureList.find(params[:feature_list_id])

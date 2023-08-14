@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::ContactTranslationsControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user(:departmental_editor)
+    login_as(:departmental_editor)
   end
 
   should_be_an_admin_controller

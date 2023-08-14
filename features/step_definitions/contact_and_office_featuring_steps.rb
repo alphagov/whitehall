@@ -16,7 +16,7 @@ When(/^I add a new office to be featured on the home page of the worldwide organ
   click_on "All"
   click_on "Add"
 
-  legacy_fill_in_contact_details(feature_on_home_page: "yes")
+  fill_in_contact_details(feature_on_home_page: "yes")
   select WorldwideOfficeType.all.sample.name, from: "Office type"
 
   click_on "Save"

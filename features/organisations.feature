@@ -27,18 +27,12 @@ Feature: Administering Organisations
     When I add the offsite link "Offsite Thing" of type "Alert" to the organisation "Ministry of Pop"
     Then I should see the edit offsite link "Offsite Thing" on the "Ministry of Pop" organisation page
 
-  @design-system-only
   Scenario: Featuring a topical event for an organisation
     When an active topical event called "Super topical" exists
     And I visit the the organisation feature page for "Ministry of Pop"
     And I feature "Super topical"
     Then I see that "Super topical" has been featured
 
-  @javascript @bootstrap-only
-  Scenario: Filtering items to feature on an organisation page
-    Given an organisation and some documents exist
-    When I go to the organisation feature page
-    Then I can filter instantaneously the list of documents by title, author, organisation, and document type
 
   Scenario: Requesting publications in alternative format
     And I set the alternative format contact email of "Ministry of Pop" to "alternative.format@ministry-of-pop.gov.uk"

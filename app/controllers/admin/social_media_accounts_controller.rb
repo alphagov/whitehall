@@ -2,21 +2,21 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   before_action :find_socialable
   before_action :find_social_media_account, only: %i[edit update confirm_destroy destroy]
   before_action :strip_whitespace_from_url
-  layout :get_layout
+  layout "design_system"
 
   def index
     @social_media_accounts = @socialable.social_media_accounts
-    render_design_system(:index, :legacy_index)
+    render :index
   end
 
   def new
     @social_media_account = @socialable.social_media_accounts.build
-    render_design_system(:new, :legacy_new)
+    render :new
   end
 
   def edit
     I18n.with_locale(params[:locale] || I18n.default_locale) do
-      render_design_system(:edit, :legacy_edit)
+      render :edit
     end
   end
 
@@ -25,7 +25,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
       redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account updated successfully"
     else
-      render_design_system(:edit, :legacy_edit)
+      render :edit
     end
   end
 
@@ -35,7 +35,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
       redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account created successfully"
     else
-      render_design_system(:new, :legacy_new)
+      render :new
     end
   end
 
@@ -46,19 +46,11 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
       redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account deleted successfully"
     else
-      render_design_system(:edit, :legacy_edit)
+      render :edit
     end
   end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def find_socialable
     @socialable =

@@ -66,13 +66,10 @@ When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_tit
   contact = Contact.find_by(title: english_title)
   visit admin_organisation_contacts_path(contact.contactable)
   click_link "Add translation"
-  if using_design_system?
-    select "Cymraeg", from: "Select language"
-    click_button "Next"
-  else
-    select "Cymraeg", from: "Locale"
-    click_button "Add translation"
-  end
+
+  select "Cymraeg", from: "Select language"
+  click_button "Next"
+
   fill_in "Title", with: welsh_title
   fill_in "Recipient", with: "Welsh recipient"
   fill_in "Street address", with: "Welsh street address"
@@ -83,14 +80,9 @@ end
 Then(/^I should see on the admin organisation contacts page that "(.*?)" has a welsh translation "(.*?)"$/) do |english_title, welsh_title|
   contact = Contact.find_by(title: english_title)
   visit admin_organisation_contacts_path(contact.contactable)
-  if using_design_system?
-    within all(".govuk-summary-card__title")[1] do
-      expect(page).to have_content(welsh_title)
-    end
-  else
-    expect(page).to have_content("Cymraeg (Welsh) translation")
+
+  within all(".govuk-summary-card__title")[1] do
     expect(page).to have_content(welsh_title)
-    expect(page).to have_content("9876543210")
   end
 end
 

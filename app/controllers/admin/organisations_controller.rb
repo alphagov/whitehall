@@ -4,17 +4,14 @@ class Admin::OrganisationsController < Admin::BaseController
   before_action :enforce_permissions!, only: %i[new create edit update]
   before_action :build_dependencies, only: %i[new edit]
   before_action :clean_organisation_params, only: %i[create update]
-  layout :get_layout
+  layout "design_system"
 
   def index
     @organisations = Organisation.alphabetical
     @user_organisation = current_user.organisation
-    render_design_system(:index, :legacy_index)
   end
 
-  def new
-    render_design_system(:new, :legacy_new)
-  end
+  def new; end
 
   def create
     @organisation.assign_attributes(organisation_params)
@@ -24,13 +21,11 @@ class Admin::OrganisationsController < Admin::BaseController
       redirect_to admin_organisations_path
     else
       build_dependencies
-      render_design_system(:new, :legacy_new)
+      render :new
     end
   end
 
-  def show
-    render_design_system(:show, :legacy_show)
-  end
+  def show; end
 
   def features
     @feature_list = @organisation.load_or_create_feature_list(params[:locale])
@@ -54,13 +49,11 @@ class Admin::OrganisationsController < Admin::BaseController
     if request.xhr?
       render partial: "admin/feature_lists/legacy_search_results", locals: { feature_list: @feature_list }
     else
-      render_design_system(:features, :legacy_features)
+      render :features
     end
   end
 
-  def edit
-    render_design_system(:edit, :legacy_edit)
-  end
+  def edit; end
 
   def update
     delete_absent_topical_event_organisations
@@ -69,7 +62,7 @@ class Admin::OrganisationsController < Admin::BaseController
       redirect_to admin_organisation_path(@organisation)
     else
       build_dependencies
-      render_design_system(:edit, :legacy_edit)
+      render :edit
     end
   end
 
@@ -85,14 +78,6 @@ private
   def organisation_roles(type)
     @organisation.organisation_roles.joins(:role)
                  .merge(Role.public_send(type)).order(:ordering)
-  end
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
   end
 
   def enforce_permissions!
