@@ -7,18 +7,18 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
     login_as :writer
   end
 
-  test "POST :create redirects to edit page when 'Save and continue editing' button clicked" do
+  test "POST :create redirects to document summary page when 'Save and continue editing' button clicked" do
     params = attributes_for(:edition)
     assert_difference "GenericEdition.count" do
       post :create, params: { edition: params, save_and_continue: "Save and continue editing" }
     end
-    assert_redirected_to edit_admin_edition_tags_path(GenericEdition.last.id)
+    assert_redirected_to @controller.admin_edition_path(GenericEdition.last)
   end
 
-  test "PUT :update redirects to edit page when 'Save and continue' button clicked" do
+  test "PUT :update redirects to document summary page when 'Save and continue' button clicked" do
     edition = create(:edition)
     put :update, params: { id: edition, edition: { title: "New title" }, save_and_continue: "Save and continue editing" }
-    assert_redirected_to edit_admin_edition_tags_path(GenericEdition.last.id)
+    assert_redirected_to @controller.admin_edition_path(edition)
   end
 
   view_test "GET :edit shows the similar slug warning as an error which links to the input when user has 'Preview design system' permission" do

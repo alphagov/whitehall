@@ -311,12 +311,15 @@ private
     if params[:save].present?
       [:edit, :admin, @edition]
     else
-      edit_admin_edition_tags_path(@edition.id)
+      admin_edition_path @edition
     end
   end
 
   def saved_confirmation_notice
-    { notice: "The document has been saved" }
+    link_path = edit_admin_edition_tags_path(@edition)
+    message = "Your document has been saved. You need to #{view_context.link_to 'add topic tags', link_path} before you can publish this document."
+
+    { flash: { notice: message, html_safe: true } }
   end
 
   def new_edition

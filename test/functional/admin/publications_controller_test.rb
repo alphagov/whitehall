@@ -60,7 +60,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = Publication.last
 
     assert publication.present?, assigns(:edition).errors.full_messages.inspect
-    assert_redirected_to edit_admin_edition_tags_path(publication.id)
+    assert_redirected_to @controller.admin_edition_path(publication)
     assert_equal publication, statistics_announcement.reload.publication
   end
 
