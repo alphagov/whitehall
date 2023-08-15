@@ -44,7 +44,7 @@ private
       mapped_specialist_topic_content_id: specialist_topic[:content_id],
     ) do |document_collection|
       document_collection.title = "Specialist topic import: #{specialist_topic[:title]}"
-      document_collection.summary = specialist_topic[:description]
+      document_collection.summary = specialist_topic[:description].empty? ? "Placeholder text" : specialist_topic[:description]
       document_collection.body = ""
       document_collection.creator = user
       document_collection.lead_organisations = [gds]
