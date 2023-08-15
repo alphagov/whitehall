@@ -1,5 +1,14 @@
-<% page_title "New office for: #{@worldwide_organisation.name}" %>
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+		<% content_for :page_title, "New office details" %>
+		<% content_for :title, "New office details" %>
+		<% content_for :context, @worldwide_organisation.name %>
+		<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @worldwide_office, parent_class: "worldwide_office")) %>
 
-<h1>New office for: <%= @worldwide_organisation.name %></h1>
+		<%= render partial: "form", locals: {worldwide_office: @worldwide_office, worldwide_organisation: @worldwide_organisation} %>
+	</div>
 
-<%= render partial: "form", locals: {worldwide_office: @worldwide_office, worldwide_organisation: @worldwide_organisation} %>
+	<div class="govuk-grid-column-one-third">
+		<%= simple_formatting_sidebar %>
+	</div>
+</div>

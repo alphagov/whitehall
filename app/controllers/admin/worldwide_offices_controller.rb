@@ -11,10 +11,12 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     @worldwide_office = @worldwide_organisation.offices.build
     @worldwide_office.build_contact
     @worldwide_office.contact.contact_numbers.build
+    render_design_system(:new, :legacy_new)
   end
 
   def edit
     @worldwide_office.contact.contact_numbers.build unless @worldwide_office.contact.contact_numbers.any?
+    render_design_system(:edit, :legacy_edit)
   end
 
   def update
@@ -23,6 +25,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
       handle_show_on_home_page_param
       redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been edited"
     else
+      @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
       render :edit
     end
   end
@@ -33,7 +36,8 @@ class Admin::WorldwideOfficesController < Admin::BaseController
       handle_show_on_home_page_param
       redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been added"
     else
-      render :edit
+      @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
+      render :new
     end
   end
 
@@ -67,7 +71,7 @@ private
 
   def get_layout
     design_system_actions = %w[confirm_destroy reorder]
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index new create edit] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
@@ -88,6 +92,7 @@ private
     params.require(:worldwide_office)
           .permit(:worldwide_office_type_id,
                   :show_on_home_page,
+                  :access_and_opening_times,
                   service_ids: [],
                   contact_attributes: [
                     :id,

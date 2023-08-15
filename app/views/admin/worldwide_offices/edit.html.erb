@@ -1,5 +1,14 @@
-<% page_title "Office for: #{@worldwide_organisation.name}" %>
-<h1>Office for: <%= @worldwide_organisation.name %></h1>
-<p><%= link_to "Back to #{@worldwide_organisation.name}", url_for([:admin, @worldwide_organisation, WorldwideOffice]) %></p>
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+		<% content_for :page_title, "Edit office details" %>
+		<% content_for :title, "Edit office details" %>
+		<% content_for :context, @worldwide_organisation.name %>
+		<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @worldwide_office, parent_class: "worldwide_office")) %>
 
-<%= render partial: "form", locals: {worldwide_office: @worldwide_office, worldwide_organisation: @worldwide_organisation} %>
+		<%= render partial: "form", locals: {worldwide_office: @worldwide_office, worldwide_organisation: @worldwide_organisation} %>
+	</div>
+
+	<div class="govuk-grid-column-one-third">
+		<%= simple_formatting_sidebar %>
+	</div>
+</div>
