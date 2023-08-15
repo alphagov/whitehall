@@ -11,7 +11,6 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "index shows a form to create missing translations" do
     get :index, params: { worldwide_organisation_id: @worldwide_organisation }
