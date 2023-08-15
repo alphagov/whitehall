@@ -100,7 +100,7 @@ private
   end
 
   def build_document_group_membership(document, group)
-    return unless document.live?
+    return unless document.live? && !document_withdrawn?(document)
 
     DocumentCollectionGroupMembership.find_or_create_by!(
       document_id: document.id,
@@ -110,6 +110,10 @@ private
 
   def dead_link?(content_item)
     content_item[:unpublishing].present?
+  end
+
+  def document_withdrawn?(document)
+    document.latest_edition.state == "withdrawn"
   end
 
   # only govuk pages can be tagged to a specialist topic. So we can safely
