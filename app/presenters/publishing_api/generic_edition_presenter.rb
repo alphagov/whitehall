@@ -18,7 +18,7 @@ module PublishingApi
         details: PayloadBuilder::TagDetails.for(item),
         document_type:,
         public_updated_at: item.public_timestamp || item.updated_at,
-        rendering_app: item.rendering_app,
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "placeholder_#{item.class.name.underscore}",
         auth_bypass_ids: [item.auth_bypass_id],
       )

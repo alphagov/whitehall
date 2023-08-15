@@ -21,7 +21,6 @@ module PublishingApi
         details: {},
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: "world_location",
       )
       if item.international_delegation?
