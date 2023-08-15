@@ -55,7 +55,7 @@ private
 
   def add_groups_to_document_collection(document_collection)
     groups =
-      specialist_topic_groups.map do |group|
+      cleaned_specialist_topic_groups.map do |group|
         DocumentCollectionGroup.find_or_create_by!(
           document_collection_id: document_collection.id,
           heading: group[:name],
@@ -87,6 +87,12 @@ private
 
   def specialist_topic_groups
     specialist_topic.dig(:details, :groups)
+  end
+
+  def cleaned_specialist_topic_groups
+    specialist_topic_groups.reject do |group|
+      group[:name].empty? || group[:content_ids].empty?
+    end
   end
 
   def permissable_whitehall_document(content_id)

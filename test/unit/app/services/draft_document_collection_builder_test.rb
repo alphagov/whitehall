@@ -26,7 +26,7 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     assert_equal specialist_topic_description, DocumentCollection.last.summary
 
     # Adds groups
-    specialist_topic_group_names = specialist_topic_content_item[:details][:groups].map { |group| group[:name] }
+    specialist_topic_group_names = ["How to claim", "Payments", "Report changes"]
     document_collection_group_names = DocumentCollection.last.groups.map(&:heading)
 
     assert_equal specialist_topic_group_names, document_collection_group_names

@@ -128,6 +128,10 @@ module SpecialistTopicHelper
             "name": "Report changes",
             "content_ids": [document_collection_content_id],
           },
+          {
+            "name": "",
+            "content_ids": [],
+          },
         ],
         "internal_name": "Benefits / Child Benefit",
       },
