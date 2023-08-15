@@ -8,6 +8,17 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
   should_render_bootstrap_implementation_with_preview_next_release
 
+  test "GET :edit correctly renders the form page for editing" do
+    worldwide_organisation, office = create_worldwide_organisation_and_office
+
+    get :edit, params: {
+      worldwide_organisation_id: worldwide_organisation.id,
+      id: office.id,
+    }
+
+    assert_response :success
+  end
+
   test "post create creates worldwide office" do
     worldwide_organisation = create(:worldwide_organisation)
 
