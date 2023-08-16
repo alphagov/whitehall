@@ -44,7 +44,7 @@ private
       mapped_specialist_topic_content_id: specialist_topic[:content_id],
     ) do |document_collection|
       document_collection.title = "Specialist topic import: #{specialist_topic[:title]}"
-      document_collection.summary = specialist_topic[:description]
+      document_collection.summary = specialist_topic[:description].empty? ? "Placeholder text" : specialist_topic[:description]
       document_collection.body = ""
       document_collection.creator = user
       document_collection.lead_organisations = [gds]
@@ -55,7 +55,7 @@ private
 
   def add_groups_to_document_collection(document_collection)
     groups =
-      specialist_topic_groups.map do |group|
+      cleaned_specialist_topic_groups.map do |group|
         DocumentCollectionGroup.find_or_create_by!(
           document_collection_id: document_collection.id,
           heading: group[:name],
@@ -89,12 +89,18 @@ private
     specialist_topic.dig(:details, :groups)
   end
 
+  def cleaned_specialist_topic_groups
+    specialist_topic_groups.reject do |group|
+      group[:name].empty? || group[:content_ids].empty?
+    end
+  end
+
   def permissable_whitehall_document(content_id)
     Document.find_by(content_id:)
   end
 
   def build_document_group_membership(document, group)
-    return unless document.live?
+    return unless document.live? && !document_withdrawn?(document)
 
     DocumentCollectionGroupMembership.find_or_create_by!(
       document_id: document.id,
@@ -104,6 +110,10 @@ private
 
   def dead_link?(content_item)
     content_item[:unpublishing].present?
+  end
+
+  def document_withdrawn?(document)
+    document.latest_edition.state == "withdrawn"
   end
 
   # only govuk pages can be tagged to a specialist topic. So we can safely

@@ -26,7 +26,7 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
     assert_equal specialist_topic_description, DocumentCollection.last.summary
 
     # Adds groups
-    specialist_topic_group_names = specialist_topic_content_item[:details][:groups].map { |group| group[:name] }
+    specialist_topic_group_names = ["How to claim", "Payments", "Report changes"]
     document_collection_group_names = DocumentCollection.last.groups.map(&:heading)
 
     assert_equal specialist_topic_group_names, document_collection_group_names
@@ -65,6 +65,24 @@ class DraftDocumentCollectionBuilderTest < ActiveSupport::TestCase
 
     assert_publishing_api(:get, "#{@publishing_api_endpoint}/content/#{unpublished_non_whitehall_document_content_id}")
     assert_not_requested stub_publishing_api_has_item(unpublished_document_content_item)
+  end
+
+  test "#perform! will not add withdrawn documents to a document collection group membership" do
+    stub_valid_specialist_topic_with_withdrawn_links
+
+    document = create(:document, content_id: withdrawn_document_content_id, document_type: "Publication")
+    create(:edition, :unpublished, type: "Publication", document_id: document.id)
+
+    DraftDocumentCollectionBuilder.new(specialist_topic_with_withdrawn_links_content_item, assignee_email_address).perform!
+
+    group = DocumentCollection.last.groups.first
+    members = group.memberships
+    assert_equal 0, members.count
+
+    # And will not query publishing api about the state of Whitehall documents
+    @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT
+
+    assert_not_requested stub_publishing_api_has_item(withdrawn_document_content_item)
   end
 
   test "#perform! will not update a document collection that has been published" do

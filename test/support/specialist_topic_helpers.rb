@@ -26,6 +26,14 @@ module SpecialistTopicHelper
     stub_publishing_api_has_item(unpublished_non_whitehall_document_content_item)
   end
 
+  def stub_valid_specialist_topic_with_withdrawn_links
+    stub_publishing_api_has_lookups({
+      specialist_topic_with_withdrawn_links_base_path => specialist_topic_with_withdrawn_links_content_id,
+    })
+
+    stub_publishing_api_has_item(specialist_topic_with_withdrawn_links_content_item)
+  end
+
   def stub_level_one_specialist_topic
     stub_publishing_api_has_lookups({
       specialist_topic_base_path => specialist_topic_content_id,
@@ -128,6 +136,10 @@ module SpecialistTopicHelper
             "name": "Report changes",
             "content_ids": [document_collection_content_id],
           },
+          {
+            "name": "",
+            "content_ids": [],
+          },
         ],
         "internal_name": "Benefits / Child Benefit",
       },
@@ -177,8 +189,33 @@ module SpecialistTopicHelper
     "/topic/benefits-credits/tax"
   end
 
+  def specialist_topic_with_withdrawn_links_base_path
+    "/topic/benefits-credits/withdrawn"
+  end
+
+  def specialist_topic_with_withdrawn_links_content_id
+    "a2644b6d-abcd-47e3-89b7-1235678910"
+  end
+
   def specialist_topic_with_unpublished_links_content_id
     "e2644b6d-abcd-47e3-89b7-bf69be25465b"
+  end
+
+  def specialist_topic_with_withdrawn_links_content_item
+    specialist_topic_content_item.deep_merge(
+      content_id: specialist_topic_with_withdrawn_links_content_id,
+      base_path: specialist_topic_with_withdrawn_links_base_path,
+      details: {
+        groups: [
+          {
+            name: "foo",
+            content_ids: [
+              withdrawn_document_content_id,
+            ],
+          },
+        ],
+      },
+    )
   end
 
   def specialist_topic_with_unpublished_links_content_item
@@ -237,10 +274,25 @@ module SpecialistTopicHelper
     "/government/publications/guidance"
   end
 
+  def withdrawn_document_content_id
+    "1234567-4bec-42d7-81e8-b03cb536ffb8"
+  end
+
+  def withdrawn_document_base_path
+    "/government/publications/withdrawn"
+  end
+
   def unpublished_document_content_item
     unpublished_non_whitehall_document_content_item.deep_merge(
       content_id: unpublished_document_content_id,
       base_path: unpublished_document_base_path,
+    )
+  end
+
+  def withdrawn_document_content_item
+    unpublished_document_content_item.deep_merge(
+      content_id: withdrawn_document_content_id,
+      base_path: withdrawn_document_base_path,
     )
   end
 end
