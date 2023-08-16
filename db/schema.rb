@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_08_144847) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_16_160735) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -992,8 +992,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_144847) do
     t.string "publishing_state", default: "published", null: false
     t.string "redirect_url"
     t.string "content_id", null: false
+    t.integer "current_release_date_id"
     t.index ["cancelled_by_id"], name: "index_statistics_announcements_on_cancelled_by_id"
     t.index ["creator_id"], name: "index_statistics_announcements_on_creator_id"
+    t.index ["current_release_date_id"], name: "index_statistics_announcements_on_current_release_date_id"
     t.index ["publication_id"], name: "index_statistics_announcements_on_publication_id"
     t.index ["slug"], name: "index_statistics_announcements_on_slug"
     t.index ["title"], name: "index_statistics_announcements_on_title"
@@ -1247,4 +1249,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_144847) do
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
+  add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify
 end
