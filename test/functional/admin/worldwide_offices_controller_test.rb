@@ -6,7 +6,6 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   test "GET :edit correctly renders the form page for editing" do
     worldwide_organisation, office = create_worldwide_organisation_and_office

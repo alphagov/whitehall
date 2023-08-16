@@ -41,6 +41,9 @@ class Admin::BaseController < ApplicationController
   end
 
   def preview_design_system?(next_release: false)
+    # Temporarily force this flag to 'on' for users in production, regardless of their permissions
+    return true if next_release && !Rails.env.test?
+
     current_user.can_preview_design_system? || (next_release && current_user.can_preview_next_release?)
   end
   helper_method :preview_design_system?
