@@ -1,6 +1,0 @@
-<% page_title "Social media account for: #{@social_media_account.socialable.name}" %>
-
-<h1>Social media account for: <%= @social_media_account.socialable.name %></h1>
-<p><%= link_to "Back to #{@social_media_account.socialable.name}", [:admin, @socialable, SocialMediaAccount] %></p>
-
-<%= render partial: "legacy_form", locals: {social_media_account: @social_media_account, socialable: @socialable} %>
