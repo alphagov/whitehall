@@ -33,11 +33,6 @@ module Admin::WorldwideOrganisationsHelper
         current: current_path == admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation),
       },
       {
-        label: "Access and opening times",
-        href: access_info_admin_worldwide_organisation_path(worldwide_organisation),
-        current: current_path == access_info_admin_worldwide_organisation_path(worldwide_organisation),
-      },
-      {
         label: "Social media accounts",
         href: admin_worldwide_organisation_social_media_accounts_path(worldwide_organisation),
         current: current_path == admin_worldwide_organisation_social_media_accounts_path(worldwide_organisation),
