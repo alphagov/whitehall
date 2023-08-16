@@ -1,19 +1,32 @@
-<% page_title "Export: #{@filter.page_title}"  %>
+<% content_for :page_title, "Export: #{@filter.page_title}" %>
+<% content_for :title, "Export CSV" %>
+<% content_for :context, @filter.page_title %>
+<% content_for :title_margin_bottom, 6 %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>Export as CSV</h1>
-    <p>Please confirm you want to export the documents list. The following will be emailed to <strong><%= current_user.email %></strong>:</p>
-    <ul>
-      <li><%= @filter.page_title %></li>
-    </ul>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">Please confirm you want to export the documents list to "<%= current_user.email %>"</p>
+
     <% if Whitehall.integration_or_staging? %>
-      <p class="warning">Warning: in staging and integration environments, if you are not on the permitted recipients list for GOV.UK Notify, this email will not be exported.</p>
+      <%= render "govuk_publishing_components/components/warning_text", {
+        text: "In staging and integration environments, if you are not on the permitted recipients list for GOV.UK Notify, this email will not be exported."
+      } %>
     <% end %>
-    <%= form_tag "#{export_admin_editions_path}?#{@filter.options.to_param}" %>
-      <%= submit_tag "Export as CSV", class: 'btn btn-primary' %>
 
-      <%= link_to "Cancel and return to list", "#{admin_editions_path}?#{@filter.options.to_param}", class: 'btn btn-default' %>
+    <%= form_with url: "#{export_admin_editions_path}?#{@filter.options.to_param}" %>
+      <div class="govuk-button-group govuk-!-margin-top-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Export CSV",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "edition-csv-export-button",
+            "track-label": "Export CSV"
+          }
+        } %>
+
+        <%= link_to("Cancel", "#{admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
     </form>
-  </section>
+  </div>
 </div>
