@@ -128,22 +128,6 @@ Then(/^the "([^"]*)" should be marked as the main office$/) do |contact_title|
   end
 end
 
-Then(/^I should see the default access information on the edit "([^"]*)" office page$/) do |office_name|
-  worldwide_organisation = WorldwideOrganisation.last
-  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
-  visit edit_admin_worldwide_organisation_worldwide_office_access_and_opening_time_path(worldwide_organisation, worldwide_office)
-
-  expect(page).to have_content("Default body information")
-end
-
-Then(/^I should see custom access information on the edit "([^"]*)" office page$/) do |office_name|
-  worldwide_organisation = WorldwideOrganisation.last
-  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
-  visit edit_admin_worldwide_organisation_worldwide_office_access_and_opening_time_path(worldwide_organisation, worldwide_office)
-
-  expect(page).to have_content("Custom body information")
-end
-
 Given(/^a worldwide organisation "([^"]*)" with default access information$/) do |name|
   create(:worldwide_organisation, name:, default_access_and_opening_times: "Default body information")
 end
@@ -165,10 +149,6 @@ When(/^I give "([^"]*)" custom access information$/) do |office_name|
 
   fill_in "Body", with: "Custom body information"
   click_button "Save"
-end
-
-Then(/^I should see the updated default access information$/) do
-  expect(page).to have_selector(".govspeak p", text: "Edited body information")
 end
 
 When(/^I add a new translation to the worldwide organisation "([^"]*)" with:$/) do |name, table|
