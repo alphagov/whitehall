@@ -24,11 +24,20 @@ own rake task and database table for tracking which ones have been run.
 
 ## How to add one
 
-Just like a normal migration, there is a Rails command:
+There isn't currently a generator specifically for data migrations. The easiest way to
+generate one is to generate a normal Rails migration using the command below and then
+to move the new file to the `db/data_migration` directory.
 
 ```
   bundle exec rails g migration MyDataMigrationName
 ```
+
+**N.B. This will not generate a valid data migration! Data migrations are just plain Ruby
+scripts, not ActiveRecord migrations. Remove the contents of the generated migration before
+you start writing code.**
+
+Alternatively, you could manually create a new data migration and carefully name the file with
+a correct leading timestamp.
 
 ## How to run them
 
