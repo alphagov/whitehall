@@ -41,6 +41,17 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
     ServiceListeners::SearchIndexer.new(edition).index!
   end
 
+  test "#index! removes the edition from the search index if the current edition cannot be indexed, but the previous edition was indexed" do
+    english_edition = create(:news_article_world_news_story, :published)
+    ServiceListeners::SearchIndexer.new(english_edition).index!
+    non_english_edition = I18n.with_locale(:fr) do
+      create(:news_article_world_news_story, :published, primary_locale: :fr, document: english_edition.document)
+    end
+
+    expect_removal_from_index(english_edition)
+    ServiceListeners::SearchIndexer.new(non_english_edition).index!
+  end
+
   test "#remove! removes the edition from the search index" do
     edition = create(:published_news_article)
 
