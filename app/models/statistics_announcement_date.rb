@@ -24,7 +24,6 @@ class StatisticsAnnouncementDate < ApplicationRecord
 private
 
   def update_statistics_announcement_current_release_date
-    statistics_announcement.try(:reload_current_release_date)
     statistics_announcement.update_current_release_date
   end
 

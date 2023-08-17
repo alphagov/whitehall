@@ -187,7 +187,8 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
 private
 
   def statistics_announcement_for(datetime, attributes = {})
-    create(:statistics_announcement, attributes.reverse_merge(release_date: datetime))
+    statistics_announcement_date = build(:statistics_announcement_date, release_date: datetime)
+    create(:statistics_announcement, statistics_announcement_dates: [statistics_announcement_date], **attributes)
   end
 
   def filter(options = {})
