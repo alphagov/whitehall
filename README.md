@@ -43,6 +43,7 @@ govuk-docker-run bundle exec rake jasmine
 
 See the [`docs/`](docs/) directory.
 
+- [Content Audit Trail](docs/auditing.md)
 - [CSS](docs/css.md)
 - [Edition model](docs/edition_model.md)
 - [Edition workflow](docs/edition_workflow.md)
