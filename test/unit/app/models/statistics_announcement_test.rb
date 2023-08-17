@@ -125,7 +125,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test "#build_statistics_announcement_date_change returns a date change based on the current date" do
-    announcement = build(:statistics_announcement)
+    announcement = create(:statistics_announcement)
     current_date = announcement.current_release_date
     date_change  = announcement.build_statistics_announcement_date_change
 
@@ -138,7 +138,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test "#build_statistics_announcement_date_change can override attributes" do
-    announcement = build(:statistics_announcement)
+    announcement = create(:statistics_announcement)
     current_date = announcement.current_release_date
     date_change  = announcement.build_statistics_announcement_date_change(change_note: "Some changes being made")
 
@@ -157,7 +157,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'a cancelled announcement is in a "cancelled" state, even when previously confirmed' do
-    announcement = build(:cancelled_statistics_announcement)
+    announcement = create(:cancelled_statistics_announcement)
     assert_equal "cancelled", announcement.state
 
     announcement.current_release_date.confirmed = true

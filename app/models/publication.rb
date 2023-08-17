@@ -28,7 +28,7 @@ class Publication < Publicationesque
   after_save :touch_statistics_announcement
   def touch_statistics_announcement
     if published? && !statistics_announcement.nil?
-      statistics_announcement.touch
+      statistics_announcement.reload.touch
     end
   end
 
