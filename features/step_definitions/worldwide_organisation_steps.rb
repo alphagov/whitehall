@@ -24,15 +24,7 @@ Then(/^I should see that it is part of the "([^"]*)"$/) do |sponsoring_organisat
 end
 
 Then(/^I should see the worldwide location name "([^"]*)" on the worldwide organisation page$/) do |location_name|
-  if using_design_system?
-    assert_selector ".govuk-summary-list__value", text: location_name
-  else
-    location = WorldLocation.find_by(name: location_name)
-    worldwide_organisation = WorldwideOrganisation.last
-    within record_css_selector(worldwide_organisation) do
-      expect(page).to have_content(location.name)
-    end
-  end
+  assert_selector ".govuk-summary-list__value", text: location_name
 end
 
 When(/^I update the worldwide organisation to set the name to "([^"]*)"$/) do |new_title|
@@ -43,14 +35,9 @@ end
 
 When(/^I delete the worldwide organisation$/) do
   @worldwide_organisation = WorldwideOrganisation.last
-  if using_design_system?
-    visit admin_worldwide_organisations_path(@worldwide_organisation)
-    click_link "Delete #{@worldwide_organisation.name}"
-    click_button "Delete"
-  else
-    visit edit_admin_worldwide_organisation_path(@worldwide_organisation)
-    click_on "delete"
-  end
+  visit admin_worldwide_organisations_path(@worldwide_organisation)
+  click_link "Delete #{@worldwide_organisation.name}"
+  click_button "Delete"
 end
 
 Given(/^a worldwide organisation "([^"]*)"$/) do |name|
@@ -141,14 +128,6 @@ Then(/^the "([^"]*)" should be marked as the main office$/) do |contact_title|
   end
 end
 
-When(/^I add default access information to the worldwide organisation$/) do
-  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
-  click_link "Access and opening times"
-  click_link "Add default access information"
-  fill_in "Body", with: "Default body information"
-  click_button "Save"
-end
-
 Then(/^I should see the default access information on the edit "([^"]*)" office page$/) do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
@@ -167,15 +146,6 @@ end
 
 Given(/^a worldwide organisation "([^"]*)" with default access information$/) do |name|
   create(:worldwide_organisation, name:, default_access_and_opening_times: "Default body information")
-end
-
-When(/^I edit the default access information for the worldwide organisation$/) do
-  worldwide_organisation = WorldwideOrganisation.last
-  visit admin_worldwide_organisation_path(worldwide_organisation)
-  click_link "Access and opening times"
-  click_on "Edit"
-  fill_in "Body", with: "Edited body information"
-  click_button "Save"
 end
 
 Given(/^the offices "([^"]*)" and "([^"]*)"$/) do |contact_1_title, contact_2_title|
@@ -206,16 +176,11 @@ When(/^I add a new translation to the worldwide organisation "([^"]*)" with:$/) 
   add_translation_to_worldwide_organisation(worldwide_organisation, table.rows_hash)
 end
 
-Then(/^I should see the language "([^"]*)" \("([^"]*)"\) for "([^"]*)" \("([^"]*)"\) when viewing the worldwide organisation translations$/) do |language, language_in_english, worldwide_organisation, worldwide_organisation_in_english|
+Then(/^I should see the language "([^"]*)" \("([^"]*)"\) for "([^"]*)" \("([^"]*)"\) when viewing the worldwide organisation translations$/) do |language, _language_in_english, worldwide_organisation, _worldwide_organisation_in_english|
   visit admin_worldwide_organisation_translations_path(WorldwideOrganisation.last)
 
-  if using_design_system?
-    click_link "Edit #{language}"
-    expect(page).to have_content("Edit translation")
-  else
-    click_link language
-    expect(page).to have_content("Edit ‘#{language} (#{language_in_english})’ translation for: #{worldwide_organisation_in_english}")
-  end
+  click_link "Edit #{language}"
+  expect(page).to have_content("Edit translation")
 
   expect(page).to have_field("Name", with: worldwide_organisation)
 end
@@ -243,42 +208,22 @@ Then(/^I should not be able to see "([^"]*)" in the list of worldwide organisati
 end
 
 Then(/^I should see a create record in the audit trail for the worldwide organisation/) do
-  if using_design_system?
-    visit history_admin_worldwide_organisation_path(WorldwideOrganisation.last)
-    history_component = page.find(".app-c-audit-trail-entry-component", match: :first)
+  visit history_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  history_component = page.find(".app-c-audit-trail-entry-component", match: :first)
 
-    within history_component do
-      expect(page).to have_content("Organisation created")
-      expect(page).to have_content(@user.name)
-    end
-  else
-    visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
-    history_component = page.find(".audit-history-component", match: :first)
-
-    within history_component do
-      expect(page).to have_content("Document created")
-      expect(page).to have_content(@user.name)
-    end
+  within history_component do
+    expect(page).to have_content("Organisation created")
+    expect(page).to have_content(@user.name)
   end
 end
 
 Then(/^I should see an update record in the audit trail for the worldwide organisation/) do
-  if using_design_system?
-    visit history_admin_worldwide_organisation_path(WorldwideOrganisation.last)
-    history_component = page.find(".app-c-audit-trail-entry-component", match: :first)
+  visit history_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  history_component = page.find(".app-c-audit-trail-entry-component", match: :first)
 
-    within history_component do
-      expect(page).to have_content("Organisation updated")
-      expect(page).to have_content(@user.name)
-    end
-  else
-    visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
-    history_component = page.find(".audit-history-component", match: :first)
-
-    within history_component do
-      expect(page).to have_content("Document updated")
-      expect(page).to have_content(@user.name)
-    end
+  within history_component do
+    expect(page).to have_content("Organisation updated")
+    expect(page).to have_content(@user.name)
   end
 end
 
