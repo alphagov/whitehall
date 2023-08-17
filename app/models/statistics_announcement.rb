@@ -28,7 +28,9 @@ class StatisticsAnnouncement < ApplicationRecord
            -> { order("created_at DESC") },
            class_name: "StatisticsAnnouncementDate",
            inverse_of: :statistics_announcement
-  has_many :statistics_announcement_dates, dependent: :destroy
+  has_many :statistics_announcement_dates,
+           -> { order(created_at: :asc, id: :asc) },
+           dependent: :destroy
 
   has_many :statistics_announcement_organisations, inverse_of: :statistics_announcement, dependent: :destroy
   has_many :organisations, through: :statistics_announcement_organisations
@@ -215,6 +217,12 @@ class StatisticsAnnouncement < ApplicationRecord
 
   def publishing_api_presenter
     PublishingApi::StatisticsAnnouncementPresenter
+  end
+
+  def update_current_release_date
+    latest = statistics_announcement_dates.reverse_order
+    update!(current_release_date_id: latest.pick(:id))
+    reload_current_release_date
   end
 
 private

@@ -58,4 +58,11 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
       confirmed: true,
     ).valid?
   end
+
+  test "updates the statistics_announcements calls 'update_current_release_date' after save" do
+    statistics_announcement = build(:statistics_announcement)
+    statistics_announcement.expects(:update_current_release_date).times(3)
+    create(:statistics_announcement_date, statistics_announcement:)
+    create(:statistics_announcement_date, statistics_announcement:)
+  end
 end
