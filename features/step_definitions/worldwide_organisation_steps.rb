@@ -181,7 +181,6 @@ Then(/^I should see the language "([^"]*)" \("([^"]*)"\) for "([^"]*)" \("([^"]*
 
   click_link "Edit #{language}"
   expect(page).to have_content("Edit translation")
-
   expect(page).to have_field("Name", with: worldwide_organisation)
 end
 
