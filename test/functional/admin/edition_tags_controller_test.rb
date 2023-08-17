@@ -210,7 +210,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     get :edit, params: { edition_id: @edition }
 
     assert_select ".govuk-caption-xl", @edition[:title]
-    assert_select "h1", "Topic taxonomy tags"
+    assert_select "h1", "Topic tags"
     assert_select "h2", "Selected topics"
     assert_select "miller-columns", count: 1
     assert_select "miller-columns-selected", count: 1

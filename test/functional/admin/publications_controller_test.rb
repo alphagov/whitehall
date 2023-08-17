@@ -152,7 +152,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "show a button to tag to the topic taxonomy" do
+  view_test "show a button to tag to the topic tags" do
     publication = create(:publication)
 
     publication_has_no_expanded_links(publication.content_id)
