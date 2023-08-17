@@ -4,7 +4,7 @@ class StatisticsAnnouncementDate < ApplicationRecord
   belongs_to :statistics_announcement, touch: true
   belongs_to :creator, class_name: "User"
 
-  after_save :update_statistics_announcement_current_release_date
+  after_save :update_statistics_announcement_current_release_date, if: -> { statistics_announcement.present? }
 
   validates :release_date, presence: true
   validates :precision, presence: true, inclusion: { in: PRECISION.values }
@@ -25,6 +25,7 @@ private
 
   def update_statistics_announcement_current_release_date
     statistics_announcement.try(:reload_current_release_date)
+    statistics_announcement.update_current_release_date
   end
 
   def confirmed_date_must_be_exact

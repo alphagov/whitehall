@@ -279,6 +279,19 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     end
   end
 
+  test "updates the statistics_announcements current_release_date_id to the most recently created statistics_announcement_dates id" do
+    statistics_announcement = create(:statistics_announcement)
+    assert_equal statistics_announcement.statistics_announcement_dates.first.id, statistics_announcement.reload.current_release_date_id
+
+    statistics_announcement_date2 = create(:statistics_announcement_date, statistics_announcement:)
+
+    assert_equal statistics_announcement_date2.id, statistics_announcement.reload.current_release_date_id
+
+    statistics_announcement_date3 = create(:statistics_announcement_date, statistics_announcement:)
+
+    assert_equal statistics_announcement_date3.id, statistics_announcement.reload.current_release_date_id
+  end
+
 private
 
   def create_announcement_with_changes

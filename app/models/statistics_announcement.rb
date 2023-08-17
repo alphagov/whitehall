@@ -217,6 +217,11 @@ class StatisticsAnnouncement < ApplicationRecord
     PublishingApi::StatisticsAnnouncementPresenter
   end
 
+  def update_current_release_date
+    latest = statistics_announcement_dates.reverse_order
+    update!(current_release_date_id: latest.pick(:id))
+  end
+
 private
 
   def publication_has_been_published?
