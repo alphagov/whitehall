@@ -275,7 +275,7 @@ GEM
     govuk_personalisation (0.14.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (35.13.2)
+    govuk_publishing_components (35.14.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -454,7 +454,7 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
-    opentelemetry-api (1.2.1)
+    opentelemetry-api (1.2.2)
     opentelemetry-common (0.19.7)
       opentelemetry-api (~> 1.0)
     opentelemetry-exporter-otlp (0.25.0)
@@ -478,7 +478,7 @@ GEM
     opentelemetry-instrumentation-active_model_serializers (0.20.1)
       opentelemetry-api (~> 1.0)
       opentelemetry-instrumentation-base (~> 0.22.1)
-    opentelemetry-instrumentation-active_record (0.6.1)
+    opentelemetry-instrumentation-active_record (0.6.2)
       opentelemetry-api (~> 1.0)
       opentelemetry-instrumentation-base (~> 0.22.1)
       ruby2_keywords
