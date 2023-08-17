@@ -30,16 +30,9 @@ When(/^I decide that one of the offices no longer belongs on the home page$/) do
 
   @the_removed_office = @the_ordered_offices.sample
 
-  if using_design_system?
-    click_link "Edit #{@the_removed_office.title}"
-    choose "No"
-    click_on "Save"
-  else
-    @the_ordered_offices.delete(@the_removed_office)
-    within record_css_selector(@the_removed_office) do
-      click_on "Remove from home page"
-    end
-  end
+  click_link "Edit #{@the_removed_office.title}"
+  choose "No"
+  click_on "Save"
 end
 
 Then(/^that office is marked as no longer visible on the home page of the worldwide organisation$/) do
@@ -47,20 +40,10 @@ Then(/^that office is marked as no longer visible on the home page of the worldw
 
   click_on "Offices"
 
-  if using_design_system?
-    summary_card = find(".govuk-summary-card__title", text: @the_removed_office.title).ancestor(".app-vc-worldwide-offices-index-office-summary-card-component")
+  summary_card = find(".govuk-summary-card__title", text: @the_removed_office.title).ancestor(".app-vc-worldwide-offices-index-office-summary-card-component")
 
-    within summary_card do
-      assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "On homepage"
-      assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: "No"
-    end
-  else
-    removed_office_card = find("h3", text: @the_removed_office.title).ancestor("div.worldwide_office")
-    within removed_office_card do
-      row_index = find("dt", text: "On home page?").path.scan(/\d+/).last.to_i - 1
-      description = all("dd")[row_index]
-
-      expect(description.text).to eq "No"
-    end
+  within summary_card do
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "On homepage"
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: "No"
   end
 end

@@ -56,12 +56,9 @@ When(/^I add an "([^"]*)" office for the home page with address, phone number, a
   service3 = create(:worldwide_service, name: "Beard grooming")
 
   visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
-  click_link using_design_system? ? "Create new office" : "Add"
-  if using_design_system?
-    fill_in_contact_details(title: description, feature_on_home_page: "yes")
-  else
-    legacy_fill_in_contact_details(title: description, feature_on_home_page: "yes")
-  end
+  click_link "Create new office"
+  fill_in_contact_details(title: description, feature_on_home_page: "yes")
+
   select WorldwideOfficeType.all.sample.name, from: "Office type"
 
   check service1.name
@@ -97,34 +94,22 @@ Given(/^a worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$
 end
 
 When(/^I choose "([^"]*)" to be the main office$/) do |contact_title|
-  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
+  WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Offices"
-  if using_design_system?
-    click_link "Set main office"
-    choose contact_title
-    click_button "Save"
-  else
-    within record_css_selector(worldwide_office) do
-      click_button "Set as main office"
-    end
-  end
+
+  click_link "Set main office"
+  choose contact_title
+  click_button "Save"
 end
 
 Then(/^the "([^"]*)" should be marked as the main office$/) do |contact_title|
   admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
 
-  if using_design_system?
-    within ".app-vc-worldwide-offices-index-office-summary-card-component", match: :first do
-      expect(page).to have_content contact_title
-      assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Main office"
-      assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "Yes"
-    end
-  else
-    office_container = page.find("h3", text: contact_title).ancestor(".worldwide_office")
-    within office_container do
-      expect(page).to have_content("(Main office)")
-    end
+  within ".app-vc-worldwide-offices-index-office-summary-card-component", match: :first do
+    expect(page).to have_content contact_title
+    assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Main office"
+    assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "Yes"
   end
 end
 

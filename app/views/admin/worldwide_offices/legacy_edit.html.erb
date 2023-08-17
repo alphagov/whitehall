@@ -1,5 +1,0 @@
-<% page_title "Office for: #{@worldwide_organisation.name}" %>
-<h1>Office for: <%= @worldwide_organisation.name %></h1>
-<p><%= link_to "Back to #{@worldwide_organisation.name}", url_for([:admin, @worldwide_organisation, WorldwideOffice]) %></p>
-
-<%= render partial: "legacy_form", locals: {worldwide_office: @worldwide_office, worldwide_organisation: @worldwide_organisation} %>
