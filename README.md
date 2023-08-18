@@ -50,7 +50,7 @@ See the [`docs/`](docs/) directory.
 - [How to publish a finder in whitehall](docs/finders.md)
 - [Internationalisation](docs/internationalisation_guide.md)
 - [JavaScript](docs/javascript.md)
-- [Search setup guide](docs/search_setup_guide.md)
+- [Search Indexing](docs/search_indexing.md)
 - [Timestamps](docs/timestamps.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Adding a data migration](db/data_migration/README.md)
