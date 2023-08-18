@@ -132,6 +132,15 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert_equal "this-is-my-publication", existing_edition.document.reload.slug
   end
 
+  test "should not update slug when after an edition has been unpublished" do
+    unpublished_edition = create(:superseded_publication, title: "This is my publication")
+    draft_edition = create(:draft_publication, title: "This is my publication", document: unpublished_edition.document)
+
+    draft_edition.title = "New title"
+    draft_edition.save!
+    assert_equal "this-is-my-publication", draft_edition.document.reload.slug
+  end
+
   test "updating an edition updates the parent document timestamp" do
     edition = create(:edition)
 
