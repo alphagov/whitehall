@@ -155,8 +155,8 @@ Given(/^a worldwide organisation "([^"]*)" exists with a translation for the loc
   create(:worldwide_organisation, name:, world_locations: [country], translated_into: [locale_code])
 end
 
-When(/^I edit the "([^"]*)" translation for the worldwide organisation "([^"]*)" setting:$/) do |locale, name, table|
-  edit_translation_for_worldwide_organisation(locale, name, table.rows_hash)
+When(/^I edit the "([^"]*)" translation for the worldwide organisation "([^"]*)" setting:$/) do |name, table|
+  edit_translation_for_worldwide_organisation(name, table.rows_hash)
 end
 
 Then(/^I should be able to see "([^"]*)" in the list of worldwide organisations$/) do |worldwide_organisation_name|
