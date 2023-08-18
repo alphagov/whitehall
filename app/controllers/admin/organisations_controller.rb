@@ -46,11 +46,7 @@ class Admin::OrganisationsController < Admin::BaseController
     @featurable_topical_events = TopicalEvent.active
     @featurable_offsite_links = @organisation.offsite_links
 
-    if request.xhr?
-      render partial: "admin/feature_lists/legacy_search_results", locals: { feature_list: @feature_list }
-    else
-      render :features
-    end
+    render :features
   end
 
   def edit; end
