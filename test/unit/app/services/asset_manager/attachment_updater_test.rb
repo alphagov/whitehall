@@ -65,7 +65,8 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         context "when attachment's attachable is access limited" do
           before do
             access_limited_object = stub("access-limited-object")
-            AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(%w[user-uid])
+            @organisation = create(:organisation)
+            AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns([@organisation.content_id])
 
             attachment_data.stubs(:access_limited?).returns(true)
             attachment_data.stubs(:access_limited_object).returns(access_limited_object)
@@ -73,9 +74,9 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
           it "updates the access limited state of all assets" do
             update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "access_limited" => %w[user-uid] })
+                          .with(original_asset.asset_manager_id, attachment_data, nil, { "access_limited_organisation_ids" => [@organisation.content_id] })
             update_service.expects(:call)
-                          .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "access_limited" => %w[user-uid] })
+                          .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "access_limited_organisation_ids" => [@organisation.content_id] })
 
             updater.call(attachment_data, access_limited: true)
           end
@@ -88,9 +89,9 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
           it "updates all assets to have an empty access_limited array" do
             update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "access_limited" => [] })
+                          .with(original_asset.asset_manager_id, attachment_data, nil, { "access_limited_organisation_ids" => [] })
             update_service.expects(:call)
-                          .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "access_limited" => [] })
+                          .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "access_limited_organisation_ids" => [] })
 
             updater.call(attachment_data, access_limited: true)
           end

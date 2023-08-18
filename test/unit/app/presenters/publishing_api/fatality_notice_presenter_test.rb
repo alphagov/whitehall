@@ -262,11 +262,11 @@ class PublishingApi::AccessLimitedFatalityNoticeTest < ActiveSupport::TestCase
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
       @fatality_notice = create(:fatality_notice, :access_limited),
     )
-    @user = create(:user, organisation: @fatality_notice.organisations.first, uid: "booyah")
+    @organisation = @fatality_notice.organisations.first
     @presented_content = @presented_fatality_notice.content
   end
 
-  test "presents allowed users" do
-    assert_equal %w[booyah], @presented_content[:access_limited][:users]
+  test "presents allowed organisations" do
+    assert_equal [@organisation.content_id], @presented_content[:access_limited][:organisations]
   end
 end

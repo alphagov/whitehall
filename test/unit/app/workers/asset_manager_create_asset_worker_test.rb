@@ -6,7 +6,6 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker = AssetManagerCreateAssetWorker.new
     @asset_manager_id = "asset_manager_id"
     @organisation = FactoryBot.create(:organisation)
-    @user = FactoryBot.create(:user, organisation: @organisation, uid: "user-uid")
     @model = FactoryBot.create(:attachment_data)
     @asset_manager_response = { "id" => "http://asset-manager/assets/#{@asset_manager_id}" }
     @asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:original], assetable_type: @model.class.to_s }.deep_stringify_keys
@@ -45,7 +44,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     attachment = FactoryBot.create(:file_attachment, attachable: consultation)
     attachment.attachment_data.attachable = consultation
 
-    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited: [@user.uid])).returns(@asset_manager_response)
+    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
 
     @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
   end
@@ -56,7 +55,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     attachment = FactoryBot.create(:file_attachment, attachable: response)
     attachment.attachment_data.attachable = consultation
 
-    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited: [@user.uid])).returns(@asset_manager_response)
+    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
 
     @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
   end

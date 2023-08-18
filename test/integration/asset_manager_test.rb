@@ -31,13 +31,12 @@ class AssetManagerIntegrationTest
 
       test "sends the user ids of authorised users to Asset Manager" do
         organisation = FactoryBot.create(:organisation)
-        user = FactoryBot.create(:user, organisation:, uid: "user-uid")
         consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
         @attachment.attachable = consultation
         @attachment.attachment_data.attachable = consultation
         @attachment.save!
 
-        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id]))
 
         AssetManagerCreateWhitehallAssetWorker.drain
       end
@@ -69,13 +68,12 @@ class AssetManagerIntegrationTest
 
       test "sends the user ids of authorised users to Asset Manager" do
         organisation = FactoryBot.create(:organisation)
-        user = FactoryBot.create(:user, organisation:, uid: "user-uid")
         consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
         @attachment.attachable = consultation
         @attachment.attachment_data.attachable = consultation
         @attachment.save!
 
-        Services.asset_manager.expects(:create_asset).with(has_entry(access_limited: [user.uid]))
+        Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id]))
                 .returns("id" => "http://asset-manager/assets/asset_manager_id")
 
         AssetManagerCreateAssetWorker.drain

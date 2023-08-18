@@ -5,7 +5,6 @@ module PublishingApi
     class AccessLimitationTest < ActiveSupport::TestCase
       test "returns access limitation data for the item" do
         organisation = create(:organisation)
-        user = create(:user, organisation:)
 
         stubbed_item = stub(
           access_limited?: true,
@@ -14,24 +13,11 @@ module PublishingApi
         )
         expected_hash = {
           access_limited: {
-            users: [user.uid],
+            organisations: [organisation.content_id],
           },
         }
 
         assert_equal AccessLimitation.for(stubbed_item), expected_hash
-      end
-
-      test "ignores users with no UID" do
-        organisation = create(:organisation)
-        create(:user, organisation:, uid: nil)
-
-        stubbed_item = stub(
-          access_limited?: true,
-          publicly_visible?: false,
-          organisations: [organisation],
-        )
-
-        assert_equal [], AccessLimitation.for(stubbed_item)[:access_limited][:users]
       end
 
       test "it returns an empty hash if the item is not access limited" do
