@@ -75,24 +75,14 @@ module Admin
     end
 
     def unfiltered_scope
-      # We are doing a "greatest n by group" query here, but on a joined model,
-      # i.e. the StatisticsAnnouncementDate, or in this case the
-      # :current_release_date, which is the most recent one. The JOINs and the
-      # GROUP combine to ensure the correct things are loaded and in the correct
-      # order.
-      StatisticsAnnouncement.includes(:current_release_date, publication: :translations, organisations: :translations)
-                            .joins("INNER JOIN statistics_announcement_dates
-                              ON (statistics_announcement_dates.statistics_announcement_id = statistics_announcements.id)")
-                            .joins("LEFT OUTER JOIN statistics_announcement_dates sd2
-                              ON (sd2.statistics_announcement_id = statistics_announcements.id
-                              AND statistics_announcement_dates.created_at > sd2.created_at)")
-                            .group("statistics_announcement_dates.statistics_announcement_id")
+      StatisticsAnnouncement.joins(:current_release_date)
+                            .includes(publication: :translations, organisations: :translations)
                             .page(options[:page])
                             .per(options[:per_page])
     end
 
     def unlinked_scope
-      StatisticsAnnouncement.where("publication_id is NULL")
+      StatisticsAnnouncement.where(publication_id: nil)
     end
 
     def date_and_order_scope
