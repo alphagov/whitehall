@@ -50,7 +50,7 @@ class StatisticsAnnouncement < ApplicationRecord
               message: "must be a statistical type",
             }
 
-  accepts_nested_attributes_for :current_release_date
+  accepts_nested_attributes_for :statistics_announcement_dates
 
   scope :with_title_containing,
         lambda { |*keywords|
