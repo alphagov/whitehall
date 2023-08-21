@@ -89,6 +89,9 @@ group :test do
   gem "rack-test"
   gem "rails-controller-testing"
   gem "simplecov", require: false
+  gem 'ruby-prof', '>= 1.4.0', require: false
+  gem 'stackprof', '>= 0.2.9', require: false
+  gem "test-prof", "~> 1.0"
   gem "timecop"
   gem "webmock", require: false
 end
