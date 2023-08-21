@@ -27,6 +27,7 @@ class User < ApplicationRecord
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
     PREVIEW_NEXT_RELEASE = "Preview next release".freeze
     USE_NON_LEGACY_ENDPOINTS = "Use non legacy endpoints".freeze
+    EMAIL_OVERRIDE_EDITOR = "Email override editor".freeze
   end
 
   def role
@@ -110,6 +111,10 @@ class User < ApplicationRecord
 
   def can_handle_fatalities?
     gds_editor? || (organisation && organisation.handles_fatalities?)
+  end
+
+  def can_edit_email_overrides?
+    has_permission?(Permissions::EMAIL_OVERRIDE_EDITOR)
   end
 
   def fuzzy_last_name
