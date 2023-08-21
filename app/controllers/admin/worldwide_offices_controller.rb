@@ -1,22 +1,18 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
   before_action :find_worldwide_office, only: %i[edit update confirm_destroy destroy add_to_home_page remove_from_home_page]
-  layout :get_layout
+  layout "design_system"
 
-  def index
-    render_design_system(:index, :legacy_index)
-  end
+  def index; end
 
   def new
     @worldwide_office = @worldwide_organisation.offices.build
     @worldwide_office.build_contact
     @worldwide_office.contact.contact_numbers.build
-    render_design_system(:new, :legacy_new)
   end
 
   def edit
     @worldwide_office.contact.contact_numbers.build unless @worldwide_office.contact.contact_numbers.any?
-    render_design_system(:edit, :legacy_edit)
   end
 
   def update
@@ -68,14 +64,6 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])

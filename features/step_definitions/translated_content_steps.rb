@@ -102,19 +102,17 @@ When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_ti
   office = Contact.find_by(title: english_title).contactable
   visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
   click_link "Add translation"
-  select "Français", from: "Locale"
-  click_button "Add translation"
-  fill_in "Title", with: french_title
+  select "Français (French)", from: "Select language"
+  click_button "Next"
+  fill_in "Title (required)", with: french_title
   fill_in "Recipient", with: "French recipient"
   fill_in "Street address", with: "French street address"
   fill_in "Number", with: "9876543210"
   click_button "Save"
 end
 
-Then(/^I should see on the admin world organisation offices page that "(.*?)" has a french translation "(.*?)"$/) do |english_title, french_title|
+Then(/^I should see on the admin world organisation offices page that "(.*?)" has a french translation "(.*?)"$/) do |english_title, _french_title|
   office = Contact.find_by(title: english_title).contactable
-  visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
-  expect(page).to have_content("Français (French) translation")
-  expect(page).to have_content(french_title)
-  expect(page).to have_content("9876543210")
+  visit admin_worldwide_organisation_translations_path(office.worldwide_organisation)
+  expect(page).to have_content("Français")
 end

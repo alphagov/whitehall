@@ -53,27 +53,6 @@ Feature: Administering worldwide organisation
     When I choose "Head office" to be the main office
     Then the "Head office" should be marked as the main office
 
-  @bootstrap-only
-  Scenario: Adding default access information to a worldwide organisation
-    Given a worldwide organisation "Department of Beards in France" with offices "Head office" and "Branch office"
-    When I add default access information to the worldwide organisation
-    Then I should see the default access information on the edit "Head office" office page
-    And I should see the default access information on the edit "Branch office" office page
-
-  @bootstrap-only
-  Scenario: Editing the default access information for a worldwide organisation
-    Given a worldwide organisation "Department of Beards in France" with default access information
-    When I edit the default access information for the worldwide organisation
-    Then I should see the updated default access information
-
-  @bootstrap-only
-  Scenario: Adding custom access information to a particular worldwide office
-    Given a worldwide organisation "Department of Bananas" with default access information
-    And the offices "Head office" and "Branch office"
-    When I give "Head office" custom access information
-    Then I should see custom access information on the edit "Head office" office page
-    And I should see the default access information on the edit "Branch office" office page
-
   Scenario: Adding a corporate information page to a worldwide organisation
     Given a worldwide organisation "Department of Beards in France"
     When I add a "Terms of reference" corporate information page to the worldwide organisation

@@ -5,16 +5,14 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   before_action :find_worldwide_organisation, except: %i[index new create]
   before_action :build_worldwide_organisation, only: %i[new create]
-  layout :get_layout
+  layout "design_system"
 
   def index
     @worldwide_organisations = WorldwideOrganisation.ordered_by_name
-    render_design_system(:index, :legacy_index)
   end
 
   def new
     @worldwide_organisation.build_default_news_image
-    render_design_system(:new, :legacy_new)
   end
 
   def create
@@ -22,13 +20,12 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
       redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation created successfully"
     else
       @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
-      render_design_system(:new, :legacy_new)
+      render :new
     end
   end
 
   def edit
     @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
-    render_design_system(:edit, :legacy_edit)
   end
 
   def update
@@ -36,7 +33,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
       redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation updated successfully"
     else
       @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
-      render_design_system(:edit, :legacy_edit)
+      render :edit
     end
   end
 
@@ -45,7 +42,6 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
                   .versions_desc
                   .page(params[:page])
                   .per(VERSIONS_PER_PAGE)
-    render_design_system(:show, :legacy_show)
   end
 
   def access_info
@@ -67,14 +63,6 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    if preview_design_system?(next_release: true)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])

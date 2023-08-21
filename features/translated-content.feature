@@ -15,7 +15,6 @@ Feature: Providing translated content from gov.uk/government
     When I add a welsh translation "Cysylltwch â ni" to the "Wales Office, Cardiff" contact
     Then I should see on the admin organisation contacts page that "Wales Office, Cardiff" has a welsh translation "Cysylltwch â ni"
 
-  @design-system-wip
   Scenario: Adding a translation for worldwide offices
     Given I am a GDS editor
     And the world organisation "British Embassy, Paris" is translated into French and has an office "British Consulate-General Paris"

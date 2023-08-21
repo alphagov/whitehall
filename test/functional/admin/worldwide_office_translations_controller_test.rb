@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user(:writer)
+    login_as(:writer)
     @worldwide_organisation = create(:worldwide_organisation, translated_into: %i[fr es])
   end
 
