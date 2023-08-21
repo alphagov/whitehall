@@ -20,12 +20,12 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     @future_announcement = create(
       :statistics_announcement,
       organisation_ids: [@organisation.id],
-      current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now),
+      statistics_announcement_dates: [create(:statistics_announcement_date, release_date: 1.week.from_now)],
     )
     @past_announcement = create(
       :statistics_announcement,
       organisation_ids: [@organisation.id],
-      current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+      statistics_announcement_dates: [create(:statistics_announcement_date, release_date: 1.day.ago)],
     )
     @other_announcement = create(:statistics_announcement)
 
@@ -49,7 +49,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
              summary: "Summary text",
              publication_type_id: PublicationType::OfficialStatistics.id,
              organisation_ids: [@organisation.id],
-             current_release_date_attributes: {
+             statistics_announcement_dates_attributes: {
                release_date: 1.year.from_now,
                precision: StatisticsAnnouncementDate::PRECISION[:one_month],
              },
@@ -74,7 +74,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
              summary: "Summary text",
              publication_type_id: PublicationType::OfficialStatistics.id,
              organisation_ids: [@organisation.id],
-             current_release_date_attributes: {
+             statistics_announcement_dates_attributes: {
                release_date: 1.year.from_now,
                precision: "exact_confirmed",
              },

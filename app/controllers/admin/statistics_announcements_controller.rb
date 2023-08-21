@@ -72,14 +72,19 @@ private
   end
 
   def build_statistics_announcement(attributes = {})
-    if attributes[:current_release_date_attributes]
-      attributes[:current_release_date_attributes][:creator_id] = current_user.id
-    end
+    if attributes[:statistics_announcement_dates_attributes]
+      attributes[:statistics_announcement_dates_attributes][:creator_id] = current_user.id
+      date_attributes = attributes.delete(:statistics_announcement_dates_attributes)
 
-    current_user.statistics_announcements.new(attributes)
+      statistics_announcement = current_user.statistics_announcements.new(attributes)
+      statistics_announcement.statistics_announcement_dates.build(date_attributes)
+      statistics_announcement
+    else
+      current_user.statistics_announcements.new(attributes)
+    end
   end
 
-  def set_release_date_params(attributes = params[:statistics_announcement][:current_release_date_attributes])
+  def set_release_date_params(attributes = params[:statistics_announcement][:statistics_announcement_dates_attributes])
     return if attributes.blank?
 
     if attributes[:precision] == "exact_confirmed"
@@ -101,7 +106,7 @@ private
         :cancellation_reason,
         organisation_ids: [],
         topic_ids: [],
-        current_release_date_attributes: %i[id release_date precision confirmed],
+        statistics_announcement_dates_attributes: %i[id release_date precision confirmed],
       )
   end
 
