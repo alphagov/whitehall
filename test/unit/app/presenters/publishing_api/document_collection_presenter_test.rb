@@ -462,3 +462,28 @@ class PublishingApi::DocumentCollectionWithMappedSpecialistTopicTest < ActiveSup
     assert_valid_against_publisher_schema presented_document_collection.content, "document_collection"
   end
 end
+
+class PublishingApi::DocumentCollectionWithTaxonomyTopicEmailOverrideTest < ActiveSupport::TestCase
+  setup do
+    create(:current_government)
+  end
+
+  test "presents the taxonomy_topic_email_override when one exists" do
+    taxonomy_topic_email_override = "9b889c60-2191-11ee-be56-0242ac120002"
+    document_collection = create(:document_collection, taxonomy_topic_email_override:)
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
+
+    assert_equal [taxonomy_topic_email_override], presented_document_collection.links[:taxonomy_topic_email_override]
+
+    assert_valid_against_links_schema({ links: presented_document_collection.links }, "document_collection")
+  end
+
+  test "does not present the taxonomy_topic_email_override if it is nil" do
+    document_collection = create(:document_collection)
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
+
+    assert_not presented_document_collection.links.key?(:taxonomy_topic_email_override)
+
+    assert_valid_against_links_schema({ links: presented_document_collection.links }, "document_collection")
+  end
+end
