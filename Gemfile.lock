@@ -698,7 +698,7 @@ GEM
       pry (>= 0.10.4)
     ptools (1.5.0)
     public_suffix (5.0.3)
-    puma (6.3.0)
+    puma (6.3.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.1)
