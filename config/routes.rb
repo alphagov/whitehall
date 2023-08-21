@@ -127,7 +127,6 @@ Whitehall::Application.routes.draw do
         member do
           get :choose_main_office
           put :set_main_office
-          get :access_info
           get :confirm_destroy
           get :about, to: "worldwide_organisations_about#show", as: :about
           get :history, to: "worldwide_organisations_history#index", as: :history

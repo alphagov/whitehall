@@ -44,10 +44,6 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
                   .per(VERSIONS_PER_PAGE)
   end
 
-  def access_info
-    @access_and_opening_times = @worldwide_organisation.default_access_and_opening_times
-  end
-
   def choose_main_office; end
 
   def set_main_office
