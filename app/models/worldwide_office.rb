@@ -7,8 +7,6 @@ class WorldwideOffice < ApplicationRecord
 
   after_commit :republish_embassies_index_page_to_publishing_api
 
-  delegate :default_access_and_opening_times, to: :worldwide_organisation
-
   accepts_nested_attributes_for :contact
 
   include PublishesToPublishingApi
@@ -28,14 +26,6 @@ class WorldwideOffice < ApplicationRecord
   delegate(*contact_methods, to: :contact, allow_nil: true)
   delegate(:non_english_translated_locales, to: :worldwide_organisation)
   delegate(:embassy_office?, to: :worldwide_office_type)
-
-  def access_and_opening_times
-    super || default_access_and_opening_times
-  end
-
-  def has_custom_access_and_opening_times?
-    self[:access_and_opening_times].present?
-  end
 
   def worldwide_office_type
     WorldwideOfficeType.find_by_id(worldwide_office_type_id)
