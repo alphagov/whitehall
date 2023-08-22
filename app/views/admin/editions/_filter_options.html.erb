@@ -148,6 +148,7 @@
       }
     } %>
 
-    <p class="govuk-body"><%= link_to "Reset all fields", filter_action + "?state=active" + anchor, class: "govuk-link" %></p>
+    <p class="govuk-body">
+    <%= link_to "Reset all fields", reset_search_fields_query_string_params(current_user, filter_action, anchor), class: "govuk-link" %></p>
   <% end %>
 </div>
