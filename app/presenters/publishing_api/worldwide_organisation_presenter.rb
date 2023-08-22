@@ -98,7 +98,7 @@ module PublishingApi
     def primary_role
       return [] unless item.primary_role
 
-      [item.primary_role.content_id]
+      [item.primary_role.current_role_appointment.content_id]
     end
 
     def secondary_role
