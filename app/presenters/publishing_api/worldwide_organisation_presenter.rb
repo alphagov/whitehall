@@ -51,8 +51,13 @@ module PublishingApi
         office_staff:,
         sponsoring_organisations:,
         world_locations:,
+        primary_role:,
+        secondary_role:,
+        office_staff_roles:,
       }
     end
+
+  private
 
     def description
       item.summary
@@ -88,6 +93,22 @@ module PublishingApi
 
     def office_staff
       item.office_staff_roles.map(&:current_person).map(&:content_id)
+    end
+
+    def primary_role
+      return [] unless item.primary_role
+
+      [item.primary_role.content_id]
+    end
+
+    def secondary_role
+      return [] unless item.secondary_role
+
+      [item.secondary_role.content_id]
+    end
+
+    def office_staff_roles
+      item.office_staff_roles.map(&:content_id)
     end
 
     def corporate_information_pages
