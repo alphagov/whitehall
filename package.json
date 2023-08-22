@@ -16,23 +16,18 @@
     "env": {
       "browser": true,
       "jquery": true,
-      "jasmine": true
+      "jasmine": true,
+      "es6": true
     },
     "globals": [
       "GOVUK",
       "GOVUKAdmin"
     ],
     "ignore": [
-      "app/assets/javascripts/vendor/"
+      "app/assets/javascripts/vendor/",
+      "app/assets/javascripts/admin_legacy/**/*",
+      "spec/javascripts/admin_legacy/**/*"
     ]
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true
-    },
-    "rules": {
-      "no-var": 0
-    }
   },
   "dependencies": {
     "accessible-autocomplete": "alphagov/accessible-autocomplete-multiselect",
