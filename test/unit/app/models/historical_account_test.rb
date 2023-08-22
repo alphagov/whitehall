@@ -118,6 +118,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     test "does not republish the past prime ministers page on create" do
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
       object.save!
@@ -142,6 +143,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
 
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
       account.update!(roles: [@pm_role, create(:historic_role)])

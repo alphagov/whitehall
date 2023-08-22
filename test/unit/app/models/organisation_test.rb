@@ -1034,7 +1034,9 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "#save triggers an update of the organisations index page" do
     organisation = build(:organisation)
-    UpdateOrganisationsIndexPageWorker.expects(:perform_async)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
     organisation.save!
   end
 
@@ -1140,6 +1142,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "should send related pages to publishing api when a non-ministerial department is created" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
     create(:organisation)
   end
@@ -1149,6 +1152,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
     organisation.update!(name: "New department name")
   end
@@ -1156,6 +1160,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "should send related pages to publishing api when a ministerial department is created" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
     create(:ministerial_department)
   end
@@ -1165,6 +1170,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
     organisation.update!(name: "New department name")
   end
@@ -1173,6 +1179,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
     organisation.destroy!
   end
