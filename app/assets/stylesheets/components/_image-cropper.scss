@@ -14,7 +14,7 @@ $app-cropper-point-size: 20px;
 
   .cropper-line,
   .cropper-point,
-  .cropper-point.point-se:before {
+  .cropper-point.point-se::before {
     background-color: $govuk-focus-colour;
   }
 

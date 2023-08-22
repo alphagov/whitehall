@@ -1,6 +1,7 @@
 extends: stylelint-config-gds/scss
 ignoreFiles:
   - app/assets/stylesheets/vendor/**/*
+  - app/assets/stylesheets/admin_legacy/**/*
 rules:
   # The styles here make rather liberal use of SASS nesting so this has been
   # disabled as it would be difficult to unpick.

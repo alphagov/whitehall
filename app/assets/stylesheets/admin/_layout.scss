@@ -2,7 +2,7 @@
 // to display the uncollapsed menu for users without javascript.
 $collapse-tabs-width: 710px;
 
-.legacy-whitehall .navbar-wrapper:after {
+.legacy-whitehall .navbar-wrapper::after {
   content: "";
   display: block;
   height: 400px;
@@ -18,6 +18,6 @@ $collapse-tabs-width: 710px;
   }
 }
 
-.js-enabled .legacy-whitehall .navbar-wrapper:after {
+.js-enabled .legacy-whitehall .navbar-wrapper::after {
   display: none;
 }

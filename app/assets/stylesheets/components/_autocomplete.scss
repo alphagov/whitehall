@@ -59,7 +59,7 @@ $app-focus-colour: $govuk-focus-colour;
   .autocomplete__option:hover {
     padding: 5px 6px;
 
-    &:before {
+    &::before {
       position: relative;
       top: 3px;
       padding-top: 2px;
