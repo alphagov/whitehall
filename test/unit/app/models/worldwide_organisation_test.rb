@@ -366,7 +366,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:republish_async).with(organisation.offices.first).once
 
-    organisation.update!(default_access_and_opening_times: "new access and opening times")
+    organisation.update!(name: "new name")
   end
 
   test "does not try to republish offices when there are none" do
@@ -374,6 +374,6 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:republish_async).never
 
-    organisation.update!(default_access_and_opening_times: "new access and opening times")
+    organisation.update!(name: "new name")
   end
 end

@@ -120,11 +120,6 @@ module Admin::TabbedNavHelper
     ]
   end
 
-  def tab_navigation_for(model, *extra_classes, &block)
-    tabs = send("#{model.class.model_name.param_key}_tabs", model)
-    tab_navigation(tabs, *extra_classes, &block)
-  end
-
   def person_tabs(person)
     { "Details" => admin_person_path(person),
       "Translations" => admin_person_translations_path(person),

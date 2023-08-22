@@ -113,27 +113,10 @@ Then(/^the "([^"]*)" should be marked as the main office$/) do |contact_title|
   end
 end
 
-Given(/^a worldwide organisation "([^"]*)" with default access information$/) do |name|
-  create(:worldwide_organisation, name:, default_access_and_opening_times: "Default body information")
-end
-
 Given(/^the offices "([^"]*)" and "([^"]*)"$/) do |contact_1_title, contact_2_title|
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_1_title)))
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_2_title)))
-end
-
-When(/^I give "([^"]*)" custom access information$/) do |office_name|
-  worldwide_organisation = WorldwideOrganisation.last
-  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
-  visit admin_worldwide_organisation_path(worldwide_organisation)
-  click_link "Offices"
-  within record_css_selector(worldwide_office) do
-    click_on "Customise"
-  end
-
-  fill_in "Body", with: "Custom body information"
-  click_button "Save"
 end
 
 When(/^I add a new translation to the worldwide organisation "([^"]*)" with:$/) do |name, table|

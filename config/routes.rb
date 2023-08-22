@@ -127,7 +127,6 @@ Whitehall::Application.routes.draw do
         member do
           get :choose_main_office
           put :set_main_office
-          get :access_info
           get :confirm_destroy
           get :about, to: "worldwide_organisations_about#show", as: :about
           get :history, to: "worldwide_organisations_history#index", as: :history
@@ -145,7 +144,6 @@ Whitehall::Application.routes.draw do
           end
           get :reorder, on: :collection
           post :reorder_for_home_page, on: :collection
-          resource :access_and_opening_time, path: "access_info", except: %i[index show new]
           resources :translations, controller: "worldwide_office_translations", only: %i[create edit update destroy index] do
             get :confirm_destroy, on: :member
           end
