@@ -37,7 +37,7 @@
   @include govuk-font(48);
   padding-top: 12px;
   padding-bottom: 8px;
-  @media (max-width: 640px) {
+  @media (max-width: 640px) { // stylelint-disable-line media-feature-range-notation
     padding-top: 8px;
     padding-bottom: 7px;
   }
@@ -48,7 +48,7 @@
   @include govuk-font(36);
   padding-top: 6px;
   padding-bottom: 9px;
-  @media (max-width: 640px) {
+  @media (max-width: 640px) { // stylelint-disable-line media-feature-range-notation
     padding-top: 8px;
     padding-bottom: 7px;
   }
@@ -59,7 +59,7 @@
   @include govuk-font(27);
   padding-top: 2px;
   padding-bottom: 3px;
-  @media (max-width: 640px) {
+  @media (max-width: 640px) { // stylelint-disable-line media-feature-range-notation
     padding-top: 7px;
     padding-bottom: 3px;
   }
@@ -70,7 +70,7 @@
   @include govuk-font(24);
   padding-top: 3px;
   padding-bottom: 2px;
-  @media (max-width: 640px) {
+  @media (max-width: 640px) { // stylelint-disable-line media-feature-range-notation
     padding-top: 7px;
     padding-bottom: 7px;
   }
@@ -81,7 +81,7 @@
   @include govuk-font(19);
   padding-top: 7px;
   padding-bottom: 3px;
-  @media (max-width: 640px) {
+  @media (max-width: 640px) { // stylelint-disable-line media-feature-range-notation
     padding-top: 6px;
     padding-bottom: 4px;
   }
@@ -92,7 +92,7 @@
   @include govuk-font(16);
   padding-top: 5px;
   padding-bottom: 5px;
-  @media (max-width: 640px) {
+  @media (max-width: 640px) { // stylelint-disable-line media-feature-range-notation
     padding-top: 6px;
     padding-bottom: 4px;
   }
@@ -104,7 +104,7 @@
 
   padding-top: 6px;
   padding-bottom: 4px;
-  @media (max-width: 640px) {
+  @media (max-width: 640px) { // stylelint-disable-line media-feature-range-notation
     padding-top: 4px;
     padding-bottom: 1px;
   }

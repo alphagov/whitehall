@@ -184,7 +184,7 @@
       }
     }
 
-    & p:before {
+    & p::before {
       content: "\201C";
       float: left;
       clear: both;
@@ -197,7 +197,7 @@
       }
     }
 
-    & p.last-child:after {
+    & p.last-child::after {
       content: "\201D";
       @include right-to-left {
         content: "\201C";
@@ -261,7 +261,7 @@
     }
   }
 
-  .information-block:after {
+  .information-block::after {
     content: "info";
     text-indent: -9999px;
     background-color: $inside-gov-brand;

@@ -17,7 +17,7 @@
 }
 
 .app-view-summary__topic-tag-list-item {
-  &:before {
+  &::before {
     width: 9px;
     height: 9px;
   }
