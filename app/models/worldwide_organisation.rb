@@ -19,8 +19,6 @@ class WorldwideOrganisation < ApplicationRecord
 
   has_many :editions, through: :edition_worldwide_organisations
 
-  alias_attribute :access_and_opening_times, :default_access_and_opening_times
-
   belongs_to :default_news_image, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
