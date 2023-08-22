@@ -5,7 +5,7 @@ module WorldwideOrganisationsHelper
     click_link "View #{worldwide_organisation.name}"
     click_link "Translations"
 
-    select translation["locale"], from: "Locale"
+    select translation["locale"], from: "Language"
 
     click_on "Next"
     fill_in "Name", with: translation["name"]
