@@ -1,14 +1,14 @@
 describe('GOVUK.Modules.SelectWithSearch', function () {
-  var component, module
+  let component, module
 
   function getOptions () {
-    var items = component.querySelectorAll('.choices__list .choices__item--choice')
+    const items = component.querySelectorAll('.choices__list .choices__item--choice')
     return Array.from(items).map((item) => (item.textContent.trim()))
   }
 
   // Simulate a user selecting an option. This will trigger a "change" event.
   function selectOption (value) {
-    var event = new MouseEvent('mousedown')
+    const event = new MouseEvent('mousedown')
     component.querySelector(`[data-choice][data-value="${CSS.escape(value)}"]`).dispatchEvent(event)
   }
 
@@ -93,14 +93,14 @@ describe('GOVUK.Modules.SelectWithSearch', function () {
     })
 
     it('renders groups and options', () => {
-      var list = component.querySelector('.choices__list[role=listbox]')
+      const list = component.querySelector('.choices__list[role=listbox]')
       expect(list.querySelectorAll('.choices__group').length).toEqual(4)
       expect(list.querySelectorAll('.choices__item--choice').length).toEqual(11)
     })
   })
 
   describe('with tracking enabled', () => {
-    var setup = function ({ category, label = false }) {
+    const setup = function ({ category, label = false }) {
       spyOn(GOVUK.analytics, 'trackEvent')
 
       component = document.createElement('div')

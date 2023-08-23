@@ -8,22 +8,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   Autocomplete.prototype.init = function () {
-    var $select = this.$module.querySelector('select')
+    const $select = this.$module.querySelector('select')
 
-    var defaultOptions = {
+    const defaultOptions = {
       selectElement: $select,
       minLength: 3,
       showAllValues: $select.multiple,
       showNoOptionsFound: true,
       onConfirm: function (query) {
-        var category = $select.getAttribute('data-track-category')
-        var label = $select.getAttribute('data-track-label')
-        var action = query
+        const category = $select.getAttribute('data-track-category')
+        const label = $select.getAttribute('data-track-label')
         if (category && label) {
-          window.GOVUK.analytics.trackEvent(category, action, { label: label })
+          window.GOVUK.analytics.trackEvent(category, query, { label: label })
         }
 
-        var matchingOption
+        let matchingOption
         if (query) {
           matchingOption = [].filter.call($select.options, function (option) {
             return (option.textContent || option.innerText) === query
@@ -37,9 +36,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }
     }
 
-    var assignedOptions = JSON.parse(this.$module.dataset.autocompleteConfigurationOptions)
+    const assignedOptions = JSON.parse(this.$module.dataset.autocompleteConfigurationOptions)
 
-    var configurationOptions = Object.assign(defaultOptions, assignedOptions)
+    const configurationOptions = Object.assign(defaultOptions, assignedOptions)
 
     // disabled eslint because we can not control the name of the constructor (expected to be EnhanceSelectElement)
     new window.accessibleAutocomplete.enhanceSelectElement(configurationOptions) // eslint-disable-line no-new, new-cap

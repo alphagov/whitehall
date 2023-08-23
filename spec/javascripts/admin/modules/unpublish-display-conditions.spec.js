@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
-  var body
+  let body
 
   beforeEach(function () {
     body = document.createElement('div')
@@ -46,9 +46,9 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
         </div>
       </div>
     `
-    var checkbox = body.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
+    const checkbox = body.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
     checkbox.checked = true
-    var unpublishDisplayConditions = new GOVUK.Modules.UnpublishDisplayConditions(body)
+    const unpublishDisplayConditions = new GOVUK.Modules.UnpublishDisplayConditions(body)
     unpublishDisplayConditions.init()
   })
 
@@ -59,7 +59,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
   })
 
   it('should only show publish in error section when selecting unpublish: published in error', function () {
-    var radio = body.querySelector('#radio-published-in-error')
+    const radio = body.querySelector('#radio-published-in-error')
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
@@ -69,7 +69,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
   })
 
   it('should only show consolidated section when selecting unpublish: consolidated', function () {
-    var radio = body.querySelector('#radio-published-consolidated')
+    const radio = body.querySelector('#radio-published-consolidated')
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
@@ -79,7 +79,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
   })
 
   it('should only show withdrawal section when selecting withdrawal', function () {
-    var radio = body.querySelector('#radio-withdraw')
+    const radio = body.querySelector('#radio-withdraw')
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
@@ -89,7 +89,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
   })
 
   it('should show last chosen option if user changes their selected option', function () {
-    var radio = body.querySelector('#radio-withdraw')
+    const radio = body.querySelector('#radio-withdraw')
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
@@ -97,7 +97,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
     expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).toEqual('block')
 
-    var radio2 = body.querySelector('#radio-published-consolidated')
+    const radio2 = body.querySelector('#radio-published-consolidated')
     radio2.checked = true
     radio2.dispatchEvent(new Event('change'))
 
@@ -111,7 +111,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
   })
 
   it('should show/hide public explanation section when "Redirect to URL automatically?" is unchecked/checked', function () {
-    var checkbox = body.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
+    const checkbox = body.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
     checkbox.checked = false
     checkbox.dispatchEvent(new Event('change'))
 

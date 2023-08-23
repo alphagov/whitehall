@@ -12,8 +12,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   PreventMultipleFormSubmissions.prototype.submit = function (e) {
-    for (var index = 0; index < this.submitButtons.length; index++) {
-      var button = this.submitButtons[index]
+    for (let index = 0; index < this.submitButtons.length; index++) {
+      const button = this.submitButtons[index]
 
       button.setAttribute('disabled', 'disabled')
       button.setAttribute('aria-disabled', 'true')

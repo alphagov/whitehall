@@ -1,7 +1,7 @@
 describe('GOVUK.proxifier', function () {
   describe('proxifyMethod', function () {
     it('should wrap the specified method in a proxy using the object as context', function () {
-      var testObject = {
+      const testObject = {
         testFunction: function () { return { calledContext: this } }
       }
 
@@ -13,7 +13,7 @@ describe('GOVUK.proxifier', function () {
 
   describe('proxifyMethods', function () {
     it('should call proxify on each indicated method', function () {
-      var testObject = {
+      const testObject = {
         wibbleMethod: function wibbleMethod () { return { calledContext: this } },
         wobbleMethod: function wobbleMethod () { return { calledContext: this } }
       }
@@ -27,7 +27,7 @@ describe('GOVUK.proxifier', function () {
 
   describe('proxifyAllMethods', function () {
     it('should proxoify all attributes referencing functions not beginning with an uppercase letter (non-constructors only)', function () {
-      var testObject = {
+      const testObject = {
         nonMethod: "this isn't a function",
         methodFunction: function () { return { calledContext: this } },
         ConstructorFunction: function () { return { calledContext: this } }

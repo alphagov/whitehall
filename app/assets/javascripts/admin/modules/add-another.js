@@ -13,7 +13,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   AddAnother.prototype.addButton = function () {
-    var buttonAdd = document.createElement('button')
+    const buttonAdd = document.createElement('button')
 
     buttonAdd.classList.add('govuk-button', 'govuk-!-margin-bottom-0', 'govuk-button--secondary', 'add-another__add-button')
     buttonAdd.setAttribute('type', 'submit')
@@ -33,10 +33,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   AddAnother.prototype.addFields = function (button) {
-    var allFields, newFields, fields
-
-    allFields = button.parentNode.querySelectorAll('.js-duplicate-fields-set')
-    fields = allFields[allFields.length - 1]
+    const allFields = button.parentNode.querySelectorAll('.js-duplicate-fields-set')
+    const fields = allFields[allFields.length - 1]
 
     // Show hidden "Remove" button
     if (fields.querySelector('.add-another__remove-button')) {
@@ -44,7 +42,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     // Clone the markup of the previous set of fields
-    newFields = fields.cloneNode(true)
+    const newFields = fields.cloneNode(true)
 
     // Reset values of cloned fields
     newFields.querySelectorAll('input, textarea, select').forEach(function (element) {
@@ -65,8 +63,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   AddAnother.prototype.removeButton = function () {
-    var fields = this.module.querySelectorAll('.js-duplicate-fields-set')
-    var buttonRemove
+    const fields = this.module.querySelectorAll('.js-duplicate-fields-set')
+    let buttonRemove
 
     if (fields.length > 1) {
       fields.forEach(function (field) {
@@ -83,19 +81,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   AddAnother.prototype.removeFields = function (button) {
-    var set = button.parentNode
-    var sets
-    var hiddenField
-    var input = set.querySelectorAll('input:not([type="hidden"]), select, textarea')[0]
-    var baseId = input.id
-    var baseName = input.name
+    const set = button.parentNode
+    const input = set.querySelectorAll('input:not([type="hidden"]), select, textarea')[0]
+    const baseId = input.id
+    const baseName = input.name
 
     set.remove()
 
-    sets = this.module.querySelectorAll('.js-duplicate-fields-set')
+    const sets = this.module.querySelectorAll('.js-duplicate-fields-set')
 
     // Add hidden field for removed set
-    hiddenField = document.createElement('input')
+    const hiddenField = document.createElement('input')
     hiddenField.type = 'hidden'
     hiddenField.classList.add('js-hidden-destroy')
     hiddenField.id = baseId.replace(/_[a-zA-Z]+$/, '__destroy')
@@ -114,15 +110,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   // Set values for index, for and name of supplied fields
   AddAnother.prototype.setValues = function (set, index) {
-    var num = 0
+    let num = 0
 
     set.querySelectorAll('label, input, select, textarea').forEach(function (element) {
-      var currentName = element.getAttribute('name') || null
-      var currentId = element.getAttribute('id') || null
-      var currentFor = element.getAttribute('for') || null
-      var arrayMatcher = /(.*)\[([0-9]+)\](.*?)$/
-      var underscoreMatcher = /(.*)_([0-9]+)_(.*?)$/
-      var matched
+      const currentName = element.getAttribute('name') || null
+      const currentId = element.getAttribute('id') || null
+      const currentFor = element.getAttribute('for') || null
+      const arrayMatcher = /(.*)\[([0-9]+)\](.*?)$/
+      const underscoreMatcher = /(.*)_([0-9]+)_(.*?)$/
+      let matched
 
       if (currentName && arrayMatcher.exec(currentName)) {
         matched = arrayMatcher.exec(currentName)

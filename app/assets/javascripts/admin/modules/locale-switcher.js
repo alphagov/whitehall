@@ -22,17 +22,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   LocaleSwitcher.prototype.setupLocaleSwitching = function () {
-    var form = this.module
-    var rightToLeftLocales = this.rightToLeftLocales
-    var select = form.querySelector('.js-locale-switcher-selector')
-    var localeFields = form.querySelectorAll('.js-locale-switcher-field input, .js-locale-switcher-field textarea, .js-locale-switcher-custom')
+    const form = this.module
+    const rightToLeftLocales = this.rightToLeftLocales
+    const select = form.querySelector('.js-locale-switcher-selector')
+    const localeFields = form.querySelectorAll('.js-locale-switcher-field input, .js-locale-switcher-field textarea, .js-locale-switcher-custom')
 
     if (!select) {
       return
     }
 
     select.addEventListener('change', function (event) {
-      var value = event.target.value
+      const value = event.target.value
 
       if (rightToLeftLocales.indexOf(value) > -1) {
         localeFields.forEach(function (field) {

@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.AppAnalytics', function () {
-  var appAnalytics
+  let appAnalytics
 
   function addGoogleAnalyticsSpy () {
     if (typeof window.ga === 'undefined') {
@@ -9,9 +9,9 @@ describe('GOVUK.Modules.AppAnalytics', function () {
   }
 
   beforeEach(function () {
-    var div = document.createElement('div')
+    const div = document.createElement('div')
 
-    var metaTag = document.createElement('meta')
+    const metaTag = document.createElement('meta')
     metaTag.setAttribute('name', 'custom-dimension:8')
     metaTag.setAttribute('content', 'Custom dimension 8')
     document.getElementsByTagName('head')[0].appendChild(metaTag)
@@ -20,9 +20,9 @@ describe('GOVUK.Modules.AppAnalytics', function () {
   })
 
   afterEach(function () {
-    var head = document.getElementsByTagName('head')[0]
-    var metaTags = document.querySelectorAll("[name^='custom-dimension']")
-    for (var i = 0; i < metaTags.length; i++) {
+    const head = document.getElementsByTagName('head')[0]
+    const metaTags = document.querySelectorAll("[name^='custom-dimension']")
+    for (let i = 0; i < metaTags.length; i++) {
       head.removeChild(metaTags[i])
     }
   })
@@ -67,7 +67,7 @@ describe('GOVUK.Modules.AppAnalytics', function () {
   it('can accept additional custom dimensions without overriding old ones', function () {
     addGoogleAnalyticsSpy()
 
-    var metaTag = document.createElement('meta')
+    const metaTag = document.createElement('meta')
     metaTag.setAttribute('name', 'custom-dimension:21')
     metaTag.setAttribute('content', 'Additional custom dimension 21')
     document.getElementsByTagName('head')[0].appendChild(metaTag)

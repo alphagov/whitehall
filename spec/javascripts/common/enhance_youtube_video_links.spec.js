@@ -1,5 +1,5 @@
 describe('jQuery.enhanceYoutubeVideoLinks', function () {
-  var container
+  let container
   beforeEach(function () {
     container = $('<div id="wrap"><p><a></a></p></div>')
     $(document.body).append(container)

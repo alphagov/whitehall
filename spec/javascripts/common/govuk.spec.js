@@ -9,7 +9,7 @@ describe('GOVUK.init', function () {
   })
 
   it('calls init on a singleton and returns that singleton', function () {
-    var testSingleton = {
+    const testSingleton = {
       init: function init (params) {
         this.foo = params.foo
       }

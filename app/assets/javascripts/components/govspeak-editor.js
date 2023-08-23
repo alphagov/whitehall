@@ -15,9 +15,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   GovspeakEditor.prototype.getRenderedGovspeak = function (body, callback) {
-    var data = this.generateFormData(body)
+    const data = this.generateFormData(body)
 
-    var request = new XMLHttpRequest()
+    const request = new XMLHttpRequest()
     request.open('POST', '/government/admin/preview', false)
     request.setRequestHeader('X-CSRF-Token', this.getCsrfToken())
     request.onreadystatechange = callback
@@ -25,20 +25,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   GovspeakEditor.prototype.generateFormData = function (body) {
-    var data = new FormData()
+    const data = new FormData()
     data.append('body', body)
     data.append('authenticity_token', this.getCsrfToken())
     if (this.alternativeFormatProviderId()) {
       data.append('alternative_format_provider_id', this.alternativeFormatProviderId())
     }
 
-    var imageIds = this.getImageIds()
-    for (var index = 0; index < imageIds.length; index++) {
+    const imageIds = this.getImageIds()
+    for (let index = 0; index < imageIds.length; index++) {
       data.append('image_ids[]', imageIds[index])
     }
 
-    var attachmentIds = this.getAttachmentIds()
-    for (var i = 0; i < attachmentIds.length; i++) {
+    const attachmentIds = this.getAttachmentIds()
+    for (let i = 0; i < attachmentIds.length; i++) {
       data.append('attachment_ids[]', attachmentIds[i])
     }
 
@@ -46,17 +46,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   GovspeakEditor.prototype.initPreview = function () {
-    var previewToggle = this.module.querySelector('.js-app-c-govspeak-editor__preview-button')
-    var trackToggle = previewToggle.getAttribute('data-preview-toggle-tracking') === 'true'
-    var preview = this.module.querySelector('.app-c-govspeak-editor__preview')
-    var error = this.module.querySelector('.app-c-govspeak-editor__error')
-    var textareaWrapper = this.module.querySelector('.app-c-govspeak-editor__textarea')
-    var textarea = this.module.querySelector(previewToggle.getAttribute('data-content-target'))
+    const previewToggle = this.module.querySelector('.js-app-c-govspeak-editor__preview-button')
+    const trackToggle = previewToggle.getAttribute('data-preview-toggle-tracking') === 'true'
+    const preview = this.module.querySelector('.app-c-govspeak-editor__preview')
+    const error = this.module.querySelector('.app-c-govspeak-editor__error')
+    const textareaWrapper = this.module.querySelector('.app-c-govspeak-editor__textarea')
+    const textarea = this.module.querySelector(previewToggle.getAttribute('data-content-target'))
 
     previewToggle.addEventListener('click', function (e) {
       e.preventDefault()
 
-      var previewMode = previewToggle.innerText === 'Preview'
+      const previewMode = previewToggle.innerText === 'Preview'
 
       previewToggle.innerText = previewMode ? 'Back to edit' : 'Preview'
       textareaWrapper.classList.toggle('app-c-govspeak-editor__textarea--hidden')
@@ -64,7 +64,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       if (previewMode) {
         preview.classList.add('app-c-govspeak-editor__preview--show')
         this.getRenderedGovspeak(textarea.value, function (event) {
-          var response = event.currentTarget
+          const response = event.currentTarget
 
           if (response.readyState === 4) {
             if (response.status === 200) {
@@ -93,14 +93,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   GovspeakEditor.prototype.getImageIds = function () {
-    var imagesIds = this.module.getAttribute('data-image-ids')
+    let imagesIds = this.module.getAttribute('data-image-ids')
     imagesIds = imagesIds ? JSON.parse(imagesIds) : []
 
     return imagesIds.filter(function (id) { return id })
   }
 
   GovspeakEditor.prototype.getAttachmentIds = function () {
-    var attachmentIds = this.module.getAttribute('data-attachment-ids')
+    let attachmentIds = this.module.getAttribute('data-attachment-ids')
     attachmentIds = attachmentIds ? JSON.parse(attachmentIds) : []
 
     return attachmentIds.filter(function (id) { return id })

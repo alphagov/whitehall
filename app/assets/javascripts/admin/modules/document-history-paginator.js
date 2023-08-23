@@ -12,9 +12,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   DocumentHistoryPaginator.prototype.setupLinkEventListeners = function () {
-    var _this = this
+    const _this = this
 
-    var linkSelectors = [
+    const linkSelectors = [
       '.app-view-document-history-tab__newer-pagination-link',
       '.app-view-document-history-tab__older-pagination-link'
     ]
@@ -25,7 +25,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   DocumentHistoryPaginator.prototype.addLinkEventListener = function (link) {
-    var module = this.module
+    const module = this.module
 
     link.addEventListener('click', function (e) {
       e.preventDefault()
@@ -36,24 +36,24 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         .then(function (html) {
           module.innerHTML = html
 
-          var documentHistoryModule = new GOVUK.Modules.DocumentHistoryPaginator(module)
+          const documentHistoryModule = new GOVUK.Modules.DocumentHistoryPaginator(module)
           documentHistoryModule.init()
         })
     })
   }
 
   DocumentHistoryPaginator.prototype.setupFormChangeListener = function () {
-    var module = this.module
+    const module = this.module
 
-    var form = module.querySelector('form.js-filter-form')
-    var select = form.querySelector('select')
+    const form = module.querySelector('form.js-filter-form')
+    const select = form.querySelector('select')
 
     // Hide the submit <button>
     form.querySelector('button').hidden = true // this doesn't hide it for some reason 😢
     form.querySelector('button').style.display = 'none'
 
-    var queryParameters = function () {
-      var formData = new FormData(form)
+    const queryParameters = function () {
+      const formData = new FormData(form)
       return new URLSearchParams(formData).toString()
     }
 
@@ -64,7 +64,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         .then(function (html) {
           module.innerHTML = html
 
-          var documentHistoryModule = new GOVUK.Modules.DocumentHistoryPaginator(module)
+          const documentHistoryModule = new GOVUK.Modules.DocumentHistoryPaginator(module)
           documentHistoryModule.init()
         })
     })

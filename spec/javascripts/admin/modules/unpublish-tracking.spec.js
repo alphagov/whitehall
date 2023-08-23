@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.UnpublishTracking', function () {
-  var form
+  let form
 
   beforeEach(function () {
     form = document.createElement('form')
@@ -36,7 +36,7 @@ describe('GOVUK.Modules.UnpublishTracking', function () {
       </fieldset>
     `
 
-    var unpublishTracking = new GOVUK.Modules.UnpublishTracking(form)
+    const unpublishTracking = new GOVUK.Modules.UnpublishTracking(form)
     unpublishTracking.init()
   })
 
@@ -60,7 +60,7 @@ describe('GOVUK.Modules.UnpublishTracking', function () {
   it('should send two tracking event when form is submitted with withdrawal date selected', function () {
     spyOn(GOVUK.analytics, 'trackEvent')
 
-    var radio = form.querySelector('input[name=previous_withdrawal_id]')
+    const radio = form.querySelector('input[name=previous_withdrawal_id]')
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
     form.dispatchEvent(new Event('submit'))

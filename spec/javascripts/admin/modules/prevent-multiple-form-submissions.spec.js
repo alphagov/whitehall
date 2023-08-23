@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.PreventMultipleFormSubmissions', function () {
-  var form, submitButton
+  let form, submitButton
 
   beforeEach(function () {
     form = document.createElement('form')
@@ -8,7 +8,7 @@ describe('GOVUK.Modules.PreventMultipleFormSubmissions', function () {
     submitButton = document.createElement('button')
     form.appendChild(submitButton)
 
-    var module = new GOVUK.Modules.PreventMultipleFormSubmissions(form)
+    const module = new GOVUK.Modules.PreventMultipleFormSubmissions(form)
     module.init()
   })
 

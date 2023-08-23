@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.AddAnother', function () {
-  var fixture, addAnother, addButton, removeButton, fields, field0, field1
+  let fixture, addAnother, addButton, removeButton, fields, field0, field1
 
   beforeEach(function () {
     fixture = document.createElement('div')
@@ -86,8 +86,6 @@ describe('GOVUK.Modules.AddAnother', function () {
   })
 
   it('should add a hidden input field with the appropriate attributes for each removed set when the "Remove" button is clicked', function () {
-    var hiddenField
-
     window.GOVUK.triggerEvent(addButton, 'click')
     window.GOVUK.triggerEvent(addButton, 'click')
 
@@ -95,7 +93,7 @@ describe('GOVUK.Modules.AddAnother', function () {
 
     window.GOVUK.triggerEvent(removeButton, 'click')
 
-    hiddenField = document.querySelector('.js-hidden-destroy') || null
+    const hiddenField = document.querySelector('.js-hidden-destroy') || null
 
     expect(hiddenField).toBeTruthy()
     expect(hiddenField.id).toBe('d_e_0__destroy')

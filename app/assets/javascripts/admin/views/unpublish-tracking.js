@@ -12,10 +12,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   UnpublishTracking.prototype.initSubmitListener = function () {
     this.module.addEventListener('submit', function (e) {
-      var unpublishType = e.target.getAttribute('data-unpublish-reason-label').trim()
+      const unpublishType = e.target.getAttribute('data-unpublish-reason-label').trim()
       GOVUK.analytics.trackEvent('WithdrawUnpublishSelection', 'WithdrawUnpublish-selection', { label: unpublishType })
 
-      var withdrawalDate = e.target.querySelector('input[name=previous_withdrawal_id]:checked')
+      let withdrawalDate = e.target.querySelector('input[name=previous_withdrawal_id]:checked')
       if (withdrawalDate) {
         withdrawalDate = e.target.querySelector('label[for="' + withdrawalDate.id + '"]').innerText.trim()
         GOVUK.analytics.trackEvent('WithdrawUnpublishSelection', 'Withdraw-selection', { label: withdrawalDate })
