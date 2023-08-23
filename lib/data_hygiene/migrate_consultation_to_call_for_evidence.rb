@@ -16,10 +16,12 @@ module DataHygiene
     end
 
     def call
-      document.transaction do
-        create_draft_call_for_evidence
-        migrate_outcome
-        migrate_participation
+      AuditTrail.acting_as(whodunnit) do
+        document.transaction do
+          create_draft_call_for_evidence
+          migrate_outcome
+          migrate_participation
+        end
       end
     end
 

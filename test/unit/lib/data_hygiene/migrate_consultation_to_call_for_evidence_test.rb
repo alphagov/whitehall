@@ -132,6 +132,13 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
     assert_equal consultation_response_form, call_for_evidence_response_form
   end
 
+  it "attributes the migration to the whodunnit user" do
+    migrate
+
+    assert_equal whodunnit, call_for_evidence.creator
+    assert_equal [whodunnit], call_for_evidence.versions.map(&:user).uniq
+  end
+
   describe "invalid documents" do
     context "when latest edition is not a consultation" do
       let(:consultation) { create(:published_news_story) }
