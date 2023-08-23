@@ -113,6 +113,24 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     assert_valid_against_links_schema({ links: presented_item.links }, "worldwide_organisation")
   end
 
+  test "the body of a worldwide org includes linked attachments if the About us page has linked attachments" do
+    worldwide_org = create(:worldwide_organisation)
+    create(:about_corporate_information_page,
+           organisation: nil,
+           body: "Some stuff and some attachments\n[AttachmentLink: greenpaper.pdf]",
+           worldwide_organisation: worldwide_org,
+           attachments: [create(:file_attachment)])
+    expected_body_text = "<div class=\"govspeak\"><p>Some stuff and some attachments"
+    expected_body_attachment_link = Regexp.new(/<a class="govuk-link" href="https:\/\/static.test.gov.uk\/government\/uploads\/system\/uploads\/attachment_data\/file\/\d+\/greenpaper.pdf">file-attachment-title-\d+<\/a>/)
+    expected_body_attachment_metadata = "(<span class=\"gem-c-attachment-link__attribute\"><abbr title=\"Portable Document Format\" class=\"gem-c-attachment-link__abbr\">PDF</abbr></span>, <span class=\"gem-c-attachment-link__attribute\">3.39 KB</span>, <span class=\"gem-c-attachment-link__attribute\">1 page</span>)"
+
+    presented_item = present(worldwide_org)
+
+    assert_match expected_body_text, presented_item.body
+    assert_match expected_body_attachment_link, presented_item.body
+    assert_match expected_body_attachment_metadata, presented_item.body
+  end
+
   test "presents the correct routes for a worldwide organisation with a translation" do
     worldwide_organisation = create(
       :worldwide_organisation,

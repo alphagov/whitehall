@@ -59,7 +59,7 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body) || ""
+      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item.about_us) || ""
     end
 
     def main_office
