@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.EditionForm', function () {
-  var form, currentYear
+  let form, currentYear
 
   beforeEach(function () {
     form = document.createElement('form')
@@ -10,29 +10,29 @@ describe('GOVUK.Modules.EditionForm', function () {
   describe('#setupSubtypeFormatAdviceEventListener', function () {
     beforeEach(function () {
       form.innerHTML = subtypeFields() + localeFields() + associationsFields()
-      var editionForm = new GOVUK.Modules.EditionForm(form)
+      const editionForm = new GOVUK.Modules.EditionForm(form)
       editionForm.init()
     })
 
     it('should render subtype guidance based when the subtype format select changes value', function () {
-      var select = form.querySelector('#edition_news_article_type_id')
+      const select = form.querySelector('#edition_news_article_type_id')
 
       select.value = '1'
       select.dispatchEvent(new Event('change'))
-      var subtypeAdvice = form.querySelector('.js-app-view-edition-form__subtype-format-advice')
+      const subtypeAdvice = form.querySelector('.js-app-view-edition-form__subtype-format-advice')
 
       expect(subtypeAdvice.innerHTML).toBe('<strong>Use this subformat for…</strong> <p>News written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.</p>')
     })
 
     it('should remove subtype guidance when the subtype format select is unselected', function () {
-      var select = form.querySelector('#edition_news_article_type_id')
+      const select = form.querySelector('#edition_news_article_type_id')
 
       select.value = '1'
       select.dispatchEvent(new Event('change'))
       select.value = '0'
       select.dispatchEvent(new Event('change'))
 
-      var subtypeAdvice = form.querySelector('.js-app-view-edition-form__subtype-format-advice')
+      const subtypeAdvice = form.querySelector('.js-app-view-edition-form__subtype-format-advice')
       expect(subtypeAdvice).toBe(null)
     })
   })
@@ -40,13 +40,13 @@ describe('GOVUK.Modules.EditionForm', function () {
   describe('#setupWorldNewsStoryVisibilityToggle when a NewsArticle is a WorldNewsStory', function () {
     beforeEach(function () {
       form.innerHTML = subtypeFieldsWithWorldNewsStorySelected() + localeFields() + associationsFields()
-      var editionForm = new GOVUK.Modules.EditionForm(form)
+      const editionForm = new GOVUK.Modules.EditionForm(form)
       editionForm.init()
     })
 
     it('should hide the ministers field & reset and hide the organisation fields on page load', function () {
-      var ministersFields = form.querySelector('.app-view-edit-edition__appointment-fields')
-      var organisationFields = form.querySelector('.app-view-edit-edition__organisation-fields')
+      const ministersFields = form.querySelector('.app-view-edit-edition__appointment-fields')
+      const organisationFields = form.querySelector('.app-view-edit-edition__organisation-fields')
 
       expect(ministersFields.classList).toContain('app-view-edit-edition__appointment-fields--hidden')
       expect(organisationFields.classList).toContain('app-view-edit-edition__organisation-fields--hidden')
@@ -56,15 +56,15 @@ describe('GOVUK.Modules.EditionForm', function () {
     })
 
     it('should reset & hide the locale & world location fields, and show the organisation and ministers fields when WorldNewsStory is deselected', function () {
-      var subtypeSelect = form.querySelector('#edition_news_article_type_id')
-      var localeDiv = form.querySelector('.app-view-edit-edition__locale-field')
-      var localeCheckbox = form.querySelector('#edition_create_foreign_language_only-0')
-      var localeSelect = form.querySelector('#edition_primary_locale')
+      const subtypeSelect = form.querySelector('#edition_news_article_type_id')
+      const localeDiv = form.querySelector('.app-view-edit-edition__locale-field')
+      const localeCheckbox = form.querySelector('#edition_create_foreign_language_only-0')
+      const localeSelect = form.querySelector('#edition_primary_locale')
 
-      var ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
-      var organisationDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
-      var worldLocationDiv = form.querySelector('.app-view-edit-edition__world-organisation-fields')
-      var worldLocationSelect = worldLocationDiv.querySelector('select')
+      const ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
+      const organisationDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
+      const worldLocationDiv = form.querySelector('.app-view-edit-edition__world-organisation-fields')
+      const worldLocationSelect = worldLocationDiv.querySelector('select')
 
       subtypeSelect.value = '4'
       subtypeSelect.dispatchEvent(new Event('change'))
@@ -93,31 +93,31 @@ describe('GOVUK.Modules.EditionForm', function () {
   describe('#setupWorldNewsStoryVisibilityToggle when a NewsArticle is not a WorldNewsStory', function () {
     beforeEach(function () {
       form.innerHTML = subtypeFields() + localeFields() + associationsFields()
-      var editionForm = new GOVUK.Modules.EditionForm(form)
+      const editionForm = new GOVUK.Modules.EditionForm(form)
       editionForm.init()
     })
 
     it('should hide the locale fields and world-location-fields on page load', function () {
-      var localeFields = form.querySelector('.app-view-edit-edition__locale-field')
-      var worldLocationFields = form.querySelector('.app-view-edit-edition__world-organisation-fields')
+      const localeFields = form.querySelector('.app-view-edit-edition__locale-field')
+      const worldLocationFields = form.querySelector('.app-view-edit-edition__world-organisation-fields')
 
       expect(localeFields.classList).toContain('app-view-edit-edition__locale-field--hidden')
       expect(worldLocationFields.classList).toContain('app-view-edit-edition__world-organisation-fields--hidden')
     })
 
     it('should show the locale & world location fields, and hide and reset the ministers & org fields when WorldNewsStory is selected', function () {
-      var select = form.querySelector('#edition_news_article_type_id')
+      const select = form.querySelector('#edition_news_article_type_id')
 
       select.value = '4'
       select.dispatchEvent(new Event('change'))
 
-      var localeFields = form.querySelector('.app-view-edit-edition__locale-field')
-      var ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
-      var ministersSelect = ministersDiv.querySelector('select')
-      var organisationDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
-      var organisationSelect1 = organisationDiv.querySelectorAll('select')[0]
-      var organisationSelect2 = organisationDiv.querySelectorAll('select')[1]
-      var worldLocationDiv = form.querySelector('.app-view-edit-edition__world-organisation-fields')
+      const localeFields = form.querySelector('.app-view-edit-edition__locale-field')
+      const ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
+      const ministersSelect = ministersDiv.querySelector('select')
+      const organisationDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
+      const organisationSelect1 = organisationDiv.querySelectorAll('select')[0]
+      const organisationSelect2 = organisationDiv.querySelectorAll('select')[1]
+      const worldLocationDiv = form.querySelector('.app-view-edit-edition__world-organisation-fields')
 
       expect(localeFields.classList).not.toContain('app-view-edit-edition__locale-field--hidden')
       expect(worldLocationDiv.classList).not.toContain('app-view-edit-edition__world-organisation-fields--hidden')
@@ -132,18 +132,18 @@ describe('GOVUK.Modules.EditionForm', function () {
   describe('#setupSpeechSubtypeEventListeners', function () {
     beforeEach(function () {
       form.innerHTML = speechFields(currentYear)
-      var editionForm = new GOVUK.Modules.EditionForm(form)
+      const editionForm = new GOVUK.Modules.EditionForm(form)
       editionForm.init()
     })
 
     it('updates the labels of speaker fields to `writer` and hides and resets the location field when authored_article is selected ', function () {
-      var select = form.querySelector('#edition_speech_type_id')
-      var deliveredByLabel = form.querySelector('#edition_role_appointment .govuk-fieldset__heading')
-      var hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
-      var noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
-      var deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
-      var locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
-      var locationInput = locationDiv.querySelector('input[name="edition[location]"]')
+      const select = form.querySelector('#edition_speech_type_id')
+      const deliveredByLabel = form.querySelector('#edition_role_appointment .govuk-fieldset__heading')
+      const hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
+      const noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
+      const deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
+      const locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
+      const locationInput = locationDiv.querySelector('input[name="edition[location]"]')
 
       select.value = '6'
       locationInput.value = 'To be deleted.'
@@ -158,13 +158,13 @@ describe('GOVUK.Modules.EditionForm', function () {
     })
 
     it('updates the labels of speaker fields to `speaker` and shows the location field when the authored_article is deselected ', function () {
-      var select = form.querySelector('#edition_speech_type_id')
-      var deliveredByLabel = form.querySelector('#edition_role_appointment .govuk-fieldset__heading')
-      var hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
-      var noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
-      var deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
-      var locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
-      var locationInput = locationDiv.querySelector('input[name="edition[location]"]')
+      const select = form.querySelector('#edition_speech_type_id')
+      const deliveredByLabel = form.querySelector('#edition_role_appointment .govuk-fieldset__heading')
+      const hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
+      const noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
+      const deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
+      const locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
+      const locationInput = locationDiv.querySelector('input[name="edition[location]"]')
 
       select.value = '6'
       locationInput.value = 'To be deleted.'
@@ -184,32 +184,32 @@ describe('GOVUK.Modules.EditionForm', function () {
     describe('#setupSpeechDeliverdOnWarningEventListener', function () {
       beforeEach(function () {
         form.innerHTML = speechFields(currentYear)
-        var editionForm = new GOVUK.Modules.EditionForm(form)
+        const editionForm = new GOVUK.Modules.EditionForm(form)
         editionForm.init()
       })
 
       it('shows the speech delivered_on in future warning to the user when they select a date in the future', function () {
-        var deliveredOnFieldset = form.querySelector('#edition_delivered_on')
+        const deliveredOnFieldset = form.querySelector('#edition_delivered_on')
         deliveredOnFieldset.querySelector('select').value = '1'
         deliveredOnFieldset.querySelectorAll('select')[1].value = '1'
         deliveredOnFieldset.querySelectorAll('select')[2].value = currentYear + 1
 
         deliveredOnFieldset.querySelector('select').dispatchEvent(new Event('change'))
 
-        var warning = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
+        const warning = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
 
         expect(warning.classList).not.toContain('app-view-edit-edition__delivered-on-warning--hidden')
       })
 
       it('does not show the speech delivered_on in future warning to the user when they select a date in the past', function () {
-        var deliveredOnFieldset = form.querySelector('#edition_delivered_on')
+        const deliveredOnFieldset = form.querySelector('#edition_delivered_on')
         deliveredOnFieldset.querySelector('select').value = '1'
         deliveredOnFieldset.querySelectorAll('select')[1].value = '1'
         deliveredOnFieldset.querySelectorAll('select')[2].value = currentYear
 
         deliveredOnFieldset.dispatchEvent(new Event('change'))
 
-        var warning = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
+        const warning = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
 
         expect(warning.classList).toContain('app-view-edit-edition__delivered-on-warning--hidden')
       })

@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.LocaleSwitcher', function () {
-  var form, localeSwitcher
+  let form, localeSwitcher
 
   beforeEach(function () {
     form = document.createElement('form')
@@ -35,10 +35,10 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
   })
 
   it('should add the correct value for the `dir` attribute on the appropriate elements when the laguage select element is changed', function () {
-    var select = form.querySelector('.js-locale-switcher-selector')
-    var input = form.querySelector('#input')
-    var textarea = form.querySelector('#textarea')
-    var customElement = form.querySelector('#customElement')
+    const select = form.querySelector('.js-locale-switcher-selector')
+    const input = form.querySelector('#input')
+    const textarea = form.querySelector('#textarea')
+    const customElement = form.querySelector('#customElement')
 
     select.value = 'ar'
     select.dispatchEvent(new Event('change'))

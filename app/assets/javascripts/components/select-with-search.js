@@ -11,7 +11,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   SelectWithSearch.prototype.init = function () {
     if (!this.select) return
-    var placeholderOption = this.select.querySelector('option[value=""]:first-child')
+    const placeholderOption = this.select.querySelector('option[value=""]:first-child')
 
     if (placeholderOption && placeholderOption.textContent === '') {
       placeholderOption.textContent = 'Select one'
@@ -39,11 +39,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   SelectWithSearch.prototype.trackChange = function () {
-    var { trackCategory, trackLabel } = this.module.dataset
+    const { trackCategory, trackLabel } = this.module.dataset
 
-    var action = this.choices.getValue().label
+    const action = this.choices.getValue().label
 
-    var options = {}
+    const options = {}
     if (trackLabel) options.label = trackLabel
 
     GOVUK.analytics.trackEvent(trackCategory, action, options)

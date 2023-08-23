@@ -40,13 +40,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       return
     }
 
-    var width = this.$image.clientWidth
-    var naturalWidth = this.$image.naturalWidth
-    var scaledRatio = width / naturalWidth
+    const width = this.$image.clientWidth
+    const naturalWidth = this.$image.naturalWidth
+    const scaledRatio = width / naturalWidth
 
     // Adjust the crop box limits to the scaled image
-    var minCropBoxWidth = Math.ceil(this.$targetWidth * scaledRatio)
-    var minCropBoxHeight = Math.ceil(this.$targetHeight * scaledRatio)
+    const minCropBoxWidth = Math.ceil(this.$targetWidth * scaledRatio)
+    const minCropBoxHeight = Math.ceil(this.$targetHeight * scaledRatio)
 
     if (this.$image) {
       this.cropper = new window.Cropper(this.$image, { // eslint-disable-line
@@ -68,7 +68,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   ImageCropper.prototype.initKeyboardControls = function () {
     this.$imageCropper.addEventListener('keydown', function (e) {
-      var cropBoxData = this.cropper.getCropBoxData()
+      const cropBoxData = this.cropper.getCropBoxData()
 
       switch (e.keyCode) {
         case 37:
@@ -108,20 +108,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   ImageCropper.prototype.updateAriaLabel = function () {
-    var cropBoxData = this.cropper.getCropBoxData()
-    var imageData = this.cropper.getImageData()
-    var portionSelected = (cropBoxData.height * cropBoxData.width) /
+    const cropBoxData = this.cropper.getCropBoxData()
+    const imageData = this.cropper.getImageData()
+    const portionSelected = (cropBoxData.height * cropBoxData.width) /
             (imageData.height * imageData.width)
-    var percentage = Math.round(portionSelected * 10) * 10
+    const percentage = Math.round(portionSelected * 10) * 10
     if (percentage === 100) {
       this.$imageCropper.ariaLabel = 'Image to be cropped. All of the image is selected.'
       return
     }
 
-    var horizontalPosition = cropBoxData.left / (imageData.width - cropBoxData.width)
-    var verticalPosition = cropBoxData.top / (imageData.height - cropBoxData.height)
+    const horizontalPosition = cropBoxData.left / (imageData.width - cropBoxData.width)
+    const verticalPosition = cropBoxData.top / (imageData.height - cropBoxData.height)
 
-    var positionText = ''
+    let positionText = ''
     if (verticalPosition < 0.33) {
       positionText += 'top '
     } else if (verticalPosition > 0.67) {
@@ -140,21 +140,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   ImageCropper.prototype.setupFormListener = function () {
-    var input = this.$imageCropper.querySelector('.js-cropped-image-input')
+    const input = this.$imageCropper.querySelector('.js-cropped-image-input')
     input.form.addEventListener('submit', function (event) {
       event.preventDefault()
       this.cropper.getCroppedCanvas({
         width: this.$targetWidth,
         height: this.$targetHeight
       }).toBlob(function (blob) {
-        var file = new File(
+        const file = new File(
           [blob],
           this.$imageCropper.dataset.filename,
           {
             type: this.$imageCropper.dataset.type,
             lastModified: new Date().getTime()
           })
-        var container = new DataTransfer()
+        const container = new DataTransfer()
         container.items.add(file)
         input.files = container.files
         input.form.submit()

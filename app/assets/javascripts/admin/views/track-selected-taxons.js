@@ -12,13 +12,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   TrackSelectedTaxons.prototype.onSubmitListener = function (e) {
-    var selectedItems = this.form.querySelectorAll('.miller-columns-selected__list .miller-columns-selected__list-item')
+    const selectedItems = this.form.querySelectorAll('.miller-columns-selected__list .miller-columns-selected__list-item')
 
-    for (var index = 0; index < selectedItems.length; index++) {
-      var taxonPath = []
-      var taxons = selectedItems[index].querySelectorAll('.govuk-breadcrumbs__list-item')
+    for (let index = 0; index < selectedItems.length; index++) {
+      const taxonPath = []
+      const taxons = selectedItems[index].querySelectorAll('.govuk-breadcrumbs__list-item')
 
-      for (var i = 0; i < taxons.length; i++) {
+      for (let i = 0; i < taxons.length; i++) {
         taxonPath.push(taxons[i].innerText.trim())
       }
 
@@ -27,14 +27,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   TrackSelectedTaxons.prototype.addTaxonSelectionEvent = function () {
-    var taxonCheckboxes = this.form.querySelectorAll('.miller-columns__item .govuk-checkboxes__input')
+    const taxonCheckboxes = this.form.querySelectorAll('.miller-columns__item .govuk-checkboxes__input')
 
-    for (var index = 0; index < taxonCheckboxes.length; index++) {
-      var checkbox = taxonCheckboxes[index]
+    for (let index = 0; index < taxonCheckboxes.length; index++) {
+      const checkbox = taxonCheckboxes[index]
 
       checkbox.addEventListener('click', function (e) {
-        var target = e.currentTarget
-        var label = this.form.querySelector('label[for="' + target.id + '"]').innerText.trim()
+        const target = e.currentTarget
+        const label = this.form.querySelector('label[for="' + target.id + '"]').innerText.trim()
 
         GOVUK.analytics.trackEvent(
           'pageElementInteraction',

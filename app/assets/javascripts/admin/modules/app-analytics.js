@@ -19,12 +19,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   AppAnalytics.prototype.setCustomDimensionsFromMetaTags = function () {
-    var metas = document.querySelectorAll("meta[name^='custom-dimension']")
+    const metas = document.querySelectorAll("meta[name^='custom-dimension']")
 
-    for (var i = 0; i < metas.length; i++) {
-      var meta = metas[i]
-      var dimensionId = parseInt(meta.getAttribute('name').split('custom-dimension:')[1])
-      var content = meta.getAttribute('content')
+    for (let i = 0; i < metas.length; i++) {
+      const meta = metas[i]
+      const dimensionId = parseInt(meta.getAttribute('name').split('custom-dimension:')[1])
+      const content = meta.getAttribute('content')
 
       GOVUK.analytics.setDimension(dimensionId, content)
     }

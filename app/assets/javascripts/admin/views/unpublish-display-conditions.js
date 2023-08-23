@@ -21,21 +21,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   UnpublishDisplayConditions.prototype.initUnpublishRedirectListener = function () {
-    var checkbox = this.module.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
+    const checkbox = this.module.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
 
     checkbox.addEventListener('change', function (e) {
-      var display = e.currentTarget.checked ? 'none' : 'block'
+      const display = e.currentTarget.checked ? 'none' : 'block'
       this.module.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display = display
     }.bind(this))
 
     if (checkbox.checked) {
-      var event = new Event('change')
+      const event = new Event('change')
       checkbox.dispatchEvent(event)
     }
   }
 
   UnpublishDisplayConditions.prototype.initUnpublishTypeListener = function () {
-    var options = this.module.querySelectorAll('.govuk-radios__input[name="unpublishing_reason"]')
+    const options = this.module.querySelectorAll('.govuk-radios__input[name="unpublishing_reason"]')
 
     options.forEach(function (option) {
       option.addEventListener('change', function (e) {
@@ -43,18 +43,18 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }.bind(this))
 
       if (option.checked) {
-        var event = new Event('change')
+        const event = new Event('change')
         option.dispatchEvent(event)
       }
     }.bind(this))
   }
 
   UnpublishDisplayConditions.prototype.showConditionalQuestions = function (unpublishingReasonId) {
-    var showSection = function (selectedSectionId) {
-      var sections = ['withdrawal', 'published-in-error', 'consolidated']
+    const showSection = function (selectedSectionId) {
+      const sections = ['withdrawal', 'published-in-error', 'consolidated']
 
       sections.forEach(function (sectionId) {
-        var display = sectionId === selectedSectionId ? 'block' : 'none'
+        const display = sectionId === selectedSectionId ? 'block' : 'none'
         this.module.querySelector('.js-app-view-unpublish-withdraw-form__' + sectionId).style.display = display
       }.bind(this))
     }.bind(this)

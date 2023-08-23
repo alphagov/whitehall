@@ -1,5 +1,5 @@
 describe('GOVUK.doubleClickProtection', function () {
-  var form
+  let form
 
   beforeEach(function () {
     form = $('<form action="/go" method="POST"><input type="submit" name="input_name" value="Save" /></form>')
@@ -14,7 +14,7 @@ describe('GOVUK.doubleClickProtection', function () {
   })
 
   it('disables the button when the form is submit', function () {
-    var submitTag = form.find('input[type=submit]')
+    const submitTag = form.find('input[type=submit]')
     expect(submitTag.prop('disabled')).toBeFalsy()
 
     form.on('submit', function (e) {
@@ -26,7 +26,7 @@ describe('GOVUK.doubleClickProtection', function () {
   })
 
   it('creates a hidden input with the same name and value when the form is submit', function () {
-    var submitTag = form.find('input[type=submit]')
+    const submitTag = form.find('input[type=submit]')
 
     form.on('submit', function (e) {
       e.preventDefault()

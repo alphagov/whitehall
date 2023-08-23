@@ -1,5 +1,5 @@
 describe('GOVUK.duplicateFields', function () {
-  var fieldset
+  let fieldset
 
   beforeEach(function () {
     fieldset = $(
@@ -50,7 +50,7 @@ describe('GOVUK.duplicateFields', function () {
 
     fieldset.find('a.js-add-button').trigger('click')
 
-    var newSet = fieldset.find('.js-duplicate-fields-set').last()
+    const newSet = fieldset.find('.js-duplicate-fields-set').last()
     expect(newSet.find('input').attr('id')).toEqual('model_2_object')
     expect(newSet.find('label').attr('for')).toEqual('model_2_object')
   })
@@ -65,7 +65,7 @@ describe('GOVUK.duplicateFields', function () {
 
     fieldset.find('a.js-add-button').trigger('click')
 
-    var newSet = fieldset.find('.js-duplicate-fields-set').last()
+    const newSet = fieldset.find('.js-duplicate-fields-set').last()
     expect(newSet.find('input').attr('name')).toEqual('model[1][attribute][2][object]')
     expect(newSet.find('input').attr('id')).toEqual('model_1_attribute_2_object')
     expect(newSet.find('label').attr('for')).toEqual('model_1_attribute_2_object')
@@ -73,7 +73,7 @@ describe('GOVUK.duplicateFields', function () {
 
   it('should hide the fields when removing', function () {
     GOVUK.duplicateFields.init()
-    var set = fieldset.find('.js-duplicate-fields-set').last()
+    const set = fieldset.find('.js-duplicate-fields-set').last()
 
     set.find('a.js-remove-button').trigger('click')
 
@@ -82,7 +82,7 @@ describe('GOVUK.duplicateFields', function () {
 
   it('should resets input values when removing', function () {
     GOVUK.duplicateFields.init()
-    var set = fieldset.find('.js-duplicate-fields-set').last()
+    const set = fieldset.find('.js-duplicate-fields-set').last()
 
     set.find('input').val('some value')
     set.find('a.js-remove-button').trigger('click')
@@ -92,7 +92,7 @@ describe('GOVUK.duplicateFields', function () {
 
   it('should add a hidden _destroy input when removing', function () {
     GOVUK.duplicateFields.init()
-    var set = fieldset.find('.js-duplicate-fields-set').last()
+    const set = fieldset.find('.js-duplicate-fields-set').last()
 
     set.find('a.js-remove-button').trigger('click')
 
@@ -104,27 +104,27 @@ describe('GOVUK.duplicateFields', function () {
   describe('when last remaining field set has been "removed"', function () {
     beforeEach(function () {
       GOVUK.duplicateFields.init()
-      var set = fieldset.find('.js-duplicate-fields-set').last()
+      const set = fieldset.find('.js-duplicate-fields-set').last()
       set.find('a.js-remove-button').trigger('click')
     })
 
     it('should reset the _destroy input when adding', function () {
       fieldset.find('a.js-add-button').trigger('click')
-      var newSet = fieldset.find('.js-duplicate-fields-set').last()
+      const newSet = fieldset.find('.js-duplicate-fields-set').last()
 
       expect(newSet.find('input#model_2__destroy').val()).toEqual('')
     })
 
     it('should make the new field set visible when adding', function () {
       fieldset.find('a.js-add-button').trigger('click')
-      var newSet = fieldset.find('.js-duplicate-fields-set').last()
+      const newSet = fieldset.find('.js-duplicate-fields-set').last()
 
       expect(newSet.is(':visible')).toBeTrue()
     })
   })
 
   describe('when a field set marked for removal', function () {
-    var presentFieldset, destroyFieldset
+    let presentFieldset, destroyFieldset
 
     beforeEach(function () {
       presentFieldset = $('<div class="js-duplicate-fields-set"><label for="model_1_object">label</label><input type="text" name="model[1][object]" id="model_1_object"></div>')

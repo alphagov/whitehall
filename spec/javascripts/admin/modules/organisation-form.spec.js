@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.OrganisationForm', function () {
-  var form
+  let form
 
   beforeEach(function () {
     form = document.createElement('form')
@@ -30,13 +30,13 @@ describe('GOVUK.Modules.OrganisationForm', function () {
       </form>
     `
 
-    var organisationForm = new GOVUK.Modules.OrganisationForm(form)
+    const organisationForm = new GOVUK.Modules.OrganisationForm(form)
     organisationForm.init()
   })
 
   it('#setupCustomLogoVisibilityEventListener should hide the custom logo div when custom logo is not selected and hide it when custom logo is selected', function () {
-    var select = form.querySelector('#organisation_organisation_logo_type_id')
-    var customLogoDiv = form.querySelector('.js-view-organisation__form__custom_logo')
+    const select = form.querySelector('#organisation_organisation_logo_type_id')
+    const customLogoDiv = form.querySelector('.js-view-organisation__form__custom_logo')
 
     select.value = '14'
     select.dispatchEvent(new Event('change'))
@@ -50,8 +50,8 @@ describe('GOVUK.Modules.OrganisationForm', function () {
   })
 
   it('#setupNotDepartmentalPublicBodyFieldsEventListener should hide the non-departmental div when a non-departmental public body is not selected and show it when one is', function () {
-    var select = form.querySelector('#organisation_organisation_type_key')
-    var nonDepartmentalDiv = form.querySelector('.js-view-organisation__form__non-departmental-public-body-fields')
+    const select = form.querySelector('#organisation_organisation_type_key')
+    const nonDepartmentalDiv = form.querySelector('.js-view-organisation__form__non-departmental-public-body-fields')
 
     select.value = 'advisory_ndpb'
     select.dispatchEvent(new Event('change'))

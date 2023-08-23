@@ -14,25 +14,25 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   EditionForm.prototype.setupSubtypeFormatAdviceEventListener = function () {
-    var form = this.module
-    var subtypeDiv = form.querySelector('.js-app-view-edition-form__subtype-fields')
+    const form = this.module
+    const subtypeDiv = form.querySelector('.js-app-view-edition-form__subtype-fields')
 
     if (!subtypeDiv) { return }
 
-    var subtypeSelect = subtypeDiv.querySelector('select')
+    const subtypeSelect = subtypeDiv.querySelector('select')
 
     subtypeSelect.addEventListener('change', function () {
-      var formatAdviceMap = JSON.parse(subtypeDiv.dataset.formatAdvice)
-      var subtypeFormatAdvice = form.querySelector('.js-app-view-edition-form__subtype-format-advice')
+      const formatAdviceMap = JSON.parse(subtypeDiv.dataset.formatAdvice)
+      const subtypeFormatAdvice = form.querySelector('.js-app-view-edition-form__subtype-format-advice')
 
       if (subtypeFormatAdvice) {
         subtypeDiv.removeChild(subtypeFormatAdvice)
       }
 
-      var adviceText = formatAdviceMap[subtypeSelect.value]
+      const adviceText = formatAdviceMap[subtypeSelect.value]
 
       if (adviceText) {
-        var div = document.createElement('div')
+        const div = document.createElement('div')
         div.classList.add('js-app-view-edition-form__subtype-format-advice', 'govuk-body', 'govuk-!-margin-top-4')
         div.innerHTML = '<strong>Use this subformat for…</strong> ' + adviceText
         subtypeDiv.append(div)
@@ -41,19 +41,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   EditionForm.prototype.setupWorldNewsStoryVisibilityToggle = function () {
-    var form = this.module
+    const form = this.module
 
-    var subtypeSelect = form.querySelector('#edition_news_article_type_id')
+    const subtypeSelect = form.querySelector('#edition_news_article_type_id')
 
     if (!subtypeSelect) { return }
 
-    var localeDiv = form.querySelector('.app-view-edit-edition__locale-field')
-    var localeCheckbox = localeDiv.querySelector('#edition_create_foreign_language_only-0')
-    var localeSelect = localeDiv.querySelector('#edition_primary_locale')
-    var worldNewsArticleTypeId = '4'
-    var ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
-    var organisationsDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
-    var worldOrganisationDiv = form.querySelector('.app-view-edit-edition__world-organisation-fields')
+    const localeDiv = form.querySelector('.app-view-edit-edition__locale-field')
+    const localeCheckbox = localeDiv.querySelector('#edition_create_foreign_language_only-0')
+    const localeSelect = localeDiv.querySelector('#edition_primary_locale')
+    const worldNewsArticleTypeId = '4'
+    const ministersDiv = form.querySelector('.app-view-edit-edition__appointment-fields')
+    const organisationsDiv = form.querySelector('.app-view-edit-edition__organisation-fields')
+    const worldOrganisationDiv = form.querySelector('.app-view-edit-edition__world-organisation-fields')
 
     if (subtypeSelect.value === worldNewsArticleTypeId) {
       ministersDiv.classList.add('app-view-edit-edition__appointment-fields--hidden')
@@ -91,19 +91,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   EditionForm.prototype.setupSpeechSubtypeEventListeners = function () {
-    var form = this.module
+    const form = this.module
 
-    var select = form.querySelector('#edition_speech_type_id')
+    const select = form.querySelector('#edition_speech_type_id')
 
     if (!select) { return }
 
-    var deliveredByLabel = form.querySelector('#edition_role_appointment .govuk-fieldset__heading')
-    var hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
-    var noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
-    var deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
-    var locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
-    var locationInput = locationDiv.querySelector('input[name="edition[location]"]')
-    var authoredArticleId = '6'
+    const deliveredByLabel = form.querySelector('#edition_role_appointment .govuk-fieldset__heading')
+    const hasProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_on_govuk"]')
+    const noProfileRadioLabel = form.querySelector('#edition_role_appointment label[for="edition_role_appointment_speaker_not_on_govuk"]')
+    const deliveredOnLabel = form.querySelector('#edition_delivered_on .govuk-fieldset__legend')
+    const locationDiv = form.querySelector('.js-app-view-edit-edition__speech-location-field')
+    const locationInput = locationDiv.querySelector('input[name="edition[location]"]')
+    const authoredArticleId = '6'
 
     select.addEventListener('change', function (event) {
       if (event.currentTarget.value === authoredArticleId) {
@@ -124,29 +124,29 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   EditionForm.prototype.setupSpeechDeliverdOnWarningEventListener = function () {
-    var form = this.module
-    var deliveredOnFieldset = form.querySelector('#edition_delivered_on')
+    const form = this.module
+    const deliveredOnFieldset = form.querySelector('#edition_delivered_on')
 
     if (!deliveredOnFieldset) { return }
 
-    var warningDiv = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
-    var day = form.querySelector('#edition_delivered_on_3i')
-    var month = form.querySelector('#edition_delivered_on_2i')
-    var year = form.querySelector('#edition_delivered_on_1i')
+    const warningDiv = form.querySelector('.js-app-view-edit-edition__delivered-on-warning')
+    const day = form.querySelector('#edition_delivered_on_3i')
+    const month = form.querySelector('#edition_delivered_on_2i')
+    const year = form.querySelector('#edition_delivered_on_1i')
 
     deliveredOnFieldset.querySelectorAll('select').forEach(function (select) {
       select.addEventListener('change', function () {
-        var dateIsInvalid = day.value === '' || month.value === '' || year.value === ''
+        const dateIsInvalid = day.value === '' || month.value === '' || year.value === ''
 
         if (dateIsInvalid) {
           if (!warningDiv.classList.contains('app-view-edit-edition__delivered-on-warning--hidden')) {
             warningDiv.classList.add('app-view-edit-edition__delivered-on-warning--hidden')
           }
         } else {
-          var date = new Date(year.value, month.value - 1, day.value)
-          var currentDate = new Date()
+          const date = new Date(year.value, month.value - 1, day.value)
+          const currentDate = new Date()
           if (currentDate < date) {
-            var dateFields = deliveredOnFieldset.querySelector('.app-c-datetime-fields__date-time-wrapper')
+            const dateFields = deliveredOnFieldset.querySelector('.app-c-datetime-fields__date-time-wrapper')
             dateFields.after(warningDiv)
             warningDiv.classList.remove('app-view-edit-edition__delivered-on-warning--hidden')
           } else if (!warningDiv.classList.contains('app-view-edit-edition__delivered-on-warning--hidden')) {

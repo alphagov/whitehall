@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.TrackSelectedTaxons', function () {
-  var form, trackSelectedTaxons
+  let form, trackSelectedTaxons
 
   beforeEach(function () {
     form = document.createElement('form')
@@ -124,7 +124,7 @@ describe('GOVUK.Modules.TrackSelectedTaxons', function () {
   it('should send tracking event when you select and unselect a taxon', function () {
     spyOn(GOVUK.analytics, 'trackEvent')
 
-    var checkbox = form.querySelector('#miller-columns-04c58f82-0-1')
+    const checkbox = form.querySelector('#miller-columns-04c58f82-0-1')
     checkbox.checked = true
     checkbox.dispatchEvent(new Event('click'))
 

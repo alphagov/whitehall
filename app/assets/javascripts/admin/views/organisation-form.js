@@ -12,10 +12,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   OrganisationForm.prototype.setupCustomLogoVisibilityEventListener = function () {
-    var form = this.module
-    var customLogoDiv = form.querySelector('.js-view-organisation__form__custom_logo')
-    var logoSelect = form.querySelector('#organisation_organisation_logo_type_id')
-    var customLogoId = '14'
+    const form = this.module
+    const customLogoDiv = form.querySelector('.js-view-organisation__form__custom_logo')
+    const logoSelect = form.querySelector('#organisation_organisation_logo_type_id')
+    const customLogoId = '14'
 
     logoSelect.addEventListener('change', function () {
       if (logoSelect.value === customLogoId) {
@@ -27,10 +27,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   OrganisationForm.prototype.setupNotDepartmentalPublicBodyFieldsEventListener = function () {
-    var form = this.module
-    var nonDepartmentalDiv = form.querySelector('.js-view-organisation__form__non-departmental-public-body-fields')
-    var typeSelect = form.querySelector('#organisation_organisation_type_key')
-    var nonDepartmentalValues = ['advisory_ndpb', 'executive_ndpb', 'tribunal']
+    const form = this.module
+    const nonDepartmentalDiv = form.querySelector('.js-view-organisation__form__non-departmental-public-body-fields')
+    const typeSelect = form.querySelector('#organisation_organisation_type_key')
+    const nonDepartmentalValues = ['advisory_ndpb', 'executive_ndpb', 'tribunal']
 
     typeSelect.addEventListener('change', function () {
       if (nonDepartmentalValues.includes(typeSelect.value)) {

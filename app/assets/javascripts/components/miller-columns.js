@@ -13,17 +13,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   MillerColumns.prototype.initSearch = function () {
-    var element = this.module.querySelector('#js-app-c-miller-columns__search')
-    var input = this.module.querySelector('#js-app-c-miller-columns__search-input')
-    var millerColumns = this.module.querySelector('miller-columns')
+    const element = this.module.querySelector('#js-app-c-miller-columns__search')
+    const input = this.module.querySelector('#js-app-c-miller-columns__search-input')
+    const millerColumns = this.module.querySelector('miller-columns')
 
     if (!window.accessibleAutocomplete) {
       element.parentNode.removeChild(element)
       return
     }
 
-    var topics = millerColumns.taxonomy.flattenedTopics
-    var topicSuggestions = []
+    const topics = millerColumns.taxonomy.flattenedTopics
+    const topicSuggestions = []
 
     topics.forEach(function (topic) {
       topicSuggestions.push({
@@ -45,14 +45,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       minLength: 3,
       autoselect: false,
       source: function (query, syncResults) {
-        var results = topicSuggestions
-        var resultMatcher = function (result) {
-          var topicName = result.topic.topicName
-          var indexOf = topicName.toLowerCase().indexOf(query.toLowerCase())
-          var resultContainsQuery = indexOf !== -1
+        const results = topicSuggestions
+        const resultMatcher = function (result) {
+          const topicName = result.topic.topicName
+          const indexOf = topicName.toLowerCase().indexOf(query.toLowerCase())
+          const resultContainsQuery = indexOf !== -1
           if (resultContainsQuery) {
             // Wrap query in <mark> tags
-            var queryRegex = new RegExp('(' + query + ')', 'ig')
+            const queryRegex = new RegExp('(' + query + ')', 'ig')
             result.highlightedTopicName = topicName.replace(queryRegex, '<mark>$1</mark>')
           }
           return resultContainsQuery
@@ -65,7 +65,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           return ''
         },
         suggestion: function (result) {
-          var suggestionsBreadcrumbs
+          let suggestionsBreadcrumbs
           if (result && result.breadcrumbs) {
             result.breadcrumbs[result.breadcrumbs.length - 1] = result.highlightedTopicName
             suggestionsBreadcrumbs = result.breadcrumbs.join(' › ')

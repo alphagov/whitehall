@@ -7,17 +7,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   BrokenLinksReport.prototype.init = function () {
-    var button = this.module.querySelector('button')
-    var authenticityTokenField = this.module.querySelector('[name="authenticity_token"]')
+    const button = this.module.querySelector('button')
+    const authenticityTokenField = this.module.querySelector('[name="authenticity_token"]')
     if (button && authenticityTokenField) this.setupEventListener(button, authenticityTokenField.value)
-    var refreshLink = this.module.querySelector('.js-broken-links-refresh')
+    const refreshLink = this.module.querySelector('.js-broken-links-refresh')
     if (refreshLink) {
       this.setupPolling(refreshLink)
     }
   }
 
   BrokenLinksReport.prototype.setupEventListener = function (button, authenticityToken) {
-    var action = this.module.querySelector('.js-broken-links-form').action
+    const action = this.module.querySelector('.js-broken-links-form').action
     button.addEventListener('click', function (event) {
       event.preventDefault()
       fetch(action + '.json', {
@@ -36,8 +36,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   BrokenLinksReport.prototype.setupPolling = function (refreshLink) {
     refreshLink.parentElement.remove()
 
-    var retries = 10
-    var retry = function () {
+    let retries = 10
+    const retry = function () {
       retries -= 1
       if (retries === 0) {
         this.module.addChild(refreshLink.parentElement)

@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.GovspeakEditor', function () {
-  var component, module
+  let component, module
 
   beforeEach(function () {
     component = document.createElement('div')
@@ -8,7 +8,7 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
     component.setAttribute('data-alternative-format-provider-id', 11)
 
     // Preview Button
-    var previewButton = document.createElement('button')
+    const previewButton = document.createElement('button')
     previewButton.classList.add('js-app-c-govspeak-editor__preview-button')
     previewButton.setAttribute('data-preview-toggle-tracking', true)
     previewButton.setAttribute('data-preview-toggle-track-category', 'govspeak-editor')
@@ -17,20 +17,20 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
     previewButton.innerText = 'Preview'
 
     // Textarea
-    var textareaSection = document.createElement('div')
+    const textareaSection = document.createElement('div')
     textareaSection.classList.add('app-c-govspeak-editor__textarea')
 
-    var textarea = document.createElement('textarea')
+    const textarea = document.createElement('textarea')
     textarea.id = 'textarea_id'
     textarea.innerText = '## Hello'
     textareaSection.appendChild(textarea)
 
     // Preview section
-    var previewSection = document.createElement('div')
+    const previewSection = document.createElement('div')
     previewSection.classList.add('app-c-govspeak-editor__preview')
 
     // Error section
-    var errorSection = document.createElement('div')
+    const errorSection = document.createElement('div')
     errorSection.classList.add('app-c-govspeak-editor__error')
 
     // Append to component
@@ -67,9 +67,9 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
   })
 
   it('shows preview section when button clicked', function () {
-    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
-    var textareaSection = component.querySelector('.app-c-govspeak-editor__textarea')
-    var previewSection = component.querySelector('.app-c-govspeak-editor__preview')
+    const previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    const textareaSection = component.querySelector('.app-c-govspeak-editor__textarea')
+    const previewSection = component.querySelector('.app-c-govspeak-editor__preview')
 
     expect(textareaSection).not.toHaveClass('app-c-govspeak-editor__textarea--hidden')
     expect(previewSection).not.toHaveClass('app-c-govspeak-editor__preview--show')
@@ -82,9 +82,9 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
   })
 
   it('shows textarea section when you toggle back to edit', function () {
-    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
-    var textareaSection = component.querySelector('.app-c-govspeak-editor__textarea')
-    var previewSection = component.querySelector('.app-c-govspeak-editor__preview')
+    const previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    const textareaSection = component.querySelector('.app-c-govspeak-editor__textarea')
+    const previewSection = component.querySelector('.app-c-govspeak-editor__preview')
 
     expect(textareaSection).not.toHaveClass('app-c-govspeak-editor__textarea--hidden')
     expect(previewSection).not.toHaveClass('app-c-govspeak-editor__preview--show')
@@ -104,9 +104,9 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
   })
 
   it('renders govspeak correctly on preview', function () {
-    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
-    var previewSection = component.querySelector('.app-c-govspeak-editor__preview')
-    var html = [
+    const previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    const previewSection = component.querySelector('.app-c-govspeak-editor__preview')
+    const html = [
       '<section class="document_page">',
       '<article class="document">',
       '<div class="body">',
@@ -130,9 +130,9 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
   })
 
   it('renders an error message when the govspeak service returns a 403 "forbidden" response', function () {
-    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
-    var previewSection = component.querySelector('.app-c-govspeak-editor__preview')
-    var errorSection = component.querySelector('.app-c-govspeak-editor__error')
+    const previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    const previewSection = component.querySelector('.app-c-govspeak-editor__preview')
+    const errorSection = component.querySelector('.app-c-govspeak-editor__error')
 
     jasmine.Ajax.stubRequest('/government/admin/preview', null, 'POST').andReturn({
       status: 403,
@@ -146,8 +146,8 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
   })
 
   it('hides the error message when the user returns to the editor view', function () {
-    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
-    var errorSection = component.querySelector('.app-c-govspeak-editor__error')
+    const previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    const errorSection = component.querySelector('.app-c-govspeak-editor__error')
 
     previewButton.innerText = 'Back to edit'
     errorSection.classList.add('app-c-govspeak-editor__error--show')
@@ -158,10 +158,10 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
   })
 
   it('renders govspeak correctly with changing content', function () {
-    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
-    var textarea = component.querySelector('#textarea_id')
-    var previewSection = component.querySelector('.app-c-govspeak-editor__preview')
-    var html = [
+    const previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    const textarea = component.querySelector('#textarea_id')
+    const previewSection = component.querySelector('.app-c-govspeak-editor__preview')
+    const html = [
       '<section class="document_page">',
       '<article class="document">',
       '<div class="body">',
@@ -187,7 +187,7 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
     previewButton.dispatchEvent(new Event('click'))
 
     textarea.innerText = '## Hello this is a heading'
-    var newHtml = [
+    const newHtml = [
       '<section class="document_page">',
       '<article class="document">',
       '<div class="body">',
@@ -212,7 +212,7 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
 
   it('sends tracking events correctly', function () {
     spyOn(GOVUK.analytics, 'trackEvent')
-    var previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
+    const previewButton = component.querySelector('.js-app-c-govspeak-editor__preview-button')
 
     previewButton.dispatchEvent(new Event('click'))
 
@@ -232,7 +232,7 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
   })
 
   it('generates form data correctly', function () {
-    var formData = module.generateFormData('some text')
+    const formData = module.generateFormData('some text')
 
     expect(Array.from(formData.entries())).toEqual([
       ['body', 'some text'],
