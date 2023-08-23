@@ -8,12 +8,13 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   end
 
   def new
-    @historical_account = @person.build_historical_account
+    @historical_account = @person.build_historical_account(role: Role.prime_minister_role)
   end
 
   def create
-    @historical_account = @person.build_historical_account(historical_account_params)
-    if @historical_account.save
+    @historical_account = @person.build_historical_account(role: Role.prime_minister_role)
+
+    if @historical_account.update(historical_account_params)
       redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account created"
     else
       render :new
@@ -57,7 +58,6 @@ private
       :died,
       :major_acts,
       :interesting_facts,
-      role_ids: [],
       political_party_ids: [],
     )
   end

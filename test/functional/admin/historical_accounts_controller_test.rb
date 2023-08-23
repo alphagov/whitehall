@@ -31,7 +31,6 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
     historical_account_params = {
       summary: "Summary",
       body: "Body",
-      role_ids: [@role.id],
       political_party_ids: [PoliticalParty::Labour.id],
       interesting_facts: "Stuff",
       major_acts: "Mo Stuff",

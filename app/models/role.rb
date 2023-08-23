@@ -59,6 +59,10 @@ class Role < ApplicationRecord
   include TranslatableModel
   translates :name, :responsibilities
 
+  def self.prime_minister_role
+    find_by(slug: "prime-minister")
+  end
+
   def republish_organisations_to_publishing_api
     organisations.each do |organisation|
       republish_organisation_to_publishing_api(organisation)
