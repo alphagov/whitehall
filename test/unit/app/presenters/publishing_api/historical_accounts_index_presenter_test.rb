@@ -11,7 +11,7 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
                                  died: "1975",
                                  interesting_facts: "They were a very interesting person",
                                  major_acts: "Significant legislation changes",
-                                 roles: [@role])
+                                 role: @role)
   end
 
   test "presents a valid content item" do

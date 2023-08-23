@@ -381,7 +381,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     assert_nil role_appointment.historical_account
 
-    historical_account = create(:historical_account, roles: [role_appointment.role], person: role_appointment.person)
+    historical_account = create(:historical_account, role: role_appointment.role, person: role_appointment.person)
     assert_equal historical_account, role_appointment.reload.historical_account
   end
 
@@ -461,7 +461,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
                                  died: "1975",
                                  interesting_facts: "They were a very interesting person",
                                  major_acts: "Significant legislation changes",
-                                 roles: [role])
+                                 role:)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
