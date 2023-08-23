@@ -32,7 +32,7 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Locale"
+              text: "Language"
             },
             {
               text: tag.span("Actions", class: "govuk-visually-hidden"),
@@ -63,7 +63,7 @@
         <%= render "govuk_publishing_components/components/select", {
           id: "translation_locale",
           name: "translation_locale",
-          label: "Locale",
+          label: "Select Language",
           heading_size: "l",
           options: @organisation.missing_translations.map do |locale|
             {

@@ -46,7 +46,7 @@ When(/^I add a new "([^"]*)" translation to the role "([^"]*)" with:$/) do |loca
     click_link "Manage translations"
   end
 
-  select locale.native_and_english_language_name, from: "Locale"
+  select locale.native_and_english_language_name, from: "Language"
   click_on "Create new translation"
   fill_in "Name", with: translation["name"]
   fill_in "Responsibilities", with: translation["responsibilities"]

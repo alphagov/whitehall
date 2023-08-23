@@ -32,7 +32,7 @@ module PersonHelper
     translation = translation.stringify_keys
     visit admin_person_path(person)
     click_link "Translations"
-    select translation["locale"], from: "Locale"
+    select translation["locale"], from: "Language"
     click_on "Create new translation"
     fill_in "Biography", with: translation["biography"]
     click_on "Save"
