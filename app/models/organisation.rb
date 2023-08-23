@@ -193,9 +193,8 @@ class Organisation < ApplicationRecord
 
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
-  after_save :update_organisations_index_page
-  after_save :republish_how_government_works_page_to_publishing_api, :republish_ministers_index_page_to_publishing_api
-  after_destroy :update_organisations_index_page, :republish_ministers_index_page_to_publishing_api
+  after_save :republish_how_government_works_page_to_publishing_api, :republish_ministers_index_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
+  after_destroy :republish_ministers_index_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
 
   after_save do
     # If the organisation has an about us page and the chart URL changes we need
@@ -233,8 +232,8 @@ class Organisation < ApplicationRecord
     PresentPageToPublishingApi.new.publish(PublishingApi::MinistersIndexPresenter) if ministerial_department?
   end
 
-  def update_organisations_index_page
-    UpdateOrganisationsIndexPageWorker.perform_async
+  def republish_organisations_index_page_to_publishing_api
+    PresentPageToPublishingApi.new.publish(PublishingApi::OrganisationsIndexPresenter)
   end
 
   def custom_logo_selected?
