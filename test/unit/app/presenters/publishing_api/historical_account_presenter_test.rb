@@ -61,7 +61,7 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
 
     expected_links = {
       person: [historical_account.person.content_id],
-      ordered_related_items: [person2.historical_accounts.first.content_id],
+      ordered_related_items: [person2.historical_account.content_id],
       parent: %w[db95a864-874f-4f50-a483-352a5bc7ba18],
     }
 

@@ -1,7 +1,7 @@
 class HistoricalAccount < ApplicationRecord
   include PublishesToPublishingApi
 
-  belongs_to :person, inverse_of: :historical_accounts
+  belongs_to :person, inverse_of: :historical_account
   has_many   :historical_account_roles
   has_many   :roles, through: :historical_account_roles
 

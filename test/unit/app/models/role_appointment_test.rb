@@ -385,14 +385,6 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal historical_account, role_appointment.reload.historical_account
   end
 
-  test "does not return an historical account if the appointee has one for another role" do
-    role_appointment   = create(:historic_role_appointment)
-    second_appointment = create(:historic_role_appointment, person: role_appointment.person)
-    create(:historical_account, roles: [second_appointment.role], person: role_appointment.person)
-
-    assert_nil role_appointment.historical_account
-  end
-
   test "can scope appointments between dates" do
     today       = create(:role_appointment, started_at: Time.zone.now)
     last_month  = create(:role_appointment, started_at: 1.month.ago)
