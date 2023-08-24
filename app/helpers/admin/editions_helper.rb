@@ -351,4 +351,14 @@ module Admin::EditionsHelper
       edition.state.capitalize
     end
   end
+
+  def reset_search_fields_query_string_params(user, filter_action, anchor)
+    query_string_params = if user.organisation.present? && filter_action == admin_editions_path
+                            "?state=active&organisation=#{user.organisation.id}"
+                          else
+                            "?state=active"
+                          end
+
+    filter_action + query_string_params + anchor
+  end
 end

@@ -50,4 +50,27 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     LinkCheckerApiService.expects(:has_links?).never
     show_link_check_report?(edition)
   end
+
+  test "#reset_search_fields_query_string_params returns the correct params when the user has no organisation" do
+    user = build_stubbed(:user)
+    expected_result = "#{admin_editions_path}?state=active#anchor"
+
+    assert_equal expected_result, reset_search_fields_query_string_params(user, admin_editions_path, "#anchor")
+  end
+
+  test "#reset_search_fields_query_string_params returns the correct params when the user belongs to an organisation and the filter action isn't the admin_editions_path" do
+    organisation = build_stubbed(:organisation)
+    user = build_stubbed(:user, organisation:)
+    expected_result = "/any-other-path?state=active#anchor"
+
+    assert_equal expected_result, reset_search_fields_query_string_params(user, "/any-other-path", "#anchor")
+  end
+
+  test "#reset_search_fields_query_string_params returns the correct params when the user belongs to an organisation and the filter action is the admin_editions_path" do
+    organisation = build_stubbed(:organisation)
+    user = build_stubbed(:user, organisation:)
+    expected_result = "#{admin_editions_path}?state=active&organisation=#{organisation.id}#anchor"
+
+    assert_equal expected_result, reset_search_fields_query_string_params(user, admin_editions_path, "#anchor")
+  end
 end
