@@ -15,6 +15,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
 
       before do
         login_as(user_with_permission_to_override)
+        stub_taxonomy_with_all_taxons
       end
 
       it "updates the taxonomy topic email override" do
@@ -22,11 +23,11 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
         click_link "Email notifications"
 
         page.choose("Emails about the topic")
-        select "Topic One", from: "selected_taxon_content_id"
+        select root_taxon["title"], from: "selected_taxon_content_id"
         page.check("Select this box to confirm you're happy with what you've selected.")
         click_button("Save")
         document_collection.reload
-        assert_equal document_collection.taxonomy_topic_email_override, "9b889c60-2191-11ee-be56-0242ac120002"
+        assert_equal document_collection.taxonomy_topic_email_override, root_taxon_content_id
       end
 
       it "does not update taxonomy topic email if confirmation button is unchecked" do
@@ -34,7 +35,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
         click_link "Email notifications"
 
         page.choose("Emails about the topic")
-        select "Topic One", from: "selected_taxon_content_id"
+        select root_taxon["title"], from: "selected_taxon_content_id"
         click_button("Save")
         document_collection.reload
         assert_nil document_collection.taxonomy_topic_email_override

@@ -23,8 +23,6 @@ module Taxonomy
       ).flat_map(&:taxon_list)
     end
 
-  private
-
     def branches
       @branches ||= @adapter.taxon_data.map do |taxon_hash|
         @tree_builder_class.new(taxon_hash).root_taxon

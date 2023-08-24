@@ -12,6 +12,7 @@ When(/^I visit the edit document collection page/) do
 end
 
 Then(/^I click on the tab "Email notifications/) do
+  stub_taxonomy_data
   expect(page).to have_content("Email notifications")
   click_on("Email notifications")
   expect(page).to have_content("Choose the type of email updates users will get if they sign up for notifications.")
@@ -22,7 +23,9 @@ And(/^I choose "Emails about this topic"/) do
 end
 
 And(/^I select "([^"]*)"$/) do |topic_label|
-  select topic_label, from: "selected_taxon_content_id"
+  within ".choices" do
+    select topic_label
+  end
 end
 
 And(/^I click the checkbox to confirm my selection./) do
