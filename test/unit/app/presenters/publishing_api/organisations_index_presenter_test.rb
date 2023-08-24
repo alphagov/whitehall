@@ -8,7 +8,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
     organisation_two = create(:organisation, organisation_type_key: :ministerial_department)
     organisation_three = create(:organisation, organisation_type_key: :non_ministerial_department)
     organisation_four = create(:organisation, organisation_type_key: :executive_agency)
-    organisation_five = create(:sub_organisation)
+    organisation_five = create(:sub_organisation, parent_organisations: [organisation_four])
     organisation_six = create(:organisation, organisation_type_key: :public_corporation)
     organisation_seven = create(:devolved_administration)
 
@@ -113,7 +113,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
               crest: "single-identity",
             },
             separate_website: false,
-            format: "Non-ministerial department",
+            format: "Executive agency",
             updated_at: Time.zone.now,
             slug: organisation_four.slug,
             acronym: nil,
@@ -123,7 +123,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
             content_id: organisation_four.content_id,
             analytics_identifier: organisation_four.analytics_identifier,
             parent_organisations: [],
-            child_organisations: [],
+            child_organisations: [{ title: organisation_five.name, href: "/government/organisations/#{organisation_five.name}" }],
             superseded_organisations: [],
             superseding_organisations: [],
             works_with: {},
@@ -139,7 +139,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
               crest: "single-identity",
             },
             separate_website: false,
-            format: "Non-ministerial department",
+            format: "Sub-organisation",
             updated_at: Time.zone.now,
             slug: organisation_five.slug,
             acronym: nil,
@@ -148,7 +148,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
             govuk_closed_status: nil,
             content_id: organisation_five.content_id,
             analytics_identifier: organisation_five.analytics_identifier,
-            parent_organisations: [],
+            parent_organisations: [{ title: organisation_four.name, href: "/government/organisations/#{organisation_four.name}" }],
             child_organisations: [],
             superseded_organisations: [],
             superseding_organisations: [],
@@ -196,7 +196,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
             slug: organisation_seven.slug,
             acronym: nil,
             closed_at: nil,
-            govuk_status: "live",
+            govuk_status: "exempt",
             govuk_closed_status: nil,
             content_id: organisation_seven.content_id,
             analytics_identifier: organisation_seven.analytics_identifier,
@@ -217,7 +217,6 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
     }
 
     presenter = PublishingApi::OrganisationsIndexPresenter.new
-
     assert_equal expected_hash, presenter.content
     assert_valid_against_publisher_schema(presenter.content, "organisations_homepage")
   end
