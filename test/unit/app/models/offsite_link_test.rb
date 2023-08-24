@@ -147,4 +147,23 @@ class OffsiteLinkTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "creating an existing offsite link republishes the parent" do
+    parent = create(:world_location_news, world_location: create(:world_location))
+
+    offsite_link = create(:offsite_link, parent:)
+    offsite_link.title = "Updated title"
+
+    Whitehall::PublishingApi.expects(:republish_async).with(parent).once
+
+    offsite_link.save!
+  end
+
+  test "updating an existing offsite link republishes the parent" do
+    parent = create(:world_location_news, world_location: create(:world_location))
+
+    Whitehall::PublishingApi.expects(:republish_async).with(parent).once
+
+    create(:offsite_link, parent:)
+  end
 end

@@ -46,6 +46,8 @@ class OffsiteLink < ApplicationRecord
   belongs_to :parent, polymorphic: true
   has_many :features, inverse_of: :offsite_link, dependent: :destroy
 
+  after_commit :republish_parent_to_publishing_api
+
   validates :title, :summary, :link_type, :url, presence: true, length: { maximum: 255 }
   validate :check_url_is_allowed
   validates :link_type, presence: true, inclusion: { in: LinkTypes.all }
@@ -102,5 +104,9 @@ private
     ]
 
     permitted_hosts.any? { |permitted_host| host =~ /(?:^|\.)#{permitted_host}$/ }
+  end
+
+  def republish_parent_to_publishing_api
+    Whitehall::PublishingApi.republish_async(parent)
   end
 end
