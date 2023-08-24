@@ -512,7 +512,6 @@ class Organisation < ApplicationRecord
       charity-commission
       department-for-education
       hm-revenue-customs
-      natural-england
     ]
   end
 
