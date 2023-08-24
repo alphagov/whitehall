@@ -32,12 +32,6 @@
     } %>
 
     <% if @person.can_have_historical_accounts? && @historical_account.present? %>
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Create new historical account",
-        href: new_admin_person_historical_account_path,
-        margin_bottom: 4,
-      } %>
-
       <div class="app-view-historical-accounts-index__table govuk-table--with-actions">
         <%= render "govuk_publishing_components/components/table", {
           head: [

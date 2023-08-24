@@ -16,7 +16,19 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
     assert_equal @person, assigns(:person)
     assert_equal @person.historical_account, assigns(:historical_account)
   end
+  view_test "GET on :index should not show Create historical accounts button when historical account is already created" do
+    @historical_account = create(:historical_account, person: @person, role: @role)
+    get :index, params: { person_id: @person }
 
+    assert_select(".govuk-button", text: "Create historical account", count: 0)
+  end
+
+  view_test "GET on :index should show Create historical accounts button when historical account is not created" do
+    create(:historic_role_appointment, person: @person, role: @role)
+    get :index, params: { person_id: @person }
+
+    assert_select(".govuk-button", text: "Create historical account", count: 1)
+  end
   test "GET on :new assigns the person, a fresh historical account and renders the :new template" do
     get :new, params: { person_id: @person }
 
