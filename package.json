@@ -6,28 +6,11 @@
   "license": "MIT",
   "scripts": {
     "lint": "yarn run lint:js && yarn run lint:scss",
-    "lint:js": "standardx 'app/assets/javascripts/**/*.js' 'spec/javascripts/**/*.js'",
+    "lint:js": "eslint --cache --cache-location .cache/eslint --color --ignore-path .gitignore -- \"**/*.js\"",
     "lint:scss": "stylelint app/assets/stylesheets/",
     "jasmine:prepare": "RAILS_ENV=test bundle exec rails assets:clobber assets:precompile",
     "jasmine:ci": "yarn run jasmine:prepare && yarn run jasmine-browser-runner runSpecs",
     "jasmine:browser": "yarn run jasmine:prepare && yarn run jasmine-browser-runner"
-  },
-  "standardx": {
-    "env": {
-      "browser": true,
-      "jquery": true,
-      "jasmine": true,
-      "es6": true
-    },
-    "globals": [
-      "GOVUK",
-      "GOVUKAdmin"
-    ],
-    "ignore": [
-      "app/assets/javascripts/vendor/",
-      "app/assets/javascripts/admin_legacy/**/*",
-      "spec/javascripts/admin_legacy/**/*"
-    ]
   },
   "dependencies": {
     "accessible-autocomplete": "alphagov/accessible-autocomplete-multiselect",
@@ -38,10 +21,15 @@
     "paste-html-to-govspeak": "^0.3.0"
   },
   "devDependencies": {
+    "eslint": "^8.47.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-n": "^16.0.0",
     "jasmine-browser-runner": "^2.2.0",
     "jasmine-core": "^5.1.1",
     "postcss": "^8.4.29",
-    "standardx": "^7.0.0",
+    "standard": "^17.1.0",
     "stylelint": "^15.10.3",
     "stylelint-config-gds": "^1.0.0"
   },
