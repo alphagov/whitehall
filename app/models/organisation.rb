@@ -511,7 +511,6 @@ class Organisation < ApplicationRecord
     %w[
       charity-commission
       department-for-education
-      department-for-environment-food-rural-affairs
       hm-revenue-customs
       natural-england
     ]
