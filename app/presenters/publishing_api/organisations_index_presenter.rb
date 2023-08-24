@@ -44,10 +44,6 @@ module PublishingApi
       }
     end
 
-    def organisation_details_by_type(organisation_type_key)
-      presented_organisations.map { |org| organisation_details(org) if org.organisation_type_key == organisation_type_key }.compact
-    end
-
     def organisation_details(organisation)
       {
         title: organisation.name,
@@ -123,16 +119,12 @@ module PublishingApi
       }
     end
 
-    def presented_organisations
-      @presented_organisations ||= grouped_organisations(all_organisations)
+    def organisation_details_by_type(type)
+      grouped_organisations.fetch(type, []).map { |org| organisation_details(org) }
     end
 
-    def all_organisations
-      @all_organisations ||= Organisation.excluding_courts_and_tribunals.listable.ordered_by_name_ignoring_prefix
-    end
-
-    def grouped_organisations(organisations)
-      organisations || group_by do |org|
+    def grouped_organisations
+      @grouped_organisations ||= presented_organisations.group_by do |org|
         if org.type.agency_or_public_body?
           :agencies_and_government_bodies
         elsif org.type.sub_organisation?
@@ -141,6 +133,10 @@ module PublishingApi
           org.type.key
         end
       end
+    end
+
+    def presented_organisations
+      @presented_organisations ||= Organisation.excluding_courts_and_tribunals.listable.ordered_by_name_ignoring_prefix
     end
   end
 end
