@@ -513,7 +513,6 @@ class Organisation < ApplicationRecord
       department-for-education
       department-for-environment-food-rural-affairs
       hm-revenue-customs
-      natural-england
     ]
   end
 
