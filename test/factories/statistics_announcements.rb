@@ -24,6 +24,7 @@ FactoryBot.define do
       end
 
       if evaluator.previous_display_date.present?
+        announcement.statistics_announcement_dates.first.save!
         announcement.statistics_announcement_dates <<
           create(
             :statistics_announcement_date_change,
