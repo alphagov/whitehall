@@ -7,7 +7,10 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
     organisation_one = create(:organisation, organisation_type_key: :executive_office)
     organisation_two = create(:organisation, organisation_type_key: :ministerial_department)
     organisation_three = create(:organisation, organisation_type_key: :non_ministerial_department)
-    organisation_four = create(:organisation, organisation_type_key: :public_corporation)
+    organisation_four = create(:organisation, organisation_type_key: :executive_agency)
+    organisation_five = create(:sub_organisation)
+    organisation_six = create(:organisation, organisation_type_key: :public_corporation)
+    organisation_seven = create(:devolved_administration)
 
     expected_hash = {
       title: "Departments, agencies and public bodies",
@@ -100,9 +103,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
             works_with: {},
           },
         ],
-        ordered_agencies_and_other_public_bodies: [],
-        ordered_high_profile_groups: [],
-        ordered_public_corporations: [
+        ordered_agencies_and_other_public_bodies: [
           {
             title: organisation_four.name,
             href: "/government/organisations/#{organisation_four.name}",
@@ -112,7 +113,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
               crest: "single-identity",
             },
             separate_website: false,
-            format: "Public corporation",
+            format: "Non-ministerial department",
             updated_at: Time.zone.now,
             slug: organisation_four.slug,
             acronym: nil,
@@ -128,7 +129,84 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
             works_with: {},
           },
         ],
-        ordered_devolved_administrations: [],
+        ordered_high_profile_groups: [
+          {
+            title: organisation_five.name,
+            href: "/government/organisations/#{organisation_five.name}",
+            brand: nil,
+            logo: {
+              formatted_title: organisation_five.name,
+              crest: "single-identity",
+            },
+            separate_website: false,
+            format: "Non-ministerial department",
+            updated_at: Time.zone.now,
+            slug: organisation_five.slug,
+            acronym: nil,
+            closed_at: nil,
+            govuk_status: "live",
+            govuk_closed_status: nil,
+            content_id: organisation_five.content_id,
+            analytics_identifier: organisation_five.analytics_identifier,
+            parent_organisations: [],
+            child_organisations: [],
+            superseded_organisations: [],
+            superseding_organisations: [],
+            works_with: {},
+          },
+        ],
+        ordered_public_corporations: [
+          {
+            title: organisation_six.name,
+            href: "/government/organisations/#{organisation_six.name}",
+            brand: nil,
+            logo: {
+              formatted_title: organisation_six.name,
+              crest: "single-identity",
+            },
+            separate_website: false,
+            format: "Public corporation",
+            updated_at: Time.zone.now,
+            slug: organisation_six.slug,
+            acronym: nil,
+            closed_at: nil,
+            govuk_status: "live",
+            govuk_closed_status: nil,
+            content_id: organisation_six.content_id,
+            analytics_identifier: organisation_six.analytics_identifier,
+            parent_organisations: [],
+            child_organisations: [],
+            superseded_organisations: [],
+            superseding_organisations: [],
+            works_with: {},
+          },
+        ],
+        ordered_devolved_administrations: [
+          {
+            title: organisation_seven.name,
+            href: "/government/organisations/#{organisation_seven.name}",
+            brand: nil,
+            logo: {
+              formatted_title: organisation_seven.name,
+              crest: "single-identity",
+            },
+            separate_website: true,
+            format: "Devolved administration",
+            updated_at: Time.zone.now,
+            slug: organisation_seven.slug,
+            acronym: nil,
+            closed_at: nil,
+            govuk_status: "live",
+            govuk_closed_status: nil,
+            content_id: organisation_seven.content_id,
+            analytics_identifier: organisation_seven.analytics_identifier,
+            parent_organisations: [],
+            child_organisations: [],
+            superseded_organisations: [],
+            superseding_organisations: [],
+            works_with: {},
+          },
+        ],
       },
       routes: [
         {
