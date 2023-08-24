@@ -1,26 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for [:admin, person, historical_account] do |form| %>
-      <%= render "components/autocomplete", {
-        id: "historical_account_roles",
-        name: "historical_account[role_ids][]",
-        error_items: errors_for(historical_account.errors, :roles),
-        label: {
-          text: "Role(s) (required)",
-          heading_size: "l",
-        },
-        select: {
-          options: (person.roles.where(supports_historical_accounts: true).distinct.map do |role|
-            [
-              role.name,
-              role.id,
-            ]
-          end),
-          multiple: true,
-          selected: historical_account.role_ids,
-        },
-      } %>
-
       <%= render "govuk_publishing_components/components/character_count", {
         textarea: {
           label: {

@@ -15,10 +15,6 @@ FactoryBot.define do
     type { "permanent_secretary" }
   end
 
-  factory :historic_role, parent: :ministerial_role do
-    supports_historical_accounts { true }
-  end
-
   trait :occupied do
     after :create do |role, _|
       role.role_appointments = [FactoryBot.create(:role_appointment)]
@@ -31,7 +27,7 @@ FactoryBot.define do
     end
   end
 
-  factory :prime_minister_role, class: MinisterialRole do
+  factory :prime_minister_role, class: MinisterialRole, aliases: %i[historic_role] do
     name { "Prime Minister" }
     slug { "prime-minister" }
     role_type { "minister" }

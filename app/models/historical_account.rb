@@ -1,15 +1,15 @@
 class HistoricalAccount < ApplicationRecord
   include PublishesToPublishingApi
 
-  belongs_to :person, inverse_of: :historical_accounts
-  has_many   :historical_account_roles
-  has_many   :roles, through: :historical_account_roles
+  belongs_to :person, inverse_of: :historical_account
+  has_one   :historical_account_role
+  has_one   :role, through: :historical_account_role
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
-  validates :person, :roles, :summary, :body, :political_parties, presence: true
+  validates :person, :role, :summary, :body, :political_parties, presence: true
   validates :born, :died, length: { maximum: 256 }
-  validate :roles_support_historical_accounts
+  validate :roles_support_historical_accounts, if: -> { role.present? }
   validate :validate_correct_political_party
   after_save :republish_prime_ministers_index_page_to_publishing_api
   after_destroy :republish_prime_ministers_index_page_to_publishing_api
@@ -36,10 +36,6 @@ class HistoricalAccount < ApplicationRecord
 
   def political_membership
     political_parties.collect(&:membership).to_sentence
-  end
-
-  def role
-    roles.first
   end
 
   def republish_prime_ministers_index_page_to_publishing_api
@@ -69,12 +65,12 @@ class HistoricalAccount < ApplicationRecord
 private
 
   def previous_prime_minister?
-    roles.map(&:slug).include?("prime-minister")
+    role.slug == "prime-minister"
   end
 
   def roles_support_historical_accounts
-    unless roles.all?(&:supports_historical_accounts?)
-      errors.add(:base, "The selected role(s) do not all support historical accounts")
+    unless role.supports_historical_accounts?
+      errors.add(:base, "The selected role does not support historical accounts")
     end
   end
 

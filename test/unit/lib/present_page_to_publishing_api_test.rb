@@ -12,7 +12,7 @@ class PresentPageToPublishingApiTest < ActiveSupport::TestCase
     role = create(:prime_minister_role)
     person = create(:person, forename: "Some", surname: "Person")
     create(:historic_role_appointment, person:, role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
-    create(:historical_account, person:, born: "1900", died: "1975", roles: [role])
+    create(:historical_account, person:, born: "1900", died: "1975", role:)
 
     assert_content_is_presented_to_publishing_api(PublishingApi::HistoricalAccountsIndexPresenter)
   end

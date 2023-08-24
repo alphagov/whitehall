@@ -31,8 +31,8 @@ class Role < ApplicationRecord
   has_many :worldwide_organisation_roles, inverse_of: :role
   has_many :worldwide_organisations, through: :worldwide_organisation_roles
 
-  has_many :historical_account_roles, inverse_of: :role
-  has_many :historical_accounts, through: :historical_account_roles
+  has_one :historical_account_role, inverse_of: :role
+  has_one :historical_account, through: :historical_account_role
 
   scope :alphabetical_by_person,     -> { includes(:current_people, :organisations).order("people.surname", "people.forename") }
 
@@ -58,6 +58,10 @@ class Role < ApplicationRecord
 
   include TranslatableModel
   translates :name, :responsibilities
+
+  def self.prime_minister_role
+    find_by(slug: "prime-minister")
+  end
 
   def republish_organisations_to_publishing_api
     organisations.each do |organisation|

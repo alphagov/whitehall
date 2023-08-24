@@ -20,7 +20,7 @@ class Person < ApplicationRecord
   has_many :organisation_roles, through: :current_roles
   has_many :organisations, through: :organisation_roles
 
-  has_many :historical_accounts, inverse_of: :person
+  has_one :historical_account, inverse_of: :person
 
   validates :name, presence: true
   validates_with SafeHtmlValidator

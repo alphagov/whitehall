@@ -13,11 +13,11 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
                                 died: "1975",
                                 interesting_facts: "They were a very interesting person",
                                 major_acts: "Significant legislation changes",
-                                roles: [role])
+                                role:)
 
     person2 = create(:person, forename: "Some Other", surname: "Person")
     create(:historic_role_appointment, person: person2, role:, started_at: Date.civil(1940), ended_at: Date.civil(1950))
-    historical_account2 = create(:historical_account, person: person2, roles: [role])
+    historical_account2 = create(:historical_account, person: person2, role:)
 
     public_path = "/government/history/past-prime-ministers/some-person"
 
@@ -61,7 +61,7 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
 
     expected_links = {
       person: [historical_account.person.content_id],
-      ordered_related_items: [person2.historical_accounts.first.content_id],
+      ordered_related_items: [person2.historical_account.content_id],
       parent: %w[db95a864-874f-4f50-a483-352a5bc7ba18],
     }
 
@@ -80,7 +80,7 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
     historical_accounts_in_descending_order = (0..7).to_a.map do |i|
       person = create(:person, forename: "Prime Minister #{i}")
       create(:historic_role_appointment, person:, role:, started_at: Date.civil(1950 - i), ended_at: Date.civil(1950 - i))
-      create(:historical_account, person:, roles: [role])
+      create(:historical_account, person:, role:)
     end
 
     # Related prime ministers for each individual prime minister should be based on a sliding window of the surrounding historical accounts

@@ -381,16 +381,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     assert_nil role_appointment.historical_account
 
-    historical_account = create(:historical_account, roles: [role_appointment.role], person: role_appointment.person)
+    historical_account = create(:historical_account, role: role_appointment.role, person: role_appointment.person)
     assert_equal historical_account, role_appointment.reload.historical_account
-  end
-
-  test "does not return an historical account if the appointee has one for another role" do
-    role_appointment   = create(:historic_role_appointment)
-    second_appointment = create(:historic_role_appointment, person: role_appointment.person)
-    create(:historical_account, roles: [second_appointment.role], person: role_appointment.person)
-
-    assert_nil role_appointment.historical_account
   end
 
   test "can scope appointments between dates" do
@@ -469,7 +461,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
                                  died: "1975",
                                  interesting_facts: "They were a very interesting person",
                                  major_acts: "Significant legislation changes",
-                                 roles: [role])
+                                 role:)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)

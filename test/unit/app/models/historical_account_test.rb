@@ -9,21 +9,23 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     end
   end
 
-  test "is not valid without at least one role" do
+  test "is not valid without a role" do
     historical_account = build(:historical_account)
-    historical_account.roles = []
+    historical_account.role = nil
     assert_not historical_account.valid?
-    historical_account.roles << create(:historic_role)
+
+    historic_role = build(:historic_role)
+    historical_account.role = historic_role
     assert historical_account.valid?
   end
 
   test "is not valid unless its role supports historic accounts" do
-    historical_account = build(:historical_account, roles: [create(:historic_role)])
+    historical_account = build(:historical_account, role: create(:historic_role))
     assert historical_account.valid?
 
-    historical_account = build(:historical_account, roles: [create(:role)])
+    historical_account = build(:historical_account, role: create(:role))
     assert_not historical_account.valid?
-    assert_equal ["The selected role(s) do not all support historical accounts"], historical_account.errors[:base]
+    assert_equal ["The selected role does not support historical accounts"], historical_account.errors[:base]
   end
 
   test "has accessor for political parties" do
@@ -47,7 +49,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   end
 
   test "fails validation on invalid (non-blank) political party" do
-    historical_account = build(:historical_account, roles: [create(:historic_role)])
+    historical_account = build(:historical_account, role: create(:historic_role))
 
     historical_account.political_party_ids = [PoliticalParty::Conservative.id]
     assert historical_account.valid?
@@ -67,20 +69,12 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     assert_equal "Whig and Tory", historical_account.political_membership
   end
 
-  test "#role defaults to the first role when there are multiple" do
-    role1 = create(:historic_role)
-    role2 = create(:historic_role)
-    historical_account = create(:historical_account, roles: [role1, role2])
-
-    assert_equal role1, historical_account.role
-  end
-
   should_not_accept_footnotes_in(:body)
 
   context "for a previous prime minister" do
     let(:object) do
       build(:historical_account,
-            roles: [create(:prime_minister_role)],
+            role: create(:prime_minister_role),
             person: create(:person, slug: "foo"))
     end
 
@@ -101,30 +95,6 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     end
   end
 
-  context "for a person who was not a prime minister" do
-    let(:object) do
-      build(:historical_account,
-            roles: [create(:historic_role, slug: "chancellor")])
-    end
-
-    test "public_path returns nil" do
-      assert_nil object.public_path
-    end
-
-    test "public_url returns nil" do
-      assert_nil object.public_url
-    end
-
-    test "does not republish the past prime ministers page on create" do
-      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
-      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
-      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
-
-      object.save!
-    end
-  end
-
   context "for a person who was a prime minister" do
     setup do
       @pm_role = create(:prime_minister_role)
@@ -135,22 +105,11 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     test "republishes the past prime ministers page on create" do
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
-      create(:historical_account, person: @person, roles: [@pm_role])
+      create(:historical_account, person: @person, role: @pm_role)
     end
 
     test "republishes the past prime ministers page on update" do
-      account = create(:historical_account, person: @person, roles: [@pm_role])
-
-      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
-      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
-      PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
-
-      account.update!(roles: [@pm_role, create(:historic_role)])
-    end
-
-    test "republishes the past prime ministers page on update removing the prime minister role" do
-      account = create(:historical_account, person: @person, roles: [@pm_role])
+      account = create(:historical_account, person: @person, role: @pm_role)
 
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
@@ -158,7 +117,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     end
 
     test "republishes the past prime ministers page on destroy" do
-      account = create(:historical_account, person: @person, roles: [@pm_role])
+      account = create(:historical_account, person: @person, role: @pm_role)
 
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 

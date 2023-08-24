@@ -4,16 +4,17 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   layout "design_system"
 
   def index
-    @historical_accounts = @person.historical_accounts.includes(roles: :translations)
+    @historical_account = @person.historical_account
   end
 
   def new
-    @historical_account = @person.historical_accounts.build
+    @historical_account = @person.build_historical_account(role: Role.prime_minister_role)
   end
 
   def create
-    @historical_account = @person.historical_accounts.build(historical_account_params)
-    if @historical_account.save
+    @historical_account = @person.build_historical_account(role: Role.prime_minister_role)
+
+    if @historical_account.update(historical_account_params)
       redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account created"
     else
       render :new
@@ -31,7 +32,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   end
 
   def confirm_destroy
-    @roles = @historical_account.roles.collect(&:name).to_sentence
+    @roles = @historical_account.role.name
   end
 
   def destroy
@@ -46,7 +47,7 @@ private
   end
 
   def load_historical_account
-    @historical_account = @person.historical_accounts.find(params[:id])
+    @historical_account = @person.historical_account
   end
 
   def historical_account_params
@@ -57,7 +58,6 @@ private
       :died,
       :major_acts,
       :interesting_facts,
-      role_ids: [],
       political_party_ids: [],
     )
   end
