@@ -11,6 +11,8 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
         :non_whitehall_link,
       ],
     )
+
+    render :legacy_index
   end
 
   def new
@@ -47,7 +49,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     add_moved_groups
     reorder_groups
     respond_to do |format|
-      format.html { render :index }
+      format.html { render :legacy_index }
       format.json { render json: { result: :success } }
     end
   end
