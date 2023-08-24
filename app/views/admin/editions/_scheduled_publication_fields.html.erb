@@ -13,24 +13,33 @@
         label: "Schedule for publication",
         value: 1,
         checked: edition.scheduled_publication.present?,
-        conditional: render("components/datetime_fields", {
+        conditional: render("components/datetime_fields_with_govuk_date_component", {
               field_name: "scheduled_publication",
               prefix: "edition",
               error_items: errors_for(edition.errors, :scheduled_publication),
               date_heading: "Date",
-              date_hint: "For example, 01 August 2022",
+              date_hint: "For example, 01 08 2022",
               time_hint: "For example, 09:30 or 19:30",
               year: {
                 value: edition.scheduled_publication&.year || Time.zone.today.year,
                 id: "edition_scheduled_publication_1i",
+                name: "edition[scheduled_publication(1i)]",
+                label: "Year",
+                width: 4,
               },
               month: {
                 value: edition.scheduled_publication&.month || Time.zone.today.month,
                 id: "edition_scheduled_publication_2i",
+                name: "edition[scheduled_publication(2i)]",
+                label: "Month",
+                width: 2,
               },
               day: {
                 value: edition.scheduled_publication&.day || Time.zone.today.day,
                 id: "edition_scheduled_publication_3i",
+                name: "edition[scheduled_publication(3i)]",
+                label: "Day",
+                width: 2,
               },
               hour: {
                 value: edition.scheduled_publication&.hour || 9,
