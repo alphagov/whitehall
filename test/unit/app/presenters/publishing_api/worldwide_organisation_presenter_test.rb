@@ -100,6 +100,9 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       world_locations: [
         worldwide_org.world_locations.first.content_id,
       ],
+      roles: [
+        ambassador.roles.first.content_id, deputy_head_of_mission.roles.first.content_id
+      ],
     }
 
     presented_item = present(worldwide_org)

@@ -51,6 +51,7 @@ module PublishingApi
         office_staff:,
         sponsoring_organisations:,
         world_locations:,
+        roles:,
       }
     end
 
@@ -88,6 +89,10 @@ module PublishingApi
 
     def office_staff
       item.office_staff_roles.map(&:current_person).map(&:content_id)
+    end
+
+    def roles
+      item.roles.distinct.pluck(:content_id)
     end
 
     def corporate_information_pages
