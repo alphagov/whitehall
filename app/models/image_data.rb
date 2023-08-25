@@ -7,6 +7,9 @@ class ImageData < ApplicationRecord
   VALID_HEIGHT = 640
 
   has_many :images
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
