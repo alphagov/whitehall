@@ -6,7 +6,7 @@ module HistoricContentConcern
     # to redirect with a nice message rather than just "permission denied".
     if @edition.historic? && !can?(:modify, @edition)
       redirect_to [:admin, @edition],
-                  alert: %(This document is in <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode" class="govuk-link">history mode</a>. Please contact your GOV.UK lead or managing editor if you need to change it.)
+                  { flash: { alert: "This document is in <a href='https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode' class='govuk-link'>history mode</a>. Please contact your GOV.UK lead or managing editor if you need to change it.", html_safe: true } }
     end
   end
 end
