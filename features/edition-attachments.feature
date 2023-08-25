@@ -27,9 +27,13 @@ Feature: Managing attachments on editions
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"
     When I start editing the attachments from the publication page
-    And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example text"
+    And I begin editing an html attachment with the title "Beard Length Graphs 2012" and the body "Example text"
+    Then I cannot see a preview link
+    When I save the attachment
     Then I can see the attachment title "Beard Length Graphs 2012"
     And I can see the preview link to the attachment "HTML attachment"
+    When I edit the attachment
+    Then I can see a preview link
 
   Scenario: Adding attachments on consultation responses
     Given I am a writer
