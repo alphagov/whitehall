@@ -56,8 +56,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       guides: false,
       zoomable: false,
       highlight: false,
-      minCropBoxWidth: minCropBoxWidth,
-      minCropBoxHeight: minCropBoxHeight,
+      minCropBoxWidth,
+      minCropBoxHeight,
       rotatable: false,
       scalable: false
     })
