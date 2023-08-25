@@ -6,16 +6,21 @@ en:
       show_banner: false
       title: What’s new in Whitehall Publisher
       summary: |
-        Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 9 August 2023
+        Summary of updates from the GOV.UK publishing teams on Whitehall Publisher, the roadmap, and getting involved
+      last_updated: Last updated 25 August 2023
       introduction:
         heading: Our roadmap
         body_govspeak: |
-          This quarter we are focussing on:
+          This quarter we are planning to:
 
           - finish our work on the move to the GOV.UK design system
           - explore how to improve the editor journey when creating or editing a draft
           - review how you navigate in Whitehall, as well as add document collections
+
+          Next quarter we plan to:
+
+          - review and fix accessibility issues from an accessibility audit
+          - explore new ways of adding or uploading content, and images
 
           ### Take part in user research
 
@@ -25,6 +30,12 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Preview on GOV.UK from the edit screen
+            area: Creating and updating documents
+            type: new
+            date: 25 August 2023
+            body_govspeak: |
+              Once your document is saved, you can now click a link to see a preview of what your content looks like on GOV.UK without having to visit the document summary screen.
           - heading: New call for evidence content type
             area: Creating and updating documents
             type: new
