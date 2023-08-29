@@ -89,16 +89,16 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select ".errors li", text: /Heading/
   end
 
-  view_test "GET #confirm_destroy explains you can't delete the last group" do
+  test "GET #confirm_destroy redirects to the index page if only 1 group" do
     get :confirm_destroy, params: { document_collection_id: @collection, id: @group }
-    assert_select "div.alert", /can’t\s+delete the last/
-    assert_select 'input[type="submit"]', count: 0
+    assert_redirected_to admin_document_collection_groups_path(@collection)
   end
 
-  view_test "GET #confirm_destroy allows you to delete a group" do
+  test "GET #confirm_destroy assigns the correct values" do
     @collection.groups << build(:document_collection_group)
     get :confirm_destroy, params: { document_collection_id: @collection, id: @group }
-    assert_select 'input[type="submit"][value="Delete"]'
+    assert_equal @collection, assigns(:collection)
+    assert_equal @group, assigns(:group)
   end
 
   view_test "DELETE #destroy deletes group and redirects" do
@@ -106,6 +106,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
       delete :destroy, params: { document_collection_id: @collection, id: @group }
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
+    assert_equal "Group has been deleted", flash[:notice]
   end
 
   test "POST #update_memberships saves the order of group members" do

@@ -40,11 +40,16 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def destroy
     @group.destroy!
+    flash_message = get_layout == "design_system" ? "Group has been deleted" : "'#{@group.heading}' was deleted"
     redirect_to admin_document_collection_groups_path(@collection),
-                notice: "'#{@group.heading}' was deleted"
+                notice: flash_message
   end
 
-  def confirm_destroy; end
+  def confirm_destroy
+    redirect_to admin_document_collection_groups_path(@collection) and return if get_layout == "design_system" && !@collection.groups.many?
+
+    render_design_system(:confirm_destroy, :legacy_confirm_destroy)
+  end
 
   def update_memberships
     add_moved_groups
@@ -59,7 +64,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy destroy] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
