@@ -15,6 +15,13 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
                  filter.statistics_announcements
   end
 
+  test "ordering is scoped to a statistics announcements current_release_date" do
+    statistics_announcement1 = statistics_announcement_for(1.hour.from_now)
+    statistics_announcement2 = statistics_announcement_for(5.hours.from_now)
+    create(:statistics_announcement_date, release_date: 10.hours.from_now, statistics_announcement: statistics_announcement1)
+    assert_equal [statistics_announcement1, statistics_announcement2], filter.statistics_announcements
+  end
+
   test "filtering past releases returns them in reverse date order" do
     last_week  = statistics_announcement_for(1.week.ago)
     _future    = statistics_announcement_for(1.day.from_now)
