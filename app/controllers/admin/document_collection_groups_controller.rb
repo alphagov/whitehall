@@ -3,8 +3,6 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update]
   layout :get_layout
 
-  def edit; end
-
   def index
     @groups = @collection.groups.includes(
       memberships: [
@@ -18,6 +16,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def new
     @group = @collection.groups.build
+    render :legacy_new
   end
 
   def create
@@ -26,8 +25,12 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
       redirect_to admin_document_collection_groups_path(@collection),
                   notice: "'#{@group.heading}' added"
     else
-      render :new
+      render_design_system(:new, :legacy_new)
     end
+  end
+
+  def edit
+    render :legacy_edit
   end
 
   def update
@@ -35,7 +38,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     redirect_to admin_document_collection_groups_path(@collection),
                 notice: "'#{@group.heading}' saved"
   rescue ActiveRecord::RecordInvalid
-    render :edit
+    render :legacy_edit
   end
 
   def destroy
