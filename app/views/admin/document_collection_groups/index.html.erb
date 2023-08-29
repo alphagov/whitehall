@@ -1,0 +1,39 @@
+<% content_for :page_title, "Document collections for #{@collection.title}" %>
+<% content_for :title, "Document collections" %>
+<% content_for :context, @collection.title %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation tabs",
+      items: secondary_navigation_tabs_items(@collection, request.path)
+    } %>
+
+    <%= render "components/summary_card_component", {
+      title: "Document collections",
+      rows: @collection.groups.map do |group|
+        {
+          key: group.heading,
+          value: "#{group.memberships.count} #{'document'.pluralize(group.memberships.count)} in group",
+          actions: [
+            {
+              label: "View",
+              href: "#"
+            },
+            *([{
+              label: "Delete",
+              href: delete_admin_document_collection_group_path(@collection, group),
+              destructive: true
+            }] if @collection.groups.many?)
+          ]
+        }
+      end,
+      summary_card_actions: [
+        {
+          label: "Add group",
+          href: new_admin_document_collection_group_path(@collection),
+        }
+      ],
+    } %>
+  </div>
+</div>

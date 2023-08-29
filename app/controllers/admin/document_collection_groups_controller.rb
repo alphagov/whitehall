@@ -1,6 +1,7 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group, only: %i[delete destroy edit update]
+  layout :get_layout
 
   def edit; end
 
@@ -12,7 +13,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
       ],
     )
 
-    render :legacy_index
+    render_design_system(:index, :legacy_index)
   end
 
   def new
@@ -55,6 +56,17 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def add_moved_groups
     params[:groups].each do |_key, group_params|
