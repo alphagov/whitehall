@@ -25,7 +25,10 @@ class StatisticsAnnouncement < ApplicationRecord
   belongs_to :publication
 
   has_one  :current_release_date,
-           -> { order("created_at DESC") },
+           lambda {
+             joins(:statistics_announcement)
+                .where("statistics_announcements.current_release_date_id = statistics_announcement_dates.id")
+           },
            class_name: "StatisticsAnnouncementDate",
            inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates,
@@ -41,7 +44,7 @@ class StatisticsAnnouncement < ApplicationRecord
   validates :redirect_url, presence: { message: "must be provided when unpublishing an announcement" }, if: :unpublished?
   validates :redirect_url, uri: true, allow_blank: true
   validates :redirect_url, gov_uk_url_format: true, allow_blank: true
-  validates :title, :summary, :organisations, :creator, :current_release_date, presence: true
+  validates :title, :summary, :organisations, :creator, :statistics_announcement_dates, presence: true
   validates :cancellation_reason, presence: { message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
             inclusion: {
@@ -49,7 +52,7 @@ class StatisticsAnnouncement < ApplicationRecord
               message: "must be a statistical type",
             }
 
-  accepts_nested_attributes_for :current_release_date, reject_if: :persisted?
+  accepts_nested_attributes_for :statistics_announcement_dates
 
   scope :with_title_containing,
         lambda { |*keywords|

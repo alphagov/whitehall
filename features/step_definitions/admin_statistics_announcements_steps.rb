@@ -20,14 +20,14 @@ Given(/^there are statistics announcements by my organisation$/) do
   @past_announcement = create(
     :statistics_announcement,
     organisation_ids: [@user.organisation.id],
-    current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+    statistics_announcement_dates: [create(:statistics_announcement_date, release_date: 1.day.ago)],
     publication: create(:draft_statistics),
   )
 
   @future_announcement = create(
     :statistics_announcement,
     organisation_ids: [@user.organisation.id],
-    current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now),
+    statistics_announcement_dates: [create(:statistics_announcement_date, release_date: 1.week.from_now)],
   )
 end
 
@@ -35,25 +35,25 @@ Given(/^there are statistics announcements by my organisation that are unlinked 
   @past_announcement = create(
     :statistics_announcement,
     organisation_ids: [@user.organisation.id],
-    current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+    statistics_announcement_dates: [create(:statistics_announcement_date, release_date: 1.day.ago)],
   )
 
   @tomorrow_announcement = create(
     :statistics_announcement,
     organisation_ids: [@user.organisation.id],
-    current_release_date: create(:statistics_announcement_date, release_date: 1.day.from_now),
+    statistics_announcement_dates: [create(:statistics_announcement_date, release_date: 1.day.from_now)],
   )
 
   @next_week_announcement = create(
     :statistics_announcement,
     organisation_ids: [@user.organisation.id],
-    current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now),
+    statistics_announcement_dates: [create(:statistics_announcement_date, release_date: 1.week.from_now)],
   )
 
   @next_year_announcement = create(
     :statistics_announcement,
     organisation_ids: [@user.organisation.id],
-    current_release_date: create(:statistics_announcement_date, release_date: 1.year.from_now),
+    statistics_announcement_dates: [create(:statistics_announcement_date, release_date: 1.year.from_now)],
   )
 end
 
@@ -116,7 +116,7 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
   choose "statistics_announcement_publication_type_id_5" # Statistics
   fill_in :statistics_announcement_title, with: announcement_title
   fill_in :statistics_announcement_summary, with: "Summary of publication"
-  within "#statistics_announcement_current_release_date_release_date" do
+  within "#statistics_announcement_statistics_announcement_dates_release_date" do
     fill_in_date_and_time_field(1.year.from_now.to_s)
   end
   select organisation.name, from: :statistics_announcement_organisations
