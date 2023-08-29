@@ -51,6 +51,8 @@
       <% end %>
     </div>
 
+    <%= render('inline_attachments_info', edition: attachable) if attachable.is_a?(Edition) %>
+
     <%= render "govuk_publishing_components/components/heading", {
       text: "Attachments",
       font_size: "l",

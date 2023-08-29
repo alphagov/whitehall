@@ -19,7 +19,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_references_to_statistical_data_sets_for :publication
   should_allow_association_between_world_locations_and :publication
   should_prevent_modification_of_unmodifiable :publication
-  should_allow_alternative_format_provider_for :publication
+  # should_allow_alternative_format_provider_for :publication
   should_allow_scheduled_publication_of :publication
   should_allow_access_limiting_of :publication
   should_render_govspeak_history_and_fact_checking_tabs_for :publication

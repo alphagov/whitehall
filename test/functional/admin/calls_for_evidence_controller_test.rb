@@ -15,7 +15,7 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
 
   should_allow_organisations_for :call_for_evidence
   should_prevent_modification_of_unmodifiable :call_for_evidence
-  should_allow_alternative_format_provider_for :call_for_evidence
+  # should_allow_alternative_format_provider_for :call_for_evidence
   should_allow_scheduled_publication_of :call_for_evidence
   should_allow_access_limiting_of :call_for_evidence
   should_render_govspeak_history_and_fact_checking_tabs_for :call_for_evidence

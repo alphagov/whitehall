@@ -5,26 +5,26 @@
     id: "edition_alternative_format_provider",
     error_message: errors_for_input(edition.errors, :alternative_format_provider)
   } do %>
-    <% if edition.new_record? %>
-      <p class="govuk-body">
-        <% if edition.allows_image_attachments? %>
-          To add images and attachments you must save the document first. After
-          saving, use the tabs at the top of the page to upload, edit and
-          delete images and attachments.
-        <% else %>
-          If you’d like to add an attachment to this document, please save
-          it first. You’ll then find a tab at the top of the page that you
-          can use to upload, edit and delete attachments.
-        <% end %>
-      </p>
-    <% else %>
-      <% if edition.allows_image_attachments? %>
-        <p class="govuk-body">
-          Use the tabs at the top of the page to upload, edit and delete images
-          and attachments.
-        </p>
-      <% end %>
-    <% end %>
+    <%# if edition.new_record? %>
+<!--      <p class="govuk-body">-->
+        <%# if edition.allows_image_attachments? %>
+<!--          To add images and attachments you must save the document first. After-->
+<!--          saving, use the tabs at the top of the page to upload, edit and-->
+<!--          delete images and attachments.-->
+        <%# else %>
+<!--          If you’d like to add an attachment to this document, please save-->
+<!--          it first. You’ll then find a tab at the top of the page that you-->
+<!--          can use to upload, edit and delete attachments.-->
+        <%# end %>
+<!--      </p>-->
+    <%# else %>
+      <%# if edition.allows_image_attachments? %>
+<!--        <p class="govuk-body">-->
+<!--          Use the tabs at the top of the page to upload, edit and delete images-->
+<!--          and attachments.-->
+<!--        </p>-->
+      <%# end %>
+    <%# end %>
     <% if edition.respond_to?(:alternative_format_provider) %>
       <div class="govuk-form-group gem-c-select">
         <label class="govuk-label govuk-label--m govuk-!-font-weight-bold" for="alternative_format_provider_id">
