@@ -63,7 +63,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   view_test "POST #create prompts for missing data if new group invalid" do
     post_create(heading: "")
     assert_response :success
-    assert_select '.errors li[data-track-action="document-collection-group-error"]', text: /Heading/
+    assert_select ".govuk-error-summary", text: /Heading/
   end
 
   view_test "GET #edit renders successfully" do
@@ -86,7 +86,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   view_test "PUT #update prompts for missing data if group invalid" do
     put_update(heading: "")
     assert_response :success
-    assert_select ".errors li", text: /Heading/
+    assert_select ".govuk-error-summary", text: /Heading/
   end
 
   test "GET #confirm_destroy redirects to the index page if only 1 group" do

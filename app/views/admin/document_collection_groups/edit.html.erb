@@ -1,0 +1,15 @@
+<% content_for :page_title, "Edit group details for #{@group.heading}" %>
+<% content_for :title, "Edit group details" %>
+<% content_for :title_margin_bottom, 8 %>
+<% content_for :context, @group.heading %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @group)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "form", collection: @collection, group: @group, url: admin_document_collection_group_path(@collection, @group) %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar hide_inline_attachments_help: true, show_attachments_tab_help: false %>
+  </div>
+</div>

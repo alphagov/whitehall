@@ -1,0 +1,40 @@
+<%= form_with model: group, url: url do |form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Name (required)",
+      heading_size: "l",
+    },
+    name: "document_collection_group[heading]",
+    id: "document_collection_group_heading",
+    value: group.heading,
+    error_items: errors_for(group.errors, :heading),
+    hint: "Name of the group that holds all associated documents"
+  } %>
+
+   <%= render "components/govspeak-editor", {
+    label: {
+      heading_size: "l",
+      text: "Description"
+    },
+    name: "document_collection_group[body]",
+    id: "document_collection_group_body",
+    rows: 8,
+    value: group.body,
+    error_items: errors_for(group.errors, :body),
+    hint: "This lives below the name of the group and above all the documents"
+    } %>
+
+  <div class="govuk-button-group govuk-!-margin-top-8">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "document-collection-groups-button",
+        "track-label": "Save"
+      }
+    } %>
+
+    <%= link_to "Cancel", admin_document_collection_groups_path(collection), class: "govuk-link govuk-link--no-visited-state" %>
+  </div>
+<% end %>
