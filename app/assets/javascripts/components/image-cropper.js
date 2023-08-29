@@ -36,7 +36,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   ImageCropper.prototype.initCropper = function () {
-    if (!this.$image.complete) {
+    if (!this.$image || !this.$image.complete || this.cropper) {
       return
     }
 
@@ -48,22 +48,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     const minCropBoxWidth = Math.ceil(this.$targetWidth * scaledRatio)
     const minCropBoxHeight = Math.ceil(this.$targetHeight * scaledRatio)
 
-    if (this.$image) {
-      this.cropper = new window.Cropper(this.$image, { // eslint-disable-line
-        viewMode: 2,
-        aspectRatio: 3 / 2,
-        autoCrop: true,
-        autoCropArea: 1,
-        guides: false,
-        zoomable: false,
-        highlight: false,
-        minCropBoxWidth: minCropBoxWidth,
-        minCropBoxHeight: minCropBoxHeight,
-        rotatable: false,
-        scalable: false
-      })
-      this.setupFormListener()
-    }
+    this.cropper = new window.Cropper(this.$image, { // eslint-disable-line
+      viewMode: 2,
+      aspectRatio: 3 / 2,
+      autoCrop: true,
+      autoCropArea: 1,
+      guides: false,
+      zoomable: false,
+      highlight: false,
+      minCropBoxWidth: minCropBoxWidth,
+      minCropBoxHeight: minCropBoxHeight,
+      rotatable: false,
+      scalable: false
+    })
+    this.setupFormListener()
   }
 
   ImageCropper.prototype.initKeyboardControls = function () {
