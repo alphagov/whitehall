@@ -60,7 +60,7 @@
               <%= link_to 'Edit group heading and body', edit_admin_document_collection_group_path(@collection, group) %>
             </li>
             <li>
-              <%= link_to 'Delete group', delete_admin_document_collection_group_path(@collection, group) %>
+              <%= link_to 'Delete group', confirm_destroy_admin_document_collection_group_path(@collection, group) %>
             </li>
           </ul>
         </header>

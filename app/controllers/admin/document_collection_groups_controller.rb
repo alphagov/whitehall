@@ -1,6 +1,6 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
-  before_action :load_document_collection_group, only: %i[delete destroy edit update]
+  before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update]
   layout :get_layout
 
   def edit; end
@@ -44,7 +44,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
                 notice: "'#{@group.heading}' was deleted"
   end
 
-  def delete; end
+  def confirm_destroy; end
 
   def update_memberships
     add_moved_groups

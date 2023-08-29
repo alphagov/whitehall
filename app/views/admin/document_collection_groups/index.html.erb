@@ -22,7 +22,7 @@
             },
             *([{
               label: "Delete",
-              href: delete_admin_document_collection_group_path(@collection, group),
+              href: confirm_destroy_admin_document_collection_group_path(@collection, group),
               destructive: true
             }] if @collection.groups.many?)
           ]

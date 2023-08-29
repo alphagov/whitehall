@@ -33,11 +33,11 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: group1.heading
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: "1 document in group"
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#']", text: "View #{group1.heading}"
-    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{delete_admin_document_collection_group_path(collection, group1)}']", text: "Delete #{group1.heading}"
+    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group1)}']", text: "Delete #{group1.heading}"
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: group2.heading
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: "0 documents in group"
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#']", text: "View #{group2.heading}"
-    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{delete_admin_document_collection_group_path(collection, group2)}']", text: "Delete #{group2.heading}"
+    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group2)}']", text: "Delete #{group2.heading}"
   end
 
   view_test "GET #new renders successfully" do
@@ -89,15 +89,15 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select ".errors li", text: /Heading/
   end
 
-  view_test "GET #delete explains you can't delete the last group" do
-    get :delete, params: { document_collection_id: @collection, id: @group }
+  view_test "GET #confirm_destroy explains you can't delete the last group" do
+    get :confirm_destroy, params: { document_collection_id: @collection, id: @group }
     assert_select "div.alert", /can’t\s+delete the last/
     assert_select 'input[type="submit"]', count: 0
   end
 
-  view_test "GET #delete allows you to delete a group" do
+  view_test "GET #confirm_destroy allows you to delete a group" do
     @collection.groups << build(:document_collection_group)
-    get :delete, params: { document_collection_id: @collection, id: @group }
+    get :confirm_destroy, params: { document_collection_id: @collection, id: @group }
     assert_select 'input[type="submit"][value="Delete"]'
   end
 
