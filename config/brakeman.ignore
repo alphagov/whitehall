@@ -48,42 +48,32 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "656f73517fd3a3c2527e021c3c70f28623c96ff02855a9df480e05c7fb8c3355",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 30,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id]).world_locations.map do\n link_to(l.name, l.public_path, :class => \"govuk-link\")\n end.to_sentence",
+      "warning_code": 4,
+      "fingerprint": "74d3a4465c125ab5ddf5b1e56fec3063ceac4cc0e9aede73cee0c0dff8a461c0",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/admin/document_collection_groups/show.html.erb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"Preview on website (opens in a new tab)\", DocumentCollection.find(params[:document_collection_id]).public_url(:draft => true), :class => \"govuk-link\", :target => \"_blank\", :rel => \"noopener\")",
       "render_path": [
         {
           "type": "controller",
-          "class": "CorporateInformationPagesController",
+          "class": "Admin::DocumentCollectionGroupsController",
           "method": "show",
-          "line": 8,
-          "file": "app/controllers/corporate_information_pages_controller.rb",
+          "line": 18,
+          "file": "app/controllers/admin/document_collection_groups_controller.rb",
           "rendered": {
-            "name": "corporate_information_pages/show_worldwide_organisation",
-            "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "corporate_information_pages/show_worldwide_organisation",
-          "line": 4,
-          "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb",
-          "rendered": {
-            "name": "worldwide_organisations/_header",
-            "file": "app/views/worldwide_organisations/_header.html.erb"
+            "name": "admin/document_collection_groups/show",
+            "file": "app/views/admin/document_collection_groups/show.html.erb"
           }
         }
       ],
       "location": {
         "type": "template",
-        "template": "worldwide_organisations/_header"
+        "template": "admin/document_collection_groups/show"
       },
-      "user_input": "WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])",
+      "user_input": "DocumentCollection.find(params[:document_collection_id]).public_url(:draft => true)",
       "confidence": "Weak",
       "cwe_id": [
         79
@@ -143,7 +133,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/admin/editions/show/_main.html.erb",
-      "line": 38,
+      "line": 42,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(\"Preview on website #{if Edition.find(params[:edition_id]).translatable? and Edition.find(params[:edition_id]).available_in_multiple_languages? then\n  \"- English\"\nend} (opens in new tab)\".strip, Edition.find(params[:edition_id]).public_url(:draft => true, :locale => Edition.find(params[:edition_id]).primary_locale), :class => \"govuk-link\", :target => \"_blank\", :data => ({ :module => \"gem-track-click\", :\"track-category\" => \"button-clicked\", :\"track-action\" => (\"#{Edition.find(params[:edition_id]).model_name.singular.dasherize}-button\"), :\"track-label\" => \"Preview on website\" }))",
       "render_path": [
@@ -151,7 +141,7 @@
           "type": "controller",
           "class": "Admin::EditionsController",
           "method": "show",
-          "line": 76,
+          "line": 77,
           "file": "app/controllers/admin/editions_controller.rb",
           "rendered": {
             "name": "admin/editions/show",
@@ -161,7 +151,7 @@
         {
           "type": "template",
           "name": "admin/editions/show",
-          "line": 13,
+          "line": 30,
           "file": "app/views/admin/editions/show.html.erb",
           "rendered": {
             "name": "admin/editions/show/_main",
@@ -187,7 +177,7 @@
       "check_name": "RenderInline",
       "message": "Unescaped model attribute rendered inline",
       "file": "app/views/admin/people/show.html.erb",
-      "line": 10,
+      "line": 15,
       "link": "https://brakemanscanner.org/docs/warning_types/cross-site_scripting/",
       "code": "render(text => Person.friendly.find(params[:id]).current_role_appointments_title, {})",
       "render_path": [
@@ -221,7 +211,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/admin/topical_event_featurings/index.html.erb",
-      "line": 7,
+      "line": 12,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(\"View on website\", TopicalEvent.find(params[:topical_event_id]).public_url({ :locale => params[:locale] }.merge(cachebust_url_options)), :class => \"govuk-link\", :target => \"_blank\")",
       "render_path": [
@@ -229,7 +219,7 @@
           "type": "controller",
           "class": "Admin::TopicalEventFeaturingsController",
           "method": "index",
-          "line": 19,
+          "line": 21,
           "file": "app/controllers/admin/topical_event_featurings_controller.rb",
           "rendered": {
             "name": "admin/topical_event_featurings/index",
@@ -263,7 +253,7 @@
           "type": "controller",
           "class": "Admin::EditionsController",
           "method": "show",
-          "line": 76,
+          "line": 77,
           "file": "app/controllers/admin/editions_controller.rb",
           "rendered": {
             "name": "admin/editions/show",
@@ -273,7 +263,7 @@
         {
           "type": "template",
           "name": "admin/editions/show",
-          "line": 13,
+          "line": 30,
           "file": "app/views/admin/editions/show.html.erb",
           "rendered": {
             "name": "admin/editions/show/_main",
@@ -283,7 +273,7 @@
         {
           "type": "template",
           "name": "admin/editions/show/_main",
-          "line": 26,
+          "line": 30,
           "file": "app/views/admin/editions/show/_main.html.erb",
           "rendered": {
             "name": "admin/editions/show/_main_notices",
@@ -351,46 +341,12 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "c4b40274a6e6d5a420ea1cf02c2a29e14817c60e5d3d4b870ce2e2a8b868754f",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/admin/worldwide_organisations/show.html.erb",
-      "line": 17,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "WorldwideOrganisation.friendly.find(params[:id]).sponsoring_organisations.map do\n link_to(o.name, [:admin, o])\n end.to_sentence",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::WorldwideOrganisationsController",
-          "method": "show",
-          "line": 38,
-          "file": "app/controllers/admin/worldwide_organisations_controller.rb",
-          "rendered": {
-            "name": "admin/worldwide_organisations/show",
-            "file": "app/views/admin/worldwide_organisations/show.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/worldwide_organisations/show"
-      },
-      "user_input": "WorldwideOrganisation.friendly.find(params[:id])",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": "We don't link directly to any unescaped model attribute."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
       "warning_code": 84,
       "fingerprint": "c4b5157a5184f935bbe15ecfc3a443b6e4e4ce57fe6969bf8bf5afa988ae4779",
       "check_name": "RenderInline",
       "message": "Unescaped model attribute rendered inline",
       "file": "app/views/admin/historical_accounts/index.html.erb",
-      "line": 10,
+      "line": 15,
       "link": "https://brakemanscanner.org/docs/warning_types/cross-site_scripting/",
       "code": "render(text => Person.friendly.find(params[:person_id]).current_role_appointments.collect(&:role_name).to_sentence, {})",
       "render_path": [
@@ -442,50 +398,6 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "f16bbddbc3733b7cec86224f3f7973c65a90d2962eb0749ca74b547890987ee3",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 33,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id]).sponsoring_organisations.map do\n link_to(o.name, o.public_path, :class => \"sponsoring-organisation govuk-link\")\n end.to_sentence",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "CorporateInformationPagesController",
-          "method": "show",
-          "line": 8,
-          "file": "app/controllers/corporate_information_pages_controller.rb",
-          "rendered": {
-            "name": "corporate_information_pages/show_worldwide_organisation",
-            "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "corporate_information_pages/show_worldwide_organisation",
-          "line": 4,
-          "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb",
-          "rendered": {
-            "name": "worldwide_organisations/_header",
-            "file": "app/views/worldwide_organisations/_header.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "worldwide_organisations/_header"
-      },
-      "user_input": "WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "f27b865264b3fc651a9e170c09972a709832270b5ad4baf33ba4b395a1a87113",
       "check_name": "LinkToHref",
@@ -519,6 +431,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-07-11 12:38:05 +0000",
-  "brakeman_version": "5.4.1"
+  "updated": "2023-08-30 12:08:47 +0100",
+  "brakeman_version": "5.3.1"
 }
