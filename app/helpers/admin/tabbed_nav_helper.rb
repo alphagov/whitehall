@@ -85,6 +85,21 @@ module Admin::TabbedNavHelper
     }
   end
 
+  def document_collection_group_nav_items(group, current_path)
+    [
+      {
+        label: "Documents",
+        href: "#",
+        current: false,
+      },
+      {
+        label: "Group details",
+        href: admin_document_collection_group_path(group.document_collection, group),
+        current: current_path == admin_document_collection_group_path(group.document_collection, group),
+      },
+    ]
+  end
+
   def policy_group_nav_items(group, current_path)
     [
       {
