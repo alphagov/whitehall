@@ -69,7 +69,7 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
   end
 
   def assert_equal_attachments(expected, actual)
-    ignore_attributes = %w[id attachable_id attachable_type safely_resluggable html_attachment_id]
+    ignore_attributes = %w[id attachable_id attachable_type safely_resluggable html_attachment_id ordering]
 
     attachment_attributes = lambda do |attachment|
       attributes = attachment.attributes.except(*ignore_attributes)
@@ -176,6 +176,55 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
 
     assert_equal whodunnit, call_for_evidence.creator
     assert_equal [whodunnit], call_for_evidence.versions.map(&:user).uniq
+  end
+
+  describe "merging Public Feedback with Outcome" do
+    let(:public_feedback) do
+      build(
+        :consultation_public_feedback,
+        attachments: [
+          build(:csv_attachment),
+          build(:html_attachment),
+        ],
+      )
+    end
+
+    context "when the Consultation has both Public Feedback and an Outcome" do
+      before do
+        consultation.update!(public_feedback:)
+      end
+
+      it "merges the Public Feedback and Outcome into the Call for Evidence Outcome" do
+        migrate
+
+        # Summaries have been merged
+        assert_equal "#{consultation.outcome.summary}\n\n#{consultation.public_feedback.summary}",
+                     call_for_evidence.outcome.summary
+
+        # Attachments have been merged
+        assert_equal_attachments consultation.outcome.attachments + consultation.public_feedback.attachments,
+                                 call_for_evidence.outcome.attachments
+      end
+    end
+
+    context "when the Consultation only has Public Feedback" do
+      before do
+        consultation.outcome.destroy!
+        consultation.update!(public_feedback:)
+      end
+
+      it "moves the Public Feedback to the Call for Evidence Outcome" do
+        migrate
+
+        # Summaries have been merged
+        assert_equal consultation.public_feedback.summary,
+                     call_for_evidence.outcome.summary
+
+        # Attachments have been merged
+        assert_equal_attachments consultation.public_feedback.attachments,
+                                 call_for_evidence.outcome.attachments
+      end
+    end
   end
 
   describe "invalid documents" do

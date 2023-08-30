@@ -39,18 +39,31 @@ module DataHygiene
     end
 
     def migrate_outcome
-      return unless @draft_consultation.outcome
+      return unless @draft_consultation.outcome || @draft_consultation.public_feedback
 
-      source = @draft_consultation.outcome
+      source_outcome = @draft_consultation.outcome
+      source_public_feedback = @draft_consultation.public_feedback
       destination = @call_for_evidence.build_outcome
 
-      destination.assign_attributes association_attributes(source)
+      destination.assign_attributes association_attributes(source_outcome || source_public_feedback)
 
-      source.attachments.each do |attachment|
-        destination.attachments << attachment.deep_clone
+      # Merge 'Outcome' summary and 'Public Feedback' summary
+      destination.summary = [source_outcome&.summary, source_public_feedback&.summary].compact.join("\n\n")
+
+      # Copy 'Outcome' attachments, followed by 'Public Feedback' attachments
+      [source_outcome, source_public_feedback].compact.each do |source|
+        source.attachments.each do |attachment|
+          destination.attachments << attachment.deep_clone
+        end
+
+        source.destroy!
       end
 
-      source.destroy!
+      # Set 'ordering' attributes correctly (they have to be unique)
+      destination.attachments.each_with_index do |attachment, index|
+        attachment.ordering = index
+      end
+
       destination.save!
     end
 
