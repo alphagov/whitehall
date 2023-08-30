@@ -1,6 +1,6 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Access limiting",
+    legend_text: "Limit access",
     heading_level: 3,
     heading_size: "l"
   } do %>
@@ -12,7 +12,7 @@
       error_items: errors_for(edition.errors, :access_limited),
       items: [
         {
-          label: "Limit access to producing organisations prior to publication",
+          label: "Limit access to publishers from organisations associated with this document before you publish",
           value: 1,
           checked: edition.access_limited,
         }
