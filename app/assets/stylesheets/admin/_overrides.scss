@@ -1,8 +1,16 @@
-.app-c-govuk-table--filterable .govuk-table {
-  table-layout: fixed;
-}
+// .app-c-govuk-table--filterable .govuk-table {
+//   table-layout: fixed;
+// }
 
 .govuk-table--with-actions {
+  // table {
+  //   table-layout: fixed;
+  // }
+
+  // .govuk-table__cell:first-child {
+  //   width: 78%
+  // }
+
   .govuk-table__cell:last-child {
     text-align: right;
   }
