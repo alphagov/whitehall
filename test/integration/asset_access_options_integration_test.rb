@@ -34,7 +34,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         context "when document is marked as access limited in Whitehall" do
           before do
             visit edit_admin_news_article_path(edition)
-            check "Limit access to producing organisations prior to publication"
+            check "Limit access"
             click_button "Save"
             assert_text "The document has been saved"
           end
@@ -53,7 +53,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
           before do
             visit edit_admin_news_article_path(edition)
-            uncheck "Limit access to producing organisations prior to publication"
+            uncheck "Limit access"
             click_button "Save"
             assert_text "The document has been saved"
           end
@@ -345,7 +345,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
             before do
               visit edit_admin_news_article_path(edition)
-              check "Limit access to producing organisations prior to publication"
+              check "Limit access"
               click_button "Save"
               assert_text "The document has been saved"
             end
@@ -362,7 +362,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           context "when document is unmarked as access limited in Whitehall" do
             before do
               visit edit_admin_news_article_path(edition)
-              uncheck "Limit access to producing organisations prior to publication"
+              uncheck "Limit access"
               click_button "Save"
               assert_text "The document has been saved"
             end
