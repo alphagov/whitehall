@@ -89,8 +89,8 @@ module Admin::TabbedNavHelper
     [
       {
         label: "Documents",
-        href: "#",
-        current: false,
+        href: admin_document_collection_group_members_path(group.document_collection, group),
+        current: current_path == admin_document_collection_group_members_path(group.document_collection, group),
       },
       {
         label: "Group details",
