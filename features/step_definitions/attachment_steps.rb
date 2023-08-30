@@ -13,21 +13,6 @@ When(/^I upload a file attachment with the title "(.*?)" and the file "(.*?)"$/)
   click_on "Save"
 end
 
-When(/^I begin editing an html attachment with the title "(.*?)" and the body "(.*?)"$/) do |title, body|
-  click_on "Add new HTML attachment"
-  fill_in "Title", with: title
-  fill_in "Body", with: body
-  check "Use manually numbered headings"
-end
-
-When(/^I save the attachment$/) do
-  click_on "Save"
-end
-
-When(/^I edit the attachment$/) do
-  click_on "Edit attachment"
-end
-
 When(/^I upload an html attachment with the title "(.*?)" and the body "(.*?)"$/) do |title, body|
   click_on "Add new HTML attachment"
   fill_in "Title", with: title
@@ -98,14 +83,6 @@ end
 
 Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|
   expect(page).to have_link("a", href: /draft-origin/, text: attachment_title)
-end
-
-Then(/^I cannot see a preview link$/) do
-  expect(page).to_not have_link("a", href: /draft-origin/)
-end
-
-Then(/^I can see a preview link$/) do
-  expect(page).to have_link("a", href: /draft-origin/)
 end
 
 When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)"$/) do |title, isbn|
