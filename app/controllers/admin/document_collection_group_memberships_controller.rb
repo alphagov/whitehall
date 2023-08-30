@@ -1,6 +1,7 @@
 class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group
+  before_action :load_membership, only: %i[confirm_destroy]
   before_action :find_document, only: :create_whitehall_member
   layout :get_layout
 
@@ -33,22 +34,33 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     end
   end
 
+  def confirm_destroy; end
+
   def destroy
-    membership_ids = params.fetch(:memberships, []).map(&:to_i)
-    if membership_ids.present?
-      moving? ? move_to_new_group(membership_ids) : delete_from_old_group(membership_ids)
-      redirect_to admin_document_collection_groups_path(@collection),
-                  notice: success_message(membership_ids)
+    if get_layout == "design_system"
+      @membership = load_membership
+      @membership.destroy!
+
+      redirect_to admin_document_collection_group_members_path(@collection, @group),
+                  notice: "Document has been removed from the group"
     else
-      redirect_to admin_document_collection_groups_path(@collection),
-                  alert: "Select one or more documents and try again"
+      membership_ids = params.fetch(:memberships, []).map(&:to_i)
+      if membership_ids.present?
+        moving? ? move_to_new_group(membership_ids) : delete_from_old_group(membership_ids)
+        redirect_to admin_document_collection_groups_path(@collection),
+                    notice: success_message(membership_ids)
+      else
+        redirect_to admin_document_collection_groups_path(@collection),
+                    alert: "Select one or more documents and try again"
+      end
     end
   end
 
 private
 
   def get_layout
-    design_system_actions = %w[index]
+    design_system_actions = %w[index confirm_destroy]
+    design_system_actions += %w[destroy] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"
@@ -91,6 +103,10 @@ private
   def load_document_collection_group
     @group = @collection.groups.find(params[:group_id])
     session[:document_collection_selected_group_id] = params[:group_id]
+  end
+
+  def load_membership
+    @membership = @group.memberships.find(params[:id])
   end
 
   def find_document
