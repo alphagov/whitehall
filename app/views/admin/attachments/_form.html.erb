@@ -59,27 +59,6 @@
           }
         } %>
       </div>
-
-      <% if !attachment.new_record? %>
-        <%= render "govuk_publishing_components/components/inset_text", {
-          } do %>
-          <p class="govuk-body">
-            <%= link_to("Preview on website (opens in new tab)",
-            attachment.url(preview: true, full_url: true),
-            class: "govuk-link",
-            target: "_blank",
-            data: {
-              module: "gem-track-click",
-              "track-category": "button-clicked",
-              "track-action": "#{@edition.model_name.singular.dasherize}-button",
-              "track-label": "Preview on website",
-            })%>
-          </p>
-          <p class="govuk-body">
-            To preview your document on GOV.UK you must save it first.
-          </p>
-        <% end %>
-      <% end %>
     <% end %>
   <% elsif attachment.is_a?(ExternalAttachment) %>
     <div class="govuk-!-margin-bottom-8">
