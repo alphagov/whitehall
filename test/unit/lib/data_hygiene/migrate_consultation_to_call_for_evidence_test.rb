@@ -17,6 +17,7 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
         build(:file_attachment),
         build(:html_attachment),
       ],
+      images: build_list(:image, 1),
 
       # Applies to all UK nations except Scotland
       all_nation_applicability: false,
@@ -67,6 +68,33 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
       end
   end
 
+  def assert_equal_attachments(expected, actual)
+    ignore_attributes = %w[id attachable_id attachable_type safely_resluggable html_attachment_id]
+
+    attachment_attributes = lambda do |attachment|
+      attributes = attachment.attributes.except(*ignore_attributes)
+
+      if attachment.is_a? HtmlAttachment
+        attributes["govspeak_content"] = attachment.govspeak_content.attributes.except(*ignore_attributes)
+      end
+
+      attributes
+    end
+
+    assert_equal expected.map(&attachment_attributes), actual.map(&attachment_attributes)
+    assert actual.none?(&:safely_resluggable)
+  end
+
+  def assert_equal_images(expected, actual)
+    ignore_attributes = %w[id edition_id]
+
+    image_attributes = lambda do |image|
+      image.attributes.except(*ignore_attributes)
+    end
+
+    assert_equal expected.map(&image_attributes), actual.map(&image_attributes)
+  end
+
   before do
     stub_asset_downloads
   end
@@ -84,6 +112,10 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
     assert_equal consultation.summary, call_for_evidence.summary
     assert_equal consultation.body, call_for_evidence.body
 
+    # and the same attachments
+    assert_equal_attachments consultation.attachments, call_for_evidence.attachments
+    assert_equal_images consultation.images, call_for_evidence.images
+
     # The document is in the state we expect it to be
     assert_equal 2, document.editions.count
     assert_instance_of CallForEvidence, document.latest_edition
@@ -99,6 +131,10 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
     ignore_attributes = %w[id edition_id type]
     assert_equal consultation.outcome.attributes.except(*ignore_attributes),
                  call_for_evidence.outcome.attributes.except(*ignore_attributes)
+
+    # and the same attachments
+    assert_equal_attachments consultation.outcome.attachments,
+                             call_for_evidence.outcome.attachments
   end
 
   it "converts the Consultation Participation to a Call for Evidence Participation" do
