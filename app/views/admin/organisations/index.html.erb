@@ -10,7 +10,7 @@
 <% end %>
 
 <% if @organisations.present? %>
-  <div class="app-c-govuk-table--filterable app-view-organisation-index__table govuk-table--with-actions">
+  <div class="govuk-table--with-actions"> <!-- app-c-govuk-table--filterable app-view-organisation-index__table -->
     <%= render "govuk_publishing_components/components/table", {
       filterable: true,
       label: "Filter by organisation name",
@@ -25,7 +25,75 @@
           text: tag.span("Actions", class: "govuk-visually-hidden"),
         }
       ],
-      rows: organisation_index_rows(@user_organisation, @organisations.all)
+      # rows: organisation_index_rows(@user_organisation, @organisations.all)
+      rows: [
+        [
+          {
+            text: "<span class=\"govuk-!-font-weight-bold\">S4C</span>".html_safe
+          },
+          {
+            text: "exempt",
+          },
+          {
+            text: "<a class=\"govuk-link\" href=\"#\">View <span class=\"govuk-visually-hidden\"></span></a><a class=\"govuk-link gem-link--destructive govuk-!-margin-left-3\" href=\"#\">Delete <span class=\"govuk-visually-hidden\"></span></a>".html_safe
+          }
+        ],
+        # [
+        #   {
+        #     text: "<span class=\"govuk-!-font-weight-bold\">Admiralty Court</span>".html_safe
+        #   },
+        #   {
+        #     text: "exempt",
+        #   },
+        #   {
+        #     text: "<a class=\"govuk-link\" href=\"#\">View <span class=\"govuk-visually-hidden\"></span></a><a class=\"govuk-link gem-link--destructive govuk-!-margin-left-3\" href=\"#\">Delete <span class=\"govuk-visually-hidden\"></span></a>".html_safe
+        #   }
+        # ],
+        [
+          {
+            text: "<span class=\"govuk-!-font-weight-bold\">Academy for Social Justice Commissioning</span>".html_safe
+          },
+          {
+            text: "live",
+          },
+          {
+            text: "<a class=\"govuk-link\" href=\"#\">View <span class=\"govuk-visually-hidden\"></span></a><a class=\"govuk-link gem-link--destructive govuk-!-margin-left-3\" href=\"#\">Delete <span class=\"govuk-visually-hidden\"></span></a>".html_safe
+          }
+        ],
+        # [
+        #   {
+        #     text: "<span class=\"govuk-!-font-weight-bold\">Criminal Injuries Compensation Appeals Panel for Northern Ireland</span>".html_safe
+        #   },
+        #   {
+        #     text: "exempt",
+        #   },
+        #   {
+        #     text: "<a class=\"govuk-link\" href=\"#\">View <span class=\"govuk-visually-hidden\"></span></a><a class=\"govuk-link gem-link--destructive govuk-!-margin-left-3\" href=\"#\">Delete <span class=\"govuk-visually-hidden\"></span></a>".html_safe
+        #   }
+        # ],
+        # [
+        #   {
+        #     text: "<span class=\"govuk-!-font-weight-bold\">The Reviewing Committee on the Export of Works of Art and Objects of Cultural Interest</span>".html_safe
+        #   },
+        #   {
+        #     text: "closed",
+        #   },
+        #   {
+        #     text: "<a class=\"govuk-link\" href=\"#\">View <span class=\"govuk-visually-hidden\"></span></a><a class=\"govuk-link gem-link--destructive govuk-!-margin-left-3\" href=\"#\">Delete <span class=\"govuk-visually-hidden\"></span></a>".html_safe
+        #   }
+        # ],
+        [
+          {
+            text: "<span class=\"govuk-!-font-weight-bold\">Committee on Mutagenicity of Chemicals in Food, Consumer Products and the Environment</span>".html_safe
+          },
+          {
+            text: "closed",
+          },
+          {
+            text: "<a class=\"govuk-link\" href=\"#\">View <span class=\"govuk-visually-hidden\"></span></a><a class=\"govuk-link gem-link--destructive govuk-!-margin-left-3\" href=\"#\">Delete <span class=\"govuk-visually-hidden\"></span></a>".html_safe
+          }
+        ]
+      ]
     } %>
   </div>
 <% else %>
