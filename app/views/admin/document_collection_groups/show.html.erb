@@ -11,7 +11,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">
-      <%= link_to "Preview on website (opens in a new tab)", @collection.public_url(draft: true), class: "govuk-link", target: "_blank", rel: "noopener" %>
+      <%= link_to "Preview on website (opens in a new tab)", @collection.public_url(draft: true), class: "govuk-link", target: "_blank" %>
     </p>
 
     <%= render "components/secondary_navigation", {

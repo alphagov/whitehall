@@ -8,7 +8,6 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   def id_params
     { document_collection_id: @collection, group_id: @group }
@@ -61,6 +60,27 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
 
   def move_params
     id_params.merge(commit: "Move")
+  end
+
+  view_test "GET #index renders a link to add a document and informs the user there are no documents in the group if none are present" do
+    get :index, params: { document_collection_id: @collection, group_id: @group }
+
+    assert_select ".govuk-link[href='#']", text: "Add document"
+    assert_select ".govuk-warning-text__text", text: /There are no documents inside this group/
+  end
+
+  view_test "GET #index renders a link to add a document and a table of memberships with view and delete links" do
+    document = create(:document)
+    edition = create(:edition, document:)
+    membership = create(:document_collection_group_membership, document:)
+
+    @group.memberships << membership
+
+    get :index, params: { document_collection_id: @collection, group_id: @group }
+
+    assert_select ".govuk-link[href='#']", text: "Add document"
+    assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{edition.public_url}']", text: "View"
+    assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#']", text: "Delete"
   end
 
   view_test "DELETE #destroy removes memberships and redirects when Remove clicked" do

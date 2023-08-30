@@ -2,6 +2,9 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   before_action :load_document_collection
   before_action :load_document_collection_group
   before_action :find_document, only: :create_whitehall_member
+  layout :get_layout
+
+  def index; end
 
   def create_whitehall_member
     membership = DocumentCollectionGroupMembership.new(document: @document, document_collection_group: @group)
@@ -44,6 +47,16 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
 
 private
 
+  def get_layout
+    design_system_actions = %w[index]
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
+
   def moving?
     params[:commit] == "Move"
   end
@@ -72,7 +85,7 @@ private
   end
 
   def load_document_collection
-    @collection = DocumentCollection.find(params[:document_collection_id])
+    @collection = DocumentCollection.includes(document: :latest_edition).find(params[:document_collection_id])
   end
 
   def load_document_collection_group
