@@ -116,6 +116,9 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
     assert_equal_attachments consultation.attachments, call_for_evidence.attachments
     assert_equal_images consultation.images, call_for_evidence.images
 
+    # and they apply to the same nations
+    assert_equal consultation.national_applicability, call_for_evidence.national_applicability
+
     # The document is in the state we expect it to be
     assert_equal 2, document.editions.count
     assert_instance_of CallForEvidence, document.latest_edition
