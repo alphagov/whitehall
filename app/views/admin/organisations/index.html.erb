@@ -99,3 +99,26 @@
 <% else %>
   <p class="govuk-body">No organisation have been created.</p>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var table = document.querySelector('table')
+    var row = table.querySelector('table tbody tr');
+    var cells = row.querySelectorAll('td');
+    var widths = [];
+
+    // Calculate values for the cell widths on load
+    cells.forEach(function(cell) {
+      widths.push(cell.offsetWidth / row.offsetWidth * 100 + '%');
+    })
+
+    console.log('widths: ', widths);
+
+    // Apply the width values after the filter operation otherwise the first row may have been removed
+    // Or apply it to the head
+    // Though of course we can't be sure there is such a thing
+    for(var i = 0; i < cells.length; i++) {
+      cells[i].style.width = widths[i];
+    }
+  })
+</script>
