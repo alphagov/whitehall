@@ -1,10 +1,12 @@
 require "test_helper"
 
-class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController::TestCase
+class Admin::LegacyDocumentCollectionGroupMembershipsControllerTest < ActionController::TestCase
+  tests Admin::DocumentCollectionGroupMembershipsController
+
   setup do
     @collection = create(:document_collection, :with_group)
     @group = @collection.groups.first
-    login_as_preview_design_system_user :writer
+    login_as create(:writer)
   end
 
   should_be_an_admin_controller
