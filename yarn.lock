@@ -1414,10 +1414,10 @@ jake@^10.8.5:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-jasmine-browser-runner@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-2.1.0.tgz#cc08c5217cb4f13a1548a684645e3da120f2f7a7"
-  integrity sha512-kW0jpYFd5CV/3FhZRFqN8FyAr4WgUTUGAczoVduZcVJ0g/SgiCAq+s/br7W1VEjTq8kiPkk8w6JBEz3ZICZVlQ==
+jasmine-browser-runner@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-2.2.0.tgz#6450fe0da53a597c44def327e622e48dff2c43be"
+  integrity sha512-EKHp7sUsbKM42qlq44kx497IyQRmAXaNhrVogPAzIEs5LuKXhwSI7DZEjwr22o4rZf4T5pWDcLb3/WtB08f9Lg==
   dependencies:
     ejs "^3.1.6"
     express "^4.16.4"
