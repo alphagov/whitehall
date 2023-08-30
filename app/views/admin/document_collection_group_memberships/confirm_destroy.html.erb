@@ -1,0 +1,19 @@
+<% content_for :page_title, "Remove document from #{@group.heading}" %>
+<% content_for :title, "Remove document" %>
+<% content_for :context, @group.heading %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_document_collection_group_document_collection_group_membership_path(@collection, @group, @membership), method: :delete do |form| %>
+      <p class="govuk-body govuk-!-margin-bottom-6">Are you sure you want to remove "<%= @membership.document.latest_edition.title %>" from this collection?</p>
+
+       <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+        <%= link_to("Cancel", admin_document_collection_group_members_path(@collection, @group), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -66,3 +66,9 @@ Feature: Grouping documents into a collection
     And a the document collection "May 2012 Update" has a group with the heading "Group to be edited"
     When I edit the group "Group to be edited"'s heading to "Interesting new heading"
     Then I can see that the heading has been updated to "Interesting new heading"
+
+  @design-system-only
+  Scenario: Deleting a document from a group
+    Given a published publication called "Document to be deleted" in a published document collection
+    When I delete the publication "Document to be deleted" from the group
+    Then I can see that "Document to be deleted" has been deleted from the group
