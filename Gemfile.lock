@@ -222,7 +222,7 @@ GEM
       null_logger
       plek (>= 1.9.0)
       rest-client (~> 2.0)
-    gds-sso (18.0.0)
+    gds-sso (18.1.0)
       oauth2 (~> 2.0)
       omniauth (~> 2.1)
       omniauth-oauth2 (~> 1.8)
@@ -703,8 +703,8 @@ GEM
     raabro (1.4.0)
     racc (1.7.1)
     rack (2.2.8)
-    rack-protection (3.0.6)
-      rack
+    rack-protection (3.1.0)
+      rack (~> 2.2, >= 2.2.4)
     rack-proxy (0.7.6)
       rack
     rack-test (2.1.0)
