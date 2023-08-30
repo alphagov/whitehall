@@ -40,6 +40,13 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group2)}']", text: "Delete #{group2.heading}"
   end
 
+  view_test "GET #show assigns the correct attributes and renders successfully" do
+    get :show, params: { document_collection_id: @collection, id: @group }
+    assert_response :ok
+    assert_equal @collection, assigns(:collection)
+    assert_equal @group, assigns(:group)
+  end
+
   view_test "GET #new renders successfully" do
     get :new, params: { document_collection_id: @collection }
     assert_response :ok
