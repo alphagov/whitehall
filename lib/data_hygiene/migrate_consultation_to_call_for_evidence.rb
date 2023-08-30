@@ -21,6 +21,8 @@ module DataHygiene
           create_draft_call_for_evidence
           migrate_outcome
           migrate_participation
+          Whitehall::SearchIndex.delete(@consultation)
+          Whitehall::SearchIndex.add(@call_for_evidence)
         end
       end
     end

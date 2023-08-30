@@ -8,7 +8,7 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
 
   # Create a full-fat Consultation to exercise the various different fields
   # and associated records that should be accommodated for when migrating.
-  let(:consultation) do
+  let!(:consultation) do
     create(
       :published_consultation,
       # Attachments on the Consultation
@@ -97,6 +97,13 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
 
   before do
     stub_asset_downloads
+  end
+
+  it "refreshes the search index for the old and new edition" do
+    Whitehall::SearchIndex.expects(:delete).once.with(consultation)
+    Whitehall::SearchIndex.expects(:add).once.with(instance_of(CallForEvidence))
+
+    migrate
   end
 
   it "converts a Consultation document into a Call for Evidence" do
