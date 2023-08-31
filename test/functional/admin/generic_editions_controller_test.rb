@@ -7,18 +7,80 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
     login_as :writer
   end
 
-  test "POST :create redirects to document summary page when 'Save and continue editing' button clicked" do
+  test "POST :create redirects to document summary page when 'Save and go to document summary' button clicked" do
     params = attributes_for(:edition)
     assert_difference "GenericEdition.count" do
       post :create, params: { edition: params, save_and_continue: "Save and continue editing" }
     end
+
+    expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{Edition.last.id}/tags/edit\">add topic tags</a> before you can publish this document."
+    assert_equal expected_message, flash[:notice]
     assert_redirected_to @controller.admin_edition_path(GenericEdition.last)
   end
 
-  test "PUT :update redirects to document summary page when 'Save and continue' button clicked" do
+  test "PUT :update redirects to document summary page when 'Save and got to document summary' button clicked" do
     edition = create(:edition)
     put :update, params: { id: edition, edition: { title: "New title" }, save_and_continue: "Save and continue editing" }
     assert_redirected_to @controller.admin_edition_path(edition)
+  end
+
+  test "PUT :update shows generic save message when 'Save and got to document summary' button clicked and document has no tags" do
+    edition = create(:edition)
+    stub_publishing_api_has_links(
+      {
+        "content_id" => edition.content_id,
+        "links" => {
+          "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+        },
+        "version" => 1,
+      },
+    )
+    put :update, params: { id: edition, edition: { title: "New title" }, save_and_continue: "Save and continue editing" }
+
+    assert_not edition.has_been_tagged?
+
+    expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
+    assert_equal expected_message, flash[:notice]
+  end
+
+  test "PUT :update shows generic save message when 'Save' button clicked and document has no tags" do
+    edition = create(:edition)
+    stub_publishing_api_has_links(
+      {
+        "content_id" => edition.content_id,
+        "links" => {
+          "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+        },
+        "version" => 1,
+      },
+    )
+    put :update, params: { id: edition, edition: { title: "New title" }, save: "Save" }
+
+    assert_not edition.has_been_tagged?
+
+    expected_message = "Your document has been saved"
+    assert_equal expected_message, flash[:notice]
+  end
+
+  test "PUT :update shows add tag save message when 'Save and got to document summary' button clicked and document has tags" do
+    edition = create(:edition)
+    stub_publishing_api_has_links(
+      {
+        "content_id" => edition.content_id,
+        "links" => {
+          "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+          "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
+        },
+        "version" => 1,
+      },
+    )
+
+    put :update, params: { id: edition, edition: { title: "New title" }, save_and_continue: "Save and continue editing" }
+
+    assert edition.has_been_tagged?
+
+    expected_message = "Your document has been saved"
+    assert_equal expected_message, flash[:notice]
   end
 
   view_test "GET :edit shows the similar slug warning as an error which links to the input when user has 'Preview design system' permission" do

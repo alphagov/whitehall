@@ -3,6 +3,7 @@ require "test_helper"
 class RaceConditionTest < ActionDispatch::IntegrationTest
   setup do
     stub_any_publishing_api_call
+    Edition.any_instance.stubs(:has_been_tagged?).returns(false)
   end
 
   # Monkeypatch to control response timings

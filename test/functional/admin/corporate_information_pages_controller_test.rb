@@ -54,8 +54,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
     assert page = organisation.corporate_information_pages.last
     assert_redirected_to @controller.admin_edition_path(edition)
-    expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
-    assert_equal expected_message, flash[:notice]
+    assert_equal "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document.", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
     assert_equal corporate_information_page_attributes[:summary], page.summary
