@@ -39,9 +39,8 @@ private
   end
 
   def save_asset_id_to_assets(assetable_id, assetable_type, variant, response)
-    filename = "placeholder"
     asset_manager_id = get_asset_id(response)
-    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:, filename:)
+    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:)
   end
 
   def get_asset_id(response)
