@@ -196,6 +196,7 @@ end
 When(/^I edit the group "(.*?)"'s heading to "(.*?)"$/) do |current_heading, new_heading|
   visit admin_document_collection_groups_path(@document_collection)
   click_link "View #{current_heading}"
+  click_link "Group details"
   click_link "Edit Group details"
   fill_in "Name (required)", with: new_heading
   click_button "Save"
@@ -215,5 +216,5 @@ end
 Then(/^I can see that "(.*?)" has been deleted from the group$/) do |title|
   expect(page).to have_content "Document has been removed from the group"
   expect(page).to have_content "There are no documents inside this group"
-  expect(all(".govuk-table")).to be_empty
+  expect(page).not_to have_content title
 end

@@ -17,7 +17,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select ".govuk-summary-card__action a[href='#{new_admin_document_collection_group_path(@collection)}']", text: /Add group/
     assert_select ".govuk-summary-list__key", text: @group.heading
     assert_select ".govuk-summary-list__value", text: "0 documents in group"
-    assert_select ".govuk-summary-list__actions a[href='#{admin_document_collection_group_path(@collection, @group)}']", text: "View #{@group.heading}"
+    assert_select ".govuk-summary-list__actions a[href='#{admin_document_collection_group_members_path(@collection, @group)}']", text: "View #{@group.heading}"
   end
 
   view_test "GET #index shows confirm delete links when 2 or more groups are present" do
@@ -32,11 +32,11 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
 
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: group1.heading
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: "1 document in group"
-    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{admin_document_collection_group_path(collection, group1)}']", text: "View #{group1.heading}"
+    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{admin_document_collection_group_members_path(collection, group1)}']", text: "View #{group1.heading}"
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group1)}']", text: "Delete #{group1.heading}"
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: group2.heading
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: "0 documents in group"
-    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{admin_document_collection_group_path(collection, group2)}']", text: "View #{group2.heading}"
+    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{admin_document_collection_group_members_path(collection, group2)}']", text: "View #{group2.heading}"
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group2)}']", text: "Delete #{group2.heading}"
   end
 
