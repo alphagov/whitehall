@@ -98,6 +98,12 @@ class Edition < ApplicationRecord
   scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
   scope :live_edition, -> { joins(:document).where("documents.live_edition_id = editions.id") }
 
+  scope :review_overdue, lambda {
+    joins("INNER JOIN documents ON documents.id = editions.document_id INNER JOIN review_reminders ON review_reminders.document_id = documents.id")
+      .where(document: { review_reminders: { review_at: ..Time.zone.today } })
+      .where.not(first_published_at: nil)
+  }
+
   # @!group Callbacks
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp

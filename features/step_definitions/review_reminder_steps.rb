@@ -35,3 +35,14 @@ And(/^I update the review date to "([^"]*)"$/) do |date|
   fill_in_date_fields(date)
   click_button "Save"
 end
+
+And(/^a review reminder exists for "([^"]*)" and the review date has passed$/) do |title|
+  edition = Edition.find_by!(title:)
+  create(:review_reminder, :reminder_due, document: edition.document)
+end
+
+When(/^I filter by review overdue$/) do
+  visit admin_editions_path
+  check "Review overdue"
+  click_on "Search"
+end

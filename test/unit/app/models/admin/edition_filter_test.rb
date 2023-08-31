@@ -236,6 +236,15 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
   end
 
+  test "should filter by overdue reviews" do
+    document = create(:document)
+    edition_with_overdue_reminder = create(:published_edition, document:)
+    create(:review_reminder, :reminder_due, document:)
+    create(:published_edition)
+
+    assert_equal [edition_with_overdue_reminder], Admin::EditionFilter.new(Edition, @current_user, review_overdue: true).editions
+  end
+
   test "should return the editions ordered by most recent first" do
     older_news_article = create(:draft_news_article, updated_at: 3.days.ago)
     newer_news_article = create(:draft_news_article, updated_at: 1.minute.ago)
@@ -334,6 +343,11 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should generate page title for to date" do
     filter = Admin::EditionFilter.new(Edition, build(:user), to_date: "09/11/2011")
     assert_equal "Everyone’s documents before 09/11/2011", filter.page_title
+  end
+
+  test "should generate page title for overdue reviews" do
+    filter = Admin::EditionFilter.new(Edition, build(:user), review_overdue: "1")
+    assert_equal "Everyone’s documents with overdue reviews", filter.page_title
   end
 
   test "should paginate editions" do

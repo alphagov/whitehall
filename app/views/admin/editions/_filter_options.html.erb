@@ -1,5 +1,5 @@
 <%
-  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links]
+  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links, :review_overdue]
   anchor ||= anchor || ""
   raise "filter action required" unless defined?(filter_action)
 %>
@@ -132,6 +132,21 @@
             value: "1",
             bold: true,
             checked: params["only_broken_links"],
+          }
+        ]
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:review_overdue) %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "review_overdue",
+        small: true,
+        items: [
+          {
+            label: "Review overdue",
+            value: "1",
+            bold: true,
+            checked: params["review_overdue"],
           }
         ]
       } %>
