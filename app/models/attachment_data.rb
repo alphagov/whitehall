@@ -16,7 +16,7 @@ class AttachmentData < ApplicationRecord
   validates :file, presence: true
   validate :file_is_not_empty
 
-  attr_accessor :to_replace_id, :attachable, :use_non_legacy_endpoints
+  attr_accessor :to_replace_id, :attachable
 
   belongs_to :replaced_by, class_name: "AttachmentData"
   validate :cant_be_replaced_by_self
