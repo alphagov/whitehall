@@ -1,13 +1,15 @@
-<% content_for :page_class, 'document-collection-groups new' %>
-<% page_title 'Add a new group' %>
+<% content_for :page_title, "New group for #{@collection.title}" %>
+<% content_for :title, "New group" %>
+<% content_for :title_margin_bottom, 8 %>
+<% content_for :context, @collection.title %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @group)) %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>Add a new group</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "form", collection: @collection, group: @group, url: admin_document_collection_groups_path(@collection) %>
+  </div>
 
-    <%= render partial: 'form', locals: { url: admin_document_collection_groups_path(@collection) } %>
-  </section>
-  <div class="col-md-4">
-    <%= legacy_simple_formatting_sidebar hide_inline_attachments_help: true, show_attachments_tab_help: false %>
+  <div class="govuk-grid-column-one-third">
+    <%= simple_formatting_sidebar hide_inline_attachments_help: true, show_attachments_tab_help: false %>
   </div>
 </div>

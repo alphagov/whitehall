@@ -3,8 +3,6 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update]
   layout :get_layout
 
-  def edit; end
-
   def index
     @groups = @collection.groups.includes(
       memberships: [
@@ -18,24 +16,31 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def new
     @group = @collection.groups.build
+    render_design_system(:new, :legacy_new)
   end
 
   def create
     @group = @collection.groups.build(document_collection_group_params)
     if @group.save
+      flash_message = get_layout == "design_system" ? "New group has been created" : "'#{@group.heading}' added"
       redirect_to admin_document_collection_groups_path(@collection),
-                  notice: "'#{@group.heading}' added"
+                  notice: flash_message
     else
-      render :new
+      render_design_system(:new, :legacy_new)
     end
+  end
+
+  def edit
+    render_design_system(:edit, :legacy_edit)
   end
 
   def update
     @group.update!(document_collection_group_params)
+    flash_message = get_layout == "design_system" ? "Group details have been updated" : "'#{@group.heading}' saved"
     redirect_to admin_document_collection_groups_path(@collection),
-                notice: "'#{@group.heading}' saved"
+                notice: flash_message
   rescue ActiveRecord::RecordInvalid
-    render :edit
+    render_design_system(:edit, :legacy_edit)
   end
 
   def destroy
@@ -64,7 +69,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index confirm_destroy destroy] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy destroy new create edit update] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

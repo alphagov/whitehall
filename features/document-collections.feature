@@ -53,3 +53,9 @@ Feature: Grouping documents into a collection
     And a the document collection "May 2012 Update" has a group with the heading "Temporary group"
     When I delete the group "Temporary group"
     Then I can see that the group "Temporary group" has been deleted
+
+  @design-system-only
+  Scenario: Adding a new group
+    Given a document collection "May 2012 Update" exists
+    When I add the group "Brand new group"
+    Then I can see that the group "Brand new group" has been added

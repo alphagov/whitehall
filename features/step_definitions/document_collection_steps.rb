@@ -180,3 +180,15 @@ Then(/^I can see that the group "(.*?)" has been deleted$/) do |heading|
   expect(page).to have_content "Group has been deleted"
   expect(find(".govuk-summary-card")).not_to have_content heading
 end
+
+When(/^I add the group "(.*?)"$/) do |heading|
+  visit admin_document_collection_groups_path(@document_collection)
+  click_link "Add group"
+  fill_in "Name (required)", with: heading
+  click_button "Save"
+end
+
+Then(/^I can see that the group "(.*?)" has been added$/) do |heading|
+  expect(page).to have_content "New group has been created"
+  expect(find(".govuk-summary-card")).to have_content heading
+end
