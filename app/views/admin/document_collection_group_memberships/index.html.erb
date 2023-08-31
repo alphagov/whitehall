@@ -45,7 +45,7 @@
               },
               {
                 text: link_to(sanitize("View #{tag.span(title, class: "govuk-visually-hidden")}"), membership.document.latest_edition.public_url, class: "govuk-link") +
-                  link_to(sanitize("Delete #{tag.span(title, class: "govuk-visually-hidden")}"), confirm_destroy_admin_document_collection_group_document_collection_group_membership_path(@collection, @group, membership), class: "govuk-link gem-link--destructive govuk-!-margin-left-3")
+                  link_to(sanitize("Remove #{tag.span(title, class: "govuk-visually-hidden")}"), confirm_destroy_admin_document_collection_group_document_collection_group_membership_path(@collection, @group, membership), class: "govuk-link gem-link--destructive govuk-!-margin-left-3")
               }
             ]
           end

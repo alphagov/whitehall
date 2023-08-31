@@ -32,6 +32,6 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
 
     assert_select ".govuk-link[href='#']", text: "Add document"
     assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{edition.public_url}']", text: "View #{edition.title}"
-    assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{confirm_destroy_path}']", text: "Delete #{edition.title}"
+    assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{confirm_destroy_path}']", text: "Remove #{edition.title}"
   end
 end

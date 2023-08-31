@@ -68,7 +68,7 @@ Feature: Grouping documents into a collection
     Then I can see that the heading has been updated to "Interesting new heading"
 
   @design-system-only
-  Scenario: Deleting a document from a group
-    Given a published publication called "Document to be deleted" in a published document collection
-    When I delete the publication "Document to be deleted" from the group
-    Then I can see that "Document to be deleted" has been deleted from the group
+  Scenario: Removing a document from a group
+    Given a published publication called "Document to be removed" in a published document collection
+    When I remove the publication "Document to be removed" from the group
+    Then I can see that "Document to be removed" has been removed from the group

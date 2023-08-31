@@ -207,13 +207,13 @@ Then(/^I can see that the heading has been updated to "(.*?)"$/) do |heading|
   expect(find(".govuk-summary-card")).to have_content heading
 end
 
-When(/^I delete the publication "(.*?)" from the group$/) do |title|
+When(/^I remove the publication "(.*?)" from the group$/) do |title|
   visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
-  click_link "Delete #{title}"
-  click_button "Delete"
+  click_link "Remove #{title}"
+  click_button "Remove"
 end
 
-Then(/^I can see that "(.*?)" has been deleted from the group$/) do |title|
+Then(/^I can see that "(.*?)" has been removed from the group$/) do |title|
   expect(page).to have_content "Document has been removed from the group"
   expect(page).to have_content "There are no documents inside this group"
   expect(page).not_to have_content title
