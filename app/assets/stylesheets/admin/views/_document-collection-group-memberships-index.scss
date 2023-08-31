@@ -1,0 +1,9 @@
+.app-view-document-collection-group-memberships-index__table {
+  .govuk-table__cell {
+    word-break: break-word;
+
+    &:last-child {
+      width: 7em;
+    }
+  }
+}

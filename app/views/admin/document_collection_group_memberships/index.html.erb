@@ -35,7 +35,7 @@
     </div>
 
     <% if @group.memberships.present? %>
-      <div class="govuk-table--with-actions">
+      <div class="govuk-table--with-actions app-view-document-collection-group-memberships-index__table">
         <%= render "govuk_publishing_components/components/table", {
           rows: @group.memberships.map do |membership|
             title =  membership.document.latest_edition.title
