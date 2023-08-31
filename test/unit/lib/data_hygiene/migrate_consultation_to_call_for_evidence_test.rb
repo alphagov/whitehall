@@ -252,7 +252,8 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
       let(:consultation) { create(:published_news_story) }
 
       it "rejects the document" do
-        assert_raises("Document cannot be migrated") { migrate }
+        error = assert_raises(RuntimeError) { migrate }
+        assert_equal "This is not a Consultation: NewsArticle", error.message
       end
     end
 
@@ -262,7 +263,8 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
       end
 
       it "rejects the document" do
-        assert_raises("Document cannot be migrated") { migrate }
+        error = assert_raises(RuntimeError) { migrate }
+        assert_equal "The latest edition is not publicly visible: draft", error.message
       end
     end
   end

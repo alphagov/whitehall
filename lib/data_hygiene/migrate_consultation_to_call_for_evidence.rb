@@ -7,12 +7,9 @@ module DataHygiene
     def initialize(document:, whodunnit:)
       @document = document
       @whodunnit = whodunnit
+      @consultation = document.latest_edition
 
-      if can_be_migrated?(document.latest_edition)
-        @consultation = document.latest_edition
-      else
-        raise "Document cannot be migrated"
-      end
+      ensure_document_is_ready_to_migrate
     end
 
     def call
@@ -29,8 +26,16 @@ module DataHygiene
 
   private
 
-    def can_be_migrated?(edition)
-      edition.is_a?(Consultation) && edition.publicly_visible?
+    def ensure_document_is_ready_to_migrate
+      edition = document.latest_edition
+
+      unless edition.is_a?(Consultation)
+        raise "This is not a Consultation: #{edition.type}"
+      end
+
+      unless edition.publicly_visible?
+        raise "The latest edition is not publicly visible: #{edition.state}"
+      end
     end
 
     def create_draft_call_for_evidence
