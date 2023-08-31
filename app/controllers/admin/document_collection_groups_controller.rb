@@ -1,6 +1,7 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
-  before_action :load_document_collection_group, only: %i[delete destroy edit update]
+  before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update]
+  layout :get_layout
 
   def edit; end
 
@@ -11,6 +12,8 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
         :non_whitehall_link,
       ],
     )
+
+    render_design_system(:index, :legacy_index)
   end
 
   def new
@@ -37,22 +40,38 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def destroy
     @group.destroy!
+    flash_message = get_layout == "design_system" ? "Group has been deleted" : "'#{@group.heading}' was deleted"
     redirect_to admin_document_collection_groups_path(@collection),
-                notice: "'#{@group.heading}' was deleted"
+                notice: flash_message
   end
 
-  def delete; end
+  def confirm_destroy
+    redirect_to admin_document_collection_groups_path(@collection) and return if get_layout == "design_system" && !@collection.groups.many?
+
+    render_design_system(:confirm_destroy, :legacy_confirm_destroy)
+  end
 
   def update_memberships
     add_moved_groups
     reorder_groups
     respond_to do |format|
-      format.html { render :index }
+      format.html { render :legacy_index }
       format.json { render json: { result: :success } }
     end
   end
 
 private
+
+  def get_layout
+    design_system_actions = []
+    design_system_actions += %w[index confirm_destroy destroy] if preview_design_system?(next_release: false)
+
+    if design_system_actions.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def add_moved_groups
     params[:groups].each do |_key, group_params|

@@ -1,43 +1,54 @@
 require "test_helper"
 
-class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
+class Admin::LegacyDocumentCollectionGroupsControllerTest < ActionController::TestCase
+  tests Admin::DocumentCollectionGroupsController
+
   setup do
     @collection = create(:document_collection, :with_group)
     @group = @collection.groups.first
-    login_as_preview_design_system_user :writer
+    login_as create(:writer)
   end
 
   should_be_an_admin_controller
   should_render_bootstrap_implementation_with_preview_next_release
 
-  view_test "GET #index lists the default group when no additional groups or memberships have been added" do
+  view_test "GET #index lists the groups and memberships in the collection" do
+    publication = create(:publication)
+    @group.documents = [publication.document]
     get :index, params: { document_collection_id: @collection }
-
-    assert_select "h1", text: "Document collections"
-    assert_select ".govuk-summary-card__action a[href='#{new_admin_document_collection_group_path(@collection)}']", text: /Add group/
-    assert_select ".govuk-summary-list__key", text: @group.heading
-    assert_select ".govuk-summary-list__value", text: "0 documents in group"
-    assert_select ".govuk-summary-list__actions a[href='#']", text: "View #{@group.heading}"
+    assert_select "h2", Regexp.new(@group.heading)
+    assert_select "label", Regexp.new(publication.title)
   end
 
-  view_test "GET #index shows confirm delete links when 2 or more groups are present" do
-    collection = create(:document_collection, :with_groups)
-    group1 = collection.groups.first
-    group2 = collection.groups.second
+  view_test "GET #index shows helpful message when a group is empty" do
+    get :index, params: { document_collection_id: @collection }
+    assert_select "section.group .no-content", /No documents in this group/
+  end
 
-    publication = create(:publication)
-    group1.documents = [publication.document]
+  view_test "GET #index lets you move docs to another group" do
+    @group.documents << create(:publication).document
+    @group.documents << create(:corporate_information_page).document
+    @collection.groups << build(:document_collection_group)
+    group1, group2 = @collection.groups
+    get :index, params: { document_collection_id: @collection }
+    assert_select "section.group" do
+      assert_select "option[value='#{group1.id}']", count: 0
+      assert_select "option[value='#{group2.id}']", group2.heading
+    end
+  end
 
-    get :index, params: { document_collection_id: collection }
+  view_test "GET #index shows a warning if > 50 memberships in collection" do
+    @group.non_whitehall_links = create_list(:document_collection_non_whitehall_link, 51)
+    get :index, params: { document_collection_id: @collection }
+    assert_response :ok
+    assert_select ".alert-info", text: /it may be slow or impossible to update/
+  end
 
-    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: group1.heading
-    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: "1 document in group"
-    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#']", text: "View #{group1.heading}"
-    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group1)}']", text: "Delete #{group1.heading}"
-    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: group2.heading
-    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: "0 documents in group"
-    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#']", text: "View #{group2.heading}"
-    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group2)}']", text: "Delete #{group2.heading}"
+  view_test "GET #index does not show a warning if <= 50 memberships in collection" do
+    @group.non_whitehall_links = create_list(:document_collection_non_whitehall_link, 50)
+    get :index, params: { document_collection_id: @collection }
+    assert_response :ok
+    assert_select ".alert-info", false, /it may be slow or impossible to update/
   end
 
   view_test "GET #new renders successfully" do
@@ -89,16 +100,16 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select ".errors li", text: /Heading/
   end
 
-  test "GET #confirm_destroy redirects to the index page if only 1 group" do
+  view_test "GET #confirm_destroy explains you can't delete the last group" do
     get :confirm_destroy, params: { document_collection_id: @collection, id: @group }
-    assert_redirected_to admin_document_collection_groups_path(@collection)
+    assert_select "div.alert", /can’t\s+delete the last/
+    assert_select 'input[type="submit"]', count: 0
   end
 
-  test "GET #confirm_destroy assigns the correct values" do
+  view_test "GET #confirm_destroy allows you to delete a group" do
     @collection.groups << build(:document_collection_group)
     get :confirm_destroy, params: { document_collection_id: @collection, id: @group }
-    assert_equal @collection, assigns(:collection)
-    assert_equal @group, assigns(:group)
+    assert_select 'input[type="submit"][value="Delete"]'
   end
 
   view_test "DELETE #destroy deletes group and redirects" do
@@ -106,7 +117,6 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
       delete :destroy, params: { document_collection_id: @collection, id: @group }
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
-    assert_equal "Group has been deleted", flash[:notice]
   end
 
   test "POST #update_memberships saves the order of group members" do

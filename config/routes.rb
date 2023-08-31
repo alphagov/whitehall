@@ -31,7 +31,7 @@ Whitehall::Application.routes.draw do
       resource :document_searches, only: [:show]
       resources :document_collections, path: "collections", except: [:index] do
         resources :document_collection_groups, as: :groups, path: "groups" do
-          member { get :delete }
+          member { get :confirm_destroy }
           resource :document_collection_group_membership,
                    as: :members,
                    path: "members",

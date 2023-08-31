@@ -1,0 +1,19 @@
+<% content_for :page_title, "Delete #{@group.heading}" %>
+<% content_for :title, "Delete group" %>
+<% content_for :context, @group.heading %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_document_collection_group_path(@collection, @group), method: :delete do |form| %>
+      <p class="govuk-body govuk-!-margin-bottom-6">Are you sure you want to delete "<%= @group.heading %>"?</p>
+
+       <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+        } %>
+        <%= link_to("Cancel", admin_document_collection_groups_path(@collection), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

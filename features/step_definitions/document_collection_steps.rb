@@ -164,3 +164,19 @@ Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |do
   expect(page).to have_content(doc_title1)
   expect(body.index(doc_title1) < body.index(doc_title2)).to be(true)
 end
+
+And(/^a the document collection "([^"]*)" has a group with the heading "([^"]*)"$/) do |collection_title, heading|
+  document_collection = DocumentCollection.find_by!(title: collection_title)
+  create(:document_collection_group, heading:, document_collection:)
+end
+
+When(/^I delete the group "(.*?)"$/) do |title|
+  visit admin_document_collection_groups_path(@document_collection)
+  click_link "Delete #{title}"
+  click_button "Delete"
+end
+
+Then(/^I can see that the group "(.*?)" has been deleted$/) do |heading|
+  expect(page).to have_content "Group has been deleted"
+  expect(find(".govuk-summary-card")).not_to have_content heading
+end
