@@ -267,5 +267,25 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
         assert_equal "The latest edition is not publicly visible: draft", error.message
       end
     end
+
+    context "when the Consultation Participation is invalid" do
+      it "strips whitespace from the email" do
+        consultation.consultation_participation.email = "email@example.com "
+        consultation.consultation_participation.save!(validate: false)
+
+        migrate
+
+        assert_equal "email@example.com", call_for_evidence.call_for_evidence_participation.email
+      end
+
+      it "strips whitespace from the link_url" do
+        consultation.consultation_participation.link_url = "https://www.gov.uk "
+        consultation.consultation_participation.save!(validate: false)
+
+        migrate
+
+        assert_equal "https://www.gov.uk", call_for_evidence.call_for_evidence_participation.link_url
+      end
+    end
   end
 end

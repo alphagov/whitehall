@@ -82,6 +82,9 @@ module DataHygiene
 
       destination.assign_attributes association_attributes(source, except: %w[consultation_response_form_id])
 
+      destination.email.strip!
+      destination.link_url.strip!
+
       if source.consultation_response_form.present?
         migrate_response_form(
           source: source.consultation_response_form,
