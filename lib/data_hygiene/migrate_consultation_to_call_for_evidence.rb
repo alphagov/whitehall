@@ -19,7 +19,7 @@ module DataHygiene
           migrate_outcome
           migrate_participation
           publish
-          Whitehall::SearchIndex.delete(@consultation)
+          Whitehall::SearchIndex.delete(consultation)
         end
       end
     end
