@@ -35,6 +35,8 @@
       }
     } %>
 
-    <%= link_to "Cancel", admin_document_collection_groups_path(collection), class: "govuk-link govuk-link--no-visited-state" %>
+    <%= link_to "Cancel",
+      group.persisted? ?  admin_document_collection_group_path(collection, group) : admin_document_collection_groups_path(collection),
+      class: "govuk-link govuk-link--no-visited-state" %>
   </div>
 <% end %>
