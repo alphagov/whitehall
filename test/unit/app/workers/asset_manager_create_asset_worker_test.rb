@@ -118,4 +118,20 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     assert_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
   end
+
+  test "pdf only updates uploaded_to_asset_manager after all variants are uploaded" do
+    @model.uploaded_to_asset_manager_at = nil
+    @model.save!
+    Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
+    @worker.perform(@file.path, @asset_args)
+
+    assert_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
+
+    @asset_args["asset_variant"] = Asset.variants[:thumbnail]
+    fileThumbnail = Tempfile.new("asset", Dir.mktmpdir)
+
+    @worker.perform(fileThumbnail.path, @asset_args)
+
+    assert_not_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
+  end
 end

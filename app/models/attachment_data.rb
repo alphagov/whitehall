@@ -90,6 +90,11 @@ class AttachmentData < ApplicationRecord
     uploaded_to_asset_manager_at.present?
   end
 
+  def uploaded_all_variants_to_asset_manager?
+    variants_count = assets.count
+    variants_count == (pdf? ? 2 : 1)
+  end
+
   def deleted?
     significant_attachment(include_deleted_attachables: true).deleted?
   end

@@ -16,8 +16,10 @@ class AssetManagerCreateAssetWorker < WorkerBase
     response = asset_manager.create_asset(asset_options)
     save_asset_id_to_assets(assetable_id, assetable_type, asset_variant, response)
 
-    if assetable_type == AttachmentData.name && asset_variant == Asset.variants[:original]
-      AttachmentData.find(assetable_id).uploaded_to_asset_manager!
+    asset_attachment_data = AttachmentData.find(assetable_id)
+    # if assetable_type == AttachmentData.name && asset_variant == Asset.variants[:original]
+    if assetable_type == AttachmentData.name && asset_attachment_data.uploaded_all_variants_to_asset_manager?
+      asset_attachment_data.uploaded_to_asset_manager!
     end
 
     file.close
@@ -37,8 +39,9 @@ private
   end
 
   def save_asset_id_to_assets(assetable_id, assetable_type, variant, response)
+    filename = "placeholder"
     asset_manager_id = get_asset_id(response)
-    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:)
+    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:, filename:)
   end
 
   def get_asset_id(response)
