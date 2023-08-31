@@ -110,7 +110,7 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
     migrate
 
     # They have the same attributes
-    ignore_attributes = %w[id type state auth_bypass_id minor_change change_note force_published lock_version]
+    ignore_attributes = %w[id type state auth_bypass_id minor_change change_note force_published lock_version published_minor_version]
     assert_equal consultation.attributes.except(*ignore_attributes),
                  call_for_evidence.attributes.except(*ignore_attributes)
 
@@ -130,8 +130,8 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
     assert_equal 2, document.editions.count
     assert_instance_of CallForEvidence, document.latest_edition
     assert_equal "CallForEvidence", document.document_type
-    assert consultation.published?
-    assert call_for_evidence.draft?
+    assert consultation.reload.superseded?
+    assert call_for_evidence.published?
   end
 
   it "converts the Consultation Outcome to a Call for Evidence Outcome" do
@@ -183,6 +183,19 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
 
     assert_equal whodunnit, call_for_evidence.creator
     assert_equal [whodunnit], call_for_evidence.versions.map(&:user).uniq
+  end
+
+  it "publishes the new call for evidence edition" do
+    migrate
+
+    assert consultation.reload.superseded?
+    assert call_for_evidence.published?
+  end
+
+  it "creates a note when it is published" do
+    migrate
+
+    assert call_for_evidence.editorial_remarks.first.body, "Consultation document type migrated to call for evidence document type"
   end
 
   describe "merging Public Feedback with Outcome" do

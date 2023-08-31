@@ -21,8 +21,8 @@ module DataHygiene
           create_draft_call_for_evidence
           migrate_outcome
           migrate_participation
+          publish
           Whitehall::SearchIndex.delete(@consultation)
-          Whitehall::SearchIndex.add(@call_for_evidence)
         end
       end
     end
@@ -98,6 +98,13 @@ module DataHygiene
       # This will be uploaded on the destination model when saved
       # Note: this will not redirect or replace the source file
       destination_data.file.download!(source_data.file.url)
+    end
+
+    def publish
+      call_for_evidence.submit!
+      publish_reason = "Consultation document type migrated to call for evidence document type"
+      edition_publisher = Whitehall.edition_services.publisher(@call_for_evidence, user: @whodunnit, remark: publish_reason)
+      edition_publisher.perform!
     end
 
     def association_attributes(old_object, except: [])
