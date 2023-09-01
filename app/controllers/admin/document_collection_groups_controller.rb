@@ -1,6 +1,7 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update show]
+  before_action :check_new_design_system_permissions, only: %i[show order reorder]
   layout :get_layout
 
   def index
@@ -14,9 +15,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     render_design_system(:index, :legacy_index)
   end
 
-  def show
-    forbidden! unless new_design_system?
-  end
+  def show; end
 
   def new
     @group = @collection.groups.build
@@ -47,6 +46,17 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     render_design_system(:edit, :legacy_edit)
   end
 
+  def reorder; end
+
+  def order
+    params[:ordering].each do |group_id, ordering|
+      @collection.groups.find(group_id).update_column(:ordering, ordering)
+    end
+
+    flash_message = "Group has been reordered"
+    redirect_to admin_document_collection_groups_path(@collection), notice: flash_message
+  end
+
   def destroy
     @group.destroy!
     flash_message = get_layout == "design_system" ? "Group has been deleted" : "'#{@group.heading}' was deleted"
@@ -72,13 +82,17 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[index confirm_destroy destroy new create edit update show] if preview_design_system?(next_release: false)
+    design_system_actions = %w[index confirm_destroy destroy new create edit update show order reorder] if preview_design_system?(next_release: false)
 
     if design_system_actions&.include?(action_name)
       "design_system"
     else
       "admin"
     end
+  end
+
+  def check_new_design_system_permissions
+    forbidden! unless new_design_system?
   end
 
   def add_moved_groups

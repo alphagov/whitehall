@@ -72,3 +72,21 @@ Feature: Grouping documents into a collection
     Given a published publication called "Document to be removed" in a published document collection
     When I remove the publication "Document to be removed" from the group
     Then I can see that "Document to be removed" has been removed from the group
+
+  @design-system-only
+  Scenario: Reordering groups
+    Given a document collection "May 2012 Update" exists
+    And the following groups exist within "May 2012 Update":
+      | name    |
+      | Group 1 |
+      | Group 2 |
+    When I visit the Reorder page
+    And I set the order of "May 2012 Update" groups to:
+      | name    | order |
+      | Group 1 | 1     |
+      | Group 2 | 0     |
+    Then I can see a "Group has been reordered" success flash
+    And the groups should be in the following order:
+      | name    |
+      | Group 2 |
+      | Group 1 |

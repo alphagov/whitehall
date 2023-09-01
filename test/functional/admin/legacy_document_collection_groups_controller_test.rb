@@ -251,6 +251,18 @@ class Admin::LegacyDocumentCollectionGroupsControllerTest < ActionController::Te
     assert_includes "Sorry, you don’t have access to this document", @response.body
   end
 
+  test "GET #reorder forbids the user to see anything" do
+    get :reorder, params: { document_collection_id: @collection, id: @group }
+    assert_response :forbidden
+    assert_includes "Sorry, you don’t have access to this document", @response.body
+  end
+
+  test "GET #order forbids the user to see anything" do
+    get :order, params: { document_collection_id: @collection, id: @group }
+    assert_response :forbidden
+    assert_includes "Sorry, you don’t have access to this document", @response.body
+  end
+
   def given_two_groups_with_memberships
     @group1 = build(:document_collection_group)
     @group2 = build(:document_collection_group)

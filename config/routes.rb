@@ -39,6 +39,8 @@ Whitehall::Application.routes.draw do
           resources :document_collection_group_memberships, path: "members", only: %i[index destroy] do
             get :confirm_destroy, on: :member
           end
+          get :reorder, on: :collection
+          put :order, on: :collection
         end
         post "whitehall-member" => "document_collection_group_memberships#create_whitehall_member", as: :new_whitehall_member
         post "non-whitehall-member" => "document_collection_group_memberships#create_non_whitehall_member", as: :new_non_whitehall_member
