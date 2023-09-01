@@ -21,6 +21,8 @@ class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseControl
     end
     build_flash("notice")
     redirect_to edit_admin_document_collection_path(@collection)
+  rescue ActiveRecord::RecordInvalid
+    redirect_to edit_admin_document_collection_path(@collection)
   end
 
 private

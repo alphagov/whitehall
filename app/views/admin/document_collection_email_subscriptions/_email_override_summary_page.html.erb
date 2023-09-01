@@ -1,0 +1,26 @@
+<p class="govuk-body-m">
+  You cannot change the email notifications for this document collection.
+  If you have any questions about this, contact the managing editor at HMRC.
+</p>
+<p class="govuk-body-m"> Users who sign up to notifications on this document collection get an email alert when:</p>
+<% if has_page_level_notifications?(@collection) %>
+  <%= render "govuk_publishing_components/components/list", {
+    visible_counters: true,
+    items: [
+    "there’s a major change to any content that’s listed on the document collection (the content items in the ‘Collection documents’ tab)",
+    "there’s a major change to the document collection itself",
+    "the page is unpublished"
+    ]
+  } %>
+<% else %>
+  <%= render "govuk_publishing_components/components/list", {
+    visible_counters: true,
+    items: [
+    "there’s a major change to any content tagged to the topic #{link_to taxonomy_topic_email_override_title(@collection), taxonomy_topic_email_override_base_path(@collection)}",
+    "the page is unpublished"
+    ]
+  } %>
+<% end %>
+
+
+
