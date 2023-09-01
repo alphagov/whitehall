@@ -422,6 +422,7 @@ class PublishingApi::DocumentCollectionWithTaxonomyTopicEmailOverrideTest < Acti
 
     assert_equal [taxonomy_topic_email_override], presented_document_collection.links[:taxonomy_topic_email_override]
 
+    assert_valid_against_publisher_schema presented_document_collection.content, "document_collection"
     assert_valid_against_links_schema({ links: presented_document_collection.links }, "document_collection")
   end
 
