@@ -38,7 +38,7 @@ class ErrorsHelperTest < ActionView::TestCase
   end
 
   test "#errors_for does not return an empty string when object has unrelated error" do
-    assert_nil errors_for_input(@object_with_unrelated_errors.errors, :title)
+    assert_nil errors_for(@object_with_unrelated_errors.errors, :title)
   end
 
   class ErrorTestObject
