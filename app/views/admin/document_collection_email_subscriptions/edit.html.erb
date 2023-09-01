@@ -1,6 +1,7 @@
-<% content_for :page_class, 'document-collection-email-groups edit' %>
-<% page_title 'Edit email notifications' %>
+<% content_for :page_title, "Email notification settings" %>
+<% content_for :title_margin_bottom, 8 %>
 
+<% content_for :page_class, 'document-collection-email-groups edit' %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "components/secondary_navigation", {
@@ -9,8 +10,13 @@
     } %>
 
     <h2 class="govuk-heading-l">Email notifications</h2>
-    <p class="govuk-body">Choose the type of email updates users will get if they sign up for notifications.</p>
 
-    <%= render partial: 'form' %>
+    <% if taxonomy_topic_cannot_be_set?(@collection) %>
+      <%= render partial: "email_override_summary_page" %>
+    <% else %>
+      <p class="govuk-body">Choose the type of email updates users will get if they sign up for notifications.</p>
+      <%= render partial: 'form' %>
+    <% end %>
   </div>
 </div>
+

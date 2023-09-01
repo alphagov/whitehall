@@ -21,6 +21,9 @@ class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseControl
     end
     flash[:placeholder] = "message 3"
     redirect_to edit_admin_document_collection_path(@collection)
+  rescue ActiveRecord::RecordInvalid
+    flash[:placeholder] = "message 4"
+    redirect_to edit_admin_document_collection_path(@collection)
   end
 
 private

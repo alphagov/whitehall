@@ -8,7 +8,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
   include TaxonomyHelper
 
   describe "adding an email override" do
-    let(:document_collection) { create(:document_collection) }
+    let(:document_collection) { create(:draft_document_collection) }
 
     context "as a user with the email override editor permission" do
       let(:user_with_permission_to_override) { create(:writer, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR]) }
@@ -49,6 +49,16 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
         document_collection.reload
         assert_nil document_collection.taxonomy_topic_email_override
       end
+
+      # it "shows the user a summary page if the document collection is in an unmodifiable state" do
+      #   published_document_collection = create(:published_document_collection)
+      #   stub_publishing_api_links_with_taxons
+      #   visit edit_admin_document_collection_path(published_document_collection)
+      #   click_link "Email notifications"
+
+      #   assert page.has_no_field?("override_email_subscriptions")
+      #   assert page.has_content?("Placeholder text")
+      # end
     end
 
     context "as a user without the email override editor permission" do
