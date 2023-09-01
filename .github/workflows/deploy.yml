@@ -9,7 +9,6 @@ on:
         description: 'Commit, tag or branch name to deploy'
         required: true
         type: string
-        default: 'main'
       environment:
         description: 'Environment to deploy to'
         required: true
@@ -24,7 +23,7 @@ on:
 
 jobs:
   build-and-publish-image:
-    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref_name, 'v') 
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref_name, 'v')
     name: Build and publish image
     uses: alphagov/govuk-infrastructure/.github/workflows/build-and-push-image.yml@main
     with:
