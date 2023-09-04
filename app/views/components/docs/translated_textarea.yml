@@ -1,0 +1,43 @@
+name: Translated textarea
+description: Renders a textarea and the english translation within a details component if one is present
+body: |
+  This combines two other publishing components:
+
+  [textarea]: https://components.publishing.service.gov.uk/component-guide/textarea
+  [details]:  https://components.publishing.service.gov.uk/component-guide/details
+
+  It should be used on pages where translations of objects can be created or edited.
+accessibility_criteria: |
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - indicate when it has focus
+examples:
+  default:
+    data:
+      textarea:
+        label:
+          text: Textarea (required)
+          heading_size: l
+        name: textarea
+  with_details_text:
+    data:
+      textarea:
+        label:
+          text: Textarea (required)
+          heading_size: l
+        name: textarea
+      details:
+        text: This is the English translation
+  with_custom_details_title:
+    data:
+      textarea:
+        label:
+          text: Textarea (required)
+          heading_size: l
+        name: textarea
+      details:
+        title: French translation
+        text: Je suis en fait français.
+
+
