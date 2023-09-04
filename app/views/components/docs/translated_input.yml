@@ -1,0 +1,43 @@
+name: Translated input
+description: Renders an input field and the english translation within a details component if one is present
+body: |
+  This combines two other publishing components:
+
+  [input]: https://components.publishing.service.gov.uk/component-guide/input
+  [details]:  https://components.publishing.service.gov.uk/component-guide/details
+
+  It should be used on pages where translations of objects can be created or edited.
+accessibility_criteria: |
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - indicate when it has focus
+examples:
+  default:
+    data:
+      input:
+        label:
+          text: Input (required)
+        heading_size: l
+        name: input
+  with_details_text:
+    data:
+      input:
+        label:
+          text: Input (required)
+        heading_size: l
+        name: input
+      details:
+        text: This is the English translation
+  with_custom_details_title:
+    data:
+      input:
+        label:
+          text: Input (required)
+        heading_size: l
+        name: input
+      details:
+        title: French translation
+        text: Je suis en fait français.
+
+
