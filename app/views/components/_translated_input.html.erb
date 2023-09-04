@@ -1,0 +1,24 @@
+<%
+  id ||= "app-c-translated-input-#{SecureRandom.hex(4)}"
+  input ||= {}
+  input_label = input.dig(:label, :text).gsub("(required)", "").strip!
+  details ||= {}
+  details_text = details[:text]
+  details_title = details[:title] || sanitize("English translation #{tag.span("for #{input_label}", class: "govuk-visually-hidden")}")
+%>
+
+<%= content_tag :div, class: "app-c-translated-input", id: id do %>
+  <div class="app-c-translated-input__input">
+    <%= render "govuk_publishing_components/components/input", input.symbolize_keys %>
+  </div>
+
+  <% if details_text.present? %>
+    <div class="app-c-translated-input__english-translation govuk-!-margin-bottom-6">
+      <%= render "govuk_publishing_components/components/details", {
+        title: details_title
+      } do %>
+        <%= details_text %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
