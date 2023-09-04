@@ -4,6 +4,7 @@
 <%if t('admin.whats_new.show_banner') %>
   <%= render "govuk_publishing_components/components/phase_banner", {
       phase: "What's new",
+      ga4_tracking: true,
       message: sanitize("New review date functionality -
         #{
           link_to(
@@ -24,6 +25,7 @@
 <% elsif show_feedback_banner %>
   <%= render "govuk_publishing_components/components/phase_banner", {
       phase: "Feedback",
+      ga4_tracking: true,
       message: mail_to(
         "publishing-service-feedback@digital.cabinet-office.gov.uk",
         "Give feedback on the recent changes to Whitehall",
