@@ -38,11 +38,14 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
   def retrieve!(identifier)
     asset_path = uploader.store_path(identifier)
-    File.new(asset_path)
+    File.new(asset_path, uploader.model, uploader.version_name)
   end
 
   class File
-    def initialize(asset_path)
+    def initialize(asset_path, model = nil, version_name = nil)
+      @version = version_name
+      @model = model
+      @asset_path = asset_path
       @legacy_url_path = ::File.join("/government", "uploads", asset_path)
     end
 
@@ -51,15 +54,25 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     end
 
     def url
-      URI.join(Plek.asset_root, Addressable::URI.encode(@legacy_url_path)).to_s
-    end
+      if @model && @model.respond_to?("use_non_legacy_endpoints") && @model.use_non_legacy_endpoints
+        return nil unless @model.assets.any?
 
-    def filename
-      ::File.basename(@legacy_url_path)
+        asset_variant = @version ? Asset.variants[@version] : Asset.variants[:original]
+        asset = @model.assets.where(variant: asset_variant).first
+        if asset
+          URI.join(Plek.asset_root, Addressable::URI.encode("media/#{asset.asset_manager_id}/#{filename}")).to_s
+        end
+      else
+        URI.join(Plek.asset_root, Addressable::URI.encode(@legacy_url_path)).to_s
+      end
     end
 
     def path
       @legacy_url_path
+    end
+
+    def filename
+      ::File.basename(@asset_path)
     end
 
     def asset_manager_path

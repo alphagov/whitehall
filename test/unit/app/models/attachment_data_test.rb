@@ -190,16 +190,23 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_nil attachment.file_extension
   end
 
-  test "should return nil file extension when uploader url not present" do
+  test "should return nil file extension when uploader filename not present" do
     attachment = build(:attachment_data)
-    attachment.stubs(file: stub("uploader", url: nil))
+    attachment.stubs(file: stub("uploader", file: stub("file", filename: nil)))
     assert_nil attachment.file_extension
   end
 
-  test "should return file extension if URL present but file empty" do
+  test "should return file extension if filename present but file empty" do
     attachment = build(:attachment_data)
-    attachment.stubs(file: stub("uploader", empty?: true, url: "greenpaper.pdf"))
+    file = stub("file", empty?: true, filename: "greenpaper.pdf")
+    attachment.stubs(file: stub("uploader", file:))
     assert_equal "pdf", attachment.file_extension
+  end
+
+  test "should not be a csv if file not present" do
+    attachment = build(:attachment_data)
+    attachment.stubs(file: nil)
+    assert_not attachment.csv?
   end
 
   test "should return file extension if file present" do
@@ -415,5 +422,36 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment_data.stubs(:visible_to?).returns(true)
 
     assert_nil attachment_data.draft_edition_for(user)
+  end
+
+  test "all_asset_variants_uploaded? returns true if uploaded_to_asset_manager_at is set" do
+    attachment_data = build(:attachment_data)
+
+    assert_equal true, attachment_data.all_asset_variants_uploaded?
+  end
+
+  test "all_asset_variants_uploaded? returns false if uploaded_to_asset_manager_at is not set" do
+    attachment_data = build(:attachment_data, uploaded_to_asset_manager_at: nil)
+
+    assert_equal false, attachment_data.all_asset_variants_uploaded?
+  end
+
+  test "all_asset_variants_uploaded? returns true if all asset variants present" do
+    attachment_data = build(:attachment_data_with_assets, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
+
+    assert_equal true, attachment_data.all_asset_variants_uploaded?
+  end
+
+  test "all_asset_variants_uploaded? returns false if there are no assets" do
+    attachment_data = build(:attachment_data, use_non_legacy_endpoints: true)
+
+    assert_equal false, attachment_data.all_asset_variants_uploaded?
+  end
+
+  test "all_asset_variants_uploaded? returns false if some asset variants are missing" do
+    attachment_data = build(:attachment_data, use_non_legacy_endpoints: true, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
+    attachment_data.assets << build(:asset)
+
+    assert_equal false, attachment_data.all_asset_variants_uploaded?
   end
 end

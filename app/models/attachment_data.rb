@@ -27,15 +27,15 @@ class AttachmentData < ApplicationRecord
   attribute :present_at_unpublish, :boolean, default: false
 
   def filename
-    url && File.basename(url)
+    file.present? && file.file.filename
   end
 
   def filename_without_extension
-    url && filename.sub(/.[^.]*$/, "")
+    filename && filename.sub(/.[^.]*$/, "")
   end
 
   def file_extension
-    File.extname(url).delete(".") if url.present?
+    File.extname(filename).delete(".") if filename.present?
   end
 
   def pdf?
@@ -47,7 +47,9 @@ class AttachmentData < ApplicationRecord
   end
 
   def csv?
-    file_extension.casecmp("csv").zero?
+    return file_extension.casecmp("csv").zero? if file_extension
+
+    false
   end
 
   # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
@@ -57,6 +59,14 @@ class AttachmentData < ApplicationRecord
 
   def indexable?
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
+  end
+
+  def all_asset_variants_uploaded?
+    if use_non_legacy_endpoints
+      return pdf? ? assets.size == 2 : assets.size == 1
+    end
+
+    uploaded_to_asset_manager?
   end
 
   def update_file_attributes
@@ -175,7 +185,7 @@ class AttachmentData < ApplicationRecord
     attachable && attachable.respond_to?(:auth_bypass_id) ? [attachable.auth_bypass_id] : []
   end
 
-private
+  private
 
   def filtered_attachments(include_deleted_attachables: false)
     if include_deleted_attachables
