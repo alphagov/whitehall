@@ -175,6 +175,17 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, ".gem-c-attachment-link"
   end
 
+  test "should ignore file attachments with missing asset variants" do
+    embed_code = "[Attachment: greenpaper.pdf]"
+    body = "#Heading\n\n#{embed_code}\n\n##Subheading"
+    attachment = build(:file_attachment, title: "Green paper")
+    attachment.attachment_data.use_non_legacy_endpoints = true
+    document = create(:published_detailed_guide, :with_file_attachment, attachments: [attachment], body:)
+
+    html = govspeak_edition_to_html(document)
+    refute_select_within_html html, ".gem-c-attachment"
+  end
+
   test "should not convert documents with no block attachments" do
     text = "#Heading\n\n!@2"
     document = build(:published_detailed_guide, body: text)
