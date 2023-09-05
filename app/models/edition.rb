@@ -72,37 +72,38 @@ class Edition < ApplicationRecord
           escaped_like_expression = keywords.gsub(/([%_])/, "%" => '\\%', "_" => '\\_')
           like_clause = "%#{escaped_like_expression}%"
 
-          in_default_locale
-            .includes(:document)
-            .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause:, slug: keywords)
-            .references(:document)
+          scope = in_default_locale.includes(:document)
+          scope
+            .where("edition_translations.title LIKE :like_clause", like_clause:)
+            .or(scope.where(document: { slug: keywords }))
         }
 
-  scope :in_pre_publication_state,      -> { where(state: Edition::PRE_PUBLICATION_STATES) }
-  scope :force_published,               -> { where(state: "published", force_published: true) }
-  scope :not_published,                 -> { where(state: %w[draft submitted rejected]) }
-  scope :without_not_published,         -> { where.not(state: %w[draft submitted rejected]) }
+  scope :in_pre_publication_state, -> { where(state: Edition::PRE_PUBLICATION_STATES) }
+  scope :force_published, -> { where(state: "published", force_published: true) }
+  scope :not_published, -> { where(state: %w[draft submitted rejected]) }
+  scope :without_not_published, -> { where.not(state: %w[draft submitted rejected]) }
 
-  scope :announcements,                 -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
-  scope :consultations,                 -> { where(type: "Consultation") }
-  scope :call_for_evidence,             -> { where(type: "CallForEvidence") }
-  scope :detailed_guides,               -> { where(type: "DetailedGuide") }
-  scope :statistical_publications,      -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
-  scope :non_statistical_publications,  -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
-  scope :corporate_publications,        -> { where(publication_type_id: PublicationType::CorporateReport.id) }
-  scope :corporate_information_pages,   -> { where(type: "CorporateInformationPage") }
-  scope :publicly_visible,              -> { where(state: PUBLICLY_VISIBLE_STATES) }
+  scope :announcements, -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
+  scope :consultations, -> { where(type: "Consultation") }
+  scope :call_for_evidence, -> { where(type: "CallForEvidence") }
+  scope :detailed_guides, -> { where(type: "DetailedGuide") }
+  scope :statistical_publications, -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
+  scope :non_statistical_publications, -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
+  scope :corporate_publications, -> { where(publication_type_id: PublicationType::CorporateReport.id) }
+  scope :corporate_information_pages, -> { where(type: "CorporateInformationPage") }
+  scope :publicly_visible, -> { where(state: PUBLICLY_VISIBLE_STATES) }
 
-  scope :future_scheduled_editions,     -> { scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now)) }
+  scope :future_scheduled_editions, -> { scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now)) }
 
   scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
   scope :live_edition, -> { joins(:document).where("documents.live_edition_id = editions.id") }
 
-  scope :review_overdue, lambda {
-    joins("INNER JOIN documents ON documents.id = editions.document_id INNER JOIN review_reminders ON review_reminders.document_id = documents.id")
-      .where(document: { review_reminders: { review_at: ..Time.zone.today } })
-      .where.not(first_published_at: nil)
-  }
+  scope :review_overdue,
+        lambda {
+          joins(document: :review_reminder)
+            .where(document: { review_reminders: { review_at: ..Time.zone.today } })
+            .where.not(first_published_at: nil)
+        }
 
   # @!group Callbacks
   before_create :set_auth_bypass_id
