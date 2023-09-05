@@ -8,57 +8,64 @@
     <%= form_for @translated_edition, as: :edition, url: admin_edition_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
 
       <% unless @edition.is_a?(CorporateInformationPage) %>
-        <%= render "govuk_publishing_components/components/input", {
-          label: {
-            text: "Translated title (required)",
+        <%= render "components/translated_input", {
+          input: {
+            label: {
+              text: "Translated title (required)",
+            },
+            name: "edition[title]",
+            id: "edition_title",
+            heading_level: 2,
+            heading_size: "l",
+            value: @translated_edition.title,
+            error_items: errors_for(form.object.errors, :title),
+            right_to_left: form.object.translation_rtl?,
+            right_to_left_help: false,
           },
-          name: "edition[title]",
-          id: "edition_title",
-          heading_level: 2,
-          heading_size: "l",
-          value: @translated_edition.title,
-          error_items: errors_for(form.object.errors, :title),
-          right_to_left: form.object.translation_rtl?,
-          right_to_left_help: false
+          details: {
+            text: @edition.title,
+          }
         } %>
-
-        <h3 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English title content:</h3>
-        <p class="app-view-translation__english-content govuk-body govuk-!-margin-bottom-8"><%= @edition.title %></p>
       <% end %>
 
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
-          heading_size: "l",
-          text: "Translated summary#{' (required)' unless @edition.is_a?(CorporateInformationPage)}",
+      <%= render "components/translated_textarea", {
+        textarea: {
+          label: {
+            heading_size: "l",
+            text: "Translated summary#{' (required)' unless @edition.is_a?(CorporateInformationPage)}",
+          },
+          name: "edition[summary]",
+          id: "edition_summary",
+          value: @translated_edition.summary,
+          rows: 2,
+          error_items: errors_for(form.object.errors, :summary),
+          right_to_left: form.object.translation_rtl?,
+          right_to_left_help: false,
         },
-        name: "edition[summary]",
-        id: "edition_summary",
-        value: @translated_edition.summary,
-        rows: 2,
-        error_items: errors_for(form.object.errors, :summary),
-        right_to_left: form.object.translation_rtl?,
-        right_to_left_help: false
+        details: {
+          text: @edition.summary,
+        }
       } %>
 
-      <h3 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English summary content:</h3>
-      <p class="app-view-translation__english-content govuk-body govuk-!-margin-bottom-8"><%= @edition.summary %></p>
-
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
-          heading_size: "l",
-          text: "Translated body (required)",
+      <%= render "components/translated_textarea", {
+        textarea: {
+          label: {
+            heading_size: "l",
+            text: "Translated body (required)",
+          },
+          name: "edition[body]",
+          id: "edition_body",
+          value: @translated_edition.body,
+          rows: 20,
+          error_items: errors_for(form.object.errors, :body),
+          right_to_left: form.object.translation_rtl?,
+          right_to_left_help: false,
         },
-        name: "edition[body]",
-        id: "edition_body",
-        value: @translated_edition.body,
-        rows: 20,
-        error_items: errors_for(form.object.errors, :body),
-        right_to_left: form.object.translation_rtl?,
-        right_to_left_help: false
+        details: {
+          text: @edition.body,
+        },
+        govspeak_editor: true,
       } %>
-
-      <h3 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English body content:</h3>
-      <p class="app-view-translation__english-content govuk-body govuk-!-margin-bottom-8"><%= @edition.body %></p>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
