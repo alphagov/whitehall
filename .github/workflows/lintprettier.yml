@@ -1,0 +1,17 @@
+name: Run lint:prettier
+
+on: workflow_call
+
+jobs:
+  run-lint-prettier:
+    name: Run Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@main
+
+      - name: Run lint:prettier
+        run: yarn run lint:prettier

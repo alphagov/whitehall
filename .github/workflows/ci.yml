@@ -23,6 +23,10 @@ jobs:
     name: Lint JavaScript
     uses: ./.github/workflows/lintjs.yml
 
+  lint-prettier:
+    name: Prettier
+    uses: ./.github/workflows/lintprettier.yml
+
   lint-ruby:
     name: Lint Ruby
     uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yml@main

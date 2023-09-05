@@ -5,9 +5,10 @@
   "author": "Government Digital Service",
   "license": "MIT",
   "scripts": {
-    "lint": "yarn run lint:js && yarn run lint:scss",
+    "lint": "yarn run lint:js && yarn run lint:scss && yarn run lint:prettier",
     "lint:js": "eslint --cache --cache-location .cache/eslint --color --ignore-path .gitignore -- \"**/*.js\"",
     "lint:scss": "stylelint app/assets/stylesheets/",
+    "lint:prettier": "prettier --cache --cache-location .cache/prettier --cache-strategy content --check -- \"**/*.js\"",
     "jasmine:prepare": "RAILS_ENV=test bundle exec rails assets:clobber assets:precompile",
     "jasmine:ci": "yarn run jasmine:prepare && yarn run jasmine-browser-runner runSpecs",
     "jasmine:browser": "yarn run jasmine:prepare && yarn run jasmine-browser-runner"
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-promise": "^6.0.0",
@@ -29,6 +31,7 @@
     "jasmine-browser-runner": "^2.2.0",
     "jasmine-core": "^5.1.1",
     "postcss": "^8.4.29",
+    "prettier": "^3.0.1",
     "standard": "^17.1.0",
     "stylelint": "^15.10.3",
     "stylelint-config-gds": "^1.0.0"
