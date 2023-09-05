@@ -32,3 +32,12 @@ Feature: Filtering documents by author in admin
     When I filter by organisation "Department of Thumbtacks"
     Then I should see the publication "Thumbtack Publication"
     And I should not see the publication "Another Publication"
+
+  Scenario: Viewing only documents with an overdue review reminder
+    Given a published publication "Standard Beard Lengths" with a PDF attachment
+    And a review reminder exists for "Standard Beard Lengths" with the date "2032-1-1"
+    And a published publication "I moustache you a question" with a PDF attachment
+    And a review reminder exists for "I moustache you a question" and the review date has passed
+    When I filter by review overdue
+    Then I should see the publication "I moustache you a question"
+    And I should not see the publication "Standard Beard Lengths"

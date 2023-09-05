@@ -35,7 +35,7 @@ module Admin
     end
 
     def page_title
-      "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches} #{date_range_string}".squeeze(" ").strip
+      "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches} #{date_range_string} #{review_reminder_string}".squeeze(" ").strip
     end
 
     def default_page_size
@@ -92,6 +92,10 @@ module Admin
       end
     end
 
+    def review_reminder_string
+      "with overdue reviews" if review_overdue
+    end
+
     def exportable?
       unpaginated_editions.count <= MAX_EXPORT_SIZE
     end
@@ -114,6 +118,7 @@ module Admin
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
       editions = editions.only_broken_links if only_broken_links
+      editions = editions.review_overdue if review_overdue
 
       editions = editions.includes(:unpublishing) if include_unpublishing?
       editions = editions.includes(:link_check_reports) if include_link_check_reports?
@@ -232,6 +237,10 @@ module Admin
 
     def only_broken_links
       options[:only_broken_links].present?
+    end
+
+    def review_overdue
+      options[:review_overdue].present?
     end
 
     def include_unpublishing?
