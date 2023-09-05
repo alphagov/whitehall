@@ -14,7 +14,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
 
   view_test "index shows a form to create missing translations" do
     get :index, params: { worldwide_organisation_id: @worldwide_organisation }
-    translations_path = admin_worldwide_organisation_translations_path(@worldwide_organisation)
+    translations_path = new_admin_worldwide_organisation_translation_path(@worldwide_organisation)
     assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
         assert_select "option[value=fr]", text: "Français (French)"
@@ -61,9 +61,46 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     assert_select "a[href=?]", delete_translation_path, text: "Delete Français"
   end
 
-  test "create redirects to edit for the chosen language" do
-    post :create, params: { worldwide_organisation_id: @worldwide_organisation, translation_locale: "fr" }
-    assert_redirected_to edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, id: "fr")
+  view_test "new presents a form to create a translation and does not prefill fields" do
+    worldwide_organisation = create(:worldwide_organisation)
+
+    get :new, params: { worldwide_organisation_id: worldwide_organisation, translation_locale: "fr" }
+
+    translation_path = admin_worldwide_organisation_translations_path(worldwide_organisation, translation_locale: "fr")
+
+    assert_select "form[action=?]", translation_path do
+      assert_select "input[type=text][name='worldwide_organisation[name]']", text: ""
+      assert_select "button", text: "Save"
+    end
+  end
+
+  test "create creates translation and redirects back to the index" do
+    post :create,
+         params: { worldwide_organisation_id: @worldwide_organisation,
+                   translation_locale: "fr",
+                   worldwide_organisation: {
+                     name: "Département des barbes en France",
+                   } }
+
+    @worldwide_organisation.reload
+
+    with_locale :fr do
+      assert_equal "Département des barbes en France", @worldwide_organisation.name
+    end
+
+    assert_redirected_to admin_worldwide_organisation_translations_path(@worldwide_organisation)
+  end
+
+  test "create re-renders the new template on an unsuccessful save" do
+    post :create,
+         params: { worldwide_organisation_id: @worldwide_organisation,
+                   translation_locale: "fr",
+                   worldwide_organisation: {
+                     name: "",
+                   } }
+
+    assert_response :success
+    assert_template :new
   end
 
   view_test "edit indicates which language is being translated to" do

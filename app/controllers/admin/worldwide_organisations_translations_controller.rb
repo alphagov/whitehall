@@ -1,10 +1,21 @@
 class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseController
   include TranslationControllerConcern
+  before_action :build_translated_models, only: %i[new]
+
   layout "design_system"
 
   def index; end
 
   def edit; end
+
+  def create
+    if translatable_item.update(translation_params)
+      save_draft_translation if send_downstream?
+      redirect_to update_redirect_path, notice: notice_message("saved")
+    else
+      render :new
+    end
+  end
 
   def confirm_destroy; end
 
@@ -33,6 +44,11 @@ private
   def load_translated_models
     @translated_worldwide_organisation = LocalisedModel.new(@worldwide_organisation, translation_locale.code)
     @english_worldwide_organisation = LocalisedModel.new(@worldwide_organisation, :en)
+  end
+
+  def build_translated_models
+    @english_worldwide_organisation = LocalisedModel.new(@worldwide_organisation, :en)
+    @translated_worldwide_organisation = @english_worldwide_organisation.translations.build(locale: translation_locale.code)
   end
 
   def load_translatable_item

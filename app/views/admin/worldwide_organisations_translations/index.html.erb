@@ -49,7 +49,7 @@
     <% end %>
 
     <% if @worldwide_organisation.missing_translations.any? %>
-      <%= form_tag admin_worldwide_organisation_translations_path(@worldwide_organisation) do %>
+      <%= form_tag new_admin_worldwide_organisation_translation_path(@worldwide_organisation), method: :get do %>
         <%
           options = @worldwide_organisation.missing_translations.map do |translation|
             {

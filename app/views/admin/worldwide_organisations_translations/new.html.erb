@@ -1,11 +1,11 @@
-<% content_for :page_title, "Edit translation" %>
-<% content_for :title, "Edit translation" %>
+<% content_for :page_title, "New translation" %>
+<% content_for :title, "New translation" %>
 <% content_for :context, @english_worldwide_organisation.name %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @english_worldwide_organisation)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_for @translated_worldwide_organisation, url: admin_worldwide_organisation_translation_path(@translated_worldwide_organisation, translation_locale), method: :put do |form| %>
+    <%= form_with url: admin_worldwide_organisation_translations_path(@worldwide_organisation, translation_locale: translation_locale) do |form| %>
       <%= render "form_fields", translated_worldwide_organisation: @translated_worldwide_organisation, english_worldwide_organisation: @english_worldwide_organisation %>
     <% end %>
   </div>
