@@ -67,9 +67,9 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: edition, id: "fr" }
 
-    assert_select ".app-view-translation__english-content", text: edition.title
-    assert_select ".app-view-translation__english-content", text: edition.summary
-    assert_select ".app-view-translation__english-content", text: edition.body
+    assert_select ".app-c-translated-input__english-translation .govuk-details__text", text: edition.title
+    assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.summary
+    assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.body
   end
 
   view_test "edit shows the govspeak helper" do
