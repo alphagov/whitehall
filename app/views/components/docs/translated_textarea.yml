@@ -39,5 +39,15 @@ examples:
       details:
         title: French translation
         text: Je suis en fait français.
+  with_govspeak_editor:
+    data:
+      textarea:
+        label:
+          text: Textarea (required)
+          heading_size: l
+        name: textarea
+      details:
+        text: This is the English translation
+      govspeak_editor: true
 
 
