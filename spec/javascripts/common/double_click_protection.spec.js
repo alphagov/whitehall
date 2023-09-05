@@ -2,7 +2,9 @@ describe('GOVUK.doubleClickProtection', function () {
   let form
 
   beforeEach(function () {
-    form = $('<form action="/go" method="POST"><input type="submit" name="input_name" value="Save" /></form>')
+    form = $(
+      '<form action="/go" method="POST"><input type="submit" name="input_name" value="Save" /></form>'
+    )
 
     $(document.body).append(form)
 
@@ -30,7 +32,9 @@ describe('GOVUK.doubleClickProtection', function () {
 
     form.on('submit', function (e) {
       e.preventDefault()
-      expect($('form input[type=hidden][name=input_name][value=Save]').length).toBeGreaterThan(0)
+      expect(
+        $('form input[type=hidden][name=input_name][value=Save]').length
+      ).toBeGreaterThan(0)
     })
 
     submitTag.click()

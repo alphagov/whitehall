@@ -1,8 +1,7 @@
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {};
-
-(function (Modules) {
-  function NavbarToggle (module) {
+window.GOVUK.Modules = window.GOVUK.Modules || {}
+;(function (Modules) {
+  function NavbarToggle(module) {
     this.module = module
     this.toggler = this.module.querySelector('.js-navbar-toggle__toggler')
     this.menu = this.module.querySelector('.js-navbar-toggle__menu')
@@ -22,7 +21,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   NavbarToggle.prototype.toggle = function (e) {
     // Toggle menu for users tabbing through the navigation bar
-    if (e.type === 'keyup' && (e.which !== 9 || this.module.classList.contains('open'))) return
+    if (
+      e.type === 'keyup' &&
+      (e.which !== 9 || this.module.classList.contains('open'))
+    )
+      return
 
     e.stopPropagation()
     e.preventDefault()

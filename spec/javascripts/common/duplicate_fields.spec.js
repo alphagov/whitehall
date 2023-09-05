@@ -5,10 +5,10 @@ describe('GOVUK.duplicateFields', function () {
     fieldset = $(
       '<fieldset class="js-duplicate-fields">' +
         '<div class="js-duplicate-fields-set">' +
-          '<label for="model_1_object">label</label>' +
-          '<input type="text" name="model[1][object]" id="model_1_object">' +
+        '<label for="model_1_object">label</label>' +
+        '<input type="text" name="model[1][object]" id="model_1_object">' +
         '</div>' +
-      '</fieldset>'
+        '</fieldset>'
     )
     $(document.body).append(fieldset)
   })
@@ -26,7 +26,9 @@ describe('GOVUK.duplicateFields', function () {
   it('should insert a button to remove fields', function () {
     GOVUK.duplicateFields.init()
 
-    expect(fieldset.find('div.js-duplicate-fields-set a.js-remove-button').length).toEqual(1)
+    expect(
+      fieldset.find('div.js-duplicate-fields-set a.js-remove-button').length
+    ).toEqual(1)
   })
 
   it('should create new fields when the add button is clicked', function () {
@@ -42,7 +44,13 @@ describe('GOVUK.duplicateFields', function () {
 
     fieldset.find('a.js-add-button').trigger('click')
 
-    expect(fieldset.find('.js-duplicate-fields-set').last().find('input').attr('name')).toEqual('model[2][object]')
+    expect(
+      fieldset
+        .find('.js-duplicate-fields-set')
+        .last()
+        .find('input')
+        .attr('name')
+    ).toEqual('model[2][object]')
   })
 
   it('should update id and for attributes of new fields', function () {
@@ -56,7 +64,8 @@ describe('GOVUK.duplicateFields', function () {
   })
 
   it('should cope with fields with a second level of index', function () {
-    fieldset.find('input')
+    fieldset
+      .find('input')
       .attr('name', 'model[1][attribute][1][object]')
       .attr('id', 'model_1_attribute_1_object')
     fieldset.find('label').attr('for', 'model_1_attribute_1_object')
@@ -66,9 +75,15 @@ describe('GOVUK.duplicateFields', function () {
     fieldset.find('a.js-add-button').trigger('click')
 
     const newSet = fieldset.find('.js-duplicate-fields-set').last()
-    expect(newSet.find('input').attr('name')).toEqual('model[1][attribute][2][object]')
-    expect(newSet.find('input').attr('id')).toEqual('model_1_attribute_2_object')
-    expect(newSet.find('label').attr('for')).toEqual('model_1_attribute_2_object')
+    expect(newSet.find('input').attr('name')).toEqual(
+      'model[1][attribute][2][object]'
+    )
+    expect(newSet.find('input').attr('id')).toEqual(
+      'model_1_attribute_2_object'
+    )
+    expect(newSet.find('label').attr('for')).toEqual(
+      'model_1_attribute_2_object'
+    )
   })
 
   it('should hide the fields when removing', function () {
@@ -97,7 +112,9 @@ describe('GOVUK.duplicateFields', function () {
     set.find('a.js-remove-button').trigger('click')
 
     expect(set.find('input#model_1__destroy').length).toEqual(1)
-    expect(set.find('input#model_1__destroy').attr('name')).toEqual('model[1][_destroy]')
+    expect(set.find('input#model_1__destroy').attr('name')).toEqual(
+      'model[1][_destroy]'
+    )
     expect(set.find('input#model_1__destroy').val()).toEqual('true')
   })
 
@@ -127,8 +144,12 @@ describe('GOVUK.duplicateFields', function () {
     let presentFieldset, destroyFieldset
 
     beforeEach(function () {
-      presentFieldset = $('<div class="js-duplicate-fields-set"><label for="model_1_object">label</label><input type="text" name="model[1][object]" id="model_1_object"></div>')
-      destroyFieldset = $('<div class="js-duplicate-fields-set"><label for="model_1_object">label</label><input type="text" name="model[1][object]" id="model_1_object"><input class="js-hidden-destroy" type="hidden" name="model[1][_destroy]" id="model_1__destroy" value="true"></div>')
+      presentFieldset = $(
+        '<div class="js-duplicate-fields-set"><label for="model_1_object">label</label><input type="text" name="model[1][object]" id="model_1_object"></div>'
+      )
+      destroyFieldset = $(
+        '<div class="js-duplicate-fields-set"><label for="model_1_object">label</label><input type="text" name="model[1][object]" id="model_1_object"><input class="js-hidden-destroy" type="hidden" name="model[1][_destroy]" id="model_1__destroy" value="true"></div>'
+      )
 
       fieldset.empty().append(presentFieldset, destroyFieldset)
     })

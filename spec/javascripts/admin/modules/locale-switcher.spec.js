@@ -4,7 +4,10 @@ describe('GOVUK.Modules.LocaleSwitcher', function () {
   beforeEach(function () {
     form = document.createElement('form')
     form.setAttribute('data-module', 'LocaleSwitcher')
-    form.setAttribute('data-rtl-locales', '["ar", "dr", "fa", "he", "pa-pk", "ps", "ur", "yi"]')
+    form.setAttribute(
+      'data-rtl-locales',
+      '["ar", "dr", "fa", "he", "pa-pk", "ps", "ur", "yi"]'
+    )
 
     form.innerHTML = `
       <form>

@@ -1,9 +1,8 @@
 //= require choices.js/public/assets/scripts/choices.min.js
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {};
-
-(function (Modules) {
-  function SelectWithSearch (module) {
+window.GOVUK.Modules = window.GOVUK.Modules || {}
+;(function (Modules) {
+  function SelectWithSearch(module) {
     this.module = module
     this.select = this.module.querySelector('select')
     this.enableTracking = !!module.dataset.trackCategory
@@ -11,7 +10,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   SelectWithSearch.prototype.init = function () {
     if (!this.select) return
-    const placeholderOption = this.select.querySelector('option[value=""]:first-child')
+    const placeholderOption = this.select.querySelector(
+      'option[value=""]:first-child'
+    )
 
     if (placeholderOption && placeholderOption.textContent === '') {
       placeholderOption.textContent = 'Select one'

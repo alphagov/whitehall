@@ -104,19 +104,21 @@ describe('GOVUK.Modules.TrackSelectedTaxons', function () {
 
   it('should send tracking events for each selected taxon when form is submitted', function () {
     spyOn(GOVUK.analytics, 'trackEvent')
-    spyOn(trackSelectedTaxons, 'getCurrentPath').and.returnValue('/government/admin/editions/1/tags/edit')
+    spyOn(trackSelectedTaxons, 'getCurrentPath').and.returnValue(
+      '/government/admin/editions/1/tags/edit'
+    )
 
     form.dispatchEvent(new Event('submit'))
 
     expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
       'taxonSelection',
-      'Parenting, childcare and children\'s services > Divorce, separation and legal issues',
+      "Parenting, childcare and children's services > Divorce, separation and legal issues",
       { label: '/government/admin/editions/1/tags/edit' }
     )
 
     expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
       'taxonSelection',
-      'Parenting, childcare and children\'s services > Childcare and early years',
+      "Parenting, childcare and children's services > Childcare and early years",
       { label: '/government/admin/editions/1/tags/edit' }
     )
   })

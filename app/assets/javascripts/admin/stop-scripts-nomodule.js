@@ -4,8 +4,12 @@ if (!('noModule' in HTMLScriptElement.prototype)) {
   document.body.classList.remove('js-enabled')
 
   // Prevent the GOV.UK Frontend from being initialised.
-  document.addEventListener('DOMContentLoaded', function (e) {
-    e.stopImmediatePropagation()
-    e.stopPropagation()
-  }, true)
+  document.addEventListener(
+    'DOMContentLoaded',
+    function (e) {
+      e.stopImmediatePropagation()
+      e.stopPropagation()
+    },
+    true
+  )
 }

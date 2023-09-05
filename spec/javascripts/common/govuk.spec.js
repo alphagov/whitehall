@@ -1,6 +1,6 @@
 describe('GOVUK.init', function () {
   it("it initialises a constructor with the params and stores it on GOVUK.instances.<constructor's name>", function () {
-    function TestConstructor (params) {
+    function TestConstructor(params) {
       this.params = params
     }
     GOVUK.init(TestConstructor, { foo: 'bar' })
@@ -10,7 +10,7 @@ describe('GOVUK.init', function () {
 
   it('calls init on a singleton and returns that singleton', function () {
     const testSingleton = {
-      init: function init (params) {
+      init: function init(params) {
         this.foo = params.foo
       }
     }

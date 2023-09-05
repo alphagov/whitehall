@@ -46,16 +46,29 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
         </div>
       </div>
     `
-    const checkbox = body.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
+    const checkbox = body.querySelector(
+      '.govuk-checkboxes__item input[name="unpublishing[redirect]"]'
+    )
     checkbox.checked = true
-    const unpublishDisplayConditions = new GOVUK.Modules.UnpublishDisplayConditions(body)
+    const unpublishDisplayConditions =
+      new GOVUK.Modules.UnpublishDisplayConditions(body)
     unpublishDisplayConditions.init()
   })
 
   it('should not show any section if nothing is selected', function () {
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error'
+      ).style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated')
+        .style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
+        .style.display
+    ).not.toEqual('block')
   })
 
   it('should only show publish in error section when selecting unpublish: published in error', function () {
@@ -63,9 +76,19 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error'
+      ).style.display
+    ).toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated')
+        .style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
+        .style.display
+    ).not.toEqual('block')
   })
 
   it('should only show consolidated section when selecting unpublish: consolidated', function () {
@@ -73,9 +96,19 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error'
+      ).style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated')
+        .style.display
+    ).toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
+        .style.display
+    ).not.toEqual('block')
   })
 
   it('should only show withdrawal section when selecting withdrawal', function () {
@@ -83,9 +116,19 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).toEqual('block')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error'
+      ).style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated')
+        .style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
+        .style.display
+    ).toEqual('block')
   })
 
   it('should show last chosen option if user changes their selected option', function () {
@@ -93,33 +136,67 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     radio.checked = true
     radio.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).toEqual('block')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error'
+      ).style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated')
+        .style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
+        .style.display
+    ).toEqual('block')
 
     const radio2 = body.querySelector('#radio-published-consolidated')
     radio2.checked = true
     radio2.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error').style.display).not.toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated').style.display).toEqual('block')
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal').style.display).not.toEqual('block')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error'
+      ).style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__consolidated')
+        .style.display
+    ).toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
+        .style.display
+    ).not.toEqual('block')
   })
 
   it('should hide public explanation section when "Redirect to URL automatically?" is pre-checked', function () {
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('none')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor'
+      ).style.display
+    ).toEqual('none')
   })
 
   it('should show/hide public explanation section when "Redirect to URL automatically?" is unchecked/checked', function () {
-    const checkbox = body.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
+    const checkbox = body.querySelector(
+      '.govuk-checkboxes__item input[name="unpublishing[redirect]"]'
+    )
     checkbox.checked = false
     checkbox.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('block')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor'
+      ).style.display
+    ).toEqual('block')
 
     checkbox.checked = true
     checkbox.dispatchEvent(new Event('change'))
 
-    expect(body.querySelector('.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor').style.display).toEqual('none')
+    expect(
+      body.querySelector(
+        '.js-app-view-unpublish-withdraw-form__published-in-error div.app-c-govspeak-editor'
+      ).style.display
+    ).toEqual('none')
   })
 })

@@ -25,8 +25,14 @@ describe('GOVUK.Modules.NavbarToggle', function () {
   })
 
   it('should initialise correctly', function () {
-    expect(navbarItem.querySelector('.js-navbar-toggle__toggler').getAttribute('tabindex')).toEqual('0')
-    expect(navbarItem.querySelector('.js-navbar-toggle__menu')).toHaveClass('govuk-visually-hidden')
+    expect(
+      navbarItem
+        .querySelector('.js-navbar-toggle__toggler')
+        .getAttribute('tabindex')
+    ).toEqual('0')
+    expect(navbarItem.querySelector('.js-navbar-toggle__menu')).toHaveClass(
+      'govuk-visually-hidden'
+    )
   })
 
   it('should show menu when toggler is clicked', function () {

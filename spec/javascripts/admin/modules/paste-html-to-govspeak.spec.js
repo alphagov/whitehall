@@ -1,7 +1,7 @@
 describe('GOVUK.Modules.PasteHtmlToGovspeak', function () {
   let textarea
 
-  function createHtmlPasteEvent (html = null) {
+  function createHtmlPasteEvent(html = null) {
     const event = new window.Event('paste')
     event.clipboardData = {
       getData: (type) => {

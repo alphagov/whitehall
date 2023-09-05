@@ -1,15 +1,19 @@
 describe('GOVUK.Modules.SelectWithSearch', function () {
   let component, module
 
-  function getOptions () {
-    const items = component.querySelectorAll('.choices__list .choices__item--choice')
-    return Array.from(items).map((item) => (item.textContent.trim()))
+  function getOptions() {
+    const items = component.querySelectorAll(
+      '.choices__list .choices__item--choice'
+    )
+    return Array.from(items).map((item) => item.textContent.trim())
   }
 
   // Simulate a user selecting an option. This will trigger a "change" event.
-  function selectOption (value) {
+  function selectOption(value) {
     const event = new MouseEvent('mousedown')
-    component.querySelector(`[data-choice][data-value="${CSS.escape(value)}"]`).dispatchEvent(event)
+    component
+      .querySelector(`[data-choice][data-value="${CSS.escape(value)}"]`)
+      .dispatchEvent(event)
   }
 
   describe('with a simple select', () => {
@@ -28,7 +32,9 @@ describe('GOVUK.Modules.SelectWithSearch', function () {
     })
 
     it('initialises Choices.js', function () {
-      expect(component.querySelector('.choices[data-type="select-one"]')).toBeTruthy()
+      expect(
+        component.querySelector('.choices[data-type="select-one"]')
+      ).toBeTruthy()
     })
 
     it('does not reorder the provided options', () => {
@@ -36,7 +42,9 @@ describe('GOVUK.Modules.SelectWithSearch', function () {
     })
 
     it('shows a search field', () => {
-      expect(component.querySelector('input[type=search]').placeholder).toEqual('Search in list')
+      expect(component.querySelector('input[type=search]').placeholder).toEqual(
+        'Search in list'
+      )
     })
   })
 
@@ -57,7 +65,9 @@ describe('GOVUK.Modules.SelectWithSearch', function () {
     })
 
     it('shows a "Select one" placeholder', () => {
-      expect(component.querySelector('.choices__placeholder').textContent).toEqual('Select one')
+      expect(
+        component.querySelector('.choices__placeholder').textContent
+      ).toEqual('Select one')
     })
   })
 

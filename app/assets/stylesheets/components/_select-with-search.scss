@@ -72,7 +72,7 @@
       height: 20px;
       width: 20px;
       border-radius: 10em;
-      opacity: .25;
+      opacity: 0.25;
 
       &:hover,
       &:focus {
@@ -144,7 +144,7 @@
       width: 12px;
       height: 100%;
       line-height: 1;
-      opacity: .75;
+      opacity: 0.75;
       border-radius: 0;
 
       &:hover,
@@ -332,7 +332,7 @@
 
   .choices__list--dropdown .choices__item--selectable.is-highlighted::after,
   .choices__list[aria-expanded] .choices__item--selectable.is-highlighted::after {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   .choices__item {
@@ -347,7 +347,7 @@
     cursor: not-allowed;
     -webkit-user-select: none;
     user-select: none;
-    opacity: .5;
+    opacity: 0.5;
   }
 
   .choices__heading {

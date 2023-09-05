@@ -14,27 +14,35 @@ describe('jQuery.enhanceYoutubeVideoLinks', function () {
     container.find('a').attr('href', 'http://youtu.be/tinyVideo')
     container.enhanceYoutubeVideoLinks()
 
-    expect($.fn.player).toHaveBeenCalledWith(jasmine.objectContaining({
-      media: 'tinyVideo'
-    }))
+    expect($.fn.player).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        media: 'tinyVideo'
+      })
+    )
   })
 
   it('should replace short youtube links', function () {
     container.find('a').attr('href', 'http://youtube.com/watch?v=shortVideo')
     container.enhanceYoutubeVideoLinks()
 
-    expect($.fn.player).toHaveBeenCalledWith(jasmine.objectContaining({
-      media: 'shortVideo'
-    }))
+    expect($.fn.player).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        media: 'shortVideo'
+      })
+    )
   })
 
   it('should replace medium youtube links', function () {
-    container.find('a').attr('href', 'http://youtube.com/watch?v=mediumVideo&source=twitter')
+    container
+      .find('a')
+      .attr('href', 'http://youtube.com/watch?v=mediumVideo&source=twitter')
     container.enhanceYoutubeVideoLinks()
 
-    expect($.fn.player).toHaveBeenCalledWith(jasmine.objectContaining({
-      media: 'mediumVideo'
-    }))
+    expect($.fn.player).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        media: 'mediumVideo'
+      })
+    )
   })
 
   it('should do nothing if no video id is found', function () {
