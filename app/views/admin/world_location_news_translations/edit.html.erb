@@ -5,85 +5,83 @@
   .english_language_name}) translation for: #{@english_world_location.name}" %>
   <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @translated_world_location_news)) %>
 
-<div class="govuk-!-margin-bottom-8">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <%= form_for @translated_world_location_news, url: admin_world_location_news_translation_path(@translated_world_location_news, translation_locale), method: :patch do |form| %>
-        <%= form.fields_for :world_location, @translated_world_location do |location_form| %>
-          <%= render "govuk_publishing_components/components/warning_text", {
-            text: "Changes to worldwide locations appear instantly on the live site.",
-          } %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @translated_world_location_news, url: admin_world_location_news_translation_path(@translated_world_location_news, translation_locale), method: :patch do |form| %>
+      <%= form.fields_for :world_location, @translated_world_location do |location_form| %>
+        <%= render "govuk_publishing_components/components/warning_text", {
+          text: "Changes to worldwide locations appear instantly on the live site.",
+        } %>
 
-          <%= render "components/translated_input", {
-            input: {
-              label: {
-                text: "Translation Name (required)",
-              },
-              heading_size: "l",
-              value: @translated_world_location_news.name,
-              name: "world_location_news[world_location_attributes][name]",
-              error_items: errors_for(@translated_world_location.errors, :name),
-              id: "world_location_news_world_location_name",
-              right_to_left: @translated_world_location_news.translation_locale.rtl?,
-              right_to_left_help: false,
+        <%= render "components/translated_input", {
+          input: {
+            label: {
+              text: "Translation Name (required)",
             },
+            heading_size: "l",
+            value: @translated_world_location_news.name,
+            name: "world_location_news[world_location_attributes][name]",
+            error_items: errors_for(@translated_world_location.errors, :name),
+            id: "world_location_news_world_location_name",
+            right_to_left: @translated_world_location_news.translation_locale.rtl?,
+            right_to_left_help: false,
+          },
+          details: {
+            text:  @english_world_location_news.name,
+          }
+        } %>
+
+        <%= render "components/translated_input", {
+          input: {
+            label: {
+              text: "Title (required)",
+            },
+            heading_size: "l",
+            value: @translated_world_location_news.title,
+            name: "world_location_news[title]",
+            id: "world_location_news_title",
+            error_items: errors_for(@translated_world_location_news.errors, :title),
+            right_to_left: @translated_world_location_news.translation_locale.rtl?,
+            right_to_left_help: false,
+          },
+          details: {
+            text:  @english_world_location_news.title,
+          }
+        } %>
+
+        <%= render "components/translated_textarea", {
+          textarea: {
+            label: {
+              text: "Mission statement",
+              heading_size: "l",
+            },
+            name: "world_location_news[mission_statement]",
+            id: "world_location_news_mission_statement",
+            value: @translated_world_location_news.mission_statement,
+            rows: 10,
+            right_to_left: @translated_world_location_news.translation_locale.rtl?,
+            right_to_left_help: false,
+          },
             details: {
-              text:  @english_world_location_news.name,
+            text: @english_world_location_news.mission_statement,
+          },
+          govspeak_editor: true,
+        } %>
+
+        <div class="govuk-button-group govuk-!-margin-top-8">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Save",
+            data_attributes: {
+              module: "gem-track-click",
+              "track-category": "form-button",
+              "track-action": "world-location-news-button",
+              "track-label": "Save"
             }
           } %>
 
-          <%= render "components/translated_input", {
-            input: {
-              label: {
-                text: "Title (required)",
-              },
-              heading_size: "l",
-              value: @translated_world_location_news.title,
-              name: "world_location_news[title]",
-              id: "world_location_news_title",
-              error_items: errors_for(@translated_world_location_news.errors, :title),
-              right_to_left: @translated_world_location_news.translation_locale.rtl?,
-              right_to_left_help: false,
-            },
-            details: {
-              text:  @english_world_location_news.title,
-            }
-          } %>
-
-          <%= render "components/translated_textarea", {
-            textarea: {
-              label: {
-                text: "Mission statement",
-                heading_size: "l",
-              },
-              name: "world_location_news[mission_statement]",
-              id: "world_location_news_mission_statement",
-              value: @translated_world_location_news.mission_statement,
-              rows: 10,
-              right_to_left: @translated_world_location_news.translation_locale.rtl?,
-              right_to_left_help: false,
-            },
-             details: {
-              text: @english_world_location_news.mission_statement,
-            },
-            govspeak_editor: true,
-          } %>
-
-          <div class="govuk-button-group govuk-!-margin-bottom-8">
-            <%= render "govuk_publishing_components/components/button", {
-              text: "Save",
-              data_attributes: {
-                module: "gem-track-click",
-                "track-category": "form-button",
-                "track-action": "world-location-news-button",
-                "track-label": "Save"
-              }
-            } %>
-
-            <%= link_to("cancel", admin_world_location_news_translations_path(@world_location_news), class: "govuk-link") %>
-          </div>
-        <% end %>
+          <%= link_to("cancel", admin_world_location_news_translations_path(@world_location_news), class: "govuk-link") %>
+        </div>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
