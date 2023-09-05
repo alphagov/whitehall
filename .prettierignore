@@ -1,3 +1,5 @@
 app/assets/javascripts/vendor/
 app/assets/javascripts/admin_legacy
+app/assets/stylesheets/vendor/
+app/assets/stylesheets/admin_legacy
 spec/javascripts/admin_legacy

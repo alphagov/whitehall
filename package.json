@@ -8,7 +8,7 @@
     "lint": "yarn run lint:js && yarn run lint:scss && yarn run lint:prettier",
     "lint:js": "eslint --cache --cache-location .cache/eslint --color --ignore-path .gitignore -- \"**/*.js\"",
     "lint:scss": "stylelint app/assets/stylesheets/",
-    "lint:prettier": "prettier --cache --cache-location .cache/prettier --cache-strategy content --check -- \"**/*.js\"",
+    "lint:prettier": "prettier --cache --cache-location .cache/prettier --cache-strategy content --check -- \"**/*.{js,scss}\"",
     "jasmine:prepare": "RAILS_ENV=test bundle exec rails assets:clobber assets:precompile",
     "jasmine:ci": "yarn run jasmine:prepare && yarn run jasmine-browser-runner runSpecs",
     "jasmine:browser": "yarn run jasmine:prepare && yarn run jasmine-browser-runner"
