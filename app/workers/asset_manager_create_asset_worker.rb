@@ -20,12 +20,23 @@ class AssetManagerCreateAssetWorker < WorkerBase
       AttachmentData.find(assetable_id).uploaded_to_asset_manager!
     end
 
+    perform_draft_update(attachable_model_class, attachable_model_id)
+
     file.close
     FileUtils.rm(file)
     FileUtils.rmdir(File.dirname(file))
   end
 
 private
+
+  def perform_draft_update(attachable_model_class, attachable_model_id)
+    if attachable_model_class && attachable_model_id && attachable_model_class.constantize.ancestors.include?(Edition)
+      attachable = attachable_model_class.constantize.find(attachable_model_id)
+      draft_updater = Whitehall.edition_services.draft_updater(attachable)
+
+      draft_updater.perform!
+    end
+  end
 
   def get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
     if attachable_model_class && attachable_model_id

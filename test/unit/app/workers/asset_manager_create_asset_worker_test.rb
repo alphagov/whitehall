@@ -118,4 +118,22 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     assert_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
   end
+
+  test "triggers an update to publishing api after asset has been saved" do
+    consultation = FactoryBot.create(:consultation)
+    Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
+
+    Services.publishing_api.stubs(:put_content).once
+
+    @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
+  end
+
+  test "does not trigger an update to publishing api if attachable is not an edition" do
+    consultation_outcome = FactoryBot.create(:consultation_outcome)
+    Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
+
+    Services.publishing_api.stubs(:put_content).never
+
+    @worker.perform(@file.path, @asset_args, true, consultation_outcome.class.to_s, consultation_outcome.id)
+  end
 end
