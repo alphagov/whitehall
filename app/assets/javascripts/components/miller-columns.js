@@ -38,6 +38,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       return
     }
 
+    // prettier-ignore
     new window.accessibleAutocomplete({ // eslint-disable-line no-new, new-cap
       id: input.id,
       name: input.name,

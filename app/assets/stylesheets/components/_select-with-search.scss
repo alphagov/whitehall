@@ -290,6 +290,7 @@
     }
   }
 
+  // prettier-ignore
   @media (min-width: 640px) { // stylelint-disable-line media-feature-range-notation
     .choices__list--dropdown .choices__item--selectable,
     .choices__list[aria-expanded] .choices__item--selectable {
