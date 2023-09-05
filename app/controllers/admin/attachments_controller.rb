@@ -193,11 +193,8 @@ private
     end
 
     if attachable_is_an_edition?
-      @draft_updater ||= Whitehall.edition_services.draft_updater(attachable)
-
-      if @draft_updater.can_perform?
-        @draft_updater.perform!
-      end
+      draft_updater = Whitehall.edition_services.draft_updater(attachable)
+      draft_updater.perform!
     end
 
     result
