@@ -19,7 +19,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         const category = $select.getAttribute('data-track-category')
         const label = $select.getAttribute('data-track-label')
         if (category && label) {
-          window.GOVUK.analytics.trackEvent(category, query, { label: label })
+          window.GOVUK.analytics.trackEvent(category, query, { label })
         }
 
         let matchingOption

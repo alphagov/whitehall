@@ -39,7 +39,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         GOVUK.analytics.trackEvent(
           'pageElementInteraction',
           target.checked ? 'checkboxClickedOn' : 'checkboxClickedOff',
-          { label: label }
+          { label }
         )
       })
     }

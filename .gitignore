@@ -28,3 +28,4 @@
 /failures
 /node_modules
 /yarn-error.log
+.cache/

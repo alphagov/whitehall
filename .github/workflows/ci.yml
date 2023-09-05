@@ -17,15 +17,11 @@ jobs:
 
   lint-scss:
     name: Lint SCSS
-    uses: alphagov/govuk-infrastructure/.github/workflows/stylelint.yml@main
-    with:
-      files: "app/assets/stylesheets/"
+    uses: ./.github/workflows/lintscss.yml
 
   lint-javascript:
     name: Lint JavaScript
-    uses: alphagov/govuk-infrastructure/.github/workflows/standardx.yml@main
-    with:
-      files: "'app/assets/javascripts/**/*.js' 'spec/javascripts/**/*.js'"
+    uses: ./.github/workflows/lintjs.yml
 
   lint-ruby:
     name: Lint Ruby

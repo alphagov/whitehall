@@ -27,7 +27,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     topics.forEach(function (topic) {
       topicSuggestions.push({
-        topic: topic,
+        topic,
         highlightedTopicName: topic.topicName.replace(/<\/?mark>/gm, ''), // strip existing <mark> tags
         breadcrumbs: topic.topicNames
       })
@@ -41,7 +41,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     new window.accessibleAutocomplete({ // eslint-disable-line no-new, new-cap
       id: input.id,
       name: input.name,
-      element: element,
+      element,
       minLength: 3,
       autoselect: false,
       source: function (query, syncResults) {
