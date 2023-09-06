@@ -82,21 +82,12 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
       context "attachments have assets" do
         let(:managing_editor) { create(:managing_editor) }
-
-        let(:first_filename) { "sample.docx" }
-        let(:first_file) { File.open(path_to_attachment(first_filename)) }
-        let(:first_attachment) { build(:file_attachment, attachable: edition, file: first_file) }
-        let(:first_asset_id) { "first-asset-id" }
-
-        let(:second_filename) { "sample.rtf" }
-        let(:second_file) { File.open(path_to_attachment(second_filename)) }
-        let(:second_attachment) { build(:file_attachment, attachable: edition, file: second_file) }
-        let(:second_asset_id) { "second-asset-id" }
-
+        let(:first_attachment) { build(:file_attachment_with_asset, attachable: edition, title: "first attachment") }
+        let(:first_asset_id) { "asset_manager_id" }
+        let(:second_attachment) { build(:file_attachment_with_assets, attachable: edition) }
+        let(:second_asset_id_original) { "asset_manager_id_original" }
+        let(:second_asset_id_thumbnail) { "asset_manager_id_thumbnail" }
         let(:edition) { create(:news_article) }
-
-        let(:first_asset) { Asset.new(asset_manager_id: first_asset_id, variant: Asset.variants[:original], filename: first_filename) }
-        let(:second_asset) { Asset.new(asset_manager_id: second_asset_id, variant: Asset.variants[:original], filename: second_filename) }
 
         before do
           login_as(managing_editor)
@@ -106,11 +97,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           setup_publishing_api_for(edition)
           stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
           stub_asset(first_asset_id)
-          stub_asset(second_asset_id)
-          first_attachment.attachment_data.uploaded_to_asset_manager!
-          second_attachment.attachment_data.uploaded_to_asset_manager!
-          first_attachment.attachment_data.assets = [first_asset]
-          second_attachment.attachment_data.assets = [second_asset]
+          stub_asset(second_asset_id_original)
+          stub_asset(second_asset_id_thumbnail)
           edition.save!
 
           # clear the queue of jobs resulting from test setup
@@ -149,7 +137,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
           it "deletes all corresponding assets in Asset Manager" do
             Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
-            Services.asset_manager.expects(:delete_asset).once.with(second_asset_id)
+            Services.asset_manager.expects(:delete_asset).once.with(second_asset_id_original)
+            Services.asset_manager.expects(:delete_asset).once.with(second_asset_id_thumbnail)
             assert_equal AssetManagerAttachmentMetadataWorker.jobs.count, 2
             AssetManagerAttachmentMetadataWorker.drain
           end

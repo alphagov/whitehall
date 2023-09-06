@@ -46,6 +46,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
 
       before do
+        attachment_data.use_non_legacy_endpoints = true
         attachment_data.assets = [original_asset, thumbnail_asset]
       end
 
