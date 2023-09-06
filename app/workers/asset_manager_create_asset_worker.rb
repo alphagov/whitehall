@@ -14,7 +14,9 @@ class AssetManagerCreateAssetWorker < WorkerBase
     asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
 
     response = asset_manager.create_asset(asset_options)
-    save_asset_id_to_assets(assetable_id, assetable_type, asset_variant, response)
+    asset_manager_id = get_asset_id(response)
+    filename = get_filename(response)
+    save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
 
     if assetable_type == AttachmentData.name && asset_variant == Asset.variants[:original]
       AttachmentData.find(assetable_id).uploaded_to_asset_manager!
@@ -47,14 +49,18 @@ private
     end
   end
 
-  def save_asset_id_to_assets(assetable_id, assetable_type, variant, response)
-    asset_manager_id = get_asset_id(response)
-    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:)
+  def save_asset(assetable_id, assetable_type, variant, asset_manager_id, filename)
+    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:, filename:)
   end
 
   def get_asset_id(response)
     attributes = response.to_hash
     url = attributes["id"]
     url[/\/assets\/(.*)/, 1]
+  end
+
+  def get_filename(response)
+    attributes = response.to_hash
+    attributes["name"]
   end
 end

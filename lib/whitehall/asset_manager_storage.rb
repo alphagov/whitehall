@@ -58,7 +58,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
         asset_variant = @version ? Asset.variants[@version] : Asset.variants[:original]
         asset = @model.assets.select { |a| a.variant == asset_variant }.first
         if asset
-          URI.join(Plek.asset_root, Addressable::URI.encode("media/#{asset.asset_manager_id}/#{filename}")).to_s
+          URI.join(Plek.asset_root, Addressable::URI.encode("media/#{asset.asset_manager_id}/#{asset.filename}")).to_s
         end
       else
         URI.join(Plek.asset_root, Addressable::URI.encode(@legacy_url_path)).to_s

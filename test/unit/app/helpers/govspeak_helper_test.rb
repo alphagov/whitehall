@@ -180,7 +180,7 @@ class GovspeakHelperTest < ActionView::TestCase
     body = "#Heading\n\n#{embed_code}\n\n##Subheading"
     attachment = build(:file_attachment, title: "Green paper")
     attachment.attachment_data.use_non_legacy_endpoints = true
-    document = create(:published_detailed_guide, :with_file_attachment, attachments: [attachment], body:)
+    document = build(:draft_detailed_guide, :with_file_attachment, attachments: [attachment], body:)
 
     html = govspeak_edition_to_html(document)
     refute_select_within_html html, ".gem-c-attachment"

@@ -75,7 +75,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
       Services.asset_manager.expects(:create_asset).with { |value|
         image_path = value[:file].path
         assert_image_has_correct_size image_path
-      }.times(7).returns("id" => "http://asset-manager/assets/some-id")
+      }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "minister-of-funk.960x640.jpg")
 
       AssetManagerCreateAssetWorker.drain
     end
@@ -94,7 +94,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
       Services.asset_manager.stubs(:create_asset).with { |params|
         file = params[:file].path.split("/").last
         assert expected_file_names.include?(file)
-      }.times(7).returns("id" => "http://asset-manager/assets/some-id")
+      }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "minister-of-funk.960x640.jpg")
 
       AssetManagerCreateAssetWorker.drain
     end
@@ -105,7 +105,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
       Services.asset_manager.stubs(:create_asset).with { |params|
         assert params[:file].path.split("/").last == "test-svg.svg"
-      }.once.returns("id" => "http://asset-manager/assets/some-id")
+      }.once.returns("id" => "http://asset-manager/assets/some-id", "name" => "test-svg.svg")
 
       AssetManagerCreateAssetWorker.drain
     end

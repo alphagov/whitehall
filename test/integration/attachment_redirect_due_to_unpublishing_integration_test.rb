@@ -218,7 +218,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
         stub_publishing_api_has_linkables([], document_type: "topic")
         login_as create(:managing_editor)
         setup_publishing_api_for(edition)
-        attachment.attachment_data.assets.new(asset_manager_id:, variant:)
+        attachment.attachment_data.assets.new(asset_manager_id:, variant:, filename:)
         attachable.attachments << attachment
         stub_asset(asset_manager_id)
         attachable.save!

@@ -157,7 +157,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
       Services.asset_manager.expects(:create_asset).twice.with { |value|
         (value[:file].path.ends_with? "greenpaper.pdf") || (value[:file].path.ends_with? "greenpaper.pdf.png")
-      }.returns("id" => "http://asset-manager/assets/#{@asset_manager_id}")
+      }.returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => "greenpaper.pdf")
 
       second_attempt_attachment = build(:attachment_data, file: nil, file_cache: attachment.file_cache)
       second_attempt_attachment.use_non_legacy_endpoints = true

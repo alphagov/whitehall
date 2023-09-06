@@ -7,7 +7,10 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @asset_manager_id = "asset_manager_id"
     @organisation = FactoryBot.create(:organisation)
     @model = FactoryBot.create(:attachment_data)
-    @asset_manager_response = { "id" => "http://asset-manager/assets/#{@asset_manager_id}" }
+    @asset_manager_response = {
+      "id" => "http://asset-manager/assets/#{@asset_manager_id}",
+      "name" => File.basename(@file),
+    }
     @asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:original], assetable_type: @model.class.to_s }.deep_stringify_keys
   end
 
@@ -90,12 +93,12 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(path, @asset_args)
   end
 
-  test "stores corresponding asset_manager_id for current file attachment" do
+  test "stores corresponding asset_manager_id and filename for current file attachment" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
     @worker.perform(@file.path, @asset_args)
 
-    assert_equal 1, Asset.where(asset_manager_id: @asset_manager_id, variant: Asset.variants[:original]).count
+    assert_equal 1, Asset.where(asset_manager_id: @asset_manager_id, variant: Asset.variants[:original], filename: File.basename(@file)).count
   end
 
   test "updates uploaded_to_asset_manager for :original asset variant" do

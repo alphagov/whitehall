@@ -162,7 +162,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
             force_publish_document
             visit admin_news_article_path(edition)
             unpublish_document_published_in_error
-            attachment.attachment_data.assets.new(asset_manager_id:, variant:)
+            attachment.attachment_data.assets.new(asset_manager_id:, variant:, filename:)
             attachable.attachments << attachment
             attachable.save!
             Attachment.last.attachment_data.uploaded_to_asset_manager!
@@ -179,7 +179,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
         before do
           setup_publishing_api_for(edition)
-          attachment.attachment_data.assets.new(asset_manager_id:, variant:)
+          attachment.attachment_data.assets.new(asset_manager_id:, variant:, filename:)
           attachable.attachments << attachment
           attachable.save!
         end
@@ -251,7 +251,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
         it "marks attachment as published in Asset Manager when added to policy group" do
           visit admin_policy_group_attachments_path(policy_group)
           add_attachment(filename)
-          Attachment.last.attachment_data.assets.create!(asset_manager_id:, variant:)
+          Attachment.last.attachment_data.assets.create!(asset_manager_id:, variant:, filename:)
           Attachment.last.attachment_data.uploaded_to_asset_manager!
 
           assert_sets_draft_status_in_asset_manager_to false

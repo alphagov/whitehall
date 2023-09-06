@@ -4,6 +4,7 @@ class Asset < ApplicationRecord
   validates :asset_manager_id, presence: true
   validates :assetable, presence: true
   validates :variant, presence: true
+  validates :filename, presence: true
 
   enum variant: {
     original: "original".freeze,

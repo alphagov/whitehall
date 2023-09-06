@@ -295,7 +295,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
                 access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
-            ).returns("id" => "http://asset-manager/assets/some-id")
+            ).returns("id" => "http://asset-manager/assets/some-id", "name" => "logo.png")
             AssetManagerCreateAssetWorker.drain
           end
         end
@@ -318,13 +318,13 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
                 access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
-            ).returns("id" => "http://asset-manager/assets/some-id")
+            ).returns("id" => "http://asset-manager/assets/some-id", "name" => "greenpaper.pdf")
             Services.asset_manager.expects(:create_asset).with(
               has_entries(
                 access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
-            ).returns("id" => "http://asset-manager/assets/some-id")
+            ).returns("id" => "http://asset-manager/assets/some-id", "name" => "greenpaper.pdf")
 
             AssetManagerCreateAssetWorker.drain
           end
@@ -335,7 +335,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             stub_asset(asset_manager_id, draft: true)
 
             add_file_attachment("logo.png", to: edition)
-            edition.attachments[0].attachment_data.assets.create!(asset_manager_id:, variant:)
+            edition.attachments[0].attachment_data.assets.create!(asset_manager_id:, variant:, filename: "logo.png")
             edition.attachments[0].attachment_data.uploaded_to_asset_manager!
             edition.save!
           end
@@ -390,7 +390,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               Services.asset_manager.expects(:create_asset).with { |params|
                 params[:access_limited_organisation_ids] == [organisation.content_id] &&
                   params[:auth_bypass_ids] == [edition.auth_bypass_id]
-              }.returns("id" => "http://asset-manager/assets/some-id")
+              }.returns("id" => "http://asset-manager/assets/some-id", "name" => "logo.png")
 
               AssetManagerCreateAssetWorker.drain
             end
@@ -415,7 +415,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         it "sends an image to asset manager with the document's auth_bypass_id" do
           Services.asset_manager.expects(:create_asset).at_least_once.with(
             has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
-          ).returns("id" => "http://asset-manager/assets/asset-id")
+          ).returns("id" => "http://asset-manager/assets/asset-id", "name" => "minister-of-funk.960x640.jpg")
 
           AssetManagerCreateAssetWorker.drain
         end
@@ -445,7 +445,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
                 access_limited_organisation_ids: [organisation.content_id],
                 auth_bypass_ids: [edition.auth_bypass_id],
               ),
-            ).returns("id" => "http://asset-manager/assets/some-id")
+            ).returns("id" => "http://asset-manager/assets/some-id", "name" => "logo.png")
             AssetManagerCreateAssetWorker.drain
           end
         end
