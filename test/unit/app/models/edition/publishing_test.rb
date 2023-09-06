@@ -156,4 +156,21 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
     assert_equal edition, edition.unpublished_edition
   end
+
+  test "is valid if all assets have been uploaded" do
+    published_edition = build(:published_edition)
+    attachment = build(:file_attachment_with_assets)
+    published_edition.attachments << attachment
+
+    assert published_edition.valid?
+  end
+
+  test "is invalid if some assets are missing" do
+    published_edition = build(:published_edition)
+    attachment = build(:file_attachment)
+    attachment.attachment_data.use_non_legacy_endpoints = true
+    published_edition.attachments << attachment
+
+    assert_not published_edition.valid?
+  end
 end

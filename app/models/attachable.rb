@@ -95,7 +95,7 @@ module Attachable
     attachments
       .map(&:attachment_data)
       .compact
-      .all?(&:uploaded_to_asset_manager?)
+      .all?(&:all_asset_variants_uploaded?)
   end
 
   def allows_attachments?
