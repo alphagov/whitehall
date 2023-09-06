@@ -36,8 +36,8 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
       let(:original) { Asset.variants[:original] }
       let(:thumbnail) { Asset.variants[:thumbnail] }
-      let(:original_asset) { Asset.new(asset_manager_id: "original_asset_manager_id", variant: original) }
-      let(:thumbnail_asset) { Asset.new(asset_manager_id: "thumbnail_asset_manager_id", variant: thumbnail) }
+      let(:original_asset) { Asset.new(asset_manager_id: "original_asset_manager_id", variant: original, filename: "simple.pdf") }
+      let(:thumbnail_asset) { Asset.new(asset_manager_id: "thumbnail_asset_manager_id", variant: thumbnail, filename: "thumbnail_simple.pdf.png") }
 
       around do |test|
         AssetManager.stub_const(:AssetUpdater, update_service) do
@@ -242,7 +242,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           let(:attachment_data) { AttachmentData.create!(file: sample_rtf) }
 
           it "does not update asset manager" do
-            attachment_data.assets.create!(asset_manager_id: "asset_manager_id", variant: original)
+            attachment_data.assets.create!(asset_manager_id: "asset_manager_id", variant: original, filename: "sample.rtf")
             update_service.expects(:call).never
 
             updater.call(attachment_data, replacement_id: true)
@@ -254,8 +254,8 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           let(:replacement) { AttachmentData.create!(file: whitepaper_pdf) }
           let(:replacement_attributes) { { "replacement_id" => replacement_original_asset.asset_manager_id } }
           let(:replacement_thumbnail_attributes) { { "replacement_id" => replacement_thumbnail_asset.asset_manager_id } }
-          let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_original_asset_manager_id", variant: original) }
-          let(:replacement_thumbnail_asset) { Asset.new(asset_manager_id: "replacement_thumbnail_asset_manager_id", variant: thumbnail) }
+          let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_original_asset_manager_id", variant: original, filename: "whitepaper.pdf") }
+          let(:replacement_thumbnail_asset) { Asset.new(asset_manager_id: "replacement_thumbnail_asset_manager_id", variant: thumbnail, filename: "thumbnail_whitepaper.pdf.png") }
 
           before do
             attachment_data.replaced_by = replacement
@@ -296,8 +296,8 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           let(:replacement) { AttachmentData.create!(file: sample_docx) }
 
           it "raises a AssetNotFound error" do
-            attachment_data.assets.create!(asset_manager_id: "asset_manager_id", variant: original)
-            replacement.assets.create!(asset_manager_id: "replacement_asset_manager_id", variant: original)
+            attachment_data.assets.create!(asset_manager_id: "asset_manager_id", variant: original, filename: "sample.rtf")
+            replacement.assets.create!(asset_manager_id: "replacement_asset_manager_id", variant: original, filename: "sample.docx")
 
             update_service.expects(:call)
                           .raises(AssetManager::ServiceHelper::AssetNotFound.new("asset not found"))

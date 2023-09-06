@@ -8,7 +8,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @organisation = FactoryBot.create(:organisation)
     @model = FactoryBot.create(:attachment_data)
     @asset_manager_response = { "id" => "http://asset-manager/assets/#{@asset_manager_id}" }
-    @asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:original], assetable_type: @model.class.to_s }.deep_stringify_keys
+    @asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:original], assetable_type: @model.class.to_s, filename: File.basename(@file) }.deep_stringify_keys
   end
 
   test "upload an asset using a file object at the correct path" do

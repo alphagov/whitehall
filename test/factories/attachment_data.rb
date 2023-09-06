@@ -8,8 +8,8 @@ FactoryBot.define do
     use_non_legacy_endpoints { true }
 
     after(:build) do |attachment_data|
-      attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original])
-      attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id_thumbnail", variant: Asset.variants[:thumbnail])
+      attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: "greenpaper.pdf")
+      attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id_thumbnail", variant: Asset.variants[:thumbnail], filename: "thumbnail_greenpaper.pdf.png")
     end
   end
 
@@ -19,7 +19,7 @@ FactoryBot.define do
     use_non_legacy_endpoints { true }
 
     after(:build) do |attachment_data|
-      attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id", variant: Asset.variants[:original])
+      attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id", variant: Asset.variants[:original], filename: "sample.docx")
     end
   end
 

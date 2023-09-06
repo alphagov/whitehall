@@ -66,15 +66,7 @@ class AssetManager::AttachmentDeleterTest < ActiveSupport::TestCase
       end
 
       context "attachment_data has associated assets" do
-        let(:file) { File.open(fixture_path.join("simple.pdf")) }
-        let(:original_file_id) { "original_file_id" }
-        let(:variant_file_id) { "variant_file_id" }
-        let(:original_asset) { Asset.new(asset_manager_id: original_file_id, variant: Asset.variants[:original]) }
-        let(:variant_asset) { Asset.new(asset_manager_id: variant_file_id, variant: Asset.variants[:thumbnail]) }
-
-        before do
-          attachment_data.assets = [original_asset, variant_asset]
-        end
+        let(:attachment_data) { build(:attachment_data_with_assets) }
 
         context "and attachment data is not deleted" do
           let(:deleted) { false }
@@ -92,8 +84,8 @@ class AssetManager::AttachmentDeleterTest < ActiveSupport::TestCase
           let(:deleted) { true }
 
           it "deletes attachment & thumbnail asset in Asset Manager" do
-            delete_worker.expects(:call).with(nil, original_file_id)
-            delete_worker.expects(:call).with(nil, variant_file_id)
+            delete_worker.expects(:call).with(nil, "asset_manager_id_original")
+            delete_worker.expects(:call).with(nil, "asset_manager_id_thumbnail")
 
             worker.call(attachment_data)
           end

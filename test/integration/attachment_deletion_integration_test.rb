@@ -95,8 +95,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
         let(:edition) { create(:news_article) }
 
-        let(:first_asset) { Asset.new(asset_manager_id: first_asset_id, variant: Asset.variants[:original]) }
-        let(:second_asset) { Asset.new(asset_manager_id: second_asset_id, variant: Asset.variants[:original]) }
+        let(:first_asset) { Asset.new(asset_manager_id: first_asset_id, variant: Asset.variants[:original], filename: first_filename) }
+        let(:second_asset) { Asset.new(asset_manager_id: second_asset_id, variant: Asset.variants[:original], filename: second_filename) }
 
         before do
           login_as(managing_editor)

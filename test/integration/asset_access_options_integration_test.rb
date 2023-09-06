@@ -335,7 +335,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             stub_asset(asset_manager_id, draft: true)
 
             add_file_attachment("logo.png", to: edition)
-            edition.attachments[0].attachment_data.assets.create!(asset_manager_id:, variant:)
+            edition.attachments[0].attachment_data.assets.create!(asset_manager_id:, variant:, filename: "logo.png")
             edition.attachments[0].attachment_data.uploaded_to_asset_manager!
             edition.save!
           end

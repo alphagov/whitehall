@@ -8,13 +8,13 @@ class AssetManagerCreateAssetWorker < WorkerBase
 
     file = File.open(temporary_location)
 
-    assetable_id, assetable_type, asset_variant = asset_params.values_at("assetable_id", "assetable_type", "asset_variant")
+    assetable_id, assetable_type, asset_variant, filename = asset_params.values_at("assetable_id", "assetable_type", "asset_variant", "filename")
     asset_options = { file:, auth_bypass_ids:, draft: }
     authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
     asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
 
     response = asset_manager.create_asset(asset_options)
-    save_asset_id_to_assets(assetable_id, assetable_type, asset_variant, response)
+    save_asset_id_to_assets(assetable_id, assetable_type, asset_variant, response, filename)
 
     if assetable_type == AttachmentData.name && asset_variant == Asset.variants[:original]
       AttachmentData.find(assetable_id).uploaded_to_asset_manager!
@@ -47,14 +47,25 @@ private
     end
   end
 
-  def save_asset_id_to_assets(assetable_id, assetable_type, variant, response)
+  def save_asset_id_to_assets(assetable_id, assetable_type, variant, response, filename)
     asset_manager_id = get_asset_id(response)
-    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:)
+    derived_filename = get_filename(variant, filename)
+    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:, filename: derived_filename)
   end
 
   def get_asset_id(response)
     attributes = response.to_hash
     url = attributes["id"]
     url[/\/assets\/(.*)/, 1]
+  end
+
+  def get_filename(variant, filename)
+    if variant == Asset.variants[:original]
+      filename
+    elsif variant == Asset.variants[:thumbnail]
+      "thumbnail_#{filename}.png"
+    else
+      "#{variant}_#{filename}"
+    end
   end
 end

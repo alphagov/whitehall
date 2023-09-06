@@ -24,8 +24,9 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     if should_save_an_asset?
       assetable_id = uploader.model.id
       assetable_type = uploader.model.class.to_s
+      filename = uploader.identifier
       asset_variant = uploader.version_name ? Asset.variants[uploader.version_name] : Asset.variants[:original]
-      asset_params = { assetable_id:, asset_variant:, assetable_type: }.deep_stringify_keys
+      asset_params = { assetable_id:, asset_variant:, assetable_type:, filename: }.deep_stringify_keys
 
       # Separating the journey based on feature flag so its easier to make future changes and also decommission old journey
       AssetManagerCreateAssetWorker.perform_async(temporary_location, asset_params, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
@@ -60,7 +61,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
         asset_variant = @version ? Asset.variants[@version] : Asset.variants[:original]
         asset = @model.assets.where(variant: asset_variant).first
         if asset
-          URI.join(Plek.asset_root, Addressable::URI.encode("media/#{asset.asset_manager_id}/#{filename}")).to_s
+          URI.join(Plek.asset_root, Addressable::URI.encode("media/#{asset.asset_manager_id}/#{asset.filename}")).to_s
         end
       else
         URI.join(Plek.asset_root, Addressable::URI.encode(@legacy_url_path)).to_s

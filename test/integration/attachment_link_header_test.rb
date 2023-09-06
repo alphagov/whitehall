@@ -67,7 +67,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
 
         before do
           setup_publishing_api_for(edition)
-          attachment.attachment_data.assets.new(asset_manager_id:, variant:)
+          attachment.attachment_data.assets.new(asset_manager_id:, variant:, filename:)
           attachable.attachments << attachment
           attachable.save!
         end

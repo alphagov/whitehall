@@ -63,7 +63,7 @@ class AttachmentData < ApplicationRecord
 
   def all_asset_variants_uploaded?
     if use_non_legacy_endpoints
-      return pdf? ? assets.size == 2 : assets.size == 1
+      return assets.size == (pdf? ? 2 : 1)
     end
 
     uploaded_to_asset_manager?
@@ -185,7 +185,7 @@ class AttachmentData < ApplicationRecord
     attachable && attachable.respond_to?(:auth_bypass_id) ? [attachable.auth_bypass_id] : []
   end
 
-  private
+private
 
   def filtered_attachments(include_deleted_attachables: false)
     if include_deleted_attachables
