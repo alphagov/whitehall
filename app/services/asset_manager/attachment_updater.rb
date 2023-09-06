@@ -10,7 +10,15 @@ class AssetManager::AttachmentUpdater
     return if attachment_data.deleted?
 
     # This logic will be eventually removed as part of cleaning up the feature flag for removing legacy_url_path
-    if attachment_data.assets.empty?
+    if attachment_data.use_non_legacy_endpoints
+      attachment_data.assets.each do |asset|
+        asset_attributes = get_asset_attributes(attachment_data, asset, access_limited, draft_status, link_header, redirect_url, replacement_id)
+
+        next unless asset_attributes.any?
+
+        AssetManager::AssetUpdater.call(asset.asset_manager_id, attachment_data, nil, asset_attributes.deep_stringify_keys)
+      end
+    else
       updates = []
 
       updates += AccessLimitedUpdates.call(attachment_data).to_a if access_limited
@@ -20,14 +28,6 @@ class AssetManager::AttachmentUpdater
       updates += ReplacementIdUpdates.call(attachment_data).to_a if replacement_id
 
       combined_updates(updates).each(&:call)
-    else
-      attachment_data.assets.each do |asset|
-        asset_attributes = get_asset_attributes(attachment_data, asset, access_limited, draft_status, link_header, redirect_url, replacement_id)
-
-        next unless asset_attributes.any?
-
-        AssetManager::AssetUpdater.call(asset.asset_manager_id, attachment_data, nil, asset_attributes.deep_stringify_keys)
-      end
     end
   end
 

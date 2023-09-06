@@ -10,6 +10,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
   describe "attachment access options (auth_bypass_id and access_limiting)" do
     let(:organisation) { create(:organisation) }
     let(:managing_editor) { create(:managing_editor, organisation:, uid: "user-uid") }
+    let(:asset_manager_id) { "asset_manager_id" }
 
     before do
       login_as managing_editor
@@ -275,7 +276,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       context "given a draft news article" do
         let(:edition) { create(:news_article, organisations: [organisation], access_limited:) }
         let(:access_limited) { true }
-        let(:asset_manager_id) { "asset-id" }
         let(:variant) { Asset.variants[:original] }
 
         context "when an attachment is added to the draft document" do
@@ -334,9 +334,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           before do
             stub_asset(asset_manager_id, draft: true)
 
-            add_file_attachment("logo.png", to: edition)
-            edition.attachments[0].attachment_data.assets.create!(asset_manager_id:, variant:, filename: "logo.png")
-            edition.attachments[0].attachment_data.uploaded_to_asset_manager!
+            add_file_attachment_with_asset("sample.docx", to: edition)
             edition.save!
           end
 
@@ -383,14 +381,15 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               click_link "Edit"
               attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
               click_button "Save"
-              assert_text "Attachment 'logo.png' updated"
+              assert_text "Attachment 'sample.docx' updated"
             end
 
             it "marks replacement attachment as access limited in Asset Manager" do
+              Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/#{asset_manager_id}")
               Services.asset_manager.expects(:create_asset).with { |params|
                 params[:access_limited_organisation_ids] == [organisation.content_id] &&
                   params[:auth_bypass_ids] == [edition.auth_bypass_id]
-              }.returns("id" => "http://asset-manager/assets/some-id")
+              }.returns("id" => "http://asset-manager/assets/#{asset_manager_id}")
 
               AssetManagerCreateAssetWorker.drain
             end
@@ -402,7 +401,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         let(:edition) { create(:draft_case_study) }
 
         before do
-          stub_asset("minister-of-funk.960x640.jpg", id: "asset-id", draft: true)
+          stub_asset("minister-of-funk.960x640.jpg", id: asset_manager_id, draft: true)
 
           visit admin_case_study_path(edition)
           click_link "Edit draft"
@@ -415,7 +414,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         it "sends an image to asset manager with the document's auth_bypass_id" do
           Services.asset_manager.expects(:create_asset).at_least_once.with(
             has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
-          ).returns("id" => "http://asset-manager/assets/asset-id")
+          ).returns("id" => "http://asset-manager/assets/#{asset_manager_id}")
 
           AssetManagerCreateAssetWorker.drain
         end
@@ -471,6 +470,14 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         attachable: to,
         title: filename,
         file: File.open(path_to_attachment(filename)),
+      )
+    end
+
+    def add_file_attachment_with_asset(filename, to:)
+      to.attachments << FactoryBot.build(
+        :file_attachment_with_asset,
+        title: filename,
+        attachable: to,
       )
     end
 

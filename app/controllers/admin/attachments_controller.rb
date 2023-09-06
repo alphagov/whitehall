@@ -30,9 +30,12 @@ class Admin::AttachmentsController < Admin::BaseController
   def edit; end
 
   def update
+    use_non_legacy_endpoints = attachment.attachment_data&.use_non_legacy_endpoints
     attachment.attributes = attachment_params
     message = "Attachment '#{attachment.title}' updated"
     if attachment.is_a?(FileAttachment)
+      attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints
+
       attachment.attachment_data.attachable = attachable
       if attachment.filename_changed? && attachable.allows_inline_attachments?
         message += ". You must replace the attachment markdown with the new markdown below."
@@ -69,12 +72,6 @@ private
 
   def attachment
     @attachment ||= find_attachment || build_attachment
-
-    if @attachment.attachment_data
-      @attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints?
-    end
-
-    @attachment
   end
   helper_method :attachment
 
@@ -107,6 +104,7 @@ private
     FileAttachment.new(attachment_params).tap do |file_attachment|
       file_attachment.build_attachment_data unless file_attachment.attachment_data
       file_attachment.attachment_data.attachable = attachable
+      file_attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints?
     end
   end
 

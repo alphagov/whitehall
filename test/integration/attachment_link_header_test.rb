@@ -9,7 +9,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
 
   describe "attachment link header" do
     let(:filename) { "sample.docx" }
-    let(:asset_manager_id) { "asset-id" }
+    let(:asset_manager_id) { "asset_manager_id" }
 
     context "updates with legacy_url_path" do
       before do
@@ -60,14 +60,12 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       context "given a file attachment" do
-        let(:file) { File.open(path_to_attachment(filename)) }
-        let(:attachment) { build(:file_attachment, attachable:, file:) }
+        let(:attachment) { build(:file_attachment_with_asset, attachable:) }
         let(:attachable) { edition }
         let(:topic_taxon) { build(:taxon_hash) }
 
         before do
           setup_publishing_api_for(edition)
-          attachment.attachment_data.assets.new(asset_manager_id:, variant:, filename:)
           attachable.attachments << attachment
           attachable.save!
         end

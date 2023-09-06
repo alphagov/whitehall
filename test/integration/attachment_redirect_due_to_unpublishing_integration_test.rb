@@ -12,7 +12,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     let(:file) { File.open(path_to_attachment(filename)) }
     let(:attachment) { build(:file_attachment, attachable:, file:) }
     let(:attachable) { edition }
-    let(:asset_manager_id) { "asset-id" }
+    let(:asset_manager_id) { "asset_manager_id" }
     let(:redirect_path) { edition.public_path }
     let(:redirect_url) { edition.public_url }
     let(:topic_taxon) { build(:taxon_hash) }
@@ -213,12 +213,12 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
 
     context "updates with asset_manager_id" do
       let(:variant) { Asset.variants[:original] }
+      let(:attachment) { build(:file_attachment_with_asset, attachable:) }
 
       before do
         stub_publishing_api_has_linkables([], document_type: "topic")
         login_as create(:managing_editor)
         setup_publishing_api_for(edition)
-        attachment.attachment_data.assets.new(asset_manager_id:, variant:, filename:)
         attachable.attachments << attachment
         stub_asset(asset_manager_id)
         attachable.save!
