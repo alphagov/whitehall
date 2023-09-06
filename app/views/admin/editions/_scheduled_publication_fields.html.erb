@@ -1,6 +1,13 @@
 <div class="govuk-!-margin-bottom-8">
   <%= hidden_field_tag :scheduled_publication_active, 0, id: "" %>
 
+  <% ## The date input needs a custom edition_scheduled_publication id passed into the day input so we can anchor error to the first input. %>
+
+  <%
+    hour_param = params.dig("edition", "scheduled_publication(4i)")
+    minute_param = params.dig("edition", "scheduled_publication(5i)")
+  %>
+
   <%= render "govuk_publishing_components/components/checkboxes", {
     name: "scheduled_publication_active",
     id: "scheduled_publication_active",
@@ -12,7 +19,7 @@
       {
         label: "Schedule for publication",
         value: 1,
-        checked: edition.scheduled_publication.present?,
+        checked: params[:scheduled_publication_active] || edition.scheduled_publication.present?,
         conditional: render("components/datetime_fields_with_govuk_date_component", {
               field_name: "scheduled_publication",
               prefix: "edition",
@@ -21,32 +28,32 @@
               date_hint: "For example, 01 08 2022",
               time_hint: "For example, 09:30 or 19:30",
               year: {
-                value: edition.scheduled_publication&.year || Time.zone.today.year,
+                value: params.dig("edition", "scheduled_publication(1i)") || edition.scheduled_publication&.year || Time.zone.today.year,
                 id: "edition_scheduled_publication_1i",
                 name: "edition[scheduled_publication(1i)]",
                 label: "Year",
                 width: 4,
               },
               month: {
-                value: edition.scheduled_publication&.month || Time.zone.today.month,
+                value: params.dig("edition", "scheduled_publication(2i)") || edition.scheduled_publication&.month || Time.zone.today.month,
                 id: "edition_scheduled_publication_2i",
                 name: "edition[scheduled_publication(2i)]",
                 label: "Month",
                 width: 2,
               },
               day: {
-                value: edition.scheduled_publication&.day || Time.zone.today.day,
-                id: "edition_scheduled_publication_3i",
+                value: params.dig("edition", "scheduled_publication(3i)") || edition.scheduled_publication&.day || Time.zone.today.day,
+                id: "edition_scheduled_publication",
                 name: "edition[scheduled_publication(3i)]",
                 label: "Day",
                 width: 2,
               },
               hour: {
-                value: edition.scheduled_publication&.hour || 9,
+                value: hour_param ? hour_param.to_i : (edition.scheduled_publication&.hour || 9),
                 id: "edition_scheduled_publication_4i",
               },
               minute: {
-                value: edition.scheduled_publication&.min || 30,
+                value: minute_param ? minute_param.to_i : (edition.scheduled_publication&.min || 30),
                 id: "edition_scheduled_publication_5i",
               },
             })
