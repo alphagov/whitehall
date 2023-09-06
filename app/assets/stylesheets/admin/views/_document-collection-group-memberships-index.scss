@@ -1,9 +1,12 @@
-.app-view-document-collection-group-memberships-index__table {
-  .govuk-table__cell {
-    word-break: break-word;
+.app-view-document-collection-group-memberships-index__heading {
+  display: flex;
+  justify-content: space-between;
+}
 
-    &:last-child {
-      width: 7em;
-    }
+.app-view-document-collection-group-memberships-index__table .govuk-table__cell{
+  word-break: break-word;
+
+  &:last-child {
+    white-space: nowrap;
   }
 }
