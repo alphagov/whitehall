@@ -14,6 +14,12 @@ module AttachmentsHelper
   end
 
   def preview_path_for_attachment(attachment)
+    if attachment.attachment_data.use_non_legacy_endpoints
+      if attachment.attachment_data.all_asset_variants_uploaded?
+        return "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
+      end
+      return nil
+    end
     "/government/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/#{attachment.filename}/preview"
   end
 

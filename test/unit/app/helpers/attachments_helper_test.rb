@@ -1,6 +1,8 @@
 require "test_helper"
 
 class AttachmentsHelperTest < ActionView::TestCase
+  extend Minitest::Spec::DSL
+
   test "CSV attachments attached to editions can be previewed" do
     csv_on_edition = create(:csv_attachment, attachable: create(:edition))
     assert previewable?(csv_on_edition)
@@ -94,7 +96,7 @@ class AttachmentsHelperTest < ActionView::TestCase
     assert_equal expect_params, attachment_component_params(attachment)
   end
 
-  test "component params for previewable CSV attachment" do
+  test "component params for previewable CSV attachment with legacy preview path" do
     attachment = file_attachment("sample.csv", attachable: create(:edition))
     expect_params = {
       type: "file",
@@ -104,7 +106,7 @@ class AttachmentsHelperTest < ActionView::TestCase
       content_type: "text/csv",
       filename: attachment.filename,
       file_size: attachment.file_size,
-      preview_url: preview_path_for_attachment(attachment),
+      preview_url: "/government/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/sample.csv/preview",
     }
     assert_equal expect_params, attachment_component_params(attachment)
   end
@@ -168,6 +170,39 @@ class AttachmentsHelperTest < ActionView::TestCase
 
     assert inaccessible[:alternative_format_contact_email].eql? alternative_format_contact_email
     assert_not accessible.key? :alternative_format_contact_email
+  end
+
+  context "use_non_legacy_endpoints" do
+
+    test "component params for previewable CSV attachment when has no asset" do
+      attachment = file_attachment("sample.csv", attachable: create(:edition))
+      attachment.attachment_data.use_non_legacy_endpoints = true
+      expect_params = {
+        type: "file",
+        id: attachment.filename,
+        title: attachment.title,
+        url: attachment.url,
+        content_type: "text/csv",
+        filename: attachment.filename,
+        file_size: attachment.file_size,
+      }
+      assert_equal expect_params, attachment_component_params(attachment)
+    end
+
+    test "component params for previewable CSV attachment when has asset" do
+      attachment = create(:file_attachment, attachable: create(:edition), attachment_data: build(:attachment_data_with_csv_asset))
+      expect_params = {
+        type: "file",
+        id: attachment.filename,
+        title: attachment.title,
+        url: attachment.url,
+        content_type: "text/csv",
+        filename: attachment.filename,
+        file_size: attachment.file_size,
+        preview_url: "/media/asset_manager_id_original/dft_statistical_data_set_sample.csv/preview"
+      }
+      assert_equal expect_params, attachment_component_params(attachment)
+    end
   end
 
   def file_attachment(file_name, params = {})
