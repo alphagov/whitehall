@@ -245,6 +245,12 @@ class Admin::LegacyDocumentCollectionGroupsControllerTest < ActionController::Te
     assert_empty @group2.reload.memberships
   end
 
+  test "GET #show forbids the user to see anything" do
+    get :show, params: { document_collection_id: @collection, id: @group }
+    assert_response :forbidden
+    assert_includes "Sorry, you don’t have access to this document", @response.body
+  end
+
   def given_two_groups_with_memberships
     @group1 = build(:document_collection_group)
     @group2 = build(:document_collection_group)

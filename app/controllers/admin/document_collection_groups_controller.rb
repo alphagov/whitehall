@@ -14,7 +14,9 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     render_design_system(:index, :legacy_index)
   end
 
-  def show; end
+  def show
+    forbidden! unless new_design_system?
+  end
 
   def new
     @group = @collection.groups.build
