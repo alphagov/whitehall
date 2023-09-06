@@ -192,3 +192,16 @@ Then(/^I can see that the group "(.*?)" has been added$/) do |heading|
   expect(page).to have_content "New group has been created"
   expect(find(".govuk-summary-card")).to have_content heading
 end
+
+When(/^I edit the group "(.*?)"'s heading to "(.*?)"$/) do |current_heading, new_heading|
+  visit admin_document_collection_groups_path(@document_collection)
+  click_link "View #{current_heading}"
+  click_link "Edit Group details"
+  fill_in "Name (required)", with: new_heading
+  click_button "Save"
+end
+
+Then(/^I can see that the heading has been updated to "(.*?)"$/) do |heading|
+  expect(page).to have_content "Group details have been updated"
+  expect(find(".govuk-summary-card")).to have_content heading
+end

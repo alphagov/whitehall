@@ -1,6 +1,6 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
-  before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update]
+  before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update show]
   layout :get_layout
 
   def index
@@ -12,6 +12,10 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     )
 
     render_design_system(:index, :legacy_index)
+  end
+
+  def show
+    forbidden! unless new_design_system?
   end
 
   def new
@@ -69,7 +73,7 @@ private
 
   def get_layout
     design_system_actions = []
-    design_system_actions += %w[index confirm_destroy destroy new create edit update] if preview_design_system?(next_release: false)
+    design_system_actions += %w[index confirm_destroy destroy new create edit update show] if preview_design_system?(next_release: false)
 
     if design_system_actions.include?(action_name)
       "design_system"

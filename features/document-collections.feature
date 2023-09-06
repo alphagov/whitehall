@@ -59,3 +59,10 @@ Feature: Grouping documents into a collection
     Given a document collection "May 2012 Update" exists
     When I add the group "Brand new group"
     Then I can see that the group "Brand new group" has been added
+
+  @design-system-only
+  Scenario: Adding a new group
+    Given a document collection "May 2012 Update" exists
+    And a the document collection "May 2012 Update" has a group with the heading "Group to be edited"
+    When I edit the group "Group to be edited"'s heading to "Interesting new heading"
+    Then I can see that the heading has been updated to "Interesting new heading"

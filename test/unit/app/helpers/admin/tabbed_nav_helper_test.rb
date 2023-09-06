@@ -317,4 +317,24 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
 
     assert_equal expected_output, secondary_navigation_tabs_items(person, admin_person_historical_accounts_path(person))
   end
+
+  test "#secondary_navigation_tabs_items for document collection groups" do
+    document_collection = build_stubbed(:document_collection)
+    group = build_stubbed(:document_collection_group, document_collection:)
+
+    expected_output = [
+      {
+        label: "Documents",
+        href: "#",
+        current: false,
+      },
+      {
+        label: "Group details",
+        href: admin_document_collection_group_path(document_collection, group),
+        current: true,
+      },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(group, admin_document_collection_group_path(document_collection, group))
+  end
 end

@@ -1,0 +1,41 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_document_collection_groups_path(@collection),
+  } %>
+<% end %>
+<% content_for :page_title, @group.heading %>
+<% content_for :title, @group.heading %>
+<% content_for :context, @collection.title %>
+<% content_for :title_margin_bottom, 4 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">
+      <%= view_on_website_link_for @collection, url: { draft: true }, class: "govuk-link", target: "blank" %>
+    </p>
+
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document collection group navigation tabs",
+      items: secondary_navigation_tabs_items(@group, request.path)
+    } %>
+
+    <%= render "govuk_publishing_components/components/summary_list", {
+      title: "Group details",
+      heading_size: "l",
+      items: [
+        {
+          field: "Name",
+          value: @group.heading,
+        },
+        {
+          field: "Description",
+          value: @group.body.presence || "None",
+        }
+      ],
+      edit: {
+        href: edit_admin_document_collection_group_path(@collection, @group),
+        link_text: "Edit",
+      }
+    } %>
+  </div>
+</div>
