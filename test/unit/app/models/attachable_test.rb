@@ -405,4 +405,14 @@ class AttachableTest < ActiveSupport::TestCase
     assert attachable_edition.allows_attachments?
     assert_equal [attachable_edition], attachable_edition.attachables
   end
+
+  test "#uploaded_to_asset_manager? returns false if any of the assets are not ready" do
+    first_attachment = build(:file_attachment)
+    second_attachment = build(:file_attachment)
+    first_attachment.attachment_data.use_non_legacy_endpoints = true
+    attachable_edition = build(:edition)
+    attachable_edition.attachments = [first_attachment, second_attachment]
+
+    assert_not attachable_edition.uploaded_to_asset_manager?
+  end
 end
