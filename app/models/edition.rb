@@ -54,6 +54,7 @@ class Edition < ApplicationRecord
   validates_each :first_published_at do |record, attr, value|
     record.errors.add(attr, "can't be set to a future date") if value && Time.zone.now < value
   end
+  validate :scheduled_publication, :valid_date
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
@@ -712,6 +713,31 @@ EXISTS (
 
   def publishing_api_presenter
     PublishingApi::GenericEditionPresenter
+  end
+
+  def scheduled_publication=(date)
+    if date.is_a?(Hash)
+      @date_field_validity = {} if @date_field_validity.nil?
+
+      begin
+        raise ArgumentError if date.values.any?(&:nil?)
+        raise ArgumentError if date.values.any? { |date_part| date_part.to_i.zero? }
+
+        Date.new(date[1], date[2], date[3])
+        @date_field_validity[:scheduled_publication] = true
+      rescue ArgumentError
+        @date_field_validity[:scheduled_publication] = false
+        date = nil
+      end
+    end
+
+    super(date)
+  end
+
+  def valid_date
+    if @date_field_validity.present? && @date_field_validity[:scheduled_publication] == false
+      errors.add(:scheduled_publication, "must be a valid date in the format XX XX XXXX")
+    end
   end
 
 private
