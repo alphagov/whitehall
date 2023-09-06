@@ -3,6 +3,7 @@ When(/^I continue to the tagging page$/) do
   click_link "Add tags"
 end
 
-When(/^I continue to the legacy tagging page$/) do
-  click_button "Update and review specialist topic tags"
+When(/^I navigate to the legacy tagging page$/) do
+  click_button "Save"
+  click_link "Add specialist topic tags"
 end
