@@ -230,8 +230,8 @@ GEM
       rails (>= 6)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
-    globalid (1.1.0)
-      activesupport (>= 5.0)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     globalize (6.2.1)
       activemodel (>= 4.2, < 7.1)
       activerecord (>= 4.2, < 7.1)
@@ -275,7 +275,7 @@ GEM
     govuk_personalisation (0.14.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (35.15.0)
+    govuk_publishing_components (35.15.1)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -871,7 +871,7 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sprockets (4.2.0)
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
     sprockets-rails (3.4.2)
