@@ -185,7 +185,7 @@ GEM
     execjs (2.8.1)
     expgen (0.1.1)
       parslet
-    factory_bot (6.2.1)
+    factory_bot (6.3.0)
       activesupport (>= 5.0.0)
     faraday (2.7.10)
       faraday-net_http (>= 2.0, < 3.1)
