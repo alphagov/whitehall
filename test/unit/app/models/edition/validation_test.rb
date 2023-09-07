@@ -194,4 +194,24 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition.supporting_organisations = [organisation1]
     assert edition.valid?
   end
+
+  test "should be valid when scheduled publication date is a valid date" do
+    edition = build(:draft_edition, scheduled_publication: { 1 => 2023, 2 => 9, 3 => 10 })
+    assert edition.valid?
+  end
+
+  test "should be invalid when scheduled publication date is an invalid date" do
+    edition = build(:draft_edition, scheduled_publication: { 1 => 2023, 2 => 9, 3 => 40 })
+    assert_not edition.valid?
+  end
+
+  test "should be invalid when scheduled publication date is partially completed" do
+    edition = build(:draft_edition, scheduled_publication: { 1 => 2023, 2 => nil, 3 => 9 })
+    assert_not edition.valid?
+  end
+
+  test "should be invalid when not all scheduled publication date parts are numeric" do
+    edition = build(:draft_edition, scheduled_publication: { 1 => 2023, 2 => "January", 3 => 20 })
+    assert_not edition.valid?
+  end
 end

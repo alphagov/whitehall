@@ -21,7 +21,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
         assert_select "form#new_edition" do
           assert_select "input[type=checkbox][name='scheduled_publication_active']"
-          assert_select "select[name*='edition[scheduled_publication']", count: 5
+          assert_select "input[type=text][name*='edition[scheduled_publication']", count: 3
+          assert_select "select[name*='edition[scheduled_publication']", count: 2
         end
       end
 
@@ -121,9 +122,9 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
         assert_select "form#edit_edition" do
           assert_select "input[type=checkbox][name='scheduled_publication_active'][checked='checked']"
-          assert_select "select[name='edition[scheduled_publication(1i)]'] option[value='#{Time.zone.today.year + 1}'][selected='selected']"
-          assert_select "select[name='edition[scheduled_publication(2i)]'] option[value='6'][selected='selected']"
-          assert_select "select[name='edition[scheduled_publication(3i)]'] option[value='3'][selected='selected']"
+          assert_select "input[type=text][name='edition[scheduled_publication(1i)]'][value='#{Time.zone.today.year + 1}']"
+          assert_select "input[type=text][name='edition[scheduled_publication(2i)]'][value='6']"
+          assert_select "input[type=text][name='edition[scheduled_publication(3i)]'][value='3']"
           assert_select "select[name='edition[scheduled_publication(4i)]'] option[value='10'][selected='selected']"
           assert_select "select[name='edition[scheduled_publication(5i)]'] option[value='30'][selected='selected']"
         end
@@ -138,9 +139,9 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         assert_select "form#edit_edition" do
           assert_select "input[type=checkbox][name='scheduled_publication_active']"
           assert_select "input[type=checkbox][name='scheduled_publication_active'][checked='checked']", count: 0
-          assert_select "select[name='edition[scheduled_publication(1i)]'] option[value='#{date.year}'][selected='selected']"
-          assert_select "select[name='edition[scheduled_publication(2i)]'] option[value='#{date.month}'][selected='selected']"
-          assert_select "select[name='edition[scheduled_publication(3i)]'] option[value='#{date.day}'][selected='selected']"
+          assert_select "input[name='edition[scheduled_publication(1i)]'][value='#{date.year}']"
+          assert_select "input[name='edition[scheduled_publication(2i)]'][value='#{date.month}']"
+          assert_select "input[name='edition[scheduled_publication(3i)]'][value='#{date.day}']"
           assert_select "select[name='edition[scheduled_publication(4i)]'] option[value='09'][selected='selected']"
           assert_select "select[name='edition[scheduled_publication(5i)]'] option[value='30'][selected='selected']"
         end
