@@ -196,7 +196,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   end
 
   test "should be valid when scheduled publication date is a valid date" do
-    edition = build(:draft_edition, scheduled_publication: { 1 => 2023, 2 => 9, 3 => 10 })
+    edition = build(:draft_edition, scheduled_publication: { 1 => 2023, 2 => 9, 3 => 10, 4 => 0, 5 => 0 })
     assert edition.valid?
   end
 

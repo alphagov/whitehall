@@ -721,7 +721,7 @@ EXISTS (
 
       begin
         raise ArgumentError if date.values.any?(&:nil?)
-        raise ArgumentError if date.values.any? { |date_part| date_part.to_i.zero? }
+        raise ArgumentError if date[1].to_i.zero? || date[2].to_i.zero? || date[3].to_i.zero?
 
         Date.new(date[1], date[2], date[3])
         @date_field_validity[:scheduled_publication] = true
