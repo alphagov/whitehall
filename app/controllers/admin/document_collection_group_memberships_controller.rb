@@ -3,6 +3,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   before_action :load_document_collection_group
   before_action :load_membership, only: %i[confirm_destroy]
   before_action :find_document, only: :create_whitehall_member
+  before_action :check_new_design_system_permissions, only: %i[index confirm_destroy]
   layout :get_layout
 
   def index; end
@@ -59,14 +60,17 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
 private
 
   def get_layout
-    design_system_actions = %w[index confirm_destroy]
-    design_system_actions += %w[destroy] if preview_design_system?(next_release: false)
+    design_system_actions = %w[index confirm_destroy destroy] if preview_design_system?(next_release: false)
 
-    if design_system_actions.include?(action_name)
+    if design_system_actions&.include?(action_name)
       "design_system"
     else
       "admin"
     end
+  end
+
+  def check_new_design_system_permissions
+    forbidden! unless new_design_system?
   end
 
   def moving?
