@@ -196,6 +196,7 @@ end
 When(/^I edit the group "(.*?)"'s heading to "(.*?)"$/) do |current_heading, new_heading|
   visit admin_document_collection_groups_path(@document_collection)
   click_link "View #{current_heading}"
+  click_link "Group details"
   click_link "Edit Group details"
   fill_in "Name (required)", with: new_heading
   click_button "Save"
@@ -204,4 +205,16 @@ end
 Then(/^I can see that the heading has been updated to "(.*?)"$/) do |heading|
   expect(page).to have_content "Group details have been updated"
   expect(find(".govuk-summary-card")).to have_content heading
+end
+
+When(/^I remove the publication "(.*?)" from the group$/) do |title|
+  visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
+  click_link "Remove #{title}"
+  click_button "Remove"
+end
+
+Then(/^I can see that "(.*?)" has been removed from the group$/) do |title|
+  expect(page).to have_content "Document has been removed from the group"
+  expect(page).to have_content "There are no documents inside this group"
+  expect(page).not_to have_content title
 end
