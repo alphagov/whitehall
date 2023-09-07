@@ -21,7 +21,7 @@
     "paste-html-to-govspeak": "^0.3.0"
   },
   "devDependencies": {
-    "eslint": "^8.47.0",
+    "eslint": "^8.48.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-promise": "^6.0.0",
