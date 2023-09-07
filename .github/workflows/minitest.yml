@@ -31,13 +31,13 @@ jobs:
           sudo apt-get install -y --no-install-recommends ghostscript
 
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: alphagov/whitehall
           ref: ${{ inputs.ref || github.ref }}
 
       - name: Checkout Publishing API (for Content Schemas)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: alphagov/publishing-api
           ref: ${{ inputs.publishingApiRef }}
