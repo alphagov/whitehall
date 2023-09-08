@@ -4,31 +4,17 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   before_action :limit_edition_access!
   layout "design_system"
 
-  def edit
-    @path = get_path
-  end
+  def edit; end
 
   def update
     @edition.assign_attributes(edition_params)
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
     end
-    redirect_to get_path, saved_confirmation_notice
+    redirect_to admin_edition_path(@edition), notice: "The associations have been saved"
   end
 
 private
-
-  def get_path
-    paths = {
-      "edit" => edit_admin_edition_path(@edition),
-      "tags" => edit_admin_edition_tags_path(@edition),
-    }
-    paths[params[:return]] || admin_edition_path(@edition)
-  end
-
-  def saved_confirmation_notice
-    { notice: "The associations have been saved" }
-  end
 
   def updater
     @updater ||= Whitehall.edition_services.draft_updater(@edition)

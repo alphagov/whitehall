@@ -23,27 +23,12 @@
 
       <div class="govuk-button-group govuk-!-margin-top-7">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Update tags",
-          name: "save",
-          value: "save",
+          text: "Save",
           data_attributes: {
               module: 'gem-track-click',
               track_category: 'form-button',
               track_label: "Save tagging changes",
               track_action: "taxonomy-tag-form-button",
-          }
-        } %>
-
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Update and review specialist topic tags",
-          name: "legacy_tags",
-          value: "legacy_tags",
-          secondary_solid: true,
-          data_attributes: {
-            module: 'gem-track-click',
-            track_category: 'form-button',
-            track_label: "Save and review specialist topic tagging",
-            track_action: "taxonomy-tag-form-button",
           }
         } %>
 

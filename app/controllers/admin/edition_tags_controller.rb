@@ -16,22 +16,14 @@ class Admin::EditionTagsController < Admin::BaseController
       invisible_taxons: invisible_taxons + previously_selected_world_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
     )
-    redirect_to redirect_path,
-                notice: "The tags have been updated."
+    redirect_to admin_edition_path(@edition),
+                notice: "Your topic tags have been saved."
   rescue GdsApi::HTTPConflict
     redirect_to edit_admin_edition_tags_path(@edition),
                 alert: "Somebody changed the tags before you could. Your changes have not been saved."
   end
 
 private
-
-  def redirect_path
-    if params[:save]
-      admin_edition_path(@edition)
-    else
-      edit_admin_edition_legacy_associations_path(@edition, return: :tags)
-    end
-  end
 
   def enforce_permissions!
     enforce_permission!(:update, @edition)

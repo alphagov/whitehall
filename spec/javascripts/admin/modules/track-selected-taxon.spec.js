@@ -87,13 +87,7 @@ describe('GOVUK.Modules.TrackSelectedTaxons', function () {
       <div class="govuk-button-group govuk-!-margin-top-7">
         <button
           class="gem-c-button govuk-button" type="submit"
-          name="save" value="save">
-          Update tags
-        </button>
-        <button
-          class="gem-c-button govuk-button govuk-button--secondary" type="submit"
-          name="legacy_tags" value="legacy_tags">
-          Update and review specialist topic tags
+          Save
         </button>
       </div>
     `

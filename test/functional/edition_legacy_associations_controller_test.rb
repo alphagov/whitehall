@@ -47,24 +47,7 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     assert_select "#edition_secondary_specialist_sector_tags option[value='OFFSHORE'][selected='selected']", "Oil and Gas: Offshore"
     assert_select "#edition_secondary_specialist_sector_tags option[value='DISTILL']", "Oil and Gas: Distillation (draft)"
     refute_select "#edition_secondary_specialist_sector_tags option[value='DISTILL'][selected='selected']"
-  end
-
-  view_test "should render the cancel button back to the admin page" do
-    @edition = create(:publication)
-    get :edit, params: { edition_id: @edition.id }
     assert_select ".govuk-button-group  a:contains('Cancel')[href='#{@controller.admin_edition_path(@edition)}']"
-  end
-
-  view_test "should render the cancel button back to the tags page" do
-    @edition = create(:publication)
-    get :edit, params: { edition_id: @edition.id, return: "tags" }
-    assert_select ".govuk-button-group a:contains('Cancel')[href='#{@controller.edit_admin_edition_tags_path(@edition)}']"
-  end
-
-  view_test "should render the cancel button back to the edit page" do
-    @edition = create(:publication)
-    get :edit, params: { edition_id: @edition.id, return: "edit" }
-    assert_select ".govuk-button-group  a:contains('Cancel')[href='#{@controller.edit_admin_edition_path(@edition)}']"
   end
 
   test "should update the edition with the selected legacy tags" do

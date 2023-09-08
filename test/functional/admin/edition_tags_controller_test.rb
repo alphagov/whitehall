@@ -39,7 +39,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     assert_equal "Somebody changed the tags before you could. Your changes have not been saved.", flash[:alert]
   end
 
-  test "should post taxons to publishing-api" do
+  test "should post taxons to publishing-api, set the correct flash and redirect to the document summary page" do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: { edition_id: @edition, taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 } }
@@ -51,32 +51,8 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
       },
       previous_version: "1",
     )
-  end
-
-  test 'should redirect to edition admin page when "Save Tagging Changes" is clicked' do
-    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
-
-    put :update,
-        params: {
-          edition_id: @edition,
-          taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
-          save: "Some Value",
-        }
-
     assert_redirected_to @controller.admin_edition_path(@edition)
-  end
-
-  test 'should redirect to legacy associations page when "Legacy tags" is clicked' do
-    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
-
-    put :update,
-        params: {
-          edition_id: @edition,
-          taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
-          legacy_tags: "Some Value",
-        }
-
-    assert_redirected_to edit_admin_edition_legacy_associations_path(@edition, return: :tags)
+    assert_equal "Your topic tags have been saved.", flash[:notice]
   end
 
   test "should post empty array to publishing api if no taxons are selected" do
@@ -132,25 +108,11 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: @edition }
 
-    assert_select "button[name*='save']" do |elements|
+    assert_select "button", text: "Save" do |elements|
       assert_equal 1, elements.length
       assert_tracking_attributes(
         element: elements.first,
         track_label: "Save tagging changes",
-      )
-    end
-  end
-
-  view_test "should render save and review legacy button with tracking attributes" do
-    stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])
-
-    get :edit, params: { edition_id: @edition }
-
-    assert_select "button[name*='legacy_tags']" do |elements|
-      assert_equal 1, elements.length
-      assert_tracking_attributes(
-        element: elements.first,
-        track_label: "Save and review specialist topic tagging",
       )
     end
   end
