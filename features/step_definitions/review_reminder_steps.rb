@@ -5,8 +5,7 @@ And(/^I add a review date of "([^"]*)" and the email address "([^"]*)" on the ed
     fill_in_date_fields(date)
     fill_in "Email address", with: email
   end
-  click_button "Save and continue"
-  click_button "Update tags"
+  click_button "Save and go to document summary"
 end
 
 And(/^I add a review date of "([^"]*)" and the email address "([^"]*)"$/) do |date, email|

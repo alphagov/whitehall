@@ -1,8 +1,7 @@
 When(/^I draft a new publication "([^"]*)" about the world location "([^"]*)"$/) do |title, location_name|
   begin_drafting_publication(title)
   select location_name, from: "World locations"
-  click_button "Save and continue"
-  click_button "Update tags"
+  click_button "Save and go to document summary"
   add_external_attachment
 end
 

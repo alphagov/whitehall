@@ -228,7 +228,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     announcement_has_no_expanded_links(announcement.content_id)
     get :show, params: { id: announcement }
 
-    assert_select ".govuk-warning-text", /Please add a tag before publishing/
+    assert_select ".govuk-warning-text", /You need to add topic tags before you can publish this document./
     refute_select ".govuk-breadcrumbs__list"
   end
 

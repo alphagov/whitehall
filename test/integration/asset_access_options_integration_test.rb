@@ -36,7 +36,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             visit edit_admin_news_article_path(edition)
             check "Limit access"
             click_button "Save"
-            assert_text "The document has been saved"
+            assert_text "Your document has been saved"
           end
 
           it "marks attachment as access limited in Asset Manager" do
@@ -55,7 +55,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             visit edit_admin_news_article_path(edition)
             uncheck "Limit access"
             click_button "Save"
-            assert_text "The document has been saved"
+            assert_text "Your document has been saved"
           end
 
           it "unmarks attachment as access limited in Asset Manager" do
@@ -347,7 +347,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               visit edit_admin_news_article_path(edition)
               check "Limit access"
               click_button "Save"
-              assert_text "The document has been saved"
+              assert_text "Your document has been saved"
             end
 
             it "marks attachment as access limited in Asset Manager" do
@@ -364,7 +364,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               visit edit_admin_news_article_path(edition)
               uncheck "Limit access"
               click_button "Save"
-              assert_text "The document has been saved"
+              assert_text "Your document has been saved"
             end
 
             it "unmarks attachment as access limited in Asset Manager" do

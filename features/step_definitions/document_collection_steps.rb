@@ -145,9 +145,8 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   click_on "Create new edition"
   choose "Yes - information has been added, updated or removed"
   fill_in "edition_change_note", with: "changes"
-  click_button "Save and continue"
+  click_button "Save and go to document summary"
   save_screenshot
-  click_button "Update tags"
 
   click_on "Edit draft"
   click_on "Collection documents"

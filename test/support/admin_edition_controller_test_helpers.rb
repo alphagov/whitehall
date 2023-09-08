@@ -78,7 +78,7 @@ module AdminEditionControllerTestHelpers
         assert_equal attributes[:body], edition.body
       end
 
-      test "create should take the writer to the topic tagging page" do
+      test "create should take the writer to the document summary page" do
         organisation = create(:organisation)
 
         attributes = controller_attributes_for(edition_type).merge(
@@ -92,9 +92,9 @@ module AdminEditionControllerTestHelpers
              }
 
         edition = edition_class.last
-
-        assert_redirected_to edit_admin_edition_tags_path(edition.id)
-        assert_equal "The document has been saved", flash[:notice]
+        assert_redirected_to @controller.admin_edition_path(edition)
+        expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
+        assert_equal expected_message, flash[:notice]
       end
 
       test "create should email content second line if the user is monitored" do
@@ -205,7 +205,7 @@ module AdminEditionControllerTestHelpers
         assert_equal "new-body", edition.body
       end
 
-      test "update should take the writer to the topic tagging page after updating" do
+      test "update should take the writer to the document summary page after updating" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         organisation = create(:organisation)
@@ -218,8 +218,9 @@ module AdminEditionControllerTestHelpers
               },
             }
 
-        assert_redirected_to edit_admin_edition_tags_path(edition.id)
-        assert_equal "The document has been saved", flash[:notice]
+        assert_redirected_to @controller.admin_edition_path(edition)
+        expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
+        assert_equal expected_message, flash[:notice]
       end
 
       test "update records the user who changed the edition" do

@@ -38,8 +38,9 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     edition = Edition.last
 
     assert page = @organisation.corporate_information_pages.last
-    assert_redirected_to edit_admin_edition_tags_path(edition.id)
-    assert_equal "The document has been saved", flash[:notice]
+    assert_redirected_to @controller.admin_edition_path(edition)
+    expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
+    assert_equal expected_message, flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
     assert_equal corporate_information_page_attributes[:summary], page.summary
@@ -52,8 +53,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     edition = Edition.last
 
     assert page = organisation.corporate_information_pages.last
-    assert_redirected_to edit_admin_edition_tags_path(edition.id)
-    assert_equal "The document has been saved", flash[:notice]
+    assert_redirected_to @controller.admin_edition_path(edition)
+    assert_equal "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document.", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
     assert_equal corporate_information_page_attributes[:summary], page.summary
@@ -88,8 +89,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
     assert_equal new_attributes[:body], corporate_information_page.body
     assert_equal new_attributes[:summary], corporate_information_page.summary
-    assert_equal "The document has been saved", flash[:notice]
-    assert_redirected_to edit_admin_edition_tags_path(edition.id)
+    assert_equal "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document.", flash[:notice]
+    assert_redirected_to @controller.admin_edition_path(edition)
   end
 
   view_test "PUT :update should redisplay form on failure" do

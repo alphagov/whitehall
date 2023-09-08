@@ -10,14 +10,12 @@ end
 
 When(/^I start drafting a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
-  click_button "Save and continue"
-  click_button "Update tags"
+  click_button "Save and go to document summary"
 end
 
 When(/^I draft a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
-  click_button "Save and continue"
-  click_button "Update tags"
+  click_button "Save and go to document summary"
   add_external_attachment
 end
 
@@ -25,16 +23,14 @@ Given(/^"([^"]*)" drafts a new publication "([^"]*)"$/) do |user_name, title|
   user = User.find_by(name: user_name)
   as_user(user) do
     begin_drafting_publication(title)
-    click_button "Save and continue"
-    click_button "Update tags"
+    click_button "Save and go to document summary"
   end
 end
 
 When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/) do |title, data_set_name|
   begin_drafting_publication(title)
   select data_set_name, from: "Statistical data sets"
-  click_button "Save and continue"
-  click_button "Update tags"
+  click_button "Save and go to document summary"
   add_external_attachment
 end
 

@@ -52,8 +52,7 @@ When(/^I save and publish the amended consultation$/) do
   ensure_path edit_admin_consultation_path(consultation)
   fill_in_change_note_if_required
   apply_to_all_nations_if_required
-  click_button "Save and continue"
-  click_button "Update tags"
+  click_button "Save and go to document summary"
   publish force: true
 end
 
