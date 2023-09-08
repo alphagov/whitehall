@@ -1,11 +1,11 @@
-<% show_feedback_banner ||= false %>
+<% show_feedback_banner ||= true %>
 <% tracking_module ||= "gem-track-click" %>
 
 <%if t('admin.whats_new.show_banner') %>
   <%= render "govuk_publishing_components/components/phase_banner", {
       phase: "What's new",
       ga4_tracking: true,
-      message: sanitize("New review date functionality -
+      message: sanitize("improvements to the editor workflow -
         #{
           link_to(
             "read more about the changes",
