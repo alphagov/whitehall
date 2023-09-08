@@ -16,6 +16,8 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
 
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).twice
+
     put :update,
         params: {
           roles: {
@@ -34,6 +36,8 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     @request.env["HTTP_REFERER"] = Plek.website_root + reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path
     role2 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation])
+
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).twice
 
     put :update,
         params: {
@@ -54,6 +58,8 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     role2 = create(:ministerial_role, name: "Whip 1", whip_organisation_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Whip 2", whip_organisation_id: 2, organisations: [organisation])
 
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).twice
+
     put :update,
         params: {
           whips: {
@@ -73,6 +79,9 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     @request.env["HTTP_REFERER"] = Plek.website_root + reorder_ministerial_organisations_admin_cabinet_ministers_path
     org2 = create(:organisation)
     org1 = create(:organisation)
+
+    Whitehall::PublishingApi.expects(:publish).with(org2).once
+    Whitehall::PublishingApi.expects(:publish).with(org1).once
 
     put :update,
         params: {

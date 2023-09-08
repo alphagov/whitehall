@@ -60,7 +60,9 @@ private
     return unless params.include?(key)
 
     params[key]["ordering"].keys.each do |id|
-      Role.where(id:).update_all("#{column}": params[key]["ordering"][id.to_s])
+      role = Role.find(id)
+      role.assign_attributes({ "#{column}": params[key]["ordering"][id.to_s] })
+      role.save!(validate: false)
     end
   end
 
@@ -68,9 +70,9 @@ private
     return unless params.include?(:organisation)
 
     params[:organisation]["ordering"].each_pair do |id, order|
-      Organisation.where(id:).update_all(
-        ministerial_ordering: order,
-      )
+      organisation = Organisation.find(id)
+      organisation.assign_attributes({ ministerial_ordering: order })
+      organisation.save!(validate: false)
     end
   end
 end
