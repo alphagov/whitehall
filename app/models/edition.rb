@@ -54,7 +54,7 @@ class Edition < ApplicationRecord
   validates_each :first_published_at do |record, attr, value|
     record.errors.add(attr, "can't be set to a future date") if value && Time.zone.now < value
   end
-  validate :scheduled_publication, :valid_date
+  validate :valid_date, :scheduled_publication_must_be_in_future
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
@@ -737,6 +737,12 @@ EXISTS (
   def valid_date
     if @date_field_validity.present? && @date_field_validity[:scheduled_publication] == false
       errors.add(:scheduled_publication, "must be a valid date in the correct format")
+    end
+  end
+
+  def scheduled_publication_must_be_in_future
+    if draft? && scheduled_publication.present? && scheduled_publication <= Time.zone.now
+      errors.add(:scheduled_publication, "must be in the future")
     end
   end
 

@@ -214,4 +214,10 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = build(:draft_edition, scheduled_publication: { 1 => 2023, 2 => "January", 3 => 20 })
     assert_not edition.valid?
   end
+
+  test "should be invalid when scheduled publication date is not in the future" do
+    now = Time.zone.now
+    edition = build(:draft_edition, scheduled_publication: { 1 => now.year, 2 => now.month, 3 => now.day })
+    assert_not edition.valid?
+  end
 end
