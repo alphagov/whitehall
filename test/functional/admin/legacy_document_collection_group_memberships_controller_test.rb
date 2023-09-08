@@ -98,4 +98,18 @@ class Admin::LegacyDocumentCollectionGroupMembershipsControllerTest < ActionCont
     assert_redirected_to admin_document_collection_groups_path(@collection)
     assert_match %r{1 document moved to '#{new_group.heading}'}, flash[:notice]
   end
+
+  test "GET #index forbids the user to see anything" do
+    get :index, params: { document_collection_id: @collection, group_id: @group }
+    assert_response :forbidden
+    assert_includes "Sorry, you don’t have access to this document", @response.body
+  end
+
+  test "GET #confirm_destroy forbids the user to see anything" do
+    membership = create(:document_collection_group_membership)
+    @group.memberships << membership
+    get :confirm_destroy, params: { document_collection_id: @collection, group_id: @group, id: membership }
+    assert_response :forbidden
+    assert_includes "Sorry, you don’t have access to this document", @response.body
+  end
 end

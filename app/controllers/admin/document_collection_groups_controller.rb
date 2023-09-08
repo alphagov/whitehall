@@ -72,10 +72,9 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = []
-    design_system_actions += %w[index confirm_destroy destroy new create edit update show] if preview_design_system?(next_release: false)
+    design_system_actions = %w[index confirm_destroy destroy new create edit update show] if preview_design_system?(next_release: false)
 
-    if design_system_actions.include?(action_name)
+    if design_system_actions&.include?(action_name)
       "design_system"
     else
       "admin"
