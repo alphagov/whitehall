@@ -736,7 +736,7 @@ EXISTS (
 
   def valid_date
     if @date_field_validity.present? && @date_field_validity[:scheduled_publication] == false
-      errors.add(:scheduled_publication, "must be a valid date in the format XX XX XXXX")
+      errors.add(:scheduled_publication, "must be a valid date in the correct format")
     end
   end
 
