@@ -1,9 +1,8 @@
 //= require miller-columns-element
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {};
-
-(function (Modules) {
-  function MillerColumns (module) {
+window.GOVUK.Modules = window.GOVUK.Modules || {}
+;(function (Modules) {
+  function MillerColumns(module) {
     this.module = module
     this.searchable = module.getAttribute('data-searchable') === 'true'
   }
@@ -13,8 +12,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   MillerColumns.prototype.initSearch = function () {
-    const element = this.module.querySelector('#js-app-c-miller-columns__search')
-    const input = this.module.querySelector('#js-app-c-miller-columns__search-input')
+    const element = this.module.querySelector(
+      '#js-app-c-miller-columns__search'
+    )
+    const input = this.module.querySelector(
+      '#js-app-c-miller-columns__search-input'
+    )
     const millerColumns = this.module.querySelector('miller-columns')
 
     if (!window.accessibleAutocomplete) {
@@ -38,6 +41,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       return
     }
 
+    // prettier-ignore
     new window.accessibleAutocomplete({ // eslint-disable-line no-new, new-cap
       id: input.id,
       name: input.name,

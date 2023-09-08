@@ -1,8 +1,7 @@
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {};
-
-(function (Modules) {
-  function AppAnalytics (module) { }
+window.GOVUK.Modules = window.GOVUK.Modules || {}
+;(function (Modules) {
+  function AppAnalytics(module) {}
 
   AppAnalytics.prototype.init = function () {
     this.setCustomDimensionsFromMetaTags()
@@ -23,7 +22,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     for (let i = 0; i < metas.length; i++) {
       const meta = metas[i]
-      const dimensionId = parseInt(meta.getAttribute('name').split('custom-dimension:')[1])
+      const dimensionId = parseInt(
+        meta.getAttribute('name').split('custom-dimension:')[1]
+      )
       const content = meta.getAttribute('content')
 
       GOVUK.analytics.setDimension(dimensionId, content)

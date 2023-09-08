@@ -1,5 +1,5 @@
 module.exports = {
-  extends: 'standard',
+  extends: ['standard', 'prettier'],
   ignorePatterns: [
     'app/assets/javascripts/vendor/',
     'app/assets/javascripts/admin_legacy/**/*',

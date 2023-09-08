@@ -1,4 +1,4 @@
-(function (GOVUK) {
+;(function (GOVUK) {
   'use strict'
 
   GOVUK.Analytics.load()

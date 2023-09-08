@@ -1,8 +1,7 @@
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {};
-
-(function (Modules) {
-  function DocumentHistoryPaginator (module) {
+window.GOVUK.Modules = window.GOVUK.Modules || {}
+;(function (Modules) {
+  function DocumentHistoryPaginator(module) {
     this.module = module
   }
 
@@ -30,13 +29,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     link.addEventListener('click', function (e) {
       e.preventDefault()
 
-      window.fetch(new URL(document.location.origin + link.dataset.remotePagination))
-        .then(function (response) { return response.text() })
-        .catch(function () { window.location.href = link.href })
+      window
+        .fetch(
+          new URL(document.location.origin + link.dataset.remotePagination)
+        )
+        .then(function (response) {
+          return response.text()
+        })
+        .catch(function () {
+          window.location.href = link.href
+        })
         .then(function (html) {
           module.innerHTML = html
 
-          const documentHistoryModule = new GOVUK.Modules.DocumentHistoryPaginator(module)
+          const documentHistoryModule =
+            new GOVUK.Modules.DocumentHistoryPaginator(module)
           documentHistoryModule.init()
         })
     })
@@ -58,13 +65,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     select.addEventListener('change', function () {
-      window.fetch(form.dataset.remotePagination + '?' + queryParameters())
-        .then(function (response) { return response.text() })
-        .catch(function () { window.location.search = queryParameters() })
+      window
+        .fetch(form.dataset.remotePagination + '?' + queryParameters())
+        .then(function (response) {
+          return response.text()
+        })
+        .catch(function () {
+          window.location.search = queryParameters()
+        })
         .then(function (html) {
           module.innerHTML = html
 
-          const documentHistoryModule = new GOVUK.Modules.DocumentHistoryPaginator(module)
+          const documentHistoryModule =
+            new GOVUK.Modules.DocumentHistoryPaginator(module)
           documentHistoryModule.init()
         })
     })

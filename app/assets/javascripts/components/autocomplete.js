@@ -1,9 +1,8 @@
 //= require accessible-autocomplete/dist/accessible-autocomplete.min.js
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {};
-
-(function (Modules) {
-  function Autocomplete ($module) {
+window.GOVUK.Modules = window.GOVUK.Modules || {}
+;(function (Modules) {
+  function Autocomplete($module) {
     this.$module = $module
   }
 
@@ -32,11 +31,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
             return option.value === ''
           })[0]
         }
-        if (matchingOption) { matchingOption.selected = true }
+        if (matchingOption) {
+          matchingOption.selected = true
+        }
       }
     }
 
-    const assignedOptions = JSON.parse(this.$module.dataset.autocompleteConfigurationOptions)
+    const assignedOptions = JSON.parse(
+      this.$module.dataset.autocompleteConfigurationOptions
+    )
 
     const configurationOptions = Object.assign(defaultOptions, assignedOptions)
 

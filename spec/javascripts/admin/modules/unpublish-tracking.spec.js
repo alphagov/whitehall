@@ -3,7 +3,10 @@ describe('GOVUK.Modules.UnpublishTracking', function () {
 
   beforeEach(function () {
     form = document.createElement('form')
-    form.setAttribute('data-unpublish-reason-label', 'Unpublish: consolidated into another GOV.UK page')
+    form.setAttribute(
+      'data-unpublish-reason-label',
+      'Unpublish: consolidated into another GOV.UK page'
+    )
     form.innerHTML = `
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><h2 class="govuk-fieldset__heading">Do you need to reuse a previous withdrawal?</h2> </legend>

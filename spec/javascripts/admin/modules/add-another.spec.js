@@ -50,7 +50,9 @@ describe('GOVUK.Modules.AddAnother', function () {
   it('should move focus to the first relevant field in the new set when the "Add" button is clicked', function () {
     window.GOVUK.triggerEvent(addButton, 'click')
 
-    expect(document.activeElement).toBe(document.querySelector('input[name="d[e][1][f]"]'))
+    expect(document.activeElement).toBe(
+      document.querySelector('input[name="d[e][1][f]"]')
+    )
   })
 
   it('should increment the id/name/for values of the added fields', function () {
@@ -59,20 +61,44 @@ describe('GOVUK.Modules.AddAnother', function () {
     field0 = document.querySelectorAll('.js-duplicate-fields-set')[0]
     field1 = document.querySelectorAll('.js-duplicate-fields-set')[1]
 
-    expect(field0.querySelector('input[type="hidden"]').getAttribute('name')).toBe('a[b][0][c]')
-    expect(field1.querySelector('input[type="hidden"]').getAttribute('name')).toBe('a[b][1][c]')
-    expect(field0.querySelectorAll('label')[0].getAttribute('for')).toBe('d_e_0_f')
-    expect(field1.querySelectorAll('label')[0].getAttribute('for')).toBe('d_e_1_f')
-    expect(field0.querySelector('input[type="text"]').getAttribute('id')).toBe('d_e_0_f')
-    expect(field1.querySelector('input[type="text"]').getAttribute('id')).toBe('d_e_1_f')
-    expect(field0.querySelector('input[type="text"]').getAttribute('name')).toBe('d[e][0][f]')
-    expect(field1.querySelector('input[type="text"]').getAttribute('name')).toBe('d[e][1][f]')
-    expect(field0.querySelectorAll('label')[1].getAttribute('for')).toBe('g_h_0_i')
-    expect(field1.querySelectorAll('label')[1].getAttribute('for')).toBe('g_h_1_i')
+    expect(
+      field0.querySelector('input[type="hidden"]').getAttribute('name')
+    ).toBe('a[b][0][c]')
+    expect(
+      field1.querySelector('input[type="hidden"]').getAttribute('name')
+    ).toBe('a[b][1][c]')
+    expect(field0.querySelectorAll('label')[0].getAttribute('for')).toBe(
+      'd_e_0_f'
+    )
+    expect(field1.querySelectorAll('label')[0].getAttribute('for')).toBe(
+      'd_e_1_f'
+    )
+    expect(field0.querySelector('input[type="text"]').getAttribute('id')).toBe(
+      'd_e_0_f'
+    )
+    expect(field1.querySelector('input[type="text"]').getAttribute('id')).toBe(
+      'd_e_1_f'
+    )
+    expect(
+      field0.querySelector('input[type="text"]').getAttribute('name')
+    ).toBe('d[e][0][f]')
+    expect(
+      field1.querySelector('input[type="text"]').getAttribute('name')
+    ).toBe('d[e][1][f]')
+    expect(field0.querySelectorAll('label')[1].getAttribute('for')).toBe(
+      'g_h_0_i'
+    )
+    expect(field1.querySelectorAll('label')[1].getAttribute('for')).toBe(
+      'g_h_1_i'
+    )
     expect(field0.querySelector('textarea').getAttribute('id')).toBe('g_h_0_i')
     expect(field1.querySelector('textarea').getAttribute('id')).toBe('g_h_1_i')
-    expect(field0.querySelector('textarea').getAttribute('name')).toBe('g[h][0][i]')
-    expect(field1.querySelector('textarea').getAttribute('name')).toBe('g[h][1][i]')
+    expect(field0.querySelector('textarea').getAttribute('name')).toBe(
+      'g[h][0][i]'
+    )
+    expect(field1.querySelector('textarea').getAttribute('name')).toBe(
+      'g[h][1][i]'
+    )
   })
 
   it('should add a "Remove" button to each set of fields when new fields are created', function () {
@@ -126,6 +152,8 @@ describe('GOVUK.Modules.AddAnother', function () {
 
     window.GOVUK.triggerEvent(removeButton, 'click')
 
-    expect(document.activeElement).toBe(document.querySelector('input[name="d[e][1][f]"]'))
+    expect(document.activeElement).toBe(
+      document.querySelector('input[name="d[e][1][f]"]')
+    )
   })
 })

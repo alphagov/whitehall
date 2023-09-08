@@ -46,10 +46,14 @@ describe('GOVUK.Modules.ImageCropper', () => {
   })
 
   it('should update the aria label as the selection is controlled using the keyboard', (done) => {
-    expect(document.querySelector('.app-c-image-cropper').ariaLabel).toBe('Image to be cropped. All of the image is selected.')
+    expect(document.querySelector('.app-c-image-cropper').ariaLabel).toBe(
+      'Image to be cropped. All of the image is selected.'
+    )
     const image = document.querySelector('.app-c-image-cropper__image')
     image.addEventListener('crop', () => {
-      expect(document.querySelector('.app-c-image-cropper').ariaLabel).toBe('Image to be cropped. 90% of the image, centered on the top left is selected.')
+      expect(document.querySelector('.app-c-image-cropper').ariaLabel).toBe(
+        'Image to be cropped. 90% of the image, centered on the top left is selected.'
+      )
       done()
     })
     component.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 189 }))

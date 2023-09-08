@@ -1,8 +1,7 @@
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {};
-
-(function (Modules) {
-  function AddAnother (module) {
+window.GOVUK.Modules = window.GOVUK.Modules || {}
+;(function (Modules) {
+  function AddAnother(module) {
     this.module = module
     this.addText = this.module.dataset.addText || 'Add another'
   }
@@ -15,39 +14,52 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   AddAnother.prototype.addButton = function () {
     const buttonAdd = document.createElement('button')
 
-    buttonAdd.classList.add('govuk-button', 'govuk-!-margin-bottom-0', 'govuk-button--secondary', 'add-another__add-button')
+    buttonAdd.classList.add(
+      'govuk-button',
+      'govuk-!-margin-bottom-0',
+      'govuk-button--secondary',
+      'add-another__add-button'
+    )
     buttonAdd.setAttribute('type', 'submit')
     buttonAdd.textContent = this.addText
 
     this.module.append(buttonAdd)
 
     // Add event listeners for "add" and "remove" buttons
-    this.module.addEventListener('click', function (e) {
-      if (e.target.classList.contains('add-another__remove-button')) {
-        this.removeFields(e.target)
-      } else if (e.target.classList.contains('add-another__add-button')) {
-        e.preventDefault()
-        this.addFields(e.target)
-      }
-    }.bind(this))
+    this.module.addEventListener(
+      'click',
+      function (e) {
+        if (e.target.classList.contains('add-another__remove-button')) {
+          this.removeFields(e.target)
+        } else if (e.target.classList.contains('add-another__add-button')) {
+          e.preventDefault()
+          this.addFields(e.target)
+        }
+      }.bind(this)
+    )
   }
 
   AddAnother.prototype.addFields = function (button) {
-    const allFields = button.parentNode.querySelectorAll('.js-duplicate-fields-set')
+    const allFields = button.parentNode.querySelectorAll(
+      '.js-duplicate-fields-set'
+    )
     const fields = allFields[allFields.length - 1]
 
     // Show hidden "Remove" button
     if (fields.querySelector('.add-another__remove-button')) {
-      fields.querySelector('.add-another__remove-button').style.display = 'inline-block'
+      fields.querySelector('.add-another__remove-button').style.display =
+        'inline-block'
     }
 
     // Clone the markup of the previous set of fields
     const newFields = fields.cloneNode(true)
 
     // Reset values of cloned fields
-    newFields.querySelectorAll('input, textarea, select').forEach(function (element) {
-      element.value = ''
-    })
+    newFields
+      .querySelectorAll('input, textarea, select')
+      .forEach(function (element) {
+        element.value = ''
+      })
 
     // Increment values for id, for and name of cloned fields
     this.setValues(newFields, null)
@@ -59,7 +71,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.removeButton()
 
     // Move focus to first visible field in new set
-    newFields.querySelectorAll('input:not([type="hidden"]), select, textarea')[0].focus()
+    newFields
+      .querySelectorAll('input:not([type="hidden"]), select, textarea')[0]
+      .focus()
   }
 
   AddAnother.prototype.removeButton = function () {
@@ -70,7 +84,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       fields.forEach(function (field) {
         if (!field.querySelector('.add-another__remove-button')) {
           buttonRemove = document.createElement('button')
-          buttonRemove.classList.add('govuk-button', 'govuk-button--warning', 'govuk-!-margin-bottom-6', 'add-another__remove-button')
+          buttonRemove.classList.add(
+            'govuk-button',
+            'govuk-button--warning',
+            'govuk-!-margin-bottom-6',
+            'add-another__remove-button'
+          )
           buttonRemove.setAttribute('type', 'button')
           buttonRemove.textContent = 'Delete'
 
@@ -82,7 +101,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   AddAnother.prototype.removeFields = function (button) {
     const set = button.parentNode
-    const input = set.querySelectorAll('input:not([type="hidden"]), select, textarea')[0]
+    const input = set.querySelectorAll(
+      'input:not([type="hidden"]), select, textarea'
+    )[0]
     const baseId = input.id
     const baseName = input.name
 
@@ -101,61 +122,69 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
     // Hide "Remove" button if only first set displayed
     if (sets.length === 1) {
-      sets[0].querySelector('.add-another__remove-button').style.display = 'none'
+      sets[0].querySelector('.add-another__remove-button').style.display =
+        'none'
     }
 
     // Move focus to first visible field
-    sets[0].querySelectorAll('input:not([type="hidden"]), select, textarea')[0].focus()
+    sets[0]
+      .querySelectorAll('input:not([type="hidden"]), select, textarea')[0]
+      .focus()
   }
 
   // Set values for index, for and name of supplied fields
   AddAnother.prototype.setValues = function (set, index) {
     let num = 0
 
-    set.querySelectorAll('label, input, select, textarea').forEach(function (element) {
-      const currentName = element.getAttribute('name') || null
-      const currentId = element.getAttribute('id') || null
-      const currentFor = element.getAttribute('for') || null
-      const arrayMatcher = /(.*)\[([0-9]+)\](.*?)$/
-      const underscoreMatcher = /(.*)_([0-9]+)_(.*?)$/
-      let matched
+    set
+      .querySelectorAll('label, input, select, textarea')
+      .forEach(function (element) {
+        const currentName = element.getAttribute('name') || null
+        const currentId = element.getAttribute('id') || null
+        const currentFor = element.getAttribute('for') || null
+        const arrayMatcher = /(.*)\[([0-9]+)\](.*?)$/
+        const underscoreMatcher = /(.*)_([0-9]+)_(.*?)$/
+        let matched
 
-      if (currentName && arrayMatcher.exec(currentName)) {
-        matched = arrayMatcher.exec(currentName)
+        if (currentName && arrayMatcher.exec(currentName)) {
+          matched = arrayMatcher.exec(currentName)
 
-        if (index === null) {
-          num = parseInt(matched[2], 10) + 1
-        } else {
-          num = index
+          if (index === null) {
+            num = parseInt(matched[2], 10) + 1
+          } else {
+            num = index
+          }
+
+          element.setAttribute(
+            'name',
+            matched[1] + '[' + num + ']' + matched[3]
+          )
         }
 
-        element.setAttribute('name', matched[1] + '[' + num + ']' + matched[3])
-      }
+        if (currentId && underscoreMatcher.exec(currentId)) {
+          matched = underscoreMatcher.exec(currentId)
 
-      if (currentId && underscoreMatcher.exec(currentId)) {
-        matched = underscoreMatcher.exec(currentId)
+          if (index === null) {
+            num = parseInt(matched[2], 10) + 1
+          } else {
+            num = index
+          }
 
-        if (index === null) {
-          num = parseInt(matched[2], 10) + 1
-        } else {
-          num = index
+          element.setAttribute('id', matched[1] + '_' + num + '_' + matched[3])
         }
 
-        element.setAttribute('id', matched[1] + '_' + num + '_' + matched[3])
-      }
+        if (currentFor && underscoreMatcher.exec(currentFor)) {
+          matched = underscoreMatcher.exec(currentFor)
 
-      if (currentFor && underscoreMatcher.exec(currentFor)) {
-        matched = underscoreMatcher.exec(currentFor)
+          if (index === null) {
+            num = parseInt(matched[2], 10) + 1
+          } else {
+            num = index
+          }
 
-        if (index === null) {
-          num = parseInt(matched[2], 10) + 1
-        } else {
-          num = index
+          element.setAttribute('for', matched[1] + '_' + num + '_' + matched[3])
         }
-
-        element.setAttribute('for', matched[1] + '_' + num + '_' + matched[3])
-      }
-    })
+      })
   }
 
   Modules.AddAnother = AddAnother

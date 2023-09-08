@@ -1,7 +1,7 @@
 describe('GOVUK.Modules.AppAnalytics', function () {
   let appAnalytics
 
-  function addGoogleAnalyticsSpy () {
+  function addGoogleAnalyticsSpy() {
     if (typeof window.ga === 'undefined') {
       window.ga = function () {}
     }
@@ -59,9 +59,11 @@ describe('GOVUK.Modules.AppAnalytics', function () {
 
     appAnalytics.setCustomDimensionsFromMetaTags()
 
-    expect(window.ga.calls.mostRecent().args).toEqual(
-      ['set', 'dimension8', 'Custom dimension 8']
-    )
+    expect(window.ga.calls.mostRecent().args).toEqual([
+      'set',
+      'dimension8',
+      'Custom dimension 8'
+    ])
   })
 
   it('can accept additional custom dimensions without overriding old ones', function () {
@@ -75,11 +77,15 @@ describe('GOVUK.Modules.AppAnalytics', function () {
     appAnalytics.setCustomDimensionsFromMetaTags()
 
     expect(window.ga.calls.count()).toEqual(2)
-    expect(window.ga.calls.argsFor(0)).toEqual(
-      ['set', 'dimension8', 'Custom dimension 8']
-    )
-    expect(window.ga.calls.mostRecent().args).toEqual(
-      ['set', 'dimension21', 'Additional custom dimension 21']
-    )
+    expect(window.ga.calls.argsFor(0)).toEqual([
+      'set',
+      'dimension8',
+      'Custom dimension 8'
+    ])
+    expect(window.ga.calls.mostRecent().args).toEqual([
+      'set',
+      'dimension21',
+      'Additional custom dimension 21'
+    ])
   })
 })

@@ -36,41 +36,57 @@ describe('GOVUK.Modules.OrganisationForm', function () {
 
   it('#setupCustomLogoVisibilityEventListener should hide the custom logo div when custom logo is not selected and hide it when custom logo is selected', function () {
     const select = form.querySelector('#organisation_organisation_logo_type_id')
-    const customLogoDiv = form.querySelector('.js-view-organisation__form__custom_logo')
+    const customLogoDiv = form.querySelector(
+      '.js-view-organisation__form__custom_logo'
+    )
 
     select.value = '14'
     select.dispatchEvent(new Event('change'))
 
-    expect(customLogoDiv.classList).not.toContain('app-view-organisation__form__custom_logo--hidden')
+    expect(customLogoDiv.classList).not.toContain(
+      'app-view-organisation__form__custom_logo--hidden'
+    )
 
     select.value = '1'
     select.dispatchEvent(new Event('change'))
 
-    expect(customLogoDiv.classList).toContain('app-view-organisation__form__custom_logo--hidden')
+    expect(customLogoDiv.classList).toContain(
+      'app-view-organisation__form__custom_logo--hidden'
+    )
   })
 
   it('#setupNotDepartmentalPublicBodyFieldsEventListener should hide the non-departmental div when a non-departmental public body is not selected and show it when one is', function () {
     const select = form.querySelector('#organisation_organisation_type_key')
-    const nonDepartmentalDiv = form.querySelector('.js-view-organisation__form__non-departmental-public-body-fields')
+    const nonDepartmentalDiv = form.querySelector(
+      '.js-view-organisation__form__non-departmental-public-body-fields'
+    )
 
     select.value = 'advisory_ndpb'
     select.dispatchEvent(new Event('change'))
 
-    expect(nonDepartmentalDiv.classList).not.toContain('app-view-organisation__form__non-departmental-public-body-fields--hidden')
+    expect(nonDepartmentalDiv.classList).not.toContain(
+      'app-view-organisation__form__non-departmental-public-body-fields--hidden'
+    )
 
     select.value = 'executive_ndpb'
     select.dispatchEvent(new Event('change'))
 
-    expect(nonDepartmentalDiv.classList).not.toContain('app-view-organisation__form__non-departmental-public-body-fields--hidden')
+    expect(nonDepartmentalDiv.classList).not.toContain(
+      'app-view-organisation__form__non-departmental-public-body-fields--hidden'
+    )
 
     select.value = 'tribunal'
     select.dispatchEvent(new Event('change'))
 
-    expect(nonDepartmentalDiv.classList).not.toContain('app-view-organisation__form__non-departmental-public-body-fields--hidden')
+    expect(nonDepartmentalDiv.classList).not.toContain(
+      'app-view-organisation__form__non-departmental-public-body-fields--hidden'
+    )
 
     select.value = 'executive_office'
     select.dispatchEvent(new Event('change'))
 
-    expect(nonDepartmentalDiv.classList).toContain('app-view-organisation__form__non-departmental-public-body-fields--hidden')
+    expect(nonDepartmentalDiv.classList).toContain(
+      'app-view-organisation__form__non-departmental-public-body-fields--hidden'
+    )
   })
 })

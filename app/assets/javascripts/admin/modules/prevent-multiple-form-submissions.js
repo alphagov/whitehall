@@ -1,8 +1,7 @@
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {};
-
-(function (Modules) {
-  function PreventMultipleFormSubmissions (module) {
+window.GOVUK.Modules = window.GOVUK.Modules || {}
+;(function (Modules) {
+  function PreventMultipleFormSubmissions(module) {
     this.module = module
     this.submitButtons = module.querySelectorAll('button')
   }
