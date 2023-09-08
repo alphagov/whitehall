@@ -3,11 +3,11 @@ en:
     feedback:
       show_banner: false
     whats_new:
-      show_banner: false
+      show_banner: true
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates from the GOV.UK publishing teams on Whitehall Publisher, the roadmap, and getting involved
-      last_updated: Last updated 25 August 2023
+      last_updated: Last updated 8 September 2023
       introduction:
         heading: Our roadmap
         body_govspeak: |
@@ -30,6 +30,12 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading:  
+            area: Creating and updating documents
+            type: new
+            date: 8 September
+            body_govspeak: |
+              The "Save and continue" button no longer prompts users to update topic tags. Instead, it takes you directly to the document summary page. The save buttons have been updated to reflect this: "Save" saves your draft, and "Save and go to summary" goes to the document summary page.
           - heading: Preview on GOV.UK from the edit screen
             area: Creating and updating documents
             type: new
