@@ -1,4 +1,7 @@
 class ReviewReminder < ApplicationRecord
+  include DateValidation
+  date_attributes :review_at
+
   belongs_to :document
   belongs_to :creator, class_name: "User"
 
