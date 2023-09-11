@@ -33,7 +33,7 @@ class ReviewReminder < ApplicationRecord
 private
 
   def review_date_cannot_be_in_the_past
-    if review_at < Time.zone.today
+    if review_at && review_at < Time.zone.today
       errors.add(:review_at, "can't be in the past")
     end
   end

@@ -6,24 +6,38 @@ module DateValidation
   included do
     validates_with DateValidator
 
-    # @param attribute Symbol
-    # @param date Hash|Date|DateTime|String|nil
-    # @return Hash|Date|DateTime|String|nil
-    def pre_validate_date_attribute(attribute, date)
-      if date.is_a?(Hash)
-        begin
-          raise ArgumentError if date.values.any?(&:nil?)
-          raise ArgumentError if date[1].to_i.zero? || date[2].to_i.zero? || date[3].to_i.zero?
+    after_validation :rationalise_date_errors
 
-          Date.new(date[1], date[2], date[3])
-        rescue ArgumentError
-          @invalid_date_attributes = [] if @invalid_date_attributes.nil?
-          @invalid_date_attributes << attribute
-          date = nil
+  private
+
+    # In cases when a date attribute is invalid, it will be set to nil by pre_validate_date_attribute and will therefore
+    # fail the presence validation. We therefore need to remove the presence error from each invalid date attribute to
+    # avoid a confusing user experience where both the invalid date and presence errors show simultaneously
+    def rationalise_date_errors
+      return if invalid_date_attributes.nil?
+
+      invalid_date_attributes.each do |invalid_date_attribute|
+        if errors.of_kind?(invalid_date_attribute, :blank)
+          errors.delete(invalid_date_attribute, :blank)
         end
       end
-      date
     end
+  end
+
+  def pre_validate_date_attribute(attribute, date)
+    if date.is_a?(Hash)
+      begin
+        raise ArgumentError if date.values.any?(&:nil?)
+        raise ArgumentError if date[1].to_i.zero? || date[2].to_i.zero? || date[3].to_i.zero?
+
+        Date.new(date[1], date[2], date[3])
+      rescue ArgumentError
+        @invalid_date_attributes = [] if @invalid_date_attributes.nil?
+        @invalid_date_attributes << attribute
+        date = nil
+      end
+    end
+    date
   end
 
   class_methods do
@@ -41,7 +55,7 @@ module DateValidation
       return if record.invalid_date_attributes.nil?
 
       record.invalid_date_attributes.each do |date_attribute|
-        record.errors.add date_attribute, "must be a valid date in the correct format"
+        record.errors.add date_attribute, :invalid_date, message: "must be a valid date in the correct format"
       end
     end
   end
