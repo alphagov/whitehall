@@ -2,7 +2,7 @@ And(/^I add a review date of "([^"]*)" and the email address "([^"]*)" on the ed
   click_link "Edit draft"
   check "Set a reminder to review this content after it has been published"
   within_conditional_reveal "Set a reminder to review this content after it has been published" do
-    fill_in_date_fields(date)
+    fill_in_govuk_publishing_date_fields(date)
     fill_in "Email address", with: email
   end
   click_button "Save and go to document summary"
