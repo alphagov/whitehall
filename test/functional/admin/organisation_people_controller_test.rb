@@ -267,6 +267,8 @@ class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
     organisation_senior_ministerial_role = create(:organisation_role, organisation:)
     organisation_junior_ministerial_role = create(:organisation_role, organisation:)
 
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
+
     put :order,
         params: {
           organisation_id: organisation,

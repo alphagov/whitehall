@@ -23,6 +23,8 @@ class Admin::OrganisationPeopleController < Admin::BaseController
       @organisation.organisation_roles.find(organisation_role_id).update_column(:ordering, ordering)
     end
 
+    Whitehall::PublishingApi.republish_async(@organisation)
+
     redirect_to admin_organisation_people_path(@organisation), notice: "#{params[:type].capitalize.gsub('_', ' ')} roles re-ordered"
   end
 
