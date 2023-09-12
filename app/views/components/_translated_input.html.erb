@@ -4,7 +4,7 @@
   input_label = input.dig(:label, :text).gsub("(required)", "").strip
   details ||= {}
   details_text = details[:text]
-  details_title = details[:title] || sanitize("English translation #{tag.span("for #{input_label}", class: "govuk-visually-hidden")}")
+  details_title = details[:title] || sanitize("Original text for #{input_label.downcase}")
 %>
 
 <%= content_tag :div, class: "app-c-translated-input", id: id do %>
