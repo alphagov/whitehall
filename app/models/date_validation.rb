@@ -27,11 +27,8 @@ module DateValidation
   def pre_validate_date_attribute(attribute, date)
     if date.is_a?(Hash)
       begin
-        raise ArgumentError if date.values.any?(&:nil?)
-        raise ArgumentError if date[1].to_i.zero? || date[2].to_i.zero? || date[3].to_i.zero?
-
         Date.new(date[1], date[2], date[3])
-      rescue ArgumentError
+      rescue ArgumentError, TypeError
         @invalid_date_attributes = [] if @invalid_date_attributes.nil?
         @invalid_date_attributes << attribute
         date = nil
