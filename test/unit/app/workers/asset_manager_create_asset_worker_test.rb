@@ -111,7 +111,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     assert_not_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
   end
 
-  test "does not update uploaded_to_asset_manager when asset variant is not :original" do
+  test "updates uploaded_to_asset_manager for :thumbnail asset variant" do
     @model.uploaded_to_asset_manager_at = nil
     @model.save!
     @asset_args["asset_variant"] = Asset.variants[:thumbnail]
@@ -119,7 +119,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     @worker.perform(@file.path, @asset_args)
 
-    assert_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
+    assert_not_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
   end
 
   test "triggers an update to publishing api after asset has been saved" do
