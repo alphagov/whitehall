@@ -16,7 +16,7 @@ class AssetManagerCreateAssetWorker < WorkerBase
     response = asset_manager.create_asset(asset_options)
     save_asset_id_to_assets(assetable_id, assetable_type, asset_variant, response, filename)
 
-    if assetable_type == AttachmentData.name && asset_variant == Asset.variants[:original]
+    if assetable_type == AttachmentData.name
       AttachmentData.find(assetable_id).uploaded_to_asset_manager!
     end
 

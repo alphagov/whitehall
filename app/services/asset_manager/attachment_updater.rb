@@ -50,7 +50,7 @@ class AssetManager::AttachmentUpdater
       access_limited_organisation_ids: access_limited ? get_access_limited(attachment_data) : nil,
       draft: draft_status ? get_draft(attachment_data) : nil,
       parent_document_url: link_header ? get_link_header(attachment_data) : nil,
-      replacement_id: replacement_id ? get_replacement_id(attachment_data, asset) : nil,
+      replacement_id: replacement_id ? get_replacement_id(attachment_data, asset.variant) : nil,
     }.compact
     new_attributes.merge!(redirect_url: get_redirect_url(attachment_data)) if redirect_url
 
@@ -91,15 +91,18 @@ class AssetManager::AttachmentUpdater
     attachment_data.unpublished_edition.unpublishing.document_url
   end
 
-  def self.get_replacement_id(attachment_data, asset)
-    return nil unless attachment_data.replaced?
+  def self.get_replacement_id(replaced_attachment_data, variant)
+    return nil unless replaced_attachment_data.replaced?
 
-    replacement = attachment_data.replaced_by
-    replacement_asset = replacement.assets.where(variant: asset.variant).first
+    replacement = replaced_attachment_data.replaced_by
+    replacement_asset = replacement.assets.where(variant:).first
+
     if replacement_asset
       replacement_asset.asset_manager_id
     else
-      replacement.assets.where(variant: Asset.variants[:original]).first.asset_manager_id
+      original_variant = replacement.assets.where(variant: Asset.variants[:original]).first
+
+      original_variant ? original_variant.asset_manager_id : nil
     end
   end
 end

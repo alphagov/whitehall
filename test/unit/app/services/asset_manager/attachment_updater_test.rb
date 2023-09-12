@@ -288,6 +288,17 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
               updater.call(attachment_data, replacement_id: true)
             end
           end
+
+          context "but replacement has no assets" do
+            let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
+            let(:replacement) { AttachmentData.create!(file: sample_rtf) }
+
+            it "does not update asset manager" do
+              update_service.expects(:call).never
+
+              updater.call(attachment_data, replacement_id: true)
+            end
+          end
         end
 
         context "when attachment is not synced with asset manager" do
