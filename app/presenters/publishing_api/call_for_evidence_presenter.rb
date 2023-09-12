@@ -139,7 +139,7 @@ module PublishingApi
       end
 
       def featured_attachments
-        call_for_evidence.attachments.map { |a| a.publishing_api_details[:id] }
+        call_for_evidence.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
     end
 
@@ -203,7 +203,7 @@ module PublishingApi
       end
 
       def outcome_attachments
-        outcome.attachments.map { |a| a.publishing_api_details[:id] }
+        outcome.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
     end
 

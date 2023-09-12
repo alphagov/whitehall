@@ -16,15 +16,23 @@ class AttachmentsHelperTest < ActionView::TestCase
     assert_not previewable?(csv_on_policy_group)
   end
 
-  test "block_attachments renders an array of rendered attachments" do
+  test "block_attachments renders an array of rendered attachments and ignores attachments with missing assets" do
     alternative_format_contact_email = "test@example.com"
+    file_attachment_with_no_permissions = create(:file_attachment)
+    file_attachment_with_all_assets = create(:file_attachment_with_asset)
+    file_attachment_with_missing_assets = create(:file_attachment)
+    file_attachment_with_missing_assets.attachment_data.use_non_legacy_endpoints = true
     attachments = [
       create(:html_attachment),
       create(:external_attachment),
-      create(:file_attachment, accessible: false),
+      file_attachment_with_no_permissions,
+      file_attachment_with_all_assets,
+      file_attachment_with_missing_assets,
     ]
 
     rendered_attachments = block_attachments(attachments, alternative_format_contact_email)
+
+    assert_equal attachments.length - 1, rendered_attachments.length
 
     rendered_attachments.each.with_index do |rendered, index|
       attachment = attachments[index]

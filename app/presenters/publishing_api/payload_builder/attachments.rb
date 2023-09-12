@@ -19,9 +19,7 @@ module PublishingApi
       def attachments
         items.flat_map do |item|
           if item
-            item.attachments
-                .select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
-                .map(&:publishing_api_details)
+            item.attachments_ready_for_publishing.map(&:publishing_api_details)
           else
             []
           end

@@ -41,6 +41,10 @@ module Attachable
         end
       end
     end
+
+    def attachments_ready_for_publishing
+      attachments.select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
+    end
   end
 
   class Null
