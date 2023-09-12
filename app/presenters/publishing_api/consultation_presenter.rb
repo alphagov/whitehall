@@ -140,7 +140,7 @@ module PublishingApi
       end
 
       def featured_attachments
-        consultation.attachments.map { |a| a.publishing_api_details[:id] }
+        consultation.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
     end
 
@@ -204,7 +204,7 @@ module PublishingApi
       end
 
       def final_outcome_attachments
-        outcome.attachments.map { |a| a.publishing_api_details[:id] }
+        outcome.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
     end
 
@@ -272,7 +272,7 @@ module PublishingApi
       end
 
       def attachments
-        public_feedback.attachments.map { |a| a.publishing_api_details[:id] }
+        public_feedback.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
 
       def publication_date
