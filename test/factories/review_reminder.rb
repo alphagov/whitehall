@@ -11,23 +11,20 @@ FactoryBot.define do
 
     trait(:reminder_due) do
       review_at { Time.zone.today }
-      reminder_sent_at { nil }
+      # Attempting to set review_at to today usually causes a validation error, because review date should be set to a future date
+      to_create { |instance| instance.save(validate: false) }
     end
 
     trait(:reminder_sent) do
-      review_at { Time.zone.today }
       reminder_sent_at { Time.zone.now }
     end
 
-    trait(:due_but_never_published) do
-      review_at { Time.zone.today }
-      reminder_sent_at { nil }
+    trait(:document_never_published) do
       document { create(:document, editions: [build(:draft_edition, first_published_at: nil)]) }
     end
 
     trait(:not_due_yet) do
       review_at { 1.month.from_now }
-      reminder_sent_at { nil }
     end
   end
 end

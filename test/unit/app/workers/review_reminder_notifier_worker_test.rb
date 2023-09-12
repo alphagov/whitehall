@@ -27,7 +27,7 @@ class ReviewReminderNotifierWorkerTest < ActiveSupport::TestCase
     not_due_yet = create(:review_reminder, :not_due_yet)
     ReviewReminderNotifierWorker.new.perform(not_due_yet.id)
 
-    already_sent = create(:review_reminder, :reminder_sent)
+    already_sent = create(:review_reminder, :reminder_due, :reminder_sent)
     ReviewReminderNotifierWorker.new.perform(already_sent.id)
   end
 end
