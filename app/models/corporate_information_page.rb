@@ -33,11 +33,20 @@ class CorporateInformationPage < Edition
   scope :accessible_documents_policy, -> { where(corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id) }
 
   def republish_owning_organisation_to_publishing_api
-    Whitehall::PublishingApi.republish_async(owning_organisation) if owning_organisation.present?
+    if state == "draft" && owning_organisation.is_a?(WorldwideOrganisation)
+      presenter = PublishingApi::WorldwideOrganisationPresenter.new(owning_organisation, state: "draft")
+      Services.publishing_api.put_content(presenter.content_id, presenter.content)
+    elsif owning_organisation.present?
+      Whitehall::PublishingApi.republish_async(owning_organisation)
+    end
   end
 
   def republish_about_page_to_publishing_api
-    about_us = owning_organisation&.about_us
+    about_us = if state == "draft"
+                 owning_organisation&.draft_about_us
+               else
+                 owning_organisation&.about_us
+               end
     return unless about_us
 
     PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
