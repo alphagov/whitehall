@@ -10,7 +10,7 @@ class SendReviewRemindersTest < ActiveSupport::TestCase
     reminders = [
       due = build(:review_reminder, :reminder_due),
       overdue = build(:review_reminder, :reminder_due, review_at: 1.week.ago),
-      already_sent = build(:review_reminder, :reminder_sent),
+      already_sent = build(:review_reminder, :reminder_due, :reminder_sent),
       not_due_yet = build(:review_reminder, :not_due_yet),
     ]
 
