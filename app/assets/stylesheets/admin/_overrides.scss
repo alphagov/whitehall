@@ -25,3 +25,10 @@ code {
     display: block;
   }
 }
+
+.app-c-translated-textarea,
+.app-c-translated-input {
+  & > *:first-child > .govuk-form-group {
+    margin-bottom: govuk-spacing(2) !important; // stylelint-disable-line declaration-no-important
+  }
+}
