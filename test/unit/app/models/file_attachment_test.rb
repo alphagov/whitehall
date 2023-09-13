@@ -63,4 +63,14 @@ class FileAttachmentTest < ActiveSupport::TestCase
     attachment.attachment_data.file = {}
     assert attachment.filename_changed?
   end
+
+  test "return legacy preview_url by default" do
+    attachment = create(:csv_attachment, attachable: create(:edition))
+    assert_equal Plek.asset_root + "/government/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/sample.csv/preview", attachment.publishing_api_details_for_format[:preview_url]
+  end
+
+  test "return non legacy preview_url if use_non_legacy_endpoints is true" do
+    attachment = create(:file_attachment, attachable: create(:edition), attachment_data: build(:attachment_data_with_csv_asset))
+    assert_equal Plek.asset_root + "/media/#{attachment.attachment_data.id}/dft_statistical_data_set_sample.csv/preview", attachment.publishing_api_details_for_format[:preview_url]
+  end
 end

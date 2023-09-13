@@ -68,8 +68,20 @@ private
 
   def preview_url
     if csv? && attachable.is_a?(Edition)
+      if attachment_data.use_non_legacy_endpoints
+        return non_legacy_csv_preview
+      end
+
       Plek.asset_root + "/government/uploads/system/uploads/attachment_data/file/#{attachment_data.id}/#{filename}/preview"
     end
+  end
+
+  def non_legacy_csv_preview
+    if attachment_data.all_asset_variants_uploaded?
+      return Plek.asset_root + "/media/#{attachment_data.id}/#{filename}/preview"
+    end
+
+    nil
   end
 
   def filename_is_unique
