@@ -198,8 +198,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       const month = form.querySelector('#edition_delivered_on_2i')
       const year = form.querySelector('#edition_delivered_on_1i')
 
-      deliveredOnFieldset.querySelectorAll('select').forEach(function (select) {
-        select.addEventListener('change', function () {
+      deliveredOnFieldset.querySelectorAll('input').forEach(function (input) {
+        input.addEventListener('change', function () {
           const dateIsInvalid =
             day.value === '' || month.value === '' || year.value === ''
 

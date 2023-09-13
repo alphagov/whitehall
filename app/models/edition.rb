@@ -32,7 +32,7 @@ class Edition < ApplicationRecord
   include Searchable
 
   include DateValidation
-  date_attributes :scheduled_publication
+  date_attributes :scheduled_publication, :delivered_on
 
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy

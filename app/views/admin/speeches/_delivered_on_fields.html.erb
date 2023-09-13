@@ -1,33 +1,47 @@
+<%
+  hour_param = params.dig("edition", "delivered_on(4i)")
+  minute_param = params.dig("edition", "delivered_on(5i)")
+%>
+
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: edition.authored_article? ? "Written on" : "Delivered on",
     heading_size: "l",
     id: "edition_delivered_on",
   } do %>
-    <%= render "components/datetime_fields", {
+    <%= render "components/datetime_fields_with_govuk_date_component", {
         field_name: "delivered_on",
         prefix: "edition",
         error_items: errors_for(edition.errors, :delivered_on),
-        date_hint: "For example, 01 August 2022",
+        date_hint: "For example, 01 08 2022",
         time_hint: "For example, 09:30 or 19:30",
         year: {
-          value: edition.delivered_on&.year,
+          value: params.dig("edition", "delivered_on(1i)") || edition.delivered_on&.year,
           id: "edition_delivered_on_1i",
+          name: "edition[delivered_on(1i)]",
+          label: "Year",
+          width: 4,
         },
         month: {
-          value: edition.delivered_on&.month,
+          value: params.dig("edition", "delivered_on(2i)") || edition.delivered_on&.month,
           id: "edition_delivered_on_2i",
+          name: "edition[delivered_on(2i)]",
+          label: "Month",
+          width: 2,
         },
         day: {
-          value: edition.delivered_on&.day,
+          value: params.dig("edition", "delivered_on(3i)") || edition.delivered_on&.day,
           id: "edition_delivered_on_3i",
+          name: "edition[delivered_on(3i)]",
+          label: "Day",
+          width: 2,
         },
         hour: {
-          value: edition.delivered_on&.hour,
+          value: hour_param ? hour_param.to_i : edition.delivered_on&.hour,
           id: "edition_delivered_on_4i",
         },
         minute: {
-          value: edition.delivered_on&.min,
+          value: minute_param ? minute_param.to_i : edition.delivered_on&.min,
           id: "edition_delivered_on_5i",
         },
       }

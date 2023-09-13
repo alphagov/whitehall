@@ -94,7 +94,7 @@ module DocumentHelper
     select "Colonel Mustard, Attorney General"
 
     within_fieldset "Delivered on" do
-      select_date 1.day.ago.to_s, base_dom_id: "edition_delivered_on"
+      fill_in_govuk_publishing_date_fields(1.day.ago)
     end
 
     fill_in "Location", with: "The Drawing Room"
