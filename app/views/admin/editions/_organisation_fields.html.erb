@@ -1,6 +1,6 @@
 <% if edition.can_be_related_to_organisations? %>
   <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Organisations",
+    legend_text: "Lead organisations",
     heading_level: 3,
     heading_size: "m",
     id: "edition_organisations",
@@ -34,30 +34,18 @@
       <% end %>
     </div>
 
-    <% 0.upto(5) do |index| %>
-      <% supporting_organisation_id = supporting_organisation_id_at_index(edition, index) %>
-      <% cache_if supporting_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
-        <%= render "components/select-with-search", {
-          id: "edition_supporting_organisation_ids_#{index + 1}",
-          name: "edition[supporting_organisation_ids][]",
-          label: "Supporting organisation #{index + 1}",
-          heading_size: "s",
-          include_blank: true,
-          options: taggable_organisations_container.map do |name, id|
-          {
-            text: name,
-            value: id,
-            selected: id == supporting_organisation_id,
-            data_attributes: {
-                module: 'track-select-click',
-                track_category: 'supportingOrgSelection',
-                track_action: name,
-                track_label: request.path
-            },
-          }
-         end
-        } %>
-      <% end %>
-    <% end %>
+    <%= render "components/autocomplete", {
+      id: "edition_supporting_organisation_ids",
+      name: "edition[supporting_organisation_ids][]",
+      label: {
+        text: "Supporting organisations",
+        heading_size: "m",
+      },
+      select: {
+        multiple: true,
+        selected: edition.edition_organisations.reject(&:lead?).map(&:organisation_id),
+        options: [""] + taggable_organisations_container,
+      },
+    } %>
   <% end %>
 <% end %>

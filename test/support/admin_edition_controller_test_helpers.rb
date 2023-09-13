@@ -431,15 +431,7 @@ module AdminEditionControllerTestHelpers
             end
           end
           refute_select "#edition_lead_organisation_ids_5"
-          (1..6).each do |i|
-            assert_select "label[for=edition_supporting_organisation_ids_#{i}]", text: "Supporting organisation #{i}"
-
-            assert_select("#edition_supporting_organisation_ids_#{i}") do |elements|
-              assert_equal 1, elements.length
-              assert_data_attributes_for_supporting_org(element: elements.first, track_label: new_edition_path(edition_type))
-            end
-          end
-          refute_select "#edition_supporting_organisation_ids_7"
+          assert_select("#edition_supporting_organisation_ids_")
         end
       end
 
@@ -484,15 +476,7 @@ module AdminEditionControllerTestHelpers
             end
           end
           refute_select "#edition_lead_organisation_ids_5"
-          (1..6).each do |i|
-            assert_select "label[for=edition_supporting_organisation_ids_#{i}]", text: "Supporting organisation #{i}"
-
-            assert_select("#edition_supporting_organisation_ids_#{i}") do |elements|
-              assert_equal 1, elements.length
-              assert_data_attributes_for_supporting_org(element: elements.first, track_label: edit_edition_path(edition))
-            end
-          end
-          refute_select "#edition_supporting_organisation_ids_7"
+          assert_select("#edition_supporting_organisation_ids_")
         end
       end
 
@@ -1203,13 +1187,6 @@ private
     # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
     # assert_equal "track-select-click", element["data-module"]
     # assert_equal "leadOrgSelection", element["data-track-category"]
-    # assert_equal track_label, element["data-track-label"]
-  end
-
-  def assert_data_attributes_for_supporting_org(element:, track_label:)
-    # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
-    # assert_equal "track-select-click", element["data-module"]
-    # assert_equal "supportingOrgSelection", element["data-track-category"]
     # assert_equal track_label, element["data-track-label"]
   end
 
