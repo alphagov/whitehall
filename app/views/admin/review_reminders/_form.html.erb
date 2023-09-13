@@ -1,25 +1,32 @@
 <%= form_with model: review_reminder, url: [:admin, document, review_reminder] do |form| %>
-  <%= render("components/datetime_fields", {
+  <%= render("components/datetime_fields_with_govuk_date_component", {
     field_name: "review_at",
     prefix: "review_reminder",
     date_only: true,
     error_items: errors_for(review_reminder.errors, :review_at),
-    date_hint: "For example, 01 August 2025",
+    date_hint: "For example, 01 08 2025",
     date_heading: "Date (required)",
     heading_size: "l",
     year: {
-      value: review_reminder.review_at&.year,
       id: "review_reminder_review_at_1i",
-      start_year: Time.zone.now.year,
-      end_year: Time.zone.now.year + 10,
+      value: params.dig("review_reminder", "review_at(1i)") || review_reminder.review_at&.year,
+      name: "review_reminder[review_at(1i)]",
+      label: "Year",
+      width: 4,
     },
     month: {
-      value: review_reminder.review_at&.month,
       id: "review_reminder_review_at_2i",
+      value: params.dig("review_reminder", "review_at(2i)") || review_reminder.review_at&.month,
+      name: "review_reminder[review_at(2i)]",
+      label: "Month",
+      width: 2,
     },
     day: {
-      value: review_reminder.review_at&.day,
-      id: "review_reminder_review_at",
+      id: "review_reminder_review_at_3i",
+      value: params.dig("review_reminder", "review_at(3i)") || review_reminder.review_at&.day,
+      name: "review_reminder[review_at(3i)]",
+      label: "Day",
+      width: 2,
     },
   }) %>
 

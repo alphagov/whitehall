@@ -16,5 +16,13 @@ module DatetimeFieldHelper
     select date.strftime("%B"), from: "Month"
     select date.day, from: "Day"
   end
+
+  def fill_in_govuk_publishing_date_fields(date)
+    date = Time.zone.parse(date)
+
+    fill_in "Year", with: date.year
+    fill_in "Month", with: date.month
+    fill_in "Day", with: date.day
+  end
 end
 World(DatetimeFieldHelper)

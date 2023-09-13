@@ -2,14 +2,14 @@ And(/^I add a review date of "([^"]*)" and the email address "([^"]*)" on the ed
   click_link "Edit draft"
   check "Set a reminder to review this content after it has been published"
   within_conditional_reveal "Set a reminder to review this content after it has been published" do
-    fill_in_date_fields(date)
+    fill_in_govuk_publishing_date_fields(date)
     fill_in "Email address", with: email
   end
   click_button "Save and go to document summary"
 end
 
 And(/^I add a review date of "([^"]*)" and the email address "([^"]*)"$/) do |date, email|
-  fill_in_date_fields(date)
+  fill_in_govuk_publishing_date_fields(date)
   fill_in "Email address (required)", with: email
   click_button "Save"
 end
@@ -31,7 +31,7 @@ And(/^a review reminder exists for "([^"]*)" with the date "([^"]*)"$/) do |titl
 end
 
 And(/^I update the review date to "([^"]*)"$/) do |date|
-  fill_in_date_fields(date)
+  fill_in_govuk_publishing_date_fields(date)
   click_button "Save"
 end
 

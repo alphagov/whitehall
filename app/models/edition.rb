@@ -31,6 +31,9 @@ class Edition < ApplicationRecord
 
   include Searchable
 
+  include DateValidation
+  date_attributes :scheduled_publication
+
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
@@ -54,7 +57,7 @@ class Edition < ApplicationRecord
   validates_each :first_published_at do |record, attr, value|
     record.errors.add(attr, "can't be set to a future date") if value && Time.zone.now < value
   end
-  validate :valid_date, :scheduled_publication_must_be_in_future
+  validate :scheduled_publication_must_be_in_future
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
@@ -713,31 +716,6 @@ EXISTS (
 
   def publishing_api_presenter
     PublishingApi::GenericEditionPresenter
-  end
-
-  def scheduled_publication=(date)
-    if date.is_a?(Hash)
-      @date_field_validity = {} if @date_field_validity.nil?
-
-      begin
-        raise ArgumentError if date.values.any?(&:nil?)
-        raise ArgumentError if date[1].to_i.zero? || date[2].to_i.zero? || date[3].to_i.zero?
-
-        Date.new(date[1], date[2], date[3])
-        @date_field_validity[:scheduled_publication] = true
-      rescue ArgumentError
-        @date_field_validity[:scheduled_publication] = false
-        date = nil
-      end
-    end
-
-    super(date)
-  end
-
-  def valid_date
-    if @date_field_validity.present? && @date_field_validity[:scheduled_publication] == false
-      errors.add(:scheduled_publication, "must be a valid date in the correct format")
-    end
   end
 
   def scheduled_publication_must_be_in_future
