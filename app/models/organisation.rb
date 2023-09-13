@@ -510,7 +510,6 @@ class Organisation < ApplicationRecord
   def organisations_with_services_and_information_link
     %w[
       charity-commission
-      department-for-education
       hm-revenue-customs
     ]
   end
