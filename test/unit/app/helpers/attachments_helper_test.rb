@@ -173,7 +173,6 @@ class AttachmentsHelperTest < ActionView::TestCase
   end
 
   context "use_non_legacy_endpoints" do
-
     test "component params for previewable CSV attachment when has no asset" do
       attachment = file_attachment("sample.csv", attachable: create(:edition))
       attachment.attachment_data.use_non_legacy_endpoints = true
@@ -199,7 +198,7 @@ class AttachmentsHelperTest < ActionView::TestCase
         content_type: "text/csv",
         filename: attachment.filename,
         file_size: attachment.file_size,
-        preview_url: "/media/asset_manager_id_original/dft_statistical_data_set_sample.csv/preview"
+        preview_url: "/media/asset_manager_id_original/dft_statistical_data_set_sample.csv/preview",
       }
       assert_equal expect_params, attachment_component_params(attachment)
     end
