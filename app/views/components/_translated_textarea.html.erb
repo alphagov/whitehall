@@ -26,6 +26,8 @@
       <% end %>
     </div>
   <% else %>
-    <%= render "govuk_publishing_components/components/inset_text", text: "There is no #{details_title.downcase}" %>
+    <div class="app-c-translated-textarea__english-translation--no-text govuk-!-margin-bottom-6">
+      <%= render "govuk_publishing_components/components/hint", text: "There is no #{details_title.downcase}" %>
+    </div>
   <% end %>
 <% end %>
