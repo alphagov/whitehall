@@ -1,9 +1,9 @@
 module DateValidation
   extend ActiveSupport::Concern
 
-  attr_reader :invalid_date_attributes
-
   included do
+    attr_reader :invalid_date_attributes
+
     validates_with DateValidator
 
     after_validation :rationalise_date_errors
@@ -14,9 +14,7 @@ module DateValidation
     # fail the presence validation. We therefore need to remove the presence error from each invalid date attribute to
     # avoid a confusing user experience where both the invalid date and presence errors show simultaneously
     def rationalise_date_errors
-      return if invalid_date_attributes.nil?
-
-      invalid_date_attributes.each do |invalid_date_attribute|
+      @invalid_date_attributes.each do |invalid_date_attribute|
         if errors.of_kind?(invalid_date_attribute, :blank)
           errors.delete(invalid_date_attribute, :blank)
         end
@@ -25,12 +23,13 @@ module DateValidation
   end
 
   def pre_validate_date_attribute(attribute, date)
+    @invalid_date_attributes = Set.new if @invalid_date_attributes.nil?
     if date.is_a?(Hash)
       begin
         Date.new(date[1], date[2], date[3])
+        @invalid_date_attributes.delete(attribute)
       rescue ArgumentError, TypeError
-        @invalid_date_attributes = [] if @invalid_date_attributes.nil?
-        @invalid_date_attributes << attribute
+        @invalid_date_attributes.add(attribute)
         date = nil
       end
     end
@@ -49,8 +48,6 @@ module DateValidation
 
   class DateValidator < ActiveModel::Validator
     def validate(record)
-      return if record.invalid_date_attributes.nil?
-
       record.invalid_date_attributes.each do |date_attribute|
         record.errors.add date_attribute, :invalid_date, message: "must be a valid date in the correct format"
       end
