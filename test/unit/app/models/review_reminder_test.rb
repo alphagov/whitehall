@@ -61,7 +61,7 @@ class ReviewReminderTest < ActiveSupport::TestCase
   end
 
   test "it resets reminder_sent_at when the review_at date is changed" do
-    reminder = create(:review_reminder, :reminder_sent)
+    reminder = create(:review_reminder, :reminder_due, :reminder_sent)
 
     reminder.update!(review_at: 10.days.from_now)
 
@@ -74,8 +74,8 @@ class ReviewReminderTest < ActiveSupport::TestCase
 
   test "#reminder_due? returns false when the reminder email does not need to be sent" do
     assert_not build(:review_reminder, :not_due_yet).reminder_due?
-    assert_not build(:review_reminder, :due_but_never_published).reminder_due?
-    assert_not build(:review_reminder, :reminder_sent).reminder_due?
+    assert_not build(:review_reminder, :reminder_due, :document_never_published).reminder_due?
+    assert_not build(:review_reminder, :reminder_due, :reminder_sent).reminder_due?
   end
 
   test "#reminder_sent! marks the reminder as sent without changing updated_at" do
@@ -100,8 +100,8 @@ class ReviewReminderTest < ActiveSupport::TestCase
     reminders = [
       due = build(:review_reminder, :reminder_due),
       overdue = build(:review_reminder, :reminder_due, review_at: 1.week.ago),
-      already_sent = build(:review_reminder, :reminder_sent),
-      due_but_never_published = build(:review_reminder, :due_but_never_published),
+      already_sent = build(:review_reminder, :reminder_due, :reminder_sent),
+      document_never_published = build(:review_reminder, :reminder_due, :document_never_published),
       not_due_yet = build(:review_reminder, :not_due_yet),
     ]
 
@@ -111,7 +111,7 @@ class ReviewReminderTest < ActiveSupport::TestCase
     assert_includes ReviewReminder.reminder_due, due
     assert_includes ReviewReminder.reminder_due, overdue
     assert_not_includes ReviewReminder.reminder_due, already_sent
-    assert_not_includes ReviewReminder.reminder_due, due_but_never_published
+    assert_not_includes ReviewReminder.reminder_due, document_never_published
     assert_not_includes ReviewReminder.reminder_due, not_due_yet
   end
 end
