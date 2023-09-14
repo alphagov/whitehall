@@ -283,15 +283,14 @@ describe('GOVUK.Modules.EditionForm', function () {
         editionForm.init()
       })
 
-      it('shows the speech delivered_on in future warning to the user when they select a date in the future', function () {
+      it('shows the speech delivered_on in future warning to the user when they input a date in the future', function () {
         const deliveredOnFieldset = form.querySelector('#edition_delivered_on')
-        deliveredOnFieldset.querySelector('select').value = '1'
-        deliveredOnFieldset.querySelectorAll('select')[1].value = '1'
-        deliveredOnFieldset.querySelectorAll('select')[2].value =
-          currentYear + 1
+        deliveredOnFieldset.querySelector('input').value = '1'
+        deliveredOnFieldset.querySelectorAll('input')[1].value = '1'
+        deliveredOnFieldset.querySelectorAll('input')[2].value = currentYear + 1
 
         deliveredOnFieldset
-          .querySelector('select')
+          .querySelector('input')
           .dispatchEvent(new Event('change'))
 
         const warning = form.querySelector(
@@ -305,9 +304,9 @@ describe('GOVUK.Modules.EditionForm', function () {
 
       it('does not show the speech delivered_on in future warning to the user when they select a date in the past', function () {
         const deliveredOnFieldset = form.querySelector('#edition_delivered_on')
-        deliveredOnFieldset.querySelector('select').value = '1'
-        deliveredOnFieldset.querySelectorAll('select')[1].value = '1'
-        deliveredOnFieldset.querySelectorAll('select')[2].value = currentYear
+        deliveredOnFieldset.querySelector('input').value = '1'
+        deliveredOnFieldset.querySelectorAll('input')[1].value = '1'
+        deliveredOnFieldset.querySelectorAll('input')[2].value = currentYear
 
         deliveredOnFieldset.dispatchEvent(new Event('change'))
 
@@ -431,18 +430,9 @@ describe('GOVUK.Modules.EditionForm', function () {
         '<fieldset class="govuk-fieldset" id="edition_delivered_on">' +
           '<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">Delivered on</legend>' +
           '<div class="app-c-datetime-fields__date-time-wrapper">' +
-            '<select id="edition_delivered_on_3i" name="edition[delivered_on(3i)]">' +
-              '<option value="" label=" "></option>' +
-              '<option value="1">1</option>' +
-            '</select>'
-            '<select id="edition_delivered_on_2i" name="edition[delivered_on(2i)]">' +
-              '<option value="" label=" "></option>' +
-              '<option value="1">January</option>' +
-            '</select>' +
-            '<select id="edition_delivered_on_1i" name="edition[delivered_on(1i)]">' +
-              '<option value="${currentYear}">${currentYear}</option>' +
-              '<option value="${currentYear + 1}">${currentYear + 1}</option>' +
-            '</select>' +
+            '<input type="text" id="edition_delivered_on_3i" name="edition[delivered_on(3i)]" />' +
+            '<input type="text" id="edition_delivered_on_2i" name="edition[delivered_on(2i)]" />' +
+            '<input type="text" id="edition_delivered_on_1i" name="edition[delivered_on(1i)]" />' +
           '</div>' +
         '</fieldset>' +
         '<div class="js-app-view-edit-edition__delivered-on-warning app-view-edit-edition__delivered-on-warning--hidden">' +

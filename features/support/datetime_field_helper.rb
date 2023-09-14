@@ -18,7 +18,9 @@ module DatetimeFieldHelper
   end
 
   def fill_in_govuk_publishing_date_fields(date)
-    date = Time.zone.parse(date)
+    if date.is_a? String
+      date = Time.zone.parse(date)
+    end
 
     fill_in "Year", with: date.year
     fill_in "Month", with: date.month
