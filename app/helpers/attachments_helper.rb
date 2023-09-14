@@ -16,12 +16,12 @@ module AttachmentsHelper
   def preview_path_for_attachment(attachment)
     if attachment.attachment_data.use_non_legacy_endpoints
       if attachment.attachment_data.all_asset_variants_uploaded?
-        return Plek.find('frontend') + "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
+        return Plek.find("frontend") + "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
       end
 
       return nil
     end
-    Plek.find('frontend')+ "/government/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/#{attachment.filename}/preview"
+    Plek.find("frontend") + "/government/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/#{attachment.filename}/preview"
   end
 
   def attachment_component_params(attachment, alternative_format_contact_email: nil)
