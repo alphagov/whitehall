@@ -26,14 +26,14 @@ class RelativeDateValidatorTest < ActiveSupport::TestCase
     validator = RelativeDateValidator.new(attributes: :some_date, before: -> { before })
     validator.validate(model)
     assert_not_empty model.errors
-    assert_equal "must be before #{before}", model.errors[:some_date].first
+    assert_equal "must not be later than #{before}", model.errors[:some_date].first
   end
 
-  test "adds an error if date is equal to before date" do
+  test "does not add an error if date is equal to before date" do
     model = StubModel.new(some_date: Time.zone.local(2022, 1, 1, 1, 1))
     validator = RelativeDateValidator.new(attributes: :some_date, before: -> { Time.zone.local(2022, 1, 1, 1, 1) })
     validator.validate(model)
-    assert_not_empty model.errors
+    assert_empty model.errors
   end
 
   test "adds an error with the default message if date is earlier than after date" do
@@ -42,14 +42,14 @@ class RelativeDateValidatorTest < ActiveSupport::TestCase
     validator = RelativeDateValidator.new(attributes: :some_date, after: -> { after })
     validator.validate(model)
     assert_not_empty model.errors
-    assert_equal "must be after #{after}", model.errors[:some_date].first
+    assert_equal "must not be earlier than #{after}", model.errors[:some_date].first
   end
 
-  test "adds an error if date is equal to after date" do
+  test "does not add an error if date is equal to after date" do
     model = StubModel.new(some_date: Time.zone.local(2022, 1, 1, 1, 1))
     validator = RelativeDateValidator.new(attributes: :some_date, after: -> { Time.zone.local(2022, 1, 1, 1, 1) })
     validator.validate(model)
-    assert_not_empty model.errors
+    assert_empty model.errors
   end
 
   test "before error message can be overriden" do
