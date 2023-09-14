@@ -316,7 +316,7 @@ private
   end
 
   def saved_confirmation_notice
-    if @edition.has_been_tagged? || params[:save].present?
+    if params[:save].present? || @edition.has_been_tagged?
       notice = "Your document has been saved"
       html_safe = false
     else
