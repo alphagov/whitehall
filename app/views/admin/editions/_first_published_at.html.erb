@@ -51,12 +51,12 @@
           {
             value: false,
             text: "This document has never been published before.",
-            checked: edition.previously_published == false
+            checked: params.dig("edition", "previously_published") == "false" || edition.previously_published == false
           },
           {
             value: true,
             text: "This document has previously been published on another website.",
-            checked: edition.previously_published == true,
+            checked: params.dig("edition", "previously_published") == "true" || edition.previously_published == true,
             conditional: first_published_at_fields
           }
         ]
