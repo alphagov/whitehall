@@ -3,6 +3,7 @@
       prefix: "edition",
       date_hint: "For example, 01 08 2022",
       time_hint: "For example, 09:30 or 19:30",
+      error_items: errors_for(edition.errors, :first_published_at),
       id: "edition_first_published_at_1i",
       year: {
         id: "edition_first_published_at_1i",
@@ -46,7 +47,7 @@
       <%= render "govuk_publishing_components/components/radio", {
         name: "edition[previously_published]",
         id: "edition_previously_published",
-        error_items: errors_for(edition.errors, :previously_published) || errors_for(edition.errors, :first_published_at),
+        error_items: errors_for(edition.errors, :previously_published),
         items: [
           {
             value: false,
