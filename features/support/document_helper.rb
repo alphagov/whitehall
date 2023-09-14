@@ -113,7 +113,7 @@ module DocumentHelper
     radio_label = "This document has previously been published on another website."
     choose radio_label
     within_conditional_reveal radio_label do
-      select_date first_published, base_dom_id: "edition_first_published_at"
+      fill_in_govuk_publishing_date_fields(first_published)
     end
   end
 
@@ -121,7 +121,7 @@ module DocumentHelper
     radio_label = "This document has previously been published on another website."
     choose radio_label
     within_conditional_reveal radio_label do
-      select_date first_published, base_dom_id: "edition_first_published_at"
+      fill_in_govuk_publishing_date_fields(first_published)
     end
 
     select publication_type, from: "edition_publication_type_id"

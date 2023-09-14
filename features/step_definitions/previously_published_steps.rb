@@ -12,9 +12,9 @@ end
 
 And(/^I select a previously published date in the future$/) do
   choose "has previously been published on another website."
-  select "2018", from: "edition_first_published_at_1i"
-  select "July", from: "edition_first_published_at_2i"
-  select "1", from: "edition_first_published_at_3i"
+  within "#edition_previously_published" do
+    fill_in_govuk_publishing_date_fields("1 July 2018")
+  end
 end
 
 And(/^I select that this document has been previously published$/) do
@@ -23,9 +23,9 @@ end
 
 And(/^I select a previously published date in the past$/) do
   choose "has previously been published on another website."
-  select "2017",      from: "edition_first_published_at_1i"
-  select "February",  from: "edition_first_published_at_2i"
-  select "1",         from: "edition_first_published_at_3i"
+  within "#edition_previously_published" do
+    fill_in_govuk_publishing_date_fields("1 February 2017")
+  end
 end
 
 Then(/^I see a validation error for the 'previously published' option$/) do
