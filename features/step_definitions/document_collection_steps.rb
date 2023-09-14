@@ -166,7 +166,7 @@ end
 
 And(/^a the document collection "([^"]*)" has a group with the heading "([^"]*)"$/) do |collection_title, heading|
   document_collection = DocumentCollection.find_by!(title: collection_title)
-  create(:document_collection_group, heading:, document_collection:)
+  @group = create(:document_collection_group, heading:, document_collection:)
 end
 
 When(/^I delete the group "(.*?)"$/) do |title|
@@ -248,4 +248,10 @@ And(/^the groups should be in the following order:/) do |list|
   actual_order = all(".govuk-summary-list dt").map(&:text)
   expected_order = list.hashes.map(&:values).flatten
   expect(actual_order).to eq(expected_order)
+end
+
+When(/^I select to add a new document to the collection group through "([^"]*)"$/) do |search_option|
+  visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
+  click_link "Add document"
+  choose search_option
 end

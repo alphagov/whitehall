@@ -61,11 +61,17 @@ Feature: Grouping documents into a collection
     Then I can see that the group "Brand new group" has been added
 
   @design-system-only
-  Scenario: Adding a new group
+  Scenario: Editing a group
     Given a document collection "May 2012 Update" exists
     And a the document collection "May 2012 Update" has a group with the heading "Group to be edited"
     When I edit the group "Group to be edited"'s heading to "Interesting new heading"
     Then I can see that the heading has been updated to "Interesting new heading"
+
+  @design-system-only
+  Scenario: Adding a document to a group via slug
+    Given a document collection "Collection" exists
+    And a the document collection "Collection" has a group with the heading "Group"
+    When I select to add a new document to the collection group through "Search via title or slug"
 
   @design-system-only
   Scenario: Removing a document from a group

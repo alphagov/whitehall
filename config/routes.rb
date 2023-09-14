@@ -45,6 +45,7 @@ Whitehall::Application.routes.draw do
         post "non-whitehall-member" => "document_collection_group_memberships#create_non_whitehall_member", as: :new_non_whitehall_member
         post "groups/update_memberships" => "document_collection_groups#update_memberships", as: :update_group_memberships
       end
+
       resources :organisations do
         resources :groups, except: [:show]
         resources :corporate_information_pages do
