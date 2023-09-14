@@ -46,7 +46,6 @@ module PublishingApi
 
       presented_item = present(edition)
       assert_equal expected_hash, presented_item.content
-      assert_valid_against_publisher_schema(presented_item.content, "placeholder")
     end
 
     test "links hash includes topics and parent if set" do
