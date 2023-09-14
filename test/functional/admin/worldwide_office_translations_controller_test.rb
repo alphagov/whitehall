@@ -53,7 +53,7 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
       assert_select "input[type=text][name='contact[title]'][value='#{french_translation.title}']"
       assert_select "textarea[name='contact[comments]']", text: french_translation.comments
       assert_select "input[type=text][name='contact[recipient]'][value='#{french_translation.recipient}']"
-      assert_select "textarea[name='contact[street_address]']", text: french_translation.street_address
+      assert_select "input[type=text][name='contact[street_address]'][value='#{french_translation.street_address}']"
       assert_select "input[type=text][name='contact[locality]'][value='#{french_translation.locality}']"
       assert_select "input[type=text][name='contact[region]'][value='#{french_translation.region}']"
       assert_select "input[type=text][name='contact[email]'][value='#{french_translation.email}']"

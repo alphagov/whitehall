@@ -1,10 +1,10 @@
 <%
   id ||= "app-c-translated-textarea-#{SecureRandom.hex(4)}"
   textarea ||= {}
-  textarea_label = textarea.dig(:label, :text).gsub("(required)", "").strip!
+  textarea_label = textarea.dig(:label, :text).gsub("(required)", "").strip
   details ||= {}
   details_text = details[:text]
-  details_title = details[:title] || sanitize("English translation #{tag.span("for #{textarea_label}", class: "govuk-visually-hidden")}")
+  details_title = details[:title] || sanitize("Original text for #{textarea_label.downcase}")
   govspeak_editor ||= false
 %>
 
@@ -21,11 +21,13 @@
 
   <% if details_text.present? %>
     <div class="app-c-translated-textarea__english-translation govuk-!-margin-bottom-6">
-      <%= render "govuk_publishing_components/components/details", {
-        title: details_title
-      } do %>
+      <%= render("govuk_publishing_components/components/details", title: details_title) do %>
         <%= details_text %>
       <% end %>
+    </div>
+  <% else %>
+    <div class="app-c-translated-textarea__english-translation--no-text govuk-!-margin-bottom-6">
+      <%= render "govuk_publishing_components/components/hint", text: "There is no #{details_title.downcase}" %>
     </div>
   <% end %>
 <% end %>
