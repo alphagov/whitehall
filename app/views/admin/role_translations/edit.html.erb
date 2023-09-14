@@ -5,38 +5,43 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @translated_role, as: :role, url: admin_role_translation_path(@translated_role, translation_locale) do |form| %>
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Name (required)",
-        },
-        heading_size: "l",
-        name: "role[name]",
-        id: "role_name",
-        value: @translated_role.name,
-        error_items: errors_for(form.object.errors, :name),
-        right_to_left: @translated_role.translation_locale.rtl?,
-        right_to_left_help: false
-      } %>
-
-      <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English name content:</h2>
-      <p class="app-view-translation__english-content govuk-body"><%= @role.name %></p>
-
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
+      <%= render "components/translated_input", {
+        input: {
+          label: {
+            text: "Name (required)",
+          },
           heading_size: "l",
-          text: "Responsibilities",
+          name: "role[name]",
+          id: "role_name",
+          value: @translated_role.name,
+          error_items: errors_for(form.object.errors, :name),
+          right_to_left: @translated_role.translation_locale.rtl?,
+          right_to_left_help: false,
         },
-        name: "role[responsibilities]",
-        id: "role_responsibilities",
-        value: @translated_role.responsibilities,
-        rows: 20,
-        error_items: errors_for(form.object.errors, :responsibilities),
-        right_to_left: @translated_role.translation_locale.rtl?,
-        right_to_left_help: false
+        details: {
+          text: @role.name
+        }
       } %>
 
-      <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English responsibilities content:</h2>
-      <p class="app-view-translation__english-content govuk-body"><%= @role.responsibilities %></p>
+      <%= render "components/translated_textarea", {
+        textarea: {
+          label: {
+            heading_size: "l",
+            text: "Responsibilities",
+          },
+          name: "role[responsibilities]",
+          id: "role_responsibilities",
+          value: @translated_role.responsibilities,
+          rows: 20,
+          error_items: errors_for(form.object.errors, :responsibilities),
+          right_to_left: @translated_role.translation_locale.rtl?,
+          right_to_left_help: false,
+        },
+        details: {
+          text: @role.responsibilities
+        },
+        govspeak_editor: true
+      } %>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {

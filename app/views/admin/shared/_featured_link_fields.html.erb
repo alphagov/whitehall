@@ -21,33 +21,57 @@
 <div data-module="AddAnother" data-add-text="Add another featured link">
   <%= form.fields_for :featured_links do |featured_link_form| %>
     <div class="js-duplicate-fields-set govuk-!-margin-bottom-6">
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Title"
-        },
-        heading_size: "m",
-        value: featured_link_form.object.title,
-        name: "#{model}[featured_links_attributes][#{featured_link_form.index}][title]",
-        id: "#{model}_featured_links[#{featured_link_form.index}]_title",
-      } %>
-
       <% if @translation_locale && @translation_locale.code != I18n.default_locale %>
-        <p class="app-view-translation__english-content govuk-body">English: <%= featured_link_form.object.title %></p>
+        <%= render "components/translated_input", {
+          input: {
+            label: {
+              text: "Title"
+            },
+            heading_size: "m",
+            value: featured_link_form.object.title,
+            name: "#{model}[featured_links_attributes][#{featured_link_form.index}][title]",
+            id: "#{model}_featured_links[#{featured_link_form.index}]_title",
+          },
+          details: {
+            text: featured_link_form.object.title,
+          }
+        } %>
+
+        <%= render "components/translated_input", {
+          input: {
+            label: {
+              text: "URL",
+            },
+            heading_size: "m",
+            value: featured_link_form.object.url,
+            name: "#{model}[featured_links_attributes][#{featured_link_form.index}][url]",
+            id: "#{model}_featured_links[#{featured_link_form.index}]_url",
+          },
+          details: {
+            text: featured_link_form.object.url,
+          }
+        } %>
+      <% else %>
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Title"
+          },
+          heading_size: "m",
+          value: featured_link_form.object.title,
+          name: "#{model}[featured_links_attributes][#{featured_link_form.index}][title]",
+          id: "#{model}_featured_links[#{featured_link_form.index}]_title",
+        } %>
+
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "URL",
+          },
+          heading_size: "m",
+          value: featured_link_form.object.url,
+          name: "#{model}[featured_links_attributes][#{featured_link_form.index}][url]",
+          id: "#{model}_featured_links[#{featured_link_form.index}]_url",
+        } %>
       <% end %>
-
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "URL",
-        },
-        heading_size: "m",
-        value: featured_link_form.object.url,
-        name: "#{model}[featured_links_attributes][#{featured_link_form.index}][url]",
-        id: "#{model}_featured_links[#{featured_link_form.index}]_url",
-      } %>
-
-    <% if @translation_locale && @translation_locale.code != I18n.default_locale %>
-      <p class="app-view-translation__english-content govuk-body">English: <%= featured_link_form.object.url %></p>
-    <% end %>
     </div>
   <% end %>
 </div>

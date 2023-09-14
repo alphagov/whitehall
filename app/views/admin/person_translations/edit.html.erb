@@ -5,23 +5,25 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @translated_person, url: admin_person_translation_path(@translated_person, translation_locale), method: :put do |form| %>
-
-      <%= render "components/govspeak-editor", {
-        label: {
-          heading_size: "l",
-          text: "Biography",
+      <%= render "components/translated_textarea", {
+        textarea: {
+          label: {
+            heading_size: "l",
+            text: "Biography",
+          },
+          name: "person[biography]",
+          id: "person_biography",
+          value: @translated_person.biography,
+          rows: 20,
+          error_items: errors_for(@translated_person.errors, :biography),
+          right_to_left: @translated_person.translation_locale.rtl?,
+          right_to_left_help: false
         },
-        name: "person[biography]",
-        id: "person_biography",
-        value: @translated_person.biography,
-        rows: 20,
-        error_items: errors_for(form.object.errors, :biography),
-        right_to_left: @translated_person.translation_locale.rtl?,
-        right_to_left_help: false
+        details: {
+          text: @person.biography
+        },
+        govspeak_editor: true,
       } %>
-
-      <h2 class="app-view-translation__english-content govuk-heading-m govuk-!-margin-bottom-2">English biography content:</h2>
-      <p class="app-view-translation__english-content govuk-body"><%= @person.biography %></p>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
