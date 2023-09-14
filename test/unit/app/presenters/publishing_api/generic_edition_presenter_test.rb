@@ -24,7 +24,7 @@ module PublishingApi
         base_path: public_path,
         title: "The title",
         description: "The summary",
-        schema_name: "placeholder_news_article",
+        schema_name: "placeholder",
         document_type: "press_release",
         locale: "en",
         public_updated_at: edition.updated_at,
