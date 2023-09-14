@@ -217,3 +217,35 @@ Then(/^I can see that "(.*?)" has been removed from the group$/) do |title|
   expect(page).to have_content "There are no documents inside this group"
   expect(page).not_to have_content title
 end
+
+And(/^the following groups exist within "([^"]*)":$/) do |collection_title, groups|
+  collection = DocumentCollection.find_by!(title: collection_title)
+  collection.groups = groups.hashes.map { |hash| create(:document_collection_group, heading: hash[:name]) }
+  collection.save!
+end
+
+When(/^I visit the Reorder page/) do
+  visit admin_document_collection_groups_path(@document_collection)
+  click_link "Reorder group"
+end
+
+And(/^I set the order of "([^"]*)" groups to:$/) do |collection_title, order|
+  collection = DocumentCollection.find_by!(title: collection_title)
+
+  order.hashes.each do |hash|
+    group = collection.groups.select { |f| f.heading == hash[:name] }.first
+    fill_in "ordering[#{group.id}]", with: hash[:order]
+  end
+
+  click_button "Save"
+end
+
+Then(/^I can see a "([^"]*)" success flash$/) do |message|
+  expect(find(".gem-c-success-alert__message").text).to eq message
+end
+
+And(/^the groups should be in the following order:/) do |list|
+  actual_order = all(".govuk-summary-list dt").map(&:text)
+  expected_order = list.hashes.map(&:values).flatten
+  expect(actual_order).to eq(expected_order)
+end
