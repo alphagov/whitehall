@@ -33,6 +33,8 @@ Whitehall::Application.routes.draw do
       resources :document_collections, path: "collections", except: [:index] do
         resources :document_collection_groups, as: :groups, path: "groups" do
           get :search_options, to: "document_collection_group_document_search#search_options"
+          post :search_options, to: "document_collection_group_document_search#search"
+          get :search_title_slug, to: "document_collection_group_document_search#search_title_slug"
           member { get :confirm_destroy }
           resource :document_collection_group_membership, as: :members, path: "members", only: [:destroy]
           resources :document_collection_group_memberships, path: "members", only: %i[index destroy] do

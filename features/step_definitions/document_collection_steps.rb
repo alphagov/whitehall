@@ -254,4 +254,10 @@ When(/^I select to add a new document to the collection group through "([^"]*)"$
   visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
   click_link "Add document"
   choose search_option
+  click_button "Next"
+end
+
+And(/^I search by "([^"]*)" for "([^"]*)"$/) do |search_type, search_term|
+  fill_in "Search by #{search_type.downcase}", with: search_term
+  click_button "Search"
 end

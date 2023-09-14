@@ -231,11 +231,11 @@ class ActionController::TestCase
   end
 
   def login_as_admin
-    login_as(create(:user, name: "user-name", email: "user@example.com"))
+    login_as(create(:user, name: "admin-name", email: "admin@example.com"))
   end
 
   def login_as_preview_design_system_user(role, organisation = nil)
-    login_as(create(role, :with_preview_design_system, name: "user-name", email: "user@example.com", organisation:))
+    login_as(create(role, :with_preview_design_system, name: "preview-user-name", email: "preview-user@example.com", organisation:))
   end
 
   def login_as_use_non_legacy_endpoints_user(role, organisation = nil)
@@ -260,7 +260,7 @@ class ActionDispatch::IntegrationTest
   end
 
   def login_as_admin
-    login_as(create(:user, name: "user-name", email: "user@example.com"))
+    login_as(create(:user, name: "admin-name", email: "admin@example.com"))
   end
 
   def login_as_use_non_legacy_endpoints_user(role, organisation = nil)

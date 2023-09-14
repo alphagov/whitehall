@@ -6,6 +6,12 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
 
   def search_options; end
 
+  def search
+    redirect_to(action: :search_title_slug, document_collection_id: @collection, group_id: @group) if params[:search_option] == "title-or-slug"
+  end
+
+  def search_title_slug; end
+
 private
 
   def check_new_design_system_permissions

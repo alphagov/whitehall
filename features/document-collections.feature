@@ -72,6 +72,7 @@ Feature: Grouping documents into a collection
     Given a document collection "Collection" exists
     And a the document collection "Collection" has a group with the heading "Group"
     When I select to add a new document to the collection group through "Search via title or slug"
+    And I search by "title or slug" for "Document 1"
 
   @design-system-only
   Scenario: Removing a document from a group

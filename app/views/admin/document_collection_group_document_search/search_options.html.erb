@@ -13,36 +13,38 @@
     {
       value: 'url',
       text: 'Search via URL'
-    },{
+    }, {
       value: 'title-or-slug',
       text: 'Search via title or slug',
-      hint_text: 'This only applies to documents made in Whitehall'
+      hint_text: 'This only applies to documents made in Whitehall publisher'
     },
   ]
 %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render "govuk_publishing_components/components/radio", {
-      heading: "Search options",
-      name: "search_options",
-      id: "search_options",
-      heading_size: "l",
-      items: search_options
-    } %>
-
-    <div class="govuk-button-group">
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Next",
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "form-button",
-          "track-action": "document-collection-search-options-next-button",
-          "track-label": "Next"
-        }
+    <%= form_with url: admin_document_collection_group_search_options_path(@collection, @group) do %>
+      <%= render "govuk_publishing_components/components/radio", {
+        heading: "Search options",
+        name: "search_option",
+        id: "search_option",
+        heading_size: "l",
+        items: search_options
       } %>
 
-      <%= link_to("Cancel", admin_document_collection_group_document_collection_group_memberships_path(@collection, @group), class: "govuk-link govuk-link--no-visited-state") %>
-    </div>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Next",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "document-collection-search-options-next-button",
+            "track-label": "Next"
+          }
+        } %>
+
+        <%= link_to("Cancel", admin_document_collection_group_document_collection_group_memberships_path(@collection, @group), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
   </div>
 </div>

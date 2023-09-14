@@ -1,0 +1,18 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_document_collection_group_search_options_path(@collection, @group),
+  } %>
+<% end %>
+<% content_for :page_title, 'Add document' %>
+<% content_for :title, 'Add document' %>
+<% content_for :context, @group.heading %>
+<% content_for :title_margin_bottom, 4 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/search", {
+      label_text: 'Search by title or slug',
+      label_size: "l"
+    } %>
+  </div>
+</div>
