@@ -19,7 +19,7 @@ module PublishingApi
         document_type:,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
-        schema_name: "placeholder_#{item.class.name.underscore}",
+        schema_name: "placeholder",
         auth_bypass_ids: [item.auth_bypass_id],
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
