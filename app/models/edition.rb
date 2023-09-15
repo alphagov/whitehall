@@ -32,7 +32,8 @@ class Edition < ApplicationRecord
   include Searchable
 
   include DateValidation
-  date_attributes :scheduled_publication, :delivered_on
+
+  date_attributes :scheduled_publication, :first_published_at, :delivered_on
 
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
@@ -52,11 +53,9 @@ class Edition < ApplicationRecord
   validates :title, presence: true, if: :title_required?, length: { maximum: 255 }
   validates :body, presence: true, if: :body_required?, length: { maximum: 16_777_215 }
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
-  validates :first_published_at, recent_date: true, allow_blank: true
-  validates :first_published_at, previously_published: true
-  validates_each :first_published_at do |record, attr, value|
-    record.errors.add(attr, "can't be set to a future date") if value && Time.zone.now < value
-  end
+  validates :previously_published, inclusion: { in: [true, false], message: "You must specify whether the document has been published before" }
+  validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
+  validates :first_published_at, relative_date: { after: -> { Date.parse("1900-01-01") }, before: -> { Time.zone.now }, before_message: "can't be set to a future date" }
   validates :scheduled_publication, relative_date: { after: -> { Time.zone.now }, after_message: "must be in the future" }, if: :draft?
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted].freeze
@@ -596,8 +595,6 @@ EXISTS (
   def can_have_some_invalid_data?
     deleted? || superseded?
   end
-
-  attr_accessor :has_previously_published_error
 
   def set_public_timestamp
     self.public_timestamp = if first_published_version?

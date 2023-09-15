@@ -638,7 +638,8 @@ module AdminEditionControllerTestHelpers
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
         assert_select "form#new_edition[action='#{admin_editions_path}']" do
           assert_select "input[name*='edition[previously_published']", count: 2
-          assert_select "select[name*='edition[first_published_at']", count: 5
+          assert_select "input[name*='edition[first_published_at']", count: 3
+          assert_select "select[name*='edition[first_published_at']", count: 2
           assert_select "label[for=edition_first_published_at_1i]", text: "Year"
           assert_select "label[for=edition_first_published_at_2i]", text: "Month"
           assert_select "label[for=edition_first_published_at_3i]", text: "Day"
@@ -655,7 +656,8 @@ module AdminEditionControllerTestHelpers
         admin_edition_path = send("admin_#{edition_type}_path", edition)
         assert_select "form#edit_edition[action='#{admin_edition_path}']" do
           assert_select "input[name*='edition[previously_published']", count: 2
-          assert_select "select[name*='edition[first_published_at']", count: 5
+          assert_select "input[name*='edition[first_published_at']", count: 3
+          assert_select "select[name*='edition[first_published_at']", count: 2
           assert_select "label[for=edition_first_published_at_1i]", text: "Year"
           assert_select "label[for=edition_first_published_at_2i]", text: "Month"
           assert_select "label[for=edition_first_published_at_3i]", text: "Day"
@@ -672,7 +674,8 @@ module AdminEditionControllerTestHelpers
         admin_edition_path = send("admin_#{edition_type}_path", edition)
         assert_select "form#edit_edition[action='#{admin_edition_path}']" do
           assert_select "input[name*='edition[previously_published']", count: 0
-          assert_select "select[name*='edition[first_published_at']", count: 5
+          assert_select "input[name*='edition[first_published_at']", count: 3
+          assert_select "select[name*='edition[first_published_at']", count: 2
           assert_select "label[for=edition_first_published_at_1i]", text: "Year"
           assert_select "label[for=edition_first_published_at_2i]", text: "Month"
           assert_select "label[for=edition_first_published_at_3i]", text: "Day"
