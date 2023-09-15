@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_06_151938) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_15_163657) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_151938) do
     t.index ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type"
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id"
+    t.index ["content_id"], name: "index_attachments_on_content_id"
     t.index ["ordering"], name: "index_attachments_on_ordering"
   end
 
@@ -243,6 +244,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_151938) do
     t.string "content_id", null: false
     t.integer "latest_edition_id"
     t.integer "live_edition_id"
+    t.index ["content_id"], name: "index_documents_on_content_id"
     t.index ["document_type"], name: "index_documents_on_document_type"
     t.index ["latest_edition_id"], name: "index_documents_on_latest_edition_id"
     t.index ["live_edition_id"], name: "index_documents_on_live_edition_id"
