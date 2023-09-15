@@ -29,6 +29,12 @@ namespace :migrate_calls_for_evidence do
 
     document_ids.each do |document_id|
       document = Document.find(document_id)
+
+      if document.latest_edition.is_a?(CallForEvidence)
+        print "S" # skip; already migrated
+        next
+      end
+
       DataHygiene::MigrateConsultationToCallForEvidence.new(document:, whodunnit:).call
       successes << document_id
       print "."
