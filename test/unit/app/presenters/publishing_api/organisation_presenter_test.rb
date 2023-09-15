@@ -136,8 +136,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
     presented_item = present(organisation)
 
-    expected_image_url = "https://static.test.gov.uk" \
-      "/government/uploads/system/uploads/organisation/logo/#{organisation.logo.model.id}/960x640_jpeg.jpg"
+    expected_image_url = "#{Plek.asset_root}/government/uploads/system/uploads/organisation/logo/#{organisation.logo.model.id}/960x640_jpeg.jpg"
 
     assert_equal(
       {
