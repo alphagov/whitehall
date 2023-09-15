@@ -28,7 +28,7 @@ class AssetTest < ActiveSupport::TestCase
   end
 
   test "should be valid if all fields present" do
-    asset = Asset.new(assetable: @attachment_data, asset_manager_id: "asset_manager_id", variant: @variant)
+    asset = Asset.new(assetable: @attachment_data, asset_manager_id: "asset_manager_id", variant: @variant, filename: "greenpaper.pdf")
 
     assert asset.valid?
   end

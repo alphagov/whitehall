@@ -374,7 +374,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "use_non_legacy_endpoints is true -  PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
     login_as_use_non_legacy_endpoints_user :gds_editor
-    attachment = create(:file_attachment, attachable: @edition)
+    attachment = create(:file_attachment_with_assets, attachable: @edition)
     variant = Asset.variants[:original]
     model_type = attachment.attachment_data.class.to_s
 
@@ -507,7 +507,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "use_non_legacy_endpoints is true - PUT :discards file_cache when a file is provided" do
     login_as_use_non_legacy_endpoints_user :gds_editor
-    attachment = create(:file_attachment, attachable: @edition)
+    attachment = create(:file_attachment_with_assets, attachable: @edition)
     attachment_data = attachment.attachment_data
     greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
     whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")

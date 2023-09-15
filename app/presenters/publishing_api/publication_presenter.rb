@@ -101,7 +101,7 @@ module PublishingApi
     end
 
     def attachments_for_current_locale
-      attachments = item.attachments
+      attachments = item.attachments_ready_for_publishing
       # nil/"" locale should always be returned
       locales_that_match = [I18n.locale.to_s, ""]
       attachments.to_a.select do |attachment|

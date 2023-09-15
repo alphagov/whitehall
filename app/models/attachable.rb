@@ -41,6 +41,10 @@ module Attachable
         end
       end
     end
+
+    def attachments_ready_for_publishing
+      attachments.select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
+    end
   end
 
   class Null
@@ -95,7 +99,7 @@ module Attachable
     attachments
       .map(&:attachment_data)
       .compact
-      .all?(&:uploaded_to_asset_manager?)
+      .all?(&:all_asset_variants_uploaded?)
   end
 
   def allows_attachments?

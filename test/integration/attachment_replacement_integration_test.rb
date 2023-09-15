@@ -12,7 +12,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     let(:filename) { "sample.docx" }
     let(:file) { File.open(path_to_attachment(filename)) }
     let(:attachment) { build(:file_attachment, title: "attachment-title", attachable: edition, file:) }
-    let(:asset_manager_id) { "asset-id" }
+    let(:asset_manager_id) { "asset_manager_id" }
 
     let(:replacement_filename) { "sample.rtf" }
     let(:replacement_asset_manager_id) { "replacement-asset-id" }
@@ -93,11 +93,11 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
     context "updates with asset_manager_id" do
       let(:variant) { Asset.variants[:original] }
+      let(:attachment) { build(:file_attachment_with_asset, title: "attachment-title", attachable: edition) }
 
       before do
         create(:government)
         login_as(managing_editor)
-        attachment.attachment_data.assets.new(asset_manager_id:, variant:)
         edition.attachments << attachment
         stub_publishing_api_has_linkables([], document_type: "topic")
         setup_publishing_api_for(edition)
@@ -120,7 +120,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
             click_button "Save"
             assert_text "Attachment 'Attachment Title' updated"
 
-            Attachment.last.attachment_data.assets.create!(asset_manager_id: replacement_asset_manager_id, variant:)
+            Attachment.last.attachment_data.assets.create!(asset_manager_id: replacement_asset_manager_id, variant:, filename: replacement_filename)
             Attachment.last.attachment_data.uploaded_to_asset_manager!
             stub_asset(replacement_asset_manager_id)
           end
@@ -152,7 +152,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
             attach_file "Replace file", path_to_attachment(replacement_filename)
             click_button "Save"
             assert_text "Attachment 'attachment-title' updated"
-            Attachment.last.attachment_data.assets.create!(asset_manager_id: replacement_asset_manager_id, variant:)
+            Attachment.last.attachment_data.assets.create!(asset_manager_id: replacement_asset_manager_id, variant:, filename: replacement_filename)
             Attachment.last.attachment_data.uploaded_to_asset_manager!
             stub_asset(replacement_asset_manager_id)
           end

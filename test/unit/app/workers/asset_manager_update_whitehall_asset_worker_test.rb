@@ -101,28 +101,18 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     let(:auth_bypass_id_attributes) do
       { "auth_bypass_ids" => [SecureRandom.uuid] }
     end
-    let(:attachment_data) { FactoryBot.create(:attachment_data) }
-    let(:original_asset_id) { "original_asset_manager_id" }
-    let(:variant_asset_id) { "variant_asset_manager_id" }
-    let(:original_asset) { Asset.new(asset_manager_id: original_asset_id, variant: Asset.variants[:original]) }
-    let(:variant_asset) { Asset.new(asset_manager_id: variant_asset_id, variant: Asset.variants[:thumbnail]) }
-
-    before do
-      attachment_data.assets = [original_asset]
-    end
+    let(:attachment_data) { FactoryBot.create(:attachment_data_with_assets) }
 
     test "updates an attachment and its variant" do
-      attachment_data.assets << variant_asset
-
-      AssetManager::AssetUpdater.expects(:call).with(original_asset_id, attachment_data, nil, auth_bypass_id_attributes)
-      AssetManager::AssetUpdater.expects(:call).with(variant_asset_id, attachment_data, nil, auth_bypass_id_attributes)
+      AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_original", attachment_data, nil, auth_bypass_id_attributes)
+      AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_thumbnail", attachment_data, nil, auth_bypass_id_attributes)
 
       AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
       AssetManagerUpdateWhitehallAssetWorker.drain
     end
 
     test "ignores missing assets in Asset Manager" do
-      expected_error = AssetManager::ServiceHelper::AssetNotFound.new(original_asset_id)
+      expected_error = AssetManager::ServiceHelper::AssetNotFound.new("asset_manager_id_original")
       AssetManager::AssetUpdater.expects(:call).once.raises(expected_error)
       Logger.any_instance.stubs(:error).with(includes(expected_error.message)).once
 
@@ -131,7 +121,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     end
 
     test "ignores assets that have been deleted in Asset Manager" do
-      expected_error = AssetManager::AssetUpdater::AssetAlreadyDeleted.new(attachment_data.id, original_asset_id)
+      expected_error = AssetManager::AssetUpdater::AssetAlreadyDeleted.new(attachment_data.id, "asset_manager_id_original")
       AssetManager::AssetUpdater.expects(:call).raises(expected_error)
       Logger.any_instance.stubs(:error).with(includes(expected_error.message)).once
 

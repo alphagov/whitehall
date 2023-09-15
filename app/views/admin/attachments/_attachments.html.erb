@@ -7,7 +7,7 @@
     <li class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         <p class="govuk-body">
-          <strong>Title:</strong> <%= attachment.title %> <% unless attachment.attachment_data.blank? || attachment.attachment_data.uploaded_to_asset_manager? %><span class="govuk-tag govuk-tag--green">Uploading</span><% end %>
+          <strong>Title:</strong> <%= attachment.title %> <% unless attachment.attachment_data.blank? || attachment.attachment_data.all_asset_variants_uploaded? %><span class="govuk-tag govuk-tag--green">Uploading</span><% end %>
         </p>
         <p class="govuk-body">
           <strong>Type: </strong><%= attachment.is_a?(HtmlAttachment) ? attachment.readable_type : attachment.readable_type.capitalize %>

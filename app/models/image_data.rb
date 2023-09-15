@@ -1,12 +1,15 @@
 require "mini_magick"
 
 class ImageData < ApplicationRecord
-  attr_accessor :validate_on_image, :use_non_legacy_endpoints
+  attr_accessor :validate_on_image
 
   VALID_WIDTH = 960
   VALID_HEIGHT = 640
 
   has_many :images
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 

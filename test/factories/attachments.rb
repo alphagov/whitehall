@@ -10,8 +10,33 @@ FactoryBot.define do
     transient do
       file { File.open(Rails.root.join("test/fixtures/greenpaper.pdf")) }
     end
+
     after(:build) do |attachment, evaluator|
       attachment.attachment_data ||= build(:attachment_data, file: evaluator.file, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
+    end
+    accessible { false }
+  end
+
+  factory :file_attachment_with_asset, class: FileAttachment, traits: [:abstract_attachment] do
+    sequence(:title) { |index| "file-attachment-title-#{index}" }
+    transient do
+      file { File.open(Rails.root.join("test/fixtures/sample.docx")) }
+    end
+
+    after(:build) do |attachment, evaluator|
+      attachment.attachment_data = build(:attachment_data_with_asset, file: evaluator.file)
+    end
+    accessible { false }
+  end
+
+  factory :file_attachment_with_assets, parent: :file_attachment, traits: [:abstract_attachment] do
+    sequence(:title) { |index| "file-attachment-title-#{index}" }
+    transient do
+      file { File.open(Rails.root.join("test/fixtures/greenpaper.pdf")) }
+    end
+
+    after(:build) do |attachment, evaluator|
+      attachment.attachment_data = build(:attachment_data_with_assets, file: evaluator.file, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
     end
     accessible { false }
   end

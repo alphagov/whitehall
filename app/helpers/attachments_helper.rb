@@ -60,7 +60,9 @@ module AttachmentsHelper
   end
 
   def block_attachments(attachments = [], alternative_format_contact_email = nil)
-    attachments.map do |attachment|
+    attachments
+      .select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
+      .map do |attachment|
       render(
         partial: "govuk_publishing_components/components/attachment",
         locals: {

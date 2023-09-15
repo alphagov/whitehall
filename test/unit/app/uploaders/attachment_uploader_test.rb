@@ -307,7 +307,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   def expect_fallback_thumbnail_to_be_uploaded_to_asset_manager_create_asset
-    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id")
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
     Services.asset_manager.expects(:create_asset).with { |value|
       if value[:file].path.ends_with?(".png")
         generic_thumbnail_path = File.expand_path("app/assets/images/pub-cover.png")
@@ -315,7 +315,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
                      File.binread(value[:file].path),
                      "Thumbnailing when PDF conversion fails should use default image."
       end
-    }.returns("id" => "http://asset-manager/assets/some-id")
+    }.returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
   end
 
   def expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png

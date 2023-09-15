@@ -63,7 +63,9 @@ module GovspeakHelper
   end
 
   def prepare_attachments(attachments, alternative_format_contact_email)
-    attachments.map do |attachment|
+    attachments
+      .select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
+      .map do |attachment|
       attachment_component_params(attachment, alternative_format_contact_email:)
     end
   end

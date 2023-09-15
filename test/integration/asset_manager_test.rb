@@ -45,11 +45,12 @@ class AssetManagerIntegrationTest
     describe "use_non_legacy_endpoints is true" do
       setup do
         @attachment.attachment_data.use_non_legacy_endpoints = true
+        @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
       end
 
       test "sends the attachment to Asset Manager" do
-        Services.asset_manager.expects(:asset).with(anything).returns("id" => "http://asset-manager/assets/asset_manager_id")
-        Services.asset_manager.expects(:create_asset).with(file_matching(/#{@filename}/)).returns("id" => "http://asset-manager/assets/asset_manager_id")
+        Services.asset_manager.expects(:asset).with(anything).returns(@asset_manager_response)
+        Services.asset_manager.expects(:create_asset).with(file_matching(/#{@filename}/)).returns(@asset_manager_response)
 
         Sidekiq::Testing.inline! do
           @attachment.save!
@@ -57,9 +58,9 @@ class AssetManagerIntegrationTest
       end
 
       test "marks the attachment as draft in Asset Manager" do
-        Services.asset_manager.expects(:asset).with(anything).returns("id" => "http://asset-manager/assets/asset_manager_id")
+        Services.asset_manager.expects(:asset).with(anything).returns(@asset_manager_response)
         Services.asset_manager.expects(:create_asset).with(has_entry(draft: true))
-                .returns("id" => "http://asset-manager/assets/asset_manager_id")
+                .returns(@asset_manager_response)
 
         Sidekiq::Testing.inline! do
           @attachment.save!
@@ -74,7 +75,7 @@ class AssetManagerIntegrationTest
         @attachment.save!
 
         Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id]))
-                .returns("id" => "http://asset-manager/assets/asset_manager_id")
+                .returns(@asset_manager_response)
 
         AssetManagerCreateAssetWorker.drain
       end

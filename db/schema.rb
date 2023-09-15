@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_24_075602) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_151938) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_075602) do
     t.datetime "updated_at", null: false
     t.string "assetable_type"
     t.bigint "assetable_id"
+    t.string "filename"
     t.index ["assetable_type", "assetable_id"], name: "index_assets_on_assetable"
   end
 
@@ -31,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_075602) do
     t.integer "replaced_by_id"
     t.datetime "uploaded_to_asset_manager_at", precision: nil
     t.boolean "present_at_unpublish"
+    t.boolean "use_non_legacy_endpoints", default: false, null: false
     t.index ["replaced_by_id"], name: "index_attachment_data_on_replaced_by_id"
   end
 
@@ -590,6 +592,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_075602) do
     t.string "carrierwave_image"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.boolean "use_non_legacy_endpoints", default: false, null: false
   end
 
   create_table "images", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
