@@ -45,113 +45,116 @@
       heading_level: 3,
       heading_size: "l"
     } do %>
+
       <% call_for_evidence_participation = edition.call_for_evidence_participation || edition.build_call_for_evidence_participation %>
-      <%= hidden_field_tag "edition[call_for_evidence_participation_attributes][id]", call_for_evidence_participation.id %>
 
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Link URL",
-        },
-        name: "edition[call_for_evidence_participation_attributes][link_url]",
-        id: "edition_call_for_evidence_participation_link_url",
-        heading_size: "m",
-        value: call_for_evidence_participation.link_url,
-        error_items: errors_for(call_for_evidence_participation.errors, :link_url),
-      } %>
-
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Email",
-        },
-        name: "edition[call_for_evidence_participation_attributes][email]",
-        id: "edition_call_for_evidence_participation_email",
-        heading_size: "m",
-        value: call_for_evidence_participation.email,
-        error_items: errors_for(call_for_evidence_participation.errors, :email),
-      } %>
-
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
-          text: "Postal address",
-          heading_size: "m",
-        },
-        name: "edition[call_for_evidence_participation_attributes][postal_address]",
-        id: "edition_call_for_evidence_participation_postal_address",
-        value: call_for_evidence_participation.postal_address,
-        error_items: errors_for(call_for_evidence_participation.errors, :postal_address),
-        rows: 4,
-      } %>
-
-      <% call_for_evidence_response_form = call_for_evidence_participation.call_for_evidence_response_form || call_for_evidence_participation.build_call_for_evidence_response_form %>
-      <% call_for_evidence_response_form_data = call_for_evidence_response_form.call_for_evidence_response_form_data || call_for_evidence_response_form.build_call_for_evidence_response_form_data %>
-
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Downloadable response form title",
-        },
-        name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][title]",
-        id: "edition_call_for_evidence_participation_call_for_evidence_response_form_title",
-        heading_size: "m",
-        value: call_for_evidence_response_form.title,
-        error_items: errors_for(call_for_evidence_response_form.errors, :title),
-      } %>
-
-      <% if call_for_evidence_response_form.call_for_evidence_response_form_data.try(:persisted?) %>
-        <div class="attachment">
-          <p class="govuk-body">Current data: <%= link_to File.basename(call_for_evidence_response_form.call_for_evidence_response_form_data.file.path), call_for_evidence_response_form.call_for_evidence_response_form_data.file.url, class: "govuk-link" %></p>
-
-          <%= hidden_field_tag "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file_cache]", call_for_evidence_response_form_data.file_cache %>
-          <%= hidden_field_tag "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][id]", call_for_evidence_response_form_data.id %>
-          <%= hidden_field_tag "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][id]", call_for_evidence_response_form.id %>
-
-          <%= render "govuk_publishing_components/components/radio", {
-            heading: "Actions:",
-            name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][attachment_action]",
-            id: "edition_call_for_evidence_participation_call_for_evidence_response_form_attachment_action",
-            heading_size: "m",
-            error_items: errors_for(call_for_evidence_response_form.errors, :attachment_action),
-            items: [
-              {
-                value: "keep",
-                text: "Keep",
-                checked: ["keep", nil].include?(params.dig("edition", "call_for_evidence_participation_attributes", "call_for_evidence_response_form_attributes", "attachment_action")),
-              },
-              {
-                value: "remove",
-                text: "Remove",
-                checked: params.dig("edition", "call_for_evidence_participation_attributes", "call_for_evidence_response_form_attributes", "attachment_action") == "remove",
-              },
-              {
-                value: "replace",
-                text: "Replace",
-                checked: params.dig("edition", "call_for_evidence_participation_attributes", "call_for_evidence_response_form_attributes", "attachment_action") == "replace",
-                conditional: render("govuk_publishing_components/components/file_upload", {
-                  label: {
-                    text: "Replacement"
-                  },
-                  name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file]",
-                  id: "edition_call_for_evidence_participation_attributes_call_for_evidence_response_form_call_for_evidence_response_form_data_file",
-                  error_items: errors_for(call_for_evidence_response_form_data.errors, :file) || errors_for(call_for_evidence_response_form.errors, :call_for_evidence_response_form_data),
-                }
-                )
-              }
-            ]
-          } %>
-        </div>
-      <% else %>
-        <%= render "govuk_publishing_components/components/file_upload", {
+      <%= form.fields_for :call_for_evidence_participation, call_for_evidence_participation do |call_for_evidence_participation_form| %>
+        <%= render "govuk_publishing_components/components/input", {
           label: {
-            text: "File",
+            text: "Link URL",
+          },
+          name: "edition[call_for_evidence_participation_attributes][link_url]",
+          id: "edition_call_for_evidence_participation_link_url",
+          heading_size: "m",
+          value: call_for_evidence_participation.link_url,
+          error_items: errors_for(call_for_evidence_participation.errors, :link_url),
+        } %>
+
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Email",
+          },
+          name: "edition[call_for_evidence_participation_attributes][email]",
+          id: "edition_call_for_evidence_participation_email",
+          heading_size: "m",
+          value: call_for_evidence_participation.email,
+          error_items: errors_for(call_for_evidence_participation.errors, :email),
+        } %>
+
+        <%= render "govuk_publishing_components/components/textarea", {
+          label: {
+            text: "Postal address",
             heading_size: "m",
           },
-          name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file]",
-          id: "edition_call_for_evidence_participation_call_for_evidence_response_form_call_for_evidence_response_form_data_file",
-          error_items: errors_for(call_for_evidence_response_form_data.errors, :file) || errors_for(call_for_evidence_response_form.errors, :call_for_evidence_response_form_data),
+          name: "edition[call_for_evidence_participation_attributes][postal_address]",
+          id: "edition_call_for_evidence_participation_postal_address",
+          value: call_for_evidence_participation.postal_address,
+          error_items: errors_for(call_for_evidence_participation.errors, :postal_address),
+          rows: 4,
         } %>
-        <% if call_for_evidence_response_form_data.file_cache.present? %>
-          <%= hidden_field_tag "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file_cache]", call_for_evidence_response_form_data.file_cache %>
 
-          <p class="govuk-body already-uploaded"><%= "#{File.basename(call_for_evidence_response_form_data.file_cache)} already uploaded" %></p>
+        <% call_for_evidence_response_form = call_for_evidence_participation.call_for_evidence_response_form || call_for_evidence_participation.build_call_for_evidence_response_form %>
+
+        <%= call_for_evidence_participation_form.fields_for :call_for_evidence_response_form, call_for_evidence_response_form do |response_form| %>
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Downloadable response form title",
+            },
+            name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][title]",
+            id: "edition_call_for_evidence_participation_call_for_evidence_response_form_title",
+            heading_size: "m",
+            value: call_for_evidence_response_form.title,
+            error_items: errors_for(call_for_evidence_response_form.errors, :title),
+          } %>
+
+          <% call_for_evidence_response_form_data = call_for_evidence_response_form.call_for_evidence_response_form_data || call_for_evidence_response_form.build_call_for_evidence_response_form_data %>
+
+          <%= response_form.fields_for :call_for_evidence_response_form_data, call_for_evidence_response_form_data do |call_for_evidence_response_form_data_form| %>
+            <%= call_for_evidence_response_form_data_form.hidden_field :file_cache, value: call_for_evidence_response_form_data.file_cache %>
+
+            <% if call_for_evidence_response_form.call_for_evidence_response_form_data.try(:persisted?) %>
+              <div class="attachment">
+                <p class="govuk-body">Current data: <%= link_to File.basename(call_for_evidence_response_form_data.file.path), call_for_evidence_response_form_data.file.url, class: "govuk-link" %></p>
+
+                <%= render "govuk_publishing_components/components/radio", {
+                  heading: "Actions:",
+                  name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][attachment_action]",
+                  id: "edition_call_for_evidence_participation_call_for_evidence_response_form_attachment_action",
+                  heading_size: "m",
+                  error_items: errors_for(call_for_evidence_response_form.errors, :attachment_action),
+                  items: [
+                    {
+                      value: "keep",
+                      text: "Keep",
+                      checked: ["keep", nil].include?(params.dig("edition", "call_for_evidence_participation_attributes", "call_for_evidence_response_form_attributes", "attachment_action")),
+                    },
+                    {
+                      value: "remove",
+                      text: "Remove",
+                      checked: params.dig("edition", "call_for_evidence_participation_attributes", "call_for_evidence_response_form_attributes", "attachment_action") == "remove",
+                    },
+                    {
+                      value: "replace",
+                      text: "Replace",
+                      checked: params.dig("edition", "call_for_evidence_participation_attributes", "call_for_evidence_response_form_attributes", "attachment_action") == "replace",
+                      conditional: render("govuk_publishing_components/components/file_upload", {
+                        label: {
+                          text: "Replacement"
+                        },
+                        name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file]",
+                        id: "edition_call_for_evidence_participation_attributes_call_for_evidence_response_form_call_for_evidence_response_form_data_file",
+                        error_items: errors_for(call_for_evidence_response_form_data.errors, :file) || errors_for(call_for_evidence_response_form.errors, :call_for_evidence_response_form_data),
+                      }
+                      )
+                    }
+                  ]
+                } %>
+              </div>
+            <% else %>
+              <%= render "govuk_publishing_components/components/file_upload", {
+                label: {
+                  text: "File",
+                  heading_size: "m",
+                },
+                name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file]",
+                id: "edition_call_for_evidence_participation_call_for_evidence_response_form_call_for_evidence_response_form_data_file",
+                error_items: errors_for(call_for_evidence_response_form_data.errors, :file) || errors_for(call_for_evidence_response_form.errors, :call_for_evidence_response_form_data),
+              } %>
+              <% if call_for_evidence_response_form_data.file_cache.present? %>
+                <p class="govuk-body already-uploaded"><%= "#{File.basename(call_for_evidence_response_form_data.file_cache)} already uploaded" %></p>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
