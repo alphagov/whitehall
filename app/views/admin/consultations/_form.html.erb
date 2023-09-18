@@ -45,7 +45,7 @@
       heading_level: 3,
       heading_size: "l"
     } do %>
-      <% consultation_participation = edition.consultation_participation || edition.build_consultation_participation %>
+      <% consultation_participation = edition.consultation_participation %>
 
       <%= form.fields_for :consultation_participation, consultation_participation do |consultation_participation_form| %>
         <%= render "govuk_publishing_components/components/input", {
@@ -82,7 +82,7 @@
           rows: 4,
         } %>
 
-        <% consultation_response_form = consultation_participation.consultation_response_form || consultation_participation.build_consultation_response_form %>
+        <% consultation_response_form = consultation_participation.consultation_response_form %>
 
         <%= consultation_participation_form.fields_for :consultation_response_form, consultation_response_form do |response_form| %>
           <%= render "govuk_publishing_components/components/input", {
@@ -96,7 +96,7 @@
             error_items: errors_for(consultation_response_form.errors, :title),
           } %>
 
-          <% consultation_response_form_data = consultation_response_form.consultation_response_form_data || consultation_response_form.build_consultation_response_form_data %>
+          <% consultation_response_form_data = consultation_response_form.consultation_response_form_data %>
 
           <%= response_form.fields_for :consultation_response_form_data, consultation_response_form_data do |consultation_response_form_data_form| %>
             <%= consultation_response_form_data_form.hidden_field  :file_cache, value: consultation_response_form_data.file_cache %>

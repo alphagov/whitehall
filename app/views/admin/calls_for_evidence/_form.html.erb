@@ -46,7 +46,7 @@
       heading_size: "l"
     } do %>
 
-      <% call_for_evidence_participation = edition.call_for_evidence_participation || edition.build_call_for_evidence_participation %>
+      <% call_for_evidence_participation = edition.call_for_evidence_participation %>
 
       <%= form.fields_for :call_for_evidence_participation, call_for_evidence_participation do |call_for_evidence_participation_form| %>
         <%= render "govuk_publishing_components/components/input", {
@@ -83,7 +83,7 @@
           rows: 4,
         } %>
 
-        <% call_for_evidence_response_form = call_for_evidence_participation.call_for_evidence_response_form || call_for_evidence_participation.build_call_for_evidence_response_form %>
+        <% call_for_evidence_response_form = call_for_evidence_participation.call_for_evidence_response_form %>
 
         <%= call_for_evidence_participation_form.fields_for :call_for_evidence_response_form, call_for_evidence_response_form do |response_form| %>
           <%= render "govuk_publishing_components/components/input", {
@@ -97,7 +97,7 @@
             error_items: errors_for(call_for_evidence_response_form.errors, :title),
           } %>
 
-          <% call_for_evidence_response_form_data = call_for_evidence_response_form.call_for_evidence_response_form_data || call_for_evidence_response_form.build_call_for_evidence_response_form_data %>
+          <% call_for_evidence_response_form_data = call_for_evidence_response_form.call_for_evidence_response_form_data %>
 
           <%= response_form.fields_for :call_for_evidence_response_form_data, call_for_evidence_response_form_data do |call_for_evidence_response_form_data_form| %>
             <%= call_for_evidence_response_form_data_form.hidden_field :file_cache, value: call_for_evidence_response_form_data.file_cache %>
