@@ -130,8 +130,8 @@
                       text: "Replacement"
                     },
                     name: "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]",
-                    id: "edition_consultation_participation_attributes_consultation_response_form_consultation_response_form_data_file",
-                    error_items: errors_for(consultation_response_form_data.errors, :file),
+                    id: "edition_consultation_participation_consultation_response_form_consultation_response_form_data_file",
+                    error_items: errors_for(consultation_response_form_data.errors, :file) || errors_for(consultation_response_form.errors, :consultation_response_form_data),
                   }
                 )
               }
@@ -146,7 +146,7 @@
           },
           name: "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]",
           id: "edition_consultation_participation_consultation_response_form_consultation_response_form_data_file",
-          error_items: errors_for(consultation_response_form_data.errors, :file),
+          error_items: errors_for(consultation_response_form_data.errors, :file) || errors_for(consultation_response_form.errors, :consultation_response_form_data),
         } %>
         <% if consultation_response_form_data.file_cache.present? %>
           <%= hidden_field_tag "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file_cache]", consultation_response_form_data.file_cache %>
