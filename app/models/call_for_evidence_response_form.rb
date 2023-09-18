@@ -4,7 +4,7 @@ class CallForEvidenceResponseForm < ApplicationRecord
 
   delegate :url, :file, to: :call_for_evidence_response_form_data
 
-  validates :title, presence: true
+  validates :title, :call_for_evidence_response_form_data, presence: true
 
   accepts_nested_attributes_for :call_for_evidence_response_form_data
 

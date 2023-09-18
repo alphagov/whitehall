@@ -10,6 +10,11 @@ class ConsultationResponseFormTest < ActiveSupport::TestCase
     assert_not form.valid?
   end
 
+  test "should be invalid without a consultation_response_form_data" do
+    form = build(:consultation_response_form, consultation_response_form_data: nil)
+    assert_not form.valid?
+  end
+
   test "does not destroy response form data when other response forms are associated with it" do
     consultation_response_form = create(:consultation_response_form)
     consultation_response_form_data = consultation_response_form.consultation_response_form_data
