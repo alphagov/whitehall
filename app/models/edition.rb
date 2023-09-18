@@ -55,8 +55,8 @@ class Edition < ApplicationRecord
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
   validates :previously_published, inclusion: { in: [true, false], message: "You must specify whether the document has been published before" }
   validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
-  validates :first_published_at, relative_date: { after: -> { Date.parse("1900-01-01") }, before: -> { Time.zone.now }, before_message: "can't be set to a future date" }
-  validates :scheduled_publication, relative_date: { after: -> { Time.zone.now }, after_message: "must be in the future" }, if: :draft?
+  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now }, message: "must be between 1/1/1900 and the present" }, if: :draft?, allow_blank: true
+  validates :scheduled_publication, inclusion: { in: proc { Time.zone.now.. }, message: "must be in the future" }, if: :draft?, allow_blank: true
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted].freeze
   FROZEN_STATES = %w[superseded deleted].freeze

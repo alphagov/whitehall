@@ -13,7 +13,7 @@ class ReviewReminder < ApplicationRecord
 
   validates :document, :creator, :review_at, :email_address, presence: true
   validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP, if: -> { email_address.present? } }
-  validates :review_at, relative_date: { after: -> { Time.zone.today }, after_message: "can't be in the past" }, if: :review_at_changed?
+  validates :review_at, inclusion: { in: proc { Time.zone.today.. }, message: "can't be in the past" }, if: :review_at_changed?
 
   before_update :reset_reminder_sent_at, if: :review_at_changed?
 
