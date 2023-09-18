@@ -25,13 +25,19 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
     end
 
     context "attachment data has missing assets" do
-      it "does not call updater nor deleter" do
+      before do
         attachment_data.use_non_legacy_endpoints = true
         attachment_data.save!
+      end
 
+      it "does not call updater" do
         AssetManager::AttachmentUpdater.expects(:call).never
 
-        AssetManager::AttachmentDeleter.expects(:call).never
+        worker.perform(attachment_data.id)
+      end
+
+      it "calls deleter" do
+        AssetManager::AttachmentDeleter.expects(:call)
 
         worker.perform(attachment_data.id)
       end
