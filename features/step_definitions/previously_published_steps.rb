@@ -33,7 +33,7 @@ Then(/^I see a validation error for the 'previously published' option$/) do
 end
 
 Then(/^I see a validation error for the future date$/) do
-  expect(page).to have_content("First published at can't be set to a future date")
+  expect(page).to have_content("First published at must be between 1/1/1900 and the present")
 end
 
 Then(/^I see a validation error for the missing publication date$/) do
@@ -41,5 +41,5 @@ Then(/^I see a validation error for the missing publication date$/) do
 end
 
 Then(/^I should not see a validation error on the previously published date$/) do
-  expect(page).to_not have_content("First published at can't be set to a future date")
+  expect(page).to_not have_content("First published at must be between 1/1/1900 and the present")
 end
