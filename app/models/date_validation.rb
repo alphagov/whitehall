@@ -26,6 +26,10 @@ module DateValidation
     @invalid_date_attributes = Set.new if @invalid_date_attributes.nil?
     if date.is_a?(Hash)
       begin
+        # Rails will cast the year part of the date to 0 if the year input parameter is a non-numeric string
+        # This only seems to happen to the year part, other parts remain as strings
+        raise TypeError if (date[1]).zero?
+
         Date.new(date[1], date[2], date[3])
         @invalid_date_attributes.delete(attribute)
       rescue ArgumentError, TypeError
