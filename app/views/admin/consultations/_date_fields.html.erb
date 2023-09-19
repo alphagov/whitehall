@@ -32,11 +32,11 @@
           width: 2,
         },
         hour: {
-          value: params.dig("edition", "scheduled_publication(4i)")&.to_i || edition.opening_at&.hour,
+          value: params.dig("edition", "opening_at(4i)")&.to_i || edition.opening_at&.hour,
           id: "edition_opening_at_4i",
         },
         minute: {
-          value: params.dig("edition", "scheduled_publication(5i)")&.to_i || edition.opening_at&.min,
+          value: params.dig("edition", "opening_at(5i)")&.to_i || edition.opening_at&.min,
           id: "edition_opening_at_5i",
         },
       }
@@ -78,11 +78,11 @@
           width: 2,
         },
         hour: {
-          value: params.dig("edition", "scheduled_publication(4i)")&.to_i || edition.closing_at&.hour,
+          value: params.dig("edition", "closing_at(4i)")&.to_i || edition.closing_at&.hour,
           id: "edition_closing_at_4i",
         },
         minute: {
-          value: params.dig("edition", "scheduled_publication(5i)")&.to_i || edition.closing_at&.min,
+          value: params.dig("edition", "closing_at(5i)")&.to_i || edition.closing_at&.min,
           id: "edition_closing_at_5i",
         },
       }
