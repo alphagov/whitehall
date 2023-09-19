@@ -128,29 +128,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           setup_publishing_api_for(edition)
         end
 
-        context "when a file attachment is added to the draft document" do
-          before do
-            visit admin_news_article_path(edition)
-            click_link "Add attachments"
-            click_link "Upload new file attachment"
-            fill_in "Title", with: "asset-title"
-            attach_file "File", path_to_attachment("logo.png")
-            click_button "Save"
-            assert_text "Attachment 'asset-title' uploaded"
-          end
-
-          it "marks attachment as access limited and sends it with an auth_bypass_id in Asset Manager" do
-            Services.asset_manager.expects(:create_whitehall_asset).with(
-              has_entries(
-                legacy_url_path: regexp_matches(/logo\.png/),
-                access_limited_organisation_ids: [organisation.content_id],
-                auth_bypass_ids: [edition.auth_bypass_id],
-              ),
-            )
-            AssetManagerCreateWhitehallAssetWorker.drain
-          end
-        end
-
         context "given an edition with an html attachment" do
           let(:edition) { create(:publication, :policy_paper) }
 
@@ -178,38 +155,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             click_button "Save"
           end
         end
-
-        context "when bulk uploaded to draft document" do
-          before do
-            visit admin_news_article_path(edition)
-            click_link "Add attachments"
-            click_link "Bulk upload from Zip file"
-            attach_file "Zip file", path_to_attachment("sample_attachment.zip")
-            click_button "Upload zip"
-            fill_in "Title", with: "file-title"
-            click_button "Save"
-            assert find("li", text: "greenpaper.pdf")
-          end
-
-          it "marks attachment as access limited in Asset Manager" do
-            Services.asset_manager.expects(:create_whitehall_asset).with(
-              has_entries(
-                legacy_url_path: regexp_matches(/greenpaper\.pdf/),
-                access_limited_organisation_ids: [organisation.content_id],
-                auth_bypass_ids: [edition.auth_bypass_id],
-              ),
-            )
-            Services.asset_manager.expects(:create_whitehall_asset).with(
-              has_entries(
-                legacy_url_path: regexp_matches(/thumbnail_greenpaper\.pdf\.png/),
-                access_limited_organisation_ids: [organisation.content_id],
-                auth_bypass_ids: [edition.auth_bypass_id],
-              ),
-            )
-
-            AssetManagerCreateWhitehallAssetWorker.drain
-          end
-        end
       end
 
       context "given a consultation" do
@@ -221,30 +166,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         before do
           setup_publishing_api_for(edition)
           stub_publishing_api_has_linkables([], document_type: "topic")
-        end
-
-        context "when an attachment is added to the consultation's outcome" do
-          before do
-            visit admin_consultation_path(edition)
-            click_link "Edit draft"
-            click_link "Final outcome"
-            click_link "Upload new file attachment"
-            fill_in "Title", with: "asset-title"
-            attach_file "File", path_to_attachment("logo.png")
-            click_button "Save"
-            assert_text "Attachment 'asset-title' uploaded"
-          end
-
-          it "marks attachment as access limited in Asset Manager and sends with the consultation's auth_bypass_id" do
-            Services.asset_manager.expects(:create_whitehall_asset).with(
-              has_entries(
-                legacy_url_path: regexp_matches(/logo\.png/),
-                access_limited_organisation_ids: [organisation.content_id],
-                auth_bypass_ids: [edition.auth_bypass_id],
-              ),
-            )
-            AssetManagerCreateWhitehallAssetWorker.drain
-          end
         end
 
         it "sends a consultation form to asset manager with the consultation's auth_bypass_id" do

@@ -118,18 +118,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
           end
         end
       end
-
-      context "given a policy group" do
-        let(:policy_group) { create(:policy_group) }
-        let(:asset_initially_draft) { true }
-
-        it "marks attachment as published in Asset Manager when added to policy group" do
-          visit admin_policy_group_attachments_path(policy_group)
-          add_attachment(filename)
-          Attachment.last.attachment_data.uploaded_to_asset_manager!
-          assert_sets_draft_status_in_asset_manager_to false
-        end
-      end
     end
 
     context "updates with asset_manager_id" do
@@ -244,14 +232,15 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
         let(:policy_group) { create(:policy_group) }
         let(:asset_initially_draft) { true }
 
+        before do
+          stub_create_asset(asset_manager_id)
+        end
+
         it "marks attachment as published in Asset Manager when added to policy group" do
           visit admin_policy_group_attachments_path(policy_group)
           add_attachment(filename)
-          Attachment.last.attachment_data.assets.create!(asset_manager_id:, variant:, filename:)
-          Attachment.last.attachment_data.uploaded_to_asset_manager!
-          attachment_data = Attachment.last.attachment_data
-          attachment_data.use_non_legacy_endpoints = true
-          attachment_data.save!
+
+          AssetManagerCreateAssetWorker.drain
 
           assert_sets_draft_status_in_asset_manager_to false
         end
@@ -284,6 +273,12 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       Services.asset_manager.stubs(:asset)
               .with(asset_manger_id)
               .returns(attributes.merge(id: url_id).stringify_keys)
+    end
+
+    def stub_create_asset(asset_manger_id)
+      url_id = "http://asset-manager/assets/#{asset_manger_id}"
+      Services.asset_manager.stubs(:create_asset)
+              .returns("id" => url_id, "name" => "filename.pdf")
     end
 
     def assert_sets_draft_status_in_asset_manager_to(draft, never: false)
