@@ -10,6 +10,11 @@ class CallForEvidenceResponseFormTest < ActiveSupport::TestCase
     assert_not form.valid?
   end
 
+  test "should be invalid without call_for_evidence_response_form_data" do
+    call_for_evidence = build(:call_for_evidence_response_form, call_for_evidence_response_form_data: nil)
+    assert_not call_for_evidence.valid?
+  end
+
   test "does not destroy response form data when other response forms are associated with it" do
     call_for_evidence_response_form = create(:call_for_evidence_response_form)
     call_for_evidence_response_form_data = call_for_evidence_response_form.call_for_evidence_response_form_data

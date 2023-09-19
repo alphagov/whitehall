@@ -39,4 +39,11 @@ private
   def document_can_be_previously_published
     false
   end
+
+  def build_edition_dependencies
+    super
+    participation = @edition.consultation_participation || @edition.build_consultation_participation
+    response_form = participation.consultation_response_form || participation.build_consultation_response_form
+    response_form.consultation_response_form_data || response_form.build_consultation_response_form_data
+  end
 end

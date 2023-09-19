@@ -39,4 +39,11 @@ private
   def document_can_be_previously_published
     false
   end
+
+  def build_edition_dependencies
+    super
+    participation = @edition.call_for_evidence_participation || @edition.build_call_for_evidence_participation
+    response_form = participation.call_for_evidence_response_form || participation.build_call_for_evidence_response_form
+    response_form.call_for_evidence_response_form_data || response_form.build_call_for_evidence_response_form_data
+  end
 end

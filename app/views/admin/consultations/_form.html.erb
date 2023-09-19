@@ -45,113 +45,115 @@
       heading_level: 3,
       heading_size: "l"
     } do %>
-      <% consultation_participation = edition.consultation_participation || edition.build_consultation_participation %>
-      <%= hidden_field_tag "edition[consultation_participation_attributes][id]", consultation_participation.id %>
+      <% consultation_participation = edition.consultation_participation %>
 
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Link URL",
-        },
-        name: "edition[consultation_participation_attributes][link_url]",
-        id: "edition_consultation_participation_link_url",
-        heading_size: "m",
-        value: consultation_participation.link_url,
-        error_items: errors_for(consultation_participation.errors, :link_url),
-      } %>
-
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Email",
-        },
-        name: "edition[consultation_participation_attributes][email]",
-        id: "edition_consultation_participation_email",
-        heading_size: "m",
-        value: consultation_participation.email,
-        error_items: errors_for(consultation_participation.errors, :email),
-      } %>
-
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
-          text: "Postal address",
-          heading_size: "m",
-        },
-        name: "edition[consultation_participation_attributes][postal_address]",
-        id: "edition_consultation_participation_postal_address",
-        value: consultation_participation.postal_address,
-        error_items: errors_for(consultation_participation.errors, :postal_address),
-        rows: 4,
-      } %>
-
-      <% consultation_response_form = consultation_participation.consultation_response_form || consultation_participation.build_consultation_response_form %>
-      <% consultation_response_form_data = consultation_response_form.consultation_response_form_data || consultation_response_form.build_consultation_response_form_data %>
-
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Downloadable response form title",
-        },
-        name: "edition[consultation_participation_attributes][consultation_response_form_attributes][title]",
-        id: "edition_consultation_participation_consultation_response_form_title",
-        heading_size: "m",
-        value: consultation_response_form.title,
-        error_items: errors_for(consultation_response_form.errors, :title),
-      } %>
-
-      <% if consultation_response_form.consultation_response_form_data.try(:persisted?) %>
-        <div class="attachment">
-          <p class="govuk-body">Current data: <%= link_to File.basename(consultation_response_form.consultation_response_form_data.file.path), consultation_response_form.consultation_response_form_data.file.url, class: "govuk-link" %></p>
-
-          <%= hidden_field_tag "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file_cache]", consultation_response_form_data.file_cache %>
-          <%= hidden_field_tag "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][id]", consultation_response_form_data.id %>
-          <%= hidden_field_tag "edition[consultation_participation_attributes][consultation_response_form_attributes][id]", consultation_response_form.id %>
-
-          <%= render "govuk_publishing_components/components/radio", {
-            heading: "Actions:",
-            name: "edition[consultation_participation_attributes][consultation_response_form_attributes][attachment_action]",
-            id: "edition_consultation_participation_consultation_response_form_attachment_action",
-            heading_size: "m",
-            error_items: errors_for(consultation_response_form.errors, :attachment_action),
-            items: [
-              {
-                value: "keep",
-                text: "Keep",
-                checked: ["keep", nil].include?(params.dig("edition", "consultation_participation_attributes", "consultation_response_form_attributes", "attachment_action")),
-              },
-              {
-                value: "remove",
-                text: "Remove",
-                checked: params.dig("edition", "consultation_participation_attributes", "consultation_response_form_attributes", "attachment_action") == "remove",
-              },
-              {
-                value: "replace",
-                text: "Replace",
-                checked: params.dig("edition", "consultation_participation_attributes", "consultation_response_form_attributes", "attachment_action") == "replace",
-                conditional: render("govuk_publishing_components/components/file_upload", {
-                    label: {
-                      text: "Replacement"
-                    },
-                    name: "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]",
-                    id: "edition_consultation_participation_attributes_consultation_response_form_consultation_response_form_data_file",
-                    error_items: errors_for(consultation_response_form_data.errors, :file),
-                  }
-                )
-              }
-            ]
-          } %>
-        </div>
-      <% else %>
-        <%= render "govuk_publishing_components/components/file_upload", {
+      <%= form.fields_for :consultation_participation, consultation_participation do |consultation_participation_form| %>
+        <%= render "govuk_publishing_components/components/input", {
           label: {
-            text: "File",
+            text: "Link URL",
+          },
+          name: "edition[consultation_participation_attributes][link_url]",
+          id: "edition_consultation_participation_link_url",
+          heading_size: "m",
+          value: consultation_participation.link_url,
+          error_items: errors_for(consultation_participation.errors, :link_url),
+        } %>
+
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Email",
+          },
+          name: "edition[consultation_participation_attributes][email]",
+          id: "edition_consultation_participation_email",
+          heading_size: "m",
+          value: consultation_participation.email,
+          error_items: errors_for(consultation_participation.errors, :email),
+        } %>
+
+        <%= render "govuk_publishing_components/components/textarea", {
+          label: {
+            text: "Postal address",
             heading_size: "m",
           },
-          name: "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]",
-          id: "edition_consultation_participation_consultation_response_form_consultation_response_form_data_file",
-          error_items: errors_for(consultation_response_form_data.errors, :file),
+          name: "edition[consultation_participation_attributes][postal_address]",
+          id: "edition_consultation_participation_postal_address",
+          value: consultation_participation.postal_address,
+          error_items: errors_for(consultation_participation.errors, :postal_address),
+          rows: 4,
         } %>
-        <% if consultation_response_form_data.file_cache.present? %>
-          <%= hidden_field_tag "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file_cache]", consultation_response_form_data.file_cache %>
 
-          <p class="govuk-body already-uploaded"><%= "#{File.basename(consultation_response_form_data.file_cache)} already uploaded" %></p>
+        <% consultation_response_form = consultation_participation.consultation_response_form %>
+
+        <%= consultation_participation_form.fields_for :consultation_response_form, consultation_response_form do |response_form| %>
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Downloadable response form title",
+            },
+            name: "edition[consultation_participation_attributes][consultation_response_form_attributes][title]",
+            id: "edition_consultation_participation_consultation_response_form_title",
+            heading_size: "m",
+            value: consultation_response_form.title,
+            error_items: errors_for(consultation_response_form.errors, :title),
+          } %>
+
+          <% consultation_response_form_data = consultation_response_form.consultation_response_form_data %>
+
+          <%= response_form.fields_for :consultation_response_form_data, consultation_response_form_data do |consultation_response_form_data_form| %>
+            <%= consultation_response_form_data_form.hidden_field  :file_cache, value: consultation_response_form_data.file_cache %>
+
+            <% if consultation_response_form.consultation_response_form_data.try(:persisted?) %>
+              <div class="attachment">
+                <p class="govuk-body">Current data: <%= link_to File.basename(consultation_response_form_data.file.path), consultation_response_form_data.file.url, class: "govuk-link" %></p>
+
+                <%= render "govuk_publishing_components/components/radio", {
+                  heading: "Actions:",
+                  name: "edition[consultation_participation_attributes][consultation_response_form_attributes][attachment_action]",
+                  id: "edition_consultation_participation_consultation_response_form_attachment_action",
+                  heading_size: "m",
+                  error_items: errors_for(consultation_response_form.errors, :attachment_action),
+                  items: [
+                    {
+                      value: "keep",
+                      text: "Keep",
+                      checked: ["keep", nil].include?(params.dig("edition", "consultation_participation_attributes", "consultation_response_form_attributes", "attachment_action")),
+                    },
+                    {
+                      value: "remove",
+                      text: "Remove",
+                      checked: params.dig("edition", "consultation_participation_attributes", "consultation_response_form_attributes", "attachment_action") == "remove",
+                    },
+                    {
+                      value: "replace",
+                      text: "Replace",
+                      checked: params.dig("edition", "consultation_participation_attributes", "consultation_response_form_attributes", "attachment_action") == "replace",
+                      conditional: render("govuk_publishing_components/components/file_upload", {
+                          label: {
+                            text: "Replacement"
+                          },
+                          name: "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]",
+                          id: "edition_consultation_participation_consultation_response_form_consultation_response_form_data_file",
+                          error_items: errors_for(consultation_response_form_data.errors, :file) || errors_for(consultation_response_form.errors, :consultation_response_form_data),
+                        }
+                      )
+                    }
+                  ]
+                } %>
+              </div>
+            <% else %>
+              <%= render "govuk_publishing_components/components/file_upload", {
+                label: {
+                  text: "File",
+                  heading_size: "m",
+                },
+                name: "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]",
+                id: "edition_consultation_participation_consultation_response_form_consultation_response_form_data_file",
+                error_items: errors_for(consultation_response_form_data.errors, :file) || errors_for(consultation_response_form.errors, :consultation_response_form_data),
+              } %>
+              <% if consultation_response_form_data.file_cache.present? %>
+                <p class="govuk-body already-uploaded"><%= "#{File.basename(consultation_response_form_data.file_cache)} already uploaded" %></p>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

@@ -4,7 +4,7 @@ class ConsultationResponseForm < ApplicationRecord
 
   delegate :url, :file, to: :consultation_response_form_data
 
-  validates :title, presence: true
+  validates :title, :consultation_response_form_data, presence: true
 
   accepts_nested_attributes_for :consultation_response_form_data
 
