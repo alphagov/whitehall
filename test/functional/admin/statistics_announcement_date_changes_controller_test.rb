@@ -17,15 +17,15 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
       assert element[0].attributes["checked"]
     end
 
-    assert_select("select#statistics_announcement_date_change_release_date_1i option[selected]") do |element|
+    assert_select("input#statistics_announcement_date_change_release_date_1i") do |element|
       assert_equal @announcement.release_date.year, element.first["value"].to_i
     end
 
-    assert_select("select#statistics_announcement_date_change_release_date_2i option[selected]") do |element|
+    assert_select("input#statistics_announcement_date_change_release_date_2i") do |element|
       assert_equal @announcement.release_date.month, element.first["value"].to_i
     end
 
-    assert_select("select#statistics_announcement_date_change_release_date_3i option[selected]") do |element|
+    assert_select("input#statistics_announcement_date_change_release_date_3i") do |element|
       assert_equal @announcement.release_date.day, element.first["value"].to_i
     end
 
