@@ -9,9 +9,9 @@ class CallForEvidence < Publicationesque
 
   validates :opening_at, presence: true, unless: ->(call_for_evidence) { call_for_evidence.can_have_some_invalid_data? }
   validates :closing_at, presence: true, unless: ->(call_for_evidence) { call_for_evidence.can_have_some_invalid_data? }
+  validates :closing_at, comparison: { greater_than: :opening_at, message: "must be after the opening on date" }, if: proc { |record| record.opening_at && record.closing_at }
   validates :external_url, presence: true, if: :external?
   validates :external_url, uri: true, allow_blank: true
-  validate :validate_closes_after_opens
 
   has_one :call_for_evidence_participation, foreign_key: :edition_id, dependent: :destroy
   has_one :outcome, class_name: "CallForEvidenceOutcome", foreign_key: :edition_id, dependent: :destroy
@@ -172,13 +172,5 @@ class CallForEvidence < Publicationesque
 
   def publishing_api_presenter
     PublishingApi::CallForEvidencePresenter
-  end
-
-private
-
-  def validate_closes_after_opens
-    if closing_at && opening_at && closing_at.to_date <= opening_at.to_date
-      errors.add :closing_at, "must be after the opening on date"
-    end
   end
 end
