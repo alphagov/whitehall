@@ -33,7 +33,7 @@ class Edition < ApplicationRecord
 
   include DateValidation
 
-  date_attributes :scheduled_publication, :first_published_at, :delivered_on
+  date_attributes :scheduled_publication, :first_published_at, :delivered_on, :opening_at, :closing_at
 
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy

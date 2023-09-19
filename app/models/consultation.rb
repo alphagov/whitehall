@@ -9,9 +9,9 @@ class Consultation < Publicationesque
 
   validates :opening_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
   validates :closing_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
+  validates :closing_at, comparison: { greater_than: :opening_at, message: "must be after the opening on date" }, if: proc { |record| record.opening_at && record.closing_at }
   validates :external_url, presence: true, if: :external?
   validates :external_url, uri: true, allow_blank: true
-  validate :validate_closes_after_opens
   validate :validate_consultation_principles, unless: ->(consultation) { Edition::PRE_PUBLICATION_STATES.include? consultation.state }
 
   has_one :outcome, class_name: "ConsultationOutcome", foreign_key: :edition_id, dependent: :destroy
@@ -185,12 +185,6 @@ class Consultation < Publicationesque
   end
 
 private
-
-  def validate_closes_after_opens
-    if closing_at && opening_at && closing_at.to_date <= opening_at.to_date
-      errors.add :closing_at, "must be after the opening on date"
-    end
-  end
 
   def validate_consultation_principles
     unless read_consultation_principles

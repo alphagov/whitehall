@@ -9,6 +9,17 @@ module DatetimeFieldHelper
     select date.strftime("%M"), from: "Minute"
   end
 
+  def fill_in_govuk_publishing_date_and_time_field(date)
+    if date.is_a? String
+      date = Time.zone.parse(date)
+    end
+
+    fill_in_govuk_publishing_date_fields(date)
+
+    select date.strftime("%H"), from: "Hour"
+    select date.strftime("%M"), from: "Minute"
+  end
+
   def fill_in_date_fields(date)
     date = Time.zone.parse(date)
 

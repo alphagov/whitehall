@@ -8,6 +8,7 @@ class DateValidationTest < ActiveSupport::TestCase
   end
 
   class StubModel < StubBaseRecord
+    include ActiveRecord::AttributeAssignment
     include DateValidation
     validates :some_date, presence: true
     date_attributes :some_date, :another_date
@@ -35,6 +36,19 @@ class DateValidationTest < ActiveSupport::TestCase
 
   test "should be invalid when not all date attribute parts are numeric" do
     model = StubModel.new(some_date: { 1 => 2023, 2 => "January", 3 => 20 })
+    assert_not model.valid?
+  end
+
+  # Rails casts the year part of the date to 0, before passing to the attribute setter, if the original year parameter is a non-numeric string.
+  # This is not true for other parts of the date. It caused the validator to accept invalid dates such as the test case below.
+  test "should be invalid when year part is not numeric" do
+    model = StubModel.new
+    params = ActionController::Parameters.new({ stub_model: {
+      "some_date(3i)" => "1",
+      "some_date(2i)" => "1",
+      "some_date(1i)" => "test",
+    } })
+    model.assign_attributes(params.require(:stub_model).permit(:some_date))
     assert_not model.valid?
   end
 

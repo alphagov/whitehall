@@ -25,8 +25,10 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     assert_select "form#new_edition" do
       assert_select "textarea[name='edition[summary]']"
-      assert_select "select[name*='edition[opening_at']", count: 5
-      assert_select "select[name*='edition[closing_at']", count: 5
+      assert_select "input[name*='edition[opening_at']", count: 3
+      assert_select "select[name*='edition[opening_at']", count: 2
+      assert_select "input[name*='edition[closing_at']", count: 3
+      assert_select "select[name*='edition[closing_at']", count: 2
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
@@ -156,8 +158,10 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     assert_select "form#edit_edition" do
       assert_select "textarea[name='edition[summary]']"
-      assert_select "select[name*='edition[opening_at']", count: 5
-      assert_select "select[name*='edition[closing_at']", count: 5
+      assert_select "input[name*='edition[opening_at']", count: 3
+      assert_select "select[name*='edition[opening_at']", count: 2
+      assert_select "input[name*='edition[closing_at']", count: 3
+      assert_select "select[name*='edition[closing_at']", count: 2
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "textarea[name='edition[consultation_participation_attributes][postal_address]']"
