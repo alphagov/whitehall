@@ -1,0 +1,18 @@
+<% content_for :page_title, "Server error" %>
+<% content_for :title, "Server error" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row govuk-!-margin-bottom-0">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">The error has been logged in our system.</p>
+    <p class="govuk-body">You can also raise a <a href="https://support.publishing.service.gov.uk/technical_fault_report/new" class="govuk-link">support ticket</a> with the following information:</p>
+
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: [
+        "the url of this page",
+        "the time of the error",
+      ],
+    } %>
+  </div>
+</div>

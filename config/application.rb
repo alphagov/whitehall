@@ -85,6 +85,9 @@ module Whitehall
     # Path within public/ where assets are compiled to
     config.assets.prefix = "/assets/whitehall"
 
+    # Serve error pages from app instead of static pages
+    config.exceptions_app = routes
+
     unless Rails.application.secrets.jwt_auth_secret
       raise "JWT auth secret is not configured. See config/secrets.yml"
     end
