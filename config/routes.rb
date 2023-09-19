@@ -172,6 +172,9 @@ Whitehall::Application.routes.draw do
         get :edit_slug, on: :member, controller: :edition_slug
         patch :update_slug, on: :member, controller: :edition_slug
 
+        get :edit_change_note, to: "draft_edition_change_notes#edit"
+        patch :update_change_note, to: "draft_edition_change_notes#update"
+
         collection do
           post :export
           get :confirm_export

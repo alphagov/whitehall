@@ -1,0 +1,50 @@
+<% content_for :page_title, "#{@edition.title}: Change note" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @change_note_form)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @change_note_form, url: admin_edition_update_change_note_path(@edition), method: :patch do |form| %>
+      <%= render "govuk_publishing_components/components/radio", {
+        heading: "Change note",
+        name: "change_note_form[minor_change]",
+        id: "change_note_form_minor_change",
+        heading: "Change note",
+        heading_caption: @edition.title,
+        heading_level: 1,
+        error_items: errors_for(@change_note_form.errors, :minor_change),
+        items: [
+          {
+            value: false,
+            text: "Yes - information has been added, updated or removed",
+            hint_text: "A change note will be published on the page and emailed to users subscribed to email alerts. The ‘last updated’ date will change.",
+            bold: true,
+            checked: @change_note_form.minor_change == false,
+            conditional: (render "govuk_publishing_components/components/textarea", {
+              label: {
+                text: "Describe the change for users",
+                bold: true,
+              },
+              name: "change_note_form[change_note]",
+              id: "change_note_form_change_note",
+              error_message: errors_for_input(@change_note_form.errors, :change_note),
+              value: @change_note_form.change_note,
+              hint: (tag.p('Tell users what has changed, where and why. Write in full sentences, leading with the most important words. For example, "College A has been removed from the registered sponsors list because its licence has been suspended."', class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0") +
+                    link_to("Guidance about change notes (opens in a new tab)", "https://www.gov.uk/guidance/content-design/writing-for-gov-uk#change-notes", target: "_blank", class: "govuk-link")).html_safe
+            })
+          },
+          {
+            value: true,
+            text: "No – it’s a minor edit that does not change the meaning",
+            bold: true,
+            hint_text: "This includes fixing a typo or broken link, a style change or similar. Users signed up to email alerts will not get notified and the ‘last updated’ date will not change.",
+            checked: @change_note_form.minor_change,
+          }
+        ]
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save"
+      } %>
+    <% end %>
+  </div>
+</div>

@@ -40,6 +40,12 @@
         margin_bottom: 3,
       } %>
 
+      <% if @edition.editable? %>
+        <p class="govuk-body">
+          <%= link_to "Modify change note", admin_edition_edit_change_note_path(@edition), class: "govuk-link" %>
+        </p>
+      <% end %>
+
       <p class="govuk-body-lead">
         <% if @edition.minor_change? %>
           Minor change
