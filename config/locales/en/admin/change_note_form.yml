@@ -1,0 +1,11 @@
+en:
+  activemodel:
+      errors:
+        models:
+          change_note_form:
+            attributes:
+              minor_change:
+                inclusion: Select whether this is a major or minor update
+              change_note:
+                blank: "Enter a change note"
+
