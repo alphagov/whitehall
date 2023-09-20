@@ -28,7 +28,7 @@ class ChangeNoteFormTest < ActiveSupport::TestCase
     edition = build(:edition)
 
     assert_equal false, change_note_form.save!(edition)
-    assert_equal ["Minor change Select whether this is a major or minor update"], change_note_form.errors.full_messages
+    assert_equal ["Minor change #{I18n.t('activemodel.errors.models.change_note_form.attributes.minor_change.inclusion')}"], change_note_form.errors.full_messages
   end
 
   test "#save updates the edition successfully when it is a major change and a change note is present" do
