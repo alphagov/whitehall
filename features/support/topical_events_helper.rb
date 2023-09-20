@@ -12,10 +12,10 @@ module TopicalEventsHelper
     fill_in "Description", with: options[:description] || "topic-description"
     fill_in "Summary", with: options[:description] || "topic-summary"
     within "#topical_event_start_date" do
-      fill_in_date_fields(options[:start_date] || 1.day.ago.to_s)
+      fill_in_govuk_publishing_date_fields(options[:start_date] || 1.day.ago.to_s)
     end
     within "#topical_event_end_date" do
-      fill_in_date_fields(options[:end_date] || 1.month.from_now.to_s)
+      fill_in_govuk_publishing_date_fields(options[:end_date] || 1.month.from_now.to_s)
     end
 
     click_button "Save"
