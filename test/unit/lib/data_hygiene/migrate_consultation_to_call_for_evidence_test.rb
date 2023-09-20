@@ -60,7 +60,7 @@ class MigrateConsultationToCallForEvidenceTest < ActiveSupport::TestCase
 
     # Stub requests for asset files
     # and respond with the requested fixture file
-    urls_starting = "https://static.test.gov.uk/government/uploads/system/uploads/"
+    urls_starting = "#{Plek.asset_root}/government/uploads/system/uploads/"
     stub_request(:get, %r{^#{Regexp.escape(urls_starting)}})
       .to_return do |request|
         fixture_name = request.uri.to_s.split("/").last
