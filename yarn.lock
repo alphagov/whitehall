@@ -1837,15 +1837,15 @@ jake@^10.8.5:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-jasmine-browser-runner@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-2.2.0.tgz#6450fe0da53a597c44def327e622e48dff2c43be"
-  integrity sha512-EKHp7sUsbKM42qlq44kx497IyQRmAXaNhrVogPAzIEs5LuKXhwSI7DZEjwr22o4rZf4T5pWDcLb3/WtB08f9Lg==
+jasmine-browser-runner@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-2.3.0.tgz#8a90e7c3af2e1e779c6d273f5f590b7dea5372c0"
+  integrity sha512-2sXbOxIlSupO0/YQVXGwZ7zO8cy084P+SZouriW9WIiiCuDUcTz5dTwoA4IE4qysTNgM7/O3ESoMzX8myCXoIg==
   dependencies:
     ejs "^3.1.6"
     express "^4.16.4"
     glob "^10.0.0"
-    selenium-webdriver "^4.8.2"
+    selenium-webdriver "^4.12.0"
 
 jasmine-core@^5.1.1:
   version "5.1.1"
@@ -2728,10 +2728,10 @@ safe-regex-test@^1.0.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-selenium-webdriver@^4.8.2:
-  version "4.9.2"
-  resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-4.9.2.tgz#81a9f3840a5d5dfcb2681418b8592979230900ad"
-  integrity sha512-0gDswAgVn6qbCYckZetQQvQK9tWW1r7LaumhiqY1/Wl/7JEWG0JANsTbZKnmGc3+cUU76zAi5/p0P8LUweXlig==
+selenium-webdriver@^4.12.0:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-4.12.0.tgz#a8dc8ecf129a2414c2ace6e429aba84722a950a5"
+  integrity sha512-zvPzmTsky6WfO6+BGMj2mCJsw7qKnfQONur2b+pGn8jeTiC+WAUOthZOnaK+HkX5wiU6L4uoMF+JIcOVstp25A==
   dependencies:
     jszip "^3.10.1"
     tmp "^0.2.1"

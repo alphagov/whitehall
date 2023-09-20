@@ -28,7 +28,7 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-n": "^16.1.0",
-    "jasmine-browser-runner": "^2.2.0",
+    "jasmine-browser-runner": "^2.3.0",
     "jasmine-core": "^5.1.1",
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",
