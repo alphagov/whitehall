@@ -1,5 +1,8 @@
 class Government < ApplicationRecord
+  include DateValidation
   include PublishesToPublishingApi
+
+  date_attributes(:start_date, :end_date)
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
