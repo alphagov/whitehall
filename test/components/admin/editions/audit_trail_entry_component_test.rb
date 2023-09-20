@@ -6,9 +6,10 @@ class Admin::Editions::AuditTrailEntryComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
   test "it constructs output based on the entry when an actor is present" do
-    actor = create(:user)
-    edition = create(:edition)
-    version = edition.versions.create!(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: actor.id)
+    actor = build_stubbed(:user)
+    edition = build_stubbed(:edition)
+    version = edition.versions.new(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11))
+    version.stubs(:user).returns(actor)
     audit = Document::PaginatedTimeline::VersionPresenter.new(version, is_first_edition: true)
 
     render_inline(Admin::Editions::AuditTrailEntryComponent.new(entry: audit, edition:))
@@ -31,12 +32,13 @@ class Admin::Editions::AuditTrailEntryComponentTest < ViewComponent::TestCase
   end
 
   test "it links to the diff page is the action is published and the edition passed in is different to the versions" do
-    actor = create(:user)
-    edition = create(:edition, :published)
-    edition.versions.create!(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: actor.id)
-    version = edition.versions.create!(event: "published", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: actor.id, state: "published")
+    actor = build_stubbed(:user)
+    edition = build_stubbed(:edition, :published)
+    edition.versions.new(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: actor.id)
+    version = edition.versions.new(event: "published", created_at: Time.zone.local(2020, 1, 1, 11, 11), state: "published")
+    version.stubs(:user).returns(actor)
     audit = Document::PaginatedTimeline::VersionPresenter.new(version, is_first_edition: true)
-    newer_edition = create(:edition, :draft)
+    newer_edition = build_stubbed(:edition, :draft)
 
     render_inline(Admin::Editions::AuditTrailEntryComponent.new(entry: audit, edition: newer_edition))
 

@@ -51,7 +51,12 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
     },
   ].each do |hash|
     test "returns the correct tag for the #{hash[:state]} state" do
-      edition = create(:edition, hash[:state])
+      edition = if hash[:state] == :unpublished
+                  unpublishing = build(:unpublishing)
+                  build(:edition, unpublishing:)
+                else
+                  build(:edition, hash[:state])
+                end
 
       expected_output = "<span class=\"#{hash[:expected_tag_classes]}\">#{hash[:label_text]}</span>"
       output = render_inline(Admin::Editions::TagsComponent.new(edition)).to_html.strip
