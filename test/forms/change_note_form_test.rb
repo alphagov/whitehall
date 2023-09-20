@@ -32,22 +32,20 @@ class ChangeNoteFormTest < ActiveSupport::TestCase
   end
 
   test "#save updates the edition successfully when it is a major change and a change note is present" do
-    edition = create(:edition)
+    edition = build_stubbed(:edition)
     change_note_form = ChangeNoteForm.new(change_note: "This is present", minor_change: "false")
 
-    change_note_form.save!(edition)
+    edition.expects(:update!).with(change_note: "This is present", minor_change: false)
 
-    assert_equal "This is present", edition.reload.change_note
-    assert_equal false, edition.minor_change
+    change_note_form.save!(edition)
   end
 
   test "#save updates the edition successfully and sets the change note to nil when it is a minor change" do
-    edition = create(:edition, change_note: "Lots of changes.")
+    edition = build_stubbed(:edition, change_note: "Lots of changes.")
     change_note_form = ChangeNoteForm.new(change_note: "I'm still present", minor_change: "true")
 
-    change_note_form.save!(edition)
+    edition.expects(:update!).with(change_note: nil, minor_change: true)
 
-    assert_equal nil, edition.reload.change_note
-    assert_equal true, edition.minor_change
+    change_note_form.save!(edition)
   end
 end
