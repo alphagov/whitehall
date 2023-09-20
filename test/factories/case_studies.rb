@@ -12,4 +12,5 @@ FactoryBot.define do
   factory :deleted_case_study, parent: :case_study, traits: [:deleted]
   factory :superseded_case_study, parent: :case_study, traits: [:superseded]
   factory :scheduled_case_study, parent: :case_study, traits: [:scheduled]
+  factory :removed_case_study, parent: :case_study, traits: [:removed]
 end

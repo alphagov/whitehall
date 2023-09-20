@@ -17,4 +17,5 @@ FactoryBot.define do
   factory :superseded_detailed_guide, parent: :detailed_guide, traits: [:superseded]
   factory :scheduled_detailed_guide, parent: :detailed_guide, traits: [:scheduled]
   factory :published_detailed_guide_with_excluded_nations, parent: :detailed_guide, traits: %i[published has_excluded_nations]
+  factory :removed_detailed_guide, parent: :detailed_guide, traits: [:removed]
 end

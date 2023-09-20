@@ -14,4 +14,5 @@ FactoryBot.define do
   factory :deleted_fatality_notice, parent: :fatality_notice, traits: [:deleted]
   factory :superseded_fatality_notice, parent: :fatality_notice, traits: [:superseded]
   factory :scheduled_fatality_notice, parent: :fatality_notice, traits: [:scheduled]
+  factory :removed_fatality_notice, parent: :fatality_notice, traits: [:removed]
 end

@@ -29,6 +29,7 @@ module Edition::Workflow
       state :superseded
       state :deleted
       state :withdrawn
+      state :removed
 
       event :delete do
         transitions from: %i[draft submitted rejected], to: :deleted
@@ -63,7 +64,7 @@ module Edition::Workflow
       end
 
       event :unpublish do
-        transitions from: %i[published draft], to: :draft
+        transitions from: %i[published draft], to: :removed
       end
 
       event :supersede, success: :destroy_associations_with_edition_dependencies_and_dependants do

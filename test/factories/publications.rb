@@ -82,6 +82,7 @@ FactoryBot.define do
           parent: :publication,
           traits: %i[draft consolidated_redirect]
   factory :withdrawn_publication, parent: :publication, traits: [:withdrawn]
+  factory :removed_publication, parent: :publication, traits: [:removed]
 
   factory :published_publication_with_excluded_nations, parent: :published_publication, traits: [:has_excluded_nations]
   factory :draft_publication_with_excluded_nations, parent: :draft_publication, traits: [:has_excluded_nations]

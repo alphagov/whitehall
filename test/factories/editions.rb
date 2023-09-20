@@ -186,6 +186,13 @@ FactoryBot.define do
         edition.unpublishing = build(:withdrawn_unpublishing, edition:)
       end
     end
+
+    trait(:removed) do
+      state { "removed" }
+      after(:create) do |edition|
+        edition.unpublishing = build(:unpublishing, edition:)
+      end
+    end
   end
 
   factory :announcement, parent: :edition, class: Announcement, traits: %i[with_organisations]
@@ -203,4 +210,5 @@ FactoryBot.define do
   factory :withdrawn_edition, parent: :edition, traits: [:withdrawn]
   factory :protected_edition, parent: :edition, traits: [:access_limited]
   factory :edition_with_organisations, parent: :edition, traits: [:with_organisations]
+  factory :removed_edition, parent: :edition, traits: [:removed]
 end

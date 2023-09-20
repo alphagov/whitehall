@@ -29,6 +29,7 @@ FactoryBot.define do
   factory :deleted_news_article, parent: :news_article, traits: [:deleted]
   factory :superseded_news_article, parent: :news_article, traits: [:superseded]
   factory :scheduled_news_article, parent: :news_article, traits: [:scheduled]
+  factory :removed_news_article, parent: :news_article, traits: [:removed]
 
   factory :published_news_story, parent: :published_news_article do
     news_article_type_id { NewsArticleType::NewsStory.id }

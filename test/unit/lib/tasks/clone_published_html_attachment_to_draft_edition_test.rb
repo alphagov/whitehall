@@ -36,7 +36,7 @@ class ClonePublishedHtmlAttachmentToDraftEditionRake < ActiveSupport::TestCase
     assert_equal "test", attachment.govspeak_content.body
   end
 
-  (STATES - %w[published superseded]).each do |state|
+  (STATES - %w[published superseded removed]).each do |state|
     test "it raises an error if the html attachments edition is in the #{state} state" do
       edition = create(:edition, state)
       html_attachment = create(:html_attachment, attachable: edition, body: "test")

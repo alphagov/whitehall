@@ -12,4 +12,5 @@ FactoryBot.define do
   factory :deleted_statistical_data_set, parent: :statistical_data_set, traits: [:deleted]
   factory :superseded_statistical_data_set, parent: :statistical_data_set, traits: [:superseded]
   factory :scheduled_statistical_data_set, parent: :statistical_data_set, traits: [:scheduled]
+  factory :removed_statistical_data_set, parent: :statistical_data_set, traits: [:removed]
 end

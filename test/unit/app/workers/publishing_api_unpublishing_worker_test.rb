@@ -85,25 +85,6 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
   end
 
-  test "resends a draft to the publishing api" do
-    unpublished_edition = create(
-      :unpublished_edition,
-      :consolidated_redirect,
-    )
-
-    Whitehall::PublishingApi.expects(:save_draft).with(unpublished_edition)
-    PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
-  end
-
-  test "doesn't resend draft to the publishing api if unpublishing reason was withdrawn" do
-    unpublished_edition = create(
-      :withdrawn_edition,
-    )
-
-    Whitehall::PublishingApi.expects(:save_draft).with(unpublished_edition).never
-    PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
-  end
-
   test "passes allow_draft if supplied" do
     unpublished_edition = create(
       :withdrawn_edition,

@@ -26,4 +26,5 @@ FactoryBot.define do
   factory :deleted_speech, parent: :speech, traits: [:deleted]
   factory :superseded_speech, parent: :speech, traits: [:superseded]
   factory :scheduled_speech, parent: :speech, traits: [:scheduled]
+  factory :removed_speech, parent: :speech, traits: [:removed]
 end

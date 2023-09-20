@@ -26,6 +26,7 @@ FactoryBot.define do
   factory :deleted_consultation, parent: :consultation, traits: [:deleted]
   factory :superseded_consultation, parent: :consultation, traits: [:superseded]
   factory :scheduled_consultation, parent: :consultation, traits: [:scheduled]
+  factory :removed_consultation, parent: :consultation, traits: [:removed]
 
   factory :open_consultation, parent: :published_consultation do
     opening_at { 1.day.ago }

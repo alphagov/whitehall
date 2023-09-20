@@ -11,7 +11,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
 
     assert_equal %i[draft submitted rejected scheduled], pre
-    assert_equal %i[published superseded deleted withdrawn], post
+    assert_equal %i[published superseded deleted withdrawn removed], post
   end
 
   test "rejecting a submitted edition transitions it into the rejected state" do

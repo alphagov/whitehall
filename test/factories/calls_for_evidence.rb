@@ -56,4 +56,5 @@ FactoryBot.define do
   factory :call_for_evidence_with_excluded_nations, parent: :call_for_evidence, traits: [:has_excluded_nations]
   factory :published_call_for_evidence_with_excluded_nations, parent: :published_call_for_evidence, traits: [:has_excluded_nations]
   factory :call_for_evidence_with_html_attachment, parent: :call_for_evidence, traits: [:with_html_attachment]
+  factory :removed_call_for_evidence, parent: :call_for_evidence, traits: [:removed]
 end
