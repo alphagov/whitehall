@@ -13,7 +13,7 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
       post :create, params: { edition: params, save_and_continue: "Save and continue editing" }
     end
 
-    expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{Edition.last.id}/tags/edit\">add topic tags</a> before you can publish this document."
+    expected_message = "Your document has been saved. You need to <a class=\"govuk-link\" href=\"/government/admin/editions/#{Edition.last.id}/tags/edit\">add topic tags</a> before you can publish this document."
     assert_equal expected_message, flash[:notice]
     assert_redirected_to @controller.admin_edition_path(GenericEdition.last)
   end
@@ -39,7 +39,7 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
 
     assert_not edition.has_been_tagged?
 
-    expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
+    expected_message = "Your document has been saved. You need to <a class=\"govuk-link\" href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
     assert_equal expected_message, flash[:notice]
   end
 

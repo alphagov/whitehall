@@ -93,7 +93,7 @@ module AdminEditionControllerTestHelpers
 
         edition = edition_class.last
         assert_redirected_to @controller.admin_edition_path(edition)
-        expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
+        expected_message = "Your document has been saved. You need to <a class=\"govuk-link\" href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
         assert_equal expected_message, flash[:notice]
       end
 
@@ -219,7 +219,7 @@ module AdminEditionControllerTestHelpers
             }
 
         assert_redirected_to @controller.admin_edition_path(edition)
-        expected_message = "Your document has been saved. You need to <a href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
+        expected_message = "Your document has been saved. You need to <a class=\"govuk-link\" href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document."
         assert_equal expected_message, flash[:notice]
       end
 
