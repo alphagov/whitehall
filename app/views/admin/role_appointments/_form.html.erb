@@ -29,27 +29,34 @@
   } do %>
     <%= render "start_date_field", heading_size: "m", form: form %>
 
-    <%= render "components/datetime_fields", {
+    <%= render "components/datetime_fields_with_govuk_date_component", {
       date_heading: "End date",
       heading_size: "m",
       field_name: "ended_at",
       prefix: "role_appointment",
       id: "role_appointment_ended_at",
       date_only: true,
-      date_hint: "For example, 01 August 2022",
+      date_hint: "For example, 01 08 2022",
       year: {
-        value: form.object.ended_at&.year,
-        start_year: Date.today.year,
-        end_year: 1700,
+        value: params.dig("role_appointment", "ended_at(1i)") || form.object.ended_at&.year,
         id: "role_appointment_ended_at_1i",
+        name: "role_appointment[ended_at(1i)]",
+        label: "Year",
+        width: 4
       },
       month: {
-        value: form.object.ended_at&.month,
+        value: params.dig("role_appointment", "ended_at(2i)") || form.object.ended_at&.month,
         id: "role_appointment_ended_at_2i",
+        name: "role_appointment[ended_at(2i)]",
+        label: "Month",
+        width: 2
       },
       day: {
-        value: form.object.ended_at&.day,
+        value: params.dig("role_appointment", "ended_at(3i)") || form.object.ended_at&.day,
         id: "role_appointment_ended_at_3i",
+        name: "role_appointment[ended_at(3i)]",
+        label: "Day",
+        width: 2
       },
       error_items: errors_for(form.object.errors, :ended_at),
     }

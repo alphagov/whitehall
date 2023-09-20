@@ -1,6 +1,9 @@
 class RoleAppointment < ApplicationRecord
+  include DateValidation
   include HasContentId
   include PublishesToPublishingApi
+
+  date_attributes(:started_at, :ended_at)
 
   CURRENT_CONDITION = { ended_at: nil }.freeze
 
