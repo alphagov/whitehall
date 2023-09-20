@@ -64,24 +64,34 @@
   },
 } %>
 
-<%= render "components/datetime_fields", {
+<%= render "components/datetime_fields_with_govuk_date_component", {
   date_only: true,
   prefix: "organisation",
   field_name: "closed_at",
   id: "organisation_closed_at",
   heading_size: "m",
-  date_hint: "For example, 01 August 2022",
+  date_hint: "For example, 01 08 2022",
   date_heading: "Closed date",
   year: {
-    value: organisation.closed_at&.year,
-    start_year: Date.today.year - 5,
-    end_year: Date.today.year,
+    id: "organisation_closed_at_1i",
+    value: params.dig('organisation', 'closed_at(1i)') || organisation.closed_at&.year,
+    name: "organisation[closed_at(1i)]",
+    label: "Year",
+    width: 4,
   },
   month: {
-    value: organisation.closed_at&.month
+    id: "organisation_closed_at_2i",
+    value: params.dig('organisation', 'closed_at(2i)') || organisation.closed_at&.month,
+    name: "organisation[closed_at(2i)]",
+    label: "Month",
+    width: 2,
   },
   day: {
-    value: organisation.closed_at&.day,
+    id: "organisation_closed_at_3i",
+    value: params.dig('organisation', 'closed_at(3i)') || organisation.closed_at&.day,
+    name: "organisation[closed_at(3i)]",
+    label: "Day",
+    width: 2,
   },
   error_items: errors_for(organisation.errors, :closed_at)
 } %>
