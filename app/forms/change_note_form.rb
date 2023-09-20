@@ -1,7 +1,9 @@
 class ChangeNoteForm
   include ActiveModel::Model
+  include ActiveModel::Attributes
 
-  attr_accessor :minor_change, :change_note
+  attribute :minor_change, :boolean, default: false
+  attribute :change_note
 
   validates :minor_change, inclusion: { in: [true, false] }
   validates :change_note, presence: true, if: :major_version?
@@ -14,8 +16,6 @@ class ChangeNoteForm
   end
 
   def save!(edition)
-    self.minor_change = ActiveModel::Type::Boolean.new.cast(minor_change)
-
     return false unless valid?
 
     if major_version?
