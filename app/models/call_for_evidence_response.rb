@@ -1,9 +1,12 @@
 class CallForEvidenceResponse < ApplicationRecord
   include Attachable
+  include DateValidation
 
   belongs_to :call_for_evidence, foreign_key: :edition_id
 
-  validates :published_on, recent_date: true
+  date_attributes(:published_on)
+
+  validates :published_on, comparison: { greater_than: Date.parse("1900-01-01"), message: "should be greater than 1900" }
   validates :summary, presence: { unless: :has_attachments }
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :summary

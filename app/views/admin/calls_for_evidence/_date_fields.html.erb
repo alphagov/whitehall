@@ -4,32 +4,39 @@
     heading_size: "l",
     id: "edition_opening_at",
   } do %>
-    <%= render "components/datetime_fields", {
+    <%= render "components/datetime_fields_with_govuk_date_component", {
       field_name: "opening_at",
       prefix: "edition",
       error_items: errors_for(edition.errors, :opening_at),
-      date_hint: "For example, 01 August 2022",
+      date_hint: "For example, 01 08 2022",
       time_hint: "For example, 09:30 or 19:30",
       year: {
-        value: edition.opening_at&.year,
-        start_year: 1997,
-        end_year: Date.today.year + 5,
+        value: params.dig("edition", "opening_at(1i)") || edition.opening_at&.year,
         id: "edition_opening_at_1i",
+        name: "edition[opening_at(1i)]]]",
+        label: "Year",
+        width: 4,
       },
       month: {
-        value: edition.opening_at&.month,
+        value: params.dig("edition", "opening_at(2i)") || edition.opening_at&.month,
         id: "edition_opening_at_2i",
+        name: "edition[opening_at(2i)]]]",
+        label: "Month",
+        width: 2,
       },
       day: {
-        value: edition.opening_at&.day,
+        value: params.dig("edition", "opening_at(3i)") || edition.opening_at&.day,
         id: "edition_opening_at_3i",
+        name: "edition[opening_at(3i)]]]",
+        label: "Day",
+        width: 2,
       },
       hour: {
-        value: edition.opening_at&.hour,
+        value: params.dig("edition", "opening_at(4i)")&.to_i || edition.opening_at&.hour,
         id: "edition_opening_at_4i",
       },
       minute: {
-        value: edition.opening_at&.min,
+        value: params.dig("edition", "opening_at(5i)")&.to_i || edition.opening_at&.min,
         id: "edition_opening_at_5i",
       },
     }
@@ -43,32 +50,39 @@
     heading_size: "l",
     id: "edition_closing_at",
   } do %>
-    <%= render "components/datetime_fields", {
+    <%= render "components/datetime_fields_with_govuk_date_component", {
       field_name: "closing_at",
       prefix: "edition",
       error_items: errors_for(edition.errors, :closing_at),
-      date_hint: "For example, 01 August 2022",
+      date_hint: "For example, 01 08 2022",
       time_hint: "For example, 09:30 or 19:30",
       year: {
-        value: edition.closing_at&.year,
-        start_year: 1997,
-        end_year: Date.today.year + 5,
+        value: params.dig("edition", "closing_at(1i)") || edition.closing_at&.year,
         id: "edition_closing_at_1i",
+        name: "edition[closing_at(1i)]]]",
+        label: "Year",
+        width: 4,
       },
       month: {
-        value: edition.closing_at&.month,
+        value: params.dig("edition", "closing_at(2i)") || edition.closing_at&.month,
         id: "edition_closing_at_2i",
+        name: "edition[closing_at(2i)]]]",
+        label: "Month",
+        width: 2,
       },
       day: {
-        value: edition.closing_at&.day,
+        value: params.dig("edition", "closing_at(3i)") || edition.closing_at&.day,
         id: "edition_closing_at_3i",
+        name: "edition[closing_at(3i)]]]",
+        label: "Day",
+        width: 2,
       },
       hour: {
-        value: edition.closing_at&.hour,
+        value: params.dig("edition", "closing_at(4i)")&.to_i || edition.closing_at&.hour,
         id: "edition_closing_at_4i",
       },
       minute: {
-        value: edition.closing_at&.min,
+        value: params.dig("edition", "closing_at(5i)")&.to_i || edition.closing_at&.min,
         id: "edition_closing_at_5i",
       },
     }
