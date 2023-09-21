@@ -47,7 +47,7 @@
           <p class="govuk-body govuk-!-margin-top-7">Reset and generate a new preview link if you've shared the preview with the wrong person or if the link has expired. This will disable the previous preview link.</p>
 
           <%= form_with(url: update_bypass_id_admin_edition_path(edition), method: :patch) do |f| %>
-            <input type="hidden" name="_method" value="patch" />
+            <input type="hidden" name="_method" value="patch" >
             <%= render "govuk_publishing_components/components/button", {
               text: "Generate new link",
               secondary_quiet: true

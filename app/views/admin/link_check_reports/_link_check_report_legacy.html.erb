@@ -7,7 +7,7 @@
   <% elsif report.in_progress? %>
     <section class="alert alert-info">
       <%= image_tag('admin/ajax_loader_blue_32.gif', width: 24, height: 24, class: 'pull-left add-right-margin') %>
-      Broken link report in progress.<br />Please wait.
+      Broken link report in progress.<br >Please wait.
       <%= link_to "Refresh",
                   admin_edition_link_check_report_path(report.link_reportable, report),
                   class: 'js-broken-links-refresh js-hidden',
