@@ -275,7 +275,7 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (35.15.5)
+    govuk_publishing_components (35.16.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -424,7 +424,7 @@ GEM
       net-protocol
     net-protocol (0.2.1)
       timeout
-    net-smtp (0.3.3)
+    net-smtp (0.4.0)
       net-protocol
     netrc (0.11.0)
     nio4r (2.5.9)
@@ -702,7 +702,7 @@ GEM
       pry (>= 0.10.4)
     ptools (1.5.0)
     public_suffix (5.0.3)
-    puma (6.3.1)
+    puma (6.4.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.1)
