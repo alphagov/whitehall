@@ -124,7 +124,7 @@
       margin_bottom: 2
     } %>
 
-    <% # without this hidden field, once a service has been selected and saved, all services cannot be de-selected.
+    <%# without this hidden field, once a service has been selected and saved, all services cannot be de-selected.
        # http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-check_box-label-Gotcha %>
     <%= hidden_field_tag 'worldwide_office[service_ids][]', nil %>
 

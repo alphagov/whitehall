@@ -56,8 +56,8 @@
             <% if edition.non_english_edition? %>
               (<%= edition.primary_locale %>)
             <% end %>
-            <% # TODO: remove unpublishing information once we have a separate state for unpublished editions
-              if edition.unpublishing.present? %>
+            <%# TODO: remove unpublishing information once we have a separate state for unpublished editions %>
+            <% if edition.unpublishing.present? %>
               unpublished <%= time_ago_in_words(edition.unpublishing.created_at) %> ago
             <% end %>
             <% if edition.force_published? %>
