@@ -2,7 +2,7 @@ class CreateAssetRelationshipWorker < WorkerBase
   def perform(start_id, end_id)
     logger.info("CreateAssetRelationshipWorker start!")
     assetable_type = AttachmentData
-    assetables = assetable_type.where(id: start_id..end_id)
+    assetables = assetable_type.where(id: start_id..end_id).where.not(content_type: "text/csv")
     logger.info "Number of #{assetable_type} found: #{assetables.count}"
     logger.info "Creating Asset for records from #{start_id} to #{end_id}"
 
@@ -11,6 +11,7 @@ class CreateAssetRelationshipWorker < WorkerBase
     assetables.each do |assetable|
       assetable.use_non_legacy_endpoints = true
       assetable.save!
+
       begin
         path = save_asset_original(assetable, assetable_type.to_s)
         asset_counter += 1
@@ -29,6 +30,7 @@ class CreateAssetRelationshipWorker < WorkerBase
 
       count += 1
     end
+
     logger.info("Created assets for #{count} assetable")
     logger.info("Created asset counter #{asset_counter}")
     logger.info("CreateAssetRelationshipWorker finish!")
