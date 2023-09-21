@@ -91,8 +91,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:withdrawn_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 4
-    assert_selector "a", text: "Unwithdraw"
+    assert_selector "li", count: 3
     assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a", text: "View on website (opens in new tab)"

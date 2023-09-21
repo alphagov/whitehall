@@ -191,7 +191,7 @@ module Whitehall::Authority::Rules
 
     def departmental_writer_can?(action)
       case action
-      when :approve, :publish, :unpublish, :force_publish, :reject, :mark_political, :perform_administrative_tasks
+      when :approve, :publish, :unpublish, :unwithdraw, :force_publish, :reject, :mark_political, :perform_administrative_tasks
         false
       else
         true
