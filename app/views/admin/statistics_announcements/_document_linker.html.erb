@@ -12,7 +12,7 @@
   <div class="document-finder-fields">
     <%= label_tag :title, 'Title or slug' %>
     <span class="form-inline">
-      <%= search_field_tag :title, '', results: 5, autosave: 'unique', class: 'form-control' %>
+      <%= search_field_tag :title, '', results: 5, autosave: 'unique', class: 'form-control', autocomplete: "off" %>
     </span>
     <%= button_tag "Search", type: 'button', id: 'find-documents', class: 'btn btn-default' %>
     <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
