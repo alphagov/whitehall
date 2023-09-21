@@ -135,6 +135,10 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     assert_not enforcer_for(department_writer, normal_edition).can?(:unpublish)
   end
 
+  test "cannot unwithdraw an edition" do
+    assert_not enforcer_for(department_writer, normal_edition).can?(:unwithdraw)
+  end
+
   test "cannot administer the get_involved_section" do
     assert_not enforcer_for(department_writer, :get_involved_section).can?(:administer)
   end
