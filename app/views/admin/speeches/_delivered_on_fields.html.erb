@@ -9,7 +9,7 @@
     heading_size: "l",
     id: "edition_delivered_on",
   } do %>
-    <%= render "components/datetime_fields_with_govuk_date_component", {
+    <%= render "components/datetime_fields", {
         field_name: "delivered_on",
         prefix: "edition",
         error_items: errors_for(edition.errors, :delivered_on),

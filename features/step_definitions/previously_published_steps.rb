@@ -13,7 +13,7 @@ end
 And(/^I select a previously published date in the future$/) do
   choose "has previously been published on another website."
   within "#edition_previously_published" do
-    fill_in_govuk_publishing_date_fields("1 July 2018")
+    fill_in_date_fields("1 July 2018")
   end
 end
 
@@ -24,7 +24,7 @@ end
 And(/^I select a previously published date in the past$/) do
   choose "has previously been published on another website."
   within "#edition_previously_published" do
-    fill_in_govuk_publishing_date_fields("1 February 2017")
+    fill_in_date_fields("1 February 2017")
   end
 end
 

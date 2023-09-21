@@ -7,11 +7,11 @@ module GovernmentsHelper
     fill_in "Name", with: name
 
     within "#government_start_date" do
-      fill_in_govuk_publishing_date_fields(start_date)
+      fill_in_date_fields(start_date)
     end
 
     within "#government_end_date" do
-      fill_in_govuk_publishing_date_fields(end_date) if end_date
+      fill_in_date_fields(end_date) if end_date
     end
 
     click_on "Save"
@@ -23,11 +23,11 @@ module GovernmentsHelper
     click_on name
 
     within "#government_start_date" do
-      fill_in_govuk_publishing_date_fields(attributes[:start_date]) if attributes[:start_date]
+      fill_in_date_fields(attributes[:start_date]) if attributes[:start_date]
     end
 
     within "#government_end_date" do
-      fill_in_govuk_publishing_date_fields(attributes[:end_date]) if attributes[:end_date]
+      fill_in_date_fields(attributes[:end_date]) if attributes[:end_date]
     end
 
     click_on "Save"

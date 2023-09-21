@@ -17,7 +17,7 @@
               track_label: "Set a reminder to review this content after it has been published",
               track_action: "clicked",
             },
-            conditional: render("components/datetime_fields_with_govuk_date_component", {
+            conditional: render("components/datetime_fields", {
               field_name: "review_at",
               prefix: "edition[document_attributes][review_reminder_attributes]",
               date_only: true,

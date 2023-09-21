@@ -4,7 +4,7 @@
     heading_size: "l",
     id: "edition_opening_at",
   } do %>
-    <%= render "components/datetime_fields_with_govuk_date_component", {
+    <%= render "components/datetime_fields", {
         field_name: "opening_at",
         prefix: "edition",
         error_items: errors_for(edition.errors, :opening_at),
@@ -50,7 +50,7 @@
     heading_size: "l",
     id: "edition_closing_at",
   } do %>
-    <%= render "components/datetime_fields_with_govuk_date_component", {
+    <%= render "components/datetime_fields", {
         field_name: "closing_at",
         prefix: "edition",
         error_items: errors_for(edition.errors, :closing_at),

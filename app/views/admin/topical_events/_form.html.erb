@@ -63,7 +63,7 @@
       heading_size: "l",
       margin_bottom: 2
     } do %>
-      <%= render "components/datetime_fields_with_govuk_date_component", {
+      <%= render "components/datetime_fields", {
         date_only: true,
         prefix: "topical_event",
         field_name: "start_date",
@@ -96,7 +96,7 @@
         error_items: errors_for(topical_event.errors, :start_date)
       } %>
 
-      <%= render "components/datetime_fields_with_govuk_date_component", {
+      <%= render "components/datetime_fields", {
         date_only: true,
         prefix: "topical_event",
         field_name: "end_date",

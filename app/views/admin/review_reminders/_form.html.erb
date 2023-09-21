@@ -1,5 +1,5 @@
 <%= form_with model: review_reminder, url: [:admin, document, review_reminder] do |form| %>
-  <%= render("components/datetime_fields_with_govuk_date_component", {
+  <%= render("components/datetime_fields", {
     field_name: "review_at",
     prefix: "review_reminder",
     date_only: true,

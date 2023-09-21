@@ -1,34 +1,16 @@
 module DatetimeFieldHelper
   def fill_in_date_and_time_field(date)
-    date = Time.zone.parse(date)
-
-    select date.year, from: "Year"
-    select date.strftime("%B"), from: "Month"
-    select date.day, from: "Day"
-    select date.strftime("%H"), from: "Hour"
-    select date.strftime("%M"), from: "Minute"
-  end
-
-  def fill_in_govuk_publishing_date_and_time_field(date)
     if date.is_a? String
       date = Time.zone.parse(date)
     end
 
-    fill_in_govuk_publishing_date_fields(date)
+    fill_in_date_fields(date)
 
     select date.strftime("%H"), from: "Hour"
     select date.strftime("%M"), from: "Minute"
   end
 
   def fill_in_date_fields(date)
-    date = Time.zone.parse(date)
-
-    select date.year, from: "Year"
-    select date.strftime("%B"), from: "Month"
-    select date.day, from: "Day"
-  end
-
-  def fill_in_govuk_publishing_date_fields(date)
     if date.is_a? String
       date = Time.zone.parse(date)
     end

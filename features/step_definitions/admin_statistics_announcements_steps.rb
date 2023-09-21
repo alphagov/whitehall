@@ -117,7 +117,7 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
   fill_in :statistics_announcement_title, with: announcement_title
   fill_in :statistics_announcement_summary, with: "Summary of publication"
   within "#statistics_announcement_statistics_announcement_dates_release_date" do
-    fill_in_govuk_publishing_date_and_time_field(1.year.from_now.to_s)
+    fill_in_date_and_time_field(1.year.from_now.to_s)
   end
   select organisation.name, from: :statistics_announcement_organisations
 
@@ -141,7 +141,7 @@ When(/^I change the release date on the announcement$/) do
   click_on "Change dates"
 
   within "#statistics_announcement_date_change_release_date" do
-    fill_in_govuk_publishing_date_and_time_field("14-Dec-#{Time.zone.today.year.next} 09:30")
+    fill_in_date_and_time_field("14-Dec-#{Time.zone.today.year.next} 09:30")
   end
 
   choose "Exact date (confirmed)"
