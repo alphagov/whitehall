@@ -33,3 +33,5 @@ linters:
         Enabled: false
       Layout/FirstHashElementIndentation:
         Enabled: false
+      Rails/SaveBang:
+        Enabled: false
