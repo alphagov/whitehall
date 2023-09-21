@@ -31,7 +31,7 @@
     loadSuggestions: function(){
       if(autoCompleter.allSuggestions === false){
         $.ajax({
-          url: '<%= url.admin_suggestions_path(format: 'json')%>',
+          url: '<%= url.admin_suggestions_path(format: 'json') %>',
           success: function(data){
             autoCompleter.allSuggestions = data;
           }

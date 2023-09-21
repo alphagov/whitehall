@@ -1,7 +1,7 @@
 <% show_feedback_banner ||= true %>
 <% tracking_module ||= "gem-track-click" %>
 
-<%if t('admin.whats_new.show_banner') %>
+<% if t('admin.whats_new.show_banner') %>
   <%= render "govuk_publishing_components/components/phase_banner", {
       phase: "What's new",
       ga4_tracking: true,
