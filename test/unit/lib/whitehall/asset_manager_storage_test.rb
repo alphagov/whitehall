@@ -161,8 +161,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
 
   context "when use_non_legacy_endpoints permission is true and uploader model is ImageData" do
     setup do
-      model = build(:image_data)
-      model.stubs(:use_non_legacy_endpoints).returns(true)
+      model = build(:image_data_with_assets)
       model.id = 1
       @uploader.stubs(:model).returns(model)
       @assetable_type = ImageData.name
@@ -185,6 +184,14 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
 
       @uploader.store!(@file)
+    end
+
+    test "should call deleteAssetWorker with asset manager id" do
+      model = create(:image_with_asset)
+
+      AssetManagerDeleteAssetWorker.expects(:perform_async).times(7).with(nil, regexp_matches(/asset_manager_id./))
+
+      model.destroy!
     end
   end
 end
