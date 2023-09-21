@@ -94,7 +94,7 @@ module DocumentHelper
     select "Colonel Mustard, Attorney General"
 
     within_fieldset "Delivered on" do
-      fill_in_govuk_publishing_date_fields(1.day.ago)
+      fill_in_date_fields(1.day.ago)
     end
 
     fill_in "Location", with: "The Drawing Room"
@@ -113,7 +113,7 @@ module DocumentHelper
     radio_label = "This document has previously been published on another website."
     choose radio_label
     within_conditional_reveal radio_label do
-      fill_in_govuk_publishing_date_fields(first_published)
+      fill_in_date_fields(first_published)
     end
   end
 
@@ -121,7 +121,7 @@ module DocumentHelper
     radio_label = "This document has previously been published on another website."
     choose radio_label
     within_conditional_reveal radio_label do
-      fill_in_govuk_publishing_date_fields(first_published)
+      fill_in_date_fields(first_published)
     end
 
     select publication_type, from: "edition_publication_type_id"

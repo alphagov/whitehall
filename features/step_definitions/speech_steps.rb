@@ -45,7 +45,7 @@ end
 
 Then(/^I should be able to choose the date it was written on$/) do
   within "#edition_delivered_on" do
-    fill_in_govuk_publishing_date_fields(1.day.ago.to_s)
+    fill_in_date_fields(1.day.ago.to_s)
   end
 end
 

@@ -78,7 +78,7 @@ Then(/^I should be able to appoint "([^"]*)" to the new role$/) do |person_name|
   click_on "Create new appointment"
   select person_name, from: "Person"
   within "#role_appointment_started_at" do
-    fill_in_govuk_publishing_date_fields(1.day.ago.to_s)
+    fill_in_date_fields(1.day.ago.to_s)
   end
   click_on "Save"
 end
