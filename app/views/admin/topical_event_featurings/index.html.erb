@@ -9,7 +9,7 @@
 <% content_for :title_margin_bottom, 4 %>
 
 <p class="govuk-body">
-  <%= link_to "View on website", @topical_event.public_url({locale: params[:locale]}.merge(cachebust_url_options)), class: "govuk-link", target: "_blank" %>
+  <%= link_to "View on website", @topical_event.public_url({locale: params[:locale]}.merge(cachebust_url_options)), class: "govuk-link", target: "_blank", rel: "noopener" %>
 </p>
 
 <div class="govuk-!-margin-bottom-8">
