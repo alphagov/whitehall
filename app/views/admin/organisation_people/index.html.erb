@@ -32,8 +32,7 @@
       @traffic_commissioner_organisation_roles,
       @chief_professional_officer_roles,
       @military_organisation_roles,
-    ].select(&:any?).any?
-    %>
+    ].select(&:any?).any? %>
       <%= render "govuk_publishing_components/components/tabs", {
         tabs: [
           *(people_tab(@ministerial_organisation_roles, "Ministers", "ministerial") if @ministerial_organisation_roles.any?),

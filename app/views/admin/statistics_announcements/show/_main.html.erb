@@ -10,8 +10,7 @@
         { field: "Type", value: @statistics_announcement.display_type },
         { field: "Organisations", value: @statistics_announcement.organisations.map(&:name).to_sentence },
       ],
-    }
-    %>
+    } %>
 
     <%= render "components/inset_prompt", {
       error: true,

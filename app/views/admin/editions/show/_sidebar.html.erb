@@ -7,8 +7,7 @@
           report: (@edition.link_check_reports.last || @edition.link_check_reports.build),
           allow_new_report: true,
         }
-      ) if show_link_check_report?(@edition)
-  %>
+      ) if show_link_check_report?(@edition) %>
   <%= render partial: 'admin/editions/show/sidebar_history_state', locals: { edition: @edition } %>
 
   <%= render "govuk_publishing_components/components/tabs", {

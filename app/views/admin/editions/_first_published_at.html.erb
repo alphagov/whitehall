@@ -34,8 +34,7 @@
         value: params.dig("edition", "first_published_at(5i)")&.to_i || edition.first_published_at&.min,
         id: "edition_first_published_at_5i",
       },
-    })
-%>
+    }) %>
 
 <% if edition.published_major_version.nil? %>
   <div class="govuk-!-margin-bottom-4">

@@ -40,8 +40,7 @@
     <% if @contactable.contacts.present? %>
       <%= render "govuk_publishing_components/components/tabs", {
         tabs: contact_tabs(@contactable.contacts, @contactable)
-      }
-      %>
+      } %>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
         text: "No Contacts"

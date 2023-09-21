@@ -6,8 +6,7 @@
   render(Admin::ErrorSummaryComponent.new(
     object: @world_location_news.errors.reject { |error|error.is_a?(ActiveModel::NestedError) },
     parent_class: "world_location_news")
-  )
-%>
+  ) %>
 
 <div class="govuk-!-margin-bottom-8">
   <div class="govuk-grid-row">
