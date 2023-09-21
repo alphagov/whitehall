@@ -45,8 +45,8 @@
                 },
                 {
                   text: link_to(sanitize("View #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), @world_location_news.public_url(locale: locale.code), class: "govuk-link") +
-                         link_to(sanitize("Edit #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), edit_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2") +
-                           link_to(sanitize("Delete #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive"),
+                    link_to(sanitize("Edit #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), edit_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2") +
+                    link_to(sanitize("Delete #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive"),
 
                 },
               ]

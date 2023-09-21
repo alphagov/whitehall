@@ -46,17 +46,17 @@
                 width: 2,
               },
             }) +
-            render("govuk_publishing_components/components/input", {
-              label: {
-                text: "Email address",
-                heading_size: "m",
-              },
-              hint: "Enter a team email or your own email address to get a review reminder",
-              name: "edition[document_attributes][review_reminder_attributes][email_address]",
-              id: "edition_document_review_reminder_email_address",
-              value: review_reminder.email_address,
-              error_items: errors_for(review_reminder.errors, :email_address),
-            }),
+              render("govuk_publishing_components/components/input", {
+                label: {
+                  text: "Email address",
+                  heading_size: "m",
+                },
+                hint: "Enter a team email or your own email address to get a review reminder",
+                name: "edition[document_attributes][review_reminder_attributes][email_address]",
+                id: "edition_document_review_reminder_email_address",
+                value: review_reminder.email_address,
+                error_items: errors_for(review_reminder.errors, :email_address),
+              }),
           },
         ],
       } %>

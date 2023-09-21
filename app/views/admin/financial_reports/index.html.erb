@@ -70,7 +70,7 @@
               {
                 text:
                   link_to(sanitize("Edit #{tag.span(" report for #{report.year}", class: "govuk-visually-hidden")}"), edit_admin_organisation_financial_report_path(@organisation, report), class: "govuk-link") +
-                  link_to(sanitize("Delete #{tag.span(" report for #{report.year}", class: "govuk-visually-hidden")}"), confirm_destroy_admin_organisation_financial_report_path(@organisation, report), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+                    link_to(sanitize("Delete #{tag.span(" report for #{report.year}", class: "govuk-visually-hidden")}"), confirm_destroy_admin_organisation_financial_report_path(@organisation, report), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
               },
             ]
           end,
