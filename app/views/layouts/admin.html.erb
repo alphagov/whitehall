@@ -46,7 +46,11 @@
 <% content_for :body_end do %>
   <%= javascript_include_tag "admin_legacy" %>
   <% initialise_script "GOVUK.adminGlobalInitialiser" %>
-  <%= javascript_tag(yield :javascript_initialisers) %>
+  <script>
+//<![CDATA[
+<%== yield :javascript_initialisers %>
+//]]>
+</script>
 <% end %>
 
 <% if user_signed_in? && current_user.has_email? %>
