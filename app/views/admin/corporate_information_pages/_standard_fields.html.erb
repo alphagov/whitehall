@@ -1,4 +1,4 @@
-<div class=<%= "right-to-left" if edition.rtl? %>>
+<div class="<%= "right-to-left" if edition.rtl? %>">
   <%= render "subtype_fields", form: form, edition: form.object %>
   <%= form.hidden_field :lock_version %>
 
