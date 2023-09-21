@@ -25,28 +25,28 @@
       rows:
         paginator.map do |statistics_announcement|
           [
-             {
-               text: tag.strong(statistics_announcement.title),
-             },
-             {
-               text: statistics_announcement.organisations.map(&:name).to_sentence,
-             },
-             {
-               text: tag.p(statistics_announcement.release_date.to_date.strftime(sanitize("%e&nbsp;%B&nbsp;%Y")), class: "govuk-!-margin-0") +
-                 tag.p(statistics_announcement.release_date.strftime("%l:%M%P"), class: "govuk-!-margin-0") +
-                 "(#{statistics_announcement.confirmed? ? 'confirmed' : 'provisional'})",
-             },
-             {
-               text:  if publication = statistics_announcement.publication
-                        tag.p(link_to(publication.title, [:admin, publication], class: "govuk-link"), class: "govuk-!-margin-0") +
-                          "(#{publication.current_state})"
-                      else
-                        ""
-                      end,
-             },
-             {
-               text: link_to(sanitize("View #{tag.span(statistics_announcement.title, class: 'govuk-visually-hidden')}"), [:admin, statistics_announcement], class: "govuk-link"),
-             },
+            {
+              text: tag.strong(statistics_announcement.title),
+            },
+            {
+              text: statistics_announcement.organisations.map(&:name).to_sentence,
+            },
+            {
+              text: tag.p(statistics_announcement.release_date.to_date.strftime(sanitize("%e&nbsp;%B&nbsp;%Y")), class: "govuk-!-margin-0") +
+                tag.p(statistics_announcement.release_date.strftime("%l:%M%P"), class: "govuk-!-margin-0") +
+                "(#{statistics_announcement.confirmed? ? 'confirmed' : 'provisional'})",
+            },
+            {
+              text:  if publication = statistics_announcement.publication
+                      tag.p(link_to(publication.title, [:admin, publication], class: "govuk-link"), class: "govuk-!-margin-0") +
+                        "(#{publication.current_state})"
+                    else
+                      ""
+                    end,
+            },
+            {
+              text: link_to(sanitize("View #{tag.span(statistics_announcement.title, class: 'govuk-visually-hidden')}"), [:admin, statistics_announcement], class: "govuk-link"),
+            },
           ]
         end,
     } %>

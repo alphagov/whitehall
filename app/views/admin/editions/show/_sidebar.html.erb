@@ -12,17 +12,17 @@
 
   <%= render "govuk_publishing_components/components/tabs", {
    tabs: [
-   {
-     id: "history_tab",
-     label: "History",
-     content: tag.div(
-       render(Admin::Editions::DocumentHistoryTabComponent.new(
-         edition: @edition,
-         document_history: @document_history,
-       )),
-       data: { module: "document-history-paginator" },
-     ),
-   },
+     {
+       id: "history_tab",
+       label: "History",
+       content: tag.div(
+         render(Admin::Editions::DocumentHistoryTabComponent.new(
+           edition: @edition,
+           document_history: @document_history,
+         )),
+         data: { module: "document-history-paginator" },
+       ),
+     },
      *([{
        id: "fact_checking_tab",
        label: "Fact checking",
