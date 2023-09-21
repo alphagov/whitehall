@@ -1,7 +1,10 @@
 class TopicalEvent < ApplicationRecord
+  include DateValidation
   include PublishesToPublishingApi
   include Searchable
   include SimpleWorkflow
+
+  date_attributes(:start_date, :end_date)
 
   searchable title: :name,
              link: :search_link,

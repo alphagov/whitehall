@@ -26,9 +26,15 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     get :new, params: { role_id: role.id, make_current: true }
     assert_select "form[action=?]", admin_role_role_appointments_path(role) do
       assert_select "input[name='role_appointment[make_current]']"
-      assert_select "select[name='role_appointment[started_at(1i)]'] option[value='#{Time.zone.today.year}'][selected='selected']"
-      assert_select "select[name='role_appointment[started_at(2i)]'] option[value='#{Time.zone.today.month}'][selected='selected']"
-      assert_select "select[name='role_appointment[started_at(3i)]'] option[value='#{Time.zone.today.day}'][selected='selected']"
+      assert_select "input[name='role_appointment[started_at(1i)]']" do |element|
+        element.attr("value").value == Time.zone.today.year.to_s
+      end
+      assert_select "input[name='role_appointment[started_at(2i)]']" do |element|
+        element.attr("value").value == Time.zone.today.month.to_s
+      end
+      assert_select "input[name='role_appointment[started_at(3i)]']" do |element|
+        element.attr("value").value == Time.zone.today.day.to_s
+      end
     end
   end
 

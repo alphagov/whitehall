@@ -63,44 +63,69 @@
       heading_size: "l",
       margin_bottom: 2
     } do %>
-      <%= render "components/datetime_fields", {
+      <%= render "components/datetime_fields_with_govuk_date_component", {
         date_only: true,
         prefix: "topical_event",
         field_name: "start_date",
         id: "topical_event_start_date",
         heading_size: "m",
-        date_hint: "For example, 01 August 2015",
+        date_hint: "For example, 01 08 2015",
         date_heading: "Start date",
         margin_bottom: 2,
         year: {
-          value: topical_event.start_date&.year
+          id: "topical_event_start_date(1i)",
+          name: "topical_event[start_date(1i)]",
+          value: params.dig("topical_event", "start_date(1i)") || topical_event.start_date&.year,
+          label: "Year",
+          width: 4
         },
         month: {
-          value: topical_event.start_date&.month
+          id: "topical_event_start_date(2i)",
+          name: "topical_event[start_date(2i)]",
+          value: params.dig("topical_event", "start_date(2i)") || topical_event.start_date&.month,
+          label: "Month",
+          width: 2
         },
         day: {
-          value: topical_event.start_date&.day,
+          id: "topical_event_start_date(3i)",
+          name: "topical_event[start_date(3i)]",
+          value: params.dig("topical_event", "start_date(3i)") || topical_event.start_date&.day,
+          label: "Day",
+          width: 2
         },
         error_items: errors_for(topical_event.errors, :start_date)
       } %>
 
-      <%= render "components/datetime_fields", {
+      <%= render "components/datetime_fields_with_govuk_date_component", {
         date_only: true,
         prefix: "topical_event",
         field_name: "end_date",
         id: "topical_event_end_date",
         heading_size: "m",
-        date_hint: "For example, 01 August 2022",
+        date_hint: "For example, 01 08 2022",
         date_heading: "End date",
         year: {
-          value: topical_event.end_date&.year
+          id: "topical_event_end_date(1i)",
+          name: "topical_event[end_date(1i)]",
+          value: params.dig("topical_event", "end_date(1i)") || topical_event.end_date&.year,
+          label: "Year",
+          width: 4
         },
         month: {
-          value: topical_event.end_date&.month
+          id: "topical_event_end_date(2i)",
+          name: "topical_event[end_date(2i)]",
+          value: params.dig("topical_event", "end_date(2i)") || topical_event.end_date&.month,
+          label: "Month",
+          width: 2
         },
         day: {
-          value: topical_event.end_date&.day
+          id: "topical_event_end_date(3i)",
+          name: "topical_event[end_date(3i)]",
+          value: params.dig("topical_event", "end_date(3i)") || topical_event.end_date&.day,
+          label: "Day",
+          width: 2
         },
+        error_items: errors_for(topical_event.errors, :end_date)
       } %>
     <% end %>
   </div>
