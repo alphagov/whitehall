@@ -55,7 +55,7 @@
         page_errors: form.object.errors.any?,
         error_items: errors_for(form.object.errors, :image),
         filename: form.object.image.filename,
-        image_cache: (form.object.image.image_cache if form.object.image.image_cache.present?),
+        image_cache: (form.object.image.image_cache.presence),
         image_src: form.object.image.url,
         image_alt: form.object.image_alt_text,
       } %>

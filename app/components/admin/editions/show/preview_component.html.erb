@@ -36,7 +36,7 @@
         <% capture do %>
           <p class="govuk-body">Send this preview link to someone so they can see the content and how the document will appear on GOV.UK.</p>
           <p class="govuk-body">No password is needed and anyone with the preview link can view it. You're responsible for who you share draft documents with. </p>
-          <p class="govuk-body">The preview link will expire on <%= Date.today.next_month.strftime("%-d %B %Y") %> or when the document is published.</p>
+          <p class="govuk-body">The preview link will expire on <%= Time.zone.today.next_month.strftime("%-d %B %Y") %> or when the document is published.</p>
 
           <%= render "govuk_publishing_components/components/copy_to_clipboard", {
             label: "Copy and send this link to someone and they’ll be able to preview your draft on GOV.UK.",

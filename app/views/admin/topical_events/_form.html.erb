@@ -53,7 +53,7 @@
       image_src: topical_event.logo.url,
       image_alt: topical_event.logo_alt_text,
       image_cache_name: "topical_event[logo_cache]",
-      image_cache: (topical_event.logo.image_cache if topical_event.logo.image_cache.present?),
+      image_cache: (topical_event.logo.image_cache.presence),
     } %>
   </div>
 

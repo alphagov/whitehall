@@ -1,5 +1,5 @@
 <%
-  return unless recent_openings.present?
+  return if recent_openings.blank?
   if recent_openings.count > 1
     title = "Multiple people have started editing this #{edition.format_name}:"
     description_govspeak = render("govuk_publishing_components/components/list", {

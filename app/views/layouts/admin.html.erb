@@ -55,7 +55,7 @@
 
 <% if user_signed_in? && current_user.has_email? %>
   <% content_for :before_pageview_js do %>
-    GOVUKAdmin.setDimension(8, "<%= current_user.organisation_slug.present? ? current_user.organisation_slug : "(not set)" %>")
+    GOVUKAdmin.setDimension(8, "<%= current_user.organisation_slug.presence || "(not set)" %>")
   <% end %>
 <% end %>
 
