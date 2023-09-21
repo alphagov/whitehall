@@ -39,7 +39,7 @@
     end
   } %>
 
-  <%= render "components/datetime_fields", {
+  <%= render "components/datetime_fields_with_govuk_date_component", {
     prefix: "offsite_link",
     field_name: "date",
     date_heading: "Date",
@@ -48,17 +48,24 @@
     error_items: errors_for(offsite_link.errors, :date),
     year: {
       id: "offsite_link_date_1i",
-      value: offsite_link.date&.year,
-      start_year: Date.today.year - 2,
-      end_year: Date.today.year + 2,
+      value: params.dig("offsite_link", "date(1i)") || offsite_link.date&.year,
+      name: "offsite_link[date(1i)]",
+      label: "Year",
+      width: 4
     },
     month: {
       id: "offsite_link_date_2i",
-      value: offsite_link.date&.month,
+      value: params.dig("offsite_link", "date(2i)") || offsite_link.date&.month,
+      name: "offsite_link[date(2i)]",
+      label: "Month",
+      width: 2
     },
     day: {
       id: "offsite_link_date_3i",
-      value: offsite_link.date&.day,
+      value: params.dig("offsite_link", "date(3i)") || offsite_link.date&.day,
+      name: "offsite_link[date(3i)]",
+      label: "Day",
+      width: 2
     },
   } %>
 

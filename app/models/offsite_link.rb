@@ -1,4 +1,6 @@
 class OffsiteLink < ApplicationRecord
+  include DateValidation
+
   module LinkTypes
     def self.all
       @all ||= %w[
@@ -42,6 +44,8 @@ class OffsiteLink < ApplicationRecord
       end
     end
   end
+
+  date_attributes(:date)
 
   belongs_to :parent, polymorphic: true
   has_many :features, inverse_of: :offsite_link, dependent: :destroy

@@ -19,44 +19,67 @@
         legend_text: "Dates",
         heading_size: "l"
       } do %>
-        <%= render "components/datetime_fields", {
+        <%= render "components/datetime_fields_with_govuk_date_component", {
           date_only: true,
           prefix: "government",
           field_name: "start_date",
           id: "government_start_date",
           heading_size: "m",
-          date_hint: "For example, 01 August 2015",
+          date_hint: "For example, 01 08 2015",
           date_heading: "Start date (required)",
           year: {
-            value: government.start_date&.year,
-            start_year: 1800,
+            id: "government_start_date_1i",
+            value: params.dig("government", "start_date(1i)") || government.start_date&.year,
+            name: "government[start_date(1i)]",
+            label: "Year",
+            width: 4,
           },
           month: {
-            value: government.start_date&.month
+            id: "government_start_date_2i",
+            value: params.dig("government", "start_date(2i)") || government.start_date&.month,
+            name: "government[start_date(2i)]",
+            label: "Month",
+            width: 2,
           },
           day: {
-            value: government.start_date&.day,
+            id: "government_start_date_3i",
+            value: params.dig("government", "start_date(3i)") || government.start_date&.month,
+            name: "government[start_date(3i)]",
+            label: "Day",
+            width: 2,
           },
           error_items: errors_for(government.errors, :start_date)
         } %>
 
-        <%= render "components/datetime_fields", {
+        <%= render "components/datetime_fields_with_govuk_date_component", {
           date_only: true,
           prefix: "government",
           field_name: "end_date",
           id: "government_end_date",
           heading_size: "m",
-          date_hint: "For example, 01 August 2022",
+          date_hint: "For example, 01 08 2022",
           date_heading: "End date",
+          error_items: errors_for(government.errors, :end_date),
           year: {
-            value: government.end_date&.year,
-            start_year: 1800
+            id: "government_end_date_1i",
+            value: params.dig("government", "end_date(1i)") || government.end_date&.year,
+            name: "government[end_date(1i)]",
+            label: "Year",
+            width: 4,
           },
           month: {
-            value: government.end_date&.month
+            id: "government_end_date_2i",
+            value: params.dig("government", "end_date(2i)") || government.end_date&.month,
+            name: "government[end_date(2i)]",
+            label: "Month",
+            width: 2,
           },
           day: {
-            value: government.end_date&.day
+            id: "government_end_date_3i",
+            value: params.dig("government", "end_date(3i)") || government.end_date&.month,
+            name: "government[end_date(3i)]",
+            label: "Day",
+            width: 2,
           },
         } %>
       <% end %>

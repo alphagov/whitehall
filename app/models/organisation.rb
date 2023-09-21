@@ -1,8 +1,11 @@
 class Organisation < ApplicationRecord
+  include DateValidation
   include PublishesToPublishingApi
   include Searchable
   include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
+
+  date_attributes(:closed_at)
 
   DEFAULT_JOBS_URL = "https://www.civilservicejobs.service.gov.uk/csr".freeze
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6

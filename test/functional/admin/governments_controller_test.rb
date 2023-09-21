@@ -26,12 +26,18 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
     login_as :gds_admin
     get :new
     assert_select "input[name='government[name]']"
-    assert_select "select[name='government[start_date(1i)]'] option[value='#{Time.zone.today.year}'][selected='selected']"
-    assert_select "select[name='government[start_date(2i)]'] option[value='#{Time.zone.today.month}'][selected='selected']"
-    assert_select "select[name='government[start_date(3i)]'] option[value='#{Time.zone.today.day}'][selected='selected']"
-    assert_select "select[name='government[end_date(1i)]']"
-    assert_select "select[name='government[end_date(2i)]']"
-    assert_select "select[name='government[end_date(3i)]']"
+    assert_select "input[name='government[start_date(1i)]']" do |element|
+      element.attr("value").value == @government.start_date.year.to_s
+    end
+    assert_select "input[name='government[start_date(2i)]']" do |element|
+      element.attr("value").value == @government.start_date.month.to_s
+    end
+    assert_select "input[name='government[start_date(3i)]']" do |element|
+      element.attr("value").value == @government.start_date.day.to_s
+    end
+    assert_select "input[name='government[end_date(1i)]']"
+    assert_select "input[name='government[end_date(2i)]']"
+    assert_select "input[name='government[end_date(3i)]']"
   end
 
   test "#close sets the end date to today" do
@@ -67,12 +73,18 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
     get :edit, params: { id: @government.id }
 
     assert_select "input[name='government[name]'][value='#{@government.name}']"
-    assert_select "select[name='government[start_date(1i)]'] option[value='#{@government.start_date.year}'][selected='selected']"
-    assert_select "select[name='government[start_date(2i)]'] option[value='#{@government.start_date.month}'][selected='selected']"
-    assert_select "select[name='government[start_date(3i)]'] option[value='#{@government.start_date.day}'][selected='selected']"
-    assert_select "select[name='government[end_date(1i)]']"
-    assert_select "select[name='government[end_date(2i)]']"
-    assert_select "select[name='government[end_date(3i)]']"
+    assert_select "input[name='government[start_date(1i)]']" do |element|
+      element.attr("value").value == @government.start_date.year.to_s
+    end
+    assert_select "input[name='government[start_date(2i)]']" do |element|
+      element.attr("value").value == @government.start_date.month.to_s
+    end
+    assert_select "input[name='government[start_date(3i)]']" do |element|
+      element.attr("value").value == @government.start_date.day.to_s
+    end
+    assert_select "input[name='government[end_date(1i)]']"
+    assert_select "input[name='government[end_date(2i)]']"
+    assert_select "input[name='government[end_date(3i)]']"
     assert_select "a[href='#{prepare_to_close_admin_government_path(@government)}']", text: "Prepare to close this government"
   end
 

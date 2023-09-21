@@ -65,7 +65,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
       assert_select "div input[id=offsite_link_title]"
       assert_select "div textarea[id=offsite_link_summary]"
       assert_select "div select[id=offsite_link_link_type]"
-      (1..3).each { |n| assert_select "div select[id=offsite_link_date_#{n}i]" }
+      (1..3).each { |n| assert_select "div input[id=offsite_link_date_#{n}i]" }
       assert_select "div input[id=offsite_link_url]"
 
       assert_select "button[type=submit]"
