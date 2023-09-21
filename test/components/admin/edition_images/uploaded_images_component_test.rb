@@ -4,8 +4,8 @@ require "test_helper"
 
 class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCase
   test "lead image rendered for case study" do
-    images = [build(:image), build(:image)]
-    edition = create(:draft_case_study, images:)
+    images = [build_stubbed(:image), build_stubbed(:image)]
+    edition = build_stubbed(:draft_case_study, images:)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
     assert_selector "img", count: 2
@@ -14,8 +14,8 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
   end
 
   test "lead image not rendered for publication" do
-    images = [build(:image), build(:image)]
-    edition = create(:draft_publication, images:)
+    images = [build_stubbed(:image), build_stubbed(:image)]
+    edition = build_stubbed(:draft_publication, images:)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
     assert_selector "img", count: 2
@@ -26,10 +26,10 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
   test "image filename markdown displayed" do
     jpeg = upload_fixture("images/960x640_jpeg.jpg")
     gif = upload_fixture("images/960x640_gif.gif")
-    jpeg_image_data = create(:image_data, file: jpeg)
-    gif_image_data = create(:image_data, file: gif)
-    images = [build(:image, image_data: jpeg_image_data), build(:image, image_data: gif_image_data)]
-    edition = create(:draft_publication, images:)
+    jpeg_image_data = build_stubbed(:image_data, file: jpeg)
+    gif_image_data = build_stubbed(:image_data, file: gif)
+    images = [build_stubbed(:image, image_data: jpeg_image_data), build_stubbed(:image, image_data: gif_image_data)]
+    edition = build_stubbed(:draft_publication, images:)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
     assert_selector "input[value='[Image: 960x640_jpeg.jpg]']"
@@ -37,8 +37,8 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
   end
 
   test "image index markdown used for duplicate filenames" do
-    images = [build(:image), build(:image)]
-    edition = create(:draft_publication, images:)
+    images = [build_stubbed(:image), build_stubbed(:image)]
+    edition = build_stubbed(:draft_publication, images:)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
     assert_selector "input[value='!!1']"

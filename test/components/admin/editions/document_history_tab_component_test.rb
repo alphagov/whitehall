@@ -6,8 +6,8 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
   setup do
-    @user = create(:departmental_editor)
-    @user2 = create(:departmental_editor)
+    @user = build_stubbed(:departmental_editor)
+    @user2 = build_stubbed(:departmental_editor)
     seed_document_event_history
     @timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
 

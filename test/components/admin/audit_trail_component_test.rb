@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::AuditTrailComponentTest < ViewComponent::TestCase
   setup do
-    @non_editionable_item = create(:worldwide_organisation)
+    @non_editionable_item = build_stubbed(:worldwide_organisation)
   end
 
   test "renders audit trail entries" do
