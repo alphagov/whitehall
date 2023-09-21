@@ -22,10 +22,10 @@
         error_items: errors_for(edition.errors, :title),
         right_to_left: form.object.translation_rtl?,
         right_to_left_help: false,
-        rows: 1
+        rows: 1,
       },
       id: "edition_title",
-      maxlength: 65
+      maxlength: 65,
     } %>
   </div>
 
@@ -45,7 +45,7 @@
         margin_bottom: 8,
       },
       id: "edition_summary",
-      maxlength: 160
+      maxlength: 160,
     } %>
   </div>
 
@@ -65,7 +65,7 @@
         image_ids: edition.images.map { |img| img[:id] }.to_json,
         attachment_ids: edition.allows_attachments? ? edition.attachments.map(&:id) : [],
         alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-      }
+      },
     } %>
   </div>
 
@@ -107,9 +107,9 @@
           {
             label: "Associate with government of the time (currently set to #{edition.government&.name}).",
             value: "1",
-            checked: edition.political
-          }
-        ]
+            checked: edition.political,
+          },
+        ],
       } %>
 
       <p class="govuk-body"><%= link_to "Read the history mode guidance", "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode", class: "govuk-link" %> for more information as to what this means.</p>
@@ -127,7 +127,7 @@
         text: "Images",
         heading_level: 3,
         font_size: "l",
-        margin_bottom: 3
+        margin_bottom: 3,
     } %>
     <p class="govuk-body">
       <% if edition.new_record? %>

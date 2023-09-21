@@ -24,7 +24,7 @@
           },
           details: {
             text: @edition.title,
-          }
+          },
         } %>
       <% end %>
 
@@ -44,7 +44,7 @@
         },
         details: {
           text: @edition.summary,
-        }
+        },
       } %>
 
       <%= render "components/translated_textarea", {
@@ -69,7 +69,7 @@
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Save"
+          text: "Save",
         } %>
 
         <%= link_to("Cancel", admin_cancel_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
@@ -86,7 +86,7 @@
           content: simple_formatting_sidebar(
             hide_inline_attachments_help: !@edition.allows_inline_attachments?,
             show_attachments_tab_help: true,
-          )
+          ),
         },
         {
           id: "history_tab",
@@ -103,9 +103,9 @@
         *([{
           id: "fact_checking_tab",
           label: "Fact checking",
-          content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition))
-        }] if @edition.can_be_fact_checked?)
-      ]
+          content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition)),
+        }] if @edition.can_be_fact_checked?),
+      ],
     } %>
   </section>
 </div>

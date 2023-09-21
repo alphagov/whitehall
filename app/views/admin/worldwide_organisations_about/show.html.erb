@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_worldwide_organisations_path
+    href: admin_worldwide_organisations_path,
   } %>
 <% end %>
 <% content_for :page_title, @worldwide_organisation.name %>
@@ -14,7 +14,7 @@
 
 <%= render "components/secondary_navigation", {
   aria_label: "Organisation navigation tabs",
-  items: secondary_navigation_tabs_items(@worldwide_organisation, request.path)
+  items: secondary_navigation_tabs_items(@worldwide_organisation, request.path),
 } %>
 
 <div class="govuk-grid-row">
@@ -40,13 +40,13 @@
         summary_card_actions: [
           {
             label: "View",
-            href: admin_edition_path(@worldwide_organisation.about_us)
-          }
+            href: admin_edition_path(@worldwide_organisation.about_us),
+          },
         ],
       } %>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No about us page."
+        text: "No about us page.",
       } %>
     <% end %>
   </div>

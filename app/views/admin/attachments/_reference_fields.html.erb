@@ -17,7 +17,7 @@
       heading_level: 2,
       heading_size: heading_size,
       options: locale_options,
-      hint: "This determines the translations of the publication that the attachment will appear in."
+      hint: "This determines the translations of the publication that the attachment will appear in.",
     } %>
   </div>
 <% end %>
@@ -25,26 +25,26 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/input", {
     label: {
-      text: "ISBN"
+      text: "ISBN",
     },
     name: "attachment[isbn]",
     id: "attachment_isbn",
     heading_level: 2,
     heading_size: heading_size,
     value: form.object.isbn,
-    error_items: errors_for(attachment.errors, :isbn)
+    error_items: errors_for(attachment.errors, :isbn),
   } %>
 </div>
 
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/input", {
     label: {
-      text: "Unique reference"
+      text: "Unique reference",
     },
     name: "attachment[unique_reference]",
     heading_level: 2,
     heading_size: heading_size,
-    value: form.object.unique_reference
+    value: form.object.unique_reference,
   } %>
 </div>
 
@@ -57,14 +57,14 @@
 
   <%= render("govuk_publishing_components/components/input", {
     label: {
-      text: "Command paper number"
+      text: "Command paper number",
     },
     name: "attachment[command_paper_number]",
     id: "attachment_command_paper_number",
     value: form.object.command_paper_number,
     error_items: errors_for(attachment.errors, :command_paper_number),
     heading_size: attachable.can_have_attached_house_of_commons_papers? ? subheading_size : heading_size,
-    hint: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(", ") + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
+    hint: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(", ") + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV",
   }) %>
 
   <%= form.hidden_field :unnumbered_command_paper, value: "0" %>
@@ -76,9 +76,9 @@
       {
         label: "Unnumbered",
         value: "1",
-        checked: attachment.unnumbered_command_paper
-      }
-    ]
+        checked: attachment.unnumbered_command_paper,
+      },
+    ],
   } %>
 </div>
 

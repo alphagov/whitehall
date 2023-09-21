@@ -3,7 +3,7 @@
     {
       value: type.id,
       text: type.name,
-      checked: contact_form.object.contact_type_id == type.id
+      checked: contact_form.object.contact_type_id == type.id,
     }
   end
 %>
@@ -14,5 +14,5 @@
   id: "#{id}_contact_type",
   heading_size: "l",
   error_items: errors_for(contact_form.object.errors, :contact_type),
-  items: items
+  items: items,
 } %>

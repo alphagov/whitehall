@@ -15,28 +15,28 @@
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {
-          text: "Title"
+          text: "Title",
         },
         {
-          text: "Updated by"
+          text: "Updated by",
         },
         {
-          text: "State"
+          text: "State",
         },
         {
-          text: tag.span("View", class: "govuk-visually-hidden")
-        }
+          text: tag.span("View", class: "govuk-visually-hidden"),
+        },
       ],
       rows:
         filter.editions.map do |edition|
           [
              {
-               text: tag.span(index_table_title_row(edition), class: "govuk-!-font-weight-bold")
+               text: tag.span(index_table_title_row(edition), class: "govuk-!-font-weight-bold"),
              },
              {
                text: tag.p("#{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-0") +
                       "by " +
-                      linked_author(edition.last_author, class: "govuk-link")
+                      linked_author(edition.last_author, class: "govuk-link"),
              },
              {
                text: render(Admin::Editions::TagsComponent.new(edition)),
@@ -45,7 +45,7 @@
                text: link_to(sanitize("View #{tag.span(edition.title, class: 'govuk-visually-hidden')}"), admin_edition_path(edition), class: "govuk-link"),
              },
           ]
-        end
+        end,
     } %>
   </div>
 

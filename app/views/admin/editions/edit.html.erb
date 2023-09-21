@@ -9,7 +9,7 @@
   <div class="govuk-grid-row">
     <%= render "govuk_publishing_components/components/error_alert", {
       message: "This document has been updated by another user since you started editing it.",
-      description: "Please review conflicts between the two versions and incorporate any changes before pressing save again."
+      description: "Please review conflicts between the two versions and incorporate any changes before pressing save again.",
     } %>
 
     <div class="govuk-grid-column-one-half">
@@ -27,7 +27,7 @@
     <div class="govuk-grid-column-two-thirds">
       <%= render "components/secondary_navigation", {
         aria_label: "Document navigation tabs",
-        items: secondary_navigation_tabs_items(@edition, request.path)
+        items: secondary_navigation_tabs_items(@edition, request.path),
       } %>
 
       <%= render "form", edition: @edition %>
@@ -43,7 +43,7 @@
              hide_inline_attachments_help: !@edition.allows_inline_attachments?,
              show_attachments_tab_help: true,
              link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_reports.last : nil,
-           )
+           ),
          },
          {
            id: "history_tab",
@@ -60,9 +60,9 @@
          *([{
            id: "fact_checking_tab",
            label: "Fact checking",
-           content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition))
-         }] if @edition.can_be_fact_checked?)
-       ]
+           content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition)),
+         }] if @edition.can_be_fact_checked?),
+       ],
       } %>
     </div>
   </div>

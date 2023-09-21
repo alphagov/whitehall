@@ -6,18 +6,18 @@
       } %>
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Name (required)"
+          text: "Name (required)",
         },
         name: "government[name]",
         id: "government_name",
         heading_size: "l",
         value: government.name,
-        error_message: errors_for_input(government.errors, :name)
+        error_message: errors_for_input(government.errors, :name),
       } %>
 
       <%= render "govuk_publishing_components/components/fieldset", {
         legend_text: "Dates",
-        heading_size: "l"
+        heading_size: "l",
       } do %>
         <%= render "components/datetime_fields", {
           date_only: true,
@@ -48,7 +48,7 @@
             label: "Day",
             width: 2,
           },
-          error_items: errors_for(government.errors, :start_date)
+          error_items: errors_for(government.errors, :start_date),
         } %>
 
         <%= render "components/datetime_fields", {
@@ -91,8 +91,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "government-button",
-            "track-label": "Save"
-       }
+            "track-label": "Save",
+       },
         } %>
         <%= link_to("Cancel", admin_governments_path(), class: "govuk-link") %>
       </div>

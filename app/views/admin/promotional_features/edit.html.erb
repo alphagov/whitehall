@@ -10,12 +10,12 @@
       <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "Title (required)",
-          heading_size: "l"
+          heading_size: "l",
         },
         name: "promotional_feature[title]",
         id: "promotional_feature_title",
         value: @promotional_feature.title,
-        error_items: errors_for(@promotional_feature.errors, :title)
+        error_items: errors_for(@promotional_feature.errors, :title),
       } %>
 
       <div class="govuk-button-group govuk-!-margin-top-8">
@@ -25,8 +25,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "promotional_feature-button",
-            "track-label": "Update name"
-          }
+            "track-label": "Update name",
+          },
         } %>
 
         <%= link_to("Cancel", [:admin, @promotional_feature.organisation, PromotionalFeature], class: "govuk-link") %>

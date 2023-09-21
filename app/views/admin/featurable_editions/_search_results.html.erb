@@ -8,17 +8,17 @@
   <%= render "govuk_publishing_components/components/table", {
     head: [
       {
-        text: "Title"
+        text: "Title",
       },
       {
-        text: "Type"
+        text: "Type",
       },
       {
-        text: "Published"
+        text: "Published",
       },
       {
-        text: tag.span("Actions", class: "govuk-visually-hidden")
-      }
+        text: tag.span("Actions", class: "govuk-visually-hidden"),
+      },
     ],
     rows:
       featurable_editions.map do |edition|
@@ -38,7 +38,7 @@
              format: "numeric",
            },
         ]
-      end
+      end,
   } %>
 
   <%= paginate(paginator, anchor: anchor, theme: "govuk_paginator") %>

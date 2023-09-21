@@ -13,11 +13,11 @@
       <%= render "govuk_publishing_components/components/table", {
         head: [
           {
-            text: "Location"
+            text: "Location",
           },
           {
             text: tag.span("Actions", class: "govuk-visually-hidden"),
-          }
+          },
         ],
         rows:
           @operational_fields.map do |operational_field|
@@ -29,7 +29,7 @@
                 text: sanitize("<a href='#{edit_admin_operational_field_path(operational_field)}' class='govuk-link'>Edit<span class='govuk-visually-hidden'> #{operational_field.name}</span></a>"),
               },
             ]
-          end
+          end,
       } %>
     </div>
   </div>

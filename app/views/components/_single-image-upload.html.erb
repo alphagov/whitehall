@@ -20,7 +20,7 @@
   <%= render "govuk_publishing_components/components/heading", {
     text: title,
     font_size: "l",
-    margin_bottom: 3
+    margin_bottom: 3,
   } %>
 
   <% if image_src %>
@@ -28,7 +28,7 @@
       text: "Uploaded image",
       heading_level: 3,
       font_size: "m",
-      margin_bottom: 3
+      margin_bottom: 3,
     } %>
 
     <% if page_errors %>
@@ -62,23 +62,23 @@
   <%= render "govuk_publishing_components/components/file_upload", {
     label: {
       text: image_label,
-      heading_size: label_size
+      heading_size: label_size,
     },
     name: image_name,
     hint: "Images must be 960px by 640px",
     id: image_id,
     value: image_src,
-    error_items: error_items
+    error_items: error_items,
   } %>
 
   <% unless remove_alt_text_field %>
     <%= render "govuk_publishing_components/components/input", {
       label: {
-        text: "Image description (alt text)"
+        text: "Image description (alt text)",
       },
       name: alt_text_name,
       id: alt_text_id,
-      value: image_alt
+      value: image_alt,
     } %>
   <% end %>
 <% end %>

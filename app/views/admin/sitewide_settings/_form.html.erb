@@ -1,5 +1,5 @@
 <%= render "govuk_publishing_components/components/warning_text", {
-  text: "Changes to sitewide settings appear instantly on the live site."
+  text: "Changes to sitewide settings appear instantly on the live site.",
 } %>
 <%= form_for [:admin, sitewide_setting], as: :sitewide_setting do |form| %>
   <div class="govuk-grid-row">
@@ -14,20 +14,20 @@
           {
             value: "1",
             checked: sitewide_setting.on,
-            text: "Yes"
+            text: "Yes",
           },
           {
             value: "0",
             checked: !sitewide_setting.on,
-            text: "No"
-          }
-        ]
+            text: "No",
+          },
+        ],
       } %>
 
       <%= render "govuk_publishing_components/components/textarea",
                  label: {
                    heading_size: "l",
-                   text: "Can you provide more detail in Govspeak?"
+                   text: "Can you provide more detail in Govspeak?",
                  },
                  name: "sitewide_setting[govspeak]",
                  id: "sitewide_setting_govspeak",
@@ -37,7 +37,7 @@
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Save"
+          text: "Save",
         } %>
 
         <%= link_to("cancel", admin_sitewide_settings_path(), class: "govuk-link") %>

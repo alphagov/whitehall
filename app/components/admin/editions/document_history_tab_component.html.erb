@@ -39,7 +39,7 @@
         text: "Document history",
         value: "history",
         selected: document_history.only == "history",
-      }
+      },
     ],
   } %>
   <%= render "govuk_publishing_components/components/button", { text: "Filter" } %>
@@ -55,7 +55,7 @@
       margin_bottom: entries_on_previous_editions.present? ? 8 : 0,
       items: entries_on_newer_editions.map do |entry|
         render_entry(entry)
-      end
+      end,
     } %>
   </div>
 <% end %>
@@ -68,7 +68,7 @@
       margin_bottom: entries_on_previous_editions.present? ? 8 : 0,
       items: entries_on_current_edition.map do |entry|
         render_entry(entry)
-      end
+      end,
     } %>
   </div>
 <% end %>
@@ -80,7 +80,7 @@
     <%= render "govuk_publishing_components/components/list", {
       items: entries_on_previous_editions.map do |entry|
         render_entry(entry)
-      end
+      end,
     } %>
   </div>
 <% end %>

@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_people_path
+    href: admin_people_path,
   } %>
 <% end %>
 <% content_for :page_title, "#{@person.name}" %>
@@ -12,7 +12,7 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @person.current_role_appointments_title.present? %>
       <%= render "govuk_publishing_components/components/lead_paragraph", {
-        text: @person.current_role_appointments.collect(&:role_name).to_sentence
+        text: @person.current_role_appointments.collect(&:role_name).to_sentence,
       } %>
     <% end %>
 
@@ -22,7 +22,7 @@
 
     <%= render "components/secondary_navigation", {
       aria_label: "People navigation tabs",
-      items: secondary_navigation_tabs_items(@person, request.path)
+      items: secondary_navigation_tabs_items(@person, request.path),
     } %>
 
     <%= render "govuk_publishing_components/components/heading", {
@@ -36,29 +36,29 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Language"
+              text: "Language",
             },
             {
               text: tag.span("Actions", class: "govuk-visually-hidden"),
-            }
+            },
           ],
           rows: @person.non_english_translated_locales.map do |locale|
             [
               {
-                text: locale.native_and_english_language_name
+                text: locale.native_and_english_language_name,
               },
               {
                 text: link_to(sanitize("View #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), @person.public_url(locale: locale.code), class: "govuk-link") +
                   link_to(sanitize("Edit #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), edit_admin_person_translation_path(@person, locale.code), class: "govuk-link govuk-!-margin-left-2") +
-                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_person_translation_path(@person, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")
-              }
+                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_person_translation_path(@person, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2"),
+              },
             ]
-          end
+          end,
         } %>
       </div>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No translations."
+        text: "No translations.",
       } %>
     <% end %>
 
@@ -74,7 +74,7 @@
               value: locale.code,
               text: Locale.coerce(locale).native_and_english_language_name,
             }
-          end
+          end,
         } %>
 
         <%= render "govuk_publishing_components/components/button", {
@@ -83,8 +83,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "person-translations-button",
-            "track-label": "Create new translation"
-          }
+            "track-label": "Create new translation",
+          },
         } %>
       <% end %>
     <% end %>

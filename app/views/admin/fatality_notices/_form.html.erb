@@ -6,7 +6,7 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,
-    heading_size: "l"
+    heading_size: "l",
   } do %>
     <p class="govuk-body">You'll be able to specialist sectors later.</p>
 
@@ -20,7 +20,7 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Roll call info (displays on the field of operation) (required)",
     heading_level: 3,
-    heading_size: "l"
+    heading_size: "l",
   } do %>
     <%= render "govuk_publishing_components/components/textarea", {
       label: {
@@ -31,7 +31,7 @@
       name: "edition[roll_call_introduction]",
       id: "edition_roll_call_introduction",
       error_items: errors_for(edition.errors, :roll_call_introduction),
-      rows: 2
+      rows: 2,
     } %>
 
     <h4 class="govuk-heading-m">Casualties (required)</h4>
@@ -47,7 +47,7 @@
             value: fatality_form.object.personal_details,
             name: "edition[fatality_notice_casualties_attributes][#{fatality_form.index}][personal_details]",
             id: "edition_fatality_notice_casualties_#{fatality_form.index}_personal_details",
-            rows: 2
+            rows: 2,
           } %>
         </div>
       <% end %>

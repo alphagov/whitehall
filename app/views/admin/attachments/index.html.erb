@@ -10,7 +10,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render "components/secondary_navigation", {
       aria_label: "Document navigation tabs",
-      items: secondary_navigation_tabs_items(attachment.attachable, request.path)
+      items: secondary_navigation_tabs_items(attachment.attachable, request.path),
     } %>
 
     <%= render "govuk_publishing_components/components/inset_text", {
@@ -20,7 +20,7 @@
     <%= render "govuk_publishing_components/components/heading", {
       text: "Add new attachment",
       margin_bottom: 2,
-      font_size: "l"
+      font_size: "l",
     } %>
     <ul class="govuk-list">
       <li>

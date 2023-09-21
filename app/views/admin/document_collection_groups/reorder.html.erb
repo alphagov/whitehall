@@ -13,9 +13,9 @@
         items: @collection.groups.map do |group|
           {
             id: group.id,
-            title: group.heading
+            title: group.heading,
           }
-        end
+        end,
       } %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
@@ -25,8 +25,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "document-collection-groups-reorder-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
         <%= link_to("Cancel", admin_document_collection_groups_path(@collection), class: "govuk-link govuk-link--no-visited-state") %>
       </div>

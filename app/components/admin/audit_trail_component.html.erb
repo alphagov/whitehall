@@ -8,7 +8,7 @@
   <%= render "govuk_publishing_components/components/list", {
     items: versions.map do |version|
       render(Admin::AuditTrailEntryComponent.new(version: version))
-    end
+    end,
   } %>
 
   <%= paginate(@versions, theme: "govuk_paginator") %>

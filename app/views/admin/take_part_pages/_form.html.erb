@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/warning_text", {
-      text: "Changes to take part pages appears instantly on the live site."
+      text: "Changes to take part pages appears instantly on the live site.",
     } %>
 
     <%= form_for take_part_page, url: [:admin, take_part_page], multipart: true do |form| %>
@@ -31,7 +31,7 @@
           name: "take_part_page[summary]",
           rows: 4,
           value: form.object.summary,
-          error_items: errors_for(form.object.errors, :summary)
+          error_items: errors_for(form.object.errors, :summary),
         },
         maxlength: 255,
         id: "take_part_page_summary",
@@ -40,13 +40,13 @@
       <%= render "components/govspeak-editor", {
         label: {
           heading_size: "l",
-          text: "Body (required)"
+          text: "Body (required)",
         },
         name: "take_part_page[body]",
         id: "take_part_page_body",
         rows: 20,
         value: form.object.body,
-        error_items: errors_for(form.object.errors, :body)
+        error_items: errors_for(form.object.errors, :body),
       } %>
 
       <%= render "components/single-image-upload", {
@@ -57,7 +57,7 @@
         filename: form.object.image.filename,
         image_cache: (form.object.image.image_cache if form.object.image.image_cache.present?),
         image_src: form.object.image.url,
-        image_alt: form.object.image_alt_text
+        image_alt: form.object.image_alt_text,
       } %>
       <div class="govuk-button-group govuk-!-margin-top-8">
         <%= render "govuk_publishing_components/components/button", {
@@ -66,8 +66,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "take-part-page-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
 
         <%= link_to "Cancel", admin_take_part_pages_path, class: "govuk-link govuk-link--no-visited-state" %>

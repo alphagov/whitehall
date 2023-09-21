@@ -2,12 +2,12 @@
   <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Role title (required)",
-        heading_size: "l"
+        heading_size: "l",
       },
       value: role.name,
       name: "role[name]",
       id: "role_name",
-      error_items: errors_for(role.errors, :name)
+      error_items: errors_for(role.errors, :name),
   } %>
 
   <%= render "govuk_publishing_components/components/select", {
@@ -22,24 +22,24 @@
           {
             text: name,
             value: type,
-            selected: role.role_type == type
+            selected: role.role_type == type,
           }
         end
       }.flatten,
-    error_message: errors_for_input(role.errors, :type)
+    error_message: errors_for_input(role.errors, :type),
   } %>
 
   <%= render "components/autocomplete", {
     id: "role_organisation_ids",
     label: {
       text: "Organisations",
-      heading_size: "l"
+      heading_size: "l",
     },
     name: "role[organisation_ids][]",
     select: {
       options:  options_from_collection_for_select(Organisation.with_translations(:en), "id", "select_name", role.organisation_ids),
-      multiple: true
-    }
+      multiple: true,
+    },
   } %>
 
   <%= render "govuk_publishing_components/components/select", {
@@ -52,9 +52,9 @@
         {
           text: whip_organisation&.label,
           value: whip_organisation&.id,
-          selected: whip_organisation&.id == role.whip_organisation_id
+          selected: whip_organisation&.id == role.whip_organisation_id,
         }
-      end
+      end,
   } %>
 
   <%= render "govuk_publishing_components/components/select", {
@@ -67,9 +67,9 @@
       {
         text: role_payment_type&.name,
         value: role_payment_type&.id,
-        selected: role.role_payment_type_id == role_payment_type&.id
+        selected: role.role_payment_type_id == role_payment_type&.id,
       }
-    end
+    end,
   } %>
 
   <%= render "govuk_publishing_components/components/select", {
@@ -82,33 +82,33 @@
       {
         text: role_attends_cabinet_type&.name,
         value: role_attends_cabinet_type&.id,
-        selected: role.attends_cabinet_type_id == role_attends_cabinet_type&.id
+        selected: role.attends_cabinet_type_id == role_attends_cabinet_type&.id,
       }
-    end
+    end,
   } %>
 
   <%= render "components/autocomplete", {
     id: "role_worldwide_organisation_ids",
     label: {
       text: "Worldwide organisations",
-      heading_size: "l"
+      heading_size: "l",
     },
     name: "role[worldwide_organisation_ids][]",
     select: {
       options:  options_from_collection_for_select(WorldwideOrganisation.all, "id", "name", role.worldwide_organisation_ids),
-      multiple: true
-    }
+      multiple: true,
+    },
   } %>
 
   <%= render "components/govspeak-editor", {
     label: {
       text: "Responsibilities",
-      heading_size: "l"
+      heading_size: "l",
     },
     id: "role_responsibilities",
     name: "role[responsibilities]",
     value: role.responsibilities,
-    rows: 20
+    rows: 20,
   } %>
 
   <div class="govuk-button-group govuk-!-margin-top-8">
@@ -121,8 +121,8 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
-        "track-label": "Save"
-      }
+        "track-label": "Save",
+      },
     } %>
     <%= render "govuk_publishing_components/components/button", {
       text: "Save and continue",
@@ -134,8 +134,8 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
-        "track-label": "Save and continue"
-      }
+        "track-label": "Save and continue",
+      },
     } %>
     <%= link_to("Cancel", admin_roles_path, class: "govuk-link") %>
   </div>

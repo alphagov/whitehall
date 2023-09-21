@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: [:admin, @socialable.class]
+    href: [:admin, @socialable.class],
   } %>
 <% end %>
 <% content_for :page_title, @socialable.name %>
@@ -14,7 +14,7 @@
 
 <%= render "components/secondary_navigation", {
   aria_label: "Organisation navigation tabs",
-  items: secondary_navigation_tabs_items(@socialable, request.path)
+  items: secondary_navigation_tabs_items(@socialable, request.path),
 } %>
 
 <%= render "govuk_publishing_components/components/heading", {
@@ -33,8 +33,8 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "social-media-accounts-button",
-        "track-label": "Create new account"
-      }
+        "track-label": "Create new account",
+      },
     } %>
 
     <% if @social_media_accounts.present? %>
@@ -43,7 +43,7 @@
       <% end %>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No social media accounts"
+        text: "No social media accounts",
       } %>
     <% end %>
   </div>

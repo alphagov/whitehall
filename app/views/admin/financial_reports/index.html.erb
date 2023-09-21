@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_organisations_path
+    href: admin_organisations_path,
   } %>
 <% end %>
 <% content_for :page_title, "#{@organisation.name} financial reports" %>
@@ -16,7 +16,7 @@
 
 <%= render "components/secondary_navigation", {
   aria_label: "Organisation navigation tabs",
-  items: secondary_navigation_tabs_items(@organisation, request.path)
+  items: secondary_navigation_tabs_items(@organisation, request.path),
 } %>
 
 <div class="govuk-grid-row">
@@ -24,7 +24,7 @@
     <%= render "govuk_publishing_components/components/heading", {
       text: "Financial Reports",
       font_size: "l",
-      margin_bottom: 6
+      margin_bottom: 6,
     } %>
 
     <%= render "govuk_publishing_components/components/button", {
@@ -35,8 +35,8 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "financial-report-button",
-        "track-label": "Create new report"
-      }
+        "track-label": "Create new report",
+      },
     } %>
 
     <% if @organisation.financial_reports.present? %>
@@ -44,42 +44,42 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Year"
+              text: "Year",
             },
             {
-              text: "Funding"
+              text: "Funding",
             },
             {
-              text: "Spending"
+              text: "Spending",
             },
             {
-              text: tag.span("Actions", class: "govuk-visually-hidden")
-            }
+              text: tag.span("Actions", class: "govuk-visually-hidden"),
+            },
           ],
           rows: @organisation.financial_reports.map do |report|
             [
               {
-                text: tag.span(report.year, class: "govuk-!-font-weight-bold")
+                text: tag.span(report.year, class: "govuk-!-font-weight-bold"),
               },
               {
-                text: number_to_currency(report.funding, precision: 0, unit: "&pound;".html_safe)
+                text: number_to_currency(report.funding, precision: 0, unit: "&pound;".html_safe),
               },
               {
-                text: number_to_currency(report.spending, precision: 0, unit: "&pound;".html_safe)
+                text: number_to_currency(report.spending, precision: 0, unit: "&pound;".html_safe),
               },
               {
                 text:
                   link_to(sanitize("Edit #{tag.span(" report for #{report.year}", class: "govuk-visually-hidden")}"), edit_admin_organisation_financial_report_path(@organisation, report), class: "govuk-link") +
-                  link_to(sanitize("Delete #{tag.span(" report for #{report.year}", class: "govuk-visually-hidden")}"), confirm_destroy_admin_organisation_financial_report_path(@organisation, report), class: "govuk-link gem-link--destructive govuk-!-margin-left-3")
-              }
+                  link_to(sanitize("Delete #{tag.span(" report for #{report.year}", class: "govuk-visually-hidden")}"), confirm_destroy_admin_organisation_financial_report_path(@organisation, report), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+              },
             ]
-          end
+          end,
         } %>
       </div>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
         text: "There are no financial reports associated with this organisation",
-        margin_top: 0
+        margin_top: 0,
       } %>
     <% end %>
   </div>

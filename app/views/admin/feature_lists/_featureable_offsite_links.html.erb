@@ -11,8 +11,8 @@
       module: "gem-track-click",
       "track-category": "form-button",
       "track-action": "featurable-offsite-link-button",
-      "track-label": "Create new link"
-    }
+      "track-label": "Create new link",
+    },
   } %>
 </p>
 
@@ -25,14 +25,14 @@
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {
-          text: "Title"
+          text: "Title",
         },
         {
           text: "Type",
         },
         {
           text: tag.span("Actions", class: "govuk-visually-hidden"),
-        }
+        },
       ],
       rows: featurable_offsite_links.map do |offsite_link|
         [
@@ -46,13 +46,13 @@
             text: link_to(sanitize("Edit #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:edit, :admin, offsite_link.parent, offsite_link]), class: "govuk-link") +
                     link_to(sanitize("Feature #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url(featuring_path, offsite_link_id: offsite_link.id), class: "govuk-link govuk-!-margin-left-2") +
                       link_to(sanitize("Delete #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:confirm_destroy, :admin, offsite_link.parent, offsite_link]), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive"),
-          }
+          },
         ]
-      end
+      end,
     } %>
   </div>
 <% else %>
   <%= render "govuk_publishing_components/components/inset_text", {
-    text: "There are currently no non-GOV.UK government links."
+    text: "There are currently no non-GOV.UK government links.",
   } %>
 <% end %>

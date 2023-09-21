@@ -9,14 +9,14 @@
         items: @promotional_features.map do |promotional_feature|
           {
             id: promotional_feature.id,
-            title: promotional_feature.title
+            title: promotional_feature.title,
           }
-        end
+        end,
       } %>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Save"
+          text: "Save",
         } %>
         <%= link_to("Cancel", admin_organisation_promotional_features_path(@organisation), class: "govuk-link govuk-link--no-visited-state") %>
     </div>

@@ -6,7 +6,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/warning_text", {
-      text: "Changes to roles appear instantly on the live site."
+      text: "Changes to roles appear instantly on the live site.",
     } %>
     <%= render "form", role: @role %>
   </div>
@@ -17,14 +17,14 @@
           id: "appointments",
           label: "Appointments",
           content:
-            render("admin/roles/appointments_tab", role: @role )
+            render("admin/roles/appointments_tab", role: @role ),
         },
         {
           id: "help",
           label: "Help",
-          content: simple_formatting_sidebar
-        }
-      ]
+          content: simple_formatting_sidebar,
+        },
+      ],
     } %>
   </div>
 </div>

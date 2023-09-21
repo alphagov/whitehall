@@ -1,7 +1,7 @@
 <% if edition.rejected? %>
   <%= render "/components/inset_prompt", {
     description: sanitize("Rejected by #{linked_author(edition.rejected_by, class: "govuk-link")} - check the internal note in the document history for the reason."),
-    error: true
+    error: true,
   } %>
 <% end %>
 
@@ -14,7 +14,7 @@
         <%= render "govuk_publishing_components/components/button", {
             text: "Approve",
             href: confirm_approve_retrospectively_admin_edition_path(@edition, lock_version: @edition.lock_version),
-            secondary_quiet: true
+            secondary_quiet: true,
           } %>
       <% else %>
         <p class="govuk-body">Please have an editor other than the original publisher review the document to clear this warning.</p>
@@ -45,6 +45,6 @@
 
 <% if warn_about_lack_of_contacts_in_body?(edition) %>
   <%= render "components/inset_prompt", {
-    description: "This press release has no contact information embedded in the body. You may want to edit it and add some."
+    description: "This press release has no contact information embedded in the body. You may want to edit it and add some.",
   } %>
 <% end %>

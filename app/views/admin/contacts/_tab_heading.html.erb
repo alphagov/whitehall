@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/heading", {
-      text: title_text
+      text: title_text,
     } %>
   </div>
   <% if contactable.home_page_contacts.many? && contacts.none?(&:foi?) %>

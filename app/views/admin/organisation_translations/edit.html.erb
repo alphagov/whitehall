@@ -16,11 +16,11 @@
           value: @translated_organisation.name,
           error_items: errors_for(@translated_organisation.errors, :name),
           right_to_left: @translated_organisation.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @organisation.name
-        }
+          text: @organisation.name,
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -34,11 +34,11 @@
           value: @translated_organisation.acronym,
           error_items: errors_for(@translated_organisation.errors, :acronym),
           right_to_left: @translated_organisation.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @organisation.acronym
-        }
+          text: @organisation.acronym,
+        },
       } %>
 
       <%= render "components/translated_textarea", {
@@ -53,11 +53,11 @@
           rows: 4,
           error_items: errors_for(@translated_organisation.errors, :logo_formatted_name),
           right_to_left: @translated_organisation.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @organisation.logo_formatted_name
-        }
+          text: @organisation.logo_formatted_name,
+        },
       } %>
 
       <%= render "admin/shared/featured_link_fields", form: form %>
@@ -69,8 +69,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "#{@translated_organisation.class.name.demodulize.underscore.dasherize}-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
 
         <%= link_to "Cancel", admin_organisation_translations_path(@translated_organisation), class: "govuk-link govuk-link--no-visited-state" %>

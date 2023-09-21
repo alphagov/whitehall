@@ -11,21 +11,21 @@
     id: "role_appointment_started_at_1i",
     name: "role_appointment[started_at(1i)]",
     label: "Year",
-    width: 4
+    width: 4,
   },
   month: {
     value: params.dig("role_appointment", "started_at(2i)") || form.object.started_at&.month,
     id: "role_appointment_started_at_2i",
     name: "role_appointment[started_at(2i)]",
     label: "Month",
-    width: 2
+    width: 2,
   },
   day: {
     value: params.dig("role_appointment", "started_at(3i)") || form.object.started_at&.day,
     id: "role_appointment_started_at_3i",
     name: "role_appointment[started_at(3i)]",
     label: "Day",
-    width: 2
+    width: 2,
   },
   error_items: errors_for(form.object.errors, :started_at),
 } %>

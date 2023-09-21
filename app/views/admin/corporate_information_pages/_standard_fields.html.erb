@@ -15,7 +15,7 @@
           text: type,
           value: value,
         }
-      end
+      end,
     } %>
   <% end %>
 
@@ -31,7 +31,7 @@
       error_items: errors_for(form.object.errors, :summary),
     },
     id: "edition_summary",
-    maxlength: 160
+    maxlength: 160,
   } %>
 
   <%= render "components/govspeak-editor", {
@@ -48,7 +48,7 @@
       image_ids: edition.images.map { |img| img[:id] }.to_json,
       attachment_ids: edition.allows_attachments? ? edition.attachments.map(&:id) : [],
       alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-    }
+    },
   } %>
 
   <%= render "additional_significant_fields", form: form, edition: form.object %>
@@ -59,7 +59,7 @@
         text: "Images",
         heading_level: 3,
         font_size: "l",
-        margin_bottom: 3
+        margin_bottom: 3,
     } %>
   <p class="govuk-body">
     <% if edition.new_record? %>

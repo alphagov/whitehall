@@ -2,7 +2,7 @@
   <div class="govuk-!-margin-bottom-8 app-view-attachments__form-title js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/input", {
       label: {
-        text: "Title (required)"
+        text: "Title (required)",
       },
       name: "attachment[title]",
       id: "attachment_title",
@@ -11,7 +11,7 @@
       value: form.object.title,
       error_items: errors_for(attachment.errors, :title),
       right_to_left: (true if form.object.rtl_locale?),
-      right_to_left_help: false
+      right_to_left_help: false,
     } %>
   </div>
 
@@ -35,9 +35,9 @@
               label: "Use manually numbered headings",
               value: "1",
               checked: form.object.govspeak_content.manually_numbered_headings,
-              conditional: sanitize("<p>Manually number your headings using the numbering scheme below.</p><code>## 1. First heading<br />### 1.1 First sub-heading<br />### 1.2 Second sub-heading<br />### Unnumbered sub-heading</code>")
-            }
-          ]
+              conditional: sanitize("<p>Manually number your headings using the numbering scheme below.</p><code>## 1. First heading<br />### 1.1 First sub-heading<br />### 1.2 Second sub-heading<br />### Unnumbered sub-heading</code>"),
+            },
+          ],
         } %>
       </div>
 
@@ -45,7 +45,7 @@
         <%= render "components/govspeak-editor", {
           label: {
             heading_size: "l",
-            text: "Body (required)"
+            text: "Body (required)",
           },
           name: "attachment[govspeak_content_attributes][body]",
           rows: 20,
@@ -56,7 +56,7 @@
           data_attributes: {
             image_ids: @edition && @edition.images.any? ? @edition.images.map { |img| img[:id] } : [],
             attachment_ids: [], # HTML attachments cannot embed Attachments from their parent Edition
-          }
+          },
         } %>
       </div>
 
@@ -85,14 +85,14 @@
     <div class="govuk-!-margin-bottom-8">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "External url (required)"
+          text: "External url (required)",
         },
         name: "attachment[external_url]",
         id: "attachment_external_url",
         heading_level: 2,
         heading_size: "l",
         value: form.object.external_url,
-        error_items: errors_for(attachment.errors, :external_url)
+        error_items: errors_for(attachment.errors, :external_url),
       } %>
     </div>
   <% else %>
@@ -110,8 +110,8 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "#{attachment.readable_type}-attachment-button",
-        "track-label": "Save"
-      }
+        "track-label": "Save",
+      },
     } %>
 
     <%= link_to("Cancel", attachable_attachments_path(attachable), class: "govuk-link govuk-link--no-visited-state") %>

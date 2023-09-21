@@ -7,34 +7,34 @@
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {
-          text: "Title"
+          text: "Title",
         },
         {
-          text: "Organisation"
+          text: "Organisation",
         },
         {
-          text: "Release date"
+          text: "Release date",
         },
         {
-          text: "Publication"
+          text: "Publication",
         },
         {
-          text: tag.span("View", class: "govuk-visually-hidden")
-        }
+          text: tag.span("View", class: "govuk-visually-hidden"),
+        },
       ],
       rows:
         paginator.map do |statistics_announcement|
           [
              {
-               text: tag.strong(statistics_announcement.title)
+               text: tag.strong(statistics_announcement.title),
              },
              {
-               text: statistics_announcement.organisations.map(&:name).to_sentence
+               text: statistics_announcement.organisations.map(&:name).to_sentence,
              },
              {
                text: tag.p(statistics_announcement.release_date.to_date.strftime(sanitize("%e&nbsp;%B&nbsp;%Y")), class: "govuk-!-margin-0") +
                tag.p(statistics_announcement.release_date.strftime("%l:%M%P"), class: "govuk-!-margin-0") +
-                 "(#{statistics_announcement.confirmed? ? 'confirmed' : 'provisional'})"
+                 "(#{statistics_announcement.confirmed? ? 'confirmed' : 'provisional'})",
              },
              {
                text:  if publication = statistics_announcement.publication
@@ -42,13 +42,13 @@
                           "(#{publication.current_state})"
                       else
                         ""
-                      end
+                      end,
              },
              {
                text: link_to(sanitize("View #{tag.span(statistics_announcement.title, class: 'govuk-visually-hidden')}"), [:admin, statistics_announcement], class: "govuk-link"),
              },
           ]
-        end
+        end,
     } %>
   </div>
 

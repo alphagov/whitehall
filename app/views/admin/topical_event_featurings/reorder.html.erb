@@ -16,9 +16,9 @@
           {
             id: featuring.id,
             title: featuring.title,
-            description: featuring_published_on(featuring).present? ? "Published: #{featuring_published_on(featuring)}" : nil
+            description: featuring_published_on(featuring).present? ? "Published: #{featuring_published_on(featuring)}" : nil,
           }
-        end
+        end,
       } %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">

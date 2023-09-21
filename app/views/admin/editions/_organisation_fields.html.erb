@@ -4,7 +4,7 @@
     heading_level: 3,
     heading_size: "m",
     id: "edition_organisations",
-    error_message: errors_for_input(edition.errors, :organisations)
+    error_message: errors_for_input(edition.errors, :organisations),
     } do %>
     <div class="govuk-!-margin-bottom-8">
       <% 0.upto(3) do |index| %>
@@ -25,10 +25,10 @@
                     module: "track-select-click",
                     track_category: "leadOrgSelection",
                     track_action: name,
-                    track_label: request.path
+                    track_label: request.path,
                 },
               }
-             end
+             end,
           } %>
         <% end %>
       <% end %>

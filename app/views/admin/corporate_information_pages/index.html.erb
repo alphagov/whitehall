@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: [:admin, @organisation.class]
+    href: [:admin, @organisation.class],
   } %>
 <% end %>
 <% content_for :page_title, @organisation.name %>
@@ -12,7 +12,7 @@
 
 <%= render "components/secondary_navigation", {
   aria_label: "Organisation navigation tabs",
-  items: secondary_navigation_tabs_items(@organisation, request.path)
+  items: secondary_navigation_tabs_items(@organisation, request.path),
 } %>
 
 <%= render "govuk_publishing_components/components/heading", {

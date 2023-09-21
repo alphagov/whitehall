@@ -6,7 +6,7 @@
         if promotional_feature_item.title.present?
           [{
              key: "Item title",
-             value: promotional_feature_item.title
+             value: promotional_feature_item.title,
            }]
         end),
 
@@ -19,15 +19,15 @@
                {
                  label: "View",
                  href: promotional_feature_item.title_url,
-                 opens_in_new_tab: true
+                 opens_in_new_tab: true,
                },
-             ]
+             ],
            }]
         end),
 
       {
         key: "Summary",
-        value: promotional_feature_item.summary
+        value: promotional_feature_item.summary,
       },
 
       *(
@@ -56,7 +56,7 @@
                  label: "View",
                  href: promotional_feature_item.youtube_video_url,
                },
-             ]
+             ],
            }]
         end),
 
@@ -64,7 +64,7 @@
         if promotional_feature_item.youtube_video_alt_text
           [{
              key: "Video description",
-             value: promotional_feature_item.youtube_video_alt_text
+             value: promotional_feature_item.youtube_video_alt_text,
            }]
         end),
 
@@ -78,9 +78,9 @@
                 {
                   label: "View",
                   href: promo_link.url,
-                  opens_in_new_tab: true
+                  opens_in_new_tab: true,
                 },
-              ]
+              ],
             }
           end
         end),
@@ -93,7 +93,7 @@
     {
       label: "Delete",
       href: confirm_destroy_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item),
-      destructive: true
-    }
-  ]
+      destructive: true,
+    },
+  ],
 } %>

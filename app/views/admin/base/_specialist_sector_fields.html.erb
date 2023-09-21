@@ -14,7 +14,7 @@
     selected: @edition.primary_specialist_sector_tag,
   },
   track_category: "taxonSelectionPrimarySpecialist",
-  track_label: request.path
+  track_label: request.path,
 } %>
 
 <%= render "components/autocomplete", {
@@ -30,5 +30,5 @@
     selected: @edition.secondary_specialist_sector_tags,
   },
   track_category: "taxonSelectionAdditionalSpecialist",
-  track_label: request.path
+  track_label: request.path,
 } %>

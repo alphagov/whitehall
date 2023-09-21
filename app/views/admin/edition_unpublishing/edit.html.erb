@@ -10,7 +10,7 @@
     <%= render "govuk_publishing_components/components/heading", {
         text: "Reason for #{withdrawal_or_unpublishing(@unpublishing.edition)}",
         font_size: "l",
-        margin_bottom: 3
+        margin_bottom: 3,
     } %>
     <p class="govuk-body govuk-!-margin-bottom-6"><%= @unpublishing.unpublishing_reason.as_sentence.capitalize %></p>
 
@@ -25,14 +25,14 @@
         id: "unpublishing_explanation",
         value: @unpublishing.explanation,
         data: {
-          module: "paste-html-to-govspeak"
+          module: "paste-html-to-govspeak",
         },
         error_items: errors_for(@unpublishing.errors, :explanation),
         data_attributes: {
           image_ids: @unpublishing.edition.images.map { |img| img[:id] }.to_json,
           attachment_ids: @unpublishing.edition.allows_attachments? ? @unpublishing.edition.attachments.map(&:id) : [],
           alternative_format_provider_id: (@unpublishing.edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-        }
+        },
       } %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">

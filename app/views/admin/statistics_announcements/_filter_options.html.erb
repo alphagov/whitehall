@@ -33,24 +33,24 @@
         {
           text: "All announcements",
           value: nil,
-          selected: @filter.options[:dates] == nil
+          selected: @filter.options[:dates] == nil,
         },
         {
           text: "Future releases",
           value: "future",
-          selected: @filter.options[:dates] == "future"
+          selected: @filter.options[:dates] == "future",
         },
         {
           text: "Next 2 weeks",
           value: "imminent",
-          selected: @filter.options[:dates] == "imminent"
+          selected: @filter.options[:dates] == "imminent",
         },
         {
           text: "Past announcements",
           value: "past",
-          selected: @filter.options[:dates] == "past"
-        }
-      ]
+          selected: @filter.options[:dates] == "past",
+        },
+      ],
     } %>
 
     <%= render "govuk_publishing_components/components/checkboxes", {
@@ -62,9 +62,9 @@
         {
           label: "Without a linked publication",
           value: 1,
-          checked: @filter.options[:unlinked_only]
+          checked: @filter.options[:unlinked_only],
         },
-      ]
+      ],
     } %>
 
     <%= render "govuk_publishing_components/components/button", {
@@ -74,8 +74,8 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "statistics-announcements-button",
-        "track-label": "Search"
-      }
+        "track-label": "Search",
+      },
     } %>
 
     <p class="govuk-body"><%= link_to "Reset all fields", admin_statistics_announcements_path + "?state=active", class: "govuk-link" %></p>

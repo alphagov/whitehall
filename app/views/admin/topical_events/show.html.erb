@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_topical_events_path
+    href: admin_topical_events_path,
   } %>
 <% end %>
 <% content_for :context, "Topical events" %>
@@ -13,7 +13,7 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "components/secondary_navigation", {
     aria_label: "Topical Events tabs",
-    items: topical_event_nav_items(@topical_event, request.path)
+    items: topical_event_nav_items(@topical_event, request.path),
   } %>
 </div>
 
@@ -26,8 +26,8 @@
     { field: "Description", value: govspeak_to_html(@topical_event.description) },
     { field: "Details", value: topical_event_contents_breakdown(@topical_event) },
     { field: "Duration",
-      value: ("#{@topical_event.start_date} to #{@topical_event.end_date}" if @topical_event.start_date && @topical_event.end_date)
-    }
+      value: ("#{@topical_event.start_date} to #{@topical_event.end_date}" if @topical_event.start_date && @topical_event.end_date),
+    },
   ],
   edit: {
     href: [:edit, :admin, @topical_event],
@@ -37,7 +37,7 @@
       module: "gem-track-click",
       "track-category": "form-button",
       "track-action": "topical-event-button",
-      "track-label": "Edit"
-    }
-  }
+      "track-label": "Edit",
+    },
+  },
 } %>

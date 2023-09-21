@@ -15,14 +15,14 @@
           {
             field: "Review date",
             value: @edition.document.review_reminder.present? ? @edition.document.review_reminder.review_at.strftime("%-d %B %Y") : "Not set",
-          }
-        ]
+          },
+        ],
       } %>
     </div>
 
     <% if @edition.non_english_edition? %>
       <%= render "components/inset_prompt", {
-        description: "This document is #{@edition.primary_language_name}-only"
+        description: "This document is #{@edition.primary_language_name}-only",
       } %>
     <% end %>
   </section>
@@ -76,7 +76,7 @@
     <% end %>
     <% unless @edition_taxons.any? %>
       <%= render "govuk_publishing_components/components/warning_text", {
-        text: "You need to add topic tags before you can publish this document."
+        text: "You need to add topic tags before you can publish this document.",
       } %>
     <% end %>
   </section>
@@ -107,7 +107,7 @@
         <div class="app-view-summary__primary-specialist-sector">
           <%= render "govuk_publishing_components/components/list", {
             visible_counters: true,
-            items: [specialist_sector_name(@edition.primary_specialist_sector_tag)]
+            items: [specialist_sector_name(@edition.primary_specialist_sector_tag)],
           } %>
         </div>
       <% end %>
@@ -121,7 +121,7 @@
         <div class="app-view-summary__secondary-specialist-sectors">
           <%= render "govuk_publishing_components/components/list", {
             visible_counters: true,
-            items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
+            items: specialist_sector_names(@edition.secondary_specialist_sector_tags),
           } %>
         </div>
       <% end %>
@@ -186,14 +186,14 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Filename"
-            }
+              text: "Filename",
+            },
           ],
           rows: @edition.images.map do | image |
             [
               { text: sanitize("#{image.filename} #{tag.span("Lead image", class: 'govuk-tag app-view-summary__tag') if @edition.is_a? Edition::FirstImagePulledOut and image == @edition.images.first}") },
             ]
-          end
+          end,
         } %>
       <% else %>
         <p class="govuk-body">No images for this document</p>
@@ -228,14 +228,14 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Title"
+              text: "Title",
             },
             {
-              text: "Filename"
+              text: "Filename",
             },
             @edition.editable? ? {
-              text: "Actions"
-            } : nil
+              text: "Actions",
+            } : nil,
           ].compact,
           rows: @edition.attachments.map do | attachment |
             [
@@ -243,7 +243,7 @@
               { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true, class: "govuk-link") },
               @edition.editable? ? { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") } : nil,
             ].compact
-          end
+          end,
         } %>
       <% else %>
         <p class="govuk-body">No attachments for this document</p>
@@ -268,14 +268,14 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Language"
+              text: "Language",
             },
             {
-              text: "Title"
+              text: "Title",
             },
             (@edition.editable? || @edition.can_delete?) ? {
-              text: "Actions"
-            } : nil
+              text: "Actions",
+            } : nil,
           ].compact,
           rows: @edition.non_english_translations.map do | translation |
             [
@@ -285,10 +285,10 @@
                 text: raw([
                   *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link app-view-edition-summary__table-link") if @edition.editable?),
                   *(link_to("Delete", confirm_destroy_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link gem-link--destructive") if @edition.can_delete?),
-                ].compact().join(" "))
-              } : nil
+                ].compact().join(" ")),
+              } : nil,
             ].compact
-          end
+          end,
         } %>
       <% else %>
         <p class="govuk-body">No translations for this document</p>
@@ -313,20 +313,20 @@
       <%= render "govuk_publishing_components/components/table", {
         head: [
           {
-            text: "User need"
+            text: "User need",
           },
           {
-            text: "Actions"
-          }
+            text: "Actions",
+          },
         ],
         rows: @edition.document.associated_needs.map do | need |
           [
             { text: "As a #{need["details"]["role"]},\n I need to #{need["details"]["goal"]},\n So that #{need["details"]["benefit"]}" },
             {
-              text: link_to("View need in Maslow", Whitehall.maslow.need_page_url(need["content_id"]), class: "govuk-link")
-            }
+              text: link_to("View need in Maslow", Whitehall.maslow.need_page_url(need["content_id"]), class: "govuk-link"),
+            },
           ]
-        end
+        end,
       } %>
     <% else %>
       <p class="govuk-body">No associated user needs for this document</p>

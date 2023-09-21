@@ -32,7 +32,7 @@
       } %>
 
       <%= render "govuk_publishing_components/components/details", {
-        title: "Changes are applied to a live page as soon as you update the tags"
+        title: "Changes are applied to a live page as soon as you update the tags",
       } do %>
         If this content has already been published and you add new topics, then the last published edition will appear on those topic pages immediately, before you publish a new edition.
       <% end %>
@@ -45,7 +45,7 @@
               track_category: "form-button",
               track_label: "Save topic changes",
               track_action: "world-taxonomy-tag-form-button",
-          }
+          },
         } %>
 
         <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>

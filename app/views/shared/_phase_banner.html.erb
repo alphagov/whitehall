@@ -16,11 +16,11 @@
                 module: tracking_module,
                 track_category: 'phaseBanner',
                 track_action: 'whats-new-banner-click',
-                track_label: 'Whats new'
-              }
-            }
+                track_label: 'Whats new',
+              },
+            },
           )
-        }.", attributes: %w(class href data-module data-track-category data-track-action data-track-label))
+        }.", attributes: %w(class href data-module data-track-category data-track-action data-track-label)),
     } %>
 <% elsif show_feedback_banner %>
   <%= render "govuk_publishing_components/components/phase_banner", {
@@ -31,7 +31,7 @@
         "Give feedback on the recent changes to Whitehall",
         {
           class: "govuk-link",
-        }
-      )
+        },
+      ),
     } %>
 <% end %>

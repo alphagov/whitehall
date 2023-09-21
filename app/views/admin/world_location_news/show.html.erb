@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: :admin_world_location_news_index
+    href: :admin_world_location_news_index,
   } %>
 <% end %>
 <% content_for :page_title, @world_location_news.name %>
@@ -15,7 +15,7 @@
     </p>
     <%= render "components/secondary_navigation", {
       aria_label: "World location news navigation tabs",
-      items: secondary_navigation_tabs_items(@world_location_news, request.path)
+      items: secondary_navigation_tabs_items(@world_location_news, request.path),
     } %>
 
     <%= render "govuk_publishing_components/components/summary_list", {
@@ -48,14 +48,14 @@
             {
               field: "Featured link #{index + 1} URL",
               value: featured_link.url,
-            }
+            },
           ]
-        end
+        end,
       ].flatten.reject { |row| row[:value].blank? },
       edit: {
         href: [:edit, :admin, @world_location_news],
         link_text: "Edit",
-      }
+      },
     } %>
   </div>
 </div>

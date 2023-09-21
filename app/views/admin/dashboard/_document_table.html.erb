@@ -4,7 +4,7 @@
 
 <% if documents.nil? || documents.empty? %>
   <%= render "govuk_publishing_components/components/inset_text", {
-   text: "No #{title}"
+   text: "No #{title}",
   } %>
 <% else %>
   <% action = title == "draft documents" ? "View" : "Review" %>
@@ -16,14 +16,14 @@
           text: "Title",
         },
         {
-          text: "Type"
+          text: "Type",
         },
         {
           text: "Updated",
         },
         {
           text: tag.span("Actions", class: "govuk-visually-hidden"),
-        }
+        },
       ],
       rows: documents.map do |edition|
         [
@@ -35,13 +35,13 @@
           },
           {
             text: sanitize(tag.p("Updated #{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0")) +
-              sanitize("by #{linked_author(edition.last_author, class: 'govuk-link')}")
+              sanitize("by #{linked_author(edition.last_author, class: 'govuk-link')}"),
           },
           {
             text: link_to(sanitize("#{action} #{tag.span(edition.title, class: 'govuk-visually-hidden')}"), admin_edition_path(edition), class: "govuk-link"),
-          }
+          },
         ]
-      end
+      end,
     } %>
   </div>
 <% end %>

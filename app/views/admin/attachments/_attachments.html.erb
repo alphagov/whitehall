@@ -19,13 +19,13 @@
           <%= render "govuk_publishing_components/components/copy_to_clipboard", {
             label: tag.strong("Link to this attachment:"),
             copyable_content: "[AttachmentLink: #{attachment_component_params(attachment)[:id]}]",
-            button_text: "Copy Markdown"
+            button_text: "Copy Markdown",
           } %>
           <div class="app-view-edition-resource__markdown--padded">
             <%= render "govuk_publishing_components/components/copy_to_clipboard", {
               label: tag.strong("Embed this attachment:"),
               copyable_content: "[Attachment: #{attachment_component_params(attachment)[:id]}]",
-              button_text: "Copy Markdown"
+              button_text: "Copy Markdown",
             } %>
           </div>
         <% end %>

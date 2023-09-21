@@ -28,7 +28,7 @@
           },
           details: {
             text:  @english_world_location_news.name,
-          }
+          },
         } %>
 
         <%= render "components/translated_input", {
@@ -46,7 +46,7 @@
           },
           details: {
             text:  @english_world_location_news.title,
-          }
+          },
         } %>
 
         <%= render "components/translated_textarea", {
@@ -75,8 +75,8 @@
               module: "gem-track-click",
               "track-category": "form-button",
               "track-action": "world-location-news-button",
-              "track-label": "Save"
-            }
+              "track-label": "Save",
+            },
           } %>
 
           <%= link_to("cancel", admin_world_location_news_translations_path(@world_location_news), class: "govuk-link") %>

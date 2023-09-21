@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: :admin_world_location_news_index
+    href: :admin_world_location_news_index,
   } %>
 <% end %>
 <% content_for :page_title, "#{@world_location_news.name} translations" %>
@@ -17,7 +17,7 @@
 
       <%= render "components/secondary_navigation", {
         aria_label: "World location news navigation tabs",
-        items: secondary_navigation_tabs_items(@world_location_news, request.path)
+        items: secondary_navigation_tabs_items(@world_location_news, request.path),
       } %>
 
       <%= render "govuk_publishing_components/components/heading", {
@@ -31,11 +31,11 @@
           <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Language"
+              text: "Language",
             },
             {
               text: sanitize("<a class='govuk-visually-hidden'>Actions</a>"),
-            }
+            },
           ],
           rows:
             @world_location_news.non_english_translated_locales.map do |locale|
@@ -46,16 +46,16 @@
                 {
                   text: link_to(sanitize("View #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), @world_location_news.public_url(locale: locale.code), class: "govuk-link") +
                          link_to(sanitize("Edit #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), edit_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2") +
-                           link_to(sanitize("Delete #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive")
+                           link_to(sanitize("Delete #{tag.span(locale.code, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_world_location_news_translation_path(@world_location_news, locale.code), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive"),
 
-                }
+                },
               ]
-            end
+            end,
           } %>
         </div>
       <% else %>
         <%= render "components/inset_prompt",{
-          description: "No translations."
+          description: "No translations.",
         } %>
       <% end %>
 
@@ -67,7 +67,7 @@
             label: "Select Language",
             heading_size: "m",
             options: @world_location_news.missing_translations.map do |missing_trans| { text: missing_trans
-              .native_and_english_language_name, value: missing_trans.code.to_s } end
+              .native_and_english_language_name, value: missing_trans.code.to_s } end,
           } %>
 
           <%= render "govuk_publishing_components/components/button", {

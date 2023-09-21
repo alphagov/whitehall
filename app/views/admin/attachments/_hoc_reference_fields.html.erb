@@ -19,9 +19,9 @@
       {
         label: "Unnumbered act paper",
         value: "1",
-        checked: attachment.unnumbered_hoc_paper
-      }
-    ]
+        checked: attachment.unnumbered_hoc_paper,
+      },
+    ],
   } %>
 </div>
 
@@ -31,7 +31,7 @@
     {
       text: session,
       value: session,
-      selected: form.object.parliamentary_session == session
+      selected: form.object.parliamentary_session == session,
     }
   end)
 %>
@@ -45,6 +45,6 @@
     heading_size: heading_size,
     options: options,
     hint: "Choose the right Parliamentary session",
-    error_message: errors_for_input(attachment.errors, :parliamentary_session)
+    error_message: errors_for_input(attachment.errors, :parliamentary_session),
   } %>
 </div>

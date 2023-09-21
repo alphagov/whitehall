@@ -6,7 +6,7 @@
 <%= standard_edition_form(edition) do |form| %>
   <div class="govuk-!-margin-bottom-8">
     <%= render "govuk_publishing_components/components/fieldset", {
-      legend_text: ""
+      legend_text: "",
     } do %>
       <%= form.hidden_field :external, value: "0" %>
 
@@ -31,10 +31,10 @@
               name: "edition[external_url]",
               id: "edition_external_url",
               value: edition.external_url,
-              error_items: errors_for(edition.errors, :external_url)
-            })
-          }
-        ]
+              error_items: errors_for(edition.errors, :external_url),
+            }),
+          },
+        ],
       } %>
     <% end %>
   </div>
@@ -43,7 +43,7 @@
     <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "Ways to respond",
       heading_level: 3,
-      heading_size: "l"
+      heading_size: "l",
     } do %>
 
       <% call_for_evidence_participation = edition.call_for_evidence_participation %>
@@ -129,15 +129,15 @@
                       checked: params.dig("edition", "call_for_evidence_participation_attributes", "call_for_evidence_response_form_attributes", "attachment_action") == "replace",
                       conditional: render("govuk_publishing_components/components/file_upload", {
                         label: {
-                          text: "Replacement"
+                          text: "Replacement",
                         },
                         name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file]",
                         id: "edition_call_for_evidence_participation_attributes_call_for_evidence_response_form_call_for_evidence_response_form_data_file",
                         error_items: errors_for(call_for_evidence_response_form_data.errors, :file) || errors_for(call_for_evidence_response_form.errors, :call_for_evidence_response_form_data),
                       }
-                      )
-                    }
-                  ]
+                      ),
+                    },
+                  ],
                 } %>
               </div>
             <% else %>
@@ -167,7 +167,7 @@
     legend_text: "Associations",
     heading_level: 3,
     heading_size: "l",
-    id: "associations"
+    id: "associations",
   } do %>
     <div class="govuk-!-margin-bottom-4">
       <%= render "appointment_fields", form: form, edition: edition %>

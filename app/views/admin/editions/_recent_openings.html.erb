@@ -6,7 +6,7 @@
       visible_counters: true,
       items: recent_openings.map do |opening|
               sanitize("#{opening.editor.name} started editing this #{edition.format_name} #{time_ago_in_words opening.created_at} ago and hasn’t yet saved their work. Contact #{mail_to(opening.editor.email)} if you think they are still working on it.")
-             end
+             end,
     })
   else
     title = "#{recent_openings.first.editor.name} started editing this #{edition.format_name} #{time_ago_in_words recent_openings.first.created_at} ago and hasn’t yet saved their work."

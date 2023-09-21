@@ -11,9 +11,9 @@
       {
         text: type.singular_name,
         value: type.id,
-        selected: edition.speech_type_id == type.id
+        selected: edition.speech_type_id == type.id,
       }
-    end
+    end,
   } %>
 
   <% if edition.speech_type_id.present? %>

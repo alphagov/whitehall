@@ -3,7 +3,7 @@
     legend_text: edition.allows_image_attachments? ? "Images and Attachments" : "Attachments",
     heading_size: "l",
     id: "edition_alternative_format_provider",
-    error_message: errors_for_input(edition.errors, :alternative_format_provider)
+    error_message: errors_for_input(edition.errors, :alternative_format_provider),
   } do %>
     <% if edition.new_record? %>
       <p class="govuk-body">

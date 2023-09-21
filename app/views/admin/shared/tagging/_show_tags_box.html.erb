@@ -12,7 +12,7 @@
     <div class="content content-bordered">
       <% selected_taxon_paths.each do |path| %>
         <%= render partial: "/admin/shared/tagging/taxon_breadcrumb", locals: {
-          breadcrumbs: path
+          breadcrumbs: path,
         } %>
       <% end %>
     </div>

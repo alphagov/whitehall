@@ -23,15 +23,15 @@
         rows:
           @filter.editions.map do |edition|
             [{
-               text: edition.title
+               text: edition.title,
              },
              {
-               text: link_to("View", admin_edition_path(edition), class: "govuk-link")
+               text: link_to("View", admin_edition_path(edition), class: "govuk-link"),
              },
              {
-               text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, title: params[:title]) , class: "govuk-link")
+               text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, title: params[:title]) , class: "govuk-link"),
              }]
-          end
+          end,
       } %>
       <%= paginate(@filter.editions, theme: "govuk_paginator") %>
     <% end %>

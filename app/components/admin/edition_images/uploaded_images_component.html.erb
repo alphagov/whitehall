@@ -7,7 +7,7 @@
   <%= render "govuk_publishing_components/components/heading", {
     text: "Lead image",
     font_size: "m",
-    padding: true
+    padding: true,
   } %>
 
   <%= render "govuk_publishing_components/components/details", {
@@ -36,7 +36,7 @@
           <%= render "govuk_publishing_components/components/button", {
             text: update_image_display_option_button_text,
             secondary_solid: true,
-            margin_bottom: 4
+            margin_bottom: 4,
           } %>
         <% end %>
 
@@ -52,13 +52,13 @@
 <%= render "govuk_publishing_components/components/heading", {
   text: "Images available to use in document",
   font_size: "m",
-  padding: true
+  padding: true,
 } %>
 
 <% if document_images %>
   <%= render "govuk_publishing_components/components/inset_text", {
     text: "Copy the image markdown code to add images to the document body.",
-    margin_top: 0
+    margin_top: 0,
   } %>
 
   <ul class="govuk-list">
@@ -73,7 +73,7 @@
           <%= render "govuk_publishing_components/components/copy_to_clipboard", {
             label: tag.strong("Markdown code:"),
             copyable_content: image[:markdown],
-            button_text: "Copy Markdown"
+            button_text: "Copy Markdown",
           } %>
         </div>
         <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">

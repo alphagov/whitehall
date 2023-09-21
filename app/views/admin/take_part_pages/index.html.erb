@@ -17,14 +17,14 @@
       items: [
         {
           label: "Get involved",
-          href: admin_get_involved_path
+          href: admin_get_involved_path,
         },
         {
           label: "Take part pages",
           href: admin_take_part_pages_path,
-          current: true
-        }
-      ]
+          current: true,
+        },
+      ],
     } %>
   </div>
 </div>
@@ -34,8 +34,8 @@
     <%= render "govuk_publishing_components/components/list", {
       items: [
         (link_to "Add new take part page", new_admin_take_part_page_path, class: "govuk-link govuk-link--no-visited-state"),
-        (link_to "Update order", update_order_admin_take_part_pages_path, class: "govuk-link govuk-link--no-visited-state")
-      ]
+        (link_to "Update order", update_order_admin_take_part_pages_path, class: "govuk-link govuk-link--no-visited-state"),
+      ],
     } %>
 
     <% if @take_part_pages.any? %>
@@ -44,16 +44,16 @@
           rows: @take_part_pages.map do |take_part_page|
             [
               {
-                text: take_part_page.title
+                text: take_part_page.title,
               },
               {
                 text: (
                   link_to("Edit", [:edit, :admin, take_part_page], class: "govuk-link") +
                   link_to("Delete", [:confirm_destroy, :admin, take_part_page], class: "govuk-link gem-link--destructive govuk-!-margin-left-2")
-                )
-              }
+                ),
+              },
             ]
-          end
+          end,
         } %>
       </div>
     <% else %>

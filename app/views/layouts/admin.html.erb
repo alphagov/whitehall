@@ -13,7 +13,7 @@
     <%= render "govuk_publishing_components/components/google_tag_manager_script", {
       gtm_id: ENV["GOOGLE_TAG_MANAGER_ID"],
       gtm_auth: ENV["GOOGLE_TAG_MANAGER_AUTH"],
-      gtm_preview: ENV["GOOGLE_TAG_MANAGER_PREVIEW"]
+      gtm_preview: ENV["GOOGLE_TAG_MANAGER_PREVIEW"],
     } %>
   <% end %>
   <%= stylesheet_link_tag "admin_legacy.css", integrity: false %>

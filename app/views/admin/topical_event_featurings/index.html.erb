@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_topical_events_path
+    href: admin_topical_events_path,
   } %>
 <% end %>
 <% content_for :page_title, @topical_event.name %>
@@ -15,7 +15,7 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "components/secondary_navigation", {
     aria_label: "Document tabs",
-    items: secondary_navigation_tabs_items(@topical_event, request.path)
+    items: secondary_navigation_tabs_items(@topical_event, request.path),
   } %>
 </div>
 
@@ -34,12 +34,12 @@
         module: "gem-track-click",
         "track-category": "tab",
         "track-action": "topical-event-featuring-tab",
-        "track-label": "Currently featured"
+        "track-label": "Currently featured",
       },
       content: render(Admin::CurrentlyFeaturedTabComponent.new(
         featurings: @topical_event_featurings,
-        maximum_featured_documents: 5
-      ))
+        maximum_featured_documents: 5,
+      )),
     },
     {
       id: "documents_tab",
@@ -48,7 +48,7 @@
         module: "gem-track-click",
         "track-category": "tab",
         "track-action": "topical-event-featuring-tab",
-        "track-label": "Documents"
+        "track-label": "Documents",
       },
       content: render("admin/shared/featurable_editions",
         filter: @filter,
@@ -67,13 +67,13 @@
         module: "gem-track-click",
         "track-category": "tab",
         "track-action": "topical-event-featuring-tab",
-        "track-label": "Non-GOV.UK government links"
+        "track-label": "Non-GOV.UK government links",
       },
       content: render("admin/feature_lists/featureable_offsite_links",
         model: @topical_event,
         featurable_offsite_links: @topical_event.featurable_offsite_links,
         featuring_path: [:new, :admin, @topical_event, :topical_event_featuring],
       ),
-    }
-  ]
+    },
+  ],
 } %>

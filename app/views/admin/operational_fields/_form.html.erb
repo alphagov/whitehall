@@ -2,13 +2,13 @@
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
-      text: "Name (required)"
+      text: "Name (required)",
     },
     name: "operational_field[name]",
     id: "operational_field_name",
     heading_size: "l",
     value: operational_field.name,
-    error_items: errors_for(operational_field.errors, :name)
+    error_items: errors_for(operational_field.errors, :name),
   } %>
 
   <%= render "components/govspeak-editor", {
@@ -30,8 +30,8 @@
          module: "gem-track-click",
          "track-category": "form-button",
          "track-action": "operational-field-button",
-         "track-label": "Save"
-       }
+         "track-label": "Save",
+       },
     } %>
 
     <%= link_to "Cancel", admin_operational_fields_path, class: "govuk-link" %>

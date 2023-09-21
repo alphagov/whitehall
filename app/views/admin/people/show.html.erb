@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_people_path
+    href: admin_people_path,
   } %>
 <% end %>
 <% content_for :page_title, @person.name %>
@@ -12,7 +12,7 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @person.current_role_appointments_title.present? %>
       <%= render "govuk_publishing_components/components/lead_paragraph", {
-        text: @person.current_role_appointments_title
+        text: @person.current_role_appointments_title,
       } %>
     <% end %>
 
@@ -20,7 +20,7 @@
 
     <%= render "components/secondary_navigation", {
       aria_label: "People navigation tabs",
-      items: secondary_navigation_tabs_items(@person, request.path)
+      items: secondary_navigation_tabs_items(@person, request.path),
     } %>
 
     <div class="gem-c-summary-list--with-image app-view-people-details__summary_list">
@@ -56,7 +56,7 @@
           {
             field: "Biography",
             value: @person.biography,
-          }
+          },
         ].reject { |row| row[:value].blank? },
         edit: {
           href: [:edit, :admin, @person],
@@ -64,7 +64,7 @@
         },
         delete: {
           href: (confirm_destroy_admin_person_path(@person) if @person.destroyable?),
-        }.compact
+        }.compact,
       } %>
     </div>
   </div>

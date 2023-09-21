@@ -17,7 +17,7 @@
             value: locale.code,
             text: Locale.coerce(locale).native_and_english_language_name,
           }
-        end
+        end,
       } %>
 
       <div class="govuk-button-group govuk-!-margin-top-8">
@@ -27,8 +27,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "worldwide-office-translation-button",
-            "track-label": "Next"
-          }
+            "track-label": "Next",
+          },
         } %>
 
         <%= link_to("Cancel", admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>

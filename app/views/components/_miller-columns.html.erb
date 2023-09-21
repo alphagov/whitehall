@@ -15,10 +15,10 @@
     <div id="js-app-c-miller-columns__search" class="app-c-miller-columns__search app-js-only">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Search for topic"
+          text: "Search for topic",
         },
         id: "js-app-c-miller-columns__search-input",
-        name: "app-c-miller-columns__search-input"
+        name: "app-c-miller-columns__search-input",
       } %>
     </div>
   <% end %>
@@ -27,7 +27,7 @@
     <%= render "components/miller-columns-list", {
       id: id,
       name: "#{id}[]",
-      items: items
+      items: items,
     } %>
   </miller-columns>
 </div>

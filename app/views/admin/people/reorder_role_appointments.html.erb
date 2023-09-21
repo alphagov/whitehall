@@ -11,13 +11,13 @@
           items: @role_appointments.map do |role_appointment|
             {
               id: role_appointment.id,
-              title: role_appointment.role.name
+              title: role_appointment.role.name,
             }
-          end
+          end,
         } %>
 
         <%= render "govuk_publishing_components/components/button", {
-          text: "Update order"
+          text: "Update order",
         } %>
       <% end %>
     <% else %>

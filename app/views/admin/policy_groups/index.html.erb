@@ -3,7 +3,7 @@
 <% content_for :title_margin_bottom, 6 %>
 
 <%= render "govuk_publishing_components/components/warning_text", {
-  text: "Do not create groups without consulting GDS."
+  text: "Do not create groups without consulting GDS.",
 } %>
 
 <%= render "govuk_publishing_components/components/button", {
@@ -17,14 +17,14 @@
     filterable: true,
     head: [
       {
-        text: "Name"
+        text: "Name",
       },
       {
         text: "Email",
       },
       {
         text: tag.span("Actions", class: "govuk-visually-hidden"),
-      }
+      },
     ],
     rows: @policy_groups.map do |policy_group|
       [
@@ -37,8 +37,8 @@
         {
           text: link_to(sanitize("Edit #{tag.span(policy_group.name, class: 'govuk-visually-hidden')}"), edit_admin_policy_group_path(policy_group), class: "govuk-link") +
            (link_to(sanitize("Delete #{tag.span(policy_group.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_policy_group_path(policy_group), class: "govuk-link gem-link--destructive govuk-!-margin-left-2") if can?(:delete, PolicyGroup)),
-        }
+        },
       ]
-    end
+    end,
   } %>
 </div>

@@ -1,29 +1,29 @@
 <%= render "govuk_publishing_components/components/input", {
   label: {
-    text: "Item title"
+    text: "Item title",
   },
   name: "#{name}[title]",
   id: "#{id}_title",
   value: promotional_feature_item.title,
   heading_size: heading_size,
-  error_items: errors_for(promotional_feature_item.errors, :title)
+  error_items: errors_for(promotional_feature_item.errors, :title),
 } %>
 
 <%= render "govuk_publishing_components/components/input", {
   label: {
-    text: "Item title url"
+    text: "Item title url",
   },
   name: "#{name}[title_url]",
   id: "#{id}_title_url",
   value: promotional_feature_item.title_url,
   heading_size: heading_size,
-  error_items: errors_for(promotional_feature_item.errors, :title_url)
+  error_items: errors_for(promotional_feature_item.errors, :title_url),
 } %>
 
 <%= render "govuk_publishing_components/components/textarea", {
   label: {
     text: "Summary (required)",
-    heading_size: heading_size
+    heading_size: heading_size,
   },
   name: "#{name}[summary]",
   id: "#{id}_summary",
@@ -52,21 +52,21 @@
         filename: form.object.image.filename,
         image_cache: (form.object.image.image_cache if form.object.image.image_cache.present?),
         image_src: form.object.image.url,
-        image_alt: form.object.image_alt_text
-      })
+        image_alt: form.object.image_alt_text,
+      }),
     },
     {
       value: "youtube_video_url",
       text: "YouTube video",
       checked: promotional_feature_item.youtube_video_url.present? || params.dig("promotional_feature", "promotional_feature_items_attributes", "0", "image_or_youtube_video_url") == "youtube_video_url",
-      conditional: render("admin/promotional_feature_items/youtube_url_fields", promotional_feature_item:, name:, id:)
-    }
-  ]
+      conditional: render("admin/promotional_feature_items/youtube_url_fields", promotional_feature_item:, name:, id:),
+    },
+  ],
 } %>
 
 <%= render "govuk_publishing_components/components/fieldset", {
   legend_text: "Feature item links",
-  heading_size: "l"
+  heading_size: "l",
 } do %>
   <div data-module="AddAnother" data-add-text="Add link" class="govuk-!-margin-bottom-4">
     <%= form.fields_for :links do |link_form| %>
@@ -74,7 +74,7 @@
         <div class="govuk-!-margin-bottom-6">
           <%= render "govuk_publishing_components/components/input", {
             label: {
-              text: "URL"
+              text: "URL",
             },
             name: "#{name}[[links_attributes][#{link_form.index}][url]",
             id: "#{id}_links_attributes_#{link_form.index}_url",
@@ -85,13 +85,13 @@
 
           <%= render "govuk_publishing_components/components/input", {
             label: {
-              text: "Text"
+              text: "Text",
             },
             name: "#{name}[[links_attributes][#{link_form.index}][text]",
             id: "#{id}_links_attributes_#{link_form.index}_text",
             value: link_form.object.text,
             heading_size: "m",
-            error_items: errors_for(link_form.object.errors, :text)
+            error_items: errors_for(link_form.object.errors, :text),
           } %>
         </div>
       </div>

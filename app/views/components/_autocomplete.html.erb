@@ -20,7 +20,7 @@
 
 <%= tag.div class: root_classes, data: data_attributes do %>
   <%= render "govuk_publishing_components/components/label", {
-    html_for: id
+    html_for: id,
   }.merge(label.symbolize_keys) %>
 
   <% if error_items.any? %>

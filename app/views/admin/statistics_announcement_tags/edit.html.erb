@@ -12,13 +12,13 @@
     } %>
 
     <%= form_for @tag_form, url: admin_statistics_announcement_tags_path(@statistics_announcement), method: :put, data: {
-      module: "track-selected-taxons"
+      module: "track-selected-taxons",
     } do |form| %>
       <%= form.hidden_field :previous_version %>
 
       <%= render "admin/shared/tagging/taxonomy_group_selector", {
         form: form,
-        tag_form: @tag_form
+        tag_form: @tag_form,
       } %>
 
       <div class="govuk-button-group govuk-!-margin-top-7">
@@ -29,7 +29,7 @@
             track_category: "form-button",
             track_label: "Save tagging changes",
             track_action: "taxonomy-tag-form-button",
-          }
+          },
         } %>
 
         <%= link_to("Cancel", admin_statistics_announcement_path(@statistics_announcement), class: "govuk-link govuk-link--no-visited-state") %>

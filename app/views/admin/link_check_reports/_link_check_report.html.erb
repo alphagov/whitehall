@@ -6,7 +6,7 @@
         <%= render partial: "admin/link_check_reports/form", locals: {
           reportable: report.link_reportable,
           button_text: "Check for broken links",
-          secondary_quiet: true
+          secondary_quiet: true,
         } %>
       <% end
     } %>
@@ -55,7 +55,7 @@
         <% if allow_new_report %>
           <%= render partial: "admin/link_check_reports/form", locals: {
             reportable: report.link_reportable,
-            button_text: "Check again"
+            button_text: "Check again",
           } %>
         <% end %>
       <% end,
@@ -76,7 +76,7 @@
           <%= render partial: "admin/link_check_reports/form", locals: {
             reportable: report.link_reportable,
             button_text: "Check again",
-            secondary_quiet: true
+            secondary_quiet: true,
           } %>
         <% end %>
       <% end

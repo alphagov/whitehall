@@ -10,7 +10,7 @@
         "#{fact_check_request.email_address} #{distance_of_time_in_words_to_now(fact_check_request.updated_at)} ago" +
         format_in_paragraphs(fact_check_request.comments) +
         "#{'(This refers to an older edition.)' unless fact_check_request.edition == edition}"
-      end
+      end,
     } %>
   <% else %>
     <p class="govuk-body">Document doesn't have any fact checking responses yet.</p>
@@ -25,7 +25,7 @@
       visible_counters: true,
       items: pending_fact_check_requests.map do |fact_check_request|
         "#{fact_check_request.email_address} #{distance_of_time_in_words_to_now(fact_check_request.updated_at)} ago"
-      end
+      end,
     } %>
   <% end %>
 </section>
@@ -49,11 +49,11 @@
           bold: true,
         },
         name: "fact_check_request[instructions]",
-        id: "fact_check_request_instructions"
+        id: "fact_check_request_instructions",
       } %>
 
       <%= render "govuk_publishing_components/components/button", {
-        text: "Send request"
+        text: "Send request",
       } %>
     <% end %>
   <% else %>

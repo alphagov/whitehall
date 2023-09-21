@@ -11,7 +11,7 @@
 
     <%= render "components/secondary_navigation", {
       aria_label: "Organisation navigation tabs",
-      items: secondary_navigation_tabs_items(@organisation, request.path)
+      items: secondary_navigation_tabs_items(@organisation, request.path),
     } %>
   </div>
 
@@ -23,7 +23,7 @@
     } %>
 
     <%= render "govuk_publishing_components/components/warning_text", {
-      text: "Changes to promotional features appear instantly on the live site."
+      text: "Changes to promotional features appear instantly on the live site.",
     } %>
 
     <%= render "govuk_publishing_components/components/button", {
@@ -44,20 +44,20 @@
           rows: @promotional_features.map do |promotional_feature|
             [
               {
-                text: promotional_feature.title
+                text: promotional_feature.title,
               },
               {
                 text: link_to(sanitize("View #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link govuk-!-margin-right-2") +
                   (link_to(sanitize("Rename #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), edit_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link")) +
                   (link_to(sanitize("Delete #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
-              }
+              },
             ]
-          end
+          end,
         } %>
       </div>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No promotional features."
+        text: "No promotional features.",
       } %>
     <% end %>
   </div>

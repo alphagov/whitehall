@@ -4,17 +4,17 @@
   <%= render "govuk_publishing_components/components/table", {
     head: [
       {
-        text: "Location"
+        text: "Location",
       },
       {
-        text: "Details"
+        text: "Details",
       },
       {
-        text: "Translations"
+        text: "Translations",
       },
       {
-        text: tag.span("View", class: "govuk-visually-hidden")
-      }
+        text: tag.span("View", class: "govuk-visually-hidden"),
+      },
     ],
     rows:
       world_locations.map do |world_location|
@@ -28,7 +28,7 @@
                 format_with_html_line_breaks(world_location.world_location_news.mission_statement)
               else
                 "No mission statement yet."
-              end
+              end,
           },
           {
             text:
@@ -38,12 +38,12 @@
                 }.to_sentence)
               else
                 ""
-              end
+              end,
           },
           {
-            text: link_to(sanitize("View#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link")
-          }
+            text: link_to(sanitize("View#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link"),
+          },
         ]
-      end
+      end,
   } %>
 <% end %>
