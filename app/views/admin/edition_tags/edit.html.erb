@@ -2,7 +2,7 @@
 <% content_for :context, @edition.title %>
 <% content_for :title, "Topic taxonomy tags" %>
 
-<%= render 'admin/shared/tagging/taxonomy_group_description' %>
+<%= render "admin/shared/tagging/taxonomy_group_description" %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
@@ -25,8 +25,8 @@
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",
           data_attributes: {
-              module: 'gem-track-click',
-              track_category: 'form-button',
+              module: "gem-track-click",
+              track_category: "form-button",
               track_label: "Save tagging changes",
               track_action: "taxonomy-tag-form-button",
           }

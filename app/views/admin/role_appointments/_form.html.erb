@@ -4,13 +4,13 @@
   heading_size: "l",
   name: "role_appointment[person_id]",
   options:
-    disambiguated_people_names.map do |person_name, person_id|
+    disambiguated_people_names.map { |person_name, person_id|
       {
         text: person_name,
         value: person_id,
         selected: form.object.person_id == person_id
       }
-    end.select do |option|
+    }.select do |option|
       form.object.new_record? || option[:selected]
     end,
   error_message: errors_for_input(form.object.errors, :person_id)

@@ -7,7 +7,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for [:admin, @role_appointment.role.becomes(Role), @role_appointment] do |form| %>
-      <%= render 'admin/role_appointments/form', form: form %>
+      <%= render "admin/role_appointments/form", form: form %>
     <% end %>
   </div>
 

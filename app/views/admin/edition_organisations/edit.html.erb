@@ -8,7 +8,7 @@
       <%= form.errors %>
       <%= form.hidden_field :featured %>
       <%= form.fields_for :image do |image_fields| %>
-        <%= image_fields.upload :file, label_text: 'Select a 960px wide and 640px tall image to be shown when featuring' %>
+        <%= image_fields.upload :file, label_text: "Select a 960px wide and 640px tall image to be shown when featuring" %>
       <% end %>
       <%= form.text_field :alt_text, label_text: "Image description (alt text)" %>
       <%= form.save_or_cancel cancel: admin_organisation_path(@edition_organisation.organisation) %>

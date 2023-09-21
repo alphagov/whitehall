@@ -120,7 +120,7 @@
     <p class="govuk-body">
       <%= link_to(@edition_taxons.any? ? "Change tags" : "Add tags",
                   edit_admin_statistics_announcement_tags_path(@statistics_announcement.id),
-                  class: 'govuk-link') %>
+                  class: "govuk-link") %>
     </p>
 
     <% @edition_taxons.map(&:full_path).each do |tag_path| %>

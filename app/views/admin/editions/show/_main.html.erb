@@ -10,11 +10,11 @@
         items: [
           { field: "Type of document", value: edition_type(@edition) },
           { field: "Status", value: status_text(@edition) },
-          { field: "Change type", value: @edition.minor_change? ? 'Minor' : 'Major' },
+          { field: "Change type", value: @edition.minor_change? ? "Minor" : "Major" },
           *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
           {
             field: "Review date",
-            value: @edition.document.review_reminder.present? ? @edition.document.review_reminder.review_at.strftime('%-d %B %Y') : "Not set",
+            value: @edition.document.review_reminder.present? ? @edition.document.review_reminder.review_at.strftime("%-d %B %Y") : "Not set",
           }
         ]
       } %>
@@ -27,7 +27,7 @@
     <% end %>
   </section>
 
-  <%= render partial: 'admin/editions/show/main_notices', locals: { edition: @edition } %>
+  <%= render partial: "admin/editions/show/main_notices", locals: { edition: @edition } %>
 
   <%= render Admin::Editions::Show::PreviewComponent.new(edition: @edition) %>
 
@@ -62,7 +62,7 @@
 
     <p class="govuk-body">
       <%= link_to(@edition_taxons.any? ? "Change tags" : "Add tags",
-                  edit_admin_edition_tags_path(@edition.id), class: 'govuk-link') %>
+                  edit_admin_edition_tags_path(@edition.id), class: "govuk-link") %>
     </p>
 
     <% @edition_taxons.map(&:full_path).each do | tag_path | %>
@@ -92,7 +92,7 @@
     <% if @edition.editable? %>
       <p class="govuk-body">
         <%= link_to(@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags",
-                    edit_admin_edition_legacy_associations_path(@edition.id), class: 'govuk-link') %>
+                    edit_admin_edition_legacy_associations_path(@edition.id), class: "govuk-link") %>
       </p>
     <% end %>
 
@@ -140,7 +140,7 @@
       } %>
 
       <p class="govuk-body">
-        <%= link_to(@edition_world_taxons.map(&:full_path).any? ? "Change tags" : "Add tags", edit_admin_edition_world_tags_path(@edition.id), class: 'govuk-link') %>
+        <%= link_to(@edition_world_taxons.map(&:full_path).any? ? "Change tags" : "Add tags", edit_admin_edition_world_tags_path(@edition.id), class: "govuk-link") %>
       </p>
 
       <% if @edition_world_taxons.map(&:full_path).any? %>
@@ -172,7 +172,7 @@
         <p class="govuk-body">
           <%= link_to("#{@edition.images.any? ? "Modify" : "Add"} images",
                       admin_edition_images_path(@edition.id),
-                      class: 'govuk-link',
+                      class: "govuk-link",
                       data: {
                         module: "gem-track-click",
                         "track-category": "button-clicked",
@@ -214,7 +214,7 @@
         <p class="govuk-body">
           <%= link_to("#{@edition.attachments.any? ? "Modify" : "Add"} attachments",
                       admin_edition_attachments_path(@edition.id),
-                      class: 'govuk-link',
+                      class: "govuk-link",
                       data: {
                         module: "gem-track-click",
                         "track-category": "button-clicked",
@@ -261,7 +261,7 @@
       <% if @edition.editable? && @edition.missing_translations.any? %>
         <p class="govuk-body">
           <%= link_to("Add translation",
-                      new_admin_edition_translation_path(@edition.id), class: 'govuk-link') %>
+                      new_admin_edition_translation_path(@edition.id), class: "govuk-link") %>
         </p>
       <% end %>
       <% if @edition.non_english_translations.any? %>
@@ -285,7 +285,7 @@
                 text: raw([
                   *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link app-view-edition-summary__table-link") if @edition.editable?),
                   *(link_to("Delete", confirm_destroy_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link gem-link--destructive") if @edition.can_delete?),
-                ].compact().join(' '))
+                ].compact().join(" "))
               } : nil
             ].compact
           end
@@ -306,7 +306,7 @@
     <% if @edition.id == @edition.document.latest_edition.id %>
       <p class="govuk-body">
         <%= link_to("#{@edition.document.associated_needs.any? ? "Modify" : "Add"} associated user needs",
-                    admin_edit_needs_path(content_id: @edition.document.content_id), class: 'govuk-link') %>
+                    admin_edit_needs_path(content_id: @edition.document.content_id), class: "govuk-link") %>
       </p>
     <% end %>
     <% if @edition.document.associated_needs.any? %>

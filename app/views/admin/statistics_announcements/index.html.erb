@@ -6,7 +6,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <%= render 'warning' %>
+    <%= render "warning" %>
 
     <%= render "govuk_publishing_components/components/button", {
       text: "Create announcement",
@@ -25,11 +25,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
-    <%= render 'filter_options' %>
+    <%= render "filter_options" %>
   </div>
   <div class="govuk-grid-column-two-thirds">
     <div class="app-view-edition-index__table">
-      <%= render 'search_results', filter: @filter, paginator: @statistics_announcements, show_export: true %>
+      <%= render "search_results", filter: @filter, paginator: @statistics_announcements, show_export: true %>
     </div>
   </div>
 </div>

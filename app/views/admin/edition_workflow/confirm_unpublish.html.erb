@@ -72,7 +72,7 @@
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:withdrawn][:label],
       } do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:withdrawn][:id] %>
+        <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:withdrawn][:id] %>
 
         <% if @previous_withdrawals.any? %>
           <%
@@ -127,7 +127,7 @@
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:published_in_error][:label],
       } do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:published_in_error][:id] %>
+        <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:published_in_error][:id] %>
 
         <%= render "govuk_publishing_components/components/input", {
           label: {
@@ -183,7 +183,7 @@
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:consolidated][:label],
       } do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:consolidated][:id] %>
+        <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:consolidated][:id] %>
 
         <%= render "govuk_publishing_components/components/input", {
           label: {

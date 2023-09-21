@@ -64,7 +64,7 @@
     value: form.object.command_paper_number,
     error_items: errors_for(attachment.errors, :command_paper_number),
     heading_size: attachable.can_have_attached_house_of_commons_papers? ? subheading_size : heading_size,
-    hint: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ') + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
+    hint: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(", ") + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
   }) %>
 
   <%= form.hidden_field :unnumbered_command_paper, value: "0" %>
@@ -83,5 +83,5 @@
 </div>
 
 <% if attachable.can_have_attached_house_of_commons_papers? %>
-  <%= render 'admin/attachments/hoc_reference_fields', attachable: attachable, form: form, attachment: attachment, heading_size: subheading_size %>
+  <%= render "admin/attachments/hoc_reference_fields", attachable: attachable, form: form, attachment: attachment, heading_size: subheading_size %>
 <% end %>

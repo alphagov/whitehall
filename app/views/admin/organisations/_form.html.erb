@@ -1,4 +1,4 @@
-<%= form_for [:admin, organisation], html: { class: 'app-view-organisation__form js-view-organisation__form' }, data: { module: "OrganisationForm" }, multipart: true do |form| %>
+<%= form_for [:admin, organisation], html: { class: "app-view-organisation__form js-view-organisation__form" }, data: { module: "OrganisationForm" }, multipart: true do |form| %>
   <%= render "govuk_publishing_components/components/warning_text", {
     text: "Changes to organisations appear instantly on the live site."
   } %>
@@ -312,7 +312,7 @@
         margin_bottom: 3,
       } %>
 
-      <%= render 'admin/shared/featured_link_fields', form: form, remove_banner: true %>
+      <%= render "admin/shared/featured_link_fields", form: form, remove_banner: true %>
     </div>
   <% end %>
 
@@ -335,7 +335,7 @@
     <% end %>
   </div>
 
-  <div class="app-view-organisation__form__non-departmental-public-body-field js-view-organisation__form__non-departmental-public-body-fields <%= 'app-view-organisation__form__non-departmental-public-body-fields--hidden' unless organisation.type&.non_departmental_public_body? %>">
+  <div class="app-view-organisation__form__non-departmental-public-body-field js-view-organisation__form__non-departmental-public-body-fields <%= "app-view-organisation__form__non-departmental-public-body-fields--hidden" unless organisation.type&.non_departmental_public_body? %>">
     <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "Non-Departmental Public Body Information",
       heading_size: "l"

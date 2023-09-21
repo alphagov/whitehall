@@ -16,7 +16,7 @@
     }) %>
   </p>
 
-<%= form_with url: false, method: :get, class: 'js-filter-form', data: {'remote-pagination' => document_history_admin_edition_path(edition)} do |form| %>
+<%= form_with url: false, method: :get, class: "js-filter-form", data: {"remote-pagination" => document_history_admin_edition_path(edition)} do |form| %>
   <%= form.hidden_field :editing, value: editing %>
   <%= render "govuk_publishing_components/components/select", {
     id: "document_history_filter",
@@ -45,7 +45,7 @@
   <%= render "govuk_publishing_components/components/button", { text: "Filter" } %>
 <% end %>
 
-<%= paginate(@document_history, theme: 'history', editing:) %>
+<%= paginate(@document_history, theme: "history", editing:) %>
 
 <% if entries_on_newer_editions.present? %>
   <div class="app-view-editions__newer-edition-entries">
@@ -85,4 +85,4 @@
   </div>
 <% end %>
 
-<%= paginate(@document_history, theme: 'history', editing:) %>
+<%= paginate(@document_history, theme: "history", editing:) %>

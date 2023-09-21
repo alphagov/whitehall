@@ -12,7 +12,7 @@
 <% if @governments.blank? %>
   <p class="govuk-body">No governments have been created.</p>
 <% else %>
-  <div class="<%= 'govuk-table--with-actions' if can?(:manage, Government) %>">
+  <div class="<%= "govuk-table--with-actions" if can?(:manage, Government) %>">
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {

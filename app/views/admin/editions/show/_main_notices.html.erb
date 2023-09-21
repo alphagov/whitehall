@@ -10,7 +10,7 @@
     title: "This edition was force published and has not yet been reviewed by a second pair of eyes",
     description: capture do %>
       <% if can?(:approve, edition) %>
-        <p class="govuk-body"><%= link_to "View this on the website", edition.public_url(draft: true), class: "govuk-link", target: '_blank' %> and check everything thoroughly.</p>
+        <p class="govuk-body"><%= link_to "View this on the website", edition.public_url(draft: true), class: "govuk-link", target: "_blank" %> and check everything thoroughly.</p>
         <%= render "govuk_publishing_components/components/button", {
             text: "Approve",
             href: confirm_approve_retrospectively_admin_edition_path(@edition, lock_version: @edition.lock_version),
@@ -29,7 +29,7 @@
     <%= render "components/inset_prompt", {
       description: capture do %>
         <p class="govuk-body">This publication has been announced for publication <%= edition.statistics_announcement.display_date %>.</p>
-        <p class="govuk-body"><%= link_to 'View announcement', [:admin, edition.statistics_announcement], class: "govuk-link" %></p>
+        <p class="govuk-body"><%= link_to "View announcement", [:admin, edition.statistics_announcement], class: "govuk-link" %></p>
       <% end
     } %>
   <% end %>

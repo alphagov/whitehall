@@ -11,7 +11,7 @@
   <% if selected_taxon_paths.any? %>
     <div class="content content-bordered">
       <% selected_taxon_paths.each do |path| %>
-        <%= render partial: '/admin/shared/tagging/taxon_breadcrumb', locals: {
+        <%= render partial: "/admin/shared/tagging/taxon_breadcrumb", locals: {
           breadcrumbs: path
         } %>
       <% end %>

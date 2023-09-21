@@ -4,7 +4,7 @@
 </div>
 
 <%= standard_edition_form(edition) do |form| %>
-  <%= render 'inline_attachments_info', form: form, edition: edition %>
+  <%= render "inline_attachments_info", form: form, edition: edition %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,
@@ -12,7 +12,7 @@
     id: "associations"
   } do %>
     <div class="govuk-!-margin-bottom-4">
-      <%= render 'organisation_fields', form: form, edition: edition %>
+      <%= render "organisation_fields", form: form, edition: edition %>
     </div>
   <% end %>
 <% end %>

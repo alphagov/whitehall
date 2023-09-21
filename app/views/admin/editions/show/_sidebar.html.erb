@@ -1,14 +1,14 @@
 <aside class="app-view-summary__sidebar">
   <%= render(Admin::Editions::Show::SidebarActionsComponent.new(edition: @edition, current_user: current_user)) %>
-  <%= render partial: 'admin/editions/show/sidebar_notices' %>
+  <%= render partial: "admin/editions/show/sidebar_notices" %>
   <%= render(
-        partial: 'admin/link_check_reports/link_check_report',
+        partial: "admin/link_check_reports/link_check_report",
         locals: {
           report: (@edition.link_check_reports.last || @edition.link_check_reports.build),
           allow_new_report: true,
         }
       ) if show_link_check_report?(@edition) %>
-  <%= render partial: 'admin/editions/show/sidebar_history_state', locals: { edition: @edition } %>
+  <%= render partial: "admin/editions/show/sidebar_history_state", locals: { edition: @edition } %>
 
   <%= render "govuk_publishing_components/components/tabs", {
    tabs: [

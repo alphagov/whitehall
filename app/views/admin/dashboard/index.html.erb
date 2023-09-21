@@ -54,9 +54,9 @@
           class: "govuk-link",
           data: {
             module: "gem-track-click",
-            track_category: 'dashboardLink',
+            track_category: "dashboardLink",
             track_action: "What's new",
-            track_label: 'whats-new-click'
+            track_label: "whats-new-click"
         }),
       ]
     } %>
@@ -80,7 +80,7 @@
   margin_bottom: 4,
 } %>
 
-<%= render 'document_table', documents: @draft_documents, title: 'draft documents' %>
+<%= render "document_table", documents: @draft_documents, title: "draft documents" %>
 
 <% if current_user.organisation %>
   <%= render "govuk_publishing_components/components/heading", {
@@ -91,5 +91,5 @@
   } %>
   <p class="govuk-body"><%= link_to "View complete list of forced-published documents", admin_editions_path(state: :force_published, organisation: current_user.organisation), class: "govuk-link" %></p>
 
-  <%= render 'document_table', documents: @force_published_documents, title: 'force published documents' %>
+  <%= render "document_table", documents: @force_published_documents, title: "force published documents" %>
 <% end %>

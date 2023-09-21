@@ -65,9 +65,9 @@
             id: "translation_locale",
             name: "translation_locale",
             label: "Select Language",
-            heading_size: 'm',
-            options: @world_location_news.missing_translations.map { |missing_trans| { text: missing_trans
-              .native_and_english_language_name, value: missing_trans.code.to_s } }
+            heading_size: "m",
+            options: @world_location_news.missing_translations.map do |missing_trans| { text: missing_trans
+              .native_and_english_language_name, value: missing_trans.code.to_s } end
           } %>
 
           <%= render "govuk_publishing_components/components/button", {

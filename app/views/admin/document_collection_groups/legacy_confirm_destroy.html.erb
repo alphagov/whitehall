@@ -1,5 +1,5 @@
-<% content_for :page_class, 'document-collection-groups delete' %>
-<% page_title 'Delete group' %>
+<% content_for :page_class, "document-collection-groups delete" %>
+<% page_title "Delete group" %>
 
 <div class="row">
   <section class="col-md-8">
@@ -18,14 +18,14 @@
       </div>
 
       <p>
-        <%= link_to 'Return to the collection', admin_document_collection_groups_path(@collection) %>
+        <%= link_to "Return to the collection", admin_document_collection_groups_path(@collection) %>
       </p>
     <% else %>
-      <%= form_for [@collection, @group], url: admin_document_collection_group_path(@collection, @group), method: 'delete' do |form| %>
+      <%= form_for [@collection, @group], url: admin_document_collection_group_path(@collection, @group), method: "delete" do |form| %>
         <p>
           Are you sure you want to delete the group ‘<%= @group.heading %>’?
         </p>
-        <%= form.form_actions(buttons: { delete: 'Delete' }, cancel: admin_document_collection_groups_path(@collection)) %>
+        <%= form.form_actions(buttons: { delete: "Delete" }, cancel: admin_document_collection_groups_path(@collection)) %>
       <% end %>
     <% end %>
   </section>

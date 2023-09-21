@@ -58,7 +58,7 @@
     },
     name: "statistics_announcement[organisation_ids][]",
     select: {
-      options:  options_from_collection_for_select(Organisation.with_translations.order("organisation_translations.name"), 'id', 'name', statistics_announcement.organisation_ids),
+      options:  options_from_collection_for_select(Organisation.with_translations.order("organisation_translations.name"), "id", "name", statistics_announcement.organisation_ids),
       multiple: true
     },
     error_items: errors_for(statistics_announcement.errors, :organisations),

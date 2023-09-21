@@ -112,13 +112,13 @@
         ]
       } %>
 
-      <p class="govuk-body"><%= link_to "Read the history mode guidance", 'https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode', class: "govuk-link" %> for more information as to what this means.</p>
+      <p class="govuk-body"><%= link_to "Read the history mode guidance", "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode", class: "govuk-link" %> for more information as to what this means.</p>
     </div>
   <% end %>
 </div>
 
 <% unless edition.is_a?(Consultation) %>
-  <%= render 'first_published_at', form: form, edition: edition %>
+  <%= render "first_published_at", form: form, edition: edition %>
 <% end %>
 
 <% if %w(CaseStudy Speech FatalityNotice).include?(edition.type) %>

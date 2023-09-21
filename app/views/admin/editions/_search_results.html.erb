@@ -36,7 +36,7 @@
              {
                text: tag.p("#{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-0") +
                       "by " +
-                      linked_author(edition.last_author, class: 'govuk-link')
+                      linked_author(edition.last_author, class: "govuk-link")
              },
              {
                text: render(Admin::Editions::TagsComponent.new(edition)),

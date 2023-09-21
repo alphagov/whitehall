@@ -126,7 +126,7 @@
 
     <%# without this hidden field, once a service has been selected and saved, all services cannot be de-selected.
        # http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-check_box-label-Gotcha %>
-    <%= hidden_field_tag 'worldwide_office[service_ids][]', nil %>
+    <%= hidden_field_tag "worldwide_office[service_ids][]", nil %>
 
     <% WorldwideService.all.group_by{|ws| ws.service_type}.each do |service_type, services| %>
       <%= render "govuk_publishing_components/components/checkboxes", {
@@ -146,7 +146,7 @@
   </div>
 
   <%= office_form.fields_for(:contact) do |contact_form| %>
-    <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form, name: "worldwide_office[contact_attributes]", id: "worldwide_office_contact_attributes" } %>
+    <%= render partial: "admin/contacts/form_fields", locals: { contact_form: contact_form, name: "worldwide_office[contact_attributes]", id: "worldwide_office_contact_attributes" } %>
   <% end %>
 
   <div class="govuk-button-group">

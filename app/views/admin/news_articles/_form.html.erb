@@ -5,7 +5,7 @@
 </div>
 
 <%= standard_edition_form(edition) do |form| %>
-  <%= render 'inline_attachments_info', form: form, edition: edition %>
+  <%= render "inline_attachments_info", form: form, edition: edition %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,
@@ -14,19 +14,19 @@
   } do %>
     <div class="govuk-!-margin-bottom-4">
       <div class="app-view-edit-edition__appointment-fields">
-        <%= render 'appointment_fields', form: form, edition: edition %>
+        <%= render "appointment_fields", form: form, edition: edition %>
       </div>
 
-      <%= render 'topical_event_fields', form: form, edition: edition %>
+      <%= render "topical_event_fields", form: form, edition: edition %>
 
       <div class="app-view-edit-edition__world-organisation-fields govuk-!-margin-bottom-4">
-        <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
+        <%= render "worldwide_organisation_fields", form: form, edition: edition %>
       </div>
 
-      <%= render 'world_location_fields', form: form, edition: edition %>
+      <%= render "world_location_fields", form: form, edition: edition %>
 
       <div class="app-view-edit-edition__organisation-fields">
-        <%= render 'organisation_fields', form: form, edition: edition %>
+        <%= render "organisation_fields", form: form, edition: edition %>
       </div>
     </div>
   <% end %>

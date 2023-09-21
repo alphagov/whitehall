@@ -17,7 +17,7 @@
     name: "role[role_type]",
     full_width: true,
     options:
-      [{ value: nil, text: nil }] + role_type_options.map do |group, name_vs_type|
+      [{ value: nil, text: nil }] + role_type_options.map { |group, name_vs_type|
         name_vs_type.map do |name, type|
           {
             text: name,
@@ -25,7 +25,7 @@
             selected: role.role_type == type
           }
         end
-      end.flatten,
+      }.flatten,
     error_message: errors_for_input(role.errors, :type)
   } %>
 
@@ -37,7 +37,7 @@
     },
     name: "role[organisation_ids][]",
     select: {
-      options:  options_from_collection_for_select(Organisation.with_translations(:en), 'id', 'select_name', role.organisation_ids),
+      options:  options_from_collection_for_select(Organisation.with_translations(:en), "id", "select_name", role.organisation_ids),
       multiple: true
     }
   } %>
@@ -95,7 +95,7 @@
     },
     name: "role[worldwide_organisation_ids][]",
     select: {
-      options:  options_from_collection_for_select(WorldwideOrganisation.all, 'id', 'name', role.worldwide_organisation_ids),
+      options:  options_from_collection_for_select(WorldwideOrganisation.all, "id", "name", role.worldwide_organisation_ids),
       multiple: true
     }
   } %>

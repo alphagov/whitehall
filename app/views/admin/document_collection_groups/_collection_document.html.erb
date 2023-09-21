@@ -2,10 +2,10 @@
   <% if membership.non_whitehall_link %>
     <% non_whitehall_link = membership.non_whitehall_link %>
     <label>
-      <%= check_box_tag('memberships[]', membership.id, false, class: 'checkbox', id: nil) %>
+      <%= check_box_tag("memberships[]", membership.id, false, class: "checkbox", id: nil) %>
       <%= non_whitehall_link.title %>
     </label>
-    (<%= link_to 'view on GOV.UK', Plek.website_root + non_whitehall_link.base_path %>)
+    (<%= link_to "view on GOV.UK", Plek.website_root + non_whitehall_link.base_path %>)
     <ul class="metadata list-inline text-muted">
       <li>
         Document from: <%= non_whitehall_link.publishing_app.titleize %>
@@ -14,10 +14,10 @@
   <% else %>
     <% edition = membership.document.latest_edition %>
     <label>
-      <%= check_box_tag('memberships[]', membership.id, false, class: 'checkbox', id: nil) %>
+      <%= check_box_tag("memberships[]", membership.id, false, class: "checkbox", id: nil) %>
       <%= edition.title %>
     </label>
-    (<%= link_to 'view page', admin_edition_path(edition) %>)
+    (<%= link_to "view page", admin_edition_path(edition) %>)
     <ul class="metadata list-inline text-muted">
       <li>
         Last changed: <%= public_time_for_edition(edition) %>

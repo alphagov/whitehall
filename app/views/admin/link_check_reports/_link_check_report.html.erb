@@ -3,9 +3,9 @@
     <%= render "components/inset_prompt", {
       description: capture do %>
         <p class="govuk-body">Check this document for broken links. The report will take a few moments to complete.</p>
-        <%= render partial: 'admin/link_check_reports/form', locals: {
+        <%= render partial: "admin/link_check_reports/form", locals: {
           reportable: report.link_reportable,
-          button_text: 'Check for broken links',
+          button_text: "Check for broken links",
           secondary_quiet: true
         } %>
       <% end
@@ -15,7 +15,7 @@
       description: capture do %>
         <p class="govuk-body">Broken link report in progress.</p>
         <p class="govuk-body">
-          <%= link_to "Check progress", "", class: 'govuk-link js-broken-links-refresh', data: { json_href: url_for(admin_edition_link_check_report_path(report.link_reportable, report, format: :json, allow_new_report: allow_new_report.present? ? true : nil)) } %>
+          <%= link_to "Check progress", "", class: "govuk-link js-broken-links-refresh", data: { json_href: url_for(admin_edition_link_check_report_path(report.link_reportable, report, format: :json, allow_new_report: allow_new_report.present? ? true : nil)) } %>
         </p>
       <% end
     } %>
@@ -31,7 +31,7 @@
           <ul class="govuk-list app-view-edition-summary__broken-links-report">
             <% links.each do |link| %>
               <li>
-                <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: 'govuk-link' %>
+                <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: "govuk-link" %>
                 <details class="govuk-details" data-module="govuk-details">
                   <summary class="govuk-details__summary">
                     <span class="govuk-details__summary-text">
@@ -53,9 +53,9 @@
           <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
         <% end %>
         <% if allow_new_report %>
-          <%= render partial: 'admin/link_check_reports/form', locals: {
+          <%= render partial: "admin/link_check_reports/form", locals: {
             reportable: report.link_reportable,
-            button_text: 'Check again'
+            button_text: "Check again"
           } %>
         <% end %>
       <% end,
@@ -73,9 +73,9 @@
           </p>
         <% end %>
         <% if allow_new_report %>
-          <%= render partial: 'admin/link_check_reports/form', locals: {
+          <%= render partial: "admin/link_check_reports/form", locals: {
             reportable: report.link_reportable,
-            button_text: 'Check again',
+            button_text: "Check again",
             secondary_quiet: true
           } %>
         <% end %>

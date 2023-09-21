@@ -19,7 +19,7 @@
       <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
       <hr class="govuk-section-break--m">
       <%= render "govuk_publishing_components/components/table", {
-        id: 'table',
+        id: "table",
         rows:
           @filter.editions.map do |edition|
             [{

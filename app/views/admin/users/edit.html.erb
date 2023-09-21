@@ -7,10 +7,10 @@
     <% if @user.editable_by?(current_user) %>
       <%= form.label :world_location_ids, "Select the world locations" %>
       <%= form.select :world_location_ids,
-                      options_from_collection_for_select(WorldLocation.ordered_by_name, 'id', 'name', form.object.world_location_ids),
+                      options_from_collection_for_select(WorldLocation.ordered_by_name, "id", "name", form.object.world_location_ids),
                       { include_blank: true },
                       multiple: true,
-                      class: 'chzn-select form-control',
+                      class: "chzn-select form-control",
                       data: { placeholder: "World locations…"} %>
 
     <% end %>

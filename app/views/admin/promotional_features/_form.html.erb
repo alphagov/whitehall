@@ -15,7 +15,7 @@
     heading_size: "l"
   } do %>
     <%= form.fields_for :promotional_feature_items do |feature_item_form| %>
-      <%= render 'admin/promotional_feature_items/form_fields', {
+      <%= render "admin/promotional_feature_items/form_fields", {
         promotional_feature_item: @promotional_feature.promotional_feature_items.first,
         form: feature_item_form,
         heading_size: "m",

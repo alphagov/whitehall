@@ -12,11 +12,11 @@
 
 <% if user_signed_in? %>
   <% content_for :head do %>
-    <meta name="custom-dimension:8" content="<%= current_user.organisation_slug.presence || '(not set)' %>">
+    <meta name="custom-dimension:8" content="<%= current_user.organisation_slug.presence || "(not set)" %>">
   <% end %>
 <% end %>
 
-<%= render 'govuk_publishing_components/components/layout_for_admin',
+<%= render "govuk_publishing_components/components/layout_for_admin",
   product_name: "Whitehall Publisher",
   environment: environment,
   browser_title: ("Error: " unless yield(:error_summary).blank?).to_s + sanitize((yield(:page_title).presence || yield(:title))) do %>
@@ -34,7 +34,7 @@
 
   <div class="govuk-width-container">
     <%= render "shared/phase_banner", {
-        show_feedback_banner: t('admin.feedback.show_banner'),
+        show_feedback_banner: t("admin.feedback.show_banner"),
         ga4_tracking: true
       } %>
 

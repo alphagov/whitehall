@@ -1,5 +1,5 @@
 <% if attachable.can_order_attachments? && attachable.attachments.many? %>
-<p class="govuk-body"><%= link_to 'Reorder attachments', [:reorder, :admin, typecast_for_attachable_routing(attachable), Attachment], class: "govuk-link govuk-link--no-visited-state" %></p>
+<p class="govuk-body"><%= link_to "Reorder attachments", [:reorder, :admin, typecast_for_attachable_routing(attachable), Attachment], class: "govuk-link govuk-link--no-visited-state" %></p>
 <% end %>
 
 <ul class="govuk-list">
@@ -31,7 +31,7 @@
         <% end %>
       </div>
       <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
-        <%= link_to('Edit attachment', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Edit attachment", [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state") %>
         <%= link_to("Delete attachment", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state gem-link--destructive") %>
       </div>
     </li>

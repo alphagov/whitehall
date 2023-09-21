@@ -2,15 +2,15 @@
   <% if report.new_record? %>
     <section class="alert alert-info">
       <p>Check this document for broken links. The report will take a few moments to complete.</p>
-      <%= render 'admin/link_check_reports/form_legacy', reportable: report.link_reportable, button_text: 'Check for broken links' %>
+      <%= render "admin/link_check_reports/form_legacy", reportable: report.link_reportable, button_text: "Check for broken links" %>
     </section>
   <% elsif report.in_progress? %>
     <section class="alert alert-info">
-      <%= image_tag('admin/ajax_loader_blue_32.gif', width: 24, height: 24, class: 'pull-left add-right-margin') %>
+      <%= image_tag("admin/ajax_loader_blue_32.gif", width: 24, height: 24, class: "pull-left add-right-margin") %>
       Broken link report in progress.<br>Please wait.
       <%= link_to "Refresh",
                   admin_edition_link_check_report_path(report.link_reportable, report),
-                  class: 'js-broken-links-refresh js-hidden',
+                  class: "js-broken-links-refresh js-hidden",
                   remote: true %>
     </section>
   <% elsif report.broken_links.any? || report.caution_links.any? %>
@@ -22,7 +22,7 @@
         <ul class="issue-list">
           <% links.each do |link| %>
             <li>
-              <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: 'link-inherit' %>
+              <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: "link-inherit" %>
               <details>
                 <summary class="display-issue-details">See more details about this link</summary>
                 <p class="issue-summary"><%= link.problem_summary %></p>
@@ -37,7 +37,7 @@
       <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
         <p class="draft-admin-links">It also contains links to draft documents that weren't checked.</p>
       <% end %>
-      <%= render 'admin/link_check_reports/form_legacy', reportable: report.link_reportable, button_text: 'Check again' %>
+      <%= render "admin/link_check_reports/form_legacy", reportable: report.link_reportable, button_text: "Check again" %>
     </section>
   <% else %>
     <section class='alert alert-success'>
@@ -45,7 +45,7 @@
       <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
         <p class="draft-admin-links">It also contains links to draft documents that weren't checked.</p>
       <% end %>
-      <%= render 'admin/link_check_reports/form_legacy', reportable: report.link_reportable, button_text: 'Check again' %>
+      <%= render "admin/link_check_reports/form_legacy", reportable: report.link_reportable, button_text: "Check again" %>
     </section>
   <% end %>
 </div>

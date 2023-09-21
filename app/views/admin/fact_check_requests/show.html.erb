@@ -5,10 +5,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <section class="document_page" id="<%= dom_id(@edition) %>">
-      <%= render 'admin/editions/edition', edition: @edition %>
+      <%= render "admin/editions/edition", edition: @edition %>
     </section>
     <% if @edition.attachments.any? %>
-      <%= render 'show_attachments', edition: @edition %>
+      <%= render "show_attachments", edition: @edition %>
     <% end %>
   </div>
 

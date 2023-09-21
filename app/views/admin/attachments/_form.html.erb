@@ -16,12 +16,12 @@
   </div>
 
   <% if attachable.allows_attachment_references? %>
-    <%= render 'reference_fields', attachable: attachable, form: form, attachment: attachment, heading_size: heading_size, subheading_size: subheading_size %>
+    <%= render "reference_fields", attachable: attachable, form: form, attachment: attachment, heading_size: heading_size, subheading_size: subheading_size %>
   <% end %>
 
   <% if attachment.is_a?(HtmlAttachment) %>
     <%= form.fields_for :govspeak_content do |govspeak_fields| %>
-      <%= hidden_field_tag 'attachment[govspeak_content_attributes][manually_numbered_headings]', "0" %>
+      <%= hidden_field_tag "attachment[govspeak_content_attributes][manually_numbered_headings]", "0" %>
 
       <div class="govuk-!-margin-bottom-8">
         <%= render "govuk_publishing_components/components/checkboxes", {
@@ -97,7 +97,7 @@
     </div>
   <% else %>
     <div class="govuk-!-margin-bottom-8">
-      <%= render 'attachment_data_fields', form: form %>
+      <%= render "attachment_data_fields", form: form %>
     </div>
   <% end %>
 

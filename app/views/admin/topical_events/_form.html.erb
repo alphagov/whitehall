@@ -145,13 +145,13 @@
                 name: "topical_event[social_media_accounts_attributes][#{social_media_form.index}][social_media_service_id]",
                 heading_size: "m",
                 options: [{ text: "", value: "" }] +
-                  SocialMediaService.all.map { |social_media|
+                  SocialMediaService.all.map do |social_media|
                     {
                       text: social_media.name,
                       value: social_media.id,
                       selected: social_media_form.object.social_media_service_id == social_media.id
                     }
-                  },
+                  end,
                 full_width: true
               } %>
             </div>
