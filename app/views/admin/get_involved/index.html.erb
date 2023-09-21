@@ -5,7 +5,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">
-      <%= link_to "View on website", get_involved_url, class: "govuk-link", target: "_blank" %>
+      <%= link_to "View on website", get_involved_url, class: "govuk-link", target: "_blank", rel: "noopener" %>
     </p>
 
     <%= render "components/secondary_navigation", {
@@ -19,8 +19,8 @@
         {
           label: "Take part pages",
           href: admin_take_part_pages_path,
-        }
-      ]
+        },
+      ],
     } %>
   </div>
 </div>

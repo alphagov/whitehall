@@ -10,7 +10,7 @@
     <%= form_for @edition_to_change, method: :patch, url: admin_edition_change_note_path(@edition_to_change) do |form| %>
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "New change note:"
+          text: "New change note:",
         },
         name: "new_change_note",
         value: @edition_to_change.change_note,
@@ -18,7 +18,7 @@
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Save"
+          text: "Save",
         } %>
 
         <%= link_to("Cancel", admin_edition_change_notes_path, class: "govuk-link govuk-link--no-visited-state") %>

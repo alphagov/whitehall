@@ -9,7 +9,7 @@
 
     <% if Whitehall.integration_or_staging? %>
       <%= render "govuk_publishing_components/components/warning_text", {
-        text: "In staging and integration environments, if you are not on the permitted recipients list for GOV.UK Notify, this email will not be exported."
+        text: "In staging and integration environments, if you are not on the permitted recipients list for GOV.UK Notify, this email will not be exported.",
       } %>
     <% end %>
 
@@ -21,8 +21,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "edition-csv-export-button",
-            "track-label": "Export CSV"
-          }
+            "track-label": "Export CSV",
+          },
         } %>
 
         <%= link_to("Cancel", "#{admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link govuk-link--no-visited-state") %>

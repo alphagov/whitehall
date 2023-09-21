@@ -3,7 +3,6 @@
 <% content_for :context, @worldwide_office.title %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @translated_contact)) %>
 
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @translated_contact, as: :contact, url: admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, translation_locale), method: :put do |form| %>
@@ -22,7 +21,7 @@
         },
         details: {
           text: @contact.title,
-        }
+        },
       } %>
 
       <%= render "components/translated_textarea", {
@@ -41,7 +40,7 @@
         },
         details: {
           text: @contact.comments,
-        }
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -59,7 +58,7 @@
         },
         details: {
           text: @contact.recipient,
-        }
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -78,13 +77,13 @@
         },
         details: {
           text: @contact.street_address,
-        }
+        },
       } %>
 
       <%= render "components/translated_input", {
         input: {
           label: {
-            text: "Locality"
+            text: "Locality",
           },
           name: "contact[locality]",
           id: "contact_locality",
@@ -96,13 +95,13 @@
         },
         details: {
           text: @contact.locality,
-        }
+        },
       } %>
 
       <%= render "components/translated_input", {
         input: {
           label: {
-            text: "Region"
+            text: "Region",
           },
           name: "contact[region]",
           id: "contact_region",
@@ -114,13 +113,13 @@
         },
         details: {
           text: @contact.region,
-        }
+        },
       } %>
 
       <%= render "components/translated_input", {
         input: {
           label: {
-            text: "Email"
+            text: "Email",
           },
           name: "contact[email]",
           id: "contact_email",
@@ -132,13 +131,13 @@
         },
         details: {
           text: @contact.email,
-        }
+        },
       } %>
 
       <%= render "components/translated_input", {
         input: {
           label: {
-            text: "Contact form URL"
+            text: "Contact form URL",
           },
           name: "contact[contact_form_url]",
           id: "contact_contact_form_url",
@@ -150,7 +149,7 @@
         },
         details: {
           text: @contact.contact_form_url,
-        }
+        },
       } %>
 
       <% if @translated_contact.contact_numbers.present? %>
@@ -164,7 +163,7 @@
           <%= render "components/translated_input", {
             input: {
               label: {
-                text: "Label"
+                text: "Label",
               },
               name: "contact[contact_numbers_attributes][#{number_form.index}][label]",
               id: "contact_contact_number_#{number_form.index}_label",
@@ -176,13 +175,13 @@
             },
             details: {
               text: number_form.object.label,
-            }
+            },
           } %>
 
           <%= render "components/translated_input", {
             input: {
               label: {
-                text: "Number"
+                text: "Number",
               },
               name: "contact[contact_numbers_attributes][#{number_form.index}][number]",
               id: "contact_contact_number_#{number_form.index}_number",
@@ -194,7 +193,7 @@
             },
             details: {
               text: number_form.object.number,
-            }
+            },
           } %>
         <% end %>
       <% end %>
@@ -206,8 +205,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "worldwide-office-translation-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
 
         <% if @translated_contact.translation.persisted? %>

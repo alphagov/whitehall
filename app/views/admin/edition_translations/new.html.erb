@@ -1,14 +1,14 @@
 <% content_for :page_title, "Add translation" %>
 
 <%= render "govuk_publishing_components/components/back_link", {
-  href: admin_edition_path(@edition)
+  href: admin_edition_path(@edition),
 } %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/title", {
       context: @edition.title,
-      title: "Add translation"
+      title: "Add translation",
     } %>
 
     <%= form_with url: admin_edition_translations_path(@edition.id) do |form| %>
@@ -21,11 +21,11 @@
             text: language,
             value: value,
           }
-        end
+        end,
       } %>
 
       <%= render "govuk_publishing_components/components/button", {
-        text: "Next"
+        text: "Next",
       } %>
     <% end %>
   </div>

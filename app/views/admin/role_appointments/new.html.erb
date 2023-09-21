@@ -1,4 +1,4 @@
-<% content_for :page_title, "Create new appointment for #{@role_appointment.role.name}"  %>
+<% content_for :page_title, "Create new appointment for #{@role_appointment.role.name}" %>
 <% content_for :title, "Create new appointment" %>
 <% content_for :context, @role_appointment.role.name %>
 <% content_for :title_margin_bottom, 8 %>
@@ -7,14 +7,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for [:admin, @role_appointment.role.becomes(Role), @role_appointment] do |form| %>
-      <%= render 'admin/role_appointments/form', form: form %>
+      <%= render "admin/role_appointments/form", form: form %>
     <% end %>
   </div>
 
   <div class="govuk-grid-column-one-third">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Existing appointments",
-      margin_bottom: 4
+      margin_bottom: 4,
     } %>
 
     <%= render "list", role_appointments: @role_appointment.role.role_appointments %>

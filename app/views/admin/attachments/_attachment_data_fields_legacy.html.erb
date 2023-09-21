@@ -4,7 +4,7 @@
     <p>Current file: <%= link_to attachment_data_fields.object.filename, attachment_data_fields.object.url %></p>
   <% end %>
 
-  <%= attachment_data_fields.label :file, (attachment_data_fields.object.filename ? 'Replace file' : nil), required: false %>
+  <%= attachment_data_fields.label :file, (attachment_data_fields.object.filename ? "Replace file" : nil), required: false %>
 
   <p class="here">
     You must upload attachments in an <a href="https://www.gov.uk/guidance/content-design/planning-content#open-formats">open standards format</a>.

@@ -10,8 +10,7 @@
         { field: "Type", value: @statistics_announcement.display_type },
         { field: "Organisations", value: @statistics_announcement.organisations.map(&:name).to_sentence },
       ],
-    }
-    %>
+    } %>
 
     <%= render "components/inset_prompt", {
       error: true,
@@ -121,7 +120,7 @@
     <p class="govuk-body">
       <%= link_to(@edition_taxons.any? ? "Change tags" : "Add tags",
                   edit_admin_statistics_announcement_tags_path(@statistics_announcement.id),
-                  class: 'govuk-link') %>
+                  class: "govuk-link") %>
     </p>
 
     <% @edition_taxons.map(&:full_path).each do |tag_path| %>
@@ -135,7 +134,7 @@
     <% end %>
     <% unless @edition_taxons.any? %>
       <%= render "govuk_publishing_components/components/warning_text", {
-        text: "You need to add topic tags before you can publish this document."
+        text: "You need to add topic tags before you can publish this document.",
       } %>
     <% end %>
   </section>

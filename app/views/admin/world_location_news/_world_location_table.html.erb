@@ -4,17 +4,17 @@
   <%= render "govuk_publishing_components/components/table", {
     head: [
       {
-        text: "Location"
+        text: "Location",
       },
       {
-        text: "Details"
+        text: "Details",
       },
       {
-        text: "Translations"
+        text: "Translations",
       },
       {
-        text: tag.span("View", class: "govuk-visually-hidden")
-      }
+        text: tag.span("View", class: "govuk-visually-hidden"),
+      },
     ],
     rows:
       world_locations.map do |world_location|
@@ -28,22 +28,22 @@
                 format_with_html_line_breaks(world_location.world_location_news.mission_statement)
               else
                 "No mission statement yet."
-              end
+              end,
           },
           {
             text:
               if world_location.non_english_translated_locales.any?
-                sanitize(world_location.non_english_translated_locales.map do |locale|
+                sanitize(world_location.non_english_translated_locales.map { |locale|
                   link_to("#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_world_location_news_translation_path(world_location, locale.code), class: "govuk-link")
-                end.to_sentence)
+                }.to_sentence)
               else
                 ""
-              end
+              end,
           },
           {
-            text: link_to(sanitize("View#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link")
-          }
+            text: link_to(sanitize("View#{tag.span(world_location.name, class: "govuk-visually-hidden")}"), [:admin, world_location.world_location_news], class: "govuk-link"),
+          },
         ]
-      end
+      end,
   } %>
 <% end %>

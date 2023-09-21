@@ -5,7 +5,7 @@
   <%= render "govuk_publishing_components/components/button", {
     text: "Create new organisation",
     href: new_admin_organisation_path,
-    margin_bottom: 6
+    margin_bottom: 6,
   } %>
 <% end %>
 
@@ -23,9 +23,9 @@
         },
         {
           text: tag.span("Actions", class: "govuk-visually-hidden"),
-        }
+        },
       ],
-      rows: organisation_index_rows(@user_organisation, @organisations.all)
+      rows: organisation_index_rows(@user_organisation, @organisations.all),
     } %>
   </div>
 <% else %>

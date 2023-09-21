@@ -2,24 +2,24 @@
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Name (required)",
-      heading_size: "l"
+      heading_size: "l",
     },
     value: topical_event.name,
     name: "topical_event[name]",
     id: "topical_event_name",
-    error_items: errors_for(topical_event.errors, :name)
+    error_items: errors_for(topical_event.errors, :name),
   } %>
 
   <%= render "govuk_publishing_components/components/character_count", {
     textarea: {
       label: {
         text: "Summary (required)",
-        heading_size: "l"
+        heading_size: "l",
       },
       value: topical_event.summary,
       name: "topical_event[summary]",
       rows: 4,
-      error_items: errors_for(topical_event.errors, :summary)
+      error_items: errors_for(topical_event.errors, :summary),
     },
     maxlength: 160,
     id: "topical_event_summary",
@@ -53,7 +53,7 @@
       image_src: topical_event.logo.url,
       image_alt: topical_event.logo_alt_text,
       image_cache_name: "topical_event[logo_cache]",
-      image_cache: (topical_event.logo.image_cache if topical_event.logo.image_cache.present?)
+      image_cache: (topical_event.logo.image_cache.presence),
     } %>
   </div>
 
@@ -61,7 +61,7 @@
     <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "Duration",
       heading_size: "l",
-      margin_bottom: 2
+      margin_bottom: 2,
     } do %>
       <%= render "components/datetime_fields", {
         date_only: true,
@@ -77,23 +77,23 @@
           name: "topical_event[start_date(1i)]",
           value: params.dig("topical_event", "start_date(1i)") || topical_event.start_date&.year,
           label: "Year",
-          width: 4
+          width: 4,
         },
         month: {
           id: "topical_event_start_date(2i)",
           name: "topical_event[start_date(2i)]",
           value: params.dig("topical_event", "start_date(2i)") || topical_event.start_date&.month,
           label: "Month",
-          width: 2
+          width: 2,
         },
         day: {
           id: "topical_event_start_date(3i)",
           name: "topical_event[start_date(3i)]",
           value: params.dig("topical_event", "start_date(3i)") || topical_event.start_date&.day,
           label: "Day",
-          width: 2
+          width: 2,
         },
-        error_items: errors_for(topical_event.errors, :start_date)
+        error_items: errors_for(topical_event.errors, :start_date),
       } %>
 
       <%= render "components/datetime_fields", {
@@ -109,30 +109,30 @@
           name: "topical_event[end_date(1i)]",
           value: params.dig("topical_event", "end_date(1i)") || topical_event.end_date&.year,
           label: "Year",
-          width: 4
+          width: 4,
         },
         month: {
           id: "topical_event_end_date(2i)",
           name: "topical_event[end_date(2i)]",
           value: params.dig("topical_event", "end_date(2i)") || topical_event.end_date&.month,
           label: "Month",
-          width: 2
+          width: 2,
         },
         day: {
           id: "topical_event_end_date(3i)",
           name: "topical_event[end_date(3i)]",
           value: params.dig("topical_event", "end_date(3i)") || topical_event.end_date&.day,
           label: "Day",
-          width: 2
+          width: 2,
         },
-        error_items: errors_for(topical_event.errors, :end_date)
+        error_items: errors_for(topical_event.errors, :end_date),
       } %>
     <% end %>
   </div>
 
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Social media accounts",
-    heading_size: "l"
+    heading_size: "l",
   } do %>
     <div data-module="AddAnother" data-add-text="Add account" class="govuk-!-margin-bottom-4">
       <%= form.fields_for :social_media_accounts do |social_media_form| %>
@@ -145,25 +145,25 @@
                 name: "topical_event[social_media_accounts_attributes][#{social_media_form.index}][social_media_service_id]",
                 heading_size: "m",
                 options: [{ text: "", value: "" }] +
-                  SocialMediaService.all.map { |social_media|
+                  SocialMediaService.all.map do |social_media|
                     {
                       text: social_media.name,
                       value: social_media.id,
-                      selected: social_media_form.object.social_media_service_id == social_media.id
+                      selected: social_media_form.object.social_media_service_id == social_media.id,
                     }
-                  },
-                full_width: true
+                  end,
+                full_width: true,
               } %>
             </div>
             <%= render "govuk_publishing_components/components/input", {
               label: {
-                text: "URL (required)"
+                text: "URL (required)",
               },
               name: "topical_event[social_media_accounts_attributes][#{social_media_form.index}][url]",
               id: "topical_event_social_media_accounts_attributes_#{social_media_form.index}_url",
               value: social_media_form.object.url,
               heading_size: "m",
-              error_items: errors_for(social_media_form.object.errors, :url)
+              error_items: errors_for(social_media_form.object.errors, :url),
             } %>
           </div>
         </div>
@@ -177,9 +177,9 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "topical-events-button",
-        "track-label": "Save"
+        "track-label": "Save",
       },
-      text: "Save"
+      text: "Save",
     } %>
 
     <% if @topical_event.persisted? %>

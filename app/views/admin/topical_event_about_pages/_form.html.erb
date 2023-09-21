@@ -2,23 +2,23 @@
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Name (required)",
-      heading_size: "l"
+      heading_size: "l",
     },
     value: topical_event_about_page.name,
     name: "topical_event_about_page[name]",
     id: "topical_event_about_page_name",
-    error_items: errors_for(topical_event_about_page.errors, :name)
+    error_items: errors_for(topical_event_about_page.errors, :name),
   } %>
   <%= render "govuk_publishing_components/components/character_count", {
     textarea: {
       label: {
         text: "Read more link text (required)",
-        heading_size: "l"
+        heading_size: "l",
       },
       value: topical_event_about_page.read_more_link_text,
       name: "topical_event_about_page[read_more_link_text]",
       error_items: errors_for(topical_event_about_page.errors, :read_more_link_text),
-      rows: 4
+      rows: 4,
     },
     maxlength: 255,
     id: "topical_event_about_page_read_more_link_text",
@@ -32,22 +32,22 @@
     heading_size: "l",
     name: "topical_event_about_page[summary]",
     id: "topical_event_about_page_summary",
-    error_items: errors_for(topical_event_about_page.errors, :summary)
+    error_items: errors_for(topical_event_about_page.errors, :summary),
   } %>
   <%= render "components/govspeak-editor", {
     label: {
       text: "Body (required)",
-      heading_size: "l"
+      heading_size: "l",
     },
     id: "topical_event_about_page_body",
     name: "topical_event_about_page[body]",
     value: topical_event_about_page.body,
     rows: 20,
-    error_items: errors_for(topical_event_about_page.errors, :body)
+    error_items: errors_for(topical_event_about_page.errors, :body),
   } %>
   <div class="govuk-button-group govuk-!-margin-top-8">
     <%= render "govuk_publishing_components/components/button", {
-      text: "Save"
+      text: "Save",
     } %>
     <%= link_to("Cancel", admin_topical_event_topical_event_about_pages_path(topical_event_about_page.topical_event), class: "govuk-link") %>
   </div>

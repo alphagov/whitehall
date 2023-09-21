@@ -13,7 +13,7 @@
     <% @users.each do |user| %>
       <%= content_tag_for(:tr, user) do %>
         <td class="name">
-          <%= link_to user.name, admin_user_path(user), title: "View #{user.name}" %><br/>
+          <%= link_to user.name, admin_user_path(user), title: "View #{user.name}" %><br>
           <%= mail_to user.email %>
         </td>
         <td class="role">

@@ -2,7 +2,7 @@
 <% content_for :context, @edition.title %>
 <% content_for :title, "Topic taxonomy tags" %>
 
-<%= render 'admin/shared/tagging/taxonomy_group_description' %>
+<%= render "admin/shared/tagging/taxonomy_group_description" %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
@@ -12,24 +12,24 @@
     } %>
 
     <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put, data: {
-      module: "track-selected-taxons"
+      module: "track-selected-taxons",
     } do |form| %>
       <%= form.hidden_field :previous_version %>
 
       <%= render "admin/shared/tagging/taxonomy_group_selector", {
         form: form,
-        tag_form: @tag_form
+        tag_form: @tag_form,
       } %>
 
       <div class="govuk-button-group govuk-!-margin-top-7">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",
           data_attributes: {
-              module: 'gem-track-click',
-              track_category: 'form-button',
+              module: "gem-track-click",
+              track_category: "form-button",
               track_label: "Save tagging changes",
               track_action: "taxonomy-tag-form-button",
-          }
+          },
         } %>
 
         <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>

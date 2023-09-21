@@ -15,7 +15,7 @@
         name: "image[image_data][file]",
         src: @data_url,
         filename: @new_image.filename,
-        type: @new_image.content_type
+        type: @new_image.content_type,
       } %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
@@ -25,8 +25,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "#{@edition.class.name.demodulize.underscore.dasherize}-button",
-            "track-label": "Save and continue"
-          }
+            "track-label": "Save and continue",
+          },
         } %>
 
         <%= link_to("Cancel", admin_edition_images_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
@@ -34,6 +34,6 @@
     <% end %>
   </section>
 
-  <%= render "image_information", image: @new_image%>
+  <%= render "image_information", image: @new_image %>
 
 </div>

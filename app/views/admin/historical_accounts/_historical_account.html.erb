@@ -6,9 +6,9 @@
     <%= historical_account.summary %>
   </td>
   <td class="actions">
-    <%= link_to 'View', historical_account.public_path, class: "btn btn-default" %>
-    <%= link_to 'Edit', edit_admin_person_historical_account_path(person, historical_account), class: "btn btn-default" %>
-    <%= button_to 'Delete',
+    <%= link_to "View", historical_account.public_path, class: "btn btn-default" %>
+    <%= link_to "Edit", edit_admin_person_historical_account_path(person, historical_account), class: "btn btn-default" %>
+    <%= button_to "Delete",
           admin_person_historical_account_path(person, historical_account),
           method: :delete,
           class: "btn btn-danger",

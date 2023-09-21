@@ -11,7 +11,7 @@
         id: "edition_role_appointment_speaker_on_govuk",
         text: "#{edition.authored_article? ? "Writer" : 'Speaker'} has a profile on GOV.UK",
         checked: edition.role_appointment_id.present?,
-        conditional: render("speaker_select_field", form:, edition:)
+        conditional: render("speaker_select_field", form:, edition:),
       },
       {
         value: "no",
@@ -23,8 +23,8 @@
           id: "edition_person_override",
           value: edition.person_override,
           error_items: errors_for(edition.errors, :person_override),
-        })
-      }
-    ]
+        }),
+      },
+    ],
   } %>
 </div>

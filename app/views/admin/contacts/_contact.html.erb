@@ -10,15 +10,14 @@
       if contact.missing_translations.any?
         [{
            label: "Add translation",
-           href: admin_organisation_contact_translations_path(contactable,contact)
+           href: admin_organisation_contact_translations_path(contactable,contact),
 
          }]
       end),
     {
       label: "Delete",
       href: polymorphic_path([:confirm_destroy, :admin, contactable, contact]),
-      destructive: true
-    }
-  ]
-}
-%>
+      destructive: true,
+    },
+  ],
+} %>

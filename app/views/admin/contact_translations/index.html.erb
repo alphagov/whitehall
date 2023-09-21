@@ -4,7 +4,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/title", {
       context: @contact.title,
-      title: "New translation"
+      title: "New translation",
     } %>
 
     <%= form_with url:admin_organisation_contact_translations_path(@contactable,@contact) do |form| %>
@@ -20,7 +20,7 @@
             text: language,
             value: value,
           }
-        end
+        end,
       } %>
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
@@ -29,12 +29,11 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "contact-translation-button",
-            "track-label": "Next"
-          }
+            "track-label": "Next",
+          },
         } %>
         <%= link_to("Cancel", [:admin, @contact.contactable, Contact], class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </div>
 </div>
-

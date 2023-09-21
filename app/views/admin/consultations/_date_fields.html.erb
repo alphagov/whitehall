@@ -39,8 +39,7 @@
           value: params.dig("edition", "opening_at(5i)")&.to_i || edition.opening_at&.min,
           id: "edition_opening_at_5i",
         },
-      }
-    %>
+      } %>
   <% end %>
 </div>
 
@@ -85,7 +84,6 @@
           value: params.dig("edition", "closing_at(5i)")&.to_i || edition.closing_at&.min,
           id: "edition_closing_at_5i",
         },
-      }
-    %>
+      } %>
   <% end %>
 </div>

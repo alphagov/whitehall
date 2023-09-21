@@ -1,11 +1,11 @@
-<% content_for :page_class, 'document-collection-groups edit' %>
-<% page_title 'Edit group' %>
+<% content_for :page_class, "document-collection-groups edit" %>
+<% page_title "Edit group" %>
 
 <div class="row">
   <section class="col-md-8">
     <h1>Edit group</h1>
 
-    <%= render partial: 'legacy_form', locals: { url: admin_document_collection_group_path(@collection, @group) } %>
+    <%= render partial: "legacy_form", locals: { url: admin_document_collection_group_path(@collection, @group) } %>
   </section>
   <div class="col-md-4">
     <%= legacy_simple_formatting_sidebar hide_inline_attachments_help: true, show_attachments_tab_help: false %>

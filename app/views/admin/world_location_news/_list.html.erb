@@ -1,7 +1,7 @@
 <ul class="world-locations">
   <% world_locations.each do |world_location| %>
     <%= content_tag_for(:li, world_location) do %>
-      <%= link_to world_location.name, admin_world_locations_path(anchor: "world_location_#{world_location.id}"), class: 'location-link' %>
+      <%= link_to world_location.name, admin_world_locations_path(anchor: "world_location_#{world_location.id}"), class: "location-link" %>
     <% end %>
   <% end %>
 </ul>

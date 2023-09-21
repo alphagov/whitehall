@@ -15,9 +15,9 @@
             {
               value: office.id,
               text: office.title,
-              checked: office == @worldwide_organisation.main_office
+              checked: office == @worldwide_organisation.main_office,
             }
-          end
+          end,
         } %>
       <% else %>
         <div class="app-view-worldwide-organisations-choose-main-office__select govuk-!-margin-bottom-8">
@@ -34,9 +34,9 @@
               {
                 value: office.id,
                 text: office.title,
-                selected: office == @worldwide_organisation.main_office
+                selected: office == @worldwide_organisation.main_office,
               }
-            end
+            end,
           } %>
         </div>
       <% end %>
@@ -48,8 +48,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "worldwide-organisation-set-main-office-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
 
         <%= link_to "Cancel", admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class:"govuk-link govuk-link--no-visited-state" %>

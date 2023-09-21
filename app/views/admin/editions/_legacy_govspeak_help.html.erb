@@ -24,11 +24,11 @@
       <% end %>
     </dl>
   </section>
-  <% initialise_script "GOVUK.govspeakLinkErrors", selector: '#link-errors' %>
+  <% initialise_script "GOVUK.govspeakLinkErrors", selector: "#link-errors" %>
 <% end %>
 
 <% if link_check_report.present? %>
-  <%= render 'admin/link_check_reports/link_check_report_legacy', report: link_check_report %>
+  <%= render "admin/link_check_reports/link_check_report_legacy", report: link_check_report %>
 <% end %>
 
 <div data-module="gem-track-click" data-track-category="formatting-help" data-track-action="formatting-help-link" data-track-selector="a[data-toggle]">
@@ -245,10 +245,9 @@
     <p>You can also embed contact information:</p>
     <pre>[Contact:<em>n</em>]</pre>
     <p>(n is the ID of the contact you want to embed.)</p>
-    <p>You can find the ID on the list of contacts for an <%= link_to 'organisation', admin_organisations_path %> or <%= link_to 'worldwide organisation', admin_worldwide_organisations_path %> or you can type ‘[Contact: ’ and then type a keyword to find your contact (if it exists).</p>
+    <p>You can find the ID on the list of contacts for an <%= link_to "organisation", admin_organisations_path %> or <%= link_to "worldwide organisation", admin_worldwide_organisations_path %> or you can type ‘[Contact: ’ and then type a keyword to find your contact (if it exists).</p>
     <p>If it doesn’t exist you will have to add it (see your ‘Publishing explained’ guidance). </p>
   </div>
-
 
   <h3><a data-toggle="collapse" href="#govspeak-email-links" aria-expanded="false">Email links</a></h3>
   <div class="collapse" id="govspeak-email-links">

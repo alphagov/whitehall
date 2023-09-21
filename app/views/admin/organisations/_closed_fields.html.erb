@@ -9,39 +9,39 @@
     {
       text: "No longer exists",
       value: "no_longer_exists",
-      selected: organisation.govuk_closed_status == "no_longer_exists"
+      selected: organisation.govuk_closed_status == "no_longer_exists",
     },
     {
       text: "Replaced",
       value: "replaced",
-      selected: organisation.govuk_closed_status == "replaced"
+      selected: organisation.govuk_closed_status == "replaced",
     },
     {
       text: "Split into parts",
       value: "split",
-      selected: organisation.govuk_closed_status == "split"
+      selected: organisation.govuk_closed_status == "split",
     },
     {
       text: "Merged with other organisation",
       value: "merged",
-      selected: organisation.govuk_closed_status == "merged"
+      selected: organisation.govuk_closed_status == "merged",
     },
     {
       text: "Change of name",
       value: "changed_name",
-      selected: organisation.govuk_closed_status == "changed_name"
+      selected: organisation.govuk_closed_status == "changed_name",
     },
     {
       text: "Left central government",
       value: "left_gov",
-      selected: organisation.govuk_closed_status == "left_gov"
+      selected: organisation.govuk_closed_status == "left_gov",
     },
     {
       text: "Devolved to regional government",
       value: "devolved",
-      selected: organisation.govuk_closed_status == "devolved"
-    }
-  ]
+      selected: organisation.govuk_closed_status == "devolved",
+    },
+  ],
 } %>
 
 <%= render "components/autocomplete", {
@@ -74,24 +74,24 @@
   date_heading: "Closed date",
   year: {
     id: "organisation_closed_at_1i",
-    value: params.dig('organisation', 'closed_at(1i)') || organisation.closed_at&.year,
+    value: params.dig("organisation", "closed_at(1i)") || organisation.closed_at&.year,
     name: "organisation[closed_at(1i)]",
     label: "Year",
     width: 4,
   },
   month: {
     id: "organisation_closed_at_2i",
-    value: params.dig('organisation', 'closed_at(2i)') || organisation.closed_at&.month,
+    value: params.dig("organisation", "closed_at(2i)") || organisation.closed_at&.month,
     name: "organisation[closed_at(2i)]",
     label: "Month",
     width: 2,
   },
   day: {
     id: "organisation_closed_at_3i",
-    value: params.dig('organisation', 'closed_at(3i)') || organisation.closed_at&.day,
+    value: params.dig("organisation", "closed_at(3i)") || organisation.closed_at&.day,
     name: "organisation[closed_at(3i)]",
     label: "Day",
     width: 2,
   },
-  error_items: errors_for(organisation.errors, :closed_at)
+  error_items: errors_for(organisation.errors, :closed_at),
 } %>

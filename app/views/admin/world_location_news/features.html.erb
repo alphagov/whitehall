@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: :admin_world_location_news_index
+    href: :admin_world_location_news_index,
   } %>
 <% end %>
 <% content_for :page_title, @world_location_news.name %>
@@ -9,13 +9,13 @@
 <% content_for :title_margin_bottom, 4 %>
 
 <p class="govuk-body">
-  <%= link_to "View on website", @world_location_news.public_url({locale: params[:locale]}.merge(cachebust_url_options)), class: "govuk-link", target: "_blank" %>
+  <%= link_to "View on website", @world_location_news.public_url({locale: params[:locale]}.merge(cachebust_url_options)), class: "govuk-link", target: "_blank", rel: "noopener" %>
 </p>
 
 <div class="govuk-!-margin-bottom-8">
   <%= render "components/secondary_navigation", {
     aria_label: "World location news navigation tabs",
-    items: secondary_navigation_tabs_items(@world_location_news, request.path)
+    items: secondary_navigation_tabs_items(@world_location_news, request.path),
   } %>
 </div>
 
@@ -34,12 +34,12 @@
         module: "gem-track-click",
         "track-category": "tab",
         "track-action": "world-location-news-features-tab",
-        "track-label": "Currently featured"
+        "track-label": "Currently featured",
       },
       content: render(Admin::CurrentlyFeaturedTabComponent.new(
         features: @feature_list.features.current,
-        maximum_featured_documents: @world_location_news.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT
-      ))
+        maximum_featured_documents: @world_location_news.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT,
+      )),
     },
     {
       id: "documents_tab",
@@ -48,7 +48,7 @@
         module: "gem-track-click",
         "track-category": "tab",
         "track-action": "world-location-news-features-tab",
-        "track-label": "Documents"
+        "track-label": "Documents",
       },
       content: render("admin/shared/featurable_editions",
         filter: @filter,
@@ -67,13 +67,13 @@
         module: "gem-track-click",
         "track-category": "tab",
         "track-action": "world-location-news-features-tab",
-        "track-label": "Non-GOV.UK government links"
+        "track-label": "Non-GOV.UK government links",
       },
       content: render("admin/feature_lists/featureable_offsite_links",
         model: @world_location_news,
         featurable_offsite_links: featurable_offsite_links_for_feature_list(@featurable_offsite_links, @feature_list),
         featuring_path: [:new, :admin, @feature_list, :feature],
       ),
-    }
-  ]
+    },
+  ],
 } %>

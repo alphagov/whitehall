@@ -14,7 +14,7 @@
 
 <% unless remove_banner %>
   <%= render "govuk_publishing_components/components/inset_text", {
-    text: "Only the first #{visible_links} links will be shown on the public site."
+    text: "Only the first #{visible_links} links will be shown on the public site.",
   } %>
 <% end %>
 
@@ -25,7 +25,7 @@
         <%= render "components/translated_input", {
           input: {
             label: {
-              text: "Title"
+              text: "Title",
             },
             heading_size: "m",
             value: featured_link_form.object.title,
@@ -34,7 +34,7 @@
           },
           details: {
             text: featured_link_form.object.title,
-          }
+          },
         } %>
 
         <%= render "components/translated_input", {
@@ -49,12 +49,12 @@
           },
           details: {
             text: featured_link_form.object.url,
-          }
+          },
         } %>
       <% else %>
         <%= render "govuk_publishing_components/components/input", {
           label: {
-            text: "Title"
+            text: "Title",
           },
           heading_size: "m",
           value: featured_link_form.object.title,

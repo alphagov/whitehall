@@ -178,6 +178,13 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
+    erb_lint (0.5.0)
+      activesupport
+      better_html (>= 2.0.1)
+      parser (>= 2.7.1.4)
+      rainbow
+      rubocop
+      smart_properties
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
@@ -958,6 +965,7 @@ DEPENDENCIES
   database_cleaner-active_record
   diffy
   equivalent-xml
+  erb_lint
   factory_bot
   fog-aws
   friendly_id

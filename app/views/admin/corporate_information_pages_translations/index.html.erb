@@ -3,7 +3,7 @@
   <nav class="actions">
     <% if @missing_locales.any? %>
       <%= form_tag [:admin, @organisational_entity, @corporate_information_page, :translations] do %>
-        <%= label_tag :translation_locale, 'Locale' %>
+        <%= label_tag :translation_locale, "Locale" %>
         <%= select_locale :translation_locale, @missing_locales %>
         <%= submit_tag "Create translation", class: "btn btn-primary" %>
       <% end %>
@@ -26,7 +26,7 @@
           <%= link_to locale.native_language_name, [ :edit, :admin, @organisational_entity, @corporate_information_page, locale ] %> (<%= link_to "view", polymorphic_path([@organisational_entity, @corporate_information_page], format: locale) %>)
         </td>
         <td class="actions">
-          <%= button_to 'Delete',
+          <%= button_to "Delete",
                 [ :admin, @organisational_entity, @corporate_information_page, locale ],
                 method: :delete,
                 class: "btn btn-danger",

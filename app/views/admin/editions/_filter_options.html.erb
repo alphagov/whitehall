@@ -33,9 +33,9 @@
           {
             text: name,
             value: id,
-            selected: @filter.options[:author] == id.to_s || (@filter.options[:author].blank? && name == "All authors")
+            selected: @filter.options[:author] == id.to_s || (@filter.options[:author].blank? && name == "All authors"),
           }
-        end
+        end,
       } %>
     <% end %>
 
@@ -59,9 +59,9 @@
           {
             text: name,
             value: id,
-            selected: @filter.options[:world_location].to_s == id.to_s
+            selected: @filter.options[:world_location].to_s == id.to_s,
           }
-        end
+        end,
       } %>
     <% end %>
 
@@ -85,9 +85,9 @@
           {
             text: text,
             value: value,
-            selected: @filter.options[:state] == value
+            selected: @filter.options[:state] == value,
           }
-        end
+        end,
       } %>
     <% end %>
 
@@ -107,7 +107,7 @@
         name: "from_date",
         id: "from_date",
         value: params["from_date"],
-        hint: "For example, 23/07/2013"
+        hint: "For example, 23/07/2013",
       } %>
 
       <%= render "govuk_publishing_components/components/input", {
@@ -118,7 +118,7 @@
         name: "to_date",
         id: "to_date",
         value: params["to_date"],
-        hint: "For example, 23/08/2013"
+        hint: "For example, 23/08/2013",
       } %>
     <% end %>
 
@@ -132,8 +132,8 @@
             value: "1",
             bold: true,
             checked: params["only_broken_links"],
-          }
-        ]
+          },
+        ],
       } %>
     <% end %>
 
@@ -147,8 +147,8 @@
             value: "1",
             bold: true,
             checked: params["review_overdue"],
-          }
-        ]
+          },
+        ],
       } %>
     <% end %>
 
@@ -159,8 +159,8 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "edition-filter-button",
-        "track-label": "Search"
-      }
+        "track-label": "Search",
+      },
     } %>
 
     <p class="govuk-body">

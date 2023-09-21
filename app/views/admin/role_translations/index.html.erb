@@ -14,28 +14,28 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Language"
+              text: "Language",
             },
             {
               text: tag.span("Actions", class: "govuk-visually-hidden"),
-            }
+            },
           ],
           rows: @role.non_english_translated_locales.map do |locale|
             [
               {
-                text: locale.native_and_english_language_name
+                text: locale.native_and_english_language_name,
               },
               {
                 text: link_to(sanitize("Edit #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), edit_admin_role_translation_path(@role, locale.code), class: "govuk-link") +
-                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_role_translation_path(@role, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")
-              }
+                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_role_translation_path(@role, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2"),
+              },
             ]
-          end
+          end,
         } %>
       </div>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No translations."
+        text: "No translations.",
       } %>
     <% end %>
     <% if @role.missing_translations.any? %>
@@ -50,7 +50,7 @@
               value: locale.code,
               text: Locale.coerce(locale).native_and_english_language_name,
             }
-          end
+          end,
         } %>
         <%= render "govuk_publishing_components/components/button", {
           text: "Create new translation",
@@ -58,8 +58,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "role-translations-button",
-            "track-label": "Create new translation"
-          }
+            "track-label": "Create new translation",
+          },
         } %>
       <% end %>
     <% end %>

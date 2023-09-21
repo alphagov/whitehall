@@ -13,32 +13,32 @@
             {
               text: service.name,
               value: service.id,
-              selected: social_media_account.social_media_service_id == service.id
+              selected: social_media_account.social_media_service_id == service.id,
             }
-          end
+          end,
         } %>
       <% end %>
 
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "URL (required)"
+          text: "URL (required)",
         },
         id: "social_media_account_url",
         name: "social_media_account[url]",
         value: social_media_account.url,
         heading_size: "l",
-        error_items: errors_for(social_media_account.errors, :url)
+        error_items: errors_for(social_media_account.errors, :url),
       } %>
 
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Title"
+          text: "Title",
         },
         id: "social_media_account_title",
         name: "social_media_account[title]",
         value: social_media_account.title,
         heading_size: "l",
-        error_items: errors_for(social_media_account.errors, :title)
+        error_items: errors_for(social_media_account.errors, :title),
       } %>
 
       <%= form.hidden_field :locale, value: I18n.locale %>
@@ -50,8 +50,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "#{socialable.class.name.demodulize.underscore.dasherize}social-media-account-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
 
         <%= link_to("Cancel", [:admin, socialable, SocialMediaAccount], class: "govuk-link govuk-link--no-visited-state") %>

@@ -13,7 +13,7 @@
           error_items: errors_for(historical_account.errors, :summary),
         },
         id: "historical_account_summary",
-        maxlength: 160
+        maxlength: 160,
       } %>
 
       <%= render "components/autocomplete", {
@@ -38,7 +38,7 @@
 
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Born"
+          text: "Born",
         },
         id: "historical_account_born",
         name: "historical_account[born]",
@@ -49,7 +49,7 @@
 
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Died"
+          text: "Died",
         },
         id: "historical_account_died",
         name: "historical_account[died]",
@@ -61,7 +61,7 @@
       <%= render "components/govspeak-editor", {
         label: {
           heading_size: "l",
-          text: "Body (required)"
+          text: "Body (required)",
         },
         id: "historical_account_body",
         name: "historical_account[body]",
@@ -101,8 +101,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "historical-account-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
 
         <%= link_to("Cancel", admin_person_historical_accounts_path(person), class: "govuk-link govuk-link--no-visited-state") %>

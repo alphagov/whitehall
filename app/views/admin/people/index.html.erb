@@ -9,7 +9,7 @@
 <%= render "govuk_publishing_components/components/button", {
   text: "Create new person",
   href: new_admin_person_path,
-  margin_bottom: 8
+  margin_bottom: 8,
 } %>
 
 <div class="app-c-govuk-table--filterable app-view-people-index__table govuk-table--with-actions">
@@ -18,7 +18,7 @@
     label: "Filter people",
     head: [
       {
-        text: "Name"
+        text: "Name",
       },
       {
         text: "Biography",
@@ -37,8 +37,8 @@
         },
         {
           text: link_to(sanitize("View #{tag.span(person.name, class: "govuk-visually-hidden")}"), [:admin, person], class: "govuk-link"),
-        }
+        },
       ]
-    end
+    end,
   } %>
 </div>

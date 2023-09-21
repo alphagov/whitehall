@@ -9,10 +9,10 @@
     rows: organisations.map do |organisation|
       [
         {
-          text: tag.p(organisation.name, class: "govuk-!-margin-0 govuk-!-font-weight-bold")
+          text: tag.p(organisation.name, class: "govuk-!-margin-0 govuk-!-font-weight-bold"),
         },
       ]
-    end
+    end,
   } %>
 <% else %>
   <p class="govuk-body">None</p>

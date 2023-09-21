@@ -1,6 +1,6 @@
 <section class="edition-view-edit-buttons">
-  <%= render 'admin/shared/bootstrap/button_dropdown',
-              button_text: @edition.publicly_visible? ? 'View on website' : 'Preview on website',
+  <%= render "admin/shared/bootstrap/button_dropdown",
+              button_text: @edition.publicly_visible? ? "View on website" : "Preview on website",
               links: related_policy_links(@edition) %>
 
   <% if @edition.editable? %>

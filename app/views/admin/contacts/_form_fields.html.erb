@@ -2,71 +2,71 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Address",
     heading_level: 2,
-    heading_size: "l"
+    heading_size: "l",
   } do %>
     <div class="govuk-!-margin-bottom-4">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Recipient"
+          text: "Recipient",
         },
         name: "#{name}[recipient]",
         id: "#{id}_recipient",
         heading_size: "m",
         hint: "Organisation, division, team, unit or person name",
         value: contact_form.object.recipient,
-        error_items: errors_for(contact_form.object.errors, :recipient)
+        error_items: errors_for(contact_form.object.errors, :recipient),
       } %>
     </div>
 
     <div class="govuk-!-margin-bottom-4">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Street address"
+          text: "Street address",
         },
         name: "#{name}[street_address]",
         id: "#{id}_street_address",
         heading_size: "m",
         value: contact_form.object.street_address,
-        error_items: errors_for(contact_form.object.errors, :street_address)
+        error_items: errors_for(contact_form.object.errors, :street_address),
       } %>
     </div>
 
     <div class="govuk-!-margin-bottom-4">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Town or city"
+          text: "Town or city",
         },
         name: "#{name}[locality]",
         id: "#{id}_locality",
         heading_size: "m",
         value: contact_form.object.locality,
-        error_items: errors_for(contact_form.object.errors, :locality)
+        error_items: errors_for(contact_form.object.errors, :locality),
       } %>
     </div>
 
     <div class="govuk-!-margin-bottom-4">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "State or county"
+          text: "State or county",
         },
         name: "#{name}[region]",
         id: "#{id}_region",
         heading_size: "m",
         value: contact_form.object.region,
-        error_items: errors_for(contact_form.object.errors, :region)
+        error_items: errors_for(contact_form.object.errors, :region),
       } %>
     </div>
 
     <div class="govuk-!-margin-bottom-4">
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Postal code"
+          text: "Postal code",
         },
         name: "#{name}[postal_code]",
         id: "#{id}_postal_code",
         heading_size: "m",
         value: contact_form.object.postal_code,
-        error_items: errors_for(contact_form.object.errors, :postal_code)
+        error_items: errors_for(contact_form.object.errors, :postal_code),
       } %>
     </div>
 
@@ -76,7 +76,7 @@
         {
           value: location.id,
           text: location.name,
-          selected: contact_form.object.country_id == location.id
+          selected: contact_form.object.country_id == location.id,
         }
       end)
     %>
@@ -89,7 +89,7 @@
         full_width: true,
         heading_size: "m",
         error_message: errors_for_input(contact_form.object.errors, :country_id),
-        options: options
+        options: options,
       } %>
     </div>
   <% end %>
@@ -106,22 +106,22 @@
         <div class=" js-duplicate-fields-set govuk-!-margin-bottom-4">
           <%= render "govuk_publishing_components/components/input", {
             label: {
-              text: "Label"
+              text: "Label",
             },
             name: "#{name}[contact_numbers_attributes][#{contact_number_form.index}][label]",
             id: "#{id}_contact_numbers_attributes_#{contact_number_form.index}_label",
             heading_size: "m",
-            value: contact_number_form.object.label
+            value: contact_number_form.object.label,
           } %>
 
           <%= render "govuk_publishing_components/components/input", {
             label: {
-              text: "Number"
+              text: "Number",
             },
             name: "#{name}[contact_numbers_attributes][#{contact_number_form.index}][number]",
             id: "#{id}_contact_numbers_attributes_#{contact_number_form.index}_number",
             heading_size: "m",
-            value: contact_number_form.object.number
+            value: contact_number_form.object.number,
           } %>
         </div>
       <% end %>

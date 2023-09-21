@@ -2,7 +2,6 @@
 <% content_for :title, "Fact check request" %>
 <% content_for :context, @edition.title %>
 
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/inset_text", {
@@ -14,16 +13,16 @@
         {
           id: "document_tab",
           label: "Document",
-          content: render('admin/editions/edition', edition: @edition)
+          content: render("admin/editions/edition", edition: @edition),
         },
         *(if @edition.attachments.present?
             [{
               id: "attachment_tab",
               label: "Attachments",
-              content: render('show_attachments', edition: @edition)
+              content: render("show_attachments", edition: @edition),
             }]
           end),
-      ]
+      ],
     } %>
   </div>
 
@@ -45,7 +44,7 @@
       } %>
 
       <%= render "govuk_publishing_components/components/button", {
-        text: "Submit"
+        text: "Submit",
       } %>
     <% end %>
   </div>

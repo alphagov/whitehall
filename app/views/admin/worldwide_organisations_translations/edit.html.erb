@@ -8,7 +8,7 @@
       <%= render "components/translated_input", {
         input: {
           label: {
-            text: "Name (required)"
+            text: "Name (required)",
           },
           name: "worldwide_organisation[name]",
           id: "worldwide_organisation_name",
@@ -21,7 +21,7 @@
         },
         details: {
           text: @english_worldwide_organisation.name,
-        }
+        },
       } %>
 
       <div class="govuk-button-group govuk-!-margin-top-8">
@@ -31,8 +31,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "worldwide-organisation-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
 
         <%= link_to "Cancel", admin_worldwide_organisation_translations_path(@english_worldwide_organisation), class: "govuk-link govuk-link--no-visited-state" %>

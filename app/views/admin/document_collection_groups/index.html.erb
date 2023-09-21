@@ -6,7 +6,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render "components/secondary_navigation", {
       aria_label: "Document navigation tabs",
-      items: secondary_navigation_tabs_items(@collection, request.path)
+      items: secondary_navigation_tabs_items(@collection, request.path),
     } %>
 
     <%= render "components/summary_card_component", {
@@ -18,14 +18,14 @@
           actions: [
             {
               label: "View",
-              href:  admin_document_collection_group_members_path(@collection, group)
+              href:  admin_document_collection_group_members_path(@collection, group),
             },
             *([{
               label: "Delete",
               href: confirm_destroy_admin_document_collection_group_path(@collection, group),
-              destructive: true
-            }] if @collection.groups.many?)
-          ]
+              destructive: true,
+            }] if @collection.groups.many?),
+          ],
         }
       end,
       summary_card_actions: [
@@ -35,8 +35,8 @@
         },
         {
           label: "Reorder group",
-          href: reorder_admin_document_collection_groups_path(@collection)
-        }
+          href: reorder_admin_document_collection_groups_path(@collection),
+        },
       ],
     } %>
   </div>

@@ -4,7 +4,7 @@
 
 <div class="govuk-!-margin-bottom-6">
   <%= render "govuk_publishing_components/components/warning_text", {
-    text: "Do not create ministerial roles without consulting GDS."
+    text: "Do not create ministerial roles without consulting GDS.",
   } %>
 </div>
 
@@ -12,25 +12,25 @@
   title: "Create new role",
   text: "Create new role",
   href: new_admin_role_path,
-  margin_bottom: 6
+  margin_bottom: 6,
 } %>
 <div class="app-view-roles__page-list">
 <%= render "govuk_publishing_components/components/table", {
   head: [
     {
-      text: "Name"
+      text: "Name",
     },
     {
-      text: "Organisations"
+      text: "Organisations",
     },
     {
-      text: "Currently appointed"
+      text: "Currently appointed",
     },
     {
-      text: "Translations"
+      text: "Translations",
     },
     {
-      text: tag.span("Actions", class: "govuk-visually-hidden")
+      text: tag.span("Actions", class: "govuk-visually-hidden"),
     },
   ],
   rows: @roles.map do |role|
@@ -39,7 +39,7 @@
         text: tag.span(role.name, class: "govuk-!-font-weight-bold"),
       },
       {
-        text: role.organisation_names
+        text: role.organisation_names,
       },
       {
         text:
@@ -47,13 +47,13 @@
             ""
           else
             role.current_person_name
-          end
+          end,
       },
       {
         text:
           content_tag_for(:div, role) do
             link_to(sanitize("Manage #{tag.span(role.name, class: "govuk-visually-hidden")}"), admin_role_translations_path(role), title: "Manage translations of #{role.name}", class: "govuk-link")
-          end
+          end,
       },
       {
         text: link_to(sanitize("Edit #{tag.span(role.name, class: "govuk-visually-hidden")}"), edit_admin_role_path(role), title: "Edit role #{role.name}", class: "govuk-link") +
@@ -61,9 +61,9 @@
             link_to(sanitize("Delete #{tag.span(role.name, class: "govuk-visually-hidden")}"), confirm_destroy_admin_role_path(role), class: "govuk-link govuk-link--no-visited-state gem-link--destructive govuk-!-margin-left-2")
           else
             ""
-          end
+          end,
       },
     ]
-  end
+  end,
 } %>
 </div>

@@ -1,11 +1,11 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_organisations_path
+    href: admin_organisations_path,
   } %>
 <% end %>
 <% content_for :page_title, "#{@organisation.name}" %>
 <% content_for :title, @organisation.name %>
-<% content_for :context, organisation_context_block(current_user, @organisation)  %>
+<% content_for :context, organisation_context_block(current_user, @organisation) %>
 <% content_for :title_margin_bottom, 4 %>
 
 <div class="govuk-grid-row">
@@ -16,7 +16,7 @@
 
     <%= render "components/secondary_navigation", {
       aria_label: "Organisation navigation tabs",
-      items: secondary_navigation_tabs_items(@organisation, request.path)
+      items: secondary_navigation_tabs_items(@organisation, request.path),
     } %>
   </div>
 
@@ -32,29 +32,29 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Language"
+              text: "Language",
             },
             {
               text: tag.span("Actions", class: "govuk-visually-hidden"),
-            }
+            },
           ],
           rows: @organisation.non_english_translated_locales.map do |locale|
             [
               {
-                text: locale.native_and_english_language_name
+                text: locale.native_and_english_language_name,
               },
               {
                 text: link_to(sanitize("View #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), @organisation.public_url(draft: true, locale: locale.code), class: "govuk-link") +
                   link_to(sanitize("Edit #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), edit_admin_organisation_translation_path(@organisation, locale.code), class: "govuk-link govuk-!-margin-left-2") +
-                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_translation_path(@organisation, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")
-              }
+                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_translation_path(@organisation, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2"),
+              },
             ]
-          end
+          end,
         } %>
       </div>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No translations."
+        text: "No translations.",
       } %>
     <% end %>
 
@@ -70,7 +70,7 @@
               value: locale.code,
               text: Locale.coerce(locale).native_and_english_language_name,
             }
-          end
+          end,
         } %>
 
         <%= render "govuk_publishing_components/components/button", {
@@ -79,8 +79,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "organisations-translations-button",
-            "track-label": "Create new translation"
-          }
+            "track-label": "Create new translation",
+          },
         } %>
       <% end %>
     <% end %>

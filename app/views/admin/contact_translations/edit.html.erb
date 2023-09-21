@@ -16,11 +16,11 @@
           value: @translated_contact.title,
           error_items: errors_for(form.object.errors, :title),
           right_to_left: @translated_contact.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @english_contact.title
-        }
+          text: @english_contact.title,
+        },
       } %>
 
       <%= render "components/translated_textarea", {
@@ -34,11 +34,11 @@
           value: @translated_contact.comments,
           error_items: errors_for(form.object.errors, :comments),
           right_to_left: @translated_contact.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @english_contact.comments
-        }
+          text: @english_contact.comments,
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -52,11 +52,11 @@
           value: @translated_contact.recipient,
           error_items: errors_for(form.object.errors, :recipient),
           right_to_left: @translated_contact.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @english_contact.recipient
-        }
+          text: @english_contact.recipient,
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -70,11 +70,11 @@
           value: @translated_contact.street_address,
           error_items: errors_for(form.object.errors, :street_address),
           right_to_left: @translated_contact.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
          details: {
-          text: @english_contact.street_address
-        }
+          text: @english_contact.street_address,
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -88,11 +88,11 @@
           value: @translated_contact.locality,
           error_items: errors_for(form.object.errors, :locality),
           right_to_left: @translated_contact.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @english_contact.locality
-        }
+          text: @english_contact.locality,
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -106,11 +106,11 @@
           value: @translated_contact.region,
           error_items: errors_for(form.object.errors, :region),
           right_to_left: @translated_contact.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @english_contact.region
-        }
+          text: @english_contact.region,
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -124,11 +124,11 @@
           value: @translated_contact.email,
           error_items: errors_for(form.object.errors, :email),
           right_to_left: @translated_contact.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @english_contact.email
-        }
+          text: @english_contact.email,
+        },
       } %>
 
       <%= render "components/translated_input", {
@@ -142,11 +142,11 @@
           value: @translated_contact.contact_form_url,
           error_items: errors_for(form.object.errors, :contact_form_url),
           right_to_left: @translated_contact.translation_locale.rtl?,
-          right_to_left_help: false
+          right_to_left_help: false,
         },
         details: {
-          text: @english_contact.contact_form_url
-        }
+          text: @english_contact.contact_form_url,
+        },
       } %>
 
       <div class="govuk-!-margin-bottom-8 app-view-contacts__phone">
@@ -161,7 +161,7 @@
             <%= render "components/translated_input", {
               input: {
                 label: {
-                  text: "Label"
+                  text: "Label",
                 },
                 name: "contact[contact_numbers_attributes][#{number_form.index}][label]",
                 id: "contact_contact_number_#{number_form.index}_label",
@@ -169,17 +169,17 @@
                 heading_size: "m",
                 error_items: errors_for(number_form.object.errors, :label),
                 right_to_left: number_form.object.translation_locale.rtl?,
-                right_to_left_help: false
+                right_to_left_help: false,
               },
               details: {
-                text: number_form.object.label
-              }
+                text: number_form.object.label,
+              },
             } %>
 
             <%= render "components/translated_input", {
               input: {
                 label: {
-                  text: "Number"
+                  text: "Number",
                 },
                 name: "contact[contact_numbers_attributes][#{number_form.index}][number]",
                 id: "contact_contact_number_#{number_form.index}_number",
@@ -187,11 +187,11 @@
                 heading_size: "m",
                 error_items: errors_for(number_form.object.errors, :number),
                 right_to_left: number_form.object.translation_locale.rtl?,
-                right_to_left_help: false
+                right_to_left_help: false,
               },
                details: {
-                text: number_form.object.number
-              }
+                text: number_form.object.number,
+              },
             } %>
           <% end %>
         <% end %>
@@ -204,8 +204,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
-            "track-label": "Save"
-          }
+            "track-label": "Save",
+          },
         } %>
 
         <%= link_to "Cancel", admin_organisation_contacts_path(@contactable,translation_locale), class: "govuk-link govuk-link--no-visited-state" %>

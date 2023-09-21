@@ -2,7 +2,7 @@
   id ||= nil
   items ||= []
 %>
-<%= tag.nav class: "app-c-secondary-navigation", id: id, role: 'navigation', aria: { label: aria_label } do %>
+<%= tag.nav class: "app-c-secondary-navigation", id: id, role: "navigation", aria: { label: aria_label } do %>
   <%= tag.ul class: "app-c-secondary-navigation__list" do %>
     <% items.each do |item| %>
       <%

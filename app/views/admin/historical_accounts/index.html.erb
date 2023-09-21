@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_people_path
+    href: admin_people_path,
   } %>
 <% end %>
 <% content_for :page_title, "#{@person.name} historical accounts" %>
@@ -12,7 +12,7 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @person.current_role_appointments_title.present? %>
       <%= render "govuk_publishing_components/components/lead_paragraph", {
-        text: @person.current_role_appointments.collect(&:role_name).to_sentence
+        text: @person.current_role_appointments.collect(&:role_name).to_sentence,
       } %>
     <% end %>
 
@@ -22,7 +22,7 @@
 
     <%= render "components/secondary_navigation", {
      aria_label: "People navigation tabs",
-     items: secondary_navigation_tabs_items(@person, request.path)
+     items: secondary_navigation_tabs_items(@person, request.path),
     } %>
 
     <%= render "govuk_publishing_components/components/heading", {
@@ -36,14 +36,14 @@
         <%= render "govuk_publishing_components/components/table", {
           head: [
             {
-              text: "Role"
+              text: "Role",
             },
             {
-              text: "Summary"
+              text: "Summary",
             },
             {
               text: tag.span("Actions", class: "govuk-visually-hidden"),
-            }
+            },
           ],
           rows:
             [
@@ -58,9 +58,9 @@
                   text: link_to(sanitize("View #{tag.span(@historical_account.role.name, class: 'govuk-visually-hidden')}"), Whitehall.public_host + @historical_account.public_path, class: "govuk-link") +
                     link_to(sanitize("Edit #{tag.span(@historical_account.role.name, class: 'govuk-visually-hidden')}"), edit_admin_person_historical_account_path(@person, @historical_account), class: "govuk-link govuk-!-margin-left-2") +
                     link_to(sanitize("Delete #{tag.span(@historical_account.role.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_person_historical_account_path(@person, @historical_account), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive"),
-                }
-              ]
-            ]
+                },
+              ],
+            ],
         } %>
       </div>
     <% elsif @person.can_have_historical_accounts? %>
@@ -71,11 +71,11 @@
       } %>
 
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No historical accounts."
+        text: "No historical accounts.",
       } %>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "This person does not have any role appointments in roles that support historical accounts."
+        text: "This person does not have any role appointments in roles that support historical accounts.",
       } %>
     <% end %>
   </div>

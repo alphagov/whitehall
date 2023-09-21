@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_organisations_path
+    href: admin_organisations_path,
   } %>
 <% end %>
 <% content_for :page_title, @organisation.name %>
@@ -15,11 +15,11 @@
 <div class="govuk-!-margin-bottom-6">
   <%= render "components/secondary_navigation", {
     aria_label: "Organisation navigation tabs",
-    items: secondary_navigation_tabs_items(@organisation, request.path)
+    items: secondary_navigation_tabs_items(@organisation, request.path),
   } %>
   <%= render "govuk_publishing_components/components/heading", {
     text: "People",
-    font_size: "l"
+    font_size: "l",
   } %>
 </div>
 
@@ -32,8 +32,7 @@
       @traffic_commissioner_organisation_roles,
       @chief_professional_officer_roles,
       @military_organisation_roles,
-    ].select(&:any?).any?
-    %>
+    ].select(&:any?).any? %>
       <%= render "govuk_publishing_components/components/tabs", {
         tabs: [
           *(people_tab(@ministerial_organisation_roles, "Ministers", "ministerial") if @ministerial_organisation_roles.any?),
@@ -42,11 +41,11 @@
           *(people_tab(@traffic_commissioner_organisation_roles, "Traffic commissioners", "traffic_commissioner") if @traffic_commissioner_organisation_roles.any?),
           *(people_tab(@chief_professional_officer_roles, "Chief professional officers", "chief_professional_officer") if @chief_professional_officer_roles.any?),
           *(people_tab(@military_organisation_roles, "Military", "military") if @military_organisation_roles.any?),
-        ]
+        ],
       } %>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No people are associated with this organisation."
+        text: "No people are associated with this organisation.",
       } %>
     <% end %>
   </div>

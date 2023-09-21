@@ -23,12 +23,12 @@
             {
               text: language,
               value: value,
-              selected: edition.primary_locale == value
+              selected: edition.primary_locale == value,
             }
-          end
-        })
-      }
-    ]
+          end,
+        }),
+      },
+    ],
   } %>
 
   <% if edition.is_a?(NewsArticle) %>

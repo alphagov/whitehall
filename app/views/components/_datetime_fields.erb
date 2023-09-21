@@ -51,7 +51,7 @@
     id: date_id,
     hint: date_hint,
     error_items: error_items,
-    items: [day, month, year]
+    items: [day, month, year],
   } %>
 
   <% unless date_only %>
@@ -67,7 +67,7 @@
     <% if time_hint %>
       <%= render "govuk_publishing_components/components/hint", {
         text: time_hint,
-        id: time_hint_id
+        id: time_hint_id,
       } %>
     <% end %>
 
@@ -83,12 +83,12 @@
                         {
                           include_blank: true,
                           prefix: prefix,
-                          field_name: "#{field_name}(4i)"
+                          field_name: "#{field_name}(4i)",
                         },
                         {
                           id: hour_select_id,
                           class: "govuk-select app-c-datetime-fields__date-time-input",
-                          "aria-describedby": "#{hour_label_id} #{time_hint_id if time_hint.present?}".strip
+                          "aria-describedby": "#{hour_label_id} #{time_hint_id if time_hint.present?}".strip,
                         } %>
       </div>
 
@@ -105,12 +105,12 @@
                           {
                             include_blank: true,
                             prefix: prefix,
-                            field_name: "#{field_name}(5i)"
+                            field_name: "#{field_name}(5i)",
                           },
                           {
                             id: minute_select_id,
                             class: "govuk-select app-c-datetime-fields__date-time-input",
-                            "aria-describedby": "#{minute_label_id} #{time_hint_id if time_hint.present?}".strip
+                            "aria-describedby": "#{minute_label_id} #{time_hint_id if time_hint.present?}".strip,
                           } %>
       </div>
     </div>

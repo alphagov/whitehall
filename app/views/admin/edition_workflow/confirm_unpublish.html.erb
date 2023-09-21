@@ -9,7 +9,7 @@
     withdrawn: {
       id: UnpublishingReason::Withdrawn.id,
       value: UnpublishingReason::Withdrawn,
-      label: "Withdraw: no longer current government policy/activity"
+      label: "Withdraw: no longer current government policy/activity",
     },
     published_in_error: {
       id: UnpublishingReason::PublishedInError.id,
@@ -37,7 +37,7 @@
       image_ids: @edition.images.map { |img| img[:id] }.to_json,
       attachment_ids: @edition.allows_attachments? ? @edition.attachments.map(&:id) : [],
       alternative_format_provider_id: (@edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-    }
+    },
   })
 %>
 
@@ -72,7 +72,7 @@
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:withdrawn][:label],
       } do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:withdrawn][:id] %>
+        <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:withdrawn][:id] %>
 
         <% if @previous_withdrawals.any? %>
           <%
@@ -106,7 +106,7 @@
               </ul>
             "),
             items: items,
-            error_items: errors_for(@unpublishing.errors, :previous_withdrawal_id)
+            error_items: errors_for(@unpublishing.errors, :previous_withdrawal_id),
           } %>
         <% else %>
           <%= withdrawal_public_explanation_field %>
@@ -127,7 +127,7 @@
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:published_in_error][:label],
       } do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:published_in_error][:id] %>
+        <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:published_in_error][:id] %>
 
         <%= render "govuk_publishing_components/components/input", {
           label: {
@@ -137,7 +137,7 @@
           name: "unpublishing[alternative_url]",
           id: "published_in_error_alternative_url",
           value: @unpublishing.alternative_url,
-          error_items: errors_for(@unpublishing.errors, :alternative_url)
+          error_items: errors_for(@unpublishing.errors, :alternative_url),
         } %>
         <%= render "govuk_publishing_components/components/checkboxes", {
           name: "unpublishing[redirect]",
@@ -146,8 +146,8 @@
               label: "Redirect to URL automatically?",
               value: 1,
               checked: @unpublishing.redirect,
-            }
-          ]
+            },
+          ],
         } %>
 
         <%= render "components/govspeak-editor", {
@@ -164,7 +164,7 @@
             image_ids: @edition.images.map { |img| img[:id] }.to_json,
             attachment_ids: @edition.allows_attachments? ? @edition.attachments.map(&:id) : [],
             alternative_format_provider_id: (@edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-          }
+          },
         } %>
 
         <div class="govuk-button-group govuk-!-margin-bottom-6">
@@ -183,7 +183,7 @@
         module: "unpublish-tracking",
         "unpublish-reason-label": unpublish_reasons[:consolidated][:label],
       } do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:consolidated][:id] %>
+        <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:consolidated][:id] %>
 
         <%= render "govuk_publishing_components/components/input", {
           label: {
@@ -194,7 +194,7 @@
           name: "unpublishing[alternative_url]",
           hint: "This will be automatically redirected",
           value: @unpublishing.alternative_url,
-          error_items: errors_for(@unpublishing.errors, :alternative_url)
+          error_items: errors_for(@unpublishing.errors, :alternative_url),
         } %>
 
         <div class="govuk-button-group govuk-!-margin-bottom-6">

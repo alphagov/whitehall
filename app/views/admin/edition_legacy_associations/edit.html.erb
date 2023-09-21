@@ -8,7 +8,7 @@
     <%= form_for @edition, url: admin_edition_legacy_associations_path(@edition), as: :edition, method: :put,
         html: { class: edition_form_classes(@edition) } do |form| %>
 
-      <%= render 'specialist_sector_fields', form: form, edition: @edition %>
+      <%= render "specialist_sector_fields", form: form, edition: @edition %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
@@ -16,8 +16,8 @@
           data_attributes: {
             module: "gem-track-click",
             "track-category": "form-button",
-            "track-action": "publication-button"
-          }
+            "track-action": "publication-button",
+          },
         } %>
 
         <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>

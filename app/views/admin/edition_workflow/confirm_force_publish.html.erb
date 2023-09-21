@@ -6,9 +6,9 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <%= form_tag force_publish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: 'well force-publish-form' do %>
+    <%= form_tag force_publish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "well force-publish-form" do %>
       <%= render "govuk_publishing_components/components/warning_text", {
-        text: "You should only force publish documents when no other editor is available to review and publish your work, for example out of hours or in an emergency."
+        text: "You should only force publish documents when no other editor is available to review and publish your work, for example out of hours or in an emergency.",
       } %>
 
       <%= render "govuk_publishing_components/components/input", {

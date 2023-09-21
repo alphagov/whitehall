@@ -3,7 +3,7 @@
     legend_text: edition.allows_image_attachments? ? "Images and Attachments" : "Attachments",
     heading_size: "l",
     id: "edition_alternative_format_provider",
-    error_message: errors_for_input(edition.errors, :alternative_format_provider)
+    error_message: errors_for_input(edition.errors, :alternative_format_provider),
   } do %>
     <% if edition.new_record? %>
       <p class="govuk-body">
@@ -40,8 +40,8 @@
           <% taggable_alternative_format_providers_container.each do |name, id| %>
             <option
               value="<%= id %>"
-              <%="disabled='disabled'" if name.end_with?('(-)') %>
-              <%="selected" if (id == edition.alternative_format_provider_id || (edition.alternative_format_provider_id.blank? && id == current_user.organisation.try(:id))) %>>
+              <%= "disabled='disabled'" if name.end_with?("(-)") %>
+              <%= "selected" if (id == edition.alternative_format_provider_id || (edition.alternative_format_provider_id.blank? && id == current_user.organisation.try(:id))) %>>
               <%= name %>
             </option>
           <% end %>

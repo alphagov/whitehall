@@ -44,13 +44,12 @@
           value: minute_param ? minute_param.to_i : edition.delivered_on&.min,
           id: "edition_delivered_on_5i",
         },
-      }
-    %>
+      } %>
   <% end %>
 
   <div class="app-view-edit-edition__delivered-on-warning js-app-view-edit-edition__delivered-on-warning app-view-edit-edition__delivered-on-warning--hidden govuk-!-margin-top-6" aria-live="polite">
     <%= render "govuk_publishing_components/components/warning_text", {
-      text: "You have set the date in the future, please ensure that this will not be published before this date."
+      text: "You have set the date in the future, please ensure that this will not be published before this date.",
     } %>
   </div>
 </div>

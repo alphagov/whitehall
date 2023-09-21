@@ -5,21 +5,21 @@
     <%= render "govuk_publishing_components/components/google_tag_manager_script", {
       gtm_id: ENV["GOOGLE_TAG_MANAGER_ID"],
       gtm_auth: ENV["GOOGLE_TAG_MANAGER_AUTH"],
-      gtm_preview: ENV["GOOGLE_TAG_MANAGER_PREVIEW"]
+      gtm_preview: ENV["GOOGLE_TAG_MANAGER_PREVIEW"],
     } %>
   <% end %>
 <% end %>
 
 <% if user_signed_in? %>
   <% content_for :head do %>
-    <meta name="custom-dimension:8" content="<%= current_user.organisation_slug.presence || '(not set)' %>">
+    <meta name="custom-dimension:8" content="<%= current_user.organisation_slug.presence || "(not set)" %>">
   <% end %>
 <% end %>
 
-<%= render 'govuk_publishing_components/components/layout_for_admin',
+<%= render "govuk_publishing_components/components/layout_for_admin",
   product_name: "Whitehall Publisher",
   environment: environment,
-  browser_title: ("Error: " unless yield(:error_summary).blank?).to_s + sanitize((yield(:page_title).presence || yield(:title))) do %>
+  browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitize((yield(:page_title).presence || yield(:title))) do %>
 
   <!-- This element exists to initialise the JS module that configures custom Analytics behaviour -->
   <div data-module="app-analytics"></div>
@@ -34,14 +34,14 @@
 
   <div class="govuk-width-container">
     <%= render "shared/phase_banner", {
-        show_feedback_banner: t('admin.feedback.show_banner'),
-        ga4_tracking: true
+        show_feedback_banner: t("admin.feedback.show_banner"),
+        ga4_tracking: true,
       } %>
 
     <%= yield(:back_link) %>
     <%= yield(:breadcrumbs) %>
 
-    <main class="govuk-main-wrapper<%= " govuk-main-wrapper--l" if yield(:back_link).blank? && yield(:breadcrumbs).blank?%>" id="main-content" role="main">
+    <main class="govuk-main-wrapper<%= " govuk-main-wrapper--l" if yield(:back_link).blank? && yield(:breadcrumbs).blank? %>" id="main-content" role="main">
 
       <%= render Admin::FlashNoticeComponent.new(message: flash[:notice], html_safe: flash["html_safe"]) if flash[:notice] %>
       <%= render Admin::FlashAlertComponent.new(message: flash[:alert], html_safe: flash["html_safe"]) if flash[:alert] && yield(:error_summary).blank? %>
@@ -91,14 +91,14 @@
         items: [
           {
             href: Plek.external_url_for("support"),
-            text: "Raise a support request"
+            text: "Raise a support request",
           },
           {
             href: "https://www.gov.uk/government/content-publishing",
-            text: "How to write, publish, and improve content"
-          }
-        ]
-      }
-    ]
+            text: "How to write, publish, and improve content",
+          },
+        ],
+      },
+    ],
   } %>
 <% end %>

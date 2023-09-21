@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@edition)
+    href: admin_edition_path(@edition),
   } %>
 <% end %>
 <% content_for :context, @edition.title %>
@@ -16,7 +16,7 @@
     <div class="govuk-!-margin-bottom-5">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Title",
-        margin_bottom: 3
+        margin_bottom: 3,
       } %>
 
       <div class="govuk-body app-view-audit-trail__history-comparison">
@@ -27,7 +27,7 @@
     <div class="govuk-!-margin-bottom-5">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Summary",
-        margin_bottom: 3
+        margin_bottom: 3,
       } %>
 
       <div class="govuk-body app-view-audit-trail__history-comparison">
@@ -38,7 +38,7 @@
     <div class="govuk-!-margin-bottom-5">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Body",
-        margin_bottom: 3
+        margin_bottom: 3,
       } %>
 
       <div class="govuk-body app-view-audit-trail__history-comparison">

@@ -23,8 +23,8 @@
       <%
         item_label = item[:label] ? item[:label] : index + 1
         item_aria_label = item[:label] ? item[:label] : "Page #{item_label}"
-        item_aria_label = item[:aria_label].present? ? item[:aria_label] : item_aria_label
-        list_item_classes = ["govuk-pagination__item"]
+        item_aria_label = (item[:aria_label].presence || item_aria_label)
+        list_item_classes = %w[govuk-pagination__item]
         list_item_classes << "govuk-pagination__item--current" if item[:current]
         list_item_classes << "govuk-pagination__item--ellipses" if item[:ellipses]
       %>
@@ -40,7 +40,7 @@
             aria: {
               label: item_aria_label,
               current: item[:current] ? "page" : nil,
-            }
+            },
           ) %>
         <% end %>
       <% end %>

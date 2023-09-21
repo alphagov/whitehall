@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_organisations_path
+    href: admin_organisations_path,
   } %>
 <% end %>
 <% content_for :page_title, @contactable.name %>
@@ -14,7 +14,7 @@
 
 <%= render "components/secondary_navigation", {
   aria_label: "Organisation navigation tabs",
-  items: secondary_navigation_tabs_items(@contactable, request.path)
+  items: secondary_navigation_tabs_items(@contactable, request.path),
 } %>
 
 <%= render "govuk_publishing_components/components/heading", {
@@ -32,19 +32,18 @@
     module: "gem-track-click",
     "track-category": "form-button",
     "track-action": "contact-button",
-    "track-label": "Add contact"
-  }
+    "track-label": "Add contact",
+  },
 } %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if @contactable.contacts.present? %>
       <%= render "govuk_publishing_components/components/tabs", {
-        tabs: contact_tabs(@contactable.contacts, @contactable)
-      }
-      %>
+        tabs: contact_tabs(@contactable.contacts, @contactable),
+      } %>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: "No Contacts"
+        text: "No Contacts",
       } %>
     <% end %>
   </div>

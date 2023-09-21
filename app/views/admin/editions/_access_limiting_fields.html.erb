@@ -2,7 +2,7 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Limit access",
     heading_level: 3,
-    heading_size: "l"
+    heading_size: "l",
   } do %>
     <%= form.hidden_field :access_limited, value: "0" %>
 
@@ -15,8 +15,8 @@
           label: "Limit access to publishers from organisations associated with this document before you publish",
           value: 1,
           checked: edition.access_limited,
-        }
-      ]
+        },
+      ],
     } %>
-  <% end %>  
+  <% end %>
 </div>

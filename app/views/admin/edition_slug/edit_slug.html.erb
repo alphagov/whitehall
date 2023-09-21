@@ -15,7 +15,7 @@
           "changes the documents slug",
           "reindexes the document with it's new slug",
           "republishes the document to Publishing API (automatically handles the redirect)",
-        ]
+        ],
       } %>
 
       <%= render "govuk_publishing_components/components/input", {
@@ -26,11 +26,11 @@
         name: "document[slug]",
         id: "document_slug",
         value: params.dig("document", "slug") || @document.slug,
-        error_items: errors_for(@document.errors, :slug)
+        error_items: errors_for(@document.errors, :slug),
       } %>
 
       <%= render "govuk_publishing_components/components/button", {
-        text: "Update"
+        text: "Update",
       } %>
     <% end %>
   </div>

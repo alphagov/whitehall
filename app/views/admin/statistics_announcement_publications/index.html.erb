@@ -19,19 +19,19 @@
       <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
       <hr class="govuk-section-break--m">
       <%= render "govuk_publishing_components/components/table", {
-        id: 'table',
+        id: "table",
         rows:
           @filter.editions.map do |edition|
             [{
-               text: edition.title
+               text: edition.title,
              },
              {
-               text: link_to("View", admin_edition_path(edition), class: "govuk-link")
+               text: link_to("View", admin_edition_path(edition), class: "govuk-link"),
              },
              {
-               text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, title: params[:title]) , class: "govuk-link")
+               text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, title: params[:title]) , class: "govuk-link"),
              }]
-          end
+          end,
       } %>
       <%= paginate(@filter.editions, theme: "govuk_paginator") %>
     <% end %>

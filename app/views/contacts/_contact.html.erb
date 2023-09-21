@@ -13,13 +13,13 @@
     <div>
       <% if contact.email.present? %>
         <p class="govuk-body govuk-!-margin-bottom-4">
-          <%= t('contact.email') %> <%= mail_to contact.email, contact.email, class: "govuk-link" %>
+          <%= t("contact.email") %> <%= mail_to contact.email, contact.email, class: "govuk-link" %>
         </p>
       <% end %>
 
       <% if contact.contact_form_url.present? %>
         <p class="govuk-body govuk-!-margin-bottom-4">
-          <%= t('contact.contact_form') %> <%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url, class: "govuk-link" %>
+          <%= t("contact.contact_form") %> <%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url, class: "govuk-link" %>
         </p>
       <% end %>
 
@@ -37,9 +37,9 @@
 
   <% if contact.is_a?(WorldwideOffice) && contact.access_and_opening_times_body.present? %>
     <%
-      fallback = t_fallback('contact.access_and_opening_times')
+      fallback = t_fallback("contact.access_and_opening_times")
       lang = fallback if fallback && fallback != I18n.locale
     %>
-    <p class="govuk-body"><%= link_to t('contact.access_and_opening_times'), contact.public_url, class: "govuk-link", lang: lang %></p>
+    <p class="govuk-body"><%= link_to t("contact.access_and_opening_times"), contact.public_url, class: "govuk-link", lang: lang %></p>
   <% end %>
 <% end %>

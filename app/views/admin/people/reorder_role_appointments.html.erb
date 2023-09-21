@@ -1,4 +1,4 @@
-<% content_for :page_title, "Reorder current role appointments"%>
+<% content_for :page_title, "Reorder current role appointments" %>
 <% content_for :title, "Reorder current role appointments" %>
 <% content_for :context, @person.name %>
 
@@ -11,13 +11,13 @@
           items: @role_appointments.map do |role_appointment|
             {
               id: role_appointment.id,
-              title: role_appointment.role.name
+              title: role_appointment.role.name,
             }
-          end
+          end,
         } %>
 
         <%= render "govuk_publishing_components/components/button", {
-          text: "Update order"
+          text: "Update order",
         } %>
       <% end %>
     <% else %>

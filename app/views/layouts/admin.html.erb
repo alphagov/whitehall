@@ -1,7 +1,7 @@
 <% environment_style = GovukAdminTemplate.environment_style %>
 <% environment_label = GovukAdminTemplate.environment_label %>
 
-<% content_for :app_title, 'GOV.UK Whitehall' %>
+<% content_for :app_title, "GOV.UK Whitehall" %>
 <% content_for :page_title, page_title %>
 <% content_for :favicon do %>
   <%= favicon_link_tag environment_style ?
@@ -13,7 +13,7 @@
     <%= render "govuk_publishing_components/components/google_tag_manager_script", {
       gtm_id: ENV["GOOGLE_TAG_MANAGER_ID"],
       gtm_auth: ENV["GOOGLE_TAG_MANAGER_AUTH"],
-      gtm_preview: ENV["GOOGLE_TAG_MANAGER_PREVIEW"]
+      gtm_preview: ENV["GOOGLE_TAG_MANAGER_PREVIEW"],
     } %>
   <% end %>
   <%= stylesheet_link_tag "admin_legacy.css", integrity: false %>
@@ -46,14 +46,18 @@
 <% content_for :body_end do %>
   <%= javascript_include_tag "admin_legacy" %>
   <% initialise_script "GOVUK.adminGlobalInitialiser" %>
-  <%= javascript_tag(yield :javascript_initialisers) %>
+  <script>
+//<![CDATA[
+<%== yield :javascript_initialisers %>
+//]]>
+</script>
 <% end %>
 
 <% if user_signed_in? && current_user.has_email? %>
   <% content_for :before_pageview_js do %>
-    GOVUKAdmin.setDimension(8, "<%= current_user.organisation_slug.present? ? current_user.organisation_slug : '(not set)' %>")
+    GOVUKAdmin.setDimension(8, "<%= current_user.organisation_slug.presence || "(not set)" %>")
   <% end %>
 <% end %>
 
 <%# use the govuk_admin_template layout %>
-<%= render :template => 'layouts/govuk_admin_template' %>
+<%= render :template => "layouts/govuk_admin_template" %>

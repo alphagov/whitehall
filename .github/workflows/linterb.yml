@@ -1,0 +1,19 @@
+name: Run erblint
+
+on: workflow_call
+
+jobs:
+  run-erb-lint:
+    name: Run ERB lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run erblint
+        run: bundle exec erblint --lint-all

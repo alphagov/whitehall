@@ -9,7 +9,7 @@
 <% else %>
   <div class="row">
     <div class="col-md-7">
-      <%= paginate @filter.editions, theme: 'twitter-bootstrap-3' %>
+      <%= paginate @filter.editions, theme: "twitter-bootstrap-3" %>
     </div>
     <div class="col-md-5">
       <div class="publishing-stats">
@@ -47,7 +47,7 @@
     </thead>
     <tbody>
       <% @filter.editions.each do |edition| %>
-        <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
+        <%= content_tag_for(:tr, edition, class: ("force_published" if edition.force_published?)) do %>
           <% unless @filter.hide_type %>
             <td class="type"><%= edition_type(edition) %></td>
           <% end %>
@@ -56,8 +56,8 @@
             <% if edition.non_english_edition? %>
               (<%= edition.primary_locale %>)
             <% end %>
-            <% # TODO: remove unpublishing information once we have a separate state for unpublished editions
-              if edition.unpublishing.present? %>
+            <%# TODO: remove unpublishing information once we have a separate state for unpublished editions %>
+            <% if edition.unpublishing.present? %>
               unpublished <%= time_ago_in_words(edition.unpublishing.created_at) %> ago
             <% end %>
             <% if edition.force_published? %>
@@ -85,7 +85,7 @@
   </table>
   <div class="row">
     <div class="col-md-7">
-      <%= paginate @filter.editions, theme: 'twitter-bootstrap-3' %>
+      <%= paginate @filter.editions, theme: "twitter-bootstrap-3" %>
     </div>
     <div class="col-md-5">
       <% if show_export && can?(:export, Edition) %>

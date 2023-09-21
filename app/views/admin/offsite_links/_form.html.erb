@@ -22,7 +22,6 @@
     error_message: errors_for_input(offsite_link.errors, :summary),
   } %>
 
-
   <%= render "govuk_publishing_components/components/select", {
     id: "offsite_link_link_type",
     name: "offsite_link[link_type]",
@@ -36,7 +35,7 @@
         value: type,
         selected: type == offsite_link.link_type,
       }
-    end
+    end,
   } %>
 
   <%= render "components/datetime_fields", {
@@ -51,21 +50,21 @@
       value: params.dig("offsite_link", "date(1i)") || offsite_link.date&.year,
       name: "offsite_link[date(1i)]",
       label: "Year",
-      width: 4
+      width: 4,
     },
     month: {
       id: "offsite_link_date_2i",
       value: params.dig("offsite_link", "date(2i)") || offsite_link.date&.month,
       name: "offsite_link[date(2i)]",
       label: "Month",
-      width: 2
+      width: 2,
     },
     day: {
       id: "offsite_link_date_3i",
       value: params.dig("offsite_link", "date(3i)") || offsite_link.date&.day,
       name: "offsite_link[date(3i)]",
       label: "Day",
-      width: 2
+      width: 2,
     },
   } %>
 
@@ -87,8 +86,8 @@
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "offsite-link-button",
-        "track-label": "Save"
-      }
+        "track-label": "Save",
+      },
     } %>
 
     <% if parent.is_a?(Organisation) || parent.is_a?(WorldLocationNews) %>

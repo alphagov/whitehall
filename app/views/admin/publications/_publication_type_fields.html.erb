@@ -19,7 +19,7 @@
       [
         "Use discouraged",
         PublicationType.use_discouraged,
-      ]
+      ],
     ]
     .map do |group|
       [
@@ -30,9 +30,9 @@
             value: publication_type.id,
             selected: edition.publication_type_id == publication_type.id,
           }
-        end
+        end,
       ]
-    end
+    end,
   } %>
 
   <% if edition.publication_type_id.present? %>

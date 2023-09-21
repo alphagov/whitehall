@@ -10,11 +10,11 @@
 
       <%= render "govuk_publishing_components/components/file_upload", {
         label: {
-          text: "Zip file"
+          text: "Zip file",
         },
         name: "bulk_upload_zip_file[zip_file]",
         id: "zip_file_zip_file",
-        error_items: errors_for(@zip_file.errors, :zip_file)
+        error_items: errors_for(@zip_file.errors, :zip_file),
       } %>
 
       <div class="govuk-button-group">
@@ -24,8 +24,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "zip-file-button",
-            "track-label": "Upload zip"
-          }
+            "track-label": "Upload zip",
+          },
         } %>
 
         <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>

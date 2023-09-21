@@ -5,9 +5,8 @@
 <% content_for :error_summary,
   render(Admin::ErrorSummaryComponent.new(
     object: @world_location_news.errors.reject { |error|error.is_a?(ActiveModel::NestedError) },
-    parent_class: "world_location_news")
-  )
-%>
+    parent_class: "world_location_news"),
+  ) %>
 
 <div class="govuk-!-margin-bottom-8">
   <div class="govuk-grid-row">
@@ -29,13 +28,13 @@
 
           <%= render "govuk_publishing_components/components/input", {
             label: {
-              text: "Title (required)"
+              text: "Title (required)",
             },
             value: @world_location_news.title,
             name: "world_location_news[title]",
             id: "world_location_news_title",
             heading_size: "l",
-            error_items: errors_for(@world_location_news.errors, :title)
+            error_items: errors_for(@world_location_news.errors, :title),
           } %>
 
           <%= render "components/govspeak-editor", {
@@ -55,18 +54,18 @@
               {
                 label: "Active (can visitors click through from the world location list?)",
                 checked: @world_location.active?,
-                value: 1
-              }
-            ]
+                value: 1,
+              },
+            ],
           } %>
         <% end %>
 
         <%= render "govuk_publishing_components/components/heading", {
           text: "Featured links",
-          font_size: "l"
+          font_size: "l",
         } %>
 
-        <%= render 'admin/shared/featured_link_fields', form: form %>
+        <%= render "admin/shared/featured_link_fields", form: form %>
 
         <div class="govuk-button-group govuk-!-margin-top-8">
           <%= render "govuk_publishing_components/components/button", {
@@ -75,8 +74,8 @@
               module: "gem-track-click",
               "track-category": "form-button",
               "track-action": "world-location-news-button",
-              "track-label": "Save"
-            }
+              "track-label": "Save",
+            },
           } %>
           <%= link_to("Cancel", admin_world_location_news_path(@world_location_news), class: "govuk-link") %>
         </div>

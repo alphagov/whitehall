@@ -21,14 +21,14 @@
   <% if select_helper.hint %>
     <%= render "govuk_publishing_components/components/hint", {
       id: select_helper.hint_id,
-      text: hint
+      text: hint,
     } %>
   <% end %>
 
   <% if select_helper.error_message %>
     <%= render "govuk_publishing_components/components/error_message", {
       id: select_helper.error_id,
-      text: select_helper.error_message
+      text: select_helper.error_message,
     } %>
   <% end %>
 

@@ -1,7 +1,7 @@
 <div class="govuk-!-margin-bottom-8">
   <%= hidden_field_tag :scheduled_publication_active, 0, id: "" %>
 
-  <% ## The date input needs a custom edition_scheduled_publication id passed into the day input so we can anchor error to the first input. %>
+  <%# The date input needs a custom edition_scheduled_publication id passed into the day input so we can anchor error to the first input. %>
 
   <%
     hour_param = params.dig("edition", "scheduled_publication(4i)")
@@ -12,7 +12,7 @@
     name: "scheduled_publication_active",
     id: "scheduled_publication_active",
     heading: "Schedule publication",
-    heading_size: 'l',
+    heading_size: "l",
     error_items: errors_for(edition.errors, :scheduled_publication_active),
     no_hint_text: true,
     items: [
@@ -56,8 +56,8 @@
                 value: minute_param ? minute_param.to_i : (edition.scheduled_publication&.min || 30),
                 id: "edition_scheduled_publication_5i",
               },
-            })
-      }
-    ]
+            }),
+      },
+    ],
   } %>
 </div>
