@@ -3,7 +3,6 @@
 <% content_for :context, @worldwide_office.title %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @translated_contact)) %>
 
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @translated_contact, as: :contact, url: admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, translation_locale), method: :put do |form| %>
