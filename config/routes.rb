@@ -36,9 +36,14 @@ Whitehall::Application.routes.draw do
           post :search_options, to: "document_collection_group_document_search#search"
           get :search_title_slug, to: "document_collection_group_document_search#search_title_slug"
           member { get :confirm_destroy }
-          resource :document_collection_group_membership, as: :members, path: "members", only: [:destroy]
-          resources :document_collection_group_memberships, path: "members", only: %i[index destroy] do
+          resource :document_collection_group_membership,
+                   as: :members,
+                   path: "members",
+                   only: [:destroy]
+          resources :document_collection_group_memberships, path: "members", only: %i[index destroy reorder] do
             get :confirm_destroy, on: :member
+            get :reorder, on: :collection
+            put :order, on: :collection
           end
           get :reorder, on: :collection
           put :order, on: :collection

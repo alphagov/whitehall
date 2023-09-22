@@ -19,18 +19,40 @@
       items: secondary_navigation_tabs_items(@group, request.path),
     } %>
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full app-view-document-collection-group-memberships-index__heading">
-        <%= render "govuk_publishing_components/components/heading", {
-          text: "Documents",
-          margin_bottom: 6,
-        } %>
+    <% if @group.memberships.many? %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full app-view-document-collection-group-memberships-index__heading ">
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Documents",
+            margin_bottom: 6,
+          } %>
 
-        <p class="govuk-body govuk-!-text-align-right">
-          <%= link_to "Add document", admin_document_collection_group_search_options_path(@collection, @group), class: "govuk-link" %>
-        </p>
+          <div class="app-view-document-collection-group-memberships-index__heading-links">
+            <p class="govuk-body govuk-!-text-align-right">
+              <%= link_to "Add document", admin_document_collection_group_search_options_path(@collection, @group), class: "govuk-link" %>
+            </p>
+
+            <p class="govuk-body govuk-!-text-align-right">
+              <%= link_to "Reorder document", reorder_admin_document_collection_group_document_collection_group_memberships_path(@collection, @group), class: "govuk-link" %>
+            </p>
+          </div>
+
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full app-view-document-collection-group-memberships-index__heading">
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Documents",
+            margin_bottom: 6,
+          } %>
+
+          <p class="govuk-body govuk-!-text-align-right">
+            <%= link_to "Add document", admin_document_collection_group_search_options_path(@collection, @group), class: "govuk-link" %>
+          </p>
+        </div>
+      </div>
+    <% end %>
 
     <% if @group.memberships.present? %>
       <div class="govuk-table--with-actions app-view-document-collection-group-memberships-index__table">

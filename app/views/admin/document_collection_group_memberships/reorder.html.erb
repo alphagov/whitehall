@@ -1,0 +1,35 @@
+<% content_for :page_title, "Reorder documents for #{@collection.title}" %>
+<% content_for :title, "Reorder documents" %>
+<% content_for :context, @group.heading %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= form_with url: order_admin_document_collection_group_document_collection_group_memberships_path(@collection, @group), method: :put do |form| %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Use the up and down buttons to reorder pages, or select and hold on a page to reorder using drag and drop.",
+        margin_bottom: 4,
+      } %>
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        items: @group.memberships.map do |membership|
+          {
+            id: membership.id,
+            title: membership.document.latest_edition.title
+          }
+        end
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "document-collection-groups-membership-reorder-button",
+            "track-label": "Save"
+          }
+        } %>
+        <%= link_to("Cancel", admin_document_collection_group_document_collection_group_memberships_path(@collection), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

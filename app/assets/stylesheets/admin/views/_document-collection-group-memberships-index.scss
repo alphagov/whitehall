@@ -10,3 +10,17 @@
     white-space: nowrap;
   }
 }
+
+.app-view-document-collection-group-memberships-index__heading-links {
+  display: flex;
+  align-items: center;
+
+  & > p:first-child  {
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid #b1b4b6;
+  }
+}
+
+
+
