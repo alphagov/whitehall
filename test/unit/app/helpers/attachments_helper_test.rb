@@ -18,14 +18,11 @@ class AttachmentsHelperTest < ActionView::TestCase
 
   test "block_attachments renders an array of rendered attachments and ignores attachments with missing assets" do
     alternative_format_contact_email = "test@example.com"
-    file_attachment_with_no_permissions = create(:file_attachment)
-    file_attachment_with_all_assets = create(:file_attachment_with_asset)
-    file_attachment_with_missing_assets = create(:file_attachment)
-    file_attachment_with_missing_assets.attachment_data.use_non_legacy_endpoints = true
+    file_attachment_with_all_assets = create(:file_attachment)
+    file_attachment_with_missing_assets = create(:file_attachment_with_no_assets)
     attachments = [
       create(:html_attachment),
       create(:external_attachment),
-      file_attachment_with_no_permissions,
       file_attachment_with_all_assets,
       file_attachment_with_missing_assets,
     ]
@@ -94,21 +91,6 @@ class AttachmentsHelperTest < ActionView::TestCase
     assert_equal expect_params, attachment_component_params(attachment)
   end
 
-  test "component params for previewable CSV attachment with legacy preview path" do
-    attachment = file_attachment("sample.csv", attachable: create(:edition))
-    expect_params = {
-      type: "file",
-      id: attachment.filename,
-      title: attachment.title,
-      url: attachment.url,
-      content_type: "text/csv",
-      filename: attachment.filename,
-      file_size: attachment.file_size,
-      preview_url: "#{Plek.external_url_for('assets-origin')}/government/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/sample.csv/preview",
-    }
-    assert_equal expect_params, attachment_component_params(attachment)
-  end
-
   test "component params for File attachment with reference fields" do
     attachment = file_attachment("sample.docx", {
       isbn: "0261102737",
@@ -170,9 +152,8 @@ class AttachmentsHelperTest < ActionView::TestCase
     assert_not accessible.key? :alternative_format_contact_email
   end
 
-  test "use_non_legacy_endpoints: component params for previewable CSV attachment when has no asset" do
-    attachment = file_attachment("sample.csv", attachable: create(:edition))
-    attachment.attachment_data.use_non_legacy_endpoints = true
+  test "attachment_component_params for previewable CSV" do
+    attachment = create(:csv_attachment, attachable: create(:edition))
     expect_params = {
       type: "file",
       id: attachment.filename,
@@ -181,21 +162,7 @@ class AttachmentsHelperTest < ActionView::TestCase
       content_type: "text/csv",
       filename: attachment.filename,
       file_size: attachment.file_size,
-    }
-    assert_equal expect_params, attachment_component_params(attachment)
-  end
-
-  test "use_non_legacy_endpoints: component params for previewable CSV attachment when has asset" do
-    attachment = create(:file_attachment, attachable: create(:edition), attachment_data: build(:attachment_data_with_csv_asset))
-    expect_params = {
-      type: "file",
-      id: attachment.filename,
-      title: attachment.title,
-      url: attachment.url,
-      content_type: "text/csv",
-      filename: attachment.filename,
-      file_size: attachment.file_size,
-      preview_url: "#{Plek.external_url_for('assets-origin')}/media/asset_manager_id_original/dft_statistical_data_set_sample.csv/preview",
+      preview_url: "#{Plek.external_url_for('assets-origin')}/media/asset_manager_id/sample.csv/preview",
     }
     assert_equal expect_params, attachment_component_params(attachment)
   end

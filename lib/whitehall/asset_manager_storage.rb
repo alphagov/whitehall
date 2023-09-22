@@ -54,7 +54,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     end
 
     def url
-      if @model && @model.respond_to?("use_non_legacy_endpoints") && @model.use_non_legacy_endpoints
+      if should_have_non_legacy_urls?
         asset_variant = @version ? Asset.variants[@version] : Asset.variants[:original]
         asset = @model.assets.select { |a| a.variant == asset_variant }.first
         if asset
@@ -84,12 +84,20 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     def zero_size?
       false
     end
+
+    def should_have_non_legacy_urls?
+      return unless @model
+
+      return true if @model.instance_of?(AttachmentData)
+
+      @model.respond_to?("use_non_legacy_endpoints") && @model.use_non_legacy_endpoints
+    end
   end
 
 private
 
   def should_save_an_asset?
-    (uploader.model.instance_of?(AttachmentData) || uploader.model.instance_of?(ImageData)) &&
-      uploader.model.use_non_legacy_endpoints
+    uploader.model.instance_of?(AttachmentData) ||
+      (uploader.model.instance_of?(ImageData) && uploader.model.use_non_legacy_endpoints)
   end
 end

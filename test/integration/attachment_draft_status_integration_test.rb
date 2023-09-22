@@ -11,247 +11,131 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     let(:filename) { "sample.docx" }
     let(:asset_manager_id) { "asset_manager_id" }
     let(:topic_taxon) { build(:taxon_hash) }
+    let(:variant) { Asset.variants[:original] }
 
-    context "updates with legacy_url_path" do
+    before do
+      login_as create(:managing_editor)
+      stub_publishing_api_has_linkables([], document_type: "topic")
+      stub_asset(asset_manager_id, draft: asset_initially_draft)
+    end
+
+    context "given a file attachment added after unpublishing" do
+      let(:attachable) { edition }
+      let(:attachment) { build(:file_attachment_with_asset, attachable:) }
+
       before do
-        login_as create(:managing_editor)
-        stub_publishing_api_has_linkables([], document_type: "topic")
-        stub_whitehall_asset(filename, id: asset_manager_id, draft: asset_initially_draft)
+        setup_publishing_api_for(edition)
+        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+        stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
       end
 
-      context "given a file attachment added after unpublishing" do
-        let(:file) { File.open(path_to_attachment(filename)) }
-        let(:attachable) { edition }
-        let(:attachment) { build(:file_attachment, attachable:, file:) }
+      context "on a draft document" do
+        let(:edition) { create(:news_article) }
+        let(:asset_initially_draft) { true }
 
-        before do
-          setup_publishing_api_for(edition)
-        end
-
-        context "on a draft document" do
-          let(:edition) { create(:news_article) }
-          let(:asset_initially_draft) { true }
-
-          it "marks attachment as draft in Asset Manager when document is unpublished then attachment added" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-            visit admin_news_article_path(edition)
-            force_publish_document
-            visit admin_news_article_path(edition)
-            unpublish_document_published_in_error
-            attachable.attachments << attachment
-            attachable.save!
-            Attachment.last.attachment_data.uploaded_to_asset_manager!
-            assert_sets_draft_status_in_asset_manager_to true
-          end
-        end
-      end
-
-      context "given a file attachment" do
-        let(:file) { File.open(path_to_attachment(filename)) }
-        let(:attachment) { build(:file_attachment, attachable:, file:) }
-        let(:attachable) { edition }
-
-        before do
-          setup_publishing_api_for(edition)
+        it "marks attachment as draft in Asset Manager when document is unpublished then attachment added" do
+          visit admin_news_article_path(edition)
+          force_publish_document
+          visit admin_news_article_path(edition)
+          unpublish_document_published_in_error
           attachable.attachments << attachment
           attachable.save!
-        end
+          Attachment.last.attachment_data.uploaded_to_asset_manager!
 
-        context "on a draft document" do
-          let(:edition) { create(:news_article) }
-          let(:asset_initially_draft) { true }
-
-          it "marks attachment as published in Asset Manager when document is published" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-            visit admin_news_article_path(edition)
-            force_publish_document
-            assert_sets_draft_status_in_asset_manager_to false
-          end
-        end
-
-        context "on a published document" do
-          let(:edition) { create(:published_news_article) }
-          let(:asset_initially_draft) { false }
-
-          it "does not mark attachment as draft in Asset Manager when document is unpublished" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-            visit admin_news_article_path(edition)
-            unpublish_document_published_in_error
-            refute_sets_draft_status_in_asset_manager_to true
-          end
-        end
-
-        context "on an outcome on a draft consultation" do
-          let(:edition) { create(:draft_consultation) }
-          let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
-          let(:attachable) { edition.create_outcome!(outcome_attributes) }
-          let(:asset_initially_draft) { true }
-
-          it "marks attachment as published in Asset Manager when consultation is published" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-            visit admin_consultation_path(edition)
-            force_publish_document
-            assert_sets_draft_status_in_asset_manager_to false
-          end
-        end
-
-        context "on a feedback on a draft consultation" do
-          let(:edition) { create(:draft_consultation) }
-          let(:feedback_attributes) { FactoryBot.attributes_for(:consultation_public_feedback) }
-          let(:attachable) { edition.create_public_feedback!(feedback_attributes) }
-          let(:asset_initially_draft) { true }
-
-          it "marks attachment as published in Asset Manager when consultation is published" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-            visit admin_consultation_path(edition)
-            force_publish_document
-            assert_sets_draft_status_in_asset_manager_to false
-          end
+          assert_sets_draft_status_in_asset_manager_to true
         end
       end
     end
 
-    context "updates with asset_manager_id" do
-      let(:variant) { Asset.variants[:original] }
+    context "given a file attachment" do
+      let(:attachment) { build(:file_attachment_with_asset, attachable:) }
+      let(:attachable) { edition }
 
       before do
-        login_as create(:managing_editor)
-        stub_publishing_api_has_linkables([], document_type: "topic")
-        stub_asset(asset_manager_id, draft: asset_initially_draft)
+        setup_publishing_api_for(edition)
+        attachable.attachments << attachment
+        attachable.save!
       end
 
-      context "given a file attachment added after unpublishing" do
-        let(:attachable) { edition }
-        let(:attachment) { build(:file_attachment_with_asset, attachable:) }
-
-        before do
-          setup_publishing_api_for(edition)
-        end
-
-        context "on a draft document" do
-          let(:edition) { create(:news_article) }
-          let(:asset_initially_draft) { true }
-
-          it "marks attachment as draft in Asset Manager when document is unpublished then attachment added" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-            visit admin_news_article_path(edition)
-            force_publish_document
-            visit admin_news_article_path(edition)
-            unpublish_document_published_in_error
-            attachable.attachments << attachment
-            attachable.save!
-            Attachment.last.attachment_data.uploaded_to_asset_manager!
-
-            assert_sets_draft_status_in_asset_manager_to true
-          end
-        end
-      end
-
-      context "given a file attachment" do
-        let(:attachment) { build(:file_attachment_with_asset, attachable:) }
-        let(:attachable) { edition }
-
-        before do
-          setup_publishing_api_for(edition)
-          attachable.attachments << attachment
-          attachable.save!
-        end
-
-        context "on a draft document" do
-          let(:edition) { create(:news_article) }
-          let(:asset_initially_draft) { true }
-
-          it "marks attachment as published in Asset Manager when document is published" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-            visit admin_news_article_path(edition)
-            force_publish_document
-            assert_sets_draft_status_in_asset_manager_to false
-          end
-        end
-
-        context "on a published document" do
-          let(:edition) { create(:published_news_article) }
-          let(:asset_initially_draft) { false }
-
-          it "does not mark attachment as draft in Asset Manager when document is unpublished" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-            visit admin_news_article_path(edition)
-            unpublish_document_published_in_error
-            refute_sets_draft_status_in_asset_manager_to true
-          end
-        end
-
-        context "on an outcome on a draft consultation" do
-          let(:edition) { create(:draft_consultation) }
-          let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
-          let(:attachable) { edition.create_outcome!(outcome_attributes) }
-          let(:asset_initially_draft) { true }
-
-          it "marks attachment as published in Asset Manager when consultation is published" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-            visit admin_consultation_path(edition)
-            force_publish_document
-            assert_sets_draft_status_in_asset_manager_to false
-          end
-        end
-
-        context "on a feedback on a draft consultation" do
-          let(:edition) { create(:draft_consultation) }
-          let(:feedback_attributes) { FactoryBot.attributes_for(:consultation_public_feedback) }
-          let(:attachable) { edition.create_public_feedback!(feedback_attributes) }
-          let(:asset_initially_draft) { true }
-
-          it "marks attachment as published in Asset Manager when consultation is published" do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-            visit admin_consultation_path(edition)
-            force_publish_document
-            assert_sets_draft_status_in_asset_manager_to false
-          end
-        end
-      end
-
-      context "given a policy group" do
-        let(:policy_group) { create(:policy_group) }
+      context "on a draft document" do
+        let(:edition) { create(:news_article) }
         let(:asset_initially_draft) { true }
 
-        before do
-          stub_create_asset(asset_manager_id)
+        it "marks attachment as published in Asset Manager when document is published" do
+          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
+
+          visit admin_news_article_path(edition)
+          force_publish_document
+          assert_sets_draft_status_in_asset_manager_to false
         end
+      end
 
-        it "marks attachment as published in Asset Manager when added to policy group" do
-          visit admin_policy_group_attachments_path(policy_group)
-          add_attachment(filename)
+      context "on a published document" do
+        let(:edition) { create(:published_news_article) }
+        let(:asset_initially_draft) { false }
 
-          AssetManagerCreateAssetWorker.drain
+        it "does not mark attachment as draft in Asset Manager when document is unpublished" do
+          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
+          visit admin_news_article_path(edition)
+          unpublish_document_published_in_error
+          refute_sets_draft_status_in_asset_manager_to true
+        end
+      end
+
+      context "on an outcome on a draft consultation" do
+        let(:edition) { create(:draft_consultation) }
+        let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
+        let(:attachable) { edition.create_outcome!(outcome_attributes) }
+        let(:asset_initially_draft) { true }
+
+        it "marks attachment as published in Asset Manager when consultation is published" do
+          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
+
+          visit admin_consultation_path(edition)
+          force_publish_document
+          assert_sets_draft_status_in_asset_manager_to false
+        end
+      end
+
+      context "on a feedback on a draft consultation" do
+        let(:edition) { create(:draft_consultation) }
+        let(:feedback_attributes) { FactoryBot.attributes_for(:consultation_public_feedback) }
+        let(:attachable) { edition.create_public_feedback!(feedback_attributes) }
+        let(:asset_initially_draft) { true }
+
+        it "marks attachment as published in Asset Manager when consultation is published" do
+          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
+
+          visit admin_consultation_path(edition)
+          force_publish_document
           assert_sets_draft_status_in_asset_manager_to false
         end
       end
     end
 
-  private
+    context "given a policy group" do
+      let(:policy_group) { create(:policy_group) }
+      let(:asset_initially_draft) { true }
 
-    def ends_with(expected)
-      ->(actual) { actual.end_with?(expected) }
+      before do
+        stub_create_asset(asset_manager_id)
+      end
+
+      it "marks attachment as published in Asset Manager when added to policy group" do
+        visit admin_policy_group_attachments_path(policy_group)
+        add_attachment(filename)
+
+        AssetManagerCreateAssetWorker.drain
+
+        assert_sets_draft_status_in_asset_manager_to false
+      end
     end
+
+  private
 
     def setup_publishing_api_for(edition)
       stub_publishing_api_has_links({ content_id: edition.document.content_id, links: {} })
@@ -259,13 +143,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
     def path_to_attachment(filename)
       fixture_path.join(filename)
-    end
-
-    def stub_whitehall_asset(filename, attributes = {})
-      url_id = "http://asset-manager/assets/#{attributes[:id]}"
-      Services.asset_manager.stubs(:whitehall_asset)
-              .with(&ends_with(filename))
-              .returns(attributes.merge(id: url_id).stringify_keys)
     end
 
     def stub_asset(asset_manger_id, attributes = {})

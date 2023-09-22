@@ -12,8 +12,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
     let(:anonymous_user) { nil }
 
     context "given an attachment" do
-      let(:file) { File.open(fixture_path.join("simple.pdf")) }
-      let(:attachment) { build(:file_attachment, attachable:, file:) }
+      let(:attachment) { create(:file_attachment, attachable:) }
       let(:attachment_data) { attachment.attachment_data }
 
       before do
@@ -121,9 +120,8 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
         context "when attachment is replaced" do
           before do
-            attributes = attributes_for(:attachment_data)
-            attributes[:to_replace_id] = attachment_data.id
-            attachment.update!(attachment_data_attributes: attributes)
+            replacement_attachment_data = build(:attachment_data_with_asset, to_replace_id: attachment_data.id)
+            attachment.update!(attachment_data: replacement_attachment_data)
           end
 
           it "is not deleted" do

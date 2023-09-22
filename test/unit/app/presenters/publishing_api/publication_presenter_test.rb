@@ -275,7 +275,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       :published_publication,
       :with_alternative_format_provider,
       attachments: [
-        attachment = build(:file_attachment, id: 1, title: "csv attachment", locale: "en", accessible: false),
+        attachment = build(:csv_attachment, id: 1, title: "csv attachment", locale: "en", accessible: false),
       ],
     )
     publication.stubs(:alternative_format_contact_email).returns("email-address")
@@ -294,12 +294,12 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       :published_publication,
       :with_alternative_format_provider,
       attachments: [
-        attachment = build(:file_attachment, id: 1, title: "csv attachment", locale: "en"),
+        attachment = build(:csv_attachment, id: 1, title: "csv attachment", locale: "en"),
       ],
     )
     attachment.stubs(:attachable).returns(publication)
     attachment.stubs(:attachment_data).returns(
-      attachment_data = build(:attachment_data, id: 42),
+      attachment_data = build(:attachment_data_for_csv, id: 42),
     )
     attachment_data.stubs(:csv?).returns(true)
 

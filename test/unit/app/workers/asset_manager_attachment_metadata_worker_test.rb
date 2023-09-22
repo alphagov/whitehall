@@ -4,12 +4,10 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe AssetManagerAttachmentMetadataWorker do
-    let(:file) { File.open(fixture_path.join("sample.rtf")) }
-    let(:attachment) { FactoryBot.create(:file_attachment, file:) }
-    let(:attachment_data) { attachment.attachment_data }
+    let(:attachment_data) { create(:attachment_data) }
     let(:worker) { AssetManagerAttachmentMetadataWorker.new }
 
-    it "calls AssetManager::AttachmentRedirectUrlUpdater" do
+    it "calls both updater and deleter" do
       AssetManager::AttachmentUpdater.expects(:call).with(
         attachment_data,
         access_limited: true,
@@ -25,10 +23,7 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
     end
 
     context "attachment data has missing assets" do
-      before do
-        attachment_data.use_non_legacy_endpoints = true
-        attachment_data.save!
-      end
+      let(:attachment_data) { create(:attachment_data_with_no_assets) }
 
       it "does not call updater" do
         AssetManager::AttachmentUpdater.expects(:call).never

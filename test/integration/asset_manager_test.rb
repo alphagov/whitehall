@@ -5,80 +5,42 @@ class AssetManagerIntegrationTest
     extend Minitest::Spec::DSL
 
     setup do
-      @filename = "960x640_jpeg.jpg"
-      @attachment = FactoryBot.build(
-        :file_attachment,
-        file: File.open(fixture_path.join("images", @filename)),
-      )
+      @filename = "sample.docx"
+      @attachment = FactoryBot.build(:file_attachment_with_asset)
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
     end
 
-    describe "use_non_legacy_endpoints is false" do
-      test "sends the attachment to Asset Manager" do
-        Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+    test "sends the attachment to Asset Manager" do
+      Services.asset_manager.expects(:create_asset).with { |args|
+        args[:file].path =~ /#{@filename}/
+      }.returns(@asset_manager_response)
 
-        Sidekiq::Testing.inline! do
-          @attachment.save!
-        end
-      end
-
-      test "marks the attachment as draft in Asset Manager" do
-        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
-
-        Sidekiq::Testing.inline! do
-          @attachment.save!
-        end
-      end
-
-      test "sends the user ids of authorised users to Asset Manager" do
-        organisation = FactoryBot.create(:organisation)
-        consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
-        @attachment.attachable = consultation
-        @attachment.attachment_data.attachable = consultation
+      Sidekiq::Testing.inline! do
         @attachment.save!
-
-        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id]))
-
-        AssetManagerCreateWhitehallAssetWorker.drain
       end
     end
 
-    describe "use_non_legacy_endpoints is true" do
-      setup do
-        @attachment.attachment_data.use_non_legacy_endpoints = true
-        @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
-      end
+    test "marks the attachment as draft in Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(draft: true))
+              .returns(@asset_manager_response)
 
-      test "sends the attachment to Asset Manager" do
-        Services.asset_manager.expects(:asset).with(anything).returns(@asset_manager_response)
-        Services.asset_manager.expects(:create_asset).with(file_matching(/#{@filename}/)).returns(@asset_manager_response)
-
-        Sidekiq::Testing.inline! do
-          @attachment.save!
-        end
-      end
-
-      test "marks the attachment as draft in Asset Manager" do
-        Services.asset_manager.expects(:asset).with(anything).returns(@asset_manager_response)
-        Services.asset_manager.expects(:create_asset).with(has_entry(draft: true))
-                .returns(@asset_manager_response)
-
-        Sidekiq::Testing.inline! do
-          @attachment.save!
-        end
-      end
-
-      test "sends the user ids of authorised users to Asset Manager" do
-        organisation = FactoryBot.create(:organisation)
-        consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
-        @attachment.attachable = consultation
-        @attachment.attachment_data.attachable = consultation
+      Sidekiq::Testing.inline! do
         @attachment.save!
-
-        Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id]))
-                .returns(@asset_manager_response)
-
-        AssetManagerCreateAssetWorker.drain
       end
+    end
+
+    test "sends the user ids of authorised users to Asset Manager" do
+      organisation = FactoryBot.create(:organisation)
+      consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
+      @attachment.attachable = consultation
+      @attachment.attachment_data.attachable = consultation
+      @attachment.save!
+
+      Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id]))
+              .returns(@asset_manager_response)
+
+      AssetManagerCreateAssetWorker.drain
     end
   end
 

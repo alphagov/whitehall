@@ -31,6 +31,7 @@ Feature: Publications
     And I publish the publication "Britain's Hairiest Ministers"
     Then I should see the publication "Britain's Hairiest Ministers" in the list of published documents
 
+  @disable-sidekiq-test-mode
   Scenario: Viewing a publication that's been submitted for review with a PDF attachment
     Given a submitted publication "Legalise beards" with a PDF attachment
     And I am an editor

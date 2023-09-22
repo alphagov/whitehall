@@ -5,10 +5,4 @@ module AssetManagerTestHelpers
       has_entry(:legacy_url_path, regexp_matches(regex)),
     )
   end
-
-  def file_matching(_regex)
-    all_of(
-      has_entry(:file, instance_of(File)),
-    )
-  end
 end

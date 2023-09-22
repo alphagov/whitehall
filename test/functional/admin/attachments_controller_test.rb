@@ -103,8 +103,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   view_test "GET :index renders the uploading banner when an attachment hasn't been uploaded to asset manager" do
     create(:html_attachment, title: "An HTML attachment", attachable: @edition)
     create(:file_attachment, title: "An uploaded file attachment", attachable: @edition)
-    attachment_data = create(:attachment_data, uploaded_to_asset_manager_at: nil)
-    create(:file_attachment, title: "An uploading file attachment", attachable: @edition, attachment_data:)
+    create(:file_attachment_with_no_assets, title: "An uploading file attachment", attachable: @edition)
     create(:external_attachment, title: "An external attachment", attachable: @edition)
 
     get :index, params: { edition_id: @edition }
@@ -346,25 +345,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
         }
   end
 
-  test "use_non_legacy_endpoints is false - PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
+  test "PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = create(:file_attachment, attachable: @edition)
-
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
-
-    put :update,
-        params: {
-          edition_id: @edition,
-          id: attachment.id,
-          attachment: {
-            attachment_data_attributes: {
-              file: upload_fixture("whitepaper.pdf"),
-            },
-          },
-        }
-  end
-
-  test "use_non_legacy_endpoints is true -  PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
-    attachment = create(:file_attachment_with_assets, attachable: @edition)
     variant = Asset.variants[:original]
     model_type = attachment.attachment_data.class.to_s
 
@@ -453,30 +435,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
          }
   end
 
-  test "use_non_legacy_endpoints is false - PUT :discards file_cache when a file is provided" do
+  test "PUT :discards file_cache when a file is provided" do
     attachment = create(:file_attachment, attachable: @edition)
-    attachment_data = attachment.attachment_data
-    greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
-    whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
-    whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
-
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), regexp_matches(/whitepaper/), anything, anything, anything, anything).never
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), regexp_matches(/greenpaper/), anything, anything, anything, anything).times(2)
-
-    put :update,
-        params: {
-          edition_id: @edition,
-          id: attachment.id,
-          type: "file",
-          attachment: {
-            title: "New title",
-            attachment_data_attributes: { file: greenpaper_pdf, file_cache: whitepaper_attachment_data.file_cache, to_replace_id: attachment_data.id },
-          },
-        }
-  end
-
-  test "use_non_legacy_endpoints is true - PUT :discards file_cache when a file is provided" do
-    attachment = create(:file_attachment_with_assets, attachable: @edition)
     attachment_data = attachment.attachment_data
     greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
     whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")

@@ -9,39 +9,12 @@ class AssetManager::AttachmentUpdater
   )
     return if attachment_data.deleted?
 
-    # This logic will be eventually removed as part of cleaning up the feature flag for removing legacy_url_path
-    if attachment_data.use_non_legacy_endpoints
-      attachment_data.assets.each do |asset|
-        asset_attributes = get_asset_attributes(attachment_data, asset, access_limited, draft_status, link_header, redirect_url, replacement_id)
+    attachment_data.assets.each do |asset|
+      asset_attributes = get_asset_attributes(attachment_data, asset, access_limited, draft_status, link_header, redirect_url, replacement_id)
 
-        next unless asset_attributes.any?
+      next unless asset_attributes.any?
 
-        AssetManager::AssetUpdater.call(asset.asset_manager_id, attachment_data, nil, asset_attributes.deep_stringify_keys)
-      end
-    else
-      updates = []
-
-      updates += AccessLimitedUpdates.call(attachment_data).to_a if access_limited
-      updates += DraftStatusUpdates.call(attachment_data).to_a if draft_status
-      updates += LinkHeaderUpdates.call(attachment_data).to_a if link_header
-      updates += RedirectUrlUpdates.call(attachment_data).to_a if redirect_url
-      updates += ReplacementIdUpdates.call(attachment_data).to_a if replacement_id
-
-      combined_updates(updates).each(&:call)
-    end
-  end
-
-  def self.combined_updates(updates)
-    grouped_updates = updates.group_by do |update|
-      [update.attachment_data, update.legacy_url_path, update.asset_manager_id]
-    end
-
-    grouped_updates.map do |(attachment_data, legacy_url_path, asset_manager_id), updates_to_combine|
-      new_attributes = updates_to_combine.each_with_object({}) do |update, hash|
-        hash.merge!(update.new_attributes)
-      end
-
-      Update.new(asset_manager_id, attachment_data, legacy_url_path, new_attributes)
+      AssetManager::AssetUpdater.call(asset.asset_manager_id, attachment_data, nil, asset_attributes.deep_stringify_keys)
     end
   end
 

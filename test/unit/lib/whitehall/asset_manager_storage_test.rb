@@ -46,9 +46,71 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     assert_equal file, storage.retrieve!("identifier")
   end
 
-  describe "when use_non_legacy_endpoints permission is false and uploader model is AttachmentData" do
+  context "uploader model is AttachmentData" do
     setup do
       model = build(:attachment_data)
+      model.id = 1
+      @uploader.stubs(:model).returns(model)
+      @assetable_type = AttachmentData.name
+    end
+
+    test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
+      AssetManagerCreateAssetWorker.expects(:perform_async).with do |actual_path, _|
+        uploaded_file_name = File.basename(@file.path)
+        expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9-]+/#{uploaded_file_name}}
+        actual_path =~ expected_path
+      end
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and sets draft to true if the uploader's assets_protected? returns true" do
+      @uploader.assets_protected = true
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, true, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and sets draft to false if the uploader's assets_protected? returns false" do
+      @uploader.assets_protected = false
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, false, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "creates a sidekiq job and passes through the model class and id and auth_bypass_id if the model responds to attachable" do
+      model = AttachmentData.new(attachable: Consultation.new(id: 1, auth_bypass_id: @auth_bypass_id))
+      @uploader.stubs(:model).returns(model)
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, "Consultation", 1, [@auth_bypass_id])
+
+      @uploader.store!(@file)
+    end
+
+    test "calls worker with assetable and default original asset_variant" do
+      variant = Asset.variants[:original]
+      asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+
+    test "calls worker with assetable and variant" do
+      variant = Asset.variants[:thumbnail]
+      @uploader.stubs(:version_name).returns(:thumbnail)
+      asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+
+      @uploader.store!(@file)
+    end
+  end
+
+  context "when use_non_legacy_endpoints permission is false and uploader model is ImageData" do
+    setup do
+      model = build(:image_data)
       model.stubs(:use_non_legacy_endpoints).returns(false)
       @uploader.stubs(:model).returns(model)
       @auth_bypass_id = "86385d6a-f918-4c93-96bf-087218a48ced"
@@ -90,15 +152,6 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       @uploader.store!(@file)
     end
 
-    test "creates a sidekiq job and passes through the model class and id and auth_bypass_id if the model responds to attachable" do
-      model = AttachmentData.new(attachable: Consultation.new(id: 1, auth_bypass_id: @auth_bypass_id))
-      @uploader.stubs(:model).returns(model)
-
-      AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, "Consultation", 1, [@auth_bypass_id])
-
-      @uploader.store!(@file)
-    end
-
     test "calls worker with nil model_id and asset_variant" do
       AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, nil, nil, anything, anything)
 
@@ -106,98 +159,32 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     end
   end
 
-  describe "when use_non_legacy_endpoints permission is true" do
-    context "uploader model is AttachmentData" do
-      setup do
-        model = build(:attachment_data)
-        model.stubs(:use_non_legacy_endpoints).returns(true)
-        model.id = 1
-        @uploader.stubs(:model).returns(model)
-        @assetable_type = AttachmentData.name
-      end
-
-      test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
-        AssetManagerCreateAssetWorker.expects(:perform_async).with do |actual_path, _|
-          uploaded_file_name = File.basename(@file.path)
-          expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9-]+/#{uploaded_file_name}}
-          actual_path =~ expected_path
-        end
-        @uploader.store!(@file)
-      end
-
-      test "creates a sidekiq job and sets draft to true if the uploader's assets_protected? returns true" do
-        @uploader.assets_protected = true
-
-        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, true, anything, anything, anything)
-
-        @uploader.store!(@file)
-      end
-
-      test "creates a sidekiq job and sets draft to false if the uploader's assets_protected? returns false" do
-        @uploader.assets_protected = false
-
-        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, false, anything, anything, anything)
-
-        @uploader.store!(@file)
-      end
-
-      test "creates a sidekiq job and passes through the model class and id and auth_bypass_id if the model responds to attachable" do
-        model = AttachmentData.new(attachable: Consultation.new(id: 1, auth_bypass_id: @auth_bypass_id))
-        model.stubs(:use_non_legacy_endpoints).returns(true)
-        @uploader.stubs(:model).returns(model)
-
-        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, "Consultation", 1, [@auth_bypass_id])
-
-        @uploader.store!(@file)
-      end
-
-      test "calls worker with assetable and default original asset_variant" do
-        variant = Asset.variants[:original]
-        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
-
-        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
-
-        @uploader.store!(@file)
-      end
-
-      test "calls worker with assetable and variant" do
-        variant = Asset.variants[:thumbnail]
-        @uploader.stubs(:version_name).returns(:thumbnail)
-        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
-
-        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
-
-        @uploader.store!(@file)
-      end
+  context "when use_non_legacy_endpoints permission is true and uploader model is ImageData" do
+    setup do
+      model = build(:image_data)
+      model.stubs(:use_non_legacy_endpoints).returns(true)
+      model.id = 1
+      @uploader.stubs(:model).returns(model)
+      @assetable_type = ImageData.name
     end
 
-    context "uploader model is ImageData" do
-      setup do
-        model = build(:image_data)
-        model.stubs(:use_non_legacy_endpoints).returns(true)
-        model.id = 1
-        @uploader.stubs(:model).returns(model)
-        @assetable_type = ImageData.name
-      end
+    test "calls worker with assetable and default original variant" do
+      variant = Asset.variants[:original]
+      asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
 
-      test "calls worker with assetable and default original variant" do
-        variant = Asset.variants[:original]
-        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
 
-        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
+      @uploader.store!(@file)
+    end
 
-        @uploader.store!(@file)
-      end
+    test "calls worker with assetable and variant" do
+      variant = Asset.variants[:s960]
+      @uploader.stubs(:version_name).returns(:s960)
+      asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
 
-      test "calls worker with assetable and variant" do
-        variant = Asset.variants[:s960]
-        @uploader.stubs(:version_name).returns(:s960)
-        asset_args = { assetable_id: @uploader.model.id, asset_variant: variant, assetable_type: @assetable_type }.deep_stringify_keys
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
 
-        AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, asset_args, anything, anything, anything, anything)
-
-        @uploader.store!(@file)
-      end
+      @uploader.store!(@file)
     end
   end
 end
@@ -243,7 +230,6 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
 
   test "returns file url using asset_manager_id when the model has the original asset" do
     model = build(:attachment_data_with_asset)
-    model.use_non_legacy_endpoints = true
     model.save!
     model.reload
 
@@ -251,8 +237,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   end
 
   test "returns file url using asset_manager_id when the model has an asset variant" do
-    model = build(:attachment_data_with_assets)
-    model.use_non_legacy_endpoints = true
+    model = build(:attachment_data)
     model.save!
     model.reload
 
@@ -261,7 +246,6 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
 
   test "returns nil when the model has assets but the requested variant is not available" do
     model = build(:attachment_data_with_asset)
-    model.use_non_legacy_endpoints = true
     model.save!
     model.reload
 
@@ -269,8 +253,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   end
 
   test "returns legacy path when the model has no assets, although it should (still uploading or error has occurred)" do
-    model = build(:attachment_data)
-    model.use_non_legacy_endpoints = true
+    model = build(:attachment_data_with_no_assets)
     model.save!
     model.reload
 

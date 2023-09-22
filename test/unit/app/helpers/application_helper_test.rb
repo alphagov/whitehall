@@ -11,41 +11,28 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_nil link_to_attachment(nil)
   end
 
-  test "#link_to_attachment returns link to an attachment given attachment" do
-    attachment = build(:file_attachment)
-    assert_equal %(<a href="#{attachment.url}">#{attachment.filename}</a>), link_to_attachment(attachment)
-  end
-
   test "#link_to_attachment returns a link to external attachment" do
     attachment = build(:external_attachment)
     assert_equal %(<a href="#{attachment.url}">#{attachment.external_url}</a>), link_to_attachment(attachment)
   end
 
   test "#link_to_attachment returns link to file attachment if attachment has all asset variants" do
-    attachment = build(:file_attachment_with_assets)
+    attachment = build(:file_attachment)
     assert_equal %(<a href="#{attachment.url}">#{attachment.filename}</a>), link_to_attachment(attachment)
   end
 
   test "#link_to_attachment returns a span element if file attachment has no assets" do
-    attachment = build(:file_attachment)
-    attachment.attachment_data.use_non_legacy_endpoints = true
+    attachment = build(:file_attachment_with_no_assets)
     assert_equal %(<span>#{attachment.filename}</span>), link_to_attachment(attachment)
   end
 
-  test "#link_to_attachment_data returns a link to attachment" do
-    attachment_data = build(:attachment_data)
-    assert_equal %(<a class="govuk-link" href="#{attachment_data.url}">#{attachment_data.filename}</a>), link_to_attachment_data(attachment_data)
-  end
-
   test "#link_to_attachment_data returns a link if file attachment has all asset variants" do
-    attachment_data = build(:attachment_data_with_assets)
-    attachment_data.content_type = AttachmentUploader::PDF_CONTENT_TYPE
+    attachment_data = build(:attachment_data)
     assert_equal %(<a class="govuk-link" href="#{attachment_data.url}">#{attachment_data.filename}</a>), link_to_attachment_data(attachment_data)
   end
 
   test "#link_to_attachment_data returns a span if attachment has no assets" do
-    attachment_data = build(:attachment_data)
-    attachment_data.use_non_legacy_endpoints = true
+    attachment_data = build(:attachment_data_with_no_assets)
     assert_equal %(<span>#{attachment_data.filename}</span>), link_to_attachment_data(attachment_data)
   end
 
