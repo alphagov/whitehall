@@ -13,18 +13,6 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
     assert_equal "1.0", edition.published_version
   end
 
-  test "#perform! deletes any unpublishings for the edition" do
-    unpublishing = create(:unpublishing)
-    edition = unpublishing.edition
-
-    EditionForcePublisher.new(edition).perform!
-
-    edition.reload
-
-    assert edition.published?
-    assert_not edition.unpublishing.present?
-  end
-
   %w[published rejected superseded].each do |state|
     test "#{state} editions cannot be force published" do
       edition = create(:"#{state}_edition")

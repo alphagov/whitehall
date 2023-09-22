@@ -21,14 +21,6 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     assert unpublisher.perform!
   end
 
-  test '"withdrawn" editions can be withdrawn' do
-    edition = create(:withdrawn_edition)
-    edition.build_unpublishing(unpublishing_params)
-    unpublisher = EditionWithdrawer.new(edition)
-
-    assert unpublisher.perform!
-  end
-
   test "other states cannot be withdrawn" do
     (Edition.available_states - %i[published withdrawn]).each do |state|
       edition = create(:edition, state:, first_published_at: 1.year.ago)

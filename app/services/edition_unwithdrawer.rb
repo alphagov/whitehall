@@ -23,12 +23,12 @@ class EditionUnwithdrawer < EditionPublisher
 private
 
   def prepare_edition
-    # The withdrawn edition needs to be in the published state so as a draft can be created
-    edition.update!(state: :published)
     edition.reload
   end
 
   def fire_transition!
+    edition.public_send(verb)
+    edition.save!(validate: false)
     unwithdrawn_edition = edition.create_draft(user)
     unwithdrawn_edition.minor_change = true
     unwithdrawn_edition.editorial_remarks << EditorialRemark.create(author: user, edition:, body: "Unwithdrawn")

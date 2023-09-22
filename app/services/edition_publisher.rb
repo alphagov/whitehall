@@ -38,7 +38,6 @@ private
   def fire_transition!
     super
     supersede_previous_editions!
-    delete_unpublishing!
   end
 
   def previous_editions
@@ -46,7 +45,7 @@ private
       .unscoped
       .where(document_id: edition.document_id)
       .where.not(id: edition.id)
-      .published
+      .where(state: %i[published removed])
   end
 
   def supersede_previous_editions!
@@ -54,10 +53,6 @@ private
       edition.supersede
       edition.save!(validate: false)
     end
-  end
-
-  def delete_unpublishing!
-    edition.unpublishing.destroy! if edition.unpublishing.present?
   end
 
   def scheduled_for_publication?

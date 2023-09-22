@@ -13,11 +13,6 @@ Feature: Unpublishing published documents
     Then there should be an editorial remark recording the fact that the document was unpublished
     And there should be an unpublishing explanation of "This page should never have existed" and a reason of "Published in error"
 
-  Scenario: Draft resulting from an unpublishing should not be deletable
-    Given a published document exists with a slug that does not match the title
-    When I unpublish the document because it was published in error
-    Then I should not be able to discard the draft resulting from the unpublishing
-
   Scenario: Unpublishing a document and redirecting
     Given a published document "Published by accident" exists
     When I unpublish the document and ask for a redirect to "https://www.test.gov.uk/example"
