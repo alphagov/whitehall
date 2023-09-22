@@ -26,7 +26,7 @@ class Admin::BulkUploadsController < Admin::BaseController
     @bulk_upload.attachments_attributes = create_params[:attachments_attributes]
     @bulk_upload.attachments.each do |attachment|
       attachment.attachment_data.attachable = @edition
-      attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints? unless attachment.attachment_data.csv?
+      attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints?
     end
     if @bulk_upload.save_attachments
       redirect_to admin_edition_attachments_path(@edition)

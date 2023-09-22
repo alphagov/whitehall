@@ -34,7 +34,7 @@ class Admin::AttachmentsController < Admin::BaseController
     attachment.attributes = attachment_params
     message = "Attachment '#{attachment.title}' updated"
     if attachment.is_a?(FileAttachment)
-      attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints unless attachment.attachment_data.csv?
+      attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints
 
       attachment.attachment_data.attachable = attachable
       if attachment.filename_changed? && attachable.allows_inline_attachments?
@@ -104,7 +104,7 @@ private
     FileAttachment.new(attachment_params).tap do |file_attachment|
       file_attachment.build_attachment_data unless file_attachment.attachment_data
       file_attachment.attachment_data.attachable = attachable
-      file_attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints? unless file_attachment.attachment_data.csv?
+      file_attachment.attachment_data.use_non_legacy_endpoints = use_non_legacy_endpoints?
     end
   end
 
