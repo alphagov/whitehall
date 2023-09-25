@@ -344,8 +344,6 @@ private
   end
 
   def build_national_exclusion_params
-    design_system_controllers = %w[calls_for_evidence consultations detailed_guides publications]
-    return unless design_system_controllers.include?(controller_name)
     return if edition_params["nation_inapplicabilities_attributes"].blank?
 
     exclusion_params = edition_params["all_nation_applicability"] || []
