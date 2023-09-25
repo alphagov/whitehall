@@ -87,17 +87,6 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     assert_requested(patch_links_request, times: 1)
   end
 
-  test "it runs the PublishingApiUnpublishingWorker if the latest edition has an unpublishing" do
-    document = create(:document, content_id: SecureRandom.uuid)
-    edition = create(:unpublished_edition, title: "Unpublished edition", document:)
-    unpublishing = edition.unpublishing
-
-    PublishingApiUnpublishingWorker.expects(:new).returns(worker_instance = mock)
-    worker_instance.expects(:perform).with(unpublishing.id, true)
-
-    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-  end
-
   test "it publishes and then unpublishes if the published edition is withdrawn" do
     unpublishing = build(:withdrawn_unpublishing, id: 10)
     document = stub(

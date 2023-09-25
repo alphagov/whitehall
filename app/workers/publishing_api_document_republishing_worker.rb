@@ -23,8 +23,6 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     # this the latest edition in a visible state ie: withdrawn, published
     @live_edition = document.live_edition
     # this is the latest edition in a non visible state - draft, scheduled
-    # unpublished editions (other than withdrawn) will be in draft state with
-    # an associated unpublishing
     @pre_publication_edition = document.pre_publication_edition
 
     return unless the_document_has_an_edition_to_check?

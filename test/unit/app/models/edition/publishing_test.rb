@@ -14,7 +14,7 @@ class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
   end
 
   test "a draft is invalid without change note once saved if a removed edition already exists" do
-    removed_edition = create(:removed_edition)
+    removed_edition = create(:unpublished_edition)
     edition = create(:draft_edition, change_note: nil, minor_change: false, document: removed_edition.document)
     assert_not edition.valid?
   end

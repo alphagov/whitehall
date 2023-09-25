@@ -14,7 +14,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the removed edition with the supplied creator" do
-    removed_edition = create(:removed_edition)
+    removed_edition = create(:unpublished_edition)
     new_creator = create(:writer)
     draft_edition = removed_edition.create_draft(new_creator)
 

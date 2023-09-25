@@ -189,7 +189,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "#ever_published_editions returns all editions that have ever been published or removed" do
     document = create(:document)
     superseded = create(:superseded_edition, document:)
-    removed = create(:removed_edition, document:)
+    removed = create(:unpublished_edition, document:)
 
     assert_equal [superseded, removed], document.ever_published_editions
   end

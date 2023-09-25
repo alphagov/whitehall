@@ -156,34 +156,6 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
         end
       end
 
-      context "given an unpublished document with file attachment" do
-        let(:edition) { create(:news_article, :unpublished) }
-
-        it "resets redirect URI for attachment in Asset Manager when document is published" do
-          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-          visit admin_news_article_path(edition)
-          force_publish_document
-          assert_sets_redirect_url_in_asset_manager_to nil
-        end
-      end
-
-      context "given an unpublished consultation with outcome with file attachment" do
-        let(:edition) { create(:consultation, :unpublished) }
-        let(:outcome_attributes) { attributes_for(:consultation_outcome) }
-        let(:attachable) { edition.create_outcome!(outcome_attributes) }
-
-        it "resets redirect URI for attachment in Asset Manager when document is published" do
-          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-          visit admin_consultation_path(edition)
-          force_publish_document
-          assert_sets_redirect_url_in_asset_manager_to nil
-        end
-      end
-
       context "given a withdrawn document with file attachment" do
         let(:edition) { create(:news_article, :published, :withdrawn) }
 
@@ -350,34 +322,6 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
           visit admin_consultation_path(edition)
           withdraw_document
           refute_sets_redirect_url_in_asset_manager
-        end
-      end
-
-      context "given an unpublished document with file attachment" do
-        let(:edition) { create(:news_article, :unpublished) }
-
-        it "resets redirect URI for attachment in Asset Manager when document is published" do
-          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-          visit admin_news_article_path(edition)
-          force_publish_document
-          assert_sets_redirect_url_in_asset_manager_to nil
-        end
-      end
-
-      context "given an unpublished consultation with outcome with file attachment" do
-        let(:edition) { create(:consultation, :unpublished) }
-        let(:outcome_attributes) { attributes_for(:consultation_outcome) }
-        let(:attachable) { edition.create_outcome!(outcome_attributes) }
-
-        it "resets redirect URI for attachment in Asset Manager when document is published" do
-          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-
-          visit admin_consultation_path(edition)
-          force_publish_document
-          assert_sets_redirect_url_in_asset_manager_to nil
         end
       end
 
