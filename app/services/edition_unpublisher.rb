@@ -29,11 +29,6 @@ private
     mark_attachments_as_present_at_unpublish
   end
 
-  def prepare_edition
-    edition.force_published = false
-    edition.reset_version_numbers
-  end
-
   def mark_attachments_as_present_at_unpublish
     Attachment.where(attachable: edition.attachables).find_each do |attachment|
       next unless attachment.attachment_data
