@@ -1,1 +1,41 @@
+<% content_for :page_title, "All users" %>
+<% content_for :title, "All users" %>
 
+<div class="app-view-users__page-list">
+<div class="app-c-govuk-table--filterable  govuk-table--with-actions">
+  <%= render "govuk_publishing_components/components/table", {
+    filterable: true,
+    label: "Filter by user, role or organisation",
+    head: [
+      {
+        text: "User name",
+      },
+      {
+        text: "Role",
+      },
+      {
+        text: "Organisation",
+      },
+      {
+        text: tag.span("Actions", class: "govuk-visually-hidden"),
+      },
+    ],
+    rows: @users.map do |user|
+      [
+        {
+          text: tag.p(user.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+        },
+        {
+          text: user.role,
+        },
+        {
+          text: user.organisation_name,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(user.name, class: 'govuk-visually-hidden')}"), admin_user_path(user), class: "govuk-link"),
+        },
+      ]
+    end,
+  } %>
+</div>
+</div>
