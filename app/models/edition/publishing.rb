@@ -42,7 +42,7 @@ module Edition::Publishing
     elsif draft? && new_record?
       false
     else
-      other_editions.published.exists?
+      other_editions.where(state: %i[published removed]).exists?
     end
   end
 
