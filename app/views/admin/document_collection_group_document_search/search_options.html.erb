@@ -12,11 +12,12 @@
   search_options = [
     {
       value: "url",
-      text: "Search via URL"
-    }, {
+      text: "Search via URL",
+    },
+    {
       value: "title-or-slug",
       text: "Search via title or slug",
-      hint_text: "This only applies to documents made in Whitehall publisher"
+      hint_text: "This only applies to documents made in Whitehall publisher",
     },
   ]
 %>
@@ -29,7 +30,7 @@
         name: "search_option",
         id: "search_option",
         heading_size: "l",
-        items: search_options
+        items: search_options,
       } %>
 
       <div class="govuk-button-group">
@@ -39,8 +40,8 @@
             module: "gem-track-click",
             "track-category": "form-button",
             "track-action": "document-collection-search-options-next-button",
-            "track-label": "Next"
-          }
+            "track-label": "Next",
+          },
         } %>
 
         <%= link_to("Cancel", admin_document_collection_group_document_collection_group_memberships_path(@collection, @group), class: "govuk-link govuk-link--no-visited-state") %>
