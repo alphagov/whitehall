@@ -164,7 +164,7 @@ Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |do
   expect(body.index(doc_title1) < body.index(doc_title2)).to be(true)
 end
 
-And(/^a the document collection "([^"]*)" has a group with the heading "([^"]*)"$/) do |collection_title, heading|
+And(/^the document collection "([^"]*)" has a group with the heading "([^"]*)"$/) do |collection_title, heading|
   document_collection = DocumentCollection.find_by!(title: collection_title)
   @group = create(:document_collection_group, heading:, document_collection:)
 end
@@ -260,4 +260,15 @@ end
 And(/^I search by "([^"]*)" for "([^"]*)"$/) do |search_type, search_term|
   fill_in "Search by #{search_type.downcase}", with: search_term
   click_button "Search"
+end
+
+And(/^I add "([^"]*)" to the document collection$/) do |document_title|
+  expect(page).to have_content document_title
+  click_button "Add"
+end
+
+Then(/^I should see "([^"]*)" in the list for the collection group "([^"]*)"$/) do |document_title, collection_title|
+  expect(page).to have_content "'#{document_title}' added to '#{collection_title}'"
+  documents = all(".govuk-table__cell").map(&:text)
+  expect(documents).to include document_title
 end

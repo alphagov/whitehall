@@ -50,7 +50,7 @@ Feature: Grouping documents into a collection
   @design-system-only
   Scenario: Deleting a group
     Given a document collection "May 2012 Update" exists
-    And a the document collection "May 2012 Update" has a group with the heading "Temporary group"
+    And the document collection "May 2012 Update" has a group with the heading "Temporary group"
     When I delete the group "Temporary group"
     Then I can see that the group "Temporary group" has been deleted
 
@@ -63,16 +63,19 @@ Feature: Grouping documents into a collection
   @design-system-only
   Scenario: Editing a group
     Given a document collection "May 2012 Update" exists
-    And a the document collection "May 2012 Update" has a group with the heading "Group to be edited"
+    And the document collection "May 2012 Update" has a group with the heading "Group to be edited"
     When I edit the group "Group to be edited"'s heading to "Interesting new heading"
     Then I can see that the heading has been updated to "Interesting new heading"
 
   @design-system-only
   Scenario: Adding a document to a group via slug
     Given a document collection "Collection" exists
-    And a the document collection "Collection" has a group with the heading "Group"
+    And the document collection "Collection" has a group with the heading "Group"
+    And a published document "Document 1" exists
     When I select to add a new document to the collection group through "Search via title or slug"
     And I search by "title or slug" for "Document 1"
+    And I add "Document 1" to the document collection
+    Then I should see "Document 1" in the list for the collection group "Group"
 
   @design-system-only
   Scenario: Removing a document from a group
