@@ -10,7 +10,10 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
     redirect_to(action: :search_title_slug, document_collection_id: @collection, group_id: @group) if params[:search_option] == "title-or-slug"
   end
 
-  def search_title_slug; end
+  def search_title_slug
+    flash.now[:alert] = "Please enter a search query" if params[:query] && params[:query].empty?
+    @results = Edition.published.with_title_containing(params[:query].strip) if params[:query].present?
+  end
 
 private
 

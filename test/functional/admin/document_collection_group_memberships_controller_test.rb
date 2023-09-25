@@ -36,4 +36,17 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{edition.public_url}']", text: "View #{edition.title}"
     assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{confirm_destroy_path}']", text: "Remove #{edition.title}"
   end
+
+  test "POST #create_whitehall_member adds a whitehall document to a group and redirects" do
+    document = create(:publication).document
+    assert_difference "@group.reload.documents.size" do
+      post :create_whitehall_member, params: id_params.merge(document_id: document.id)
+    end
+    assert_redirected_to admin_document_collection_group_document_collection_group_memberships_path(@collection, @group)
+  end
+
+  test "POST #create_whitehall_member warns user when document not found" do
+    post :create_whitehall_member, params: id_params.merge(document_id: 1234, title: "blah")
+    assert_match %r{couldn't find.*blah}, flash[:alert]
+  end
 end

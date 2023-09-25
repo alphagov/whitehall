@@ -27,8 +27,42 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_redirected_to admin_document_collection_group_search_title_slug_path(@collection, @group)
   end
 
-  test "GET #search_title_slug renders search for title & slug" do
+  test "GET #search_title_slug without query renders search for title & slug page with no results section" do
     get :search_title_slug, params: @request_params
     assert_template "document_collection_group_document_search/search_title_slug"
+    assert_select ".app-view-document-collection-document-search-results", count: 0
+  end
+
+  view_test "GET #search_title_slug with a query returns the document with the query in the results" do
+    edition = build(:consultation, title: "Something", document: build(:document, slug: "something"))
+
+    mock_live_editions = mock
+    mock_live_editions.expects(:with_title_containing).with("Something").once.returns([edition])
+
+    Edition.expects(:published).once.returns(mock_live_editions)
+
+    @request_params[:query] = "Something "
+    get :search_title_slug, params: @request_params
+
+    assert_template "document_collection_group_document_search/search_title_slug"
+    assert_select ".govuk-table__row .govuk-table__cell a[href='#{edition.public_url}']", text: "View #{edition.title}"
+  end
+
+  view_test "GET #search_title_slug with a query that returns no results renders empty results list" do
+    mock_live_editions = mock
+    mock_live_editions.expects(:with_title_containing).with("Something").once.returns([])
+    Edition.expects(:published).once.returns(mock_live_editions)
+
+    @request_params[:query] = "Something "
+    get :search_title_slug, params: @request_params
+    assert_template "document_collection_group_document_search/search_title_slug"
+    assert_select ".govuk-body", text: /No documents found/
+  end
+
+  view_test "GET #search_title_slug with an empty query string shows an alert flash" do
+    @request_params[:query] = ""
+    get :search_title_slug, params: @request_params
+    assert_template "document_collection_group_document_search/search_title_slug"
+    assert_select ".gem-c-error-alert__message", text: /Please enter a search query/
   end
 end
