@@ -15,6 +15,19 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_template "document_collection_group_document_search/search_options"
   end
 
+  view_test "POST #search with an empty option shows an alert flash" do
+    @request_params[:search_option] = ""
+    post :search, params: @request_params
+    assert_template "document_collection_group_document_search/search_options"
+    assert_select ".gem-c-error-alert__message", text: /Please select a search option/
+  end
+
+  view_test "POST #search with no search options shows an alert flash" do
+    post :search, params: @request_params
+    assert_template "document_collection_group_document_search/search_options"
+    assert_select ".gem-c-error-alert__message", text: /Please select a search option/
+  end
+
   test "POST #search is a noop when passed param is unrecognised" do
     @request_params[:search_option] = "non-existant"
     post :search, params: @request_params

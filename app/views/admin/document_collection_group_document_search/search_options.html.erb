@@ -3,20 +3,20 @@
     href: admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
   } %>
 <% end %>
-<% content_for :page_title, 'Add document' %>
-<% content_for :title, 'Add document' %>
+<% content_for :page_title, "Add document" %>
+<% content_for :title, "Add document" %>
 <% content_for :context, @group.heading %>
 <% content_for :title_margin_bottom, 4 %>
 
 <%
   search_options = [
     {
-      value: 'url',
-      text: 'Search via URL'
+      value: "url",
+      text: "Search via URL"
     }, {
-      value: 'title-or-slug',
-      text: 'Search via title or slug',
-      hint_text: 'This only applies to documents made in Whitehall publisher'
+      value: "title-or-slug",
+      text: "Search via title or slug",
+      hint_text: "This only applies to documents made in Whitehall publisher"
     },
   ]
 %>

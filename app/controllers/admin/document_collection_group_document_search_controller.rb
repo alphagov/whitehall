@@ -7,6 +7,10 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
   def search_options; end
 
   def search
+    if params[:search_option].blank?
+      flash.now[:alert] = "Please select a search option"
+      render :search_options
+    end
     redirect_to(action: :search_title_slug, document_collection_id: @collection, group_id: @group) if params[:search_option] == "title-or-slug"
   end
 
