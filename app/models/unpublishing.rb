@@ -25,11 +25,15 @@ class Unpublishing < ApplicationRecord
   end
 
   def redirect?
-    redirect || unpublishing_reason == UnpublishingReason::Consolidated
+    redirect || consolidated?
   end
 
   def withdrawn?
     unpublishing_reason == UnpublishingReason::Withdrawn
+  end
+
+  def consolidated?
+    unpublishing_reason == UnpublishingReason::Consolidated
   end
 
   def unpublishing_reason

@@ -478,7 +478,7 @@ EXISTS (
       lock!
       if allow_creating_draft_from_deleted_edition
         raise "Edition not in the deleted state" unless deleted?
-      elsif !published?
+      elsif !can_supersede?
         raise "Cannot create new edition based on edition in the #{state} state"
       end
 

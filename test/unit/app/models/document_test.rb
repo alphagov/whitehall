@@ -186,6 +186,14 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [superseded, withdrawn, current], document.reload.ever_published_editions
   end
 
+  test "#ever_published_editions returns all editions that have ever been published or removed" do
+    document = create(:document)
+    superseded = create(:superseded_edition, document:)
+    removed = create(:removed_edition, document:)
+
+    assert_equal [superseded, removed], document.ever_published_editions
+  end
+
   test "#humanized_document_type should return document type in a user friendly format" do
     assert_equal "document collection", build(:document, document_type: "DocumentCollection").humanized_document_type
   end

@@ -76,16 +76,6 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "a", text: "Unschedule"
   end
 
-  test "actions for unpublished edition" do
-    current_user = build_stubbed(:user)
-    edition = create(:unpublished_edition)
-    render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
-
-    assert_selector "li", count: 2
-    assert_selector "a", text: "Edit draft"
-    assert_selector "button", text: "Submit for 2nd eyes"
-  end
-
   test "actions for withdrawn edition" do
     current_user = build_stubbed(:user)
     edition = create(:withdrawn_edition)
@@ -96,6 +86,15 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a", text: "View on website (opens in new tab)"
+  end
+
+  test "actions for removed edition" do
+    current_user = build_stubbed(:user)
+    edition = create(:unpublished_edition)
+    render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
+
+    assert_selector "li", count: 1
+    assert_selector "button", text: "Create new edition"
   end
 
   test "actions for draft edition as managing editor" do
@@ -187,17 +186,6 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "a", text: "Unschedule"
   end
 
-  test "actions for unpublished edition as managing editor" do
-    current_user = build_stubbed(:managing_editor)
-    edition = create(:unpublished_edition)
-    render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
-
-    assert_selector "li", count: 3
-    assert_selector "a", text: "Edit draft"
-    assert_selector "a", text: "Force publish"
-    assert_selector "button", text: "Submit for 2nd eyes"
-  end
-
   test "actions for withdrawn edition as managing editor" do
     current_user = build_stubbed(:managing_editor)
     edition = create(:withdrawn_edition)
@@ -209,5 +197,15 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a", text: "View on website (opens in new tab)"
+  end
+
+  test "actions for removed edition as managing editor" do
+    current_user = build_stubbed(:managing_editor)
+    edition = create(:edition, :published_in_error_no_redirect)
+    render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
+
+    assert_selector "li", count: 2
+    assert_selector "button", text: "Create new edition"
+    assert_selector "a", text: "Edit unpublishing explanation"
   end
 end
