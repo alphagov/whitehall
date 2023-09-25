@@ -692,6 +692,7 @@ EXISTS (
   def public_path(options = {})
     return if base_path.nil?
 
+    options[:locale] ||= primary_locale
     append_url_options(base_path, options)
   end
 
