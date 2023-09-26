@@ -36,6 +36,17 @@ class ImageData < ApplicationRecord
     content_type !~ /svg/
   end
 
+  def all_asset_variants_uploaded?
+    if use_non_legacy_endpoints
+      asset_variants = assets.map(&:variant).map(&:to_sym).to_set
+      all_variants = ImageUploader.versions.keys.push(:original).to_set
+
+      return asset_variants == all_variants
+    end
+
+    true
+  end
+
 private
 
   Dimensions = Struct.new(:width, :height)
