@@ -18,10 +18,6 @@ class AssetManagerCreateAssetWorker < WorkerBase
     filename = get_filename(response)
     save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
 
-    if assetable_type == AttachmentData.name
-      AttachmentData.find(assetable_id).uploaded_to_asset_manager!
-    end
-
     perform_draft_update(attachable_model_class, attachable_model_id)
 
     file.close
