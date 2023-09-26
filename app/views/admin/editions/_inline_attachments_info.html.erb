@@ -1,7 +1,7 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: edition.allows_image_attachments? ? "Images and Attachments" : "Attachments",
-    heading_size: "l",
+    heading_size: "m",
     id: "edition_alternative_format_provider",
     error_message: errors_for_input(edition.errors, :alternative_format_provider),
   } do %>
@@ -27,7 +27,7 @@
     <% end %>
     <% if edition.respond_to?(:alternative_format_provider) %>
       <div class="govuk-form-group gem-c-select">
-        <label class="govuk-label govuk-label--m govuk-!-font-weight-bold" for="alternative_format_provider_id">
+        <label class="govuk-label govuk-label--s govuk-!-font-weight-bold" for="alternative_format_provider_id">
           Email address for ordering attachment files in an alternative format <%= "(required)" if edition.alternative_format_provider_required? %>
         </label>
 

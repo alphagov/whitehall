@@ -1,21 +1,27 @@
 <div class="<%= "right-to-left" if edition.rtl? %>">
+  <%= render "govuk_publishing_components/components/heading", {
+      text: "Content",
+      font_size: "l",
+      margin_bottom: 6,
+  } %>
+
   <%= render "subtype_fields", form: form, edition: form.object %>
   <%= render "locale_fields", form: form, edition: edition %>
   <%= form.hidden_field :lock_version %>
 
   <% if edition.document&.slug.present? %>
-    <div class="govuk-!-margin-bottom-8">
-      <label for="edition_slug" class="gem-c-label govuk-label govuk-label--l govuk-!-font-weight-bold">Slug (read only)</label>
+    <div class="govuk-!-margin-bottom-6">
+      <label for="edition_slug" class="gem-c-label govuk-label govuk-label--m govuk-!-font-weight-bold">Slug (read only)</label>
       <input disabled="disabled" autocomplete="off" class="gem-c-input govuk-input govuk-body" id="edition_slug" name="edition[slug]" readonly="readonly" spellcheck="false" type="text" value="<%= edition.slug %>">
     </div>
   <% end %>
 
-  <div class="govuk-!-margin-bottom-8 js-locale-switcher-field">
+  <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/character_count", {
       textarea: {
         label: {
           text: "Title (required)",
-          heading_size: "l",
+          heading_size: "m",
         },
         name: "edition[title]",
         value: edition.title,
@@ -34,7 +40,7 @@
       textarea: {
         label: {
           text: "Summary" + "#{' (required)' if form.object.summary_required?}",
-          heading_size: "l",
+          heading_size: "m",
         },
         name: "edition[summary]",
         value: edition.summary,
@@ -49,11 +55,11 @@
     } %>
   </div>
 
-  <div class="govuk-!-margin-bottom-8 js-locale-switcher-field">
+  <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
     <%= render "components/govspeak-editor", {
       label: {
         text: "Body" + "#{' (required)' if form.object.body_required?}",
-        heading_size: "l",
+        heading_size: "m",
       },
       name: "edition[body]",
       id: "edition_body",
@@ -86,7 +92,7 @@
         }) %>
       </p>
       <p class="govuk-body">
-        To preview your document on GOV.UK you must save it first.
+        To preview your   on GOV.UK you must save it first.
       </p>
     <% end %>
   <% end %>
@@ -94,14 +100,14 @@
   <%= render "additional_significant_fields", form: form, edition: form.object %>
 
   <% if edition.document && edition.document.live? && can?(:mark_political, edition) %>
-    <div class="govuk-!-margin-bottom-8">
+    <div class="govuk-!-margin-bottom-6">
       <%= form.hidden_field :political, value: "0" %>
 
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: "edition[political]",
         id: "edition_political",
         heading: "Political",
-        heading_size: "l",
+        heading_size: "m",
         no_hint_text: true,
         error: errors_for_input(edition.errors, :political),
         items: [
@@ -118,12 +124,8 @@
   <% end %>
 </div>
 
-<% unless edition.is_a?(Consultation) %>
-  <%= render "first_published_at", form: form, edition: edition %>
-<% end %>
-
 <% if %w(CaseStudy Speech FatalityNotice).include?(edition.type) %>
-  <div class="govuk-!-margin-bottom-8">
+  <div class="govuk-!-margin-bottom-6">
     <%= render "govuk_publishing_components/components/heading", {
         text: "Images",
         heading_level: 3,
@@ -140,4 +142,12 @@
       <% end %>
     </p>
   </div>
+<% end %>
+
+<% if %w(CallForEvidence Consultation Publication).include?(edition.type) %>
+  <%= render "html_version_fields", form: form, edition: edition %>
+<% end %>
+
+<% if %w(CallForEvidence Consultation DetailedGuide NewsArticle Publication StatisticalDataSet).include?(edition.type) %>
+  <%= render "inline_attachments_info", form: form, edition: edition %>
 <% end %>

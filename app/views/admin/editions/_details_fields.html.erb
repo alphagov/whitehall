@@ -1,0 +1,11 @@
+<div class="<%= "right-to-left" if edition.rtl? %>">
+  <%= render "govuk_publishing_components/components/heading", {
+      text: "Details",
+      font_size: "l",
+      margin_bottom: 6,
+  } %>
+
+  <% unless edition.is_a?(Consultation) %>
+    <%= render "first_published_at", form: form, edition: edition %>
+  <% end %>
+</div>

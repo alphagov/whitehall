@@ -12,7 +12,7 @@
     name: "scheduled_publication_active",
     id: "scheduled_publication_active",
     heading: "Schedule publication",
-    heading_size: "l",
+    heading_size: "m",
     error_items: errors_for(edition.errors, :scheduled_publication_active),
     no_hint_text: true,
     items: [
@@ -21,6 +21,7 @@
         value: 1,
         checked: params[:scheduled_publication_active] == "1" || edition.scheduled_publication.present?,
         conditional: render("components/datetime_fields", {
+              heading_size: "s",
               field_name: "scheduled_publication",
               prefix: "edition",
               error_items: errors_for(edition.errors, :scheduled_publication),
