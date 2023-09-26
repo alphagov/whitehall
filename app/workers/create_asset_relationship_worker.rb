@@ -2,7 +2,7 @@ class CreateAssetRelationshipWorker < WorkerBase
   def perform(start_id, end_id)
     logger.info("CreateAssetRelationshipWorker start!")
     assetable_type = AttachmentData
-    assetables = assetable_type.where(id: start_id..end_id)
+    assetables = assetable_type.where(id: start_id..end_id, use_non_legacy_endpoints: false)
     logger.info "Number of #{assetable_type} found: #{assetables.count}"
     logger.info "Creating Asset for records from #{start_id} to #{end_id}"
 
