@@ -4,6 +4,8 @@
 </div>
 
 <%= standard_edition_form(edition) do |form| %>
+  <%= render "nation_fields", form: form, edition: edition %>
+
   <div class="govuk-!-margin-bottom-8">
     <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "",
@@ -166,10 +168,9 @@
     id: "associations",
   } do %>
     <div class="govuk-!-margin-bottom-4">
+      <%= render "organisation_fields", form: form, edition: edition %>
       <%= render "appointment_fields", form: form, edition: edition %>
       <%= render "topical_event_fields", form: form, edition: edition %>
-      <%= render "nation_fields", form: form, edition: edition %>
-      <%= render "organisation_fields", form: form, edition: edition %>
     </div>
   <% end %>
 

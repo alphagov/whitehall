@@ -1,6 +1,6 @@
 <% if edition.can_be_related_to_organisations? %>
   <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Lead organisations",
+    legend_text: "Organisations",
     heading_level: 3,
     heading_size: "m",
     id: "edition_organisations",
@@ -39,7 +39,7 @@
       name: "edition[supporting_organisation_ids][]",
       label: {
         text: "Supporting organisations",
-        heading_size: "m",
+        heading_size: "s",
       },
       select: {
         multiple: true,
