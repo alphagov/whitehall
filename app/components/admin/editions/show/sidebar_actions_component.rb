@@ -269,7 +269,7 @@ private
   def add_view_action
     if @edition.publicly_visible?
       actions << link_to("View on website (opens in new tab)",
-                         @edition.public_url(locale: @edition.primary_locale),
+                         @edition.public_url,
                          class: "govuk-link",
                          target: "_blank",
                          rel: "noopener",
