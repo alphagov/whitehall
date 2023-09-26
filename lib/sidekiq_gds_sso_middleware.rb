@@ -1,7 +1,7 @@
 require "sidekiq/web"
 
 class SidekiqGdsSsoMiddleware
-  SIDEKIQ_SIGNON_PERMISSION = "Sidekiq Admin".freeze
+  SIDEKIQ_SIGNON_PERMISSION = User::Permissions::SIDEKIQ_ADMIN
 
   def self.call(...) = new(...).call
 

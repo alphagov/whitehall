@@ -28,6 +28,7 @@ class User < ApplicationRecord
     PREVIEW_NEXT_RELEASE = "Preview next release".freeze
     USE_NON_LEGACY_ENDPOINTS = "Use non legacy endpoints".freeze
     EMAIL_OVERRIDE_EDITOR = "Email override editor".freeze
+    SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
   end
 
   def role
