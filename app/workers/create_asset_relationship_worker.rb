@@ -13,18 +13,18 @@ class CreateAssetRelationshipWorker < WorkerBase
       assetable.save!
 
       begin
-        path = save_asset_original(assetable, assetable_type.to_s)
+        save_asset_original(assetable, assetable_type.to_s)
         asset_counter += 1
       rescue GdsApi::HTTPNotFound
-        logger.warn "#{assetable_type} with id:#{assetable.id} for original asset is not found in AM for legacy url path: #{path}"
+        logger.warn "#{assetable_type} with id:#{assetable.id} for original asset is not found in AM for legacy url path: #{assetable.file.path}"
       end
 
       if assetable.pdf?
         begin
-          path = save_asset_thumbnail(assetable, assetable_type.to_s)
+          save_asset_thumbnail(assetable, assetable_type.to_s)
           asset_counter += 1
         rescue GdsApi::HTTPNotFound
-          logger.warn "#{assetable_type} with id:#{assetable.id} for thumbnail asset is not found in AM for legacy url path: #{path}"
+          logger.warn "#{assetable_type} with id:#{assetable.id} for thumbnail asset is not found in AM for legacy url path: #{assetable.file.thumbnail.asset_manager_path}"
         end
       end
 
@@ -56,19 +56,16 @@ private
     asset_info << get_filename(response_hash)
   end
 
-  def save_asset_thumbnail(attachment, assetable_type)
-    path = attachment.file.thumbnail.asset_manager_path
+  def save_asset_thumbnail(assetable, assetable_type)
+    path = assetable.file.thumbnail.asset_manager_path
     asset_info = get_asset_data(path)
-
-    save_asset_id_to_assets(attachment.id, assetable_type, Asset.variants["thumbnail"], asset_info[0], asset_info[1])
-    path
+    save_asset_id_to_assets(assetable.id, assetable_type, Asset.variants["thumbnail"], asset_info[0], asset_info[1])
   end
 
-  def save_asset_original(attachment, assetable_type)
-    path = attachment.file.path
+  def save_asset_original(assetable, assetable_type)
+    path = assetable.file.path
     asset_info = get_asset_data(path)
-    save_asset_id_to_assets(attachment.id, assetable_type, Asset.variants["original"], asset_info[0], asset_info[1])
-    path
+    save_asset_id_to_assets(assetable.id, assetable_type, Asset.variants["original"], asset_info[0], asset_info[1])
   end
 
   def get_filename(response)
