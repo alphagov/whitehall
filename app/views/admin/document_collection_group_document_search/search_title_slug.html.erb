@@ -14,7 +14,7 @@
       <%= render "govuk_publishing_components/components/search", {
         name: "query",
         value: params[:query],
-        label_text: "Search by title or slug",
+        label_text: "Search by title",
         label_size: "l",
       } %>
     <% end %>
@@ -27,7 +27,7 @@
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
       <% if @results.empty? %>
-        <p class="govuk-body app-view-document-collection-document-search-results__no_documents">No documents found</p>
+        <p class="govuk-body app-view-document-collection-document-search-results__no_documents">No results found. Search again using the <%= link_to "full URL", "#", class: "govuk-link govuk-link--no-visited-state" %>.</p>
       <% else %>
         <div class="govuk-table--with-actions app-view-document-collection-document-search-results__table">
           <%= render "govuk_publishing_components/components/table",

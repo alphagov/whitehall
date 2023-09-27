@@ -69,7 +69,7 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     @request_params[:query] = "Something "
     get :search_title_slug, params: @request_params
     assert_template "document_collection_group_document_search/search_title_slug"
-    assert_select ".govuk-body", text: /No documents found/
+    assert_select ".govuk-body", text: /No results found. Search again using the full URL./
   end
 
   view_test "GET #search_title_slug with an empty query string shows an alert flash" do

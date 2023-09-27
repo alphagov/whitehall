@@ -68,12 +68,12 @@ Feature: Grouping documents into a collection
     Then I can see that the heading has been updated to "Interesting new heading"
 
   @design-system-only
-  Scenario: Adding a document to a group via slug
+  Scenario: Adding a document to a group via title
     Given a document collection "Collection" exists
     And the document collection "Collection" has a group with the heading "Group"
     And a published document "Document 1" exists
-    When I select to add a new document to the collection group through "Search via title or slug"
-    And I search by "title or slug" for "Document 1"
+    When I select to add a new document to the collection group through "Search via title"
+    And I search by "title" for "Document 1"
     And I add "Document 1" to the document collection
     Then I should see "Document 1" in the list for the collection group "Group"
 
