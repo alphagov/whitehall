@@ -121,9 +121,3 @@ Then(/^the unpublishing should redirect to "([^"]*)"$/) do |url|
   expect(unpublishing.redirect).to be(true)
   expect(url).to eq(unpublishing.alternative_url)
 end
-
-Then(/^I should not be able to discard the draft resulting from the unpublishing$/) do
-  visit admin_edition_path(Edition.last)
-  button_text = using_design_system? ? "Delete draft" : "Discard draft"
-  expect(page).not_to have_button(button_text)
-end

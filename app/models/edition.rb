@@ -58,10 +58,10 @@ class Edition < ApplicationRecord
   validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now }, message: "must be between 1/1/1900 and the present" }, if: :draft?, allow_blank: true
   validates :scheduled_publication, inclusion: { in: proc { Time.zone.now.. }, message: "must be in the future" }, if: :draft?, allow_blank: true
 
-  UNMODIFIABLE_STATES = %w[scheduled published superseded deleted].freeze
+  UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
   PRE_PUBLICATION_STATES = %w[draft submitted rejected scheduled].freeze
-  POST_PUBLICATION_STATES = %w[published superseded withdrawn].freeze
+  POST_PUBLICATION_STATES = %w[published superseded withdrawn unpublished].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
   scope :with_title_or_summary_containing,
@@ -142,7 +142,7 @@ class Edition < ApplicationRecord
     end
 
     def being_unpublished?(previous_state, current_state)
-      previous_state == "published" && %w[draft withdrawn].include?(current_state)
+      previous_state == "published" && %w[unpublished withdrawn].include?(current_state)
     end
   end
 
@@ -478,7 +478,7 @@ EXISTS (
       lock!
       if allow_creating_draft_from_deleted_edition
         raise "Edition not in the deleted state" unless deleted?
-      elsif !published?
+      elsif !can_supersede?
         raise "Cannot create new edition based on edition in the #{state} state"
       end
 

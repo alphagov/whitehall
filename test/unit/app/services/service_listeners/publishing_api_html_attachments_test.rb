@@ -458,11 +458,6 @@ module ServiceListeners
       test "for a publication that has been consolidated publishes a redirect to the alternative url" do
         publication = create(:unpublished_publication_consolidated)
         attachment = publication.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
-          attachment,
-          "en",
-          "republish",
-        )
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           attachment.content_id,
           "/government/another/page",
@@ -475,11 +470,6 @@ module ServiceListeners
       test "for a publication that has been unpublished with a redirect publishes a redirect to the alternative url" do
         publication = create(:unpublished_publication_in_error_redirect)
         attachment = publication.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
-          attachment,
-          "en",
-          "republish",
-        )
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           attachment.content_id,
           "/government/another/page",
@@ -492,11 +482,6 @@ module ServiceListeners
       test "for a publication that has been unpublished without a redirect publishes a redirect to the parent document" do
         publication = create(:unpublished_publication_in_error_no_redirect)
         attachment = publication.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
-          attachment,
-          "en",
-          "republish",
-        )
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           attachment.content_id,
           publication.search_link,

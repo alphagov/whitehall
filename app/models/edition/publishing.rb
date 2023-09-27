@@ -38,13 +38,9 @@ module Edition::Publishing
   end
 
   def change_note_required?
-    if deleted? || superseded?
-      false
-    elsif draft? && new_record?
-      false
-    else
-      other_editions.published.exists?
-    end
+    return false if new_record?
+
+    draft? && previous_edition.present?
   end
 
   def change_note_present!
@@ -96,10 +92,6 @@ module Edition::Publishing
   def reset_version_numbers
     self.published_major_version = previous_edition.try(:published_major_version)
     self.published_minor_version = previous_edition.try(:published_minor_version)
-  end
-
-  def unpublished?
-    !publicly_visible? && unpublishing.present?
   end
 
   def unpublished_edition

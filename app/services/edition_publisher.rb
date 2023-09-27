@@ -43,7 +43,7 @@ private
 
   def editions_to_supersede
     edition.document.editions
-      .published
+      .where(state: %i[published unpublished])
       .excluding(edition)
   end
 

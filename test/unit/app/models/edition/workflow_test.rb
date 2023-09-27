@@ -11,7 +11,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
 
     assert_equal %i[draft submitted rejected scheduled], pre
-    assert_equal %i[published superseded deleted withdrawn], post
+    assert_equal %i[published superseded deleted withdrawn unpublished], post
   end
 
   test "rejecting a submitted edition transitions it into the rejected state" do
@@ -20,7 +20,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert submitted_edition.rejected?
   end
 
-  %i[draft scheduled published superseded deleted withdrawn].each do |state|
+  %i[draft scheduled published superseded deleted withdrawn unpublished].each do |state|
     test "should prevent a #{state} edition being rejected" do
       edition = create("#{state}_edition")
       begin
@@ -40,7 +40,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  %i[scheduled published superseded deleted withdrawn].each do |state|
+  %i[scheduled published superseded deleted withdrawn unpublished].each do |state|
     test "should prevent a #{state} edition being submitted" do
       edition = create("#{state}_edition")
       begin
@@ -78,7 +78,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  %i[scheduled published superseded deleted].each do |state|
+  %i[scheduled published superseded deleted unpublished].each do |state|
     test "should not be editable when #{state}" do
       edition = create("#{state}_edition")
       edition.title = "new-title"

@@ -19,33 +19,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_asset(asset_manager_id, draft: asset_initially_draft)
     end
 
-    context "given a file attachment added after unpublishing" do
-      context "on a draft document" do
-        let(:edition) { create(:news_article) }
-        let(:asset_initially_draft) { true }
-
-        before do
-          setup_publishing_api_for(edition)
-          stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-          stub_create_asset(asset_manager_id)
-        end
-
-        it "marks attachment as draft in Asset Manager when document is unpublished then attachment added" do
-          visit admin_news_article_path(edition)
-          force_publish_document
-          visit admin_news_article_path(edition)
-          unpublish_document_published_in_error
-          visit admin_edition_attachments_path(edition)
-          add_attachment(filename)
-
-          AssetManagerCreateAssetWorker.drain
-
-          assert_sets_draft_status_in_asset_manager_to true
-        end
-      end
-    end
-
     context "given a file attachment" do
       let(:attachment) { build(:file_attachment_with_asset, attachable:) }
       let(:attachable) { edition }

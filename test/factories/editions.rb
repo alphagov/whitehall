@@ -157,18 +157,22 @@ FactoryBot.define do
     end
 
     trait(:unpublished) do
+      state { :unpublished }
       unpublishing { build(:unpublishing) }
     end
 
     trait(:published_in_error_redirect) do
+      state { :unpublished }
       unpublishing { build(:published_in_error_redirect_unpublishing) }
     end
 
     trait(:published_in_error_no_redirect) do
+      state { :unpublished }
       unpublishing { build(:published_in_error_no_redirect_unpublishing) }
     end
 
     trait(:consolidated_redirect) do
+      state { :unpublished }
       unpublishing { build(:consolidated_unpublishing) }
     end
 
@@ -189,7 +193,7 @@ FactoryBot.define do
   factory :deleted_edition, parent: :edition, traits: [:deleted]
   factory :superseded_edition, parent: :edition, traits: [:superseded]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
-  factory :unpublished_edition, parent: :edition, traits: %i[draft unpublished]
+  factory :unpublished_edition, parent: :edition, traits: [:unpublished]
   factory :withdrawn_edition, parent: :edition, traits: [:withdrawn]
   factory :protected_edition, parent: :edition, traits: [:access_limited]
   factory :edition_with_organisations, parent: :edition, traits: [:with_organisations]

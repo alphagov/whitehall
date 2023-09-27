@@ -40,7 +40,7 @@ class Admin::Editions::Show::SidebarActionsComponent < ViewComponent::Base
 private
 
   def add_create_action
-    if @edition.is_latest_edition? && @edition.published?
+    if @edition.is_latest_edition? && @edition.can_supersede?
       actions << form_with(url: revise_admin_edition_path(@edition.id), method: :post, data: {
         module: "prevent-multiple-form-submissions",
       }) do
