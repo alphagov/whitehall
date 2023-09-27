@@ -6,10 +6,11 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: edition.authored_article? ? "Written on" : "Delivered on",
-    heading_size: "l",
+    heading_size: "m",
     id: "edition_delivered_on",
   } do %>
     <%= render "components/datetime_fields", {
+        heading_size: "s",
         field_name: "delivered_on",
         prefix: "edition",
         error_items: errors_for(edition.errors, :delivered_on),

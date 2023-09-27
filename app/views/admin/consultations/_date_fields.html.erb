@@ -1,10 +1,11 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Opening date",
-    heading_size: "l",
+    heading_size: "m",
     id: "edition_opening_at",
   } do %>
     <%= render "components/datetime_fields", {
+        heading_size: "s",
         field_name: "opening_at",
         prefix: "edition",
         error_items: errors_for(edition.errors, :opening_at),
@@ -46,10 +47,11 @@
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Closing date",
-    heading_size: "l",
+    heading_size: "m",
     id: "edition_closing_at",
   } do %>
     <%= render "components/datetime_fields", {
+        heading_size: "s",
         field_name: "closing_at",
         prefix: "edition",
         error_items: errors_for(edition.errors, :closing_at),

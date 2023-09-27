@@ -20,12 +20,12 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Roll call info (displays on the field of operation) (required)",
     heading_level: 3,
-    heading_size: "l",
+    heading_size: "m",
   } do %>
     <%= render "govuk_publishing_components/components/textarea", {
       label: {
         text: "Introduction (required)",
-        heading_size: "m",
+        heading_size: "s",
       },
       value: edition.roll_call_introduction,
       name: "edition[roll_call_introduction]",
@@ -34,7 +34,7 @@
       rows: 2,
     } %>
 
-    <h4 class="govuk-heading-m">Casualties (required)</h4>
+    <h4 class="govuk-heading-s">Casualties (required)</h4>
 
     <div data-module="AddAnother" data-add-text="Add another person" class="govuk-!-margin-bottom-4">
       <%= form.fields_for :fatality_notice_casualties do |fatality_form| %>

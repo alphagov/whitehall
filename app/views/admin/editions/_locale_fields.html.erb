@@ -3,7 +3,7 @@
     name: "edition[create_foreign_language_only]",
     id: "edition_create_foreign_language_only",
     heading: "Foreign language only #{edition.model_name.human.downcase}",
-    heading_size: "l",
+    heading_size: "m",
     no_hint_text: true,
     error_items: errors_for_input(edition.errors, :create_foreign_language_only),
     include_blank: true,
@@ -16,7 +16,7 @@
           id: "edition_primary_locale",
           name: "edition[primary_locale]",
           label: "Document language",
-          heading_size: "m",
+          heading_size: "s",
           include_blank: true,
           errors: errors_for(edition.errors, :primary_locale),
           options: options_for_locales(Locale.non_english).map do |language, value|

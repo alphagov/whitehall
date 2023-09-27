@@ -16,7 +16,7 @@
         name: "edition[external]",
         heading: "Held on another website",
         heading_level: 3,
-        heading_size: "l",
+        heading_size: "m",
         no_hint_text: true,
         error_items: errors_for(edition.errors, :external),
         items: [
@@ -45,7 +45,7 @@
     <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "Ways to respond",
       heading_level: 3,
-      heading_size: "l",
+      heading_size: "m",
     } do %>
 
       <% call_for_evidence_participation = edition.call_for_evidence_participation %>
@@ -57,7 +57,7 @@
           },
           name: "edition[call_for_evidence_participation_attributes][link_url]",
           id: "edition_call_for_evidence_participation_link_url",
-          heading_size: "m",
+          heading_size: "s",
           value: call_for_evidence_participation.link_url,
           error_items: errors_for(call_for_evidence_participation.errors, :link_url),
         } %>
@@ -68,7 +68,7 @@
           },
           name: "edition[call_for_evidence_participation_attributes][email]",
           id: "edition_call_for_evidence_participation_email",
-          heading_size: "m",
+          heading_size: "s",
           value: call_for_evidence_participation.email,
           error_items: errors_for(call_for_evidence_participation.errors, :email),
         } %>
@@ -76,7 +76,7 @@
         <%= render "govuk_publishing_components/components/textarea", {
           label: {
             text: "Postal address",
-            heading_size: "m",
+            heading_size: "s",
           },
           name: "edition[call_for_evidence_participation_attributes][postal_address]",
           id: "edition_call_for_evidence_participation_postal_address",
@@ -94,7 +94,7 @@
             },
             name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][title]",
             id: "edition_call_for_evidence_participation_call_for_evidence_response_form_title",
-            heading_size: "m",
+            heading_size: "s",
             value: call_for_evidence_response_form.title,
             error_items: errors_for(call_for_evidence_response_form.errors, :title),
           } %>
@@ -112,7 +112,7 @@
                   heading: "Actions:",
                   name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][attachment_action]",
                   id: "edition_call_for_evidence_participation_call_for_evidence_response_form_attachment_action",
-                  heading_size: "m",
+                  heading_size: "s",
                   error_items: errors_for(call_for_evidence_response_form.errors, :attachment_action),
                   items: [
                     {
@@ -146,7 +146,7 @@
               <%= render "govuk_publishing_components/components/file_upload", {
                 label: {
                   text: "File",
-                  heading_size: "m",
+                  heading_size: "s",
                 },
                 name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file]",
                 id: "edition_call_for_evidence_participation_call_for_evidence_response_form_call_for_evidence_response_form_data_file",

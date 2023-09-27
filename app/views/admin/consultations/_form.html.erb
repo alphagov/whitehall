@@ -16,7 +16,7 @@
         name: "edition[external]",
         heading: "Held on another website",
         heading_level: 3,
-        heading_size: "l",
+        heading_size: "m",
         no_hint_text: true,
         error_items: errors_for(edition.errors, :external),
         items: [
@@ -45,7 +45,7 @@
     <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "Ways to respond",
       heading_level: 3,
-      heading_size: "l",
+      heading_size: "m",
     } do %>
       <% consultation_participation = edition.consultation_participation %>
 
@@ -56,7 +56,7 @@
           },
           name: "edition[consultation_participation_attributes][link_url]",
           id: "edition_consultation_participation_link_url",
-          heading_size: "m",
+          heading_size: "s",
           value: consultation_participation.link_url,
           error_items: errors_for(consultation_participation.errors, :link_url),
         } %>
@@ -67,7 +67,7 @@
           },
           name: "edition[consultation_participation_attributes][email]",
           id: "edition_consultation_participation_email",
-          heading_size: "m",
+          heading_size: "s",
           value: consultation_participation.email,
           error_items: errors_for(consultation_participation.errors, :email),
         } %>
@@ -75,7 +75,7 @@
         <%= render "govuk_publishing_components/components/textarea", {
           label: {
             text: "Postal address",
-            heading_size: "m",
+            heading_size: "s",
           },
           name: "edition[consultation_participation_attributes][postal_address]",
           id: "edition_consultation_participation_postal_address",
@@ -93,7 +93,7 @@
             },
             name: "edition[consultation_participation_attributes][consultation_response_form_attributes][title]",
             id: "edition_consultation_participation_consultation_response_form_title",
-            heading_size: "m",
+            heading_size: "s",
             value: consultation_response_form.title,
             error_items: errors_for(consultation_response_form.errors, :title),
           } %>
@@ -111,7 +111,7 @@
                   heading: "Actions:",
                   name: "edition[consultation_participation_attributes][consultation_response_form_attributes][attachment_action]",
                   id: "edition_consultation_participation_consultation_response_form_attachment_action",
-                  heading_size: "m",
+                  heading_size: "s",
                   error_items: errors_for(consultation_response_form.errors, :attachment_action),
                   items: [
                     {
@@ -145,7 +145,7 @@
               <%= render "govuk_publishing_components/components/file_upload", {
                 label: {
                   text: "File",
-                  heading_size: "m",
+                  heading_size: "s",
                 },
                 name: "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]",
                 id: "edition_consultation_participation_consultation_response_form_consultation_response_form_data_file",
