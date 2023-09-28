@@ -1,0 +1,31 @@
+<% page_title @user.name, "Users" %>
+<section class="user">
+  <nav class="actions">
+    <%= link_to "&laquo; User list".html_safe, admin_users_path, title: "See user list", class: "btn btn-default" %>
+    <% if @user.editable_by?(current_user) %>
+      <%= link_to "Edit", edit_admin_user_path(@user), title: "Edit Settings", class: "btn btn-default" %>
+    <% end %>
+  </nav>
+  <div class="settings">
+    <h1>Settings</h1>
+
+    <h2>Name</h2>
+    <p class="name"><%= @user.name %></p>
+
+    <h2>Role</h2>
+    <p class="role"><%= @user.role %></p>
+
+    <h2>Organisation</h2>
+    <p class="organisation"><%= @user.organisation_name %></p>
+
+    <h2>World locations</h2>
+    <ul class="world-locations">
+      <% @user.world_locations.each do |location| %>
+        <li><%= location.name %></li>
+      <% end %>
+    </ul>
+
+    <h2>Email Address</h2>
+    <p class="email"><%= mail_to @user.email %></p>
+  </div>
+</section>

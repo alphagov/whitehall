@@ -12,17 +12,17 @@ class Admin::UsersControllerTest < ActionController::TestCase
     disabled_user = create(:disabled_user)
     get :index
 
-    assert_select ".govuk-table__row:last-child td:first-child", @user.name
-    refute_select(".govuk-table__row:last-child td:first-child", text: %r{#{disabled_user.name}})
+    assert_select ".govuk-table__cell", @user.name
+    refute_select(".govuk-table__cell", text: %r{#{disabled_user.name}})
   end
 
   view_test "show displays user name and email address" do
     get :show, params: { id: @user.id }
 
-    assert_select ".user .settings" do
-      assert_select ".name", "user-name"
-      assert_select ".email", "user@example.com"
-    end
+    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Name"
+    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: @user.name
+    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Email"
+    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: @user.email
   end
 
   view_test "show displays edit if you are able to edit the record" do
@@ -45,7 +45,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     get :edit, params: { id: @user.id }
 
     assert_select "form[action='#{admin_user_path(@user)}']" do
-      assert_select "input[type='submit'][value='Save']"
+      assert_select "button", text: "Save"
     end
   end
 
@@ -53,7 +53,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     login_as create(:gds_editor)
     get :edit, params: { id: @user.id }
 
-    assert_select ".or_cancel a[href='#{admin_user_path(@user)}']"
+    assert_select "a.govuk-link", text: "Cancel"
   end
 
   test "update saves world location changes by gds editors and redirects to :show" do

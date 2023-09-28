@@ -1,31 +1,42 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_users_path,
+  } %>
+<% end %>
 <% page_title @user.name, "Users" %>
-<section class="user">
-  <nav class="actions">
-    <%= link_to "&laquo; User list".html_safe, admin_users_path, title: "See user list", class: "btn btn-default" %>
-    <% if @user.editable_by?(current_user) %>
-      <%= link_to "Edit", edit_admin_user_path(@user), title: "Edit Settings", class: "btn btn-default" %>
-    <% end %>
-  </nav>
-  <div class="settings">
-    <h1>Settings</h1>
+<% content_for :title, @user.name %>
+<% content_for :title_margin_bottom, 4 %>
 
-    <h2>Name</h2>
-    <p class="name"><%= @user.name %></p>
-
-    <h2>Role</h2>
-    <p class="role"><%= @user.role %></p>
-
-    <h2>Organisation</h2>
-    <p class="organisation"><%= @user.organisation_name %></p>
-
-    <h2>World locations</h2>
-    <ul class="world-locations">
-      <% @user.world_locations.each do |location| %>
-        <li><%= location.name %></li>
-      <% end %>
-    </ul>
-
-    <h2>Email Address</h2>
-    <p class="email"><%= mail_to @user.email %></p>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/summary_list", {
+      title: "",
+      items: [
+        {
+          field: "Name",
+          value: @user.name,
+        },
+        {
+          field: "Email",
+          value: @user.email,
+        },
+        {
+          field: "Role",
+          value: @user.role,
+        },
+        {
+          field: "Organisation",
+          value: @user.organisation,
+        },
+        {
+          field: "World locations",
+          value: show_world_locations(@user),
+          edit: {
+            href: show_edit_link(@user),
+            link_text: "Edit",
+          },
+        },
+      ],
+    } %>
   </div>
-</section>
+</div>
