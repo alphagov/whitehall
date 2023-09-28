@@ -48,7 +48,9 @@ module GovspeakHelper
   end
 
   def prepare_images(images)
-    images.map do |image|
+    images
+      .select { |image| image.image_data&.all_asset_variants_uploaded? }
+      .map do |image|
       {
         id: image.image_data.carrierwave_image,
         image_data_id: image.image_data_id,
@@ -64,7 +66,7 @@ module GovspeakHelper
 
   def prepare_attachments(attachments, alternative_format_contact_email)
     attachments
-      .select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
+      .select { |attachment| !attachment.file? || attachment.attachment_data&.all_asset_variants_uploaded? }
       .map do |attachment|
       attachment_component_params(attachment, alternative_format_contact_email:)
     end
