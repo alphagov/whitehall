@@ -1,8 +1,10 @@
 class Admin::UsersController < Admin::BaseController
   before_action :load_user, only: %i[show edit update]
+  layout :get_layout
 
   def index
     @users = User.enabled.includes(organisation: [:translations]).sort_by { |u| u.fuzzy_last_name.downcase }
+    render_design_system(:index, :legacy_index)
   end
 
   def show; end
@@ -25,6 +27,16 @@ class Admin::UsersController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = %w[index] if preview_design_system?(next_release: false)
+
+    if design_system_actions&.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def load_user
     @user = User.find(params[:id])

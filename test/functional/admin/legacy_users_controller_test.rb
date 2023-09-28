@@ -1,19 +1,21 @@
 require "test_helper"
 
-class Admin::UsersControllerTest < ActionController::TestCase
+class Admin::LegacyUsersControllerTest < ActionController::TestCase
+  tests Admin::UsersController
   setup do
     @user = create(:user, name: "user-name", email: "user@example.com")
-    login_as_preview_design_system_user :writer
+    login_as(@user)
   end
 
   should_be_an_admin_controller
 
   view_test "index shows list of enabled users" do
     disabled_user = create(:disabled_user)
+
     get :index
 
-    assert_select ".govuk-table__row:last-child td:first-child", @user.name
-    refute_select(".govuk-table__row:last-child td:first-child", text: %r{#{disabled_user.name}})
+    assert_select("tr:last-child td.name", text: %r{#{@user.name}})
+    refute_select("tr:last-child td.name", text: %r{#{disabled_user.name}})
   end
 
   view_test "show displays user name and email address" do

@@ -1,28 +1,41 @@
-<% page_title "Users" %>
-<h1>Users</h1>
+<% content_for :page_title, "All users" %>
+<% content_for :title, "All users" %>
 
-<table class="table table-striped table-bordered add-top-margin">
-  <thead>
-    <tr class="table-header">
-      <th width="40%">Name</th>
-      <th width="20%">Role</th>
-      <th width="40%">Organisation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <%= content_tag_for(:tr, user) do %>
-        <td class="name">
-          <%= link_to user.name, admin_user_path(user), title: "View #{user.name}" %><br>
-          <%= mail_to user.email %>
-        </td>
-        <td class="role">
-          <%= user.role %>
-        </td>
-        <td class="Organisation">
-          <%= user.organisation_name %>
-        </td>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<div class="app-view-users__page-list">
+<div class="app-c-govuk-table--filterable  govuk-table--with-actions">
+  <%= render "govuk_publishing_components/components/table", {
+    filterable: true,
+    label: "Filter by user, role or organisation",
+    head: [
+      {
+        text: "User name",
+      },
+      {
+        text: "Role",
+      },
+      {
+        text: "Organisation",
+      },
+      {
+        text: tag.span("Actions", class: "govuk-visually-hidden"),
+      },
+    ],
+    rows: @users.map do |user|
+      [
+        {
+          text: tag.p(user.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+        },
+        {
+          text: user.role,
+        },
+        {
+          text: user.organisation_name,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(user.name, class: 'govuk-visually-hidden')}"), admin_user_path(user), class: "govuk-link"),
+        },
+      ]
+    end,
+  } %>
+</div>
+</div>
