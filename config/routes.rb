@@ -29,13 +29,14 @@ Whitehall::Application.routes.draw do
 
       resources :authors, only: [:show]
       resource :document_searches, only: [:show]
+
       resources :document_collections, path: "collections", except: [:index] do
         resources :document_collection_groups, as: :groups, path: "groups" do
+          get :search_options, to: "document_collection_group_document_search#search_options"
+          post :search_options, to: "document_collection_group_document_search#search"
+          get :search_title_slug, to: "document_collection_group_document_search#search_title_slug"
           member { get :confirm_destroy }
-          resource :document_collection_group_membership,
-                   as: :members,
-                   path: "members",
-                   only: [:destroy]
+          resource :document_collection_group_membership, as: :members, path: "members", only: [:destroy]
           resources :document_collection_group_memberships, path: "members", only: %i[index destroy] do
             get :confirm_destroy, on: :member
           end
@@ -46,6 +47,7 @@ Whitehall::Application.routes.draw do
         post "non-whitehall-member" => "document_collection_group_memberships#create_non_whitehall_member", as: :new_non_whitehall_member
         post "groups/update_memberships" => "document_collection_groups#update_memberships", as: :update_group_memberships
       end
+
       resources :organisations do
         resources :groups, except: [:show]
         resources :corporate_information_pages do

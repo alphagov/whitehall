@@ -1,0 +1,62 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_document_collection_group_search_options_path(@collection, @group),
+  } %>
+<% end %>
+<% content_for :page_title, "Add document" %>
+<% content_for :title, "Add document" %>
+<% content_for :context, @group.heading %>
+<% content_for :title_margin_bottom, 4 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds app-view-document-collection-document-search-bar">
+    <%= form_with method: :get do |_form| %>
+      <%= render "govuk_publishing_components/components/search", {
+        name: "query",
+        value: params[:query],
+        label_text: "Search by title",
+        label_size: "l",
+      } %>
+    <% end %>
+  </div>
+
+  <% if @results %>
+    <div class="govuk-grid-column-two-thirds app-view-document-collection-document-search-results">
+
+      <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@results.count), "document") %></p>
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <% if @results.empty? %>
+        <p class="govuk-body app-view-document-collection-document-search-results__no_documents">No results found. Search again using the <%= link_to "full URL", "#", class: "govuk-link govuk-link--no-visited-state" %>.</p>
+      <% else %>
+        <div class="govuk-table--with-actions app-view-document-collection-document-search-results__table">
+          <%= render "govuk_publishing_components/components/table",
+                     {
+                       rows: @results.map do |edition|
+                         title_span = tag.span(index_table_title_row(edition), class: "govuk-!-font-weight-bold")
+                         view_link = link_to(sanitize("View #{tag.span(edition.title, class: "govuk-visually-hidden")}"), edition.public_url, class: "govuk-link")
+                         add_button = button_to("Add",
+                                                admin_document_collection_new_whitehall_member_path(@collection),
+                                                method: :post,
+                                                params: {
+                                                  group_id: @group.id,
+                                                  document_id: edition.document.id,
+                                                },
+                                                aria: { label: "Add document to the document collection group" },
+                                                class: "gem-c-button govuk-button govuk-button--secondary",
+                                                data_attributes: {
+                                                  module: "gem-track-click",
+                                                  "track-category": "form-button",
+                                                  "track-action": "add-document-to-collection-group-button",
+                                                  "track-label": "Add",
+                                                },
+                         )
+
+                         [{ text: title_span }, { text: view_link + add_button }]
+                       end,
+                     } %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

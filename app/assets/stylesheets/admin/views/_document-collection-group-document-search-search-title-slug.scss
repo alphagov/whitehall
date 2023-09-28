@@ -1,0 +1,18 @@
+.app-view-document-collection-document-search-results__table {
+  .govuk-table__cell:nth-child(2) {
+    white-space: nowrap;
+  }
+
+  .govuk-table__cell,
+  .govuk-table__cell * {
+    vertical-align: middle;
+  }
+
+  form {
+    display: inline;
+
+    .govuk-button--secondary {
+      margin-left: govuk-spacing(3);
+    }
+  }
+}

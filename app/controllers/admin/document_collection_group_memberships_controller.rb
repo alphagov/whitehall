@@ -11,10 +11,11 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   def create_whitehall_member
     membership = DocumentCollectionGroupMembership.new(document: @document, document_collection_group: @group)
     if membership.save
-      redirect_to admin_document_collection_groups_path(@collection),
-                  notice: "'#{params[:title]}' added to '#{@group.heading}'"
+      title = @document.latest_edition.title
+      redirect_to create_redirect_path,
+                  notice: "'#{title}' added to '#{@group.heading}'"
     else
-      redirect_to admin_document_collection_groups_path(@collection),
+      redirect_to create_redirect_path,
                   alert: "#{membership.errors.full_messages.join('. ')}."
     end
   end
@@ -59,8 +60,16 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
 
 private
 
+  def create_redirect_path
+    if get_layout == "design_system"
+      admin_document_collection_group_document_collection_group_memberships_path(@collection, @group)
+    else
+      admin_document_collection_groups_path(@collection)
+    end
+  end
+
   def get_layout
-    design_system_actions = %w[index confirm_destroy destroy] if preview_design_system?(next_release: false)
+    design_system_actions = %w[index confirm_destroy destroy create_whitehall_member] if preview_design_system?(next_release: false)
 
     if design_system_actions&.include?(action_name)
       "design_system"
