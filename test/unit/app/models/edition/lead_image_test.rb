@@ -40,4 +40,31 @@ class Edition::LeadImageTest < ActiveSupport::TestCase
     assert_equal "url", model.lead_image_url
     assert_equal "alt_text", model.lead_image_alt_text
   end
+
+  test "#lead_image_has_all_assets? returns false if the lead image (ImageData) has missing assets" do
+    image_with_missing_assets = build(:image)
+    image_with_missing_assets.image_data.use_non_legacy_endpoints = true
+    image_with_missing_assets.image_data.assets << [build(:asset)]
+
+    model = stub("Target", { images: [image_with_missing_assets] }).extend(Edition::LeadImage)
+
+    assert_not model.lead_image_has_all_assets?
+  end
+
+  test "#lead_image_has_all_assets? returns true if the lead image (ImageData) has all assets" do
+    image_with_missing_assets = build(:image_with_assets)
+
+    model = stub("Target", { images: [image_with_missing_assets] }).extend(Edition::LeadImage)
+
+    assert model.lead_image_has_all_assets?
+  end
+
+  test "#lead_image_has_all_assets? returns true if the lead image data doesn't implement all_asset_variants_uploaded?" do
+    # e.g. DefaultNewsOrganisationImageData doesn't yet implement all_asset_variants_uploaded?
+    image = build(:default_news_organisation_image_data)
+    organisation = build(:organisation, default_news_image: image)
+    model = stub("Target", { images: [], lead_organisations: [], organisations: [organisation] }).extend(Edition::LeadImage)
+
+    assert model.lead_image_has_all_assets?
+  end
 end

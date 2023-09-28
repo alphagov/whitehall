@@ -54,7 +54,7 @@ module PublishingApi
         first_public_at:,
         format_display_type: item.display_type_key,
       }
-      details_hash[:image] = if image_available? && image_required?
+      details_hash[:image] = if image_available? && image_required? && item.lead_image_has_all_assets?
                                image_details
                              else
                                { url: "", caption: nil, alt_text: "" }
