@@ -19,7 +19,7 @@
     "cropperjs": "^1.6.1",
     "jquery": "3.7.1",
     "miller-columns-element": "^2.0.0",
-    "paste-html-to-govspeak": "^0.3.0"
+    "paste-html-to-govspeak": "^0.4.0"
   },
   "devDependencies": {
     "eslint": "^8.50.0",
