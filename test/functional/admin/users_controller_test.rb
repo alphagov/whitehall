@@ -41,16 +41,15 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   view_test "edit displays form" do
-    login_as create(:gds_editor)
+    login_as_preview_design_system_user :gds_editor
     get :edit, params: { id: @user.id }
-
     assert_select "form[action='#{admin_user_path(@user)}']" do
       assert_select "button", text: "Save"
     end
   end
 
   view_test "edit displays cancel link" do
-    login_as create(:gds_editor)
+    login_as_preview_design_system_user :gds_editor
     get :edit, params: { id: @user.id }
 
     assert_select "a.govuk-link", text: "Cancel"

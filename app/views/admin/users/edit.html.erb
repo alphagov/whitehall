@@ -1,20 +1,36 @@
-<% page_title "Edit " + @user.name, "Users" %>
-<section class="user">
-  <h1>Edit settings</h1>
-  <%= form_for @user, as: :user, url: admin_user_path(@user), html: { method: :put } do |form| %>
-    <%= form.errors %>
+<% content_for :page_title, "Edit world Locations" %>
+<% content_for :title, "Edit world Locations" %>
+<% content_for :context, @user.name %>
 
-    <% if @user.editable_by?(current_user) %>
-      <%= form.label :world_location_ids, "Select the world locations" %>
-      <%= form.select :world_location_ids,
-                      options_from_collection_for_select(WorldLocation.ordered_by_name, "id", "name", form.object.world_location_ids),
-                      { include_blank: true },
-                      multiple: true,
-                      class: "chzn-select form-control",
-                      data: { placeholder: "World locations…"} %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @user, as: :user, url: admin_user_path(@user), method: :put do |form| %>
+      <%= render "components/autocomplete", {
+        id: "user_world_location_ids",
+        name: "user[world_location_ids][]",
+        label: {
+          text: "Locations",
+          heading_size: "l",
+        },
+        select: {
+          multiple: true,
+          selected: form.object.world_location_ids,
+          options: [""] + WorldLocation.all.map { |l| [l.name, l.id] },
+        },
+      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "world-location-save-button",
+            "track-label": "Save",
+          },
+        } %>
 
+        <%= link_to "Cancel", admin_user_path(@user), class: "govuk-link govuk-link--no-visited-state" %>
+      </div>
     <% end %>
-
-    <%= form.save_or_cancel cancel: admin_user_path(@user) %>
-  <% end %>
-</section>
+  </div>
+</div>

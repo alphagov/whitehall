@@ -12,7 +12,11 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
-    head :forbidden unless @user.editable_by?(current_user)
+    unless @user.editable_by?(current_user)
+      head :forbidden
+      return
+    end
+    render_design_system(:edit, :legacy_edit)
   end
 
   def update
@@ -24,14 +28,14 @@ class Admin::UsersController < Admin::BaseController
     if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: "World locations have been updated"
     else
-      render action: "edit"
+      render_design_system(:edit, :legacy_edit)
     end
   end
 
 private
 
   def get_layout
-    design_system_actions = %w[index show] if preview_design_system?(next_release: false)
+    design_system_actions = %w[index show edit] if preview_design_system?(next_release: false)
 
     if design_system_actions&.include?(action_name)
       "design_system"
