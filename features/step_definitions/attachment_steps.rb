@@ -70,7 +70,7 @@ When(/^I set the order of attachments to:$/) do |attachment_order|
 end
 
 Then(/^the attachments should be in the following order:$/) do |attachment_list|
-  attachment_names = all("li p:first").map(&:text).map { |t| t.delete_prefix("Title:").chomp("Uploading").strip }
+  attachment_names = all("li p:first").map(&:text).map { |t| t.delete_prefix("Title:").chomp("Processing").strip }
 
   attachment_list.hashes.each_with_index do |attachment_info, index|
     attachment = Attachment.find_by(title: attachment_info[:title])

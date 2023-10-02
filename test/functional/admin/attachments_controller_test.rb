@@ -111,7 +111,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "p.govuk-body", text: "Title: An HTML attachment"
     assert_select "p.govuk-body", text: "Title: An uploaded file attachment"
-    assert_select "p.govuk-body", text: "Title: An uploading file attachment Uploading"
+    assert_select "p.govuk-body", text: "Title: An uploading file attachment Processing"
     assert_select "p.govuk-body", text: "Title: An external attachment"
   end
 
