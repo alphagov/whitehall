@@ -49,6 +49,10 @@ class Admin::EditionImages::UploadedImagesComponent < ViewComponent::Base
 
 private
 
+  def all_image_asset_variants_uploaded?(image)
+    image.image_data.all_asset_variants_uploaded? if image.image_data.present?
+  end
+
   def image_to_hash(image, index)
     {
       url: image.url,
@@ -57,6 +61,7 @@ private
       alt_text: image.alt_text.presence || "None",
       markdown: unique_names? ? "[Image: #{image.filename}]" : "!!#{index}",
       links: links_for_image(image),
+      all_image_asset_variants_uploaded: all_image_asset_variants_uploaded?(image),
     }
   end
 
