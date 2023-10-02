@@ -41,16 +41,14 @@ private
     delete_unpublishing!
   end
 
-  def previous_editions
-    Edition
-      .unscoped
-      .where(document_id: edition.document_id)
-      .where.not(id: edition.id)
+  def editions_to_supersede
+    edition.document.editions
       .published
+      .excluding(edition)
   end
 
   def supersede_previous_editions!
-    previous_editions.each do |edition|
+    editions_to_supersede.each do |edition|
       edition.supersede
       edition.save!(validate: false)
     end
