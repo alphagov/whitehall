@@ -124,11 +124,10 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
            worldwide_organisation: worldwide_org,
            attachments: [create(:file_attachment)])
     expected_body_text = "<div class=\"govspeak\"><p>Some stuff and some attachments"
-    expected_body_attachment_link = Regexp.new(/<a class="govuk-link" href="#{Plek.asset_root}\/government\/uploads\/system\/uploads\/attachment_data\/file\/\d+\/greenpaper.pdf">file-attachment-title-\d+<\/a>/)
+    expected_body_attachment_link = Regexp.new(/<a class="govuk-link" href="#{Plek.asset_root}\/media\/\w+\/greenpaper.pdf">file-attachment-title-\d+<\/a>/)
     expected_body_attachment_metadata = "(<span class=\"gem-c-attachment-link__attribute\"><abbr title=\"Portable Document Format\" class=\"gem-c-attachment-link__abbr\">PDF</abbr></span>, <span class=\"gem-c-attachment-link__attribute\">3.39 KB</span>, <span class=\"gem-c-attachment-link__attribute\">1 page</span>)"
 
     presented_item = present(worldwide_org)
-
     assert_match expected_body_text, presented_item.body
     assert_match expected_body_attachment_link, presented_item.body
     assert_match expected_body_attachment_metadata, presented_item.body

@@ -10,91 +10,45 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
   describe "attachment link header" do
     let(:filename) { "sample.docx" }
     let(:asset_manager_id) { "asset_manager_id" }
+    let(:variant) { Asset.variants[:original] }
 
-    context "updates with legacy_url_path" do
-      before do
-        login_as create(:managing_editor)
-        stub_publishing_api_has_linkables([], document_type: "topic")
-        stub_whitehall_asset(filename, id: asset_manager_id, draft: asset_initially_draft)
-      end
-
-      context "given a file attachment" do
-        let(:file) { File.open(path_to_attachment(filename)) }
-        let(:attachment) { build(:file_attachment, attachable:, file:) }
-        let(:attachable) { edition }
-        let(:topic_taxon) { build(:taxon_hash) }
-
-        before do
-          setup_publishing_api_for(edition)
-          attachable.attachments << attachment
-          attachable.save!
-        end
-
-        context "on a draft document" do
-          let(:edition) { create(:news_article) }
-          let(:asset_initially_draft) { true }
-
-          it "sets link to parent document in Asset Manager when document is published" do
-            visit admin_news_article_path(edition)
-            force_publish_document
-
-            parent_document_url = edition.public_url
-
-            Services.asset_manager.expects(:update_asset)
-                    .at_least_once
-                    .with(asset_manager_id, has_entry("parent_document_url", parent_document_url))
-
-            AssetManagerAttachmentMetadataWorker.drain
-          end
-        end
-      end
+    before do
+      login_as create(:managing_editor)
+      setup_publishing_api_for(edition)
+      stub_publishing_api_has_linkables([], document_type: "topic")
+      stub_asset(asset_manager_id, draft: asset_initially_draft)
     end
 
-    context "updates with asset_manager_id" do
-      let(:variant) { Asset.variants[:original] }
+    context "given a file attachment" do
+      let(:attachment) { build(:file_attachment_with_asset, attachable:) }
+      let(:attachable) { edition }
+      let(:topic_taxon) { build(:taxon_hash) }
 
       before do
-        login_as create(:managing_editor)
-        stub_publishing_api_has_linkables([], document_type: "topic")
-        stub_asset(asset_manager_id, draft: asset_initially_draft)
+        attachable.attachments << attachment
+        attachable.save!
       end
 
-      context "given a file attachment" do
-        let(:attachment) { build(:file_attachment_with_asset, attachable:) }
-        let(:attachable) { edition }
-        let(:topic_taxon) { build(:taxon_hash) }
+      context "on a draft document" do
+        let(:edition) { create(:news_article) }
+        let(:asset_initially_draft) { true }
 
-        before do
-          setup_publishing_api_for(edition)
-          attachable.attachments << attachment
-          attachable.save!
-        end
+        it "sets link to parent document in Asset Manager when document is published" do
+          visit admin_news_article_path(edition)
+          force_publish_document
 
-        context "on a draft document" do
-          let(:edition) { create(:news_article) }
-          let(:asset_initially_draft) { true }
+          parent_document_url = edition.public_url
 
-          it "sets link to parent document in Asset Manager when document is published" do
-            visit admin_news_article_path(edition)
-            force_publish_document
+          Services.asset_manager.expects(:update_asset)
+                  .at_least_once
+                  .with(asset_manager_id, has_entry("parent_document_url", parent_document_url))
 
-            parent_document_url = edition.public_url
-
-            Services.asset_manager.expects(:update_asset)
-                    .at_least_once
-                    .with(asset_manager_id, has_entry("parent_document_url", parent_document_url))
-
-            AssetManagerAttachmentMetadataWorker.drain
-          end
+          AssetManagerAttachmentMetadataWorker.drain
         end
       end
     end
 
   private
-
-    def ends_with(expected)
-      ->(actual) { actual.end_with?(expected) }
-    end
 
     def setup_publishing_api_for(edition)
       stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
@@ -103,13 +57,6 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
 
     def path_to_attachment(filename)
       fixture_path.join(filename)
-    end
-
-    def stub_whitehall_asset(filename, attributes = {})
-      url_id = "http://asset-manager/assets/#{attributes[:id]}"
-      Services.asset_manager.stubs(:whitehall_asset)
-              .with(&ends_with(filename))
-              .returns(attributes.merge(id: url_id).stringify_keys)
     end
 
     def stub_asset(asset_manger_id, attributes = {})

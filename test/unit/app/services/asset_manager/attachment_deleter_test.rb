@@ -5,8 +5,8 @@ class AssetManager::AttachmentDeleterTest < ActiveSupport::TestCase
 
   describe AssetManager::AttachmentDeleter do
     let(:worker) { AssetManager::AttachmentDeleter }
-    let(:attachment_data) { nil }
     let(:delete_worker) { mock("delete-worker") }
+    let(:attachment_data) { build(:attachment_data) }
 
     around do |test|
       AssetManager.stub_const(:AssetDeleter, delete_worker) do
@@ -14,82 +14,30 @@ class AssetManager::AttachmentDeleterTest < ActiveSupport::TestCase
       end
     end
 
-    context "when attachment data exists" do
-      let(:attachment_data) { create(:attachment_data, file:) }
+    before do
+      attachment_data.stubs(:deleted?).returns(deleted)
+    end
 
-      before do
-        attachment_data.stubs(:deleted?).returns(deleted)
+    context "attachment data is not deleted" do
+      let(:deleted) { false }
+
+      it "does not delete any assets from Asset Manager" do
+        delete_worker.expects(:call).never
+
+        worker.call(attachment_data)
+
+        assert AssetManagerDeleteAssetWorker.jobs.empty?
       end
+    end
 
-      context "attachment_data has no associated assets" do
-        context "when attachment data is not a PDF" do
-          let(:file) { File.open(fixture_path.join("sample.rtf")) }
+    context "attachment data is deleted" do
+      let(:deleted) { true }
 
-          context "and attachment data is deleted" do
-            let(:deleted) { true }
+      it "deletes attachment & thumbnail asset in Asset Manager" do
+        delete_worker.expects(:call).with(nil, "asset_manager_id_original")
+        delete_worker.expects(:call).with(nil, "asset_manager_id_thumbnail")
 
-            it "deletes corresponding asset in Asset Manager" do
-              delete_worker.expects(:call)
-                           .with(attachment_data.file.asset_manager_path, nil)
-
-              worker.call(attachment_data)
-            end
-          end
-
-          context "and attachment data is not deleted" do
-            let(:deleted) { false }
-
-            it "does not delete any assets from Asset Manager" do
-              delete_worker.expects(:call).never
-
-              assert AssetManagerDeleteAssetWorker.jobs.empty?
-            end
-          end
-        end
-
-        context "when attachment data is a PDF" do
-          let(:file) { File.open(fixture_path.join("simple.pdf")) }
-
-          context "and attachment data is deleted" do
-            let(:deleted) { true }
-
-            it "deletes attachment & thumbnail asset in Asset Manager" do
-              delete_worker.expects(:call)
-                           .with(attachment_data.file.asset_manager_path, nil)
-              delete_worker.expects(:call)
-                           .with(attachment_data.file.thumbnail.asset_manager_path, nil)
-
-              worker.call(attachment_data)
-            end
-          end
-        end
-      end
-
-      context "attachment_data has associated assets" do
-        let(:attachment_data) { build(:attachment_data_with_assets) }
-
-        context "and attachment data is not deleted" do
-          let(:deleted) { false }
-
-          it "does not delete any assets from Asset Manager" do
-            delete_worker.expects(:call).never
-
-            worker.call(attachment_data)
-
-            assert AssetManagerDeleteAssetWorker.jobs.empty?
-          end
-        end
-
-        context "and attachment data is deleted" do
-          let(:deleted) { true }
-
-          it "deletes attachment & thumbnail asset in Asset Manager" do
-            delete_worker.expects(:call).with(nil, "asset_manager_id_original")
-            delete_worker.expects(:call).with(nil, "asset_manager_id_thumbnail")
-
-            worker.call(attachment_data)
-          end
-        end
+        worker.call(attachment_data)
       end
     end
   end

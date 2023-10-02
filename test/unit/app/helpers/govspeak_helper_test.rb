@@ -178,8 +178,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should ignore file attachments with missing asset variants" do
     embed_code = "[Attachment: greenpaper.pdf]"
     body = "#Heading\n\n#{embed_code}\n\n##Subheading"
-    attachment = build(:file_attachment, title: "Green paper")
-    attachment.attachment_data.use_non_legacy_endpoints = true
+    attachment = build(:file_attachment_with_no_assets, title: "Green paper")
     document = build(:draft_detailed_guide, :with_file_attachment, attachments: [attachment], body:)
 
     html = govspeak_edition_to_html(document)
@@ -210,8 +209,8 @@ class GovspeakHelperTest < ActionView::TestCase
         :published_detailed_guide,
         body: document_body,
         attachments: [
-          create(:file_attachment, title: "First attachment", file: upload_fixture("greenpaper.pdf", "application/pdf")),
-          create(:file_attachment, title: "Second attachment", file: upload_fixture("sample.csv", "text/csv")),
+          create(:file_attachment, title: "First attachment"),
+          create(:csv_attachment, title: "Second attachment"),
         ],
       )
       html = govspeak_edition_to_html(document)
@@ -233,8 +232,8 @@ class GovspeakHelperTest < ActionView::TestCase
         :published_detailed_guide,
         body: document_body,
         attachments: [
-          create(:file_attachment, title: "First attachment", file: upload_fixture("greenpaper.pdf", "application/pdf")),
-          create(:file_attachment, title: "Second attachment", file: upload_fixture("sample.csv", "text/csv")),
+          create(:file_attachment, title: "First attachment"),
+          create(:csv_attachment, title: "Second attachment"),
         ],
       )
       html = govspeak_edition_to_html(document)
@@ -486,7 +485,7 @@ class GovspeakHelperTest < ActionView::TestCase
     create(
       :published_publication,
       attachments: [
-        build(:file_attachment, file: upload_fixture("sample.csv", "text/csv")),
+        build(:csv_attachment),
         html_attachment = build(:html_attachment, body:),
       ],
       alternative_format_provider: build(:organisation, :with_alternative_format_contact_email),

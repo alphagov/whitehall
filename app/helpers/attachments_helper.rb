@@ -14,14 +14,9 @@ module AttachmentsHelper
   end
 
   def preview_path_for_attachment(attachment)
-    if attachment.attachment_data.use_non_legacy_endpoints
-      if attachment.attachment_data.all_asset_variants_uploaded?
-        return Plek.external_url_for("assets-origin") + "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
-      end
-
-      return nil
+    if attachment.attachment_data.all_asset_variants_uploaded?
+      Plek.external_url_for("assets-origin") + "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
     end
-    Plek.external_url_for("assets-origin") + "/government/uploads/system/uploads/attachment_data/file/#{attachment.attachment_data.id}/#{attachment.filename}/preview"
   end
 
   def attachment_component_params(attachment, alternative_format_contact_email: nil)

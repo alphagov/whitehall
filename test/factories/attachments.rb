@@ -5,47 +5,51 @@ FactoryBot.define do
     attachable { build :policy_group }
   end
 
-  factory :file_attachment, traits: [:abstract_attachment] do
+  factory :attachment, class: FileAttachment, traits: [:abstract_attachment] do
     sequence(:title) { |index| "file-attachment-title-#{index}" }
+    accessible { false }
+
     transient do
       file { File.open(Rails.root.join("test/fixtures/greenpaper.pdf")) }
     end
 
-    after(:build) do |attachment, evaluator|
-      attachment.attachment_data ||= build(:attachment_data, file: evaluator.file, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
+    trait(:pdf) do
+      after(:build) do |attachment, evaluator|
+        attachment.attachment_data = build(:attachment_data, file: evaluator.file, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
+      end
     end
-    accessible { false }
+
+    trait(:doc) do
+      transient do
+        file { File.open(Rails.root.join("test/fixtures/sample.docx")) }
+      end
+
+      after(:build) do |attachment, evaluator|
+        attachment.attachment_data = build(:attachment_data_with_asset, file: evaluator.file)
+      end
+    end
+
+    trait(:csv) do
+      transient do
+        file { File.open(Rails.root.join("test/fixtures/sample.csv")) }
+      end
+
+      after(:build) do |attachment, evaluator|
+        attachment.attachment_data = build(:attachment_data_for_csv, file: evaluator.file)
+      end
+    end
+
+    trait(:with_no_assets) do
+      after(:build) do |attachment, evaluator|
+        attachment.attachment_data = build(:attachment_data_with_no_assets, file: evaluator.file)
+      end
+    end
   end
 
-  factory :file_attachment_with_asset, class: FileAttachment, traits: [:abstract_attachment] do
-    sequence(:title) { |index| "file-attachment-title-#{index}" }
-    transient do
-      file { File.open(Rails.root.join("test/fixtures/sample.docx")) }
-    end
-
-    after(:build) do |attachment, evaluator|
-      attachment.attachment_data = build(:attachment_data_with_asset, file: evaluator.file)
-    end
-    accessible { false }
-  end
-
-  factory :file_attachment_with_assets, parent: :file_attachment, traits: [:abstract_attachment] do
-    sequence(:title) { |index| "file-attachment-title-#{index}" }
-    transient do
-      file { File.open(Rails.root.join("test/fixtures/greenpaper.pdf")) }
-    end
-
-    after(:build) do |attachment, evaluator|
-      attachment.attachment_data = build(:attachment_data_with_assets, file: evaluator.file, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
-    end
-    accessible { false }
-  end
-
-  factory :csv_attachment, parent: :file_attachment do
-    transient do
-      file { File.open(Rails.root.join("test/fixtures/sample.csv")) }
-    end
-  end
+  factory :file_attachment, parent: :attachment, traits: [:pdf]
+  factory :file_attachment_with_asset, parent: :attachment, traits: [:doc]
+  factory :csv_attachment, parent: :attachment, traits: [:csv]
+  factory :file_attachment_with_no_assets, parent: :attachment, traits: [:with_no_assets]
 
   factory :html_attachment do
     sequence(:title) { |index| "html-attachment-title-#{index}" }

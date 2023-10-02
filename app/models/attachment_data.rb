@@ -62,11 +62,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def all_asset_variants_uploaded?
-    if use_non_legacy_endpoints
-      return assets.size == (pdf? ? 2 : 1)
-    end
-
-    uploaded_to_asset_manager?
+    assets.size == (pdf? ? 2 : 1)
   end
 
   def update_file_attributes

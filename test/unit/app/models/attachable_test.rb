@@ -407,26 +407,22 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "#uploaded_to_asset_manager? returns false if any of the assets are not ready" do
-    first_attachment = build(:file_attachment)
-    second_attachment = build(:file_attachment)
-    first_attachment.attachment_data.use_non_legacy_endpoints = true
+    file_attachment_with_all_assets = build(:file_attachment)
+    file_attachment_with_missing_assets = build(:file_attachment_with_no_assets)
     attachable_edition = build(:edition)
-    attachable_edition.attachments = [first_attachment, second_attachment]
+    attachable_edition.attachments = [file_attachment_with_all_assets, file_attachment_with_missing_assets]
 
     assert_not attachable_edition.uploaded_to_asset_manager?
   end
 
   test "attachments_ready_for_publishing filters out file attachments with missing assets" do
-    file_attachment_with_no_permissions = create(:file_attachment)
-    file_attachment_with_all_assets = build(:file_attachment_with_asset)
-    file_attachment_with_missing_assets = build(:file_attachment)
-    file_attachment_with_missing_assets.attachment_data.use_non_legacy_endpoints = true
+    file_attachment_with_all_assets = build(:file_attachment)
+    file_attachment_with_missing_assets = build(:file_attachment_with_no_assets)
     external_attachment = build(:external_attachment)
 
     publication = build(
       :publication,
       attachments: [
-        file_attachment_with_no_permissions,
         file_attachment_with_all_assets,
         file_attachment_with_missing_assets,
         external_attachment,

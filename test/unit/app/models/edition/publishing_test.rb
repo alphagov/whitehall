@@ -159,7 +159,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "is valid if all assets have been uploaded" do
     published_edition = build(:published_edition)
-    attachment = build(:file_attachment_with_assets)
+    attachment = build(:file_attachment)
     published_edition.attachments << attachment
 
     assert published_edition.valid?
@@ -167,8 +167,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "is invalid if some assets are missing" do
     published_edition = build(:published_edition)
-    attachment = build(:file_attachment)
-    attachment.attachment_data.use_non_legacy_endpoints = true
+    attachment = build(:file_attachment_with_no_assets)
     published_edition.attachments << attachment
 
     assert_not published_edition.valid?

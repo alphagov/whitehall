@@ -25,7 +25,7 @@ class Reports::OrganisationAttachmentsReportTest < ActiveSupport::TestCase
            organisations: [organisation],
            alternative_format_provider: organisation,
            attachments: [
-             create(:file_attachment, accessible: true),
+             create(:file_attachment_with_asset, accessible: true),
            ])
 
     Timecop.freeze do

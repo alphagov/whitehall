@@ -35,7 +35,7 @@ When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/)
 end
 
 Then(/^I should see a link to the PDF attachment$/) do
-  expect(page).to have_selector("a[href*='#{@attachment.filename}']")
+  expect(page).to have_selector("a[href*='#{@attachment.url}']")
 end
 
 When(/^I replace the data file of the attachment in a new draft of the publication$/) do

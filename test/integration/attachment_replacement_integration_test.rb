@@ -10,171 +10,87 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
   describe "attachment replacement" do
     let(:managing_editor) { create(:managing_editor) }
     let(:filename) { "sample.docx" }
-    let(:file) { File.open(path_to_attachment(filename)) }
-    let(:attachment) { build(:file_attachment, title: "attachment-title", attachable: edition, file:) }
     let(:asset_manager_id) { "asset_manager_id" }
-
     let(:replacement_filename) { "sample.rtf" }
     let(:replacement_asset_manager_id) { "replacement-asset-id" }
+    let(:variant) { Asset.variants[:original] }
+    let(:attachment) { build(:file_attachment_with_asset, title: "attachment-title", attachable: edition) }
 
-    context "updates with legacy_url_path" do
-      before do
-        create(:government)
-        login_as(managing_editor)
-        edition.attachments << attachment
-        stub_publishing_api_has_linkables([], document_type: "topic")
-        setup_publishing_api_for(edition)
-        stub_whitehall_asset(filename, id: asset_manager_id)
-      end
+    before do
+      login_as(managing_editor)
+      edition.attachments << attachment
 
-      context "given a draft document with a file attachment" do
-        let(:edition) { create(:news_article) }
+      setup_publishing_api_for(edition)
+      stub_publishing_api_has_linkables([], document_type: "topic")
+      stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
-        context "when attachment is replaced" do
-          before do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            visit admin_news_article_path(edition)
-            click_link "Modify attachments"
-            within page.find("li", text: filename) do
-              click_link "Edit attachment"
-            end
-            fill_in "Title", with: "Attachment Title"
-            attach_file "Replace file", path_to_attachment(replacement_filename)
-            click_button "Save"
-            assert_text "Attachment 'Attachment Title' updated"
+      stub_asset(asset_manager_id)
+      stub_asset(replacement_asset_manager_id)
+      stub_create_asset(replacement_asset_manager_id)
+    end
 
-            Attachment.last.attachment_data.uploaded_to_asset_manager!
-            stub_whitehall_asset(replacement_filename, id: replacement_asset_manager_id)
+    context "given a draft document with a file attachment" do
+      let(:edition) { create(:news_article) }
+
+      context "when attachment is replaced" do
+        before do
+          visit admin_news_article_path(edition)
+          click_link "Modify attachments"
+          within page.find("li", text: filename) do
+            click_link "Edit attachment"
           end
-
-          # We rely on Asset Manager to do the redirect immediately in this case,
-          # because the replacement is visible to the user.
-          it "updates replacement_id for attachment in Asset Manager" do
-            Services.asset_manager.expects(:update_asset)
-                    .at_least_once
-                    .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
-            AssetManagerAttachmentMetadataWorker.drain
-          end
+          fill_in "Title", with: "Attachment Title"
+          attach_file "Replace file", path_to_attachment(replacement_filename)
+          click_button "Save"
+          assert_text "Attachment 'Attachment Title' updated"
         end
-      end
 
-      context "given a published document with file attachment" do
-        let(:edition) { create(:published_news_article) }
+        # We rely on Asset Manager to do the redirect immediately in this case,
+        # because the replacement is visible to the user.
+        it "updates replacement_id for attachment in Asset Manager" do
+          AssetManagerCreateAssetWorker.drain
 
-        context "when new draft is created and attachment is replaced" do
-          before do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_has_linkables([], document_type: "topic")
-            visit admin_news_article_path(edition)
-            click_button "Create new edition"
-            click_link "Attachments 1"
-            within page.find("li", text: filename) do
-              click_link "Edit attachment"
-            end
-            attach_file "Replace file", path_to_attachment(replacement_filename)
-            click_button "Save"
-            assert_text "Attachment 'attachment-title' updated"
-            Attachment.last.attachment_data.uploaded_to_asset_manager!
-            stub_whitehall_asset(replacement_filename, id: replacement_asset_manager_id)
-          end
+          Services.asset_manager.expects(:update_asset)
+                  .at_least_once
+                  .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
 
-          # We rely on Asset Manager *not* to do the redirect, even though the
-          # asset is marked as replaced, because the replacement is not yet
-          # visible to the user.
-          it "updates replacement_id for attachment in Asset Manager" do
-            Services.asset_manager.expects(:update_asset)
-                    .at_least_once
-                    .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
-            AssetManagerAttachmentMetadataWorker.drain
-          end
+          AssetManagerAttachmentMetadataWorker.drain
         end
       end
     end
 
-    context "updates with asset_manager_id" do
-      let(:variant) { Asset.variants[:original] }
-      let(:attachment) { build(:file_attachment_with_asset, title: "attachment-title", attachable: edition) }
+    context "given a published document with file attachment" do
+      let(:edition) { create(:published_news_article) }
 
-      before do
-        create(:government)
-        login_as(managing_editor)
-        edition.attachments << attachment
-        stub_publishing_api_has_linkables([], document_type: "topic")
-        setup_publishing_api_for(edition)
-        stub_asset(asset_manager_id)
-      end
-
-      context "given a draft document with a file attachment" do
-        let(:edition) { create(:news_article) }
-
-        context "when attachment is replaced" do
-          before do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            visit admin_news_article_path(edition)
-            click_link "Modify attachments"
-            within page.find("li", text: filename) do
-              click_link "Edit attachment"
-            end
-            fill_in "Title", with: "Attachment Title"
-            attach_file "Replace file", path_to_attachment(replacement_filename)
-            click_button "Save"
-            assert_text "Attachment 'Attachment Title' updated"
-
-            Attachment.last.attachment_data.assets.create!(asset_manager_id: replacement_asset_manager_id, variant:, filename: replacement_filename)
-            Attachment.last.attachment_data.uploaded_to_asset_manager!
-            stub_asset(replacement_asset_manager_id)
+      context "when new draft is created and attachment is replaced" do
+        before do
+          visit admin_news_article_path(edition)
+          click_button "Create new edition"
+          click_link "Attachments 1"
+          within page.find("li", text: filename) do
+            click_link "Edit attachment"
           end
-
-          # We rely on Asset Manager to do the redirect immediately in this case,
-          # because the replacement is visible to the user.
-          it "updates replacement_id for attachment in Asset Manager" do
-            Services.asset_manager.expects(:update_asset)
-                    .at_least_once
-                    .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
-            AssetManagerAttachmentMetadataWorker.drain
-          end
+          attach_file "Replace file", path_to_attachment(replacement_filename)
+          click_button "Save"
+          assert_text "Attachment 'attachment-title' updated"
         end
-      end
 
-      context "given a published document with file attachment" do
-        let(:edition) { create(:published_news_article) }
+        # We rely on Asset Manager *not* to do the redirect, even though the
+        # asset is marked as replaced, because the replacement is not yet
+        # visible to the user.
+        it "updates replacement_id for attachment in Asset Manager" do
+          AssetManagerCreateAssetWorker.drain
 
-        context "when new draft is created and attachment is replaced" do
-          before do
-            stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-            stub_publishing_api_has_linkables([], document_type: "topic")
-            visit admin_news_article_path(edition)
-            click_button "Create new edition"
-            click_link "Attachments 1"
-            within page.find("li", text: filename) do
-              click_link "Edit attachment"
-            end
-            attach_file "Replace file", path_to_attachment(replacement_filename)
-            click_button "Save"
-            assert_text "Attachment 'attachment-title' updated"
-            Attachment.last.attachment_data.assets.create!(asset_manager_id: replacement_asset_manager_id, variant:, filename: replacement_filename)
-            Attachment.last.attachment_data.uploaded_to_asset_manager!
-            stub_asset(replacement_asset_manager_id)
-          end
+          Services.asset_manager.expects(:update_asset)
+                  .at_least_once
+                  .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
 
-          # We rely on Asset Manager *not* to do the redirect, even though the
-          # asset is marked as replaced, because the replacement is not yet
-          # visible to the user.
-          it "updates replacement_id for attachment in Asset Manager" do
-            Services.asset_manager.expects(:update_asset)
-                    .at_least_once
-                    .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
-            AssetManagerAttachmentMetadataWorker.drain
-          end
+          AssetManagerAttachmentMetadataWorker.drain
         end
       end
     end
 
   private
-
-    def ends_with(expected)
-      ->(actual) { actual.end_with?(expected) }
-    end
 
     def setup_publishing_api_for(edition)
       stub_publishing_api_has_links({ content_id: edition.document.content_id, links: {} })
@@ -184,18 +100,17 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
       fixture_path.join(filename)
     end
 
-    def stub_whitehall_asset(filename, attributes = {})
-      url_id = "http://asset-manager/assets/#{attributes[:id]}"
-      Services.asset_manager.stubs(:whitehall_asset)
-              .with(&ends_with(filename))
-              .returns(attributes.merge(id: url_id).stringify_keys)
-    end
-
     def stub_asset(asset_manger_id, attributes = {})
       url_id = "http://asset-manager/assets/#{asset_manger_id}"
       Services.asset_manager.stubs(:asset)
               .with(asset_manger_id)
               .returns(attributes.merge(id: url_id).stringify_keys)
     end
+  end
+
+  def stub_create_asset(asset_manger_id)
+    url_id = "http://asset-manager/assets/#{asset_manger_id}"
+    Services.asset_manager.stubs(:create_asset)
+            .returns("id" => url_id, "name" => "filename.pdf")
   end
 end
