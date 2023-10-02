@@ -101,25 +101,16 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     assert_equal 1, Asset.where(asset_manager_id: @asset_manager_id, variant: Asset.variants[:original], filename: File.basename(@file)).count
   end
 
-  test "updates uploaded_to_asset_manager for :original asset variant" do
-    @model.uploaded_to_asset_manager_at = nil
-    @model.save!
+  test "triggers an update to asset-manager" do
+    # This happens via the edition services coordinator,
+    # for the "update_draft" event triggered by the call to draft_updater.
+
+    consultation = FactoryBot.create(:consultation)
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args)
+    ServiceListeners::AttachmentUpdater.expects(:call).with(attachable: consultation).once
 
-    assert_not_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
-  end
-
-  test "updates uploaded_to_asset_manager for :thumbnail asset variant" do
-    @model.uploaded_to_asset_manager_at = nil
-    @model.save!
-    @asset_args["asset_variant"] = Asset.variants[:thumbnail]
-    Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
-
-    @worker.perform(@file.path, @asset_args)
-
-    assert_not_nil AttachmentData.find(@model.id).uploaded_to_asset_manager_at
+    @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
   end
 
   test "triggers an update to publishing api after asset has been saved" do
