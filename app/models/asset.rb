@@ -6,6 +6,16 @@ class Asset < ApplicationRecord
   validates :variant, presence: true
   validates :filename, presence: true
 
+  validates :unique_variant_for_each_assetable, acceptance: true
+
+  def unique_variant_for_each_assetable
+    return unless assetable
+
+    if Asset.where(assetable_id:, variant:).where.not(id:).exists?
+      errors.add(:variant, "already exist for the assetable")
+    end
+  end
+
   enum variant: {
     original: "original".freeze,
     thumbnail: "thumbnail".freeze,

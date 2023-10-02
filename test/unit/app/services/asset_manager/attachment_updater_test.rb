@@ -214,9 +214,10 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
     describe "replacement ID updates" do
       context "when attachment does not have a replacement" do
         let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-        let(:attachment_data) { AttachmentData.create!(file: sample_rtf) }
+        let(:attachment_data) { create(:attachment_data, file: sample_rtf) }
 
         it "does not update asset manager" do
+          attachment_data.assets = [thumbnail_asset]
           attachment_data.assets.create!(asset_manager_id: "asset_manager_id", variant: original, filename: "sample.rtf")
           update_service.expects(:call).never
 
@@ -282,6 +283,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         let(:replacement) { AttachmentData.create!(file: sample_docx) }
 
         it "raises a AssetNotFound error" do
+          attachment_data.assets = [thumbnail_asset]
           attachment_data.assets.create!(asset_manager_id: "asset_manager_id", variant: original, filename: "sample.rtf")
           replacement.assets.create!(asset_manager_id: "replacement_asset_manager_id", variant: original, filename: "sample.docx")
 

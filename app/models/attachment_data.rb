@@ -62,7 +62,8 @@ class AttachmentData < ApplicationRecord
   end
 
   def all_asset_variants_uploaded?
-    assets.size == (pdf? ? 2 : 1)
+    unique_asset_variants = assets.map(&:variant).to_set
+    unique_asset_variants.size == (pdf? ? 2 : 1)
   end
 
   def update_file_attributes

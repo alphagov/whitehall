@@ -6,7 +6,7 @@ class AssetManagerIntegrationTest
 
     setup do
       @filename = "sample.docx"
-      @attachment = FactoryBot.build(:file_attachment_with_asset)
+      @attachment = FactoryBot.build(:file_attachment_with_no_assets, file: file_fixture(@filename))
       @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
     end
 

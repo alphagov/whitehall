@@ -7,6 +7,8 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @asset_manager_id = "asset_manager_id"
     @organisation = FactoryBot.create(:organisation)
     @model = FactoryBot.create(:attachment_data)
+    @model_without_assets = FactoryBot.create(:attachment_data_with_no_assets)
+    @asset_args_without_assets = { assetable_id: @model_without_assets.id, asset_variant: Asset.variants[:original], assetable_type: @model_without_assets.class.to_s }.deep_stringify_keys
     @asset_manager_response = {
       "id" => "http://asset-manager/assets/#{@asset_manager_id}",
       "name" => File.basename(@file),
@@ -19,13 +21,13 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
       args[:file].path == @file.path
     }.returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args)
+    @worker.perform(@file.path, @asset_args_without_assets)
   end
 
   test "marks the asset as draft if instructed" do
     Services.asset_manager.expects(:create_asset).with(has_entry(draft: true)).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args, true)
+    @worker.perform(@file.path, @asset_args_without_assets, true)
   end
 
   test "removes the file after it has been successfully uploaded" do
@@ -49,7 +51,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, @asset_args_without_assets, true, consultation.class.to_s, consultation.id)
   end
 
   test "marks attachments belonging to consultation responses as access limited" do
@@ -60,7 +62,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, @asset_args_without_assets, true, consultation.class.to_s, consultation.id)
   end
 
   test "does not mark attachments belonging to policy groups as access limited" do
@@ -70,7 +72,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).with(Not(has_key(:access_limited))).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args, true, policy_group.class.to_s, policy_group.id)
+    @worker.perform(@file.path, @asset_args_without_assets, true, policy_group.class.to_s, policy_group.id)
   end
 
   test "sends auth bypass ids to asset manager when these are passed through in the params" do
@@ -81,7 +83,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).with(has_entry(auth_bypass_ids: [consultation.auth_bypass_id])).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
+    @worker.perform(@file.path, @asset_args_without_assets, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
   end
 
   test "doesn't run if the file is missing (e.g. job ran twice)" do
@@ -96,7 +98,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
   test "stores corresponding asset_manager_id and filename for current file attachment" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_args)
+    @worker.perform(@file.path, @asset_args_without_assets)
 
     assert_equal 1, Asset.where(asset_manager_id: @asset_manager_id, variant: Asset.variants[:original], filename: File.basename(@file)).count
   end
@@ -129,5 +131,18 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     Services.publishing_api.stubs(:put_content).never
 
     @worker.perform(@file.path, @asset_args, true, consultation_outcome.class.to_s, consultation_outcome.id)
+  end
+
+  test "does not create addition asset on failure if required asset already exist" do
+    consultation = FactoryBot.create(:consultation)
+    Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
+
+    asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:thumbnail], assetable_type: @model.class.to_s }.deep_stringify_keys
+
+    @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, asset_args, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, asset_args, true, consultation.class.to_s, consultation.id)
+
+    assert_equal 2, Asset.where(assetable_id: @model.id).count
   end
 end
