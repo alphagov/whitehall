@@ -101,34 +101,27 @@ Feature: Grouping documents into a collection
       | Group 2 |
       | Group 1 |
 
-
-
-
   @design-system-only
   Scenario: Reordering documents within a group
     Given a document collection "Collection" exists
     And the document collection "Collection" has a group with the heading "Group"
-    And the "Collection" has the following documents within its "Group":
-      | name       |
-      | Document 1 |
-      | Document 2 |
     And a published document "Document 1" exists
     And a published document "Document 2" exists
-    When I select to add a new document to the collection group through "Search via title or slug"
-    And I search by "title or slug" for "Document 1"
+    When I select to add a new document to the collection group through "Search via title"
+    And I search by "title" for "Document 1"
     And I add "Document 1" to the document collection
     Then I should see "Document 1" in the list for the collection group "Group"
-    When I select to add a new document to the collection group through "Search via title or slug"
-    And I search by "title or slug" for "Document 2"
+    When I select to add a new document to the collection group through "Search via title"
+    And I search by "title" for "Document 2"
     And I add "Document 2" to the document collection
     Then I should see "Document 2" in the list for the collection group "Group"
     Then I visit the Reorder document page
-    And I set the order of "Group" documents to:
+    And within the "Collection" "Group" I set the order of the documents to:
       | name       | order |
       | Document 1 | 1     |
       | Document 2 | 0     |
     Then I can see a "Document has been reordered" success flash
-    And the document groups should be in the following order:
+    And the document collection group's documents should be in the following order:
       | name       |
       | Document 2 |
       | Document 1 |

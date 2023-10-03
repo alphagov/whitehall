@@ -224,23 +224,6 @@ And(/^the following groups exist within "([^"]*)":$/) do |collection_title, grou
   collection.save!
 end
 
-And(/^the "([^"]*)" has the following documents within its "([^"]*)":$/) do |collection_title, group_title, documents|
-  collection = DocumentCollection.find_by!(title: collection_title)
-  collection.groups =
-  collection.groups = groups.hashes.map { |hash| create(:document_collection_group, heading: hash[:name]) }
-  collection.save!
-
-  collection = DocumentCollection.find_by!(title: collection_title)
-  @group = @document_collection.groups.first
-  @group.memberships = documents.hashes.map { |hash| create(:document_collection_group_membership, title: hash[:name])}
-
-  put @group
-  put @group.memberships
-
-
-end
-
-
 When(/^I visit the Reorder page/) do
   visit admin_document_collection_groups_path(@document_collection)
   click_link "Reorder group"
@@ -263,11 +246,11 @@ And(/^I set the order of "([^"]*)" groups to:$/) do |collection_title, order|
   click_button "Save"
 end
 
-And(/^I set the order of "([^"]*)" documents to:$/) do |group_title, order|
-  put @group.memberships
+And(/^within the "([^"]*)" "([^"]*)" I set the order of the documents to:$/) do |collection_title, group_title, order|
+  collection = DocumentCollection.find_by!(title: collection_title)
+  group = collection.groups.find_by!(heading: group_title)
   order.hashes.each do |hash|
-    membership = @group.memberships.select { |f| f.document.latest_edition.title == hash[:name] }.first
-    membership.inspect
+    membership = group.memberships.select { |f| f.document.latest_edition.title == hash[:name] }.first
     fill_in "ordering[#{membership.id}]", with: hash[:order]
   end
 
@@ -284,8 +267,8 @@ And(/^the groups should be in the following order:/) do |list|
   expect(actual_order).to eq(expected_order)
 end
 
-And(/^the document groups should be in the following order:/) do |list|
-  actual_order = all(".govuk-summary-list dt").map(&:text)
+And(/^the document collection group's documents should be in the following order:/) do |list|
+  actual_order = all(".govuk-table__cell:first-child").map(&:text)
   expected_order = list.hashes.map(&:values).flatten
   expect(actual_order).to eq(expected_order)
 end
