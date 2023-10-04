@@ -71,6 +71,14 @@ class ImageDataTest < ActiveSupport::TestCase
     assert build_example("960x640_jpeg.jpg").bitmap?
   end
 
+  test "should not delete assets when ImageData gets deleted" do
+    image_data = create(:image_data_with_assets)
+    assert_equal 7, image_data.assets.count
+
+    image_data.destroy!
+    assert_equal 7, image_data.assets.count
+  end
+
   def build_example(file_name)
     file = File.open(Rails.root.join("test/fixtures/images", file_name))
     build(:image_data, file:)

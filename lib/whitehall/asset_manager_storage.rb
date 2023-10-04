@@ -21,7 +21,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
     logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model&.id || 'nil'}")
 
-    if should_save_an_asset?
+    if Whitehall::AssetManagerStorage.use_non_legacy_behaviour?(uploader.model)
       assetable_id = uploader.model.id
       assetable_type = uploader.model.class.to_s
       asset_variant = uploader.version_name ? Asset.variants[uploader.version_name] : Asset.variants[:original]
@@ -50,13 +50,19 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     end
 
     def delete
-      AssetManagerDeleteAssetWorker.perform_async(@legacy_url_path, nil)
+      if Whitehall::AssetManagerStorage.use_non_legacy_behaviour?(@model)
+        asset = get_asset
+        if asset
+          AssetManagerDeleteAssetWorker.perform_async(nil, asset.asset_manager_id)
+        end
+      else
+        AssetManagerDeleteAssetWorker.perform_async(@legacy_url_path, nil)
+      end
     end
 
     def url
-      if should_have_non_legacy_urls?
-        asset_variant = @version ? Asset.variants[@version] : Asset.variants[:original]
-        asset = @model.assets.select { |a| a.variant == asset_variant }.first
+      if Whitehall::AssetManagerStorage.use_non_legacy_behaviour?(@model)
+        asset = get_asset
         if asset
           URI.join(Plek.asset_root, Addressable::URI.encode("media/#{asset.asset_manager_id}/#{asset.filename}")).to_s
         end
@@ -85,19 +91,19 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
       false
     end
 
-    def should_have_non_legacy_urls?
-      return unless @model
+  private
 
-      return true if @model.instance_of?(AttachmentData)
-
-      @model.respond_to?("use_non_legacy_endpoints") && @model.use_non_legacy_endpoints
+    def get_asset
+      asset_variant = @version ? Asset.variants[@version] : Asset.variants[:original]
+      @model.assets.select { |a| a.variant == asset_variant }.first
     end
   end
 
-private
+  def self.use_non_legacy_behaviour?(model)
+    return unless model
 
-  def should_save_an_asset?
-    uploader.model.instance_of?(AttachmentData) ||
-      (uploader.model.instance_of?(ImageData) && uploader.model.use_non_legacy_endpoints)
+    return true if model.instance_of?(AttachmentData)
+
+    model.respond_to?("use_non_legacy_endpoints") && model.use_non_legacy_endpoints
   end
 end
