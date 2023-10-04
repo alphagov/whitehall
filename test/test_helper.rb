@@ -21,6 +21,25 @@ require "govuk_schemas/assert_matchers"
 require "buildkite/test_collector"
 
 Buildkite::TestCollector.configure(hook: :minitest)
+WebMock.disable_net_connect!(
+  net_http_connect_on_start: "https://analytics-api.buildkite.com",
+  allow: "https://analytics-api.buildkite.com",
+)
+
+
+Buildkite::TestCollector::MinitestPlugin::Reporter.class_eval do
+  include ActiveSupport::Testing::Parallelization::Server
+
+  def record(reporter, result)
+    super
+
+    if Buildkite::TestCollector.uploader
+      if trace = Buildkite::TestCollector.uploader.traces[result.source_location]
+        Buildkite::TestCollector.session.add_example_to_send_queue(result.source_location)
+      end
+    end
+  end
+end
 
 if ENV["USE_I18N_COVERAGE"]
   require "i18n/coverage"

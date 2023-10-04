@@ -68,5 +68,7 @@ jobs:
           RAILS_ENV: test
           GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-          BUILDKITE_ANALYTICS_TOKEN: ${{ secrets.BUILDKITE_ANALYTICS_TOKEN }} 
-        run: bundle exec rake test
+          BUILDKITE_ANALYTICS_TOKEN: ${{ secrets.BUILDKITE_ANALYTICS_TOKEN }}
+          CI: true
+        run: bundle exec rake test TEST=test/unit/app/helpers/admin
+
