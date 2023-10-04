@@ -53,6 +53,7 @@
     <%= render "components/govspeak-editor", {
       label: {
         text: "Body" + "#{' (required)' if form.object.body_required?}",
+        hint_text: "If your attachment is still being processed, it will not be visible in preview.",
         heading_size: "l",
       },
       name: "edition[body]",
