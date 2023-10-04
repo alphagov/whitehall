@@ -162,6 +162,7 @@ module DocumentHelper
         click_button "Force publish"
       end
     else
+      click_link "Publish"
       click_button "Publish"
     end
 

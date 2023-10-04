@@ -83,6 +83,7 @@ When("I submit {edition}") do |edition|
 end
 
 When("I publish {edition}") do |edition|
+  stub_publishing_api_links_with_taxons(edition.content_id, %w[a-taxon-content-id])
   visit_edition_admin edition.title
   publish
 end

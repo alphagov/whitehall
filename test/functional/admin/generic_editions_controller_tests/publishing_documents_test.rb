@@ -13,7 +13,7 @@ class Admin::GenericEditionsController::PublishingDocumentsTest < ActionControll
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
     get :show, params: { id: edition }
-    assert_select publish_form_selector(edition), count: 1
+    assert_select publish_link_selector(edition), count: 1
   end
 
   view_test "should not display the publish form if edition is not publishable" do
@@ -21,6 +21,6 @@ class Admin::GenericEditionsController::PublishingDocumentsTest < ActionControll
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
     get :show, params: { id: edition }
-    refute_select publish_form_selector(edition)
+    refute_select publish_link_selector(edition)
   end
 end

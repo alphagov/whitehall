@@ -61,7 +61,7 @@ module Admin::EditionActionsHelper
     else
       button_to(
         "Publish",
-        publish_admin_edition_path(edition, lock_version: edition.lock_version),
+        confirm_publish_admin_edition_path(edition, lock_version: edition.lock_version),
         title: button_title,
         class: "btn btn-success publish",
       )

@@ -140,7 +140,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
     assert_selector "li", count: 4
-    assert_selector "button", text: "Publish"
+    assert_selector "a", text: "Publish"
     assert_selector "button", text: "Reject"
     assert_selector "a", text: "Edit draft"
     assert_selector "a", text: "Delete draft"
