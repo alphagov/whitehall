@@ -57,7 +57,7 @@ module Edition::Publishing
   end
 
   def attachment_uploaded_to_asset_manager!
-    errors.add(:attachments, "must have finished uploading.") unless uploaded_to_asset_manager?
+    errors.add(:attachments, "must have finished uploading") unless uploaded_to_asset_manager?
   end
 
   def build_unpublishing(attributes = {})

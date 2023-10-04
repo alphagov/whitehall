@@ -187,7 +187,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     end
 
     test "should call deleteAssetWorker with asset manager id" do
-      model = create(:image_with_asset)
+      model = create(:image_with_assets)
 
       AssetManagerDeleteAssetWorker.expects(:perform_async).times(7).with(nil, regexp_matches(/asset_manager_id./))
 

@@ -47,7 +47,7 @@ class ImageDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
       context "images have assets" do
         let(:managing_editor) { create(:managing_editor) }
-        let(:image) { build(:image_with_asset) }
+        let(:image) { build(:image_with_assets) }
         let(:first_asset_id) { image.image_data.assets.first.asset_manager_id }
         let(:edition) { create(:news_article) }
 

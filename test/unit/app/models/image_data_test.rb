@@ -79,6 +79,30 @@ class ImageDataTest < ActiveSupport::TestCase
     assert_equal 7, image_data.assets.count
   end
 
+  test "all_asset_variants_uploaded? returns true if use_non_legacy_endpoints is false" do
+    image_data = build(:image_data)
+    assert image_data.all_asset_variants_uploaded?
+  end
+
+  test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns true if all assets present" do
+    image_data = build(:image_data_with_assets)
+
+    assert image_data.all_asset_variants_uploaded?
+  end
+
+  test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns false if some assets are missing" do
+    image_data = build(:image_data, use_non_legacy_endpoints: true)
+    image_data.assets = [build(:asset), build(:asset, variant: Asset.variants[:s960])]
+
+    assert_not image_data.all_asset_variants_uploaded?
+  end
+
+  test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns false if there are no assets" do
+    image_data = build(:image_data, use_non_legacy_endpoints: true)
+
+    assert_not image_data.all_asset_variants_uploaded?
+  end
+
   def build_example(file_name)
     file = File.open(Rails.root.join("test/fixtures/images", file_name))
     build(:image_data, file:)

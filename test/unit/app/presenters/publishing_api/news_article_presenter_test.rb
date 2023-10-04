@@ -237,6 +237,7 @@ module PublishingApi::NewsArticlePresenterTest
         high_resolution_lead_image_url: "/foo-large",
         lead_image_alt_text: "Bar",
         lead_image_caption: "Baz",
+        images: [build(:image)],
       )
     end
 

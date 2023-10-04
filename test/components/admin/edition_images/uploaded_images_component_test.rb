@@ -44,4 +44,20 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
     assert_selector "input[value='!!1']"
     assert_selector "input[value='!!2']"
   end
+
+  test "shows \"Processing\" label where image assets (variants) are still uploading" do
+    lead_image_data_with_no_assets = build(:image_data, use_non_legacy_endpoints: true)
+    regular_image_data_with_no_assets = build(:image_data, use_non_legacy_endpoints: true)
+    regular_image_data_with_assets = build(:image_data_with_assets)
+    images = [
+      build_stubbed(:image, image_data: lead_image_data_with_no_assets),
+      build_stubbed(:image, image_data: regular_image_data_with_no_assets),
+      build_stubbed(:image, image_data: regular_image_data_with_assets),
+    ]
+    edition = build_stubbed(:draft_publication, images:)
+
+    render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
+
+    assert_text "Processing", count: 2
+  end
 end

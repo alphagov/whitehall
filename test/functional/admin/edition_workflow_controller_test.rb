@@ -169,7 +169,19 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :submit, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
     assert_redirected_to admin_publication_path(draft_edition)
-    assert_equal "Unable to submit this edition because it is invalid (Summary can't be blank). Please edit it and try again.", flash[:alert]
+    assert_equal "Unable to submit this edition because summary can't be blank. Please edit it and try again.", flash[:alert]
+  end
+
+  test "submission error should read as a sentence when there are multiple validation errors" do
+    draft_edition.summary = nil
+    draft_edition.title = nil
+    attachment = build(:file_attachment_with_no_assets)
+    draft_edition.attachments << attachment
+    draft_edition.save!(validate: false)
+    post :submit, params: { id: draft_edition, lock_version: draft_edition.lock_version }
+
+    assert_redirected_to admin_publication_path(draft_edition)
+    assert_equal "Unable to submit this edition because title can't be blank, summary can't be blank, and alternative format provider can't be blank. Please edit it and try again.", flash[:alert]
   end
 
   test "submit responds with 422 if missing a lock version" do

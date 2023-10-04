@@ -21,6 +21,7 @@
   <% if lead_image %>
     <div class="govuk-grid-column-one-third">
       <img src="<%= lead_image[:url] %>" alt="<%= lead_image[:preview_alt_text] %>" class="app-view-edition-resource__preview">
+      <% unless lead_image[:all_image_asset_variants_uploaded] %><span class="govuk-tag govuk-tag--green">Processing</span><% end %>
     </div>
     <div class="govuk-grid-column-two-thirds">
       <p class="govuk-body"><strong>Caption: </strong><%= lead_image[:caption] %></p>
@@ -66,6 +67,7 @@
       <li class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
           <img src="<%= image[:url] %>" alt="<%= image[:preview_alt_text] %>" class="app-view-edition-resource__preview">
+          <% unless image[:all_image_asset_variants_uploaded] %><span class="govuk-tag govuk-tag--green">Processing</span><% end %>
         </div>
         <div class="govuk-grid-column-two-thirds">
           <p class="govuk-body"><strong>Caption: </strong><%= image[:caption] %></p>
