@@ -19,6 +19,13 @@ module Edition::Images
     accepts_nested_attributes_for :images, reject_if: :no_substantive_attributes?, allow_destroy: true
 
     add_trait Trait
+
+    def images_uploaded_to_asset_manager?
+      images
+        .map(&:image_data)
+        .compact
+        .all?(&:all_asset_variants_uploaded?)
+    end
   end
 
   def allows_image_attachments?

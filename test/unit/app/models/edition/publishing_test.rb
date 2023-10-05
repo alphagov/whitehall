@@ -157,7 +157,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert_equal edition, edition.unpublished_edition
   end
 
-  test "is valid if all assets have been uploaded" do
+  test "is valid if all file attachment assets have been uploaded" do
     published_edition = build(:published_edition)
     attachment = build(:file_attachment)
     published_edition.attachments << attachment
@@ -165,11 +165,30 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert published_edition.valid?
   end
 
-  test "is invalid if some assets are missing" do
+  test "is invalid if some file attachment assets are missing" do
     published_edition = build(:published_edition)
     attachment = build(:file_attachment_with_no_assets)
     published_edition.attachments << attachment
 
     assert_not published_edition.valid?
+    assert_includes published_edition.errors[:attachments], "must have finished uploading"
+  end
+
+  test "is valid if all image assets have been uploaded" do
+    published_edition = build(:published_news_article)
+    image = build(:image_with_assets)
+    published_edition.images << image
+
+    assert published_edition.valid?
+  end
+
+  test "is invalid if some image assets are missing" do
+    published_edition = build(:published_news_article)
+    image_data = build(:image_data, use_non_legacy_endpoints: true)
+    image = build(:image, image_data:)
+    published_edition.images << image
+
+    assert_not published_edition.valid?
+    assert_includes published_edition.errors[:images], "must have finished uploading"
   end
 end
