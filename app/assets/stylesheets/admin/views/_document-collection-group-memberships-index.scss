@@ -16,8 +16,10 @@
   align-items: center;
 
   & > p:first-child {
+    @include govuk-responsive-padding(2, "right");
+    @include govuk-responsive-margin(2, "right");
     margin-right: 10px;
     padding-right: 10px;
-    border-right: 1px solid #b1b4b6;
+    border-right: 1px solid $govuk-border-colour;
   }
 }
