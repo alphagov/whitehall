@@ -3,19 +3,25 @@
   <%= render "locale_fields", form: form, edition: edition %>
   <%= form.hidden_field :lock_version %>
 
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Content",
+    font_size: "l",
+    margin_bottom: 6,
+  } %>
+
   <% if edition.document&.slug.present? %>
-    <div class="govuk-!-margin-bottom-8">
-      <label for="edition_slug" class="gem-c-label govuk-label govuk-label--l govuk-!-font-weight-bold">Slug (read only)</label>
+    <div class="govuk-!-margin-bottom-6">
+      <label for="edition_slug" class="gem-c-label govuk-label govuk-label--m govuk-!-font-weight-bold">Slug (read only)</label>
       <input disabled="disabled" autocomplete="off" class="gem-c-input govuk-input govuk-body" id="edition_slug" name="edition[slug]" readonly="readonly" spellcheck="false" type="text" value="<%= edition.slug %>">
     </div>
   <% end %>
 
-  <div class="govuk-!-margin-bottom-8 js-locale-switcher-field">
+  <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/character_count", {
       textarea: {
         label: {
           text: "Title (required)",
-          heading_size: "l",
+          heading_size: "m",
         },
         name: "edition[title]",
         value: edition.title,
@@ -34,7 +40,7 @@
       textarea: {
         label: {
           text: "Summary" + "#{' (required)' if form.object.summary_required?}",
-          heading_size: "l",
+          heading_size: "m",
         },
         name: "edition[summary]",
         value: edition.summary,
@@ -54,7 +60,7 @@
       label: {
         text: "Body" + "#{' (required)' if form.object.body_required?}",
         hint_text: "If your attachment is still being processed, it will not be visible in preview.",
-        heading_size: "l",
+        heading_size: "m",
       },
       name: "edition[body]",
       id: "edition_body",
