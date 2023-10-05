@@ -48,29 +48,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "use_non_legacy_endpoints is false - given a draft document with an image attachment" do
-      let(:edition) { create(:draft_case_study) }
-
-      before do
-        stub_whitehall_asset("minister-of-funk.960x640.jpg", id: "asset-id", draft: true)
-
-        visit admin_case_study_path(edition)
-        click_link "Edit draft"
-        click_link "Images"
-        attach_file "image[image_data][file]", path_to_attachment("minister-of-funk.960x640.jpg")
-        click_button "Upload"
-      end
-
-      # Note that there is no access limiting applied to non attachments. This is existing behaviour that probably needs changing.
-      it "sends an image to asset manager with the case study's auth_bypass_id" do
-        Services.asset_manager.expects(:create_whitehall_asset).at_least_once.with(
-          has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
-        )
-
-        AssetManagerCreateWhitehallAssetWorker.drain
-      end
-    end
-
     context "use_non_legacy_endpoints is true - given a draft document with an image attachment" do
       let(:edition) { create(:draft_case_study) }
 
