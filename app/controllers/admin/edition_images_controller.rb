@@ -85,6 +85,6 @@ private
   end
 
   def use_non_legacy_endpoints?
-    true
+    current_user.can_use_non_legacy_endpoints?
   end
 end
