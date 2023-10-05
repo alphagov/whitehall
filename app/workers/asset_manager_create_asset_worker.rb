@@ -13,10 +13,12 @@ class AssetManagerCreateAssetWorker < WorkerBase
     authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
     asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
 
-    response = asset_manager.create_asset(asset_options)
-    asset_manager_id = get_asset_id(response)
-    filename = get_filename(response)
-    save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
+    unless asset_already_exist?(assetable_id, assetable_type, asset_variant)
+      response = asset_manager.create_asset(asset_options)
+      asset_manager_id = get_asset_id(response)
+      filename = get_filename(response)
+      save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
+    end
 
     perform_draft_update(attachable_model_class, attachable_model_id)
 
@@ -26,6 +28,10 @@ class AssetManagerCreateAssetWorker < WorkerBase
   end
 
 private
+
+  def asset_already_exist?(assetable_id, assetable_type, asset_variant)
+    Asset.where(assetable_id:, assetable_type:, variant: asset_variant).exists?
+  end
 
   def perform_draft_update(attachable_model_class, attachable_model_id)
     if attachable_model_class && attachable_model_id && attachable_model_class.constantize.ancestors.include?(Edition)

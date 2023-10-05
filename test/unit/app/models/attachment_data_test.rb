@@ -154,11 +154,12 @@ class AttachmentDataTest < ActiveSupport::TestCase
     greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
     attachment = build(:attachment_data, file: greenpaper_pdf)
 
+    second_attempt_attachment = build(:attachment_data_with_no_assets, file: nil, file_cache: attachment.file_cache)
+
     Services.asset_manager.expects(:create_asset).twice.with { |value|
       (value[:file].path.ends_with? "greenpaper.pdf") || (value[:file].path.ends_with? "greenpaper.pdf.png")
     }.returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => "greenpaper.pdf")
 
-    second_attempt_attachment = build(:attachment_data, file: nil, file_cache: attachment.file_cache)
     assert second_attempt_attachment.save
 
     AssetManagerCreateAssetWorker.drain
