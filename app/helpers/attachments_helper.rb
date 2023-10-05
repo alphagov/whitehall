@@ -15,7 +15,7 @@ module AttachmentsHelper
 
   def preview_path_for_attachment(attachment)
     if attachment.attachment_data.all_asset_variants_uploaded?
-      Plek.external_url_for("assets-origin") + "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
+      "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
     end
   end
 

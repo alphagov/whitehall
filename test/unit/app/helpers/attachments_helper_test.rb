@@ -162,7 +162,7 @@ class AttachmentsHelperTest < ActionView::TestCase
       content_type: "text/csv",
       filename: attachment.filename,
       file_size: attachment.file_size,
-      preview_url: "#{Plek.external_url_for('assets-origin')}/media/asset_manager_id/sample.csv/preview",
+      preview_url: "/media/asset_manager_id/sample.csv/preview",
     }
     assert_equal expect_params, attachment_component_params(attachment)
   end
