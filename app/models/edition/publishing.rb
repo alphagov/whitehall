@@ -6,7 +6,8 @@ module Edition::Publishing
 
     validates :major_change_published_at, presence: true, if: :published?
     validate :change_note_present!, if: :change_note_required?
-    validate :attachment_uploaded_to_asset_manager!, if: :asset_manager_check_required?
+    validate :attachments_uploaded_to_asset_manager!, if: :attachments_in_asset_manager_check_required?
+    validate :images_uploaded_to_asset_manager!, if: :images_in_asset_manager_check_required?
 
     scope :significant_change, -> { where(minor_change: false) }
   end
@@ -52,12 +53,20 @@ module Edition::Publishing
     end
   end
 
-  def asset_manager_check_required?
+  def attachments_in_asset_manager_check_required?
     allows_attachments? && published?
   end
 
-  def attachment_uploaded_to_asset_manager!
-    errors.add(:attachments, "must have finished uploading") unless uploaded_to_asset_manager?
+  def attachments_uploaded_to_asset_manager!
+    errors.add(:attachments, "must have finished uploading") unless attachments_uploaded_to_asset_manager?
+  end
+
+  def images_in_asset_manager_check_required?
+    allows_image_attachments? && published?
+  end
+
+  def images_uploaded_to_asset_manager!
+    errors.add(:images, "must have finished uploading") unless images_uploaded_to_asset_manager?
   end
 
   def build_unpublishing(attributes = {})

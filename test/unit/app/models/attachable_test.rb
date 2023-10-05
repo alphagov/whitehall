@@ -406,13 +406,13 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal [attachable_edition], attachable_edition.attachables
   end
 
-  test "#uploaded_to_asset_manager? returns false if any of the assets are not ready" do
+  test "#attachments_uploaded_to_asset_manager? returns false if any of the assets are not ready" do
     file_attachment_with_all_assets = build(:file_attachment)
     file_attachment_with_missing_assets = build(:file_attachment_with_no_assets)
     attachable_edition = build(:edition)
     attachable_edition.attachments = [file_attachment_with_all_assets, file_attachment_with_missing_assets]
 
-    assert_not attachable_edition.uploaded_to_asset_manager?
+    assert_not attachable_edition.attachments_uploaded_to_asset_manager?
   end
 
   test "attachments_ready_for_publishing filters out file attachments with missing assets" do

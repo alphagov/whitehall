@@ -95,7 +95,7 @@ module Attachable
       deleted_attachments.map { |a| ChangedAttachment.new(a, :deleted) }
   end
 
-  def uploaded_to_asset_manager?
+  def attachments_uploaded_to_asset_manager?
     attachments
       .map(&:attachment_data)
       .compact
