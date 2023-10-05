@@ -1,0 +1,11 @@
+<div class="govuk-!-margin-bottom-8">
+    <%= render "govuk_publishing_components/components/heading", {
+        text: "Settings",
+        font_size: "l",
+        margin_bottom: 6,
+    } %>
+
+    <%= render "access_limiting_fields", form: form, edition: edition %>
+    <%= render "scheduled_publication_fields", form: form, edition: edition %>
+    <%= render "review_reminder_fields", form: form, review_reminder: edition.document.review_reminder %>
+</div>

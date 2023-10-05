@@ -169,9 +169,7 @@ module Admin::EditionsHelper
     form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
       concat render("standard_fields", form:, edition:)
       yield(form)
-      concat render("access_limiting_fields", form:, edition:)
-      concat render("scheduled_publication_fields", form:, edition:)
-      concat render("review_reminder_fields", form:, review_reminder: edition.document.review_reminder)
+      concat render("settings_fields", form:, edition:)
       concat standard_edition_publishing_controls(form, edition)
     end
   end
