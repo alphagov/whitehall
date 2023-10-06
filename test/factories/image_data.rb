@@ -16,4 +16,13 @@ FactoryBot.define do
       image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_s216", variant: Asset.variants[:s216], filename: "s216_minister-of-funk.960x640.jpg")
     end
   end
+
+  factory :image_data_svg, parent: :image_data do
+    file { File.open(Rails.root.join("test/fixtures/images/test-svg.svg")) }
+    use_non_legacy_endpoints { true }
+
+    after(:build) do |attachment_data|
+      attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id", variant: Asset.variants[:original], filename: "test-svg.svg")
+    end
+  end
 end

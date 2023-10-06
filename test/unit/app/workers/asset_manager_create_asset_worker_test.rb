@@ -133,16 +133,38 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @asset_args, true, consultation_outcome.class.to_s, consultation_outcome.id)
   end
 
-  test "does not create addition asset on failure if required asset already exist" do
+  test "does not create additional assets on failure if required assets already exist" do
+    consultation = FactoryBot.create(:consultation)
+    thumbnail_asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:thumbnail], assetable_type: @model.class.to_s }.deep_stringify_keys
+
+    assert_difference "Asset.where(assetable_id: @model.id).count", 0 do
+      @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
+      @worker.perform(@file.path, thumbnail_asset_args, true, consultation.class.to_s, consultation.id)
+    end
+  end
+
+  test "generates missing assets on retry" do
     consultation = FactoryBot.create(:consultation)
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
+    @model = create(:attachment_data_with_no_assets)
+    @model.assets << build(:asset, assetable_id: @model.id, assetable_type: @model.class.to_s)
+    @model.save!
+    thumbnail_asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:thumbnail], assetable_type: @model.class.to_s }.deep_stringify_keys
 
-    asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:thumbnail], assetable_type: @model.class.to_s }.deep_stringify_keys
+    assert_difference "Asset.where(assetable_id: @model.id).count", 1 do
+      @worker.perform(@file.path, thumbnail_asset_args, true, consultation.class.to_s, consultation.id)
+    end
+  end
 
-    @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
+  test "does not run if assetable (ImageData) has been deleted" do
+    consultation = FactoryBot.create(:consultation)
+    @model = FactoryBot.create(:image_data)
+    @model.class.find(@model.id).delete
+    asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:original], assetable_type: @model.class.to_s }.deep_stringify_keys
+
+    Services.asset_manager.expects(:create_asset).never
+    Services.publishing_api.expects(:put_content).never
+
     @worker.perform(@file.path, asset_args, true, consultation.class.to_s, consultation.id)
-    @worker.perform(@file.path, asset_args, true, consultation.class.to_s, consultation.id)
-
-    assert_equal 2, Asset.where(assetable_id: @model.id).count
   end
 end

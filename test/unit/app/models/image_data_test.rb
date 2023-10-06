@@ -90,6 +90,12 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.all_asset_variants_uploaded?
   end
 
+  test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns true if original asset present for svg" do
+    image_data = build(:image_data_svg)
+
+    assert image_data.all_asset_variants_uploaded?
+  end
+
   test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns false if some assets are missing" do
     image_data = build(:image_data, use_non_legacy_endpoints: true)
     image_data.assets = [build(:asset), build(:asset, variant: Asset.variants[:s960])]
