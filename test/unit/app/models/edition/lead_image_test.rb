@@ -35,9 +35,10 @@ class Edition::LeadImageTest < ActiveSupport::TestCase
     uploader = stub("Uploader", file:)
     image_data = stub("ImageData", file: uploader)
     image = stub("Image", alt_text: "alt_text", image_data:)
-    uploader.expects(:url).with.returns("url")
+    uploader.expects(:url).with.returns("url").twice
     model.stubs(images: [image])
     assert_equal "url", model.lead_image_url
+    assert_equal "url", model.high_resolution_lead_image_url
     assert_equal "alt_text", model.lead_image_alt_text
   end
 

@@ -6,11 +6,11 @@ module Edition::LeadImage
   end
 
   def lead_image_url
-    image_data ? image_url : placeholder_image_url
+    image_data ? image_url(:s300) : placeholder_image_url
   end
 
   def high_resolution_lead_image_url
-    image_data ? image_data.file.url(:s960) : placeholder_image_url
+    image_data ? image_url(:s960) : placeholder_image_url
   end
 
   def lead_image_alt_text
@@ -43,12 +43,12 @@ private
     )
   end
 
-  def image_url
+  def image_url(version)
     content_type = file.content_type
     if content_type && content_type =~ /svg/
       image_data.file.url
     else
-      image_data.file.url(:s300)
+      image_data.file.url(version)
     end
   end
 
