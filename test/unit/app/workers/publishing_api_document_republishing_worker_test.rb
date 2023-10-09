@@ -86,6 +86,92 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     end
   end
 
+  context "when the document has been withdrawn" do
+    let(:live_edition) { build(:withdrawn_edition) }
+    let(:draft_edition) { nil }
+
+    it "publishes the live edition, then immediately withdraws it" do
+      publish_then_withdraw = sequence("publish_then_withdraw")
+
+      Whitehall::PublishingApi
+        .expects(:patch_links)
+        .with(live_edition, bulk_publishing: false)
+
+      PublishingApiUnpublishingWorker
+        .expects(:new)
+        .returns(unpublishing_worker = mock)
+
+      # 1. Republish as 'published'
+      Whitehall::PublishingApi
+        .expects(:publish)
+        .with(live_edition, "republish", bulk_publishing: false)
+        .in_sequence(publish_then_withdraw)
+
+      # 2. Republish HTML attachments as 'published'
+      ServiceListeners::PublishingApiHtmlAttachments
+        .expects(:process)
+        .with(live_edition, "republish")
+        .in_sequence(publish_then_withdraw)
+
+      # 3. Withdraw the newly published edition
+      unpublishing_worker
+        .expects(:perform)
+        .with(document.live_edition.unpublishing.id, false)
+        .in_sequence(publish_then_withdraw)
+
+      # 4. Withdraw HTML attachments
+      ServiceListeners::PublishingApiHtmlAttachments
+        .expects(:process)
+        .with(live_edition, "republish")
+        .in_sequence(publish_then_withdraw)
+
+      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    end
+  end
+
+  context "when the document has been unpublished" do
+    let(:live_edition) { nil }
+    let(:draft_edition) { build(:unpublished_edition) }
+
+    it "pushes the draft edition, then unpublishes the document" do
+      publish_then_unpublish = sequence("publish_then_unpublish")
+
+      Whitehall::PublishingApi
+        .expects(:patch_links)
+        .with(draft_edition, bulk_publishing: false)
+
+      PublishingApiUnpublishingWorker
+        .expects(:new)
+        .returns(unpublishing_worker = mock)
+
+      # 1. Push draft edition
+      Whitehall::PublishingApi
+        .expects(:save_draft)
+        .with(draft_edition, "republish", bulk_publishing: false)
+        .in_sequence(publish_then_unpublish)
+
+      # 2. Push HTML attachments
+      ServiceListeners::PublishingApiHtmlAttachments
+        .expects(:process)
+        .with(draft_edition, "republish")
+        .in_sequence(publish_then_unpublish)
+
+      # 3. Unpublish it
+      unpublishing_worker
+        .expects(:perform)
+        .with(document.pre_publication_edition.unpublishing.id, true)
+        .in_sequence(publish_then_unpublish)
+
+      # 4. Push HTML attachments again
+      ServiceListeners::PublishingApiHtmlAttachments
+        .expects(:process)
+        .with(draft_edition, "republish")
+        .in_sequence(publish_then_unpublish)
+
+      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    end
+  end
+
   it "pushes all locales for the published document" do
     document = create(:document)
     edition = build(:published_edition, title: "Published edition", document:)
@@ -104,50 +190,6 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
 
     assert_all_requested(requests)
-  end
-
-  it "runs the PublishingApiUnpublishingWorker if the latest edition has an unpublishing" do
-    document = create(:document, content_id: SecureRandom.uuid)
-    edition = create(:unpublished_edition, title: "Unpublished edition", document:)
-    unpublishing = edition.unpublishing
-
-    PublishingApiUnpublishingWorker.expects(:new).returns(worker_instance = mock)
-    worker_instance.expects(:perform).with(unpublishing.id, true)
-
-    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-  end
-
-  it "publishes and then unpublishes if the published edition is withdrawn" do
-    unpublishing = build(:withdrawn_unpublishing, id: 10)
-    document = stub(
-      live_edition: live_edition = create(:withdrawn_edition, unpublishing:),
-      id: 1,
-      pre_publication_edition: nil,
-      lock!: true,
-    )
-
-    Document.stubs(:find).returns(document)
-
-    Whitehall::PublishingApi.expects(:publish).with(
-      live_edition,
-      "republish",
-      bulk_publishing: false,
-    )
-
-    PublishingApiUnpublishingWorker.expects(:new).returns(unpublishing_worker = mock)
-    unpublishing_worker.expects(:perform).with(live_edition.unpublishing.id, false)
-
-    invocation_order = sequence("invocation_order")
-    ServiceListeners::PublishingApiHtmlAttachments
-      .expects(:process)
-      .with(live_edition, "republish")
-      .in_sequence(invocation_order)
-    ServiceListeners::PublishingApiHtmlAttachments
-      .expects(:process)
-      .with(live_edition, "republish")
-      .in_sequence(invocation_order)
-
-    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
 
   it "raises if an unknown combination is encountered" do
