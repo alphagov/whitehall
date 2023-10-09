@@ -6,7 +6,6 @@
 
     <div>
       <%= render "govuk_publishing_components/components/summary_list", {
-        borderless: true,
         items: [
           { field: "Type of document", value: edition_type(@edition) },
           { field: "Status", value: status_text(@edition) },
