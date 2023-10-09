@@ -5,7 +5,6 @@
     </p>
 
     <%= render "govuk_publishing_components/components/summary_list", {
-      borderless: true,
       items: [
         { field: "Type", value: @statistics_announcement.display_type },
         { field: "Organisations", value: @statistics_announcement.organisations.map(&:name).to_sentence },
