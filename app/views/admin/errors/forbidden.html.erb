@@ -1,0 +1,18 @@
+<% content_for :page_title, "Permissions error" %>
+<% content_for :title, "Permissions error" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row govuk-!-margin-bottom-0">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">You do not have permission to access this page.</p>
+    <p class="govuk-body">If you need to:</p>
+
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: [
+        "view the page, request the preview link",
+        sanitize("edit the page, raise a #{link_to "support ticket", "https://support.publishing.service.gov.uk/technical_fault_report/new", class: "govuk-link govuk-link--no-visited-state"}"),
+      ],
+    } %>
+  </div>
+</div>

@@ -371,6 +371,14 @@ Whitehall::Application.routes.draw do
   resources :broken_links_export_request, path: "/export/broken_link_reports", param: :export_id, only: [:show]
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
 
+  scope via: :all do
+    match "/400", to: "admin/errors#bad_request"
+    match "/403", to: "admin/errors#forbidden"
+    match "/404", to: "admin/errors#not_found"
+    match "/422", to: "admin/errors#unprocessable_entity"
+    match "/500", to: "admin/errors#internal_server_error"
+  end
+
   mount SidekiqGdsSsoMiddleware, at: "/sidekiq"
 
   mount GovukPublishingComponents::Engine, at: "/component-guide" unless Rails.env.production?
