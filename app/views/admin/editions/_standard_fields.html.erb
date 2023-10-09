@@ -3,19 +3,25 @@
   <%= render "locale_fields", form: form, edition: edition %>
   <%= form.hidden_field :lock_version %>
 
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Content",
+    font_size: "l",
+    margin_bottom: 6,
+  } %>
+
   <% if edition.document&.slug.present? %>
-    <div class="govuk-!-margin-bottom-8">
-      <label for="edition_slug" class="gem-c-label govuk-label govuk-label--l govuk-!-font-weight-bold">Slug (read only)</label>
+    <div class="govuk-!-margin-bottom-6">
+      <label for="edition_slug" class="gem-c-label govuk-label govuk-label--m govuk-!-font-weight-bold">Slug (read only)</label>
       <input disabled="disabled" autocomplete="off" class="gem-c-input govuk-input govuk-body" id="edition_slug" name="edition[slug]" readonly="readonly" spellcheck="false" type="text" value="<%= edition.slug %>">
     </div>
   <% end %>
 
-  <div class="govuk-!-margin-bottom-8 js-locale-switcher-field">
+  <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/character_count", {
       textarea: {
         label: {
           text: "Title (required)",
-          heading_size: "l",
+          heading_size: "m",
         },
         name: "edition[title]",
         value: edition.title,
@@ -34,7 +40,7 @@
       textarea: {
         label: {
           text: "Summary" + "#{' (required)' if form.object.summary_required?}",
-          heading_size: "l",
+          heading_size: "m",
         },
         name: "edition[summary]",
         value: edition.summary,
@@ -54,7 +60,7 @@
       label: {
         text: "Body" + "#{' (required)' if form.object.body_required?}",
         hint_text: "If your attachment is still being processed, it will not be visible in preview.",
-        heading_size: "l",
+        heading_size: "m",
       },
       name: "edition[body]",
       id: "edition_body",
@@ -121,24 +127,4 @@
 
 <% unless edition.is_a?(Consultation) %>
   <%= render "first_published_at", form: form, edition: edition %>
-<% end %>
-
-<% if %w(CaseStudy Speech FatalityNotice).include?(edition.type) %>
-  <div class="govuk-!-margin-bottom-8">
-    <%= render "govuk_publishing_components/components/heading", {
-        text: "Images",
-        heading_level: 3,
-        font_size: "l",
-        margin_bottom: 3,
-    } %>
-    <p class="govuk-body">
-      <% if edition.new_record? %>
-        To add images you must save the document first. After saving, use the
-        tabs at the top of the page to upload, edit and delete images and
-        attachments.
-      <% else %>
-        Use the tabs at the top of the page to upload, edit and delete images.
-      <% end %>
-    </p>
-  </div>
 <% end %>

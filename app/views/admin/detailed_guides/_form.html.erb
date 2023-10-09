@@ -6,7 +6,7 @@
 <%= standard_edition_form(edition) do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
-    heading_level: 3,
+    heading_level: 2,
     heading_size: "l",
     id: "associations",
   } do %>
@@ -34,8 +34,6 @@
       <%= render "nation_fields", form: form, edition: edition %>
     </div>
   <% end %>
-
-  <%= render "inline_attachments_info", form: form, edition: edition %>
 
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Related mainstream content",

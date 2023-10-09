@@ -6,7 +6,7 @@
     id: "edition_organisations",
     error_message: errors_for_input(edition.errors, :organisations),
     } do %>
-    <div class="govuk-!-margin-bottom-8">
+    <div class="govuk-!-margin-bottom-6">
       <% 0.upto(3) do |index| %>
         <% lead_organisation_id = lead_organisation_id_at_index(edition, index) %>
         <% cache_if lead_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>

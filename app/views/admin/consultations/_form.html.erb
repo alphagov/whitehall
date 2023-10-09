@@ -159,20 +159,17 @@
     <% end %>
   </div>
 
-  <%= render "html_version_fields", form: form, edition: edition %>
-  <%= render "inline_attachments_info", form: form, edition: edition %>
-
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
-    heading_level: 3,
+    heading_level: 2,
     heading_size: "l",
     id: "associations",
   } do %>
     <div class="govuk-!-margin-bottom-4">
       <%= render "appointment_fields", form: form, edition: edition %>
       <%= render "topical_event_fields", form: form, edition: edition %>
-      <%= render "nation_fields", form: form, edition: edition %>
       <%= render "organisation_fields", form: form, edition: edition %>
+      <%= render "nation_fields", form: form, edition: edition %>
     </div>
   <% end %>
 
