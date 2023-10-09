@@ -178,7 +178,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     describe "redirect url updates" do
       let(:unpublished_edition) { FactoryBot.create(:unpublished_edition) }
-      let(:redirect_url) { unpublished_edition.public_url }
+      let(:redirect_url) { unpublished_edition.unpublishing.document_url }
       let(:unpublished) { true }
 
       before do
