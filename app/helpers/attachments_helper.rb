@@ -15,7 +15,8 @@ module AttachmentsHelper
 
   def preview_path_for_attachment(attachment)
     if attachment.attachment_data.all_asset_variants_uploaded?
-      "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
+      # "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
+      URI.join(Plek.asset_root, Addressable::URI.encode("media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview")).to_s
     end
   end
 
