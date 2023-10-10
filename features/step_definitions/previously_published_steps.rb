@@ -11,25 +11,25 @@ And(/^I click save$/) do
 end
 
 And(/^I select a previously published date in the future$/) do
-  choose "has previously been published on another website."
+  check "This document has previously been published on another website"
   within "#edition_previously_published" do
     fill_in_date_fields("1 July 2018")
   end
 end
 
 And(/^I select that this document has been previously published$/) do
-  choose "has previously been published on another website."
+  check "This document has previously been published on another website"
 end
 
 And(/^I select a previously published date in the past$/) do
-  choose "has previously been published on another website."
+  check "This document has previously been published on another website"
   within "#edition_previously_published" do
     fill_in_date_fields("1 February 2017")
   end
 end
 
-Then(/^I see a validation error for the 'previously published' option$/) do
-  expect(page).to have_content("You must specify whether the document has been published before")
+Then(/^I do not see a validation error for the 'previously published' option$/) do
+  expect(page).not_to have_content("You must specify whether the document has been published before")
 end
 
 Then(/^I see a validation error for the future date$/) do
