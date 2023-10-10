@@ -17,6 +17,14 @@ jobs:
   run-minitest:
     name: Run Minitest
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node_test_paths: [
+          "test/unit/lib test/unit/app/helpers test/unit/app/presenters test/unit/app/validators test/unit/app/workers test/views",
+          "test/unit/app/models test/unit/app/services test/unit/app/uploaders test/unit/*_test.rb",
+          "test/functional test/components test/integration"
+        ]
     steps:
       - name: Setup MySQL
         id: setup-mysql
@@ -65,4 +73,4 @@ jobs:
           RAILS_ENV: test
           GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec rake test
+        run: bundle exec rails test ${{ matrix.node_test_paths }}
