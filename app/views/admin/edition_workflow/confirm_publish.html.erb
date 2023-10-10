@@ -1,0 +1,20 @@
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Publish: #{@edition.title}" %>
+<% content_for :title, "Publish" %>
+<% content_for :title_margin_bottom, 6 %>
+<% render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag publish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "well publish-form" do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Once you publish, this document will be visible to the public</p>
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Publish",
+        } %>
+
+        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

@@ -73,8 +73,8 @@ module CssSelectors
     "#world-locations"
   end
 
-  def publish_form_selector(document)
-    "form[action='#{publish_admin_edition_path(document, lock_version: document.lock_version)}']"
+  def publish_link_selector(document)
+    "a[href='#{confirm_publish_admin_edition_path(document, lock_version: document.lock_version)}']"
   end
 
   def force_publish_button_selector(document)

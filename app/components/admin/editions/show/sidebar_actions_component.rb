@@ -142,20 +142,17 @@ private
 
   def add_publish_action
     if @publisher.can_perform? && @enforcer.can?(:publish)
-      actions << form_with(url: publish_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post, data: {
-        module: "prevent-multiple-form-submissions",
-      }) do
-        render("govuk_publishing_components/components/button", {
-          text: "Publish",
-          title: "Publish #{@edition.title}",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "button-pressed",
-            "track-action": "#{dasherized_class_name}-button",
-            "track-label": "Publish",
-          },
-        })
-      end
+      actions << render("govuk_publishing_components/components/button", {
+        text: "Publish",
+        title: "Publish #{@edition.title}",
+        href: confirm_publish_admin_edition_path(@edition, lock_version: @edition.lock_version),
+        data_attributes: {
+          module: "gem-track-click",
+          "track-category": "button-pressed",
+          "track-action": "#{dasherized_class_name}-button",
+          "track-label": "Publish",
+        },
+      })
     elsif @force_publisher.can_perform? && @enforcer.can?(:force_publish)
       actions << render("govuk_publishing_components/components/button", {
         text: "Force publish",

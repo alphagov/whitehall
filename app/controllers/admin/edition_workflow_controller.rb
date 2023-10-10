@@ -33,7 +33,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       enforce_permission!(:update, @edition)
     when "reject"
       enforce_permission!(:reject, @edition)
-    when "publish", "schedule"
+    when "publish", "schedule", "confirm_publish"
       enforce_permission!(:publish, @edition)
     when "force_publish", "confirm_force_publish", "force_schedule", "confirm_force_schedule"
       enforce_permission!(:force_publish, @edition)
@@ -63,6 +63,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
     redirect_to new_admin_edition_editorial_remark_path(@edition),
                 notice: "Document rejected; please explain why in an internal note"
+  end
+
+  def confirm_publish
+    unless @edition.valid?(:publish)
+      redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join(". ")
+    end
   end
 
   def publish
@@ -167,7 +173,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[confirm_approve_retrospectively confirm_force_schedule confirm_unpublish confirm_unschedule confirm_unwithdraw unpublish confirm_force_publish]
+    design_system_actions = %w[confirm_approve_retrospectively confirm_force_schedule confirm_publish confirm_unpublish confirm_unschedule confirm_unwithdraw unpublish confirm_force_publish]
     if design_system_actions.include?(action_name)
       "design_system"
     else
@@ -293,6 +299,8 @@ private
       "unpublish this edition"
     when "confirm_force_publish"
       "force publish this edition"
+    when "confirm_publish"
+      "publish this edition"
     when "confirm_unwithdraw"
       "unwithdraw this edition"
     else
