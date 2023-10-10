@@ -6,7 +6,7 @@ describe('GOVUK.FilterOptions', function () {
       '<div>' +
         '<form class="filter-options js-editions-filter-form" action="/government/admin/editions" method="get">' +
           '<div id="title_filter" class="filter-grouping">' +
-            '<label for="search_title">Title or slug</label>' +
+            '<label for="search_title">Title</label>' +
             '<div class="btn-enter-wrapper">' +
               '<input type="search" value="hello world" placeholder="Search title" name="title" id="search_title">' +
               '<input type="submit" value="enter" name="commit" class="btn-enter js-btn-enter js-hidden">' +
