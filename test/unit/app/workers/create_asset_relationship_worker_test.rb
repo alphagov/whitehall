@@ -11,7 +11,7 @@ class CreateAssetRelationshipWorkerTest < ActiveSupport::TestCase
       before do
         stub_all_assets(assetables)
 
-        worker.perform(assetable_type, start_id, end_id)
+        @output = worker.perform(assetable_type, start_id, end_id)
         AssetManagerCreateAssetWorker.drain
         assetables.map(&:reload)
       end
@@ -29,8 +29,8 @@ class CreateAssetRelationshipWorkerTest < ActiveSupport::TestCase
         end
 
         it "increments counters" do
-          assert_equal 7, worker.asset_counter
-          assert_equal 1, worker.count
+          assert_equal 7, @output[:asset_counter]
+          assert_equal 1, @output[:count]
         end
       end
 
@@ -47,8 +47,8 @@ class CreateAssetRelationshipWorkerTest < ActiveSupport::TestCase
         end
 
         it "increments counters" do
-          assert_equal 1, worker.asset_counter
-          assert_equal 1, worker.count
+          assert_equal 1, @output[:asset_counter]
+          assert_equal 1, @output[:count]
         end
       end
 
@@ -67,8 +67,8 @@ class CreateAssetRelationshipWorkerTest < ActiveSupport::TestCase
         end
 
         it "increments counters" do
-          assert_equal 14, worker.asset_counter
-          assert_equal 2, worker.count
+          assert_equal 14, @output[:asset_counter]
+          assert_equal 2, @output[:count]
         end
       end
     end
