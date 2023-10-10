@@ -20,8 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ci_node_total: [3]
-        ci_node_index: [0, 1, 2]
+        ci_node_index: ["test/unit/lib test/unit/app/helpers test/unit/app/presenters test/unit/app/validators test/unit/app/workers", "test/unit/app/models test/unit/app/services test/unit/app/uploaders test/components", "test/functional test/integration test/views"]
     steps:
       - name: Setup MySQL
         id: setup-mysql
@@ -65,15 +64,10 @@ jobs:
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
         run: bundle exec rails db:setup
 
-      - name: Make bin/minitest-ci executable
-        run: chmod +x ./bin/minitest-ci
-
       - name: Run Minitest
         env:
           RAILS_ENV: test
           GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-          CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-        run: |
-          ./bin/minitest-ci
+        run: bundle exec rails test ${{ matrix.ci_node_index }}
