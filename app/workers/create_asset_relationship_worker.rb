@@ -1,6 +1,4 @@
 class CreateAssetRelationshipWorker < WorkerBase
-  attr_reader :asset_counter, :count
-
   def perform(assetable_type, start_id, end_id)
     logger.info("CreateAssetRelationshipWorker start!")
 
@@ -9,8 +7,8 @@ class CreateAssetRelationshipWorker < WorkerBase
     logger.info "Number of #{assetable_type} found: #{assetables.count}"
     logger.info "Creating Asset for records from #{start_id} to #{end_id}"
 
-    @count = 0
-    @asset_counter = 0
+    count = 0
+    asset_counter = 0
 
     assetables.each do |assetable|
       assetable.use_non_legacy_endpoints = true
@@ -18,15 +16,17 @@ class CreateAssetRelationshipWorker < WorkerBase
 
       all_variants = assetable.bitmap? ? assetable.file.versions.keys.push(:original) : [Asset.variants[:original].to_sym]
       all_variants.each do |variant|
-        @asset_counter += 1 if save_asset(assetable, assetable_type, variant)
+        asset_counter += 1 if save_asset(assetable, assetable_type, variant)
       end
 
-      @count += 1
+      count += 1
     end
 
-    logger.info("Created assets for #{@count} assetable")
-    logger.info("Created asset counter #{@asset_counter}")
+    logger.info("Created assets for #{count} assetable")
+    logger.info("Created asset counter #{asset_counter}")
     logger.info("CreateAssetRelationshipWorker finish!")
+
+    { count:, asset_counter: }
   end
 
 private
