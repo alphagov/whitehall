@@ -44,6 +44,10 @@ jobs:
   test-ruby:
     name: Test Ruby
     uses: ./.github/workflows/minitest.yml
+  
+  test-ruby-parallel:
+    name: Test Ruby
+    uses: ./.github/workflows/minitest-parallel.yml
 
   integration-tests-parallel:
     name: Integration tests
