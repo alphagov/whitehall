@@ -15,28 +15,48 @@ class DateValidationTest < ActiveSupport::TestCase
   end
 
   test "should be valid when date attribute is a valid date" do
+    model = StubModel.new(some_date: { 1 => 2023, 2 => 9, 3 => 10 })
+    assert model.valid?
+  end
+
+  test "should be valid when date attribute is a valid date with a time" do
     model = StubModel.new(some_date: { 1 => 2023, 2 => 9, 3 => 10, 4 => 0, 5 => 0 })
     assert model.valid?
   end
 
   test "should be invalid when date attribute is an invalid date" do
-    model = StubModel.new(some_date: { 1 => 2023, 2 => 9, 3 => 40 })
-    assert_not model.valid?
+    date_hashes = [
+      { 1 => 2023, 2 => 9, 3 => 40 },
+      { 1 => 2023, 2 => -1, 3 => 1 },
+    ]
+    date_hashes.each do |date_hash|
+      model = StubModel.new(some_date: date_hash)
+      assert_not model.valid?, "Failed with date hash #{date_hash}"
+    end
   end
 
   test "should be invalid when date attribute is partially completed" do
-    model = StubModel.new(some_date: { 1 => 2023, 2 => nil, 3 => 9 })
-    assert_not model.valid?
-  end
-
-  test "should be invalid when day is missing" do
-    model = StubModel.new(some_date: { 1 => 2023, 2 => 1, 3 => nil })
-    assert_not model.valid?
+    date_hashes = [
+      { 1 => nil, 2 => 1, 3 => 1 },
+      { 1 => 2023, 2 => nil, 3 => 1 },
+      { 1 => 2023, 2 => 1, 3 => nil },
+    ]
+    date_hashes.each do |date_hash|
+      model = StubModel.new(some_date: date_hash)
+      assert_not model.valid?, "Failed with date hash #{date_hash}"
+    end
   end
 
   test "should be invalid when not all date attribute parts are numeric" do
-    model = StubModel.new(some_date: { 1 => 2023, 2 => "January", 3 => 20 })
-    assert_not model.valid?
+    date_hashes = [
+      { 1 => "Twenty Twenty Three", 2 => 1, 3 => 1 },
+      { 1 => 2023, 2 => "January", 3 => 1 },
+      { 1 => 2023, 2 => 1, 3 => "One" },
+    ]
+    date_hashes.each do |date_hash|
+      model = StubModel.new(some_date: date_hash)
+      assert_not model.valid?, "Failed with date hash #{date_hash}"
+    end
   end
 
   # Rails casts the year part of the date to 0, before passing to the attribute setter, if the original year parameter is a non-numeric string.
