@@ -229,6 +229,12 @@ When(/^I visit the Reorder page/) do
   click_link "Reorder group"
 end
 
+When(/^I visit the Reorder document page/) do
+  visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
+  page.should have_content "Reorder document"
+  click_link("Reorder document")
+end
+
 And(/^I set the order of "([^"]*)" groups to:$/) do |collection_title, order|
   collection = DocumentCollection.find_by!(title: collection_title)
 
@@ -240,12 +246,29 @@ And(/^I set the order of "([^"]*)" groups to:$/) do |collection_title, order|
   click_button "Save"
 end
 
+And(/^within the "([^"]*)" "([^"]*)" I set the order of the documents to:$/) do |collection_title, group_title, order|
+  collection = DocumentCollection.find_by!(title: collection_title)
+  group = collection.groups.find_by!(heading: group_title)
+  order.hashes.each do |hash|
+    membership = group.memberships.select { |f| f.document.latest_edition.title == hash[:name] }.first
+    fill_in "ordering[#{membership.id}]", with: hash[:order]
+  end
+
+  click_button "Save"
+end
+
 Then(/^I can see a "([^"]*)" success flash$/) do |message|
   expect(find(".gem-c-success-alert__message").text).to eq message
 end
 
 And(/^the groups should be in the following order:/) do |list|
   actual_order = all(".govuk-summary-list dt").map(&:text)
+  expected_order = list.hashes.map(&:values).flatten
+  expect(actual_order).to eq(expected_order)
+end
+
+And(/^the document collection group's documents should be in the following order:/) do |list|
+  actual_order = all(".govuk-table__cell:first-child").map(&:text)
   expected_order = list.hashes.map(&:values).flatten
   expect(actual_order).to eq(expected_order)
 end

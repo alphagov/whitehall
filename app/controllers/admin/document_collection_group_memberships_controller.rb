@@ -58,6 +58,17 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     end
   end
 
+  def reorder; end
+
+  def order
+    params[:ordering].each do |membership_ids, ordering|
+      @group.memberships.find(membership_ids).update_column(:ordering, ordering)
+    end
+
+    flash_message = "Document has been reordered"
+    redirect_to admin_document_collection_group_members_path(@collection), notice: flash_message
+  end
+
 private
 
   def create_redirect_path
@@ -69,7 +80,7 @@ private
   end
 
   def get_layout
-    design_system_actions = %w[index confirm_destroy destroy create_whitehall_member] if preview_design_system?(next_release: false)
+    design_system_actions = %w[index confirm_destroy destroy reorder create_whitehall_member] if preview_design_system?(next_release: false)
 
     if design_system_actions&.include?(action_name)
       "design_system"

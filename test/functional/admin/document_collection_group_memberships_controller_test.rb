@@ -49,4 +49,17 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     post :create_whitehall_member, params: id_params.merge(document_id: 1234, title: "blah")
     assert_match %r{couldn't find.*blah}, flash[:alert]
   end
+
+  view_test "GET :should be able to visit reorder document page" do
+    document = create(:document)
+    create(:edition, document:)
+    @collection = create(:document_collection, :with_group)
+    @group = @collection.groups.first
+    @group.memberships << @member_1 = create(:document_collection_group_membership, document:)
+    @group.memberships << @member_2 = create(:document_collection_group_membership, document:)
+
+    get :reorder, params: { document_collection_id: @collection, group_id: @group }
+    assert_response :success
+    assert_select "h1", /Reorder documents/
+  end
 end

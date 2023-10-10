@@ -10,3 +10,14 @@
     white-space: nowrap;
   }
 }
+
+.app-view-document-collection-group-memberships-index__heading-links {
+  display: flex;
+  align-items: center;
+
+  & > p:first-child {
+    @include govuk-responsive-padding(2, "right");
+    @include govuk-responsive-margin(2, "right");
+    border-right: 1px solid $govuk-border-colour;
+  }
+}
