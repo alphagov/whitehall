@@ -1,0 +1,53 @@
+name: Run integration tests
+
+on: workflow_call
+
+jobs:
+  run-integration-tests:
+    name: Run integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup MySQL
+        id: setup-mysql
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@main
+
+      - name: Setup Redis
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
+
+      - name: Install additional system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ghostscript
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@main
+
+      - name: Precompile assets
+        uses: alphagov/govuk-infrastructure/.github/actions/precompile-rails-assets@main
+
+      - name: Initialize database
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
+        run: bundle exec rails db:setup
+
+      - name: Run cucumber
+        env:
+          RAILS_ENV: test
+          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
+        run: bundle exec rails cucumber:ok
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: capybara-screenshots
+          path: tmp/capybara/capybara-*.png
