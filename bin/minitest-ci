@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+tests = ["test/unit", "test/functional", "test/components test/integration test/views"]
+
+exec "bundle exec rails test #{tests[ENV["CI_NODE_INDEX"].to_i]}"
