@@ -128,15 +128,18 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   end
 
   test "presents an organisation’s custom logo" do
-    organisation = create(
+    organisation = build(
       :organisation,
       name: "Organisation of Things",
       organisation_logo_type_id: 14,
       logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
     )
+    logo_asset_manager_id = "logo_asset_manager_id"
+    organisation.assets.build(asset_manager_id: logo_asset_manager_id, variant: Asset.variants[:original], filename: "960x640_jpeg.jpg")
+    organisation.save!
     presented_item = present(organisation)
 
-    expected_image_url = "#{Plek.asset_root}/government/uploads/system/uploads/organisation/logo/#{organisation.logo.model.id}/960x640_jpeg.jpg"
+    expected_image_url = "#{Plek.asset_root}/media/#{logo_asset_manager_id}/960x640_jpeg.jpg"
 
     assert_equal(
       {
