@@ -23,6 +23,11 @@ class AssetManagerCreateAssetWorker < WorkerBase
       save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
     end
 
+    if attachable_model_class && !attachable_model_class.constantize.ancestors.include?(Edition)
+      attachment_data = AttachmentData.find(assetable_id)
+      ServiceListeners::AttachmentUpdater.call(attachment_data:)
+    end
+
     perform_draft_update(attachable_model_class, attachable_model_id)
 
     file.close

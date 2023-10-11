@@ -115,6 +115,16 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
   end
 
+  test "triggers an update to asset-manager for policy group" do
+    policy_group = create(:policy_group, :with_file_attachment, description: "Description")
+
+    Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
+
+    ServiceListeners::AttachmentUpdater.expects(:call).with(attachment_data: @model).once
+
+    @worker.perform(@file.path, @asset_args, true, policy_group.class.to_s, policy_group.id)
+  end
+
   test "triggers an update to publishing api after asset has been saved" do
     consultation = FactoryBot.create(:consultation)
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
