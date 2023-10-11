@@ -130,43 +130,72 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   end
 
   context "when the document has been unpublished" do
-    let(:live_edition) { nil }
-    let(:draft_edition) { build(:unpublished_edition) }
+    let(:live_edition) { build(:unpublished_edition) }
+    let(:draft_edition) { nil }
 
-    it "pushes the draft edition, then unpublishes the document" do
-      publish_then_unpublish = sequence("publish_then_unpublish")
-
-      Whitehall::PublishingApi
-        .expects(:patch_links)
-        .with(draft_edition, bulk_publishing: false)
+    it "unpublishes the document" do
+      unpublish = sequence("unpublish")
 
       PublishingApiUnpublishingWorker
         .expects(:new)
         .returns(unpublishing_worker = mock)
 
-      # 1. Push draft edition
-      Whitehall::PublishingApi
-        .expects(:save_draft)
-        .with(draft_edition, "republish", bulk_publishing: false)
-        .in_sequence(publish_then_unpublish)
+      # 1. Re-send the unpublishing
+      unpublishing_worker
+        .expects(:perform)
+        .with(document.latest_edition.unpublishing.id, false)
+        .in_sequence(unpublish)
 
       # 2. Push HTML attachments
       ServiceListeners::PublishingApiHtmlAttachments
         .expects(:process)
-        .with(draft_edition, "republish")
-        .in_sequence(publish_then_unpublish)
+        .with(document.latest_edition, "republish")
+        .in_sequence(unpublish)
 
-      # 3. Unpublish it
+      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    end
+  end
+
+  context "when the document has been unpublished, and it has a new draft" do
+    let(:live_edition) { build(:unpublished_edition) }
+    let(:draft_edition) { build(:draft_edition) }
+
+    it "unpublishes the document, then pushes the new draft" do
+      unpublish_then_send_draft = sequence("unpublish_then_send_draft")
+
+      Whitehall::PublishingApi
+        .expects(:patch_links)
+        .with(document.latest_edition, bulk_publishing: false)
+
+      PublishingApiUnpublishingWorker
+        .expects(:new)
+        .returns(unpublishing_worker = mock)
+
+      unpublished_edition = document.editions.unpublished.last
+
+      # 1. Re-send the unpublishing
       unpublishing_worker
         .expects(:perform)
-        .with(document.pre_publication_edition.unpublishing.id, true)
-        .in_sequence(publish_then_unpublish)
+        .with(unpublished_edition.unpublishing.id, false)
+        .in_sequence(unpublish_then_send_draft)
+
+      # 2. Push HTML attachments
+      ServiceListeners::PublishingApiHtmlAttachments
+        .expects(:process)
+        .with(unpublished_edition, "republish")
+        .in_sequence(unpublish_then_send_draft)
+
+      # 3. Push draft edition
+      Whitehall::PublishingApi
+        .expects(:save_draft)
+        .with(draft_edition, "republish", bulk_publishing: false)
+        .in_sequence(unpublish_then_send_draft)
 
       # 4. Push HTML attachments again
       ServiceListeners::PublishingApiHtmlAttachments
         .expects(:process)
         .with(draft_edition, "republish")
-        .in_sequence(publish_then_unpublish)
+        .in_sequence(unpublish_then_send_draft)
 
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
     end
@@ -204,17 +233,11 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     end
   end
 
-  it "completes silently if there are no live or pre_publication editions" do
+  it "completes silently if there are no editions to republish" do
     # whitehall has a lot of old documents that only have superseded editions
     # we want to ignore these and not have to try and avoid passing them in
     # when doing bulk republishing
-    document = stub(
-      live_edition: nil,
-      id: 1,
-      pre_publication_edition: nil,
-    )
-
-    Document.stubs(:find).returns(document)
+    document = create(:document, editions: [build(:superseded_edition)])
 
     Whitehall::PublishingApi.stubs(:publish).raises
     Whitehall::PublishingApi.stubs(:save_draft).raises
