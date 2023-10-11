@@ -150,7 +150,7 @@ end
 
 When(/^I search for announcements containing "(.*?)"$/) do |keyword|
   visit admin_statistics_announcements_path
-  fill_in "Title or slug", with: keyword
+  fill_in "Title", with: keyword
   select "All organisations", from: "Organisation"
   click_on "Search"
 end

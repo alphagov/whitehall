@@ -13,7 +13,7 @@
     <div id="document-finder" class="document-finder form-inline well remove-top-margin">
       <label for="title">Add</label>
       <div class="document-finder-fields">
-        <%= search_field_tag :title, "", placeholder: "Title or slug&hellip;".html_safe, results: 5, autosave: "unique", autofocus: true, class: "form-control input-sm", autocomplete: "off" %>
+        <%= search_field_tag :title, "", placeholder: "Title&hellip;".html_safe, results: 5, autosave: "unique", autofocus: true, class: "form-control input-sm", autocomplete: "off" %>
         <%= button_tag "Find", type: "button", id: "find-documents", class: "btn btn-default btn-sm add-right-margin" %>
         <%= image_tag "loading-666666.gif", class: "js-loader" %>
         <p class="tip">
