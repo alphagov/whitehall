@@ -124,6 +124,10 @@
   <% end %>
 </div>
 
-<% unless edition.is_a?(Consultation) %>
-  <%= render "first_published_at", form: form, edition: edition %>
-<% end %>
+<%= render Admin::Editions::FirstPublishedAtComponent.new(
+  edition:,
+  previously_published: params.dig("edition", "previously_published") == "true" || edition.previously_published == true,
+  year: @edition_params.try(:dig, "first_published_at(1i)") || edition.first_published_at&.year,
+  month: @edition_params.try(:dig, "first_published_at(2i)") || edition.first_published_at&.month,
+  day: @edition_params.try(:dig, "first_published_at(3i)") || edition.first_published_at&.day,
+) %>

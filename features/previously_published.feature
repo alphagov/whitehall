@@ -4,7 +4,7 @@ Feature: Previously published options
     Given I am a writer in the organisation "Department of Examples"
     When I start a new case study
     And I click save
-    Then I see a validation error for the 'previously published' option
+    Then I do not see a validation error for the 'previously published' option
 
   @javascript
   Scenario: Creating a new case study and selecting a previously published date in the future

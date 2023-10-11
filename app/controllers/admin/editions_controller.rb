@@ -454,8 +454,6 @@ private
       edition_params["first_published_at(1i)"] = ""
       edition_params["first_published_at(2i)"] = ""
       edition_params["first_published_at(3i)"] = ""
-      edition_params["first_published_at(4i)"] = ""
-      edition_params["first_published_at(5i)"] = ""
     end
 
     if params[:review_reminder].blank? && edition_params.dig("document_attributes", "review_reminder_attributes").present?

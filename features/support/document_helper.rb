@@ -41,9 +41,9 @@ module DocumentHelper
 
       case options[:previously_published]
       when false
-        choose "has never been published before."
+        uncheck "This document has previously been published on another website"
       when true
-        choose "has previously been published on another website."
+        check "This document has previously been published on another website"
       end
 
       if options[:all_nation_applicability]
@@ -110,17 +110,17 @@ module DocumentHelper
 
   def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")
     select announcement_type, from: "News article type"
-    radio_label = "This document has previously been published on another website."
-    choose radio_label
-    within_conditional_reveal radio_label do
+    checkbox_label = "This document has previously been published on another website"
+    check checkbox_label
+    within_conditional_reveal checkbox_label do
       fill_in_date_fields(first_published)
     end
   end
 
   def fill_in_publication_fields(first_published: "2010-01-01", publication_type: "Research and analysis")
-    radio_label = "This document has previously been published on another website."
-    choose radio_label
-    within_conditional_reveal radio_label do
+    checkbox_label = "This document has previously been published on another website"
+    check checkbox_label
+    within_conditional_reveal checkbox_label do
       fill_in_date_fields(first_published)
     end
 
