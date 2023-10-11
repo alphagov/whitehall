@@ -157,34 +157,24 @@ FactoryBot.define do
     end
 
     trait(:unpublished) do
-      after(:create) do |edition|
-        edition.unpublishing = build(:unpublishing, edition:)
-      end
+      unpublishing { build(:unpublishing) }
     end
 
     trait(:published_in_error_redirect) do
-      after(:create) do |edition|
-        edition.unpublishing = build(:published_in_error_redirect_unpublishing, edition:)
-      end
+      unpublishing { build(:published_in_error_redirect_unpublishing) }
     end
 
     trait(:published_in_error_no_redirect) do
-      after(:create) do |edition|
-        edition.unpublishing = build(:published_in_error_no_redirect_unpublishing, edition:)
-      end
+      unpublishing { build(:published_in_error_no_redirect_unpublishing) }
     end
 
     trait(:consolidated_redirect) do
-      after(:create) do |edition|
-        edition.unpublishing = build(:consolidated_unpublishing, edition:)
-      end
+      unpublishing { build(:consolidated_unpublishing) }
     end
 
     trait(:withdrawn) do
       state { "withdrawn" }
-      after(:create) do |edition|
-        edition.unpublishing = build(:withdrawn_unpublishing, edition:)
-      end
+      unpublishing { build(:withdrawn_unpublishing) }
     end
   end
 
