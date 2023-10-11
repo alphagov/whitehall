@@ -37,7 +37,7 @@ Then(/^I see a validation error for the future date$/) do
 end
 
 Then(/^I see a validation error for the missing publication date$/) do
-  expect(page).to have_content("First published at can't be blank")
+  expect(page).to have_content("Enter the date when the document was first published")
 end
 
 Then(/^I should not see a validation error on the previously published date$/) do

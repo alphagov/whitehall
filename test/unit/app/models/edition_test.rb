@@ -783,7 +783,7 @@ class EditionTest < ActiveSupport::TestCase
   test "first_published_at required when previously_published" do
     edition = build(:edition, previously_published: true)
     assert_not edition.valid?
-    assert_equal "First published at can't be blank", edition.errors.full_messages.first
+    assert_equal "First published at Enter the date when the document was first published", edition.errors.full_messages.first
 
     edition.first_published_at = Time.zone.now
     assert edition.valid?
