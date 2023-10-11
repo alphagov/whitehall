@@ -20,8 +20,8 @@ class Admin::LegacyDocumentCollectionGroupDocumentSearchControllerTest < ActionC
     assert_template :forbidden
   end
 
-  test "GET #search_title_slug blocks out users with no permissions" do
-    get :search_title_slug, params: @request_params
+  test "GET #search__by_title blocks out users with no permissions" do
+    get :search_by_title, params: @request_params
     assert_template :forbidden
   end
 

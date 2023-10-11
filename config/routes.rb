@@ -34,9 +34,11 @@ Whitehall::Application.routes.draw do
         resources :document_collection_groups, as: :groups, path: "groups" do
           get :search_options, to: "document_collection_group_document_search#search_options"
           post :search_options, to: "document_collection_group_document_search#search"
-          get :search_title_slug, to: "document_collection_group_document_search#search_title_slug"
+
+          get :search_by_title, to: "document_collection_group_document_search#search_by_title"
           get :add_by_url, to: "document_collection_group_document_search#add_by_url"
           post "govuk-url-member" => "document_collection_group_memberships#create_member_by_govuk_url", as: :govuk_url_member
+
           member { get :confirm_destroy }
           resource :document_collection_group_membership,
                    as: :members,
