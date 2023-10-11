@@ -265,7 +265,7 @@ GEM
       jquery-rails (~> 4.3)
       plek (>= 2.1)
       rails (>= 6)
-    govuk_app_config (9.4.0)
+    govuk_app_config (9.5.0)
       logstasher (~> 2.1)
       opentelemetry-exporter-otlp (>= 0.25, < 0.27)
       opentelemetry-instrumentation-all (>= 0.39.1, < 0.51.0)
