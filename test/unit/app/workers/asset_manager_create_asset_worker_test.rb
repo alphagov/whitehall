@@ -143,6 +143,28 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @asset_args, true, consultation_outcome.class.to_s, consultation_outcome.id)
   end
 
+  test "updates existing asset of same variant if it already exists - for Organisations" do
+    filename = "big-cheese.960x640.jpg"
+    organisation = FactoryBot.build(
+      :organisation,
+      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+      logo: upload_fixture(filename, "image/png"),
+    )
+    organisation.assets.build(asset_manager_id: "asset_manager_id", variant: Asset.variants[:original], filename:)
+    organisation.save!
+
+    update_asset_args = { assetable_id: organisation.id, asset_variant: Asset.variants[:original], assetable_type: organisation.class.to_s }.deep_stringify_keys
+    new_asset_manager_id = "new_asset_manager_id"
+    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/#{new_asset_manager_id}", "name" => File.basename(@file) }
+    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
+
+    @worker.perform(@file.path, update_asset_args, true)
+
+    assets = Asset.where(assetable_id: organisation.id)
+    assert_equal 1, assets.count
+    assert_equal new_asset_manager_id, assets.first.asset_manager_id
+  end
+
   test "does not create additional assets on failure if required assets already exist" do
     consultation = FactoryBot.create(:consultation)
     thumbnail_asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:thumbnail], assetable_type: @model.class.to_s }.deep_stringify_keys

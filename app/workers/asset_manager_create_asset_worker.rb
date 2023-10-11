@@ -16,7 +16,7 @@ class AssetManagerCreateAssetWorker < WorkerBase
     authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
     asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
 
-    unless asset_already_exist?(assetable_id, assetable_type, asset_variant)
+    unless asset_already_exists?(assetable_id, assetable_type, asset_variant)
       response = asset_manager.create_asset(asset_options)
       asset_manager_id = get_asset_id(response)
       filename = get_filename(response)
@@ -37,7 +37,9 @@ class AssetManagerCreateAssetWorker < WorkerBase
 
 private
 
-  def asset_already_exist?(assetable_id, assetable_type, asset_variant)
+  def asset_already_exists?(assetable_id, assetable_type, asset_variant)
+    return false if %w[Organisation].include?(assetable_type)
+
     Asset.where(assetable_id:, assetable_type:, variant: asset_variant).exists?
   end
 
@@ -60,7 +62,10 @@ private
   end
 
   def save_asset(assetable_id, assetable_type, variant, asset_manager_id, filename)
-    Asset.create!(asset_manager_id:, assetable_id:, assetable_type:, variant:, filename:)
+    asset = Asset.where(assetable_id:, assetable_type:, variant:).first_or_initialize
+    asset.asset_manager_id = asset_manager_id
+    asset.filename = filename
+    asset.save!
   end
 
   def get_asset_id(response)

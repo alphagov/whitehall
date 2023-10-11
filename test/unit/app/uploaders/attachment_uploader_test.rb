@@ -227,7 +227,6 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   test "should store an actual PNG as thumbnail" do
     AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"))
 
-    Asset.expects(:create!).twice.with(anything, anything, anything)
     expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
 
     AssetManagerCreateAssetWorker.drain
@@ -236,7 +235,6 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   test "should scale the thumbnail down proportionally to A4" do
     AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"))
 
-    Asset.expects(:create!).twice.with(anything, anything, anything)
     expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
 
     AssetManagerCreateAssetWorker.drain
@@ -273,17 +271,17 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   def expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
-    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id")
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
     Services.asset_manager.expects(:create_asset).with { |value|
       if value[:file].path.ends_with?(".png")
         type = `file -b --mime-type "#{value[:file].path}"`
         assert_equal "image/png", type.strip
       end
-    }.returns("id" => "http://asset-manager/assets/some-id")
+    }.returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
   end
 
   def expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
-    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id")
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
     Services.asset_manager.expects(:create_asset).with { |value|
       if value[:file].path.ends_with?(".png")
         identify_details = `identify "#{Rails.root.join("public", value[:file].path)}"`
@@ -293,7 +291,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
         assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"
       end
-    }.returns("id" => "http://asset-manager/assets/some-id")
+    }.returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
   end
 end
 
