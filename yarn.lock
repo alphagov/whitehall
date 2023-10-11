@@ -936,10 +936,10 @@ eslint-plugin-n@^15.7.0:
     resolve "^1.22.1"
     semver "^7.3.8"
 
-eslint-plugin-n@^16.1.0:
-  version "16.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-n/-/eslint-plugin-n-16.1.0.tgz#73d24fe3e37d04519c1f9230bdbd3aa567c66799"
-  integrity sha512-3wv/TooBst0N4ND+pnvffHuz9gNPmk/NkLwAxOt2JykTl/hcuECe6yhTtLJcZjIxtZwN+GX92ACp/QTLpHA3Hg==
+eslint-plugin-n@^16.2.0:
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-n/-/eslint-plugin-n-16.2.0.tgz#3f98ca9fadd9f7bdaaf60068533118ecb685bfb5"
+  integrity sha512-AQER2jEyQOt1LG6JkGJCCIFotzmlcCZFur2wdKrp1JX2cNotC7Ae0BcD/4lLv3lUAArM9uNS8z/fsvXTd0L71g==
   dependencies:
     "@eslint-community/eslint-utils" "^4.4.0"
     builtins "^5.0.1"
