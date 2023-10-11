@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    errors:
+      models:
+        govspeak_content:
+          attributes:
+            body:
+              blank: Enter a body

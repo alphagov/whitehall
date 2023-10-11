@@ -109,6 +109,15 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal third_link.text, "Date is invalid"
     assert_equal third_link[:href], "#error_summary_test_object_date"
   end
+
+  test "Uses custom error messages when present in the locales" do
+    attachment = build(:attachment, title: nil)
+    attachment.validate
+
+    render_inline(Admin::ErrorSummaryComponent.new(object: attachment, parent_class: "attachment"))
+
+    assert_equal "Enter a title", page.all(".gem-c-error-summary__list-item")[0].find("a").text
+  end
 end
 
 class ErrorSummaryTestObject

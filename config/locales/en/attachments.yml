@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    errors:
+      models:
+        attachment:
+          attributes:
+            title:
+              blank: Enter a title

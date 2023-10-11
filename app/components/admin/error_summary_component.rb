@@ -27,7 +27,7 @@ private
   def error_items
     errors.map do |error|
       error_item = {
-        text: error.full_message,
+        text: error_message_text(error),
         data_attributes: track_analytics_data("form-error", analytics_action, error.full_message),
       }
 
@@ -50,5 +50,35 @@ private
                 else
                   object.errors
                 end
+  end
+
+  def error_message_text(error)
+    if custom_error_present_in_locales?(error)
+      custom_error_message(error)
+    else
+      error.full_message
+    end
+  end
+
+  def custom_error_present_in_locales?(error)
+    custom_error_message(error)
+  rescue RuntimeError
+    false
+  end
+
+  def custom_error_message(error)
+    I18n.t("activerecord.errors.models.#{model_for_locale(error)}.attributes.#{attribute_for_locale(error)}.#{error.type}")
+  end
+
+  def model_for_locale(error)
+    return parent_class unless error.is_a?(ActiveModel::NestedError)
+
+    error.attribute.to_s.split(".")[-2]
+  end
+
+  def attribute_for_locale(error)
+    return error.attribute unless error.is_a?(ActiveModel::NestedError)
+
+    error.attribute.to_s.split(".").last
   end
 end
