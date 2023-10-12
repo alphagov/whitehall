@@ -33,13 +33,13 @@ Then(/^I do not see a validation error for the 'previously published' option$/) 
 end
 
 Then(/^I see a validation error for the future date$/) do
-  expect(page).to have_content("First published at must be between 1/1/1900 and the present")
+  expect(page).to have_content("First published date must be between 1/1/1900 and the present")
 end
 
 Then(/^I see a validation error for the missing publication date$/) do
-  expect(page).to have_content("First published at can't be blank")
+  expect(page).to have_content("Enter a first published date")
 end
 
 Then(/^I should not see a validation error on the previously published date$/) do
-  expect(page).to_not have_content("First published at must be between 1/1/1900 and the present")
+  expect(page).to_not have_content("First published date must be between 1/1/1900 and the present")
 end

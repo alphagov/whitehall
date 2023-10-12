@@ -783,7 +783,7 @@ class EditionTest < ActiveSupport::TestCase
   test "first_published_at required when previously_published" do
     edition = build(:edition, previously_published: true)
     assert_not edition.valid?
-    assert_equal "First published at can't be blank", edition.errors.full_messages.first
+    assert_equal "Enter a first published date", edition.errors.full_messages.first
 
     edition.first_published_at = Time.zone.now
     assert edition.valid?
@@ -793,7 +793,7 @@ class EditionTest < ActiveSupport::TestCase
     edition = build(:edition, first_published_at: 10.years.from_now)
 
     assert_not edition.valid?
-    assert_equal "First published at must be between 1/1/1900 and the present", edition.errors.full_messages.first
+    assert_equal "First published date must be between 1/1/1900 and the present", edition.errors.full_messages.first
   end
 
   test "#government returns the current government for a newly published edition" do
