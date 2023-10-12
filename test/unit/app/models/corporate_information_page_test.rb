@@ -105,20 +105,36 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test "republishes owning worldwide organisation after commit when present" do
     worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation:)
+    corporate_information_page = create(:corporate_information_page, organisation: nil, worldwide_organisation:)
 
-    Services.publishing_api.expects(:put_content).once
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once
 
-    corporate_information_page.update!(body: "new body")
+    corporate_information_page.update!(state: "published", body: "new body")
   end
 
-  test "republishes owning worldwide organisation after commit when present and updates draft corporate information page" do
+  test "republishes owning worldwide organisation draft after commit when corporate information page is draft" do
     worldwide_organisation = create(:worldwide_organisation)
     corporate_information_page = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation:)
 
-    Services.publishing_api.expects(:put_content).once
+    entries = has_entries(description: "new summary", details: has_entry({ body: "<div class=\"govspeak\"><p>new body</p>\n</div>" }))
+    Services.publishing_api.expects(:put_content).with(worldwide_organisation.content_id, entries).once
+    Whitehall::PublishingApi.expects(:republish_async).never
 
-    corporate_information_page.update!(body: "new body")
+    corporate_information_page.update!(body: "new body", summary: "new summary")
+
+    assert_equal "new body", corporate_information_page.body
+  end
+
+  test "republishes owning worldwide organisation draft after commit when corporate information page is submitted" do
+    worldwide_organisation = create(:worldwide_organisation)
+    corporate_information_page = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation:)
+
+    entries = has_entries(description: "new summary", details: has_entry({ body: "<div class=\"govspeak\"><p>new body</p>\n</div>" }))
+    Services.publishing_api.expects(:put_content).with(worldwide_organisation.content_id, entries).twice
+    Whitehall::PublishingApi.expects(:republish_async).never
+
+    corporate_information_page.update!(body: "new body", summary: "new summary")
+    corporate_information_page.update!(state: "submitted")
 
     assert_equal "new body", corporate_information_page.body
   end
