@@ -1,4 +1,4 @@
-require "fast_test_helper"
+require "test_helper"
 
 class Edition::GovspeakLinkValidatorTest < ActiveSupport::TestCase
   test "should be valid if the input is nil" do
