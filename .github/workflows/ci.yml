@@ -45,9 +45,9 @@ jobs:
     name: Test Ruby
     uses: ./.github/workflows/minitest.yml
 
-  integration-tests-parallel:
-    name: Integration tests
-    uses: ./.github/workflows/integration-tests-parallel.yml
+  test-features:
+    name: Test features
+    uses: ./.github/workflows/cucumber.yml
 
   integration-tests:
     name: Integration tests
