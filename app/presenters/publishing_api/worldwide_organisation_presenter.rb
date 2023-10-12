@@ -57,20 +57,21 @@ module PublishingApi
     end
 
     def description
-      if state == "draft"
-        item.draft_summary
-      else
-        item.summary
-      end
+      return if about_us.blank?
+
+      about_us.summary
     end
 
     def body
-      about_us = if state == "draft"
-                   item.draft_about_us
-                 else
-                   item.about_us
-                 end
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(about_us) || ""
+    end
+
+    def about_us
+      if %w[draft submitted].include?(state)
+        item.about_us_for(state:)
+      else
+        item.about_us
+      end
     end
 
     def main_office

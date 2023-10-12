@@ -12,10 +12,6 @@ module HasCorporateInformationPages
     about_us.summary if about_us.present?
   end
 
-  def draft_summary
-    draft_about_us.summary if draft_about_us.present?
-  end
-
   def body
     about_us.body if about_us.present?
   end
@@ -38,7 +34,7 @@ module HasCorporateInformationPages
     corporate_information_pages.published.for_slug("about")
   end
 
-  def draft_about_us
-    corporate_information_pages.draft.for_slug("about")
+  def about_us_for(state:)
+    corporate_information_pages.where(state:).for_slug("about")
   end
 end
