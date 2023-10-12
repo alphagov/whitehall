@@ -1,61 +1,15 @@
-name: CI
+name: Run integration tests
 
-on:
-  workflow_dispatch: {}
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - "Jenkinsfile"
-      - ".git**"
-  pull_request:
+on: workflow_call
 
 jobs:
-  security-analysis:
-    name: Security Analysis
-    uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yml@main
-
-  lint-scss:
-    name: Lint SCSS
-    uses: ./.github/workflows/lintscss.yml
-
-  lint-javascript:
-    name: Lint JavaScript
-    uses: ./.github/workflows/lintjs.yml
-
-  lint-prettier:
-    name: Prettier
-    uses: ./.github/workflows/lintprettier.yml
-
-  lint-ruby:
-    name: Lint Ruby
-    uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yml@main
-
-  lint-erb:
-    name: Lint ERB
-    uses: ./.github/workflows/linterb.yml
-
-  test-javascript:
-    name: Test JavaScript
-    uses: alphagov/govuk-infrastructure/.github/workflows/jasmine.yml@main
-    with:
-      useWithRails: true
-
-  test-ruby:
-    name: Test Ruby
-    uses: ./.github/workflows/minitest.yml
-  
-  test-ruby-parallel:
-    name: Test Ruby
-    uses: ./.github/workflows/minitest-parallel.yml
-
-  integration-tests-parallel:
-    name: Integration tests
-    uses: ./.github/workflows/integration-tests-parallel.yml
-
-  integration-tests:
-    name: Integration tests
+  run-parallel-integration-tests:
+    name: Run integration tests
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node_rake_task: ["cucumber:ok", "cucumber:preview_design_system"]
     steps:
       - name: Setup MySQL
         id: setup-mysql
@@ -68,7 +22,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends ghostscript
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -93,7 +46,7 @@ jobs:
         env:
           RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec rails cucumber
+        run: bundle exec rails ${{ matrix.node_rake_task }}
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
