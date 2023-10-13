@@ -14,6 +14,13 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
     assert page.text.blank?
   end
 
+  test "does not render if edition is unpublished" do
+    edition = build(:unpublished_edition)
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+
+    assert page.text.blank?
+  end
+
   test "renders a link with tracking to preview the document when the edition is english only" do
     edition = build_stubbed(:publication, document: @document)
 

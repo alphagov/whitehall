@@ -8,7 +8,7 @@ class Admin::Editions::Show::PreviewComponent < ViewComponent::Base
   end
 
   def render?
-    !edition.publicly_visible?
+    edition.pre_publication?
   end
 
 private
