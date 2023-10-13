@@ -26,17 +26,15 @@
             text: "Documents",
             margin_bottom: 6,
           } %>
-
-          <div class="app-view-document-collection-group-memberships-index__heading-links">
-            <p class="govuk-body govuk-!-text-align-right">
+          <ul class="govuk-list">
+            <li>
               <%= link_to "Add document", admin_document_collection_group_search_options_path(@collection, @group), class: "govuk-link" %>
-            </p>
+            </li>
 
-            <p class="govuk-body govuk-!-text-align-right">
+            <li>
               <%= link_to "Reorder document", reorder_admin_document_collection_group_document_collection_group_memberships_path(@collection, @group), class: "govuk-link" %>
-            </p>
-          </div>
-
+            </li>
+          </ul>
         </div>
       </div>
     <% else %>
@@ -47,9 +45,11 @@
             margin_bottom: 6,
           } %>
 
-          <p class="govuk-body govuk-!-text-align-right">
-            <%= link_to "Add document", admin_document_collection_group_search_options_path(@collection, @group), class: "govuk-link" %>
-          </p>
+          <ul class="govuk-list">
+            <li>
+              <%= link_to "Add document", admin_document_collection_group_search_options_path(@collection, @group), class: "govuk-link" %>
+            </li>
+          </ul>
         </div>
       </div>
     <% end %>

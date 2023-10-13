@@ -1,6 +1,25 @@
 .app-view-document-collection-group-memberships-index__heading {
-  display: flex;
-  justify-content: space-between;
+  .gem-c-heading {
+    display: inline-block;
+    @include govuk-responsive-margin(2, "right");
+  }
+
+  .govuk-list {
+    float: right;
+
+    li {
+      display: inline-block;
+      @include govuk-responsive-padding(2, "left");
+      @include govuk-responsive-margin(2, "left");
+      border-left: 1px solid $govuk-border-colour;
+
+      &:first-child {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+      }
+    }
+  }
 }
 
 .app-view-document-collection-group-memberships-index__table .govuk-table__cell {
@@ -8,16 +27,5 @@
 
   &:last-child {
     white-space: nowrap;
-  }
-}
-
-.app-view-document-collection-group-memberships-index__heading-links {
-  display: flex;
-  align-items: center;
-
-  & > p:first-child {
-    @include govuk-responsive-padding(2, "right");
-    @include govuk-responsive-margin(2, "right");
-    border-right: 1px solid $govuk-border-colour;
   }
 }
