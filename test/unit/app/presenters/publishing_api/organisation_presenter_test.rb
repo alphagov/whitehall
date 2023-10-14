@@ -162,6 +162,18 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_nil presented_item.content[:details][:logo][:crest]
   end
 
+  test "filters out logo with missing asset variants" do
+    organisation = build(
+      :organisation,
+      name: "Organisation of Things",
+      organisation_logo_type_id: 14,
+      logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
+    )
+    presented_item = present(organisation)
+
+    assert_nil presented_item.content[:details][:logo][:image]
+  end
+
   test "presents an organisation with no identity with a nil crest" do
     organisation = create(
       :organisation,
