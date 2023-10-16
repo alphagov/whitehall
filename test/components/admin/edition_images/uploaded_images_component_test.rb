@@ -46,9 +46,9 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
   end
 
   test "shows \"Processing\" label where image assets (variants) are still uploading" do
-    lead_image_data_with_no_assets = build(:image_data, use_non_legacy_endpoints: true)
-    regular_image_data_with_no_assets = build(:image_data, use_non_legacy_endpoints: true)
-    regular_image_data_with_assets = build(:image_data_with_assets)
+    lead_image_data_with_no_assets = build(:image_data_with_no_assets)
+    regular_image_data_with_no_assets = build(:image_data_with_no_assets)
+    regular_image_data_with_assets = build(:image_data)
     images = [
       build_stubbed(:image, image_data: lead_image_data_with_no_assets),
       build_stubbed(:image, image_data: regular_image_data_with_no_assets),

@@ -15,7 +15,7 @@ FactoryBot.define do
 
     trait(:pdf) do
       after(:build) do |attachment, evaluator|
-        attachment.attachment_data = build(:attachment_data, file: evaluator.file, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
+        attachment.attachment_data ||= build(:attachment_data, file: evaluator.file, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
       end
     end
 
@@ -25,7 +25,7 @@ FactoryBot.define do
       end
 
       after(:build) do |attachment, evaluator|
-        attachment.attachment_data = build(:attachment_data_with_asset, file: evaluator.file)
+        attachment.attachment_data ||= build(:attachment_data_with_asset, file: evaluator.file)
       end
     end
 
@@ -35,13 +35,13 @@ FactoryBot.define do
       end
 
       after(:build) do |attachment, evaluator|
-        attachment.attachment_data = build(:attachment_data_for_csv, file: evaluator.file)
+        attachment.attachment_data ||= build(:attachment_data_for_csv, file: evaluator.file)
       end
     end
 
     trait(:with_no_assets) do
       after(:build) do |attachment, evaluator|
-        attachment.attachment_data = build(:attachment_data_with_no_assets, file: evaluator.file)
+        attachment.attachment_data ||= build(:attachment_data_with_no_assets, file: evaluator.file)
       end
     end
   end

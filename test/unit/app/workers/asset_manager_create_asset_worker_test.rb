@@ -174,6 +174,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).never
     Services.publishing_api.expects(:put_content).never
+    Sidekiq.logger.expects(:info).once
 
     @worker.perform(@file.path, asset_args, true, consultation.class.to_s, consultation.id)
   end

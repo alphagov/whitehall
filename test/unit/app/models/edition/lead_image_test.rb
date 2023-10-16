@@ -42,8 +42,7 @@ class Edition::LeadImageTest < ActiveSupport::TestCase
   end
 
   test "#lead_image_has_all_assets? returns false if the lead image (ImageData) has missing assets" do
-    image_with_missing_assets = build(:image)
-    image_with_missing_assets.image_data.use_non_legacy_endpoints = true
+    image_with_missing_assets = build(:image_with_no_assets)
     image_with_missing_assets.image_data.assets << [build(:asset)]
 
     model = stub("Target", { images: [image_with_missing_assets] }).extend(Edition::LeadImage)
@@ -52,7 +51,7 @@ class Edition::LeadImageTest < ActiveSupport::TestCase
   end
 
   test "#lead_image_has_all_assets? returns true if the lead image (ImageData) has all assets" do
-    image_with_missing_assets = build(:image_with_assets)
+    image_with_missing_assets = build(:image)
 
     model = stub("Target", { images: [image_with_missing_assets] }).extend(Edition::LeadImage)
 

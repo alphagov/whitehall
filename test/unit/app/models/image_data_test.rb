@@ -72,39 +72,34 @@ class ImageDataTest < ActiveSupport::TestCase
   end
 
   test "should not delete assets when ImageData gets deleted" do
-    image_data = create(:image_data_with_assets)
+    image_data = create(:image_data)
     assert_equal 7, image_data.assets.count
 
     image_data.destroy!
     assert_equal 7, image_data.assets.count
   end
 
-  test "all_asset_variants_uploaded? returns true if use_non_legacy_endpoints is false" do
+  test "#all_asset_variants_uploaded? returns true if all assets present" do
     image_data = build(:image_data)
-    assert image_data.all_asset_variants_uploaded?
-  end
-
-  test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns true if all assets present" do
-    image_data = build(:image_data_with_assets)
 
     assert image_data.all_asset_variants_uploaded?
   end
 
-  test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns true if original asset present for svg" do
-    image_data = build(:image_data_svg)
+  test "#all_asset_variants_uploaded? returns true if original asset present for svg" do
+    image_data = build(:image_data_for_svg)
 
     assert image_data.all_asset_variants_uploaded?
   end
 
-  test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns false if some assets are missing" do
-    image_data = build(:image_data, use_non_legacy_endpoints: true)
+  test "#all_asset_variants_uploaded? returns false if some assets are missing" do
+    image_data = build(:image_data_with_no_assets)
     image_data.assets = [build(:asset), build(:asset, variant: Asset.variants[:s960])]
 
     assert_not image_data.all_asset_variants_uploaded?
   end
 
-  test "use_non_legacy_endpoints: true - all_asset_variants_uploaded? returns false if there are no assets" do
-    image_data = build(:image_data, use_non_legacy_endpoints: true)
+  test "#all_asset_variants_uploaded? returns false if there are no assets" do
+    image_data = build(:image_data_with_no_assets)
 
     assert_not image_data.all_asset_variants_uploaded?
   end

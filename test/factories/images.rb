@@ -1,12 +1,16 @@
 FactoryBot.define do
-  factory :image do
+  factory :generic_image, class: Image do
     alt_text { "An accessible description of the image" }
-    image_data
-  end
 
-  factory :image_with_assets, parent: :image do
-    after(:build) do |image|
-      image.image_data = build(:image_data_with_assets)
+    trait(:jpg) do
+      image_data
+    end
+
+    trait(:with_no_assets) do
+      image_data { build(:image_data_with_no_assets) }
     end
   end
+
+  factory :image, parent: :generic_image, traits: [:jpg]
+  factory :image_with_no_assets, parent: :generic_image, traits: [:with_no_assets]
 end

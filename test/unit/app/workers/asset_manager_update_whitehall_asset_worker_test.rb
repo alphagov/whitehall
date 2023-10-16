@@ -12,25 +12,6 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
       "/government/uploads/system/uploads/#{data_type}/file/#{data_id}/#{file_name}"
     end
 
-    test "updates an image and its resized thumbnail versions" do
-      image_data = FactoryBot.create(:image_data)
-      %w[
-        minister-of-funk.960x640.jpg
-        s960_minister-of-funk.960x640.jpg
-        s712_minister-of-funk.960x640.jpg
-        s630_minister-of-funk.960x640.jpg
-        s465_minister-of-funk.960x640.jpg
-        s300_minister-of-funk.960x640.jpg
-        s216_minister-of-funk.960x640.jpg
-      ].each do |filename|
-        path = expected_legacy_url("image_data", image_data.id, filename)
-        AssetManager::AssetUpdater.expects(:call).with(nil, image_data, path, @auth_bypass_id_attributes).once
-      end
-
-      AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ImageData", image_data.id, @auth_bypass_id_attributes)
-      AssetManagerUpdateWhitehallAssetWorker.drain
-    end
-
     test "updates a consultation response form" do
       response_form = FactoryBot.create(:consultation_response_form)
       form_data = response_form.consultation_response_form_data
@@ -81,6 +62,24 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
       Logger.any_instance.stubs(:error).with(includes(attachment_data_id.to_s)).once
 
       AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data_id, auth_bypass_id_attributes)
+      AssetManagerUpdateWhitehallAssetWorker.drain
+    end
+
+    test "updates an image and its resized versions" do
+      image_data = FactoryBot.create(:image_data)
+      %w[
+        asset_manager_id_original
+        asset_manager_id_s960
+        asset_manager_id_s712
+        asset_manager_id_s630
+        asset_manager_id_s465
+        asset_manager_id_s300
+        asset_manager_id_s216
+      ].each do |asset_manager_id|
+        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, image_data, nil, @auth_bypass_id_attributes).once
+      end
+
+      AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ImageData", image_data.id, @auth_bypass_id_attributes)
       AssetManagerUpdateWhitehallAssetWorker.drain
     end
   end

@@ -37,8 +37,6 @@ class ImageData < ApplicationRecord
   end
 
   def all_asset_variants_uploaded?
-    return true unless use_non_legacy_endpoints
-
     asset_variants = assets.map(&:variant).map(&:to_sym)
     required_variants = bitmap? ? ImageUploader.versions.keys.push(:original) : [Asset.variants[:original].to_sym]
 
