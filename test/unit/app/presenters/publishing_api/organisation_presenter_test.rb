@@ -128,18 +128,13 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   end
 
   test "presents an organisation’s custom logo" do
-    organisation = build(
-      :organisation,
+    organisation = create(
+      :organisation_with_logo_and_assets,
       name: "Organisation of Things",
-      organisation_logo_type_id: 14,
-      logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
     )
-    logo_asset_manager_id = "logo_asset_manager_id"
-    organisation.assets.build(asset_manager_id: logo_asset_manager_id, variant: Asset.variants[:original], filename: "960x640_jpeg.jpg")
-    organisation.save!
     presented_item = present(organisation)
 
-    expected_image_url = "#{Plek.asset_root}/media/#{logo_asset_manager_id}/960x640_jpeg.jpg"
+    expected_image_url = "#{Plek.asset_root}/media/logo_asset_manager_id/960x640_jpeg.jpg"
 
     assert_equal(
       {
@@ -151,24 +146,15 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   end
 
   test "presents an organisation with a custom logo with a nil crest" do
-    organisation = create(
-      :organisation,
-      name: "Organisation of Things",
-      organisation_logo_type_id: 14,
-      logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
-    )
+    organisation = create(:organisation_with_logo_and_assets)
     presented_item = present(organisation)
 
     assert_nil presented_item.content[:details][:logo][:crest]
   end
 
-  test "filters out logo with missing asset variants" do
-    organisation = build(
-      :organisation,
-      name: "Organisation of Things",
-      organisation_logo_type_id: 14,
-      logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
-    )
+  test "filters out logo with no asset variants" do
+    organisation = build(:organisation_with_logo_and_assets)
+    organisation.assets.delete_all
     presented_item = present(organisation)
 
     assert_nil presented_item.content[:details][:logo][:image]
@@ -177,7 +163,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   test "presents an organisation with no identity with a nil crest" do
     organisation = create(
       :organisation,
-      name: "Organisation of Things",
       organisation_logo_type_id: 1,
     )
     presented_item = present(organisation)
@@ -188,7 +173,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   test "presents an organisation with no parents/children without the relationship text" do
     organisation = create(
       :organisation,
-      name: "Organisation of Things",
     )
     presented_item = present(organisation)
 
@@ -216,7 +200,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
     organisation = create(
       :organisation,
-      name: "Organisation of Things",
       organisation_type: OrganisationType.executive_office,
       promotional_features: [
         promotional_feature1,
@@ -251,7 +234,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     promotional_feature = create(:promotional_feature)
     organisation = create(
       :organisation,
-      name: "Organisation of Things",
       organisation_type: OrganisationType.ministerial_department,
       promotional_features: [promotional_feature],
     )
@@ -263,7 +245,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   test "presents the current/new URL for a non-live organisation" do
     organisation = create(
       :organisation,
-      name: "Organisation of Things",
       govuk_status: "exempt",
       url: "http://www.example.com/org-of-things",
     )

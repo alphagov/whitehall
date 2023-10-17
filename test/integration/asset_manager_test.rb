@@ -74,19 +74,12 @@ class AssetManagerIntegrationTest
 
   class RemovingAnOrganisationLogo < ActiveSupport::TestCase
     test "removing an organisation logo removes it from asset manager" do
-      logo_asset_id = "asset-id"
-      logo_filename = "960x640_jpeg.jpg"
-      response = { "id" => "http://asset-manager/assets/#{logo_asset_id}", "name" => logo_filename }
-      organisation = FactoryBot.build(
-        :organisation,
-        organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(fixture_path.join("images", logo_filename)),
-      )
-      organisation.assets.build(asset_manager_id: logo_asset_id, variant: Asset.variants[:original], filename: logo_filename)
-      organisation.save!
+      logo_asset_manager_id = "logo_asset_manager_id"
+      response = { "id" => "http://asset-manager/assets/#{logo_asset_manager_id}", "name" => "960x640_jpeg.jpg" }
+      organisation = FactoryBot.create(:organisation_with_logo_and_assets)
 
-      Services.asset_manager.stubs(:asset).with(logo_asset_id).returns(response)
-      Services.asset_manager.expects(:delete_asset).with(logo_asset_id)
+      Services.asset_manager.stubs(:asset).with(logo_asset_manager_id).returns(response)
+      Services.asset_manager.expects(:delete_asset).with(logo_asset_manager_id)
 
       Sidekiq::Testing.inline! do
         organisation.logo.remove!
@@ -96,20 +89,13 @@ class AssetManagerIntegrationTest
 
   class ReplacingAnOrganisationLogo < ActiveSupport::TestCase
     test "replacing an organisation logo removes the old logo from asset manager" do
-      old_logo_filename = "960x640_jpeg.jpg"
-      old_logo_asset_id = "asset_manager_id"
-      response = { "id" => "http://asset-manager/assets/#{old_logo_asset_id}", "name" => old_logo_filename }
+      logo_asset_manager_id = "logo_asset_manager_id"
+      response = { "id" => "http://asset-manager/assets/#{logo_asset_manager_id}", "name" => "960x640_jpeg.jpg" }
       Services.asset_manager.stubs(:create_asset).returns(response)
-      organisation = FactoryBot.build(
-        :organisation,
-        organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(fixture_path.join("images", old_logo_filename)),
-      )
-      organisation.assets.build(asset_manager_id: old_logo_asset_id, variant: Asset.variants[:original], filename: old_logo_filename)
-      organisation.save!
+      organisation = FactoryBot.create(:organisation_with_logo_and_assets)
 
-      Services.asset_manager.stubs(:asset).with(old_logo_asset_id).returns(response)
-      Services.asset_manager.expects(:delete_asset).with(old_logo_asset_id)
+      Services.asset_manager.stubs(:asset).with(logo_asset_manager_id).returns(response)
+      Services.asset_manager.expects(:delete_asset).with(logo_asset_manager_id)
 
       organisation.logo = File.open(fixture_path.join("images", "960x640_gif.gif"))
 

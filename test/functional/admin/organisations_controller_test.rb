@@ -376,11 +376,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "POST: create - discards file cache if file is present" do
     filename = "logo.png"
     Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => filename)
-    cached_organisation = FactoryBot.build(
-      :organisation,
-      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-      logo: upload_fixture("minister-of-funk.960x640.jpg", "image/png"),
-    )
+    cached_organisation = FactoryBot.build(:organisation_with_logo_and_assets)
 
     post :create,
          params: {
@@ -400,8 +396,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "POST: update - discards file cache if file is present" do
     organisation = FactoryBot.create(
-      :organisation,
-      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+      :organisation_with_logo_and_assets,
       logo: upload_fixture("big-cheese.960x640.jpg", "image/png"),
     )
 
@@ -409,8 +404,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     cached_filename = "minister-of-funk.960x640.jpg"
     Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => replacement_filename)
     cached_organisation = FactoryBot.build(
-      :organisation,
-      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+      :organisation_with_logo_and_assets,
       logo: upload_fixture(cached_filename, "image/png"),
     )
 

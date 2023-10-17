@@ -1185,15 +1185,14 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "#all_asset_variants_uploaded? returns true if all asset variants present" do
-    organisation = build(:organisation)
-    organisation.assets.build(asset_manager_id: "asset_manager_id", variant: Asset.variants[:original], filename: "filename.png")
-    organisation.save!
+    organisation = build(:organisation_with_logo_and_assets)
 
     assert organisation.all_asset_variants_uploaded?
   end
 
   test "#all_asset_variants_uploaded? returns false if there are no assets" do
-    organisation = build(:organisation)
+    organisation = build(:organisation_with_logo_and_assets)
+    organisation.assets.delete_all
 
     assert_not organisation.all_asset_variants_uploaded?
   end
