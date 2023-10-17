@@ -26,11 +26,15 @@
 
   <%= render "govuk_publishing_components/components/skip_link" %>
 
-  <div class="legacy-whitehall">
-    <div class="environment-<%= environment %> navbar-wrapper">
-      <%= render partial: "shared/header" %>
+  <% if show_new_header? %>
+    <%= render partial: "shared/header" %>
+  <% else %>
+    <div class="legacy-whitehall">
+      <div class="environment-<%= environment %> navbar-wrapper">
+        <%= render partial: "shared/legacy_header" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="govuk-width-container">
     <%= render "shared/phase_banner", {

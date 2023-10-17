@@ -53,6 +53,11 @@ class Admin::BaseController < ApplicationController
     end
   end
 
+  def show_new_header?
+    current_user.can_preview_design_system?
+  end
+  helper_method :show_new_header?
+
 private
 
   def new_design_system?
