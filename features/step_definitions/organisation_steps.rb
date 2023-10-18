@@ -57,9 +57,9 @@ When(/^I add a translation for an organisation called "([^"]*)"$/) do |organisat
   fill_in "Acronym", with: "ABC"
   fill_in "Logo formatted name", with: "Organisation Name in another language"
   fill_in "Title", with: "Top task 1 in another language"
-  expect(page).to have_field("organisation_featured_links[0]_title"), with: "Top task 1 in another language"
+  assert_selector "input[name='organisation[featured_links_attributes][0][title]'][value='Top task 1 in another language']"
   fill_in "URL", with: "http://mainstream.wales"
-  expect(page).to have_field("organisation_featured_links[0]_url"), with: "http://mainstream.co.uk"
+  assert_selector "input[name='organisation[featured_links_attributes][0][url]'][value='http://mainstream.wales']"
 
   click_button "Save"
 end
