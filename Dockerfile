@@ -1,4 +1,4 @@
-ARG ruby_version=3.1.2
+ARG ruby_version=3.2.2
 ARG base_image=ghcr.io/alphagov/govuk-ruby-base:$ruby_version
 ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:$ruby_version
 
