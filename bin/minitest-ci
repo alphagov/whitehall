@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 
+# This script is used during the GitHub Actions workflow
+# defined in .github/workflows/minitest.yml.
+# It splits the MiniTest suite into randomly-allocated groups
+# which are executed across multiple GitHub Actions 'matrix' nodes.
+
 tests = Dir["test/**/*_test.rb"].
   sort.
   shuffle(random: Random.new(ENV['GITHUB_SHA'].to_i(16))).

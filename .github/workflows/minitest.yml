@@ -14,9 +14,13 @@ on:
         type: string
 
 jobs:
-  run-minitest:
-    name: Run Minitest
+  minitest-matrix:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ci_node_total: [4]
+        ci_node_index: [0, 1, 2, 3]
     steps:
       - name: Setup MySQL
         id: setup-mysql
@@ -65,4 +69,15 @@ jobs:
           RAILS_ENV: test
           GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec rake test
+          CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
+          CI_NODE_INDEX: ${{ matrix.ci_node_index }}
+        run: |
+          ./bin/minitest-ci
+          
+  run-minitest:
+    name: Run Minitest
+    needs: minitest-matrix
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All MiniTest tests have passed 🚀"
+

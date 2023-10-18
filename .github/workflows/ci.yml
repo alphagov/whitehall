@@ -44,14 +44,10 @@ jobs:
   test-ruby:
     name: Test Ruby
     uses: ./.github/workflows/minitest.yml
-  
-  test-ruby-parallel:
-    name: Test Ruby
-    uses: ./.github/workflows/minitest-parallel.yml
 
-  integration-tests-parallel:
-    name: Integration tests
-    uses: ./.github/workflows/integration-tests-parallel.yml
+  test-features:
+    name: Test features
+    uses: ./.github/workflows/cucumber.yml
 
   integration-tests:
     name: Integration tests
@@ -68,7 +64,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends ghostscript
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -101,3 +96,4 @@ jobs:
         with:
           name: capybara-screenshots
           path: tmp/capybara/capybara-*.png
+    
