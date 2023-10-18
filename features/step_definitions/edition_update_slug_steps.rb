@@ -8,10 +8,10 @@ And(/^I update the slug to "([^"]*)"$/) do |new_slug|
   click_button "Update"
 end
 
-Then(/^I can see the slug has been updated to "([^"]*)"$/) do |new_slug|
+Then(/^I can see the edition's public URL contains "([^"]*)"$/) do |new_slug|
   visit admin_edition_path(@edition)
   click_button "Create new edition"
-  expect(find("#edition_slug").value).to eq new_slug
+  expect(page.find(".app-view-edit-edition__page-address .govuk-hint")).to have_content new_slug
 end
 
 Then(/^I am told I do not have access to the document$/) do

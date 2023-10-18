@@ -71,7 +71,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     get :edit, params: { id: document_collection }
 
     assert_select "form[action=?]", admin_document_collection_path(document_collection) do
-      assert_select "input[name='edition[slug]'][value=?]", document_collection.slug
+      assert_select ".app-view-edit-edition__page-address .govuk-hint", document_collection.public_url
       assert_select "textarea[name='edition[title]']", document_collection.title
       assert_select "textarea[name='edition[summary]']", text: document_collection.summary
       assert_select "textarea[name='edition[body]']", text: document_collection.body

@@ -9,13 +9,6 @@
     margin_bottom: 6,
   } %>
 
-  <% if edition.document&.slug.present? %>
-    <div class="govuk-!-margin-bottom-6">
-      <label for="edition_slug" class="gem-c-label govuk-label govuk-label--m govuk-!-font-weight-bold">Slug (read only)</label>
-      <input disabled="disabled" autocomplete="off" class="gem-c-input govuk-input govuk-body" id="edition_slug" name="edition[slug]" readonly="readonly" spellcheck="false" type="text" value="<%= edition.slug %>">
-    </div>
-  <% end %>
-
   <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/character_count", {
       textarea: {
@@ -34,6 +27,21 @@
       maxlength: 65,
     } %>
   </div>
+
+  <% if edition.document&.slug.present? %>
+    <div class="app-view-edit-edition__page-address govuk-!-margin-bottom-6">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Page address",
+        heading_level: 3,
+        font_size: "m",
+        margin_bottom: 2,
+      } %>
+
+      <%= render "govuk_publishing_components/components/hint", {
+        text: edition.public_url,
+      } %>
+    </div>
+  <% end %>
 
   <div class="js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/character_count", {
