@@ -16,19 +16,9 @@ class AssetManagerCreateAssetWorker < WorkerBase
     authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
     asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
 
-    unless asset_already_exists?(assetable_id, assetable_type, asset_variant)
-      response = asset_manager.create_asset(asset_options)
-      asset_manager_id = get_asset_id(response)
-      filename = get_filename(response)
-      save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
-    end
+    create_asset(asset_options, asset_variant, assetable_id, assetable_type)
 
-    if attachable_model_class && !attachable_model_class.constantize.ancestors.include?(Edition)
-      attachment_data = AttachmentData.find(assetable_id)
-      ServiceListeners::AttachmentUpdater.call(attachment_data:)
-    end
-
-    perform_draft_update(attachable_model_class, attachable_model_id)
+    enqueue_downstream_service_updates(assetable_id, attachable_model_class, attachable_model_id)
 
     file.close
     FileUtils.rm(file)
@@ -37,18 +27,21 @@ class AssetManagerCreateAssetWorker < WorkerBase
 
 private
 
-  def asset_already_exists?(assetable_id, assetable_type, asset_variant)
-    return false if %w[Organisation].include?(assetable_type)
-
-    Asset.where(assetable_id:, assetable_type:, variant: asset_variant).exists?
+  def create_asset(asset_options, asset_variant, assetable_id, assetable_type)
+    response = asset_manager.create_asset(asset_options)
+    asset_manager_id = get_asset_id(response)
+    filename = get_filename(response)
+    save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
   end
 
-  def perform_draft_update(attachable_model_class, attachable_model_id)
-    if attachable_model_class && attachable_model_id && attachable_model_class.constantize.ancestors.include?(Edition)
-      attachable = attachable_model_class.constantize.find(attachable_model_id)
-      draft_updater = Whitehall.edition_services.draft_updater(attachable)
-
-      draft_updater.perform!
+  def enqueue_downstream_service_updates(assetable_id, attachable_model_class, attachable_model_id)
+    if attachable_model_class
+      if attachable_model_class.constantize.ancestors.include?(Edition)
+        PublishingApiDraftUpdateWorker.perform_async(attachable_model_class, attachable_model_id)
+      else
+        attachment_data = AttachmentData.find(assetable_id)
+        AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id)
+      end
     end
   end
 

@@ -113,6 +113,8 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     ServiceListeners::AttachmentUpdater.expects(:call).with(attachable: consultation).once
 
     @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
+
+    PublishingApiDraftUpdateWorker.drain
   end
 
   test "triggers an update to asset-manager for policy group" do
@@ -120,7 +122,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    ServiceListeners::AttachmentUpdater.expects(:call).with(attachment_data: @model).once
+    AssetManagerAttachmentMetadataWorker.expects(:perform_async).with(@model.id).once
 
     @worker.perform(@file.path, @asset_args, true, policy_group.class.to_s, policy_group.id)
   end
@@ -129,7 +131,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     consultation = FactoryBot.create(:consultation)
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    Services.publishing_api.stubs(:put_content).once
+    PublishingApiDraftUpdateWorker.expects(:perform_async).with(consultation.class.to_s, consultation.id)
 
     @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
   end
@@ -163,16 +165,6 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     assets = Asset.where(assetable_id: organisation.id)
     assert_equal 1, assets.count
     assert_equal new_asset_manager_id, assets.first.asset_manager_id
-  end
-
-  test "does not create additional assets on failure if required assets already exist" do
-    consultation = FactoryBot.create(:consultation)
-    thumbnail_asset_args = { assetable_id: @model.id, asset_variant: Asset.variants[:thumbnail], assetable_type: @model.class.to_s }.deep_stringify_keys
-
-    assert_difference "Asset.where(assetable_id: @model.id).count", 0 do
-      @worker.perform(@file.path, @asset_args, true, consultation.class.to_s, consultation.id)
-      @worker.perform(@file.path, thumbnail_asset_args, true, consultation.class.to_s, consultation.id)
-    end
   end
 
   test "generates missing assets on retry" do
