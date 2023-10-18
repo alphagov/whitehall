@@ -74,7 +74,11 @@ module Admin::UrlHelper
   end
 
   def admin_header_menu_link(name, path)
-    tag.li(link_to(name, path, role: "menuitem"), class: "masthead-menu-item")
+    if preview_design_system?
+      link_to(name, path, class: "govuk-link")
+    else
+      tag.li(link_to(name, path, role: "menuitem"), class: "masthead-menu-item")
+    end
   end
 
   def admin_header_link(name, path, path_matcher = nil, options = {})
