@@ -48,15 +48,10 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "use_non_legacy_endpoints is true - given a draft document with an image attachment" do
+    context "given a draft document with an image attachment" do
       let(:edition) { create(:draft_case_study) }
 
       before do
-        @current_user = managing_editor
-        setup_user_with_required_permission
-
-        stub_asset("minister-of-funk.960x640.jpg", id: asset_manager_id, draft: true)
-
         visit admin_case_study_path(edition)
         click_link "Edit draft"
         click_link "Images"
@@ -267,15 +262,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
     end
 
-    def add_file_attachment(filename, to:)
-      to.attachments << FactoryBot.build(
-        :file_attachment,
-        attachable: to,
-        title: filename,
-        file: File.open(path_to_attachment(filename)),
-      )
-    end
-
     def add_file_attachment_with_asset(filename, to:)
       to.attachments << FactoryBot.build(
         :file_attachment_with_asset,
@@ -288,26 +274,11 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       fixture_path.join(filename)
     end
 
-    def stub_whitehall_asset(filename, attributes = {})
-      url_id = "http://asset-manager/assets/#{attributes[:id]}"
-      Services.asset_manager.stubs(:whitehall_asset)
-              .with(&ends_with(filename))
-              .returns(attributes.merge(id: url_id).stringify_keys)
-    end
-
     def stub_asset(asset_manger_id, attributes = {})
       url_id = "http://asset-manager/assets/#{asset_manger_id}"
       Services.asset_manager.stubs(:asset)
               .with(asset_manger_id)
               .returns(attributes.merge(id: url_id).stringify_keys)
-    end
-
-    def ends_with(expected)
-      ->(actual) { actual.end_with?(expected) }
-    end
-
-    def setup_user_with_required_permission
-      @current_user.permissions << User::Permissions::USE_NON_LEGACY_ENDPOINTS
     end
   end
 end

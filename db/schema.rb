@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_26_100313) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_16_170633) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -592,7 +592,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_100313) do
     t.string "carrierwave_image"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.boolean "use_non_legacy_endpoints", default: false, null: false
   end
 
   create_table "images", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|

@@ -188,8 +188,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should ignore images with missing asset variants" do
     embed_code = "[Image: minister-of-funk.960x640.jpg]"
     body = "#Heading\n\n#{embed_code}\n\n##Subheading"
-    image = build(:image)
-    image.image_data.use_non_legacy_endpoints = true
+    image = build(:image_with_no_assets)
     image.image_data.assets = [build(:asset), build(:asset, variant: Asset.variants[:s960])]
     image.image_data.save!
     document = build(:published_news_article, images: [image], body:)

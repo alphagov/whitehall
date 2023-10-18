@@ -102,7 +102,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
   def self.use_non_legacy_behaviour?(model)
     return unless model
 
-    return true if model.instance_of?(AttachmentData)
+    return true if model.instance_of?(AttachmentData) || model.instance_of?(ImageData)
 
     model.respond_to?("use_non_legacy_endpoints") && model.use_non_legacy_endpoints
   end

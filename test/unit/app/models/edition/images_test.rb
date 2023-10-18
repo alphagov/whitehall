@@ -105,7 +105,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   end
 
   test "captions for images can be changed between versions" do
-    published_edition = EditionWithImages.create!(
+    published_edition = EditionWithImages.new(
       valid_edition_attributes.merge(
         state: "published",
         major_change_published_at: Time.zone.now,
@@ -119,7 +119,8 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         }],
       ),
     )
-
+    published_edition.images.first.image_data = build(:image_data)
+    published_edition.save!
     draft_edition = published_edition.create_draft(build(:user))
     draft_edition.images.first.update!(caption: "new-caption")
 
@@ -127,7 +128,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   end
 
   test "#destroy should also remove the image" do
-    Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     image = create(:image)
     edition = EditionWithImages.create!(valid_edition_attributes.merge(images: [image]))
     edition.destroy!

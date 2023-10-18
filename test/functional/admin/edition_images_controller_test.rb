@@ -68,7 +68,7 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     login_authorised_user
     edition = create(:news_article)
     file = upload_fixture("images/960x640_gif.gif")
-    create(:image, edition:, image_data: create(:image_data, file:))
+    create(:image, edition:, image_data: build(:image_data, file:))
 
     post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
 
@@ -76,21 +76,19 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
   end
 
-  context "use_non_legacy_endpoints - true" do
-    test "POST :create triggers a job be queued to store image and variants in Asset Manager" do
-      login_as_use_non_legacy_endpoints_user :gds_editor
+  test "POST :create triggers a job be queued to store image and variants in Asset Manager" do
+    login_authorised_user
 
-      edition = create(:news_article)
-      file = upload_fixture("images/960x640_jpeg.jpg")
-      model_type = ImageData.to_s
-      variants = Asset.variants.values
+    edition = create(:news_article)
+    file = upload_fixture("images/960x640_jpeg.jpg")
+    model_type = ImageData.to_s
+    variants = Asset.variants.values
 
-      AssetManagerCreateAssetWorker
-        .expects(:perform_async)
-        .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetWorker
+      .expects(:perform_async)
+      .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything).times(7)
 
-      post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
-    end
+    post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
   end
 
   def login_authorised_user

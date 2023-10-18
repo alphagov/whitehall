@@ -405,19 +405,19 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_nil attachment_data.draft_edition_for(user)
   end
 
-  test "all_asset_variants_uploaded? returns true if all asset variants present" do
+  test "#all_asset_variants_uploaded? returns true if all asset variants present" do
     attachment_data = build(:attachment_data)
 
     assert attachment_data.all_asset_variants_uploaded?
   end
 
-  test "all_asset_variants_uploaded? returns false if there are no assets" do
+  test "#all_asset_variants_uploaded? returns false if there are no assets" do
     attachment_data = build(:attachment_data_with_no_assets)
 
     assert_not attachment_data.all_asset_variants_uploaded?
   end
 
-  test "all_asset_variants_uploaded? returns false if some asset variants are missing" do
+  test "#all_asset_variants_uploaded? returns false if some asset variants are missing" do
     attachment_data = build(:attachment_data_with_no_assets, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
     attachment_data.assets << build(:asset)
 

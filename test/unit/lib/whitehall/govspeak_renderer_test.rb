@@ -9,7 +9,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
   end
 
   test "interpolates images into rendered HTML when using !!number as a markdown" do
-    image_data = create(:image_data_with_assets, id: 1)
+    image_data = create(:image_data, id: 1)
     image = OpenStruct.new(alt_text: "My Alt", url: "http://example.com/image.jpg", image_data: ImageData.find(image_data.id))
     edition = build(:edition, body: "Some content with an image.\n\n!!1")
     edition.stubs(:images).returns([image])
@@ -19,7 +19,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
   end
 
   test "interpolates images into rendered HTML when using filename as a markdown" do
-    image_data = create(:image_data_with_assets, id: 1)
+    image_data = create(:image_data, id: 1)
     image = OpenStruct.new(alt_text: "My Alt", url: "http://example.com/image.jpg", image_data: ImageData.find(image_data.id))
     edition = build(:edition, body: "Some content with an image.\n\n[Image: minister-of-funk.960x640.jpg]")
     edition.stubs(:images).returns([image])
