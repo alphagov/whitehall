@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_23_110956) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_23_125930) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -386,10 +386,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_110956) do
     t.string "auth_bypass_id", null: false
     t.string "mapped_specialist_topic_content_id"
     t.string "taxonomy_topic_email_override"
+    t.integer "lead_image_id"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
     t.index ["first_published_at"], name: "index_editions_on_first_published_at"
+    t.index ["lead_image_id"], name: "index_editions_on_lead_image_id"
     t.index ["opening_at"], name: "index_editions_on_opening_at"
     t.index ["operational_field_id"], name: "index_editions_on_operational_field_id"
     t.index ["public_timestamp", "document_id"], name: "index_editions_on_public_timestamp_and_document_id"
@@ -1253,6 +1255,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_110956) do
 
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "editions", "images", column: "lead_image_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
   add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify
