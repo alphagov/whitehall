@@ -13,6 +13,12 @@ class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test "a draft is invalid without change note once saved if an unpublished edition already exists" do
+    unpublished_edition = create(:unpublished_edition)
+    edition = create(:draft_edition, change_note: nil, minor_change: false, document: unpublished_edition.document)
+    assert_not edition.valid?
+  end
+
   test "is valid without change note if no published edition already exists" do
     edition = create(:draft_edition, change_note: nil, minor_change: false)
     assert edition.valid?
@@ -125,34 +131,14 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert edition.errors[:base].include?("This document has not been force-published")
   end
 
-  test "#unpublished? returns false if publicly visible" do
-    published_edition = build(:published_edition)
-
-    assert_not published_edition.unpublished?
-  end
-
-  test "#unpublished? returns false if no unpublishing exists" do
-    draft_edition = build(:draft_edition)
-
-    assert_not draft_edition.unpublished?
-  end
-
-  test "#unpublished? returns true if not publicly visible and unpublishing exists" do
-    unpublishing = build(:unpublishing)
-    draft_edition_with_unpublishing = build(:draft_edition, unpublishing:)
-
-    assert draft_edition_with_unpublishing.unpublished?
-  end
-
   test "#unpublished_edition returns nil if not unpublished" do
     edition = build(:published_edition)
 
     assert_nil edition.unpublished_edition
   end
 
-  test "#unpublished_edition returns unpublished edition if unpublished" do
-    edition = create(:draft_edition, :with_document)
-    edition.build_unpublishing(edition:)
+  test "#unpublished_edition returns itself if unpublished" do
+    edition = create(:unpublished_edition)
 
     assert_equal edition, edition.unpublished_edition
   end

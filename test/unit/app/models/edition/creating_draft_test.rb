@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Edition::WorkflowTest < ActiveSupport::TestCase
-  test "should build a draft copy of the existing edition with the supplied creator" do
+  test "should build a draft copy of the published edition with the supplied creator" do
     published_edition = create(:published_edition)
     new_creator = create(:writer)
     draft_edition = published_edition.create_draft(new_creator)
@@ -11,6 +11,18 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_equal new_creator, draft_edition.creator
     assert_equal published_edition.title, draft_edition.title
     assert_equal published_edition.body, draft_edition.body
+  end
+
+  test "should build a draft copy of the unpublished edition with the supplied creator" do
+    unpublished_edition = create(:unpublished_edition)
+    new_creator = create(:writer)
+    draft_edition = unpublished_edition.create_draft(new_creator)
+
+    assert_not draft_edition.published?
+    assert_not draft_edition.submitted?
+    assert_equal new_creator, draft_edition.creator
+    assert_equal unpublished_edition.title, draft_edition.title
+    assert_equal unpublished_edition.body, draft_edition.body
   end
 
   test "should raise an exception when attempting to build a draft copy of an draft edition" do

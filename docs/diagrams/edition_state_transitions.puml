@@ -24,10 +24,10 @@ scheduled --> published: publish
 draft -[norank]-> published: force_publish
 submitted -[norank]-> published: force_publish
 
-published -u-> draft: unpublish
-draft -u-> draft: unpublish
+published -u-> unpublished: unpublish
 
 published --> superseded: supersede
+unpublished --> superseded: supersede
 
 published --> withdrawn: withdraw
 withdrawn --> withdrawn: withdraw

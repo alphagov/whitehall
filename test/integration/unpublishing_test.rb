@@ -6,12 +6,12 @@ class UnpublishingTest < ActiveSupport::TestCase
     stub_any_publishing_api_call
   end
 
-  test "When unpublishing an edition, its state reverts to draft in Whitehall" do
+  test "When unpublishing an edition, its state is set to unpublished in Whitehall" do
     unpublish(@published_edition, unpublishing_params)
 
     @published_edition.reload
 
-    assert_equal "draft", @published_edition.state
+    assert_equal "unpublished", @published_edition.state
     assert_not_nil @published_edition.unpublishing
   end
 
@@ -30,14 +30,6 @@ class UnpublishingTest < ActiveSupport::TestCase
       @published_edition.document.content_id,
       request_json_includes(type: "gone", explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>", locale: "en"),
     )
-  end
-
-  test "When an edition is unpublished, a job is queued to republish the draft to the draft stack" do
-    Whitehall::PublishingApi.expects(:save_draft).once
-
-    Sidekiq::Testing.inline! do
-      unpublish(@published_edition, unpublishing_params)
-    end
   end
 
   test "when a translated edition is unpublished, an request is made for each locale" do

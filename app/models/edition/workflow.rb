@@ -11,7 +11,7 @@ module Edition::Workflow
     end
 
     def valid_state?(state)
-      %w[active draft submitted rejected published scheduled force_published withdrawn not_published].include?(state)
+      %w[active draft submitted rejected published scheduled force_published withdrawn not_published unpublished].include?(state)
     end
   end
 
@@ -29,6 +29,7 @@ module Edition::Workflow
       state :superseded
       state :deleted
       state :withdrawn
+      state :unpublished
 
       event :delete do
         transitions from: %i[draft submitted rejected], to: :deleted
@@ -63,11 +64,11 @@ module Edition::Workflow
       end
 
       event :unpublish do
-        transitions from: %i[published draft], to: :draft
+        transitions from: %i[published unpublished], to: :unpublished
       end
 
       event :supersede, success: :destroy_associations_with_edition_dependencies_and_dependants do
-        transitions from: :published, to: :superseded
+        transitions from: %i[published unpublished], to: :superseded
       end
 
       event :withdraw do

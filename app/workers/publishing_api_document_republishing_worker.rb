@@ -12,7 +12,7 @@
 # and sending it again after republishing. This also changes the version
 # numbering and would probably appear in the version history.
 class PublishingApiDocumentRepublishingWorker < WorkerBase
-  attr_reader :live_edition, :pre_publication_edition
+  attr_reader :live_edition, :pre_publication_edition, :unpublished_edition
 
   sidekiq_options queue: "publishing_api"
 
@@ -22,10 +22,14 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
 
     # this the latest edition in a visible state ie: withdrawn, published
     @live_edition = document.live_edition
+
     # this is the latest edition in a non visible state - draft, scheduled
     # unpublished editions (other than withdrawn) will be in draft state with
     # an associated unpublishing
     @pre_publication_edition = document.pre_publication_edition
+
+    # the unpublished edition, if one exists
+    @unpublished_edition = document.editions.unpublished.last
 
     return unless the_document_has_an_edition_to_check?
 
@@ -38,7 +42,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
       document.lock!
 
       if the_document_has_been_unpublished?
-        send_draft_and_unpublish
+        send_unpublish(unpublished_edition)
+        send_draft_edition if pre_publication_edition.present?
       elsif the_document_has_been_withdrawn?
         send_published_and_withdraw
       elsif there_is_only_a_draft?
@@ -74,11 +79,11 @@ private
   def the_document_has_an_edition_to_check?
     # there are documents in the Whitehall DB with only superseded editions
     # this is mostly legacy data
-    pre_publication_edition || live_edition
+    pre_publication_edition || live_edition || unpublished_edition
   end
 
   def the_document_has_been_unpublished?
-    pre_publication_edition && pre_publication_edition.unpublishing
+    @unpublished_edition.present?
   end
 
   def the_document_has_been_withdrawn?
@@ -97,12 +102,6 @@ private
     pre_publication_edition && live_edition
   end
 
-  def send_draft_and_unpublish
-    send_draft_edition
-    send_unpublish(pre_publication_edition)
-    handle_attachments_for(pre_publication_edition)
-  end
-
   def send_draft_edition
     Whitehall::PublishingApi.save_draft(
       pre_publication_edition,
@@ -115,7 +114,6 @@ private
   def send_published_and_withdraw
     send_live_edition
     send_unpublish(live_edition)
-    handle_attachments_for(live_edition)
   end
 
   def send_live_edition
@@ -136,6 +134,7 @@ private
 
   def send_unpublish(edition)
     PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, edition.draft?)
+    handle_attachments_for(edition)
   end
 
   def locales_for(edition)

@@ -110,6 +110,7 @@ module Admin::EditionsHelper
       %w[Published published],
       ["Force published (not reviewed)", "force_published"],
       %w[Withdrawn withdrawn],
+      %w[Unpublished unpublished],
     ]
   end
 

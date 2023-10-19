@@ -606,7 +606,7 @@ module AdminEditionControllerTestHelpers
     def should_prevent_modification_of_unmodifiable(edition_type)
       (Edition::UNMODIFIABLE_STATES - %w[deleted]).each do |state|
         test "edit not allowed for #{state} #{edition_type}" do
-          edition = create("#{state}_#{edition_type}")
+          edition = create(edition_type.to_s, state.to_s)
 
           get :edit, params: { id: edition }
 
@@ -614,7 +614,7 @@ module AdminEditionControllerTestHelpers
         end
 
         test "update not allowed for #{state} #{edition_type}" do
-          edition = create("#{state}_#{edition_type}")
+          edition = create(edition_type.to_s, state.to_s)
 
           put :update,
               params: {

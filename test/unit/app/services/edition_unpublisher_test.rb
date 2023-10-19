@@ -1,12 +1,23 @@
 require "test_helper"
 
 class EditionUnpublisherTest < ActiveSupport::TestCase
-  test "#perform! with a published edition returns the edition to draft, resets the version numbers and saves the unpublishing details" do
+  test "#perform! with a published edition sets the edition state to unpublished, resets the version numbers and saves the unpublishing details" do
     edition = create(:published_edition)
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     assert unpublisher.perform!
-    assert_equal :draft, edition.reload.current_state
+    assert_equal :unpublished, edition.reload.current_state
+    assert_equal unpublishing_params[:explanation], edition.unpublishing.explanation
+    assert_equal unpublishing_params[:unpublishing_reason_id], edition.unpublishing.unpublishing_reason_id
+    assert_nil edition.published_version
+  end
+
+  test "#perform! with an unpublished edition saves the unpublishing details" do
+    edition = create(:unpublished_edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
+
+    assert unpublisher.perform!
+    assert_equal :unpublished, edition.reload.current_state
     assert_equal unpublishing_params[:explanation], edition.unpublishing.explanation
     assert_equal unpublishing_params[:unpublishing_reason_id], edition.unpublishing.unpublishing_reason_id
     assert_nil edition.published_version
@@ -17,7 +28,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     assert unpublisher.perform!
-    assert_equal :draft, edition.reload.current_state
+    assert_equal :unpublished, edition.reload.current_state
     assert_not edition.force_published?
   end
 
@@ -37,15 +48,8 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     assert unpublisher.perform!
   end
 
-  test '"draft" editions can be unpublished' do
-    edition = create(:draft_edition)
-    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
-
-    assert unpublisher.perform!
-  end
-
   test "other edition states cannot be unpublished" do
-    (Edition.available_states - %i[published draft]).each do |state|
+    (Edition.available_states - %i[published unpublished]).each do |state|
       edition = create(:edition, state:, first_published_at: 1.hour.ago)
       unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
@@ -62,27 +66,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
     assert unpublisher.can_perform?
     assert unpublisher.perform!
-    assert edition.reload.draft?
-  end
-
-  test "cannot unpublish a published editions if a newer draft exists" do
-    edition = create(:published_edition)
-    edition.create_draft(create(:writer))
-    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
-
-    assert_not unpublisher.can_perform?
-    assert_equal "There is already a draft edition of this document. You must discard it before you can unpublish this edition.",
-                 unpublisher.failure_reason
-  end
-
-  test "cannot unpublish a published edition if a newer submitted version exists" do
-    edition = create(:published_edition)
-    _submitted_edition = create(:submitted_edition, document: edition.document)
-    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
-
-    assert_not unpublisher.can_perform?
-    assert_equal "There is already a submitted edition of this document. You must discard it before you can unpublish this edition.",
-                 unpublisher.failure_reason
+    assert edition.reload.unpublished?
   end
 
   test "cannot unpublish without an unpublishing details" do

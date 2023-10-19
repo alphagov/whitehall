@@ -26,7 +26,6 @@ class PublishingApiUnpublishingWorker < WorkerBase
             allow_draft,
           )
         end
-        Whitehall::PublishingApi.save_draft(edition)
       when UnpublishingReason::CONSOLIDATED_ID
         PublishingApiRedirectWorker.new.perform(
           content_id,
@@ -34,7 +33,6 @@ class PublishingApiUnpublishingWorker < WorkerBase
           locale.to_s,
           allow_draft,
         )
-        Whitehall::PublishingApi.save_draft(edition)
       when UnpublishingReason::WITHDRAWN_ID
         PublishingApiWithdrawalWorker.new.perform(
           content_id,
