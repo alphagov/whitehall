@@ -164,6 +164,14 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       @uploader.store!(@file)
     end
   end
+
+  test "should call AssetManagerCreateAssetWorker if uploader model is DefaultNewsOrganisationImageData" do
+    model = build(:default_news_organisation_image_data)
+    @uploader.stubs(:model).returns(model)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, anything, anything, anything)
+    @uploader.store!(@file)
+  end
 end
 
 class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
