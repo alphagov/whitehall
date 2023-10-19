@@ -53,4 +53,19 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal 640, image.height
     assert image.bitmap?
   end
+
+  test "calls edition#update_lead_image after destroy when method is defined in the model" do
+    case_study = build(:case_study)
+    image = create(:image)
+    image.stubs(:edition).returns(case_study)
+    case_study.expects(:update_lead_image).once
+
+    image.destroy!
+  end
+
+  test "calls edition#update_lead_image after create when method is defined in the model" do
+    case_study = build_stubbed(:case_study)
+    case_study.expects(:update_lead_image).once
+    create(:image, edition: case_study)
+  end
 end

@@ -5,7 +5,8 @@ class Image < ApplicationRecord
   validates :alt_text, presence: true, allow_blank: true, length: { maximum: 255 }, unless: :skip_main_validation?
   validates :image_data, presence: { message: "must be present" }
 
-  after_destroy :destroy_image_data_if_required
+  after_destroy :destroy_image_data_if_required, :update_lead_image_association
+  after_create :update_lead_image_association
 
   accepts_nested_attributes_for :image_data
 
@@ -23,6 +24,10 @@ private
     if image_data && Image.where(image_data_id: image_data.id).empty?
       image_data.destroy!
     end
+  end
+
+  def update_lead_image_association
+    edition.try(:update_lead_image)
   end
 
   def skip_main_validation?

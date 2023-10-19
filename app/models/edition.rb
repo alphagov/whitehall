@@ -45,6 +45,8 @@ class Edition < ApplicationRecord
   has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: "Contact"
   has_many :depended_upon_editions, through: :edition_dependencies, source: :dependable, source_type: "Edition"
 
+  belongs_to :lead_image, class_name: "Image"
+
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
   validates_with TaxonValidator, on: :publish
@@ -766,5 +768,11 @@ private
                                           .first
 
     first_version_with_state.try(:user)
+  end
+
+  def oldest_image
+    return if images.blank?
+
+    images.order(:created_at, :id).first
   end
 end

@@ -9,6 +9,8 @@ class CaseStudy < Edition
   include Edition::WorldwideOrganisations
   include Edition::LeadImage
 
+  after_update :update_lead_image, if: :saved_change_to_image_display_option?
+
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
@@ -31,5 +33,13 @@ class CaseStudy < Edition
 
   def publishing_api_presenter
     PublishingApi::CaseStudyPresenter
+  end
+
+  def update_lead_image
+    if image_display_option == "no_image"
+      update_column(:lead_image_id, nil)
+    elsif lead_image.blank? && images.present?
+      update_column(:lead_image_id, oldest_image.id)
+    end
   end
 end
