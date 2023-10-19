@@ -28,6 +28,7 @@ class Admin::EditionImagesController < Admin::BaseController
     @new_image.image_data.validate_on_image = @new_image
 
     if @new_image.save
+      @edition.update_lead_image if @edition.can_have_custom_lead_image?
       redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
     elsif new_image_needs_cropping?
       @data_url = image_data_url
