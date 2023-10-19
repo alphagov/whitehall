@@ -58,13 +58,14 @@
       <div class="govuk-table--with-actions app-view-document-collection-group-memberships-index__table">
         <%= render "govuk_publishing_components/components/table", {
           rows: @group.memberships.map do |membership|
-            title =  membership.document.latest_edition.title
+            title = document_collection_group_member_title(membership)
+            url = document_collection_group_member_url(membership)
             [
               {
                 text: title,
               },
               {
-                text: link_to(sanitize("View #{tag.span(title, class: "govuk-visually-hidden")}"), membership.document.latest_edition.public_url, class: "govuk-link") +
+                text: link_to(sanitize("View #{tag.span(title, class: "govuk-visually-hidden")}"), url, class: "govuk-link") +
                   link_to(sanitize("Remove #{tag.span(title, class: "govuk-visually-hidden")}"), confirm_destroy_admin_document_collection_group_document_collection_group_membership_path(@collection, @group, membership), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
               },
             ]

@@ -10,7 +10,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds app-view-document-collection-document-search-bar">
-    <%= form_with :get do |_form| %>
+    <%= form_with url: admin_document_collection_group_govuk_url_member_path(@collection, @group), method: :post do |_form| %>
       <%= render "govuk_publishing_components/components/input", {
         label: {
           text: "Add by URL",
