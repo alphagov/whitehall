@@ -117,6 +117,8 @@ private
       topical_event_organisations_attributes: %i[topical_event_id ordering id _destroy],
       featured_links_attributes: %i[title url _destroy id],
     )
+
+    clear_file_cache(@organisation_params)
   end
 
   def build_topical_event_organisations
@@ -183,5 +185,13 @@ private
     organisation_params[:public_meetings] = nil
     organisation_params[:public_minutes] = nil
     organisation_params[:regulatory_function] = nil
+  end
+
+  def clear_file_cache(organisation_params)
+    if organisation_params[:logo].present? && organisation_params[:logo_cache].present?
+      organisation_params.delete(:logo_cache)
+    end
+
+    organisation_params
   end
 end

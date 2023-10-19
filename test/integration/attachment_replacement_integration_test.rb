@@ -34,6 +34,8 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when attachment is replaced" do
         before do
+          Sidekiq::Worker.clear_all
+
           visit admin_news_article_path(edition)
           click_link "Modify attachments"
           within page.find("li", text: filename) do
@@ -48,12 +50,12 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         # We rely on Asset Manager to do the redirect immediately in this case,
         # because the replacement is visible to the user.
         it "updates replacement_id for attachment in Asset Manager" do
-          AssetManagerCreateAssetWorker.drain
-
           Services.asset_manager.expects(:update_asset)
                   .at_least_once
                   .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
 
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
           AssetManagerAttachmentMetadataWorker.drain
         end
       end
@@ -64,6 +66,8 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when new draft is created and attachment is replaced" do
         before do
+          Sidekiq::Worker.clear_all
+
           visit admin_news_article_path(edition)
           click_button "Create new edition"
           click_link "Attachments 1"

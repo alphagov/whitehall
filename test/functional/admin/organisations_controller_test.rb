@@ -372,4 +372,56 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert_match(/A maximum of 6 documents will be featured on GOV.UK.*/, response.body)
   end
+
+  test "POST: create - discards file cache if file is present" do
+    filename = "logo.png"
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => filename)
+    cached_organisation = FactoryBot.build(:organisation_with_logo_and_assets)
+
+    post :create,
+         params: {
+           organisation: example_organisation_attributes
+                           .merge(
+                             organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+                             logo_cache: cached_organisation.logo_cache,
+                             logo: upload_fixture(filename, "image/png"),
+                           ),
+         }
+
+    AssetManagerCreateAssetWorker.drain
+
+    assert_equal 1, Organisation.last.assets.size
+    assert_equal filename, Organisation.last.assets.first.filename
+  end
+
+  test "POST: update - discards file cache if file is present" do
+    organisation = FactoryBot.create(
+      :organisation_with_logo_and_assets,
+      logo: upload_fixture("big-cheese.960x640.jpg", "image/png"),
+    )
+
+    replacement_filename = "logo.png"
+    cached_filename = "minister-of-funk.960x640.jpg"
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => replacement_filename)
+    cached_organisation = FactoryBot.build(
+      :organisation_with_logo_and_assets,
+      logo: upload_fixture(cached_filename, "image/png"),
+    )
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(1)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
+
+    post :update,
+         params: { id: organisation.id,
+                   organisation: {
+                     organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+                     logo: upload_fixture(replacement_filename, "image/png"),
+                     logo_cache: cached_organisation.logo_cache,
+                   } }
+
+    AssetManagerCreateAssetWorker.drain
+
+    assert_equal 1, Organisation.last.assets.size
+    assert_equal replacement_filename, Organisation.last.assets.first.filename
+  end
 end

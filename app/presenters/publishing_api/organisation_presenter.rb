@@ -154,7 +154,7 @@ module PublishingApi
     end
 
     def image
-      return unless item.custom_logo_selected?
+      return unless item.custom_logo_selected? && item.all_asset_variants_uploaded?
 
       {
         url: item.logo.url,

@@ -11,6 +11,15 @@ FactoryBot.define do
       logo { image_fixture_file }
     end
 
+    trait(:with_logo_and_assets) do
+      organisation_logo_type_id { 14 }
+      logo { image_fixture_file }
+
+      after :build do |organisation|
+        organisation.assets.build(asset_manager_id: "logo_asset_manager_id", variant: Asset.variants[:original], filename: "960x640_jpeg.jpg")
+      end
+    end
+
     trait(:closed) do
       govuk_status { "closed" }
       govuk_closed_status { "no_longer_exists" }
@@ -46,6 +55,7 @@ FactoryBot.define do
   end
 
   factory :organisation_with_logo, parent: :organisation, traits: [:with_logo]
+  factory :organisation_with_logo_and_assets, parent: :organisation, traits: [:with_logo_and_assets]
   factory :closed_organisation, parent: :organisation, traits: [:closed]
 
   factory :ministerial_department, parent: :organisation do
