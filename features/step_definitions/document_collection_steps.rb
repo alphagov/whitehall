@@ -295,3 +295,21 @@ Then(/^I should see "([^"]*)" in the list for the collection group "([^"]*)"$/) 
   documents = all(".govuk-table__cell").map(&:text)
   expect(documents).to include document_title
 end
+
+And(/^a GovUK Url exists "([^"]*)" with title "([^"]*)"$/) do |url, title|
+  base_path = URI.parse(url).path
+  content_id = SecureRandom.uuid
+
+  stub_publishing_api_has_lookups(base_path => content_id)
+  stub_publishing_api_has_item(
+    content_id:,
+    base_path:,
+    publishing_app: "content-publisher",
+    title:,
+  )
+end
+
+And(/^I add URL "([^"]*)" to the document collection$/) do |url|
+  fill_in "Add by URL", with: url
+  click_button "Add"
+end

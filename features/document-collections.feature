@@ -78,6 +78,15 @@ Feature: Grouping documents into a collection
     Then I should see "Document 1" in the list for the collection group "Group"
 
   @design-system-only
+  Scenario: Adding a document to a group via URL
+    Given a document collection "Collection" exists
+    And the document collection "Collection" has a group with the heading "Group"
+    And a GovUK Url exists "https://www.gov.uk/document-1" with title "Document 1"
+    When I select to add a new document to the collection group "By URL"
+    And I add URL "https://www.gov.uk/document-1" to the document collection
+    Then I should see "Document 1" in the list for the collection group "Group"
+
+  @design-system-only
   Scenario: Removing a document from a group
     Given a published publication called "Document to be removed" in a published document collection
     When I remove the publication "Document to be removed" from the group
