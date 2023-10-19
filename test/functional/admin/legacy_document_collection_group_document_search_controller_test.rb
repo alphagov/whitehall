@@ -24,4 +24,9 @@ class Admin::LegacyDocumentCollectionGroupDocumentSearchControllerTest < ActionC
     get :search_title_slug, params: @request_params
     assert_template :forbidden
   end
+
+  test "GET #add_by_url blocks out users with no permissions" do
+    get :add_by_url, params: @request_params
+    assert_template :forbidden
+  end
 end

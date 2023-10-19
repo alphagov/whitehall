@@ -31,13 +31,19 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
   test "POST #search is a noop when passed param is unrecognised" do
     @request_params[:search_option] = "non-existant"
     post :search, params: @request_params
-    assert_template nil
+    assert_template "document_collection_group_document_search/search_options"
   end
 
   test "POST #search redirects to #search_title_slug if search option passed is title-or-slug" do
     @request_params[:search_option] = "title-or-slug"
     post :search, params: @request_params
     assert_redirected_to admin_document_collection_group_search_title_slug_path(@collection, @group)
+  end
+
+  test "POST #search redirects to #add_by_url if search option passed is url" do
+    @request_params[:search_option] = "url"
+    post :search, params: @request_params
+    assert_redirected_to admin_document_collection_group_add_by_url_path(@collection, @group)
   end
 
   test "GET #search_title_slug without query renders search for title & slug page with no results section" do
@@ -77,5 +83,10 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     get :search_title_slug, params: @request_params
     assert_template "document_collection_group_document_search/search_title_slug"
     assert_select ".gem-c-error-alert__message", text: /Please enter a search query/
+  end
+
+  view_test "GET #add_by_url should render add_by_url page" do
+    get :add_by_url, params: @request_params
+    assert_template "document_collection_group_document_search/add_by_url"
   end
 end

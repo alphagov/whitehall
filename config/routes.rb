@@ -35,6 +35,7 @@ Whitehall::Application.routes.draw do
           get :search_options, to: "document_collection_group_document_search#search_options"
           post :search_options, to: "document_collection_group_document_search#search"
           get :search_title_slug, to: "document_collection_group_document_search#search_title_slug"
+          get :add_by_url, to: "document_collection_group_document_search#add_by_url"
           member { get :confirm_destroy }
           resource :document_collection_group_membership,
                    as: :members,
