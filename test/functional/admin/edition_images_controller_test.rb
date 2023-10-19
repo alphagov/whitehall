@@ -38,6 +38,16 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal edit_admin_edition_image_path(edition, edition.images.last), path
   end
 
+  test "#create updates the lead_image association if edition can have a custom lead image" do
+    login_authorised_user
+    edition = create(:news_article)
+
+    file = upload_fixture("images/960x640_jpeg.jpg")
+    post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
+
+    assert_equal "960x640_jpeg.jpg", edition.lead_image.filename
+  end
+
   test "#create shows the cropping page if image is too large" do
     login_authorised_user
     edition = create(:news_article)
