@@ -76,6 +76,7 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     get :search_title_slug, params: @request_params
     assert_template "document_collection_group_document_search/search_title_slug"
     assert_select ".govuk-body", text: /No results found. Search again using the full URL./
+    assert_select ".govuk-body .govuk-link[href='/government/admin/collections/#{@collection.id}/groups/#{@group.id}/add_by_url']", text: "full URL"
   end
 
   view_test "GET #search_title_slug with an empty query string shows an alert flash" do
