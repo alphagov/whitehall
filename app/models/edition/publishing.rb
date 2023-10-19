@@ -40,7 +40,7 @@ module Edition::Publishing
   def change_note_required?
     return false if new_record?
 
-    draft? && previous_edition.present?
+    pre_publication? && previous_edition.present?
   end
 
   def change_note_present!
