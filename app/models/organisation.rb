@@ -12,6 +12,9 @@ class Organisation < ApplicationRecord
 
   belongs_to :default_news_image, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
 
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
   has_many :child_organisational_relationships,
            foreign_key: :parent_organisation_id,
            class_name: "OrganisationalRelationship"
@@ -555,6 +558,13 @@ class Organisation < ApplicationRecord
 
   def publishing_api_presenter
     PublishingApi::OrganisationPresenter
+  end
+
+  def all_asset_variants_uploaded?
+    asset_variants = assets.map(&:variant).map(&:to_sym)
+    required_variants = LogoUploader.versions.keys.push(:original)
+
+    (required_variants - asset_variants).empty?
   end
 
 private

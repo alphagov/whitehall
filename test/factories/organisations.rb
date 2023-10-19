@@ -6,6 +6,11 @@ FactoryBot.define do
     sequence(:analytics_identifier) { |index| "T#{index}" }
     organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
 
+    trait(:with_logo) do
+      organisation_logo_type_id { 14 }
+      logo { image_fixture_file }
+    end
+
     trait(:closed) do
       govuk_status { "closed" }
       govuk_closed_status { "no_longer_exists" }
@@ -40,6 +45,7 @@ FactoryBot.define do
     end
   end
 
+  factory :organisation_with_logo, parent: :organisation, traits: [:with_logo]
   factory :closed_organisation, parent: :organisation, traits: [:closed]
 
   factory :ministerial_department, parent: :organisation do
