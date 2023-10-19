@@ -72,7 +72,7 @@ Feature: Grouping documents into a collection
     Given a document collection "Collection" exists
     And the document collection "Collection" has a group with the heading "Group"
     And a published document "Document 1" exists
-    When I select to add a new document to the collection group through "Search via title"
+    When I select to add a new document to the collection group "By title"
     And I search by "title" for "Document 1"
     And I add "Document 1" to the document collection
     Then I should see "Document 1" in the list for the collection group "Group"
@@ -107,11 +107,11 @@ Feature: Grouping documents into a collection
     And the document collection "Collection" has a group with the heading "Group"
     And a published document "Document 1" exists
     And a published document "Document 2" exists
-    When I select to add a new document to the collection group through "Search via title"
+    When I select to add a new document to the collection group "By title"
     And I search by "title" for "Document 1"
     And I add "Document 1" to the document collection
     Then I should see "Document 1" in the list for the collection group "Group"
-    When I select to add a new document to the collection group through "Search via title"
+    When I select to add a new document to the collection group "By title"
     And I search by "title" for "Document 2"
     And I add "Document 2" to the document collection
     Then I should see "Document 2" in the list for the collection group "Group"

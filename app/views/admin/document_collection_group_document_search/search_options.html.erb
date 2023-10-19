@@ -12,11 +12,11 @@
   search_options = [
     {
       value: "url",
-      text: "Search via URL",
+      text: "By URL",
     },
     {
       value: "title-or-slug",
-      text: "Search via title",
+      text: "By title",
     },
   ]
 %>
@@ -25,10 +25,8 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with url: admin_document_collection_group_search_options_path(@collection, @group) do %>
       <%= render "govuk_publishing_components/components/radio", {
-        heading: "Search options",
         name: "search_option",
         id: "search_option",
-        heading_size: "l",
         items: search_options,
       } %>
 

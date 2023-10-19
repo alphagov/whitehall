@@ -273,7 +273,7 @@ And(/^the document collection group's documents should be in the following order
   expect(actual_order).to eq(expected_order)
 end
 
-When(/^I select to add a new document to the collection group through "([^"]*)"$/) do |search_option|
+When(/^I select to add a new document to the collection group "([^"]*)"$/) do |search_option|
   visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
   click_link "Add document"
   choose search_option
