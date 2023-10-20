@@ -37,15 +37,9 @@ class AssetManager::AttachmentUpdater
   end
 
   def self.get_draft(attachment_data)
-    (
-      attachment_data.draft? &&
-        !attachment_data.unpublished? &&
-        !attachment_data.replaced?
-    ) || (
-      attachment_data.unpublished? &&
-        !attachment_data.present_at_unpublish? &&
-        !attachment_data.replaced?
-    )
+    attachment_data.draft? &&
+      !attachment_data.unpublished? &&
+      !attachment_data.replaced?
   end
 
   def self.get_link_header(attachment_data)
@@ -59,7 +53,7 @@ class AssetManager::AttachmentUpdater
   end
 
   def self.get_redirect_url(attachment_data)
-    return nil unless attachment_data.unpublished? && attachment_data.present_at_unpublish?
+    return nil unless attachment_data.unpublished?
 
     attachment_data.unpublished_edition.unpublishing.document_url
   end
