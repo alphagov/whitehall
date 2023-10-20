@@ -30,7 +30,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_110956) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.integer "replaced_by_id"
-    t.boolean "present_at_unpublish"
     t.index ["replaced_by_id"], name: "index_attachment_data_on_replaced_by_id"
   end
 
