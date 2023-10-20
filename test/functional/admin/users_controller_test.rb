@@ -64,6 +64,15 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_redirected_to admin_user_path(@user)
   end
 
+  test "update renders :edit when database call fails" do
+    login_as create(:gds_editor)
+    world_location = create(:world_location)
+    User.any_instance.stubs(:save).returns(nil)
+    put :update, params: { id: @user.id, user: { world_location_ids: [world_location.id] } }
+
+    assert_template :edit
+  end
+
   test "update does not allow world locations changes by just anyone" do
     login_as create(:user, name: "Another user")
     world_location = create(:world_location)

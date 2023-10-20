@@ -8,7 +8,6 @@ class Admin::LegacyUsersControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "index shows list of enabled users" do
     disabled_user = create(:disabled_user)
