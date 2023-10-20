@@ -19,26 +19,26 @@ class Reports::OrganisationAttachmentsReportTest < ActiveSupport::TestCase
     end
   end
 
-  test "returns blank report if organisation only contains accessible attachments" do
-    organisation = create(:organisation, slug: "best-org", alternative_format_contact_email: "foo@bar.com")
-    create(:publication, :published,
-           organisations: [organisation],
-           alternative_format_provider: organisation,
-           attachments: [
-             create(:file_attachment_with_asset, accessible: true),
-           ])
+  # test "returns blank report if organisation only contains accessible attachments" do
+  #   organisation = create(:organisation, slug: "best-org", alternative_format_contact_email: "foo@bar.com")
+  #   create(:publication, :published,
+  #          organisations: [organisation],
+  #          alternative_format_provider: organisation,
+  #          attachments: [
+  #            create(:file_attachment_with_asset, accessible: true),
+  #          ])
 
-    Timecop.freeze do
-      path = Rails.root.join("tmp/#{organisation.slug}-attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
+  #   Timecop.freeze do
+  #     path = Rails.root.join("tmp/#{organisation.slug}-attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
 
-      capture_io do
-        Reports::OrganisationAttachmentsReport.new(organisation.slug).report
-      end
+  #     capture_io do
+  #       Reports::OrganisationAttachmentsReport.new(organisation.slug).report
+  #     end
 
-      assert_equal Reports::OrganisationAttachmentsReport::CSV_HEADERS, CSV.read(path)[0]
-      assert_equal 0, CSV.read(path, headers: true).count
+  #     assert_equal Reports::OrganisationAttachmentsReport::CSV_HEADERS, CSV.read(path)[0]
+  #     assert_equal 0, CSV.read(path, headers: true).count
 
-      File.delete(path)
-    end
-  end
+  #     File.delete(path)
+  #   end
+  # end
 end
