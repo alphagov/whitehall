@@ -8,8 +8,8 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
 
   def search
     case params[:search_option]
-    when "title-or-slug"
-      redirect_to(action: :search_title_slug, document_collection_id: @collection, group_id: @group)
+    when "title"
+      redirect_to(action: :search_by_title, document_collection_id: @collection, group_id: @group)
     when "url"
       redirect_to(action: :add_by_url, document_collection_id: @collection, group_id: @group)
     else
@@ -18,14 +18,32 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
     end
   end
 
-  def search_title_slug
-    flash.now[:alert] = "Please enter a search query" if params[:query] && params[:query].empty?
-    @results = Edition.published.with_title_containing(params[:query].strip) if params[:query].present?
+  def search_by_title
+    flash.now[:alert] = "Please enter a search query" if params[:title] && params[:title].empty?
+    @editions = filter.editions if params[:title].present?
   end
 
   def add_by_url; end
 
 private
+
+  def filter
+    Admin::EditionFilter.new(edition_scope, current_user, edition_filter_options)
+  end
+
+  def edition_scope
+    Edition.with_translations(I18n.locale)
+  end
+
+  def edition_filter_options
+    params.slice(:title, :page)
+          .permit!
+          .to_h.reverse_merge("state" => "active")
+          .symbolize_keys
+          .merge(
+            per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
+          )
+  end
 
   def check_new_design_system_permissions
     forbidden! unless new_design_system?
