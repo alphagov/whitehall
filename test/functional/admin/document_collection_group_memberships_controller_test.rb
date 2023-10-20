@@ -62,4 +62,35 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     assert_response :success
     assert_select "h1", /Reorder documents/
   end
+
+  test "POST #create_member_by_govuk_url warns user when url is not from gov.uk" do
+    DocumentCollectionNonWhitehallLink::GovukUrl.any_instance
+      .stubs(:save).returns(nil)
+    ActiveModel::Errors.any_instance
+      .expects(:full_messages).once.returns(["Url must be a valid GOV.UK URL"])
+    post :create_member_by_govuk_url, params: id_params.merge(document_url: "https://not-a-gov-uk-url")
+    assert_match "Url must be a valid GOV.UK URL.", flash[:alert]
+  end
+
+  test "POST #create_member_by_govuk_url redirects back to add by URL page when url is not from gov.uk" do
+    DocumentCollectionNonWhitehallLink::GovukUrl.any_instance
+      .stubs(:save).returns(nil)
+    post :create_member_by_govuk_url, params: id_params.merge(document_url: "https://not-a-gov-uk-url")
+    assert_redirected_to admin_document_collection_group_add_by_url_path(@collection, @group)
+  end
+
+  test "POST #create_member_by_govuk_url redirects to add by URL page when url is not from gov.uk" do
+    title = "My test title"
+    url = "https://a-gov-uk-url"
+    govuk_url_mock = mock
+    govuk_url_mock.stubs(:title).returns(title)
+    DocumentCollectionNonWhitehallLink::GovukUrl.expects(:new).with(
+      url:,
+      document_collection_group: @group,
+    ).returns(govuk_url_mock)
+    govuk_url_mock.expects(:save).once.returns(true)
+    post :create_member_by_govuk_url, params: id_params.merge(document_url: url)
+    assert_redirected_to admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
+                         notice: "'#{title}' added to '#{@group.heading}'"
+  end
 end

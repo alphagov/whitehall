@@ -3,7 +3,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   before_action :load_document_collection_group
   before_action :load_membership, only: %i[confirm_destroy]
   before_action :find_document, only: :create_whitehall_member
-  before_action :check_new_design_system_permissions, only: %i[index confirm_destroy]
+  before_action :check_new_design_system_permissions, only: %i[index confirm_destroy create_member_by_govuk_url]
   layout :get_layout
 
   def index; end
@@ -32,6 +32,20 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
       flash[:url] = params[:url]
       flash[:open_non_whitehall] = true
       redirect_to admin_document_collection_groups_path(@collection),
+                  alert: "#{govuk_link.errors.full_messages.join('. ')}."
+    end
+  end
+
+  def create_member_by_govuk_url
+    govuk_link = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: params[:document_url],
+      document_collection_group: @group,
+    )
+    if govuk_link.save
+      redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
+                  notice: "'#{govuk_link.title}' added to '#{@group.heading}'"
+    else
+      redirect_to admin_document_collection_group_add_by_url_path(@collection, @group),
                   alert: "#{govuk_link.errors.full_messages.join('. ')}."
     end
   end
@@ -80,7 +94,7 @@ private
   end
 
   def get_layout
-    design_system_actions = %w[index confirm_destroy destroy reorder create_whitehall_member] if preview_design_system?(next_release: false)
+    design_system_actions = %w[index confirm_destroy destroy reorder create_whitehall_member create_member_by_govuk_url] if preview_design_system?(next_release: false)
 
     if design_system_actions&.include?(action_name)
       "design_system"

@@ -112,4 +112,10 @@ class Admin::LegacyDocumentCollectionGroupMembershipsControllerTest < ActionCont
     assert_response :forbidden
     assert_includes "Sorry, you don’t have access to this document", @response.body
   end
+
+  test "GET #create_member_by_govuk_url forbids the user to see anything" do
+    post :create_member_by_govuk_url, params: { document_collection_id: @collection, group_id: @group }
+    assert_response :forbidden
+    assert_includes "Sorry, you don’t have access to this document", @response.body
+  end
 end

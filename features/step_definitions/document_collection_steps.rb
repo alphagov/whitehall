@@ -273,7 +273,7 @@ And(/^the document collection group's documents should be in the following order
   expect(actual_order).to eq(expected_order)
 end
 
-When(/^I select to add a new document to the collection group through "([^"]*)"$/) do |search_option|
+When(/^I select to add a new document to the collection group "([^"]*)"$/) do |search_option|
   visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
   click_link "Add document"
   choose search_option
@@ -294,4 +294,22 @@ Then(/^I should see "([^"]*)" in the list for the collection group "([^"]*)"$/) 
   expect(page).to have_content "'#{document_title}' added to '#{collection_title}'"
   documents = all(".govuk-table__cell").map(&:text)
   expect(documents).to include document_title
+end
+
+And(/^a GovUK Url exists "([^"]*)" with title "([^"]*)"$/) do |url, title|
+  base_path = URI.parse(url).path
+  content_id = SecureRandom.uuid
+
+  stub_publishing_api_has_lookups(base_path => content_id)
+  stub_publishing_api_has_item(
+    content_id:,
+    base_path:,
+    publishing_app: "content-publisher",
+    title:,
+  )
+end
+
+And(/^I add URL "([^"]*)" to the document collection$/) do |url|
+  fill_in "Add by URL", with: url
+  click_button "Add"
 end

@@ -1,0 +1,40 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_document_collection_group_search_options_path(@collection, @group),
+  } %>
+<% end %>
+<% content_for :page_title, "Add document" %>
+<% content_for :title, "Add document" %>
+<% content_for :context, @group.heading %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds app-view-document-collection-document-search-bar">
+    <%= form_with url: admin_document_collection_group_govuk_url_member_path(@collection, @group), method: :post do |_form| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Add by URL",
+        },
+        name: "document_url",
+        id: "document_url",
+        heading_size: "l",
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-top-8">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Add",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "document-collection-add-by-url-button",
+            "track-label": "Add",
+          },
+        } %>
+
+        <%= link_to "Cancel",
+                    admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
+                    class: "govuk-link govuk-link--no-visited-state" %>
+      </div>
+    <% end %>
+  </div>
+</div>
