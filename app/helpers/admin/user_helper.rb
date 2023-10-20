@@ -9,9 +9,12 @@ module Admin::UserHelper
 
   def show_edit_link(user)
     if user.editable_by?(current_user)
-      edit_admin_user_path(user)
+      {
+        href: edit_admin_user_path(user),
+        link_text: "Edit",
+      }
     else
-      ""
+      {}
     end
   end
 end

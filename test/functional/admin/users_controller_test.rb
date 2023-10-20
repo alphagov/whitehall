@@ -70,4 +70,18 @@ class Admin::UsersControllerTest < ActionController::TestCase
     put :update, params: { id: @user.id, user: { world_location_ids: [world_location.id] } }
     assert_response :forbidden
   end
+
+  view_test "show: displays Edit link if user has gds editor permission to edit the record." do
+    login_as_preview_design_system_user(:gds_editor)
+
+    get :show, params: { id: @user.id }
+
+    assert_select ".govuk-summary-list__actions", text: /Edit/
+  end
+
+  view_test "show: hides Edit link if user has no gds editor permission to edit the record." do
+    get :show, params: { id: @user.id }
+
+    assert_select ".govuk-summary-list__actions", false
+  end
 end
