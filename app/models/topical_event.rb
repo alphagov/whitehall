@@ -73,6 +73,10 @@ class TopicalEvent < ApplicationRecord
            -> { where("editions.state" => "published") },
            through: :topical_event_memberships
 
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
+
   scope :active, -> { where("end_date > ?", Time.zone.today) }
   scope :alphabetical, -> { order("name ASC") }
   scope :order_by_start_date, -> { order("start_date DESC") }
@@ -87,12 +91,15 @@ class TopicalEvent < ApplicationRecord
   validate :start_and_end_dates
   validates :start_date, presence: true, if: ->(topical_event) { topical_event.end_date }
 
+  after_destroy :destroy_logo_if_required
+
   accepts_nested_attributes_for :topical_event_memberships
   accepts_nested_attributes_for :topical_event_organisations
   accepts_nested_attributes_for :topical_event_featurings
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
-  mount_uploader :logo, FeaturedImageUploader, mount_on: :carrierwave_image
+  belongs_to :logo, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
+  accepts_nested_attributes_for :logo, reject_if: :all_blank
 
   extend FriendlyId
   friendly_id
@@ -246,7 +253,10 @@ private
     to_time > from_time + 1.year + 1.day # allow 1 day's leeway
   end
 
-  def logo_changed?
-    changes["carrierwave_image"].present?
+  def destroy_logo_if_required
+    puts "destroy logo being called"
+    if logo && TopicalEvent.where(default_news_organisation_image_data_id: logo.id).empty?
+      logo.destroy!
+    end
   end
 end
