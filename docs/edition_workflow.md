@@ -12,11 +12,11 @@ Note that a `Document` has no state, there is just state inferred by the various
 
 Some status is also controlled by the presence or otherwise of a related `Unpublishing` record. These are created during the `withdraw` and `unpublish` transitions. Editors trigger these in the [`EditionWorkflowController`](/app/controllers/admin/edition_workflow_controller.rb). The three options for Unpublishing or Withdrawing correspond to an [`UnpublishingReason`](/app/models/unpublishing_reason.rb), each of which control the behaviour of a document when visited by a user:
 
-| ID | Name               | State       | Requires explanation? | Requires URL? | Redirects?  | Shows original content? |
-|----|--------------------|-------------|-----------------------|---------------|-------------|-------------------------|
-| 1  | `PublishedInError` | `draft`     | No                    | No            | If provided | No                      |
-| 4  | `Consolidated`     | `draft`     | No                    | Yes           | Yes         | No                      |
-| 5  | `Withdrawn`        | `withdrawn` | Yes                   | No            | No          | Yes                     |
+| ID | Name               | State         | Requires explanation? | Requires URL? | Redirects?  | Shows original content? |
+|----|--------------------|---------------|-----------------------|---------------|-------------|-------------------------|
+| 1  | `PublishedInError` | `unpublished` | No                    | No            | If provided | No                      |
+| 4  | `Consolidated`     | `unpublished` | No                    | Yes           | Yes         | No                      |
+| 5  | `Withdrawn`        | `withdrawn`   | Yes                   | No            | No          | Yes                     |
 
 If a document has an edition in one of the `Edition::PUBLICLY_VISIBLE_STATES` (`published` or `withdrawn`), Whitehall's `DocumentsController` will render it. If an `Unpublishing` exists, the withdrawal notice will be rendered near the top of the page as well.
 
