@@ -45,7 +45,7 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     file = upload_fixture("images/960x640_jpeg.jpg")
     post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
 
-    assert_equal "960x640_jpeg.jpg", edition.lead_image.filename
+    assert_equal "960x640_jpeg.jpg", edition.reload.lead_image.filename
   end
 
   test "#create shows the cropping page if image is too large" do
