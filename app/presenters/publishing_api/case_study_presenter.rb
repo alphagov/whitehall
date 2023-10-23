@@ -81,7 +81,7 @@ module PublishingApi
     end
 
     def image_available?
-      item.images.any? || emphasised_organisation_default_image_available?
+      item.lead_image.present? || emphasised_organisation_default_image_available?
     end
 
     def image_required?

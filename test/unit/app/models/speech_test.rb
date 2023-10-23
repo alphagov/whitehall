@@ -145,8 +145,8 @@ class SpeechTest < ActiveSupport::TestCase
   end
 
   test "search_index includes default image_url if it has one" do
-    image = create(:image)
-    speech = create(:published_speech, images: [image])
+    image = build(:image)
+    speech = build(:published_speech, document: build(:document), images: [image], lead_image: image)
     assert_equal image.url(:s300), speech.search_index["image_url"]
   end
 
