@@ -61,20 +61,6 @@ class ConsultationResponseTest < ActiveSupport::TestCase
     assert_not response.unpublished?
   end
 
-  test "returns unpublished edition from its consultation" do
-    consultation = build(:consultation)
-    consultation.stubs(:unpublished_edition).returns(consultation)
-    response = build(:consultation_outcome, consultation:)
-
-    assert_equal consultation, response.unpublished_edition
-  end
-
-  test "returns no unpublished edition if its consultation is nil" do
-    response = build(:consultation_outcome, consultation: nil)
-
-    assert_nil response.unpublished_edition
-  end
-
   test "is accessible to user if consultation is accessible to user" do
     user = build(:user)
     consultation = build(:consultation)

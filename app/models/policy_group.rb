@@ -52,10 +52,6 @@ class PolicyGroup < ApplicationRecord
     false
   end
 
-  def unpublished_edition
-    nil
-  end
-
   def has_summary?
     true
   end

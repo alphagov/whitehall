@@ -28,7 +28,7 @@ class ConsultationResponse < ApplicationRecord
 
   delegate :unpublished?, to: :parent_attachable
 
-  delegate :unpublished_edition, to: :parent_attachable
+  delegate :unpublishing, to: :parent_attachable
 
   def can_order_attachments?
     true
