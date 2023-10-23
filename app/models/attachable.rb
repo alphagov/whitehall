@@ -71,10 +71,6 @@ module Attachable
     def unpublished?
       false
     end
-
-    def unpublished_edition
-      nil
-    end
   end
 
   def attachables

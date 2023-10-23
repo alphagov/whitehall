@@ -104,8 +104,6 @@ class AttachmentData < ApplicationRecord
 
   delegate :unpublished?, to: :last_attachable
 
-  delegate :unpublished_edition, to: :last_attachable
-
   def replaced?
     replaced_by.present?
   end

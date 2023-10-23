@@ -143,18 +143,6 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert edition.errors[:base].include?("This document has not been force-published")
   end
 
-  test "#unpublished_edition returns nil if not unpublished" do
-    edition = build(:published_edition)
-
-    assert_nil edition.unpublished_edition
-  end
-
-  test "#unpublished_edition returns itself if unpublished" do
-    edition = create(:unpublished_edition)
-
-    assert_equal edition, edition.unpublished_edition
-  end
-
   test "is valid if all file attachment assets have been uploaded" do
     published_edition = build(:published_edition)
     attachment = build(:file_attachment)

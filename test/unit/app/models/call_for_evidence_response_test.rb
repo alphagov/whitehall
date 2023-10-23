@@ -61,20 +61,6 @@ class CallForEvidenceResponseTest < ActiveSupport::TestCase
     assert_not response.unpublished?
   end
 
-  test "returns unpublished edition from its call for evidence" do
-    call_for_evidence = build(:call_for_evidence)
-    call_for_evidence.stubs(:unpublished_edition).returns(call_for_evidence)
-    response = build(:call_for_evidence_outcome, call_for_evidence:)
-
-    assert_equal call_for_evidence, response.unpublished_edition
-  end
-
-  test "returns no unpublished edition if its call for evidence is nil" do
-    response = build(:call_for_evidence_outcome, call_for_evidence: nil)
-
-    assert_nil response.unpublished_edition
-  end
-
   test "is accessible to user if call for evidence is accessible to user" do
     user = build(:user)
     call_for_evidence = build(:call_for_evidence)
