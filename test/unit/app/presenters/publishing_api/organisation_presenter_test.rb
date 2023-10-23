@@ -18,7 +18,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
   test "presents an Organisation ready for adding to the publishing API" do
     parent_organisation = create(:organisation, name: "Department for Stuff")
-    news_image = create(:default_news_organisation_image_data)
+    news_image = create(:featured_image_data)
     organisation = create(
       :organisation,
       name: "Organisation of Things",

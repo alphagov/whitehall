@@ -104,7 +104,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   end
 
   test "falls back to the organisation's default news image when there is no image" do
-    organisation_image = DefaultNewsOrganisationImageData.new(file: image_fixture_file)
+    organisation_image = build(:featured_image_data)
     organisation = create(:organisation, default_news_image: organisation_image)
 
     case_study = create(:published_case_study, lead_organisations: [organisation])

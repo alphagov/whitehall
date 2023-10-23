@@ -167,8 +167,14 @@ class OrganisationTest < ActiveSupport::TestCase
     assert organisation.errors[:logo].present?
   end
 
-  test "can have a default news article image" do
+  test "can have a default news article image legacy" do
     image = build(:default_news_organisation_image_data)
+    organisation = build(:organisation, default_news_image_legacy: image)
+    assert_equal image, organisation.default_news_image_legacy
+  end
+
+  test "can have a default news article image" do
+    image = build(:featured_image_data)
     organisation = build(:organisation, default_news_image: image)
     assert_equal image, organisation.default_news_image
   end
@@ -1069,7 +1075,25 @@ class OrganisationTest < ActiveSupport::TestCase
     end
 
     organisation.update!(
-      default_news_image: create(:default_news_organisation_image_data),
+      default_news_image: create(:featured_image_data),
+    )
+  end
+
+  test "#save triggers organisation with a changed default news organisation image legacy to republish news articles" do
+    organisation = create(:organisation)
+
+    documents = NewsArticle
+                  .in_organisation(organisation)
+                  .includes(:images)
+                  .where(images: { id: nil })
+                  .map(&:document)
+
+    documents.each do |d|
+      Whitehall::PublishingApi.expects(:republish_document_async).with(d)
+    end
+
+    organisation.update!(
+      default_news_image_legacy: create(:default_news_organisation_image_data),
     )
   end
 
