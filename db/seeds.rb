@@ -44,9 +44,8 @@ if Government.where(name: "Test Government").blank?
   )
 end
 
-WorldLocation.skip_callback(:commit, :after, :republish_world_index_page_to_publishing_api)
+WorldLocation.skip_callback(:commit, :after, :republish_index_pages_to_publishing_api)
 WorldLocationNews.skip_callback(:commit, :after, :publish_to_publishing_api)
-WorldLocation.skip_callback(:commit, :after, :republish_embassies_index_page_to_publishing_api)
 
 if WorldLocation.where(name: "Test World Location").blank?
   world_location = WorldLocation.create!(
@@ -122,7 +121,7 @@ if WorldLocation.where(name: "Test International Delegation").blank?
       summary: "This person served as the previous Prime Minister",
       body: "Some information about their work.",
       political_party_ids: [1],
-      roles: [prime_minister_role],
+      role: prime_minister_role,
     )
 
     current_prime_minister = Person.create!(
