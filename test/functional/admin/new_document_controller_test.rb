@@ -5,15 +5,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     login_as_preview_design_system_user :writer
   end
 
-  def radio_button_values
-    %w[call-for-evidence case-study consultation detailed-guide document-collection fatality-notice news-article publication speech statistical-data-set]
-  end
-
-  def assert_select_radio_button(value)
-    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=#{value}]", count: 1
-  end
-
-  test "GET #index renders the 'New Document' page with all relevant radio selection options and inset text" do
+  view_test "GET #index renders the 'New Document' page with the header, all relevant radio selection options and inset text" do
     get :index
 
     assert_response :success
@@ -37,7 +29,6 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
       "new_document_options": "call-for-evidence",
     }
     post :new_document_options_redirect, params: request_params
-    assert_response :success
     assert_redirected_to new_admin_call_for_evidence_path
   end
 
@@ -47,10 +38,17 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     }
 
     post :new_document_options_redirect, params: request_params
-    # puts response.body
     assert_redirected_to admin_new_document_path
     assert_equal flash[:alert], "Please select a new document option"
-    # follow_redirect!
-    # assert_select ".gem-c-error-alert__message", text: /Please select a new document option/
+  end
+
+private
+
+  def radio_button_values
+    %w[call-for-evidence case-study consultation detailed-guide document-collection fatality-notice news-article publication speech statistical-data-set]
+  end
+
+  def assert_select_radio_button(value)
+    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=#{value}]", count: 1
   end
 end
