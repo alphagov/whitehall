@@ -169,7 +169,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
       before do
         attachment_data.stubs(:unpublished?).returns(unpublished)
-        attachment_data.stubs(:last_attachable).returns(unpublished_edition)
+        attachment_data.stubs(:unpublished_attachable).returns(unpublished_edition)
       end
 
       it "updates redirect URL for all assets" do

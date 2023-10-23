@@ -102,7 +102,7 @@ class AttachmentData < ApplicationRecord
 
   delegate :access_limited_object, to: :last_attachable
 
-  delegate :unpublished?, to: :last_attachable
+  delegate :unpublished?, to: :unpublished_attachable
 
   def replaced?
     replaced_by.present?
@@ -151,12 +151,20 @@ class AttachmentData < ApplicationRecord
     last_attachment.attachable || Attachable::Null.new
   end
 
+  def unpublished_attachable
+    unpublished_attachment&.attachable || Attachable::Null.new
+  end
+
   def significant_attachment(**args)
     last_publicly_visible_attachment || last_attachment(**args)
   end
 
   def last_attachment(**args)
     filtered_attachments(**args).last || Attachment::Null.new
+  end
+
+  def unpublished_attachment
+    attachments.reverse.detect { |a| a.attachable&.unpublished? }
   end
 
   def last_publicly_visible_attachment

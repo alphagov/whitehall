@@ -55,7 +55,7 @@ class AssetManager::AttachmentUpdater
   def self.get_redirect_url(attachment_data)
     return nil unless attachment_data.unpublished?
 
-    attachment_data.last_attachable.unpublishing.document_url
+    attachment_data.unpublished_attachable.unpublishing.document_url
   end
 
   def self.get_replacement_id(replaced_attachment_data, variant)
