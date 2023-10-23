@@ -75,7 +75,8 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
   test "includes details of the case study image if present" do
     image = build(:image, alt_text: "Image alt text", caption: "A caption")
-    case_study = create(:published_case_study, images: [image])
+    case_study = build_stubbed(:published_case_study, document: build_stubbed(:document))
+    case_study.stubs(:lead_image).returns(image)
 
     expected_hash = {
       url: image.url(:s300),
@@ -90,7 +91,8 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
   test "returns case study image caption as nil (not false) when it is blank" do
     image = build(:image, alt_text: "Image alt text", caption: "")
-    case_study = create(:published_case_study, images: [image])
+    case_study = build_stubbed(:published_case_study, document: build_stubbed(:document))
+    case_study.stubs(:lead_image).returns(image)
 
     expected_hash = {
       url: image.url(:s300),
