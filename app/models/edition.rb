@@ -492,7 +492,8 @@ EXISTS (
                                     change_note
                                     minor_change
                                     force_published
-                                    scheduled_publication]
+                                    scheduled_publication
+                                    lead_image_id]
       draft_attributes = attributes.except(*ignorable_attribute_keys)
         .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
 

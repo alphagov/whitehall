@@ -104,6 +104,25 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert_equal new_draft.images.first.image_data, published_edition.images.first.image_data
   end
 
+  test "#create_draft should update the lead_image correctly when one is present on the published_edition" do
+    image1 = create(:image)
+    image2 = create(:image)
+
+    published_edition = EditionWithImages.create!(
+      valid_edition_attributes.merge(
+        state: "published",
+        major_change_published_at: Time.zone.now,
+        first_published_at: Time.zone.now,
+        images: [image1, image2],
+        lead_image_id: image2.id,
+      ),
+    )
+
+    draft_edition = published_edition.create_draft(build(:user))
+
+    assert_equal image2.image_data.images.last, draft_edition.lead_image
+  end
+
   test "captions for images can be changed between versions" do
     published_edition = EditionWithImages.new(
       valid_edition_attributes.merge(
