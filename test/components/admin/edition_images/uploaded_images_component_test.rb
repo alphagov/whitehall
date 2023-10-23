@@ -3,14 +3,37 @@
 require "test_helper"
 
 class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCase
-  test "lead image rendered for case study" do
+  test "lead image rendered for case study with default hidden field that toggles organisation image off" do
     images = [build_stubbed(:image), build_stubbed(:image)]
-    edition = build_stubbed(:draft_case_study, images:)
+    edition = build_stubbed(:draft_case_study, images:, lead_image: images.first)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
     assert_selector "img", count: 2
     assert_selector "img[alt='Lead image']"
     assert_selector "img[alt='Image 1']"
+    assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='no_image']", visible: :hidden
+  end
+
+  test "has the correct hidden field for toggling 'image_display_option' when it's 'no_image' and no images have been to the case study" do
+    edition = build_stubbed(:draft_case_study, image_display_option: "no_image")
+    render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
+
+    assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='organisation_image']", visible: :hidden
+  end
+
+  test "has the correct hidden field for toggling 'image_display_option' when it's 'organisation_image' and no images have been to the case study" do
+    edition = build_stubbed(:draft_case_study, image_display_option: "organisation_image")
+    render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
+
+    assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='no_image']", visible: :hidden
+  end
+
+  test "has the correct hidden field for toggling 'image_display_option' when it's 'no_image' and an image has been to the case study" do
+    image = build_stubbed(:image)
+    edition = build_stubbed(:draft_case_study, image_display_option: "no_image", images: [image])
+    render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
+
+    assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='custom_image']", visible: :hidden
   end
 
   test "lead image not rendered for publication" do
