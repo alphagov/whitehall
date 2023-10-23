@@ -1,0 +1,32 @@
+name: Sub navigation
+description: Displays a sub navigation with the current page marked accordingly
+accessibility_criteria: |
+  The component must:
+  
+  - indicate that it is navigation landmark
+  - indicate if a navigation item links to the currently-displayed page
+shared_accessibility_criteria:
+  - link
+examples:
+  default:
+    data:
+      items:
+        - label: Nav item 1
+          href: "#"
+          current: true
+
+        - label: Nav item 2
+          href: "#"
+
+        - label: Nav item 3
+          href: "#"
+
+        - label: Nav item 4
+          href: "#"
+
+        - label: Nav item 5
+          href: "#"
+
+        - label: Nav item 6
+          href: "#"
+

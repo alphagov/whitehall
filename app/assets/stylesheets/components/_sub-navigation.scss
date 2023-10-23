@@ -1,0 +1,39 @@
+.app-c-sub-navigation {
+  background-color: govuk-colour("light-grey");
+}
+
+.app-c-sub-navigation__list {
+  font-size: 0; // Removes white space when using inline-block on child element.
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.app-c-sub-navigation__list-item {
+  @include govuk-font($size: 19);
+  display: inline-block;
+  font-weight: bold;
+  margin-top: 0;
+  padding: 0 govuk-spacing(3);
+}
+
+.app-c-sub-navigation__list-item--current {
+  position: relative;
+
+  &::before {
+    background-color: $govuk-link-colour;
+    content: "";
+    display: block;
+    height: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+.app-c-sub-navigation__list-item-link {
+  display: block;
+  @include govuk-responsive-margin(3, "bottom");
+  @include govuk-responsive-margin(3, "top");
+}
