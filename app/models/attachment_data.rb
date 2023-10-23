@@ -24,8 +24,6 @@ class AttachmentData < ApplicationRecord
 
   OPENDOCUMENT_EXTENSIONS = %w[ODT ODP ODS].freeze
 
-  attribute :present_at_unpublish, :boolean, default: false
-
   def filename
     file.present? && file.file.filename
   end
@@ -107,10 +105,6 @@ class AttachmentData < ApplicationRecord
   delegate :unpublished?, to: :last_attachable
 
   delegate :unpublished_edition, to: :last_attachable
-
-  def present_at_unpublish?
-    self[:present_at_unpublish]
-  end
 
   def replaced?
     replaced_by.present?

@@ -106,20 +106,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         end
       end
 
-      context "and attachment is unpublished" do
-        let(:unpublished) { true }
-
-        it "marks corresponding assets as not draft even though attachment is draft" do
-          attachment_data.update!(present_at_unpublish: true)
-          update_service.expects(:call)
-                        .with(original_asset.asset_manager_id, attachment_data, nil, { "draft" => false })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "draft" => false })
-
-          updater.call(attachment_data, draft_status: true)
-        end
-      end
-
       context "and attachment is replaced" do
         let(:replaced) { true }
 
@@ -183,7 +169,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
       before do
         attachment_data.stubs(:unpublished?).returns(unpublished)
-        attachment_data.stubs(:present_at_unpublish?).returns(true)
         attachment_data.stubs(:unpublished_edition).returns(unpublished_edition)
       end
 
