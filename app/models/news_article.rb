@@ -92,6 +92,12 @@ class NewsArticle < Announcement
     PublishingApi::NewsArticlePresenter
   end
 
+  def update_lead_image
+    return if lead_image.present? || images.blank?
+
+    update_column(:lead_image_id, oldest_image.id)
+  end
+
 private
 
   def organisations_are_not_associated

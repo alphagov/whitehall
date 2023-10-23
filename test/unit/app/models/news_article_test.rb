@@ -157,4 +157,33 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
 
     assert news_article.valid?
   end
+
+  test "#update_lead_image updates the lead_image association to the oldest image" do
+    image1 = build_stubbed(:image)
+    image2 = build_stubbed(:image)
+    news_article = build_stubbed(:news_article, images: [image1, image2])
+
+    news_article.stubs(:lead_image).returns(nil)
+    news_article.images.stubs(:order).with(:created_at, :id).returns([image1, image2])
+
+    news_article.expects(:update_column)
+    .with(:lead_image_id, image1.id)
+    .returns(true)
+    .once
+
+    news_article.update_lead_image
+  end
+
+  test "#update_lead_image returns nil if lead_image is present" do
+    news_article = build(:news_article)
+    build(:image)
+    news_article.stubs(:lead_image).returns(news_article)
+
+    assert_nil news_article.update_lead_image
+  end
+
+  test "#update_lead_image returns nil if no images are present" do
+    news_article = build(:news_article)
+    assert_nil news_article.update_lead_image
+  end
 end
