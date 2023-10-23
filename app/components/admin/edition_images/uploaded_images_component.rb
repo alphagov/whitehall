@@ -3,36 +3,35 @@
 class Admin::EditionImages::UploadedImagesComponent < ViewComponent::Base
   def initialize(edition:)
     @edition = edition
-    @lead_image = has_lead_image? ? @edition.images.first : nil
-    @document_images = @edition.images.drop(has_lead_image? ? 1 : 0)
   end
 
-  def has_lead_image?
-    can_have_lead_image? && @edition.images.any?
-  end
-
-  def can_have_lead_image?
-    @edition.is_a? Edition::FirstImagePulledOut
+  def has_lead_image
+    @has_lead_image ||= @edition.lead_image.present?
   end
 
   def lead_image
-    image_to_hash @lead_image, 0 if has_lead_image?
+    @lead_image ||= @edition.lead_image
+  end
+
+  def lead_image_hash
+    image_to_hash(lead_image, 0) if lead_image
   end
 
   def document_images
-    @document_images.map.with_index(1) { |image, index| image_to_hash image, index }
+    @document_images ||= (@edition.images - [lead_image].compact)
+                          .map.with_index(1) { |image, index| image_to_hash(image, index) }
   end
 
   def new_image_display_option
     if @edition.image_display_option == "no_image"
-      return has_lead_image? ? "custom_image" : "organisation_image"
+      return has_lead_image ? "custom_image" : "organisation_image"
     end
 
     "no_image"
   end
 
   def update_image_display_option_button_text
-    if has_lead_image?
+    if @edition.images.present?
       return "#{new_image_display_option == 'no_image' ? 'Hide' : 'Show'} lead image"
     end
 
@@ -56,7 +55,7 @@ private
   def image_to_hash(image, index)
     {
       url: image.url,
-      preview_alt_text: index.zero? ? "Lead image" : "Image #{index}",
+      preview_alt_text: lead_image == image ? "Lead image" : "Image #{index}",
       caption: image.caption.presence || "None",
       alt_text: image.alt_text.presence || "None",
       markdown: unique_names? ? "[Image: #{image.filename}]" : "!!#{index}",

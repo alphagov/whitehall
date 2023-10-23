@@ -3,7 +3,7 @@
   font_size: "l",
 } %>
 
-<% if can_have_lead_image? %>
+<% if has_lead_image %>
   <%= render "govuk_publishing_components/components/heading", {
     text: "Lead image",
     font_size: "m",
@@ -18,18 +18,18 @@
 <% end %>
 
 <div class="govuk-grid-row">
-  <% if lead_image %>
+  <% if lead_image_hash %>
     <div class="govuk-grid-column-one-third">
-      <img src="<%= lead_image[:url] %>" alt="<%= lead_image[:preview_alt_text] %>" class="app-view-edition-resource__preview">
-      <% unless lead_image[:all_image_asset_variants_uploaded] %><span class="govuk-tag govuk-tag--green">Processing</span><% end %>
+      <img src="<%= lead_image_hash[:url] %>" alt="<%= lead_image_hash[:preview_alt_text] %>" class="app-view-edition-resource__preview">
+      <% unless lead_image_hash[:all_image_asset_variants_uploaded] %><span class="govuk-tag govuk-tag--green">Processing</span><% end %>
     </div>
     <div class="govuk-grid-column-two-thirds">
-      <p class="govuk-body"><strong>Caption: </strong><%= lead_image[:caption] %></p>
-      <p class="govuk-body"><strong>Alt text: </strong><%= lead_image[:alt_text] %></p>
+      <p class="govuk-body"><strong>Caption: </strong><%= lead_image_hash[:caption] %></p>
+      <p class="govuk-body"><strong>Alt text: </strong><%= lead_image_hash[:alt_text] %></p>
     </div>
   <% end %>
 
-  <% if lead_image || @edition.type == "CaseStudy" %>
+  <% if lead_image_hash || @edition.type == "CaseStudy" %>
     <%= form_with(url: update_image_display_option_admin_edition_path(@edition), method: :patch) do |form| %>
       <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
         <% if @edition.type == "CaseStudy" %>
@@ -41,8 +41,8 @@
           } %>
         <% end %>
 
-        <% if lead_image %>
-          <% lead_image[:links].each do |link| %><%= link %><% end %>
+        <% if lead_image_hash %>
+          <% lead_image_hash[:links].each do |link| %><%= link %><% end %>
         <% end %>
       </div>
     <% end %>
