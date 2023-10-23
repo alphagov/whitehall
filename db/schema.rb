@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_16_170633) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_23_110956) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -439,6 +439,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_170633) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["featurable_id", "featurable_type", "locale"], name: "featurable_lists_unique_locale_per_featurable", unique: true
+  end
+
+  create_table "featured_image_data", charset: "utf8mb3", force: :cascade do |t|
+    t.string "carrierwave_image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "featured_link_translations", charset: "utf8mb3", force: :cascade do |t|
