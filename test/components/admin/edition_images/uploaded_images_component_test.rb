@@ -5,7 +5,7 @@ require "test_helper"
 class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCase
   test "lead image rendered for case study" do
     images = [build_stubbed(:image), build_stubbed(:image)]
-    edition = build_stubbed(:draft_case_study, images:)
+    edition = build_stubbed(:draft_case_study, images:, lead_image: images.first)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
     assert_selector "img", count: 2
