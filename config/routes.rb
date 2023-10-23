@@ -240,6 +240,10 @@ Whitehall::Application.routes.draw do
 
       get "/whats-new" => "whats_new#index", as: :whats_new
 
+      get "/new-document" => "new_document#index", as: :new_document
+      get :new_document_options, to: "new_document#new_document_options_redirect"
+      post :new_document_options, to: "new_document#new_document_options_redirect"
+
       resources :statistics_announcements, except: [:destroy] do
         member do
           get :cancel
