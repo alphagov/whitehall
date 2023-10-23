@@ -12,4 +12,17 @@ namespace :reporting do
   task published_attachments_report: :environment do
     Reports::PublishedAttachmentsReport.new.report
   end
+
+  desc "Prints a list of content IDs that documents whose live edition contains a given regular expression"
+  task :matching_docs, [:regex] => :environment do |_, args|
+    regex = Regexp.new(/#{args[:regex]}/)
+
+    Document.where.not(live_edition_id: nil).find_in_batches(batch_size: 1000) do |batch|
+      batch.each do |document|
+        next unless document.editions.published.any?
+
+        puts document.content_id if regex.match?(document.editions.published.last.body)
+      end
+    end
+  end
 end
