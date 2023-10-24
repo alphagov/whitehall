@@ -1,5 +1,7 @@
 module ActiveRecordLikeInterface
+  extend ActiveSupport::Concern
   include ActiveModel::Conversion
+
   module ClassMethods
     def primary_key
       :id
