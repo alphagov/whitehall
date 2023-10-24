@@ -2,50 +2,52 @@ class CreateAssetRelationshipWorker < WorkerBase
   def perform(start_id, end_id)
     logger.info("CreateAssetRelationshipWorker start!")
 
-    assetable_type = Organisation
-    assetables = assetable_type.where(id: start_id..end_id, organisation_logo_type_id: 14)
-    logger.info "Number of #{assetable_type} found: #{assetables.count}"
+    assetable_type = FeaturedImageData.name
+
+    organisations = Organisation.where(id: start_id..end_id).where("default_news_organisation_image_data_id is not null").where("featured_image_data_id is not null")
+
+    logger.info "Number of #{assetable_type} found: #{organisations.count}"
     logger.info "Creating Asset for records from #{start_id} to #{end_id}"
 
-    count = 0
+    variants = %i[original s960 s712 s630 s465 s300 s216]
+    assetables_count = 0
     asset_counter = 0
 
-    assetables.each do |assetable|
-      asset_counter += 1 if save_asset(assetable, assetable_type, Asset.variants[:original].to_sym)
-
-      count += 1
+    organisations.each do |organisation|
+      variants.each do |variant|
+        legacy_path = get_legacy_path(organisation.default_news_image.file, variant)
+        asset_info = get_whitehall_asset_data(legacy_path)
+        save_asset_id_to_assets(organisation.featured_image_data_id, assetable_type, Asset.variants[variant], asset_info[:asset_manager_id], asset_info[:filename])
+        asset_counter += 1
+      rescue GdsApi::HTTPNotFound
+        logger.warn "#{assetable_type} of id##{organisation.id} - could not find asset variant :#{variant} at path #{legacy_path}"
+      end
+      assetables_count += 1
     end
 
-    logger.info("Created assets for #{count} assetable")
+    logger.info("Created assets for #{assetables_count} assetable")
     logger.info("Created asset counter #{asset_counter}")
     logger.info("CreateAssetRelationshipWorker finish!")
 
-    { count:, asset_counter: }
+    { assetables_count:, asset_counter: }
   end
 
 private
+
+  def get_legacy_path(file, variant)
+    variant == :original ? file.path : file.versions[variant].path
+  end
 
   def asset_manager
     Services.asset_manager
   end
 
-  def save_asset(assetable, assetable_type, variant)
-    path = assetable.logo.path
-    asset_info = get_asset_data(path)
-    save_asset_id_to_assets(assetable.id, assetable_type, Asset.variants[variant], asset_info[:asset_manager_id], asset_info[:filename])
-  rescue GdsApi::HTTPNotFound
-    logger.warn "#{assetable_type} of id##{assetable.id} - could not find asset variant :#{variant} at path #{path}"
-
-    false
-  end
-
-  def get_asset_data(legacy_url_path)
+  def get_whitehall_asset_data(legacy_url_path)
     asset_info = {}
     path = legacy_url_path.sub(/^\//, "")
     response_hash = asset_manager.whitehall_asset(path).to_hash
     asset_info[:asset_manager_id] = get_asset_id(response_hash)
     asset_info[:filename] = get_filename(response_hash)
-
     asset_info
   end
 
