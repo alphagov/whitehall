@@ -4,6 +4,10 @@ class FeaturedImageData < ApplicationRecord
   validates :file, presence: true, if: :image_changed?
   validates_with ImageValidator, size: [960, 640], if: :image_changed?
 
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
+
 private
 
   def image_changed?

@@ -10,8 +10,8 @@ class Organisation < ApplicationRecord
   DEFAULT_JOBS_URL = "https://www.civilservicejobs.service.gov.uk/csr".freeze
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
-  belongs_to :default_news_image_legacy, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
-  belongs_to :default_news_image, class_name: "FeaturedImageData", foreign_key: :featured_image_data_id
+  belongs_to :default_news_image, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
+  belongs_to :default_news_image_new, class_name: "FeaturedImageData", foreign_key: :featured_image_data_id
 
   has_many :assets,
            as: :assetable,
