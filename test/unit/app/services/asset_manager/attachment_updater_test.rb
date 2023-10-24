@@ -41,20 +41,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data, access_limited: true)
       end
-
-      it "marks corresponding assets as not draft when the attachment has been replaced" do
-        attachment.attachment_data.replace_with!(AttachmentData.create!(file: File.open(fixture_path.join("sample.docx"))))
-
-        expected_attribute_hash = {
-          "draft" => false,
-        }
-
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
-        end
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, draft_status: true)
-      end
     end
 
     context "when the attachment's attachable is a draft and is access limited" do
@@ -116,6 +102,53 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         end
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
+      end
+    end
+
+    context "when attachment's attachable is published" do
+      let(:edition) { create(:published_news_article) }
+      let(:attachment) { create(:file_attachment, attachable: edition) }
+
+      it "marks corresponding assets as not draft" do
+        expected_attribute_hash = {
+          "draft" => false,
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, draft_status: true)
+      end
+
+      it "sets parent_document_url for all assets" do
+        expected_attribute_hash = {
+          "parent_document_url" => edition.public_url,
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
+      end
+
+      it "resets the redirect URL for all assets" do
+        expected_attribute_hash = {
+          "redirect_url" => nil,
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true)
+      end
+
+      it "does not update asset manager when the attachment data has not been replaced" do
+        AssetManager::AssetUpdater.expects(:call).never
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
       end
     end
 
@@ -213,12 +246,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         end
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true)
-      end
-
-      it "does not update asset manager when the attachment data has not been replaced" do
-        AssetManager::AssetUpdater.expects(:call).never
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
       end
 
       context "and the attachment has been deleted" do
