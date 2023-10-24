@@ -61,6 +61,17 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       end
     end
 
+    context "given a published document with file attachment and a draft" do
+      let(:edition) { create(:published_news_article) }
+      let!(:draft) { edition.create_draft(edition.creator) }
+
+      it "sets redirect URL for attachment in Asset Manager when document is unpublished" do
+        visit admin_news_article_path(edition)
+        unpublish_document_published_in_error
+        assert_sets_redirect_url_in_asset_manager_to redirect_url
+      end
+    end
+
     context "given a published document with HTML attachment" do
       let(:edition) { create(:published_publication, :with_html_attachment) }
 
