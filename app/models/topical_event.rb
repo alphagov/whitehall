@@ -73,7 +73,8 @@ class TopicalEvent < ApplicationRecord
            -> { where("editions.state" => "published") },
            through: :topical_event_memberships
 
-  belongs_to :logo_new, class_name: "FeaturedImageData", foreign_key: :featured_image_data_id
+  belongs_to :logo, class_name: "FeaturedImageData", foreign_key: :featured_image_data_id
+  accepts_nested_attributes_for :logo, reject_if: :all_blank
 
   scope :active, -> { where("end_date > ?", Time.zone.today) }
   scope :alphabetical, -> { order("name ASC") }
@@ -93,8 +94,6 @@ class TopicalEvent < ApplicationRecord
   accepts_nested_attributes_for :topical_event_organisations
   accepts_nested_attributes_for :topical_event_featurings
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
-
-  mount_uploader :logo, FeaturedImageUploader, mount_on: :carrierwave_image
 
   extend FriendlyId
   friendly_id
@@ -246,9 +245,5 @@ private
 
   def more_than_a_year(from_time, to_time = 0)
     to_time > from_time + 1.year + 1.day # allow 1 day's leeway
-  end
-
-  def logo_changed?
-    changes["carrierwave_image"].present?
   end
 end

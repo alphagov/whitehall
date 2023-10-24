@@ -286,23 +286,24 @@ class TopicalEventTest < ActiveSupport::TestCase
 
   test "rejects SVG logo uploads" do
     svg_logo = File.open(Rails.root.join("test/fixtures/images/test-svg.svg"))
-    topical_event = build(:topical_event, logo: svg_logo)
+    logo = build(:featured_image_data, file: svg_logo)
+    topical_event = build(:topical_event, logo:)
 
     assert_not topical_event.valid?
-    assert_equal topical_event.errors.first.full_message, "Logo You are not allowed to upload \"svg\" files, allowed types: jpg, jpeg, gif, png"
+    assert_equal topical_event.errors.first.full_message, "Logo file You are not allowed to upload \"svg\" files, allowed types: jpg, jpeg, gif, png"
   end
 
   test "rejects non-image file uploads" do
     non_image_file = File.open(Rails.root.join("test/fixtures/folders.zip"))
-    topical_event = build(:topical_event, logo: non_image_file)
+    logo = build(:featured_image_data, file: non_image_file)
+    topical_event = build(:topical_event, logo:)
 
     assert_not topical_event.valid?
-    assert_includes topical_event.errors.map(&:full_message), "Logo You are not allowed to upload \"zip\" files, allowed types: jpg, jpeg, gif, png"
+    assert_includes topical_event.errors.map(&:full_message), "Logo file You are not allowed to upload \"zip\" files, allowed types: jpg, jpeg, gif, png"
   end
 
   test "accepts valid image uploads" do
-    jpg_image = File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg"))
-    topical_event = build(:topical_event, logo: jpg_image)
+    topical_event = build(:topical_event, :with_logo)
 
     assert topical_event
     assert_empty topical_event.errors

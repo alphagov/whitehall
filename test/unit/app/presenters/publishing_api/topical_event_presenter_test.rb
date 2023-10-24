@@ -4,11 +4,10 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
   test "presents a valid topical_event content item" do
     topical_event = create(
       :topical_event,
+      :with_logo,
       :active,
       name: "Humans going to Mars",
       description: "A topical event description with [a link](http://www.gov.uk)",
-      logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
-      logo_alt_text: "Alternative text",
     )
     create(:topical_event_about_page, topical_event:, read_more_link_text: "Read more about this event")
 
@@ -53,7 +52,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
         emphasised_organisations: [first_lead_org.content_id, second_lead_org.content_id],
         image: {
-          url: topical_event.logo_url(:s300),
+          url: topical_event.logo.file.url(:s300),
           alt_text: topical_event.logo_alt_text,
         },
         start_date: topical_event.start_date.rfc3339,

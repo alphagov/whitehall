@@ -38,7 +38,7 @@ module PublishingApi
         details[:about_page_link_text] = item.topical_event_about_page.read_more_link_text if item.topical_event_about_page && item.topical_event_about_page.read_more_link_text
         details[:body] = body
         details[:emphasised_organisations] = item.lead_organisations.map(&:content_id)
-        details[:image] = image if item.logo_url
+        details[:image] = image if item.logo
         details[:start_date] = item.start_date.rfc3339 if item.start_date
         details[:end_date] = item.end_date.rfc3339 if item.end_date
         details[:ordered_featured_documents] = ordered_featured_documents
@@ -52,7 +52,7 @@ module PublishingApi
 
     def image
       {
-        url: item.logo_url(:s300),
+        url: item.logo.file.url(:s300),
         alt_text: item.logo_alt_text,
       }
     end

@@ -15,4 +15,8 @@ class FeaturedImageData < ApplicationRecord
 
     (required_variants - asset_variants).empty?
   end
+
+  def filename
+    file&.file&.filename
+  end
 end

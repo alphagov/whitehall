@@ -42,18 +42,18 @@
   <div class="govuk-!-margin-bottom-8">
     <%= render "components/single-image-upload", {
       title: "Logo",
-      name: "topical_event",
-      image_id: "topical_event_logo",
-      image_name: "topical_event[logo]",
+      name: "topical_event[logo_attributes]",
+      image_id: "topical_event_logo_file",
+      image_name: "topical_event[logo_attributes][file]",
       alt_text_name: "topical_event[logo_alt_text]",
       alt_text_id: "topical_event_logo_alt_text",
       filename: topical_event.logo.filename,
       page_errors: topical_event.errors.any?,
-      error_items: errors_for(topical_event.errors, :logo),
-      image_src: topical_event.logo.url,
+      error_items: errors_for(topical_event.errors, :"logo.file"),
+      image_src: topical_event.logo.file.url,
       image_alt: topical_event.logo_alt_text,
-      image_cache_name: "topical_event[logo_cache]",
-      image_cache: (topical_event.logo.image_cache.presence),
+      image_cache_name: "topical_event[logo_attributes][file_cache]",
+      image_cache: (topical_event.logo.file_cache.presence),
     } %>
   </div>
 

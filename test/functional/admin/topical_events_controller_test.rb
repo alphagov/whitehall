@@ -24,7 +24,16 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
   test "POST :create saves the topical event" do
     assert_difference("TopicalEvent.count") do
-      post :create, params: { topical_event: { name: "Event", description: "Event description", summary: "Event summary" } }
+      post :create, params: {
+        topical_event: {
+          name: "Event",
+          description: "Event description",
+          summary: "Event summary",
+          logo_attributes: {
+            file: upload_fixture("images/960x640_jpeg.jpg"),
+          },
+        },
+      }
     end
 
     assert_response :redirect
@@ -32,6 +41,47 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     topical_event = TopicalEvent.last
     assert_equal "Event", topical_event.name
     assert_equal "Event description", topical_event.description
+    assert topical_event.logo.present?
+  end
+
+  test "POST :create uses the file cache if present" do
+    cached_logo = build(:featured_image_data, file: upload_fixture("images/960x640_jpeg.jpg"))
+
+    post :create, params: {
+      topical_event: {
+        name: "Event",
+        description: "Event description",
+        summary: "Event summary",
+        logo_attributes: {
+          file_cache: cached_logo.file_cache,
+        },
+      },
+    }
+
+    topical_event = TopicalEvent.last
+    assert_equal "960x640_jpeg.jpg", topical_event.logo.filename
+  end
+
+  test "POST :create discards the file cache if file is present" do
+    cached_logo = build(:featured_image_data, file: upload_fixture("images/960x640_jpeg.jpg"))
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/960x640_jpeg.jpg/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/big-cheese.960x640.jpg/), anything, anything, anything, anything, anything).times(7)
+
+    post :create, params: {
+      topical_event: {
+        name: "Event",
+        description: "Event description",
+        summary: "Event summary",
+        logo_attributes: {
+          file: upload_fixture("big-cheese.960x640.jpg"),
+          file_cache: cached_logo.file_cache,
+        },
+      },
+    }
+
+    topical_event = TopicalEvent.last
+    assert_equal "big-cheese.960x640.jpg", topical_event.logo.filename
   end
 
   test "GET :index lists the topical events" do
@@ -60,11 +110,44 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
   end
 
   test "PUT :update saves changes to the topical event" do
-    topical_event = create(:topical_event)
-    put :update, params: { id: topical_event, topical_event: { name: "New name" } }
+    topical_event = create(:topical_event, :with_logo)
+
+    put :update, params: {
+      id: topical_event,
+      topical_event: {
+        name: "New name",
+        logo_attributes: {
+          id: topical_event.logo.id,
+          file: upload_fixture("images/960x640_jpeg.jpg"),
+        },
+      },
+    }
 
     assert_response :redirect
     assert_equal "New name", topical_event.reload.name
+    assert_equal "960x640_jpeg.jpg", topical_event.reload.logo.filename
+  end
+
+  test "PUT :update discards the file cache if file is present" do
+    topical_event = create(:topical_event, :with_logo)
+    cached_logo = build(:featured_image_data, file: upload_fixture("images/960x640_jpeg.jpg"))
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/960x640_jpeg.jpg/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/big-cheese.960x640.jpg/), anything, anything, anything, anything, anything).times(7)
+
+    put :update, params: {
+      id: topical_event,
+      topical_event: {
+        logo_attributes: {
+          id: topical_event.logo.id,
+          file: upload_fixture("big-cheese.960x640.jpg"),
+          file_cache: cached_logo.file_cache,
+        },
+      },
+    }
+
+    topical_event = TopicalEvent.last
+    assert_equal "big-cheese.960x640.jpg", topical_event.logo.filename
   end
 
   test "GET :confirm_destroy calls correctly" do
