@@ -38,10 +38,10 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_template "document_collection_group_document_search/search_options"
   end
 
-  test "POST #search redirects to #search_by_title if search option passed is title" do
+  test "POST #search redirects to #add_by_title if search option passed is title" do
     @request_params[:search_option] = "title"
     post :search, params: @request_params
-    assert_redirected_to admin_document_collection_group_search_by_title_path(@collection, @group)
+    assert_redirected_to admin_document_collection_group_add_by_title_path(@collection, @group)
   end
 
   test "POST #search redirects to #add_by_url if search option passed is url" do
@@ -50,40 +50,40 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_redirected_to admin_document_collection_group_add_by_url_path(@collection, @group)
   end
 
-  test "GET #search_by_title without query renders search for title  page with no results section" do
-    get :search_by_title, params: @request_params
+  test "GET #add_by_title without query renders search for title  page with no results section" do
+    get :add_by_title, params: @request_params
 
-    assert_template "document_collection_group_document_search/search_by_title"
+    assert_template "document_collection_group_document_search/add_by_title"
     assert_select ".app-view-document-collection-document-search-results", count: 0
   end
 
-  test "GET :search_by_title with search value passes title and default params to filter" do
+  test "GET :add_by_title with search value passes title and default params to filter" do
     stub_filter = stub_edition_filter({ editions: [], options: { per_page: 15 } })
     edition_scope = Edition.with_translations(I18n.locale)
     default_filter_params_with_title = @default_filter_params.merge(title: "Something")
     @request_params[:title] = "Something"
     Admin::EditionFilter.expects(:new).with(edition_scope, @user, default_filter_params_with_title).returns(stub_filter)
 
-    get :search_by_title, params: @request_params
-    assert_template "document_collection_group_document_search/search_by_title"
+    get :add_by_title, params: @request_params
+    assert_template "document_collection_group_document_search/add_by_title"
   end
 
-  view_test "GET #search_by_title with a query that returns no results renders empty results list" do
+  view_test "GET #add_by_title with a query that returns no results renders empty results list" do
     editions = []
     stub_filter = stub_edition_filter({ editions:, options: { per_page: 15 } })
     Admin::EditionFilter.stubs(:new).returns(stub_filter)
     @request_params[:title] = "Something "
 
-    get :search_by_title, params: @request_params
-    assert_template "document_collection_group_document_search/search_by_title"
+    get :add_by_title, params: @request_params
+    assert_template "document_collection_group_document_search/add_by_title"
     assert_select ".govuk-body", text: /No results found. Search again using the full URL./
     assert_select ".govuk-body .govuk-link[href='/government/admin/collections/#{@collection.id}/groups/#{@group.id}/add_by_url']", text: "full URL"
   end
 
-  view_test "GET #search_by_title with an empty query string shows an alert flash" do
+  view_test "GET #add_by_title with an empty query string shows an alert flash" do
     @request_params[:title] = ""
-    get :search_by_title, params: @request_params
-    assert_template "document_collection_group_document_search/search_by_title"
+    get :add_by_title, params: @request_params
+    assert_template "document_collection_group_document_search/add_by_title"
     assert_select ".gem-c-error-alert__message", text: /Please enter a search query/
   end
 
@@ -92,7 +92,7 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_template "document_collection_group_document_search/add_by_url"
   end
 
-  view_test "GET :search_by_title with search value renders paginated results" do
+  view_test "GET :add_by_title with search value renders paginated results" do
     editions = []
     edition = build(:news_article, title: "Something", document: build(:document, slug: "something"))
     16.times { editions << edition }
@@ -101,9 +101,9 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     Admin::EditionFilter.stubs(:new).returns(stub_filter)
     @request_params[:title] = "Something "
 
-    get :search_by_title, params: @request_params
+    get :add_by_title, params: @request_params
     assert_response :success
-    assert_template "document_collection_group_document_search/search_by_title"
+    assert_template "document_collection_group_document_search/add_by_title"
     assert_select "input[name='title']"
     assert_select ".govuk-heading-s", "16 documents"
     assert_select ".govuk-table" do
@@ -112,7 +112,7 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_select "nav.govuk-pagination"
   end
 
-  view_test "GET :search_by_title with search value renders results without pagination if length of result is 15" do
+  view_test "GET :add_by_title with search value renders results without pagination if length of result is 15" do
     editions = []
     edition = build(:news_article, title: "Something", document: build(:document, slug: "something"))
     15.times { editions << edition }
@@ -121,9 +121,9 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     Admin::EditionFilter.stubs(:new).returns(stub_filter)
     @request_params[:title] = "Something "
 
-    get :search_by_title, params: @request_params
+    get :add_by_title, params: @request_params
     assert_response :success
-    assert_template "document_collection_group_document_search/search_by_title"
+    assert_template "document_collection_group_document_search/add_by_title"
     assert_select "input[name='title']"
     assert_select ".govuk-heading-s", "15 documents"
     assert_select ".govuk-table" do
