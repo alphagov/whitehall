@@ -4,326 +4,248 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe AssetManager::AttachmentUpdater do
-    let(:updater) { AssetManager::AttachmentUpdater }
-    let(:update_service) { mock("asset-manager-update-asset-worker") }
-    let(:attachment_data) { attachment.attachment_data }
-    let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
-    let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
-    let(:original) { Asset.variants[:original] }
-    let(:thumbnail) { Asset.variants[:thumbnail] }
-    let(:original_asset) { Asset.new(asset_manager_id: "original_asset_manager_id", variant: original, filename: "simple.pdf") }
-    let(:thumbnail_asset) { Asset.new(asset_manager_id: "thumbnail_asset_manager_id", variant: thumbnail, filename: "thumbnail_simple.pdf.png") }
-
-    around do |test|
-      AssetManager.stub_const(:AssetUpdater, update_service) do
-        test.call
-      end
-    end
-
-    before do
-      attachment_data.assets = [original_asset, thumbnail_asset]
-    end
-
-    context "when the attachment has been deleted" do
-      before do
-        attachment.delete
-      end
-
-      it "does not update the asset" do
-        AssetManager::AssetUpdater.expects(:call).never
-
-        updater.call(attachment_data, redirect_url: true, draft_status: true)
-      end
-    end
-
-    describe "access limited updates" do
-      context "when attachment's attachable is access limited" do
-        before do
-          access_limited_object = stub("access-limited-object")
-          @organisation = create(:organisation)
-          AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns([@organisation.content_id])
-
-          attachment_data.stubs(:access_limited?).returns(true)
-          attachment_data.stubs(:access_limited_object).returns(access_limited_object)
-        end
-
-        it "updates the access limited state of all assets" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "access_limited_organisation_ids" => [@organisation.content_id] })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "access_limited_organisation_ids" => [@organisation.content_id] })
-
-          updater.call(attachment_data, access_limited: true)
-        end
-      end
-
-      context "when attachment's attachable is not access limited" do
-        before do
-          attachment_data.stubs(:access_limited?).returns(false)
-        end
-
-        it "updates all assets to have an empty access_limited array" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "access_limited_organisation_ids" => [] })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "access_limited_organisation_ids" => [] })
-
-          updater.call(attachment_data, access_limited: true)
-        end
-      end
-    end
-
-    describe "draft status updates" do
-      let(:draft) { true }
-      let(:unpublished) { false }
-      let(:replaced) { false }
-
-      before do
-        attachment_data.stubs(:draft?).returns(draft)
-        attachment_data.stubs(:unpublished?).returns(unpublished)
-        attachment_data.stubs(:replaced?).returns(replaced)
-      end
+    context "when the attachment's attachable is a draft" do
+      let(:edition) { create(:draft_news_article) }
+      let(:attachment) { create(:file_attachment, attachable: edition) }
 
       it "marks corresponding assets as draft" do
-        update_service.expects(:call)
-                        .with(original_asset.asset_manager_id, attachment_data, nil, { "draft" => true })
-        update_service.expects(:call)
-                      .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "draft" => true })
+        expected_attribute_hash = {
+          "draft" => true,
+        }
 
-        updater.call(attachment_data, draft_status: true)
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, draft_status: true)
       end
 
-      context "and attachment is not draft" do
-        let(:draft) { false }
+      it "sets parent_document_url for all assets" do
+        expected_attribute_hash = { "parent_document_url" => edition.public_url(draft: true) }
 
-        it "marks corresponding assets as not draft" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "draft" => false })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "draft" => false })
-
-          updater.call(attachment_data, draft_status: true)
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
       end
 
-      context "and attachment is replaced" do
-        let(:replaced) { true }
+      it "updates all assets to have an empty access_limited array when the draft is not access limited" do
+        expected_attribute_hash = {
+          "access_limited_organisation_ids" => [],
+        }
 
-        it "marks corresponding assets as not draft even though attachment is draft" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "draft" => false })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "draft" => false })
-
-          updater.call(attachment_data, draft_status: true)
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, access_limited: true)
+      end
+
+      it "marks corresponding assets as not draft when the attachment has been replaced" do
+        attachment.attachment_data.replace_with!(AttachmentData.create!(file: File.open(fixture_path.join("sample.docx"))))
+
+        expected_attribute_hash = {
+          "draft" => false,
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, draft_status: true)
       end
     end
 
-    describe "link header updates" do
-      let(:edition) { FactoryBot.create(:published_edition) }
-      let(:parent_document_url) { edition.public_url }
-      let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: edition) }
+    context "when the attachment's attachable is a draft and is access limited" do
+      it "updates the access limited state of all assets" do
+        edition = create(:draft_news_article, :access_limited)
+        attachment = create(:file_attachment, attachable: edition)
 
-      context "when attachment doesn't belong to an edition" do
-        let(:attachment) { FactoryBot.create(:file_attachment) }
+        expected_attribute_hash = {
+          "access_limited_organisation_ids" => edition.organisations.map(&:content_id),
+        }
 
-        it "does not update status of any assets" do
-          update_service.expects(:call).never
-
-          updater.call(attachment_data, link_header: true)
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
-      end
 
-      context "when attachment belongs to a draft edition" do
-        let(:draft_edition) { FactoryBot.create(:draft_edition) }
-        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: draft_edition) }
-        let(:parent_document_url) { draft_edition.public_url(draft: true) }
-
-        it "sets parent_document_url for attachment using draft hostname" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-
-          updater.call(attachment_data, link_header: true)
-        end
-      end
-
-      context "when attachment belongs to a scheduled edition" do
-        let(:scheduled_edition) { FactoryBot.create(:scheduled_edition) }
-        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: scheduled_edition) }
-        let(:parent_document_url) { scheduled_edition.public_url(draft: true) }
-
-        it "sets parent_document_url for attachment using draft hostname" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-
-          updater.call(attachment_data, link_header: true)
-        end
-      end
-
-      context "when attachment belongs to a submitted edition" do
-        let(:submitted_edition) { FactoryBot.create(:submitted_edition) }
-        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: submitted_edition) }
-        let(:parent_document_url) { submitted_edition.public_url(draft: true) }
-
-        it "sets parent_document_url for attachment using draft hostname" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-
-          updater.call(attachment_data, link_header: true)
-        end
-      end
-
-      context "when attachment belongs to a rejected edition" do
-        let(:rejected_edition) { FactoryBot.create(:rejected_edition) }
-        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: rejected_edition) }
-        let(:parent_document_url) { rejected_edition.public_url(draft: true) }
-
-        it "sets parent_document_url for attachment using draft hostname" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-
-          updater.call(attachment_data, link_header: true)
-        end
-      end
-
-      context "when edition is published" do
-        it "sets parent_document_url for all assets" do
-          update_service.expects(:call)
-                        .with(original_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
-
-          updater.call(attachment_data, link_header: true)
-        end
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, access_limited: true)
       end
     end
 
-    describe "redirect url updates" do
-      let(:unpublished_edition) { FactoryBot.create(:unpublished_edition) }
-      let(:redirect_url) { unpublished_edition.unpublishing.document_url }
-      let(:unpublished) { true }
+    context "when attachment belongs to a scheduled edition" do
+      let(:scheduled_edition) { create(:scheduled_edition) }
+      let(:attachment) { create(:file_attachment, attachable: scheduled_edition) }
 
-      before do
-        attachment_data.stubs(:unpublished?).returns(unpublished)
-        attachment_data.stubs(:unpublished_attachable).returns(unpublished_edition)
-      end
+      it "sets parent_document_url for attachment using draft hostname" do
+        expected_attribute_hash = { "parent_document_url" => scheduled_edition.public_url(draft: true) }
 
-      it "updates redirect URL for all assets" do
-        update_service.expects(:call)
-                        .with(original_asset.asset_manager_id, attachment_data, nil, { "redirect_url" => redirect_url })
-        update_service.expects(:call)
-                      .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "redirect_url" => redirect_url })
-
-        updater.call(attachment_data, redirect_url: true)
-      end
-
-      context "and attachment is not unpublished" do
-        let(:unpublished) { false }
-        let(:unpublished_edition) { nil }
-
-        it "resets redirect URL for all assets" do
-          update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, { "redirect_url" => nil })
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "redirect_url" => nil })
-
-          updater.call(attachment_data, redirect_url: true)
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
       end
     end
 
-    describe "replacement ID updates" do
-      context "when attachment does not have a replacement" do
-        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-        let(:attachment_data) { create(:attachment_data, file: sample_rtf) }
+    context "when attachment belongs to a submitted edition" do
+      let(:submitted_edition) { create(:submitted_edition) }
+      let(:attachment) { create(:file_attachment, attachable: submitted_edition) }
 
-        it "does not update asset manager" do
-          attachment_data.assets = [thumbnail_asset]
-          attachment_data.assets.create!(asset_manager_id: "asset_manager_id", variant: original, filename: "sample.rtf")
-          update_service.expects(:call).never
+      it "sets parent_document_url for attachment using draft hostname" do
+        expected_attribute_hash = { "parent_document_url" => submitted_edition.public_url(draft: true) }
 
-          updater.call(attachment_data, replacement_id: true)
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
       end
+    end
 
-      context "when attachment data being updated has multiple assets" do
-        let(:whitepaper_pdf) { File.open(fixture_path.join("whitepaper.pdf")) }
-        let(:replacement) { AttachmentData.create!(file: whitepaper_pdf) }
-        let(:replacement_attributes) { { "replacement_id" => replacement_original_asset.asset_manager_id } }
-        let(:replacement_thumbnail_attributes) { { "replacement_id" => replacement_thumbnail_asset.asset_manager_id } }
-        let(:replacement_original_asset) { Asset.new(asset_manager_id: "replacement_original_asset_manager_id", variant: original, filename: "whitepaper.pdf") }
-        let(:replacement_thumbnail_asset) { Asset.new(asset_manager_id: "replacement_thumbnail_asset_manager_id", variant: thumbnail, filename: "thumbnail_whitepaper.pdf.png") }
+    context "when attachment belongs to a rejected edition" do
+      let(:rejected_edition) { create(:rejected_edition) }
+      let(:attachment) { create(:file_attachment, attachable: rejected_edition) }
 
-        before do
-          attachment_data.replaced_by = replacement
+      it "sets parent_document_url for attachment using draft hostname" do
+        expected_attribute_hash = { "parent_document_url" => rejected_edition.public_url(draft: true) }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        it "and replacement has multiple assets - updates with matching replacement IDs based on asset variant" do
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
+      end
+    end
+
+    context "when the attachment data has been replaced" do
+      let(:edition) { create(:draft_news_article) }
+      let(:attachment) { create(:file_attachment, attachable: edition) }
+
+      context "and the attachment has been replaced with an attachment that has the same number of assets" do
+        it "it updates asset with matching replacement IDs based on asset variant" do
+          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")))
+          replacement_original_asset = Asset.new(asset_manager_id: "replacement_original_asset_manager_id", variant: Asset.variants[:original], filename: "whitepaper.pdf")
+          replacement_thumbnail_asset = Asset.new(asset_manager_id: "replacement_thumbnail_asset_manager_id", variant: Asset.variants[:thumbnail], filename: "thumbnail_whitepaper.pdf.png")
           replacement.assets = [replacement_original_asset, replacement_thumbnail_asset]
 
-          update_service.expects(:call)
-                        .with(original_asset.asset_manager_id, attachment_data, nil, replacement_attributes)
-          update_service.expects(:call)
-                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, replacement_thumbnail_attributes)
+          attachment.attachment_data.replace_with!(replacement)
 
-          updater.call(attachment_data, replacement_id: true)
-        end
+          replacement_attributes = { "replacement_id" => replacement_original_asset.asset_manager_id }
+          replacement_thumbnail_attributes = { "replacement_id" => replacement_thumbnail_asset.asset_manager_id }
 
-        context "but replacement has one asset" do
-          let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-          let(:replacement) { AttachmentData.create!(file: sample_rtf) }
+          AssetManager::AssetUpdater.expects(:call)
+                                    .with(attachment.attachment_data.assets.first.asset_manager_id, attachment.attachment_data, nil, replacement_attributes)
+          AssetManager::AssetUpdater.expects(:call)
+                                    .with(attachment.attachment_data.assets.last.asset_manager_id, attachment.attachment_data, nil, replacement_thumbnail_attributes)
 
-          it "updates all assets (of attachment to be updated) with original asset ID of replacement attachment" do
-            replacement.assets = [replacement_original_asset]
-
-            update_service.expects(:call)
-                          .with(original_asset.asset_manager_id, attachment_data, nil, replacement_attributes)
-            update_service.expects(:call)
-                          .with(thumbnail_asset.asset_manager_id, attachment_data, nil, replacement_attributes)
-
-            updater.call(attachment_data, replacement_id: true)
-          end
-        end
-
-        context "but replacement has no assets" do
-          let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-          let(:replacement) { AttachmentData.create!(file: sample_rtf) }
-
-          it "does not update asset manager" do
-            update_service.expects(:call).never
-
-            updater.call(attachment_data, replacement_id: true)
-          end
+          AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
         end
       end
 
-      context "when attachment is not synced with asset manager" do
-        let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
-        let(:sample_docx) { File.open(fixture_path.join("sample.docx")) }
-        let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
-        let(:replacement) { AttachmentData.create!(file: sample_docx) }
+      context "and the attachment has been replaced with an attachment that has a different number of assets" do
+        it "updates all assets (of attachment to be updated) with original asset ID of replacement attachment" do
+          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")))
+          replacement_original_asset = Asset.new(asset_manager_id: "replacement_original_asset_manager_id", variant: Asset.variants[:original], filename: "whitepaper.pdf")
+          replacement.assets = [replacement_original_asset]
 
-        it "raises a AssetNotFound error" do
-          attachment_data.assets = [thumbnail_asset]
-          attachment_data.assets.create!(asset_manager_id: "asset_manager_id", variant: original, filename: "sample.rtf")
-          replacement.assets.create!(asset_manager_id: "replacement_asset_manager_id", variant: original, filename: "sample.docx")
+          attachment.attachment_data.replace_with!(replacement)
 
-          update_service.expects(:call)
-                        .raises(AssetManager::ServiceHelper::AssetNotFound.new("asset not found"))
+          replacement_attributes = { "replacement_id" => replacement_original_asset.asset_manager_id }
 
-          assert_raises(AssetManager::ServiceHelper::AssetNotFound) do
-            updater.call(attachment_data, replacement_id: true)
-          end
+          AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.first.asset_manager_id, attachment.attachment_data, nil, replacement_attributes)
+          AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.last.asset_manager_id, attachment.attachment_data, nil, replacement_attributes)
+
+          AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
         end
+      end
+
+      context "and the attachment has been replaced with an attachment that has no assets" do
+        it "does not update asset manager" do
+          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")))
+          replacement.assets = []
+
+          attachment.attachment_data.replace_with!(replacement)
+
+          AssetManager::AssetUpdater.expects(:call).never
+
+          AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
+        end
+      end
+    end
+
+    context "when attachment's attachable is published" do
+      let(:edition) { create(:published_news_article) }
+      let(:attachment) { create(:file_attachment, attachable: edition) }
+
+      it "marks corresponding assets as not draft" do
+        expected_attribute_hash = {
+          "draft" => false,
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, draft_status: true)
+      end
+
+      it "sets parent_document_url for all assets" do
+        expected_attribute_hash = {
+          "parent_document_url" => edition.public_url,
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
+      end
+
+      it "resets the redirect URL for all assets" do
+        expected_attribute_hash = {
+          "redirect_url" => nil,
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true)
+      end
+
+      it "does not update asset manager when the attachment data has not been replaced" do
+        AssetManager::AssetUpdater.expects(:call).never
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
+      end
+
+      context "and the attachment has been deleted" do
+        it "does not update the asset" do
+          attachment.delete
+
+          AssetManager::AssetUpdater.expects(:call).never
+
+          AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true, draft_status: true)
+        end
+      end
+    end
+
+    context "when the attachment's attachable is unpublished" do
+      it "updates redirect URL for all assets" do
+        edition = create(:unpublished_edition)
+        attachment = create(:file_attachment, attachable: edition)
+
+        expected_attribute_hash = {
+          "redirect_url" => edition.unpublishing.document_url,
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true)
       end
     end
   end
