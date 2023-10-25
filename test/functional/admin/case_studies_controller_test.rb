@@ -17,4 +17,14 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_allow_association_between_world_locations_and :case_study
   should_send_drafts_to_content_preview_environment_for :case_study
   should_render_govspeak_history_and_fact_checking_tabs_for :case_study
+
+  test "PATCH :update_image_display_option updates the image_display option and handles updating an editions lead image" do
+    edition = create(:draft_case_study, image_display_option: "custom_image")
+    create(:edition_lead_image, edition:)
+
+    patch :update_image_display_option, params: { id: edition.id, edition: { image_display_option: "no_image" } }
+
+    assert_equal "no_image", edition.reload.image_display_option
+    assert_nil edition.lead_image
+  end
 end
