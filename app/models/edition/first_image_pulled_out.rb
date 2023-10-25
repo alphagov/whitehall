@@ -15,6 +15,8 @@ module Edition::FirstImagePulledOut
   end
 
   def update_lead_image
+    remove_lead_image and return if %w[no_image organisation_image].include?(image_display_option)
+
     return if lead_image.present? || images.blank?
 
     edition_lead_image = build_edition_lead_image(image: oldest_image)
@@ -25,5 +27,11 @@ private
 
   def oldest_image
     images.order(:created_at, :id).first
+  end
+
+  def remove_lead_image
+    return if edition_lead_image.blank?
+
+    edition_lead_image.destroy!
   end
 end

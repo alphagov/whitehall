@@ -171,17 +171,6 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def update_image_display_option
-    @edition.assign_attributes(params.require(:edition).permit(:image_display_option))
-
-    if updater.can_perform? && @edition.save_as(current_user)
-      updater.perform!
-      redirect_to admin_edition_images_path(@edition), notice: "The lead image has been updated"
-    else
-      redirect_to admin_edition_images_path(@edition), alert: updater.failure_reason
-    end
-  end
-
   def update_bypass_id
     EditionAuthBypassUpdater.new(edition: @edition, current_user:, updater:).call
 

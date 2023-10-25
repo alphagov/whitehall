@@ -51,6 +51,28 @@ class Edition::FirstImagePulledOutTest < ActiveSupport::TestCase
     edition.update_lead_image
   end
 
+  test "#update_lead_image deletes the associated edition_lead_image if image_display_option is 'no_image'" do
+    edition_lead_image = build(:edition_lead_image)
+    edition = build(:news_article, image_display_option: "no_image", edition_lead_image:)
+
+    edition_lead_image
+    .expects(:destroy!)
+    .once
+
+    edition.update_lead_image
+  end
+
+  test "#update_lead_image deletes the associated edition_lead_image if image_display_option is 'organisation_image'" do
+    edition_lead_image = build(:edition_lead_image)
+    edition = build(:news_article, image_display_option: "organisation_image", edition_lead_image:)
+
+    edition_lead_image
+    .expects(:destroy!)
+    .once
+
+    edition.update_lead_image
+  end
+
   test "#update_lead_image returns nil if lead_image is present" do
     edition = build(:news_article)
     build(:image)
