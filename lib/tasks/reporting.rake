@@ -13,16 +13,40 @@ namespace :reporting do
     Reports::PublishedAttachmentsReport.new.report
   end
 
-  desc "Prints a list of content IDs that documents whose live edition contains a given regular expression"
+  desc "Prints a list of content IDs for documents whose govspeak content contains a given regular expression"
   task :matching_docs, [:regex] => :environment do |_, args|
     regex = Regexp.new(/#{args[:regex]}/)
 
-    Document.where.not(live_edition_id: nil).find_in_batches(batch_size: 1000) do |batch|
-      batch.each do |document|
-        next unless document.editions.published.any?
+    Document.where.not(live_edition_id: nil).find_each do |object|
+      next unless object.editions.published.any?
 
-        puts document.content_id if regex.match?(document.editions.published.last.body)
-      end
+      document_includes_regex(regex, object.content_id, object.class.name, object.editions.published.last.body)
+    end
+
+    HtmlAttachment.find_each do |object|
+      next unless object.govspeak_content
+
+      document_includes_regex(regex, object.content_id, object.class.name, object.govspeak_content.body)
+    end
+
+    Person.find_each do |object|
+      document_includes_regex(regex, object.content_id, object.class.name, object.biography)
+    end
+
+    PolicyGroup.find_each do |object|
+      document_includes_regex(regex, object.content_id, object.class.name, object.description)
+    end
+
+    WorldLocationNews.find_each do |object|
+      document_includes_regex(regex, object.content_id, object.class.name, object.mission_statement)
+    end
+
+    WorldwideOffice.find_each do |object|
+      document_includes_regex(regex, object.content_id, object.class.name, object.access_and_opening_times)
     end
   end
+end
+
+def document_includes_regex(regex, content_id, class_name, text)
+  puts "#{class_name}: #{content_id}" if text && text.match?(regex)
 end
