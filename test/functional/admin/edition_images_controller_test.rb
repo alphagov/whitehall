@@ -101,6 +101,20 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
   end
 
+  test "DELETE :destroy when a lead image is present it deletes the edition_lead_image and sets a new lead image" do
+    login_authorised_user
+    image1 = build(:image)
+    image2 = build(:image)
+    edition = create(:draft_case_study, images: [image1, image2])
+    create(:edition_lead_image, edition:, image: image1)
+
+    delete admin_edition_image_path(edition, image1), params: { edition_id: edition.id, id: image1.id }
+
+    assert_equal 1, edition.reload.images.count
+    assert_equal image2, edition.lead_image
+    assert_redirected_to admin_edition_images_path(edition)
+  end
+
   def login_authorised_user
     user = create(:gds_editor)
     login_as user

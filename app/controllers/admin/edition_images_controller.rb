@@ -10,6 +10,8 @@ class Admin::EditionImagesController < Admin::BaseController
   def destroy
     filename = image.image_data.carrierwave_image
     image.destroy!
+    @edition.update_lead_image if @edition.can_have_custom_lead_image?
+
     redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
   end
 
