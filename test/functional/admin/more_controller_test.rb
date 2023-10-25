@@ -11,6 +11,6 @@ class Admin::MoreControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "h1.govuk-heading-xl", text: "More"
     assert_select ".govuk-list"
-    assert_select "a.govuk-link", text: "Departments & agencies"
+    assert_select "a.govuk-link", text: "Cabinet ministers order"
   end
 end
