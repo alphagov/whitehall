@@ -8,47 +8,46 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       let(:edition) { create(:draft_news_article) }
       let(:attachment) { create(:file_attachment, attachable: edition) }
 
-      it "marks corresponding assets as draft" do
+      it "sets the expected attributes" do
         expected_attribute_hash = {
           "draft" => true,
+          "access_limited_organisation_ids" => [],
+          "parent_document_url" => edition.public_url(draft: true),
         }
 
         attachment.attachment_data.assets.each do |asset|
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, draft_status: true)
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
 
-      it "sets parent_document_url for all assets" do
-        expected_attribute_hash = { "parent_document_url" => edition.public_url(draft: true) }
+      it "sets the expected attributes when the attachment has been replaced" do
+        attachment.attachment_data.replace_with!(AttachmentData.create!(file: File.open(fixture_path.join("sample.docx"))))
 
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
-        end
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
-      end
-
-      it "updates all assets to have an empty access_limited array when the draft is not access limited" do
+        # Draft should be set to false when the attachment data has been replaced to ensure the data is updated in asset manager
         expected_attribute_hash = {
           "access_limited_organisation_ids" => [],
+          "draft" => false,
+          "parent_document_url" => edition.public_url(draft: true),
         }
 
         attachment.attachment_data.assets.each do |asset|
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, access_limited: true)
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
     end
 
     context "when the attachment's attachable is a draft and is access limited" do
-      it "updates the access limited state of all assets" do
+      it "sets the expected attributes for all assets" do
         edition = create(:draft_news_article, :access_limited)
         attachment = create(:file_attachment, attachable: edition)
 
         expected_attribute_hash = {
+          "draft" => true,
+          "parent_document_url" => edition.public_url(draft: true),
           "access_limited_organisation_ids" => edition.organisations.map(&:content_id),
         }
 
@@ -56,7 +55,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, access_limited: true)
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
     end
 
@@ -64,14 +63,18 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       let(:scheduled_edition) { create(:scheduled_edition) }
       let(:attachment) { create(:file_attachment, attachable: scheduled_edition) }
 
-      it "sets parent_document_url for attachment using draft hostname" do
-        expected_attribute_hash = { "parent_document_url" => scheduled_edition.public_url(draft: true) }
+      it "sets the expected attributes for all assets" do
+        expected_attribute_hash = {
+          "draft" => true,
+          "parent_document_url" => scheduled_edition.public_url(draft: true),
+          "access_limited_organisation_ids" => [],
+        }
 
         attachment.attachment_data.assets.each do |asset|
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
     end
 
@@ -79,14 +82,18 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       let(:submitted_edition) { create(:submitted_edition) }
       let(:attachment) { create(:file_attachment, attachable: submitted_edition) }
 
-      it "sets parent_document_url for attachment using draft hostname" do
-        expected_attribute_hash = { "parent_document_url" => submitted_edition.public_url(draft: true) }
+      it "sets the expected attributes for all assets" do
+        expected_attribute_hash = {
+          "draft" => true,
+          "parent_document_url" => submitted_edition.public_url(draft: true),
+          "access_limited_organisation_ids" => [],
+        }
 
         attachment.attachment_data.assets.each do |asset|
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
     end
 
@@ -94,14 +101,18 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       let(:rejected_edition) { create(:rejected_edition) }
       let(:attachment) { create(:file_attachment, attachable: rejected_edition) }
 
-      it "sets parent_document_url for attachment using draft hostname" do
-        expected_attribute_hash = { "parent_document_url" => rejected_edition.public_url(draft: true) }
+      it "sets the expected attributes for all assets" do
+        expected_attribute_hash = {
+          "draft" => true,
+          "parent_document_url" => rejected_edition.public_url(draft: true),
+          "access_limited_organisation_ids" => [],
+        }
 
         attachment.attachment_data.assets.each do |asset|
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
     end
 
@@ -109,46 +120,18 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       let(:edition) { create(:published_news_article) }
       let(:attachment) { create(:file_attachment, attachable: edition) }
 
-      it "marks corresponding assets as not draft" do
+      it "sets the expected attributes for a published attachable" do
         expected_attribute_hash = {
           "draft" => false,
-        }
-
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
-        end
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, draft_status: true)
-      end
-
-      it "sets parent_document_url for all assets" do
-        expected_attribute_hash = {
           "parent_document_url" => edition.public_url,
+          "access_limited_organisation_ids" => [],
         }
 
         attachment.attachment_data.assets.each do |asset|
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
-      end
-
-      it "resets the redirect URL for all assets" do
-        expected_attribute_hash = {
-          "redirect_url" => nil,
-        }
-
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
-        end
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true)
-      end
-
-      it "does not update asset manager when the attachment data has not been replaced" do
-        AssetManager::AssetUpdater.expects(:call).never
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
     end
 
@@ -173,7 +156,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           AssetManager::AssetUpdater.expects(:call)
                                     .with(attachment.attachment_data.assets.last.asset_manager_id, attachment.attachment_data, nil, replacement_thumbnail_attributes)
 
-          AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
+          AssetManager::AttachmentUpdater.replace(attachment.attachment_data)
         end
       end
 
@@ -190,7 +173,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.first.asset_manager_id, attachment.attachment_data, nil, replacement_attributes)
           AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.last.asset_manager_id, attachment.attachment_data, nil, replacement_attributes)
 
-          AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
+          AssetManager::AttachmentUpdater.replace(attachment.attachment_data)
         end
       end
 
@@ -203,58 +186,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
           AssetManager::AssetUpdater.expects(:call).never
 
-          AssetManager::AttachmentUpdater.call(attachment.attachment_data, replacement_id: true)
-        end
-      end
-    end
-
-    context "when attachment's attachable is published" do
-      let(:edition) { create(:published_news_article) }
-      let(:attachment) { create(:file_attachment, attachable: edition) }
-
-      it "marks corresponding assets as not draft" do
-        expected_attribute_hash = {
-          "draft" => false,
-        }
-
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
-        end
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, draft_status: true)
-      end
-
-      it "sets parent_document_url for all assets" do
-        expected_attribute_hash = {
-          "parent_document_url" => edition.public_url,
-        }
-
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
-        end
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, link_header: true)
-      end
-
-      it "resets the redirect URL for all assets" do
-        expected_attribute_hash = {
-          "redirect_url" => nil,
-        }
-
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
-        end
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true)
-      end
-
-      context "and the attachment has been deleted" do
-        it "does not update the asset" do
-          attachment.delete
-
-          AssetManager::AssetUpdater.expects(:call).never
-
-          AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true, draft_status: true)
+          AssetManager::AttachmentUpdater.replace(attachment.attachment_data)
         end
       end
     end
@@ -272,7 +204,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
         end
 
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data, redirect_url: true)
+        AssetManager::AttachmentUpdater.redirect(attachment.attachment_data)
       end
     end
   end

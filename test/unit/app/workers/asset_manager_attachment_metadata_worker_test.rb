@@ -8,12 +8,7 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
     let(:worker) { AssetManagerAttachmentMetadataWorker.new }
 
     it "calls both updater and deleter" do
-      AssetManager::AttachmentUpdater.expects(:call).with(
-        attachment_data,
-        access_limited: true,
-        draft_status: true,
-        link_header: true,
-      )
+      AssetManager::AttachmentUpdater.expects(:call).with(attachment_data)
 
       AssetManager::AttachmentDeleter.expects(:call).with(
         attachment_data,
