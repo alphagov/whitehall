@@ -10,6 +10,7 @@ class Admin::EditionImagesController < Admin::BaseController
   def destroy
     filename = image.image_data.carrierwave_image
     image.destroy!
+
     redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
   end
 
