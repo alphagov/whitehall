@@ -21,7 +21,7 @@ class Admin::LegacyDocumentCollectionGroupDocumentSearchControllerTest < ActionC
   end
 
   test "GET #search__by_title blocks out users with no permissions" do
-    get :search_by_title, params: @request_params
+    get :add_by_title, params: @request_params
     assert_template :forbidden
   end
 
