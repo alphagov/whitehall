@@ -190,7 +190,7 @@
           ],
           rows: @edition.images.map do | image |
             [
-              { text: sanitize("#{image.filename} #{tag.span("Lead image", class: 'govuk-tag app-view-summary__tag') if @edition.is_a? Edition::FirstImagePulledOut and image == @edition.images.first}") },
+              { text: sanitize("#{image.filename} #{tag.span("Lead image", class: 'govuk-tag app-view-summary__tag') if @edition.can_have_custom_lead_image? && image == @edition.images.first}") },
             ]
           end,
         } %>

@@ -968,6 +968,16 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.force_scheduled?
   end
 
+  test "#can_have_custom_lead_image? returns true if FirstImagePulledOut module is included" do
+    edition = build(:case_study)
+    assert edition.can_have_custom_lead_image?
+  end
+
+  test "#can_have_custom_lead_image? returns true if FirstImagePulledOut module is not included" do
+    edition = build(:edition)
+    assert_not edition.can_have_custom_lead_image?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

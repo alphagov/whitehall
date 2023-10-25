@@ -12,7 +12,7 @@ class Admin::EditionImages::UploadedImagesComponent < ViewComponent::Base
   end
 
   def can_have_lead_image?
-    @edition.is_a? Edition::FirstImagePulledOut
+    @edition.can_have_custom_lead_image?
   end
 
   def lead_image
