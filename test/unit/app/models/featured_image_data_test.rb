@@ -17,11 +17,26 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File You are not allowed to upload \"zip\" files, allowed types: jpg, jpeg, gif, png"
   end
 
+  test "should ensure that file is present" do
+    topical_event_featuring_image_data = build(:featured_image_data, file: nil)
+
+    assert_not topical_event_featuring_image_data.valid?
+    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File can't be blank"
+  end
+
   test "accepts valid image uploads" do
     jpg_image = File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg"))
     topical_event_featuring_image_data = build(:featured_image_data, file: jpg_image)
 
     assert topical_event_featuring_image_data
     assert_empty topical_event_featuring_image_data.errors
+  end
+
+  test "should ensure the image size to be 960x640" do
+    image = File.open(Rails.root.join("test/fixtures/images/50x33_gif.gif"))
+    topical_event_featuring_image_data = build(:featured_image_data, file: image)
+
+    assert_not topical_event_featuring_image_data.valid?
+    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File is too small. Select an image that is 960 pixels wide and 640 pixels tall"
   end
 end

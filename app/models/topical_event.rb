@@ -73,6 +73,8 @@ class TopicalEvent < ApplicationRecord
            -> { where("editions.state" => "published") },
            through: :topical_event_memberships
 
+  belongs_to :logo_new, class_name: "FeaturedImageData", foreign_key: :featured_image_data_id
+
   scope :active, -> { where("end_date > ?", Time.zone.today) }
   scope :alphabetical, -> { order("name ASC") }
   scope :order_by_start_date, -> { order("start_date DESC") }
