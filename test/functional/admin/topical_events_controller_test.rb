@@ -159,11 +159,15 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     assert_equal topical_event, assigns(:topical_event)
   end
 
-  test "DELETE :destroy deletes the topical event" do
-    topical_event = create(:topical_event)
+  test "DELETE :destroy deletes the topical event and dependent classes" do
+    topical_event = create(:topical_event, :with_logo, :with_social_media_accounts)
+    logo = topical_event.logo
+    social_media_account = topical_event.social_media_accounts.first
     delete :destroy, params: { id: topical_event }
 
     assert_response :redirect
-    assert topical_event.reload.deleted?
+    assert_nil TopicalEvent.find_by(id: topical_event.id)
+    assert_nil FeaturedImageData.find_by(id: logo.id)
+    assert_nil SocialMediaAccount.find_by(id: social_media_account.id)
   end
 end

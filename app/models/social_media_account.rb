@@ -5,7 +5,7 @@ class SocialMediaAccount < ApplicationRecord
   after_save :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api
 
-  validates :social_media_service_id, presence: true
+  validates :social_media_service, presence: true
   validates :url, presence: true, uri: true
 
   include TranslatableModel

@@ -43,8 +43,8 @@ class Admin::TopicalEventsController < Admin::BaseController
   def confirm_destroy; end
 
   def destroy
-    @topical_event.delete!
-    if @topical_event.deleted?
+    @topical_event.destroy!
+    if @topical_event.destroyed?
       redirect_to [:admin, TopicalEvent], notice: "Topical event destroyed"
     else
       redirect_to [:admin, TopicalEvent], alert: "Cannot destroy Topical event with associated content"
