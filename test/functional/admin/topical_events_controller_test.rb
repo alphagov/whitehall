@@ -109,15 +109,30 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     assert_select "input[name='topical_event[name]'][value='#{topical_event.name}']"
   end
 
+  view_test "GET :edit renders id for logo model if it exists" do
+    topical_event = create(:topical_event, :with_logo)
+
+    get :edit, params: { id: topical_event }
+
+    expected_hidden_field_name = "topical_event[logo_attributes][id]"
+    expected_hidden_field_value = topical_event.logo.id
+    assert_select "input[name='#{expected_hidden_field_name}'][value='#{expected_hidden_field_value}']"
+  end
+
   test "PUT :update saves changes to the topical event" do
     topical_event = create(:topical_event, :with_logo)
+    logo = topical_event.logo
+
+    logo.assets
+        .pluck(:asset_manager_id)
+        .map { |id| AssetManagerDeleteAssetWorker.expects(:perform_async).with(anything, id).once }
 
     put :update, params: {
       id: topical_event,
       topical_event: {
         name: "New name",
         logo_attributes: {
-          id: topical_event.logo.id,
+          id: logo.id,
           file: upload_fixture("images/960x640_jpeg.jpg"),
         },
       },
@@ -125,6 +140,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_equal "New name", topical_event.reload.name
+    assert_equal logo.id, topical_event.reload.logo.id
     assert_equal "960x640_jpeg.jpg", topical_event.reload.logo.filename
   end
 

@@ -185,6 +185,7 @@ class AssetManagerIntegrationTest
 
     test "sends the new image and its versions to asset manager" do
       expected_number_of_versions = @person.image.versions.size + 1
+      Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
       Services.asset_manager.expects(:create_whitehall_asset).times(expected_number_of_versions)
 
       @person.image = File.open(fixture_path.join("big-cheese.960x640.jpg"))
@@ -194,8 +195,9 @@ class AssetManagerIntegrationTest
       end
     end
 
-    test "does not remove the original images from asset manager" do
-      Services.asset_manager.expects(:delete_asset).never
+    test "removes the original images from asset manager" do
+      Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
+      Services.asset_manager.expects(:delete_asset).with("asset-id").times(7)
 
       @person.image = File.open(fixture_path.join("big-cheese.960x640.jpg"))
 
