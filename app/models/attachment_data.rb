@@ -135,7 +135,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def draft_attachment
-    attachments.find { |attachment| attachment.attachable_type == "Edition" && attachment.attachable&.draft? }
+    attachments.find { |attachment| attachment.attachable_type == "Edition" && Edition::PRE_PUBLICATION_STATES.include?(attachment.attachable&.state) }
   end
 
   def draft_edition

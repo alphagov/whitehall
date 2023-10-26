@@ -150,6 +150,51 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         end
       end
 
+      context "when attachment belongs to a scheduled edition" do
+        let(:scheduled_edition) { FactoryBot.create(:scheduled_edition) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: scheduled_edition) }
+        let(:parent_document_url) { scheduled_edition.public_url(draft: true) }
+
+        it "sets parent_document_url for attachment using draft hostname" do
+          update_service.expects(:call)
+                          .with(original_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+          update_service.expects(:call)
+                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
+      end
+
+      context "when attachment belongs to a submitted edition" do
+        let(:submitted_edition) { FactoryBot.create(:submitted_edition) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: submitted_edition) }
+        let(:parent_document_url) { submitted_edition.public_url(draft: true) }
+
+        it "sets parent_document_url for attachment using draft hostname" do
+          update_service.expects(:call)
+                          .with(original_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+          update_service.expects(:call)
+                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
+      end
+
+      context "when attachment belongs to a rejected edition" do
+        let(:rejected_edition) { FactoryBot.create(:rejected_edition) }
+        let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf, attachable: rejected_edition) }
+        let(:parent_document_url) { rejected_edition.public_url(draft: true) }
+
+        it "sets parent_document_url for attachment using draft hostname" do
+          update_service.expects(:call)
+                          .with(original_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+          update_service.expects(:call)
+                        .with(thumbnail_asset.asset_manager_id, attachment_data, nil, { "parent_document_url" => parent_document_url })
+
+          updater.call(attachment_data, link_header: true)
+        end
+      end
+
       context "when edition is published" do
         it "sets parent_document_url for all assets" do
           update_service.expects(:call)
