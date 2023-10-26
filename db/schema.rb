@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_222012) do
     t.string "email"
     t.integer "call_for_evidence_response_form_id"
     t.text "postal_address"
-    t.index ["call_for_evidence_response_form_id"], name: "index_cons_participations_on_cons_response_form_id"
+    t.index ["call_for_evidence_response_form_id"], name: "index_cfes_participations_on_cfes_response_form_id"
     t.index ["edition_id"], name: "index_call_for_evidence_participations_on_edition_id"
   end
 
@@ -1094,7 +1094,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_222012) do
     t.text "description"
     t.string "slug"
     t.string "state"
-    t.string "carrierwave_image"
     t.string "logo_alt_text"
     t.date "start_date"
     t.date "end_date"
