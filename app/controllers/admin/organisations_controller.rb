@@ -191,6 +191,9 @@ private
     if organisation_params[:logo].present? && organisation_params[:logo_cache].present?
       organisation_params.delete(:logo_cache)
     end
+    if organisation_params.dig(:default_news_image_attributes, :file_cache).present? && organisation_params.dig(:default_news_image_attributes, :file).present?
+      organisation_params[:default_news_image_attributes].delete(:file_cache)
+    end
 
     organisation_params
   end

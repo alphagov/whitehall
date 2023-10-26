@@ -16,29 +16,29 @@ class CreateAssetRelationshipForFeaturedImageDataWorkerTest < ActiveSupport::Tes
     it("creates featured_image_data_id if default_news_organisation_image_data is present") do
       Sidekiq.logger.expects(:info).times(3)
       default_news_image_data = build(:default_news_organisation_image_data)
-      organisation = create(:organisation, default_news_image: default_news_image_data)
-      assert_nil organisation.default_news_image_new
+      organisation = create(:organisation, default_news_image_old: default_news_image_data)
+      assert_nil organisation.default_news_image
       @worker.perform(organisation.id, organisation.id)
       organisation.reload
-      assert_not_nil organisation.default_news_image_new
+      assert_not_nil organisation.default_news_image
     end
 
     it("does not creates featured_image_data_id if default_news_organisation_image_data is not present") do
       Sidekiq.logger.expects(:info).times(2)
       organisation = create(:organisation)
-      assert_nil organisation.default_news_image_new
+      assert_nil organisation.default_news_image
       @worker.perform(organisation.id, organisation.id)
       organisation.reload
-      assert_nil organisation.default_news_image_new
+      assert_nil organisation.default_news_image
     end
 
     it("maps correct carrierwave_image to featured_image_data_id") do
       Sidekiq.logger.expects(:info).times(3)
       default_news_image_data = build(:default_news_organisation_image_data)
-      organisation = create(:organisation, default_news_image: default_news_image_data)
+      organisation = create(:organisation, default_news_image_old: default_news_image_data)
       @worker.perform(organisation.id, organisation.id)
       organisation.reload
-      assert_equal organisation.default_news_image_new.carrierwave_image, organisation.default_news_image.carrierwave_image
+      assert_equal organisation.default_news_image_old.carrierwave_image, organisation.default_news_image.carrierwave_image
     end
   end
 end

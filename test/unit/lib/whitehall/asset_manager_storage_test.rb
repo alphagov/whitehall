@@ -46,6 +46,14 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     assert_equal file, storage.retrieve!("identifier")
   end
 
+  test "calls AssetManagerCreateAssetWorker when uploader is invoked for FeaturedImageData " do
+    featured_image_data = build(:featured_image_data)
+    @uploader.stubs(:model).returns(featured_image_data)
+    asset_params = { assetable_id: featured_image_data.id, asset_variant: "original", assetable_type: "FeaturedImageData" }.deep_stringify_keys
+    AssetManagerCreateAssetWorker.expects(:perform_async).once.with(anything, asset_params, nil, nil, nil, [])
+    @uploader.store!(@file)
+  end
+
   context "uploader model is AttachmentData" do
     setup do
       model = build(:attachment_data)

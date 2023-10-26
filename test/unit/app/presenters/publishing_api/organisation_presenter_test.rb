@@ -18,7 +18,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
   test "presents an Organisation ready for adding to the publishing API" do
     parent_organisation = create(:organisation, name: "Department for Stuff")
-    news_image = create(:default_news_organisation_image_data)
+    news_image = create(:featured_image_data)
     organisation = create(
       :organisation,
       name: "Organisation of Things",
@@ -355,5 +355,14 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         { path: "#{organisation.base_path}.cy.atom", type: "exact" },
       ], presented_item.content[:routes]
     end
+  end
+
+  test "should ignore the default news image if all variants are not uploaded" do
+    featured_image = build(:featured_image_data)
+    featured_image.assets.destroy_all
+    organisation = build(:organisation, default_news_image: featured_image)
+    presenter = PublishingApi::OrganisationPresenter.new(organisation)
+
+    assert_nil presenter.content.dig(:details, :default_news_image)
   end
 end
