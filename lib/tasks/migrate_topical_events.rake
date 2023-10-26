@@ -15,8 +15,7 @@ task :migrate_topical_events, %i[start_id end_id] => :environment do |_, args|
   topical_events.each do |topical_event|
     all_variants = topical_event.logo.versions.keys.push(:original)
     assetable = FeaturedImageData.create!(carrierwave_image: topical_event.carrierwave_image)
-    topical_event.logo_new = assetable
-    topical_event.save!
+    topical_event.update_column("featured_image_data_id", assetable.id)
 
     all_variants.each do |variant|
       path = variant == :original ? topical_event.logo.path : topical_event.logo.versions[variant].path
