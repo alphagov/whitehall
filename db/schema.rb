@@ -1094,6 +1094,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_154359) do
     t.date "end_date"
     t.string "content_id"
     t.text "summary"
+    t.bigint "featured_image_data_id"
+    t.index ["featured_image_data_id"], name: "index_topical_events_on_featured_image_data_id"
     t.index ["slug"], name: "index_topical_events_on_slug"
   end
 
