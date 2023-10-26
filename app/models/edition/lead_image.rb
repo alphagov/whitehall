@@ -1,6 +1,11 @@
 module Edition::LeadImage
   extend ActiveSupport::Concern
 
+  included do
+    has_one :edition_lead_image, foreign_key: :edition_id, dependent: :destroy
+    has_one :lead_image, through: :edition_lead_image, source: :image
+  end
+
   def has_lead_image?
     !image_data.nil?
   end

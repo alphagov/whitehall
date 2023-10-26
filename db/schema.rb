@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_25_154359) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_26_125543) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -262,6 +262,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_154359) do
     t.integer "dependable_id"
     t.string "dependable_type"
     t.index ["dependable_id", "dependable_type", "edition_id"], name: "index_edition_dependencies_on_dependable_and_edition", unique: true
+  end
+
+  create_table "edition_lead_images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "edition_id"
+    t.integer "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_lead_image_on_edition_id", unique: true
+    t.index ["image_id"], name: "index_lead_image_on_image_id"
   end
 
   create_table "edition_organisations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
