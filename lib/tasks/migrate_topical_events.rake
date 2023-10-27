@@ -4,7 +4,7 @@ task :migrate_topical_events, %i[start_id end_id] => :environment do |_, args|
   start_id = args[:start_id]
   end_id = args[:end_id]
 
-  topical_events = TopicalEvent.where(id: start_id..end_id).where("carrierwave_image is not null and featured_image_data_id is null")
+  topical_events = TopicalEvent.where(id: start_id..end_id).where("carrierwave_image is not null and carrierwave_image != ''")
   puts "Number of topical events found: #{topical_events.count}"
   puts "Creating Asset for topical events records from #{start_id} to #{end_id}"
 
