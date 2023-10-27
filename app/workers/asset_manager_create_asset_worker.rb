@@ -18,7 +18,7 @@ class AssetManagerCreateAssetWorker < WorkerBase
 
     create_asset(asset_options, asset_variant, assetable_id, assetable_type)
 
-    enqueue_downstream_service_updates(assetable_id, attachable_model_class, attachable_model_id)
+    enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
 
     file.close
     FileUtils.rm(file)
@@ -34,7 +34,15 @@ private
     save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
   end
 
-  def enqueue_downstream_service_updates(assetable_id, attachable_model_class, attachable_model_id)
+  def enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
+    if assetable_type == FeaturedImageData.to_s
+      assetable = FeaturedImageData.find(assetable_id)
+      featured_imageable = assetable.featured_imageable
+      if featured_imageable.class.ancestors.include?(PublishesToPublishingApi) && assetable.all_asset_variants_uploaded? && featured_imageable.can_publish_to_publishing_api?
+        PublishingApiWorker.perform_async(featured_imageable.class.to_s, featured_imageable.id)
+      end
+    end
+
     if attachable_model_class
       if attachable_model_class.constantize.ancestors.include?(Edition)
         PublishingApiDraftUpdateWorker.perform_async(attachable_model_class, attachable_model_id)

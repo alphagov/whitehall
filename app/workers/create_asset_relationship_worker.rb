@@ -4,7 +4,7 @@ class CreateAssetRelationshipWorker < WorkerBase
 
     assetable_type = FeaturedImageData.name
 
-    organisations = Organisation.where(id: start_id..end_id).where("default_news_organisation_image_data_id is not null").where("featured_image_data_id is not null")
+    organisations = Organisation.where(id: start_id..end_id).where("default_news_organisation_image_data_id is not null")
 
     logger.info "Number of #{assetable_type} found: #{organisations.count}"
     logger.info "Creating Asset for records from #{start_id} to #{end_id}"
@@ -17,7 +17,7 @@ class CreateAssetRelationshipWorker < WorkerBase
       variants.each do |variant|
         legacy_path = get_legacy_path(organisation.default_news_image.file, variant)
         asset_info = get_whitehall_asset_data(legacy_path)
-        save_asset_id_to_assets(organisation.featured_image_data_id, assetable_type, Asset.variants[variant], asset_info[:asset_manager_id], asset_info[:filename])
+        save_asset_id_to_assets(organisation.default_news_image_new.id, assetable_type, Asset.variants[variant], asset_info[:asset_manager_id], asset_info[:filename])
         asset_counter += 1
       rescue GdsApi::HTTPNotFound
         logger.warn "#{assetable_type} of id##{organisation.id} - could not find asset variant :#{variant} at path #{legacy_path}"

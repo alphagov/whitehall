@@ -9,11 +9,14 @@ class CreateAssetRelationshipForFeaturedImageDataWorker < WorkerBase
         carrierwave_image_from_default_news_organisation_image_data = DefaultNewsOrganisationImageData.find(org.default_news_organisation_image_data_id).carrierwave_image
         logger.info("Create feature image data for \n org: #{id} \n default_news_organisation_image_data: #{org.default_news_organisation_image_data_id} \n carrierwave_image: #{carrierwave_image_from_default_news_organisation_image_data}")
 
-        featured_image_data = FeaturedImageData.new(carrierwave_image: carrierwave_image_from_default_news_organisation_image_data)
+        featured_image_data = FeaturedImageData.new(
+          carrierwave_image: carrierwave_image_from_default_news_organisation_image_data,
+          featured_imageable_type: "Organisation",
+          featured_imageable_id: id,
+        )
         featured_image_data.save!
 
         logger.info("featured_image_data #{featured_image_data.id} has been saved")
-        org.update_column(:featured_image_data_id, featured_image_data.id)
       end
     rescue StandardError => e
       logger.info(e)
