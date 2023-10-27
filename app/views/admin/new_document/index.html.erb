@@ -1,6 +1,4 @@
 <% content_for :page_title, "New document" %>
-<% content_for :title, "New document" %>
-<% content_for :title_margin_bottom, 6 %>
 
 <%
   new_document_radio_items = [
@@ -72,6 +70,8 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with url: admin_new_document_options_path do %>
       <%= render "govuk_publishing_components/components/radio", {
+        heading: "New document",
+        heading_level: 1,
         name: "new_document_options",
         id: "new_document_options",
         items: new_document_radio_items,
