@@ -4,9 +4,6 @@
   } %>
 <% end %>
 <% content_for :page_title, "Add document" %>
-<% content_for :title, "Add document" %>
-<% content_for :context, @group.heading %>
-<% content_for :title_margin_bottom, 6 %>
 
 <%
   search_options = [
@@ -22,10 +19,13 @@
 %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-two-thirds app-view-document_collection_group_document_search">
     <%= form_with url: admin_document_collection_group_search_options_path(@collection, @group) do %>
       <%= render "govuk_publishing_components/components/radio", {
         name: "search_option",
+        heading: "Add document",
+        heading_caption: @group.heading,
+        heading_level: 1,
         id: "search_option",
         items: search_options,
       } %>
