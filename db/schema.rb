@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_27_095017) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_27_134216) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -1094,8 +1094,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_095017) do
     t.date "end_date"
     t.string "content_id"
     t.text "summary"
-    t.bigint "featured_image_data_id"
-    t.index ["featured_image_data_id"], name: "index_topical_events_on_featured_image_data_id"
     t.index ["slug"], name: "index_topical_events_on_slug"
   end
 

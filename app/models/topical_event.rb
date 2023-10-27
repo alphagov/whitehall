@@ -73,7 +73,8 @@ class TopicalEvent < ApplicationRecord
            -> { where("editions.state" => "published") },
            through: :topical_event_memberships
 
-  belongs_to :logo, class_name: "FeaturedImageData", foreign_key: :featured_image_data_id, dependent: :destroy
+  has_one :logo, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable, dependent: :destroy
+
   accepts_nested_attributes_for :logo, reject_if: :all_blank
 
   scope :active, -> { where("end_date > ?", Time.zone.today) }
