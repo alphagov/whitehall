@@ -8,6 +8,7 @@ class CreateAssetRelationshipWorkerTest < ActiveSupport::TestCase
     variants = %i[original s960 s712 s630 s465 s300 s216]
     @default_news_image_data = create(:default_news_organisation_image_data)
     @featured_image_data = create(:featured_image_data)
+    @featured_image_data.assets.destroy_all
     variants.each do |variant|
       stub_assets(variant, @default_news_image_data)
     end
@@ -18,7 +19,7 @@ class CreateAssetRelationshipWorkerTest < ActiveSupport::TestCase
     organisation = build_organisation_with_default_and_featured_image
 
     @worker.perform(0, organisation.id)
-    assert_equal 7, Asset.where(assetable_type: "FeaturedImageData", assetable_id: organisation.featured_image_data_id).count
+    assert_equal 7, Asset.where(assetable_type: "FeaturedImageData", assetable_id: organisation.default_news_image_new.id).count
   end
 
   it("should skip Organisation if default_news_organisation_image_data is nil") do

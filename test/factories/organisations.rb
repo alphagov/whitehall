@@ -20,6 +20,12 @@ FactoryBot.define do
       end
     end
 
+    trait(:with_default_news_image) do
+      after :build do |organisation|
+        organisation.default_news_image_new = build(:featured_image_data)
+      end
+    end
+
     trait(:closed) do
       govuk_status { "closed" }
       govuk_closed_status { "no_longer_exists" }

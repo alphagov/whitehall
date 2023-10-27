@@ -179,4 +179,38 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
+
+  test "should publish model when the last file is created if the model inherits PublishesToPublishingApi module" do
+    organisation = create(:organisation, :with_default_news_image)
+    last_asset = organisation.default_news_image_new.assets.last.destroy
+    asset_params = {
+      assetable_id: organisation.default_news_image_new.id,
+      asset_variant: last_asset.variant,
+      assetable_type: FeaturedImageData.to_s,
+    }.deep_stringify_keys
+
+    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
+    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
+
+    PublishingApiWorker.expects(:perform_async).with("Organisation", organisation.id)
+
+    @worker.perform(@file.path, asset_params, true, nil, nil)
+  end
+
+  test "should not publish model if all assets variant are not uploaded and the model inherits PublishesToPublishingApi module" do
+    organisation = create(:organisation, :with_default_news_image)
+    last_asset = organisation.default_news_image_new.assets.destroy_all.last
+    asset_params = {
+      assetable_id: organisation.default_news_image_new.id,
+      asset_variant: last_asset.variant,
+      assetable_type: FeaturedImageData.to_s,
+    }.deep_stringify_keys
+
+    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
+    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
+
+    PublishingApiWorker.expects(:perform_async).never
+
+    @worker.perform(@file.path, asset_params, true, nil, nil)
+  end
 end

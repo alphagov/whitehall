@@ -39,4 +39,17 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     assert_not topical_event_featuring_image_data.valid?
     assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File is too small. Select an image that is 960 pixels wide and 640 pixels tall"
   end
+
+  test "#all_asset_variants_uploaded? returns true if all assets present" do
+    featured_image_data = build(:featured_image_data)
+
+    assert featured_image_data.all_asset_variants_uploaded?
+  end
+
+  test "#all_asset_variants_uploaded? returns false if an asset variant is missing" do
+    featured_image_data = build(:featured_image_data)
+    featured_image_data.assets = []
+
+    assert_not featured_image_data.all_asset_variants_uploaded?
+  end
 end
