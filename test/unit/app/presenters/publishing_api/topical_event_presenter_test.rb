@@ -53,6 +53,8 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
         emphasised_organisations: [first_lead_org.content_id, second_lead_org.content_id],
         image: {
           url: topical_event.logo.file.url(:s300),
+          medium_resolution_url: topical_event.logo.file.url(:s630),
+          high_resolution_url: topical_event.logo.file.url(:s960),
           alt_text: topical_event.logo_alt_text,
         },
         start_date: topical_event.start_date.rfc3339,

@@ -53,6 +53,8 @@ module PublishingApi
     def image
       {
         url: item.logo.file.url(:s300),
+        medium_resolution_url: item.logo.file.url(:s630),
+        high_resolution_url: item.logo.file.url(:s960),
         alt_text: item.logo_alt_text,
       }
     end
