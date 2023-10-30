@@ -10,7 +10,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     let(:worker) { AssetManagerAttachmentRedirectUrlUpdateWorker.new }
 
     it "calls AssetManager::AttachmentRedirectUrlUpdater" do
-      AssetManager::AttachmentUpdater.expects(:call).with(attachment_data, redirect_url: true)
+      AssetManager::AttachmentUpdater.expects(:redirect).with(attachment_data)
       worker.perform(attachment_data.id)
     end
   end

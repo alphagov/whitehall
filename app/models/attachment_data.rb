@@ -108,6 +108,10 @@ class AttachmentData < ApplicationRecord
     replaced_by.present?
   end
 
+  def replacement_asset_for(asset)
+    replaced_by.assets.where(variant: asset.variant).first || replaced_by.assets.where(variant: Asset.variants[:original]).first
+  end
+
   def visible_to?(user)
     !deleted? && (!draft? || (draft? && accessible_to?(user)))
   end
@@ -173,6 +177,27 @@ class AttachmentData < ApplicationRecord
 
   def auth_bypass_ids
     attachable && attachable.respond_to?(:auth_bypass_id) ? [attachable.auth_bypass_id] : []
+  end
+
+  def redirect_url
+    return nil unless unpublished?
+
+    unpublished_attachable.unpublishing.document_url
+  end
+
+  def attachable_url(user = nil)
+    visible_edition = visible_edition_for(user)
+    if visible_edition.blank? && draft_edition
+      draft_edition.public_url(draft: true)
+    elsif visible_edition.present?
+      visible_edition.public_url
+    end
+  end
+
+  def access_limitation
+    return [] unless access_limited?
+
+    AssetManagerAccessLimitation.for(access_limited_object)
   end
 
 private

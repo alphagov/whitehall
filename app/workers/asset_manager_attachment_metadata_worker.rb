@@ -10,15 +10,10 @@ class AssetManagerAttachmentMetadataWorker < WorkerBase
 
     return unless attachment_data.all_asset_variants_uploaded?
 
-    AssetManager::AttachmentUpdater.call(
-      attachment_data,
-      access_limited: true,
-      draft_status: true,
-      link_header: true,
-    )
+    AssetManager::AttachmentUpdater.call(attachment_data)
 
     AttachmentData.where(replaced_by: attachment_data).find_each do |replaced_attachment_data|
-      AssetManager::AttachmentUpdater.call(replaced_attachment_data, replacement_id: true)
+      AssetManager::AttachmentUpdater.replace(replaced_attachment_data)
     rescue AssetManager::ServiceHelper::AssetNotFound => e
       logger.warn("AssetManagerAttachmentMetadataWorker: #{e}")
     end
