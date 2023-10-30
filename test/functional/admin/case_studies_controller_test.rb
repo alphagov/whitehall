@@ -20,7 +20,8 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
 
   test "PATCH :update_image_display_option updates the image_display option and handles updating an editions lead image" do
     edition = create(:draft_case_study, image_display_option: "custom_image")
-    create(:edition_lead_image, edition:)
+    image = create(:image, edition:)
+    create(:edition_lead_image, edition:, image:)
 
     patch :update_image_display_option, params: { id: edition.id, edition: { image_display_option: "no_image" } }
 

@@ -2,16 +2,7 @@ module Edition::CustomLeadImage
   extend ActiveSupport::Concern
 
   included do
-    validates :body,
-              format: {
-                without: /^!!1([^\d]|$)/,
-                message: "cannot have a reference to the first image in the text",
-                multiline: true,
-              }
-  end
-
-  def image_disallowed_in_body_text?(index)
-    index == 1
+    validate :body_does_not_contain_lead_image_markdown
   end
 
   def update_lead_image
@@ -36,5 +27,23 @@ private
     return if edition_lead_image.blank?
 
     edition_lead_image.destroy!
+  end
+
+  def body_does_not_contain_lead_image_markdown
+    return if lead_image.blank?
+
+    if body_contains_lead_image_filename_markdown? || body_contains_lead_image_index_markdown?
+      errors.add(:body, "cannot have a reference to the lead image in the text")
+    end
+  end
+
+  def body_contains_lead_image_filename_markdown?
+    body.match?(/\[Image:\s*#{Regexp.escape(lead_image.filename)}\s*\]/)
+  end
+
+  def body_contains_lead_image_index_markdown?
+    lead_image_index = images.find_index(lead_image)
+
+    body.match?(/^!!#{lead_image_index + 1}([^\d]|$)/)
   end
 end
