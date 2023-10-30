@@ -716,6 +716,10 @@ EXISTS (
     PublishingApi::GenericEditionPresenter
   end
 
+  def can_have_custom_lead_image?
+    is_a?(Edition::CustomLeadImage)
+  end
+
 private
 
   def date_for_government

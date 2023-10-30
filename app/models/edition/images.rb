@@ -9,6 +9,13 @@ module Edition::Images
           Rails.logger.warn "Ignoring errors on saving image for edition with id #{edition.id}: #{image.errors.full_messages.join(', ')}"
         end
         image.save!(validate: false)
+
+        next unless @edition.can_have_custom_lead_image?
+
+        if @edition.lead_image == a
+          edition_lead_image = edition.build_edition_lead_image(image:)
+          edition_lead_image.save!
+        end
       end
     end
   end

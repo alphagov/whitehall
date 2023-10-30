@@ -38,6 +38,16 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal edit_admin_edition_image_path(edition, edition.images.last), path
   end
 
+  test "#create updates the lead_image association if edition can have a custom lead image" do
+    login_authorised_user
+    edition = create(:news_article)
+
+    file = upload_fixture("images/960x640_jpeg.jpg")
+    post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
+
+    assert_equal "960x640_jpeg.jpg", edition.lead_image.filename
+  end
+
   test "#create shows the cropping page if image is too large" do
     login_authorised_user
     edition = create(:news_article)
@@ -89,6 +99,20 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
       .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything).times(7)
 
     post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
+  end
+
+  test "DELETE :destroy when a lead image is present it deletes the edition_lead_image and sets a new lead image" do
+    login_authorised_user
+    image1 = build(:image)
+    image2 = build(:image)
+    edition = create(:draft_case_study, images: [image1, image2])
+    create(:edition_lead_image, edition:, image: image1)
+
+    delete admin_edition_image_path(edition, image1), params: { edition_id: edition.id, id: image1.id }
+
+    assert_equal 1, edition.reload.images.count
+    assert_equal image2, edition.lead_image
+    assert_redirected_to admin_edition_images_path(edition)
   end
 
   def login_authorised_user

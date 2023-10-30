@@ -210,7 +210,7 @@ Whitehall::Application.routes.draw do
           get :audit_trail, to: "edition_audit_trail#index"
           get :document_history, to: "edition_document_history#index"
           patch :update_bypass_id
-          patch :update_image_display_option
+          patch :update_image_display_option, controller: "case_studies"
           get :confirm_destroy
         end
         resources :link_check_reports

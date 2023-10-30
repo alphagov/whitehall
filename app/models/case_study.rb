@@ -1,7 +1,7 @@
 class CaseStudy < Edition
   include Edition::Images
   include Edition::FactCheckable
-  include Edition::FirstImagePulledOut
+  include Edition::CustomLeadImage
   include Edition::HasDocumentCollections
   include Edition::Organisations
   include Edition::TaggableOrganisations

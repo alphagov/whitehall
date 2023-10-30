@@ -4,7 +4,7 @@ class CaseStudyTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   should_allow_image_attachments
-  should_have_first_image_pulled_out
+  should_have_custom_lead_image
   should_protect_against_xss_and_content_attacks_on :case_study, :body
 
   test "search_format_types tags the case study as a case-study" do
