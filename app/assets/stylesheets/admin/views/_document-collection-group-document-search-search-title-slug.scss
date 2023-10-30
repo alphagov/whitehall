@@ -1,3 +1,9 @@
+.app-view-document_collection_group_document_search {
+  .govuk-fieldset__heading {
+    @include govuk-responsive-margin(3, "bottom");
+  }
+}
+
 .app-view-document-collection-document-search-results__table {
   .govuk-table__cell:nth-child(2) {
     white-space: nowrap;
