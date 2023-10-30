@@ -43,8 +43,8 @@ class Admin::TopicalEventsController < Admin::BaseController
   def confirm_destroy; end
 
   def destroy
-    @topical_event.delete!
-    if @topical_event.deleted?
+    @topical_event.destroy!
+    if @topical_event.destroyed?
       redirect_to [:admin, TopicalEvent], notice: "Topical event destroyed"
     else
       redirect_to [:admin, TopicalEvent], alert: "Cannot destroy Topical event with associated content"
@@ -61,6 +61,7 @@ class Admin::TopicalEventsController < Admin::BaseController
 
   def build_associated_objects
     @topical_event.social_media_accounts.build if @topical_event.social_media_accounts.blank?
+    @topical_event.build_logo if @topical_event.logo.blank?
   end
 
   def destroy_blank_social_media_accounts
@@ -74,14 +75,11 @@ class Admin::TopicalEventsController < Admin::BaseController
   end
 
   def object_params
-    params.require(:topical_event).permit(
+    topical_event_params = params.require(:topical_event).permit(
       :name,
       :summary,
       :description,
-      :logo,
       :logo_alt_text,
-      :logo_cache,
-      :remove_logo,
       :start_date,
       :end_date,
       related_topical_event_ids: [],
@@ -89,6 +87,17 @@ class Admin::TopicalEventsController < Admin::BaseController
       social_media_accounts_attributes: %i[social_media_service_id url _destroy id],
       featured_links_attributes: %i[title url _destroy id],
       topical_event_organisations_attributes: %i[id lead lead_ordering],
+      logo_attributes: %i[file file_cache id],
     )
+
+    clear_file_cache(topical_event_params)
+  end
+
+  def clear_file_cache(topical_event_params)
+    if topical_event_params.dig(:logo_attributes, :file).present? && topical_event_params.dig(:logo_attributes, :file_cache).present?
+      topical_event_params[:logo_attributes].delete(:file_cache)
+    end
+
+    topical_event_params
   end
 end

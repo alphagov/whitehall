@@ -9,6 +9,10 @@ class FeaturedImageData < ApplicationRecord
   validates :file, presence: true
   validates_with ImageValidator, size: [960, 640]
 
+  def filename
+    file&.file&.filename
+  end
+
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
     required_variants = FeaturedImageUploader.versions.keys.push(:original)
