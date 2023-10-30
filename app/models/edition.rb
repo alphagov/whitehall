@@ -717,7 +717,7 @@ EXISTS (
   end
 
   def can_have_custom_lead_image?
-    is_a?(Edition::FirstImagePulledOut)
+    is_a?(Edition::CustomLeadImage)
   end
 
 private

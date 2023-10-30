@@ -1,4 +1,4 @@
-module Edition::FirstImagePulledOut
+module Edition::CustomLeadImage
   extend ActiveSupport::Concern
 
   included do

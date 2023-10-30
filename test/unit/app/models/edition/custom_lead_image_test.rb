@@ -1,22 +1,22 @@
 require "test_helper"
 
-class Edition::FirstImagePulledOutTest < ActiveSupport::TestCase
+class Edition::CustomLeadImageTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  def edition_with_first_image_pulled_out(options = {})
+  def edition_with_custom_lead_image(options = {})
     build(:draft_news_article, options)
   end
 
   test "reports that the first image is not available for adding inline" do
-    assert edition_with_first_image_pulled_out.image_disallowed_in_body_text?(1)
+    assert edition_with_custom_lead_image.image_disallowed_in_body_text?(1)
   end
 
   test "reports other images are not disallowed" do
-    assert_not edition_with_first_image_pulled_out.image_disallowed_in_body_text?(2)
+    assert_not edition_with_custom_lead_image.image_disallowed_in_body_text?(2)
   end
 
   def body_text_valid(body)
-    edition_with_first_image_pulled_out(body:).valid?
+    edition_with_custom_lead_image(body:).valid?
   end
 
   test "validates that the first image is not included in the body text" do

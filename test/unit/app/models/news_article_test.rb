@@ -4,7 +4,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   should_allow_image_attachments
-  should_have_first_image_pulled_out
+  should_have_custom_lead_image
   should_protect_against_xss_and_content_attacks_on :news_article, :title, :body, :summary, :change_note
 
   test "can associate news articles with topical events" do

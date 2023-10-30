@@ -6,7 +6,7 @@ class NewsArticle < Announcement
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::WorldwideOrganisations
   include Edition::FactCheckable
-  include Edition::FirstImagePulledOut
+  include Edition::CustomLeadImage
   include Edition::LeadImage
 
   validate :ministers_are_not_associated, if: :world_news_story?

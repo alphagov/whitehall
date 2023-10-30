@@ -42,11 +42,11 @@ module ModelHelpers
       end
     end
 
-    def should_have_first_image_pulled_out
-      test "should include the FirstImagePulledOut module" do
-        # *NOTE*. The Edition::FirstImagePulledOut module is tested separately so it
+    def should_have_custom_lead_image
+      test "should include the CustomLeadImage module" do
+        # *NOTE*. The Edition::CustomLeadImage module is tested separately so it
         # should be enough to just test its inclusion here.
-        assert class_from_test_name.ancestors.include?(Edition::FirstImagePulledOut)
+        assert class_from_test_name.ancestors.include?(Edition::CustomLeadImage)
       end
     end
 
