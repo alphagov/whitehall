@@ -73,6 +73,7 @@ group :development do
   gem "binding_of_caller"
   gem "graphviz_transitions"
   gem "mechanize"
+  gem "rubycritic", require: false
 end
 
 group :test do
