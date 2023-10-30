@@ -244,6 +244,8 @@ Whitehall::Application.routes.draw do
       get :new_document_options, to: "new_document#new_document_options_redirect"
       post :new_document_options, to: "new_document#new_document_options_redirect"
 
+      get "/more" => "more#index", as: :more
+
       resources :statistics_announcements, except: [:destroy] do
         member do
           get :cancel
