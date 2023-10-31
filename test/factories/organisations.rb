@@ -22,7 +22,7 @@ FactoryBot.define do
 
     trait(:with_default_news_image) do
       after :build do |organisation|
-        organisation.default_news_image_new = build(:featured_image_data)
+        organisation.default_news_image = build(:featured_image_data)
       end
     end
 
@@ -62,6 +62,7 @@ FactoryBot.define do
 
   factory :organisation_with_logo, parent: :organisation, traits: [:with_logo]
   factory :organisation_with_logo_and_assets, parent: :organisation, traits: [:with_logo_and_assets]
+  factory :organisation_with_default_news_image, parent: :organisation, traits: [:with_default_news_image]
   factory :closed_organisation, parent: :organisation, traits: [:closed]
 
   factory :ministerial_department, parent: :organisation do

@@ -19,7 +19,7 @@ class CreateAssetRelationshipWorkerTest < ActiveSupport::TestCase
     organisation = build_organisation_with_default_and_featured_image
 
     @worker.perform(0, organisation.id)
-    assert_equal 7, Asset.where(assetable_type: "FeaturedImageData", assetable_id: organisation.default_news_image_new.id).count
+    assert_equal 7, Asset.where(assetable_type: "FeaturedImageData", assetable_id: organisation.default_news_image.id).count
   end
 
   it("should skip Organisation if default_news_organisation_image_data is nil") do
@@ -39,7 +39,7 @@ class CreateAssetRelationshipWorkerTest < ActiveSupport::TestCase
     Sidekiq.logger.expects(:warn).times(7).with(regexp_matches(/big-cheese.960x640.jpg/))
 
     default_news_image_data = create(:default_news_organisation_image_data, file: File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg")))
-    create(:organisation, default_news_image: default_news_image_data, default_news_image_new: @featured_image_data)
+    create(:organisation, default_news_image_old: default_news_image_data, default_news_image: @featured_image_data)
     organisation_with_image = build_organisation_with_default_and_featured_image
 
     Services.asset_manager.stubs(:whitehall_asset).with(&ends_with("big-cheese.960x640.jpg")).raises(GdsApi::HTTPNotFound, "Error message")
@@ -72,5 +72,5 @@ def stub_assets(variant, default_news_image_data)
 end
 
 def build_organisation_with_default_and_featured_image
-  create(:organisation, default_news_image: @default_news_image_data, default_news_image_new: @featured_image_data)
+  create(:organisation, default_news_image_old: @default_news_image_data, default_news_image: @featured_image_data)
 end

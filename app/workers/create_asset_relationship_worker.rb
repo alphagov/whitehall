@@ -15,9 +15,9 @@ class CreateAssetRelationshipWorker < WorkerBase
 
     organisations.each do |organisation|
       variants.each do |variant|
-        legacy_path = get_legacy_path(organisation.default_news_image.file, variant)
+        legacy_path = get_legacy_path(organisation.default_news_image_old.file, variant)
         asset_info = get_whitehall_asset_data(legacy_path)
-        save_asset_id_to_assets(organisation.default_news_image_new.id, assetable_type, Asset.variants[variant], asset_info[:asset_manager_id], asset_info[:filename])
+        save_asset_id_to_assets(organisation.default_news_image.id, assetable_type, Asset.variants[variant], asset_info[:asset_manager_id], asset_info[:filename])
         asset_counter += 1
       rescue GdsApi::HTTPNotFound
         logger.warn "#{assetable_type} of id##{organisation.id} - could not find asset variant :#{variant} at path #{legacy_path}"

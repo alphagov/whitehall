@@ -412,8 +412,7 @@ module PublishingApi
     end
 
     def default_news_image
-      return unless item.default_news_image
-      return { url: default_news_image_url } if default_news_image_is_svg?
+      return unless item.default_news_image && item.default_news_image.all_asset_variants_uploaded?
 
       {
         url: default_news_image_url(:s300),
@@ -423,11 +422,6 @@ module PublishingApi
 
     def default_news_image_url(size = nil)
       size ? item.default_news_image.file.url(size) : item.default_news_image.file.url
-    end
-
-    def default_news_image_is_svg?
-      content_type = item.default_news_image.file.content_type
-      content_type && content_type =~ /svg/
     end
   end
 end

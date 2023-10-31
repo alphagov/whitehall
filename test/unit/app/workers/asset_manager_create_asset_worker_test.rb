@@ -182,9 +182,9 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
   test "should publish model when the last file is created if the model inherits PublishesToPublishingApi module" do
     organisation = create(:organisation, :with_default_news_image)
-    last_asset = organisation.default_news_image_new.assets.last.destroy
+    last_asset = organisation.default_news_image.assets.last.destroy
     asset_params = {
-      assetable_id: organisation.default_news_image_new.id,
+      assetable_id: organisation.default_news_image.id,
       asset_variant: last_asset.variant,
       assetable_type: FeaturedImageData.to_s,
     }.deep_stringify_keys
@@ -199,9 +199,9 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
   test "should not publish model if all assets variant are not uploaded and the model inherits PublishesToPublishingApi module" do
     organisation = create(:organisation, :with_default_news_image)
-    last_asset = organisation.default_news_image_new.assets.destroy_all.last
+    last_asset = organisation.default_news_image.assets.destroy_all.last
     asset_params = {
-      assetable_id: organisation.default_news_image_new.id,
+      assetable_id: organisation.default_news_image.id,
       asset_variant: last_asset.variant,
       assetable_type: FeaturedImageData.to_s,
     }.deep_stringify_keys
