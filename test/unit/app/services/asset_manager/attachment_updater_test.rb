@@ -22,21 +22,28 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
 
-      it "sets the expected attributes when the attachment has been replaced" do
-        attachment.attachment_data.replace_with!(AttachmentData.create!(file: File.open(fixture_path.join("sample.docx"))))
+      context "and the attachment has been replaced" do
+        it "ensures replaced attachment data is still accessible for the publicly visible edition" do
+          replacement = create(:attachment_data)
+          replaced_attachment_data = attachment.attachment_data
 
-        # Draft should be set to false when the attachment data has been replaced to ensure the data is updated in asset manager
-        expected_attribute_hash = {
-          "access_limited_organisation_ids" => [],
-          "draft" => false,
-          "parent_document_url" => edition.public_url(draft: true),
-        }
+          attachment.attachment_data.replace_with!(replacement)
+          attachment.attachment_data = replacement
+          attachment.save!
 
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+          replaced_attachment_data.reload
+
+          expected_attribute_hash = {
+            "access_limited_organisation_ids" => [],
+            "draft" => false,
+          }
+
+          replaced_attachment_data.assets.each do |asset|
+            AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, replaced_attachment_data, nil, expected_attribute_hash)
+          end
+
+          AssetManager::AttachmentUpdater.call(replaced_attachment_data)
         end
-
-        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
     end
 
