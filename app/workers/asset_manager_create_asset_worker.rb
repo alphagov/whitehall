@@ -35,12 +35,13 @@ private
   end
 
   def enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
+    if assetable_type == Organisation.to_s
+      publish_document(Organisation.find(assetable_id), Organisation.find(assetable_id))
+    end
+
     if assetable_type == FeaturedImageData.to_s
       assetable = FeaturedImageData.find(assetable_id)
-      featured_imageable = assetable.featured_imageable
-      if featured_imageable.class.ancestors.include?(PublishesToPublishingApi) && assetable.all_asset_variants_uploaded? && featured_imageable.can_publish_to_publishing_api?
-        PublishingApiWorker.perform_async(featured_imageable.class.to_s, featured_imageable.id)
-      end
+      publish_document(assetable.featured_imageable, FeaturedImageData.find(assetable_id))
     end
 
     if attachable_model_class
@@ -50,6 +51,12 @@ private
         attachment_data = AttachmentData.find(assetable_id)
         AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id)
       end
+    end
+  end
+
+  def publish_document(document, assetable)
+    if assetable.all_asset_variants_uploaded? && document.class.ancestors.include?(PublishesToPublishingApi) && document.can_publish_to_publishing_api?
+      PublishingApiWorker.perform_async(document.class.to_s, document.id)
     end
   end
 

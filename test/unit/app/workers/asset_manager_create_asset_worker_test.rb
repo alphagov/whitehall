@@ -197,6 +197,22 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, asset_params, true, nil, nil)
   end
 
+  test "should publish the Organisation when the last asset of the logo is uploaded to Asset Manager" do
+    organisation = create(:organisation, :with_logo)
+    asset_params = {
+      assetable_id: organisation.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: Organisation.to_s,
+    }.deep_stringify_keys
+
+    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
+    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
+
+    PublishingApiWorker.expects(:perform_async).with("Organisation", organisation.id)
+
+    @worker.perform(@file.path, asset_params, true, nil, nil)
+  end
+
   test "should not publish model if all assets variant are not uploaded and the model inherits PublishesToPublishingApi module" do
     organisation = create(:organisation, :with_default_news_image)
     last_asset = organisation.default_news_image.assets.destroy_all.last
