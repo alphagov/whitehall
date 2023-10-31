@@ -55,9 +55,15 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
     edition_lead_image = build(:edition_lead_image)
     edition = build(:news_article, image_display_option: "no_image", edition_lead_image:)
 
+    edition.stubs(:images).returns([edition_lead_image.image])
+
     edition_lead_image
     .expects(:destroy!)
     .once
+
+    edition
+    .expects(:build_edition_lead_image)
+    .never
 
     edition.update_lead_image
   end
@@ -65,24 +71,38 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
   test "#update_lead_image deletes the associated edition_lead_image if image_display_option is 'organisation_image'" do
     edition_lead_image = build(:edition_lead_image)
     edition = build(:news_article, image_display_option: "organisation_image", edition_lead_image:)
+    edition.stubs(:images).returns([edition_lead_image.image])
 
     edition_lead_image
     .expects(:destroy!)
     .once
+
+    edition
+    .expects(:build_edition_lead_image)
+    .never
 
     edition.update_lead_image
   end
 
   test "#update_lead_image returns nil if lead_image is present" do
     edition = build(:news_article)
-    build(:image)
-    edition.stubs(:lead_image).returns(edition)
+    image = build(:image)
+    edition.stubs(:lead_image).returns(image)
+
+    edition
+    .expects(:build_edition_lead_image)
+    .never
 
     assert_nil edition.update_lead_image
   end
 
   test "#update_lead_image returns nil if no images are present" do
     edition = build(:news_article)
+
+    edition
+    .expects(:build_edition_lead_image)
+    .never
+
     assert_nil edition.update_lead_image
   end
 end

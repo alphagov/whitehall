@@ -15,7 +15,10 @@ module Edition::CustomLeadImage
   end
 
   def update_lead_image
-    remove_lead_image and return if %w[no_image organisation_image].include?(image_display_option)
+    if %w[no_image organisation_image].include?(image_display_option)
+      remove_lead_image
+      return
+    end
 
     return if lead_image.present? || images.blank?
 
