@@ -10,7 +10,6 @@ class Organisation < ApplicationRecord
   DEFAULT_JOBS_URL = "https://www.civilservicejobs.service.gov.uk/csr".freeze
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
-  belongs_to :default_news_image_old, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
   has_one :default_news_image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
 
   has_many :assets,
@@ -213,7 +212,7 @@ class Organisation < ApplicationRecord
 
     # If the default news organisation image changes we need to republish all
     # news articles belonging to the organisation
-    if saved_change_to_default_news_organisation_image_data_id?
+    if default_news_image && default_news_image.changed?
       documents = NewsArticle
         .in_organisation(self)
         .includes(:images)

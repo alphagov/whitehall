@@ -432,7 +432,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     cached_filename = "big-cheese.960x640.jpg"
     cached_default_news_image = build(:featured_image_data, file: upload_fixture(cached_filename, "image/png"))
     Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => replacement_filename)
-    cached_organisation = FactoryBot.build(:organisation, default_news_image: cached_default_news_image)
 
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
@@ -442,29 +441,27 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
            id: organisation.id,
            organisation: {
              default_news_image_attributes: { file: upload_fixture(replacement_filename, "image/png"),
-                                              file_cache: cached_organisation.default_news_image.file_cache },
+                                              file_cache: cached_default_news_image.file_cache },
            },
          }
   end
 
   test "POST: create - discards default new organisation image in cache if it is present" do
-    attributes = example_organisation_attributes
     filename = "big-cheese.960x640.jpg"
+    cached_default_news_image = build(:featured_image_data)
+
     Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => filename)
-
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/minister-of-funk.960x640/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/big-cheese.960x640.jpg/), anything, anything, anything, anything, anything).times(7)
-
-    cached_organisation = FactoryBot.build(:organisation_with_default_news_image)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{filename}/), anything, anything, anything, anything, anything).times(7)
 
     post :create,
-         params: attributes.merge({
+         params: example_organisation_attributes.merge({
            organisation: {
              name: "new",
              logo_formatted_name: "name",
              organisation_type_key: :executive_agency,
              default_news_image_attributes: { file: upload_fixture(filename, "image/png"),
-                                              file_cache: cached_organisation.default_news_image.file_cache },
+                                              file_cache: cached_default_news_image.file_cache },
            },
          })
   end
