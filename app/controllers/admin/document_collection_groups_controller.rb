@@ -11,15 +11,12 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
         :non_whitehall_link,
       ],
     )
-
-    render :index
   end
 
   def show; end
 
   def new
     @group = @collection.groups.build
-    render :new
   end
 
   def create
@@ -33,9 +30,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     end
   end
 
-  def edit
-    render :edit
-  end
+  def edit; end
 
   def update
     @group.update!(document_collection_group_params)
@@ -65,9 +60,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   end
 
   def confirm_destroy
-    redirect_to admin_document_collection_groups_path(@collection) and return unless @collection.groups.many?
-
-    render :confirm_destroy
+    redirect_to admin_document_collection_groups_path(@collection) unless @collection.groups.many?
   end
 
 private
