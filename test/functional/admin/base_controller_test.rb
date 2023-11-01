@@ -13,6 +13,39 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_select ".govuk-header__navigation-item", text: "Dashboard"
   end
 
+  view_test "highlights the 'Dashboard' tab when it is the currently selected tab- Main navigation" do
+    login_as_preview_design_system_user :gds_editor
+    @controller = Admin::DashboardController.new
+
+    get :index
+
+    assert_active_item("/government/admin")
+    assert_not_active_item("/government/admin/users")
+    assert_not_active_item("/government/admin/users/1")
+  end
+
+  view_test "highlights the 'All users' tab when it is the currently selected tab- Main navigation" do
+    login_as_preview_design_system_user :gds_editor
+    @controller = Admin::UsersController.new
+
+    get :index
+
+    assert_active_item("/government/admin/users")
+    assert_not_active_item("/government/admin")
+    assert_not_active_item("/government/admin/users/1")
+  end
+
+  view_test "highlights the current user name tab when it is the currently selected tab-Main navigation" do
+    user = login_as_preview_design_system_user :gds_editor
+    @controller = Admin::UsersController.new
+
+    get :show, params: { id: user.id }
+
+    assert_active_item("/government/admin/users/#{user.id}")
+    assert_not_active_item("/government/admin")
+    assert_not_active_item("/government/admin/users")
+  end
+
   view_test "renders new sub-navigation header component if login as a design system user" do
     login_as_preview_design_system_user :gds_editor, create(:organisation, name: "my-test-org")
     @controller = Admin::NewDocumentController.new
@@ -28,7 +61,7 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_select ".app-c-sub-navigation__list .app-c-sub-navigation__list-item a[href=\"/government/admin/more\"]", text: "More"
   end
 
-  view_test "highlights the 'New documents' tab when it is the currently selected tab" do
+  view_test "highlights the 'New documents' tab when it is the currently selected tab- Sub-navigation" do
     login_as_preview_design_system_user :gds_editor, create(:organisation, name: "my-test-org")
     @controller = Admin::NewDocumentController.new
 
@@ -42,7 +75,7 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_not_current_item("/government/admin/more")
   end
 
-  view_test "highlights the 'Documents' tab when it is the currently selected tab" do
+  view_test "highlights the 'Documents' tab when it is the currently selected tab- Sub-navigation" do
     login_as_preview_design_system_user :gds_editor, create(:organisation, name: "my-test-org")
     @controller = Admin::EditionsController.new
 
@@ -56,7 +89,7 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_not_current_item("/government/admin/more")
   end
 
-  view_test "highlights the 'Statistics announcements' tab when it is the currently selected tab" do
+  view_test "highlights the 'Statistics announcements' tab when it is the currently selected tab- Sub-navigation" do
     login_as_preview_design_system_user :gds_editor, create(:organisation, name: "my-test-org")
     @controller = Admin::StatisticsAnnouncementsController.new
 
@@ -70,7 +103,7 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_not_current_item("/government/admin/more")
   end
 
-  view_test "highlights the 'Features' tab when it is the currently selected tab" do
+  view_test "highlights the 'Features' tab when it is the currently selected tab- Sub-navigation" do
     my_test_org = create(:organisation, name: "my-test-org")
     login_as_preview_design_system_user :gds_editor, my_test_org
     @controller = Admin::OrganisationsController.new
@@ -85,7 +118,7 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_not_current_item("/government/admin/more")
   end
 
-  view_test "highlights the 'Corporate information pages' tab when it is the currently selected tab" do
+  view_test "highlights the 'Corporate information pages' tab when it is the currently selected tab- Sub-navigation" do
     my_test_org = create(:organisation, name: "my-test-org")
     login_as_preview_design_system_user :gds_editor, my_test_org
     @controller = Admin::CorporateInformationPagesController.new
@@ -100,7 +133,7 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_not_current_item("/government/admin/more")
   end
 
-  view_test "highlights the 'More' tab when it is the currently selected tab" do
+  view_test "highlights the 'More' tab when it is the currently selected tab- Sub-navigation" do
     login_as_preview_design_system_user :gds_editor, create(:organisation, name: "my-test-org")
     @controller = Admin::MoreController.new
 
@@ -152,5 +185,13 @@ private
 
   def assert_current_item(path)
     assert_select ".app-c-sub-navigation__list-item--current a[href=\"#{path}\"]"
+  end
+
+  def assert_not_active_item(path)
+    assert_select ".govuk-header__navigation-item--active a[href=\"#{path}\"]", false
+  end
+
+  def assert_active_item(path)
+    assert_select ".govuk-header__navigation-item--active a[href=\"#{path}\"]"
   end
 end

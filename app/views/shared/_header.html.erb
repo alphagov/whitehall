@@ -1,15 +1,13 @@
 <% environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment %>
 <% admin_template ||= false %>
 <% organisation = current_user&.organisation %>
+<% user = current_user %>
 
 <%= render "govuk_publishing_components/components/layout_header", {
   product_name: "Whitehall Publisher",
   environment: environment,
   navigation_items: [
-    {
-      text: "Dashboard",
-      href: admin_root_path,
-    },
+    main_nav_item("Dashboard", admin_root_path),
     {
       text: "View website",
       href: Whitehall.public_root,
@@ -20,19 +18,14 @@
     },
     *(
       if user_signed_in?
-        [{
-           text: current_user.name,
-           href: admin_user_path(current_user),
-         },
-         {
-           text: "Logout",
-           href: "/auth/gds/sign_out",
-         }]
+        [
+          main_nav_item(user.name, admin_user_path(user)),
+          {
+            text: "Logout",
+            href: "/auth/gds/sign_out",
+          }]
       end),
-    {
-      text: "All users",
-      href: admin_users_path,
-    },
+    main_nav_item("All users", admin_users_path),
   ],
 } %>
 
