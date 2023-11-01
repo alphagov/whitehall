@@ -53,7 +53,6 @@ Whitehall::Application.routes.draw do
           put :order, on: :collection
         end
         post "whitehall-member" => "document_collection_group_memberships#create_whitehall_member", as: :new_whitehall_member
-        post "groups/update_memberships" => "document_collection_groups#update_memberships", as: :update_group_memberships
       end
 
       resources :organisations do

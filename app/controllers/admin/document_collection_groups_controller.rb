@@ -70,36 +70,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     render :confirm_destroy
   end
 
-  def update_memberships
-    add_moved_groups
-    reorder_groups
-    respond_to do |format|
-      format.html { render :legacy_index }
-      format.json { render json: { result: :success } }
-    end
-  end
-
 private
-
-  def add_moved_groups
-    params[:groups].each do |_key, group_params|
-      group = @collection.groups.find(group_params[:id])
-      new_ids = membership_ids(group_params) - group.membership_ids
-      group.membership_ids += new_ids
-    end
-  end
-
-  def reorder_groups
-    params[:groups].each do |_key, group_params|
-      group = @collection.groups.find(group_params[:id])
-      group.ordering = group_params[:order]
-      group.set_membership_ids_in_order! membership_ids(group_params)
-    end
-  end
-
-  def membership_ids(group_params)
-    group_params.fetch(:membership_ids, []).map(&:to_i)
-  end
 
   def load_document_collection
     @collection = DocumentCollection.find(params[:document_collection_id])
