@@ -13,39 +13,9 @@ class Admin::EditionImages::UploadedImagesComponent < ViewComponent::Base
     @lead_image ||= can_have_lead_image? ? @edition.lead_image : nil
   end
 
-  def lead_image_hash
-    image_to_hash(lead_image, 0) if lead_image
-  end
-
   def document_images
     @document_images ||= (@edition.images - [lead_image].compact)
                           .map.with_index(1) { |image, index| image_to_hash(image, index) }
-  end
-
-  def new_image_display_option
-    if @edition.image_display_option == "no_image" && @edition.images.present?
-      "custom_image"
-    elsif @edition.image_display_option == "no_image"
-      "organisation_image"
-    else
-      "no_image"
-    end
-  end
-
-  def update_image_display_option_button_text
-    if @edition.images.present?
-      return "#{new_image_display_option == 'no_image' ? 'Hide' : 'Show'} lead image"
-    end
-
-    "#{new_image_display_option == 'no_image' ? 'Remove lead' : 'Use default'} image"
-  end
-
-  def lead_image_guidance
-    if @edition.type == "CaseStudy"
-      tag.p("Using a lead image is optional and can be shown or hidden. The first image you upload is used as the lead image.", class: "govuk-body") + tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
-    else
-      tag.p("The first image you upload is used as the lead image.", class: "govuk-body") + tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
-    end
   end
 
 private

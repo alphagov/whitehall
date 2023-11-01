@@ -14,28 +14,6 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
     assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='no_image']", visible: :hidden
   end
 
-  test "has the correct hidden field for toggling 'image_display_option' when it's 'no_image' and no images have been to the case study" do
-    edition = build_stubbed(:draft_case_study, image_display_option: "no_image")
-    render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
-
-    assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='organisation_image']", visible: :hidden
-  end
-
-  test "has the correct hidden field for toggling 'image_display_option' when it's 'organisation_image' and no images have been to the case study" do
-    edition = build_stubbed(:draft_case_study, image_display_option: "organisation_image")
-    render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
-
-    assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='no_image']", visible: :hidden
-  end
-
-  test "has the correct hidden field for toggling 'image_display_option' when it's 'no_image' and an image has been to the case study" do
-    image = build_stubbed(:image)
-    edition = build_stubbed(:draft_case_study, image_display_option: "no_image", images: [image])
-    render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
-
-    assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='custom_image']", visible: :hidden
-  end
-
   test "lead image not rendered for publication" do
     images = [build_stubbed(:image), build_stubbed(:image)]
     edition = build_stubbed(:draft_publication, images:)
