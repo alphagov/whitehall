@@ -104,7 +104,7 @@ private
       :alt_text,
       :edition_id,
       :offsite_link_id,
-      image_attributes: %i[file file_cache],
+      image_attributes: %i[file],
     )
   end
 end

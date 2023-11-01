@@ -6,7 +6,7 @@ class TopicalEventFeaturing < ApplicationRecord
 
   accepts_nested_attributes_for :image, reject_if: :all_blank
 
-  validates :image, presence: true
+  validate :image_is_present
   validates :alt_text, presence: true, allow_blank: true
   validates :alt_text, length: { maximum: 255 }
 
@@ -47,5 +47,9 @@ class TopicalEventFeaturing < ApplicationRecord
 
   def republish_topical_event_to_publishing_api
     Whitehall::PublishingApi.republish_async(topical_event)
+  end
+
+  def image_is_present
+    errors.add(:"image.file", "can't be blank") if image.blank?
   end
 end
