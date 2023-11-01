@@ -210,18 +210,6 @@ class Organisation < ApplicationRecord
         .perform_async(about_us.document_id)
     end
 
-    # If the default news organisation image changes we need to republish all
-    # news articles belonging to the organisation
-    if default_news_image && default_news_image.changed?
-      documents = NewsArticle
-        .in_organisation(self)
-        .includes(:images)
-        .where(images: { id: nil })
-        .map(&:document)
-
-      documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
-    end
-
     # If the alternative format contact email is changed, we need to republish
     # all attachments belonging to the organisation
     if saved_change_to_alternative_format_contact_email?
