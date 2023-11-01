@@ -17,6 +17,10 @@ module Edition::CustomLeadImage
     edition_lead_image.save!
   end
 
+  def non_lead_images
+    images - [lead_image].compact
+  end
+
 private
 
   def oldest_image

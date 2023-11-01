@@ -88,4 +88,12 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
 
     assert_nil edition.update_lead_image
   end
+
+  test "#non_lead_images returns images which are not lead images" do
+    image1 = build(:image)
+    image2 = build(:image)
+    edition = build(:news_article, images: [image1, image2], lead_image: image1)
+
+    assert_equal [image2], edition.non_lead_images
+  end
 end

@@ -1,0 +1,28 @@
+ <li class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <img src="<%= image.url %>" alt="<%= preview_alt_text %>" class="app-view-edition-resource__preview">
+    <% unless image.image_data&.all_asset_variants_uploaded? %>
+      <span class="govuk-tag govuk-tag--green">Processing</span>
+    <% end %>
+  </div>
+
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
+    <p class="govuk-body"><strong>Alt text: </strong><%= alt_text %></p>
+    <%= render "govuk_publishing_components/components/copy_to_clipboard", {
+      label: tag.strong("Markdown code:"),
+      copyable_content: image_markdown,
+      button_text: "Copy Markdown",
+    } %>
+  </div>
+
+  <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
+    <% links.each do |link| %>
+      <%= link %>
+    <% end %>
+  </div>
+</li>
+
+<% unless last_image %>
+  <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
+<% end %>
