@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_30_075543) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_31_222012) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -728,7 +728,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_075543) do
     t.string "analytics_identifier"
     t.boolean "handles_fatalities", default: false
     t.integer "important_board_members", default: 1
-    t.integer "default_news_organisation_image_data_id"
     t.datetime "closed_at", precision: nil
     t.integer "organisation_brand_colour_id"
     t.boolean "ocpa_regulated"
@@ -747,7 +746,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_075543) do
     t.boolean "political", default: false
     t.integer "ministerial_ordering"
     t.index ["content_id"], name: "index_organisations_on_content_id", unique: true
-    t.index ["default_news_organisation_image_data_id"], name: "index_organisations_on_default_news_organisation_image_data_id"
     t.index ["organisation_logo_type_id"], name: "index_organisations_on_organisation_logo_type_id"
     t.index ["organisation_type_key"], name: "index_organisations_on_organisation_type_key"
     t.index ["slug"], name: "index_organisations_on_slug", unique: true

@@ -41,7 +41,13 @@ private
 
     if assetable_type == FeaturedImageData.to_s
       assetable = FeaturedImageData.find(assetable_id)
-      publish_document(assetable.featured_imageable, FeaturedImageData.find(assetable_id))
+      featured_imageable = assetable.featured_imageable
+      if assetable.featured_imageable_type.to_s == Organisation.to_s
+        # If the default news organisation image changes we need to republish all
+        # news articles belonging to the organisation
+        republish_news_articles_with_default_news_image(featured_imageable)
+      end
+      publish_document(featured_imageable, FeaturedImageData.find(assetable_id))
     end
 
     if attachable_model_class
@@ -52,6 +58,15 @@ private
         AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id)
       end
     end
+  end
+
+  def republish_news_articles_with_default_news_image(featured_imageable)
+    documents = NewsArticle
+                  .in_organisation(featured_imageable)
+                  .includes(:images)
+                  .where(images: { id: nil })
+                  .map(&:document)
+    documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
   end
 
   def publish_document(document, assetable)

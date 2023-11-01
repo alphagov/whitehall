@@ -167,12 +167,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert organisation.errors[:logo].present?
   end
 
-  test "can have a default news article image legacy" do
-    image = build(:default_news_organisation_image_data)
-    organisation = build(:organisation, default_news_image_old: image)
-    assert_equal image, organisation.default_news_image_old
-  end
-
   test "can have a default news article image" do
     image = build(:featured_image_data)
     organisation = build(:organisation, default_news_image: image)
@@ -1075,7 +1069,7 @@ class OrganisationTest < ActiveSupport::TestCase
     end
 
     organisation.update!(
-      default_news_image_old: create(:default_news_organisation_image_data),
+      default_news_image: create(:featured_image_data),
     )
   end
 
