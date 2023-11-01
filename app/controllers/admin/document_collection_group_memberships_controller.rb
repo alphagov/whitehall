@@ -58,33 +58,6 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
 
 private
 
-  def moving?
-    params[:commit] == "Move"
-  end
-
-  def delete_from_old_group(membership_ids)
-    ids = @group.membership_ids - membership_ids
-    @group.set_membership_ids_in_order!(ids)
-  end
-
-  def move_to_new_group(membership_ids)
-    ids = new_group.membership_ids + membership_ids
-    new_group.set_membership_ids_in_order!(ids)
-  end
-
-  def success_message(membership_ids)
-    count = "#{membership_ids.size} #{'document'.pluralize(membership_ids.size)}"
-    if moving?
-      "#{count} moved to '#{new_group.heading}'"
-    else
-      "#{count} removed from '#{@group.heading}'"
-    end
-  end
-
-  def new_group
-    @collection.groups.find(params[:new_group_id])
-  end
-
   def load_document_collection
     @collection = DocumentCollection.includes(document: :latest_edition).find(params[:document_collection_id])
   end
