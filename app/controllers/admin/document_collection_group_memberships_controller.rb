@@ -21,22 +21,6 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     end
   end
 
-  def create_non_whitehall_member
-    govuk_link = DocumentCollectionNonWhitehallLink::GovukUrl.new(
-      url: params[:url],
-      document_collection_group: @group,
-    )
-    if govuk_link.save
-      redirect_to admin_document_collection_groups_path(@collection),
-                  notice: "'#{govuk_link.title}' added to '#{@group.heading}'"
-    else
-      flash[:url] = params[:url]
-      flash[:open_non_whitehall] = true
-      redirect_to admin_document_collection_groups_path(@collection),
-                  alert: "#{govuk_link.errors.full_messages.join('. ')}."
-    end
-  end
-
   def create_member_by_govuk_url
     govuk_link = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: params[:document_url],
