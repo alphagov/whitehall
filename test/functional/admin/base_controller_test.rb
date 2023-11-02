@@ -167,16 +167,6 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_select ".app-c-sub-navigation__list .app-c-sub-navigation__list-item a[href=\"/government/admin/more\"]"
   end
 
-  view_test "renders legacy header component if login as a non design system user" do
-    login_as :gds_editor
-    @controller = Admin::NewDocumentController.new
-
-    get :index
-
-    assert_select ".govuk-header__navigation-item", false
-    assert_select ".nav.navbar-nav", text: /Dashboard/
-  end
-
 private
 
   def assert_not_current_item(path)

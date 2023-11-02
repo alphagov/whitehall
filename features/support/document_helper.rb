@@ -17,11 +17,9 @@ module DocumentHelper
   def begin_drafting_document(options)
     create(:organisation) if Organisation.count.zero?
     visit admin_root_path
-    # Make sure the dropdown is visible first, otherwise Capybara won't see the links
-    find("li.create-new a", text: "New document").click
-    within "li.create-new" do
-      click_link options[:type].humanize
-    end
+    find("li.app-c-sub-navigation__list-item a", text: "New document").click
+    page.choose(options[:type].humanize)
+    click_button("Next")
 
     if options[:locale]
       check "Create a foreign language only"
