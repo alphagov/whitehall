@@ -4,6 +4,8 @@ class TopicalEventFeaturing < ApplicationRecord
   belongs_to :topical_event, inverse_of: :topical_event_featurings
   belongs_to :image, class_name: "TopicalEventFeaturingImageData", foreign_key: :topical_event_featuring_image_data_id
 
+  has_one :image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+
   accepts_nested_attributes_for :image, reject_if: :all_blank
 
   validates :image, presence: true
