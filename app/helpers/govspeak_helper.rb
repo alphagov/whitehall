@@ -52,7 +52,7 @@ module GovspeakHelper
       .select { |image| image.image_data&.all_asset_variants_uploaded? }
       .map do |image|
       {
-        id: image.image_data.carrierwave_image,
+        id: image.filename,
         image_data_id: image.image_data_id,
         edition_id: image.edition_id,
         alt_text: image.alt_text,
