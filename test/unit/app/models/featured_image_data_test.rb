@@ -52,4 +52,12 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
     assert_not featured_image_data.all_asset_variants_uploaded?
   end
+
+  test "should not delete previous images when FeaturedImageData is updated" do
+    featured_image_data = create(:featured_image_data)
+
+    AssetManagerDeleteAssetWorker.expects(:perform_async).never
+
+    featured_image_data.update!(file: upload_fixture("images/960x640_jpeg.jpg"))
+  end
 end
