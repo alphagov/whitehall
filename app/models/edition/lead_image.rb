@@ -19,16 +19,16 @@ module Edition::LeadImage
   end
 
   def lead_image_alt_text
-    if images.first.try(:alt_text)
-      images.first.alt_text.squish
+    if lead_image.try(:alt_text)
+      lead_image.alt_text.squish
     else
       ""
     end
   end
 
   def lead_image_caption
-    if images.first
-      caption = images.first.caption && images.first.caption.strip
+    if lead_image
+      caption = lead_image.caption && lead_image.caption.strip
       caption.presence
     end
   end
@@ -58,8 +58,8 @@ private
   end
 
   def image_data
-    if images.first
-      images.first.image_data
+    if lead_image
+      lead_image.image_data
     elsif lead_organisations.any? && lead_organisations.first.default_news_image
       lead_organisations.first.default_news_image
     elsif organisations.any? && organisations.first.default_news_image
