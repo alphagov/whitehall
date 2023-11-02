@@ -208,10 +208,12 @@ class ActionController::TestCase
 
   include Admin::EditionRoutesHelper
 
-  attr_reader :current_user
+  attr_reader :current_user, :feature_flags
 
   setup do
     request.env["warden"] = stub(authenticate!: false, authenticated?: false, user: nil)
+
+    @feature_flags = Flipflop::FeatureSet.current.test!
 
     # In controller tests, stub out all calls to the content store. This
     # implies that by default we don't care about responses from this endpoint,

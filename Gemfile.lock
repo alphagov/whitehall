@@ -200,6 +200,9 @@ GEM
     ffi (1.15.5)
     filelock (1.1.1)
     find_a_port (1.0.1)
+    flipflop (2.7.1)
+      activesupport (>= 4.0)
+      terminal-table (>= 1.8)
     fog-aws (3.21.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
@@ -967,6 +970,7 @@ DEPENDENCIES
   equivalent-xml
   erb_lint
   factory_bot
+  flipflop
   fog-aws
   friendly_id
   fuzzy_match
