@@ -15,4 +15,8 @@
 .app-view-edition-resource__actions {
   margin-top: govuk-spacing(2);
   margin-bottom: 0;
+
+  .app-view-edition-resource__actions__link {
+    align-self: center;
+  }
 }

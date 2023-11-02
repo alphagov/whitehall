@@ -38,17 +38,12 @@
             secondary_solid: true,
             margin_bottom: 4,
           } %>
+        <% end %>
+      <% end %>
 
-          <% if lead_image.present? %>
-            <% links.each do |link| %>
-              <%= link %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% elsif lead_image.present? %>
-        <% links.each do |link| %>
-          <%= link %>
-        <% end %>
+      <% if lead_image.present? %>
+        <%= link_to("Edit details", edit_admin_edition_image_path(edition, lead_image), class: "govuk-link app-view-edition-resource__actions__link") %>
+        <%= link_to("Delete image", confirm_destroy_admin_edition_image_path(edition, lead_image), class: "govuk-link gem-link--destructive app-view-edition-resource__actions__link") %>
       <% end %>
     </div>
   </div>

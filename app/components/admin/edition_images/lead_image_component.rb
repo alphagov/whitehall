@@ -15,9 +15,11 @@ private
 
   def lead_image_guidance
     if case_study?
-      tag.p("Using a lead image is optional and can be shown or hidden. The first image you upload is used as the lead image.", class: "govuk-body") + tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
+      tag.p("Using a lead image is optional. To use a lead image either select the default image for your organisation or upload an image and select it as the lead image.", class: "govuk-body") +
+        tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
     else
-      tag.p("The first image you upload is used as the lead image.", class: "govuk-body") + tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
+      tag.p("Any image you upload can be selected as the lead image. If you do not select a new lead image, the default image for your organisation will be used.", class: "govuk-body") +
+        tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
     end
   end
 
@@ -75,12 +77,5 @@ private
 
   def edition_has_images?
     edition.images.present?
-  end
-
-  def links
-    links = []
-    links << link_to("Edit details", edit_admin_edition_image_path(edition, lead_image), class: "govuk-link")
-    links << link_to("Delete image", confirm_destroy_admin_edition_image_path(edition, lead_image), class: "govuk-link gem-link--destructive")
-    links
   end
 end

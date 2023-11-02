@@ -16,7 +16,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     edition = build_stubbed(:draft_case_study)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
-    first_para = "Using a lead image is optional and can be shown or hidden. The first image you upload is used as the lead image."
+    first_para = "Using a lead image is optional. To use a lead image either select the default image for your organisation or upload an image and select it as the lead image."
     second_para = "The lead image appears at the top of the document. The same image cannot be used in the body text."
 
     assert_selector ".govuk-details__text .govuk-body:nth-child(1)", text: first_para, visible: :hidden
@@ -27,7 +27,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     edition = build_stubbed(:draft_news_article)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
-    first_para = "The first image you upload is used as the lead image."
+    first_para = "Any image you upload can be selected as the lead image. If you do not select a new lead image, the default image for your organisation will be used."
     second_para = "The lead image appears at the top of the document. The same image cannot be used in the body text."
 
     assert_selector ".govuk-details__text .govuk-body:nth-child(1)", text: first_para, visible: :hidden
