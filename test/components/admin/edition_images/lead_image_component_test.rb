@@ -120,4 +120,51 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']", count: 0
     assert_selector "input[type='hidden'][name='edition[image_display_option]']", visible: :hidden, count: 0
   end
+
+  test "case studies renders the organisations default_lead_image when image_display_option is 'organisation_image'" do
+    image = build(:featured_image_data)
+    organisation = build(:organisation, default_news_image: image)
+    edition = create(:draft_case_study, image_display_option: "organisation_image", lead_organisations: [organisation])
+    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
+
+    assert_selector ".app-c-edition-images-lead-image-component__default_lead_image img[alt='Default organisation image']"
+    assert_selector ".app-c-edition-images-lead-image-component__default_lead_image .govuk-hint", text: "Default image for your organisation"
+  end
+
+  test "case studies renders the organisations default_lead_image when image_display_option is nil and no lead image is present" do
+    image = build(:featured_image_data)
+    organisation = build(:organisation, default_news_image: image)
+    edition = create(:draft_case_study, image_display_option: nil, lead_organisations: [organisation])
+    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
+
+    assert_selector ".app-c-edition-images-lead-image-component__default_lead_image img[alt='Default organisation image']"
+    assert_selector ".app-c-edition-images-lead-image-component__default_lead_image .govuk-hint", text: "Default image for your organisation"
+  end
+
+  test "case studies doesn't render the organisations default_lead_image when image_display_option is 'no_image'" do
+    image = build(:featured_image_data)
+    organisation = build(:organisation, default_news_image: image)
+    edition = create(:draft_case_study, image_display_option: "no_image", lead_organisations: [organisation])
+    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
+
+    assert_selector ".app-c-edition-images-lead-image-component__default_lead_image", count: 0
+  end
+
+  test "news articles renders the organisations default_lead_image no lead image has been selected" do
+    image = build(:featured_image_data)
+    organisation = build(:organisation, default_news_image: image)
+    edition = create(:draft_news_article, lead_organisations: [organisation])
+    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
+
+    assert_selector ".app-c-edition-images-lead-image-component__default_lead_image img[alt='Default organisation image']"
+    assert_selector ".app-c-edition-images-lead-image-component__default_lead_image .govuk-hint", text: "Default image for your organisation"
+  end
+
+  test "news articles doesn't render the organisations default_lead_image when one is not present" do
+    organisation = build(:organisation, default_news_image: nil)
+    edition = create(:draft_news_article, lead_organisations: [organisation])
+    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
+
+    assert_selector ".app-c-edition-images-lead-image-component__default_lead_image", count: 0
+  end
 end

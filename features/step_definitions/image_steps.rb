@@ -8,6 +8,16 @@ Given("a draft case study with images exists") do
   @edition = create(:draft_case_study, body: "!!2", images:, lead_image: images.first)
 end
 
+Given("an organisation with a default news image exists") do
+  default_news_image = build(:featured_image_data)
+  @organisation = create(:organisation, default_news_image:)
+end
+
+And("the organisation has a draft case study with images") do
+  images = [build(:image), build(:image)]
+  @edition = create(:draft_case_study, images:, lead_organisations: [@organisation])
+end
+
 When("I visit the images tab of the document with images") do
   visit admin_edition_images_path(@edition)
 end
@@ -63,8 +73,12 @@ Then "I should see the updated image details" do
   expect(page).to have_content("Test caption")
 end
 
-Then "I should see a button to select a lead image" do
+Then "I should see a button to select a custom lead image" do
   assert_selector ".govuk-button", text: "Select as lead image", count: 2
+end
+
+And "I should see a button to choose to use the default image" do
+  assert_selector ".govuk-button", text: "Use default image", count: 1
 end
 
 And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
@@ -118,5 +132,11 @@ end
 Then(/^I can see that the image with alt text "([^"]*)" is the lead image$/) do |alt_text|
   within ".app-c-edition-images-lead-image-component__lead_image" do
     expect(page).to have_content alt_text
+  end
+end
+
+Then(/^I should see the organisations default news image$/) do
+  within ".app-c-edition-images-lead-image-component__default_lead_image" do
+    assert_selector "img", count: 1
   end
 end

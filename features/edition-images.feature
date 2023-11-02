@@ -26,10 +26,13 @@ Feature: Images tab on edit edition
     Then I should see the updated image details
 
   Scenario: Lead image setting can be updated from the images tab
-    And a draft case study with images exists
+    And an organisation with a default news image exists
+    And the organisation has a draft case study with images
     When I visit the images tab of the document with images
-    And I click to hide the lead image
-    Then I should see a button to select a lead image
+    Then I should see the organisations default news image
+    When I click to hide the lead image
+    Then I should see a button to select a custom lead image
+    And I should see a button to choose to use the default image
 
   Scenario: User selects a new lead image
     And a draft case study with images with the alt text "First image uploaded" and "Second image uploaded" exists

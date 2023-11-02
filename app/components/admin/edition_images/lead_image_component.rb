@@ -27,6 +27,10 @@ private
     edition.type == "CaseStudy"
   end
 
+  def news_article?
+    edition.type == "NewsArticle"
+  end
+
   def lead_image
     @lead_image ||= edition.lead_image
   end
@@ -37,6 +41,14 @@ private
 
   def alt_text
     lead_image.alt_text.presence || "None"
+  end
+
+  def show_default_lead_image?
+    if case_study?
+      edition.emphasised_organisation_default_image_available? && [nil, "organisation_image"].include?(edition.image_display_option)
+    elsif news_article?
+      edition.has_lead_image?
+    end
   end
 
   def new_image_display_option
@@ -53,6 +65,10 @@ private
 
   def new_image_display_option_is_no_image?
     new_image_display_option == "no_image"
+  end
+
+  def render_resource_actions?
+    case_study? || lead_image.present?
   end
 
   def edition_has_images?
