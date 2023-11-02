@@ -123,10 +123,6 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     topical_event = create(:topical_event, :with_logo)
     logo = topical_event.logo
 
-    logo.assets
-        .pluck(:asset_manager_id)
-        .map { |id| AssetManagerDeleteAssetWorker.expects(:perform_async).with(anything, id).once }
-
     put :update, params: {
       id: topical_event,
       topical_event: {

@@ -195,9 +195,8 @@ class AssetManagerIntegrationTest
       end
     end
 
-    test "removes the original images from asset manager" do
-      Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
-      Services.asset_manager.expects(:delete_asset).with("asset-id").times(7)
+    test "does not remove the original images from asset manager because other pages (e.g. Speech) might be using it" do
+      Services.asset_manager.expects(:delete_asset).never
 
       @person.image = File.open(fixture_path.join("big-cheese.960x640.jpg"))
 
