@@ -29,7 +29,7 @@ Feature: Images tab on edit edition
     And a draft case study with images exists
     When I visit the images tab of the document with images
     And I click to hide the lead image
-    Then I should see a button to show the lead image
+    Then I should see a button to select a lead image
 
   Scenario: User selects a new lead image
     And a draft case study with images with the alt text "First image uploaded" and "Second image uploaded" exists

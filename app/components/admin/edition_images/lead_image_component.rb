@@ -40,13 +40,7 @@ private
   end
 
   def new_image_display_option
-    @new_image_display_option ||= if image_display_option_is_no_image? && edition_has_images?
-                                    "custom_image"
-                                  elsif image_display_option_is_no_image?
-                                    "organisation_image"
-                                  else
-                                    "no_image"
-                                  end
+    @new_image_display_option ||= image_display_option_is_no_image? ? "organisation_image" : "no_image"
   end
 
   def image_display_option_is_no_image?
@@ -54,21 +48,7 @@ private
   end
 
   def update_image_display_option_button_text
-    return image_display_option_button_text_when_image_has_been_uploaded if edition_has_images?
-
-    image_display_option_button_text_when_no_images_uploaded
-  end
-
-  def image_display_option_button_text_when_image_has_been_uploaded
-    return "Hide lead image" if new_image_display_option_is_no_image?
-
-    "Show lead image"
-  end
-
-  def image_display_option_button_text_when_no_images_uploaded
-    return "Remove lead image" if new_image_display_option_is_no_image?
-
-    "Use default image"
+    new_image_display_option_is_no_image? ? "Remove lead image" : "Use default image"
   end
 
   def new_image_display_option_is_no_image?

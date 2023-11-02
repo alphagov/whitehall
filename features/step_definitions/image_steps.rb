@@ -5,7 +5,7 @@ end
 
 Given("a draft case study with images exists") do
   images = [build(:image), build(:image)]
-  @edition = create(:draft_case_study, body: "!!2", images:)
+  @edition = create(:draft_case_study, body: "!!2", images:, lead_image: images.first)
 end
 
 When("I visit the images tab of the document with images") do
@@ -39,7 +39,7 @@ When("I click to edit the details of an image") do
 end
 
 When("I click to hide the lead image") do
-  find("button", text: "Hide lead image").click
+  find("button", text: "Remove lead image").click
 end
 
 When("I confirm the deletion") do
@@ -63,8 +63,8 @@ Then "I should see the updated image details" do
   expect(page).to have_content("Test caption")
 end
 
-Then "I should see a button to show the lead image" do
-  expect(page).to have_content("Show lead image")
+Then "I should see a button to select a lead image" do
+  assert_selector ".govuk-button", text: "Select as lead image", count: 2
 end
 
 And(/^I upload a (\d+)x(\d+) image$/) do |width, height|

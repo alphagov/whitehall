@@ -82,6 +82,15 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     end
   end
 
+  test "case studies has the correct fields when image_display_option is 'no_image' and images have been uploaded" do
+    image = build_stubbed(:image)
+    edition = build_stubbed(:draft_case_study, image_display_option: "no_image", images: [image])
+    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
+
+    assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='organisation_image']", visible: :hidden
+    assert_selector ".govuk-button", text: "Use default image"
+  end
+
   test "case studies has the correct fields when image_display_option is 'organisation_image' and no images have been uploaded" do
     edition = build_stubbed(:draft_case_study, image_display_option: "organisation_image")
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
@@ -92,25 +101,14 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     end
   end
 
-  test "case studies has the correct fields when image_display_option is 'no_image' and images have been uploaded" do
-    image = build_stubbed(:image)
-    edition = build_stubbed(:draft_case_study, image_display_option: "no_image", images: [image])
-    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
-
-    assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']" do
-      assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='custom_image']", visible: :hidden
-      assert_selector ".govuk-button", text: "Show lead image"
-    end
-  end
-
   test "case studies has the correct fields when image_display_option is 'custom_image' and images have been uploaded" do
     image = build_stubbed(:image)
-    edition = build_stubbed(:draft_case_study, image_display_option: "custom_image", images: [image])
+    edition = build_stubbed(:draft_case_study, image_display_option: "custom_image", images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']" do
       assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='no_image']", visible: :hidden
-      assert_selector ".govuk-button", text: "Hide lead image"
+      assert_selector ".govuk-button", text: "Remove lead image"
     end
   end
 
