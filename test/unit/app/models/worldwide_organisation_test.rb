@@ -41,7 +41,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "can have a default news article image" do
-    image = build(:default_news_organisation_image_data)
+    image = build(:featured_image_data)
     worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
     assert_equal image, worldwide_organisation.default_news_image
   end
@@ -334,7 +334,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     end
 
     world_organisation.update!(
-      default_news_image: create(:default_news_organisation_image_data),
+      default_news_image: create(:featured_image_data),
     )
   end
 
