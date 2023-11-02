@@ -720,6 +720,11 @@ EXISTS (
     is_a?(Edition::CustomLeadImage)
   end
 
+  def images_have_unique_filenames?
+    names = images.map(&:filename)
+    names.uniq.length == names.length
+  end
+
 private
 
   def date_for_government

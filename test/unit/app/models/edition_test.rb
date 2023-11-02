@@ -978,6 +978,22 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.can_have_custom_lead_image?
   end
 
+  test "images_have_unique_filenames? returns true if image filenames are unique" do
+    image1 = build(:image)
+    image2 = build(:image, image_data: build(:image_data, file: upload_fixture("big-cheese.960x640.jpg")))
+    edition = build(:draft_news_article, images: [image1, image2])
+
+    assert_equal true, edition.images_have_unique_filenames?
+  end
+
+  test "images_have_unique_filenames? returns false if some images have duplicate filenames" do
+    image1 = build(:image)
+    image2 = build(:image)
+    edition = build(:draft_news_article, images: [image1, image2])
+
+    assert_equal false, edition.images_have_unique_filenames?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

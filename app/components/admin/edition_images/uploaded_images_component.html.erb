@@ -3,52 +3,7 @@
   font_size: "l",
 } %>
 
-<% if can_have_lead_image? %>
-  <%= render "govuk_publishing_components/components/heading", {
-    text: "Lead image",
-    font_size: "m",
-    padding: true,
-  } %>
-
-  <%= render "govuk_publishing_components/components/details", {
-        title: "Using a lead image",
-      } do %>
-    <% lead_image_guidance %>
-  <% end %>
-<% end %>
-
-<div class="govuk-grid-row">
-  <% if lead_image_hash %>
-    <div class="govuk-grid-column-one-third">
-      <img src="<%= lead_image_hash[:url] %>" alt="<%= lead_image_hash[:preview_alt_text] %>" class="app-view-edition-resource__preview">
-      <% unless lead_image_hash[:all_image_asset_variants_uploaded] %><span class="govuk-tag govuk-tag--green">Processing</span><% end %>
-    </div>
-    <div class="govuk-grid-column-two-thirds">
-      <p class="govuk-body"><strong>Caption: </strong><%= lead_image_hash[:caption] %></p>
-      <p class="govuk-body"><strong>Alt text: </strong><%= lead_image_hash[:alt_text] %></p>
-    </div>
-  <% end %>
-
-  <% if lead_image_hash || @edition.type == "CaseStudy" %>
-    <%= form_with(url: update_image_display_option_admin_edition_path(@edition), method: :patch) do |form| %>
-      <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
-        <% if @edition.type == "CaseStudy" %>
-          <%= hidden_field_tag "edition[image_display_option]", new_image_display_option %>
-          <%= render "govuk_publishing_components/components/button", {
-            text: update_image_display_option_button_text,
-            secondary_solid: true,
-            margin_bottom: 4,
-          } %>
-        <% end %>
-
-        <% if lead_image_hash %>
-          <% lead_image_hash[:links].each do |link| %><%= link %><% end %>
-        <% end %>
-      </div>
-    <% end %>
-  <% end %>
-
-</div>
+<%= render Admin::EditionImages::LeadImageComponent.new(edition: edition) %>
 
 <%= render "govuk_publishing_components/components/heading", {
   text: "Images available to use in document",
@@ -56,7 +11,7 @@
   padding: true,
 } %>
 
-<% if document_images %>
+<% if document_images.present? %>
   <%= render "govuk_publishing_components/components/inset_text", {
     text: "Copy the image markdown code to add images to the document body.",
     margin_top: 0,
@@ -64,27 +19,7 @@
 
   <ul class="govuk-list">
     <% document_images.each do |image| %>
-      <li class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
-          <img src="<%= image[:url] %>" alt="<%= image[:preview_alt_text] %>" class="app-view-edition-resource__preview">
-          <% unless image[:all_image_asset_variants_uploaded] %><span class="govuk-tag govuk-tag--green">Processing</span><% end %>
-        </div>
-        <div class="govuk-grid-column-two-thirds">
-          <p class="govuk-body"><strong>Caption: </strong><%= image[:caption] %></p>
-          <p class="govuk-body"><strong>Alt text: </strong><%= image[:alt_text] %></p>
-          <%= render "govuk_publishing_components/components/copy_to_clipboard", {
-            label: tag.strong("Markdown code:"),
-            copyable_content: image[:markdown],
-            button_text: "Copy Markdown",
-          } %>
-        </div>
-        <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
-          <% image[:links].each do |link| %><%= link %><% end %>
-        </div>
-      </li>
-      <% if image != document_images.last %>
-        <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
-      <% end %>
+      <%= render Admin::EditionImages::ImageComponent.new(edition: edition, image: image, last_image: image == document_images.last) %>
     <% end %>
   </ul>
 <% else %>
