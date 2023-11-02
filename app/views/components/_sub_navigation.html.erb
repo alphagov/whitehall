@@ -1,20 +1,16 @@
 <%
   items ||= []
 %>
-<%= tag.div class: "govuk-grid-row app-c-sub-navigation" do %>
-  <%= tag.div class: "govuk-grid-column-full" do %>
-    <%= tag.nav role: "navigation", aria: { label: "Sub Navigation" } do %>
-      <%= tag.ul class: "app-c-sub-navigation__list" do %>
-        <% items.each do |item| %>
-          <%
-            item_classes = %w( app-c-sub-navigation__list-item )
-            item_classes << "app-c-sub-navigation__list-item--current" if item[:current]
-            item_aria_attributes = { current: "page" } if item[:current]
-          %>
-          <%= tag.li class: item_classes do %>
-            <%= link_to item[:label], item[:href], class: "govuk-link govuk-link--no-visited-state govuk-link--no-underline app-c-sub-navigation__list-item-link", data: item[:data_attributes], aria: item_aria_attributes %>
-          <% end %>
-        <% end %>
+<%= tag.nav class: "app-c-sub-navigation", role: "navigation", aria: { label: "Sub Navigation" } do %>
+  <%= tag.ul class: "app-c-sub-navigation__list" do %>
+    <% items.each do |item| %>
+      <%
+        item_classes = %w( app-c-sub-navigation__list-item )
+        item_classes << "app-c-sub-navigation__list-item--current" if item[:current]
+        item_aria_attributes = { current: "page" } if item[:current]
+      %>
+      <%= tag.li class: item_classes do %>
+        <%= link_to item[:label], item[:href], class: "govuk-link govuk-link--no-visited-state govuk-link--no-underline app-c-sub-navigation__list-item-link", data: item[:data_attributes], aria: item_aria_attributes %>
       <% end %>
     <% end %>
   <% end %>

@@ -21,7 +21,7 @@
 <% end %>
 
 <% content_for :navbar do %>
-  <%= render "shared/header", admin_template: true %>
+  <%= render "shared/legacy_header", admin_template: true %>
   <% if t('admin.whats_new.show_banner') %>
     <div class="govuk-design-system-styling">
       <div class="<%= yield(:full_width) === "true" ? "app-width-container--full-width" : "container" %>">
