@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :featured_image_data do
     file { image_fixture_file }
+    featured_imageable { build(:topical_event) }
 
     after(:build) do |featured_image_data|
       featured_image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: "minister-of-funk.960x640.jpg")

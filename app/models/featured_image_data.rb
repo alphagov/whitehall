@@ -1,5 +1,6 @@
 class FeaturedImageData < ApplicationRecord
   mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
+
   belongs_to :featured_imageable, polymorphic: true
 
   has_many :assets,
@@ -7,6 +8,8 @@ class FeaturedImageData < ApplicationRecord
            inverse_of: :assetable
 
   validates :file, presence: true
+  validates :featured_imageable, presence: true
+
   validates_with ImageValidator, size: [960, 640]
 
   def filename
