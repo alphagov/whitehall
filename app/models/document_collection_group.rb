@@ -36,7 +36,7 @@ class DocumentCollectionGroup < ApplicationRecord
   end
 
   def self.default_attributes
-    { heading: "Collection" }
+    { heading: "Documents" }
   end
 
   def editable_members

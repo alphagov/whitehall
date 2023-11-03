@@ -3,20 +3,19 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   before_action :load_document_collection_group
   before_action :load_membership, only: %i[confirm_destroy]
   before_action :find_document, only: :create_whitehall_member
-
-  layout "design_system"
+  before_action :check_new_design_system_permissions, only: %i[index confirm_destroy create_member_by_govuk_url]
+  layout :get_layout
 
   def index; end
 
   def create_whitehall_member
     membership = DocumentCollectionGroupMembership.new(document: @document, document_collection_group: @group)
-    redirect_path = admin_document_collection_group_document_collection_group_memberships_path(@collection, @group)
     if membership.save
       title = @document.latest_edition.title
-      redirect_to redirect_path,
+      redirect_to create_redirect_path,
                   notice: "'#{title}' added to '#{@group.heading}'"
     else
-      redirect_to redirect_path,
+      redirect_to create_redirect_path,
                   alert: "#{membership.errors.full_messages.join('. ')}."
     end
   end
@@ -54,11 +53,23 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   def confirm_destroy; end
 
   def destroy
-    @membership = load_membership
-    @membership.destroy!
+    if get_layout == "design_system"
+      @membership = load_membership
+      @membership.destroy!
 
-    redirect_to admin_document_collection_group_members_path(@collection, @group),
-                notice: "Document has been removed from the group"
+      redirect_to admin_document_collection_group_members_path(@collection, @group),
+                  notice: "Document has been removed from the group"
+    else
+      membership_ids = params.fetch(:memberships, []).map(&:to_i)
+      if membership_ids.present?
+        moving? ? move_to_new_group(membership_ids) : delete_from_old_group(membership_ids)
+        redirect_to admin_document_collection_groups_path(@collection),
+                    notice: success_message(membership_ids)
+      else
+        redirect_to admin_document_collection_groups_path(@collection),
+                    alert: "Select one or more documents and try again"
+      end
+    end
   end
 
   def reorder; end
@@ -73,6 +84,28 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   end
 
 private
+
+  def create_redirect_path
+    if get_layout == "design_system"
+      admin_document_collection_group_document_collection_group_memberships_path(@collection, @group)
+    else
+      admin_document_collection_groups_path(@collection)
+    end
+  end
+
+  def get_layout
+    design_system_actions = %w[index confirm_destroy destroy reorder create_whitehall_member create_member_by_govuk_url] if preview_design_system?(next_release: false)
+
+    if design_system_actions&.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
+
+  def check_new_design_system_permissions
+    forbidden! unless new_design_system?
+  end
 
   def moving?
     params[:commit] == "Move"

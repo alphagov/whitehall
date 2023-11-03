@@ -118,7 +118,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: false,
       },
       {
-        label: "Collections",
+        label: "Collection documents",
         href: admin_document_collection_groups_path(document_collection),
         current: true,
       },

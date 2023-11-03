@@ -1,8 +1,8 @@
 class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group
-
-  layout "design_system"
+  before_action :check_new_design_system_permissions
+  layout :get_layout
 
   def search_options; end
 
@@ -43,6 +43,14 @@ private
           .merge(
             per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
           )
+  end
+
+  def check_new_design_system_permissions
+    forbidden! unless new_design_system?
+  end
+
+  def get_layout
+    preview_design_system?(next_release: false) ? "design_system" : "admin"
   end
 
   def load_document_collection
