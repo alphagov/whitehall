@@ -1,8 +1,8 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update show]
-
-  layout "design_system"
+  before_action :check_new_design_system_permissions, only: %i[show order reorder]
+  layout :get_layout
 
   def index
     @groups = @collection.groups.includes(
@@ -12,38 +12,38 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
       ],
     )
 
-    render :index
+    render_design_system(:index, :legacy_index)
   end
 
   def show; end
 
   def new
     @group = @collection.groups.build
-    render :new
+    render_design_system(:new, :legacy_new)
   end
 
   def create
     @group = @collection.groups.build(document_collection_group_params)
     if @group.save
-      flash_message = "New group has been created"
+      flash_message = get_layout == "design_system" ? "New group has been created" : "'#{@group.heading}' added"
       redirect_to admin_document_collection_groups_path(@collection),
                   notice: flash_message
     else
-      render :new
+      render_design_system(:new, :legacy_new)
     end
   end
 
   def edit
-    render :edit
+    render_design_system(:edit, :legacy_edit)
   end
 
   def update
     @group.update!(document_collection_group_params)
-    flash_message = "Group details have been updated"
+    flash_message = get_layout == "design_system" ? "Group details have been updated" : "'#{@group.heading}' saved"
     redirect_to admin_document_collection_groups_path(@collection),
                 notice: flash_message
   rescue ActiveRecord::RecordInvalid
-    render :edit
+    render_design_system(:edit, :legacy_edit)
   end
 
   def reorder; end
@@ -59,15 +59,15 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def destroy
     @group.destroy!
-    flash_message = "Group has been deleted"
+    flash_message = get_layout == "design_system" ? "Group has been deleted" : "'#{@group.heading}' was deleted"
     redirect_to admin_document_collection_groups_path(@collection),
                 notice: flash_message
   end
 
   def confirm_destroy
-    redirect_to admin_document_collection_groups_path(@collection) and return unless @collection.groups.many?
+    redirect_to admin_document_collection_groups_path(@collection) and return if get_layout == "design_system" && !@collection.groups.many?
 
-    render :confirm_destroy
+    render_design_system(:confirm_destroy, :legacy_confirm_destroy)
   end
 
   def update_memberships
@@ -80,6 +80,20 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    design_system_actions = %w[index confirm_destroy destroy new create edit update show order reorder] if preview_design_system?(next_release: false)
+
+    if design_system_actions&.include?(action_name)
+      "design_system"
+    else
+      "admin"
+    end
+  end
+
+  def check_new_design_system_permissions
+    forbidden! unless new_design_system?
+  end
 
   def add_moved_groups
     params[:groups].each do |_key, group_params|

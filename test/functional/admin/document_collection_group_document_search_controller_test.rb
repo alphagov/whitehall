@@ -9,7 +9,7 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
       state: "active",
       per_page: 15,
     }
-    @user = login_as :gds_editor
+    @user = login_as_preview_design_system_user :gds_editor
   end
 
   should_be_an_admin_controller

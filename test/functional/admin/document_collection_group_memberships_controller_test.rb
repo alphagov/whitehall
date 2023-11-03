@@ -4,7 +4,7 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
   setup do
     @collection = create(:document_collection, :with_group)
     @group = @collection.groups.first
-    login_as :writer
+    login_as_preview_design_system_user :writer
   end
 
   should_be_an_admin_controller
