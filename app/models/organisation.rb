@@ -230,6 +230,21 @@ class Organisation < ApplicationRecord
     PresentPageToPublishingApi.new.publish(PublishingApi::OrganisationsIndexPresenter)
   end
 
+  def republish_on_assets_ready
+    if all_asset_variants_uploaded?
+      publish_to_publishing_api_async
+    end
+  end
+
+  def republish_dependent_documents
+    documents = NewsArticle
+                  .in_organisation(self)
+                  .includes(:images)
+                  .where(images: { id: nil })
+                  .map(&:document)
+    documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
+  end
+
   def custom_logo_selected?
     organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
   end

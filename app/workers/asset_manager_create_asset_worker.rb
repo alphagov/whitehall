@@ -35,43 +35,15 @@ private
   end
 
   def enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
-    if assetable_type == Organisation.to_s
-      publish_document(Organisation.find(assetable_id), Organisation.find(assetable_id))
-    end
-
-    if assetable_type == FeaturedImageData.to_s
-      assetable = FeaturedImageData.find(assetable_id)
-      featured_imageable = assetable.featured_imageable
-      if assetable.featured_imageable_type.to_s == Organisation.to_s
-        # If the default news organisation image changes we need to republish all
-        # news articles belonging to the organisation
-        republish_news_articles_with_default_news_image(featured_imageable)
-      end
-      publish_document(featured_imageable, FeaturedImageData.find(assetable_id))
-    end
+    assetable = assetable_type.constantize.find(assetable_id)
+    assetable.republish_on_assets_ready if assetable.respond_to? :republish_on_assets_ready
 
     if attachable_model_class
       if attachable_model_class.constantize.ancestors.include?(Edition)
         PublishingApiDraftUpdateWorker.perform_async(attachable_model_class, attachable_model_id)
       else
-        attachment_data = AttachmentData.find(assetable_id)
-        AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id)
+        AssetManagerAttachmentMetadataWorker.perform_async(assetable_id)
       end
-    end
-  end
-
-  def republish_news_articles_with_default_news_image(featured_imageable)
-    documents = NewsArticle
-                  .in_organisation(featured_imageable)
-                  .includes(:images)
-                  .where(images: { id: nil })
-                  .map(&:document)
-    documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
-  end
-
-  def publish_document(document, assetable)
-    if assetable.all_asset_variants_uploaded? && document.class.ancestors.include?(PublishesToPublishingApi) && document.can_publish_to_publishing_api?
-      PublishingApiWorker.perform_async(document.class.to_s, document.id)
     end
   end
 
