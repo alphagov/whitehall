@@ -79,7 +79,7 @@ module Admin::TabbedNavHelper
 
   def document_collection_nav_items(edition, current_path)
     {
-      label: "Collection documents",
+      label: "Collections",
       href: admin_document_collection_groups_path(edition),
       current: current_path == admin_document_collection_groups_path(edition),
     }

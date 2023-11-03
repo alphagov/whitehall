@@ -4,11 +4,10 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   setup do
     @collection = create(:document_collection, :with_group)
     @group = @collection.groups.first
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   should_be_an_admin_controller
-  should_render_bootstrap_implementation_with_preview_next_release
 
   view_test "GET #index lists the default group when no additional groups or memberships have been added" do
     get :index, params: { document_collection_id: @collection }

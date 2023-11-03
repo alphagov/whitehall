@@ -32,7 +32,7 @@ end
 When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collection$/) do |url, title|
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
-  click_on "Collection documents"
+  click_on "Collections"
 
   base_path = URI.parse(url).path
   content_id = SecureRandom.uuid
@@ -63,7 +63,7 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   visit admin_document_collection_path(@document_collection)
 
   click_on "Edit draft"
-  click_on "Collection documents"
+  click_on "Collections"
 
   fill_in "title", with: document_title
   click_on "Find"
@@ -80,7 +80,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
 
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
-  click_on "Collection documents"
+  click_on "Collections"
 
   # Simulate drag-droping document.
   execute_script %{
@@ -105,7 +105,7 @@ Then(/^I (?:can )?view the document collection in the admin$/) do
 
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
-  click_on "Collection documents"
+  click_on "Collections"
 
   expect(page).to have_selector("h1", text: @document_collection.title)
 end
@@ -123,7 +123,7 @@ end
 Then(/^I can see in the admin that "(.*?)" is part of the document collection$/) do |document_title|
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
-  click_on "Collection documents"
+  click_on "Collections"
 
   assert_document_is_part_of_document_collection(document_title)
 end
@@ -149,7 +149,7 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   save_screenshot
 
   click_on "Edit draft"
-  click_on "Collection documents"
+  click_on "Collections"
 
   check document_title
   click_on "Remove"
