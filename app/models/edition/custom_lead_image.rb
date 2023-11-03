@@ -2,7 +2,7 @@ module Edition::CustomLeadImage
   extend ActiveSupport::Concern
 
   included do
-    validate :body_does_not_contain_lead_image_markdown
+    validate :body_does_not_contain_lead_image
   end
 
   def update_lead_image
@@ -33,21 +33,14 @@ private
     edition_lead_image.destroy!
   end
 
-  def body_does_not_contain_lead_image_markdown
-    return if lead_image.blank?
+  def body_does_not_contain_lead_image
+    return if lead_image.blank? || images.none?
 
-    if body_contains_lead_image_filename_markdown? || body_contains_lead_image_index_markdown?
+    html = Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(self)
+    doc = Nokogiri::HTML::DocumentFragment.parse(html)
+
+    if doc.css("img").any? { |img| img[:src] == lead_image.url }
       errors.add(:body, "cannot have a reference to the lead image in the text")
     end
-  end
-
-  def body_contains_lead_image_filename_markdown?
-    body.match?(/\[Image:\s*#{Regexp.escape(lead_image.filename)}\s*\]/)
-  end
-
-  def body_contains_lead_image_index_markdown?
-    lead_image_index = images.find_index(lead_image)
-
-    body.match?(/^!!#{lead_image_index + 1}([^\d]|$)/)
   end
 end

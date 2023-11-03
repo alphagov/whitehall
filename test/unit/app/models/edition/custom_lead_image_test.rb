@@ -3,11 +3,18 @@ require "test_helper"
 class Edition::CustomLeadImageTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  def edition_with_custom_lead_image(options = {})
-    image1 = build(:image)
-    image2 = build(:image)
+  def stubbed_image(name)
+    build(:image).tap do |image|
+      image.stubs(:filename).returns(name)
+      image.stubs(:url).returns("http://example.com/#{name}")
+    end
+  end
 
-    build(:draft_news_article, options.merge(images: [image1, image2], lead_image: image2))
+  def edition_with_custom_lead_image(options = {})
+    non_lead_image = stubbed_image("non_lead_image.jpg")
+    lead_image = stubbed_image("lead_image.jpg")
+
+    build(:draft_news_article, options.merge(images: [non_lead_image, lead_image], lead_image:))
   end
 
   def body_text_valid(body)
@@ -19,13 +26,13 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
     assert_not body_text_valid("foo\n!!2 \nbar")
     assert_not body_text_valid("foo\n!!2")
     assert_not body_text_valid("foo\n!!2s\nbar")
-    assert_not body_text_valid("foo\[Image: minister-of-funk.960x640.jpg]\nbar")
-    assert_not body_text_valid("foo\[Image:minister-of-funk.960x640.jpg]\nbar")
-    assert_not body_text_valid("foo\[Image:     minister-of-funk.960x640.jpg]\nbar")
-    assert_not body_text_valid("foo\[Image:  \n  minister-of-funk.960x640.jpg]\nbar")
+    assert_not body_text_valid("foo\n[Image: lead_image.jpg]\nbar")
+    assert_not body_text_valid("foo\n[Image:lead_image.jpg]\nbar")
+    assert_not body_text_valid("foo\n[Image:     lead_image.jpg]\nbar")
+    assert_not body_text_valid("foo\n[Image:  \n  lead_image.jpg]\nbar")
     assert body_text_valid("foo\n!!20\nbar")
     assert body_text_valid("foo\nfoo bar !!2\nbar")
-    assert body_text_valid("foo\[Image: anotherfilename.jpg]\nbar")
+    assert body_text_valid("foo\[Image: non_lead_image.jpg]\nbar")
   end
 
   test "#update_lead_image updates the lead_image association to the oldest image" do
