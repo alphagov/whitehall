@@ -206,7 +206,7 @@ Then(/^I can see that the heading has been updated to "(.*?)"$/) do |heading|
   expect(find(".govuk-summary-card")).to have_content heading
 end
 
-When(/^I remove the publication "(.*?)" from the group$/) do |title|
+When(/^I remove the document "(.*?)" from the group$/) do |title|
   visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
   click_link "Remove #{title}"
   click_button "Remove"
@@ -231,7 +231,6 @@ end
 
 When(/^I visit the Reorder document page/) do
   visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
-  page.should have_content "Reorder document"
   click_link("Reorder document")
 end
 
@@ -250,8 +249,11 @@ And(/^within the "([^"]*)" "([^"]*)" I set the order of the documents to:$/) do 
   collection = DocumentCollection.find_by!(title: collection_title)
   group = collection.groups.find_by!(heading: group_title)
   order.hashes.each do |hash|
-    membership = group.memberships.select { |f| f.document.latest_edition.title == hash[:name] }.first
-    fill_in "ordering[#{membership.id}]", with: hash[:order]
+    member_id = group.memberships.select { |member|
+      title = member.non_whitehall_link ? member.non_whitehall_link.title : member.document.latest_edition.title
+      title == hash[:name]
+    }.first.id
+    fill_in "ordering[#{member_id}]", with: hash[:order]
   end
 
   click_button "Save"

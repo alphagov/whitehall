@@ -5,7 +5,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with url: admin_document_collection_group_document_collection_group_membership_path(@collection, @group, @membership), method: :delete do |form| %>
-      <p class="govuk-body govuk-!-margin-bottom-6">Are you sure you want to remove "<%= @membership.document.latest_edition.title %>" from this collection?</p>
+      <p class="govuk-body govuk-!-margin-bottom-6">Are you sure you want to remove "<%= document_collection_group_member_title(@membership) %>" from this collection?</p>
 
        <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {

@@ -24,17 +24,25 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
   view_test "GET #index renders a link to add a document and a table of memberships with view and delete links" do
     document = create(:document)
     edition = create(:edition, document:)
-    membership = create(:document_collection_group_membership, document:)
-    confirm_destroy_path = confirm_destroy_admin_document_collection_group_document_collection_group_membership_path(@collection, @group, membership)
+    whitehall_membership = create(:document_collection_group_membership, document:)
+    whitehall_confirm_destroy_path = confirm_destroy_admin_document_collection_group_document_collection_group_membership_path(@collection, @group, whitehall_membership)
+
+    non_whitehall_link = create(:document_collection_non_whitehall_link, title: "Non Whitehall")
+    non_whitehall_membership = create(:document_collection_group_membership, non_whitehall_link:, document: nil)
+    non_whitehall_confirm_destroy_path = confirm_destroy_admin_document_collection_group_document_collection_group_membership_path(@collection, @group, non_whitehall_membership)
+
     document_add_search_options_path = admin_document_collection_group_search_options_path(@collection, @group)
 
-    @group.memberships << membership
+    @group.memberships << whitehall_membership
+    @group.memberships << non_whitehall_membership
 
     get :index, params: { document_collection_id: @collection, group_id: @group }
 
     assert_select ".govuk-link[href='#{document_add_search_options_path}']", text: "Add document"
     assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{edition.public_url}']", text: "View #{edition.title}"
-    assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{confirm_destroy_path}']", text: "Remove #{edition.title}"
+    assert_select ".govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='#{whitehall_confirm_destroy_path}']", text: "Remove #{edition.title}"
+    assert_select ".govuk-table__row:nth-child(2) .govuk-table__cell:nth-child(2) a[href='#{Plek.website_root + non_whitehall_link.base_path}']", text: "View #{non_whitehall_link.title}"
+    assert_select ".govuk-table__row:nth-child(2) .govuk-table__cell:nth-child(2) a[href='#{non_whitehall_confirm_destroy_path}']", text: "Remove #{non_whitehall_link.title}"
   end
 
   test "POST #create_whitehall_member adds a whitehall document to a group and redirects" do
@@ -50,17 +58,46 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     assert_match %r{couldn't find.*blah}, flash[:alert]
   end
 
-  view_test "GET :should be able to visit reorder document page" do
+  view_test "GET #reorder should be able to visit reorder document page" do
     document = create(:document)
     create(:edition, document:)
+    non_whitehall_link = create(:document_collection_non_whitehall_link)
     @collection = create(:document_collection, :with_group)
     @group = @collection.groups.first
     @group.memberships << @member_1 = create(:document_collection_group_membership, document:)
-    @group.memberships << @member_2 = create(:document_collection_group_membership, document:)
+    @group.memberships << @member_2 = create(:document_collection_group_membership, non_whitehall_link:, document: nil)
 
     get :reorder, params: { document_collection_id: @collection, group_id: @group }
+
     assert_response :success
     assert_select "h1", /Reorder documents/
+  end
+
+  view_test "GET #confirm_destroy renders deletion confirmation for whitehall document collection group member" do
+    document = create(:document)
+    create(:edition, document:, title: "Document")
+    @collection = create(:document_collection, :with_group)
+    @group = @collection.groups.first
+    @group.memberships << @member = create(:document_collection_group_membership, document:)
+
+    get :confirm_destroy, params: { document_collection_id: @collection, group_id: @group, id: @member }
+
+    assert_response :success
+    assert_select "h1", /Remove document/
+    assert_select "p", /Are you sure you want to remove "Document" from this collection?/
+  end
+
+  view_test "GET #confirm_destroy renders deletion confirmation for non-whitehall document collection group member" do
+    non_whitehall_link = create(:document_collection_non_whitehall_link, title: "Document")
+    @collection = create(:document_collection, :with_group)
+    @group = @collection.groups.first
+    @group.memberships << @member = create(:document_collection_group_membership, non_whitehall_link:, document: nil)
+
+    get :confirm_destroy, params: { document_collection_id: @collection, group_id: @group, id: @member }
+
+    assert_response :success
+    assert_select "h1", /Remove document/
+    assert_select "p", /Are you sure you want to remove "Document" from this collection?/
   end
 
   test "POST #create_member_by_govuk_url warns user when url is not from gov.uk" do

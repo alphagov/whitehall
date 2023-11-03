@@ -13,7 +13,7 @@
         items: @group.memberships.map do |membership|
           {
             id: membership.id,
-            title: membership.document.latest_edition.title,
+            title: document_collection_group_member_title(membership),
           }
         end,
       } %>

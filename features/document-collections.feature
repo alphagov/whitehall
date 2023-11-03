@@ -78,18 +78,20 @@ Feature: Grouping documents into a collection
     Then I should see "Document 1" in the list for the collection group "Group"
 
   @design-system-only
-  Scenario: Adding a document to a group via URL
+  Scenario: Adding and Removing a document to a group via URL
     Given a document collection "Collection" exists
     And the document collection "Collection" has a group with the heading "Group"
     And a GovUK Url exists "https://www.gov.uk/document-1" with title "Document 1"
     When I select to add a new document to the collection group "By URL"
     And I add URL "https://www.gov.uk/document-1" to the document collection
     Then I should see "Document 1" in the list for the collection group "Group"
+    When I remove the document "Document 1" from the group
+    Then I can see that "Document 1" has been removed from the group
 
   @design-system-only
   Scenario: Removing a document from a group
     Given a published publication called "Document to be removed" in a published document collection
-    When I remove the publication "Document to be removed" from the group
+    When I remove the document "Document to be removed" from the group
     Then I can see that "Document to be removed" has been removed from the group
 
   @design-system-only
@@ -120,9 +122,9 @@ Feature: Grouping documents into a collection
     And I search by "title" for "Document 1"
     And I add "Document 1" to the document collection
     Then I should see "Document 1" in the list for the collection group "Group"
-    When I select to add a new document to the collection group "By title"
-    And I search by "title" for "Document 2"
-    And I add "Document 2" to the document collection
+    Given a GovUK Url exists "https://www.gov.uk/document-2" with title "Document 2"
+    When I select to add a new document to the collection group "By URL"
+    And I add URL "https://www.gov.uk/document-2" to the document collection
     Then I should see "Document 2" in the list for the collection group "Group"
     Then I visit the Reorder document page
     And within the "Collection" "Group" I set the order of the documents to:
