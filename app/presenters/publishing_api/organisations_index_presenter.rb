@@ -9,6 +9,7 @@ module PublishingApi
         nil,
         title: "Departments, agencies and public bodies",
         update_type: "minor",
+        locale: :en, # Note: the organisations index page is only available in english
       ).base_attributes
 
       content.merge!(
