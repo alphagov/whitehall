@@ -222,4 +222,12 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
     assert_equal @expected_hash, presenter.content
     assert_valid_against_publisher_schema(presenter.content, "organisations_homepage")
   end
+
+  test "presents content items in English, even when locale is Welsh" do
+    I18n.with_locale(:cy) do
+      presenter = PublishingApi::OrganisationsIndexPresenter.new
+      assert_equal @expected_hash, presenter.content
+      assert_valid_against_publisher_schema(presenter.content, "organisations_homepage")
+    end
+  end
 end
