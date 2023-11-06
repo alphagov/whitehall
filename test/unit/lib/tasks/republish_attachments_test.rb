@@ -24,7 +24,7 @@ class RepublishAttachmentsRake < ActiveSupport::TestCase
     expect_csv_attachment.once
     expect_old_csv_edition.once
 
-    Rake.application.invoke_task "republish_attachments"
+    assert_output(/3 items to republish/) { Rake.application.invoke_task "republish_attachments" }
   end
 
   test "it selects documents with only the given attachment content type to be republished" do
@@ -32,7 +32,7 @@ class RepublishAttachmentsRake < ActiveSupport::TestCase
     expect_csv_attachment.once
     expect_old_csv_edition.once
 
-    Rake.application.invoke_task "republish_attachments[text/csv]"
+    assert_output(/2 items to republish/) { Rake.application.invoke_task "republish_attachments[text/csv]" }
   end
 
   test "it selects documents that are newer than the provided weeks_ago value" do
@@ -40,7 +40,7 @@ class RepublishAttachmentsRake < ActiveSupport::TestCase
     expect_csv_attachment.once
     expect_old_csv_edition.never
 
-    Rake.application.invoke_task "republish_attachments[text/csv,3]"
+    assert_output(/1 items to republish/) { Rake.application.invoke_task "republish_attachments[text/csv,3]" }
   end
 
   def expect_pdf_attachment
