@@ -40,22 +40,23 @@
   } %>
 
   <div class="govuk-!-margin-bottom-8">
-    <%= hidden_field_tag "topical_event[logo_attributes][id]", topical_event.logo.id %>
-    <%= render "components/single-image-upload", {
-      title: "Logo",
-      name: "topical_event[logo_attributes]",
-      image_id: "topical_event_logo_file",
-      image_name: "topical_event[logo_attributes][file]",
-      alt_text_name: "topical_event[logo_alt_text]",
-      alt_text_id: "topical_event_logo_alt_text",
-      filename: topical_event.logo.filename,
-      page_errors: topical_event.errors.any?,
-      error_items: errors_for(topical_event.errors, :"logo.file"),
-      image_src: topical_event.logo.file.url,
-      image_alt: topical_event.logo_alt_text,
-      image_cache_name: "topical_event[logo_attributes][file_cache]",
-      image_cache: (topical_event.logo.file_cache.presence),
-    } %>
+    <%= form.fields_for :logo do |_image_fields| %>
+      <%= render "components/single-image-upload", {
+        title: "Logo",
+        name: "topical_event[logo_attributes]",
+        image_id: "topical_event_logo_file",
+        image_name: "topical_event[logo_attributes][file]",
+        alt_text_name: "topical_event[logo_alt_text]",
+        alt_text_id: "topical_event_logo_alt_text",
+        filename: topical_event.logo.filename,
+        page_errors: topical_event.errors.any?,
+        error_items: errors_for(topical_event.errors, :"logo.file"),
+        image_src: topical_event.logo.file.url,
+        image_alt: topical_event.logo_alt_text,
+        image_cache_name: "topical_event[logo_attributes][file_cache]",
+        image_cache: (topical_event.logo.file_cache.presence),
+      } %>
+    <% end %>
   </div>
 
   <div class="govuk-!-margin-bottom-8">

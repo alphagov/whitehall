@@ -1196,4 +1196,13 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert_not organisation.all_asset_variants_uploaded?
   end
+
+  test "should not delete default news image on destroy because news articles might depend on it" do
+    organisation = create(:organisation_with_default_news_image)
+    default_news_image = organisation.default_news_image
+
+    organisation.destroy!
+
+    assert FeaturedImageData.find_by(id: default_news_image.id)
+  end
 end

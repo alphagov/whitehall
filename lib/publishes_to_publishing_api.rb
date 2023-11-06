@@ -12,6 +12,12 @@ module PublishesToPublishingApi
     persisted?
   end
 
+  def publish_to_publishing_api_async
+    if can_publish_to_publishing_api?
+      PublishingApiWorker.perform_async(self.class.to_s, id)
+    end
+  end
+
   def publish_to_publishing_api
     run_callbacks :published do
       Whitehall::PublishingApi.patch_links(self)

@@ -180,7 +180,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 
-  test "should publish model when the last file is created if the model inherits PublishesToPublishingApi module" do
+  test "should publish the Organisation when the last asset of the default news image is uploaded to Asset Manager" do
     organisation = create(:organisation, :with_default_news_image)
     last_asset = organisation.default_news_image.assets.last.destroy
     asset_params = {
@@ -213,7 +213,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, asset_params, true, nil, nil)
   end
 
-  test "should not publish model if all assets variant are not uploaded and the model inherits PublishesToPublishingApi module" do
+  test "should not publish model unless all assets variant are ready" do
     organisation = create(:organisation, :with_default_news_image)
     last_asset = organisation.default_news_image.assets.destroy_all.last
     asset_params = {

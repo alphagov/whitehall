@@ -155,6 +155,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "select#organisation_important_board_members option", count: 0
   end
 
+  view_test "GET :edit renders hidden id field for default news image" do
+    organisation = create(:organisation, :with_default_news_image)
+
+    get :edit, params: { id: organisation }
+
+    expected_hidden_field_name = "organisation[default_news_image_attributes][id]"
+    expected_hidden_field_value = organisation.default_news_image.id
+    assert_select "input[name='#{expected_hidden_field_name}'][value='#{expected_hidden_field_value}']"
+  end
+
   test "PUT on :update allows updating of organisation role ordering" do
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role)
@@ -220,6 +230,25 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
                     },
                   } }
     assert_equal "minister-of-funk.960x640.jpg", organisation.reload.default_news_image.file.file.filename
+  end
+
+  test "PUT :update updates existing default news image" do
+    organisation = create(:organisation, :with_default_news_image)
+    default_news_image = organisation.default_news_image
+
+    put :update,
+        params: {
+          id: organisation,
+          organisation: {
+            default_news_image_attributes: {
+              id: default_news_image.id,
+              file: upload_fixture("images/960x640_jpeg.jpg"),
+            },
+          },
+        }
+
+    assert_equal default_news_image.id, organisation.reload.default_news_image.id
+    assert_equal "960x640_jpeg.jpg", organisation.reload.default_news_image.filename
   end
 
   test "PUT on :update with bad params does not update the organisation and renders the edit page" do
@@ -373,7 +402,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_match(/A maximum of 6 documents will be featured on GOV.UK.*/, response.body)
   end
 
-  test "POST: create - discards file cache if file is present" do
+  test "POST: create - discards logo cache if file is present" do
     filename = "logo.png"
     Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => filename)
     cached_organisation = FactoryBot.build(:organisation_with_logo_and_assets)
@@ -394,7 +423,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal filename, Organisation.last.assets.first.filename
   end
 
-  test "POST: update - discards file cache if file is present" do
+  test "POST: update - discards logo cache if file is present" do
     organisation = FactoryBot.create(
       :organisation_with_logo_and_assets,
       logo: upload_fixture("big-cheese.960x640.jpg", "image/png"),
@@ -425,28 +454,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal replacement_filename, Organisation.last.assets.first.filename
   end
 
-  test "POST: update - discards default new organisation image cache if it is present" do
-    organisation = FactoryBot.create(:organisation_with_default_news_image)
-
-    replacement_filename = "example_fatality_notice_image.jpg"
-    cached_filename = "big-cheese.960x640.jpg"
-    cached_default_news_image = build(:featured_image_data, file: upload_fixture(cached_filename, "image/png"))
-    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => replacement_filename)
-
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
-
-    post :update,
-         params: {
-           id: organisation.id,
-           organisation: {
-             default_news_image_attributes: { file: upload_fixture(replacement_filename, "image/png"),
-                                              file_cache: cached_default_news_image.file_cache },
-           },
-         }
-  end
-
-  test "POST: create - discards default new organisation image in cache if it is present" do
+  test "POST: create - discards default news image cache if file is present" do
     filename = "big-cheese.960x640.jpg"
     cached_default_news_image = build(:featured_image_data)
 
@@ -460,9 +468,36 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
              name: "new",
              logo_formatted_name: "name",
              organisation_type_key: :executive_agency,
-             default_news_image_attributes: { file: upload_fixture(filename, "image/png"),
-                                              file_cache: cached_default_news_image.file_cache },
+             default_news_image_attributes: {
+               file: upload_fixture(filename, "image/png"),
+               file_cache: cached_default_news_image.file_cache,
+             },
            },
          })
+  end
+
+  test "POST: update - discards default news image cache if file is present" do
+    organisation = FactoryBot.create(:organisation_with_default_news_image)
+    default_news_image = organisation.default_news_image
+
+    replacement_filename = "example_fatality_notice_image.jpg"
+    cached_filename = "big-cheese.960x640.jpg"
+    cached_default_news_image = build(:featured_image_data, file: upload_fixture(cached_filename, "image/png"))
+
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => replacement_filename)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
+
+    post :update,
+         params: {
+           id: organisation.id,
+           organisation: {
+             default_news_image_attributes: {
+               id: default_news_image.id,
+               file: upload_fixture(replacement_filename, "image/png"),
+               file_cache: cached_default_news_image.file_cache,
+             },
+           },
+         }
   end
 end

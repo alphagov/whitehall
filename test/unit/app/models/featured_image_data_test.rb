@@ -60,4 +60,11 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
     featured_image_data.update!(file: upload_fixture("images/960x640_jpeg.jpg"))
   end
+
+  test "should be invalid without a featured_imageable" do
+    featured_image_data = build(:featured_image_data, featured_imageable: nil)
+
+    assert_not featured_image_data.valid?
+    assert_equal featured_image_data.errors.messages[:featured_imageable], ["can't be blank"]
+  end
 end
