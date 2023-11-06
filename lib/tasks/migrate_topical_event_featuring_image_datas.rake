@@ -1,40 +1,31 @@
-desc "Migrate topical event featurings to use FeaturedImageData with assets"
-task :migrate_topical_event_featurings, %i[start_id end_id] => :environment do |_, args|
+desc "Migrate topical event featuring image datas to use FeaturedImageData with assets"
+task :migrate_topical_event_featuring_image_datas, %i[start_id end_id] => :environment do |_, args|
   puts "Migrating topical event featurings start!"
   start_id = args[:start_id]
   end_id = args[:end_id]
 
-  topical_event_featurings = TopicalEventFeaturing.where(id: start_id..end_id).where("topical_event_featuring_image_data_id is not null")
-  puts "Number of topical event featurings found: #{topical_event_featurings.count}"
-  puts "Creating Asset for topical event featuring records from #{start_id} to #{end_id}"
+  topical_event_featuring_image_datas = TopicalEventFeaturingImageData.where(id: start_id..end_id).where("carrierwave_image is not null")
+  puts "Number of topical event featuring image datas found: #{topical_event_featuring_image_datas.count}"
+  puts "Creating Asset for topical event featuring image data records from #{start_id} to #{end_id}"
 
   count = 0
   asset_counter = 0
-  assetable_type = FeaturedImageData.to_s
 
-  topical_event_featurings.each do |topical_event_featuring|
-    # Ensure we do not replay the same migration
-    next if topical_event_featuring.image_new
-
-    all_variants = topical_event_featuring.image.file.versions.keys.push(:original)
-    assetable = FeaturedImageData.create!(
-      carrierwave_image: topical_event_featuring.image.carrierwave_image,
-      featured_imageable_type: TopicalEventFeaturing.to_s,
-      featured_imageable_id: topical_event_featuring.id,
-    )
+  topical_event_featuring_image_datas.each do |image_data|
+    all_variants = image_data.file.versions.keys.push(:original)
 
     all_variants.each do |variant|
-      path = variant == :original ? topical_event_featuring.image.file.path : topical_event_featuring.image.file.versions[variant].path
+      path = variant == :original ? image_data.file.path : image_data.file.versions[variant].path
       puts "Creating Asset for path #{path}"
-      asset_counter += 1 if save_asset(assetable, assetable_type, variant, path)
+      asset_counter += 1 if save_asset(image_data, TopicalEventFeaturingImageData.to_s, variant, path)
     end
 
     count += 1
   end
 
-  puts "Created assets for #{count} topical event featurings"
+  puts "Created assets for #{count} topical event featuring image datas"
   puts "Created asset counter #{asset_counter}"
-  puts "Migrating topical event featurings finish!"
+  puts "Migrating topical event featuring image datas finish!"
 end
 
 def save_asset(assetable, assetable_type, variant, path)
