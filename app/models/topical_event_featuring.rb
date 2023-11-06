@@ -4,11 +4,9 @@ class TopicalEventFeaturing < ApplicationRecord
   belongs_to :topical_event, inverse_of: :topical_event_featurings
   belongs_to :image, class_name: "TopicalEventFeaturingImageData", foreign_key: :topical_event_featuring_image_data_id
 
-  has_one :image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
-
   accepts_nested_attributes_for :image, reject_if: :all_blank
 
-  validates :image, presence: true
+  validate :image_is_present
   validates :alt_text, presence: true, allow_blank: true
   validates :alt_text, length: { maximum: 255 }
 
@@ -49,5 +47,9 @@ class TopicalEventFeaturing < ApplicationRecord
 
   def republish_topical_event_to_publishing_api
     Whitehall::PublishingApi.republish_async(topical_event)
+  end
+
+  def image_is_present
+    errors.add(:"image.file", "can't be blank") if image.blank?
   end
 end

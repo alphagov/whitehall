@@ -64,6 +64,7 @@ module PublishingApi
         .topical_event_featurings
         .includes(:image, edition: :document)
         .limit(FeaturedLink::DEFAULT_SET_SIZE)
+        .select { |feature| feature.image.all_asset_variants_uploaded? }
         .map do |feature|
           {
             title: feature.title,
