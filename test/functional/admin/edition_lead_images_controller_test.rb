@@ -20,7 +20,7 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     assert_equal "Lead image updated to minister-of-funk.960x640.jpg", flash[:notice]
   end
 
-  test "PATCH :update does not update the lead image when the edition is invalid " do
+  test "PATCH :update does not update the lead image when the edition is invalid" do
     login_as :writer
 
     published_edition = create(:published_case_study)
@@ -39,6 +39,24 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     assert_nil edition.reload.lead_image
     assert_redirected_to admin_edition_images_path(edition)
     assert_equal "This edition is invalid: Change note can't be blank", flash[:alert]
+  end
+
+  test "PATCH :update does not update the lead image when edition's body contains the images markdown" do
+    login_as :writer
+
+    published_edition = create(:published_case_study)
+    image = build(:image)
+    edition = create(:draft_case_study, images: [image], document: published_edition.document, body: "!!1")
+
+    Whitehall::PublishingApi
+    .expects(:save_draft)
+    .never
+
+    get :update, params: { edition_id: edition.id, id: image.id }
+
+    assert_nil edition.reload.lead_image
+    assert_redirected_to admin_edition_images_path(edition)
+    assert_equal "This edition is invalid: Body cannot have a reference to the lead image in the text", flash[:alert]
   end
 
   test "PATCH :update forbids unauthorised users" do
