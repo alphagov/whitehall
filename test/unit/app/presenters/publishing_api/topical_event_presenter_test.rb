@@ -162,6 +162,16 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     assert_equal FeaturedLink::DEFAULT_SET_SIZE, presenter.content.dig(:details, :ordered_featured_documents).length
   end
 
+  test "it ignores featured items if image variants are missing" do
+    topical_event_featuring = build(:topical_event_featuring)
+    topical_event_featuring.image.assets = []
+    topical_event_featuring.save!
+
+    presenter = PublishingApi::TopicalEventPresenter.new(topical_event_featuring.topical_event)
+
+    assert_empty presenter.content.dig(:details, :ordered_featured_documents)
+  end
+
   test "it ignores the logo if variants are missing" do
     topical_event = create(:topical_event, :with_logo)
     topical_event.logo.assets.destroy_all

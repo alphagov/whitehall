@@ -24,4 +24,26 @@ class TopicalEventFeaturingImageDataTest < ActiveSupport::TestCase
     assert topical_event_featuring_image_data
     assert_empty topical_event_featuring_image_data.errors
   end
+
+  test "#all_asset_variants_uploaded? returns true if all assets present" do
+    topical_event_featuring_image_data = build(:topical_event_featuring_image_data)
+
+    assert topical_event_featuring_image_data.all_asset_variants_uploaded?
+  end
+
+  test "#all_asset_variants_uploaded? returns false if an asset variant is missing" do
+    topical_event_featuring_image_data = build(:topical_event_featuring_image_data)
+    topical_event_featuring_image_data.assets = []
+
+    assert_not topical_event_featuring_image_data.all_asset_variants_uploaded?
+  end
+
+  test "should republish topical event when assets are ready" do
+    topical_event = create(:topical_event)
+    topical_event_featuring = topical_event.feature(image: build(:topical_event_featuring_image_data))
+
+    TopicalEvent.any_instance.expects(:publish_to_publishing_api_async).once
+
+    topical_event_featuring.image.republish_on_assets_ready
+  end
 end

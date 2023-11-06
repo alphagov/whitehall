@@ -30,4 +30,11 @@ class TopicalEventFeaturingTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
     feature.destroy!
   end
+
+  test "is not valid without an image" do
+    feature = build(:topical_event_featuring)
+    feature.image = nil
+
+    assert_not feature.valid?
+  end
 end

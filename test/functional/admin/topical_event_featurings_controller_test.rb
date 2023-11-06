@@ -137,4 +137,28 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
 
     assert_response :redirect
   end
+
+  test "POST :create saves the topical event featuring with image" do
+    offsite_link = create(:offsite_link)
+    topical_event = create(:topical_event)
+
+    assert_difference("TopicalEventFeaturing.count") do
+      post :create, params: {
+        topical_event_id: topical_event.id,
+        topical_event_featuring: {
+          alt_text: "Alt Text",
+          offsite_link_id: offsite_link.id,
+          image_attributes: {
+            file: upload_fixture("images/960x640_jpeg.jpg"),
+          },
+        },
+      }
+    end
+
+    assert_response :redirect
+
+    topical_event_featuring = TopicalEventFeaturing.last
+    assert_equal "Alt Text", topical_event_featuring.alt_text
+    assert_equal "960x640_jpeg.jpg", topical_event_featuring.image.filename
+  end
 end
