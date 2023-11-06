@@ -19,8 +19,7 @@ class WorldwideOrganisation < ApplicationRecord
 
   has_many :editions, through: :edition_worldwide_organisations
 
-  belongs_to :default_news_image, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
-  has_one :default_news_image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+  has_one :default_news_image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
@@ -43,20 +42,6 @@ class WorldwideOrganisation < ApplicationRecord
 
   extend FriendlyId
   friendly_id
-
-  after_save do
-    # If the default news organisation image changes we need to republish all
-    # news articles belonging to the worldwide organisation
-    if saved_change_to_default_news_organisation_image_data_id?
-      documents = NewsArticle
-        .in_worldwide_organisation(self)
-        .includes(:images)
-        .where(images: { id: nil })
-        .map(&:document)
-
-      documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
-    end
-  end
 
   after_commit :republish_embassies_index_page_to_publishing_api, :republish_worldwide_offices
 
@@ -151,5 +136,14 @@ class WorldwideOrganisation < ApplicationRecord
 
   def publishing_api_presenter
     PublishingApi::WorldwideOrganisationPresenter
+  end
+
+  def republish_dependent_documents
+    documents = NewsArticle
+                  .in_worldwide_organisation(self)
+                  .includes(:images)
+                  .where(images: { id: nil })
+                  .map(&:document)
+    documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
   end
 end
