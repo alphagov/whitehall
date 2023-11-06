@@ -3,7 +3,7 @@ require "test_helper"
 class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  test "presents a valid content item" do
+  def setup
     organisation_one = create(:organisation, organisation_type_key: :executive_office)
     organisation_two = create(:organisation, organisation_type_key: :ministerial_department)
     organisation_three = create(:organisation, organisation_type_key: :non_ministerial_department)
@@ -12,7 +12,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
     organisation_six = create(:organisation, organisation_type_key: :public_corporation)
     organisation_seven = create(:devolved_administration)
 
-    expected_hash = {
+    @expected_hash = {
       title: "Departments, agencies and public bodies",
       locale: "en",
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
@@ -215,9 +215,11 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
         },
       ],
     }
+  end
 
+  test "presents a valid content item" do
     presenter = PublishingApi::OrganisationsIndexPresenter.new
-    assert_equal expected_hash, presenter.content
+    assert_equal @expected_hash, presenter.content
     assert_valid_against_publisher_schema(presenter.content, "organisations_homepage")
   end
 end
