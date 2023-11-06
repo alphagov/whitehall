@@ -96,7 +96,7 @@
       remove_alt_text_field: true,
       filename: organisation.default_news_image.file.identifier,
       page_errors: organisation.errors.any?,
-      error_items: errors_for(organisation.default_news_image.errors, :default_news_image),
+      error_items: errors_for(organisation.errors, :"default_news_image.file"),
       image_src: organisation.default_news_image.file.url,
       image_cache_name: "organisation[default_news_image_attributes][file_cache]",
       image_cache: (organisation.default_news_image.file_cache.presence),
