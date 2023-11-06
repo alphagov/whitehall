@@ -25,7 +25,12 @@ module PublishingApi
     end
 
     def base_path
-      "/government/organisations"
+      case I18n.locale
+      when :en
+        "/government/organisations"
+      else
+        "/government/organisations.#{I18n.locale.to_s}"
+      end
     end
 
     def links
