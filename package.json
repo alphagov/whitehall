@@ -34,7 +34,7 @@
     "prettier": "^3.0.3",
     "standard": "^17.1.0",
     "stylelint": "^15.11.0",
-    "stylelint-config-gds": "^1.0.0"
+    "stylelint-config-gds": "^1.1.0"
   },
   "resolutions": {
     "stylelint/strip-ansi": "6.0.1",
