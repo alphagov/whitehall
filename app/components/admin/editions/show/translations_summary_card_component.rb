@@ -29,8 +29,26 @@ private
       [
         key: Locale.new(translation.locale).native_and_english_language_name,
         value: translation.title,
+        actions: row_actions(edition, translation),
       ]
     }
+    .flatten
+  end
+
+  def row_actions(edition, translation)
+    return [] unless edition.editable?
+
+    [
+      {
+        label: "Edit",
+        href: edit_admin_edition_translation_path(edition, translation.locale),
+      },
+      {
+        label: "Delete",
+        href: confirm_destroy_admin_edition_translation_path(edition, translation.locale),
+        destructive: true,
+      },
+    ]
     .flatten
   end
 end

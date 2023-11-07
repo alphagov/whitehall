@@ -42,8 +42,8 @@ class Admin::Editions::Show::TranslationsSummaryCardComponentTest < ViewComponen
     assert_selector ".govuk-summary-card__action a[href='#{new_admin_edition_translation_path(edition)}']", text: "Add translation", count: 0
   end
 
-  test "renders a summary list component with the translation name & translated title when translations exist" do
-    edition = create(:draft_publication, translated_into: %i[es fr])
+  test "renders a summary list component with no edit or delete links when edition is not editable" do
+    edition = create(:published_publication, translated_into: %i[es fr])
     render_inline(Admin::Editions::Show::TranslationsSummaryCardComponent.new(edition:))
 
     spanish_translation = edition.translations.find_by(locale: "es")
@@ -53,5 +53,21 @@ class Admin::Editions::Show::TranslationsSummaryCardComponentTest < ViewComponen
     assert_selector ".govuk-summary-list .govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: spanish_translation.title
     assert_selector ".govuk-summary-list .govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Français (French)"
     assert_selector ".govuk-summary-list .govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: french_translation.title
+    assert_selector ".govuk-summary-list__actions a", count: 0
+  end
+
+  test "renders links to edit and delete translations when edition is editable" do
+    edition = create(:draft_publication, translated_into: %i[es fr])
+    render_inline(Admin::Editions::Show::TranslationsSummaryCardComponent.new(edition:))
+
+    spanish_edit_href = edit_admin_edition_translation_path(edition, :es)
+    spanish_confirm_destroy_href = confirm_destroy_admin_edition_translation_path(edition, :es)
+    french_edit_href = edit_admin_edition_translation_path(edition, :fr)
+    french_confirm_destroy_href = confirm_destroy_admin_edition_translation_path(edition, :fr)
+
+    assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a:nth-child(1)[href='#{spanish_edit_href}']", text: "Edit Español (Spanish)"
+    assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a:nth-child(2)[href='#{spanish_confirm_destroy_href}']", text: "Delete Español (Spanish)"
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a:nth-child(1)[href='#{french_edit_href}']", text: "Edit Français (French)"
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a:nth-child(2)[href='#{french_confirm_destroy_href}']", text: "Delete Français (French)"
   end
 end
