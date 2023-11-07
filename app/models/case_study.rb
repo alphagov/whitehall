@@ -32,4 +32,8 @@ class CaseStudy < Edition
   def publishing_api_presenter
     PublishingApi::CaseStudyPresenter
   end
+
+  def emphasised_organisation_default_image_available?
+    lead_organisations.first&.default_news_image.present?
+  end
 end

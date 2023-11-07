@@ -38,11 +38,4 @@ private
   def find_image_index
     edition.images.find_index(image)
   end
-
-  def links
-    links = []
-    links << link_to("Edit details", edit_admin_edition_image_path(@edition, image), class: "govuk-link")
-    links << link_to("Delete image", confirm_destroy_admin_edition_image_path(@edition, image), class: "govuk-link gem-link--destructive")
-    links
-  end
 end

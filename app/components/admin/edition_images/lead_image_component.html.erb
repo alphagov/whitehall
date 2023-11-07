@@ -10,24 +10,35 @@
   <% lead_image_guidance %>
 <% end %>
 
-<% if lead_image.present? || case_study? %>
-  <div class="govuk-grid-row">
-    <% if lead_image.present? %>
-      <div class="app-c-edition-images-lead-image-component__lead_image">
-        <div class="govuk-grid-column-one-third">
-          <img src="<%= lead_image.url %>" alt="Lead image" class="app-view-edition-resource__preview">
-          <% unless lead_image.image_data&.all_asset_variants_uploaded? %>
-            <span class="govuk-tag govuk-tag--green">Processing</span>
-          <% end %>
-        </div>
-
-        <div class="govuk-grid-column-two-thirds">
-          <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
-          <p class="govuk-body"><strong>Alt text: </strong><%= alt_text %></p>
-        </div>
+<% if lead_image.present? %>
+  <div class="app-c-edition-images-lead-image-component__lead_image">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <img src="<%= lead_image.url %>" alt="Lead image" class="app-view-edition-resource__preview">
+        <% unless lead_image.image_data&.all_asset_variants_uploaded? %>
+          <span class="govuk-tag govuk-tag--green">Processing</span>
+        <% end %>
       </div>
-    <% end %>
 
+      <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
+        <p class="govuk-body"><strong>Alt text: </strong><%= alt_text %></p>
+      </div>
+    </div>
+  </div>
+<% elsif show_default_lead_image? %>
+  <div class="app-c-edition-images-lead-image-component__default_lead_image">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <img src="<%= edition.lead_image_url %>" alt="Default organisation image" class="app-view-edition-resource__preview">
+      </div>
+    </div>
+    <p class="govuk-hint govuk-!-margin-top-2">Default image for your organisation</p>
+  </div>
+<% end %>
+
+<% if render_resource_actions? %>
+  <div class="govuk-grid-row">
     <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
       <% if case_study? %>
         <%= form_with(url: update_image_display_option_admin_edition_path(edition), method: :patch) do |form| %>
@@ -38,17 +49,12 @@
             secondary_solid: true,
             margin_bottom: 4,
           } %>
+        <% end %>
+      <% end %>
 
-          <% if lead_image.present? %>
-            <% links.each do |link| %>
-              <%= link %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% elsif lead_image.present? %>
-        <% links.each do |link| %>
-          <%= link %>
-        <% end %>
+      <% if lead_image.present? %>
+        <%= link_to("Edit details", edit_admin_edition_image_path(edition, lead_image), class: "govuk-link app-view-edition-resource__actions__link") %>
+        <%= link_to("Delete image", confirm_destroy_admin_edition_image_path(edition, lead_image), class: "govuk-link gem-link--destructive app-view-edition-resource__actions__link") %>
       <% end %>
     </div>
   </div>

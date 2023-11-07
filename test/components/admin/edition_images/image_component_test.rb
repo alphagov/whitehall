@@ -17,6 +17,8 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     assert_selector ".app-view-edition-resource__actions a[href='#{edit_admin_edition_image_path(edition, image)}']", text: "Edit details"
     assert_selector ".app-view-edition-resource__actions a[href='#{confirm_destroy_admin_edition_image_path(edition, image)}']", text: "Delete image"
     assert_selector ".app-view-edition-resource__section-break"
+    assert_selector "form[action='#{admin_edition_lead_image_path(edition, image)}']", count: 0
+    assert_selector ".govuk-button", text: "Select as lead image", count: 0
   end
 
   test "renders placeholder text for caption and alt text when none has been provided" do
@@ -26,6 +28,16 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
 
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: None"
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(2)", text: "Alt text: None"
+  end
+
+  test "renders a form to the update lead image endpoint for case studies" do
+    image = build_stubbed(:image, caption: "caption", alt_text: "alt text")
+    edition = build_stubbed(:draft_case_study, images: [image])
+    render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
+
+    assert_selector "form[action='#{admin_edition_lead_image_path(edition, image)}']" do
+      assert_selector ".govuk-button", text: "Select as lead image"
+    end
   end
 
   test "image filename markdown displayed" do

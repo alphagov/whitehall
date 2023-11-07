@@ -16,9 +16,18 @@
     } %>
   </div>
 
-  <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
-    <% links.each do |link| %>
-      <%= link %>
+  <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group govuk-!-margin-top-4">
+    <%= link_to("Edit details", edit_admin_edition_image_path(edition, image), class: "govuk-link govuk-!-margin-top-2 app-view-edition-resource__actions__link") %>
+    <%= link_to("Delete image", confirm_destroy_admin_edition_image_path(edition, image), class: "govuk-link gem-link--destructive govuk-!-margin-top-2 app-view-edition-resource__actions__link") %>
+
+    <% if edition.can_have_custom_lead_image? %>
+      <%= form_with url: admin_edition_lead_image_path(edition, image), method: :patch do |form| %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Select as lead image",
+          secondary_solid: true,
+          margin_bottom: 4,
+        } %>
+      <% end %>
     <% end %>
   </div>
 </li>

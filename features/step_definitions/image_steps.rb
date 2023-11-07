@@ -5,7 +5,17 @@ end
 
 Given("a draft case study with images exists") do
   images = [build(:image), build(:image)]
-  @edition = create(:draft_case_study, body: "!!2", images:)
+  @edition = create(:draft_case_study, body: "!!2", images:, lead_image: images.first)
+end
+
+Given("an organisation with a default news image exists") do
+  default_news_image = build(:featured_image_data)
+  @organisation = create(:organisation, default_news_image:)
+end
+
+And("the organisation has a draft case study with images") do
+  images = [build(:image), build(:image)]
+  @edition = create(:draft_case_study, images:, lead_organisations: [@organisation])
 end
 
 When("I visit the images tab of the document with images") do
@@ -39,7 +49,7 @@ When("I click to edit the details of an image") do
 end
 
 When("I click to hide the lead image") do
-  find("button", text: "Hide lead image").click
+  find("button", text: "Remove lead image").click
 end
 
 When("I confirm the deletion") do
@@ -63,8 +73,12 @@ Then "I should see the updated image details" do
   expect(page).to have_content("Test caption")
 end
 
-Then "I should see a button to show the lead image" do
-  expect(page).to have_content("Show lead image")
+Then "I should see a button to select a custom lead image" do
+  assert_selector ".govuk-button", text: "Select as lead image", count: 2
+end
+
+And "I should see a button to choose to use the default image" do
+  assert_selector ".govuk-button", text: "Use default image", count: 1
 end
 
 And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
@@ -98,4 +112,31 @@ end
 
 Then(/^I should get (\d+) error message$/) do |count|
   expect(page).to have_selector(".gem-c-error-summary__list-item", count:)
+end
+
+Given(/^a draft case study with images with the alt text "([^"]*)" and "([^"]*)" exists$/) do |first_alt_text, second_alt_text|
+  # Unfortunately, we have to use alt text here to distinguish between the images. The assets
+  # are overwritten and stubbed out in asset_manager_helper.rb so the filename and url are always the same.
+  images = [build(:image, alt_text: first_alt_text), build(:image, alt_text: second_alt_text)]
+  @edition = create(:draft_case_study, images:)
+end
+
+And(/^I make the image with alt text "([^"]*)" the lead image$/) do |alt_text|
+  image_container = find(".govuk-body", text: alt_text).ancestor("li")
+
+  within image_container do
+    click_button "Select as lead image"
+  end
+end
+
+Then(/^I can see that the image with alt text "([^"]*)" is the lead image$/) do |alt_text|
+  within ".app-c-edition-images-lead-image-component__lead_image" do
+    expect(page).to have_content alt_text
+  end
+end
+
+Then(/^I should see the organisations default news image$/) do
+  within ".app-c-edition-images-lead-image-component__default_lead_image" do
+    assert_selector "img", count: 1
+  end
 end

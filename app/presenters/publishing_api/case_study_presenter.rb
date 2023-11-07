@@ -81,15 +81,11 @@ module PublishingApi
     end
 
     def image_available?
-      item.lead_image.present? || emphasised_organisation_default_image_available?
+      item.lead_image.present? || item.emphasised_organisation_default_image_available?
     end
 
     def image_required?
       item.image_display_option != "no_image"
-    end
-
-    def emphasised_organisation_default_image_available?
-      item.lead_organisations.first.default_news_image.present?
     end
   end
 end

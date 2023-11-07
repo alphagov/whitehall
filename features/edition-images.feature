@@ -26,10 +26,21 @@ Feature: Images tab on edit edition
     Then I should see the updated image details
 
   Scenario: Lead image setting can be updated from the images tab
-    And a draft case study with images exists
+    And an organisation with a default news image exists
+    And the organisation has a draft case study with images
     When I visit the images tab of the document with images
-    And I click to hide the lead image
-    Then I should see a button to show the lead image
+    Then I should see the organisations default news image
+    When I click to hide the lead image
+    Then I should see a button to select a custom lead image
+    And I should see a button to choose to use the default image
+
+  Scenario: User selects a new lead image
+    And a draft case study with images with the alt text "First image uploaded" and "Second image uploaded" exists
+    When I visit the images tab of the document with images
+    And I make the image with alt text "First image uploaded" the lead image
+    Then I can see that the image with alt text "First image uploaded" is the lead image
+    And I make the image with alt text "Second image uploaded" the lead image
+    Then I can see that the image with alt text "Second image uploaded" is the lead image
 
   Scenario: Image uploaded with no cropping required
     And I start drafting a new publication "Standard Beard Lengths"

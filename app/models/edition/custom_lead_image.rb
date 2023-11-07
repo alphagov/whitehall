@@ -34,12 +34,12 @@ private
   end
 
   def body_does_not_contain_lead_image
-    return if lead_image.blank? || images.none?
+    return if edition_lead_image.blank? || images.none?
 
     html = Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(self)
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
 
-    if doc.css("img").any? { |img| img[:src] == lead_image.url }
+    if doc.css("img").any? { |img| img[:src] == edition_lead_image.image.url }
       errors.add(:body, "cannot have a reference to the lead image in the text")
     end
   end
