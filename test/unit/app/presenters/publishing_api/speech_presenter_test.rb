@@ -62,17 +62,17 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       end
 
       it "contains the expected values" do
-        assert_equal("Speech title",                      presented.content[:title])
-        assert_equal("The description",                   presented.content[:description])
+        assert_equal("Speech title", presented.content[:title])
+        assert_equal("The description", presented.content[:description])
         assert_equal(Whitehall::PublishingApp::WHITEHALL, presented.content[:publishing_app])
-        assert_equal("government-frontend",               presented.content[:rendering_app])
-        assert_equal([speech.auth_bypass_id],             presented.content[:auth_bypass_ids])
+        assert_equal("government-frontend", presented.content[:rendering_app])
+        assert_equal([speech.auth_bypass_id], presented.content[:auth_bypass_ids])
 
         details = presented.content[:details]
         assert_not(details[:political])
-        assert_equal(expected_body,     details[:body])
-        assert_match(iso8601_regex,     details[:delivered_on])
-        assert_match("A location",      details[:location])
+        assert_equal(expected_body, details[:body])
+        assert_match(iso8601_regex, details[:delivered_on])
+        assert_match("A location", details[:location])
         assert_equal("Transcript of the speech, exactly as it was delivered", details[:speech_type_explanation])
 
         assert_equal("Tony", details[:image][:alt_text])
@@ -192,13 +192,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
     end
 
     describe "image" do
-      let(:person) do
-        create(
-          :person,
-          :with_image,
-          forename: "Tony",
-        )
-      end
+      let(:person) { create(:person, :with_image, forename: "Tony") }
 
       let(:speech) do
         create(
@@ -245,6 +239,14 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           details = presented.content[:details]
           assert_equal("Tony", details[:image][:alt_text])
           assert_match(/minister-of-funk.960x640.jpg$/, details[:image][:url])
+        end
+
+        test "it filters out the person image if it has missing assets" do
+          person.image.assets.destroy_all
+
+          details = presented.content[:details]
+
+          assert_nil details[:image]
         end
       end
     end

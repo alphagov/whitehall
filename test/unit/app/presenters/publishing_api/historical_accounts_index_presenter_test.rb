@@ -101,4 +101,22 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
 
     assert_equal expected_details, actual_details
   end
+
+  test "it filters out people images with missing assets" do
+    person_without_historic_account = build(:person, :with_image, forename: "A", surname: "Person without a historic account yet")
+    person_without_historic_account.image.assets = []
+    person_without_historic_account.save!
+    create(:role_appointment, person: person_without_historic_account, role: @role, started_at: Date.civil(2001), ended_at: Date.civil(2002))
+
+    expected_details = { appointments_without_historical_accounts: [
+      {
+        title: "A Person without a historic account yet",
+        dates_in_office: [{ start_year: 2001, end_year: 2002 }],
+      },
+    ] }
+
+    actual_details = PublishingApi::HistoricalAccountsIndexPresenter.new.content[:details]
+
+    assert_equal expected_details, actual_details
+  end
 end

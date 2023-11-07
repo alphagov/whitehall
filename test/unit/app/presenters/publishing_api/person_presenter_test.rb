@@ -109,4 +109,13 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       ], presented_item.content[:routes]
     end
   end
+
+  test "it filters out images with missing assets" do
+    person = create(:person, :with_image)
+    person.image.assets.destroy_all
+
+    presented_item = present(person)
+
+    assert_nil presented_item.content.dig(:details, :image)
+  end
 end
