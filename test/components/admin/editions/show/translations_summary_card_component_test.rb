@@ -41,4 +41,17 @@ class Admin::Editions::Show::TranslationsSummaryCardComponentTest < ViewComponen
 
     assert_selector ".govuk-summary-card__action a[href='#{new_admin_edition_translation_path(edition)}']", text: "Add translation", count: 0
   end
+
+  test "renders a summary list component with the translation name & translated title when translations exist" do
+    edition = create(:draft_publication, translated_into: %i[es fr])
+    render_inline(Admin::Editions::Show::TranslationsSummaryCardComponent.new(edition:))
+
+    spanish_translation = edition.translations.find_by(locale: "es")
+    french_translation = edition.translations.find_by(locale: "fr")
+
+    assert_selector ".govuk-summary-list .govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Español (Spanish)"
+    assert_selector ".govuk-summary-list .govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: spanish_translation.title
+    assert_selector ".govuk-summary-list .govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Français (French)"
+    assert_selector ".govuk-summary-list .govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: french_translation.title
+  end
 end

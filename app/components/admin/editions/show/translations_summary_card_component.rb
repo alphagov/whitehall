@@ -23,4 +23,14 @@ private
       },
     ]
   end
+
+  def rows
+    edition.non_english_translations.map { |translation|
+      [
+        key: Locale.new(translation.locale).native_and_english_language_name,
+        value: translation.title,
+      ]
+    }
+    .flatten
+  end
 end
