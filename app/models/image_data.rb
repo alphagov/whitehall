@@ -25,11 +25,7 @@ class ImageData < ApplicationRecord
   end
 
   def auth_bypass_ids
-    images
-      .joins(:edition)
-      .where("editions.state in (?)", Edition::PRE_PUBLICATION_STATES)
-      .map { |e| e.edition.auth_bypass_id }
-      .uniq
+    images.map { |image| image.edition.auth_bypass_id }.uniq
   end
 
   def bitmap?
