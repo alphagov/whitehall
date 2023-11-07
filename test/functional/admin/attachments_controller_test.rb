@@ -170,10 +170,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "POST :create triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = valid_file_attachment_params
-    variant = Asset.variants[:original]
     model_type = AttachmentData.to_s
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => variant, "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id]).once
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:thumbnail], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
@@ -347,10 +347,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = create(:file_attachment, attachable: @edition)
-    variant = Asset.variants[:original]
     model_type = attachment.attachment_data.class.to_s
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => variant, "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:thumbnail], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
     put :update,
         params: {

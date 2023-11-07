@@ -28,6 +28,8 @@ class Admin::EditionImagesController < Admin::BaseController
     @new_image.build_image_data(image_params["image_data"])
 
     @new_image.image_data.validate_on_image = @new_image
+    # so that auth_bypass_id is discoverable by AssetManagerStorage
+    @new_image.image_data.images << @new_image
 
     if @new_image.save
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
