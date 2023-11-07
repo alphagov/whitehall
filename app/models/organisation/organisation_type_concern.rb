@@ -23,7 +23,7 @@ module Organisation::OrganisationTypeConcern
 
     scope :listable,
           lambda {
-            excluding_govuk_status_closed.with_translations(I18n.locale)
+            excluding_govuk_status_closed.with_translations(:en)
           }
 
     scope :allowed_promotional,
