@@ -201,53 +201,57 @@
   <% end %>
 
   <% if @edition.allows_attachments? %>
-    <section class="app-view-summary__section app-view-summary__section--attachments">
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Attachments",
-        heading_level: 2,
-        font_size: "l",
-        margin_bottom: 3,
-      } %>
-
-      <% if @edition.editable? %>
-        <p class="govuk-body">
-          <%= link_to("#{@edition.attachments.any? ? "Modify" : "Add"} attachments",
-                      admin_edition_attachments_path(@edition.id),
-                      class: "govuk-link",
-                      data: {
-                        module: "gem-track-click",
-                        "track-category": "button-clicked",
-                        "track-action": "#{@edition.model_name.singular.dasherize}-button",
-                        "track-label": "Modify attachments",
-                      }) %>
-        </p>
-      <% end %>
-
-      <% if @edition.attachments.any? %>
-        <%= render "govuk_publishing_components/components/table", {
-          head: [
-            {
-              text: "Title",
-            },
-            {
-              text: "Filename",
-            },
-            @edition.editable? ? {
-              text: "Actions",
-            } : nil,
-          ].compact,
-          rows: @edition.attachments.map do | attachment |
-            [
-              { text: attachment[:title] },
-              { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true, class: "govuk-link") },
-              @edition.editable? ? { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") } : nil,
-            ].compact
-          end,
+    <% if Flipflop.document_hub? %>
+      <%= render Admin::Editions::Show::AttachmentsSummaryCardComponent.new(edition: @edition) %>
+    <% else %>
+      <section class="app-view-summary__section app-view-summary__section--attachments">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Attachments",
+          heading_level: 2,
+          font_size: "l",
+          margin_bottom: 3,
         } %>
-      <% else %>
-        <p class="govuk-body">No attachments for this document</p>
-      <% end %>
-    </section>
+
+        <% if @edition.editable? %>
+          <p class="govuk-body">
+            <%= link_to("#{@edition.attachments.any? ? "Modify" : "Add"} attachments",
+                        admin_edition_attachments_path(@edition.id),
+                        class: "govuk-link",
+                        data: {
+                          module: "gem-track-click",
+                          "track-category": "button-clicked",
+                          "track-action": "#{@edition.model_name.singular.dasherize}-button",
+                          "track-label": "Modify attachments",
+                        }) %>
+          </p>
+        <% end %>
+
+        <% if @edition.attachments.any? %>
+          <%= render "govuk_publishing_components/components/table", {
+            head: [
+              {
+                text: "Title",
+              },
+              {
+                text: "Filename",
+              },
+              @edition.editable? ? {
+                text: "Actions",
+              } : nil,
+            ].compact,
+            rows: @edition.attachments.map do | attachment |
+              [
+                { text: attachment[:title] },
+                { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true, class: "govuk-link") },
+                @edition.editable? ? { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link") } : nil,
+              ].compact
+            end,
+          } %>
+        <% else %>
+          <p class="govuk-body">No attachments for this document</p>
+        <% end %>
+      </section>
+    <% end %>
   <% end %>
 
   <% if Flipflop.document_hub? %>
