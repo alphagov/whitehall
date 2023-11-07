@@ -34,8 +34,8 @@ module PublishingApi
     def details
       details_hash = {}
 
-      if item.image_url(:s465)
-        details_hash[:image] = { url: item.image_url(:s465), alt_text: item.name }
+      if item.image&.url(:s465)
+        details_hash[:image] = { url: item.image.url(:s465), alt_text: item.name }
       end
 
       details_hash.merge(

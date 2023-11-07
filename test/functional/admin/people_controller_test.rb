@@ -17,7 +17,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       assert_select "input[name='person[forename]'][type=text]"
       assert_select "input[name='person[surname]'][type=text]"
       assert_select "input[name='person[letters]'][type=text]"
-      assert_select "input[name='person[image]'][type=file]"
+      assert_select "input[name='person[image_attributes][file]'][type=file]"
       assert_select "textarea[name='person[biography]']"
     end
   end
@@ -49,10 +49,11 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
   test "creating allows attachment of an image" do
     attributes = attributes_for(:person)
-    attributes[:image] = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
+    attributes[:image_attributes] = { file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg") }
+
     post :create, params: { person: attributes }
 
-    assert_not_nil Person.last.image
+    assert_equal "minister-of-funk.960x640.jpg", Person.last.image.filename
   end
 
   test "GET on :show assigns the person and renders the show page" do
@@ -64,7 +65,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_template :show
   end
 
-  view_test "GET on :show displays the users infomration in a summary list component and renders delete and edit link" do
+  view_test "GET on :show displays the users information in a summary list component and renders delete and edit link" do
     person = create(
       :person,
       forename: "Rishi",
@@ -94,7 +95,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   view_test "editing shows form for editing a person" do
-    person = create(:person, image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
+    person = create(:person, :with_image)
     get :edit, params: { id: person }
 
     assert_select "form[action='#{admin_person_path}']" do
@@ -102,16 +103,16 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       assert_select "input[name='person[forename]'][type=text]"
       assert_select "input[name='person[surname]'][type=text]"
       assert_select "input[name='person[letters]'][type=text]"
-      assert_select "input[name='person[image]'][type=file]"
+      assert_select "input[name='person[image_attributes][file]'][type=file]"
       assert_select "textarea[name='person[biography]']"
     end
   end
 
   view_test "editing shows existing image" do
-    person = create(:person, image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
+    person = create(:person, :with_image)
     get :edit, params: { id: person }
 
-    assert_select "img[src='#{person.image_url}']"
+    assert_select "img[src='#{person.image.url}']"
   end
 
   view_test "updating with invalid data shows errors" do
@@ -128,6 +129,26 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     put :update, params: { id: person.id, person: attributes_for(:person) }
 
     assert_redirected_to admin_person_url(person)
+  end
+
+  test "PUT :update saves changes to the person and image" do
+    person = create(:person, :with_image)
+    image = person.image
+
+    put :update, params: {
+      id: person.id,
+      person: attributes_for(:person).merge(
+        image_attributes: {
+          id: image.id,
+          file: upload_fixture("images/960x640_jpeg.jpg"),
+        },
+      ),
+    }
+
+    assert_response :redirect
+
+    assert_equal image.id, person.reload.image.id
+    assert_equal "960x640_jpeg.jpg", person.reload.image.filename
   end
 
   test "should be able to destroy a destroyable person" do

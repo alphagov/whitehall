@@ -61,21 +61,22 @@
     legend_text: "Image",
     heading_size: "l",
   } do %>
-    <% if person.image_url %>
+    <% if person.image&.url %>
       <div class="app-view-edit-person__image">
-        <%= image_tag person.image_url %>
+        <%= image_tag person.image.url %>
       </div>
     <% end %>
 
     <div class="form-group">
+      <%= hidden_field_tag "person[image_attributes][id]", person.image&.id %>
       <%= render "govuk_publishing_components/components/file_upload", {
         label: {
           text: "Upload a file",
           heading_size: "m",
         },
-        name: "person[image]",
-        id: "person_image",
-        error_items: errors_for(person.errors, :image),
+        name: "person[image_attributes][file]",
+        id: "person_image_file",
+        error_items: errors_for(person.errors, :"image.file"),
       } %>
     </div>
   <% end %>

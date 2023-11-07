@@ -40,7 +40,7 @@ module PublishingApi
         { title: person.name,
           dates_in_office: person.previous_dates_in_office_for_role(role),
           image: {
-            url: person.image_url,
+            url: person.image&.url,
             alt_text: person.name,
           } }
       end

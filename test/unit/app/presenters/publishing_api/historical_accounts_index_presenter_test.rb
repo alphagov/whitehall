@@ -49,7 +49,7 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
   end
 
   test "when a historic role appointment does not yet have a historic account created, presents these in the details hash" do
-    person_without_historic_account = create(:person, forename: "A", surname: "Person without a historic account yet", image: File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
+    person_without_historic_account = create(:person, :with_image, forename: "A", surname: "Person without a historic account yet")
     create(:historic_role_appointment, person: person_without_historic_account, role: @role, started_at: Date.civil(1960), ended_at: Date.civil(1970))
     create(:historic_role_appointment, person: person_without_historic_account, role: @role, started_at: Date.civil(1990), ended_at: Date.civil(2000))
     create(:historic_role_appointment, person: person_without_historic_account, role: create(:role), started_at: Date.civil(1970), ended_at: Date.civil(1980))
@@ -76,7 +76,7 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
 
           ],
           image: {
-            url: person_without_historic_account.image_url,
+            url: person_without_historic_account.image.url,
             alt_text: "A Person without a historic account yet",
           },
         },

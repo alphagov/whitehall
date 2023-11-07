@@ -10,12 +10,12 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
   test "presents a Person ready for adding to the publishing API" do
     person = create(
       :person,
+      :with_image,
       title: "Sir",
       forename: "Winston",
       surname: "Churchill",
       letters: "PM",
       privy_counsellor: true,
-      image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
       biography: "Sir Winston Churchill was a Prime Minister.",
     )
 
@@ -37,7 +37,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
         full_name: "Sir Winston Churchill PM",
         privy_counsellor: true,
         image: {
-          url: person.image_url(:s465),
+          url: person.image.url(:s465),
           alt_text: "The Rt Hon Sir Winston Churchill PM",
         },
         body: [

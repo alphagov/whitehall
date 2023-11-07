@@ -13,11 +13,6 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal "forename surname", person.name
   end
 
-  test "should be invalid if image isn't 960x640px" do
-    person = build(:person, image: File.open(Rails.root.join("test/fixtures/horrible-image.64x96.jpg")))
-    assert_not person.valid?
-  end
-
   test "public_path returns the correct path for person" do
     person = create(:person, forename: " forename ", surname: " surname ")
     assert_equal "/government/people/forename-surname", person.public_path
@@ -42,7 +37,7 @@ class PersonTest < ActiveSupport::TestCase
     person = build(
       :person,
       slug: "stubbed",
-      image: File.open(Rails.root.join("test/fixtures/horrible-image.64x96.jpg")),
+      image: build(:featured_image_data),
       content_id: SecureRandom.uuid,
     )
     person.save!(validate: false)
@@ -75,17 +70,20 @@ class PersonTest < ActiveSupport::TestCase
 
   test "can access speeches associated via role_appointments" do
     person = create(:person)
-    speech1 = create(:draft_speech, role_appointment: create(:role_appointment, person:))
-    speech2 = create(:draft_speech, role_appointment: create(:role_appointment, person:))
+    role_appointment1 = create(:role_appointment, person:)
+    role_appointment2 = create(:role_appointment, person:)
+    speech1 = create(:draft_speech, role_appointment: role_appointment1)
+    speech2 = create(:draft_speech, role_appointment: role_appointment2)
 
     assert_equal [speech1, speech2], person.speeches
   end
 
   test "published_speeches only returns published speeches" do
     person = create(:person)
-    published_speech = create(:published_speech, role_appointment: create(:role_appointment, person:))
-    create(:draft_speech, role_appointment: create(:role_appointment, person:))
-    create(:speech, :withdrawn, role_appointment: create(:role_appointment, person:))
+    role_appointment = create(:role_appointment, person:)
+    published_speech = create(:published_speech, role_appointment:)
+    create(:draft_speech, role_appointment:)
+    create(:speech, :withdrawn, role_appointment:)
 
     assert_equal [published_speech], person.published_speeches
   end
@@ -234,27 +232,11 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal "Prime Minister and Big Cheese", person.current_role_appointments_title
   end
 
-  test "rejects SVG logo uploads" do
-    svg_image = File.open(Rails.root.join("test/fixtures/images/test-svg.svg"))
-    person = build(:person, image: svg_image)
+  test "should not destroy dependencies when person is destroyed" do
+    # Live dependencies may rely on FeaturedImageData assets, so we want to keep them.
+    person = create(:person, :with_image)
+    person.destroy!
 
-    assert_not person.valid?
-    assert_includes person.errors.map(&:full_message), "Image You are not allowed to upload \"svg\" files, allowed types: jpg, jpeg, gif, png"
-  end
-
-  test "rejects non-image file uploads" do
-    non_image_file = File.open(Rails.root.join("test/fixtures/folders.zip"))
-    person = build(:person, image: non_image_file)
-
-    assert_not person.valid?
-    assert_includes person.errors.map(&:full_message), "Image You are not allowed to upload \"zip\" files, allowed types: jpg, jpeg, gif, png"
-  end
-
-  test "accepts valid image uploads" do
-    jpg_image = File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg"))
-    person = build(:person, image: jpg_image)
-
-    assert person
-    assert_empty person.errors
+    assert_equal 1, FeaturedImageData.count
   end
 end

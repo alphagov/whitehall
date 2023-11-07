@@ -1,8 +1,6 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
 
-  mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
-
   has_many :role_appointments, -> { order(:order) }
   has_many :current_role_appointments,
            -> { where(RoleAppointment::CURRENT_CONDITION).order(:order) },
@@ -21,20 +19,19 @@ class Person < ApplicationRecord
   has_many :organisations, through: :organisation_roles
 
   has_one :historical_account, inverse_of: :person
-  has_one :image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+
+  has_one :image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+
+  accepts_nested_attributes_for :image, reject_if: :all_blank
 
   validates :name, presence: true
   validates_with SafeHtmlValidator
-
-  validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
   extend FriendlyId
   friendly_id :slug_name
 
   include TranslatableModel
   translates :biography
-
-  delegate :url, to: :image, prefix: :image
 
   before_destroy :prevent_destruction_if_appointed
   after_update :touch_role_appointments
@@ -128,10 +125,6 @@ private
 
   def name_as_words(*elements)
     elements.select(&:present?).map(&:strip).join(" ")
-  end
-
-  def image_changed?
-    changes["carrierwave_image"].present?
   end
 
   def slug_name

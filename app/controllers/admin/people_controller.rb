@@ -73,9 +73,9 @@ private
       :forename,
       :surname,
       :letters,
-      :image,
       :biography,
       :privy_counsellor,
+      image_attributes: %i[file id],
     )
   end
 
