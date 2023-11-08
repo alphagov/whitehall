@@ -763,7 +763,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.1.0)
     record_tag_helper (1.0.1)
       actionview (>= 5)
     redis (5.0.8)
