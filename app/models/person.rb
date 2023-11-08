@@ -121,6 +121,12 @@ class Person < ApplicationRecord
     PublishingApi::PersonPresenter
   end
 
+  def republish_dependent_documents
+    speeches.map { |speech| Whitehall::PublishingApi.republish_document_async(speech.document) }
+
+    historical_account&.publish_to_publishing_api_async
+  end
+
 private
 
   def name_as_words(*elements)

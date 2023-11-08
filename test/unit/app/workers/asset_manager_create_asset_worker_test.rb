@@ -233,6 +233,8 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
   test "should republish all related news article for organisations if featured image changes" do
     organisation = create(:organisation, :with_default_news_image)
     last_asset = organisation.default_news_image.assets.last
+    news_article = create(:news_article, organisations: [organisation])
+
     asset_params = {
       assetable_id: organisation.default_news_image.id,
       asset_variant: last_asset.variant,
@@ -241,7 +243,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
     Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
-    news_article = create(:news_article, organisations: [organisation])
+
     Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document)
 
     @worker.perform(@file.path, asset_params, true, nil, nil)
@@ -250,6 +252,8 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
   test "should republish all related news article for worldwide-organisations if featured image changes" do
     worldwide_organisation = create(:worldwide_organisation, :with_default_news_image)
     last_asset = worldwide_organisation.default_news_image.assets.last
+    news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
+
     asset_params = {
       assetable_id: worldwide_organisation.default_news_image.id,
       asset_variant: last_asset.variant,
@@ -258,9 +262,29 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
     Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
-    news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
 
     Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document)
+
+    @worker.perform(@file.path, asset_params, true, nil, nil)
+  end
+
+  test "should republish all related speeches and historical accounts if person featured image changes" do
+    person = create(:person, :with_image)
+    last_asset = person.image.assets.last
+    speech = create(:speech, role_appointment: create(:role_appointment, role: create(:ministerial_role), person:))
+    create(:historical_account, person:)
+
+    asset_params = {
+      assetable_id: person.image.id,
+      asset_variant: last_asset.variant,
+      assetable_type: FeaturedImageData.to_s,
+    }.deep_stringify_keys
+
+    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
+    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(speech.document)
+    HistoricalAccount.any_instance.expects(:publish_to_publishing_api_async).once
 
     @worker.perform(@file.path, asset_params, true, nil, nil)
   end
