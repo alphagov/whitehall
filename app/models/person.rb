@@ -21,6 +21,7 @@ class Person < ApplicationRecord
   has_many :organisations, through: :organisation_roles
 
   has_one :historical_account, inverse_of: :person
+  has_one :image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
 
   validates :name, presence: true
   validates_with SafeHtmlValidator
