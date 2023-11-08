@@ -171,7 +171,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     assert_equal topical_event, assigns(:topical_event)
   end
 
-  test "DELETE :destroy deletes the topical event and dependent classes" do
+  test "DELETE :destroy deletes the topical event but keeps the logo image as some other pages might depend on it" do
     topical_event = create(:topical_event, :with_logo, :with_social_media_accounts)
     logo = topical_event.logo
     social_media_account = topical_event.social_media_accounts.first
@@ -179,7 +179,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_nil TopicalEvent.find_by(id: topical_event.id)
-    assert_nil FeaturedImageData.find_by(id: logo.id)
     assert_nil SocialMediaAccount.find_by(id: social_media_account.id)
+    assert FeaturedImageData.find_by(id: logo.id)
   end
 end

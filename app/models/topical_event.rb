@@ -73,7 +73,7 @@ class TopicalEvent < ApplicationRecord
            -> { where("editions.state" => "published") },
            through: :topical_event_memberships
 
-  has_one :logo, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable, dependent: :destroy
+  has_one :logo, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
 
   accepts_nested_attributes_for :logo, reject_if: :all_blank
 
