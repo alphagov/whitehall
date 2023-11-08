@@ -51,7 +51,7 @@
         filename: topical_event.logo.filename,
         page_errors: topical_event.errors.any?,
         error_items: errors_for(topical_event.errors, :"logo.file"),
-        image_src: topical_event.logo.file.url,
+        image_src: topical_event.logo.url,
         image_alt: topical_event.logo_alt_text,
         image_cache_name: "topical_event[logo_attributes][file_cache]",
         image_cache: (topical_event.logo.file_cache.presence),
