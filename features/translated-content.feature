@@ -9,6 +9,18 @@ Feature: Providing translated content from gov.uk/government
     When I add a french translation "Échange officier de l'armée" to the "Military officer exchange" document
     Then I should see on the admin edition page that "Military officer exchange" has a french translation "Échange officier de l'armée"
 
+  Scenario: Editing a translation for draft translatable document
+    Given I am a GDS editor
+    And I have drafted a translatable document "Military officer exchange" with a french translation with the title "Échange officier de l'armée"
+    When I edit "Military officer exchange"'s french translation's title to "Ministre de l'Éducation nationale"
+    Then I should see on the admin edition page that "Military officer exchange" has a french translation "Ministre de l'Éducation nationale"
+
+  Scenario: Deleting a translation for draft translatable document
+    Given I am a GDS editor
+    And I have drafted a translatable document "Military officer exchange" with a french translation with the title "Échange officier de l'armée"
+    When I delete "Military officer exchange"'s french translation
+    Then I should see on the admin edition page that "Military officer exchange"'s french translation "Échange officier de l'armée" has been deleted
+
   Scenario: Adding a translation for contact details
     Given I am a GDS editor
     And the organisation "Wales Office" is translated into Welsh and has a contact "Wales Office, Cardiff"

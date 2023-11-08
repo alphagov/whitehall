@@ -249,7 +249,10 @@
       <% end %>
     </section>
   <% end %>
-  <% if @edition.translatable? %>
+
+  <% if Flipflop.document_hub? %>
+    <%= render Admin::Editions::Show::TranslationsSummaryCardComponent.new(edition: @edition) %>
+  <% elsif @edition.translatable? %>
     <section class="app-view-summary__section">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Translations",
