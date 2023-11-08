@@ -1205,4 +1205,12 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert FeaturedImageData.find_by(id: default_news_image.id)
   end
+
+  test "#republish_on_assets_ready should republish organisation if logo assets are ready" do
+    organisation = create(:organisation, :with_logo_and_assets)
+
+    PublishingApiWorker.expects(:perform_async).with(Organisation.to_s, organisation.id)
+
+    organisation.republish_on_assets_ready
+  end
 end

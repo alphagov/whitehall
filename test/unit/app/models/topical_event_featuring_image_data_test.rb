@@ -42,7 +42,7 @@ class TopicalEventFeaturingImageDataTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     topical_event_featuring = topical_event.feature(image: build(:topical_event_featuring_image_data))
 
-    TopicalEvent.any_instance.expects(:publish_to_publishing_api_async).once
+    PublishingApiWorker.expects(:perform_async).with(TopicalEvent.to_s, topical_event.id)
 
     topical_event_featuring.image.republish_on_assets_ready
   end
