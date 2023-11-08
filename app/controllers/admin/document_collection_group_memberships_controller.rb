@@ -1,7 +1,7 @@
 class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group
-  before_action :load_membership, only: %i[confirm_destroy]
+  before_action :load_membership, only: %i[confirm_destroy destroy]
   before_action :find_document, only: :create_whitehall_member
 
   layout "design_system"
@@ -38,10 +38,8 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   def confirm_destroy; end
 
   def destroy
-    @membership = load_membership
     @membership.destroy!
-
-    redirect_to admin_document_collection_group_members_path(@collection, @group),
+    redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
                 notice: "Document has been removed from the group"
   end
 
@@ -53,7 +51,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     end
 
     flash_message = "Document has been reordered"
-    redirect_to admin_document_collection_group_members_path(@collection), notice: flash_message
+    redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection), notice: flash_message
   end
 
 private

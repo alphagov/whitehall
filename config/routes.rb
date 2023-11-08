@@ -39,18 +39,15 @@ Whitehall::Application.routes.draw do
           get :add_by_url, to: "document_collection_group_document_search#add_by_url"
           post "govuk-url-member" => "document_collection_group_memberships#create_member_by_govuk_url", as: :govuk_url_member
 
-          member { get :confirm_destroy }
-          resource :document_collection_group_membership,
-                   as: :members,
-                   path: "members",
-                   only: [:destroy]
+          get :confirm_destroy, on: :member
+          get :reorder, on: :collection
+          put :order, on: :collection
+
           resources :document_collection_group_memberships, path: "members", only: %i[index destroy reorder] do
             get :confirm_destroy, on: :member
             get :reorder, on: :collection
             put :order, on: :collection
           end
-          get :reorder, on: :collection
-          put :order, on: :collection
         end
         post "whitehall-member" => "document_collection_group_memberships#create_whitehall_member", as: :new_whitehall_member
       end
