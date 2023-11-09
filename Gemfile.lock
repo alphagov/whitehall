@@ -163,7 +163,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.3)
+    date (3.3.4)
     debug_inspector (1.1.0)
     diff-lcs (1.5.0)
     diffy (3.4.2)
@@ -241,11 +241,11 @@ GEM
       activemodel (>= 4.2, < 7.2)
       activerecord (>= 4.2, < 7.2)
       request_store (~> 1.0)
-    google-protobuf (3.24.4)
-    google-protobuf (3.24.4-aarch64-linux)
-    google-protobuf (3.24.4-arm64-darwin)
-    google-protobuf (3.24.4-x86_64-linux)
-    googleapis-common-protos-types (1.9.0)
+    google-protobuf (3.25.0)
+    google-protobuf (3.25.0-aarch64-linux)
+    google-protobuf (3.25.0-arm64-darwin)
+    google-protobuf (3.25.0-x86_64-linux)
+    googleapis-common-protos-types (1.10.0)
       google-protobuf (~> 3.18)
     govspeak (8.3.1)
       actionview (>= 6)
@@ -280,7 +280,7 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (35.21.2)
+    govuk_publishing_components (35.21.3)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -422,12 +422,12 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
-    net-imap (0.4.3)
+    net-imap (0.4.4)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.1)
+    net-protocol (0.2.2)
       timeout
     net-smtp (0.4.0)
       net-protocol
@@ -646,7 +646,7 @@ GEM
       opentelemetry-semantic_conventions (>= 1.8.0)
     opentelemetry-registry (0.3.0)
       opentelemetry-api (~> 1.1)
-    opentelemetry-sdk (1.3.0)
+    opentelemetry-sdk (1.3.1)
       opentelemetry-api (~> 1.1)
       opentelemetry-common (~> 0.20)
       opentelemetry-registry (~> 0.2)
@@ -902,7 +902,7 @@ GEM
     thor (1.3.0)
     tilt (2.1.0)
     timecop (0.9.8)
-    timeout (0.4.0)
+    timeout (0.4.1)
     tins (1.32.1)
       sync
     transitions (1.3.0)
