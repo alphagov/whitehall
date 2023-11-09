@@ -1,5 +1,4 @@
 @design-system-only
-@disable-sidekiq-test-mode
 Feature:
   As an Editor.
   I want to be able to create and manage topical_event_featurings.
