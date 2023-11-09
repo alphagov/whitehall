@@ -6,21 +6,6 @@ module Admin::SidebarHelper
     raw sidebar_content.join("\n")
   end
 
-  def legacy_simple_formatting_sidebar(options = {})
-    sidebar_tabs govspeak_help: "Help" do |tabs|
-      tabs.pane id: "govspeak_help", class: "govspeak_help" do
-        tab_content = []
-        tab_content << render("admin/editions/legacy_govspeak_help", options)
-        tab_content << render("admin/editions/words_to_avoid_guidance")
-        tab_content << tag.h3("Style", class: "style-title")
-        tab_content << tag.p do
-          raw %(For style, see the #{link_to('style guide', 'https://www.gov.uk/guidance/style-guide')})
-        end
-        raw tab_content.join("\n")
-      end
-    end
-  end
-
   def sidebar_tabs(tabs, options = {})
     tab_tags = tabs.map.with_index do |(id, tab_content), index|
       link_content = case tab_content
