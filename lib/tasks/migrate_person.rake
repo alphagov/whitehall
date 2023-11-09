@@ -16,7 +16,7 @@ task :migrate_person, %i[start_id end_id] => :environment do |_, args|
     # Ensure we do not replay the same migration
     next if person.image_new
 
-    all_variants = person.image.file.versions.keys.push(:original)
+    all_variants = person.image.versions.keys.push(:original)
     assetable = FeaturedImageData.create!(
       carrierwave_image: person.carrierwave_image,
       featured_imageable_type: Person.to_s,
