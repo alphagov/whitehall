@@ -4,8 +4,9 @@ Feature: Managing attachments on editions
   I want to attach files and additional HTML content to publications and consultations
   In order to support the publications and consultations with statistics and other relevant documents
 
-  Scenario: Adding and reordering attachments
+  Scenario Outline: Adding and reordering attachments
     Given I am an writer
+    And the document hub feature flag is <document_hub_enabled>
     And I start drafting a new publication "Standard Beard Lengths"
     When I start editing the attachments from the publication page
     And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
@@ -23,8 +24,14 @@ Feature: Managing attachments on editions
       | Beard Length Statistics 2014 |
       | Beard Length Illustrations   |
 
-  Scenario: Previewing HTML attachment
+  Examples:
+    | document_hub_enabled |
+    | enabled |
+    | disabled |
+
+  Scenario Outline: Previewing HTML attachment
     Given I am an writer
+    And the document hub feature flag is <document_hub_enabled>
     And I start drafting a new publication "Standard Beard Lengths"
     When I start editing the attachments from the publication page
     And I begin editing an html attachment with the title "Beard Length Graphs 2012" and the body "Example text"
@@ -34,6 +41,11 @@ Feature: Managing attachments on editions
     And I can see the preview link to the attachment "HTML attachment"
     When I edit the attachment
     Then I can see a preview link
+
+  Examples:
+    | document_hub_enabled |
+    | enabled |
+    | disabled |
 
   Scenario: Previewing HTML attachment on consultation responses
     Given I am a writer
@@ -55,11 +67,17 @@ Feature: Managing attachments on editions
     And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
     Then the outcome for the consultation should have the attachment "Beard Length Statistics 2014"
 
-  Scenario: Attempting to save attachment after validation failure
+  Scenario Outline: Attempting to save attachment after validation failure
     Given I am a writer
+    And the document hub feature flag is <document_hub_enabled>
     And a draft publication "Standards on Beard Grooming" exists
     When I try and upload an attachment but there are validation errors
     Then I should be able to submit the attachment without re-uploading the file
+
+  Examples:
+    | document_hub_enabled |
+    | enabled |
+    | disabled |
 
   Scenario: Attempting to publish attachment which is still being uploaded to the asset manager
     Given I am an editor
@@ -69,10 +87,16 @@ Feature: Managing attachments on editions
     And I try to publish the draft edition
     Then I see a validation error for uploading attachments
 
-  Scenario: Editing metadata on attachments
+  Scenario Outline: Editing metadata on attachments
     Given I am an writer
+    And the document hub feature flag is <document_hub_enabled>
     And I start drafting a new publication "Standard Beard Lengths"
     When I start editing the attachments from the publication page
     And I upload an html attachment with the title "Beard Length Graphs 2012" and the isbn "9781474127783"
     And I publish the draft edition for publication "Standard Beard Lengths"
     Then the html attachment "Beard Length Graphs 2012" includes the isbn "9781474127783"
+
+  Examples:
+    | document_hub_enabled |
+    | enabled |
+    | disabled |

@@ -1,7 +1,8 @@
 Feature: Filtering documents by author in admin
 
-  Scenario: Viewing only documents written by me
+  Scenario Outline: Viewing only documents written by me
     Given I am a writer
+    And the document hub feature flag is <document_hub_enabled>
     And I draft a new publication "My Publication"
     And a draft publication "Another Publication" exists
     And I visit the list of draft documents
@@ -9,6 +10,11 @@ Feature: Filtering documents by author in admin
     When I filter by author "Me"
     Then I should see the publication "My Publication"
     And I should not see the publication "Another Publication"
+
+  Examples:
+    | document_hub_enabled |
+    | enabled |
+    | disabled |
 
   Scenario: Viewing only publications written by me
     Given I am a writer
