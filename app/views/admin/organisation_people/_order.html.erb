@@ -10,7 +10,7 @@
         end,
 } do %>
   <% organisation_roles.each do |organisation_role| %>
-    <%= render "components/summary_card_component", {
+    <%= render "components/summary_card", {
       title: organisation_role.role.name,
       summary_card_actions: [
         {

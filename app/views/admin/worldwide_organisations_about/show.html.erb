@@ -25,7 +25,7 @@
       margin_bottom: 6,
     } %>
     <% if @worldwide_organisation.about_us.present? %>
-      <%= render "components/summary_card_component", {
+      <%= render "components/summary_card", {
         title: "About us",
         rows: [
           {

@@ -1,16 +1,16 @@
 require "test_helper"
 
-class SummaryCardComponentTest < ActionView::TestCase
+class SummaryCardTest < ActionView::TestCase
   test "the component requires a title to render" do
     error = assert_raises ActionView::Template::Error do
-      render("components/summary_card_component")
+      render("components/summary_card")
     end
 
     assert error.message.include?("undefined local variable or method `title'")
   end
 
   test "renders a summary card component with a title" do
-    render("components/summary_card_component", {
+    render("components/summary_card", {
       title: "Title",
     })
 
@@ -19,7 +19,7 @@ class SummaryCardComponentTest < ActionView::TestCase
   end
 
   test "renders links in the summary card title when passed" do
-    render("components/summary_card_component", {
+    render("components/summary_card", {
       title: "Title",
       summary_card_actions: [
         {
@@ -40,7 +40,7 @@ class SummaryCardComponentTest < ActionView::TestCase
   end
 
   test "renders summary card title link with the correct class when destructive: true is passed" do
-    render("components/summary_card_component", {
+    render("components/summary_card", {
       title: "Title",
       summary_card_actions: [
         {
@@ -57,7 +57,7 @@ class SummaryCardComponentTest < ActionView::TestCase
   end
 
   test "renders a summary card component with a title and a summary list with key value pairs when provided" do
-    render("components/summary_card_component", {
+    render("components/summary_card", {
       title: "Title",
       rows: [
         {
@@ -80,7 +80,7 @@ class SummaryCardComponentTest < ActionView::TestCase
   end
 
   test "renders summary list links when provided" do
-    render("components/summary_card_component", {
+    render("components/summary_card", {
       title: "Title",
       rows: [
         {
@@ -126,7 +126,7 @@ class SummaryCardComponentTest < ActionView::TestCase
   end
 
   test "renders summary card list action link with the correct class when destructive: true is passed" do
-    render("components/summary_card_component", {
+    render("components/summary_card", {
       title: "Title",
       rows: [
         {
@@ -147,7 +147,7 @@ class SummaryCardComponentTest < ActionView::TestCase
   end
 
   test "renders summary card list action link with the correct rel and target when opens_in_new_tab: true is passed" do
-    render("components/summary_card_component", {
+    render("components/summary_card", {
       title: "Title",
       rows: [
         {
