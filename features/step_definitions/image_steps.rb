@@ -9,7 +9,7 @@ Given("a draft case study with images exists") do
 end
 
 Given("an organisation with a default news image exists") do
-  default_news_image = create(:featured_image_data)
+  default_news_image = build(:featured_image_data)
   @organisation = create(:organisation, default_news_image:)
 end
 

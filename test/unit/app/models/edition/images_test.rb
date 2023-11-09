@@ -131,7 +131,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     edition_lead_image = EditionLeadImage.find_by!(edition_id: draft_edition.id)
 
     assert_not_equal image2.id, edition_lead_image.image_id
-    assert_equal image2.reload.image_data.images.last.id, edition_lead_image.image_id
+    assert_equal image2.image_data.images.last.id, edition_lead_image.image_id
   end
 
   test "captions for images can be changed between versions" do
