@@ -11,15 +11,12 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
         :non_whitehall_link,
       ],
     )
-
-    render :index
   end
 
   def show; end
 
   def new
     @group = @collection.groups.build
-    render :new
   end
 
   def create
@@ -33,9 +30,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     end
   end
 
-  def edit
-    render :edit
-  end
+  def edit; end
 
   def update
     @group.update!(document_collection_group_params)
@@ -65,41 +60,10 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   end
 
   def confirm_destroy
-    redirect_to admin_document_collection_groups_path(@collection) and return unless @collection.groups.many?
-
-    render :confirm_destroy
-  end
-
-  def update_memberships
-    add_moved_groups
-    reorder_groups
-    respond_to do |format|
-      format.html { render :legacy_index }
-      format.json { render json: { result: :success } }
-    end
+    redirect_to admin_document_collection_groups_path(@collection) unless @collection.groups.many?
   end
 
 private
-
-  def add_moved_groups
-    params[:groups].each do |_key, group_params|
-      group = @collection.groups.find(group_params[:id])
-      new_ids = membership_ids(group_params) - group.membership_ids
-      group.membership_ids += new_ids
-    end
-  end
-
-  def reorder_groups
-    params[:groups].each do |_key, group_params|
-      group = @collection.groups.find(group_params[:id])
-      group.ordering = group_params[:order]
-      group.set_membership_ids_in_order! membership_ids(group_params)
-    end
-  end
-
-  def membership_ids(group_params)
-    group_params.fetch(:membership_ids, []).map(&:to_i)
-  end
 
   def load_document_collection
     @collection = DocumentCollection.find(params[:document_collection_id])

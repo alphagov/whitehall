@@ -16,7 +16,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select ".govuk-summary-card__action a[href='#{new_admin_document_collection_group_path(@collection)}']", text: /Add group/
     assert_select ".govuk-summary-list__key", text: @group.heading
     assert_select ".govuk-summary-list__value", text: "0 documents in group"
-    assert_select ".govuk-summary-list__actions a[href='#{admin_document_collection_group_members_path(@collection, @group)}']", text: "View #{@group.heading}"
+    assert_select ".govuk-summary-list__actions a[href='#{admin_document_collection_group_document_collection_group_memberships_path(@collection, @group)}']", text: "View #{@group.heading}"
   end
 
   view_test "GET #index shows confirm delete links when 2 or more groups are present" do
@@ -31,11 +31,11 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
 
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: group1.heading
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: "1 document in group"
-    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{admin_document_collection_group_members_path(collection, group1)}']", text: "View #{group1.heading}"
+    assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{admin_document_collection_group_document_collection_group_memberships_path(collection, group1)}']", text: "View #{group1.heading}"
     assert_select ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group1)}']", text: "Delete #{group1.heading}"
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: group2.heading
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: "0 documents in group"
-    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{admin_document_collection_group_members_path(collection, group2)}']", text: "View #{group2.heading}"
+    assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{admin_document_collection_group_document_collection_group_memberships_path(collection, group2)}']", text: "View #{group2.heading}"
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{confirm_destroy_admin_document_collection_group_path(collection, group2)}']", text: "Delete #{group2.heading}"
   end
 
@@ -113,142 +113,5 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
     assert_equal "Group has been deleted", flash[:notice]
-  end
-
-  test "POST #update_memberships saves the order of group members" do
-    given_two_groups_with_memberships
-    post :update_memberships,
-         params: {
-           document_collection_id: @collection.id,
-           groups: {
-             0 => {
-               id: @group1.id,
-               membership_ids: [
-                 @member_1b.id,
-                 @member_1a.id,
-               ],
-               order: 0,
-             },
-           },
-         }
-
-    assert_equal [@member_1b, @member_1a], @group1.reload.memberships
-  end
-
-  test "POST #update_memberships saves the order of groups" do
-    given_two_groups_with_memberships
-    post :update_memberships,
-         params: {
-           document_collection_id: @collection.id,
-           groups: {
-             0 => {
-               id: @group1.id,
-               membership_ids: [
-                 @member_1a.id,
-                 @member_1b.id,
-               ],
-               order: 1,
-             },
-             1 => {
-               id: @group2.id,
-               membership_ids: [
-                 @member_2a.id,
-                 @member_2b.id,
-               ],
-               order: 0,
-             },
-           },
-         }
-
-    assert_response :success
-    assert_equal [@group2.id, @group1.id], @collection.reload.groups.pluck(:id)
-  end
-
-  test "POST #update_memberships should cope with duplicate members in group" do
-    given_two_groups_with_memberships
-    post :update_memberships,
-         params: {
-           document_collection_id: @collection.id,
-           groups: {
-             0 => {
-               id: @group1.id,
-               membership_ids: [
-                 @member_1a.id,
-                 @member_1a.id,
-               ],
-               order: 0,
-             },
-           },
-         }
-
-    assert_equal [@member_1a], @group1.reload.memberships
-  end
-
-  test "POST #update_memberships should support moving memberships between groups" do
-    given_two_groups_with_memberships
-    post :update_memberships,
-         params: {
-           document_collection_id: @collection.id,
-           groups: {
-             0 => {
-               id: @group1.id,
-               membership_ids: [
-                 @member_1a.id,
-               ],
-               order: 0,
-             },
-             1 => {
-               id: @group2.id,
-               membership_ids: [
-                 @member_1b.id,
-                 @member_2a.id,
-                 @member_2b.id,
-               ],
-               order: 1,
-             },
-           },
-         }
-
-    assert @group2.reload.memberships.include?(@member_1b)
-  end
-
-  test "POST #update_memberships should handle empty groups" do
-    given_two_groups_with_memberships
-
-    post :update_memberships,
-         params: {
-           document_collection_id: @collection.id,
-           groups: {
-             0 => {
-               id: @group1.id,
-               membership_ids: [
-                 @member_1a.id,
-                 @member_1b.id,
-                 @member_2a.id,
-                 @member_2b.id,
-               ],
-               order: 0,
-             },
-             1 => {
-               id: @group2.id,
-               order: 1,
-             },
-           },
-         }
-
-    assert_response :success
-    assert_equal [@member_1a, @member_1b, @member_2a, @member_2b], @group1.reload.memberships
-    assert_empty @group2.reload.memberships
-  end
-
-  def given_two_groups_with_memberships
-    @group1 = build(:document_collection_group)
-    @group2 = build(:document_collection_group)
-    @collection.update! groups: [@group1, @group2]
-
-    @group1.memberships << @member_1a = create(:document_collection_group_membership)
-    @group1.memberships << @member_1b = create(:document_collection_group_membership)
-    @group2.memberships << @member_2a = create(:document_collection_group_membership)
-    @group2.memberships << @member_2b = create(:document_collection_group_membership)
   end
 end

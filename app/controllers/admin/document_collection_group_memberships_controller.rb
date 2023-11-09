@@ -1,7 +1,7 @@
 class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group
-  before_action :load_membership, only: %i[confirm_destroy]
+  before_action :load_membership, only: %i[confirm_destroy destroy]
   before_action :find_document, only: :create_whitehall_member
 
   layout "design_system"
@@ -18,22 +18,6 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     else
       redirect_to redirect_path,
                   alert: "#{membership.errors.full_messages.join('. ')}."
-    end
-  end
-
-  def create_non_whitehall_member
-    govuk_link = DocumentCollectionNonWhitehallLink::GovukUrl.new(
-      url: params[:url],
-      document_collection_group: @group,
-    )
-    if govuk_link.save
-      redirect_to admin_document_collection_groups_path(@collection),
-                  notice: "'#{govuk_link.title}' added to '#{@group.heading}'"
-    else
-      flash[:url] = params[:url]
-      flash[:open_non_whitehall] = true
-      redirect_to admin_document_collection_groups_path(@collection),
-                  alert: "#{govuk_link.errors.full_messages.join('. ')}."
     end
   end
 
@@ -54,10 +38,8 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   def confirm_destroy; end
 
   def destroy
-    @membership = load_membership
     @membership.destroy!
-
-    redirect_to admin_document_collection_group_members_path(@collection, @group),
+    redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
                 notice: "Document has been removed from the group"
   end
 
@@ -69,37 +51,10 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     end
 
     flash_message = "Document has been reordered"
-    redirect_to admin_document_collection_group_members_path(@collection), notice: flash_message
+    redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection), notice: flash_message
   end
 
 private
-
-  def moving?
-    params[:commit] == "Move"
-  end
-
-  def delete_from_old_group(membership_ids)
-    ids = @group.membership_ids - membership_ids
-    @group.set_membership_ids_in_order!(ids)
-  end
-
-  def move_to_new_group(membership_ids)
-    ids = new_group.membership_ids + membership_ids
-    new_group.set_membership_ids_in_order!(ids)
-  end
-
-  def success_message(membership_ids)
-    count = "#{membership_ids.size} #{'document'.pluralize(membership_ids.size)}"
-    if moving?
-      "#{count} moved to '#{new_group.heading}'"
-    else
-      "#{count} removed from '#{@group.heading}'"
-    end
-  end
-
-  def new_group
-    @collection.groups.find(params[:new_group_id])
-  end
 
   def load_document_collection
     @collection = DocumentCollection.includes(document: :latest_edition).find(params[:document_collection_id])

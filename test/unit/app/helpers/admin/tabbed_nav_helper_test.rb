@@ -325,7 +325,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     expected_output = [
       {
         label: "Documents",
-        href: admin_document_collection_group_members_path(document_collection, group),
+        href: admin_document_collection_group_document_collection_group_memberships_path(document_collection, group),
         current: false,
       },
       {
