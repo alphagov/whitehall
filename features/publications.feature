@@ -6,21 +6,33 @@ Feature: Publications
   Background:
     Given I am a writer
 
-  Scenario: Creating a new draft publication
+  Scenario Outline: Creating a new draft publication
     When I draft a new publication "Standard Beard Lengths"
+    And the document hub feature flag is <document_hub_enabled>
     Then I should see the publication "Standard Beard Lengths" in the list of draft documents
+
+    Examples:
+      | document_hub_enabled |
+      | enabled |
+      | disabled |
 
   Scenario: Submitting a draft publication to a second pair of eyes
     Given a draft publication "Standard Beard Lengths" exists
     When I submit the publication "Standard Beard Lengths"
     Then I should see the publication "Standard Beard Lengths" in the list of submitted documents
 
-  Scenario: Publishing an edition I submitted is forbidden
+  Scenario Outline: Publishing an edition I submitted is forbidden
     Given I am an editor
+    And the document hub feature flag is <document_hub_enabled>
     And there is a user called "Beardy"
     And "Beardy" drafts a new publication "Britain's Hairiest Ministers"
     When I submit the publication "Britain's Hairiest Ministers"
     Then I should not be able to publish the publication "Britain's Hairiest Ministers"
+
+    Examples:
+      | document_hub_enabled |
+      | enabled |
+      | disabled |
 
   @not-quite-as-fake-search
   Scenario: Publishing an edition I created but did not submit

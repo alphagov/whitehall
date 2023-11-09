@@ -144,3 +144,8 @@ When(/^I check "([^"]*)" adheres to the consultation principles$/) do |title|
   edition.read_consultation_principles = true
   edition.save!
 end
+
+When(/^the document hub feature flag is (enabled|disabled)$/) do |document_hub_enabled|
+  @test_strategy ||= Flipflop::FeatureSet.current.test!
+  @test_strategy.switch!(:document_hub_enabled, document_hub_enabled == "enabled")
+end
