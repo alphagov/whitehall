@@ -14,4 +14,13 @@ module Admin::DocumentCollectionEmailOverrideHelper
   def taxonomy_topic_email_override_base_path(_collection)
     "gov.uk/my-topic"
   end
+
+  def emails_about_this_topic_checked?(collection, params)
+    collection.taxonomy_topic_email_override.present? || (params["override_email_subscriptions"] == "true")
+  end
+
+  def selected_option?(value, collection)
+    previously_selected = collection.taxonomy_topic_email_override || params["selected_taxon_content_id"]
+    previously_selected == value
+  end
 end
