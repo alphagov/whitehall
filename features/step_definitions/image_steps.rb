@@ -57,6 +57,7 @@ When("I confirm the deletion") do
 end
 
 When("I update the image details and save") do
+  puts page.html
   fill_in "image[caption]", with: "Test caption"
   find("button", text: "Save").click
 end

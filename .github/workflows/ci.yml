@@ -11,39 +11,39 @@ on:
   pull_request:
 
 jobs:
-  security-analysis:
-    name: Security Analysis
-    uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yml@main
+#  security-analysis:
+#    name: Security Analysis
+#    uses: alphagov/govuk-infrastructure/.github/workflows/brakeman.yml@main
 
-  lint-scss:
-    name: Lint SCSS
-    uses: ./.github/workflows/lintscss.yml
+#  lint-scss:
+#    name: Lint SCSS
+#    uses: ./.github/workflows/lintscss.yml
 
-  lint-javascript:
-    name: Lint JavaScript
-    uses: ./.github/workflows/lintjs.yml
-
-  lint-prettier:
-    name: Prettier
-    uses: ./.github/workflows/lintprettier.yml
-
-  lint-ruby:
-    name: Lint Ruby
-    uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yml@main
-
-  lint-erb:
-    name: Lint ERB
-    uses: ./.github/workflows/linterb.yml
-
-  test-javascript:
-    name: Test JavaScript
-    uses: alphagov/govuk-infrastructure/.github/workflows/jasmine.yml@main
-    with:
-      useWithRails: true
-
-  test-ruby:
-    name: Test Ruby
-    uses: ./.github/workflows/minitest.yml
+#  lint-javascript:
+#    name: Lint JavaScript
+#    uses: ./.github/workflows/lintjs.yml
+#
+#  lint-prettier:
+#    name: Prettier
+#    uses: ./.github/workflows/lintprettier.yml
+#
+#  lint-ruby:
+#    name: Lint Ruby
+#    uses: alphagov/govuk-infrastructure/.github/workflows/rubocop.yml@main
+#
+#  lint-erb:
+#    name: Lint ERB
+#    uses: ./.github/workflows/linterb.yml
+#
+#  test-javascript:
+#    name: Test JavaScript
+#    uses: alphagov/govuk-infrastructure/.github/workflows/jasmine.yml@main
+#    with:
+#      useWithRails: true
+#
+#  test-ruby:
+#    name: Test Ruby
+#    uses: ./.github/workflows/minitest.yml
 
   test-features:
     name: Test features

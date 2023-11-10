@@ -10,7 +10,11 @@ Capybara.automatic_label_click = true
 
 module ScreenshotHelper
   def screenshot(name = "capybara")
-    page.driver.render(Rails.root.join("tmp/#{name}.png"), full: true)
+    begin
+      page.driver.save_screenshot(Rails.root.join("tmp/#{name}.png"), full: true)
+    rescue => error
+      puts "Couldn't save a screenshot #{error.message}"
+    end
   end
 end
 

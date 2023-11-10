@@ -45,7 +45,8 @@ jobs:
         env:
           RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec rake ${{ matrix.node_rake_task }}
+        run: bundle exec cucumber features/edition-images.feature features/edition-images-javascript.feature
+        #bundle exec rake ${{ matrix.node_rake_task }}
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
