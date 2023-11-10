@@ -1,11 +1,12 @@
 require "test_helper"
 
 class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionController::TestCase
+  include TaxonomyHelper
   setup do
     @collection = create(:draft_document_collection, :with_group)
     @user_with_permission = create(:writer, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR])
     @user_without_permission = create(:writer)
-    @selected_taxon_content_id = "9b889c60-2191-11ee-be56-0242ac120002"
+    @selected_taxon_content_id = root_taxon_content_id
     @put_params = {
       document_collection_id: @collection.id,
       override_email_subscriptions: "true",
@@ -13,6 +14,7 @@ class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionControll
       email_override_confirmation: "true",
     }
     login_as @user_without_permission
+    stub_taxonomy_with_all_taxons
   end
 
   should_be_an_admin_controller
@@ -74,7 +76,7 @@ class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionControll
   test "PUT #edit does not update taxonomy topic override of a published document collection" do
     login_as @user_with_permission
     collection = create(:published_document_collection, taxonomy_topic_email_override: "a-uuid")
-    #this change needs to be moved to the commit where we don't allow editing of published collections
+    # this change needs to be moved to the commit where we don't allow editing of published collections
     put :update, params: @put_params.merge(document_collection_id: collection.id)
     assert_redirected_to admin_document_collection_path(collection)
 

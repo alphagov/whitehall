@@ -3,7 +3,9 @@ class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseControl
   before_action :authorise_user
   layout "design_system"
 
-  def edit; end
+  def edit
+    @topic_list_select_presenter = TopicListSelectPresenter.new(@collection.taxonomy_topic_email_override)
+  end
 
   def update
     if user_has_selected_taxonomy_topic_emails?
@@ -37,7 +39,7 @@ private
   end
 
   def build_missing_params_flash
-    mmissing_params = required_params.select { |required_param| params[required_param].blank? }
+    missing_params = required_params.select { |required_param| params[required_param].blank? }
     missing_params.each { |key| build_flash(key) }
   end
 

@@ -1,16 +1,13 @@
 <div>
   <h4 class="govuk-heading-s govuk-!-margin-bottom-2">Choose the topic</h4>
-  <%= render "govuk_publishing_components/components/select", {
-    id: "selected_taxon_content_id",
-    label: "Choose a topic from the topic taxonomy. You can only choose one."
-    error_message: flash[:selected_taxon_content_id],
-    error_id: flash[:selected_taxon_content_id],
-    options: [
-      { text: "", value: "" },
-      { text: "Topic One", value: "9b889c60-2191-11ee-be56-0242ac120002", selected: selected_option?("9b889c60-2191-11ee-be56-0242ac120002", @collection)},
-      { text: "Topic Two", value: "c60-2191-11ee-be56-0242ac120002", selected: selected_option?("c60-2191-11ee-be56-0242ac120002", @collection)},
-    ]
-  } %>
+  <%= render "components/select-with-search", {
+      label: "Choose a topic from the topic taxonomy. You can only choose one.",
+      error_message: flash[:selected_taxon_content_id],
+      error_id: flash[:selected_taxon_content_id],
+      id: "selected_taxon_content_id",
+      include_blank: true,
+      grouped_options: @topic_list_select_presenter.grouped_options(params["selected_taxon_content_id"]),
+      } %>
   <hr class="govuk-section-break--m">
  <%= render "govuk_publishing_components/components/checkboxes", {
     id: "email_override_confirmation",
