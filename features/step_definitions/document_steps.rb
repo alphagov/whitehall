@@ -147,5 +147,5 @@ end
 
 When(/^the document hub feature flag is (enabled|disabled)$/) do |document_hub_enabled|
   @test_strategy ||= Flipflop::FeatureSet.current.test!
-  @test_strategy.switch!(:document_hub_enabled, document_hub_enabled == "enabled")
+  @test_strategy.switch!(:document_hub, document_hub_enabled == "enabled")
 end
