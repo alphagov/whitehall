@@ -1,5 +1,7 @@
 class Admin::TakePartPagesController < Admin::BaseController
   before_action :enforce_permissions!
+  before_action :clean_take_part_page_params, only: %i[create update]
+
   layout "design_system"
 
   def enforce_permissions!
@@ -62,12 +64,18 @@ class Admin::TakePartPagesController < Admin::BaseController
 private
 
   def take_part_page_params
-    params.require(:take_part_page).permit(
+    @take_part_page_params ||= params.require(:take_part_page).permit(
       :title,
       :summary,
       :body,
       :image_alt_text,
       image_attributes: %i[file file_cache id],
     )
+  end
+
+  def clean_take_part_page_params
+    if take_part_page_params.dig(:image_attributes, :file_cache).present? && take_part_page_params.dig(:image_attributes, :file).present?
+      take_part_page_params[:image_attributes].delete(:file_cache)
+    end
   end
 end
