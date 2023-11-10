@@ -14,14 +14,19 @@ Feature: New Tagging Workflow
   Scenario: Publication that does not support the new taxonomy
     Given I am a writer
     When I start editing a draft document which cannot be tagged to the new taxonomy
-    And I continue to the tagging page
     And I navigate to the legacy tagging page
     Then I should be on the legacy tagging page
     And I should be able to update the legacy tags
 
-  Scenario: Publication that supports the new taxonomy
+  Scenario Outline: Publication that supports the new taxonomy
     Given I am a writer
+    And the document hub feature flag is <document_hub_enabled>
     When I start editing a draft document which can be tagged to the new taxonomy
     And I continue to the tagging page
     Then I should be on the taxonomy tagging page
     And I should be able to update the taxonomy and click the "Save" button
+
+    Examples:
+      |document_hub_enabled|
+      |enabled             |
+      |disabled            |
