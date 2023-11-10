@@ -99,5 +99,9 @@ module Whitehall
     # By default, when set to `nil`, strategy loading errors are suppressed in test
     # mode. Set to `true` to always raise errors, or `false` to always warn.
     config.flipflop.raise_strategy_errors = nil
+
+    # Enable patch to allow ERB partials rendered inside a view component to accept a block to yield without
+    # resulting in broken HTML
+    config.view_component.capture_compatibility_patch_enabled = true
   end
 end

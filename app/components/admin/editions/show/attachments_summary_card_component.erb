@@ -1,7 +1,32 @@
 <section class="app-view-summary__section app-view-summary__section--attachments">
-  <%= render "components/summary_card", {
+  <%= render "components/summary_card/summary_card", {
     title: "Attachments",
     summary_card_actions: summary_card_actions,
-    rows: rows,
-  } %>
+  } do %>
+    <dl class="govuk-summary-list">
+      <% rows.each do |row| %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= row[:key] %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= row[:value] %>
+          </dd>
+          <% if row[:actions].present? %>
+            <dd class="govuk-summary-list__actions">
+              <% row[:actions].each do |action| %>
+                <%= render("components/summary_card/summary_list_action", {
+                  opens_in_new_tab: action[:opens_in_new_tab],
+                  label: action[:label],
+                  key: row[:key],
+                  href: action[:href],
+                  destructive: action[:destructive],
+                }) %>
+              <% end %>
+            </dd>
+          <% end %>
+        </div>
+      <% end %>
+    </dl>
+  <% end %>
 </section>

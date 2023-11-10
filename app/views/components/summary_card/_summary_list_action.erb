@@ -1,0 +1,13 @@
+<%
+  opens_in_new_tab ||= false
+  label ||= ""
+  key ||= nil
+  href ||= nil
+  destructive ||= false
+%>
+
+<% if opens_in_new_tab %>
+  <%= link_to sanitize(label + tag.span(" #{key} (opens in new tab)", class: "govuk-visually-hidden")), href, class: "govuk-link govuk-link--no-visited-state govuk-!-margin-left-2", rel: "noreferrer noopener", target: "_blank" %>
+<% else %>
+  <%= link_to sanitize(label + tag.span(" #{key}", class: "govuk-visually-hidden")), href, class: "govuk-link govuk-link--no-visited-state govuk-!-margin-left-2 #{"gem-link--destructive" if destructive}".strip %>
+<% end %>
