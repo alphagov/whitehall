@@ -1,15 +1,15 @@
 class Admin::PeopleController < Admin::BaseController
+  before_action :build_person, only: %i[new]
   before_action :load_person, only: %i[show edit update destroy reorder_role_appointments update_order_role_appointments confirm_destroy]
   before_action :enforce_permissions!, only: %i[edit update destroy reorder_role_appointments update_order_role_appointments confirm_destroy]
+  before_action :build_dependencies, only: %i[new edit]
   layout "design_system"
 
   def index
     @people = Person.order(:surname, :forename).includes(:translations)
   end
 
-  def new
-    @person = Person.new
-  end
+  def new; end
 
   def create
     @person = Person.new(person_params)
@@ -75,7 +75,7 @@ private
       :letters,
       :biography,
       :privy_counsellor,
-      image_attributes: %i[file id],
+      image_attributes: %i[file file_cache id],
     )
   end
 
@@ -85,5 +85,13 @@ private
     else
       enforce_permission!(:edit, @person)
     end
+  end
+
+  def build_person
+    @person = Person.new
+  end
+
+  def build_dependencies
+    @person.build_image if @person.image.blank?
   end
 end
