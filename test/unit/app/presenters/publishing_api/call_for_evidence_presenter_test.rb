@@ -255,7 +255,7 @@ module PublishingApi::CallForEvidencePresenterTest
         call_for_evidence_response_form_data_attributes: response_form_data_attributes,
       )
 
-      participation = create(
+      @participation = create(
         :call_for_evidence_participation,
         call_for_evidence_response_form_attributes: response_form_attributes,
         email: "postmaster@example.com",
@@ -271,7 +271,7 @@ module PublishingApi::CallForEvidencePresenterTest
 
       self.call_for_evidence = create(
         :open_call_for_evidence,
-        call_for_evidence_participation: participation,
+        call_for_evidence_participation: @participation,
       )
     end
 
@@ -281,9 +281,10 @@ module PublishingApi::CallForEvidencePresenterTest
 
     test "ways to respond" do
       Plek.any_instance.stubs(:asset_root).returns("https://asset-host.com")
-      expected_id = CallForEvidenceResponseFormData.where(carrierwave_file: "two-pages.pdf").last.id
+      expected_id = @participation.call_for_evidence_response_form.call_for_evidence_response_form_data.id
+      filename = @participation.call_for_evidence_response_form.call_for_evidence_response_form_data.carrierwave_file
       expected_ways_to_respond = {
-        attachment_url: "https://asset-host.com/government/uploads/system/uploads/call_for_evidence_response_form_data/file/#{expected_id}/two-pages.pdf",
+        attachment_url: "https://asset-host.com/government/uploads/system/uploads/call_for_evidence_response_form_data/file/#{expected_id}/#{filename}",
         email: "postmaster@example.com",
         link_url: "http://www.example.com",
         postal_address: <<-ADDRESS.strip_heredoc.chop,

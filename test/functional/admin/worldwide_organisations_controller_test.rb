@@ -182,6 +182,26 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_equal cached_filename, WorldwideOrganisation.last.default_news_image.filename
   end
 
+  test "PUT :update uses the file cache if present" do
+    worldwide_organisation = create(:worldwide_organisation, :with_default_news_image)
+    default_news_image_id = worldwide_organisation.default_news_image.id
+
+    cached_filename = "big-cheese.960x640.jpg"
+    cached_default_news_image = build(:featured_image_data, file: upload_fixture(cached_filename))
+
+    put :update, params: {
+      id: worldwide_organisation.id,
+      worldwide_organisation: {
+        default_news_image_attributes: {
+          id: default_news_image_id,
+          file_cache: cached_default_news_image.file_cache,
+        },
+      },
+    }
+
+    assert_equal cached_filename, worldwide_organisation.reload.default_news_image.filename
+  end
+
   test "POST :create discards the file cache if file is present" do
     cached_filename = "big-cheese.960x640.jpg"
     cached_default_news_image = build(:featured_image_data, file: upload_fixture(cached_filename))

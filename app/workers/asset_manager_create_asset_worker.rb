@@ -1,7 +1,10 @@
 class AssetManagerCreateAssetWorker < WorkerBase
   include AssetManager::ServiceHelper
 
-  sidekiq_options queue: "asset_manager"
+  # Carrierwave runs on an after_save hook and the transaction that inserts Assetable into the database
+  # might not be committed yet. This can cause a race condition where the worker runs before the assetable is readable.
+  # Use TransactionAwareClient for this worker to ensure that the commit is finished before the worker is executed.
+  sidekiq_options queue: "asset_manager", client_class: Sidekiq::TransactionAwareClient
 
   def perform(temporary_location, asset_params, draft = false, attachable_model_class = nil, attachable_model_id = nil, auth_bypass_ids = [])
     return unless File.exist?(temporary_location)
