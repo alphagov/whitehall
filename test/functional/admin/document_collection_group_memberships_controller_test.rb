@@ -130,4 +130,42 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     assert_redirected_to admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
                          notice: "'#{title}' added to '#{@group.heading}'"
   end
+
+  view_test "GET #index should render 'unavailable documents' and notification" do
+    document = create(:document, latest_edition: nil)
+    whitehall_membership = create(:document_collection_group_membership, document:)
+    whitehall_confirm_destroy_path = confirm_destroy_admin_document_collection_group_document_collection_group_membership_path(@collection, @group, whitehall_membership)
+
+    @group.memberships << whitehall_membership
+
+    get :index, params: { document_collection_id: @collection, group_id: @group }
+
+    assert_select ".govuk-table__row", { count: 0, text: "View Unavailable Document" }
+    assert_select ".govuk-table__row", text: /Remove Unavailable Document/
+    assert_select ".govuk-table__row", a: whitehall_confirm_destroy_path
+    assert_select ".govuk-notification-banner__heading", text: "Remove 1 unavailable document(s) within the group."
+  end
+
+  view_test "GET #reorder should render 'unavailable documents'" do
+    document = create(:document, latest_edition: nil)
+    whitehall_membership = create(:document_collection_group_membership, document:)
+    @group.memberships << whitehall_membership
+    get :reorder, params: { document_collection_id: @collection, group_id: @group }
+
+    assert_response :success
+    assert_select "h1", /Reorder documents/
+    assert_select ".gem-c-reorderable-list__title", text: "Unavailable Document"
+  end
+
+  view_test "GET #confirm_destroy should render 'unavailable documents'" do
+    document = create(:document, latest_edition: nil)
+    whitehall_membership = create(:document_collection_group_membership, document:)
+    @group.memberships << whitehall_membership
+
+    get :confirm_destroy, params: { document_collection_id: @collection, group_id: @group, id: whitehall_membership }
+
+    assert_response :success
+    assert_select "h1", /Remove document/
+    assert_select "p", /Are you sure you want to remove "Unavailable Document" from this collection?/
+  end
 end

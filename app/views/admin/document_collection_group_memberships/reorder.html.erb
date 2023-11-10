@@ -11,9 +11,10 @@
       } %>
       <%= render "govuk_publishing_components/components/reorderable_list", {
         items: @group.memberships.map do |membership|
+          title = document_collection_group_member_unavailable?(membership) ? tag.span("Unavailable Document", class: "govuk-!-font-weight-bold") : document_collection_group_member_title(membership)
           {
             id: membership.id,
-            title: document_collection_group_member_title(membership),
+            title: title,
           }
         end,
       } %>
