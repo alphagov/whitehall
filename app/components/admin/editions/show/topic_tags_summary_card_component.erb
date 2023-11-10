@@ -1,0 +1,21 @@
+<section class="app-view-summary__section app-view-summary__section--attachments">
+  <% if @edition_taxons.empty? %>
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: "You need to add topic tags before you can publish this document.",
+    } %>
+  <% end %>
+  <%= render "components/summary_card/summary_card", {
+    title: "Topic taxonomy tags",
+    summary_card_actions:,
+  } do %>
+    <% @edition_taxons.map(&:full_path).each do | tag_path | %>
+      <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list app-view-summary__topic-tag-list">
+          <% tag_path.each do | path | %>
+            <li class="govuk-breadcrumbs__list-item app-view-summary__topic-tag-list-item"><%= path[:title] %></li>
+          <% end %>
+        </ol>
+      </div>
+    <% end %>
+  <% end %>
+</section>
