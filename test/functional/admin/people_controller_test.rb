@@ -311,4 +311,49 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     assert_response :forbidden
   end
+
+  test "POST: create - discards image cache if file is present" do
+    filename = "big-cheese.960x640.jpg"
+    cached_image = build(:featured_image_data)
+
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => filename)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/minister-of-funk.960x640/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{filename}/), anything, anything, anything, anything, anything).times(7)
+
+    post :create,
+         params: {
+           person: {
+             forename: "George II",
+             image_attributes: {
+               file: upload_fixture(filename, "image/png"),
+               file_cache: cached_image.file_cache,
+             },
+           },
+         }
+  end
+
+  test "PUT: update - discards image cache if file is present" do
+    person = FactoryBot.create(:person, :with_image)
+    image = person.image
+
+    replacement_filename = "example_fatality_notice_image.jpg"
+    cached_filename = "big-cheese.960x640.jpg"
+    cached_image = build(:featured_image_data, file: upload_fixture(cached_filename, "image/png"))
+
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => replacement_filename)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
+
+    put :update,
+        params: {
+          id: person.id,
+          person: {
+            image_attributes: {
+              id: image.id,
+              file: upload_fixture(replacement_filename, "image/png"),
+              file_cache: cached_image.file_cache,
+            },
+          },
+        }
+  end
 end

@@ -3,6 +3,7 @@ class Admin::PeopleController < Admin::BaseController
   before_action :load_person, only: %i[show edit update destroy reorder_role_appointments update_order_role_appointments confirm_destroy]
   before_action :enforce_permissions!, only: %i[edit update destroy reorder_role_appointments update_order_role_appointments confirm_destroy]
   before_action :build_dependencies, only: %i[new edit]
+  before_action :clean_person_params, only: %i[create update]
   layout "design_system"
 
   def index
@@ -68,7 +69,7 @@ private
   end
 
   def person_params
-    params.require(:person).permit(
+    @person_params ||= params.require(:person).permit(
       :title,
       :forename,
       :surname,
@@ -93,5 +94,11 @@ private
 
   def build_dependencies
     @person.build_image if @person.image.blank?
+  end
+
+  def clean_person_params
+    if person_params.dig(:image_attributes, :file_cache).present? && person_params.dig(:image_attributes, :file).present?
+      person_params[:image_attributes].delete(:file_cache)
+    end
   end
 end
