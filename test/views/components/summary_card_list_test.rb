@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SummaryCardTest < ActionView::TestCase
+class SummaryCardListTest < ActionView::TestCase
   test "the component requires a title to render" do
     error = assert_raises ActionView::Template::Error do
       render("components/summary_card_list")
