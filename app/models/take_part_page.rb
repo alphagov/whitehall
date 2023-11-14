@@ -14,6 +14,7 @@ class TakePartPage < ApplicationRecord
   include PublishesToPublishingApi
 
   mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
+  has_one :image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
 
   validates :image, presence: true, on: :create
   validates :image_alt_text, presence: true, allow_blank: true, length: { maximum: 255 }, on: :create
