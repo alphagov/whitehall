@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionController::TestCase
   setup do
-    @collection = create(:document_collection, :with_group)
+    @collection = create(:draft_document_collection, :with_group)
     @user_with_permission = create(:writer, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR])
     @user_without_permission = create(:writer)
     @selected_taxon_content_id = "9b889c60-2191-11ee-be56-0242ac120002"
@@ -65,6 +65,17 @@ class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionControll
 
     assert_nil @collection.taxonomy_topic_email_override
     assert_redirected_to admin_document_collection_edit_email_subscription_path(@collection)
+  end
+
+  test "PUT #edit does not update taxonomy topic override of a published document collection" do
+    login_as @user_with_permission
+    collection = create(:published_document_collection, taxonomy_topic_email_override: "a-uuid")
+
+    put :update, params: @put_params.merge(document_collection_id: collection.id)
+    assert_redirected_to edit_admin_document_collection_path(collection)
+
+    collection.reload
+    assert_equal "a-uuid", collection.taxonomy_topic_email_override
   end
 
   test "PUT #edit successfully updates taxonomy topic override of a draft document collection" do
