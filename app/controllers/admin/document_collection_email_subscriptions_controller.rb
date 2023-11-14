@@ -1,4 +1,5 @@
 class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseController
+  include Admin::DocumentCollectionEmailOverrideHelper
   before_action :load_document_collection
   before_action :authorise_user
   layout "design_system"
@@ -45,7 +46,7 @@ private
 
   def confirmation_message
     if @collection.taxonomy_topic_email_override.present?
-      "You’ve chosen ‘Emails about the topic’ and the topic #{taxonomy_topic_email_override_title}"
+      "You’ve chosen ‘Emails about the topic’ and the topic #{taxonomy_topic_email_override_title(@collection)}"
     else
       "You’ve chosen ‘Emails about the page’"
     end
@@ -53,17 +54,5 @@ private
 
   def user_has_selected_taxonomy_topic_emails?
     params[:override_email_subscriptions] == "true"
-  end
-
-  def taxonomy_topic_email_override_title
-    taxonomy_topic_content_item.fetch("title", "")
-  end
-
-  def taxonomy_topic_content_item
-    @taxonomy_topic_content_item ||= Services.publishing_api
-                                             .get_content(@collection.taxonomy_topic_email_override)
-                                             .to_h
-  rescue GdsApi::HTTPNotFound
-    {}
   end
 end
