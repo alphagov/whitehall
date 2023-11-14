@@ -13,6 +13,15 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     assert_select "form[action=?]", admin_role_role_appointments_path(role)
   end
 
+  view_test "new should contain a blank option for the person field" do
+    role = create(:role)
+    _person = create(:person)
+    get :new, params: { role_id: role.id }
+    assert_select "select#role_appointment_person_id" do
+      assert_select "option[value='']", text: ""
+    end
+  end
+
   view_test "new should display a form for creating an appointment that will curtail the previous appointment if make_current is set" do
     role = create(:role)
     get :new, params: { role_id: role.id, make_current: true }
