@@ -13,6 +13,7 @@
     }.select do |option|
       form.object.new_record? || option[:selected]
     end,
+  include_blank: form.object.new_record?,
   error_message: errors_for_input(form.object.errors, :person_id),
 } %>
 
