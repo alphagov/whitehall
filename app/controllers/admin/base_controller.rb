@@ -65,7 +65,7 @@ private
   end
 
   def forbidden!
-    render "admin/editions/forbidden", status: :forbidden
+    render "admin/errors/forbidden", status: :forbidden
   end
 
   def typecast_for_attachable_routing(attachable)
