@@ -53,4 +53,17 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal 640, image.height
     assert image.bitmap?
   end
+
+  test ".svg? returns true when the carrierwave image filename ends with .svg" do
+    image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
+    image = build(:image, image_data:)
+
+    assert image.svg?
+  end
+
+  test ".svg? returns true when the carrierwave image filename does not end with .svg" do
+    image = build(:image)
+
+    assert_not image.svg?
+  end
 end

@@ -35,14 +35,15 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
     assert body_text_valid("foo\[Image: non_lead_image.jpg]\nbar")
   end
 
-  test "#update_lead_image updates the lead_image association to the oldest image" do
-    image1 = build(:image)
-    image2 = build(:image)
-    edition = create(:news_article, images: [image1, image2])
+  test "#update_lead_image updates the lead_image association to the oldest non-svg image" do
+    svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
+    jpeg_image = build(:image, created_at: 1.minute.ago)
+    sgv_image = build(:image, image_data: svg_image_data, created_at: 2.minutes.ago)
+    edition = create(:news_article, images: [sgv_image, jpeg_image])
 
     edition.update_lead_image
 
-    assert_equal image1, edition.reload.lead_image
+    assert_equal jpeg_image, edition.reload.lead_image
   end
 
   test "#update_lead_image deletes the associated edition_lead_image if image_display_option is 'no_image'" do
