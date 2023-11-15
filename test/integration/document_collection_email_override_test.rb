@@ -12,23 +12,22 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
 
     context "as a user with the email override editor permission" do
       let(:user_with_permission_to_override) { create(:writer, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR]) }
-      let(:taxon_content_id) { "9b889c60-2191-11ee-be56-0242ac120002" }
       before do
         login_as(user_with_permission_to_override)
+        stub_taxonomy_with_all_taxons
       end
 
       it "updates the taxonomy topic email override" do
-        stub_publishing_api_has_item(content_id: taxon_content_id, title: "Topic one")
-
+        stub_publishing_api_has_item(content_id: root_taxon_content_id, title: root_taxon["title"])
         visit edit_admin_document_collection_path(document_collection)
         click_link "Email notifications"
 
         page.choose("Emails about the topic")
-        select "Topic One", from: "selected_taxon_content_id"
+        select root_taxon["title"], from: "selected_taxon_content_id"
         page.check("Select this box to confirm you're happy with what you've selected.")
         click_button("Save")
         document_collection.reload
-        assert_equal document_collection.taxonomy_topic_email_override, taxon_content_id
+        assert_equal document_collection.taxonomy_topic_email_override, root_taxon_content_id
       end
 
       it "does not update taxonomy topic email if confirmation button is unchecked" do
@@ -36,7 +35,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
         click_link "Email notifications"
 
         page.choose("Emails about the topic")
-        select "Topic One", from: "selected_taxon_content_id"
+        select root_taxon["title"], from: "selected_taxon_content_id"
         click_button("Save")
         document_collection.reload
         assert_nil document_collection.taxonomy_topic_email_override
@@ -54,7 +53,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
 
       it "shows the user a summary page if the document collection is in an unmodifiable state" do
         published_collection = create(:published_document_collection)
-        taxons = { "title" => "Foo", "base_path" => "/foo", "content_id" => "123asd", "phase" => "live" }
+        taxons = { "title" => "Foo", "base_path" => "/foo", "content_id" => "123asd" }
         links = { "meets_user_needs" => %w[123] }
         stub_publishing_api_expanded_links_with_taxons(published_collection.content_id, [taxons])
         stub_publishing_api_has_links({ content_id: published_collection.content_id, links: })

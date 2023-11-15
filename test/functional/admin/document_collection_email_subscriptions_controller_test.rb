@@ -1,11 +1,12 @@
 require "test_helper"
 
 class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionController::TestCase
+  include TaxonomyHelper
   setup do
     @collection = create(:draft_document_collection, :with_group)
     @user_with_permission = create(:writer, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR])
     @user_without_permission = create(:writer)
-    @selected_taxon_content_id = "9b889c60-2191-11ee-be56-0242ac120002"
+    @selected_taxon_content_id = root_taxon_content_id
     @put_params = {
       document_collection_id: @collection.id,
       override_email_subscriptions: "true",
@@ -13,7 +14,8 @@ class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionControll
       email_override_confirmation: "true",
     }
     login_as @user_without_permission
-    stub_publishing_api_has_item(content_id: "9b889c60-2191-11ee-be56-0242ac120002", title: "Topic One")
+    stub_publishing_api_has_item(content_id: root_taxon_content_id, title: root_taxon["title"])
+    stub_taxonomy_with_all_taxons
   end
 
   should_be_an_admin_controller

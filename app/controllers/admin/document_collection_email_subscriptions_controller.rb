@@ -4,7 +4,9 @@ class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseControl
   before_action :authorise_user
   layout "design_system"
 
-  def edit; end
+  def edit
+    @topic_list_select_presenter = TopicListSelectPresenter.new(@collection.taxonomy_topic_email_override)
+  end
 
   def update
     if user_has_selected_taxonomy_topic_emails?
