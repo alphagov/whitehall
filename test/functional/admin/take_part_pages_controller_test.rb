@@ -31,16 +31,16 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   test "POST :create saves a new instance with the supplied valid params" do
     take_part_page_attrs = attributes_for(:take_part_page, title: "Wear a monocle!")
                              .merge(
-                               image: upload_fixture(
-                                 "minister-of-funk.960x640.jpg",
-                                 "image/jpg",
-                               ),
+                               image_attributes: {
+                                 file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
+                               },
                              )
 
     post :create, params: { take_part_page: take_part_page_attrs }
 
     assert assigns(:take_part_page).persisted?
     assert_equal "Wear a monocle!", assigns(:take_part_page).title
+    assert_equal "minister-of-funk.960x640.jpg", assigns(:take_part_page).image.filename
     assert_redirected_to admin_take_part_pages_path
   end
 
@@ -66,10 +66,21 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   test "PUT :update changes the supplied instance with the supplied params" do
     attrs = attributes_for(:take_part_page, title: "Wear a monocle!")
     page = create(:take_part_page, title: "Drink in a gin palace!")
-    post :update, params: { id: page, take_part_page: attrs }
+    image = page.image
+
+    post :update, params: {
+      id: page,
+      take_part_page: attrs.merge(
+        image_attributes: {
+          id: image.id,
+          file: upload_fixture("images/960x640_jpeg.jpg", "image/jpg"),
+        },
+      ),
+    }
 
     assert_equal page, assigns(:take_part_page)
     assert_equal "Wear a monocle!", page.reload.title
+    assert_equal "960x640_jpeg.jpg", page.reload.image.filename
     assert_redirected_to admin_take_part_pages_path
   end
 

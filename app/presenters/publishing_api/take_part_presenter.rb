@@ -36,7 +36,7 @@ module PublishingApi
       {
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body),
         image: {
-          url: item.image_url(:s300),
+          url: item.image&.url(:s300),
           alt_text: item.image_alt_text,
         },
         ordering: item.ordering,

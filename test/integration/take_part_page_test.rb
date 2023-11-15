@@ -5,9 +5,15 @@ class TakePartPageTest < ActiveSupport::TestCase
   setup do
     stub_any_publishing_api_call
     @take_part_page = build(:take_part_page)
+
+    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id_s300", "name" => "s300_minister-of-funk.960x640.jpg")
   end
 
   test "TakePartPage is published to the Publishing API on save" do
+    republish_count_from_create_asset_worker = 7
+    publish_count_from_after_commit = 1
+    expected_number_of_times_published = republish_count_from_create_asset_worker + publish_count_from_after_commit
+
     Sidekiq::Testing.inline! do
       presenter = PublishingApiPresenters.presenter_for(@take_part_page)
       @take_part_page.save!
@@ -18,19 +24,18 @@ class TakePartPageTest < ActiveSupport::TestCase
         public_updated_at: Time.zone.now.as_json,
       )
 
-      assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
+      assert_publishing_api_put_content(@take_part_page.content_id, expected_json, expected_number_of_times_published)
       assert_publishing_api_publish(
         @take_part_page.content_id,
         { update_type: nil,
           locale: "en" },
-        1,
+        expected_number_of_times_published,
       )
     end
   end
 
   test "TakePartPage publishes gone route to the Publishing API on destroy" do
     Sidekiq::Testing.inline! do
-      Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
       @take_part_page.save!
 
       gone_request = stub_publishing_api_unpublish(
@@ -49,26 +54,28 @@ class TakePartPageTest < ActiveSupport::TestCase
   end
 
   test "TakePartPage is published to the Publishing API when updated" do
-    Sidekiq::Testing.inline! do
-      @take_part_page.save!
-      @take_part_page.attributes = { title: "New Title" }
-      @take_part_page.save!
-      presenter = PublishingApiPresenters.presenter_for(@take_part_page)
+    @take_part_page.save!
+    publish_count_after_save = 1
 
-      expected_json = presenter.content.merge(
-        # This is to simulate what the time public timestamp will be after the
-        # page has been published
-        public_updated_at: Time.zone.now.as_json,
-      )
+    @take_part_page.attributes = { title: "New Title" }
+    @take_part_page.save!
+    publish_count_after_save += 1
 
-      assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
-      assert_publishing_api_publish(
-        @take_part_page.content_id,
-        { update_type: nil,
-          locale: "en" },
-        2,
-      )
-    end
+    presenter = PublishingApiPresenters.presenter_for(@take_part_page)
+
+    expected_json = presenter.content.merge(
+      # This is to simulate what the time public timestamp will be after the
+      # page has been published
+      public_updated_at: Time.zone.now.as_json,
+    )
+
+    assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
+    assert_publishing_api_publish(
+      @take_part_page.content_id,
+      { update_type: nil,
+        locale: "en" },
+      publish_count_after_save,
+    )
   end
 
   test "TakePartPage patches links in the correct order in the Get Involved Page when created" do
@@ -139,7 +146,6 @@ class TakePartPageTest < ActiveSupport::TestCase
 
   test "TakePartPage patches links in the correct order in the Get Involved Page when deleted" do
     Sidekiq::Testing.inline! do
-      Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
       # Working with a specific ID
       get_involved_content_id = "dbe329f1-359c-43f7-8944-580d4742aa91"
 
