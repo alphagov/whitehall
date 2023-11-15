@@ -1,9 +1,0 @@
-<p><a id="expand_all_id" href="#">expand all</a> | <a id="collapse_all_id" href="#">collapse all</a></p>
-
-<div class="topic-tree">
-<% level_one_taxons.each do |taxon| %>
-  <% taxon = TopicTreePresenter.new(taxon, collapsed: level_one_taxons.size > 1) %>
-
-  <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { selected_taxons: selected_taxons, taxons: [taxon] } %>
-<% end %>
-</div>
