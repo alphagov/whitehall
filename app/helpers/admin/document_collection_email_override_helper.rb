@@ -22,4 +22,8 @@ module Admin::DocumentCollectionEmailOverrideHelper
   rescue GdsApi::HTTPNotFound
     {}
   end
+
+  def emails_about_this_topic_checked?(collection, params)
+    collection.taxonomy_topic_email_override.present? || (params["override_email_subscriptions"] == "true")
+  end
 end
