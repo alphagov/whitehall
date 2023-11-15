@@ -39,7 +39,7 @@ class Admin::OrganisationsController < Admin::BaseController
                           .merge(
                             state: "published",
                             organisation: filtering_organisation,
-                            per_page: preview_design_system?(next_release: false) ? Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE : nil,
+                            per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                           )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
