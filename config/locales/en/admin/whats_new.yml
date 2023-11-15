@@ -7,7 +7,7 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates from the GOV.UK publishing teams on Whitehall Publisher, the roadmap, and getting involved
-      last_updated: Last updated 8 September 2023
+      last_updated: Last updated 7 November 2023
       introduction:
         heading: Our roadmap
         body_govspeak: |
@@ -30,6 +30,15 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Changes to adding lead images in Whitehall
+            area: Creating and updating documents
+            type: improvement
+            date: 7 November 2023
+            body_govspeak: |
+              We've made some changes to adding lead images in Whitehall:
+
+              - for Case Studies you can use your organisations default news image or any uploaded image as your lead image
+              - for News Articles you can choose any of the uploaded images as the lead image
           - heading: Unpublishing documents puts them into a new "Unpublished" state
             area: Creating and updating documents
             type: change
