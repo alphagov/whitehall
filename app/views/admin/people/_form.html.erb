@@ -57,27 +57,21 @@
     error_items: errors_for(person.errors, :letters),
   } %>
 
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Image",
-    heading_size: "l",
-  } do %>
-    <% if person.image_url %>
-      <div class="app-view-edit-person__image">
-        <%= image_tag person.image_url %>
-      </div>
-    <% end %>
-
-    <div class="form-group">
-      <%= render "govuk_publishing_components/components/file_upload", {
-        label: {
-          text: "Upload a file",
-          heading_size: "m",
-        },
-        name: "person[image]",
-        id: "person_image",
-        error_items: errors_for(person.errors, :image),
-      } %>
-    </div>
+  <%= form.fields_for :image do |_image_fields| %>
+    <%= render "components/single-image-upload", {
+      title: "Image",
+      name: "person[image_attributes]",
+      id: "person_image",
+      image_id: "person_image_file",
+      image_name: "person[image_attributes][file]",
+      remove_alt_text_field: true,
+      filename: person.image.file.identifier,
+      page_errors: person.errors.any?,
+      error_items: errors_for(person.errors, :"image.file"),
+      image_src: person.image.url,
+      image_cache_name: "person[image_attributes][file_cache]",
+      image_cache: person.image.file_cache.presence,
+    } %>
   <% end %>
 
   <%= render "components/govspeak-editor", {

@@ -47,7 +47,7 @@ module PublishingApi
         speaker_without_profile: item.person_override,
       }.compact_blank
       details.merge!(speech_type_explanation)
-      details.merge!(image_payload) if has_image?
+      details.merge!(image_payload) if has_image? && image_has_all_assets?
       details.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details.merge!(PayloadBuilder::FirstPublicAt.for(item))
     end
@@ -111,7 +111,7 @@ module PublishingApi
     end
 
     def speaker_has_image?
-      speaker && speaker.image && speaker.image.url
+      speaker&.image&.url
     end
 
     def speaker_image
@@ -136,6 +136,12 @@ module PublishingApi
 
     def has_image?
       image.present?
+    end
+
+    def image_has_all_assets?
+      return true unless image.instance_of?(FeaturedImageData)
+
+      image.all_asset_variants_uploaded?
     end
 
     def alt_text

@@ -421,7 +421,7 @@ module PublishingApi
     end
 
     def default_news_image_url(size = nil)
-      size ? item.default_news_image.file.url(size) : item.default_news_image.file.url
+      size ? item.default_news_image.url(size) : item.default_news_image.url
     end
   end
 end

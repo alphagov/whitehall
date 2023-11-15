@@ -5,6 +5,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   before_action :find_worldwide_organisation, except: %i[index new create]
   before_action :build_worldwide_organisation, only: %i[new create]
+  before_action :clean_worldwide_organisation_params, only: %i[create update]
 
   layout "design_system"
 
@@ -77,16 +78,12 @@ private
       sponsoring_organisation_ids: [],
       default_news_image_attributes: %i[file file_cache id],
     )
-
-    clear_file_cache(@worldwide_organisation_params)
   end
 
-  def clear_file_cache(params)
-    if params.dig(:default_news_image_attributes, :file).present? && params.dig(:default_news_image_attributes, :file_cache).present?
-      params[:default_news_image_attributes].delete(:file_cache)
+  def clean_worldwide_organisation_params
+    if worldwide_organisation_params.dig(:default_news_image_attributes, :file).present? && worldwide_organisation_params.dig(:default_news_image_attributes, :file_cache).present?
+      worldwide_organisation_params[:default_news_image_attributes].delete(:file_cache)
     end
-
-    params
   end
 
   def main_office_params

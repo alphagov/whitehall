@@ -143,7 +143,7 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     assert_select ".govuk-table__row", { count: 0, text: "View Unavailable Document" }
     assert_select ".govuk-table__row", text: /Remove Unavailable Document/
     assert_select ".govuk-table__row", a: whitehall_confirm_destroy_path
-    assert_select ".govuk-notification-banner__heading", text: "Remove 1 unavailable document(s) within the group."
+    assert_select ".govuk-notification-banner__heading", text: "Remove 1 unavailable document within the group."
   end
 
   view_test "GET #reorder should render 'unavailable documents'" do
