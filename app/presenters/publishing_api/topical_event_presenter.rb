@@ -52,9 +52,9 @@ module PublishingApi
 
     def image
       {
-        url: item.logo.file.url(:s300),
-        medium_resolution_url: item.logo.file.url(:s630),
-        high_resolution_url: item.logo.file.url(:s960),
+        url: item.logo.url(:s300),
+        medium_resolution_url: item.logo.url(:s630),
+        high_resolution_url: item.logo.url(:s960),
         alt_text: item.logo_alt_text,
       }
     end
@@ -70,7 +70,7 @@ module PublishingApi
             title: feature.title,
             href: feature.url,
             image: {
-              url: feature.image.file.url(:s465),
+              url: feature.image.url(:s465),
               alt_text: feature.alt_text,
             },
             summary: feature.summary,

@@ -180,87 +180,21 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 
-  test "should publish the Organisation when the last asset of the default news image is uploaded to Asset Manager" do
+  test "should enqueue republishing of assetable" do
+    # We enqueue the republishing of all assetables that implement :republish_on_assets_ready.
+    # These are all the classes that use FeaturedImageData to manage their assets, such as
+    # Organisation, Worldwide Organisation, TopicalEvent, Person etc.
     organisation = create(:organisation, :with_default_news_image)
-    last_asset = organisation.default_news_image.assets.last.destroy
     asset_params = {
       assetable_id: organisation.default_news_image.id,
-      asset_variant: last_asset.variant,
-      assetable_type: FeaturedImageData.to_s,
-    }.deep_stringify_keys
-
-    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
-    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
-
-    PublishingApiWorker.expects(:perform_async).with("Organisation", organisation.id)
-
-    @worker.perform(@file.path, asset_params, true, nil, nil)
-  end
-
-  test "should publish the Organisation when the last asset of the logo is uploaded to Asset Manager" do
-    organisation = create(:organisation, :with_logo)
-    asset_params = {
-      assetable_id: organisation.id,
       asset_variant: Asset.variants[:original],
-      assetable_type: Organisation.to_s,
-    }.deep_stringify_keys
-
-    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
-    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
-
-    PublishingApiWorker.expects(:perform_async).with("Organisation", organisation.id)
-
-    @worker.perform(@file.path, asset_params, true, nil, nil)
-  end
-
-  test "should not publish model unless all assets variant are ready" do
-    organisation = create(:organisation, :with_default_news_image)
-    last_asset = organisation.default_news_image.assets.destroy_all.last
-    asset_params = {
-      assetable_id: organisation.default_news_image.id,
-      asset_variant: last_asset.variant,
       assetable_type: FeaturedImageData.to_s,
     }.deep_stringify_keys
 
     asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
     Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
 
-    PublishingApiWorker.expects(:perform_async).never
-
-    @worker.perform(@file.path, asset_params, true, nil, nil)
-  end
-
-  test "should republish all related news article for organisations if featured image changes" do
-    organisation = create(:organisation, :with_default_news_image)
-    last_asset = organisation.default_news_image.assets.last
-    asset_params = {
-      assetable_id: organisation.default_news_image.id,
-      asset_variant: last_asset.variant,
-      assetable_type: FeaturedImageData.to_s,
-    }.deep_stringify_keys
-
-    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
-    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
-    news_article = create(:news_article, organisations: [organisation])
-    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document)
-
-    @worker.perform(@file.path, asset_params, true, nil, nil)
-  end
-
-  test "should republish all related news article for worldwide-organisations if featured image changes" do
-    worldwide_organisation = create(:worldwide_organisation, :with_default_news_image)
-    last_asset = worldwide_organisation.default_news_image.assets.last
-    asset_params = {
-      assetable_id: worldwide_organisation.default_news_image.id,
-      asset_variant: last_asset.variant,
-      assetable_type: FeaturedImageData.to_s,
-    }.deep_stringify_keys
-
-    asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => File.basename(@file) }
-    Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
-    news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
-
-    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document)
+    FeaturedImageData.any_instance.expects(:republish_on_assets_ready).once
 
     @worker.perform(@file.path, asset_params, true, nil, nil)
   end

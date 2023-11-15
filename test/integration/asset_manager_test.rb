@@ -108,16 +108,16 @@ class AssetManagerIntegrationTest
   class CreatingAPersonImage < ActiveSupport::TestCase
     setup do
       @filename = "minister-of-funk.960x640.jpg"
-      @person = FactoryBot.build(
-        :person,
-        image: File.open(fixture_path.join(@filename)),
-      )
-
-      Services.asset_manager.stubs(:create_whitehall_asset)
+      @person = FactoryBot.build(:person, :with_image)
+      @expected_number_of_versions = @person.image.file.versions.keys.push(:original).size
+      @response = { "id" => "http://asset-manager/assets/asset-id", "name" => @filename }
     end
 
-    test "sends the person image to Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+    test "sends original and all versions of the image to Asset Manager" do
+      Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{@filename}/ }.returns(@response)
+      ImageUploader.versions.each_key do |version_prefix|
+        Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{version_prefix}_#{@filename}/ }.returns(@response)
+      end
 
       Sidekiq::Testing.inline! do
         @person.save!
@@ -125,83 +125,35 @@ class AssetManagerIntegrationTest
     end
 
     test "does not mark the image as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
+      Services.asset_manager.expects(:create_asset).with(has_entry(draft: false)).returns(@response).times(@expected_number_of_versions)
 
       Sidekiq::Testing.inline! do
         @person.save!
-      end
-    end
-
-    test "sends each version of the person image to Asset Manager" do
-      ImageUploader.versions.each_key do |version_prefix|
-        Services.asset_manager.expects(:create_whitehall_asset).with(
-          file_and_legacy_url_path_matching(/#{version_prefix}_#{@filename}/),
-        )
-      end
-
-      Sidekiq::Testing.inline! do
-        @person.save!
-      end
-    end
-  end
-
-  class RemovingAPersonImage < ActiveSupport::TestCase
-    setup do
-      @filename = "minister-of-funk.960x640.jpg"
-      @person = FactoryBot.create(
-        :person,
-        image: File.open(fixture_path.join(@filename)),
-      )
-
-      @person.reload
-
-      @asset_id = "asset-id"
-      Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/#{@asset_id}")
-    end
-
-    test "removes the person image and all its versions from asset manager" do
-      # Creating a person creates one asset record in asset manager
-      # for the uploaded asset and one asset record for each of the
-      # versions defined in ImageUploader.
-      expected_number_of_versions = @person.image.versions.size + 1
-      Services.asset_manager.expects(:delete_asset).with(@asset_id).times(expected_number_of_versions)
-
-      Sidekiq::Testing.inline! do
-        @person.image.remove!
       end
     end
   end
 
   class ReplacingAPersonImage < ActiveSupport::TestCase
     setup do
-      @filename = "minister-of-funk.960x640.jpg"
-      @person = FactoryBot.create(
-        :person,
-        image: File.open(fixture_path.join(@filename)),
-      )
-
-      @person.reload
+      @person = FactoryBot.create(:person, :with_image)
+      @expected_number_of_versions = @person.image.file.versions.keys.push(:original).size
+      @replacement_filename = "big-cheese.960x640.jpg"
     end
 
-    test "sends the new image and its versions to asset manager" do
-      expected_number_of_versions = @person.image.versions.size + 1
-      Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
-      Services.asset_manager.expects(:create_whitehall_asset).times(expected_number_of_versions)
+    test "sends the new image and its versions to asset manager but also keeps the previous assets in asset manager" do
+      Services.asset_manager.expects(:create_asset)
+              .with { |args| args[:file].path =~ /#{@replacement_filename}/ }
+              .returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => @replacement_filename)
+              .times(@expected_number_of_versions)
 
-      @person.image = File.open(fixture_path.join("big-cheese.960x640.jpg"))
-
-      Sidekiq::Testing.inline! do
-        @person.save!
-      end
-    end
-
-    test "does not remove the original images from asset manager because other pages (e.g. Speech) might be using it" do
+      # We keep the original assets (original & variants) of Person as other pages (e.g. Speech) might be using them
       Services.asset_manager.expects(:delete_asset).never
 
-      @person.image = File.open(fixture_path.join("big-cheese.960x640.jpg"))
-
       Sidekiq::Testing.inline! do
-        @person.save!
+        @person.update(image_attributes: {
+          id: @person.image.id,
+          file: File.open(fixture_path.join(@replacement_filename)),
+        })
       end
     end
   end

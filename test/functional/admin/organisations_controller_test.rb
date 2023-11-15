@@ -423,7 +423,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal filename, Organisation.last.assets.first.filename
   end
 
-  test "POST: update - discards logo cache if file is present" do
+  test "PUT: update - discards logo cache if file is present" do
     organisation = FactoryBot.create(
       :organisation_with_logo_and_assets,
       logo: upload_fixture("big-cheese.960x640.jpg", "image/png"),
@@ -440,13 +440,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(1)
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
 
-    post :update,
-         params: { id: organisation.id,
-                   organisation: {
-                     organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-                     logo: upload_fixture(replacement_filename, "image/png"),
-                     logo_cache: cached_organisation.logo_cache,
-                   } }
+    put :update,
+        params: { id: organisation.id,
+                  organisation: {
+                    organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+                    logo: upload_fixture(replacement_filename, "image/png"),
+                    logo_cache: cached_organisation.logo_cache,
+                  } }
 
     AssetManagerCreateAssetWorker.drain
 
@@ -476,7 +476,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
          })
   end
 
-  test "POST: update - discards default news image cache if file is present" do
+  test "PUT: update - discards default news image cache if file is present" do
     organisation = FactoryBot.create(:organisation_with_default_news_image)
     default_news_image = organisation.default_news_image
 
@@ -488,16 +488,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
 
-    post :update,
-         params: {
-           id: organisation.id,
-           organisation: {
-             default_news_image_attributes: {
-               id: default_news_image.id,
-               file: upload_fixture(replacement_filename, "image/png"),
-               file_cache: cached_default_news_image.file_cache,
-             },
-           },
-         }
+    put :update,
+        params: {
+          id: organisation.id,
+          organisation: {
+            default_news_image_attributes: {
+              id: default_news_image.id,
+              file: upload_fixture(replacement_filename, "image/png"),
+              file_cache: cached_default_news_image.file_cache,
+            },
+          },
+        }
   end
 end

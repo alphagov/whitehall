@@ -36,14 +36,7 @@ module PublishingApi
     def appointments_without_historical_accounts
       role = Role.friendly.find("prime-minister")
       people_to_present = (role.role_appointments.historic.map(&:person) - HistoricalAccount.all.map(&:person)).uniq
-      people_to_present.map do |person|
-        { title: person.name,
-          dates_in_office: person.previous_dates_in_office_for_role(role),
-          image: {
-            url: person.image_url,
-            alt_text: person.name,
-          } }
-      end
+      people_to_present.map { |person| compose_person person, role }
     end
 
     def base_path
@@ -55,6 +48,22 @@ module PublishingApi
         historical_accounts: HistoricalAccount.all.map(&:content_id),
         parent: [HISTORY_OF_THE_UK_GOVERNMENT_CONTENT_ID],
       }
+    end
+
+    def compose_person(person, role)
+      person_attributes = {
+        title: person.name,
+        dates_in_office: person.previous_dates_in_office_for_role(role),
+      }
+
+      if person.image&.all_asset_variants_uploaded?
+        return person_attributes.merge({ image: {
+          url: person.image&.url,
+          alt_text: person.name,
+        } })
+      end
+
+      person_attributes
     end
   end
 end
