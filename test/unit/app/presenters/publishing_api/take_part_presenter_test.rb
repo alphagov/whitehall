@@ -8,7 +8,7 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
   test "take part presentation includes the correct values" do
     take_part_page = create(:take_part_page, content_id: SecureRandom.uuid)
 
-    image_url = take_part_page.image_url(:s300)
+    image_url = take_part_page.image.url(:s300)
 
     expected_hash = {
       base_path: "/government/get-involved/take-part/#{take_part_page.slug}",
@@ -47,5 +47,15 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
                            presented_content[:details].delete(:body)
 
     assert_equal expected_hash, presented_content
+  end
+
+  test "sends a placeholder url if image variants are missing" do
+    take_part_page = build(:take_part_page)
+    take_part_page.image.assets = []
+    take_part_page.save!
+
+    presented_item = present(take_part_page)
+
+    assert_match(/placeholder.jpg$/, presented_item.content.dig(:details, :image, :url))
   end
 end

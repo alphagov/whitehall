@@ -13,12 +13,11 @@ class TakePartPage < ApplicationRecord
 
   include PublishesToPublishingApi
 
-  mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
-  has_one :image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+  has_one :image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+  accepts_nested_attributes_for :image, reject_if: :all_blank
 
-  validates :image, presence: true, on: :create
+  validate :image_is_present, on: :create
   validates :image_alt_text, presence: true, allow_blank: true, length: { maximum: 255 }, on: :create
-  validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
   include Searchable
   searchable title: :title,
@@ -66,10 +65,6 @@ class TakePartPage < ApplicationRecord
 
 protected
 
-  def image_changed?
-    changes["carrierwave_image"].present?
-  end
-
   def ensure_ordering!
     self.ordering = TakePartPage.next_ordering if ordering.nil?
   end
@@ -84,5 +79,9 @@ protected
         take_part_pages: pages,
       },
     )
+  end
+
+  def image_is_present
+    errors.add(:"image.file", "can't be blank") if image.blank?
   end
 end

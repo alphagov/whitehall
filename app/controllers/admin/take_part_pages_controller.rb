@@ -1,5 +1,7 @@
 class Admin::TakePartPagesController < Admin::BaseController
   before_action :enforce_permissions!
+  before_action :clean_take_part_page_params, only: %i[create update]
+
   layout "design_system"
 
   def enforce_permissions!
@@ -12,6 +14,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def new
     @take_part_page = TakePartPage.new
+    @take_part_page.build_image if @take_part_page.image.blank?
   end
 
   def create
@@ -19,12 +22,14 @@ class Admin::TakePartPagesController < Admin::BaseController
     if @take_part_page.save
       redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" created!)
     else
+      @take_part_page.build_image if @take_part_page.image.blank?
       render :new
     end
   end
 
   def edit
     @take_part_page = TakePartPage.friendly.find(params[:id])
+    @take_part_page.build_image if @take_part_page.image.blank?
   end
 
   def update
@@ -59,8 +64,18 @@ class Admin::TakePartPagesController < Admin::BaseController
 private
 
   def take_part_page_params
-    params.require(:take_part_page).permit(
-      :title, :summary, :body, :image, :image_alt_text, :image_cache
+    @take_part_page_params ||= params.require(:take_part_page).permit(
+      :title,
+      :summary,
+      :body,
+      :image_alt_text,
+      image_attributes: %i[file file_cache id],
     )
+  end
+
+  def clean_take_part_page_params
+    if take_part_page_params.dig(:image_attributes, :file_cache).present? && take_part_page_params.dig(:image_attributes, :file).present?
+      take_part_page_params[:image_attributes].delete(:file_cache)
+    end
   end
 end

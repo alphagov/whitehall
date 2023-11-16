@@ -36,11 +36,24 @@ module PublishingApi
       {
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body),
         image: {
-          url: item.image_url(:s300),
+          url: image_url,
           alt_text: item.image_alt_text,
         },
         ordering: item.ordering,
       }
+    end
+
+    def image_url
+      return item.image.url(:s300) if item.image&.all_asset_variants_uploaded? && item.image&.url(:s300)
+
+      placeholder_image_url
+    end
+
+    def placeholder_image_url
+      ActionController::Base.helpers.image_url(
+        "placeholder.jpg",
+        host: Whitehall.public_root,
+      )
     end
   end
 end
