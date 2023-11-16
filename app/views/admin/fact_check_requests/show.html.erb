@@ -4,7 +4,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <section class="document_page" id="<%= dom_id(@edition) %>">
+    <section id="<%= dom_id(@edition) %>">
       <%= render "admin/editions/edition", edition: @edition %>
     </section>
     <% if @edition.attachments.any? %>
@@ -13,14 +13,14 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-    <div class="fact_check_request govuk-body">
-      <p class="details">
+    <div class="govuk-body">
+      <p>
         <span class="from govuk-body govuk-!-font-weight-bold"><%= @fact_check_request.email_address %></span>
         on
         <span class="time govuk-body"><%= @fact_check_request.updated_at.to_fs(:long_ordinal) %></span>
       </p>
 
-      <div class="comments">
+      <div>
         <%= format_in_paragraphs(@fact_check_request.comments, class: "govuk-body") %>
       </div>
     </div>
