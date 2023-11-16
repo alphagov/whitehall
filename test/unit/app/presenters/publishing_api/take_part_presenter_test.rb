@@ -48,4 +48,14 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
 
     assert_equal expected_hash, presented_content
   end
+
+  test "sends a placeholder url if image variants are missing" do
+    take_part_page = build(:take_part_page)
+    take_part_page.image.assets = []
+    take_part_page.save!
+
+    presented_item = present(take_part_page)
+
+    assert_match(/placeholder.jpg$/, presented_item.content.dig(:details, :image, :url))
+  end
 end

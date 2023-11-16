@@ -108,6 +108,14 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     person.image.republish_on_assets_ready
   end
 
+  test "#republish_on_assets_ready should republish take part page if assets are ready" do
+    take_part_page = create(:take_part_page)
+
+    PublishingApiWorker.expects(:perform_async).with(TakePartPage.to_s, take_part_page.id)
+
+    take_part_page.image.republish_on_assets_ready
+  end
+
   test "#republish_on_assets_ready should not run any republishing action if assets are not ready" do
     person = create(:person, :with_image)
     person.image.assets.destroy_all
