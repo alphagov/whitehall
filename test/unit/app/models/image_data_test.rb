@@ -104,6 +104,18 @@ class ImageDataTest < ActiveSupport::TestCase
     assert_not image_data.all_asset_variants_uploaded?
   end
 
+  test ".svg? returns true when the carrierwave image filename ends with .svg" do
+    image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
+
+    assert image_data.svg?
+  end
+
+  test ".svg? returns true when the carrierwave image filename does not end with .svg" do
+    image_data = build(:image_data)
+
+    assert_not image_data.svg?
+  end
+
   def build_example(file_name)
     file = File.open(Rails.root.join("test/fixtures/images", file_name))
     build(:image_data, file:)

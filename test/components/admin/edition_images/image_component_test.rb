@@ -40,6 +40,15 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     end
   end
 
+  test "does not render a button to update the image to the lead image if the image is an SVG for case studies" do
+    svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
+    image = build_stubbed(:image, caption: "caption", alt_text: "alt text", image_data: svg_image_data)
+    edition = build_stubbed(:draft_case_study, images: [image])
+    render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
+
+    assert_selector ".govuk-button", text: "Select as lead image", count: 0
+  end
+
   test "image filename markdown displayed" do
     jpeg = upload_fixture("images/960x640_jpeg.jpg")
     gif = upload_fixture("images/960x640_gif.gif")

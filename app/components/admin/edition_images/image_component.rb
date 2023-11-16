@@ -38,4 +38,8 @@ private
   def find_image_index
     edition.images.find_index(image)
   end
+
+  def can_be_custom_lead_image?
+    edition.can_have_custom_lead_image? && !image.svg?
+  end
 end

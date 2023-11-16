@@ -52,5 +52,6 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal 960, image.width
     assert_equal 640, image.height
     assert image.bitmap?
+    assert_not image.svg?
   end
 end
