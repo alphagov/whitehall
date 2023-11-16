@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::NewDocumentControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :writer
+    login_as_preview_design_system_user :gds_editor
   end
 
   view_test "GET #index renders the 'New Document' page with the header, all relevant radio selection options and inset text" do
@@ -14,6 +14,42 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
       assert_select_radio_button(value)
     end
     assert_select ".govuk-inset-text", text: "Check the content types guidance if you need more help in choosing a content type."
+  end
+
+  view_test "GET #index renders Fatality Notice radio button when the user has GDS Editor permission and organisation is GDS" do
+    gds_organisation = create(:organisation, name: "government-digital-service")
+    login_as_preview_design_system_user(:gds_editor, gds_organisation)
+
+    get :index
+
+    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]", count: 1
+  end
+
+  view_test "GET #index does not render Fatality Notice radio button when the user does not have GDS Editor permission and their organisation is GDS" do
+    gds_organisation = create(:organisation, name: "government-digital-service")
+    login_as_preview_design_system_user(:writer, gds_organisation)
+
+    get :index
+
+    refute_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]"
+  end
+
+  view_test "GET #index does not render Fatality Notice radio button when the user does not have GDS Editor permission and their organisation is not GDS" do
+    other_organisation = create(:organisation, name: "cabinet-minister")
+    login_as_preview_design_system_user(:writer, other_organisation)
+
+    get :index
+
+    refute_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]"
+  end
+  view_test "GET #index renders Fatality Notice radio button when the user's organisation is Ministry of Defence" do
+    mod_organisation = create(:organisation, name: "ministry-of-defence", handles_fatalities: true)
+
+    login_as_preview_design_system_user(:writer, mod_organisation)
+
+    get :index
+
+    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]", count: 1
   end
 
   test "access to the New document index page is forbidden for users without design system permissions" do
@@ -48,7 +84,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 private
 
   def radio_button_values
-    %w[call-for-evidence case-study consultation detailed-guide document-collection fatality-notice news-article publication speech statistical-data-set]
+    %w[call_for_evidence case_study consultation detailed_guide document_collection fatality_notice news_article publication speech statistical_data_set]
   end
 
   def assert_select_radio_button(value)
@@ -57,16 +93,16 @@ private
 
   def redirect_options
     {
-      "call-for-evidence": new_admin_call_for_evidence_path,
-      "case-study": new_admin_case_study_path,
+      "call_for_evidence": new_admin_call_for_evidence_path,
+      "case_study": new_admin_case_study_path,
       "consultation": new_admin_consultation_path,
-      "detailed-guide": new_admin_detailed_guide_path,
-      "document-collection": new_admin_document_collection_path,
-      "fatality-notice": new_admin_fatality_notice_path,
-      "news-article": new_admin_news_article_path,
+      "detailed_guide": new_admin_detailed_guide_path,
+      "document_collection": new_admin_document_collection_path,
+      "fatality_notice": new_admin_fatality_notice_path,
+      "news_article": new_admin_news_article_path,
       "publication": new_admin_publication_path,
       "speech": new_admin_speech_path,
-      "statistical-data-set": new_admin_statistical_data_set_path,
+      "statistical_data_set": new_admin_statistical_data_set_path,
     }
   end
 end

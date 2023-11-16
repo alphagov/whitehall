@@ -13,4 +13,37 @@ class Admin::MoreControllerTest < ActionController::TestCase
     assert_select ".govuk-list"
     assert_select "a.govuk-link", text: "Cabinet ministers order"
   end
+
+  view_test "GET #index renders Fields of Operation and Sitewide settings list option when the user has GDS Editor permission and organisation is GDS" do
+    organisation = create(:organisation, name: "government-digital-service")
+    login_as_preview_design_system_user(:gds_editor, organisation)
+
+    get :index
+
+    assert_select ".govuk-list"
+    assert_select "a.govuk-link", text: "Fields of operation"
+    assert_select "a.govuk-link", text: "Sitewide settings"
+  end
+
+  view_test "GET #index renders Fields of Operation list option and not show Sitewide settings when the user's organisation is Ministry of Defence" do
+    organisation = create(:organisation, name: "ministry-of-defence", handles_fatalities: true)
+    login_as_preview_design_system_user(:writer, organisation)
+
+    get :index
+
+    assert_select ".govuk-list"
+    assert_select "a.govuk-link", text: "Fields of operation"
+    refute_select "a.govuk-link", text: "Sitewide settings"
+  end
+
+  view_test "GET #index does not renders Fields of Operation and Sitewide settings option when the user's organisation is not GDS nor Ministry of Defence." do
+    organisation = create(:organisation, name: "cabinet-minister")
+    login_as_preview_design_system_user(:writer, organisation)
+
+    get :index
+
+    assert_select ".govuk-list"
+    refute_select "a.govuk-link", text: "Fields of operation"
+    refute_select "a.govuk-link", text: "Sitewide settings"
+  end
 end
