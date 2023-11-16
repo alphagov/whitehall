@@ -59,7 +59,6 @@ class Edition::LeadImageTest < ActiveSupport::TestCase
   end
 
   test "#lead_image_has_all_assets? returns true if the lead image data doesn't implement all_asset_variants_uploaded?" do
-    # e.g. DefaultNewsOrganisationImageData doesn't yet implement all_asset_variants_uploaded?
     image = build(:featured_image_data)
     organisation = build(:organisation, default_news_image: image)
     model = stub("Target", { lead_image: nil, lead_organisations: [], organisations: [organisation] }).extend(Edition::LeadImage)
