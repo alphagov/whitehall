@@ -11,10 +11,14 @@ module Edition::CustomLeadImage
       return
     end
 
-    return if lead_image.present? || non_svg_images.blank?
+    return if lead_image.present? || images.blank?
 
-    edition_lead_image = build_edition_lead_image(image: oldest_non_svg_image)
-    edition_lead_image.save!
+    image = oldest_non_svg_image
+
+    if image
+      edition_lead_image = build_edition_lead_image(image:)
+      edition_lead_image.save!
+    end
   end
 
   def non_lead_images
@@ -23,12 +27,8 @@ module Edition::CustomLeadImage
 
 private
 
-  def non_svg_images
-    @non_svg_images ||= images.includes(:image_data).reject(&:svg?)
-  end
-
   def oldest_non_svg_image
-    non_svg_images.min_by { |image| [image.created_at, image.id] }
+    images.includes(:image_data).detect { |image| !image.svg? }
   end
 
   def remove_lead_image

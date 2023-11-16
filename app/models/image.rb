@@ -10,18 +10,12 @@ class Image < ApplicationRecord
 
   accepts_nested_attributes_for :image_data
 
-  delegate :filename, :content_type, :width, :height, :bitmap?, to: :image_data
+  delegate :filename, :content_type, :width, :height, :bitmap?, :svg?, to: :image_data
 
   default_scope -> { order(:id) }
 
-  SVG_CONTENT_TYPE = "image/svg+xml".freeze
-
   def url(*args)
     image_data.file_url(*args)
-  end
-
-  def svg?
-    content_type == SVG_CONTENT_TYPE
   end
 
 private

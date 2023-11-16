@@ -5,6 +5,7 @@ class ImageData < ApplicationRecord
 
   VALID_WIDTH = 960
   VALID_HEIGHT = 640
+  SVG_CONTENT_TYPE = "image/svg+xml".freeze
 
   has_many :images
   has_many :assets,
@@ -40,6 +41,10 @@ class ImageData < ApplicationRecord
     required_variants = bitmap? ? ImageUploader.versions.keys.push(:original) : [Asset.variants[:original].to_sym]
 
     (required_variants - asset_variants).empty?
+  end
+
+  def svg?
+    content_type == SVG_CONTENT_TYPE
   end
 
 private
