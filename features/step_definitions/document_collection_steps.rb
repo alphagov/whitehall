@@ -231,6 +231,7 @@ end
 
 When(/^I visit the Reorder document page/) do
   visit admin_document_collection_group_document_collection_group_memberships_path(@document_collection, @group)
+  expect(page).to have_content "Reorder document"
   click_link("Reorder document")
 end
 
