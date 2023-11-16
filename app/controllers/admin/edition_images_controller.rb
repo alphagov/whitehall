@@ -69,7 +69,7 @@ private
   end
 
   def find_edition
-    edition = Edition.find(params[:edition_id])
+    edition = Edition.includes(images: :image_data).find(params[:edition_id])
     @edition = LocalisedModel.new(edition, edition.primary_locale)
   end
 
