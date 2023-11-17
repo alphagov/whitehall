@@ -131,6 +131,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "create should show 'Processing' tag if variant is missing" do
+    response_form = create(:consultation_response_form)
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
+    response_form.consultation_response_form_data.assets = []
+
+    get :edit, params: { id: consultation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing"
+  end
+
   view_test "show renders the summary" do
     draft_consultation = create(:draft_consultation, summary: "a-simple-summary")
     stub_publishing_api_expanded_links_with_taxons(draft_consultation.content_id, [])

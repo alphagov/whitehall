@@ -167,7 +167,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       model.stubs(:auth_bypass_ids).returns([@auth_bypass_id])
       @uploader.stubs(:model).returns(model)
 
-      AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, nil, nil, [@auth_bypass_id])
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, nil, nil, [@auth_bypass_id])
 
       @uploader.store!(@file)
     end

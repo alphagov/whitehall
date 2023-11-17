@@ -13,6 +13,7 @@ class Consultation < Publicationesque
   validates :external_url, presence: true, if: :external?
   validates :external_url, uri: true, allow_blank: true
   validate :validate_consultation_principles, unless: ->(consultation) { Edition::PRE_PUBLICATION_STATES.include? consultation.state }
+  validate :consultation_response_file_uploaded_to_asset_manager!, if: :consultation_response_file_in_asset_manager_check_required?
 
   has_one :outcome, class_name: "ConsultationOutcome", foreign_key: :edition_id, dependent: :destroy
   has_one :public_feedback, class_name: "ConsultationPublicFeedback", foreign_key: :edition_id, dependent: :destroy
@@ -190,5 +191,13 @@ private
     unless read_consultation_principles
       errors.add :read_consultation_principles, "must be ticked"
     end
+  end
+
+  def consultation_response_file_in_asset_manager_check_required?
+    has_consultation_participation? && consultation_participation.has_response_form? && published?
+  end
+
+  def consultation_response_file_uploaded_to_asset_manager!
+    errors.add(:consultation_response_form, "must have finished uploading") unless consultation_participation.consultation_response_form_uploaded_to_asset_manager?
   end
 end

@@ -100,11 +100,15 @@
 
           <%= response_form.fields_for :consultation_response_form_data, consultation_response_form_data do |consultation_response_form_data_form| %>
             <%= consultation_response_form_data_form.hidden_field  :file_cache, value: consultation_response_form_data.file_cache %>
-
             <% if consultation_response_form.consultation_response_form_data.try(:persisted?) %>
               <div class="attachment">
-                <p class="govuk-body">Current data: <%= link_to File.basename(consultation_response_form_data.file.path), consultation_response_form_data.file.url, class: "govuk-link" %></p>
-
+                  <p class="govuk-body">Current data:
+                    <% if consultation_response_form_data.all_asset_variants_uploaded? %>
+                      <%= link_to File.basename(consultation_response_form_data.file.path), consultation_response_form_data.file.url, class: "govuk-link" %>
+                    <% else %>
+                      <%= File.basename(consultation_response_form_data.file.path) %> <span class="govuk-tag govuk-tag--green">Processing</span>
+                    <% end %>
+                  </p>
                 <%= render "govuk_publishing_components/components/radio", {
                   heading: "Actions:",
                   name: "edition[consultation_participation_attributes][consultation_response_form_attributes][attachment_action]",
