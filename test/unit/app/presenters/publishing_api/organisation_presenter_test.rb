@@ -196,7 +196,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     promotional_feature1 = create(:promotional_feature)
     promotional_feature_item1 = create(:promotional_feature_item, promotional_feature: promotional_feature1)
     promotional_feature2 = create(:promotional_feature)
-    promotional_feature_item2 = create(:promotional_feature_item, :with_youtube_video_url, promotional_feature: promotional_feature2)
+    promotional_feature_item2 = create(:promotional_feature_item_with_youtube_video_url, promotional_feature: promotional_feature2)
 
     organisation = create(
       :organisation,
