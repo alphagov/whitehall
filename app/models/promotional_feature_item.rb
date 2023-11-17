@@ -5,6 +5,10 @@ class PromotionalFeatureItem < ApplicationRecord
   has_one :organisation, through: :promotional_feature
   has_many :links, class_name: "PromotionalFeatureLink", dependent: :destroy, inverse_of: :promotional_feature_item
 
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
+
   validates :summary, presence: true, length: { maximum: 500 }
   validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
   validates :title_url, uri: true, allow_blank: true
