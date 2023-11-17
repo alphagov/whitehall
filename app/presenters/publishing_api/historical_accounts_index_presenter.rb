@@ -16,6 +16,7 @@ module PublishingApi
       content = BaseItemPresenter.new(
         nil,
         title: "Past Prime Ministers",
+        description: "Read about the life and achievements of our past Prime Ministers.",
         update_type:,
       ).base_attributes
 

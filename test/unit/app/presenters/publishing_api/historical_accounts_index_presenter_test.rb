@@ -22,6 +22,7 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
       schema_name: "historic_appointments",
       document_type: "historic_appointments",
       title: "Past Prime Ministers",
+      description: "Read about the life and achievements of our past Prime Ministers.",
       locale: "en",
       routes: [
         {
