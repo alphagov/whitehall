@@ -10,7 +10,7 @@ class FeaturedImageUploader < WhitehallUploader
     # The issue with removing previous images is that the documents using them may have associations that also use the images.
     # Therefore, when the images get deleted from asset-manager, the associated published documents will 404 for the image, unless
     # an intentional update is run to inform the association that a new image has been provided.
-    # Such an example is Speech document and the relates Person who made the speech. Speech page shows the image of the person.
+    # Such an example is Speech document and the related Person who made the speech. Speech page shows the image of the person.
     # When Person updates the picture, Speech needs to be republished as well, otherwise it will try to show the old image (404 if deletion enabled).
     config.remove_previously_stored_files_after_update = false
     config.validate_integrity = true
