@@ -20,9 +20,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:promotional_feature_item).links.size
   end
 
-  test "POST :create saves the new promotional item to the feature and republishes the organisation to the PublishingApi" do
-    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
-
+  test "POST :create saves the new promotional item to the feature" do
     post :create,
          params: {
            organisation_id: @organisation,
@@ -73,11 +71,10 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert link.is_a?(PromotionalFeatureLink)
   end
 
-  test "PUT :update updates the item, does not delete the old image from the asset store and redirects to the feature and republishes the organisation to the PublishingApi" do
+  test "PUT :update updates the item and does not delete the old image from the asset store" do
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
 
-    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
     # We prefer to keep the image so that published docs can render it in case something goes wrong with the republishing.
     AssetManagerDeleteAssetWorker.expects(:perform_async).never
 
@@ -98,7 +95,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal "Feature item updated.", flash[:notice]
   end
 
-  test "PUT :update on a successful update it does not delete the image from the asset store when a YouTube URL is provided and the user has the 'Add youtube urls to promotional features'" do
+  test "PUT :update on a successful update does not delete the image from the asset store when a YouTube URL is provided and the user has the 'Add youtube urls to promotional features'" do
     @current_user.permissions << "Add youtube urls to promotional features"
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
@@ -129,10 +126,9 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:promotional_feature_item).links.size
   end
 
-  test "DELETE :destroy deletes the promotional item, any image assets from asset-manager (if present) and republishes the organisation to the PublishingApi" do
+  test "DELETE :destroy deletes the promotional item and any image assets from asset-manager (if present)" do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
 
-    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
     promotional_feature_item.assets.each do |asset|
       AssetManagerDeleteAssetWorker.expects(:perform_async).with(nil, asset.asset_manager_id)
     end

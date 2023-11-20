@@ -230,6 +230,37 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal(expected_output, presented_item.content[:details][:ordered_promotional_features])
   end
 
+  test "filters out images with missing assets for promotional feature items" do
+    promotional_feature = create(:promotional_feature)
+    promotional_feature_item_with_assets = create(:promotional_feature_item, promotional_feature:)
+    promotional_feature_item_with_missing_assets = build(:promotional_feature_item, promotional_feature:)
+    promotional_feature_item_with_missing_assets.assets = []
+    promotional_feature_item_with_missing_assets.save!
+
+    organisation = create(
+      :organisation,
+      organisation_type: OrganisationType.civil_service,
+      promotional_features: [promotional_feature],
+    )
+    presented_item = present(organisation)
+
+    expected_output = [
+      {
+        title: promotional_feature.title,
+        items: [
+          summary: promotional_feature_item_with_assets.summary,
+          image: {
+            url: promotional_feature_item_with_assets.image.url,
+            alt_text: promotional_feature_item_with_assets.image_alt_text,
+          },
+          links: promotional_feature_item_with_assets.links,
+        ],
+      },
+    ]
+
+    assert_equal(expected_output, presented_item.content[:details][:ordered_promotional_features])
+  end
+
   test "does not present an ineligible organisation with promotional features" do
     promotional_feature = create(:promotional_feature)
     organisation = create(

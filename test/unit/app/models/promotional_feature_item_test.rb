@@ -100,6 +100,30 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert_empty promotional_feature_item.errors
   end
 
+  test "#republish_on_assets_ready should republish associated organisation if image assets are ready" do
+    promotional_feature_item = create(:promotional_feature_item)
+
+    PublishingApiWorker.expects(:perform_async).with(Organisation.to_s, promotional_feature_item.organisation.id)
+
+    promotional_feature_item.republish_on_assets_ready
+  end
+
+  test "should republish organisation on save" do
+    promotional_feature_item = build(:promotional_feature_item)
+
+    Organisation.any_instance.expects(:publish_to_publishing_api_async)
+
+    promotional_feature_item.save!
+  end
+
+  test "should republish organisation on destroy" do
+    promotional_feature_item = create(:promotional_feature_item)
+
+    Organisation.any_instance.expects(:publish_to_publishing_api_async)
+
+    promotional_feature_item.destroy!
+  end
+
 private
 
   def string_of_length(length)

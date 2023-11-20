@@ -24,6 +24,9 @@ class PromotionalFeatureItem < ApplicationRecord
 
   mount_uploader :image, FeaturedImageUploader
 
+  after_save :republish_organisation
+  after_destroy :republish_organisation
+
   def youtube_video_id
     return if youtube_video_url.blank?
 
@@ -34,9 +37,26 @@ class PromotionalFeatureItem < ApplicationRecord
     youtube_video_id
   end
 
+  def all_asset_variants_uploaded?
+    asset_variants = assets.map(&:variant).map(&:to_sym)
+    required_variants = FeaturedImageUploader.versions.keys.push(:original)
+
+    (required_variants - asset_variants).empty?
+  end
+
+  def republish_on_assets_ready
+    if all_asset_variants_uploaded?
+      republish_organisation
+    end
+  end
+
 private
 
   def image_or_youtube_url_is_present
     errors.add(:image_or_youtube_url, "Upload either an image or add a YouTube URL") if (image.blank? && youtube_video_url.blank?) || (image.present? && youtube_video_url.present?)
+  end
+
+  def republish_organisation
+    organisation.publish_to_publishing_api_async
   end
 end
