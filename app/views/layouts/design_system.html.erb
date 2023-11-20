@@ -38,9 +38,8 @@
 
   <div class="govuk-width-container">
     <%= render "shared/phase_banner", {
-        show_feedback_banner: t("admin.feedback.show_banner"),
-        ga4_tracking: true,
-      } %>
+      show_feedback_banner: t("admin.feedback.show_banner"),
+    } %>
 
     <%= yield(:back_link) %>
     <%= yield(:breadcrumbs) %>
