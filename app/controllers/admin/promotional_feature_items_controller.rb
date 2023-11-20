@@ -2,7 +2,8 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   before_action :load_organisation
   before_action :load_promotional_feature
   before_action :load_promotional_feature_item, only: %i[edit update destroy confirm_destroy]
-  before_action :clean_image_or_youtube_video_url_param, only: %i[create update]
+  before_action :clean_promotional_feature_item_params, only: %i[create update]
+
   layout "design_system"
 
   def new
@@ -76,6 +77,11 @@ private
     )
   end
 
+  def clean_promotional_feature_item_params
+    clean_image_or_youtube_video_url_param
+    clear_file_cache
+  end
+
   def clean_image_or_youtube_video_url_param
     feature_item_type = promotional_feature_item_params.delete(:image_or_youtube_video_url)
 
@@ -85,6 +91,12 @@ private
     else
       promotional_feature_item_params["youtube_video_url"] = nil
       promotional_feature_item_params["youtube_video_alt_text"] = nil
+    end
+  end
+
+  def clear_file_cache
+    if promotional_feature_item_params[:image].present? && promotional_feature_item_params[:image_cache].present?
+      promotional_feature_item_params.delete(:image_cache)
     end
   end
 end

@@ -151,4 +151,50 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal promotional_feature_item, assigns(:promotional_feature_item)
   end
+
+  test "POST: create - discards image_cache if image is present" do
+    filename = "big-cheese.960x640.jpg"
+    cached_promotional_feature_item = build(:promotional_feature_item)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/minister-of-funk.960x640/), anything, anything, anything, anything, anything).never
+
+    post :create,
+         params: {
+           organisation_id: @organisation,
+           promotional_feature_id: @promotional_feature,
+           promotional_feature_item: {
+             summary: "Summary text",
+             image_cache: cached_promotional_feature_item.image_cache,
+             image: upload_fixture(filename, "image/png"),
+           },
+         }
+
+    promotional_feature_item = PromotionalFeatureItem.last
+    assert_equal "big-cheese.960x640.jpg", promotional_feature_item.image.file.filename
+  end
+
+  test "PUT: update - discards image_cache if image is present" do
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, summary: "Old summary")
+    replacement_filename = "big-cheese.960x640.jpg"
+    cached_filename = "example_fatality_notice_image.jpg"
+    cached_promotional_feature_item = build(:promotional_feature_item, image: upload_fixture(cached_filename, "image/png"))
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
+
+    put :update, params: {
+      organisation_id: @organisation,
+      promotional_feature_id: @promotional_feature,
+      id: promotional_feature_item.id,
+      promotional_feature_item: {
+        summary: "Summary text",
+        image_cache: cached_promotional_feature_item.image_cache,
+        image: upload_fixture(replacement_filename, "image/png"),
+      },
+    }
+
+    promotional_feature_item = PromotionalFeatureItem.last
+    assert_equal "big-cheese.960x640.jpg", promotional_feature_item.image.file.filename
+  end
 end
