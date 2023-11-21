@@ -57,6 +57,6 @@ private
   end
 
   def republish_organisation
-    organisation.publish_to_publishing_api_async
+    organisation.republish_to_publishing_api_async
   end
 end

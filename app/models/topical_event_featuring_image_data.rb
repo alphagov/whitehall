@@ -25,7 +25,7 @@ class TopicalEventFeaturingImageData < ApplicationRecord
 
   def republish_on_assets_ready
     if all_asset_variants_uploaded?
-      topical_event_featuring.topical_event.publish_to_publishing_api_async
+      topical_event_featuring.topical_event.republish_to_publishing_api_async
     end
   end
 end

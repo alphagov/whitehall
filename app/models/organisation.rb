@@ -232,7 +232,7 @@ class Organisation < ApplicationRecord
 
   def republish_on_assets_ready
     if all_asset_variants_uploaded?
-      publish_to_publishing_api_async
+      republish_to_publishing_api_async
     end
   end
 

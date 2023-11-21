@@ -12,9 +12,9 @@ module PublishesToPublishingApi
     persisted?
   end
 
-  def publish_to_publishing_api_async
+  def republish_to_publishing_api_async
     if can_publish_to_publishing_api?
-      PublishingApiWorker.perform_async(self.class.to_s, id)
+      Whitehall::PublishingApi.republish_async(self)
     end
   end
 
