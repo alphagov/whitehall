@@ -14,6 +14,6 @@ Then(/^I can see the edition's public URL contains "([^"]*)"$/) do |new_slug|
   expect(page.find(".app-view-edit-edition__page-address .govuk-hint")).to have_content new_slug
 end
 
-Then(/^I am told I do not have access to the document$/) do
-  expect(page).to have_content "Sorry, you don’t have access to this document"
+Then(/^I am told I do not have permissions to access this page/) do
+  expect(page).to have_content "You do not have permission to access this page."
 end

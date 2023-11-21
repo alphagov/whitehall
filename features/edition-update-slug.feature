@@ -12,4 +12,4 @@ Feature: Edition update slug
     Given I am an admin
     And a published news article "You will never guess" exists
     And I visit the edit slug page for "You will never guess"
-    Then I am told I do not have access to the document
+    Then I am told I do not have permissions to access this page
