@@ -196,7 +196,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     promotional_feature1 = create(:promotional_feature)
     promotional_feature_item1 = create(:promotional_feature_item, promotional_feature: promotional_feature1)
     promotional_feature2 = create(:promotional_feature)
-    promotional_feature_item2 = create(:promotional_feature_item, :with_youtube_video_url, promotional_feature: promotional_feature2)
+    promotional_feature_item2 = create(:promotional_feature_item_with_youtube_video_url, promotional_feature: promotional_feature2)
 
     organisation = create(
       :organisation,
@@ -223,6 +223,37 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
           summary: promotional_feature_item2.summary,
           youtube_video: { id: promotional_feature_item2.youtube_video_id, alt_text: promotional_feature_item2.youtube_video_alt_text },
           links: promotional_feature_item2.links,
+        ],
+      },
+    ]
+
+    assert_equal(expected_output, presented_item.content[:details][:ordered_promotional_features])
+  end
+
+  test "filters out images with missing assets for promotional feature items" do
+    promotional_feature = create(:promotional_feature)
+    promotional_feature_item_with_assets = create(:promotional_feature_item, promotional_feature:)
+    promotional_feature_item_with_missing_assets = build(:promotional_feature_item, promotional_feature:)
+    promotional_feature_item_with_missing_assets.assets = []
+    promotional_feature_item_with_missing_assets.save!
+
+    organisation = create(
+      :organisation,
+      organisation_type: OrganisationType.civil_service,
+      promotional_features: [promotional_feature],
+    )
+    presented_item = present(organisation)
+
+    expected_output = [
+      {
+        title: promotional_feature.title,
+        items: [
+          summary: promotional_feature_item_with_assets.summary,
+          image: {
+            url: promotional_feature_item_with_assets.image.url,
+            alt_text: promotional_feature_item_with_assets.image_alt_text,
+          },
+          links: promotional_feature_item_with_assets.links,
         ],
       },
     ]

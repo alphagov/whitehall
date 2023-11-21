@@ -1,15 +1,29 @@
 FactoryBot.define do
-  factory :promotional_feature_item do
+  factory :generic_promotional_feature_item, class: PromotionalFeatureItem do
     association :promotional_feature
     summary { "Summary text" }
-    image { image_fixture_file }
-    image_alt_text { "Image alt text" }
+
+    trait(:with_image) do
+      image { image_fixture_file }
+      image_alt_text { "Image alt text" }
+
+      after :build do |item|
+        item.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: "minister-of-funk.960x640.jpg")
+        item.assets << build(:asset, asset_manager_id: "asset_manager_id_s960", variant: Asset.variants[:s960], filename: "s960_minister-of-funk.960x640.jpg")
+        item.assets << build(:asset, asset_manager_id: "asset_manager_id_s712", variant: Asset.variants[:s712], filename: "s712_minister-of-funk.960x640.jpg")
+        item.assets << build(:asset, asset_manager_id: "asset_manager_id_s630", variant: Asset.variants[:s630], filename: "s630_minister-of-funk.960x640.jpg")
+        item.assets << build(:asset, asset_manager_id: "asset_manager_id_s465", variant: Asset.variants[:s465], filename: "s465_minister-of-funk.960x640.jpg")
+        item.assets << build(:asset, asset_manager_id: "asset_manager_id_s300", variant: Asset.variants[:s300], filename: "s300_minister-of-funk.960x640.jpg")
+        item.assets << build(:asset, asset_manager_id: "asset_manager_id_s216", variant: Asset.variants[:s216], filename: "s216_minister-of-funk.960x640.jpg")
+      end
+    end
 
     trait(:with_youtube_video_url) do
-      image { nil }
-      image_alt_text { nil }
       youtube_video_url { "https://www.youtube.com/watch?v=fFmDQn9Lbl4" }
       youtube_video_alt_text { "YouTube alt text." }
     end
   end
+
+  factory :promotional_feature_item, parent: :generic_promotional_feature_item, traits: [:with_image]
+  factory :promotional_feature_item_with_youtube_video_url, parent: :generic_promotional_feature_item, traits: [:with_youtube_video_url]
 end

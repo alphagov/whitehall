@@ -147,7 +147,8 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @asset_params, true, consultation_outcome.class.to_s, consultation_outcome.id)
   end
 
-  test "updates existing asset of same variant if it already exists - for Organisations" do
+  test "updates existing asset of same variant if it already exists" do
+    # This behaviour applies to all models that have a mount_uploader
     filename = "big-cheese.960x640.jpg"
     organisation = FactoryBot.build(
       :organisation,

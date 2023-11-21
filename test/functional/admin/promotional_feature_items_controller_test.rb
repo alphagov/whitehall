@@ -20,9 +20,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:promotional_feature_item).links.size
   end
 
-  test "POST :create saves the new promotional item to the feature and republishes the organisation to the PublishingApi" do
-    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
-
+  test "POST :create saves the new promotional item to the feature" do
     post :create,
          params: {
            organisation_id: @organisation,
@@ -73,13 +71,12 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert link.is_a?(PromotionalFeatureLink)
   end
 
-  test "PUT :update updates the item, deletes the old image from the asset store and redirects to the feature and republishes the organisation to the PublishingApi" do
+  test "PUT :update updates the item and does not delete the old image from the asset store" do
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
-    legacy_url_path = promotional_feature_item.image.file&.instance_variable_get("@legacy_url_path")
 
-    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
-    AssetManager::AssetDeleter.expects(:call).once.with(legacy_url_path, nil)
+    # We prefer to keep the image so that published docs can render it in case something goes wrong with the republishing.
+    AssetManagerDeleteAssetWorker.expects(:perform_async).never
 
     put :update,
         params: { organisation_id: @organisation,
@@ -93,17 +90,19 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
                   } }
 
     assert_equal "Updated summary", promotional_feature_item.reload.summary
+    assert_equal "big-cheese.960x640.jpg", promotional_feature_item.reload.image.file.filename
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
     assert_equal "Feature item updated.", flash[:notice]
   end
 
-  test "PUT :update on a successful update it deletes the image from the asset store when a YouTube URL is provided and the user has the 'Add youtube urls to promotional features'" do
+  test "PUT :update on a successful update does not delete the image from the asset store when a YouTube URL is provided and the user has the 'Add youtube urls to promotional features'" do
     @current_user.permissions << "Add youtube urls to promotional features"
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
-    legacy_url_path = promotional_feature_item.image.file&.instance_variable_get("@legacy_url_path")
 
-    AssetManager::AssetDeleter.expects(:call).once.with(legacy_url_path, nil)
+    # We prefer to keep the image assets in asset-manager so that published docs can render them,
+    # in case the republishing is slow or unsuccessful.
+    AssetManagerDeleteAssetWorker.expects(:perform_async).never
 
     put :update,
         params: { organisation_id: @organisation,
@@ -127,11 +126,12 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:promotional_feature_item).links.size
   end
 
-  test "DELETE :destroy deletes the promotional item and republishes the organisation to the PublishingApi" do
-    Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
+  test "DELETE :destroy deletes the promotional item and any image assets from asset-manager (if present)" do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
 
-    Whitehall::PublishingApi.expects(:republish_async).once.with(@organisation)
+    promotional_feature_item.assets.each do |asset|
+      AssetManagerDeleteAssetWorker.expects(:perform_async).with(nil, asset.asset_manager_id)
+    end
 
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
@@ -146,5 +146,51 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_equal promotional_feature_item, assigns(:promotional_feature_item)
+  end
+
+  test "POST: create - discards image_cache if image is present" do
+    filename = "big-cheese.960x640.jpg"
+    cached_promotional_feature_item = build(:promotional_feature_item)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/minister-of-funk.960x640/), anything, anything, anything, anything, anything).never
+
+    post :create,
+         params: {
+           organisation_id: @organisation,
+           promotional_feature_id: @promotional_feature,
+           promotional_feature_item: {
+             summary: "Summary text",
+             image_cache: cached_promotional_feature_item.image_cache,
+             image: upload_fixture(filename, "image/png"),
+           },
+         }
+
+    promotional_feature_item = PromotionalFeatureItem.last
+    assert_equal "big-cheese.960x640.jpg", promotional_feature_item.image.file.filename
+  end
+
+  test "PUT: update - discards image_cache if image is present" do
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, summary: "Old summary")
+    replacement_filename = "big-cheese.960x640.jpg"
+    cached_filename = "example_fatality_notice_image.jpg"
+    cached_promotional_feature_item = build(:promotional_feature_item, image: upload_fixture(cached_filename, "image/png"))
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
+
+    put :update, params: {
+      organisation_id: @organisation,
+      promotional_feature_id: @promotional_feature,
+      id: promotional_feature_item.id,
+      promotional_feature_item: {
+        summary: "Summary text",
+        image_cache: cached_promotional_feature_item.image_cache,
+        image: upload_fixture(replacement_filename, "image/png"),
+      },
+    }
+
+    promotional_feature_item = PromotionalFeatureItem.last
+    assert_equal "big-cheese.960x640.jpg", promotional_feature_item.image.file.filename
   end
 end
