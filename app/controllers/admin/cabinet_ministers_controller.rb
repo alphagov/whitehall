@@ -48,46 +48,17 @@ class Admin::CabinetMinistersController < Admin::BaseController
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
   end
 
-  def update
-    update_ordering(:roles, :seniority)
-    update_ordering(:whips, :whip_ordering)
-    update_organisation_ordering
+  def order_ministerial_organisations
+    params["ordering"].each do |id, ordering|
+      Organisation.find(id).update_column(:ministerial_ordering, ordering)
+    end
 
-    redirect_to admin_cabinet_ministers_path + add_anchor_if_arrived_from_reorder_page
+    redirect_to admin_cabinet_ministers_path(anchor: "organisations")
   end
 
 private
 
   def enforce_permissions!
     enforce_permission!(:reorder_cabinet_ministers, MinisterialRole)
-  end
-
-  def add_anchor_if_arrived_from_reorder_page
-    return "" if request.referer.blank?
-
-    case URI(request.referer).path
-    when reorder_ministerial_organisations_admin_cabinet_ministers_path
-      "#organisations"
-    else
-      ""
-    end
-  end
-
-  def update_ordering(key, column)
-    return unless params.include?(key)
-
-    params[key]["ordering"].keys.each do |id|
-      Role.where(id:).update_all("#{column}": params[key]["ordering"][id.to_s])
-    end
-  end
-
-  def update_organisation_ordering
-    return unless params.include?(:organisation)
-
-    params[:organisation]["ordering"].each_pair do |id, order|
-      Organisation.where(id:).update_all(
-        ministerial_ordering: order,
-      )
-    end
   end
 end

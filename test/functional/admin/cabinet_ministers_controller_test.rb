@@ -60,23 +60,20 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_redirected_to admin_cabinet_ministers_path(anchor: "whips")
   end
 
-  test "should reorder ministerial organisations" do
-    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_ministerial_organisations_admin_cabinet_ministers_path
+  test "PATCH :order_ministerial_organisations should reorder ministerial organisations" do
     org2 = create(:organisation)
     org1 = create(:organisation)
 
-    put :update,
+    put :order_ministerial_organisations,
         params: {
-          organisation: {
-            ordering: {
-              org1.id.to_s => 0,
-              org2.id.to_s => 1,
-            },
+          ordering: {
+            org1.id.to_s => 0,
+            org2.id.to_s => 1,
           },
         }
 
     assert_equal Organisation.order(:ministerial_ordering), [org1, org2]
-    assert_redirected_to "#{admin_cabinet_ministers_path}#organisations"
+    assert_redirected_to admin_cabinet_ministers_path(anchor: "organisations")
   end
 
   view_test "should list cabinet ministers and ministerial organisations in separate tabs, in the correct order, with reorder links" do

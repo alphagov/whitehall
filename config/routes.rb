@@ -303,7 +303,7 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy, on: :member
       end
 
-      resource :cabinet_ministers, only: %i[show update] do
+      resource :cabinet_ministers, only: %i[show] do
         get :reorder_cabinet_minister_roles
         patch :order_cabinet_minister_roles
 
@@ -314,6 +314,7 @@ Whitehall::Application.routes.draw do
         patch :order_whip_roles
 
         get :reorder_ministerial_organisations
+        patch :order_ministerial_organisations
       end
 
       resources :roles, except: [:show] do
