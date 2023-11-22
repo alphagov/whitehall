@@ -16,7 +16,7 @@ class Admin::MoreControllerTest < ActionController::TestCase
 
   view_test "GET #index renders Fields of Operation and Sitewide settings list option when the user has GDS Editor permission and organisation is GDS" do
     organisation = create(:organisation, name: "government-digital-service")
-    login_as_preview_design_system_user(:gds_editor, organisation)
+    login_as(:gds_editor, organisation)
 
     get :index
 
@@ -27,7 +27,7 @@ class Admin::MoreControllerTest < ActionController::TestCase
 
   view_test "GET #index renders Fields of Operation list option and not show Sitewide settings when the user's organisation is Ministry of Defence" do
     organisation = create(:organisation, name: "ministry-of-defence", handles_fatalities: true)
-    login_as_preview_design_system_user(:writer, organisation)
+    login_as(:writer, organisation)
 
     get :index
 
@@ -38,7 +38,7 @@ class Admin::MoreControllerTest < ActionController::TestCase
 
   view_test "GET #index does not renders Fields of Operation and Sitewide settings option when the user's organisation is not GDS nor Ministry of Defence." do
     organisation = create(:organisation, name: "cabinet-minister")
-    login_as_preview_design_system_user(:writer, organisation)
+    login_as(:writer, organisation)
 
     get :index
 

@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
     @world_location_news = build(:world_location_news, mission_statement: "Teaching the people how to brew tea")
     @world_location = create(:world_location, name: "Afrolasia", world_location_news: @world_location_news)
 

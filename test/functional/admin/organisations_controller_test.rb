@@ -135,9 +135,9 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     create(:organisation_role, organisation:, role: senior_board_member_role)
     create(:organisation_role, organisation:, role: junior_board_member_role)
 
-    managing_editor = create(:managing_editor, :with_preview_design_system, organisation:)
-    departmental_editor = create(:departmental_editor, :with_preview_design_system, organisation:)
-    world_editor = create(:world_editor, :with_preview_design_system, organisation:)
+    managing_editor = create(:managing_editor, organisation:)
+    departmental_editor = create(:departmental_editor, organisation:)
+    world_editor = create(:world_editor, organisation:)
 
     get :edit, params: { id: organisation }
     assert_select "select#organisation_important_board_members option", count: 2
@@ -316,18 +316,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   view_test "Prevents unauthorized management of homepage priority" do
     organisation = create(:organisation)
-    writer = create(:writer, :with_preview_design_system, organisation:)
+    writer = create(:writer, organisation:)
     login_as(writer)
 
     get :edit, params: { id: organisation }
     refute_select "#organisation_homepage_type"
 
-    managing_editor = create(:managing_editor, :with_preview_design_system, organisation:)
+    managing_editor = create(:managing_editor, organisation:)
     login_as(managing_editor)
     get :edit, params: { id: organisation }
     assert_select "#organisation_homepage_type"
 
-    gds_editor = create(:gds_editor, :with_preview_design_system, organisation:)
+    gds_editor = create(:gds_editor, organisation:)
     login_as(gds_editor)
     get :edit, params: { id: organisation }
     assert_select "#organisation_homepage_type"
@@ -335,7 +335,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "Non-admins can only edit their own organisations or children" do
     organisation1 = create(:organisation)
-    gds_editor = create(:gds_editor, :with_preview_design_system, organisation: organisation1)
+    gds_editor = create(:gds_editor, organisation: organisation1)
     login_as(gds_editor)
 
     get :edit, params: { id: organisation1 }
@@ -376,18 +376,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   view_test "GDS Editors can set political status" do
     organisation = create(:organisation)
-    writer = create(:writer, :with_preview_design_system, organisation:)
+    writer = create(:writer, organisation:)
     login_as(writer)
 
     get :edit, params: { id: organisation }
     refute_select "#organisation_political"
 
-    managing_editor = create(:managing_editor, :with_preview_design_system, organisation:)
+    managing_editor = create(:managing_editor, organisation:)
     login_as(managing_editor)
     get :edit, params: { id: organisation }
     refute_select "#organisation_political"
 
-    gds_editor = create(:gds_editor, :with_preview_design_system, organisation:)
+    gds_editor = create(:gds_editor, organisation:)
     login_as(gds_editor)
     get :edit, params: { id: organisation }
     assert_select "#organisation_political"

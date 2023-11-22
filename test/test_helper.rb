@@ -236,10 +236,6 @@ class ActionController::TestCase
     login_as(create(:user, name: "admin-name", email: "admin@example.com"))
   end
 
-  def login_as_preview_design_system_user(role, organisation = nil)
-    login_as(create(role, :with_preview_design_system, name: "preview-user-name", email: "preview-user@example.com", organisation:))
-  end
-
   def login_as_use_non_legacy_endpoints_user(role, organisation = nil)
     login_as(create(role, :with_use_non_legacy_endpoints, name: "user-name", email: "user@example.com", organisation:))
   end
