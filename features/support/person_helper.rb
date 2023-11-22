@@ -25,6 +25,7 @@ module PersonHelper
 
   def visit_people_admin
     visit admin_root_path
+    click_link "More"
     click_link "People"
   end
 

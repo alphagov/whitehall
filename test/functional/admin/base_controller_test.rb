@@ -147,36 +147,6 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_not_current_item("/government/admin/organisations/my-test-org/features")
   end
 
-  view_test "only renders non-organisation header links if not logged in" do
-    # It's not possible, at the moment, to show the new design system layout if no user is signed in,
-    # but once we remove the legacy layout, the design system will be the default layout. In order to
-    # test this for now we stub some BaseController methods—this stubbing won't be necessary once the
-    # design system transition has been completed.
-    Admin::BaseController.any_instance.stubs(:show_new_header?).returns(true)
-    Admin::BaseController.any_instance.stubs(:preview_design_system?).returns(true)
-    @controller = Admin::NewDocumentController.new
-
-    get :index
-
-    assert_select ".app-c-sub-navigation__list .app-c-sub-navigation__list-item a[href=\"/government/admin/organisations/my-test-org/features\"]", false
-    assert_select ".app-c-sub-navigation__list .app-c-sub-navigation__list-item a[href=\"/government/admin/organisations/my-test-org/corporate_information_pages\"]", false
-
-    assert_select ".app-c-sub-navigation__list .app-c-sub-navigation__list-item a[href=\"/government/admin/new-document\"]"
-    assert_select ".app-c-sub-navigation__list .app-c-sub-navigation__list-item a[href=\"/government/admin/editions\"]"
-    assert_select ".app-c-sub-navigation__list .app-c-sub-navigation__list-item a[href=\"/government/admin/statistics_announcements\"]"
-    assert_select ".app-c-sub-navigation__list .app-c-sub-navigation__list-item a[href=\"/government/admin/more\"]"
-  end
-
-  view_test "renders legacy header component if login as a non design system user" do
-    login_as :gds_editor
-    @controller = Admin::NewDocumentController.new
-
-    get :index
-
-    assert_select ".govuk-header__navigation-item", false
-    assert_select ".nav.navbar-nav", text: /Dashboard/
-  end
-
 private
 
   def assert_not_current_item(path)

@@ -17,24 +17,16 @@
 <% end %>
 
 <%= render "govuk_publishing_components/components/layout_for_admin",
-  product_name: "Whitehall Publisher",
-  environment: environment,
-  browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitize((yield(:page_title).presence || yield(:title))) do %>
+           product_name: "Whitehall Publisher",
+           environment: environment,
+           browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitize((yield(:page_title).presence || yield(:title))) do %>
 
   <!-- This element exists to initialise the JS module that configures custom Analytics behaviour -->
   <div data-module="app-analytics"></div>
 
   <%= render "govuk_publishing_components/components/skip_link" %>
 
-  <% if show_new_header? %>
-    <%= render partial: "shared/header" %>
-  <% else %>
-    <div class="legacy-whitehall">
-      <div class="environment-<%= environment %> navbar-wrapper">
-        <%= render partial: "shared/legacy_header" %>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "shared/header" %>
 
   <div class="govuk-width-container">
     <%= render "shared/phase_banner", {

@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::MoreControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   view_test "GET #index renders the 'More' page with a correctly formatted list of links" do

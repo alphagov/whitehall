@@ -6,6 +6,7 @@ ParameterType(
 module TopicalEventsHelper
   def create_topical_event_and_stub_in_content_store(options = {})
     visit admin_root_path
+    click_link "More"
     click_link "Topical events"
     click_link "Create topical event"
     fill_in "Name", with: options[:name] || "topic-name"

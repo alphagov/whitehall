@@ -1,7 +1,5 @@
 class Admin::NewDocumentController < Admin::BaseController
-  before_action :check_new_design_system_permissions, only: %i[index]
-
-  layout :get_layout
+  layout "design_system"
 
   def index; end
 

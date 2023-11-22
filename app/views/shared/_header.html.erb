@@ -1,5 +1,4 @@
 <% environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment %>
-<% admin_template ||= false %>
 <% organisation = current_user&.organisation %>
 <% user = current_user %>
 
@@ -46,9 +45,3 @@
     ],
   } %>
 </div>
-
-<% if admin_template %>
-  <section class="notices">
-    <%= render partial: "shared/notices" %>
-  </section>
-<% end %>

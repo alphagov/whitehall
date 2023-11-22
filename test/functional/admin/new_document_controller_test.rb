@@ -52,12 +52,6 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]", count: 1
   end
 
-  test "access to the New document index page is forbidden for users without design system permissions" do
-    login_as :writer
-    get :index
-    assert_response :forbidden
-  end
-
   test "POST #new_document_options_redirect redirects each radio buttons to their expected paths" do
     redirect_options.each do |selected_option, expected_path|
       request_params = {
