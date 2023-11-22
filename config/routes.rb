@@ -304,10 +304,10 @@ Whitehall::Application.routes.draw do
       end
 
       resource :cabinet_ministers, only: %i[show update] do
-        get :reorder_cabinet_minister_roles, on: :member
-        get :reorder_also_attends_cabinet_roles, on: :member
-        get :reorder_whip_roles, on: :member
-        get :reorder_ministerial_organisations, on: :member
+        get :reorder_cabinet_minister_roles
+        get :reorder_also_attends_cabinet_roles
+        get :reorder_whip_roles
+        get :reorder_ministerial_organisations
       end
 
       resources :roles, except: [:show] do
