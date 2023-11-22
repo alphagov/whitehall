@@ -161,6 +161,7 @@ class AssetManagerIntegrationTest
   class CreatingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       @filename = "greenpaper.pdf"
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
       ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
       @consultation_response_form_data = FactoryBot.build(
         :consultation_response_form_data,
@@ -169,17 +170,17 @@ class AssetManagerIntegrationTest
     end
 
     test "sends the consultation response form data file to Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(
-        file_and_legacy_url_path_matching(/#{@filename}/),
-      )
+      Services.asset_manager.expects(:create_asset).with { |args|
+        args[:file].path =~ /#{@filename}/
+      }.returns(@asset_manager_response)
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.save!
       end
     end
 
-    test "does not mark the consultation response form data as draft in Asset Manager" do
-      Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
+    test "sends draft as false for consultation response form data to Asset Manager" do
+      Services.asset_manager.expects(:create_asset).with(has_entry(draft: false)).returns(@asset_manager_response)
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.save!
@@ -190,24 +191,19 @@ class AssetManagerIntegrationTest
   class RemovingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       filename = "greenpaper.pdf"
-      @consultation_response_form_asset_id = "asset-id"
       ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
       @consultation_response_form_data = FactoryBot.create(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(filename)),
       )
-      @consultation_response_form_data.reload
-      @file_path = @consultation_response_form_data.file.path
 
-      Services.asset_manager.stubs(:whitehall_asset)
-              .with(regexp_matches(/#{filename}/))
-              .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
-      Services.asset_manager.stubs(:delete_asset)
+      @asset_manager_id = @consultation_response_form_data.assets.first.asset_manager_id
+      Services.asset_manager.stubs(:asset).with(@asset_manager_id).returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => filename)
     end
 
     test "removing a consultation response form data file removes it from asset manager" do
       Services.asset_manager.expects(:delete_asset)
-              .with(@consultation_response_form_asset_id)
+              .with(@asset_manager_id)
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.file.remove!
@@ -218,26 +214,23 @@ class AssetManagerIntegrationTest
   class ReplacingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       filename = "greenpaper.pdf"
-      @consultation_response_form_asset_id = "asset-id"
       ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
       @consultation_response_form_data = FactoryBot.create(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(filename)),
       )
-      @consultation_response_form_data.reload
-      @file_path = @consultation_response_form_data.file.path
 
-      Services.asset_manager.stubs(:whitehall_asset)
-              .with(regexp_matches(/#{filename}/))
-              .returns("id" => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
-      Services.asset_manager.stubs(:delete_asset)
+      @asset_manager_id = @consultation_response_form_data.assets.first.asset_manager_id
+      Services.asset_manager.stubs(:asset).with(@asset_manager_id).returns({ "id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => filename })
     end
 
     test "replacing a consultation response form data file removes the old file from asset manager" do
-      Services.asset_manager.expects(:delete_asset)
-              .with(@consultation_response_form_asset_id)
-
-      @consultation_response_form_data.file = File.open(fixture_path.join("whitepaper.pdf"))
+      replacement_filename = "whitepaper.pdf"
+      Services.asset_manager.expects(:create_asset).with { |args|
+        args[:file].path =~ /#{replacement_filename}/
+      }.returns({ "id" => "http://asset-manager/assets/asset_manager_id_new", "name" => replacement_filename })
+      Services.asset_manager.expects(:delete_asset).with(@asset_manager_id)
+      @consultation_response_form_data.file = File.open(fixture_path.join(replacement_filename))
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.save!

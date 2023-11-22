@@ -98,6 +98,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       participation = create(:consultation_participation, consultation: edition)
       consultation_response_form = create(:consultation_response_form, consultation_participation: participation)
 
+      edition.reload
       SecureRandom.stubs(uuid: uid)
       expected_attributes = { "auth_bypass_ids" => [uid] }
 

@@ -238,14 +238,12 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         click_button "Save"
 
         # Note that there is no access limiting applied to non attachments. This is existing behaviour that probably needs changing.
-        Services.asset_manager.expects(:create_whitehall_asset).with(
-          has_entries(
-            legacy_url_path: regexp_matches(/simple\.pdf/),
-            auth_bypass_ids: [edition.auth_bypass_id],
-          ),
-        )
+        Services.asset_manager.expects(:create_asset).with { |args|
+          args[:file].path =~ /simple\.pdf/
+          args[:auth_bypass_ids] == [edition.auth_bypass_id]
+        }.returns(asset_manager_response)
 
-        AssetManagerCreateWhitehallAssetWorker.drain
+        AssetManagerCreateAssetWorker.drain
       end
     end
 

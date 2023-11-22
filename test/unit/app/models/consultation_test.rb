@@ -515,4 +515,15 @@ class ConsultationTest < ActiveSupport::TestCase
       assert_equal consultation.document.slug, consultation.title
     end
   end
+
+  test "is invalid if consultation response form asset is missing" do
+    response_form_data = build(:consultation_response_form_data)
+    response_form_data.assets = []
+    response_form = build(:consultation_response_form, consultation_response_form_data: response_form_data)
+    participation = build(:consultation_participation, consultation_response_form: response_form)
+    consultation = build(:open_consultation, consultation_participation: participation)
+
+    assert_not consultation.valid?
+    assert_includes consultation.errors[:consultation_response_form], "must have finished uploading"
+  end
 end

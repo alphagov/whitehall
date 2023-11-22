@@ -28,6 +28,6 @@ class AssetManagerUpdateWhitehallAssetWorker < WorkerBase
 private
 
   def should_use_non_legacy_endpoints?(asset_data)
-    asset_data.instance_of?(AttachmentData) || asset_data.instance_of?(ImageData)
+    asset_data.instance_of?(AttachmentData) || asset_data.instance_of?(ImageData) || asset_data.instance_of?(ConsultationResponseFormData)
   end
 end
