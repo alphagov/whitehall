@@ -11,23 +11,20 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     @organisation ||= create(:organisation)
   end
 
-  test "should reorder ministerial roles" do
-    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_cabinet_minister_roles_admin_cabinet_ministers_path
+  test "PATCH :order_cabinet_minister_roles should reorder ministerial roles" do
     role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
 
-    put :update,
-        params: {
-          roles: {
+    patch :order_cabinet_minister_roles,
+          params: {
             ordering: {
               role1.id.to_s => 0,
               role2.id.to_s => 1,
             },
-          },
-        }
+          }
 
-    assert_equal MinisterialRole.cabinet.order(:seniority).to_a, [role1, role2]
-    assert_redirected_to "#{admin_cabinet_ministers_path}#cabinet_minister"
+    assert_equal MinisterialRole.cabinet.order(:seniority), [role1, role2]
+    assert_redirected_to admin_cabinet_ministers_path(anchor: "cabinet_minister")
   end
 
   test "should reorder people who also attend cabinet" do
