@@ -1,4 +1,8 @@
 <% content_for :page_title, "Reorder also attends cabinet ordering" %>
 <% content_for :context, "Also attends cabinet ordering" %>
 
-<%= render "reorder", list: @roles, name: "roles[ordering]", form_url: admin_cabinet_ministers_path, cancel_path: "#{admin_cabinet_ministers_path}#also_attends_cabinet" %>
+<%= render "reorder",
+  list: @roles,
+  name: "ordering",
+  form_url: order_also_attends_cabinet_roles_admin_cabinet_ministers_path,
+  cancel_path: admin_cabinet_ministers_path(anchor: "also_attends_cabinet") %>

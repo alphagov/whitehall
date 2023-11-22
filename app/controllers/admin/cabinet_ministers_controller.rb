@@ -24,6 +24,14 @@ class Admin::CabinetMinistersController < Admin::BaseController
     @roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
   end
 
+  def order_also_attends_cabinet_roles
+    params["ordering"].each do |id, ordering|
+      Role.find(id).update_column(:seniority, ordering)
+    end
+
+    redirect_to admin_cabinet_ministers_path(anchor: "also_attends_cabinet")
+  end
+
   def reorder_whip_roles
     @roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
   end
@@ -50,8 +58,6 @@ private
     return "" if request.referer.blank?
 
     case URI(request.referer).path
-    when reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path
-      "#also_attends_cabinet"
     when reorder_whip_roles_admin_cabinet_ministers_path
       "#whips"
     when reorder_ministerial_organisations_admin_cabinet_ministers_path

@@ -308,6 +308,8 @@ Whitehall::Application.routes.draw do
         patch :order_cabinet_minister_roles
 
         get :reorder_also_attends_cabinet_roles
+        patch :order_also_attends_cabinet_roles
+
         get :reorder_whip_roles
         get :reorder_ministerial_organisations
       end

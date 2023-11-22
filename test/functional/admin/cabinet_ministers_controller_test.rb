@@ -27,22 +27,19 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_redirected_to admin_cabinet_ministers_path(anchor: "cabinet_minister")
   end
 
-  test "should reorder people who also attend cabinet" do
-    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path
+  test "PATCH :order_also_attends_cabinet_roles should reorder people who also attend cabinet" do
     role2 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation])
 
-    put :update,
-        params: {
-          roles: {
+    patch :order_also_attends_cabinet_roles,
+          params: {
             ordering: {
               role1.id.to_s => 0,
               role2.id.to_s => 1,
             },
-          },
-        }
+          }
 
-    assert_equal MinisterialRole.also_attends_cabinet.order(:seniority).to_a, [role1, role2]
+    assert_equal MinisterialRole.also_attends_cabinet.order(:seniority), [role1, role2]
     assert_redirected_to "#{admin_cabinet_ministers_path}#also_attends_cabinet"
   end
 
