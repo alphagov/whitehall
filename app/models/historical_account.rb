@@ -39,7 +39,7 @@ class HistoricalAccount < ApplicationRecord
   end
 
   def republish_prime_ministers_index_page_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::HistoricalAccountsIndexPresenter) unless role.slug != "prime-minister"
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter") unless role.slug != "prime-minister"
   end
 
   def base_path

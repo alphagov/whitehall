@@ -90,13 +90,13 @@ class RoleAppointment < ApplicationRecord
 
   def republish_ministerial_pages_to_publishing_api
     if ministerial?
-      PresentPageToPublishingApi.new.publish(PublishingApi::HowGovernmentWorksPresenter)
-      PresentPageToPublishingApi.new.publish(PublishingApi::MinistersIndexPresenter)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter")
     end
   end
 
   def republish_prime_ministers_index_page_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::HistoricalAccountsIndexPresenter) unless current? || role.slug != "prime-minister" || has_historical_account?
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter") unless current? || role.slug != "prime-minister" || has_historical_account?
   end
 
   def self.between(start_time, end_time)

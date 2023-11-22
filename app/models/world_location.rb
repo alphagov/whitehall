@@ -89,8 +89,8 @@ class WorldLocation < ApplicationRecord
   friendly_id
 
   def republish_index_pages_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
-    PresentPageToPublishingApi.new.publish(PublishingApi::WorldIndexPresenter) if I18n.locale == :en
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::WorldIndexPresenter") if I18n.locale == :en
   end
 
   def publishing_api_presenter

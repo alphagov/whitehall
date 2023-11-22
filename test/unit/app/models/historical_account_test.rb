@@ -105,7 +105,9 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     test "republishes the past prime ministers page on create" do
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
-      create(:historical_account, person: @person, role: @pm_role)
+      Sidekiq::Testing.inline! do
+        create(:historical_account, person: @person, role: @pm_role)
+      end
     end
 
     test "republishes the past prime ministers page on update" do
@@ -113,7 +115,9 @@ class HistoricalAccountTest < ActiveSupport::TestCase
 
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
-      account.update!(born: "2000")
+      Sidekiq::Testing.inline! do
+        account.update!(born: "2000")
+      end
     end
 
     test "republishes the past prime ministers page on destroy" do
@@ -121,7 +125,9 @@ class HistoricalAccountTest < ActiveSupport::TestCase
 
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
-      account.destroy!
+      Sidekiq::Testing.inline! do
+        account.destroy!
+      end
     end
   end
 end

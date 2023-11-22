@@ -219,15 +219,15 @@ class Organisation < ApplicationRecord
   end
 
   def republish_how_government_works_page_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
   end
 
   def republish_ministers_index_page_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::MinistersIndexPresenter) if ministerial_department?
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter") if ministerial_department?
   end
 
   def republish_organisations_index_page_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::OrganisationsIndexPresenter)
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::OrganisationsIndexPresenter")
   end
 
   def republish_on_assets_ready
