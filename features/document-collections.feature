@@ -6,27 +6,23 @@ Feature: Grouping documents into a collection
   Background:
     Given I am a writer in the organisation "Government Department"
 
-  @design-system-only
   Scenario: Deleting a group
     Given a document collection "May 2012 Update" exists
     And the document collection "May 2012 Update" has a group with the heading "Temporary group"
     When I delete the group "Temporary group"
     Then I can see that the group "Temporary group" has been deleted
 
-  @design-system-only
   Scenario: Adding a new group
     When I draft a new document collection called "May 2012 Update"
     And I add the group "Brand new group"
     Then I can see that the group "Brand new group" has been added
 
-  @design-system-only
   Scenario: Editing a group
     Given a document collection "May 2012 Update" exists
     And the document collection "May 2012 Update" has a group with the heading "Group to be edited"
     When I edit the group "Group to be edited"'s heading to "Interesting new heading"
     Then I can see that the heading has been updated to "Interesting new heading"
 
-  @design-system-only
   Scenario: Adding a document to a group via title
     Given a document collection "Collection" exists
     And the document collection "Collection" has a group with the heading "Group"
@@ -36,7 +32,6 @@ Feature: Grouping documents into a collection
     And I add "Document 1" to the document collection
     Then I should see "Document 1" in the list for the collection group "Group"
 
-  @design-system-only
   Scenario: Adding and Removing a document to a group via URL
     Given a document collection "Collection" exists
     And the document collection "Collection" has a group with the heading "Group"
@@ -47,13 +42,11 @@ Feature: Grouping documents into a collection
     When I remove the document "Document 1" from the group
     Then I can see that "Document 1" has been removed from the group
 
-  @design-system-only
   Scenario: Removing a document from a group
     Given a published publication called "Document to be removed" in a published document collection
     When I remove the document "Document to be removed" from the group
     Then I can see that "Document to be removed" has been removed from the group
 
-  @design-system-only
   Scenario: Reordering groups
     Given a document collection "May 2012 Update" exists
     And the following groups exist within "May 2012 Update":
@@ -71,7 +64,6 @@ Feature: Grouping documents into a collection
       | Group 2 |
       | Group 1 |
 
-  @design-system-only
   Scenario: Reordering documents within a group
     Given a document collection "Collection" exists
     And the document collection "Collection" has a group with the heading "Group"

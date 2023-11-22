@@ -1,4 +1,3 @@
-@design-system-only
 Feature: Viewing a document's history
 
   Background:
