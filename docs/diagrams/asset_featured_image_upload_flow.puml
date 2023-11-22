@@ -1,0 +1,48 @@
+@startuml asset-featured-image-upload-flow
+
+title The sequence of uploading an image to content types that are immediately republished (FeaturedImageData)
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+
+box "Whitehall" #f2fef8
+actor publisher
+participant Controller
+participant "AssetManager\nCreateAssetWorker" as AssetManagerCreateAssetWorker
+participant Person
+participant FeaturedImageData
+participant "AssetManager\nStorage" as AssetManagerStorage
+end box
+
+box Whitehall-background-jobs
+participant "AssetManager\nCreateAssetWorker" as AssetManagerCreateAssetWorker
+participant Asset as bgAsset
+participant FeaturedImageData as bgFeaturedImageData
+participant Person as bgPerson
+end box
+
+box "Asset Manager" #f2f8fe
+participant AssetManager
+end box
+
+box "Publishing API" #f2f8fe
+participant PublishingApi
+end box
+
+publisher -> Controller++ : Upload a new image
+Controller -> Person : Save
+Person -> PublishingApi : Update content, patch links and republish
+Person -> FeaturedImageData : Save
+FeaturedImageData -> AssetManagerStorage : Carrierwave invokes store!
+AssetManagerStorage --> AssetManagerCreateAssetWorker : Enqueue 7 times
+Controller -> publisher-- : Show person
+
+group 7 times, once per image variant
+  activate AssetManagerCreateAssetWorker
+  AssetManagerCreateAssetWorker -> AssetManager : Upload the image version to Asset Manager
+  AssetManagerCreateAssetWorker -> bgAsset: Save
+  AssetManagerCreateAssetWorker -> bgFeaturedImageData : Republish
+  bgFeaturedImageData -> bgPerson : Republish
+  bgPerson -> PublishingApi-- : Update content, patch links and republish
+end group
+
+@enduml

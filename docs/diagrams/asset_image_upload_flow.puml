@@ -1,0 +1,42 @@
+@startuml asset-image-upload-flow
+
+title The sequence of uploading an image in Whitehall to editions (ImageData)
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+
+box "Whitehall" #f2fef8
+actor publisher
+participant Controller
+participant ImageData
+participant "AssetManager\nStorage" as AssetManagerStorage
+end box
+
+box Whitehall-background-jobs
+participant "AssetManager\nCreateAssetWorker" as AssetManagerCreateAssetWorker
+participant Asset
+end box
+
+box "Asset Manager" #f2f8fe
+participant AssetManager
+end box
+
+box "Publishing API" #f2f8fe
+participant PublishingApi
+end box
+
+publisher -> Controller++ : upload an image
+Controller -> ImageData : Save
+ImageData -> AssetManagerStorage : Carrierwave invokes store!
+AssetManagerStorage --> AssetManagerCreateAssetWorker++ : Enqueue 7 times
+Controller -> publisher-- : Show images
+
+group 7 times, once per image variant
+  AssetManagerCreateAssetWorker -> AssetManager : Upload the image variant to Asset Manager
+  AssetManagerCreateAssetWorker -> Asset--: Save
+end group
+
+publisher -> Controller++ : publish edition
+Controller -> ImageData : Validate that images\nare ready to be published
+Controller -> PublishingApi : update content, patch links and publish
+
+@enduml

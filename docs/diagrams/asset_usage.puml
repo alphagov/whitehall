@@ -1,0 +1,29 @@
+@startuml
+title Example flow how an Organisation's image becomes available for the End user
+
+
+frame "Publishing" {
+  actor "Publisher"
+  database MySQL
+  database "MongoDB"
+  circle "Asset Manager S3"
+
+  "Publisher" --> [Whitehall]: 1. Upload a new\nimage for an\nOrganisation
+  [Whitehall] -u-> [Asset Manager]: 2. Upload the\nimage
+  [Whitehall] -> "MySQL": 3. Store Asset\nreference
+  [Asset Manager] -> [Asset Manager]: Run Virus Scanner
+  [Asset Manager] --> "Asset Manager S3": Store file
+  [Whitehall] --> [Publishing Api]: 4. Publish\nOrganisation\ncontent
+  [Publishing Api] -l-> [Content Store]: 5. Store\nOrganisation\ncontent
+  [Content Store] -d-> "MongoDB": 6. Store\nOrganisation\ncontent
+}
+
+frame "Rendering" {
+  actor User
+  "User" -u-> [Collections]: 7. Request\nOrganisations\npage
+  [Collections] --> [Content Store]: 8. Fetch latest\nOrganisation\nContent
+  [Collections] --> "User": 9. Render page\nwith a url to\nthe image in\nAsset Manager
+  "User" --> [Asset Manager]: 10. Request Image
+}
+
+@enduml
