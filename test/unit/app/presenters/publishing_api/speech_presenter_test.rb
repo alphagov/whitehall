@@ -209,9 +209,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           create(
             :feature,
             document: speech.document,
-            image: File.open(
-              Rails.root.join("test/fixtures/images/960x640_gif.gif"),
-            ),
+            image: build(:featured_image_data),
             alt_text: "featured image",
           )
         end
@@ -220,9 +218,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           create(
             :feature,
             document: speech.document,
-            image: File.open(
-              Rails.root.join("test/fixtures/images/960x640_gif.gif"),
-            ),
+            image: build(:featured_image_data, file: upload_fixture("big-cheese.960x640.jpg", "image/jpg")),
             alt_text: "featured image two",
           )
         end
@@ -230,7 +226,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         it "presents the most recent featured image" do
           details = presented.content[:details]
           assert_equal("featured image two", details[:image][:alt_text])
-          assert_match(/960x640_gif.gif$/, details[:image][:url])
+          assert_match(/big-cheese.960x640.jpg$/, details[:image][:url])
         end
       end
 

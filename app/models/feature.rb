@@ -4,14 +4,13 @@ class Feature < ApplicationRecord
   belongs_to :offsite_link
   belongs_to :feature_list
 
-  has_one :image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+  has_one :image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+  accepts_nested_attributes_for :image, reject_if: :all_blank
 
-  mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
   validates :document, presence: true, unless: ->(feature) { feature.topical_event_id.present? || feature.offsite_link_id.present? }
   validates :started_at, presence: true
-  validates :image, presence: true, on: :create
+  validate :image_is_present
   validates :alt_text, length: { maximum: 255 }
-  validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
   before_validation :set_started_at!, on: :create
 
@@ -56,7 +55,7 @@ private
     self.started_at = Time.zone.now
   end
 
-  def image_changed?
-    changes["carrierwave_image"].present?
+  def image_is_present
+    errors.add(:"image.file", "can't be blank") if image.blank?
   end
 end
