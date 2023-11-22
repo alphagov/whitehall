@@ -83,7 +83,7 @@ class Contact < ApplicationRecord
   end
 
   def republish_embassies_index_page_to_publishing_api
-    PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
   end
 
   def publishing_api_presenter

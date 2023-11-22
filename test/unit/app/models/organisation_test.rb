@@ -1037,7 +1037,10 @@ class OrganisationTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
-    organisation.save!
+
+    Sidekiq::Testing.inline! do
+      organisation.save!
+    end
   end
 
   test "#save does not trigger organisation with a changed chart url to republish about page if it does not exist" do
@@ -1144,7 +1147,9 @@ class OrganisationTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
-    create(:organisation)
+    Sidekiq::Testing.inline! do
+      create(:organisation)
+    end
   end
 
   test "should send related pages to publishing api when a non-ministerial department is updated" do
@@ -1154,7 +1159,9 @@ class OrganisationTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
-    organisation.update!(name: "New department name")
+    Sidekiq::Testing.inline! do
+      organisation.update!(name: "New department name")
+    end
   end
 
   test "should send related pages to publishing api when a ministerial department is created" do
@@ -1162,7 +1169,9 @@ class OrganisationTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
-    create(:ministerial_department)
+    Sidekiq::Testing.inline! do
+      create(:ministerial_department)
+    end
   end
 
   test "should send related pages to publishing api when a ministerial department is updated" do
@@ -1172,7 +1181,9 @@ class OrganisationTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
-    organisation.update!(name: "New department name")
+    Sidekiq::Testing.inline! do
+      organisation.update!(name: "New department name")
+    end
   end
 
   test "should send related pages to publishing api when a ministerial department is deleted" do
@@ -1181,7 +1192,9 @@ class OrganisationTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
-    organisation.destroy!
+    Sidekiq::Testing.inline! do
+      organisation.destroy!
+    end
   end
 
   test "#all_asset_variants_uploaded? returns true if all asset variants present" do

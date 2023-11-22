@@ -163,7 +163,9 @@ class ContactTest < ActiveSupport::TestCase
   test "republishes embassies index page on creation of contact" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
 
-    create(:contact)
+    Sidekiq::Testing.inline! do
+      create(:contact)
+    end
   end
 
   test "republishes embassies index page on update of contact" do
@@ -171,7 +173,9 @@ class ContactTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
 
-    contact.update!(locality: "new-locality")
+    Sidekiq::Testing.inline! do
+      contact.update!(locality: "new-locality")
+    end
   end
 
   test "republishes embassies index page on deletion of contact" do
@@ -179,7 +183,9 @@ class ContactTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
 
-    contact.destroy!
+    Sidekiq::Testing.inline! do
+      contact.destroy!
+    end
   end
 
   test "republishes worldwide office on creation of related contact" do
@@ -187,7 +193,9 @@ class ContactTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
 
-    create(:contact, contactable: worldwide_office)
+    Sidekiq::Testing.inline! do
+      create(:contact, contactable: worldwide_office)
+    end
   end
 
   test "republishes worldwide office on update of related contact" do

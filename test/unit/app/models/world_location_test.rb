@@ -115,7 +115,9 @@ class WorldLocationTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
-    create(:world_location)
+    Sidekiq::Testing.inline! do
+      create(:world_location)
+    end
   end
 
   test "republishes embassies and world index pages on update of world location" do
@@ -124,7 +126,9 @@ class WorldLocationTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
-    location.update!(name: "new-name")
+    Sidekiq::Testing.inline! do
+      location.update!(name: "new-name")
+    end
   end
 
   test "republishes embassies and world index pages on deletion of world location" do
@@ -133,6 +137,8 @@ class WorldLocationTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
-    location.destroy!
+    Sidekiq::Testing.inline! do
+      location.destroy!
+    end
   end
 end

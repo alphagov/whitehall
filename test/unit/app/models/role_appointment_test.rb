@@ -419,16 +419,20 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).at_least_once
 
-    create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+    Sidekiq::Testing.inline! do
+      create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+    end
   end
 
   test "should send the prime ministers index page to publishing api when a destroyed role is a past prime minister" do
     role = create(:prime_minister_role)
     past_pm_appointment = create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
 
-    PresentPageToPublishingApi.any_instance.expects(:publish)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
-    past_pm_appointment.destroy!
+    Sidekiq::Testing.inline! do
+      past_pm_appointment.destroy!
+    end
   end
 
   test "should send the prime ministers index page to publishing api when the role updated to be a past prime minister" do
@@ -439,7 +443,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
-    role_appointment.update!(ended_at: Time.zone.now)
+    Sidekiq::Testing.inline! do
+      role_appointment.update!(ended_at: Time.zone.now)
+    end
   end
 
   test "should not send the prime ministers index page to publishing api when the role created is a current prime minister" do
@@ -449,7 +455,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
-    create(:role_appointment, person: create(:person), role:)
+    Sidekiq::Testing.inline! do
+      create(:role_appointment, person: create(:person), role:)
+    end
   end
 
   test "should not send the prime ministers index page to publishing api when a historical account exists" do
@@ -467,7 +475,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
-    create(:historic_role_appointment, person:, role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+    Sidekiq::Testing.inline! do
+      create(:historic_role_appointment, person:, role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+    end
   end
 
   test "should not send the prime ministers index page to publishing api when the role created is not a prime minister" do
@@ -478,7 +488,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
-    create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+    Sidekiq::Testing.inline! do
+      create(:historic_role_appointment, person: create(:person), role:, started_at: Date.civil(1950), ended_at: Date.civil(1960))
+    end
   end
 
   test "should send the related pages to publishing api when the role created is a current prime minister" do
@@ -487,7 +499,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
 
-    create(:role_appointment, person: create(:person), role:)
+    Sidekiq::Testing.inline! do
+      create(:role_appointment, person: create(:person), role:)
+    end
   end
 
   test "should send the related pages to publishing api when someone is appointed to a ministerial role" do
@@ -496,7 +510,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
 
-    create(:role_appointment, person: create(:person), role:)
+    Sidekiq::Testing.inline! do
+      create(:role_appointment, person: create(:person), role:)
+    end
   end
 
   test "should not send the related pages to publishing api when someone is appointed to a non-ministerial role" do
@@ -505,7 +521,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter).never
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
 
-    create(:role_appointment, person: create(:person), role:)
+    Sidekiq::Testing.inline! do
+      create(:role_appointment, person: create(:person), role:)
+    end
   end
 
   test "republishes a worldwide organisation when a role appointment is created" do

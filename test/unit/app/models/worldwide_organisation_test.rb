@@ -341,7 +341,9 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test "republishes embassies index page on creation of worldwide organisation" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
 
-    create(:worldwide_organisation)
+    Sidekiq::Testing.inline! do
+      create(:worldwide_organisation)
+    end
   end
 
   test "republishes embassies index page on update of worldwide organisation" do
@@ -349,7 +351,9 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
 
-    organisation.update!(name: "new-name")
+    Sidekiq::Testing.inline! do
+      organisation.update!(name: "new-name")
+    end
   end
 
   test "republishes embassies index page on deletion of worldwide organisation" do
@@ -357,7 +361,9 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
 
-    organisation.destroy!
+    Sidekiq::Testing.inline! do
+      organisation.destroy!
+    end
   end
 
   test "republishes related offices on change" do

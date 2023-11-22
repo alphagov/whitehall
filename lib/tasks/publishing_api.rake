@@ -70,37 +70,37 @@ namespace :publishing_api do
 
     desc "Republish the past prime ministers index page to Publishing API"
     task republish_past_prime_ministers_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::HistoricalAccountsIndexPresenter)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter")
     end
 
     desc "Republish the how government works page to Publishing API"
     task republish_how_government_works: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::HowGovernmentWorksPresenter)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
     end
 
     desc "Republish the fields of operation index page to Publishing API"
     task republish_operational_fields_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::OperationalFieldsIndexPresenter)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::OperationalFieldsIndexPresenter")
     end
 
     desc "Republish the ministers index page to Publishing API"
     task republish_ministers_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::MinistersIndexPresenter)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter")
     end
 
     desc "Republish the embassies index page to Publishing API"
     task republish_embassies_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::EmbassiesIndexPresenter)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
     end
 
     desc "Republish the world index page to Publishing API"
     task republish_world_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::WorldIndexPresenter)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::WorldIndexPresenter")
     end
 
     desc "Republish the organisations index page to Publishing API"
     task republish_organisations_index: :environment do
-      PresentPageToPublishingApi.new.publish(PublishingApi::OrganisationsIndexPresenter)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::OrganisationsIndexPresenter")
     end
   end
 

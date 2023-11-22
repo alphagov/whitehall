@@ -18,7 +18,9 @@ class SitewideSettingTest < ActiveSupport::TestCase
   test "should send the how government works page to publishing api when reshuffle mode is switched on" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
 
-    create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
+    Sidekiq::Testing.inline! do
+      create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
+    end
   end
 
   test "should send the how government works page to publishing api when reshuffle mode is switched off" do
@@ -26,6 +28,8 @@ class SitewideSettingTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
 
-    setting.update!(on: false)
+    Sidekiq::Testing.inline! do
+      setting.update!(on: false)
+    end
   end
 end
