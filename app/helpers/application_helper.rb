@@ -57,15 +57,6 @@ module ApplicationHelper
     end
   end
 
-  def legacy_worldwide_office_type_options
-    WorldwideOfficeType.legacy_by_grouping.map do |grouping, types|
-      [
-        grouping,
-        types.map { |t| [t.name, t.id] },
-      ]
-    end
-  end
-
   def role_type_options
     RoleTypePresenter.options
   end
