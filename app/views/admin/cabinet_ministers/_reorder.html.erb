@@ -2,7 +2,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with url: admin_cabinet_ministers_path, method: :patch do %>
+    <%= form_with url: form_url, method: :patch do %>
       <%= render "govuk_publishing_components/components/hint", {
         text: "Use the up and down buttons to reorder attachments, or select and hold on an attachment to reorder using drag and drop.",
         margin_bottom: 4,
