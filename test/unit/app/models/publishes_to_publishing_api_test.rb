@@ -98,4 +98,14 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     test_object.expects(:test_published_gone_handler)
     test_object.publish_gone_to_publishing_api
   end
+
+  test "enqueues a worker to republish the document on request" do
+    test_object = TestObject.new
+    class << test_object
+      include PublishesToPublishingApi
+    end
+
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    test_object.republish_to_publishing_api_async
+  end
 end

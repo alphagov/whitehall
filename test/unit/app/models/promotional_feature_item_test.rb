@@ -103,23 +103,25 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
   test "#republish_on_assets_ready should republish associated organisation if image assets are ready" do
     promotional_feature_item = create(:promotional_feature_item)
 
-    PublishingApiWorker.expects(:perform_async).with(Organisation.to_s, promotional_feature_item.organisation.id)
+    Whitehall::PublishingApi.expects(:republish_async).with(promotional_feature_item.organisation).once
 
     promotional_feature_item.republish_on_assets_ready
   end
 
   test "should republish organisation on save" do
-    promotional_feature_item = build(:promotional_feature_item)
+    promotional_feature_item = create(:promotional_feature_item)
+    organisation = promotional_feature_item.organisation
 
-    Organisation.any_instance.expects(:publish_to_publishing_api_async)
+    organisation.expects(:republish_to_publishing_api_async)
 
     promotional_feature_item.save!
   end
 
   test "should republish organisation on destroy" do
     promotional_feature_item = create(:promotional_feature_item)
+    organisation = promotional_feature_item.organisation
 
-    Organisation.any_instance.expects(:publish_to_publishing_api_async)
+    organisation.expects(:republish_to_publishing_api_async)
 
     promotional_feature_item.destroy!
   end

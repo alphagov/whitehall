@@ -9,27 +9,25 @@ class TakePartPageTest < ActiveSupport::TestCase
     Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id_s300", "name" => "s300_minister-of-funk.960x640.jpg")
   end
 
-  test "TakePartPage is published to the Publishing API on save" do
-    republish_count_from_create_asset_worker = 7
+  test "TakePartPage is published to Publishing API on save and republished when images finish uploading" do
     publish_count_from_after_commit = 1
-    expected_number_of_times_published = republish_count_from_create_asset_worker + publish_count_from_after_commit
+    republish_count_from_create_asset_worker = 7
 
     Sidekiq::Testing.inline! do
-      presenter = PublishingApiPresenters.presenter_for(@take_part_page)
+      publish_presenter = PublishingApiPresenters.presenter_for(@take_part_page)
+      republish_presenter = PublishingApiPresenters.presenter_for(@take_part_page, { update_type: "republish" })
       @take_part_page.save!
 
-      expected_json = presenter.content.merge(
-        # This is to simulate what the time public timestamp will be after the
-        # page has been published
-        public_updated_at: Time.zone.now.as_json,
-      )
+      # This is to simulate what the time public timestamp will be after the page has been published
+      expected_publish_json = publish_presenter.content.merge public_updated_at: Time.zone.now.as_json
+      expected_republish_json = republish_presenter.content.merge public_updated_at: Time.zone.now.as_json
 
-      assert_publishing_api_put_content(@take_part_page.content_id, expected_json, expected_number_of_times_published)
+      assert_publishing_api_put_content(@take_part_page.content_id, expected_publish_json, publish_count_from_after_commit)
+      assert_publishing_api_put_content(@take_part_page.content_id, expected_republish_json, republish_count_from_create_asset_worker)
       assert_publishing_api_publish(
         @take_part_page.content_id,
-        { update_type: nil,
-          locale: "en" },
-        expected_number_of_times_published,
+        { update_type: nil, locale: "en" },
+        republish_count_from_create_asset_worker + publish_count_from_after_commit,
       )
     end
   end

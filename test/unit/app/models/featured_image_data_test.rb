@@ -72,8 +72,8 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     organisation = create(:organisation, :with_default_news_image)
     news_article = create(:news_article, organisations: [organisation])
 
-    PublishingApiWorker.expects(:perform_async).with(Organisation.to_s, organisation.id)
-    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document)
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once
 
     organisation.default_news_image.republish_on_assets_ready
   end
@@ -82,7 +82,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     worldwide_organisation = create(:worldwide_organisation, :with_default_news_image)
     news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
 
-    PublishingApiWorker.expects(:perform_async).with(WorldwideOrganisation.to_s, worldwide_organisation.id)
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once
     Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document)
 
     worldwide_organisation.default_news_image.republish_on_assets_ready
@@ -91,7 +91,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
   test "#republish_on_assets_ready should republish topical event if assets are ready" do
     topical_event = create(:topical_event, :with_logo)
 
-    PublishingApiWorker.expects(:perform_async).with(TopicalEvent.to_s, topical_event.id)
+    Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
 
     topical_event.logo.republish_on_assets_ready
   end
@@ -101,8 +101,8 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     speech = create(:speech, role_appointment: create(:role_appointment, role: create(:ministerial_role), person:))
     create(:historical_account, person:)
 
-    PublishingApiWorker.expects(:perform_async).with(Person.to_s, person.id)
-    PublishingApiWorker.expects(:perform_async).with(HistoricalAccount.to_s, person.historical_account.id)
+    Whitehall::PublishingApi.expects(:republish_async).with(person).once
+    Whitehall::PublishingApi.expects(:republish_async).with(person.historical_account).once
     Whitehall::PublishingApi.expects(:republish_document_async).with(speech.document)
 
     person.image.republish_on_assets_ready
@@ -111,7 +111,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
   test "#republish_on_assets_ready should republish take part page if assets are ready" do
     take_part_page = create(:take_part_page)
 
-    PublishingApiWorker.expects(:perform_async).with(TakePartPage.to_s, take_part_page.id)
+    Whitehall::PublishingApi.expects(:republish_async).with(take_part_page).once
 
     take_part_page.image.republish_on_assets_ready
   end
@@ -122,8 +122,8 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     speech = create(:speech, role_appointment: create(:role_appointment, role: create(:ministerial_role), person:))
     create(:historical_account, person:)
 
-    PublishingApiWorker.expects(:perform_async).with(Person.to_s, person.id).never
-    PublishingApiWorker.expects(:perform_async).with(HistoricalAccount.to_s, person.historical_account.id).never
+    Whitehall::PublishingApi.expects(:republish_async).with(person).never
+    Whitehall::PublishingApi.expects(:republish_async).with(person.historical_account).never
     Whitehall::PublishingApi.expects(:republish_document_async).with(speech.document).never
 
     person.image.republish_on_assets_ready

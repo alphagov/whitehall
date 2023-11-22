@@ -28,7 +28,7 @@ class FeaturedImageData < ApplicationRecord
   def republish_on_assets_ready
     if all_asset_variants_uploaded?
       logger.info("FeaturedImageData #{id} (#{featured_imageable_type}:#{featured_imageable_id}) republishing after all asset variants are uploaded")
-      featured_imageable.publish_to_publishing_api_async if featured_imageable.respond_to? :publish_to_publishing_api_async
+      featured_imageable.republish_to_publishing_api_async if featured_imageable.respond_to? :republish_to_publishing_api_async
       featured_imageable.republish_dependent_documents if featured_imageable.respond_to? :republish_dependent_documents
     end
   end

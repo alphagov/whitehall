@@ -1209,7 +1209,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "#republish_on_assets_ready should republish organisation if logo assets are ready" do
     organisation = create(:organisation, :with_logo_and_assets)
 
-    PublishingApiWorker.expects(:perform_async).with(Organisation.to_s, organisation.id)
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
 
     organisation.republish_on_assets_ready
   end
