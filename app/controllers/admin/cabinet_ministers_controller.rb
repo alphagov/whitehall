@@ -36,6 +36,14 @@ class Admin::CabinetMinistersController < Admin::BaseController
     @roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
   end
 
+  def order_whip_roles
+    params["ordering"].each do |id, ordering|
+      Role.find(id).update_column(:whip_ordering, ordering)
+    end
+
+    redirect_to admin_cabinet_ministers_path(anchor: "whips")
+  end
+
   def reorder_ministerial_organisations
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
   end
@@ -58,8 +66,6 @@ private
     return "" if request.referer.blank?
 
     case URI(request.referer).path
-    when reorder_whip_roles_admin_cabinet_ministers_path
-      "#whips"
     when reorder_ministerial_organisations_admin_cabinet_ministers_path
       "#organisations"
     else

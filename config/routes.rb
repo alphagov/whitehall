@@ -311,6 +311,8 @@ Whitehall::Application.routes.draw do
         patch :order_also_attends_cabinet_roles
 
         get :reorder_whip_roles
+        patch :order_whip_roles
+
         get :reorder_ministerial_organisations
       end
 

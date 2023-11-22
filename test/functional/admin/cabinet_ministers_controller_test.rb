@@ -40,27 +40,24 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
           }
 
     assert_equal MinisterialRole.also_attends_cabinet.order(:seniority), [role1, role2]
-    assert_redirected_to "#{admin_cabinet_ministers_path}#also_attends_cabinet"
+    assert_redirected_to admin_cabinet_ministers_path(anchor: "also_attends_cabinet")
   end
 
-  test "should reorder whips as part of the same request" do
-    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_whip_roles_admin_cabinet_ministers_path
+  test "PATCH :order_whip_roles should reorder whips" do
     role2 = create(:ministerial_role, name: "Whip 1", whip_organisation_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Whip 2", whip_organisation_id: 2, organisations: [organisation])
 
-    put :update,
-        params: {
-          whips: {
+    patch :order_whip_roles,
+          params: {
             ordering: {
               role1.id.to_s => 0,
               role2.id.to_s => 1,
             },
-          },
-        }
+          }
 
-    assert_equal MinisterialRole.whip.order(:seniority).to_a, [role2, role1]
-    assert_equal MinisterialRole.whip.order(:whip_ordering).to_a, [role1, role2]
-    assert_redirected_to "#{admin_cabinet_ministers_path}#whips"
+    assert_equal MinisterialRole.whip.order(:seniority), [role2, role1]
+    assert_equal MinisterialRole.whip.order(:whip_ordering), [role1, role2]
+    assert_redirected_to admin_cabinet_ministers_path(anchor: "whips")
   end
 
   test "should reorder ministerial organisations" do
