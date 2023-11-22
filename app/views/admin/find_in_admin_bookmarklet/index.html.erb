@@ -1,14 +1,24 @@
-<% page_title "Find in admin bookmarklet instructions" %>
-<% page_class "find-in-admin-bookmarklet-index" %>
+<% content_for :title, "'Find in admin' bookmarklet" %>
+<% content_for :title_margin_bottom, 6 %>
 
-<h1>Find in admin bookmarklet</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-2">
+      Once activated, this bookmarklet will provide you with a button that allows you to jump immediately from a
+      frontend page to the corresponding admin page.</p>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Instructions",
+      font_size: "l",
+      margin_bottom: 4,
+    } %>
+    <p class="govuk-body">Drag the button below to your browser's bookmark bar:</p>
 
-<div class="bookmarks">
-  <p>Once activated, this bookmarklet will provide you with a button that allows you to jump immediately from a frontend page to the corresponding admin page.</p>
+    <div class="govuk-button-group">
+      <a class="gem-c-button govuk-button" href="javascript:(function(){ <%= render("bookmarklet").gsub(/[\r\n]/,"") %> })()">Find in admin</a>
+    </div>
 
-  <p>Please choose: </p>
-  <ul>
-    <li><%= link_to "Internet explorer", admin_find_in_admin_bookmarklet_instructions_path(browser: :ie) %></li>
-    <li><%= link_to "Other browsers", admin_find_in_admin_bookmarklet_instructions_path(browser: :other) %></li>
-  </ul>
+    <p class="govuk-body">Then, when you're on a frontend page on www.gov.uk you can click 'Find in admin' from your bookmarks toolbar to
+      go to the corresponding
+      admin page.</p>
+  </div>
 </div>
