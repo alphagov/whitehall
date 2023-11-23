@@ -23,10 +23,6 @@ class WorldwideOfficeType
     all.sort_by(&:listing_order)
   end
 
-  def self.legacy_by_grouping
-    in_listing_order.group_by(&:grouping)
-  end
-
   def self.by_grouping
     in_listing_order
   end

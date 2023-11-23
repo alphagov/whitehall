@@ -24,14 +24,14 @@ class AdminAnalyticsTest < ActionDispatch::IntegrationTest
     assert page.find("meta[name='custom-dimension:#{dimension}'][content='#{with_value}']", visible: false)
   end
 
-  test "send a GA event including the users org slug when successfully signed-in with the preview design system permission" do
-    login_as(create(:user, :with_preview_design_system, name: "user-name", email: "user@example.com", organisation_slug: "ministry-of-lindy-hop"))
+  test "send a GA event including the users org slug when successfully signed-in" do
+    login_as(create(:user, name: "user-name", email: "user@example.com", organisation_slug: "ministry-of-lindy-hop"))
     visit admin_root_path
     assert_dimension_is_set(8, with_value: "ministry-of-lindy-hop")
   end
 
-  test "send a GA event including '(not set)' for the org slug when the user has no org abd the preview design system permission" do
-    login_as(create(:user, :with_preview_design_system, name: "user-name", email: "user@example.com", organisation_slug: nil))
+  test "send a GA event including '(not set)' for the org slug when the user has no org" do
+    login_as(create(:user, name: "user-name", email: "user@example.com", organisation_slug: nil))
     visit admin_root_path
     assert_dimension_is_set(8, with_value: "(not set)")
   end

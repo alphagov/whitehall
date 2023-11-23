@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_rake_task: ["cucumber:ok", "cucumber:preview_design_system"]
+        node_rake_task: ["cucumber:ok"]
     steps:
       - name: Setup MySQL
         id: setup-mysql

@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::NewDocumentControllerTest < ActionController::TestCase
   setup do
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
   end
 
   view_test "GET #index renders the 'New Document' page with the header, all relevant radio selection options and inset text" do
@@ -18,7 +18,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
   view_test "GET #index renders Fatality Notice radio button when the user has GDS Editor permission and organisation is GDS" do
     gds_organisation = create(:organisation, name: "government-digital-service")
-    login_as_preview_design_system_user(:gds_editor, gds_organisation)
+    login_as(:gds_editor, gds_organisation)
 
     get :index
 
@@ -27,7 +27,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
   view_test "GET #index does not render Fatality Notice radio button when the user does not have GDS Editor permission and their organisation is GDS" do
     gds_organisation = create(:organisation, name: "government-digital-service")
-    login_as_preview_design_system_user(:writer, gds_organisation)
+    login_as(:writer, gds_organisation)
 
     get :index
 
@@ -36,7 +36,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
   view_test "GET #index does not render Fatality Notice radio button when the user does not have GDS Editor permission and their organisation is not GDS" do
     other_organisation = create(:organisation, name: "cabinet-minister")
-    login_as_preview_design_system_user(:writer, other_organisation)
+    login_as(:writer, other_organisation)
 
     get :index
 
@@ -45,7 +45,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
   view_test "GET #index renders Fatality Notice radio button when the user's organisation is Ministry of Defence" do
     mod_organisation = create(:organisation, name: "ministry-of-defence", handles_fatalities: true)
 
-    login_as_preview_design_system_user(:writer, mod_organisation)
+    login_as(:writer, mod_organisation)
 
     get :index
 

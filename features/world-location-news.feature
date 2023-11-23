@@ -1,4 +1,3 @@
-@design-system-only
 Feature: Administering world location news information
   Background:
     Given I am a GDS admin

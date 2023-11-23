@@ -3,7 +3,7 @@ require "test_helper"
 class Admin::UsersControllerTest < ActionController::TestCase
   setup do
     @user = create(:user, name: "user-name", email: "user@example.com")
-    login_as_preview_design_system_user :writer
+    login_as :writer
   end
 
   should_be_an_admin_controller
@@ -41,7 +41,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   view_test "edit displays form" do
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
     get :edit, params: { id: @user.id }
     assert_select "form[action='#{admin_user_path(@user)}']" do
       assert_select "button", text: "Save"
@@ -49,7 +49,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   view_test "edit displays cancel link" do
-    login_as_preview_design_system_user :gds_editor
+    login_as :gds_editor
     get :edit, params: { id: @user.id }
 
     assert_select "a.govuk-link", text: "Cancel"
@@ -81,7 +81,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   view_test "show: displays Edit link if user has gds editor permission to edit the record." do
-    login_as_preview_design_system_user(:gds_editor)
+    login_as :gds_editor
 
     get :show, params: { id: @user.id }
 
