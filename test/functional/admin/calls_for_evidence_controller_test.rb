@@ -318,6 +318,17 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
     assert_equal "greenpaper.pdf", call_for_evidence.call_for_evidence_participation.call_for_evidence_response_form.call_for_evidence_response_form_data.carrierwave_file
   end
 
+  view_test "create should show 'Processing' tag if variant is missing" do
+    response_form = create(:call_for_evidence_response_form)
+    participation = create(:call_for_evidence_participation, call_for_evidence_response_form: response_form)
+    call_for_evidence = create(:call_for_evidence, call_for_evidence_participation: participation)
+    response_form.call_for_evidence_response_form_data.assets = []
+
+    get :edit, params: { id: call_for_evidence.id }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing"
+  end
+
 private
 
   def controller_attributes_for(edition_type, attributes = {})

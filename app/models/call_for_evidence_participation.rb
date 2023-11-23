@@ -26,6 +26,10 @@ class CallForEvidenceParticipation < ApplicationRecord
 
   after_destroy :destroy_form_if_required
 
+  def call_for_evidence_response_form_uploaded_to_asset_manager?
+    has_response_form? && call_for_evidence_response_form&.call_for_evidence_response_form_data&.all_asset_variants_uploaded?
+  end
+
 private
 
   def destroy_form_if_required
