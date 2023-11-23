@@ -14,8 +14,7 @@ private
     # but just does a simple attribute value overwrite (e.g. a normal
     # update). This is because consultation_participation objects are not
     # (yet) versioned with their editions like attachments are.
-    return unless edition_params[:consultation_participation_attributes] &&
-      edition_params[:consultation_participation_attributes][:consultation_response_form_attributes]
+    return unless edition_params.dig(:consultation_participation_attributes, :consultation_response_form_attributes)
 
     response_form_params = edition_params[:consultation_participation_attributes][:consultation_response_form_attributes]
 
