@@ -34,8 +34,6 @@ module Edition::LeadImage
   end
 
   def lead_image_has_all_assets?
-    return true unless image_data.respond_to?(:all_asset_variants_uploaded?)
-
     image_data.all_asset_variants_uploaded?
   end
 
