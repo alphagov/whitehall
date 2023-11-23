@@ -20,8 +20,8 @@
         },
         hint: "Select a 960px wide and 640px tall image to be shown when featuring",
         name: "feature[image_attributes][file]",
-        id: "feature_image",
-        error_items: errors_for(@feature.errors, :image),
+        id: "feature_image_file",
+        error_items: errors_for(@feature.errors, :"image.file"),
       } %>
 
       <%= render "govuk_publishing_components/components/input", {
