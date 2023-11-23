@@ -1,33 +1,33 @@
-desc "Migrate consultation response form data to use assets"
-task :migrate_consultation_response_form_data, %i[start_id end_id] => :environment do |_, args|
-  puts "Migrating consultation response form data start!"
+desc "Migrate call for evidence response form data to use assets"
+task :migrate_call_for_evidence_response_form_data, %i[start_id end_id] => :environment do |_, args|
+  puts "Migrating call for evidence response form data start!"
   start_id = args[:start_id]
   end_id = args[:end_id]
 
-  consultation_response_form_datas = ConsultationResponseFormData.where(id: start_id..end_id).where("carrierwave_file is not null")
-  puts "Number of consultation response form data found: #{consultation_response_form_datas.count}"
-  puts "Creating Asset for consultation response form data from #{start_id} to #{end_id}"
+  call_for_evidence_response_form_datas = CallForEvidenceResponseFormData.where(id: start_id..end_id).where("carrierwave_file is not null")
+  puts "Number of call for evidence response form data found: #{call_for_evidence_response_form_datas.count}"
+  puts "Creating Asset for call for evidence response form data from #{start_id} to #{end_id}"
 
   count = 0
   asset_counter = 0
-  assetable_type = ConsultationResponseFormData.to_s
+  assetable_type = CallForEvidenceResponseFormData.to_s
 
-  consultation_response_form_datas.each do |consultation_response_form_data|
+  call_for_evidence_response_form_datas.each do |call_for_evidence_response_form_data|
     # Ensure we do not replay the same migration
-    next if consultation_response_form_data.assets.count == 1
+    next if call_for_evidence_response_form_data.assets.count == 1
 
     variant = :original
 
-    path = consultation_response_form_data.file.path
+    path = call_for_evidence_response_form_data.file.path
     puts "Creating Asset for path #{path}"
-    asset_counter += 1 if save_asset(consultation_response_form_data, assetable_type, variant, path)
+    asset_counter += 1 if save_asset(call_for_evidence_response_form_data, assetable_type, variant, path)
 
     count += 1
   end
 
-  puts "Created assets for #{count} consultation response form data"
+  puts "Created assets for #{count} call for evidence response form data"
   puts "Created asset counter #{asset_counter}"
-  puts "Migrating consultation response form data finish!"
+  puts "Migrating call for evidence response form data finish!"
 end
 
 def save_asset(assetable, assetable_type, variant, path)
