@@ -463,7 +463,7 @@ private
   end
 
   def clear_response_form_file_cache
-    response_form_params = edition_params.dig(:consultation_participation_attributes, :consultation_response_form_attributes, :consultation_response_form_data_attributes)
+    response_form_params = edition_params.dig(:consultation_participation_attributes, :consultation_response_form_attributes, :consultation_response_form_data_attributes) || edition_params.dig(:call_for_evidence_participation_attributes, :call_for_evidence_response_form_attributes, :call_for_evidence_response_form_data_attributes)
     if response_form_params&.dig(:file).present? && response_form_params&.dig(:file_cache).present?
       response_form_params.delete(:file_cache)
     end
