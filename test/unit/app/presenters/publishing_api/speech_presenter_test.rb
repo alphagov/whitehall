@@ -228,6 +228,14 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           assert_equal("featured image two", details[:image][:alt_text])
           assert_match(/big-cheese.960x640.jpg$/, details[:image][:url])
         end
+
+        it "does not present the featured image if any assets are missing" do
+          feature_two.image.assets.destroy_all
+
+          details = presented.content[:details]
+
+          assert_nil details[:image]
+        end
       end
 
       context "with speaker with image" do
@@ -237,7 +245,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           assert_match(/minister-of-funk.960x640.jpg$/, details[:image][:url])
         end
 
-        test "it filters out the person image if it has missing assets" do
+        test "does not present the person image if it has missing assets" do
           person.image.assets.destroy_all
 
           details = presented.content[:details]
