@@ -116,6 +116,39 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     take_part_page.image.republish_on_assets_ready
   end
 
+  test "#republish_on_assets_ready should republish feature via organisation if assets are ready" do
+    speech1 = create(:speech)
+    speech2 = create(:speech)
+    document = create(:document, editions: [speech1, speech2])
+
+    organisation = create(:organisation)
+    feature_list = create(:feature_list, featurable: organisation, locale: :en)
+    feature = create(:feature, document:, feature_list:)
+    featurable = feature.feature_list.featurable
+
+    Whitehall::PublishingApi.expects(:republish_async).with(featurable).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(document).once
+
+    feature.image.republish_on_assets_ready
+  end
+
+  test "#republish_on_assets_ready should republish feature via world location news if assets are ready" do
+    speech1 = create(:speech)
+    speech2 = create(:speech)
+    document = create(:document, editions: [speech1, speech2])
+
+    world_location = create(:world_location)
+    world_location_news = world_location.world_location_news
+    feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
+    feature = create(:feature, document:, feature_list:)
+    featurable = feature.feature_list.featurable
+
+    Whitehall::PublishingApi.expects(:republish_async).with(featurable).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(document).once
+
+    feature.image.republish_on_assets_ready
+  end
+
   test "#republish_on_assets_ready should not run any republishing action if assets are not ready" do
     person = create(:person, :with_image)
     person.image.assets.destroy_all

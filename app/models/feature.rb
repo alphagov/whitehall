@@ -49,6 +49,13 @@ class Feature < ApplicationRecord
     feature_list ? feature_list.locale : :en
   end
 
+  def republish_to_publishing_api_async
+    republish_featurable_to_publishing_api
+    if document&.editions&.select { |edition| edition.is_a?(Speech) }.present?
+      Whitehall::PublishingApi.republish_document_async(document)
+    end
+  end
+
 private
 
   def set_started_at!

@@ -115,4 +115,31 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
     assert_equal [create(:published_case_study).title], (presented_locations.map { |presented_location| presented_location[:title] })
   end
+
+  test("filters out featured documents if feature image assets are missing") do
+    case_study = create(:published_case_study)
+    first_feature = build(:feature, document: case_study.document, ordering: 1)
+    news_article = create(:published_news_article)
+    second_feature = build(:feature, document: news_article.document, ordering: 2)
+    second_feature.image.assets = []
+    featured_documents_display_limit = 5
+
+    world_location = create(:world_location)
+
+    create(:feature_list, featurable: world_location.world_location_news, features: [second_feature, first_feature])
+
+    expected_ordered_featured_documents = [
+      {
+        title: case_study.title,
+        href: "/government/case-studies/case-study-title",
+        image: { url: first_feature.image.url,
+                 alt_text: "" },
+        summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(case_study.summary),
+        public_updated_at: case_study.public_timestamp,
+        document_type: I18n.t("document.type.case_study.one"),
+      },
+    ]
+
+    assert_equal expected_ordered_featured_documents, featured_documents(world_location.world_location_news, featured_documents_display_limit)
+  end
 end
