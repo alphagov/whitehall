@@ -122,7 +122,7 @@ class Person < ApplicationRecord
   end
 
   def republish_dependent_documents
-    speeches.map { |speech| Whitehall::PublishingApi.republish_document_async(speech.document) }
+    speeches.uniq { |speech| speech.document.id }.map { |speech| Whitehall::PublishingApi.republish_document_async(speech.document) }
 
     historical_account&.republish_to_publishing_api_async
   end
