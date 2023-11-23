@@ -70,7 +70,8 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
   test "#republish_on_assets_ready should republish organisation and associations if assets are ready" do
     organisation = create(:organisation, :with_default_news_image)
-    news_article = create(:news_article, organisations: [organisation])
+    news_article = create(:news_article, :published, organisations: [organisation])
+    create(:news_article, :draft, organisations: [organisation], document: news_article.document)
 
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
     Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once
@@ -80,10 +81,11 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
   test "#republish_on_assets_ready should republish worldwide organisation and associations if assets are ready" do
     worldwide_organisation = create(:worldwide_organisation, :with_default_news_image)
-    news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
+    news_article = create(:news_article_world_news_story, :published, worldwide_organisations: [worldwide_organisation])
+    create(:news_article_world_news_story, :draft, worldwide_organisations: [worldwide_organisation], document: news_article.document)
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once
-    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document)
+    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once
 
     worldwide_organisation.default_news_image.republish_on_assets_ready
   end
@@ -98,12 +100,13 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
   test "#republish_on_assets_ready should republish person and associations if assets are ready" do
     person = create(:person, :with_image)
-    speech = create(:speech, role_appointment: create(:role_appointment, role: create(:ministerial_role), person:))
+    speech = create(:published_speech, role_appointment: create(:role_appointment, role: create(:ministerial_role), person:))
+    create(:draft_speech, role_appointment: create(:role_appointment, role: create(:ministerial_role), person:), document: speech.document)
     create(:historical_account, person:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(person).once
     Whitehall::PublishingApi.expects(:republish_async).with(person.historical_account).once
-    Whitehall::PublishingApi.expects(:republish_document_async).with(speech.document)
+    Whitehall::PublishingApi.expects(:republish_document_async).with(speech.document).once
 
     person.image.republish_on_assets_ready
   end

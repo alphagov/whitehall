@@ -242,6 +242,7 @@ class Organisation < ApplicationRecord
                   .includes(:images)
                   .where(images: { id: nil })
                   .map(&:document)
+                  .uniq(&:id)
     documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
   end
 
