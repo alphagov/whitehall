@@ -238,6 +238,7 @@ module PublishingApi::NewsArticlePresenterTest
         lead_image_alt_text: "Bar",
         lead_image_caption: "Baz",
         images: [build(:image)],
+        lead_image: build(:image),
       )
     end
 
