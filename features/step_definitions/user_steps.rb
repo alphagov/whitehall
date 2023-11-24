@@ -36,5 +36,5 @@ Then(/^I should see that I am logged in as a "([^"]*)"$/) do |role|
 end
 
 Then(/^I should see an email address "([^"]*)"$/) do |email_address|
-  expect(page).to have_selector(".email", text: email_address)
+  expect(page).to have_selector(".govuk-grid-column-two-thirds", text: email_address)
 end
