@@ -97,9 +97,6 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
-    bootstrap-kaminari-views (0.0.5)
-      kaminari (>= 0.13)
-      rails (>= 3.1)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
@@ -953,7 +950,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
-  bootstrap-kaminari-views
   carrierwave
   carrierwave-i18n
   chronic

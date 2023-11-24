@@ -1,2 +1,0 @@
-<% text = I18n.t("support.pagination.previous_html", current_page: current_page - 1, total_pages: total_pages).html_safe %>
-<li class="previous"><%= link_to_unless current_page.first?, text, url, rel: "prev" %></li>

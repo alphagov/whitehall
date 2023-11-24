@@ -1,2 +1,0 @@
-<% text = I18n.t("support.pagination.next_html", current_page: current_page + 1, total_pages: total_pages).html_safe %>
-<li class="next"><%= link_to_unless current_page.last?, text, url, rel: "next" %></li>

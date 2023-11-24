@@ -7,7 +7,6 @@ gem "addressable"
 gem "after_commit_everywhere"
 gem "babosa"
 gem "bootsnap", require: false
-gem "bootstrap-kaminari-views"
 gem "carrierwave"
 gem "carrierwave-i18n"
 gem "chronic"
