@@ -3,6 +3,10 @@ class CallForEvidenceResponseFormData < ApplicationRecord
 
   has_one :call_for_evidence_response_form
 
+  has_many :assets,
+           as: :assetable,
+           inverse_of: :assetable
+
   validates :file, presence: true
 
   def auth_bypass_ids
