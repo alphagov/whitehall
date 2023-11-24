@@ -28,7 +28,6 @@ Whitehall::Application.routes.draw do
       end
 
       resources :authors, only: [:show]
-      resource :document_searches, only: [:show]
 
       resources :document_collections, path: "collections", except: [:index] do
         resources :document_collection_groups, as: :groups, path: "groups" do
