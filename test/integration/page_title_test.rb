@@ -7,7 +7,6 @@ class PageTitleTest < ActiveSupport::TestCase
     admin/topical_event_about_pages/new.html.erb
     admin/edition_audit_trail/index.html.erb
     admin/preview/preview.html.erb
-    layouts/admin.html.erb
     layouts/home.html.erb
     layouts/design_system.html.erb
   ].map do |f|
