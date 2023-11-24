@@ -5,6 +5,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
+  before_action :clear_response_form_file_cache, only: %i[create update]
   before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
@@ -458,6 +459,13 @@ private
         end
       end
       edition_params[:scheduled_publication] = nil
+    end
+  end
+
+  def clear_response_form_file_cache
+    response_form_params = edition_params.dig(:consultation_participation_attributes, :consultation_response_form_attributes, :consultation_response_form_data_attributes)
+    if response_form_params&.dig(:file).present? && response_form_params&.dig(:file_cache).present?
+      response_form_params.delete(:file_cache)
     end
   end
 

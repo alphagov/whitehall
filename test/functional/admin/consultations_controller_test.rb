@@ -339,6 +339,64 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "greenpaper.pdf", consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
   end
 
+  test "PUT :update discards file_cache when a file is provided" do
+    two_pages_pdf = upload_fixture("two-pages.pdf")
+    greenpaper_pdf = upload_fixture("greenpaper.pdf")
+
+    response_form = create(:consultation_response_form)
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
+    response_form_data = build(:consultation_response_form_data, file: two_pages_pdf)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
+
+    put :update,
+        params: { id: consultation,
+                  edition: {
+                    consultation_participation_attributes: {
+                      id: participation.id,
+                      consultation_response_form_attributes: {
+                        id: response_form.id,
+                        attachment_action: "replace",
+                        _destroy: "1",
+                        consultation_response_form_data_attributes: {
+                          id: response_form.consultation_response_form_data.id,
+                          file: greenpaper_pdf,
+                          file_cache: response_form_data.file_cache,
+                        },
+                      },
+                    },
+                  } }
+  end
+
+  test "POST :create discards file_cache when a file is provided" do
+    two_pages_pdf = upload_fixture("two-pages.pdf")
+    greenpaper_pdf = upload_fixture("greenpaper.pdf")
+
+    response_form_data = build(:consultation_response_form_data, file: two_pages_pdf)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
+
+    attributes = controller_attributes_for(
+      :consultation,
+      consultation_participation_attributes: {
+        link_url: nil,
+        email: nil,
+        consultation_response_form_attributes: {
+          title: "cache_test",
+          consultation_response_form_data_attributes: {
+            file: greenpaper_pdf,
+            file_cache: response_form_data.file_cache,
+          },
+        },
+      },
+    )
+
+    post :create, params: { edition: attributes }
+  end
+
 private
 
   def controller_attributes_for(edition_type, attributes = {})
