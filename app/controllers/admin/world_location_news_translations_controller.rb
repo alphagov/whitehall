@@ -48,8 +48,4 @@ private
       world_location_attributes: %i[id name]
     )
   end
-
-  def get_layout
-    "design_system"
-  end
 end

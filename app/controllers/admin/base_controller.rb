@@ -45,19 +45,7 @@ class Admin::BaseController < ApplicationController
   end
   helper_method :preview_design_system?
 
-  def render_design_system(design_system_view, legacy_view)
-    if new_design_system?
-      render design_system_view
-    else
-      render legacy_view
-    end
-  end
-
 private
-
-  def new_design_system?
-    get_layout == "design_system"
-  end
 
   def forbidden!
     render "admin/errors/forbidden", status: :forbidden
