@@ -11,7 +11,7 @@
       <% edition.changed_attachments.each do |attachment| %>
         <li>
           <%= "#{attachment.attachment.title} - #{attachment.attachment.readable_type} attachment" %>
-          <%= tag.span attachment.status, class: ["label", label_classes[attachment.status]] %>
+          <%= tag.span attachment.status, class: [label_classes[attachment.status]] %>
         </li>
       <% end %>
     </ul>
