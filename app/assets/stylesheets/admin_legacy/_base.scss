@@ -20,16 +20,13 @@
 
 // COMPONENTS
 @import "alerts";
-@import "document";
 @import "environment";
-@import "forms";
 @import "layout";
 @import "preview";
 @import "sortable";
 @import "audit-trail";
 @import "govspeak-help";
 @import "topical-events";
-@import "sidebar";
 @import "lists";
 @import "get-involved";
 @import "topics-section";
@@ -41,8 +38,6 @@
 
 // HELPERS
 // Objects that can be used in more than one place throughout the admin
-@import "helpers/broken-links-report";
-@import "helpers/document-finder";
 @import "helpers/document-list";
 @import "helpers/navigation-controls";
 @import "helpers/jquery-ui-overrides";
@@ -53,7 +48,6 @@
 // Controller specific styles. Usually named after the controller whos views
 // they relate to
 @import "views/edition-edit-help";
-@import "views/edition-tags-edit";
 @import "views/document-collection-groups";
 @import "views/organisation";
 @import "views/editions/filter-options";
