@@ -8,7 +8,6 @@
 //= require jquery-ui
 //= require vendor/jquery/jquery.player.min
 //= require vendor/google-diff-match-patch.js
-//= require vendor/jquery/chosen.jquery.js
 //
 //= require govuk_toolkit
 //

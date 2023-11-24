@@ -15,7 +15,6 @@ $govuk-page-width: 1140px;
 @import "./components/summary-card-component";
 
 @import "./admin/overrides";
-@import "./admin/layout";
 
 @import "./admin/views/components/worldwide_offices/index/office-summary-card-component";
 
@@ -70,10 +69,4 @@ $govuk-page-width: 1140px;
   .hide-before-js-module-init {
     display: none;
   }
-}
-
-.legacy-whitehall {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-  @import "admin_legacy";
 }

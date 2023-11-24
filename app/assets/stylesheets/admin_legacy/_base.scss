@@ -16,11 +16,8 @@
 @import "styleguide/colours";
 @import "styleguide/right-to-left";
 
-@import "govuk_admin_template/emulate/forms";
-
 // COMPONENTS
 @import "alerts";
-@import "environment";
 @import "layout";
 @import "preview";
 @import "sortable";
@@ -31,17 +28,10 @@
 @import "get-involved";
 @import "topics-section";
 
-// GLOBAL
-// Styles that apply to all of admin.
-@import "global/boostrap-overrides";
-@import "global/js-hidden";
-
 // HELPERS
 // Objects that can be used in more than one place throughout the admin
-@import "helpers/document-list";
 @import "helpers/navigation-controls";
 @import "helpers/jquery-ui-overrides";
-@import "helpers/statistics-announcements";
 @import "helpers/player-container";
 
 // VIEWS
