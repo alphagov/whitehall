@@ -4,7 +4,6 @@ class Admin::ConsultationResponsesController < Admin::BaseController
   before_action :enforce_edition_permissions!
   before_action :prevent_modification_of_unmodifiable_edition
   before_action :find_response, only: %i[edit update]
-  layout "design_system"
 
   def show
     @response = response_class.find_by(edition_id: @edition) || response_class.new(published_on: Time.zone.today)

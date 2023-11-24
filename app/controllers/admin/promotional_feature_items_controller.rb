@@ -4,8 +4,6 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   before_action :load_promotional_feature_item, only: %i[edit update destroy confirm_destroy]
   before_action :clean_promotional_feature_item_params, only: %i[create update]
 
-  layout "design_system"
-
   def new
     @promotional_feature_item = @promotional_feature.promotional_feature_items.build
     @promotional_feature_item.links.build

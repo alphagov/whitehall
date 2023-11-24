@@ -1,12 +1,7 @@
 class Admin::RoleTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-  layout :get_layout
 
 private
-
-  def get_layout
-    "design_system"
-  end
 
   def create_redirect_path
     edit_admin_role_translation_path(@role, id: translation_locale)

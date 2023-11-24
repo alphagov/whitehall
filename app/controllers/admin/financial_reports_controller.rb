@@ -1,7 +1,6 @@
 class Admin::FinancialReportsController < Admin::BaseController
   before_action :load_organisation
   before_action :load_financial_report, only: %i[edit update destroy]
-  layout "design_system"
 
   def index; end
 

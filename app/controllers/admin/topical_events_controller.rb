@@ -4,8 +4,6 @@ class Admin::TopicalEventsController < Admin::BaseController
   before_action :build_associated_objects, only: %i[new edit]
   before_action :destroy_blank_social_media_accounts, only: %i[create update]
 
-  layout "design_system"
-
   def show; end
 
   def index

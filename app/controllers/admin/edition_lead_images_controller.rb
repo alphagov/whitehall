@@ -1,6 +1,5 @@
 class Admin::EditionLeadImagesController < Admin::BaseController
   before_action :find_edition, :find_image, :enforce_permissions!
-  layout "design_system"
 
   def update
     edition_lead_image = @edition.edition_lead_image || @edition.build_edition_lead_image

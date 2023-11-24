@@ -1,6 +1,5 @@
 class Admin::OperationalFieldsController < Admin::BaseController
   before_action :require_fatality_handling_permission!
-  layout "design_system"
 
   def index
     @operational_fields = OperationalField.order(:name)

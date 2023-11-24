@@ -1,6 +1,5 @@
 class Admin::UsersController < Admin::BaseController
   before_action :load_user, only: %i[show edit update]
-  layout "design_system"
 
   def index
     @users = User.enabled.includes(organisation: [:translations]).sort_by { |u| u.fuzzy_last_name.downcase }

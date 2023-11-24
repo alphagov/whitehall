@@ -2,7 +2,7 @@ class Admin::BaseController < ApplicationController
   include Admin::EditionRoutesHelper
   include PermissionsCheckerConcern
 
-  layout "admin"
+  layout "design_system"
   prepend_before_action :authenticate_user!, except: %i[auth_failure]
 
   def auth_failure

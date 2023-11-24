@@ -5,7 +5,6 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   before_action :limit_edition_access!, only: %i[index new create]
   before_action :check_edition_availability, only: %i[show edit]
   skip_before_action :authenticate_user!, only: %i[show edit update]
-  layout "design_system"
 
   def show; end
 

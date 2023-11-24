@@ -1,7 +1,6 @@
 class Admin::OrganisationPeopleController < Admin::BaseController
   before_action :load_organisation
   before_action :enforce_permissions!, only: %i[reorder order]
-  layout "design_system"
 
   def index
     @render_reorder = can?(:edit, @organisation)

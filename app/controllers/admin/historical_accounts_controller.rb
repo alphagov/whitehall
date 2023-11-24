@@ -1,7 +1,6 @@
 class Admin::HistoricalAccountsController < Admin::BaseController
   before_action :load_person
   before_action :load_historical_account, only: %i[edit update confirm_destroy destroy]
-  layout "design_system"
 
   def index
     @historical_account = @person.historical_account

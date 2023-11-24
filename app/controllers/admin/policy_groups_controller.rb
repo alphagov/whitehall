@@ -1,7 +1,6 @@
 class Admin::PolicyGroupsController < Admin::BaseController
   before_action :enforce_permissions!, only: %i[confirm_destroy destroy]
   before_action :load_group, only: %i[edit update confirm_destroy destroy]
-  layout "design_system"
 
   def index
     @policy_groups = PolicyGroup.order(:name)

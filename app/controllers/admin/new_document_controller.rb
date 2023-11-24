@@ -1,6 +1,4 @@
 class Admin::NewDocumentController < Admin::BaseController
-  layout "design_system"
-
   def index; end
 
   def new_document_options_redirect

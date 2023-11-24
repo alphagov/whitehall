@@ -1,7 +1,6 @@
 class Admin::StatisticsAnnouncementUnpublishingsController < Admin::BaseController
   before_action :find_statistics_announcement
   before_action :enforce_permissions!
-  layout "design_system"
 
   def new; end
 

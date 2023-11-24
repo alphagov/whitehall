@@ -7,8 +7,6 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   before_action :build_worldwide_organisation, only: %i[new create]
   before_action :clean_worldwide_organisation_params, only: %i[create update]
 
-  layout "design_system"
-
   def index
     @worldwide_organisations = WorldwideOrganisation.ordered_by_name
   end

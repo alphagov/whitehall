@@ -21,7 +21,6 @@ class Admin::EditionsController < Admin::BaseController
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
-  layout "design_system"
 
   def enforce_permissions!
     case action_name

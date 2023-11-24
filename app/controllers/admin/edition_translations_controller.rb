@@ -1,6 +1,5 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-  layout "design_system"
 
   def new; end
 

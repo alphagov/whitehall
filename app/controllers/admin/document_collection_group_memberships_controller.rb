@@ -4,8 +4,6 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   before_action :load_membership, only: %i[confirm_destroy destroy]
   before_action :find_document, only: :create_whitehall_member
 
-  layout "design_system"
-
   def index; end
 
   def create_whitehall_member

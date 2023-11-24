@@ -2,7 +2,6 @@ class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
   before_action :set_release_date_params
   before_action :find_statistics_announcement
   before_action :redirect_to_announcement_if_cancelled
-  layout "design_system"
 
   def new
     @statistics_announcement_date_change = build_date_change

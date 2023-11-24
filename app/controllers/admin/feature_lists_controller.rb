@@ -1,6 +1,5 @@
 class Admin::FeatureListsController < Admin::BaseController
   before_action :find_feature_list
-  layout "design_system"
 
   def show
     redirect_to feature_list_path(@feature_list)
