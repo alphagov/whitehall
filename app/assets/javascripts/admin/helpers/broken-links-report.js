@@ -1,9 +1,9 @@
-(function () {
+;(function () {
   'use strict'
   window.GOVUK = window.GOVUK || {}
 
   window.GOVUK.brokenLinksReport = {
-    init: function init () {
+    init: function init() {
       $('a.js-broken-links-refresh').each(function () {
         var $link = $(this)
 
@@ -16,4 +16,4 @@
       })
     }
   }
-}())
+})()
