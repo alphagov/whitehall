@@ -1,9 +1,9 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
 
-  has_many :role_appointments, -> { order(:order) }
+  has_many :role_appointments, -> { order(:ordering) }
   has_many :current_role_appointments,
-           -> { where(RoleAppointment::CURRENT_CONDITION).order(:order) },
+           -> { where(RoleAppointment::CURRENT_CONDITION).order(:ordering) },
            class_name: "RoleAppointment"
   has_many :speeches, through: :role_appointments
   has_many :news_articles, through: :role_appointments

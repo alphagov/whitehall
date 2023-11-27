@@ -337,11 +337,11 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       },
     }
 
-    assert_equal 1, role_appointment5.reload.order
-    assert_equal 2, role_appointment4.reload.order
-    assert_equal 3, role_appointment3.reload.order
-    assert_equal 4, role_appointment2.reload.order
-    assert_equal 5, role_appointment1.reload.order
+    assert_equal 1, role_appointment5.reload.ordering
+    assert_equal 2, role_appointment4.reload.ordering
+    assert_equal 3, role_appointment3.reload.ordering
+    assert_equal 4, role_appointment2.reload.ordering
+    assert_equal 5, role_appointment1.reload.ordering
     assert_redirected_to admin_person_url(person)
     assert_equal "Role appointments reordered successfully", flash[:notice]
   end
