@@ -78,23 +78,6 @@ module Admin::EditionsHelper
     ]
   end
 
-  def legacy_admin_organisation_filter_options(current_user, selected_organisation)
-    organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
-    closed_organisations = Organisation.with_translations(:en).closed || []
-    if current_user.organisation
-      organisations = [current_user.organisation] + (organisations - [current_user.organisation])
-    end
-
-    options_for_select([["All organisations", ""]], selected_organisation) +
-      grouped_options_for_select(
-        [
-          ["Live organisations", organisations.map { |o| [o.select_name, o.id] }],
-          ["Closed organisations", closed_organisations.map { |o| [o.select_name, o.id] }],
-        ],
-        selected_organisation,
-      )
-  end
-
   def admin_author_filter_options(current_user)
     other_users = User.enabled.to_a - [current_user]
     [["All authors", ""], ["Me (#{current_user.name})", current_user.id]] + other_users.map { |u| [u.name, u.id] }

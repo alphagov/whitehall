@@ -1,6 +1,5 @@
 class Admin::WorldLocationNewsController < Admin::BaseController
   before_action :load_world_location, only: %i[edit update show features]
-  layout "design_system"
 
   def edit
     build_featured_link_if_none_present

@@ -1,6 +1,4 @@
 class Admin::NewDocumentController < Admin::BaseController
-  layout "design_system"
-
   def index; end
 
   def new_document_options_redirect
@@ -13,20 +11,6 @@ class Admin::NewDocumentController < Admin::BaseController
   end
 
 private
-
-  def check_new_design_system_permissions
-    forbidden! unless new_design_system?
-  end
-
-  def get_layout
-    design_system_actions = %w[index new_document_options_redirect] if preview_design_system?(next_release: false)
-
-    if design_system_actions&.include?(action_name)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def redirect_path(new_document_type)
     redirect_options = {

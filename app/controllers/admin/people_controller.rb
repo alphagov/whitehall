@@ -4,7 +4,6 @@ class Admin::PeopleController < Admin::BaseController
   before_action :enforce_permissions!, only: %i[edit update destroy reorder_role_appointments update_order_role_appointments confirm_destroy]
   before_action :build_dependencies, only: %i[new edit]
   before_action :clean_person_params, only: %i[create update]
-  layout "design_system"
 
   def index
     @people = Person.order(:surname, :forename).includes(:translations)

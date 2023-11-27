@@ -1,6 +1,5 @@
 class Admin::WorldLocationNewsTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-  layout "design_system"
 
   def index; end
 
@@ -48,9 +47,5 @@ private
       :mission_statement, :title,
       world_location_attributes: %i[id name]
     )
-  end
-
-  def get_layout
-    "design_system"
   end
 end

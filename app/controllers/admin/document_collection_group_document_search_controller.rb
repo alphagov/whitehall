@@ -2,8 +2,6 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
   before_action :load_document_collection
   before_action :load_document_collection_group
 
-  layout "design_system"
-
   def search_options; end
 
   def search

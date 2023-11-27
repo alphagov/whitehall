@@ -2,8 +2,6 @@ class Admin::TakePartPagesController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :clean_take_part_page_params, only: %i[create update]
 
-  layout "design_system"
-
   def enforce_permissions!
     enforce_permission!(:administer, :get_involved_section)
   end

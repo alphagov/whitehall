@@ -1,6 +1,4 @@
 class Admin::WorldwideOrganisationsHistoryController < Admin::BaseController
-  layout "design_system"
-
   def index
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])
     @versions = @worldwide_organisation

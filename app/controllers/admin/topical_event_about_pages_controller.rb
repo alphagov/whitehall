@@ -2,8 +2,6 @@ class Admin::TopicalEventAboutPagesController < Admin::BaseController
   before_action :find_topical_event
   before_action :find_page, except: %i[new create]
 
-  layout "design_system"
-
   def new
     @topical_event_about_page = TopicalEventAboutPage.new(topical_event: @topical_event)
   end

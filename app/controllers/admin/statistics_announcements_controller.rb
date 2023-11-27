@@ -3,7 +3,6 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   before_action :find_statistics_announcement, only: %i[show edit update cancel publish_cancellation cancel_reason update_cancel_reason]
   before_action :redirect_to_show_if_cancelled, only: %i[cancel publish_cancellation]
   helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
-  layout "design_system"
 
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)

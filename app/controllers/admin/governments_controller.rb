@@ -1,6 +1,5 @@
 class Admin::GovernmentsController < Admin::BaseController
   before_action :enforce_permissions!, except: :index
-  layout "design_system"
 
   def index
     @governments = Government.order(start_date: :desc)

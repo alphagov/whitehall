@@ -3,7 +3,6 @@ class Admin::EditionSlugController < Admin::BaseController
   before_action :find_document
   before_action :find_published_edition
   before_action :enforce_permissions!
-  layout "design_system"
 
   def edit_slug; end
 

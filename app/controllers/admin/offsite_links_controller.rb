@@ -1,7 +1,6 @@
 class Admin::OffsiteLinksController < Admin::BaseController
   before_action :load_parent
   before_action :load_offsite_link, except: %i[new create]
-  layout "design_system"
 
   def new
     @offsite_link = OffsiteLink.new

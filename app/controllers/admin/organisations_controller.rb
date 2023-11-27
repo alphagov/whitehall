@@ -4,7 +4,6 @@ class Admin::OrganisationsController < Admin::BaseController
   before_action :enforce_permissions!, only: %i[new create edit update]
   before_action :build_dependencies, only: %i[new edit]
   before_action :clean_organisation_params, only: %i[create update]
-  layout "design_system"
 
   def index
     @organisations = Organisation.alphabetical

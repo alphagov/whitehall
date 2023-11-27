@@ -1,6 +1,4 @@
 class Admin::ErrorsController < Admin::BaseController
-  layout "design_system"
-
   def bad_request
     render(status: :bad_request)
   end

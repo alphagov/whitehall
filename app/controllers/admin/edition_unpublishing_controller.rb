@@ -1,5 +1,4 @@
 class Admin::EditionUnpublishingController < Admin::BaseController
-  layout "design_system"
   before_action :load_unpublishing
   before_action :enforce_permissions!
 

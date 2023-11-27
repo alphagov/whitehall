@@ -1,6 +1,5 @@
 class Admin::RoleAppointmentsController < Admin::BaseController
   before_action :load_role_appointment, only: %i[edit update destroy confirm_destroy]
-  layout "design_system"
 
   def new
     role = Role.find(params[:role_id])

@@ -2,7 +2,6 @@ class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
   before_action :find_contact, only: %i[edit update destroy remove_from_home_page add_to_home_page confirm_destroy]
   before_action :destroy_blank_contact_numbers, only: %i[create update]
-  layout "design_system"
 
   def index; end
 

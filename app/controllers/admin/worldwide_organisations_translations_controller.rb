@@ -1,6 +1,5 @@
 class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-  layout "design_system"
 
   def index; end
 

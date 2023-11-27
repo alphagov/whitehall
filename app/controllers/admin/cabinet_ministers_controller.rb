@@ -1,6 +1,5 @@
 class Admin::CabinetMinistersController < Admin::BaseController
   before_action :enforce_permissions!
-  layout "design_system"
 
   def show
     @cabinet_minister_roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)

@@ -1,6 +1,5 @@
 class Admin::NeedsController < Admin::BaseController
   before_action :find_latest_edition
-  layout "design_system"
 
   def edit; end
 

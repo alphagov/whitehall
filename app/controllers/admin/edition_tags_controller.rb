@@ -2,7 +2,6 @@ class Admin::EditionTagsController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
   before_action :limit_edition_access!
-  layout "design_system"
 
   def edit
     @topic_taxonomy = Taxonomy::TopicTaxonomy.new

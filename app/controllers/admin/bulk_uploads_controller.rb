@@ -3,7 +3,6 @@ class Admin::BulkUploadsController < Admin::BaseController
   before_action :limit_edition_access!
   before_action :enforce_permissions!
   before_action :prevent_modification_of_unmodifiable_edition
-  layout "design_system"
 
   def new
     @zip_file = BulkUpload::ZipFile.new

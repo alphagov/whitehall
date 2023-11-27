@@ -2,7 +2,6 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
   before_action :load_promotional_feature, only: %i[show edit update destroy confirm_destroy]
   before_action :clean_image_or_youtube_video_url_param, only: %i[create]
-  layout "design_system"
 
   def index
     @promotional_features = @organisation.promotional_features

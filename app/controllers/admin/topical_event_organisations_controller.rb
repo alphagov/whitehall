@@ -1,6 +1,6 @@
 class Admin::TopicalEventOrganisationsController < Admin::BaseController
   before_action :load_topical_event
-  layout "design_system"
+
   def index; end
 
   def reorder; end

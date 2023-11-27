@@ -1,7 +1,6 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
   before_action :find_worldwide_office, only: %i[edit update confirm_destroy destroy add_to_home_page remove_from_home_page]
-  layout "design_system"
 
   def index; end
 

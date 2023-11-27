@@ -3,7 +3,6 @@ class Admin::ReviewRemindersController < Admin::BaseController
   before_action :load_review_reminder, only: %i[edit update]
   before_action :build_review_reminder, only: %i[new create]
   before_action :enforce_permissions!
-  layout "design_system"
 
   def new; end
 

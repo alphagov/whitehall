@@ -1,6 +1,5 @@
 class Admin::CorporateInformationPagesController < Admin::EditionsController
   prepend_before_action :find_organisation
-  layout "design_system"
 
   FakeEditionFilter = Struct.new(:editions, :page_title, :show_stats, :hide_type)
 

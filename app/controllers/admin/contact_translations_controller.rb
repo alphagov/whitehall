@@ -1,6 +1,5 @@
 class Admin::ContactTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-  layout "design_system"
 
   def index; end
 

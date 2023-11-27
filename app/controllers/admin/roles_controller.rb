@@ -1,6 +1,5 @@
 class Admin::RolesController < Admin::BaseController
   before_action :load_role, only: %i[edit update destroy]
-  layout "design_system"
 
   def index
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])

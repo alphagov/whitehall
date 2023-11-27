@@ -1,7 +1,6 @@
 class Admin::TopicalEventFeaturingsController < Admin::BaseController
   before_action :load_topical_event
   before_action :load_topical_event_featuring, only: %i[confirm_destroy destroy]
-  layout "design_system"
 
   def index
     filter_params = params.slice(:page, :type, :author, :organisation, :title)

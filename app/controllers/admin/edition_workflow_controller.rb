@@ -1,8 +1,6 @@
 class Admin::EditionWorkflowController < Admin::BaseController
   include HistoricContentConcern
 
-  layout :get_layout
-
   before_action :find_edition
   before_action :forbid_editing_of_historic_content!
   before_action :enforce_permissions!
@@ -171,15 +169,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    design_system_actions = %w[confirm_approve_retrospectively confirm_force_schedule confirm_publish confirm_unpublish confirm_unschedule confirm_unwithdraw unpublish confirm_force_publish]
-    if design_system_actions.include?(action_name)
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def force_publish_reason
     "Force published: #{params[:reason]}"
