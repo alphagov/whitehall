@@ -3,7 +3,7 @@
     <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
       <%= render "components/inset_prompt", {
         title: "This edition cannot be scheduled",
-        description: "#{force_scheduler.failure_reason}",
+        description: sanitize(force_scheduler.failure_reason),
         error: true,
       } %>
     <% end %>

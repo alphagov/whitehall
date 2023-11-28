@@ -55,6 +55,11 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     scheduler = EditionScheduler.new(edition)
 
     assert_not scheduler.can_perform?
-    assert_equal "This edition contains links which violate linking guidelines", scheduler.failure_reason
+
+    expected_failure_reason = "This edition contains links which violate linking guidelines" \
+      "<p class='govuk-!-margin-top-4 govuk-!-margin-bottom-2'>Link: <a href='government/admin/editions/12324' class='govuk-link'>government/admin/editions/12324</a></p>" \
+      "<p>Fix: This is an invalid admin link.  Did you mean /government/admin/editions/12324 instead of government/admin/editions/12324?</p>"
+
+    assert_equal expected_failure_reason, scheduler.failure_reason
   end
 end
