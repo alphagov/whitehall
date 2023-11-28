@@ -57,9 +57,8 @@ module PublishingApi
     end
 
     def get_image(feature)
-      legacy_url_path = feature.image.file.path
       {
-        url: URI.join(Plek.asset_root, Addressable::URI.encode(legacy_url_path)).to_s,
+        url: feature.image.url,
         medium_resolution_url: feature.image.url(:s465),
         high_resolution_url: feature.image.url(:s712),
         alt_text: feature.alt_text.presence || "",

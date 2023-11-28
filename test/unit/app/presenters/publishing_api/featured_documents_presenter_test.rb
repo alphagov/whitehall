@@ -24,7 +24,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
         expected_ordered_featured_documents = [
           { title: case_study.title,
             href: "/government/case-studies/case-study-title#{locale[:suffix]}",
-            image: { url: "#{Plek.asset_root}/government/uploads/system/uploads/featured_image_data/file/#{first_feature.image.id}/minister-of-funk.960x640.jpg",
+            image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
@@ -33,7 +33,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
             document_type: I18n.t("document.type.case_study.one") },
           { title: news_article.title,
             href: "/government/news/news-title#{locale[:suffix]}",
-            image: { url: "#{Plek.asset_root}/government/uploads/system/uploads/featured_image_data/file/#{second_feature.image.id}/minister-of-funk.960x640.jpg",
+            image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
@@ -66,7 +66,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
         expected_ordered_featured_documents = [
           { title: topical_event.name,
             href: "/government/topical-events/topical_event_1#{locale[:suffix]}",
-            image: { url: "#{Plek.asset_root}/government/uploads/system/uploads/featured_image_data/file/#{feature.image.id}/minister-of-funk.960x640.jpg",
+            image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
@@ -96,7 +96,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
         expected_ordered_featured_documents = [
           { title: offsite_link.title,
             href: offsite_link.url,
-            image: { url: "#{Plek.asset_root}/government/uploads/system/uploads/featured_image_data/file/#{feature.image.id}/minister-of-funk.960x640.jpg",
+            image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
@@ -140,7 +140,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
       {
         title: case_study.title,
         href: "/government/case-studies/case-study-title",
-        image: { url: "#{Plek.asset_root}/government/uploads/system/uploads/featured_image_data/file/#{first_feature.image.id}/minister-of-funk.960x640.jpg",
+        image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
                  medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                  high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                  alt_text: "" },
