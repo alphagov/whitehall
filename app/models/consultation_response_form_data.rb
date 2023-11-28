@@ -22,4 +22,8 @@ class ConsultationResponseFormData < ApplicationRecord
 
     (required_variants - asset_variants).empty?
   end
+
+  def filename
+    file.present? && file.file.filename
+  end
 end

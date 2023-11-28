@@ -106,9 +106,9 @@
               <div class="attachment">
                 <p class="govuk-body">Current data:
                   <% if call_for_evidence_response_form_data.all_asset_variants_uploaded? %>
-                    <%= link_to File.basename(call_for_evidence_response_form_data.file.path), call_for_evidence_response_form_data.file.url, class: "govuk-link" %>
+                    <%= link_to call_for_evidence_response_form_data.filename, call_for_evidence_response_form_data.file.url, class: "govuk-link" %>
                   <% else %>
-                    <%= File.basename(call_for_evidence_response_form_data.file.path) %> <span class="govuk-tag govuk-tag--green">Processing</span>
+                    <%= call_for_evidence_response_form_data.filename %> <span class="govuk-tag govuk-tag--green">Processing</span>
                   <% end %>
                 </p>
                 <%= render "govuk_publishing_components/components/radio", {

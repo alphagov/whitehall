@@ -104,9 +104,9 @@
               <div class="attachment">
                   <p class="govuk-body">Current data:
                     <% if consultation_response_form_data.all_asset_variants_uploaded? %>
-                      <%= link_to File.basename(consultation_response_form_data.file.path), consultation_response_form_data.file.url, class: "govuk-link" %>
+                      <%= link_to consultation_response_form_data.filename, consultation_response_form_data.file.url, class: "govuk-link" %>
                     <% else %>
-                      <%= File.basename(consultation_response_form_data.file.path) %> <span class="govuk-tag govuk-tag--green">Processing</span>
+                      <%= consultation_response_form_data.filename %> <span class="govuk-tag govuk-tag--green">Processing</span>
                     <% end %>
                   </p>
                 <%= render "govuk_publishing_components/components/radio", {
