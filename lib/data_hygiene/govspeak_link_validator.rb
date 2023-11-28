@@ -26,6 +26,18 @@ module DataHygiene
       end
     end
 
+    def errors_to_html
+      output = "<p>This edition contains links which violate linking guidelines</p>"
+      errors.each do |error|
+        output << (
+          "<p class='govuk-!-margin-top-4 govuk-!-margin-bottom-2'>Link: <a href='#{error[:link]}' class='govuk-link'>#{error[:link]}</a></p>" \
+          "<p>Fix: #{error[:fix]}</p>"
+        )
+      end
+
+      output
+    end
+
     def self.is_internal_admin_link?(href)
       return false unless href.is_a? String
 

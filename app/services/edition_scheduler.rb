@@ -18,14 +18,8 @@ class EditionScheduler < EditionService
                           "This edition does not have a scheduled publication date set"
                         elsif scheduled_publication_is_not_within_cache_limit?
                           "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
-                        elsif govspeak_link_errors.any?
-                          output = "This edition contains links which violate linking guidelines"
-                          govspeak_link_errors.each do |error|
-                            output << ("<p class='govuk-!-margin-top-4 govuk-!-margin-bottom-2'>Link: <a href='#{error[:link]}' class='govuk-link'>#{error[:link]}</a></p>" \
-                              "<p>Fix: #{error[:fix]}</p>")
-                          end
-
-                          output
+                        elsif govspeak_link_validator.errors.any?
+                          govspeak_link_validator.errors_to_html
                         end
   end
 
@@ -40,7 +34,7 @@ private
     edition.scheduled_publication < Whitehall.default_cache_max_age.from_now
   end
 
-  def govspeak_link_errors
-    @govspeak_link_errors ||= DataHygiene::GovspeakLinkValidator.new(edition.body).errors
+  def govspeak_link_validator
+    @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
   end
 end

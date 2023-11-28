@@ -10,23 +10,15 @@ class EditionPublisher < EditionService
 
     reasons = []
     reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
-    if govspeak_link_errors.any?
-      output = "This edition contains links which violate linking guidelines"
-      govspeak_link_errors.each do |error|
-        output << ("<p class='govuk-!-margin-top-4 govuk-!-margin-bottom-2'>Link: <a href='#{error[:link]}' class='govuk-link'>#{error[:link]}</a></p>" \
-          "<p>Fix: #{error[:fix]}</p>")
-      end
-
-      output
-    end
+    reasons << govspeak_link_validator.errors_to_html if govspeak_link_validator.errors.any?
     reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
     reasons << "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}" if scheduled_for_publication?
 
     @failure_reasons = reasons
   end
 
-  def govspeak_link_errors
-    @govspeak_link_errors ||= DataHygiene::GovspeakLinkValidator.new(edition.body).errors
+  def govspeak_link_validator
+    @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
   end
 
   def verb
