@@ -172,6 +172,18 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
       @uploader.store!(@file)
     end
   end
+
+  context "uploader model is CallForEvidenceResponseFormData" do
+    test "creates a sidekiq job and passes through the auth_bypass_id and no attachable class and id" do
+      model = CallForEvidenceResponseFormData.new
+      model.stubs(:auth_bypass_ids).returns([@auth_bypass_id])
+      @uploader.stubs(:model).returns(model)
+
+      AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, anything, anything, nil, nil, [@auth_bypass_id])
+
+      @uploader.store!(@file)
+    end
+  end
 end
 
 class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase

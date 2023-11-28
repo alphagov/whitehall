@@ -281,10 +281,28 @@ module PublishingApi::CallForEvidencePresenterTest
 
     test "ways to respond" do
       Plek.any_instance.stubs(:asset_root).returns("https://asset-host.com")
-      expected_id = @participation.call_for_evidence_response_form.call_for_evidence_response_form_data.id
-      filename = @participation.call_for_evidence_response_form.call_for_evidence_response_form_data.carrierwave_file
+
       expected_ways_to_respond = {
-        attachment_url: "https://asset-host.com/government/uploads/system/uploads/call_for_evidence_response_form_data/file/#{expected_id}/#{filename}",
+        attachment_url: "https://asset-host.com/media/asset_manager_id_original/two-pages.pdf",
+        email: "postmaster@example.com",
+        link_url: "http://www.example.com",
+        postal_address: <<-ADDRESS.strip_heredoc.chop,
+                        2 Home Farm Ln
+                        Kirklington
+                        Newark
+                        NG22 8PE
+                        UK
+        ADDRESS
+      }
+
+      assert_details_attribute :ways_to_respond, expected_ways_to_respond
+    end
+
+    test "ways to respond: filters out 'attachment_url' when call for evidence response form asset is missing" do
+      Plek.any_instance.stubs(:asset_root).returns("https://asset-host.com")
+      @participation.call_for_evidence_response_form.call_for_evidence_response_form_data.assets = []
+
+      expected_ways_to_respond = {
         email: "postmaster@example.com",
         link_url: "http://www.example.com",
         postal_address: <<-ADDRESS.strip_heredoc.chop,

@@ -12,6 +12,7 @@ class CallForEvidence < Publicationesque
   validates :closing_at, comparison: { greater_than: :opening_at, message: "must be after the opening on date" }, if: proc { |record| record.opening_at && record.closing_at }
   validates :external_url, presence: true, if: :external?
   validates :external_url, uri: true, allow_blank: true
+  validate :call_for_evidence_response_file_uploaded_to_asset_manager!, if: :call_for_evidence_response_file_in_asset_manager_check_required?
 
   has_one :call_for_evidence_participation, foreign_key: :edition_id, dependent: :destroy
   has_one :outcome, class_name: "CallForEvidenceOutcome", foreign_key: :edition_id, dependent: :destroy
@@ -172,5 +173,13 @@ class CallForEvidence < Publicationesque
 
   def publishing_api_presenter
     PublishingApi::CallForEvidencePresenter
+  end
+
+  def call_for_evidence_response_file_in_asset_manager_check_required?
+    has_call_for_evidence_participation? && call_for_evidence_participation.has_response_form? && published?
+  end
+
+  def call_for_evidence_response_file_uploaded_to_asset_manager!
+    errors.add(:call_for_evidence_response_form, "must have finished uploading") unless call_for_evidence_participation.call_for_evidence_response_form_uploaded_to_asset_manager?
   end
 end

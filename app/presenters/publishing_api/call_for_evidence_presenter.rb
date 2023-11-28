@@ -261,7 +261,7 @@ module PublishingApi
       alias_method :participation_response_form, :call_for_evidence_response_form
 
       def attachment_url
-        return unless participation.has_response_form?
+        return unless participation.has_response_form? && participation.call_for_evidence_response_form_uploaded_to_asset_manager?
 
         participation_response_form.file.url
       end

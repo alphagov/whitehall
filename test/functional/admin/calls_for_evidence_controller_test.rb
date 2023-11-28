@@ -285,9 +285,6 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
   end
 
   view_test "updating should respect the attachment_action for response forms to replace it" do
-    Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
-    Services.asset_manager.stubs(:delete_asset)
-
     two_pages_pdf = upload_fixture("two-pages.pdf")
     greenpaper_pdf = upload_fixture("greenpaper.pdf")
 
@@ -316,6 +313,73 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
     call_for_evidence.reload
     assert_not_nil call_for_evidence.call_for_evidence_participation.call_for_evidence_response_form
     assert_equal "greenpaper.pdf", call_for_evidence.call_for_evidence_participation.call_for_evidence_response_form.call_for_evidence_response_form_data.carrierwave_file
+  end
+
+  view_test "create should show 'Processing' tag if variant is missing" do
+    response_form = create(:call_for_evidence_response_form)
+    participation = create(:call_for_evidence_participation, call_for_evidence_response_form: response_form)
+    call_for_evidence = create(:call_for_evidence, call_for_evidence_participation: participation)
+    response_form.call_for_evidence_response_form_data.assets = []
+
+    get :edit, params: { id: call_for_evidence.id }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing"
+  end
+
+  test "PUT :update discards file_cache when a file is provided" do
+    two_pages_pdf = upload_fixture("two-pages.pdf")
+    greenpaper_pdf = upload_fixture("greenpaper.pdf")
+
+    response_form = create(:call_for_evidence_response_form)
+    participation = create(:call_for_evidence_participation, call_for_evidence_response_form: response_form)
+    call_for_evidence = create(:call_for_evidence, call_for_evidence_participation: participation)
+    response_form_data = build(:call_for_evidence_response_form_data, file: two_pages_pdf)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
+
+    put :update,
+        params: { id: call_for_evidence,
+                  edition: {
+                    call_for_evidence_participation_attributes: {
+                      id: participation.id,
+                      call_for_evidence_response_form_attributes: {
+                        id: response_form.id,
+                        attachment_action: "replace",
+                        _destroy: "1",
+                        call_for_evidence_response_form_data_attributes: {
+                          id: response_form.call_for_evidence_response_form_data.id,
+                          file: greenpaper_pdf,
+                          file_cache: response_form_data.file_cache,
+                        },
+                      },
+                    },
+                  } }
+  end
+
+  test "POST :create discards file_cache when a file is provided" do
+    two_pages_pdf = upload_fixture("two-pages.pdf")
+    greenpaper_pdf = upload_fixture("greenpaper.pdf")
+
+    response_form_data = build(:call_for_evidence_response_form_data, file: two_pages_pdf)
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
+
+    attributes = controller_attributes_for(
+      :call_for_evidence,
+      call_for_evidence_participation_attributes: {
+        call_for_evidence_response_form_attributes: {
+          title: "the title of the response form",
+          call_for_evidence_response_form_data_attributes: {
+            file: greenpaper_pdf,
+            file_cache: response_form_data.file_cache,
+          },
+        },
+      },
+    )
+
+    post :create, params: { edition: attributes }
   end
 
 private

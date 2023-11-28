@@ -457,4 +457,14 @@ class CallForEvidenceTest < ActiveSupport::TestCase
       assert_equal call_for_evidence.document.slug, call_for_evidence.title
     end
   end
+
+  test "is invalid if consultation response form asset is missing" do
+    response_form = create(:call_for_evidence_response_form)
+    participation = create(:call_for_evidence_participation, call_for_evidence_response_form: response_form)
+    call_for_evidence = create(:open_call_for_evidence, call_for_evidence_participation: participation)
+    response_form.call_for_evidence_response_form_data.assets = []
+
+    assert_not call_for_evidence.valid?
+    assert_includes call_for_evidence.errors[:call_for_evidence_response_form], "must have finished uploading"
+  end
 end

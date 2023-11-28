@@ -12,4 +12,15 @@ class CallForEvidenceResponseFormData < ApplicationRecord
   def auth_bypass_ids
     [call_for_evidence_response_form.call_for_evidence_participation.call_for_evidence.auth_bypass_id]
   end
+
+  def all_asset_variants_uploaded?
+    asset_variants = assets.map(&:variant).map(&:to_sym)
+    required_variants = [Asset.variants[:original].to_sym]
+
+    (required_variants - asset_variants).empty?
+  end
+
+  def filename
+    file.present? && file.file.filename
+  end
 end

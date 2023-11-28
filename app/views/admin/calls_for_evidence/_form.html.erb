@@ -104,8 +104,13 @@
 
             <% if call_for_evidence_response_form.call_for_evidence_response_form_data.try(:persisted?) %>
               <div class="attachment">
-                <p class="govuk-body">Current data: <%= link_to File.basename(call_for_evidence_response_form_data.file.path), call_for_evidence_response_form_data.file.url, class: "govuk-link" %></p>
-
+                <p class="govuk-body">Current data:
+                  <% if call_for_evidence_response_form_data.all_asset_variants_uploaded? %>
+                    <%= link_to call_for_evidence_response_form_data.filename, call_for_evidence_response_form_data.file.url, class: "govuk-link" %>
+                  <% else %>
+                    <%= call_for_evidence_response_form_data.filename %> <span class="govuk-tag govuk-tag--green">Processing</span>
+                  <% end %>
+                </p>
                 <%= render "govuk_publishing_components/components/radio", {
                   heading: "Actions:",
                   name: "edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][attachment_action]",

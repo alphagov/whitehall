@@ -15,4 +15,17 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
 
     assert_equal call_for_evidence_response_form_data.auth_bypass_ids, [auth_bypass_id]
   end
+
+  test "#all_asset_variants_uploaded? should return true when there is an original asset" do
+    call_for_evidence_response_form_data = build(:call_for_evidence_response_form_data)
+
+    assert call_for_evidence_response_form_data.all_asset_variants_uploaded?
+  end
+
+  test "#all_asset_variants_uploaded? should return false when there is no asset" do
+    call_for_evidence_response_form_data = build(:call_for_evidence_response_form_data)
+    call_for_evidence_response_form_data.assets = []
+
+    assert_equal false, call_for_evidence_response_form_data.all_asset_variants_uploaded?
+  end
 end
