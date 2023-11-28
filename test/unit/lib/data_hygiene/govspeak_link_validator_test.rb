@@ -67,8 +67,12 @@ class Edition::GovspeakLinkValidatorTest < ActiveSupport::TestCase
   test "#errors_to_html renders errors in a readable format" do
     validator = DataHygiene::GovspeakLinkValidator.new("[example text](/government/policies)")
     expected_output = "<p>This edition contains links which violate linking guidelines</p>" \
+      "<ul class='gem-c-list govuk-list'>" \
+      "<li>" \
       "<p class='govuk-!-margin-top-4 govuk-!-margin-bottom-2'>Link: <a href='/government/policies' class='govuk-link'>/government/policies</a></p>" \
-      "<p>Fix: Please use either absolute paths for documents created in publisher, e.g. /government/admin/publications/3373, or full URLs for other GOV.UK links</p>"
+      "<p>Fix: Please use either absolute paths for documents created in publisher, e.g. /government/admin/publications/3373, or full URLs for other GOV.UK links</p>" \
+      "</li>" \
+      "</ul>"
 
     assert_equal expected_output, validator.errors_to_html
   end

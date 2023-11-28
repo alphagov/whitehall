@@ -28,12 +28,19 @@ module DataHygiene
 
     def errors_to_html
       output = "<p>This edition contains links which violate linking guidelines</p>"
+
+      output << "<ul class='gem-c-list govuk-list'>"
+
       errors.each do |error|
         output << (
+          "<li>" \
           "<p class='govuk-!-margin-top-4 govuk-!-margin-bottom-2'>Link: <a href='#{error[:link]}' class='govuk-link'>#{error[:link]}</a></p>" \
-          "<p>Fix: #{error[:fix]}</p>"
+          "<p>Fix: #{error[:fix]}</p>" \
+          "</li>"
         )
       end
+
+      output << "</ul>"
 
       output
     end

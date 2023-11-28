@@ -57,8 +57,12 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     assert_not scheduler.can_perform?
 
     expected_failure_reason = "<p>This edition contains links which violate linking guidelines</p>" \
+      "<ul class='gem-c-list govuk-list'>" \
+      "<li>" \
       "<p class='govuk-!-margin-top-4 govuk-!-margin-bottom-2'>Link: <a href='government/admin/editions/12324' class='govuk-link'>government/admin/editions/12324</a></p>" \
-      "<p>Fix: This is an invalid admin link.  Did you mean /government/admin/editions/12324 instead of government/admin/editions/12324?</p>"
+      "<p>Fix: This is an invalid admin link.  Did you mean /government/admin/editions/12324 instead of government/admin/editions/12324?</p>" \
+      "</li>" \
+      "</ul>"
 
     assert_equal expected_failure_reason, scheduler.failure_reason
   end
