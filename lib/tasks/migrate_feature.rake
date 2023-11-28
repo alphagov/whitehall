@@ -1,35 +1,40 @@
-desc "Migrate promotional feature items to use assets"
-task :migrate_promotional_feature_item, %i[start_id end_id] => :environment do |_, args|
-  puts "Migrating promotional feature item start!"
+desc "Migrate feature to use FeaturedImageData with assets"
+task :migrate_feature, %i[start_id end_id] => :environment do |_, args|
+  puts "Migrating feature start!"
   start_id = args[:start_id]
   end_id = args[:end_id]
 
-  promotional_feature_items = PromotionalFeatureItem.where(id: start_id..end_id).where("image is not null")
-  puts "Number of promotional feature items found: #{promotional_feature_items.count}"
-  puts "Creating Asset for promotional feature items from #{start_id} to #{end_id}"
+  features = Feature.where(id: start_id..end_id).where("carrierwave_image is not null")
+  puts "Number of features found: #{features.count}"
+  puts "Creating Asset for features from #{start_id} to #{end_id}"
 
   count = 0
   asset_counter = 0
-  assetable_type = PromotionalFeatureItem.to_s
+  assetable_type = FeaturedImageData.to_s
 
-  promotional_feature_items.each do |promotional_feature_item|
+  features.each do |feature|
     # Ensure we do not replay the same migration
-    next if promotional_feature_item.assets.count == 7
+    next if feature.image_new
 
-    all_variants = promotional_feature_item.image.versions.keys.push(:original)
+    all_variants = feature.image.versions.keys.push(:original)
+    assetable = FeaturedImageData.create!(
+      carrierwave_image: feature.carrierwave_image,
+      featured_imageable_type: Feature.to_s,
+      featured_imageable_id: feature.id,
+    )
 
     all_variants.each do |variant|
-      path = variant == :original ? promotional_feature_item.image.path : promotional_feature_item.image.versions[variant].path
+      path = variant == :original ? feature.image.path : feature.image.versions[variant].path
       puts "Creating Asset for path #{path}"
-      asset_counter += 1 if save_asset(promotional_feature_item, assetable_type, variant, path)
+      asset_counter += 1 if save_asset(assetable, assetable_type, variant, path)
     end
 
     count += 1
   end
 
-  puts "Created assets for #{count} promotional feature items"
+  puts "Created assets for #{count} features"
   puts "Created asset counter #{asset_counter}"
-  puts "Migrating promotional feature item finish!"
+  puts "Migrating feature finish!"
 end
 
 def save_asset(assetable, assetable_type, variant, path)

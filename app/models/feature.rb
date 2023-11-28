@@ -4,6 +4,8 @@ class Feature < ApplicationRecord
   belongs_to :offsite_link
   belongs_to :feature_list
 
+  has_one :image_new, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+
   mount_uploader :image, FeaturedImageUploader, mount_on: :carrierwave_image
   validates :document, presence: true, unless: ->(feature) { feature.topical_event_id.present? || feature.offsite_link_id.present? }
   validates :started_at, presence: true
