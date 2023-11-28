@@ -1,0 +1,26 @@
+<div>
+  <h4 class="govuk-heading-s govuk-!-margin-bottom-2">Choose the topic</h4>
+  <%= render "components/select-with-search", {
+      label: "Choose a topic from the topic taxonomy. You can only choose one.",
+      error_message: flash["selected_taxon_content_id"],
+      error_id: flash["selected_taxon_content_id"],
+      id: "selected_taxon_content_id",
+      include_blank: true,
+      grouped_options: @topic_list_select_presenter.grouped_options(params["selected_taxon_content_id"]),
+      } %>
+  <hr class="govuk-section-break--m">
+ <%= render "govuk_publishing_components/components/checkboxes", {
+    id: "email_override_confirmation",
+    name: "email_override_confirmation",
+    heading_size: "s",
+    heading: "You cannot change the email notification settings after the collection is published.",
+    no_hint_text: true,
+    error: flash["email_override_confirmation"],
+    items: [
+      {
+        label: "Select this box to confirm you're happy with what you've selected.",
+        value: true,
+      },
+    ],
+  } %>
+</div>

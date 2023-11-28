@@ -78,11 +78,21 @@ module Admin::TabbedNavHelper
   end
 
   def document_collection_nav_items(edition, current_path)
-    {
+    collection_documents_element = {
       label: "Collections",
       href: admin_document_collection_groups_path(edition),
       current: current_path == admin_document_collection_groups_path(edition),
     }
+    email_notifications_element = {
+      label: "Email notifications",
+      href: admin_document_collection_edit_email_subscription_path(edition),
+      current: current_path == admin_document_collection_edit_email_subscription_path(edition),
+    }
+    if current_user.can_edit_email_overrides?
+      [collection_documents_element, email_notifications_element]
+    else
+      [collection_documents_element]
+    end
   end
 
   def document_collection_group_nav_items(group, current_path)

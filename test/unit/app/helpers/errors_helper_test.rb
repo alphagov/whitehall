@@ -7,6 +7,7 @@ class ErrorsHelperTest < ActionView::TestCase
     @object_with_unrelated_errors = ErrorTestObject.new("title", nil)
     @object_with_errors.validate
     @object_with_unrelated_errors.validate
+    @flash = ActionDispatch::Flash::FlashHash.new
   end
 
   test "#errors_for_input returns nil when there are no error messages" do
@@ -39,6 +40,22 @@ class ErrorsHelperTest < ActionView::TestCase
 
   test "#errors_for does not return an empty string when object has unrelated error" do
     assert_nil errors_for(@object_with_unrelated_errors.errors, :title)
+  end
+
+  test "#errors_from_flash returns nil if flash has no errors" do
+    assert_nil errors_from_flash(@flash)
+  end
+
+  test "#errors_from_flash returns formatted items" do
+    @flash[:my_attribute] = "My message"
+
+    expected_output = [
+      {
+        href: "#my_attribute",
+        text: "My message",
+      },
+    ]
+    assert_equal expected_output, errors_from_flash(@flash)
   end
 
   class ErrorTestObject

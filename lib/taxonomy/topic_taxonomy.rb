@@ -18,9 +18,11 @@ module Taxonomy
     end
 
     def visible_taxons
-      @visible_taxons = branches.select(
-        &:visible_to_departmental_editors
-      ).flat_map(&:taxon_list)
+      @visible_taxons = visible_branches.flat_map(&:taxon_list)
+    end
+
+    def visible_branches
+      @visible_branches ||= branches.select(&:visible_to_departmental_editors)
     end
 
   private
