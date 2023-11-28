@@ -10,7 +10,15 @@ class EditionPublisher < EditionService
 
     reasons = []
     reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
-    reasons << "This edition contains links which violate linking guidelines" if govspeak_link_errors.any?
+    if govspeak_link_errors.any?
+      output = "This edition contains links which violate linking guidelines"
+      govspeak_link_errors.each do |error|
+        output << ("<p class='govuk-!-margin-top-4 govuk-!-margin-bottom-2'>Link: <a href='#{error[:link]}' class='govuk-link'>#{error[:link]}</a></p>" \
+          "<p>Fix: #{error[:fix]}</p>")
+      end
+
+      output
+    end
     reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
     reasons << "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}" if scheduled_for_publication?
 
