@@ -12,14 +12,14 @@ module DataHygiene
 
         fix = if link.first == "/"
                 unless self.class.is_internal_admin_link?(link)
-                  "Please use either absolute paths for documents created in publisher, e.g. /government/admin/publications/3373, or full URLs for other GOV.UK links"
+                  "Please use either absolute paths for documents created in Whitehall, e.g. /government/admin/publications/3373, or full URLs for other GOV.UK links"
                 end
               elsif self.class.is_internal_admin_link?("/#{link}")
                 "This is an invalid admin link.  Did you mean /#{link} instead of #{link}?"
               elsif !%r{^(?:https?://|mailto:|#)}.match?(link)
                 "Non-document or external links should start with http://, https://, mailto:, or # (for linking to sections on the same page, eg #actions on a policy)"
               elsif link.match?(/whitehall-admin/)
-                "This links to the whitehall-admin domain. Please use paths, eg /government/admin/publications/3373, for documents created in publisher (see guidance on creating links) or full URLs for other GOV.UK links."
+                "This links to the whitehall-admin domain. Please use paths, eg /government/admin/publications/3373, for documents created in Whitehall (see guidance on creating links) or full URLs for other GOV.UK links."
               end
 
         { link:, start: match.begin(0), end: match.end(0), fix: } if fix
