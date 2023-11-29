@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :feature do
     document
-    image { build(:featured_image_data) }
+    image { image_fixture_file }
 
     trait :with_topical_event_association do
       topical_event

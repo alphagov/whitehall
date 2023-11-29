@@ -209,7 +209,9 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           create(
             :feature,
             document: speech.document,
-            image: build(:featured_image_data),
+            image: File.open(
+              Rails.root.join("test/fixtures/images/960x640_gif.gif"),
+            ),
             alt_text: "featured image",
           )
         end
@@ -218,7 +220,9 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           create(
             :feature,
             document: speech.document,
-            image: build(:featured_image_data, file: upload_fixture("big-cheese.960x640.jpg", "image/jpg")),
+            image: File.open(
+              Rails.root.join("test/fixtures/images/960x640_gif.gif"),
+            ),
             alt_text: "featured image two",
           )
         end
@@ -226,15 +230,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         it "presents the most recent featured image" do
           details = presented.content[:details]
           assert_equal("featured image two", details[:image][:alt_text])
-          assert_match(/big-cheese.960x640.jpg$/, details[:image][:url])
-        end
-
-        it "does not present the featured image if any assets are missing" do
-          feature_two.image.assets.destroy_all
-
-          details = presented.content[:details]
-
-          assert_nil details[:image]
+          assert_match(/960x640_gif.gif$/, details[:image][:url])
         end
       end
 
@@ -245,7 +241,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           assert_match(/minister-of-funk.960x640.jpg$/, details[:image][:url])
         end
 
-        test "does not present the person image if it has missing assets" do
+        test "it filters out the person image if it has missing assets" do
           person.image.assets.destroy_all
 
           details = presented.content[:details]

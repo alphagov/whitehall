@@ -139,6 +139,8 @@ module PublishingApi
     end
 
     def image_has_all_assets?
+      return true unless image.instance_of?(FeaturedImageData)
+
       image.all_asset_variants_uploaded?
     end
 

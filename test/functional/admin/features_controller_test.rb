@@ -58,9 +58,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
     params = {
       document_id: edition.document_id,
-      image_attributes: {
-        file: upload_fixture("images/960x640_gif.gif"),
-      },
+      image: upload_fixture("images/960x640_gif.gif"),
       alt_text: "some text",
     }
 
@@ -70,7 +68,6 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     post :create, params: { feature_list_id: feature_list.id, feature: params }
 
     assert_equal edition.document_id, Feature.last.document_id
-    assert_equal "960x640_gif.gif", Feature.last.image.filename
   end
 
   test "post :feature creates a feature and republishes the document & world location news when the featurable is an world location news" do
@@ -81,9 +78,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
     params = {
       document_id: edition.document_id,
-      image_attributes: {
-        file: upload_fixture("images/960x640_gif.gif"),
-      },
+      image: upload_fixture("images/960x640_gif.gif"),
       alt_text: "some text",
     }
 
@@ -93,6 +88,5 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     post :create, params: { feature_list_id: feature_list.id, feature: params }
 
     assert_equal edition.document_id, Feature.last.document_id
-    assert_equal "960x640_gif.gif", Feature.last.image.filename
   end
 end
