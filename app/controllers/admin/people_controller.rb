@@ -26,6 +26,7 @@ class Admin::PeopleController < Admin::BaseController
 
   def update
     if @person.update(person_params)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter") if @person.current_or_previous_prime_minister?
       redirect_to [:admin, @person], notice: %("#{@person.name}" saved.)
     else
       render :edit
