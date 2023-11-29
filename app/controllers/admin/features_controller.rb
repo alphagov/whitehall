@@ -45,11 +45,7 @@ private
 
   def feature_params
     params.fetch(:feature, {}).permit(
-      :alt_text,
-      :document_id,
-      :topical_event_id,
-      :offsite_link_id,
-      image_attributes: %i[file],
+      :image, :image_cache, :alt_text, :document_id, :topical_event_id, :offsite_link_id
     )
   end
 

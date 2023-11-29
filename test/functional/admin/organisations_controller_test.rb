@@ -356,9 +356,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     feature_list = organisation.load_or_create_feature_list("en")
     feature_list.features.create!(
       topical_event:,
-      image_attributes: {
-        file: image_fixture_file,
-      },
+      image: image_fixture_file,
       alt_text: "Image alternative text",
     )
 
