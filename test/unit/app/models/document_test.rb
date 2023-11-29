@@ -176,9 +176,9 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#ever_published_editions returns all editions that have ever been published or withdrawn" do
     document = create(:document)
-    superseded = create(:superseded_edition, document:)
-    withdrawn = create(:edition, state: "withdrawn", document:)
-    current = create(:published_edition, document:)
+    superseded = create(:superseded_edition, document:, created_at: 3.days.ago)
+    withdrawn = create(:edition, state: "withdrawn", document:, created_at: 2.days.ago)
+    current = create(:published_edition, document:, created_at: 1.day.ago)
 
     assert_equal [superseded, withdrawn, current], document.ever_published_editions
 

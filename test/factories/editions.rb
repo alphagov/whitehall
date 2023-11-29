@@ -82,6 +82,7 @@ FactoryBot.define do
 
     trait(:published) do
       state { "published" }
+      created_at { 3.days.ago }
       first_published_at { 2.days.ago }
       major_change_published_at { 1.day.ago }
       force_published { false }
@@ -94,6 +95,7 @@ FactoryBot.define do
 
     trait(:force_published) do
       state { "published" }
+      created_at { 3.days.ago }
       first_published_at { 2.days.ago }
       major_change_published_at { 1.day.ago }
       force_published { true }
@@ -106,6 +108,7 @@ FactoryBot.define do
 
     trait(:superseded) do
       state { "superseded" }
+      created_at { 3.days.ago }
       first_published_at { 2.days.ago }
     end
 
@@ -158,6 +161,7 @@ FactoryBot.define do
 
     trait(:unpublished) do
       state { :unpublished }
+      created_at { 1.day.ago }
       unpublishing { build(:unpublishing) }
     end
 

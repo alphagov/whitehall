@@ -173,11 +173,13 @@ module ServiceListeners
         deleted_attachment = create(:html_attachment)
         new_attachment = build(:html_attachment)
 
-        edition = publication.create_draft(create(:writer))
-        edition.attachments = [deleted_attachment]
-        edition.minor_change = true
-        edition.submit!
-        edition.publish!
+        Timecop.freeze(1.day.ago) do
+          edition = publication.create_draft(create(:writer))
+          edition.attachments = [deleted_attachment]
+          edition.minor_change = true
+          edition.submit!
+          edition.publish!
+        end
 
         new_edition = publication.create_draft(create(:writer))
         deleted_attachment.destroy!

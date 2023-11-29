@@ -544,7 +544,7 @@ EXISTS (
   end
 
   def previous_edition
-    document.ever_published_editions.where.not(id:).last
+    Edition.where(document_id:, created_at: ...(created_at || Time.zone.now), state: POST_PUBLICATION_STATES).last
   end
 
   def is_latest_edition?

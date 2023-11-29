@@ -33,8 +33,8 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
   end
 
   test "#index! removes the edition first if the publication type has changed" do
-    published_publication = create(:published_policy_paper)
-    edition = create(:published_national_statistics, document: published_publication.document)
+    published_publication = create(:published_policy_paper, created_at: 2.days.ago)
+    edition = create(:published_national_statistics, document: published_publication.document, created_at: 1.day.ago)
 
     expect_removal_from_index(published_publication)
     expect_indexing(edition)
@@ -42,10 +42,10 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
   end
 
   test "#index! removes the edition from the search index if the current edition cannot be indexed, but the previous edition was indexed" do
-    english_edition = create(:news_article_world_news_story, :published)
+    english_edition = create(:news_article_world_news_story, :published, created_at: 2.days.ago)
     ServiceListeners::SearchIndexer.new(english_edition).index!
     non_english_edition = I18n.with_locale(:fr) do
-      create(:news_article_world_news_story, :published, primary_locale: :fr, document: english_edition.document)
+      create(:news_article_world_news_story, :published, primary_locale: :fr, document: english_edition.document, created_at: 1.day.ago)
     end
 
     expect_removal_from_index(english_edition)
