@@ -8,19 +8,25 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
   end
 
   test "GET on :index assigns the person, their historical accounts and renders the :index template" do
-    @historical_account = create(:historical_account, person: @person, role: @role)
+    historical_account = create(:historical_account, person: @person, role: @role)
     get :index, params: { person_id: @person }
 
     assert_response :success
     assert_template :index
     assert_equal @person, assigns(:person)
-    assert_equal @person.historical_account, assigns(:historical_account)
+    assert_equal historical_account, assigns(:historical_account)
   end
-  view_test "GET on :index should not show Create historical accounts button when historical account is already created" do
-    @historical_account = create(:historical_account, person: @person, role: @role)
+
+  view_test "GET on :index should display a historical account's details and prevent creation of a second historical account" do
+    create(:historic_role_appointment, person: @person, role: @role)
+    historical_account = create(:historical_account, person: @person, role: @role)
+
     get :index, params: { person_id: @person }
 
-    assert_select(".govuk-button", text: "Create historical account", count: 0)
+    assert_select ".govuk-table__cell a:nth-child(1)[href='#{historical_account.public_url}']", text: "View #{@role.name}"
+    assert_select ".govuk-table__cell a:nth-child(2)[href='#{edit_admin_person_historical_account_path(@person, historical_account)}']", text: "Edit #{@role.name}"
+    assert_select ".govuk-table__cell a:nth-child(3)[href='#{confirm_destroy_admin_person_historical_account_path(@person, historical_account)}']", text: "Delete #{@role.name}"
+    assert_select ".govuk-button", text: "Create historical account", count: 0
   end
 
   view_test "GET on :index should show Create historical accounts button when historical account is not created" do
