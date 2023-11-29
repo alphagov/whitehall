@@ -1,15 +1,18 @@
 module PublishingApi
   module FeaturedDocumentsPresenter
     def featured_documents(featurable_item, document_limit)
-      featurable_item.feature_list_for_locale(I18n.locale).current.limit(document_limit).map do |feature|
-        if feature.document
-          featured_documents_editioned(feature)
-        elsif feature.topical_event
-          featured_documents_topical_event(feature)
-        elsif feature.offsite_link
-          featured_documents_offsite_link(feature)
+      featurable_item
+        .feature_list_for_locale(I18n.locale).current.limit(document_limit)
+        .select { |feature| feature.image.all_asset_variants_uploaded? }
+        .map do |feature|
+          if feature.document
+            featured_documents_editioned(feature)
+          elsif feature.topical_event
+            featured_documents_topical_event(feature)
+          elsif feature.offsite_link
+            featured_documents_offsite_link(feature)
+          end
         end
-      end
     end
 
   private
@@ -20,10 +23,7 @@ module PublishingApi
       {
         title: edition.title,
         href: edition.public_path(locale: feature.feature_list.locale),
-        image: {
-          url: feature.image.url,
-          alt_text: feature.alt_text.presence || "",
-        },
+        image: get_image(feature),
         summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(edition.summary),
         public_updated_at: edition.public_timestamp,
         document_type: edition.display_type,
@@ -36,10 +36,7 @@ module PublishingApi
       {
         title: topical_event.name,
         href: topical_event.public_path(locale: feature.feature_list.locale),
-        image: {
-          url: feature.image.url,
-          alt_text: feature.alt_text,
-        },
+        image: get_image(feature),
         summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.summary),
         public_updated_at: topical_event.start_date,
         document_type: nil, # We don't want a type for topical events
@@ -52,13 +49,20 @@ module PublishingApi
       {
         title: offsite_link.title,
         href: offsite_link.url,
-        image: {
-          url: feature.image.url,
-          alt_text: feature.alt_text,
-        },
+        image: get_image(feature),
         summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(offsite_link.summary),
         public_updated_at: offsite_link.date,
         document_type: offsite_link.display_type,
+      }
+    end
+
+    def get_image(feature)
+      legacy_url_path = feature.image.file.path
+      {
+        url: URI.join(Plek.asset_root, Addressable::URI.encode(legacy_url_path)).to_s,
+        medium_resolution_url: feature.image.url(:s465),
+        high_resolution_url: feature.image.url(:s712),
+        alt_text: feature.alt_text.presence || "",
       }
     end
   end
