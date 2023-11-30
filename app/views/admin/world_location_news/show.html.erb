@@ -14,7 +14,7 @@
       <%= link_to "View on website", @world_location_news.public_url(cachebust_url_options), class: "govuk-link", target: "_blank", rel: "noopener" %>
     </p>
     <%= render "components/secondary_navigation", {
-      aria_label: "World location news navigation tabs",
+      aria_label: "World location news navigation",
       items: secondary_navigation_tabs_items(@world_location_news, request.path),
     } %>
 
