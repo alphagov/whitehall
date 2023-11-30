@@ -9,7 +9,7 @@ shared_accessibility_criteria:
 examples:
   default:
     data:
-      aria_label: Document tabs
+      aria_label: Document navigation
       items:
         - label: Document
           href: government/admin/editions/:id"
