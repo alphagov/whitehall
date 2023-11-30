@@ -39,5 +39,6 @@
   "resolutions": {
     "stylelint/strip-ansi": "6.0.1",
     "stylelint/string-width": "4.2.3"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }
