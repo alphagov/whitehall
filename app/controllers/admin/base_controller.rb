@@ -3,11 +3,7 @@ class Admin::BaseController < ApplicationController
   include PermissionsCheckerConcern
 
   layout "design_system"
-  prepend_before_action :authenticate_user!, except: %i[auth_failure]
-
-  def auth_failure
-    render "authentications/failure", status: :forbidden
-  end
+  prepend_before_action :authenticate_user!
 
   def limit_edition_access!
     enforce_permission!(:see, @edition)
