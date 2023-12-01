@@ -16,7 +16,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         }
 
         attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, expected_attribute_hash)
         end
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data)
@@ -39,7 +39,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           }
 
           replaced_attachment_data.assets.each do |asset|
-            AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, replaced_attachment_data, nil, expected_attribute_hash)
+            AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, replaced_attachment_data, expected_attribute_hash)
           end
 
           AssetManager::AttachmentUpdater.call(replaced_attachment_data)
@@ -59,7 +59,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         }
 
         attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, expected_attribute_hash)
         end
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data)
@@ -78,7 +78,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         }
 
         attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, expected_attribute_hash)
         end
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data)
@@ -97,7 +97,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         }
 
         attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, expected_attribute_hash)
         end
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data)
@@ -116,7 +116,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         }
 
         attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, expected_attribute_hash)
         end
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data)
@@ -135,7 +135,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         }
 
         attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, expected_attribute_hash)
         end
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data)
@@ -159,9 +159,9 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           replacement_thumbnail_attributes = { "replacement_id" => replacement_thumbnail_asset.asset_manager_id }
 
           AssetManager::AssetUpdater.expects(:call)
-                                    .with(attachment.attachment_data.assets.first.asset_manager_id, attachment.attachment_data, nil, replacement_attributes)
+                                    .with(attachment.attachment_data.assets.first.asset_manager_id, attachment.attachment_data, replacement_attributes)
           AssetManager::AssetUpdater.expects(:call)
-                                    .with(attachment.attachment_data.assets.last.asset_manager_id, attachment.attachment_data, nil, replacement_thumbnail_attributes)
+                                    .with(attachment.attachment_data.assets.last.asset_manager_id, attachment.attachment_data, replacement_thumbnail_attributes)
 
           AssetManager::AttachmentUpdater.replace(attachment.attachment_data)
         end
@@ -177,8 +177,8 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
           replacement_attributes = { "replacement_id" => replacement_original_asset.asset_manager_id }
 
-          AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.first.asset_manager_id, attachment.attachment_data, nil, replacement_attributes)
-          AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.last.asset_manager_id, attachment.attachment_data, nil, replacement_attributes)
+          AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.first.asset_manager_id, attachment.attachment_data, replacement_attributes)
+          AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.last.asset_manager_id, attachment.attachment_data, replacement_attributes)
 
           AssetManager::AttachmentUpdater.replace(attachment.attachment_data)
         end
@@ -208,7 +208,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         }
 
         attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, nil, expected_attribute_hash)
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, attachment.attachment_data, expected_attribute_hash)
         end
 
         AssetManager::AttachmentUpdater.redirect(attachment.attachment_data)
