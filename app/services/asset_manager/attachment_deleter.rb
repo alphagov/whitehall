@@ -3,7 +3,7 @@ class AssetManager::AttachmentDeleter
     return unless attachment_data.deleted?
 
     attachment_data.assets.each do |asset|
-      AssetManager::AssetDeleter.call(nil, asset.asset_manager_id)
+      AssetManager::AssetDeleter.call(asset.asset_manager_id)
     end
   end
 end
