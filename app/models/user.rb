@@ -26,7 +26,6 @@ class User < ApplicationRecord
     GDS_ADMIN = "GDS Admin".freeze
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
     PREVIEW_NEXT_RELEASE = "Preview next release".freeze
-    USE_NON_LEGACY_ENDPOINTS = "Use non legacy endpoints".freeze
     EMAIL_OVERRIDE_EDITOR = "Email override editor".freeze
     SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
   end
@@ -88,10 +87,6 @@ class User < ApplicationRecord
 
   def can_preview_design_system?
     has_permission?(Permissions::PREVIEW_DESIGN_SYSTEM)
-  end
-
-  def can_use_non_legacy_endpoints?
-    has_permission?(Permissions::USE_NON_LEGACY_ENDPOINTS)
   end
 
   def can_preview_next_release?
