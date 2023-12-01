@@ -14,7 +14,7 @@ task :migrate_feature, %i[start_id end_id] => :environment do |_, args|
 
   features.each do |feature|
     # Ensure we do not replay the same migration
-    next if feature.image_new
+    # next if feature.image_new
 
     all_variants = feature.image.versions.keys.push(:original)
     assetable = FeaturedImageData.create!(
