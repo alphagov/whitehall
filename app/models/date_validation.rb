@@ -56,7 +56,7 @@ module DateValidation
   class DateValidator < ActiveModel::Validator
     def validate(record)
       record.invalid_date_attributes&.each do |date_attribute|
-        record.errors.add date_attribute, :invalid_date, message: "must be a valid date in the correct format"
+        record.errors.add date_attribute, :invalid_date
       end
     end
   end

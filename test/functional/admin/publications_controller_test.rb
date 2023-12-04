@@ -88,7 +88,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test "should validate first_published_at field on create if previously_published is true" do
     post :create, params: { edition: controller_attributes_for(:publication).merge(previously_published: "true") }
-    assert_equal "First published at can't be blank", assigns(:edition).errors.full_messages.last
+    assert_equal "Enter a first published date", assigns(:edition).errors.full_messages.last
   end
 
   view_test "edit displays publication fields and guidance" do
