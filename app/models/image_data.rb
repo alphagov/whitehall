@@ -22,7 +22,7 @@ class ImageData < ApplicationRecord
   delegate :content_type, to: :file
 
   def filename
-    file.file.filename
+    file&.file&.filename
   end
 
   def auth_bypass_ids
