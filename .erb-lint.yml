@@ -3,7 +3,6 @@ glob: "**/*.erb"
 exclude:
   - '**/vendor/**/*'
   - 'test/fixtures/**'
-  - "app/assets/javascripts/admin_legacy/autocomplete.js.erb"
   - "app/views/admin/find_in_admin_bookmarklet/_bookmarklet.erb"
 linters:
   Rubocop:
