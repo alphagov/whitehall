@@ -1,4 +1,4 @@
-class Admin::WorldwideOrganisationsController < Admin::BaseController
+class Admin::LegacyWorldwideOrganisationsController < Admin::BaseController
   VERSIONS_PER_PAGE = 10
 
   respond_to :html

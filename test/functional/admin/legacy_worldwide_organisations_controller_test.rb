@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
+class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::TestCase
   setup do
     login_as :gds_admin
   end

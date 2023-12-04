@@ -134,7 +134,7 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy, on: :member
       end
 
-      resources :worldwide_organisations do
+      resources :worldwide_organisations, controller: :legacy_worldwide_organisations do
         member do
           get :choose_main_office
           put :set_main_office
@@ -290,6 +290,7 @@ Whitehall::Application.routes.draw do
 
       resources :speeches, except: [:index]
       resources :statistical_data_sets, path: "statistical-data-sets", except: [:index]
+      resources :worldwide_organisation_editions, path: "worldwide-organisation-editions", except: [:index]
       resources :detailed_guides, path: "detailed-guides", except: [:index]
       resources :people do
         resources :translations, controller: "person_translations" do
