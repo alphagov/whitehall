@@ -31,8 +31,8 @@
         <% end %>
       </div>
       <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
-        <%= link_to("Edit attachment", [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state") %>
-        <%= link_to("Delete attachment", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state gem-link--destructive") %>
+        <%= link_to("Edit attachment", [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state", "aria-label": "Edit attachment: #{attachment.title}") %>
+        <%= link_to("Delete attachment", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], class: "govuk-link govuk-link--no-visited-state gem-link--destructive", "aria-label": "Delete attachment: #{attachment.title}") %>
       </div>
     </li>
     <% if attachment != attachable.attachments.includes(:attachment_data).last %>
