@@ -4,6 +4,7 @@ class Organisation < ApplicationRecord
   include Searchable
   include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
+  include UserOrderableClass
 
   date_attributes(:closed_at)
 

@@ -16,13 +16,13 @@ end
 
 And(/^I set the order of the (roles|organisations) to:$/) do |type, ordering|
   ordering.hashes.each do |hash|
-    model = if type == "roles"
-              Role.find_by!(name: hash[:name])
-            else
-              Organisation.find_by!(name: hash[:name])
-            end
-
-    fill_in "ordering[#{model.id}]", with: hash[:order]
+    if type == "roles"
+      role = Role.find_by!(name: hash[:name])
+      fill_in "ministerial_roles[ordering][#{role.id}]", with: hash[:order]
+    else
+      organisation = Organisation.find_by!(name: hash[:name])
+      fill_in "ministerial_organisations[ordering][#{organisation.id}]", with: hash[:order]
+    end
   end
 
   click_button "Update order"

@@ -1,4 +1,6 @@
 class MinisterialRole < Role
+  include UserOrderableClass
+
   has_many :editions, -> { distinct }, through: :role_appointments
   has_many :consultations, -> { where("editions.type" => "Consultation").distinct }, through: :role_appointments
   has_many :news_articles, -> { where("editions.type" => "NewsArticle").distinct }, through: :role_appointments

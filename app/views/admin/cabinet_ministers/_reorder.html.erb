@@ -9,6 +9,7 @@
       } %>
 
       <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: name,
         items: list.map do |item|
           {
             id: item.id,

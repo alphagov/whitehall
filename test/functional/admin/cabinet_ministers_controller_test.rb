@@ -17,9 +17,11 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
 
     patch :order_cabinet_minister_roles,
           params: {
-            ordering: {
-              role1.id.to_s => 0,
-              role2.id.to_s => 1,
+            ministerial_roles: {
+              ordering: {
+                role1.id.to_s => 0,
+                role2.id.to_s => 1,
+              },
             },
           }
 
@@ -33,9 +35,11 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
 
     patch :order_also_attends_cabinet_roles,
           params: {
-            ordering: {
-              role1.id.to_s => 0,
-              role2.id.to_s => 1,
+            ministerial_roles: {
+              ordering: {
+                role1.id.to_s => 0,
+                role2.id.to_s => 1,
+              },
             },
           }
 
@@ -49,9 +53,11 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
 
     patch :order_whip_roles,
           params: {
-            ordering: {
-              role1.id.to_s => 0,
-              role2.id.to_s => 1,
+            ministerial_roles: {
+              ordering: {
+                role1.id.to_s => 0,
+                role2.id.to_s => 1,
+              },
             },
           }
 
@@ -66,9 +72,11 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
 
     put :order_ministerial_organisations,
         params: {
-          ordering: {
-            org1.id.to_s => 0,
-            org2.id.to_s => 1,
+          ministerial_organisations: {
+            ordering: {
+              org1.id.to_s => 0,
+              org2.id.to_s => 1,
+            },
           },
         }
 

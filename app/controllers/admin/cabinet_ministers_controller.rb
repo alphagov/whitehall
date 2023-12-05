@@ -13,9 +13,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
   def order_cabinet_minister_roles
-    params["ordering"].each do |id, ordering|
-      Role.find(id).update_column(:seniority, ordering)
-    end
+    MinisterialRole.reorder_without_callbacks!(order_ministerial_roles_params, :seniority)
 
     redirect_to admin_cabinet_ministers_path(anchor: "cabinet_minister")
   end
@@ -25,9 +23,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
   def order_also_attends_cabinet_roles
-    params["ordering"].each do |id, ordering|
-      Role.find(id).update_column(:seniority, ordering)
-    end
+    MinisterialRole.reorder_without_callbacks!(order_ministerial_roles_params, :seniority)
 
     redirect_to admin_cabinet_ministers_path(anchor: "also_attends_cabinet")
   end
@@ -37,9 +33,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
   def order_whip_roles
-    params["ordering"].each do |id, ordering|
-      Role.find(id).update_column(:whip_ordering, ordering)
-    end
+    MinisterialRole.reorder_without_callbacks!(order_ministerial_roles_params, :whip_ordering)
 
     redirect_to admin_cabinet_ministers_path(anchor: "whips")
   end
@@ -49,9 +43,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
   def order_ministerial_organisations
-    params["ordering"].each do |id, ordering|
-      Organisation.find(id).update_column(:ministerial_ordering, ordering)
-    end
+    Organisation.reorder_without_callbacks!(order_ministerial_organisations_params, :ministerial_ordering)
 
     redirect_to admin_cabinet_ministers_path(anchor: "organisations")
   end
@@ -60,5 +52,13 @@ private
 
   def enforce_permissions!
     enforce_permission!(:reorder_cabinet_ministers, MinisterialRole)
+  end
+
+  def order_ministerial_roles_params
+    params.require(:ministerial_roles)["ordering"]
+  end
+
+  def order_ministerial_organisations_params
+    params.require(:ministerial_organisations)["ordering"]
   end
 end
