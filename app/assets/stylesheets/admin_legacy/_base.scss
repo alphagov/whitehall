@@ -36,7 +36,6 @@
 
 // HELPERS
 // Objects that can be used in more than one place throughout the admin
-@import "helpers/document-list";
 @import "helpers/navigation-controls";
 @import "helpers/statistics-announcements";
 @import "helpers/player-container";
@@ -45,6 +44,5 @@
 // Controller specific styles. Usually named after the controller whos views
 // they relate to
 @import "views/edition-edit-help";
-@import "views/document-collection-groups";
 @import "views/organisation";
 @import "views/editions/filter-options";
