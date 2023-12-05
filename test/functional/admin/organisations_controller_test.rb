@@ -118,6 +118,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_template :show
   end
 
+  view_test "GET on :show displays processing label if image assets are not available" do
+    organisation = build(:organisation, :with_default_news_image)
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :show, params: { id: organisation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+  end
+
   test "GET on :edit loads the organisation and renders the edit template" do
     organisation = create(:organisation)
     get :edit, params: { id: organisation }
@@ -163,6 +173,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     expected_hidden_field_name = "organisation[default_news_image_attributes][id]"
     expected_hidden_field_value = organisation.default_news_image.id
     assert_select "input[name='#{expected_hidden_field_name}'][value='#{expected_hidden_field_value}']"
+  end
+
+  view_test "GET :edit shows processing label if logo or default news image assets are not available" do
+    organisation = build(:organisation, :with_default_news_image, :with_logo_and_assets)
+    organisation.assets = []
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :edit, params: { id: organisation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 2
   end
 
   test "PUT on :update allows updating of organisation role ordering" do
