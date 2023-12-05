@@ -32,7 +32,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
     assert_equal "Organisation created successfully", flash[:notice]
     assert_equal "Organisation", worldwide_organisation.name
 
-    assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_path(worldwide_organisation)
   end
 
   view_test "shows validation errors on invalid worldwide organisation" do
@@ -67,7 +67,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
     assert_equal "New name", worldwide_organisation.name
     assert_equal "minister-of-funk.960x640.jpg", worldwide_organisation.default_news_image.file.file.filename
     assert_equal "Organisation updated successfully", flash[:notice]
-    assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_path(worldwide_organisation)
   end
 
   test "GET :choose_main_office calls correctly" do
@@ -107,7 +107,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
 
     assert_equal offices.last, worldwide_organisation.reload.main_office
     assert_equal "Main office updated successfully", flash[:notice]
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
   end
 
   test "DELETE :destroys the LegacyWorldwideOrganisation and does not destroy dependent classes" do

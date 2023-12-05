@@ -25,7 +25,7 @@ module Whitehall
     test "finds worldwide corporate information page" do
       world_org = create(:worldwide_organisation)
       cip = create(:published_corporate_information_page, organisation: nil, legacy_worldwide_organisation: world_org)
-      admin_path = admin_worldwide_organisation_corporate_information_page_path(world_org, cip)
+      admin_path = admin_legacy_worldwide_organisation_corporate_information_page_path(world_org, cip)
 
       edition = AdminLinkLookup.find_edition(admin_path)
 

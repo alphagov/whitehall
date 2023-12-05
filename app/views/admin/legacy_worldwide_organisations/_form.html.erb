@@ -1,4 +1,4 @@
-<%= form_with model: worldwide_organisation, url: admin_worldwide_organisations_path(worldwide_organisation), multipart: true do |form| %>
+<%= form_with model: worldwide_organisation, url: [:admin, worldwide_organisation], multipart: true do |form| %>
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Name (required)",
@@ -90,6 +90,6 @@
        },
     } %>
 
-    <%= link_to "Cancel", worldwide_organisation.persisted? ? admin_worldwide_organisation_path(worldwide_organisation) : admin_worldwide_organisations_path, class: "govuk-link" %>
+    <%= link_to "Cancel", worldwide_organisation.persisted? ? admin_legacy_worldwide_organisation_path(worldwide_organisation) : admin_legacy_worldwide_organisations_path, class: "govuk-link" %>
   </div>
 <% end %>

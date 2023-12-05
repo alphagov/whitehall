@@ -235,7 +235,7 @@ private
         supporting_organisation_ids: [],
         organisation_ids: [],
         world_location_ids: [],
-        worldwide_organisation_ids: [],
+        legacy_worldwide_organisation_ids: [],
         related_policy_ids: [],
         topic_ids: [],
         topical_event_ids: [],

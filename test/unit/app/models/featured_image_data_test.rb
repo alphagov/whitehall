@@ -81,7 +81,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
   test "#republish_on_assets_ready should republish worldwide organisation and associations if assets are ready" do
     worldwide_organisation = create(:worldwide_organisation, :with_default_news_image)
-    news_article = create(:news_article_world_news_story, :published, worldwide_organisations: [worldwide_organisation])
+    news_article = create(:news_article_world_news_story, :published, legacy_worldwide_organisations: [worldwide_organisation])
     create(:news_article_world_news_story, :draft, legacy_worldwide_organisations: [worldwide_organisation], document: news_article.document)
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once

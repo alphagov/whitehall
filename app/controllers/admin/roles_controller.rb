@@ -68,7 +68,7 @@ private
       :attends_cabinet_type_id,
       :responsibilities,
       organisation_ids: [],
-      worldwide_organisation_ids: [],
+      legacy_worldwide_organisation_ids: [],
     ).merge(type: sti_type)
   end
 

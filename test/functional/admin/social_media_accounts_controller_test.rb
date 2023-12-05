@@ -16,10 +16,10 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
              social_media_service_id: @social_media_service.id,
              url: "http://foo",
            },
-           worldwide_organisation_id: worldwide_organisation,
+           legacy_worldwide_organisation_id: worldwide_organisation,
          }
 
-    assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
     assert_equal "#{@social_media_service.name} account created successfully", flash[:notice]
     assert_equal 1, worldwide_organisation.social_media_accounts.count
     assert_equal @social_media_service, worldwide_organisation.social_media_accounts.first.social_media_service
@@ -32,14 +32,14 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     put :update,
         params: {
           id: social_media_account,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
           social_media_account: {
             social_media_service_id: @social_media_service.id,
             url: "http://bar",
           },
         }
 
-    assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
     assert_equal "#{social_media_account.service_name} account updated successfully", flash[:notice]
     assert_equal ["http://bar"], worldwide_organisation.social_media_accounts.map(&:url)
   end
@@ -47,7 +47,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   test ":create and :update strip whitespace from urls" do
     worldwide_organisation = create(:worldwide_organisation)
     post :create,
-         params: { worldwide_organisation_id: worldwide_organisation,
+         params: { legacy_worldwide_organisation_id: worldwide_organisation,
                    social_media_account: {
                      social_media_service_id: @social_media_service.id,
                      url: "http://foo ",
@@ -59,7 +59,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     post :update,
          params: {
            id: social_media_account,
-           worldwide_organisation_id: worldwide_organisation,
+           legacy_worldwide_organisation_id: worldwide_organisation,
            social_media_account: {
              social_media_service_id: @social_media_service.id,
              url: "http://bar ",
@@ -83,10 +83,10 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     social_media_account = create(:social_media_account, socialable: worldwide_organisation)
 
-    get :confirm_destroy, params: { worldwide_organisation_id: worldwide_organisation, id: social_media_account }
+    get :confirm_destroy, params: { legacy_worldwide_organisation_id: worldwide_organisation, id: social_media_account }
 
-    assert_select "form[action='#{admin_worldwide_organisation_social_media_account_path(worldwide_organisation, social_media_account)}']" do
-      assert_select "a[href='#{admin_worldwide_organisation_social_media_accounts_path(worldwide_organisation)}']"
+    assert_select "form[action='#{admin_legacy_worldwide_organisation_social_media_account_path(worldwide_organisation, social_media_account)}']" do
+      assert_select "a[href='#{admin_legacy_worldwide_organisation_social_media_accounts_path(worldwide_organisation)}']"
     end
   end
 
@@ -94,9 +94,9 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     organisation = create(:worldwide_organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
 
-    delete :destroy, params: { worldwide_organisation_id: organisation, id: social_media_account }
+    delete :destroy, params: { legacy_worldwide_organisation_id: organisation, id: social_media_account }
 
-    assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_social_media_accounts_url(organisation)
     assert_equal "#{social_media_account.service_name} account deleted successfully", flash[:notice]
     assert_not SocialMediaAccount.exists?(social_media_account.id)
   end
@@ -118,7 +118,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     put :update,
         params: {
           id: social_media_account,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
           social_media_account: {
             url: "http://welsh-url.cy",
             title: "Title in Welsh",

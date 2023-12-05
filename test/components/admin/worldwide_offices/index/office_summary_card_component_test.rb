@@ -24,8 +24,8 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
     )
 
     assert_selector ".govuk-summary-card__title", text: worldwide_office.title
-    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{edit_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation, worldwide_office)}']"
-    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{confirm_destroy_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation, worldwide_office)}']"
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{edit_admin_legacy_worldwide_organisation_worldwide_office_path(@worldwide_organisation, worldwide_office)}']"
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{confirm_destroy_admin_legacy_worldwide_organisation_worldwide_office_path(@worldwide_organisation, worldwide_office)}']"
     assert_selector ".govuk-summary-list__row", count: 5
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Office type"
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: worldwide_office.worldwide_office_type.name
@@ -53,7 +53,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
       ),
     )
 
-    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{admin_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, worldwide_office, contact.translation_locale)}']", text: "Add translation"
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{admin_legacy_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, worldwide_office, contact.translation_locale)}']", text: "Add translation"
   end
 
   test "renders the correct values when the office is not a main office" do
@@ -256,8 +256,8 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
     )
 
     assert_selector ".govuk-summary-card__title", text: translated_contact.title
-    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{edit_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, worldwide_office, translated_contact.translation_locale)}']"
-    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{confirm_destroy_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, worldwide_office, translated_contact.translation_locale)}']"
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{edit_admin_legacy_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, worldwide_office, translated_contact.translation_locale)}']"
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{confirm_destroy_admin_legacy_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, worldwide_office, translated_contact.translation_locale)}']"
     assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Office type"
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: worldwide_office.worldwide_office_type.name

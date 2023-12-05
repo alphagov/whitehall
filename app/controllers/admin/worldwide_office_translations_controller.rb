@@ -8,19 +8,19 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
 private
 
   def create_redirect_path
-    edit_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale)
+    edit_admin_legacy_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale)
   end
 
   def destroy_redirect_path
-    admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
+    admin_legacy_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
 
   def update_redirect_path
-    admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
+    admin_legacy_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
 
   def load_translatable_item
-    @worldwide_organisation = LegacyWorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = LegacyWorldwideOrganisation.friendly.find(params[:legacy_worldwide_organisation_id])
     @worldwide_office = @worldwide_organisation.offices.find(params[:worldwide_office_id])
     @contact = @worldwide_office.contact
   end

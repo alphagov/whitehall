@@ -8,7 +8,7 @@ module PublishingApi
       topics: :topic_content_ids,
       parent: :parent_content_ids,
       world_locations: :world_location_ids,
-      worldwide_organisations: :worldwide_organisation_ids,
+      worldwide_organisations: :legacy_worldwide_organisation_ids,
       government: :government_id,
     }.freeze
 
@@ -66,7 +66,7 @@ module PublishingApi
       (item.try(:world_locations) || []).map(&:content_id)
     end
 
-    def worldwide_organisation_ids
+    def legacy_worldwide_organisation_ids
       (item.try(:legacy_worldwide_organisations) || []).map(&:content_id)
     end
 

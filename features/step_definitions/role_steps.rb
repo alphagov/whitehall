@@ -1,6 +1,6 @@
 Given(/^an ambassador role named "([^"]*)" in the "([^"]*)" worldwide organisation$/) do |role_name, worldwide_organisation_name|
-  worldwide_organisation = WorldwideOrganisation.find_by!(name: worldwide_organisation_name)
-  create(:ambassador_role, name: role_name, worldwide_organisations: [worldwide_organisation])
+  worldwide_organisation = LegacyWorldwideOrganisation.find_by!(name: worldwide_organisation_name)
+  create(:ambassador_role, name: role_name, legacy_worldwide_organisations: [worldwide_organisation])
 end
 
 Given(/^a person called "([^"]*)" appointed as "([^"]*)" with a biography in "([^"]*)"$/) do |person_name, role_name, language_name|

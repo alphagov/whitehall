@@ -134,7 +134,7 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy, on: :member
       end
 
-      resources :worldwide_organisations, controller: :legacy_worldwide_organisations do
+      resources :legacy_worldwide_organisations, controller: :legacy_worldwide_organisations do
         member do
           get :choose_main_office
           put :set_main_office

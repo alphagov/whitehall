@@ -5,7 +5,7 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <%= form_with url: admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation, @worldwide_office), method: :delete do %>
+    <%= form_with url: admin_legacy_worldwide_organisation_worldwide_office_path(@worldwide_organisation, @worldwide_office), method: :delete do %>
       <p class="govuk-body">
         Are you sure you want to delete "<%= @worldwide_office.title %>"
       </p>
@@ -21,7 +21,7 @@
             "track-label": "Delete",
           },
         } %>
-        <%= link_to("Cancel", admin_worldwide_organisation_worldwide_offices_path, class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Cancel", admin_legacy_worldwide_organisation_worldwide_offices_path, class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </section>

@@ -17,7 +17,7 @@ class Admin::LegacyWorldwideOrganisationsController < Admin::BaseController
 
   def create
     if @worldwide_organisation.update(worldwide_organisation_params)
-      redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation created successfully"
+      redirect_to admin_legacy_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation created successfully"
     else
       @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
       render :new
@@ -30,7 +30,7 @@ class Admin::LegacyWorldwideOrganisationsController < Admin::BaseController
 
   def update
     if @worldwide_organisation.update(worldwide_organisation_params)
-      redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation updated successfully"
+      redirect_to admin_legacy_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation updated successfully"
     else
       @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
       render :edit
@@ -48,14 +48,14 @@ class Admin::LegacyWorldwideOrganisationsController < Admin::BaseController
 
   def set_main_office
     @worldwide_organisation.update!(main_office_params)
-    redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "Main office updated successfully"
+    redirect_to admin_legacy_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "Main office updated successfully"
   end
 
   def confirm_destroy; end
 
   def destroy
     @worldwide_organisation.destroy!
-    redirect_to admin_worldwide_organisations_path, notice: "Organisation deleted successfully"
+    redirect_to admin_legacy_worldwide_organisations_path, notice: "Organisation deleted successfully"
   end
 
 private

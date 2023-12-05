@@ -62,8 +62,8 @@ private
       lead_organisations.first.default_news_image
     elsif organisations.any? && organisations.first.default_news_image
       organisations.first.default_news_image
-    elsif respond_to?(:worldwide_organisations) && worldwide_organisations.any? && worldwide_organisations.first.default_news_image
-      worldwide_organisations.first.default_news_image
+    elsif respond_to?(:legacy_worldwide_organisations) && legacy_worldwide_organisations.any? && legacy_worldwide_organisations.first.default_news_image
+      legacy_worldwide_organisations.first.default_news_image
     end
   end
 

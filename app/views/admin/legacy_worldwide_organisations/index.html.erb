@@ -4,7 +4,7 @@
 
 <%= render "govuk_publishing_components/components/button", {
   text: "Create worldwide organisation",
-  href: new_admin_worldwide_organisation_path,
+  href: new_admin_legacy_worldwide_organisation_path,
   margin_bottom: 6,
   data_attributes: {
     module: "gem-track-click",
@@ -38,8 +38,8 @@
             text: worldwide_organisation.world_locations.map(&:name).to_sentence,
           },
           {
-            text: link_to(sanitize("View #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link govuk-!-margin-right-2") +
-              (link_to(sanitize("Delete #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_worldwide_organisation_path(worldwide_organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
+            text: link_to(sanitize("View #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), admin_legacy_worldwide_organisation_path(worldwide_organisation), class: "govuk-link govuk-!-margin-right-2") +
+              (link_to(sanitize("Delete #{tag.span(worldwide_organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_legacy_worldwide_organisation_path(worldwide_organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
           },
         ]
       end,

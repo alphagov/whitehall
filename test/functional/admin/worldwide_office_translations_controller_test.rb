@@ -11,9 +11,9 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
   view_test "index shows a form to create missing translations" do
     worldwide_office = create(:worldwide_office, legacy_worldwide_organisation: @worldwide_organisation)
 
-    get :index, params: { worldwide_organisation_id: @worldwide_organisation, worldwide_office_id: worldwide_office }
+    get :index, params: { legacy_worldwide_organisation_id: @worldwide_organisation, worldwide_office_id: worldwide_office }
 
-    translations_path = admin_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, worldwide_office)
+    translations_path = admin_legacy_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, worldwide_office)
     assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
         assert_select "option", count: 2
@@ -22,7 +22,7 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
       end
 
       assert_select ".govuk-button-group .govuk-button", text: "Next"
-      assert_select ".govuk-button-group .govuk-link[href='#{admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)}']"
+      assert_select ".govuk-button-group .govuk-link[href='#{admin_legacy_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)}']"
     end
   end
 
@@ -46,9 +46,9 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
 
     french_translation = contact.translations.find_by(locale: :fr)
 
-    get :edit, params: { worldwide_organisation_id: @worldwide_organisation, worldwide_office_id: worldwide_office, id: "fr" }
+    get :edit, params: { legacy_worldwide_organisation_id: @worldwide_organisation, worldwide_office_id: worldwide_office, id: "fr" }
 
-    translation_path = admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, worldwide_office, "fr")
+    translation_path = admin_legacy_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, worldwide_office, "fr")
     assert_select "form[action=?]", translation_path do
       assert_select "input[type=text][name='contact[title]'][value='#{french_translation.title}']"
       assert_select "textarea[name='contact[comments]']", text: french_translation.comments
@@ -67,7 +67,7 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
     legacy_worldwide_organisation = create(:worldwide_organisation, translated_into: %i[ar])
     worldwide_office = create(:worldwide_office, legacy_worldwide_organisation:)
 
-    get :edit, params: { worldwide_organisation_id: legacy_worldwide_organisation, worldwide_office_id: worldwide_office, id: "ar" }
+    get :edit, params: { legacy_worldwide_organisation_id: legacy_worldwide_organisation, worldwide_office_id: worldwide_office, id: "ar" }
 
     assert_select "form" do
       assert_select "input[type=text][name='contact[title]'][dir='rtl']"
@@ -77,7 +77,7 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
   view_test "update updates translation and redirects back to the index" do
     worldwide_office = create(:worldwide_office, legacy_worldwide_organisation: @worldwide_organisation)
 
-    put :update, params: { worldwide_organisation_id: @worldwide_organisation,
+    put :update, params: { legacy_worldwide_organisation_id: @worldwide_organisation,
                            worldwide_office_id: worldwide_office,
                            id: "fr",
                            contact: {
@@ -88,13 +88,13 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
       assert_equal "Département des barbes en France", worldwide_office.reload.title
     end
 
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
 
   test "update re-renders form if translation is invalid" do
     worldwide_office = create(:worldwide_office, legacy_worldwide_organisation: @worldwide_organisation)
 
-    put :update, params: { worldwide_organisation_id: @worldwide_organisation,
+    put :update, params: { legacy_worldwide_organisation_id: @worldwide_organisation,
                            worldwide_office_id: worldwide_office,
                            id: "fr",
                            contact: {

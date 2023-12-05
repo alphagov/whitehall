@@ -153,12 +153,12 @@ private
     if non_english_translation?
       {
         label: "Edit",
-        href: edit_admin_worldwide_organisation_worldwide_office_translation_path(worldwide_organisation, worldwide_office, contact.translation_locale),
+        href: edit_admin_legacy_worldwide_organisation_worldwide_office_translation_path(worldwide_organisation, worldwide_office, contact.translation_locale),
       }
     else
       {
         label: "Edit",
-        href: edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation, worldwide_office),
+        href: edit_admin_legacy_worldwide_organisation_worldwide_office_path(worldwide_organisation, worldwide_office),
       }
     end
   end
@@ -168,7 +168,7 @@ private
 
     {
       label: "Add translation",
-      href: admin_worldwide_organisation_worldwide_office_translations_path(worldwide_organisation, worldwide_office, contact.translation_locale),
+      href: admin_legacy_worldwide_organisation_worldwide_office_translations_path(worldwide_organisation, worldwide_office, contact.translation_locale),
     }
   end
 
@@ -176,13 +176,13 @@ private
     if non_english_translation?
       {
         label: "Delete",
-        href: confirm_destroy_admin_worldwide_organisation_worldwide_office_translation_path(worldwide_organisation, worldwide_office, contact.translation_locale),
+        href: confirm_destroy_admin_legacy_worldwide_organisation_worldwide_office_translation_path(worldwide_organisation, worldwide_office, contact.translation_locale),
         destructive: true,
       }
     else
       {
         label: "Delete",
-        href: confirm_destroy_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation, worldwide_office),
+        href: confirm_destroy_admin_legacy_worldwide_organisation_worldwide_office_path(worldwide_organisation, worldwide_office),
         destructive: true,
       }
     end

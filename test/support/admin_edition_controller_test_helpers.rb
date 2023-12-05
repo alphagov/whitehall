@@ -1061,7 +1061,7 @@ module AdminEditionControllerTestHelpers
         post :create,
              params: {
                edition: attributes.merge(
-                 worldwide_organisation_ids: [first_world_organisation.id, second_world_organisation.id],
+                 legacy_worldwide_organisation_ids: [first_world_organisation.id, second_world_organisation.id],
                ),
              }
 

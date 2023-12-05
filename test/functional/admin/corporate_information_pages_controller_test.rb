@@ -48,7 +48,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   test "POST :create can create a corporation information page for a WorldwideOrganisation" do
     organisation = create(:worldwide_organisation)
-    post :create, params: { worldwide_organisation_id: organisation, edition: corporate_information_page_attributes }
+    post :create, params: { legacy_worldwide_organisation_id: organisation, edition: corporate_information_page_attributes }
 
     edition = Edition.last
 

@@ -90,9 +90,15 @@ private
   def edit_summary_card_action
     return if socialable_translations_present?
 
+    path = if @socialable.is_a?(LegacyWorldwideOrganisation)
+             edit_admin_legacy_worldwide_organisation_social_media_account_path(@socialable, social_media_account)
+           else
+             edit_polymorphic_path([:admin, @socialable, social_media_account])
+           end
+
     {
       label: "Edit",
-      href: edit_polymorphic_path([:admin, @socialable, social_media_account]),
+      href: path,
     }
   end
 

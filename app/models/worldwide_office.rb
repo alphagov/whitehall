@@ -1,6 +1,6 @@
 class WorldwideOffice < ApplicationRecord
   has_one :contact, as: :contactable, dependent: :destroy
-  belongs_to :legacy_worldwide_organisation, foreign_key: "worldwide_organisation_id"
+  belongs_to :legacy_worldwide_organisation, foreign_key: :worldwide_organisation_id
   has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_office
   has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
   validates :legacy_worldwide_organisation, :contact, :worldwide_office_type_id, presence: true

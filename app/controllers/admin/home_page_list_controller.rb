@@ -12,8 +12,6 @@ module Admin::HomePageListController
         @show_on_home_page = "0"
         handle_show_on_home_page_param
         publish_container_to_publishing_api
-
-
         redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %("#{home_page_list_item.title}" removed from home page successfully)
       end
 

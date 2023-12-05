@@ -4,7 +4,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_for @translated_worldwide_organisation, url: admin_worldwide_organisation_translation_path(@translated_worldwide_organisation, translation_locale), method: :put do |form| %>
+    <%= form_for @translated_worldwide_organisation, url: admin_legacy_worldwide_organisation_translation_path(@translated_worldwide_organisation, translation_locale), method: :put do |form| %>
       <%= render "components/translated_input", {
         input: {
           label: {
@@ -35,7 +35,7 @@
           },
         } %>
 
-        <%= link_to "Cancel", admin_worldwide_organisation_translations_path(@english_worldwide_organisation), class: "govuk-link govuk-link--no-visited-state" %>
+        <%= link_to "Cancel", admin_legacy_worldwide_organisation_translations_path(@english_worldwide_organisation), class: "govuk-link govuk-link--no-visited-state" %>
       </div>
     <% end %>
   </div>

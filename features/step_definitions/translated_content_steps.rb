@@ -16,7 +16,7 @@ Given(/^a worldwide organisation that is translated exists$/) do
 end
 
 When(/^I visit the world organisation that is translated$/) do
-  visit WorldwideOrganisation.last.public_path(locale: "fr")
+  visit LegacyWorldwideOrganisation.last.public_path(locale: "fr")
 end
 
 Then(/^I should see the translation of that world organisation$/) do
@@ -126,12 +126,12 @@ Given(/^the world organisation "(.*?)" is translated into French and has an offi
     street_address: "123 The Avenue",
   )
   create(:contact_number, contact:, label: "English phone", number: "0123456789")
-  create(:worldwide_office, worldwide_organisation: organisation, contact:)
+  create(:worldwide_office, legacy_worldwide_organisation: organisation, contact:)
 end
 
 When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_title, english_title|
   office = Contact.find_by(title: english_title).contactable
-  visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
+  visit admin_legacy_worldwide_organisation_worldwide_offices_path(office.legacy_worldwide_organisation)
   click_link "Add translation"
   select "Français (French)", from: "Select language"
   click_button "Next"
@@ -144,6 +144,6 @@ end
 
 Then(/^I should see on the admin world organisation offices page that "(.*?)" has a french translation "(.*?)"$/) do |english_title, _french_title|
   office = Contact.find_by(title: english_title).contactable
-  visit admin_worldwide_organisation_translations_path(office.worldwide_organisation)
+  visit admin_legacy_worldwide_organisation_translations_path(office.legacy_worldwide_organisation)
   expect(page).to have_content("Français")
 end

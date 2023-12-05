@@ -5,7 +5,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @translated_contact, as: :contact, url: admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, translation_locale), method: :put do |form| %>
+    <%= form_with model: @translated_contact, as: :contact, url: admin_legacy_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, translation_locale), method: :put do |form| %>
       <%= render "components/translated_input", {
         input: {
           label: {
@@ -210,9 +210,9 @@
         } %>
 
         <% if @translated_contact.translation.persisted? %>
-          <%= link_to("Cancel", admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
+          <%= link_to("Cancel", admin_legacy_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
         <% else %>
-          <%= link_to("Cancel", admin_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, @worldwide_office), class: "govuk-link govuk-link--no-visited-state") %>
+          <%= link_to("Cancel", admin_legacy_worldwide_organisation_worldwide_office_translations_path(@worldwide_organisation, @worldwide_office), class: "govuk-link govuk-link--no-visited-state") %>
         <% end %>
       </div>
     <% end %>

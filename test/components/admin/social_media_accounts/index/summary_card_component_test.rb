@@ -80,6 +80,6 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
     social_media_service_name = social_media_account.social_media_service.name
 
     assert_selector ".govuk-summary-card__action a[href='#{edit_polymorphic_path([:admin, socialable, social_media_account])}']", text: "Edit #{social_media_service_name}"
-    assert_selector ".govuk-summary-card__action a[href='#{confirm_destroy_admin_worldwide_organisation_social_media_account_path(socialable, social_media_account)}']", text: "Delete #{social_media_service_name}"
+    assert_selector ".govuk-summary-card__action a[href='#{confirm_destroy_admin_legacy_worldwide_organisation_social_media_account_path(socialable, social_media_account)}']", text: "Delete #{social_media_service_name}"
   end
 end

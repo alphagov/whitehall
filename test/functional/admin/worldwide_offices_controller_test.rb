@@ -11,7 +11,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation, office = create_worldwide_organisation_and_office
 
     get :edit, params: {
-      worldwide_organisation_id: worldwide_organisation.id,
+      legacy_worldwide_organisation_id: worldwide_organisation.id,
       id: office.id,
     }
 
@@ -30,10 +30,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                contact_type_id: ContactType::General.id,
              },
            },
-           worldwide_organisation_id: worldwide_organisation.id,
+           legacy_worldwide_organisation_id: worldwide_organisation.id,
          }
 
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
     assert_equal 1, worldwide_organisation.reload.offices.count
     assert_equal "Main office", worldwide_organisation.offices.first.contact.title
     assert_equal "Main office has been added", flash[:notice]
@@ -52,7 +52,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
              },
              show_on_home_page: "1",
            },
-           worldwide_organisation_id: worldwide_organisation.id,
+           legacy_worldwide_organisation_id: worldwide_organisation.id,
          }
 
     new_office = worldwide_organisation.reload.offices.last
@@ -73,7 +73,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
              },
              show_on_home_page: "0",
            },
-           worldwide_organisation_id: worldwide_organisation.id,
+           legacy_worldwide_organisation_id: worldwide_organisation.id,
          }
 
     new_office = worldwide_organisation.reload.offices.last
@@ -93,7 +93,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                contact_type_id: ContactType::General.id,
              },
            },
-           worldwide_organisation_id: worldwide_organisation.id,
+           legacy_worldwide_organisation_id: worldwide_organisation.id,
          }
 
     new_office = worldwide_organisation.reload.offices.last
@@ -116,7 +116,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
              },
              service_ids: [service2.id, service1.id],
            },
-           worldwide_organisation_id: worldwide_organisation.id,
+           legacy_worldwide_organisation_id: worldwide_organisation.id,
          }
 
     assert_equal 1, worldwide_organisation.reload.offices.count
@@ -138,7 +138,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                },
              },
            },
-           worldwide_organisation_id: worldwide_organisation.id,
+           legacy_worldwide_organisation_id: worldwide_organisation.id,
          }
 
     actual_numbers = worldwide_organisation
@@ -165,7 +165,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             },
           },
           id: office,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
         }
 
     assert_equal "Head office", office.reload.contact.title
@@ -185,7 +185,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             show_on_home_page: "1",
           },
           id: office,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
         }
 
     assert_equal "Head office", office.reload.contact.title
@@ -206,7 +206,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             show_on_home_page: "0",
           },
           id: office,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
         }
 
     assert_equal "Head office", office.reload.contact.title
@@ -226,7 +226,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             },
           },
           id: office,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
         }
 
     assert_equal "Head office", office.reload.contact.title
@@ -244,7 +244,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             service_ids: [service3.id, service2.id],
           },
           id: office,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
         }
 
     assert_equal [service2, service3], office.reload.services.sort_by(&:id)
@@ -266,7 +266,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             },
           },
           id: office,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
         }
 
     actual_numbers = office
@@ -300,7 +300,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             },
           },
           id: office,
-          worldwide_organisation_id: worldwide_organisation,
+          legacy_worldwide_organisation_id: worldwide_organisation,
         }
 
     assert_not ContactNumber.exists?(contact_number.id)
@@ -310,9 +310,9 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation, office = create_worldwide_organisation_and_office
     worldwide_organisation.add_office_to_home_page!(office)
 
-    post :remove_from_home_page, params: { worldwide_organisation_id: worldwide_organisation, id: office }
+    post :remove_from_home_page, params: { legacy_worldwide_organisation_id: worldwide_organisation, id: office }
 
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
     assert_equal %("#{office.title}" removed from home page successfully), flash[:notice]
     assert_not worldwide_organisation.reload.office_shown_on_home_page?(office)
   end
@@ -320,9 +320,9 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   test "POST on :add_to_home_page adds office to the home page of the worldwide organisation" do
     worldwide_organisation, office = create_worldwide_organisation_and_office
 
-    post :add_to_home_page, params: { worldwide_organisation_id: worldwide_organisation, id: office }
+    post :add_to_home_page, params: { legacy_worldwide_organisation_id: worldwide_organisation, id: office }
 
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
     assert_equal %("#{office.title}" added to home page successfully), flash[:notice]
     assert worldwide_organisation.office_shown_on_home_page?(office)
   end
@@ -349,7 +349,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
     post :reorder_for_home_page,
          params: {
-           worldwide_organisation_id: worldwide_organisation,
+           legacy_worldwide_organisation_id: worldwide_organisation,
            ordering: {
              office1.id.to_s => "3",
              office2.id.to_s => "1",
@@ -357,7 +357,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
            },
          }
 
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
     assert_equal %(Offices on home page reordered successfully), flash[:notice]
     assert_equal [office2, office3, office1], worldwide_organisation.reload.home_page_offices
   end
@@ -368,14 +368,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
     post :reorder_for_home_page,
          params: {
-           worldwide_organisation_id: worldwide_organisation,
+           legacy_worldwide_organisation_id: worldwide_organisation,
            ordering: {
              office.id.to_s => "2",
              "1000000" => "1",
            },
          }
 
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
+    assert_redirected_to admin_legacy_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
     assert_equal %(Offices on home page reordered successfully), flash[:notice]
     assert_equal [office], worldwide_organisation.reload.home_page_offices
   end
@@ -384,7 +384,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation, office = create_worldwide_organisation_and_office
 
     get :confirm_destroy, params: {
-      worldwide_organisation_id: worldwide_organisation.id,
+      legacy_worldwide_organisation_id: worldwide_organisation.id,
       id: office.id,
     }
 
@@ -402,7 +402,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.add_office_to_home_page!(office2)
 
     get :reorder, params: {
-      worldwide_organisation_id: worldwide_organisation.id,
+      legacy_worldwide_organisation_id: worldwide_organisation.id,
     }
 
     assert_response :success

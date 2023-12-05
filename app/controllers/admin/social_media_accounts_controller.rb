@@ -21,8 +21,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
 
   def update
     if @social_media_account.update(social_media_account_params)
-      redirect_to redirect_path(@socialable),
-                  notice: "#{@social_media_account.service_name} account updated successfully"
+      redirect_to [:admin, @socialable, SocialMediaAccount], notice: "#{@social_media_account.service_name} account updated successfully"
     else
       render :edit
     end
@@ -31,20 +30,18 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   def create
     @social_media_account = @socialable.social_media_accounts.build(social_media_account_params)
     if @social_media_account.save
-      redirect_to redirect_path(@socialable),
+      redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account created successfully"
     else
       render :new
     end
   end
 
-  def confirm_destroy
-    @path = redirect_path(@socialable)
-  end
+  def confirm_destroy; end
 
   def destroy
     if @social_media_account.destroy
-      redirect_to redirect_path(@socialable),
+      redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account deleted successfully"
     else
       render :edit
@@ -53,18 +50,12 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
 
 private
 
-  def redirect_path(sociable)
-    return admin_worldwide_organisation_social_media_accounts_url(sociable) if sociable.is_a?(LegacyWorldwideOrganisation)
-
-    [:admin, @socialable, SocialMediaAccount]
-  end
-
   def find_socialable
     @socialable =
       if params.key?(:organisation_id)
         Organisation.friendly.find(params[:organisation_id])
-      elsif params.key?(:worldwide_organisation_id)
-        LegacyWorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
+      elsif params.key?(:legacy_worldwide_organisation_id)
+        LegacyWorldwideOrganisation.friendly.find(params[:legacy_worldwide_organisation_id])
       else
         raise ActiveRecord::RecordNotFound
       end

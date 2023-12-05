@@ -1,5 +1,5 @@
 When(/^I create a worldwide organisation "([^"]*)" sponsored by the "([^"]*)"$/) do |name, sponsoring_organisation|
-  visit new_admin_worldwide_organisation_path
+  visit new_admin_legacy_worldwide_organisation_path
   fill_in "Name", with: name
   fill_in "Logo formatted name", with: name
   select sponsoring_organisation, from: "Sponsoring organisations"
@@ -7,7 +7,7 @@ When(/^I create a worldwide organisation "([^"]*)" sponsored by the "([^"]*)"$/)
 end
 
 When(/^I create a new worldwide organisation "([^"]*)" in "([^"]*)"$/) do |name, location|
-  visit new_admin_worldwide_organisation_path
+  visit new_admin_legacy_worldwide_organisation_path
   fill_in "Name", with: name
   fill_in "Logo formatted name", with: name
   select location, from: "World location"
@@ -15,7 +15,7 @@ When(/^I create a new worldwide organisation "([^"]*)" in "([^"]*)"$/) do |name,
 end
 
 Then(/^the "([^"]*)" logo should show correctly with the HMG crest$/) do |name|
-  worldwide_organisation = WorldwideOrganisation.find_by(name:)
+  worldwide_organisation = LegacyWorldwideOrganisation.find_by(name:)
   expect(page).to have_selector(".gem-c-organisation-logo", text: worldwide_organisation.logo_formatted_name)
 end
 
@@ -28,21 +28,21 @@ Then(/^I should see the worldwide location name "([^"]*)" on the worldwide organ
 end
 
 When(/^I update the worldwide organisation to set the name to "([^"]*)"$/) do |new_title|
-  visit edit_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  visit edit_admin_legacy_worldwide_organisation_path(LegacyWorldwideOrganisation.last)
   fill_in "Name", with: new_title
   click_on "Save"
 end
 
 When(/^I delete the worldwide organisation$/) do
-  @worldwide_organisation = WorldwideOrganisation.last
-  visit admin_worldwide_organisations_path(@worldwide_organisation)
+  @worldwide_organisation = LegacyWorldwideOrganisation.last
+  visit admin_legacy_worldwide_organisations_path(@worldwide_organisation)
   click_link "Delete #{@worldwide_organisation.name}"
   click_button "Delete"
 end
 
 Given(/^a worldwide organisation "([^"]*)"$/) do |name|
   worg = create(:worldwide_organisation, name:)
-  worg.main_office = create(:worldwide_office, worldwide_organisation: worg, title: "Main office for #{name}")
+  worg.main_office = create(:worldwide_office, legacy_worldwide_organisation: worg, title: "Main office for #{name}")
 end
 
 Given(/^a worldwide organisation "([^"]*)" exists for the world location "([^"]*)" with translations into "([^"]*)"$/) do |name, _country_name, translation|
@@ -55,7 +55,7 @@ When(/^I add an "([^"]*)" office for the home page with address, phone number, a
   _service2 = create(:worldwide_service, name: "Courses in advanced sword fighting")
   service3 = create(:worldwide_service, name: "Beard grooming")
 
-  visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
+  visit admin_legacy_worldwide_organisation_worldwide_offices_path(LegacyWorldwideOrganisation.last)
   click_link "Create new office"
   fill_in_contact_details(title: description, feature_on_home_page: "yes")
 
@@ -69,11 +69,11 @@ end
 
 Then(/^I should be able to remove all services from the "(.*?)" office$/) do |description|
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: description }).first
-  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
+  visit edit_admin_legacy_worldwide_organisation_worldwide_office_path(legacy_worldwide_organisation_id: LegacyWorldwideOrganisation.last.id, id: worldwide_office.id)
   available_services = worldwide_office.services.each { |service| uncheck "worldwide_office_service_ids_#{service.id}" }
   click_on "Save"
 
-  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
+  visit edit_admin_legacy_worldwide_organisation_worldwide_office_path(legacy_worldwide_organisation_id: LegacyWorldwideOrganisation.last.id, id: worldwide_office.id)
   available_services.each do |service|
     expect(page).to have_field("worldwide_office_service_ids_#{service.id}", checked: false)
   end
@@ -89,13 +89,13 @@ end
 
 Given(/^a worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/) do |worldwide_organisation_name, contact_1_title, contact_2_title|
   worldwide_organisation = create(:worldwide_organisation, name: worldwide_organisation_name)
-  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_1_title)))
-  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_2_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, legacy_worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact_1_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, legacy_worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact_2_title)))
 end
 
 When(/^I choose "([^"]*)" to be the main office$/) do |contact_title|
   WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
-  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  visit admin_legacy_worldwide_organisation_path(LegacyWorldwideOrganisation.last)
   click_link "Offices"
 
   click_link "Set main office"
@@ -104,7 +104,7 @@ When(/^I choose "([^"]*)" to be the main office$/) do |contact_title|
 end
 
 Then(/^the "([^"]*)" should be marked as the main office$/) do |contact_title|
-  admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
+  admin_legacy_worldwide_organisation_worldwide_offices_path(LegacyWorldwideOrganisation.last)
 
   within ".app-vc-worldwide-offices-index-office-summary-card-component", match: :first do
     expect(page).to have_content contact_title
@@ -114,18 +114,18 @@ Then(/^the "([^"]*)" should be marked as the main office$/) do |contact_title|
 end
 
 Given(/^the offices "([^"]*)" and "([^"]*)"$/) do |contact_1_title, contact_2_title|
-  worldwide_organisation = WorldwideOrganisation.last
+  worldwide_organisation = LegacyWorldwideOrganisation.last
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_1_title)))
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_2_title)))
 end
 
 When(/^I add a new translation to the worldwide organisation "([^"]*)" with:$/) do |name, table|
-  worldwide_organisation = WorldwideOrganisation.find_by!(name:)
+  worldwide_organisation = LegacyWorldwideOrganisation.find_by!(name:)
   add_translation_to_worldwide_organisation(worldwide_organisation, table.rows_hash)
 end
 
 Then(/^I should see the language "([^"]*)" \("([^"]*)"\) for "([^"]*)" \("([^"]*)"\) when viewing the worldwide organisation translations$/) do |language, _language_in_english, worldwide_organisation, _worldwide_organisation_in_english|
-  visit admin_worldwide_organisation_translations_path(WorldwideOrganisation.last)
+  visit admin_legacy_worldwide_organisation_translations_path(LegacyWorldwideOrganisation.last)
 
   click_link "Edit #{language}"
   expect(page).to have_content("Edit translation")
@@ -143,19 +143,19 @@ When(/^I edit the "([^"]*)" translation for the worldwide organisation "([^"]*)"
 end
 
 Then(/^I should be able to see "([^"]*)" in the list of worldwide organisations$/) do |worldwide_organisation_name|
-  visit admin_worldwide_organisations_path
+  visit admin_legacy_worldwide_organisations_path
 
   expect(page).to have_content(worldwide_organisation_name)
 end
 
 Then(/^I should not be able to see "([^"]*)" in the list of worldwide organisations$/) do |worldwide_organisation_name|
-  visit admin_worldwide_organisations_path
+  visit admin_legacy_worldwide_organisations_path
 
   expect(page).to_not have_content(worldwide_organisation_name)
 end
 
 Then(/^I should see a create record in the audit trail for the worldwide organisation/) do
-  visit history_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  visit history_admin_legacy_worldwide_organisation_path(LegacyWorldwideOrganisation.last)
   history_component = page.find(".app-c-audit-trail-entry-component", match: :first)
 
   within history_component do
@@ -165,7 +165,7 @@ Then(/^I should see a create record in the audit trail for the worldwide organis
 end
 
 Then(/^I should see an update record in the audit trail for the worldwide organisation/) do
-  visit history_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  visit history_admin_legacy_worldwide_organisation_path(LegacyWorldwideOrganisation.last)
   history_component = page.find(".app-c-audit-trail-entry-component", match: :first)
 
   within history_component do
@@ -175,8 +175,8 @@ Then(/^I should see an update record in the audit trail for the worldwide organi
 end
 
 Then(/^Then I should see the corporate information on the worldwide organisation corporate information pages page/) do
-  worldwide_organisation = WorldwideOrganisation.last
-  visit admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation)
+  worldwide_organisation = LegacyWorldwideOrganisation.last
+  visit admin_legacy_worldwide_organisation_corporate_information_pages_path(worldwide_organisation)
 
   corporate_information_page = worldwide_organisation.corporate_information_pages.last
 

@@ -145,7 +145,7 @@ class LegacyWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "office_staff_roles returns worldwide office staff roles" do
-    worldwide_organisation = create(:worldwide_organisation)
+    create(:worldwide_organisation)
 
     # assert_equal [], worldwide_organisation.office_staff_roles
     #

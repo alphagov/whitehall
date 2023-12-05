@@ -345,9 +345,11 @@ class PublishingApiRake < ActiveSupport::TestCase
 
         document_types.each do |document_type|
           test "republishes all #{document_type} documents" do
-            document = document_type == "LegacyWorldwideOrganisation" ?
-                         create(:worldwide_organisation) :
-                         create(document_type.underscore.to_sym) # rubocop:disable Rails/SaveBang
+            document = if document_type == "LegacyWorldwideOrganisation"
+                         create(:worldwide_organisation)
+                       else
+                         create!(document_type.underscore.to_sym)
+                       end
 
             Whitehall::PublishingApi.expects(:bulk_republish_async).with(document)
             capture_io { task.invoke(document_type) }

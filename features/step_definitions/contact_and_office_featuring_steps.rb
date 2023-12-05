@@ -1,9 +1,9 @@
 Given(/^there is a worldwide organisation with some offices on its home page$/) do
   @the_organisation = create(:worldwide_organisation)
-  @the_main_office = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "HQ1.0")
-  office1 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "The main office")
-  office2 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "Summer office by the lake")
-  office3 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "Emergency bunker office")
+  @the_main_office = create(:worldwide_office, legacy_worldwide_organisation: @the_organisation, title: "HQ1.0")
+  office1 = create(:worldwide_office, legacy_worldwide_organisation: @the_organisation, title: "The main office")
+  office2 = create(:worldwide_office, legacy_worldwide_organisation: @the_organisation, title: "Summer office by the lake")
+  office3 = create(:worldwide_office, legacy_worldwide_organisation: @the_organisation, title: "Emergency bunker office")
   @the_organisation.add_office_to_home_page!(office1)
   @the_organisation.add_office_to_home_page!(office2)
   @the_organisation.add_office_to_home_page!(office3)
@@ -11,7 +11,7 @@ Given(/^there is a worldwide organisation with some offices on its home page$/) 
 end
 
 When(/^I add a new office to be featured on the home page of the worldwide organisation$/) do
-  visit admin_worldwide_organisation_path(@the_organisation)
+  visit admin_legacy_worldwide_organisation_path(@the_organisation)
   click_on "Offices"
   click_on "All"
   click_on "Add"
@@ -24,7 +24,7 @@ When(/^I add a new office to be featured on the home page of the worldwide organ
 end
 
 When(/^I decide that one of the offices no longer belongs on the home page$/) do
-  visit admin_worldwide_organisation_path(@the_organisation)
+  visit admin_legacy_worldwide_organisation_path(@the_organisation)
 
   click_on "Offices"
 
@@ -36,7 +36,7 @@ When(/^I decide that one of the offices no longer belongs on the home page$/) do
 end
 
 Then(/^that office is marked as no longer visible on the home page of the worldwide organisation$/) do
-  visit admin_worldwide_organisation_path(@the_organisation)
+  visit admin_legacy_worldwide_organisation_path(@the_organisation)
 
   click_on "Offices"
 

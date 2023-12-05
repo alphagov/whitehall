@@ -12,7 +12,7 @@ class Admin::WorldwideOrganisations::Show::SummaryListComponentTest < ViewCompon
     assert_selector ".govuk-summary-list__row", count: 1
     assert_selector ".govuk-summary-list__key", text: "Name"
     assert_selector ".govuk-summary-list__value", text: worldwide_organisation.name
-    assert_link("Edit", href: edit_admin_worldwide_organisation_path(worldwide_organisation))
+    assert_link("Edit", href: edit_admin_legacy_worldwide_organisation_path(worldwide_organisation))
   end
 
   test "renders the correct items when all fields are completed and only 1 world location & sponsoring organisation" do

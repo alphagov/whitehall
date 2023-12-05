@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_worldwide_organisations_path,
+    href: admin_legacy_worldwide_organisations_path,
   } %>
 <% end %>
 <% content_for :page_title, "#{@worldwide_organisation.name} translations" %>
@@ -11,7 +11,7 @@
 <p class="govuk-body"><%= view_on_website_link_for @worldwide_organisation, class: "govuk-link" %></p>
 
 <%= render "components/secondary_navigation", {
-  aria_label: "Worldwide organisation navigation",
+  aria_label: "Worldwide organisation navigation tabs",
   items: secondary_navigation_tabs_items(@worldwide_organisation, request.path),
 } %>
 
@@ -33,8 +33,8 @@
               },
               {
                 text:
-                  link_to(sanitize("Edit #{tag.span("#{locale.native_language_name}", class: "govuk-visually-hidden")}"), edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code), class: "govuk-link") +
-                    link_to(sanitize("Delete #{tag.span("#{locale.native_language_name}", class: "govuk-visually-hidden")}"), confirm_destroy_admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+                  link_to(sanitize("Edit #{tag.span("#{locale.native_language_name}", class: "govuk-visually-hidden")}"), edit_admin_legacy_worldwide_organisation_translation_path(@worldwide_organisation, locale.code), class: "govuk-link") +
+                    link_to(sanitize("Delete #{tag.span("#{locale.native_language_name}", class: "govuk-visually-hidden")}"), confirm_destroy_admin_legacy_worldwide_organisation_translation_path(@worldwide_organisation, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
               },
             ]
           end,
@@ -49,7 +49,7 @@
     <% end %>
 
     <% if @worldwide_organisation.missing_translations.any? %>
-      <%= form_tag admin_worldwide_organisation_translations_path(@worldwide_organisation) do %>
+      <%= form_tag admin_legacy_worldwide_organisation_translations_path(@worldwide_organisation) do %>
         <%
           options = @worldwide_organisation.missing_translations.map do |translation|
             {

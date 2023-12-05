@@ -15,8 +15,8 @@ module Admin::UrlHelper
     admin_link "People", admin_people_path
   end
 
-  def admin_worldwide_organisations_link
-    admin_link "Worldwide organisations", admin_worldwide_organisations_path
+  def admin_legacy_worldwide_organisations_link
+    admin_link "Worldwide organisations", admin_legacy_worldwide_organisations_path
   end
 
   def admin_world_location_news_link
