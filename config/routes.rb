@@ -303,11 +303,18 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy, on: :member
       end
 
-      resource :cabinet_ministers, only: %i[show update] do
-        get :reorder_cabinet_minister_roles, on: :member
-        get :reorder_also_attends_cabinet_roles, on: :member
-        get :reorder_whip_roles, on: :member
-        get :reorder_ministerial_organisations, on: :member
+      resource :cabinet_ministers, only: %i[show] do
+        get :reorder_cabinet_minister_roles
+        patch :order_cabinet_minister_roles
+
+        get :reorder_also_attends_cabinet_roles
+        patch :order_also_attends_cabinet_roles
+
+        get :reorder_whip_roles
+        patch :order_whip_roles
+
+        get :reorder_ministerial_organisations
+        patch :order_ministerial_organisations
       end
 
       resources :roles, except: [:show] do

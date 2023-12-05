@@ -11,81 +11,69 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     @organisation ||= create(:organisation)
   end
 
-  test "should reorder ministerial roles" do
-    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_cabinet_minister_roles_admin_cabinet_ministers_path
+  test "PATCH :order_cabinet_minister_roles should reorder ministerial roles" do
     role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
 
-    put :update,
-        params: {
-          roles: {
+    patch :order_cabinet_minister_roles,
+          params: {
             ordering: {
               role1.id.to_s => 0,
               role2.id.to_s => 1,
             },
-          },
-        }
+          }
 
-    assert_equal MinisterialRole.cabinet.order(:seniority).to_a, [role1, role2]
-    assert_redirected_to "#{admin_cabinet_ministers_path}#cabinet_minister"
+    assert_equal MinisterialRole.cabinet.order(:seniority), [role1, role2]
+    assert_redirected_to admin_cabinet_ministers_path(anchor: "cabinet_minister")
   end
 
-  test "should reorder people who also attend cabinet" do
-    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_also_attends_cabinet_roles_admin_cabinet_ministers_path
+  test "PATCH :order_also_attends_cabinet_roles should reorder people who also attend cabinet" do
     role2 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation])
 
-    put :update,
-        params: {
-          roles: {
+    patch :order_also_attends_cabinet_roles,
+          params: {
             ordering: {
               role1.id.to_s => 0,
               role2.id.to_s => 1,
             },
-          },
-        }
+          }
 
-    assert_equal MinisterialRole.also_attends_cabinet.order(:seniority).to_a, [role1, role2]
-    assert_redirected_to "#{admin_cabinet_ministers_path}#also_attends_cabinet"
+    assert_equal MinisterialRole.also_attends_cabinet.order(:seniority), [role1, role2]
+    assert_redirected_to admin_cabinet_ministers_path(anchor: "also_attends_cabinet")
   end
 
-  test "should reorder whips as part of the same request" do
-    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_whip_roles_admin_cabinet_ministers_path
+  test "PATCH :order_whip_roles should reorder whips" do
     role2 = create(:ministerial_role, name: "Whip 1", whip_organisation_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Whip 2", whip_organisation_id: 2, organisations: [organisation])
 
-    put :update,
-        params: {
-          whips: {
+    patch :order_whip_roles,
+          params: {
             ordering: {
               role1.id.to_s => 0,
               role2.id.to_s => 1,
             },
-          },
-        }
+          }
 
-    assert_equal MinisterialRole.whip.order(:seniority).to_a, [role2, role1]
-    assert_equal MinisterialRole.whip.order(:whip_ordering).to_a, [role1, role2]
-    assert_redirected_to "#{admin_cabinet_ministers_path}#whips"
+    assert_equal MinisterialRole.whip.order(:seniority), [role2, role1]
+    assert_equal MinisterialRole.whip.order(:whip_ordering), [role1, role2]
+    assert_redirected_to admin_cabinet_ministers_path(anchor: "whips")
   end
 
-  test "should reorder ministerial organisations" do
-    @request.env["HTTP_REFERER"] = Plek.website_root + reorder_ministerial_organisations_admin_cabinet_ministers_path
+  test "PATCH :order_ministerial_organisations should reorder ministerial organisations" do
     org2 = create(:organisation)
     org1 = create(:organisation)
 
-    put :update,
+    put :order_ministerial_organisations,
         params: {
-          organisation: {
-            ordering: {
-              org1.id.to_s => 0,
-              org2.id.to_s => 1,
-            },
+          ordering: {
+            org1.id.to_s => 0,
+            org2.id.to_s => 1,
           },
         }
 
     assert_equal Organisation.order(:ministerial_ordering), [org1, org2]
-    assert_redirected_to "#{admin_cabinet_ministers_path}#organisations"
+    assert_redirected_to admin_cabinet_ministers_path(anchor: "organisations")
   end
 
   view_test "should list cabinet ministers and ministerial organisations in separate tabs, in the correct order, with reorder links" do

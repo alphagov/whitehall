@@ -10,7 +10,7 @@ Feature: Reordering of Cabinet ministers and Organisations
     Given there are multiple Cabinet minister roles
     When I visit the Cabinet ministers order page
     And I click the reorder link in the "#cabinet_minister" tab
-    And I set the order of the roles for the "roles" ordering field to:
+    And I set the order of the roles to:
       | name   | order |
       | Role 2 | 0     |
       | Role 1 | 1     |
@@ -23,7 +23,7 @@ Feature: Reordering of Cabinet ministers and Organisations
     Given there are multiple Also attends cabinet roles
     When I visit the Cabinet ministers order page
     And I click the reorder link in the "#also_attends_cabinet" tab
-    And I set the order of the roles for the "roles" ordering field to:
+    And I set the order of the roles to:
       | name   | order |
       | Role 2 | 0     |
       | Role 1 | 1     |
@@ -36,7 +36,7 @@ Feature: Reordering of Cabinet ministers and Organisations
     Given there are multiple Whip roles
     When I visit the Cabinet ministers order page
     And I click the reorder link in the "#whips" tab
-    And I set the order of the roles for the "whips" ordering field to:
+    And I set the order of the roles to:
       | name   | order |
       | Role 2 | 0     |
       | Role 1 | 1     |
@@ -49,7 +49,7 @@ Feature: Reordering of Cabinet ministers and Organisations
     Given there are multiple organisations with ministerial ordering
     When I visit the Cabinet ministers order page
     And I click the reorder link in the "#organisations" tab
-    And I set the order of the organisations for the "organisation" ordering field to:
+    And I set the order of the organisations to:
       | name   | order |
       | Org 2 | 0     |
       | Org 1 | 1     |

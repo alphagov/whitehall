@@ -14,7 +14,7 @@ When(/^I click the reorder link in the "([^"]*)" tab$/) do |tab|
   end
 end
 
-And(/^I set the order of the (roles|organisations) for the "([^"]*)" ordering field to:$/) do |type, name, ordering|
+And(/^I set the order of the (roles|organisations) to:$/) do |type, ordering|
   ordering.hashes.each do |hash|
     model = if type == "roles"
               Role.find_by!(name: hash[:name])
@@ -22,7 +22,7 @@ And(/^I set the order of the (roles|organisations) for the "([^"]*)" ordering fi
               Organisation.find_by!(name: hash[:name])
             end
 
-    fill_in "#{name}[ordering][#{model.id}]", with: hash[:order]
+    fill_in "ordering[#{model.id}]", with: hash[:order]
   end
 
   click_button "Update order"
