@@ -35,7 +35,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders the correct default fields when a lead image is present" do
-    image = build_stubbed(:image, caption: "caption", alt_text: "alt text")
+    image = build_stubbed(:image, image_data: build(:image_data), caption: "caption", alt_text: "alt text")
     edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
@@ -55,12 +55,13 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(2)", text: "Alt text: None"
   end
 
-  test "renders a processing tag if the lead image if all assets aren't uploaded" do
+  test "renders a processing tag if not all lead image assets are uploaded" do
     image = build_stubbed(:image, image_data: build_stubbed(:image_data_with_no_assets))
     edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
 
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
+    assert_selector ".app-view-edition-resource__preview", count: 0
     assert_selector ".govuk-tag", text: "Processing"
   end
 

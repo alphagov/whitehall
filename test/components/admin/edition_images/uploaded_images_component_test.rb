@@ -4,7 +4,7 @@ require "test_helper"
 
 class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCase
   test "renders correctly for case studies" do
-    images = [build_stubbed(:image), build_stubbed(:image)]
+    images = [build_stubbed(:image, image_data: build(:image_data)), build_stubbed(:image, image_data: build(:image_data))]
     edition = build_stubbed(:draft_case_study, images:, lead_image: images.first)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
@@ -14,7 +14,7 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
   end
 
   test "renders correctly for publications" do
-    images = [build_stubbed(:image), build_stubbed(:image)]
+    images = [build_stubbed(:image, image_data: build(:image_data)), build_stubbed(:image, image_data: build(:image_data))]
     edition = build_stubbed(:draft_publication, images:)
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
