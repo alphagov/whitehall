@@ -19,6 +19,26 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "#image_alt_text"
   end
 
+  test "edit page shows image if all its assets are uploaded" do
+    login_authorised_user
+    image = build(:image)
+    edition = create(:draft_publication, images: [image])
+
+    get edit_admin_edition_image_path(edition, image)
+
+    assert_select "img:match('src',?)", /media\/asset_manager_id_original\/minister-of-funk.960x640.jpg/, count: 1
+  end
+
+  test "edit page shows processing label if some of the image assets haven't finished processing" do
+    login_authorised_user
+    image = build(:image_with_no_assets)
+    edition = create(:draft_publication, images: [image])
+
+    get edit_admin_edition_image_path(edition, image)
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+  end
+
   test "edit page does not display alt text input where it is blank" do
     login_authorised_user
     images = [build(:image, alt_text: "")]
