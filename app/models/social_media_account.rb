@@ -12,7 +12,7 @@ class SocialMediaAccount < ApplicationRecord
   translates :url, :title
 
   def republish_organisation_to_publishing_api
-    if (socialable_type == "Organisation" || socialable_type == "WorldwideOrganisation") && socialable.persisted?
+    if (socialable_type == "Organisation" || socialable_type == "LegacyWorldwideOrganisation") && socialable.persisted?
       Whitehall::PublishingApi.republish_async(socialable)
     end
   end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :sponsorship do
     organisation
-    worldwide_organisation
+    association :legacy_worldwide_organisation, factory: :worldwide_organisation
   end
 end

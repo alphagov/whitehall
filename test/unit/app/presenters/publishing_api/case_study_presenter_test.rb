@@ -199,7 +199,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     wworg = create(:worldwide_organisation)
     case_study = create(
       :published_case_study,
-      worldwide_organisations: [wworg],
+      legacy_worldwide_organisations: [wworg],
     )
     presented_item = present(case_study)
     assert_valid_against_links_schema({ links: presented_item.links }, "case_study")

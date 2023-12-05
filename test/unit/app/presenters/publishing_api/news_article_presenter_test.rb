@@ -259,7 +259,7 @@ module PublishingApi::NewsArticlePresenterTest
     test "should return lead image from worldwide_organisations when lead_image_has_all_assets?" do
       image = build(:featured_image_data)
       worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
-      self.news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
+      self.news_article = create(:news_article_world_news_story, legacy_worldwide_organisations: [worldwide_organisation])
 
       assert presented_news_article.content[:details][:image][:url].include?("s300_minister-of-funk.960x640.jpg")
     end
@@ -269,7 +269,7 @@ module PublishingApi::NewsArticlePresenterTest
       worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
       worldwide_organisation.default_news_image.assets = []
 
-      self.news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
+      self.news_article = create(:news_article_world_news_story, legacy_worldwide_organisations: [worldwide_organisation])
       assert presented_news_article.content[:details][:image].nil?
     end
   end

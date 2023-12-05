@@ -1,9 +1,9 @@
 class WorldwideOffice < ApplicationRecord
   has_one :contact, as: :contactable, dependent: :destroy
-  belongs_to :worldwide_organisation
+  belongs_to :legacy_worldwide_organisation, foreign_key: "worldwide_organisation_id"
   has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_office
   has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
-  validates :worldwide_organisation, :contact, :worldwide_office_type_id, presence: true
+  validates :legacy_worldwide_organisation, :contact, :worldwide_office_type_id, presence: true
 
   after_commit :republish_embassies_index_page_to_publishing_api
 
@@ -12,7 +12,7 @@ class WorldwideOffice < ApplicationRecord
   include PublishesToPublishingApi
 
   extend FriendlyId
-  friendly_id :title, use: :scoped, scope: :worldwide_organisation
+  friendly_id :title, use: :scoped, scope: :legacy_worldwide_organisation
 
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists
@@ -24,7 +24,7 @@ class WorldwideOffice < ApplicationRecord
     %w[id contactable_id contactable_type contact_id locale created_at updated_at content_id]
 
   delegate(*contact_methods, to: :contact, allow_nil: true)
-  delegate(:non_english_translated_locales, to: :worldwide_organisation)
+  delegate(:non_english_translated_locales, to: :legacy_worldwide_organisation)
   delegate(:embassy_office?, to: :worldwide_office_type)
 
   def worldwide_office_type
@@ -44,7 +44,7 @@ class WorldwideOffice < ApplicationRecord
   end
 
   def base_path
-    "/world/organisations/#{worldwide_organisation.slug}/office/#{slug}"
+    "/world/organisations/#{legacy_worldwide_organisation.slug}/office/#{slug}"
   end
 
   def public_path(options = {})

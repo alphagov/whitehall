@@ -1,19 +1,21 @@
-class WorldwideOrganisation < ApplicationRecord
+class LegacyWorldwideOrganisation < ApplicationRecord
+  self.table_name = "worldwide_organisations"
+
   PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole].freeze
   SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
   OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
 
-  has_many :worldwide_organisation_world_locations, dependent: :destroy
+  has_many :worldwide_organisation_world_locations, dependent: :destroy, foreign_key: :worldwide_organisation_id
   has_many :world_locations, through: :worldwide_organisation_world_locations
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
-  has_many :sponsorships, dependent: :destroy
+  has_many :sponsorships, dependent: :destroy, foreign_key: :worldwide_organisation_id
   has_many :sponsoring_organisations, through: :sponsorships, source: :organisation
-  has_many :offices, class_name: "WorldwideOffice", dependent: :destroy
+  has_many :offices, class_name: "WorldwideOffice", dependent: :destroy, foreign_key: :worldwide_organisation_id
   belongs_to :main_office, class_name: "WorldwideOffice"
-  has_many :worldwide_organisation_roles, inverse_of: :worldwide_organisation, dependent: :destroy
+  has_many :worldwide_organisation_roles, inverse_of: :legacy_worldwide_organisation, dependent: :destroy, foreign_key: :worldwide_organisation_id
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
-  has_many :edition_worldwide_organisations, dependent: :destroy, inverse_of: :worldwide_organisation
+  has_many :edition_worldwide_organisations, dependent: :destroy, inverse_of: :legacy_worldwide_organisation, foreign_key: :worldwide_organisation_id
   # This include is dependant on the above has_many
   include HasCorporateInformationPages
 

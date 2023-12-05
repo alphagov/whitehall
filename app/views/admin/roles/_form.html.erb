@@ -93,9 +93,9 @@
       text: "Worldwide organisations",
       heading_size: "l",
     },
-    name: "role[worldwide_organisation_ids][]",
+    name: "role[legacy_worldwide_organisation_ids][]",
     select: {
-      options:  options_from_collection_for_select(WorldwideOrganisation.all, "id", "name", role.worldwide_organisation_ids),
+      options:  options_from_collection_for_select(LegacyWorldwideOrganisation.all, "id", "name", role.legacy_worldwide_organisation_ids),
       multiple: true,
     },
   } %>

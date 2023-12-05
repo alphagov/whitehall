@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :edition_worldwide_organisation do
     edition
-    worldwide_organisation
+    association :legacy_worldwide_organisation, factory: :worldwide_organisation
   end
 end

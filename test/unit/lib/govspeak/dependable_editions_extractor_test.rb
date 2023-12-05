@@ -17,7 +17,7 @@ class Govspeak::DependableEditionsExtractorTest < ActiveSupport::TestCase
 
   test "extracts references to worldwide organisation corporate information pages in draft" do
     world_org = create(:worldwide_organisation)
-    cip = create(:corporate_information_page, organisation: nil, worldwide_organisation: world_org)
+    cip = create(:corporate_information_page, organisation: nil, legacy_worldwide_organisation: world_org)
     govspeak = "[CIP](/government/admin/worldwide_organisations/worldwide-organisation-1/corporate_information_pages/#{cip.id})"
 
     assert_equal [cip], Govspeak::DependableEditionsExtractor.new(govspeak).editions

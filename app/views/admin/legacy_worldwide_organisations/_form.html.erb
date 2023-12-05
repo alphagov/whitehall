@@ -1,4 +1,4 @@
-<%= form_with model: worldwide_organisation, url: [:admin, worldwide_organisation], multipart: true do |form| %>
+<%= form_with model: worldwide_organisation, url: admin_worldwide_organisations_path(worldwide_organisation), multipart: true do |form| %>
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Name (required)",

@@ -54,8 +54,8 @@ FactoryBot.define do
     end
 
     after :build do |news_article, evaluator|
-      if evaluator.worldwide_organisations.empty?
-        news_article.worldwide_organisations << build(:worldwide_organisation)
+      if evaluator.legacy_worldwide_organisations.empty?
+        news_article.legacy_worldwide_organisations << build(:worldwide_organisation)
       end
     end
 

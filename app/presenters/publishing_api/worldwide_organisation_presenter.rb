@@ -33,7 +33,7 @@ module PublishingApi
           social_media_links:,
           world_location_names:,
         },
-        document_type: item.class.name.underscore,
+        document_type: "worldwide_organisation",
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_organisation",

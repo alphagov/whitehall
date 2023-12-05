@@ -101,7 +101,7 @@ class Organisation < ApplicationRecord
            dependent: :destroy
 
   has_many :sponsorships, dependent: :destroy
-  has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :worldwide_organisation
+  has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :legacy_worldwide_organisation
 
   has_many :financial_reports
 

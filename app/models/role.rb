@@ -29,7 +29,7 @@ class Role < ApplicationRecord
                            after_remove: :republish_organisation_to_publishing_api
 
   has_many :worldwide_organisation_roles, inverse_of: :role
-  has_many :worldwide_organisations, through: :worldwide_organisation_roles
+  has_many :legacy_worldwide_organisations, through: :worldwide_organisation_roles
 
   has_one :historical_account_role, inverse_of: :role
   has_one :historical_account, through: :historical_account_role
@@ -70,7 +70,7 @@ class Role < ApplicationRecord
   end
 
   def republish_worldwide_organisations_to_publishing_api
-    worldwide_organisations.each do |worldwide_organisation|
+    legacy_worldwide_organisations.each do |worldwide_organisation|
       republish_organisation_to_publishing_api(worldwide_organisation)
     end
   end
@@ -156,7 +156,7 @@ class Role < ApplicationRecord
   end
 
   def destroyable?
-    role_appointments.empty? && organisations.empty? && worldwide_organisations.empty?
+    role_appointments.empty? && organisations.empty? && legacy_worldwide_organisations.empty?
   end
 
   def historic_param

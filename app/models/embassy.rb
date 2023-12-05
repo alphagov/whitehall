@@ -6,7 +6,7 @@ class Embassy
   delegate :name, to: :@world_location
 
   def organisations_with_embassy_offices
-    @world_location.worldwide_organisations.select do |org|
+    @world_location.legacy_worldwide_organisations.select do |org|
       org.embassy_offices.any?
     end
   end
@@ -20,9 +20,9 @@ class Embassy
                        path: SPECIAL_CASES[name][:base_path])
     elsif can_assist_in_other_location?
       remote_office = offices_in_remote_location.first
-      RemoteOffice.new(name: remote_office.worldwide_organisation.name,
+      RemoteOffice.new(name: remote_office.legacy_worldwide_organisation.name,
                        location: remote_office.country.name,
-                       path: remote_office.worldwide_organisation.public_path)
+                       path: remote_office.legacy_worldwide_organisation.public_path)
     end
   end
 
@@ -40,7 +40,7 @@ class Embassy
 private
 
   def offices
-    @world_location.worldwide_organisations.map(&:embassy_offices).flatten
+    @world_location.legacy_worldwide_organisations.map(&:embassy_offices).flatten
   end
 
   def can_assist_in_other_location?

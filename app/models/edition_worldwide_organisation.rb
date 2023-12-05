@@ -1,6 +1,6 @@
 class EditionWorldwideOrganisation < ApplicationRecord
   belongs_to :edition
-  belongs_to :worldwide_organisation, inverse_of: :edition_worldwide_organisations
+  belongs_to :legacy_worldwide_organisation, inverse_of: :edition_worldwide_organisations, foreign_key: :worldwide_organisation_id
 
-  validates :edition, :worldwide_organisation, presence: true
+  validates :edition, :legacy_worldwide_organisation, presence: true
 end

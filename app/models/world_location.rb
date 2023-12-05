@@ -12,7 +12,7 @@ class WorldLocation < ApplicationRecord
            through: :published_editions,
            source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
-  has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
+  has_many :legacy_worldwide_organisations, through: :worldwide_organisation_world_locations
 
   has_one :world_location_news
   accepts_nested_attributes_for :world_location_news
@@ -55,7 +55,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def worldwide_organisations_with_sponsoring_organisations
-    (worldwide_organisations + worldwide_organisations.map { |o| o.sponsoring_organisations.to_a }.flatten).uniq
+    (legacy_worldwide_organisations + legacy_worldwide_organisations.map { |o| o.sponsoring_organisations.to_a }.flatten).uniq
   end
 
   def to_s

@@ -138,13 +138,13 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable when it has worldwide organisations" do
-    role = create(:role_without_organisations, worldwide_organisations: [create(:worldwide_organisation)])
+    role = create(:role_without_organisations, legacy_worldwide_organisations: [create(:worldwide_organisation)])
     assert_not role.destroyable?
     assert_equal false, role.destroy
   end
 
   test "should be destroyable when it has no appointments, organisations or woridwide organisations" do
-    role = create(:role_without_organisations, role_appointments: [], organisations: [], worldwide_organisations: [])
+    role = create(:role_without_organisations, role_appointments: [], organisations: [], legacy_worldwide_organisations: [])
     assert role.destroyable?
     assert role.destroy
   end
@@ -259,7 +259,7 @@ class RoleTest < ActiveSupport::TestCase
   test "republishes a worldwide organisation when a role is updated" do
     worldwide_organisation = create(:worldwide_organisation)
     role = create(:role_without_organisations)
-    create(:worldwide_organisation_role, role:, worldwide_organisation:)
+    create(:worldwide_organisation_role, role:, legacy_worldwide_organisation: worldwide_organisation)
     role.reload
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation)

@@ -29,8 +29,8 @@ module PublishingApi
 
     def links
       {
-        parent: [item.worldwide_organisation.content_id],
-        worldwide_organisation: [item.worldwide_organisation.content_id],
+        parent: [item.legacy_worldwide_organisation.content_id],
+        worldwide_organisation: [item.legacy_worldwide_organisation.content_id],
       }
     end
   end

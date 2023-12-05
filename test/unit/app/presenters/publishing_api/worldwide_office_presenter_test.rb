@@ -13,7 +13,7 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      title: worldwide_office.worldwide_organisation.name,
+      title: worldwide_office.legacy_worldwide_organisation.name,
       schema_name: "worldwide_office",
       document_type: "worldwide_office",
       locale: "en",
@@ -40,10 +40,10 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
         worldwide_office.contact.content_id,
       ],
       parent: [
-        worldwide_office.worldwide_organisation.content_id,
+        worldwide_office.legacy_worldwide_organisation.content_id,
       ],
       worldwide_organisation: [
-        worldwide_office.worldwide_organisation.content_id,
+        worldwide_office.legacy_worldwide_organisation.content_id,
       ],
     }
 

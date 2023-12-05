@@ -16,7 +16,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
   test "presents a form to create a new worldwide organisation" do
     get :new
     assert_template :new
-    assert_kind_of WorldwideOrganisation, assigns(:worldwide_organisation)
+    assert_kind_of LegacyWorldwideOrganisation, assigns(:worldwide_organisation)
   end
 
   test "creates a worldwide organisation" do
@@ -27,8 +27,8 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
            },
          }
 
-    worldwide_organisation = WorldwideOrganisation.last
-    assert_kind_of WorldwideOrganisation, worldwide_organisation
+    worldwide_organisation = LegacyWorldwideOrganisation.last
+    assert_kind_of LegacyWorldwideOrganisation, worldwide_organisation
     assert_equal "Organisation created successfully", flash[:notice]
     assert_equal "Organisation", worldwide_organisation.name
 
@@ -63,7 +63,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
             },
           },
         }
-    worldwide_organisation = WorldwideOrganisation.last
+    worldwide_organisation = LegacyWorldwideOrganisation.last
     assert_equal "New name", worldwide_organisation.name
     assert_equal "minister-of-funk.960x640.jpg", worldwide_organisation.default_news_image.file.file.filename
     assert_equal "Organisation updated successfully", flash[:notice]
@@ -81,7 +81,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
 
   view_test "GET :choose_main_office uses radios when 5 or less offices exist" do
     organisation = create(:worldwide_organisation)
-    5.times { create(:worldwide_office, worldwide_organisation: organisation) }
+    5.times { create(:worldwide_office, legacy_worldwide_organisation: organisation) }
 
     get :choose_main_office, params: { id: organisation.id }
 
@@ -91,7 +91,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
 
   view_test "GET :choose_main_office uses a select when 6 or more offices exist" do
     organisation = create(:worldwide_organisation)
-    6.times { create(:worldwide_office, worldwide_organisation: organisation) }
+    6.times { create(:worldwide_office, legacy_worldwide_organisation: organisation) }
 
     get :choose_main_office, params: { id: organisation.id }
 
@@ -110,16 +110,16 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
   end
 
-  test "DELETE :destroys the WorldwideOrganisation and does not destroy dependent classes" do
+  test "DELETE :destroys the LegacyWorldwideOrganisation and does not destroy dependent classes" do
     worldwide_organisation = create(:worldwide_organisation, :with_default_news_image)
     default_news_image_id = worldwide_organisation.default_news_image.id
-    count = WorldwideOrganisation.count
+    count = LegacyWorldwideOrganisation.count
 
     delete :destroy, params: { id: worldwide_organisation.id }
 
     assert_equal "Organisation deleted successfully", flash[:notice]
-    assert_equal count - 1, WorldwideOrganisation.count
-    assert_nil WorldwideOrganisation.find_by(id: worldwide_organisation.id)
+    assert_equal count - 1, LegacyWorldwideOrganisation.count
+    assert_nil LegacyWorldwideOrganisation.find_by(id: worldwide_organisation.id)
     assert FeaturedImageData.find_by(id: default_news_image_id)
   end
 
@@ -163,7 +163,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
           },
         }
 
-    assert_equal replacement_filename, WorldwideOrganisation.last.default_news_image.filename
+    assert_equal replacement_filename, LegacyWorldwideOrganisation.last.default_news_image.filename
   end
 
   test "POST :create uses the file cache if present" do
@@ -179,7 +179,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
       },
     }
 
-    assert_equal cached_filename, WorldwideOrganisation.last.default_news_image.filename
+    assert_equal cached_filename, LegacyWorldwideOrganisation.last.default_news_image.filename
   end
 
   test "PUT :update uses the file cache if present" do
@@ -220,7 +220,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
       },
     }
 
-    assert_equal replacement_filename, WorldwideOrganisation.last.default_news_image.filename
+    assert_equal replacement_filename, LegacyWorldwideOrganisation.last.default_news_image.filename
   end
 
   test "PUT :update - updates existing default new image when image file is replaced" do
@@ -239,7 +239,7 @@ class Admin::LegacyWorldwideOrganisationsControllerTest < ActionController::Test
           },
         }
 
-    worldwide_organisation = WorldwideOrganisation.last
+    worldwide_organisation = LegacyWorldwideOrganisation.last
     assert_equal "minister-of-funk.960x640.jpg", worldwide_organisation.default_news_image.file.file.filename
     assert_equal default_news_image_id, worldwide_organisation.default_news_image.id
   end

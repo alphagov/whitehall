@@ -1,6 +1,6 @@
 <% required = false unless defined?(required) %>
 
-<% cache_if edition.worldwide_organisation_ids.empty?, "#{taggable_worldwide_organisations_cache_digest}-design-system" do %>
+<% cache_if edition.legacy_worldwide_organisation_ids.empty?, "#{taggable_worldwide_organisations_cache_digest}-design-system" do %>
   <%= render "components/autocomplete", {
     id: "edition_worldwide_organisations",
     name: "edition[worldwide_organisation_ids][]",
@@ -12,7 +12,7 @@
     select: {
       options: [""] + taggable_worldwide_organisations_container,
       multiple: true,
-      selected: edition.worldwide_organisation_ids,
+      selected: edition.legacy_worldwide_organisation_ids,
     },
     data: {
       module: "track-select-click",

@@ -1,4 +1,5 @@
 module Admin::HomePageListController
+  include Rails.application.routes.url_helpers
   def is_home_page_list_controller_for(list_name, opts)
     plural_name = list_name.to_s.downcase
     single_name = plural_name.singularize
@@ -11,6 +12,8 @@ module Admin::HomePageListController
         @show_on_home_page = "0"
         handle_show_on_home_page_param
         publish_container_to_publishing_api
+
+
         redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %("#{home_page_list_item.title}" removed from home page successfully)
       end
 

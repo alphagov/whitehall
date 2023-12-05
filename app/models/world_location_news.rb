@@ -52,7 +52,7 @@ class WorldLocationNews < ApplicationRecord
     return [] unless world_location.international_delegation?
 
     world_location
-      .worldwide_organisations
+      .legacy_worldwide_organisations
       .filter_map(&:main_office)
       .map(&:contact)
       .flatten
@@ -62,7 +62,7 @@ class WorldLocationNews < ApplicationRecord
     return [] unless world_location.international_delegation?
 
     world_location
-      .worldwide_organisations
+      .legacy_worldwide_organisations
       .map(&:sponsoring_organisations)
       .flatten
   end
@@ -71,7 +71,7 @@ class WorldLocationNews < ApplicationRecord
     return [] unless world_location.international_delegation?
 
     world_location
-      .worldwide_organisations
+      .legacy_worldwide_organisations
   end
 
   def base_path

@@ -18,7 +18,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     worldwide_office_params[:service_ids] ||= []
     if @worldwide_office.update(worldwide_office_params)
       handle_show_on_home_page_param
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been edited"
+      redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been edited"
     else
       @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
       render :edit
@@ -29,7 +29,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     @worldwide_office = @worldwide_organisation.offices.build(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been added"
+      redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been added"
     else
       @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
       render :new
@@ -56,7 +56,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   is_home_page_list_controller_for :offices,
                                    item_type: WorldwideOffice,
                                    contained_by: :worldwide_organisation,
-                                   redirect_to: ->(container, _item) { [:admin, container, WorldwideOffice] },
+                                   redirect_to: ->(_container, _item) { [:admin, :worldwide_organisation, WorldwideOffice] },
                                    params_name: :worldwide_office
   def home_page_list_item
     @worldwide_office
@@ -65,7 +65,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 private
 
   def find_worldwide_organisation
-    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = LegacyWorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
   end
 
   def find_worldwide_office

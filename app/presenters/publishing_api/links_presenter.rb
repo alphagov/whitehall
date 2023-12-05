@@ -67,7 +67,7 @@ module PublishingApi
     end
 
     def worldwide_organisation_ids
-      (item.try(:worldwide_organisations) || []).map(&:content_id)
+      (item.try(:legacy_worldwide_organisations) || []).map(&:content_id)
     end
 
     def topic_content_ids

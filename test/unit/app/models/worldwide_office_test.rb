@@ -1,7 +1,7 @@
 require "test_helper"
 
 class WorldwideOfficeTest < ActiveSupport::TestCase
-  %w[contact worldwide_organisation worldwide_office_type].each do |param|
+  %w[contact legacy_worldwide_organisation worldwide_office_type].each do |param|
     test "should not be valid without a #{param}" do
       assert_not build(:worldwide_office, param.to_sym => nil).valid?
     end
@@ -56,7 +56,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
   test "scopes the slug to the worldwide organisation" do
     office = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
-    office_at_same_org = create(:worldwide_office, worldwide_organisation: office.worldwide_organisation, contact: create(:contact, title: "Consulate General's Office"))
+    office_at_same_org = create(:worldwide_office, legacy_worldwide_organisation: office.legacy_worldwide_organisation, contact: create(:contact, title: "Consulate General's Office"))
 
     assert_equal "consulate-generals-office", office.slug
     assert_equal "consulate-generals-office--2", office_at_same_org.slug
@@ -80,13 +80,13 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   end
 
   test "republishes embassies index page on creation of worldwide office" do
-    worldwide_organisation = create(:worldwide_organisation)
+    legacy_worldwide_organisation = create(:worldwide_organisation)
     contact = create(:contact)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).twice
 
     Sidekiq::Testing.inline! do
-      create(:worldwide_office, worldwide_organisation:, contact:)
+      create(:worldwide_office, legacy_worldwide_organisation:, contact:)
     end
   end
 

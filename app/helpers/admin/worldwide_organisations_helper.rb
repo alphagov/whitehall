@@ -10,6 +10,10 @@ module Admin::WorldwideOrganisationsHelper
     }
   end
 
+  def legacy_worldwide_organisation_nav_items(worldwide_organisation, current_path)
+    worldwide_organisation_nav_items(worldwide_organisation, current_path)
+  end
+
   def worldwide_organisation_nav_items(worldwide_organisation, current_path)
     [
       {

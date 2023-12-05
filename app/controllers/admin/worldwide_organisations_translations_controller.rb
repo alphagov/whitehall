@@ -35,7 +35,7 @@ private
   end
 
   def load_translatable_item
-    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = LegacyWorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
   end
 
   def translation_params

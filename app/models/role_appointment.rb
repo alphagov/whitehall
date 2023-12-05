@@ -31,7 +31,7 @@ class RoleAppointment < ApplicationRecord
   belongs_to :role
   belongs_to :person
   has_many :organisations, through: :role
-  has_many :worldwide_organisations, through: :role
+  has_many :legacy_worldwide_organisations, through: :role
 
   delegate :slug, to: :person
   delegate :name, to: :role, prefix: true
@@ -83,7 +83,7 @@ class RoleAppointment < ApplicationRecord
   end
 
   def republish_worldwide_organisations_to_publishing_api
-    worldwide_organisations.each do |worldwide_organisation|
+    legacy_worldwide_organisations.each do |worldwide_organisation|
       Whitehall::PublishingApi.republish_async(worldwide_organisation)
     end
   end

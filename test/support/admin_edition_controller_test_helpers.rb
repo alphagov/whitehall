@@ -1066,7 +1066,7 @@ module AdminEditionControllerTestHelpers
              }
 
         edition = edition_class.last!
-        assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations
+        assert_equal [first_world_organisation, second_world_organisation], edition.legacy_worldwide_organisations
       end
     end
 

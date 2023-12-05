@@ -113,7 +113,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     news_article = create(
       :news_article_world_news_story,
       :withdrawn,
-      worldwide_organisations: [embassy_paris],
+      legacy_worldwide_organisations: [embassy_paris],
       body: "[Good link](https://www.test.gov.uk/good-link)\n[Missing page](https://www.test.gov.uk/missing-link)",
     )
 

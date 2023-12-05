@@ -11,7 +11,7 @@ module Edition::WorldwideOrganisations
 
   included do
     has_many :edition_worldwide_organisations, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy
-    has_many :worldwide_organisations, through: :edition_worldwide_organisations
+    has_many :legacy_worldwide_organisations, through: :edition_worldwide_organisations
 
     validate :at_least_one_worldwide_organisations
 
@@ -27,8 +27,8 @@ module Edition::WorldwideOrganisations
   end
 
   def at_least_one_worldwide_organisations
-    if !skip_worldwide_organisations_validation? && worldwide_organisations.empty?
-      errors.add(:worldwide_organisations, "at least one required")
+    if !skip_worldwide_organisations_validation? && legacy_worldwide_organisations.empty?
+      errors.add(:legacy_worldwide_organisations, "at least one required")
     end
   end
 end

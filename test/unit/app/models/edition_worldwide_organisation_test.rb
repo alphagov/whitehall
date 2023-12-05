@@ -8,8 +8,10 @@ class EditionWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without an organisation" do
-    edition_worldwide_organisation = build(:edition_worldwide_organisation, worldwide_organisation: nil)
+    edition_worldwide_organisation = build(:edition_worldwide_organisation, legacy_worldwide_organisation: nil)
     assert_not edition_worldwide_organisation.valid?
-    assert edition_worldwide_organisation.errors[:worldwide_organisation].present?
+
+    # WILL THIS SURFACE ON THE FORM? PROBABLY NOT!
+    assert edition_worldwide_organisation.errors[:legacy_worldwide_organisation].present?
   end
 end

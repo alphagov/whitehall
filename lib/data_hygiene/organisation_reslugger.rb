@@ -21,7 +21,7 @@ module DataHygiene
       update_slug
       update_child_and_parent_organisations_in_search if organisation.is_a? Organisation
       update_users if organisation.is_a? Organisation
-      update_editions if organisation.is_a?(Organisation) || organisation.is_a?(WorldwideOrganisation)
+      update_editions if organisation.is_a?(Organisation) || organisation.is_a?(LegacyWorldwideOrganisation)
     end
 
   private

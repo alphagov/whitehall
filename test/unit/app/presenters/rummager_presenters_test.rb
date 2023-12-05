@@ -14,7 +14,7 @@ class RummagerPresentersTest < ActiveSupport::TestCase
   end
 
   test "RummagerPresenters.present_all_government_content includes WorldwideOrganisations" do
-    WorldwideOrganisation.stubs(search_index: %w[worldwide_organisations_index])
+    LegacyWorldwideOrganisation.stubs(search_index: %w[worldwide_organisations_index])
     assert RummagerPresenters.present_all_government_content.include?("worldwide_organisations_index")
   end
 

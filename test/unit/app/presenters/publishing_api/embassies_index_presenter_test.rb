@@ -44,7 +44,7 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
     contact = create(:contact_with_country, country: world_location, locality: "locality")
     create(:worldwide_office,
            contact:,
-           worldwide_organisation: organisation,
+           legacy_worldwide_organisation: organisation,
            worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
 
     assert_valid_embassies_index_document
@@ -57,7 +57,7 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
     contact = create(:contact_with_country, country: other_location)
     create(:worldwide_office,
            contact:,
-           worldwide_organisation: organisation,
+           legacy_worldwide_organisation: organisation,
            worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
 
     assert_valid_embassies_index_document

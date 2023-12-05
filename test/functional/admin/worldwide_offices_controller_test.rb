@@ -395,8 +395,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "GET :reorder calls correctly" do
     worldwide_organisation = create_worldwide_organisation_with_main_office
-    office1 = create(:worldwide_office, worldwide_organisation:)
-    office2 = create(:worldwide_office, worldwide_organisation:)
+    office1 = create(:worldwide_office, legacy_worldwide_organisation: worldwide_organisation)
+    office2 = create(:worldwide_office, legacy_worldwide_organisation: worldwide_organisation)
 
     worldwide_organisation.add_office_to_home_page!(office1)
     worldwide_organisation.add_office_to_home_page!(office2)
@@ -425,8 +425,8 @@ private
   end
 
   def create_worldwide_organisation_with_main_office
-    create(:worldwide_organisation).tap do |worldwide_organisation|
-      create(:worldwide_office, worldwide_organisation:)
+    create(:worldwide_organisation).tap do |legacy_worldwide_organisation|
+      create(:worldwide_office, legacy_worldwide_organisation:)
     end
   end
 end

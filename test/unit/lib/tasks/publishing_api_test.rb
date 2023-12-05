@@ -341,11 +341,13 @@ class PublishingApiRake < ActiveSupport::TestCase
                             TakePartPage
                             TopicalEventAboutPage
                             TopicalEvent
-                            WorldwideOrganisation]
+                            LegacyWorldwideOrganisation]
 
         document_types.each do |document_type|
           test "republishes all #{document_type} documents" do
-            document = create(document_type.underscore.to_sym) # rubocop:disable Rails/SaveBang
+            document = document_type == "LegacyWorldwideOrganisation" ?
+                         create(:worldwide_organisation) :
+                         create(document_type.underscore.to_sym) # rubocop:disable Rails/SaveBang
 
             Whitehall::PublishingApi.expects(:bulk_republish_async).with(document)
             capture_io { task.invoke(document_type) }
@@ -377,7 +379,7 @@ class PublishingApiRake < ActiveSupport::TestCase
           corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id,
         )
 
-        create(:corporate_information_page, :draft, worldwide_organisation: create(:worldwide_organisation), organisation: nil)
+        create(:corporate_information_page, :draft, legacy_worldwide_organisation: create(:worldwide_organisation), organisation: nil)
 
         create(
           :published_corporate_information_page,
@@ -400,7 +402,7 @@ class PublishingApiRake < ActiveSupport::TestCase
           corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id,
         )
 
-        create(:corporate_information_page, :draft, worldwide_organisation: create(:worldwide_organisation), organisation: nil)
+        create(:corporate_information_page, :draft, legacy_worldwide_organisation: create(:worldwide_organisation), organisation: nil)
 
         create(
           :published_corporate_information_page,

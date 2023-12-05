@@ -76,7 +76,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   test "can associate news articles with worldwide organisations" do
     news_article = create(:news_article)
     assert news_article.can_be_associated_with_worldwide_organisations?
-    assert news_article.worldwide_organisations.create(name: "Zimbabwean Embassy")
+    assert news_article.legacy_worldwide_organisations.create(name: "Zimbabwean Embassy")
   end
 
   test "is invalid when associating a worldwide organisation to a non-World-news-story news article type" do
@@ -88,9 +88,9 @@ class NewsArticleTest < ActiveSupport::TestCase
 
     non_world_news_story_news_article_types.each do |news_article_type|
       news_article = build(:news_article, news_article_type:)
-      news_article.worldwide_organisations.build(name: "Zimbabwean Embassy")
+      news_article.legacy_worldwide_organisations.build(name: "Zimbabwean Embassy")
       assert_not news_article.valid?
-      assert news_article.errors[:worldwide_organisations].include?("must be blank")
+      assert news_article.errors[:legacy_worldwide_organisations].include?("must be blank")
     end
   end
 end
@@ -109,9 +109,9 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
 
   test "is invalid when not associating a worldwide organisation" do
     news_article = build(:news_article_world_news_story)
-    news_article.worldwide_organisations = []
+    news_article.legacy_worldwide_organisations = []
     assert_not news_article.valid?
-    assert news_article.errors[:worldwide_organisations].include?("at least one required")
+    assert news_article.errors[:legacy_worldwide_organisations].include?("at least one required")
   end
 
   test "are invalid if associated with a minister" do
@@ -151,7 +151,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     news_article = create(:news_article_news_story)
 
     news_article.news_article_type = NewsArticleType::WorldNewsStory
-    news_article.worldwide_organisations.build(name: "Zimbabwean Embassy")
+    news_article.legacy_worldwide_organisations.build(name: "Zimbabwean Embassy")
     news_article.world_locations << build(:world_location)
     news_article.lead_organisation_ids = []
 

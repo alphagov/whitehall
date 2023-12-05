@@ -120,7 +120,7 @@ module Admin::TaggableContentHelper
   # organisation and its ID.
   def taggable_worldwide_organisations_container
     Rails.cache.fetch(taggable_worldwide_organisations_cache_digest, expires_in: 1.day) do
-      WorldwideOrganisation.with_translations(:en).map { |wo| [wo.name, wo.id] }
+      LegacyWorldwideOrganisation.with_translations(:en).map { |wo| [wo.name, wo.id] }
     end
   end
 
@@ -200,7 +200,7 @@ module Admin::TaggableContentHelper
   # Returns an MD5 digest representing the taggable worldwide organisations.
   # This will change if any worldwide organisations are added or updated.
   def taggable_worldwide_organisations_cache_digest
-    @taggable_worldwide_organisations_cache_digest ||= calculate_digest(WorldwideOrganisation.order(:id), "worldwide-organisations")
+    @taggable_worldwide_organisations_cache_digest ||= calculate_digest(LegacyWorldwideOrganisation.order(:id), "worldwide-organisations")
   end
 
 private

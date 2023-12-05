@@ -266,7 +266,7 @@ namespace :publishing_api do
     desc "Republish all Worldwide CorporateInformationPages"
     task :worldwide_corporate_information_pages, [:states] => :environment do |_, args|
       states = args[:states]&.split("|") || "published"
-      worldwide_corporate_information_pages = CorporateInformationPage.joins(:worldwide_organisation).where(state: states)
+      worldwide_corporate_information_pages = CorporateInformationPage.joins(:legacy_worldwide_organisation).where(state: states)
       puts "Enqueueing #{worldwide_corporate_information_pages.count} Worldwide CorporateInformationPages"
       worldwide_corporate_information_pages.each do |corporate_information_page|
         PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", corporate_information_page.document_id, true)

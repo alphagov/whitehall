@@ -9,18 +9,18 @@ class CorporateInformationPage < Edition
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
   has_one :organisation, -> { includes(:translations) }, through: :edition_organisation, autosave: false
   has_one :edition_worldwide_organisation, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy
-  has_one :worldwide_organisation, through: :edition_worldwide_organisation, autosave: false
+  has_one :legacy_worldwide_organisation, through: :edition_worldwide_organisation, autosave: false
 
   delegate :slug, :display_type_key, to: :corporate_information_page_type
   validate :unique_organisation_and_page_type, on: :create, if: :organisation
-  validate :unique_worldwide_organisation_and_page_type, on: :create, if: :worldwide_organisation
+  validate :unique_worldwide_organisation_and_page_type, on: :create, if: :legacy_worldwide_organisation
 
   add_trait do
     def process_associations_before_save(new_edition)
       if @edition.organisation
         new_edition.organisation = @edition.organisation
-      elsif @edition.worldwide_organisation
-        new_edition.worldwide_organisation = @edition.worldwide_organisation
+      elsif @edition.legacy_worldwide_organisation
+        new_edition.legacy_worldwide_organisation = @edition.legacy_worldwide_organisation
       end
     end
   end
@@ -36,7 +36,7 @@ class CorporateInformationPage < Edition
     return if owning_organisation.blank?
 
     edition_states = %w[draft submitted]
-    if edition_states.include?(state) && worldwide_organisation.present?
+    if edition_states.include?(state) && legacy_worldwide_organisation.present?
       presenter = PublishingApi::WorldwideOrganisationPresenter.new(owning_organisation, state:)
       return Services.publishing_api.put_content(presenter.content_id, presenter.content)
     end
@@ -97,7 +97,7 @@ class CorporateInformationPage < Edition
   end
 
   def only_one_organisation_or_worldwide_organisation
-    if organisation && worldwide_organisation
+    if organisation && legacy_worldwide_organisation
       errors.add(:base, "Only one organisation or worldwide organisation allowed")
     end
   end
@@ -111,7 +111,7 @@ class CorporateInformationPage < Edition
   end
 
   def owning_organisation
-    organisation || worldwide_organisation
+    organisation || legacy_worldwide_organisation
   end
 
   def organisations
@@ -123,9 +123,9 @@ class CorporateInformationPage < Edition
   end
 
   def api_presenter_redirect_to
-    raise "only worldwide about pages should redirect" unless about_page? && worldwide_organisation.present?
+    raise "only worldwide about pages should redirect" unless about_page? && legacy_worldwide_organisation.present?
 
-    worldwide_organisation.public_path(locale: I18n.locale)
+    legacy_worldwide_organisation.public_path(locale: I18n.locale)
   end
 
   def self.for_slug(slug)
@@ -200,9 +200,9 @@ class CorporateInformationPage < Edition
   end
 
   def publishing_api_presenter
-    if worldwide_organisation.present? && about_page?
+    if legacy_worldwide_organisation.present? && about_page?
       PublishingApi::RedirectPresenter
-    elsif worldwide_organisation.present?
+    elsif legacy_worldwide_organisation.present?
       PublishingApi::WorldwideCorporateInformationPagePresenter
     else
       PublishingApi::CorporateInformationPagePresenter
@@ -232,7 +232,7 @@ private
   def unique_worldwide_organisation_and_page_type
     duplicate_scope = CorporateInformationPage
       .joins(:edition_worldwide_organisation)
-      .where("edition_worldwide_organisations.worldwide_organisation_id = ?", worldwide_organisation.id)
+      .where("edition_worldwide_organisations.worldwide_organisation_id = ?", legacy_worldwide_organisation.id)
       .where(corporate_information_page_type_id:)
       .where("state not like 'superseded'")
     if document_id

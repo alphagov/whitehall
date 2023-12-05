@@ -9,14 +9,14 @@ class Admin::SuggestionsControllerTest < ActionController::TestCase
 
   test "should find worldwide and organisation contacts" do
     organisation = create(:organisation, acronym: "org-name")
-    worldwide_organisation = create(:worldwide_organisation, name: "world-name")
+    legacy_worldwide_organisation = create(:worldwide_organisation, name: "world-name")
 
     contact1 = create(:contact, contactable: organisation)
     contact2 = create(:contact_with_country)
 
     create(
       :worldwide_office,
-      worldwide_organisation:,
+      legacy_worldwide_organisation:,
       contact: contact2,
     )
 

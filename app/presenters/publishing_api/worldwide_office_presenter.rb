@@ -12,7 +12,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         item,
-        title: item.worldwide_organisation.name,
+        title: item.legacy_worldwide_organisation.name,
         update_type:,
       ).base_attributes
 
@@ -34,8 +34,8 @@ module PublishingApi
     def links
       {
         contact:,
-        parent: [item.worldwide_organisation.content_id],
-        worldwide_organisation: [item.worldwide_organisation.content_id],
+        parent: [item.legacy_worldwide_organisation.content_id],
+        worldwide_organisation: [item.legacy_worldwide_organisation.content_id],
       }
     end
 

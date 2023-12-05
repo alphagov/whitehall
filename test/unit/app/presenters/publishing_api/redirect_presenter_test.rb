@@ -10,7 +10,7 @@ class PublishingApi::RedirectPresenterTest < ActiveSupport::TestCase
       :corporate_information_page,
       :published,
       organisation: nil,
-      worldwide_organisation: create(:worldwide_organisation),
+      legacy_worldwide_organisation: create(:worldwide_organisation),
       corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
     )
 
@@ -42,7 +42,7 @@ class PublishingApi::RedirectPresenterTest < ActiveSupport::TestCase
         :corporate_information_page,
         :published,
         organisation: nil,
-        worldwide_organisation: create(:worldwide_organisation),
+        legacy_worldwide_organisation: create(:worldwide_organisation),
         corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
       )
 

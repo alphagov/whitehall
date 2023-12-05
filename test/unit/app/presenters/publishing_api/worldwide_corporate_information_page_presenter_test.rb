@@ -13,8 +13,8 @@ module PublishingApi::WorldwideCorporateInformationPagePresenterTest
 
     class BasicCorporateInformationPageTest < TestCase
       setup do
-        worldwide_organisation = create(:worldwide_organisation)
-        self.corporate_information_page = create(:corporate_information_page, worldwide_organisation:, organisation: nil)
+        legacy_worldwide_organisation = create(:worldwide_organisation)
+        self.corporate_information_page = create(:corporate_information_page, legacy_worldwide_organisation:, organisation: nil)
       end
 
       test "presents a Worldwide Corporate Information Page ready for adding to the publishing API" do

@@ -18,12 +18,12 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     primary_role = create(:ambassador_role)
     ambassador = create(:person)
     create(:ambassador_role_appointment, role: primary_role, person: ambassador)
-    FactoryBot.create(:worldwide_organisation_role, worldwide_organisation: worldwide_org, role: primary_role)
+    FactoryBot.create(:worldwide_organisation_role, legacy_worldwide_organisation: worldwide_org, role: primary_role)
 
     secondary_role = create(:deputy_head_of_mission_role)
     deputy_head_of_mission = create(:person)
     create(:deputy_head_of_mission_role_appointment, role: secondary_role, person: deputy_head_of_mission)
-    FactoryBot.create(:worldwide_organisation_role, worldwide_organisation: worldwide_org, role: secondary_role)
+    FactoryBot.create(:worldwide_organisation_role, legacy_worldwide_organisation: worldwide_org, role: secondary_role)
 
     public_path = worldwide_org.public_path
 
@@ -121,7 +121,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     create(:about_corporate_information_page,
            organisation: nil,
            body: "Some stuff and some attachments\n[AttachmentLink: greenpaper.pdf]",
-           worldwide_organisation: worldwide_org,
+           legacy_worldwide_organisation: worldwide_org,
            attachments: [create(:file_attachment)])
     expected_body_text = "<div class=\"govspeak\"><p>Some stuff and some attachments"
     expected_body_attachment_link = Regexp.new(/<a class="govuk-link" href="#{Plek.asset_root}\/media\/\w+\/greenpaper.pdf">file-attachment-title-\d+<\/a>/)

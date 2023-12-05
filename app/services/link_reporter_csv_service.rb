@@ -76,7 +76,7 @@ private
 
   def edition_organisation(edition)
     if edition.respond_to?(:worldwide_organisations)
-      edition.worldwide_organisations.first
+      edition.legacy_worldwide_organisations.first
     elsif edition.respond_to?(:lead_organisations)
       edition.lead_organisations.first || edition.organisations.first
     else

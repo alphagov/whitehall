@@ -8,7 +8,7 @@ class Admin::LegacyWorldwideOrganisationsController < Admin::BaseController
   before_action :clean_worldwide_organisation_params, only: %i[create update]
 
   def index
-    @worldwide_organisations = WorldwideOrganisation.ordered_by_name
+    @worldwide_organisations = LegacyWorldwideOrganisation.ordered_by_name
   end
 
   def new
@@ -48,7 +48,7 @@ class Admin::LegacyWorldwideOrganisationsController < Admin::BaseController
 
   def set_main_office
     @worldwide_organisation.update!(main_office_params)
-    redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "Main office updated successfully"
+    redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "Main office updated successfully"
   end
 
   def confirm_destroy; end
@@ -61,11 +61,11 @@ class Admin::LegacyWorldwideOrganisationsController < Admin::BaseController
 private
 
   def find_worldwide_organisation
-    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])
+    @worldwide_organisation = LegacyWorldwideOrganisation.friendly.find(params[:id])
   end
 
   def build_worldwide_organisation
-    @worldwide_organisation = WorldwideOrganisation.new
+    @worldwide_organisation = LegacyWorldwideOrganisation.new
   end
 
   def worldwide_organisation_params
