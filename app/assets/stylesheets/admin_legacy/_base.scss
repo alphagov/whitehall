@@ -39,10 +39,3 @@
 @import "helpers/navigation-controls";
 @import "helpers/statistics-announcements";
 @import "helpers/player-container";
-
-// VIEWS
-// Controller specific styles. Usually named after the controller whos views
-// they relate to
-@import "views/edition-edit-help";
-@import "views/organisation";
-@import "views/editions/filter-options";
