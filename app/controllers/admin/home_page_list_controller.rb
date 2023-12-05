@@ -7,20 +7,6 @@ module Admin::HomePageListController
     redirect_proc = opts[:redirect_to]
     params_name = (opts[:params_name] || single_name).to_sym
     home_page_list_controller_methods = Module.new do
-      define_method(:remove_from_home_page) do
-        @show_on_home_page = "0"
-        handle_show_on_home_page_param
-        publish_container_to_publishing_api
-        redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %("#{home_page_list_item.title}" removed from home page successfully)
-      end
-
-      define_method(:add_to_home_page) do
-        @show_on_home_page = "1"
-        handle_show_on_home_page_param
-        publish_container_to_publishing_api
-        redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %("#{home_page_list_item.title}" added to home page successfully)
-      end
-
       define_method(:reorder_for_home_page) do
         reordered_items = extract_items_from_ordering_params(params[:ordering] || {})
         home_page_list_container.__send__(:"reorder_#{plural_name}_on_home_page!", reordered_items)
