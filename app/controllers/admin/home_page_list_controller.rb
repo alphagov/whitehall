@@ -1,10 +1,10 @@
 module Admin::HomePageListController
   def is_home_page_list_controller_for(list_name, opts)
+    before_action :extract_show_on_home_page_param, only: %i[create update]
     plural_name = list_name.to_s.downcase
     single_name = plural_name.singularize
     item_type = opts[:item_type]
     redirect_proc = opts[:redirect_to]
-    container_name = opts[:contained_by]
     params_name = (opts[:params_name] || single_name).to_sym
     home_page_list_controller_methods = Module.new do
       define_method(:remove_from_home_page) do
@@ -29,14 +29,6 @@ module Admin::HomePageListController
       end
 
     protected
-
-      define_method(:home_page_list_item) do
-        instance_variable_get("@#{single_name}")
-      end
-
-      define_method(:home_page_list_container) do
-        instance_variable_get("@#{container_name}")
-      end
 
       define_method(:extract_show_on_home_page_param) do
         @show_on_home_page = params[params_name].delete(:show_on_home_page)
@@ -69,7 +61,6 @@ module Admin::HomePageListController
         home_page_list_container.try(:publish_to_publishing_api)
       end
     end
-    before_action :extract_show_on_home_page_param, only: %i[create update]
     include home_page_list_controller_methods
   end
 end
