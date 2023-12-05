@@ -8,9 +8,9 @@ class AssetManagerDeleteAssetWorkerTest < ActiveSupport::TestCase
   end
 
   test "it calls AssetManager::AssetDeleter" do
-    AssetManager::AssetDeleter.expects(:call).with("legacy-url-path", "any-asset-id")
+    AssetManager::AssetDeleter.expects(:call).with("/government/legacy-url-path", "any-asset-id")
 
-    @worker.perform("legacy-url-path", "any-asset-id")
+    @worker.perform("/government/legacy-url-path", "any-asset-id")
   end
 
   test "it raises an error if the asset deletion fails for an unknown reason" do
@@ -34,6 +34,14 @@ class AssetManagerDeleteAssetWorkerTest < ActiveSupport::TestCase
     Logger.any_instance.stubs(:info).with("Asset #{@asset_manager_id} has already been deleted from Asset Manager")
 
     @worker.perform(nil, @asset_manager_id)
+
+    assert_not Asset.where(asset_manager_id: @asset_manager_id).exists?
+  end
+
+  test "it deletes the Asset from Asset table with asset manager id as first param " do
+    AssetManager::AssetDeleter.stubs(:call)
+
+    @worker.perform(@asset_manager_id)
 
     assert_not Asset.where(asset_manager_id: @asset_manager_id).exists?
   end

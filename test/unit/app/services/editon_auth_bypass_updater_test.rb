@@ -43,7 +43,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "AttachmentData",
         file_attachment.attachment_data.id,
@@ -66,7 +66,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "ImageData",
         image.image_data.id,
@@ -88,7 +88,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).never
+      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).never
 
       service.call
     end
@@ -108,7 +108,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "ConsultationResponseFormData",
         consultation_response_form.consultation_response_form_data.id,
@@ -132,7 +132,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "AttachmentData",
         file_attachment.attachment_data.id,
@@ -156,7 +156,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "AttachmentData",
         file_attachment.attachment_data.id,

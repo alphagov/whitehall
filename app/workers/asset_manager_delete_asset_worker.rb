@@ -1,7 +1,11 @@
 class AssetManagerDeleteAssetWorker < WorkerBase
   sidekiq_options queue: "asset_manager"
 
-  def perform(legacy_url_path, asset_manager_id)
+  def perform(legacy_url_path, asset_manager_id = nil)
+    if legacy_url_path && !legacy_url_path.match(/.*government.*/)
+      asset_manager_id = legacy_url_path
+    end
+
     begin
       AssetManager::AssetDeleter.call(legacy_url_path, asset_manager_id)
     rescue AssetManager::ServiceHelper::AssetNotFound
