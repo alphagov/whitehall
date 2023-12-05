@@ -11,74 +11,98 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     @organisation ||= create(:organisation)
   end
 
-  test "PATCH :order_cabinet_minister_roles should reorder ministerial roles" do
+  test "PATCH :order_cabinet_minister_roles should reorder ministerial roles and republish the ministers index page" do
     role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
 
-    patch :order_cabinet_minister_roles,
-          params: {
-            ministerial_roles: {
-              ordering: {
-                role1.id.to_s => 0,
-                role2.id.to_s => 1,
+    service = mock
+    PresentPageToPublishingApi.expects(:new).returns(service)
+    service.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      patch :order_cabinet_minister_roles,
+            params: {
+              ministerial_roles: {
+                ordering: {
+                  role1.id.to_s => 0,
+                  role2.id.to_s => 1,
+                },
               },
-            },
-          }
+            }
+    end
 
     assert_equal MinisterialRole.cabinet.order(:seniority), [role1, role2]
     assert_redirected_to admin_cabinet_ministers_path(anchor: "cabinet_minister")
   end
 
-  test "PATCH :order_also_attends_cabinet_roles should reorder people who also attend cabinet" do
+  test "PATCH :order_also_attends_cabinet_roles should reorder people who also attend cabinet and republish the ministers index page" do
     role2 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation])
 
-    patch :order_also_attends_cabinet_roles,
-          params: {
-            ministerial_roles: {
-              ordering: {
-                role1.id.to_s => 0,
-                role2.id.to_s => 1,
+    service = mock
+    PresentPageToPublishingApi.expects(:new).returns(service)
+    service.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      patch :order_also_attends_cabinet_roles,
+            params: {
+              ministerial_roles: {
+                ordering: {
+                  role1.id.to_s => 0,
+                  role2.id.to_s => 1,
+                },
               },
-            },
-          }
+            }
+    end
 
     assert_equal MinisterialRole.also_attends_cabinet.order(:seniority), [role1, role2]
     assert_redirected_to admin_cabinet_ministers_path(anchor: "also_attends_cabinet")
   end
 
-  test "PATCH :order_whip_roles should reorder whips" do
+  test "PATCH :order_whip_roles should reorder whips and republish the ministers index page" do
     role2 = create(:ministerial_role, name: "Whip 1", whip_organisation_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Whip 2", whip_organisation_id: 2, organisations: [organisation])
 
-    patch :order_whip_roles,
-          params: {
-            ministerial_roles: {
-              ordering: {
-                role1.id.to_s => 0,
-                role2.id.to_s => 1,
+    service = mock
+    PresentPageToPublishingApi.expects(:new).returns(service)
+    service.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      patch :order_whip_roles,
+            params: {
+              ministerial_roles: {
+                ordering: {
+                  role1.id.to_s => 0,
+                  role2.id.to_s => 1,
+                },
               },
-            },
-          }
+            }
+    end
 
     assert_equal MinisterialRole.whip.order(:seniority), [role2, role1]
     assert_equal MinisterialRole.whip.order(:whip_ordering), [role1, role2]
     assert_redirected_to admin_cabinet_ministers_path(anchor: "whips")
   end
 
-  test "PATCH :order_ministerial_organisations should reorder ministerial organisations" do
+  test "PATCH :order_ministerial_organisations should reorder ministerial organisations and republish the ministers index page" do
     org2 = create(:organisation)
     org1 = create(:organisation)
 
-    put :order_ministerial_organisations,
-        params: {
-          ministerial_organisations: {
-            ordering: {
-              org1.id.to_s => 0,
-              org2.id.to_s => 1,
+    service = mock
+    PresentPageToPublishingApi.expects(:new).returns(service)
+    service.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      put :order_ministerial_organisations,
+          params: {
+            ministerial_organisations: {
+              ordering: {
+                org1.id.to_s => 0,
+                org2.id.to_s => 1,
+              },
             },
-          },
-        }
+          }
+    end
 
     assert_equal Organisation.order(:ministerial_ordering), [org1, org2]
     assert_redirected_to admin_cabinet_ministers_path(anchor: "organisations")
