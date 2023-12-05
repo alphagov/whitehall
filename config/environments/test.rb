@@ -8,15 +8,17 @@ require "active_support/core_ext/integer/time"
 Whitehall::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.cache_classes = true
+  # While tests run files are not watched, reloading is not necessary.
+  config.enable_reloading = false
 
   # Disable cache in test
   config.cache_store = :null_store
 
-  # Do not eager load code on boot. This avoids loading your whole application
-  # just for the purpose of running a single test. If you are using a tool that
-  # preloads Rails for running tests, you may have to set it to true.
-  config.eager_load = false
+  # Eager loading loads your entire application. When running a single test locally,
+  # this is usually not necessary, and can slow down your test suite. However, it's
+  # recommended that you enable it in continuous integration systems to ensure eager
+  # loading is working properly before deploying your code.
+  config.eager_load = ENV["CI"].present?
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
@@ -29,8 +31,8 @@ Whitehall::Application.configure do
   config.action_controller.perform_caching = false
   config.action_controller.action_on_unpermitted_parameters = :raise
 
-  # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
+  # Render exception templates for rescuable exceptions and raise for other exceptions.
+  config.action_dispatch.show_exceptions = :rescuable
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
@@ -58,6 +60,12 @@ Whitehall::Application.configure do
   config.assets.digest = false
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
+
+  # Raises error for missing translations.
+  # config.i18n.raise_on_missing_translations = true
+
+  # Raise error when a before_action's only/except options reference missing actions
+  config.action_controller.raise_on_missing_callback_actions = false
 
   # These environment variables are required for Plek. Conditionally setting
   # them here means we don't have to explicitly set them just to run tests.
