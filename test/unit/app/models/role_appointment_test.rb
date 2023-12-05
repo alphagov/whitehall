@@ -410,8 +410,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment1 = create(:role_appointment, person:)
     role_appointment2 = create(:role_appointment, person:)
 
-    assert_equal 1, role_appointment1.reload.order
-    assert_equal 2, role_appointment2.reload.order
+    assert_equal 1, role_appointment1.reload.ordering
+    assert_equal 2, role_appointment2.reload.ordering
   end
 
   test "should send the prime ministers index page to publishing api when the role created is a past prime minister" do

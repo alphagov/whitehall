@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_16_151726) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_27_120936) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -873,7 +873,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_16_151726) do
     t.datetime "started_at", precision: nil
     t.datetime "ended_at", precision: nil
     t.string "content_id"
-    t.integer "order"
+    t.integer "ordering"
     t.index ["ended_at"], name: "index_role_appointments_on_ended_at"
     t.index ["person_id"], name: "index_role_appointments_on_person_id"
     t.index ["role_id"], name: "index_role_appointments_on_role_id"

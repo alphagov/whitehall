@@ -69,7 +69,7 @@ class RoleAppointment < ApplicationRecord
   scope :ascending_start_date, -> { order("started_at DESC") }
   scope :historic, -> { where.not(CURRENT_CONDITION) }
 
-  after_create :set_order
+  after_create :set_ordering
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
@@ -187,8 +187,8 @@ private
     end
   end
 
-  def set_order
-    update_column(:order, person.role_appointments.count)
+  def set_ordering
+    update_column(:ordering, person.role_appointments.count)
   end
 
   def prevent_destruction_unless_destroyable

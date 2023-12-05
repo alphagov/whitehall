@@ -50,16 +50,16 @@ class Admin::PeopleController < Admin::BaseController
   end
 
   def reorder_role_appointments
-    @role_appointments = RoleAppointment.current.where(person_id: @person.id).order(:order)
+    @role_appointments = RoleAppointment.current.where(person_id: @person.id).order(:ordering)
   end
 
   def update_order_role_appointments
-    current_role_appointment_orders = @person.current_role_appointments.map(&:order)
+    current_role_appointment_orderings = @person.current_role_appointments.map(&:ordering)
 
     params[:ordering].each do |appointment_row|
-      id, order = appointment_row
+      id, ordering = appointment_row
       role_appointment = @person.role_appointments.find(id)
-      role_appointment.update!(order: current_role_appointment_orders[order.to_i - 1])
+      role_appointment.update!(ordering: current_role_appointment_orderings[ordering.to_i - 1])
     end
 
     flash[:notice] = "Role appointments reordered successfully"
