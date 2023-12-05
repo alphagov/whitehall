@@ -34,7 +34,7 @@
         if promotional_feature_item.image.s300.url
           [{
              key: "Image",
-             value: image_tag(promotional_feature_item.image.s300.url),
+             value: promotional_feature_item.all_asset_variants_uploaded? ? image_tag(promotional_feature_item.image.s300.url) : tag.span("Processing", class: "govuk-tag govuk-tag--green"),
            }]
         end),
 
