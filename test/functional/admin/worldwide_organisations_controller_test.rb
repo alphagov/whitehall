@@ -51,6 +51,16 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     get :edit, params: { id: organisation.id }
   end
 
+  view_test "GET :edit shows processing label if default news image assets are not available" do
+    organisation = build(:worldwide_organisation, :with_default_news_image)
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :edit, params: { id: organisation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+  end
+
   test "updates an existing objects with new values" do
     organisation = create(:worldwide_organisation)
     put :update,
@@ -138,6 +148,16 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_equal organisation, assigns(:worldwide_organisation)
+  end
+
+  view_test "GET on :show displays processing label if image assets are not available" do
+    organisation = build(:worldwide_organisation, :with_default_news_image)
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :show, params: { id: organisation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
   end
 
   test "PUT :update - discards default new organisation image cache if file is present " do

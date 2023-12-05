@@ -18,7 +18,7 @@ class Admin::WorldwideOrganisations::Show::SummaryListComponentTest < ViewCompon
   test "renders the correct items when all fields are completed and only 1 world location & sponsoring organisation" do
     world_location = build_stubbed(:world_location)
     sponsoring_organisation = build_stubbed(:organisation)
-    news_image = build_stubbed(:featured_image_data)
+    news_image = build(:featured_image_data)
     worldwide_organisation = build_stubbed(
       :worldwide_organisation,
       logo_formatted_name: "Optional log formatted name",

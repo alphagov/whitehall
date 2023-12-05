@@ -75,7 +75,8 @@
       error_items: errors_for(worldwide_organisation.errors, :"default_news_image.file"),
       image_src: worldwide_organisation.default_news_image.url,
       image_cache_name: "worldwide_organisation[default_news_image_attributes][file_cache]",
-      image_cache: (worldwide_organisation.default_news_image.file_cache.presence),
+      image_cache: worldwide_organisation.default_news_image.file_cache.presence,
+      image_uploaded: worldwide_organisation.default_news_image.all_asset_variants_uploaded?,
     } %>
   <% end %>
 
