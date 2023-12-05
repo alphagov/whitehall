@@ -71,6 +71,7 @@
       image_src: person.image.url,
       image_cache_name: "person[image_attributes][file_cache]",
       image_cache: person.image.file_cache.presence,
+      image_uploaded: person.image.all_asset_variants_uploaded?,
     } %>
   <% end %>
 
