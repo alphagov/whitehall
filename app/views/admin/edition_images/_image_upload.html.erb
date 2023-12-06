@@ -1,13 +1,13 @@
-<%= render "govuk_publishing_components/components/heading", {
-  text: "Upload an image",
-  font_size: "l",
-} %>
-
 <%= form_tag(
   admin_edition_images_path(@edition),
   multipart: true,
 ) do %>
   <%= render "govuk_publishing_components/components/file_upload", {
+    label: {
+      text: "Upload an image",
+    },
+    heading_level: 2,
+    heading_size: "l",
     name: "image[image_data][file]",
     id: "edition_images_image_data_file",
     hint: raw('Images can be JPEG, PNG, SVG or GIF files. If you are uploading more than one image, <a class="govuk-link" href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos">read the image guidance</a> on using unique file names.'),
