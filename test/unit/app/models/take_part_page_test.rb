@@ -197,5 +197,19 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo?cachebust=123", object.public_url(cachebust: "123")
   end
 
+  test "#TakePartPage#patch_getinvolved_page_links republishes the get_involved page" do
+    take_part_page1 = create(:take_part_page, ordering: 2)
+    take_part_page2 = create(:take_part_page, ordering: 1)
+
+    TakePartPage.patch_getinvolved_page_links
+
+    assert_publishing_api_patch_links(
+      TakePartPage::GET_INVOLVED_CONTENT_ID,
+      links: {
+        take_part_pages: [take_part_page2.content_id, take_part_page1.content_id],
+      },
+    )
+  end
+
   should_not_accept_footnotes_in :body
 end

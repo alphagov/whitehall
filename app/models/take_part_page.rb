@@ -1,5 +1,8 @@
 class TakePartPage < ApplicationRecord
+  include PublishesToPublishingApi
   include UserOrderableClass
+
+  GET_INVOLVED_CONTENT_ID = "dbe329f1-359c-43f7-8944-580d4742aa91".freeze
 
   validates_with SafeHtmlValidator
   validates :title, :summary, presence: true, length: { maximum: 255 }
@@ -7,13 +10,10 @@ class TakePartPage < ApplicationRecord
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
 
   before_save :ensure_ordering!
-  after_commit :patch_getinvolved_page_links
   scope :in_order, -> { order(:ordering) }
 
   extend FriendlyId
   friendly_id :title
-
-  include PublishesToPublishingApi
 
   has_one :image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
   accepts_nested_attributes_for :image, reject_if: :all_blank
@@ -53,22 +53,21 @@ class TakePartPage < ApplicationRecord
     PublishingApi::TakePartPresenter
   end
 
-protected
-
-  def ensure_ordering!
-    self.ordering = TakePartPage.next_ordering if ordering.nil?
-  end
-
-  def patch_getinvolved_page_links
-    get_involved_content_id = "dbe329f1-359c-43f7-8944-580d4742aa91"
+  def self.patch_getinvolved_page_links
     pages = TakePartPage.in_order.map(&:content_id)
 
     Services.publishing_api.patch_links(
-      get_involved_content_id,
+      GET_INVOLVED_CONTENT_ID,
       links: {
         take_part_pages: pages,
       },
     )
+  end
+
+protected
+
+  def ensure_ordering!
+    self.ordering = TakePartPage.next_ordering if ordering.nil?
   end
 
   def image_is_present
