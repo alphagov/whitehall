@@ -1,9 +1,9 @@
 require "test_helper"
 
-class UserOrderableClassTest < ActiveSupport::TestCase
+class UserOrderableTest < ActiveSupport::TestCase
   class StubModel
     include ActiveModel::Model
-    include UserOrderableClass
+    include UserOrderable
 
     attr_accessor :id, :ordering
 

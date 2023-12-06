@@ -1,4 +1,4 @@
-module UserOrderableClass
+module UserOrderable
   extend ActiveSupport::Concern
 
   included do

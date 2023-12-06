@@ -1,6 +1,6 @@
 class TakePartPage < ApplicationRecord
   include PublishesToPublishingApi
-  include UserOrderableClass
+  include UserOrderable
 
   GET_INVOLVED_CONTENT_ID = "dbe329f1-359c-43f7-8944-580d4742aa91".freeze
 
