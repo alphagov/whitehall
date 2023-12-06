@@ -19,4 +19,23 @@ class UserOrderableClassTest < ActiveSupport::TestCase
       :ministerial_ordering,
     )
   end
+
+  test "#reorder! reorders the collection using #update! based on the params passed in" do
+    take_part_page1 = create(:take_part_page, ordering: 1)
+    take_part_page2 = create(:take_part_page, ordering: 2)
+
+    TakePartPage.stubs(:find).with(take_part_page1.id).returns(take_part_page1)
+    TakePartPage.stubs(:find).with(take_part_page2.id).returns(take_part_page2)
+
+    take_part_page2.expects(:update!).with(ordering: "1").once
+    take_part_page1.expects(:update!).with(ordering: "2").once
+
+    TakePartPage.reorder!(
+      {
+        take_part_page2.id => "1",
+        take_part_page1.id => "2",
+      },
+      :ordering,
+    )
+  end
 end

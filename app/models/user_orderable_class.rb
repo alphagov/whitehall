@@ -9,5 +9,13 @@ module UserOrderableClass
         end
       end
     end
+
+    def self.reorder!(new_order, column)
+      transaction do
+        new_order.each do |id, ordering|
+          find(id).update!("#{column}": ordering)
+        end
+      end
+    end
   end
 end

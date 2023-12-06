@@ -111,30 +111,6 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_equal 20, page2.ordering
   end
 
-  test ".reorder! updates the ordering of each page with an id in the supplied ordering, to match it's position in that ordering" do
-    page1 = create(:take_part_page, ordering: 1)
-    page2 = create(:take_part_page, ordering: 12)
-    page3 = create(:take_part_page, ordering: 50)
-
-    TakePartPage.reorder!([page3.id, page1.id, page2.id])
-
-    assert_equal 2, page1.reload.ordering
-    assert_equal 3, page2.reload.ordering
-    assert_equal 1, page3.reload.ordering
-  end
-
-  test ".reorder! places any pages not in the supplied ordering at the end of the list" do
-    page1 = create(:take_part_page, ordering: 1)
-    page2 = create(:take_part_page, ordering: 12)
-    page3 = create(:take_part_page, ordering: 50)
-
-    TakePartPage.reorder!([page3.id])
-
-    assert_equal 2, page1.reload.ordering
-    assert_equal 2, page2.reload.ordering
-    assert_equal 1, page3.reload.ordering
-  end
-
   test "returns search index data suitable for Rummageable" do
     page = create(:take_part_page, title: "Build a new polling station", summary: "Help people vote!", ordering: 1)
 

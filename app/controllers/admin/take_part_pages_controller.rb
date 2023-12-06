@@ -54,8 +54,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   end
 
   def reorder
-    new_ordering = (params.permit!.to_h[:ordering] || []).sort_by { |_id, ordering| ordering.to_i }.map(&:first)
-    TakePartPage.reorder!(new_ordering)
+    TakePartPage.reorder!(order_params, :ordering)
     redirect_to admin_take_part_pages_path, notice: "Take part pages reordered!"
   end
 
@@ -69,6 +68,10 @@ private
       :image_alt_text,
       image_attributes: %i[file file_cache id],
     )
+  end
+
+  def order_params
+    params.require(:take_part_pages)["ordering"]
   end
 
   def clean_take_part_page_params

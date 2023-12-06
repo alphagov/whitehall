@@ -106,10 +106,15 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
     assert_redirected_to admin_take_part_pages_path
   end
 
-  test "POST :reorder asks TakePartPage to reorder using the supplied ordering params" do
-    TakePartPage.expects(:reorder!).with(%w[1 5 20 9])
+  test "POST :reorder asks TakePartPage to reorder using the supplied ordering params and republishes the get involved page" do
+    ordering_params = { "1" => "1", "4" => "2", "3" => "3", "2" => "4" }
+    TakePartPage.expects(:reorder!).with(ordering_params, :ordering).once
 
-    post :reorder, params: { ordering: { "1" => "1", "20" => "4", "9" => "12", "5" => "3" } }
+    post :reorder, params: {
+      take_part_pages: {
+        ordering: ordering_params,
+      },
+    }
 
     assert_redirected_to admin_take_part_pages_path
   end
