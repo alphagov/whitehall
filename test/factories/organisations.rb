@@ -16,7 +16,7 @@ FactoryBot.define do
       logo { image_fixture_file }
 
       after :build do |organisation|
-        organisation.assets.build(asset_manager_id: "logo_asset_manager_id", variant: Asset.variants[:original], filename: "960x640_jpeg.jpg")
+        organisation.assets.build(asset_manager_id: "logo_asset_manager_id", variant: Asset.variants[:original], filename: organisation.logo.file.filename)
       end
     end
 
