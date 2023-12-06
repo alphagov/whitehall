@@ -53,6 +53,41 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     assert_not featured_image_data.all_asset_variants_uploaded?
   end
 
+  test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
+    featured_image_data = create(:featured_image_data)
+    Sidekiq::Worker.clear_all
+
+    filename = "big-cheese.960x640.jpg"
+    response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }
+    Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{filename}/ }.returns(response)
+    FeaturedImageUploader.versions.each_key do |version_prefix|
+      Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{version_prefix}_#{filename}/ }.returns(response)
+    end
+
+    featured_image_data.update!(
+      featured_image_data.attributes.merge(
+        file: upload_fixture(filename),
+      ),
+    )
+
+    AssetManagerCreateAssetWorker.drain
+
+    featured_image_data.reload
+    assert featured_image_data.all_asset_variants_uploaded?
+  end
+
+  test "#all_asset_variants_uploaded? returns false on update if the new assets have not finished uploading" do
+    featured_image_data = create(:featured_image_data)
+
+    featured_image_data.update!(
+      featured_image_data.attributes.merge(
+        file: upload_fixture("big-cheese.960x640.jpg", "image/jpg"),
+      ),
+    )
+
+    assert_not featured_image_data.all_asset_variants_uploaded?
+  end
+
   test "should not delete previous images when FeaturedImageData is updated" do
     featured_image_data = create(:featured_image_data)
 

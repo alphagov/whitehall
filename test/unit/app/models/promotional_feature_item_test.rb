@@ -126,6 +126,41 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     promotional_feature_item.destroy!
   end
 
+  test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
+    promotional_feature_item = create(:promotional_feature_item)
+    Sidekiq::Worker.clear_all
+
+    filename = "big-cheese.960x640.jpg"
+    response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }
+    Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{filename}/ }.returns(response)
+    FeaturedImageUploader.versions.each_key do |version_prefix|
+      Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{version_prefix}_#{filename}/ }.returns(response)
+    end
+
+    promotional_feature_item.update!(
+      promotional_feature_item.attributes.merge(
+        image: upload_fixture(filename, "image/jpg"),
+      ),
+    )
+
+    AssetManagerCreateAssetWorker.drain
+
+    promotional_feature_item.reload
+    assert promotional_feature_item.all_asset_variants_uploaded?
+  end
+
+  test "#all_asset_variants_uploaded? returns false on update if the new assets have not finished uploading" do
+    promotional_feature_item = create(:promotional_feature_item)
+
+    promotional_feature_item.update!(
+      promotional_feature_item.attributes.merge(
+        image: upload_fixture("big-cheese.960x640.jpg", "image/jpg"),
+      ),
+    )
+
+    assert_not promotional_feature_item.all_asset_variants_uploaded?
+  end
+
 private
 
   def string_of_length(length)

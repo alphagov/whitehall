@@ -28,4 +28,40 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
 
     assert_equal false, call_for_evidence_response_form_data.all_asset_variants_uploaded?
   end
+
+  test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
+    call_for_evidence_participation = build(:call_for_evidence_participation)
+    call_for_evidence_response_form = build(:call_for_evidence_response_form, call_for_evidence_participation:)
+    call_for_evidence_response_form_data = create(:call_for_evidence_response_form_data, call_for_evidence_response_form:)
+    Sidekiq::Worker.clear_all
+
+    filename = "greenpaper.pdf"
+    response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }
+    Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{filename}/ }.returns(response)
+
+    call_for_evidence_response_form_data.update!(
+      call_for_evidence_response_form_data.attributes.merge(
+        file: upload_fixture(filename),
+      ),
+    )
+
+    AssetManagerCreateAssetWorker.drain
+
+    call_for_evidence_response_form_data.reload
+    assert call_for_evidence_response_form_data.all_asset_variants_uploaded?
+  end
+
+  test "#all_asset_variants_uploaded? returns false on update if the new assets have not finished uploading" do
+    call_for_evidence_participation = build(:call_for_evidence_participation)
+    call_for_evidence_response_form = build(:call_for_evidence_response_form, call_for_evidence_participation:)
+    call_for_evidence_response_form_data = create(:call_for_evidence_response_form_data, call_for_evidence_response_form:)
+
+    call_for_evidence_response_form_data.update!(
+      call_for_evidence_response_form_data.attributes.merge(
+        file: upload_fixture("greenpaper.pdf"),
+      ),
+    )
+
+    assert_not call_for_evidence_response_form_data.all_asset_variants_uploaded?
+  end
 end

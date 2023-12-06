@@ -22,7 +22,9 @@ class FeaturedImageData < ApplicationRecord
     asset_variants = assets.map(&:variant).map(&:to_sym)
     required_variants = FeaturedImageUploader.versions.keys.push(:original)
 
-    (required_variants - asset_variants).empty?
+    return false if (required_variants - asset_variants).any?
+
+    assets_match_updated_image_filename
   end
 
   def republish_on_assets_ready
@@ -31,5 +33,11 @@ class FeaturedImageData < ApplicationRecord
       featured_imageable.republish_to_publishing_api_async if featured_imageable.respond_to? :republish_to_publishing_api_async
       featured_imageable.republish_dependent_documents if featured_imageable.respond_to? :republish_dependent_documents
     end
+  end
+
+private
+
+  def assets_match_updated_image_filename
+    assets.reject { |asset| asset.filename.include?(carrierwave_image) }.empty?
   end
 end

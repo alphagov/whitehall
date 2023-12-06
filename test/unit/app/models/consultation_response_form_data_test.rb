@@ -28,4 +28,40 @@ class ConsultationResponseFormDataTest < ActiveSupport::TestCase
 
     assert_equal false, consultation_response_form_data.all_asset_variants_uploaded?
   end
+
+  test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
+    consultation_participation = build(:consultation_participation)
+    consultation_response_form = build(:consultation_response_form, consultation_participation:)
+    consultation_response_form_data = create(:consultation_response_form_data, consultation_response_form:)
+    Sidekiq::Worker.clear_all
+
+    filename = "greenpaper.pdf"
+    response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }
+    Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{filename}/ }.returns(response)
+
+    consultation_response_form_data.update!(
+      consultation_response_form_data.attributes.merge(
+        file: upload_fixture(filename),
+      ),
+    )
+
+    AssetManagerCreateAssetWorker.drain
+
+    consultation_response_form_data.reload
+    assert consultation_response_form_data.all_asset_variants_uploaded?
+  end
+
+  test "#all_asset_variants_uploaded? returns false on update if the new assets have not finished uploading" do
+    consultation_participation = build(:consultation_participation)
+    consultation_response_form = build(:consultation_response_form, consultation_participation:)
+    consultation_response_form_data = create(:consultation_response_form_data, consultation_response_form:)
+
+    consultation_response_form_data.update!(
+      consultation_response_form_data.attributes.merge(
+        file: upload_fixture("greenpaper.pdf"),
+      ),
+    )
+
+    assert_not consultation_response_form_data.all_asset_variants_uploaded?
+  end
 end

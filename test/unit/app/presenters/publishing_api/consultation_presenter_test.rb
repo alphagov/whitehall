@@ -247,18 +247,14 @@ module PublishingApi::ConsultationPresenterTest
 
   class OpenConsultationWithParticipationTest < TestCase
     setup do
-      response_form_data_attributes = attributes_for(
-        :consultation_response_form_data,
-      )
+      response_form_data = build(:consultation_response_form_data)
 
-      response_form_attributes = attributes_for(
-        :consultation_response_form,
-        consultation_response_form_data_attributes: response_form_data_attributes,
-      )
+      response_form = build(:consultation_response_form,
+                            consultation_response_form_data: response_form_data)
 
-      @participation = create(
+      @participation = build(
         :consultation_participation,
-        consultation_response_form_attributes: response_form_attributes,
+        consultation_response_form: response_form,
         email: "postmaster@example.com",
         link_url: "http://www.example.com",
         postal_address: <<-ADDRESS.strip_heredoc.chop,

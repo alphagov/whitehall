@@ -20,10 +20,16 @@ class ConsultationResponseFormData < ApplicationRecord
     asset_variants = assets.map(&:variant).map(&:to_sym)
     required_variants = [Asset.variants[:original].to_sym]
 
-    (required_variants - asset_variants).empty?
+    return false if (required_variants - asset_variants).any?
+
+    assets_match_updated_image_filename
   end
 
   def filename
     file.present? && file.file.filename
+  end
+
+  def assets_match_updated_image_filename
+    assets.reject { |asset| asset.filename.include?(carrierwave_file) }.empty?
   end
 end
