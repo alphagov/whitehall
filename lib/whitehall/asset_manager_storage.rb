@@ -53,10 +53,10 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
       if Whitehall::AssetManagerStorage.use_non_legacy_behaviour?(@model)
         asset = get_asset
         if asset
-          AssetManagerDeleteAssetWorker.perform_async(nil, asset.asset_manager_id)
+          AssetManagerDeleteAssetWorker.perform_async(asset.asset_manager_id)
         end
       else
-        AssetManagerDeleteAssetWorker.perform_async(@legacy_url_path, nil)
+        AssetManagerDeleteAssetWorker.perform_async(@legacy_url_path)
       end
     end
 

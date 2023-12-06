@@ -130,7 +130,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
 
     promotional_feature_item.assets.each do |asset|
-      AssetManagerDeleteAssetWorker.expects(:perform_async).with(nil, asset.asset_manager_id)
+      AssetManagerDeleteAssetWorker.expects(:perform_async).with(asset.asset_manager_id)
     end
 
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }

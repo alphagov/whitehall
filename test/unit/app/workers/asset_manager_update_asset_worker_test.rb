@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
+class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:auth_bypass_id_attributes) do
@@ -12,8 +12,8 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_original", attachment_data, nil, auth_bypass_id_attributes)
     AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_thumbnail", attachment_data, nil, auth_bypass_id_attributes)
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
-    AssetManagerUpdateWhitehallAssetWorker.drain
+    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
+    AssetManagerUpdateAssetWorker.drain
   end
 
   test "ignores missing assets in Asset Manager" do
@@ -21,8 +21,8 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     AssetManager::AssetUpdater.expects(:call).once.raises(expected_error)
     Logger.any_instance.stubs(:error).with(includes(expected_error.message)).once
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
-    AssetManagerUpdateWhitehallAssetWorker.drain
+    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
+    AssetManagerUpdateAssetWorker.drain
   end
 
   test "ignores assets that have been deleted in Asset Manager" do
@@ -30,8 +30,8 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     AssetManager::AssetUpdater.expects(:call).raises(expected_error)
     Logger.any_instance.stubs(:error).with(includes(expected_error.message)).once
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
-    AssetManagerUpdateWhitehallAssetWorker.drain
+    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
+    AssetManagerUpdateAssetWorker.drain
   end
 
   test "ignores assets that have been deleted in Whitehall" do
@@ -40,8 +40,8 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     Logger.any_instance.stubs(:error).with(includes(attachment_data_id.to_s)).once
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data_id, auth_bypass_id_attributes)
-    AssetManagerUpdateWhitehallAssetWorker.drain
+    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data_id, auth_bypass_id_attributes)
+    AssetManagerUpdateAssetWorker.drain
   end
 
   test "updates an image and its resized versions" do
@@ -58,8 +58,8 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
       AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, image_data, nil, @auth_bypass_id_attributes).once
     end
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ImageData", image_data.id, @auth_bypass_id_attributes)
-    AssetManagerUpdateWhitehallAssetWorker.drain
+    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "ImageData", image_data.id, @auth_bypass_id_attributes)
+    AssetManagerUpdateAssetWorker.drain
   end
 
   test "updates the consultation response form variant" do
@@ -68,7 +68,7 @@ class AssetManagerUpdateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_original", form_data, nil, @auth_bypass_id_attributes)
 
-    AssetManagerUpdateWhitehallAssetWorker.perform_async_in_queue("asset_manager_updater", "ConsultationResponseFormData", form_data.id, @auth_bypass_id_attributes)
-    AssetManagerUpdateWhitehallAssetWorker.drain
+    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "ConsultationResponseFormData", form_data.id, @auth_bypass_id_attributes)
+    AssetManagerUpdateAssetWorker.drain
   end
 end
