@@ -1,10 +1,19 @@
 require_relative "mocha"
 
-Before do
-  asset_manager = stub_everything("asset-manager")
-  non_legacy_asset_details = { "id" => "http://asset-manager/assets/asset-id", "name" => "filename.pdf" }
-  asset_manager.stubs(:create_asset).returns(non_legacy_asset_details)
-  asset_manager.stubs(:asset).returns(non_legacy_asset_details)
+class MockAssetManager
+  def create_asset(*args)
+    { "id" => "http://asset-manager/assets/#{SecureRandom.uuid}", "name" => File.basename(args[0][:file]) }
+  end
 
-  Services.stubs(:asset_manager).returns(asset_manager)
+  def asset(id)
+    { "id" => "http://asset-manager/asset/#{id}", "name" => "filename.pdf" }
+  end
+
+  def delete_asset(*_args); end
+
+  def update_asset(*_args); end
+end
+
+Before do
+  Services.stubs(:asset_manager).returns(MockAssetManager.new)
 end
