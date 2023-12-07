@@ -4,4 +4,5 @@
 <%= render "reorder",
   list: @roles,
   form_url: order_cabinet_minister_roles_admin_cabinet_ministers_path,
-  cancel_path: admin_cabinet_ministers_path(anchor: "whips") %>
+  cancel_path: admin_cabinet_ministers_path(anchor: "whips"),
+  name: "ministerial_roles[ordering]" %>

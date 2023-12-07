@@ -35,6 +35,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
                                  file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
                                },
                              )
+    TakePartPage.expects(:patch_getinvolved_page_links).once
 
     post :create, params: { take_part_page: take_part_page_attrs }
 
@@ -46,6 +47,8 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
 
   test "POST :create doesn't save the new instance when the supplied params are invalid" do
     attrs = attributes_for(:take_part_page, title: "")
+    TakePartPage.expects(:patch_getinvolved_page_links).never
+
     post :create, params: { take_part_page: attrs }
 
     assert_not assigns(:take_part_page).persisted?
@@ -67,6 +70,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
     attrs = attributes_for(:take_part_page, title: "Wear a monocle!")
     page = create(:take_part_page, title: "Drink in a gin palace!")
     image = page.image
+    TakePartPage.expects(:patch_getinvolved_page_links).once
 
     post :update, params: {
       id: page,
@@ -87,6 +91,8 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   test "PUT :update doesn't save the new instance when the supplied params are invalid" do
     attrs = attributes_for(:take_part_page, title: "")
     page = create(:take_part_page, title: "Drink in a gin palace!")
+    TakePartPage.expects(:patch_getinvolved_page_links).never
+
     post :update, params: { id: page, take_part_page: attrs }
 
     assert_equal page, assigns(:take_part_page)
@@ -99,6 +105,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   test "DELETE :destroy removes the supplied instance" do
     Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     page = create(:take_part_page)
+    TakePartPage.expects(:patch_getinvolved_page_links).once
 
     delete :destroy, params: { id: page }
 
@@ -106,10 +113,16 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
     assert_redirected_to admin_take_part_pages_path
   end
 
-  test "POST :reorder asks TakePartPage to reorder using the supplied ordering params" do
-    TakePartPage.expects(:reorder!).with(%w[1 5 20 9])
+  test "POST :reorder asks TakePartPage to reorder using the supplied ordering params and republishes the get involved page" do
+    ordering_params = { "1" => "1", "4" => "2", "3" => "3", "2" => "4" }
+    TakePartPage.expects(:reorder!).with(ordering_params, :ordering).once
+    TakePartPage.patch_getinvolved_page_links
 
-    post :reorder, params: { ordering: { "1" => "1", "20" => "4", "9" => "12", "5" => "3" } }
+    post :reorder, params: {
+      take_part_pages: {
+        ordering: ordering_params,
+      },
+    }
 
     assert_redirected_to admin_take_part_pages_path
   end

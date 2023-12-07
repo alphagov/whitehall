@@ -111,30 +111,6 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_equal 20, page2.ordering
   end
 
-  test ".reorder! updates the ordering of each page with an id in the supplied ordering, to match it's position in that ordering" do
-    page1 = create(:take_part_page, ordering: 1)
-    page2 = create(:take_part_page, ordering: 12)
-    page3 = create(:take_part_page, ordering: 50)
-
-    TakePartPage.reorder!([page3.id, page1.id, page2.id])
-
-    assert_equal 2, page1.reload.ordering
-    assert_equal 3, page2.reload.ordering
-    assert_equal 1, page3.reload.ordering
-  end
-
-  test ".reorder! places any pages not in the supplied ordering at the end of the list" do
-    page1 = create(:take_part_page, ordering: 1)
-    page2 = create(:take_part_page, ordering: 12)
-    page3 = create(:take_part_page, ordering: 50)
-
-    TakePartPage.reorder!([page3.id])
-
-    assert_equal 2, page1.reload.ordering
-    assert_equal 2, page2.reload.ordering
-    assert_equal 1, page3.reload.ordering
-  end
-
   test "returns search index data suitable for Rummageable" do
     page = create(:take_part_page, title: "Build a new polling station", summary: "Help people vote!", ordering: 1)
 
@@ -219,6 +195,20 @@ class TakePartPageTest < ActiveSupport::TestCase
   test "public_url returns the correct path for a TakePart object with options" do
     object = create(:take_part_page, slug: "foo")
     assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo?cachebust=123", object.public_url(cachebust: "123")
+  end
+
+  test "#TakePartPage#patch_getinvolved_page_links republishes the get_involved page" do
+    take_part_page1 = create(:take_part_page, ordering: 2)
+    take_part_page2 = create(:take_part_page, ordering: 1)
+
+    TakePartPage.patch_getinvolved_page_links
+
+    assert_publishing_api_patch_links(
+      TakePartPage::GET_INVOLVED_CONTENT_ID,
+      links: {
+        take_part_pages: [take_part_page2.content_id, take_part_page1.content_id],
+      },
+    )
   end
 
   should_not_accept_footnotes_in :body

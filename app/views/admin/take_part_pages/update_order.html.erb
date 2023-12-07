@@ -12,6 +12,7 @@
       } %>
 
       <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: "take_part_pages[ordering]",
         items: @take_part_pages.map do |take_part_page|
           {
             id: take_part_page.id,

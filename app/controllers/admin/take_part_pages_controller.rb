@@ -18,6 +18,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   def create
     @take_part_page = TakePartPage.new(take_part_page_params)
     if @take_part_page.save
+      TakePartPage.patch_getinvolved_page_links
       redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" created!)
     else
       @take_part_page.build_image if @take_part_page.image.blank?
@@ -33,6 +34,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   def update
     @take_part_page = TakePartPage.friendly.find(params[:id])
     if @take_part_page.update(take_part_page_params)
+      TakePartPage.patch_getinvolved_page_links
       redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" updated!)
     else
       render :edit
@@ -46,6 +48,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   def destroy
     @take_part_page = TakePartPage.friendly.find(params[:id])
     @take_part_page.destroy!
+    TakePartPage.patch_getinvolved_page_links
     redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" deleted!)
   end
 
@@ -54,8 +57,8 @@ class Admin::TakePartPagesController < Admin::BaseController
   end
 
   def reorder
-    new_ordering = (params.permit!.to_h[:ordering] || []).sort_by { |_id, ordering| ordering.to_i }.map(&:first)
-    TakePartPage.reorder!(new_ordering)
+    TakePartPage.reorder!(order_params, :ordering)
+    TakePartPage.patch_getinvolved_page_links
     redirect_to admin_take_part_pages_path, notice: "Take part pages reordered!"
   end
 
@@ -69,6 +72,10 @@ private
       :image_alt_text,
       image_attributes: %i[file file_cache id],
     )
+  end
+
+  def order_params
+    params.require(:take_part_pages)["ordering"]
   end
 
   def clean_take_part_page_params

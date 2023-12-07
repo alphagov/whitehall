@@ -4,4 +4,5 @@
 <%= render "reorder",
   list: @organisations,
   form_url: order_ministerial_organisations_admin_cabinet_ministers_path,
-  cancel_path: admin_cabinet_ministers_path(anchor: "organisations") %>
+  cancel_path: admin_cabinet_ministers_path(anchor: "organisations"),
+  name: "ministerial_organisations[ordering]" %>
