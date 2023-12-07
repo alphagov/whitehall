@@ -50,21 +50,25 @@ class Admin::PaginationHelperTest < ActionView::TestCase
             href: path_for_page(1),
             label: "1",
             current: page == 1,
+            aria_label: "Page 1",
           },
           {
             href: path_for_page(2),
             label: "2",
             current: page == 2,
+            aria_label: "Page 2",
           },
           {
             href: path_for_page(3),
             label: "3",
             current: page == 3,
+            aria_label: "Page 3",
           },
           {
             href: path_for_page(4),
             label: "4",
             current: false,
+            aria_label: "Page 4",
           },
           {
             ellipses: true,
@@ -73,6 +77,7 @@ class Admin::PaginationHelperTest < ActionView::TestCase
             href: path_for_page(10),
             label: "10",
             current: false,
+            aria_label: "Page 10",
           },
         ],
       }
@@ -91,6 +96,7 @@ class Admin::PaginationHelperTest < ActionView::TestCase
             href: path_for_page(1),
             label: "1",
             current: false,
+            aria_label: "Page 1",
           },
           {
             ellipses: true,
@@ -99,16 +105,19 @@ class Admin::PaginationHelperTest < ActionView::TestCase
             href: path_for_page(page - 1),
             label: (page - 1).to_s,
             current: false,
+            aria_label: "Page #{page - 1}",
           },
           {
             href: path_for_page(page),
             label: page.to_s,
             current: true,
+            aria_label: "Page #{page}",
           },
           {
             href: path_for_page(page + 1),
             label: (page + 1).to_s,
             current: false,
+            aria_label: "Page #{page + 1}",
           },
           {
             ellipses: true,
@@ -117,6 +126,7 @@ class Admin::PaginationHelperTest < ActionView::TestCase
             href: path_for_page(10),
             label: "10",
             current: false,
+            aria_label: "Page 10",
           },
         ],
       }
@@ -135,6 +145,7 @@ class Admin::PaginationHelperTest < ActionView::TestCase
             href: path_for_page(1),
             label: "1",
             current: false,
+            aria_label: "Page 1",
           },
           {
             ellipses: true,
@@ -143,21 +154,25 @@ class Admin::PaginationHelperTest < ActionView::TestCase
             href: path_for_page(7),
             label: "7",
             current: page == 7,
+            aria_label: "Page 7",
           },
           {
             href: path_for_page(8),
             label: "8",
             current: page == 8,
+            aria_label: "Page 8",
           },
           {
             href: path_for_page(9),
             label: "9",
             current: page == 9,
+            aria_label: "Page 9",
           },
           {
             href: path_for_page(10),
             label: "10",
             current: page == 10,
+            aria_label: "Page 10",
           },
         ],
       }

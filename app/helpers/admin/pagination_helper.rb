@@ -99,6 +99,7 @@ module Admin::PaginationHelper
         href: build_path_for(1),
         label: "1",
         current: current_page == 1,
+        aria_label: "Page 1",
       }
     end
 
@@ -114,6 +115,7 @@ module Admin::PaginationHelper
           href: build_path_for(page),
           label: page.to_s,
           current: current_page == page,
+          aria_label: "Page #{page}",
         }
       end
     end
@@ -149,6 +151,7 @@ module Admin::PaginationHelper
         href: build_path_for(total_pages),
         label: total_pages.to_s,
         current: current_page == total_pages,
+        aria_label: "Page #{total_pages}",
       }
     end
   end
