@@ -35,7 +35,6 @@ Mocha.configure do |c|
 end
 
 class ActiveSupport::TestCase
-  include AssetManagerTestHelpers
   include FactoryBot::Syntax::Methods
   include ModelHelpers
   include ModelStubbingHelpers
@@ -236,10 +235,6 @@ class ActionController::TestCase
     login_as(create(:user, name: "admin-name", email: "admin@example.com"))
   end
 
-  def login_as_use_non_legacy_endpoints_user(role, organisation = nil)
-    login_as(create(role, :with_use_non_legacy_endpoints, name: "user-name", email: "user@example.com", organisation:))
-  end
-
   def assert_login_required
     assert_redirected_to login_path
   end
@@ -259,10 +254,6 @@ class ActionDispatch::IntegrationTest
 
   def login_as_admin
     login_as(create(:user, name: "admin-name", email: "admin@example.com"))
-  end
-
-  def login_as_use_non_legacy_endpoints_user(role, organisation = nil)
-    login_as(create(role, :with_use_non_legacy_endpoints, name: "user-name", email: "user@example.com", organisation:))
   end
 
   def logout

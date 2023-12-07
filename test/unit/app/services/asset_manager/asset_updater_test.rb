@@ -12,14 +12,13 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
   end
 
   test "updates auth_bypass_ids for ImageData" do
-    legacy_url_path = "legacy-url-path"
     image_data = build(:image_data)
-
-    @worker.stubs(:find_asset_by).with(legacy_url_path)
+    @worker.stubs(:find_asset_by_id).with(@asset_manager_id)
            .returns("id" => @asset_manager_id, "draft" => true)
+
     Services.asset_manager.expects(:update_asset).with(@asset_manager_id, { "auth_bypass_ids" => [] })
 
-    @worker.call(nil, image_data, legacy_url_path, { "auth_bypass_ids" => [] })
+    @worker.call(@asset_manager_id, image_data, { "auth_bypass_ids" => [] })
   end
 
   test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
@@ -28,13 +27,13 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     @attachment_data.stubs(:deleted?).returns(false)
 
     assert_raises(AssetManager::AssetUpdater::AssetAlreadyDeleted) do
-      @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => false })
+      @worker.call(@asset_manager_id, @attachment_data, { "draft" => false })
     end
   end
 
   test "does not update asset if no attributes are supplied" do
     assert_raises(AssetManager::AssetUpdater::AssetAttributesEmpty) do
-      @worker.call(@asset_manager_id, @attachment_data, nil)
+      @worker.call(@asset_manager_id, @attachment_data)
     end
   end
 
@@ -43,7 +42,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
            .returns("id" => @asset_manager_id, "draft" => true)
     Services.asset_manager.expects(:update_asset).with(@asset_manager_id, { "draft" => false })
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => false })
+    @worker.call(@asset_manager_id, @attachment_data, { "draft" => false })
   end
 
   test "does not mark asset as published if already published" do
@@ -51,7 +50,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
            .returns("id" => @asset_manager_id, "draft" => false)
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => false })
+    @worker.call(@asset_manager_id, @attachment_data, { "draft" => false })
   end
 
   test "mark published asset as draft" do
@@ -59,7 +58,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
            .returns("id" => @asset_manager_id, "draft" => false)
     Services.asset_manager.expects(:update_asset).with(@asset_manager_id, { "draft" => true })
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => true })
+    @worker.call(@asset_manager_id, @attachment_data, { "draft" => true })
   end
 
   test "does not mark asset as draft if already draft" do
@@ -67,7 +66,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
            .returns("id" => @asset_manager_id, "draft" => true)
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "draft" => true })
+    @worker.call(@asset_manager_id, @attachment_data, { "draft" => true })
   end
 
   test "sets redirect_url on asset if not already set" do
@@ -76,7 +75,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset)
             .with(@asset_manager_id, { "redirect_url" => @redirect_url })
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "redirect_url" => @redirect_url })
+    @worker.call(@asset_manager_id, @attachment_data, { "redirect_url" => @redirect_url })
   end
 
   test "sets redirect_url on asset if already set to different value" do
@@ -85,7 +84,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset)
             .with(@asset_manager_id, { "redirect_url" => @redirect_url })
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "redirect_url" => @redirect_url })
+    @worker.call(@asset_manager_id, @attachment_data, { "redirect_url" => @redirect_url })
   end
 
   test "does not set redirect_url on asset if already set" do
@@ -93,7 +92,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
            .returns("id" => @asset_manager_id, "redirect_url" => @redirect_url)
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "redirect_url" => @redirect_url })
+    @worker.call(@asset_manager_id, @attachment_data, { "redirect_url" => @redirect_url })
   end
 
   test "marks asset as access-limited" do
@@ -102,7 +101,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset)
             .with(@asset_manager_id, { "access_limited" => %w[uid-1] })
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "access_limited" => %w[uid-1] })
+    @worker.call(@asset_manager_id, @attachment_data, { "access_limited" => %w[uid-1] })
   end
 
   test "does not mark asset as access-limited if already set" do
@@ -110,7 +109,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
            .returns("id" => @asset_manager_id, "access_limited" => %w[uid-1])
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.call(@asset_manager_id, @attachment_data, nil, { "access_limited" => %w[uid-1] })
+    @worker.call(@asset_manager_id, @attachment_data, { "access_limited" => %w[uid-1] })
   end
 
   test "marks asset as replaced by another asset" do
@@ -121,7 +120,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
             .with(@asset_manager_id, { "replacement_id" => replacement_id })
 
     attributes = { "replacement_id" => replacement_id }
-    @worker.call(@asset_manager_id, @attachment_data, nil, attributes)
+    @worker.call(@asset_manager_id, @attachment_data, attributes)
   end
 
   test "does not mark asset as replaced if already replaced by same asset" do
@@ -131,6 +130,6 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset).never
 
     attributes = { "replacement_id" => replacement_id }
-    @worker.call(@asset_manager_id, @attachment_data, nil, attributes)
+    @worker.call(@asset_manager_id, @attachment_data, attributes)
   end
 end

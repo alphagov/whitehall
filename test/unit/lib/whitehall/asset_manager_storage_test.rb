@@ -23,6 +23,9 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   end
 
   test "store! returns an asset manager file" do
+    featured_image_data = build(:featured_image_data)
+    @uploader.stubs(:model).returns(featured_image_data)
+
     storage = Whitehall::AssetManagerStorage.new(@uploader)
     file = CarrierWave::SanitizedFile.new(@file)
 
@@ -188,39 +191,44 @@ end
 
 class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   setup do
-    asset_path = "path/to/asset.png"
-    @asset_url_path = "/government/uploads/#{asset_path}"
-    @file = Whitehall::AssetManagerStorage::File.new(asset_path)
+    @asset_path = "path/to/asset.png"
+    @asset_manager_id = "asset_manager_id_original"
+    model = build(:image_data)
+    model.id = 1
+    model.assets = []
+    model.assets << build(:asset, asset_manager_id: @asset_manager_id, variant: Asset.variants[:original], filename: "asset.png")
+    @file = Whitehall::AssetManagerStorage::File.new(@asset_path, model)
     Plek.stubs(:new).returns(stub("plek", asset_root: "http://assets-host"))
   end
 
+  test "returns the local store path as the path" do
+    # Carrierwave needs this for its hooks
+    assert_equal @asset_path, @file.path
+  end
+
   test "queues the call to delete the asset from asset manager" do
-    AssetManagerDeleteAssetWorker.expects(:perform_async).with(@asset_url_path, nil)
+    AssetManagerDeleteAssetWorker.expects(:perform_async).with(@asset_manager_id)
 
     @file.delete
-  end
-
-  test "returns the legacy filename as the path" do
-    assert_equal @asset_url_path, @file.path
-  end
-
-  test "delegates asset_manager_path to path" do
-    assert_equal @file.path, @file.asset_manager_path
   end
 
   test "#content_type returns the first element of the content type array" do
     assert_equal "image/png", @file.content_type
   end
 
-  test "when the legacy_url_path contains non-ascii characters it percent-encodes" do
+  test "when the asset_path contains non-ascii characters it percent-encodes" do
     asset_path = "path/to/ässet.png"
-    file = Whitehall::AssetManagerStorage::File.new(asset_path)
+    model = ImageData.new
+    model.id = 1
+    model.assets << build(:asset, asset_manager_id: @asset_manager_id, variant: Asset.variants[:original], filename: "ässet.png")
 
-    assert_equal "http://assets-host/government/uploads/path/to/%C3%A4sset.png", file.url
+    file = Whitehall::AssetManagerStorage::File.new(asset_path, model)
+
+    assert_equal "http://assets-host/media/#{@asset_manager_id}/%C3%A4sset.png", file.url
   end
 
-  test "constructs the url of the file using the assets root and legacy url path" do
-    expected_asset_url = URI.join("http://assets-host", @asset_url_path).to_s
+  test "constructs the url of the file using the assets root, media, asset_manager_id and filename" do
+    expected_asset_url = URI.join("http://assets-host", "/media/", "#{@asset_manager_id}/", @file.filename).to_s
 
     assert_equal expected_asset_url, @file.url
   end

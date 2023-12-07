@@ -16,10 +16,6 @@ FactoryBot.define do
     email
     uid
     permissions { [User::Permissions::SIGNIN] }
-
-    trait(:with_use_non_legacy_endpoints) do
-      permissions { [User::Permissions::SIGNIN, User::Permissions::USE_NON_LEGACY_ENDPOINTS] }
-    end
   end
 
   factory :disabled_user, parent: :user do

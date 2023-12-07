@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_27_120936) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_30_160710) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -196,12 +196,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_120936) do
     t.index ["version"], name: "index_data_migration_records_on_version", unique: true
   end
 
-  create_table "default_news_organisation_image_data", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
-    t.string "carrierwave_image"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-  end
-
   create_table "document_collection_group_memberships", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.integer "document_id"
     t.integer "document_collection_group_id"
@@ -264,7 +258,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_120936) do
     t.index ["dependable_id", "dependable_type", "edition_id"], name: "index_edition_dependencies_on_dependable_and_edition", unique: true
   end
 
-  create_table "edition_lead_images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "edition_lead_images", charset: "utf8mb3", force: :cascade do |t|
     t.integer "edition_id"
     t.integer "image_id"
     t.datetime "created_at", null: false

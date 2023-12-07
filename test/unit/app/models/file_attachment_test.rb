@@ -64,7 +64,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     assert attachment.filename_changed?
   end
 
-  test "return non legacy preview_url if all_asset_variants_uploaded?" do
+  test "return media preview_url if all_asset_variants_uploaded?" do
     attachment = create(:csv_attachment, attachable: create(:edition))
     assert_equal Plek.asset_root + "/media/#{attachment.attachment_data.id}/sample.csv/preview", attachment.publishing_api_details_for_format[:preview_url]
   end

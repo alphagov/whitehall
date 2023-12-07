@@ -145,16 +145,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_preview_next_release?
   end
 
-  test "cannot use non legacy endpoints" do
-    user = build(:user)
-    assert_not user.can_use_non_legacy_endpoints?
-  end
-
-  test "can use non legacy endpoint if given permission" do
-    user = build(:user, permissions: [User::Permissions::USE_NON_LEGACY_ENDPOINTS])
-    assert user.can_use_non_legacy_endpoints?
-  end
-
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?

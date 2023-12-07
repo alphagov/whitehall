@@ -15,39 +15,22 @@ class FeaturedImageUploaderTest < ActiveSupport::TestCase
   end
 
   test "should send correctly resized versions of a bitmap image to asset manager" do
-    @uploader = FeaturedImageUploader.new(FactoryBot.create(:person), "mounted-as")
-
-    Services.asset_manager.stubs(:create_whitehall_asset)
-    Services.asset_manager.expects(:create_whitehall_asset).with do |value|
+    uploader = FeaturedImageUploader.new(FactoryBot.create(:person), "mounted-as")
+    response = { "id" => "http://asset-manager/assets/asset-id", "name" => "minister-of-funk.960x640.jpg" }
+    Services.asset_manager.stubs(:create_asset)
+    Services.asset_manager.expects(:create_asset).with { |value|
       image_path = value[:file].path
       assert_image_has_correct_size(image_path)
-    end
+    }.returns(response).times(7)
 
     Sidekiq::Testing.inline! do
-      @uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
+      uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
     end
   end
 
   test "should store uploads in a directory that persists across deploys" do
     uploader = FeaturedImageUploader.new(Person.new(id: 1), "mounted-as")
     assert_match %r{^system}, uploader.store_dir
-  end
-
-  test "should store all the versions of a bitmap image in asset manager" do
-    @uploader = FeaturedImageUploader.new(FactoryBot.create(:person), "mounted-as")
-
-    Services.asset_manager.stubs(:create_whitehall_asset)
-    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/minister-of-funk.960x640.jpg/))
-    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s960_minister-of-funk.960x640.jpg/))
-    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s712_minister-of-funk.960x640.jpg/))
-    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s630_minister-of-funk.960x640.jpg/))
-    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s465_minister-of-funk.960x640.jpg/))
-    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s300_minister-of-funk.960x640.jpg/))
-    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s216_minister-of-funk.960x640.jpg/))
-
-    Sidekiq::Testing.inline! do
-      @uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
-    end
   end
 
 private
