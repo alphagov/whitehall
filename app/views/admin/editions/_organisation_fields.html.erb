@@ -10,7 +10,7 @@
       <% 0.upto(3) do |index| %>
         <% lead_organisation_id = lead_organisation_id_at_index(edition, index) %>
         <% cache_if lead_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
-          <%= render "components/select-with-search", {
+          <%= render "components/select_with_search", {
               id: "edition_lead_organisation_ids_#{index + 1}",
               name: "edition[lead_organisation_ids][]",
               label: "Lead organisation #{index + 1}",

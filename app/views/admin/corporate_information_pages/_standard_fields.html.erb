@@ -3,7 +3,7 @@
   <%= form.hidden_field :lock_version %>
 
   <% unless form.object.persisted? %>
-    <%= render "components/select-with-search", {
+    <%= render "components/select_with_search", {
       id: "edition_corporate_information_page_type_id",
       name: "edition[corporate_information_page_type_id]",
       label: "Type",

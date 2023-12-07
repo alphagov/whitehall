@@ -24,7 +24,7 @@
     <% end %>
 
     <% if filter_by.include?(:author) %>
-      <%= render "components/select-with-search", {
+      <%= render "components/select_with_search", {
         label: "Author",
         id: "author_filter",
         name: "author",
@@ -40,7 +40,7 @@
     <% end %>
 
     <% if filter_by.include?(:organisation) %>
-      <%= render "components/select-with-search", {
+      <%= render "components/select_with_search", {
         label: "Organisation",
         id: "organisation_filter",
         name: "organisation",
@@ -50,7 +50,7 @@
     <% end %>
 
     <% if filter_by.include?(:world_location) %>
-      <%= render "components/select-with-search", {
+      <%= render "components/select_with_search", {
         label: "World location",
         id: "world_location_filter",
         name: "world_location",
@@ -66,7 +66,7 @@
     <% end %>
 
     <% if filter_by.include?(:type) %>
-      <%= render "components/select-with-search", {
+      <%= render "components/select_with_search", {
         label: "Document type",
         id: "type_filter",
         name: "type",
@@ -76,7 +76,7 @@
     <% end %>
 
     <% if filter_by.include?(:state) %>
-      <%= render "components/select-with-search", {
+      <%= render "components/select_with_search", {
         label: "State",
         id: "state_filter",
         name: "state",

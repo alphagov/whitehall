@@ -12,7 +12,7 @@
         label: "Create a foreign language only #{edition.model_name.human.downcase}",
         value: "1",
         checked: form.object.primary_locale != "en",
-        conditional: (render "components/select-with-search", {
+        conditional: (render "components/select_with_search", {
           id: "edition_primary_locale",
           name: "edition[primary_locale]",
           label: "Document language",

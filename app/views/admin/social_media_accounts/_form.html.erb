@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_for [:admin, socialable, social_media_account] do |form| %>
       <% if I18n.locale == I18n.default_locale %>
-        <%= render "components/select-with-search", {
+        <%= render "components/select_with_search", {
           label: "Service (required)",
           id: "social_media_account_social_media_service_id",
           name: "social_media_account[social_media_service_id]",
