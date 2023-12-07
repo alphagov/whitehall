@@ -1,15 +1,9 @@
 class AssetManager::AssetUpdater
   include AssetManager::ServiceHelper
 
-  class AssetAlreadyDeleted < StandardError
-    def initialize(identifier, asset_data_id)
-      super("Asset '#{identifier}' for Attachment Data #{asset_data_id} expected not to be deleted in Asset Manager")
-    end
-  end
-
   class AssetAttributesEmpty < StandardError
-    def initialize(identifier, asset_data_id)
-      super("Attempting to update '#{identifier}' for Attachment Data #{asset_data_id} with empty attachment attributes")
+    def initialize(asset_manager_id)
+      super("Attempting to update Asset with asset_manager_id: '#{asset_manager_id}' with empty attachment attributes")
     end
   end
 
@@ -17,20 +11,20 @@ class AssetManager::AssetUpdater
     new.call(*args)
   end
 
-  def call(asset_manager_id, asset_data, new_attributes = {})
-    update_with_asset_manager_id(asset_manager_id, asset_data, new_attributes)
+  def call(asset_manager_id, new_attributes)
+    update_with_asset_manager_id(asset_manager_id, new_attributes)
   end
 
 private
 
-  def update_with_asset_manager_id(asset_manager_id, asset_data, new_attributes)
-    raise AssetAttributesEmpty.new(asset_manager_id, asset_data.id) if new_attributes.empty?
+  def update_with_asset_manager_id(asset_manager_id, new_attributes)
+    raise AssetAttributesEmpty, asset_manager_id if new_attributes.empty?
 
     attributes = find_asset_by_id(asset_manager_id)
     asset_deleted = attributes["deleted"]
 
     if asset_deleted
-      raise AssetAlreadyDeleted.new(asset_manager_id, asset_data.id)
+      logger.warn("Asset with asset_manager_id: '#{asset_manager_id}' expected not to be deleted in Asset Manager")
     end
 
     keys = new_attributes.keys

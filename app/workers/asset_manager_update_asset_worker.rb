@@ -5,10 +5,9 @@ class AssetManagerUpdateAssetWorker < WorkerBase
     model = klass.constantize.find(id)
     asset_data = GlobalID::Locator.locate(model.to_global_id)
     asset_data.assets.each do |asset|
-      AssetManager::AssetUpdater.call(asset.asset_manager_id, asset_data, attributes)
+      AssetManager::AssetUpdater.call(asset.asset_manager_id, attributes)
     end
   rescue AssetManager::ServiceHelper::AssetNotFound,
-         AssetManager::AssetUpdater::AssetAlreadyDeleted,
          ActiveRecord::RecordNotFound => e
     logger.error "AssetManagerUpdateAssetWorker: #{e.message}"
   end
