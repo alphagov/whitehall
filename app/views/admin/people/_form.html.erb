@@ -58,7 +58,7 @@
   } %>
 
   <%= form.fields_for :image do |_image_fields| %>
-    <%= render "components/single-image-upload", {
+    <%= render "components/single_image_upload", {
       title: "Image",
       name: "person[image_attributes]",
       id: "person_image",

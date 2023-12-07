@@ -54,7 +54,7 @@
   } %>
 
   <div class="app-view-organisation__form__custom_logo js-view-organisation__form__custom_logo <%= "app-view-organisation__form__custom_logo--hidden" unless organisation.organisation_logo_type_id == OrganisationLogoType::CustomLogo.id %>">
-    <%= render "components/single-image-upload", {
+    <%= render "components/single_image_upload", {
       title: "Custom logo (required)",
       name: "organisation",
       id: "organisation",
@@ -87,7 +87,7 @@
   } %>
 
   <%= form.fields_for :default_news_image do |_image_fields| %>
-    <%= render "components/single-image-upload", {
+    <%= render "components/single_image_upload", {
       title: "Default news image",
       name: "organisation[default_news_image_attributes]",
       id: "organisation_default_news_image",
