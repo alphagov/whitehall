@@ -102,43 +102,6 @@ module Admin::EditionActionsHelper
     link_to "Discard draft", confirm_destroy_admin_edition_path(edition), method: :get, class: "btn btn-danger"
   end
 
-  # If adding new models also update filter_options_for_edition
-  def document_creation_dropdown
-    tag.ul(
-      class: "masthead-menu list-unstyled js-hidden js-navbar-toggle__menu hide-before-js-module-init",
-      id: "new-document-menu",
-      role: "menu",
-      "aria-labelledby" => "new-document-label",
-    ) do
-      edition_types = [
-        Consultation,
-        Publication,
-        NewsArticle,
-        Speech,
-        DetailedGuide,
-        DocumentCollection,
-        FatalityNotice,
-        CaseStudy,
-        StatisticalDataSet,
-        CallForEvidence,
-      ]
-      edition_types
-        .select { |edition_type| can?(:create, edition_type) }
-        .map { |edition_type|
-          tag.li(class: "masthead-menu-item") do
-            link_to(
-              edition_type.model_name.human,
-              polymorphic_path([:new, :admin, edition_type.name.underscore.to_sym]),
-              title: "Create #{edition_type.model_name.human.titleize}",
-              role: "menuitem",
-            )
-          end
-        }
-        .join
-        .html_safe
-    end
-  end
-
   def filter_edition_type_options_for_select(user, selected)
     options_for_select([["All types", ""]]) + edition_type_options_for_select(user, selected) + edition_sub_type_options_for_select(selected)
   end

@@ -207,28 +207,6 @@ module Admin::EditionsHelper
     end
   end
 
-  def edition_editing_tabs(edition, &blk)
-    tabs = default_edition_tabs(edition)
-    tab_navigation(tabs) { yield blk }
-  end
-
-  def consultation_editing_tabs(edition, &blk)
-    tabs = default_edition_tabs(edition)
-    if edition.persisted?
-      tabs["Public feedback"] = admin_consultation_public_feedback_path(edition)
-      tabs["Final outcome"] = admin_consultation_outcome_path(edition)
-    end
-    tab_navigation(tabs) { yield blk }
-  end
-
-  def call_for_evidence_editing_tabs(edition, &blk)
-    tabs = default_edition_tabs(edition)
-    if edition.persisted?
-      tabs["Outcome"] = admin_call_for_evidence_outcome_path(edition)
-    end
-    tab_navigation(tabs) { yield blk }
-  end
-
   def standard_edition_publishing_controls(form, edition)
     tag.div(class: "publishing-controls") do
       if edition.change_note_required?
