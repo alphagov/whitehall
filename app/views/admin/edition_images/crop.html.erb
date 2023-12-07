@@ -11,7 +11,7 @@
 
       <p class="govuk-body govuk-!-margin-bottom-7 app-js-only">Use your cursor or the arrow keys and “<kbd>+</kbd>” and “<kbd>-</kbd>” to select a part of the image. The part you select will be resized for GOV.UK. The shape is fixed.</p>
 
-      <%= render "components/image-cropper", {
+      <%= render "components/image_cropper", {
         name: "image[image_data][file]",
         src: @data_url,
         filename: @new_image.filename,
