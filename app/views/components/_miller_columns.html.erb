@@ -24,7 +24,7 @@
   <% end %>
 
   <miller-columns class="miller-columns" for="<%= id %>-list" selected="selected-items" id="<%= id %>" aria-describedby="navigation-instructions">
-    <%= render "components/miller-columns-list", {
+    <%= render "components/miller_columns_list", {
       id: id,
       name: "#{id}[]",
       items: items,

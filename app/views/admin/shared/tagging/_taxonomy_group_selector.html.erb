@@ -1,5 +1,5 @@
 <% if @topic_taxonomy.ordered_taxons_transformed(tag_form.selected_taxons).count() %>
-  <%= render "/components/miller-columns", {
+  <%= render "/components/miller_columns", {
     id: "taxonomy_tag_form[taxons]",
     searchable: true,
     items: @topic_taxonomy.ordered_taxons_transformed(tag_form.selected_taxons),

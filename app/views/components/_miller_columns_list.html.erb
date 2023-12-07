@@ -8,7 +8,7 @@
           <%= item[:label] %>
         </label>
         <% if item[:items].present? %>
-          <%= render "components/miller-columns-list", {
+          <%= render "components/miller_columns_list", {
             id: "#{id}-#{index}",
             name: "#{name}",
             items: item[:items],
