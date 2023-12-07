@@ -16,8 +16,6 @@
 @import "styleguide/colours";
 @import "styleguide/right-to-left";
 
-@import "govuk_admin_template/emulate/forms";
-
 // COMPONENTS
 @import "environment";
 @import "layout";
@@ -26,7 +24,3 @@
 @import "topical-events";
 @import "lists";
 @import "get-involved";
-
-// GLOBAL
-// Styles that apply to all of admin.
-@import "global/boostrap-overrides";
