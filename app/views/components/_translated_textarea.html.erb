@@ -11,7 +11,7 @@
 <%= content_tag :div, class: "app-c-translated-textarea", id: id do %>
   <% if govspeak_editor %>
     <div class="app-c-translated-textarea__govspeak_editor">
-      <%= render "components/govspeak-editor", textarea.symbolize_keys %>
+      <%= render "components/govspeak_editor", textarea.symbolize_keys %>
     </div>
   <% else %>
     <div class="app-c-translated-textarea__textarea">
