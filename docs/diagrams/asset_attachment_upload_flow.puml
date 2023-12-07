@@ -1,0 +1,58 @@
+@startuml asset-attachment-upload-flow
+
+title The sequence of uploading a file attachment in Whitehall (AttachmentData)
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+
+box "Whitehall" #f2fef8
+actor publisher
+participant Controller
+participant AttachmentData
+participant "AssetManager\nStorage" as AssetManagerStorage
+participant "DraftEditor\nUpdater" as DraftEditionUpdater
+end box
+
+box Whitehall worker (Sidekiq)
+participant "AssetManager\nCreateAssetWorker" as AssetManagerCreateAssetWorker
+participant Asset
+participant "PublishingApi\nDraftUpdateWorker" as PublishingApiDraftUpdateWorker
+participant "DraftEditor\nUpdater" as bgDraftEditionUpdater
+participant "AssetManager\nAttachmentMetadataWorker" as AssetManagerAttachmentMetadataWorker
+end box
+
+box "Asset Manager" #f2f8fe
+participant AssetManager
+end box
+
+box "Publishing API" #f2f8fe
+participant PublishingApi
+end box
+
+publisher -> Controller++ : upload an attachment
+Controller -> AttachmentData : Save
+AttachmentData -> AssetManagerStorage : Carrierwave invokes store!
+AssetManagerStorage --> AssetManagerCreateAssetWorker : Enqueue
+Controller -> DraftEditionUpdater : perform
+DraftEditionUpdater -> PublishingApi : Update links, content and republish if necessary
+DraftEditionUpdater --> AssetManagerAttachmentMetadataWorker: Enqueue
+Controller -> publisher-- : Show attachments
+
+activate AssetManagerCreateAssetWorker
+AssetManagerCreateAssetWorker -> AssetManager : Upload the file to Asset Manager
+AssetManagerCreateAssetWorker -> Asset: Save
+AssetManagerCreateAssetWorker --> PublishingApiDraftUpdateWorker : Enqueue
+deactivate AssetManagerCreateAssetWorker
+
+activate PublishingApiDraftUpdateWorker
+PublishingApiDraftUpdateWorker -> bgDraftEditionUpdater
+bgDraftEditionUpdater -> PublishingApi : Update links, content and republish if necessary
+bgDraftEditionUpdater --> AssetManagerAttachmentMetadataWorker: Enqueue
+deactivate PublishingApiDraftUpdateWorker
+
+group Happens 2 times because of DraftEditionUpdater
+  activate AssetManagerAttachmentMetadataWorker
+  AssetManagerAttachmentMetadataWorker -> AssetManager: Update metadata of the Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url
+  deactivate AssetManagerAttachmentMetadataWorker
+end group
+
+@enduml

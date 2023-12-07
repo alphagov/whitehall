@@ -1,0 +1,55 @@
+@startuml asset-models
+allowmixing
+hide empty members
+
+object ImmediatelyPublishedDocuments {
+ Organisation
+ WorldwideOrganisation
+ Person
+ TopicalEvent
+ PolicyGroup
+ ...
+}
+note right: Some content types are published\nimmediately as the user saves the changes.
+
+object EditionableDocuments {
+ NewsArticle
+ Speech
+ Consultation
+ DetailedGuide
+ ...
+}
+note right: Some content types are editionable\nThese documents have a\nseparate workflow for publishing the content.
+
+class FeaturedImageData
+class Asset
+note right: References the\nAsset in Asset Manager
+
+Attachment -up-> EditionableDocuments
+Attachment -up-> ImmediatelyPublishedDocuments
+AttachmentData -up-> Attachment
+Asset -up-> AttachmentData
+
+Image -up-> EditionableDocuments
+ImageData -up-> Image
+Asset -up-> ImageData
+
+FeaturedImageData -up-> ImmediatelyPublishedDocuments
+Asset -up-> FeaturedImageData
+
+CallForEvidenceResponseForm -up-> EditionableDocuments
+CallForEvidenceResponseFormData -up-> CallForEvidenceResponseForm
+Asset -up-> CallForEvidenceResponseFormData
+
+ConsultationResponseForm -up-> EditionableDocuments
+ConsultationResponseFormData -up-> ConsultationResponseForm
+Asset -up-> ConsultationResponseFormData
+
+TopicalEventFeaturing -up-> ImmediatelyPublishedDocuments
+TopicalEventFeaturingImageData -up-> TopicalEventFeaturing
+Asset -up-> TopicalEventFeaturingImageData
+
+PromotionalFeature -up-> ImmediatelyPublishedDocuments
+PromotionalFeatureItem -up-> PromotionalFeature
+Asset -up-> PromotionalFeatureItem
+@enduml
