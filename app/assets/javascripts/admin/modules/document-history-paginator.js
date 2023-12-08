@@ -75,6 +75,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         })
         .then(function (html) {
           module.innerHTML = html
+          const insertedForm = module.querySelector('form.js-filter-form')
+          insertedForm.querySelector('select').focus()
 
           const documentHistoryModule =
             new GOVUK.Modules.DocumentHistoryPaginator(module)
