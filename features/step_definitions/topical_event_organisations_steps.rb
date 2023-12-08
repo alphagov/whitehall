@@ -14,14 +14,14 @@ Then(/^I can see the (lead|supporting) organisation with the name "([^"]*)"$/) d
   end
 end
 
-And(/^I set the order of (lead|supporting) organisations to:$/) do |organisation_type, organisations_order|
-  within "##{organisation_type}_organisations" do
+And(/^I set the order of lead organisations to:$/) do |organisations_order|
+  within "#lead_organisations" do
     click_link "Reorder organisations"
   end
 
   organisations_order.hashes.each do |hash|
-    topical_event_organisation = @topical_event.topical_event_organisations.where(lead: organisation_type == "lead").select { |f| f.organisation.name == hash[:name] }.first
-    fill_in "ordering[#{topical_event_organisation.id}]", with: hash[:order]
+    topical_event_organisation = @topical_event.topical_event_organisations.where(lead: true).select { |f| f.organisation.name == hash[:name] }.first
+    fill_in "topical_event_lead_organisations[ordering][#{topical_event_organisation.id}]", with: hash[:order]
   end
 
   click_button "Update order"

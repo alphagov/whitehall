@@ -24,7 +24,7 @@ And(/^I set the order of the topical event featurings to:$/) do |featurings_orde
 
   featurings_order.hashes.each do |hash|
     featuring = @topical_event.topical_event_featurings.select { |f| f.title == hash[:title] }.first
-    fill_in "ordering[#{featuring.id}]", with: hash[:order]
+    fill_in "topical_event_featurings[ordering][#{featuring.id}]", with: hash[:order]
   end
 
   click_button "Update order"

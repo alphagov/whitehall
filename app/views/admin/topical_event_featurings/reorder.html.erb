@@ -12,6 +12,7 @@
       } %>
 
       <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: "topical_event_featurings[ordering]",
         items: @topical_event.topical_event_featurings.map do |featuring|
           {
             id: featuring.id,

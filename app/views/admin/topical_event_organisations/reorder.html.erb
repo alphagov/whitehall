@@ -14,6 +14,7 @@
       <%= hidden_field_tag "lead", params[:lead] %>
 
       <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: "topical_event_lead_organisations[ordering]",
         items: @topical_event.topical_event_organisations.where(lead: true).order(:lead_ordering).map do |topical_event_organisation|
           {
             id: topical_event_organisation.id,
