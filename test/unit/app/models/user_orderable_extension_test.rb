@@ -54,4 +54,29 @@ class UserOrderableExtensionTest < ActiveSupport::TestCase
       :lead_ordering,
     )
   end
+
+  test "#reorder! reorders the collection using #update! based on the params passed in" do
+    @stub_model2.expects(:update!).with(ordering: "1").once
+    @stub_model1.expects(:update!).with(ordering: "2").once
+
+    @association.reorder!(
+      {
+        @stub_model2.id => "1",
+        @stub_model1.id => "2",
+      },
+    )
+  end
+
+  test "#reorder! handles a different attribute being passed in as an optional argument" do
+    @stub_model2.expects(:update!).with(lead_ordering: "1").once
+    @stub_model1.expects(:update!).with(lead_ordering: "2").once
+
+    @association.reorder!(
+      {
+        @stub_model2.id => "1",
+        @stub_model1.id => "2",
+      },
+      :lead_ordering,
+    )
+  end
 end

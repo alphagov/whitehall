@@ -132,7 +132,7 @@ When(/^I set the order of the promotional features to:$/) do |promotional_featur
 
   promotional_feature_order.hashes.each do |promotional_feature_info|
     promotional_feature = PromotionalFeature.find_by(title: promotional_feature_info[:title])
-    fill_in "ordering[#{promotional_feature.id}]", with: promotional_feature_info[:order]
+    fill_in "promotional_features[ordering][#{promotional_feature.id}]", with: promotional_feature_info[:order]
   end
   click_button "Save"
 end

@@ -8,6 +8,7 @@
     <% if @role_appointments.many? %>
       <%= form_for @person, url: update_order_role_appointments_admin_person_path(@person), method: :patch do |form| %>
         <%= render "govuk_publishing_components/components/reorderable_list", {
+          input_name: "role_appointments[ordering]",
           items: @role_appointments.map do |role_appointment|
             {
               id: role_appointment.id,

@@ -1,7 +1,10 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
 
-  has_many :role_appointments, -> { order(:ordering) }
+  has_many :role_appointments,
+           lambda {
+             (extending UserOrderableExtension).order(:ordering)
+           }
   has_many :current_role_appointments,
            -> { where(RoleAppointment::CURRENT_CONDITION).order(:ordering) },
            class_name: "RoleAppointment"

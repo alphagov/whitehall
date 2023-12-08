@@ -93,7 +93,7 @@ And(/^I set the order of "([^"]*)" groups to:$/) do |collection_title, order|
 
   order.hashes.each do |hash|
     group = collection.groups.select { |f| f.heading == hash[:name] }.first
-    fill_in "ordering[#{group.id}]", with: hash[:order]
+    fill_in "document_collection_groups[ordering][#{group.id}]", with: hash[:order]
   end
 
   click_button "Save"
@@ -107,7 +107,7 @@ And(/^within the "([^"]*)" "([^"]*)" I set the order of the documents to:$/) do 
       title = member.non_whitehall_link ? member.non_whitehall_link.title : member.document.latest_edition.title
       title == hash[:name]
     }.first.id
-    fill_in "ordering[#{member_id}]", with: hash[:order]
+    fill_in "document_collection_group_memberships[ordering][#{member_id}]", with: hash[:order]
   end
 
   click_button "Save"

@@ -44,9 +44,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   def reorder; end
 
   def order
-    params[:ordering].each do |membership_ids, ordering|
-      @group.memberships.find(membership_ids).update_column(:ordering, ordering)
-    end
+    @group.memberships.reorder!(order_params)
 
     flash_message = "Document has been reordered"
     redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection), notice: flash_message
@@ -72,5 +70,9 @@ private
       redirect_to admin_document_collection_groups_path(@collection),
                   alert: "We couldn't find a document titled '#{params[:title]}'"
     end
+  end
+
+  def order_params
+    params.require(:document_collection_group_memberships)["ordering"]
   end
 end

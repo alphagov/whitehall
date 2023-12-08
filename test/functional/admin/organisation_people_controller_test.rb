@@ -24,8 +24,10 @@ class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
     put :order, params: {
       type: "ministerial",
       organisation_id: organisation,
-      ordering: {
-        organisation_role.id.to_s => "1",
+      organisation_people: {
+        ordering: {
+          organisation_role.id.to_s => "1",
+        },
       },
     }
     assert_response :forbidden
@@ -272,9 +274,11 @@ class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
     put :order,
         params: {
           organisation_id: organisation,
-          ordering: {
-            organisation_junior_ministerial_role.id.to_s => "1",
-            organisation_senior_ministerial_role.id.to_s => "2",
+          organisation_people: {
+            ordering: {
+              organisation_junior_ministerial_role.id.to_s => "1",
+              organisation_senior_ministerial_role.id.to_s => "2",
+            },
           },
           type: "ministerial",
         }

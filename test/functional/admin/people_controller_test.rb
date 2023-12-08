@@ -329,11 +329,13 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     put :update_order_role_appointments, params: {
       id: person.id,
-      ordering: {
-        "#{role_appointment5.id}": "1",
-        "#{role_appointment4.id}": "2",
-        "#{role_appointment2.id}": "3",
-        "#{role_appointment1.id}": "4",
+      role_appointments: {
+        ordering: {
+          "#{role_appointment5.id}": "1",
+          "#{role_appointment4.id}": "2",
+          "#{role_appointment2.id}": "3",
+          "#{role_appointment1.id}": "4",
+        },
       },
     }
 

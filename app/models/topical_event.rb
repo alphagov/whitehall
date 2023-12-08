@@ -33,15 +33,16 @@ class TopicalEvent < ApplicationRecord
   has_many :offsite_links, as: :parent
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
-  has_many :topical_event_organisations
+  has_many :topical_event_organisations, -> { extending UserOrderableExtension }
   has_many :organisations, through: :topical_event_organisations
 
   has_many :topical_event_featurings,
            lambda {
-             where("editions.state = 'published' or topical_event_featurings.edition_id is null")
-               .references(:edition)
-               .includes(edition: :translations)
-               .order("topical_event_featurings.ordering asc")
+             (extending UserOrderableExtension)
+              .where("editions.state = 'published' or topical_event_featurings.edition_id is null")
+                .references(:edition)
+                .includes(edition: :translations)
+                .order("topical_event_featurings.ordering asc")
            },
            foreign_key: :topical_event_id,
            inverse_of: :topical_event

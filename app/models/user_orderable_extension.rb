@@ -7,9 +7,9 @@ module UserOrderableExtension
     end
   end
 
-  def reorder!(new_order)
+  def reorder!(new_order, column = :ordering)
     new_order.each do |id, ordering|
-      find(id).update!(ordering:)
+      find(id).update!("#{column}": ordering)
     end
   end
 end

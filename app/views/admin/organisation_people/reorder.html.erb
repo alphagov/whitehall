@@ -13,6 +13,7 @@
       } %>
 
       <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: "organisation_people[ordering]",
         items: @organisation_roles.map do |organisation_role|
           {
             id: organisation_role.id,

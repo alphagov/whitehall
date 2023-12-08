@@ -55,12 +55,9 @@ class Admin::PeopleController < Admin::BaseController
 
   def update_order_role_appointments
     current_role_appointment_orderings = @person.current_role_appointments.map(&:ordering)
+    new_ordering = map_ordering_to_current_role_appointment_ordering_values(current_role_appointment_orderings)
 
-    params[:ordering].each do |appointment_row|
-      id, ordering = appointment_row
-      role_appointment = @person.role_appointments.find(id)
-      role_appointment.update!(ordering: current_role_appointment_orderings[ordering.to_i - 1])
-    end
+    @person.role_appointments.reorder!(new_ordering)
 
     flash[:notice] = "Role appointments reordered successfully"
     redirect_to admin_person_path(@person)
@@ -104,5 +101,15 @@ private
     if person_params.dig(:image_attributes, :file_cache).present? && person_params.dig(:image_attributes, :file).present?
       person_params[:image_attributes].delete(:file_cache)
     end
+  end
+
+  def map_ordering_to_current_role_appointment_ordering_values(current_role_appointment_orderings)
+    update_order_role_appointments_params.transform_values do |value|
+      current_role_appointment_orderings[value.to_i - 1]
+    end
+  end
+
+  def update_order_role_appointments_params
+    params.require(:role_appointments)["ordering"]
   end
 end
