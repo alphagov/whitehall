@@ -38,6 +38,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_equal attributes[:surname], person.surname
     assert_equal attributes[:letters], person.letters
     assert_equal attributes[:biography], person.biography
+    assert_equal "\"#{person.name}\" created.", flash[:notice]
   end
 
   test "creating with valid data redirects to the index" do
@@ -102,6 +103,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     assert_select ".govuk-summary-list__row .govuk-summary-list__key", text: "Image"
     assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+    assert_match(/The image is being processed. Try refreshing the page./, flash[:notice])
   end
 
   view_test "editing shows form for editing a person" do

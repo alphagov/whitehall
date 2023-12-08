@@ -17,14 +17,18 @@ class Admin::OrganisationsController < Admin::BaseController
 
     if @organisation.save
       publish_services_and_information_page
-      redirect_to admin_organisations_path
+      redirect_to admin_organisations_path, notice: "Organisation created successfully."
     else
       build_dependencies
       render :new
     end
   end
 
-  def show; end
+  def show
+    if @organisation.default_news_image && !@organisation.default_news_image&.all_asset_variants_uploaded?
+      flash.now.notice = "#{flash[:notice]} The image is being processed. Try refreshing the page."
+    end
+  end
 
   def features
     @feature_list = @organisation.load_or_create_feature_list(params[:locale])
@@ -54,7 +58,7 @@ class Admin::OrganisationsController < Admin::BaseController
     delete_absent_topical_event_organisations
     if @organisation.update(organisation_params)
       publish_services_and_information_page
-      redirect_to admin_organisation_path(@organisation)
+      redirect_to admin_organisation_path(@organisation), notice: "Organisation updated successfully."
     else
       build_dependencies
       render :edit

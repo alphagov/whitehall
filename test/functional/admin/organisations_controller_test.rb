@@ -66,6 +66,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
          }
 
     assert_redirected_to admin_organisations_path
+    assert_equal "Organisation created successfully.", flash[:notice]
     assert organisation = Organisation.last
     assert organisation.topical_event_organisations.map(&:ordering).all?(&:present?), "no ordering"
     assert_equal organisation.topical_event_organisations.map(&:ordering).sort, organisation.topical_event_organisations.map(&:ordering).uniq.sort
@@ -293,6 +294,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     put :update, params: { id: organisation, organisation: organisation_attributes }
 
+    assert_redirected_to admin_organisation_path(organisation)
+    assert_equal "Organisation updated successfully.", flash[:notice]
     organisation.reload
     assert_equal "Ministry of Noise", organisation.name
   end
@@ -333,6 +336,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_equal "New title", featured_link.reload.title
+  end
+
+  test "GET on :show displays 'image is being processed' flash notice when not all image assets are uploaded" do
+    organisation = build(:organisation, :with_default_news_image)
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :show, params: { id: organisation }
+
+    assert_match(/The image is being processed. Try refreshing the page./, flash[:notice])
   end
 
   view_test "Prevents unauthorized management of homepage priority" do

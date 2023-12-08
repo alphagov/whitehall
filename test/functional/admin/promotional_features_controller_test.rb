@@ -62,6 +62,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
     get :show, params: { organisation_id: @organisation, id: promotional_feature }
 
     assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+    assert_match(/The image is being processed. Try refreshing the page./, flash[:notice])
   end
 
   test "GET :edit loads the promotional feature and renders the template" do
