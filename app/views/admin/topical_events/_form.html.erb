@@ -54,7 +54,8 @@
         image_src: topical_event.logo.url,
         image_alt: topical_event.logo_alt_text,
         image_cache_name: "topical_event[logo_attributes][file_cache]",
-        image_cache: (topical_event.logo.file_cache.presence),
+        image_cache: topical_event.logo.file_cache.presence,
+        image_uploaded: topical_event.logo.all_asset_variants_uploaded?,
       } %>
     <% end %>
   </div>
