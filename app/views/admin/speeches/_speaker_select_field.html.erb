@@ -1,5 +1,5 @@
 <% cache_if edition.role_appointment_id.nil?, "#{taggable_role_appointments_cache_digest}-design-system" do %>
-  <%= render "components/select-with-search", {
+  <%= render "components/select_with_search", {
     id: "edition_role_appointment_id",
     name: "edition[role_appointment_id]",
     label: "",

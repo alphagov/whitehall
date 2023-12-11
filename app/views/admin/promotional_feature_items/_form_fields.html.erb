@@ -44,7 +44,7 @@
       value: "image",
       text: "Image",
       checked: promotional_feature_item.image.present? || params.dig("promotional_feature", "promotional_feature_items_attributes", "0", "image_or_youtube_video_url") == "image",
-      conditional: render("components/single-image-upload", {
+      conditional: render("components/single_image_upload", {
         name: name,
         id: id,
         page_errors: form.object.errors.any?,

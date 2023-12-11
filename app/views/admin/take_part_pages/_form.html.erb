@@ -37,7 +37,7 @@
         id: "take_part_page_summary",
       } %>
 
-      <%= render "components/govspeak-editor", {
+      <%= render "components/govspeak_editor", {
         label: {
           heading_size: "l",
           text: "Body (required)",
@@ -50,7 +50,7 @@
       } %>
 
       <%= form.fields_for :image do |_image_fields| %>
-        <%= render "components/single-image-upload", {
+        <%= render "components/single_image_upload", {
           name: "take_part_page[image_attributes]",
           id: "take_part_page_image",
           image_id: "take_part_page_image_file",

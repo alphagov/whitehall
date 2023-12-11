@@ -5,7 +5,7 @@ class SelectWithSearchTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   def load_example(name)
-    visit "/component-guide/select-with-search/#{name}/preview"
+    visit "/component-guide/select_with_search/#{name}/preview"
     assert_selector ".app-c-select-with-search[data-module='select-with-search']", count: 1
   end
 

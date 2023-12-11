@@ -37,7 +37,7 @@
     error_items: errors_for(organisation.errors, :logo_formatted_name),
   } %>
 
-  <%= render "components/select-with-search", {
+  <%= render "components/select_with_search", {
     label: "Logo crest (required)",
     name: "organisation[organisation_logo_type_id]",
     id: "organisation_organisation_logo_type_id",
@@ -54,7 +54,7 @@
   } %>
 
   <div class="app-view-organisation__form__custom_logo js-view-organisation__form__custom_logo <%= "app-view-organisation__form__custom_logo--hidden" unless organisation.organisation_logo_type_id == OrganisationLogoType::CustomLogo.id %>">
-    <%= render "components/single-image-upload", {
+    <%= render "components/single_image_upload", {
       title: "Custom logo (required)",
       name: "organisation",
       id: "organisation",
@@ -70,7 +70,7 @@
     } %>
   </div>
 
-  <%= render "components/select-with-search", {
+  <%= render "components/select_with_search", {
     label: "Brand colour",
     name: "organisation[organisation_brand_colour_id]",
     id: "organisation_organisation_brand_colour_id",
@@ -87,7 +87,7 @@
   } %>
 
   <%= form.fields_for :default_news_image do |_image_fields| %>
-    <%= render "components/single-image-upload", {
+    <%= render "components/single_image_upload", {
       title: "Default news image",
       name: "organisation[default_news_image_attributes]",
       id: "organisation_default_news_image",
@@ -114,7 +114,7 @@
     error_items: errors_for(organisation.errors, :url),
   } %>
 
-  <%= render "components/select-with-search", {
+  <%= render "components/select_with_search", {
     label: "Organisation type (required)",
     name: "organisation[organisation_type_key]",
     id: "organisation_organisation_type_key",
@@ -265,7 +265,7 @@
       <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][ordering]", topical_event_organisation.ordering %>
       <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][id]", topical_event_organisation.id %>
 
-      <%= render "components/select-with-search", {
+      <%= render "components/select_with_search", {
         label: "Topical Event #{topical_event_organisation.ordering + 1}",
         name: "organisation[topical_event_organisations_attributes][][topical_event_id]",
         id: "organisation_topical_event_ids_#{topical_event_organisation.ordering}",

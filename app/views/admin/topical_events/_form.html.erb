@@ -25,7 +25,7 @@
     id: "topical_event_summary",
   } %>
 
-  <%= render "components/govspeak-editor", {
+  <%= render "components/govspeak_editor", {
     label: {
       heading_size: "l",
       text: "Description (required)",
@@ -41,7 +41,7 @@
 
   <div class="govuk-!-margin-bottom-8">
     <%= form.fields_for :logo do |_image_fields| %>
-      <%= render "components/single-image-upload", {
+      <%= render "components/single_image_upload", {
         title: "Logo",
         name: "topical_event[logo_attributes]",
         image_id: "topical_event_logo_file",

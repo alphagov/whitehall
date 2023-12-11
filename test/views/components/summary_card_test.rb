@@ -14,7 +14,7 @@ class SummaryCardTest < ActionView::TestCase
       title: "Title",
     })
 
-    assert_select ".app-c-summary-card-component", count: 1
+    assert_select ".app-c-summary-card", count: 1
     assert_select ".govuk-summary-card__title", text: "Title"
   end
 
@@ -71,7 +71,7 @@ class SummaryCardTest < ActionView::TestCase
       ],
     })
 
-    assert_select ".app-c-summary-card-component", count: 1
+    assert_select ".app-c-summary-card", count: 1
     assert_select ".govuk-summary-card__title", text: "Title"
     assert_select ".govuk-summary-list .govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Key 1"
     assert_select ".govuk-summary-list .govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: "Value 1"

@@ -25,7 +25,7 @@
     ) do |form| %>
       <%= form.hidden_field :previous_version %>
 
-      <%= render partial: "/components/miller-columns", locals: {
+      <%= render partial: "/components/miller_columns", locals: {
         id: "taxonomy_tag_form[taxons]",
         searchable: true,
         items: @world_taxonomy.all_world_taxons_transformed(@tag_form.selected_taxons),
