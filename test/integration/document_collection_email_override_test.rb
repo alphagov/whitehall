@@ -14,20 +14,20 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
       let(:user_with_permission_to_override) { create(:writer, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR]) }
       before do
         login_as(user_with_permission_to_override)
-        stub_taxonomy_with_all_taxons
+        stub_taxonomy_with_selected_taxons
       end
 
       it "updates the taxonomy topic email override" do
-        stub_publishing_api_has_item(content_id: root_taxon_content_id, title: root_taxon["title"])
+        stub_publishing_api_has_item(content_id: employment_taxon_content_id, title: employment_taxon_parent["title"])
         visit edit_admin_document_collection_path(document_collection)
         click_link "Email notifications"
 
         page.choose("Emails about the topic")
-        select root_taxon["title"], from: "selected_taxon_content_id"
+        select employment_taxon_parent["title"], from: "selected_taxon_content_id"
         page.check("Select this box to confirm you're happy with what you've selected.")
         click_button("Save")
         document_collection.reload
-        assert_equal document_collection.taxonomy_topic_email_override, root_taxon_content_id
+        assert_equal document_collection.taxonomy_topic_email_override, employment_taxon_content_id
       end
 
       it "does not update taxonomy topic email if confirmation button is unchecked" do
@@ -35,7 +35,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
         click_link "Email notifications"
 
         page.choose("Emails about the topic")
-        select root_taxon["title"], from: "selected_taxon_content_id"
+        select employment_taxon_parent["title"], from: "selected_taxon_content_id"
         click_button("Save")
         document_collection.reload
         assert_nil document_collection.taxonomy_topic_email_override
