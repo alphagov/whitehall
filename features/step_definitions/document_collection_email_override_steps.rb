@@ -12,7 +12,7 @@ When(/^I visit the edit document collection page/) do
 end
 
 Then(/^I click on the tab "Email notifications/) do
-  stub_taxonomy_data
+  stub_taxonomy_with_selected_taxons
   expect(page).to have_content("Email notifications")
   click_on("Email notifications")
   expect(page).to have_content("Choose the type of email updates users will get if they sign up for notifications.")
@@ -32,7 +32,7 @@ end
 
 And(/^I click "Save"/) do
   stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/content})
-  .to_return(body: { base_path: "/education", content_id: "root", title: "Education" }.to_json)
+  .to_return(body: { base_path: "/employment", content_id: "employment_taxon_content_id", title: "Employment" }.to_json)
   click_on("Save")
 end
 

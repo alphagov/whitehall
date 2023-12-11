@@ -33,6 +33,14 @@ module TaxonomyHelper
     "grandparent"
   end
 
+  def employment_taxon_content_id
+    "employment_content_id"
+  end
+
+  def employment_taxon_child_content_id
+    "employment_child_content_id"
+  end
+
   def world_taxon_content_id
     "world"
   end
@@ -47,6 +55,10 @@ module TaxonomyHelper
 
   def stub_taxonomy_with_all_taxons
     redis_cache_has_taxons [root_taxon, draft_taxon1, draft_taxon2]
+  end
+
+  def stub_taxonomy_with_selected_taxons
+    redis_cache_has_taxons [root_taxon, employment_taxon_parent]
   end
 
   def stub_taxonomy_with_world_taxons
@@ -218,6 +230,45 @@ private
       title: "Parenting",
       base_path: "/childcare-parenting",
       content_id: draft_taxon_1_content_id,
+    )
+  end
+
+  def employment_taxon_parent
+    FactoryBot.build(
+      :taxon_hash,
+      title: "Employment",
+      base_path: "/employment",
+      content_id: employment_taxon_content_id,
+      children: [employment_taxon_child],
+    )
+  end
+
+  def employment_taxon_child
+    FactoryBot.build(
+      :taxon_hash,
+      title: "Employment is good",
+      base_path: "/employment/is-good",
+      content_id: employment_taxon_child_content_id,
+      children: [employment_taxon_grandchild],
+    )
+  end
+
+  def employment_taxon_grandchild
+    FactoryBot.build(
+      :taxon_hash,
+      title: "If you like your job",
+      base_path: "/employment/is-good/if-you-like-your-job",
+      content_id: employment_taxon_child_content_id,
+      children: [employment_taxon_greatgrandchild],
+    )
+  end
+
+  def employment_taxon_greatgrandchild
+    FactoryBot.build(
+      :taxon_hash,
+      title: "The end",
+      base_path: "/employment/the-end",
+      content_id: employment_taxon_child_content_id,
     )
   end
 

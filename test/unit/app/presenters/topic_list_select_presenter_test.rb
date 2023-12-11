@@ -4,43 +4,32 @@ class TopicListSelectPresenterTest < ActiveSupport::TestCase
   include TaxonomyHelper
 
   test ".grouped_options returns subtopics grouped by their parent topic" do
-    stub_taxonomy_with_all_taxons
-    #  this stubs a taxonomy with three taxons [Education, About your organisation, Parenting]
-    # only Education and Parenting branches are taggable, so About your organisation is hidden
-    #  from the select
+    stub_taxonomy_with_selected_taxons
+    #  this stubs a taxonomy with two taxons [Education, Employment]
+    #  only Employment is taggable, so Education is hidden from the select
 
     expected = [
       [
-        "Education",
+        "Employment",
         [
           {
-            text: "Education",
-            value: root_taxon_content_id,
+            text: "Employment",
+            value: employment_taxon_content_id,
             selected: false,
           },
           {
-            text: "Education > School Curriculum ",
-            value: grandparent_taxon_content_id,
+            text: "Employment > Employment is good ",
+            value: employment_taxon_child_content_id,
             selected: false,
           },
           {
-            text: "Education > School Curriculum > Primary curriculum, key stage 1 ",
-            value: parent_taxon_content_id,
+            text: "Employment > Employment is good > If you like your job ",
+            value: employment_taxon_child_content_id,
             selected: false,
           },
           {
-            text: "Education > School Curriculum > Primary curriculum, key stage 1 > Tests ",
-            value: child_taxon_content_id,
-            selected: false,
-          },
-        ],
-      ],
-      [
-        "Parenting",
-        [
-          {
-            text: "Parenting",
-            value: draft_taxon_1_content_id,
+            text: "Employment > Employment is good > If you like your job > The end ",
+            value: employment_taxon_child_content_id,
             selected: false,
           },
         ],

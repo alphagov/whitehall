@@ -3,21 +3,11 @@ class TopicListSelectPresenter
   #  We are only going to show the branches which the dept has told us they will need to tag to.
   TAGGABLE_BRANCHES = [
     "/business-and-industry",
-    "/business-tax",
-    "/childcare-parenting",
-    "/defence",
-    "/defence-and-armed-forces",
-    "/education",
     "/employment",
-    "/environment",
-    "/government",
-    "/housing-and-local-government",
     "/money",
-    "/regional-and-local-government",
     "/society-and-culture",
-    "/transport",
+    "/environment",
     "/welfare",
-    "/work",
   ].freeze
 
   def initialize(taxonomy_topic_email_override = nil)
