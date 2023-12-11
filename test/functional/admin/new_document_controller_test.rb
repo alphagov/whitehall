@@ -42,6 +42,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
     refute_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]"
   end
+
   view_test "GET #index renders Fatality Notice radio button when the user's organisation is Ministry of Defence" do
     mod_organisation = create(:organisation, name: "ministry-of-defence", handles_fatalities: true)
 
@@ -50,6 +51,22 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]", count: 1
+  end
+
+  view_test "GET #index renders Worldwide Organisation Edition when the editionable_worldwide_organisations feature flag is enabled" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
+    get :index
+
+    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=editionable_worldwide_organisation]", count: 1
+  end
+
+  view_test "GET #index does not render Worldwide Organisation Edition when the editionable_worldwide_organisations feature flag is not enabled" do
+    feature_flags.switch! :editionable_worldwide_organisations, false
+
+    get :index
+
+    refute_select ".govuk-radios__item input[type=radio][name=new_document_options][value=editionable_worldwide_organisation]"
   end
 
   test "POST #new_document_options_redirect redirects each radio buttons to their expected paths" do
@@ -97,6 +114,7 @@ private
       "publication": new_admin_publication_path,
       "speech": new_admin_speech_path,
       "statistical_data_set": new_admin_statistical_data_set_path,
+      "editionable_worldwide_organisation": new_admin_editionable_worldwide_organisation_path,
     }
   end
 end
