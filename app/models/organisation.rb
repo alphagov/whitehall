@@ -37,7 +37,9 @@ class Organisation < ApplicationRecord
   has_many :statistics_announcement_organisations, inverse_of: :organisation, dependent: :destroy
   has_many :statistics_announcements, through: :statistics_announcement_organisations
 
-  has_many :organisation_roles, inverse_of: :organisation
+  has_many :organisation_roles,
+           -> { extending UserOrderableExtension },
+           inverse_of: :organisation
   has_many :roles, through: :organisation_roles
   has_many :ministerial_roles,
            -> { where("roles.whip_organisation_id IS null") },
@@ -82,7 +84,9 @@ class Organisation < ApplicationRecord
            through: :organisation_roles,
            source: :role
 
-  has_many :people, through: :roles
+  has_many :people,
+           -> { extending UserOrderableExtension },
+           through: :roles
 
   has_many :topical_event_organisations,
            -> { order("topical_event_organisations.ordering") },
@@ -130,7 +134,11 @@ class Organisation < ApplicationRecord
     contacts.where(contact_type_id: ContactType::FOI.id)
   end
 
-  has_many :promotional_features, -> { order(:ordering) }
+  has_many :promotional_features,
+           lambda {
+             (extending UserOrderableExtension)
+             .order(:ordering)
+           }
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
   accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
@@ -523,16 +531,6 @@ class Organisation < ApplicationRecord
       charity-commission
       hm-revenue-customs
     ]
-  end
-
-  def reorder_promotional_features(new_order)
-    promotional_features_orderings = promotional_features.map(&:ordering)
-
-    new_order.each do |promotional_feature_row|
-      id, ordering = promotional_feature_row
-      promotional_feature = promotional_features.find(id)
-      promotional_feature.update!(ordering: promotional_features_orderings[ordering.to_i - 1])
-    end
   end
 
   def base_path

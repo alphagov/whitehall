@@ -10,6 +10,7 @@
         margin_bottom: 4,
       } %>
       <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: "document_collection_group_memberships[ordering]",
         items: @group.memberships.map do |membership|
           {
             id: membership.id,

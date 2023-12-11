@@ -42,9 +42,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   def reorder; end
 
   def order
-    params[:ordering].each do |group_id, ordering|
-      @collection.groups.find(group_id).update_column(:ordering, ordering)
-    end
+    @collection.groups.reorder!(order_params)
 
     flash_message = "Group has been reordered"
     redirect_to admin_document_collection_groups_path(@collection), notice: flash_message
@@ -73,5 +71,9 @@ private
 
   def document_collection_group_params
     params.require(:document_collection_group).permit(:body, :heading)
+  end
+
+  def order_params
+    params.require(:document_collection_groups)["ordering"]
   end
 end

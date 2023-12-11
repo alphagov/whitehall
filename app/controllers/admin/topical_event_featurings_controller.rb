@@ -43,10 +43,7 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
   def reorder; end
 
   def order
-    params[:ordering].each do |topical_event_featuring_id, ordering|
-      @topical_event.topical_event_featurings.find(topical_event_featuring_id).update_column(:ordering, ordering)
-    end
-
+    @topical_event.topical_event_featurings.reorder_without_callbacks!(order_params)
     Whitehall::PublishingApi.republish_async(@topical_event)
 
     redirect_to polymorphic_path([:admin, @topical_event, :topical_event_featurings]), notice: "Featured items re-ordered"
@@ -105,5 +102,9 @@ private
       :offsite_link_id,
       image_attributes: %i[file],
     )
+  end
+
+  def order_params
+    params.require(:topical_event_featurings)["ordering"]
   end
 end

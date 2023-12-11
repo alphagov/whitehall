@@ -86,10 +86,12 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
 
     put :order,
         params: { topical_event_id: @topical_event,
-                  ordering: {
-                    feature1.id.to_s => "1",
-                    feature2.id.to_s => "2",
-                    feature3.id.to_s => "0",
+                  topical_event_featurings: {
+                    ordering: {
+                      feature1.id.to_s => "1",
+                      feature2.id.to_s => "2",
+                      feature3.id.to_s => "0",
+                    },
                   } }
 
     assert_response :redirect

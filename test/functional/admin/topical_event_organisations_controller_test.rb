@@ -74,10 +74,12 @@ class Admin::TopicalEventOrganisationsControllerTest < ActionController::TestCas
 
     put :order,
         params: { topical_event_id: @topical_event,
-                  ordering: {
-                    lead_topical_event_organisations[0].id.to_s => "1",
-                    lead_topical_event_organisations[1].id.to_s => "2",
-                    lead_topical_event_organisations[2].id.to_s => "0",
+                  topical_event_lead_organisations: {
+                    ordering: {
+                      lead_topical_event_organisations[0].id.to_s => "1",
+                      lead_topical_event_organisations[1].id.to_s => "2",
+                      lead_topical_event_organisations[2].id.to_s => "0",
+                    },
                   } }
 
     assert_response :redirect

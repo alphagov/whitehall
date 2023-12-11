@@ -18,10 +18,7 @@ class Admin::OrganisationPeopleController < Admin::BaseController
   end
 
   def order
-    params[:ordering].each do |organisation_role_id, ordering|
-      @organisation.organisation_roles.find(organisation_role_id).update_column(:ordering, ordering)
-    end
-
+    @organisation.organisation_roles.reorder!(order_params)
     Whitehall::PublishingApi.republish_async(@organisation)
 
     redirect_to admin_organisation_people_path(@organisation), notice: "#{params[:type].capitalize.gsub('_', ' ')} roles re-ordered"
@@ -40,5 +37,9 @@ private
 
   def load_organisation
     @organisation = Organisation.friendly.find(params[:organisation_id])
+  end
+
+  def order_params
+    params.require(:organisation_people)["ordering"]
   end
 end

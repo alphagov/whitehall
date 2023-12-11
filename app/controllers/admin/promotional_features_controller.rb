@@ -53,7 +53,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   end
 
   def update_order
-    @organisation.reorder_promotional_features(params[:ordering])
+    @organisation.promotional_features.reorder!(ordering_params)
     Whitehall::PublishingApi.republish_async(@organisation)
     flash[:notice] = "Promotional features reordered successfully"
 
@@ -86,6 +86,10 @@ private
         { links_attributes: %i[url text _destroy] },
       ],
     )
+  end
+
+  def ordering_params
+    params.require(:promotional_features)["ordering"]
   end
 
   def clean_image_or_youtube_video_url_param

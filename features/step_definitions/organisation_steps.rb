@@ -221,7 +221,7 @@ And(/^I set the order of roles for "([^"]*)" to:$/) do |organisation_name, role_
 
   role_order.hashes.each do |hash|
     organisation_role = organisation.organisation_roles.select { |f| f.role.name == hash[:name] }.first
-    fill_in "ordering[#{organisation_role.id}]", with: hash[:order]
+    fill_in "organisation_people[ordering][#{organisation_role.id}]", with: hash[:order]
   end
 
   click_button "Update order"

@@ -6,6 +6,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @organisation, url: update_order_admin_organisation_promotional_features_path(@organisation), method: :patch do |form| %>
       <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: "promotional_features[ordering]",
         items: @promotional_features.map do |promotional_feature|
           {
             id: promotional_feature.id,

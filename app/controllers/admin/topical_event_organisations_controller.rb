@@ -6,9 +6,7 @@ class Admin::TopicalEventOrganisationsController < Admin::BaseController
   def reorder; end
 
   def order
-    params[:ordering].each do |topical_event_organisation_id, ordering|
-      @topical_event.topical_event_organisations.where(lead: true).find(topical_event_organisation_id).update_column(:lead_ordering, ordering)
-    end
+    @topical_event.topical_event_organisations.reorder_without_callbacks!(order_params, :lead_ordering)
 
     Whitehall::PublishingApi.republish_async(@topical_event)
 
@@ -31,5 +29,9 @@ private
 
   def load_topical_event
     @topical_event = TopicalEvent.find(params[:topical_event_id])
+  end
+
+  def order_params
+    params.require(:topical_event_lead_organisations)["ordering"]
   end
 end
