@@ -49,14 +49,6 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     assert_equal file, storage.retrieve!("identifier")
   end
 
-  test "calls AssetManagerCreateAssetWorker when uploader is invoked for FeaturedImageData " do
-    featured_image_data = build(:featured_image_data)
-    @uploader.stubs(:model).returns(featured_image_data)
-    asset_params = { assetable_id: featured_image_data.id, asset_variant: "original", assetable_type: "FeaturedImageData" }.deep_stringify_keys
-    AssetManagerCreateAssetWorker.expects(:perform_async).once.with(anything, asset_params, nil, nil, nil, [])
-    @uploader.store!(@file)
-  end
-
   context "uploader model is AttachmentData" do
     setup do
       model = build(:attachment_data)
@@ -164,6 +156,16 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     end
   end
 
+  test "calls AssetManagerCreateAssetWorker when uploader is invoked for FeaturedImageData " do
+    featured_image_data = build(:featured_image_data)
+    @uploader.stubs(:model).returns(featured_image_data)
+    asset_params = { assetable_id: featured_image_data.id, asset_variant: "original", assetable_type: "FeaturedImageData" }.deep_stringify_keys
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).once.with(anything, asset_params, nil, nil, nil, [])
+
+    @uploader.store!(@file)
+  end
+
   context "uploader model is ConsultationResponseFormData" do
     test "creates a sidekiq job and passes through the auth_bypass_id and no attachable class and id" do
       model = ConsultationResponseFormData.new
@@ -257,7 +259,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     assert_nil model.file.url(:thumbnail)
   end
 
-  test "returns legacy path when the model has no assets, although it should (still uploading or error has occurred)" do
+  test "returns store path when the model has no assets, although it should (still uploading or error has occurred)" do
     model = build(:attachment_data_with_no_assets)
     model.save!
     model.reload
