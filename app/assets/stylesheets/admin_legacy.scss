@@ -1,7 +1,6 @@
 // stylelint-disable scss/at-import-partial-extension -- jquery ui naming
 // conventions trip this rule
 @import "govuk_admin_template";
-
 @import "jquery-ui/core";
 @import "jquery-ui/accordion";
 @import "jquery-ui/button";
@@ -16,5 +15,3 @@
 @import "jquery-ui/tabs";
 @import "jquery-ui/tooltip";
 @import "jquery-ui/theme";
-
-@import "admin_legacy/base";
