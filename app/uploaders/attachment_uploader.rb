@@ -243,8 +243,6 @@ class AttachmentUploader < WhitehallUploader
     raise CarrierWave::IntegrityError, problem.failure_message if problem
   end
 
-  delegate :asset_manager_path, to: :file
-
 private
 
   def use_fallback_pdf_thumbnail
