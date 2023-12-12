@@ -12,7 +12,7 @@ class AssetManager::AttachmentUpdater
     end
 
     attachment_data.assets.each do |asset|
-      AssetManager::AssetUpdater.call(asset.asset_manager_id, attachment_data, asset_attributes)
+      AssetManager::AssetUpdater.call(asset.asset_manager_id, asset_attributes)
     end
   end
 
@@ -24,7 +24,7 @@ class AssetManager::AttachmentUpdater
 
       next if replacement_id.nil?
 
-      AssetManager::AssetUpdater.call(asset.asset_manager_id, attachment_data, { "replacement_id" => replacement_id })
+      AssetManager::AssetUpdater.call(asset.asset_manager_id, { "replacement_id" => replacement_id })
     end
   end
 
@@ -32,7 +32,7 @@ class AssetManager::AttachmentUpdater
     return if attachment_data.deleted?
 
     attachment_data.assets.each do |asset|
-      AssetManager::AssetUpdater.call(asset.asset_manager_id, attachment_data, { "redirect_url" => attachment_data.redirect_url })
+      AssetManager::AssetUpdater.call(asset.asset_manager_id, { "redirect_url" => attachment_data.redirect_url })
     end
   end
 end

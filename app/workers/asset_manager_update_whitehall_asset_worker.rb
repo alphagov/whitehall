@@ -6,7 +6,7 @@ class AssetManagerUpdateWhitehallAssetWorker < WorkerBase
     asset_data = GlobalID::Locator.locate(model.to_global_id)
 
     asset_data.assets.each do |asset|
-      AssetManager::AssetUpdater.call(asset.asset_manager_id, asset_data, attributes)
+      AssetManager::AssetUpdater.call(asset.asset_manager_id, attributes)
     end
   rescue AssetManager::ServiceHelper::AssetNotFound,
          AssetManager::AssetUpdater::AssetAlreadyDeleted,
