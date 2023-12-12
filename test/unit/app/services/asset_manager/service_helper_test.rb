@@ -1,8 +1,6 @@
 require "test_helper"
 
 class AssetManager::ServiceHelperTest < ActiveSupport::TestCase
-  extend Minitest::Spec::DSL
-
   setup do
     @asset_manager_id = "asset-id"
     @asset_url = "http://asset-manager/assets/#{@asset_manager_id}"
@@ -10,32 +8,30 @@ class AssetManager::ServiceHelperTest < ActiveSupport::TestCase
     @worker.extend(AssetManager::ServiceHelper)
   end
 
-  describe "find_asset_by_id" do
-    test "returns attributes including asset URL" do
-      Services.asset_manager.stubs(:asset).with(@asset_manager_id)
-              .returns(gds_api_response("id" => @asset_url))
+  test "returns attributes including asset URL" do
+    Services.asset_manager.stubs(:asset).with(@asset_manager_id)
+            .returns(gds_api_response("id" => @asset_url))
 
-      response = @worker.send(:find_asset_by_id, @asset_manager_id)
+    response = @worker.send(:find_asset_by_id, @asset_manager_id)
 
-      assert_equal @asset_url, response["id"]
-    end
+    assert_equal @asset_url, response["id"]
+  end
 
-    test "returns other attributes" do
-      Services.asset_manager.stubs(:asset).with(@asset_manager_id)
-              .returns(gds_api_response("id" => @asset_url, "key" => "value"))
+  test "returns other attributes" do
+    Services.asset_manager.stubs(:asset).with(@asset_manager_id)
+            .returns(gds_api_response("id" => @asset_url, "key" => "value"))
 
-      attributes = @worker.send(:find_asset_by_id, @asset_manager_id)
+    attributes = @worker.send(:find_asset_by_id, @asset_manager_id)
 
-      assert_equal "value", attributes["key"]
-    end
+    assert_equal "value", attributes["key"]
+  end
 
-    test "raises AssetNotFound when an asset is not available" do
-      Services.asset_manager.stubs(:asset).with(@asset_manager_id)
-              .raises(GdsApi::HTTPNotFound.new(404))
+  test "raises AssetNotFound when an asset is not available" do
+    Services.asset_manager.stubs(:asset).with(@asset_manager_id)
+            .raises(GdsApi::HTTPNotFound.new(404))
 
-      assert_raises AssetManager::ServiceHelper::AssetNotFound do
-        @worker.send(:find_asset_by_id, @asset_manager_id)
-      end
+    assert_raises AssetManager::ServiceHelper::AssetNotFound do
+      @worker.send(:find_asset_by_id, @asset_manager_id)
     end
   end
 
