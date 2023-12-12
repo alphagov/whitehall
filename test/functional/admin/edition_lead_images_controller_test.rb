@@ -7,11 +7,7 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     image = build(:image)
     edition = create(:draft_case_study, images: [image])
 
-    Whitehall::PublishingApi
-    .expects(:save_draft)
-    .with(edition)
-    .returns(true)
-    .once
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id).once
 
     get :update, params: { edition_id: edition.id, id: image.id }
 
@@ -30,10 +26,6 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     edition.change_note = nil
     edition.save!(validate: false)
 
-    Whitehall::PublishingApi
-    .expects(:save_draft)
-    .never
-
     get :update, params: { edition_id: edition.id, id: image.id }
 
     assert_nil edition.reload.lead_image
@@ -47,10 +39,6 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     published_edition = create(:published_case_study)
     image = build(:image)
     edition = create(:draft_case_study, images: [image], document: published_edition.document, body: "!!1")
-
-    Whitehall::PublishingApi
-    .expects(:save_draft)
-    .never
 
     get :update, params: { edition_id: edition.id, id: image.id }
 

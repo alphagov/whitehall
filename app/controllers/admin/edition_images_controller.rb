@@ -10,12 +10,14 @@ class Admin::EditionImagesController < Admin::BaseController
     filename = image.image_data.carrierwave_image
     image.destroy!
     @edition.update_lead_image if @edition.can_have_custom_lead_image?
+    PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
 
     redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
   end
 
   def update
     if image.update(params.require(:image).permit(:caption, :alt_text))
+      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       redirect_to admin_edition_images_path(@edition), notice: "#{image.image_data.carrierwave_image} details updated"
     else
       render :edit
@@ -32,6 +34,7 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if @new_image.save
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
+      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
     elsif new_image_needs_cropping?
       @data_url = image_data_url
