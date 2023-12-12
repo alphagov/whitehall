@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_30_160710) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_102233) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -471,7 +471,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_160710) do
   create_table "features", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.integer "document_id"
     t.integer "feature_list_id"
-    t.string "carrierwave_image"
     t.string "alt_text"
     t.integer "ordering"
     t.datetime "started_at", precision: nil
