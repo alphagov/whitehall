@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_12_102233) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_165213) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -482,16 +482,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_12_102233) do
     t.index ["feature_list_id"], name: "index_features_on_feature_list_id"
     t.index ["offsite_link_id"], name: "index_features_on_offsite_link_id"
     t.index ["ordering"], name: "index_features_on_ordering"
-  end
-
-  create_table "financial_reports", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
-    t.integer "organisation_id"
-    t.bigint "funding"
-    t.bigint "spending"
-    t.integer "year"
-    t.index ["organisation_id", "year"], name: "index_financial_reports_on_organisation_id_and_year", unique: true
-    t.index ["organisation_id"], name: "index_financial_reports_on_organisation_id"
-    t.index ["year"], name: "index_financial_reports_on_year"
   end
 
   create_table "flipflop_features", charset: "utf8mb3", force: :cascade do |t|
