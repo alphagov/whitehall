@@ -15,28 +15,6 @@ module Admin::OrganisationHelper
     end
   end
 
-  def organisation_tabs(organisation)
-    tabs = {
-      "Details" => admin_organisation_path(organisation),
-      "Contacts" => admin_organisation_contacts_path(organisation),
-    }
-    if organisation.type.allowed_promotional?
-      tabs["Promotional features"] = admin_organisation_promotional_features_path(organisation)
-    end
-
-    tabs["Features"] = features_admin_organisation_path(organisation, locale: I18n.default_locale)
-    organisation.non_english_translated_locales.each do |locale|
-      tabs["Features (#{locale.native_language_name})"] = features_admin_organisation_path(organisation, locale: locale.code)
-    end
-    tabs["Corporate information pages"] = admin_organisation_corporate_information_pages_path(organisation)
-    tabs["More"] = {
-      "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
-      "People" => admin_organisation_people_path(organisation),
-      "Translations" => admin_organisation_translations_path(organisation),
-    }
-    tabs
-  end
-
   def organisation_nav_items(organisation, current_path)
     tabs = [
       {
