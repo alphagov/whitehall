@@ -51,7 +51,9 @@
           },
           {
             field: "Image",
-            value: (image_tag(@person.image.url(:s300)) + tag.span("Image present", class: "govuk-visually-hidden") if @person.image&.url),
+            value: if @person.image&.url
+                     @person.image.all_asset_variants_uploaded? ? (image_tag(@person.image.url(:s300)) + tag.span("Image present", class: "govuk-visually-hidden")) : tag.span("Processing", class: "govuk-tag govuk-tag--green")
+                   end,
           },
           {
             field: "Biography",

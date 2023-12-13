@@ -17,7 +17,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   def create
     if @worldwide_organisation.update(worldwide_organisation_params)
-      redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation created successfully"
+      redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation created successfully."
     else
       @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
       render :new
@@ -30,7 +30,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   def update
     if @worldwide_organisation.update(worldwide_organisation_params)
-      redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation updated successfully"
+      redirect_to admin_worldwide_organisation_path(@worldwide_organisation), notice: "Organisation updated successfully."
     else
       @worldwide_organisation.build_default_news_image if @worldwide_organisation.default_news_image.blank?
       render :edit
@@ -42,6 +42,10 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
                   .versions_desc
                   .page(params[:page])
                   .per(VERSIONS_PER_PAGE)
+
+    if @worldwide_organisation.default_news_image && !@worldwide_organisation.default_news_image&.all_asset_variants_uploaded?
+      flash.now.notice = "#{flash[:notice]} The image is being processed. Try refreshing the page."
+    end
   end
 
   def choose_main_office; end

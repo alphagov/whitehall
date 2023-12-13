@@ -71,6 +71,16 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert link.is_a?(PromotionalFeatureLink)
   end
 
+  view_test "GET :edit shows processing label if image assets are not available" do
+    promotional_feature_item = build(:promotional_feature_item, promotional_feature: @promotional_feature)
+    promotional_feature_item.assets = []
+    promotional_feature_item.save!
+
+    get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+  end
+
   test "PUT :update updates the item and does not delete the old image from the asset store" do
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])

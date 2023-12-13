@@ -6,7 +6,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
   test "renders the correct default fields" do
-    image = build_stubbed(:image, caption: "caption", alt_text: "alt text")
+    image = build_stubbed(:image, image_data: build(:image_data), caption: "caption", alt_text: "alt text")
     edition = build_stubbed(:draft_publication, images: [image])
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
 
@@ -77,12 +77,13 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     assert_selector "input[value='!!3']"
   end
 
-  test "renders a processing tag if the lead image if all assets aren't uploaded" do
+  test "renders a processing tag if not all lead image assets are uploaded" do
     image = build_stubbed(:image, image_data: build_stubbed(:image_data_with_no_assets))
     edition = build_stubbed(:draft_news_article, images: [image])
 
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
 
+    assert_selector ".app-view-edition-resource__preview", count: 0
     assert_selector ".govuk-tag", text: "Processing"
   end
 

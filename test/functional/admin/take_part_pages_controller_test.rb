@@ -66,6 +66,17 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
     assert_template "edit"
   end
 
+  view_test "GET :edit shows processing label if image assets are not available" do
+    page = build(:take_part_page)
+    page.image.assets = []
+    page.save!
+
+    get :edit, params: { id: page }
+
+    refute_select "img[src='#{page.image.url}']"
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+  end
+
   test "PUT :update changes the supplied instance with the supplied params" do
     attrs = attributes_for(:take_part_page, title: "Wear a monocle!")
     page = create(:take_part_page, title: "Drink in a gin palace!")

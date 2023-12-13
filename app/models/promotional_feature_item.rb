@@ -41,7 +41,9 @@ class PromotionalFeatureItem < ApplicationRecord
     asset_variants = assets.map(&:variant).map(&:to_sym)
     required_variants = FeaturedImageUploader.versions.keys.push(:original)
 
-    (required_variants - asset_variants).empty?
+    return false if (required_variants - asset_variants).any?
+
+    assets_match_updated_image_filename
   end
 
   def republish_on_assets_ready
@@ -58,5 +60,9 @@ private
 
   def republish_organisation
     organisation.republish_to_publishing_api_async
+  end
+
+  def assets_match_updated_image_filename
+    assets.reject { |asset| asset.filename.include?(self[:image]) }.empty?
   end
 end

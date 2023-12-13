@@ -53,6 +53,18 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
     assert_equal promotional_feature, assigns(:promotional_feature)
   end
 
+  view_test "GET :show displays processing label if item image assets are not available" do
+    promotional_feature = create(:promotional_feature, organisation: @organisation)
+    promotional_feature_item = build(:promotional_feature_item, promotional_feature:, summary: "Old summary")
+    promotional_feature_item.assets = []
+    promotional_feature_item.save!
+
+    get :show, params: { organisation_id: @organisation, id: promotional_feature }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+    assert_match(/The image is being processed. Try refreshing the page./, flash[:notice])
+  end
+
   test "GET :edit loads the promotional feature and renders the template" do
     promotional_feature = create(:promotional_feature, organisation: @organisation)
     get :edit, params: { organisation_id: @organisation, id: promotional_feature }

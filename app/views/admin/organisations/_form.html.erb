@@ -67,6 +67,7 @@
       image_src: organisation.logo.url,
       image_cache_name: "organisation[logo_cache]",
       image_cache: organisation.logo_cache.presence,
+      image_uploaded: organisation.all_asset_variants_uploaded?,
     } %>
   </div>
 
@@ -100,6 +101,7 @@
       image_src: organisation.default_news_image.url,
       image_cache_name: "organisation[default_news_image_attributes][file_cache]",
       image_cache: (organisation.default_news_image.file_cache.presence),
+      image_uploaded: organisation.default_news_image.all_asset_variants_uploaded?,
     } %>
   <% end %>
 

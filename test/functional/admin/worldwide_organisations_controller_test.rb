@@ -29,7 +29,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
     worldwide_organisation = WorldwideOrganisation.last
     assert_kind_of WorldwideOrganisation, worldwide_organisation
-    assert_equal "Organisation created successfully", flash[:notice]
+    assert_equal "Organisation created successfully.", flash[:notice]
     assert_equal "Organisation", worldwide_organisation.name
 
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
@@ -51,6 +51,16 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     get :edit, params: { id: organisation.id }
   end
 
+  view_test "GET :edit shows processing label if default news image assets are not available" do
+    organisation = build(:worldwide_organisation, :with_default_news_image)
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :edit, params: { id: organisation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+  end
+
   test "updates an existing objects with new values" do
     organisation = create(:worldwide_organisation)
     put :update,
@@ -66,7 +76,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     worldwide_organisation = WorldwideOrganisation.last
     assert_equal "New name", worldwide_organisation.name
     assert_equal "minister-of-funk.960x640.jpg", worldwide_organisation.default_news_image.file.file.filename
-    assert_equal "Organisation updated successfully", flash[:notice]
+    assert_equal "Organisation updated successfully.", flash[:notice]
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
 
@@ -138,6 +148,17 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_equal organisation, assigns(:worldwide_organisation)
+  end
+
+  view_test "GET on :show displays processing label if image assets are not available" do
+    organisation = build(:worldwide_organisation, :with_default_news_image)
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :show, params: { id: organisation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+    assert_match(/The image is being processed. Try refreshing the page./, flash[:notice])
   end
 
   test "PUT :update - discards default new organisation image cache if file is present " do

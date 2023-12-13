@@ -246,18 +246,14 @@ module PublishingApi::CallForEvidencePresenterTest
 
   class OpenCallForEvidenceWithParticipationTest < TestCase
     setup do
-      response_form_data_attributes = attributes_for(
-        :call_for_evidence_response_form_data,
-      )
+      response_form_data = build(:call_for_evidence_response_form_data)
 
-      response_form_attributes = attributes_for(
-        :call_for_evidence_response_form,
-        call_for_evidence_response_form_data_attributes: response_form_data_attributes,
-      )
+      response_form = build(:call_for_evidence_response_form,
+                            call_for_evidence_response_form_data: response_form_data)
 
-      @participation = create(
+      @participation = build(
         :call_for_evidence_participation,
-        call_for_evidence_response_form_attributes: response_form_attributes,
+        call_for_evidence_response_form: response_form,
         email: "postmaster@example.com",
         link_url: "http://www.example.com",
         postal_address: <<-ADDRESS.strip_heredoc.chop,

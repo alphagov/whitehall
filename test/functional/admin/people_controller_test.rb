@@ -38,6 +38,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_equal attributes[:surname], person.surname
     assert_equal attributes[:letters], person.letters
     assert_equal attributes[:biography], person.biography
+    assert_equal "\"#{person.name}\" created.", flash[:notice]
   end
 
   test "creating with valid data redirects to the index" do
@@ -67,8 +68,8 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   view_test "GET on :show displays the users information in a summary list component and renders delete and edit link" do
     person = create(
       :person,
-      forename: "Rishi",
-      surname: "Sunak",
+      forename: "Dave",
+      surname: "David",
       privy_counsellor: true,
       title: "Mr",
       letters: "OBE",
@@ -82,15 +83,27 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Title"
     assert_select ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: "Mr"
     assert_select ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "Forename"
-    assert_select ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: "Rishi"
+    assert_select ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: "Dave"
     assert_select ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Surname"
-    assert_select ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "Sunak"
+    assert_select ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "David"
     assert_select ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Letters"
     assert_select ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: "OBE"
     assert_select ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Biography"
     assert_select ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "He is the PM."
     assert_select ".govuk-summary-list__actions-list a[href='#{edit_admin_person_path(person)}']", text: /Edit Details/
     assert_select ".govuk-summary-list__actions-list a[href='#{confirm_destroy_admin_person_path(person)}']", text: "Delete Details"
+  end
+
+  view_test "GET on :show displays the image row with a processing label if image assets are still uploading" do
+    person = build(:person, :with_image, forename: "Forename", surname: "Surname")
+    person.image.assets = []
+    person.save!
+
+    get :show, params: { id: person }
+
+    assert_select ".govuk-summary-list__row .govuk-summary-list__key", text: "Image"
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+    assert_match(/The image is being processed. Try refreshing the page./, flash[:notice])
   end
 
   view_test "editing shows form for editing a person" do
@@ -112,6 +125,16 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     get :edit, params: { id: person }
 
     assert_select "img[src='#{person.image.url}']"
+  end
+
+  view_test "editing shows processing label if image assets are not available" do
+    person = build(:person, :with_image)
+    person.image.assets = []
+    person.save!
+
+    get :edit, params: { id: person }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
   end
 
   view_test "updating with invalid data shows errors" do

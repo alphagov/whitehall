@@ -66,6 +66,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
          }
 
     assert_redirected_to admin_organisations_path
+    assert_equal "Organisation created successfully.", flash[:notice]
     assert organisation = Organisation.last
     assert organisation.topical_event_organisations.map(&:ordering).all?(&:present?), "no ordering"
     assert_equal organisation.topical_event_organisations.map(&:ordering).sort, organisation.topical_event_organisations.map(&:ordering).uniq.sort
@@ -118,6 +119,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_template :show
   end
 
+  view_test "GET on :show displays processing label if image assets are not available" do
+    organisation = build(:organisation, :with_default_news_image)
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :show, params: { id: organisation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+  end
+
   test "GET on :edit loads the organisation and renders the edit template" do
     organisation = create(:organisation)
     get :edit, params: { id: organisation }
@@ -163,6 +174,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     expected_hidden_field_name = "organisation[default_news_image_attributes][id]"
     expected_hidden_field_value = organisation.default_news_image.id
     assert_select "input[name='#{expected_hidden_field_name}'][value='#{expected_hidden_field_value}']"
+  end
+
+  view_test "GET :edit shows processing label if logo or default news image assets are not available" do
+    organisation = build(:organisation, :with_default_news_image, :with_logo_and_assets)
+    organisation.assets = []
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :edit, params: { id: organisation }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 2
   end
 
   test "PUT on :update allows updating of organisation role ordering" do
@@ -272,6 +294,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     put :update, params: { id: organisation, organisation: organisation_attributes }
 
+    assert_redirected_to admin_organisation_path(organisation)
+    assert_equal "Organisation updated successfully.", flash[:notice]
     organisation.reload
     assert_equal "Ministry of Noise", organisation.name
   end
@@ -312,6 +336,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_equal "New title", featured_link.reload.title
+  end
+
+  test "GET on :show displays 'image is being processed' flash notice when not all image assets are uploaded" do
+    organisation = build(:organisation, :with_default_news_image)
+    organisation.default_news_image.assets = []
+    organisation.save!
+
+    get :show, params: { id: organisation }
+
+    assert_match(/The image is being processed. Try refreshing the page./, flash[:notice])
   end
 
   view_test "Prevents unauthorized management of homepage priority" do

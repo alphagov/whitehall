@@ -25,7 +25,11 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     end
   end
 
-  def show; end
+  def show
+    if @promotional_feature.promotional_feature_items.select { |pfi| pfi.image.present? && !pfi.all_asset_variants_uploaded? }.any?
+      flash.now.notice = "#{flash[:notice]} The image is being processed. Try refreshing the page."
+    end
+  end
 
   def edit; end
 

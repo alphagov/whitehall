@@ -12,6 +12,7 @@
   image_id ||= "#{id}_image"
   image_cache_name ||= "#{name}[image_cache]"
   remove_alt_text_field ||= false
+  image_uploaded ||= false
 
   root_classes = %w(app-c-single-image-upload govuk-form-group)
 %>
@@ -40,7 +41,11 @@
     <% else %>
       <div class="govuk-grid-row app-c-single-image-upload__uploaded-image">
         <div class="govuk-grid-column-one-quarter">
-          <img src="<%= image_src %>" alt="" class="app-view-edition-resource__preview">
+          <% if image_uploaded %>
+            <img src="<%= image_src %>" alt="" class="app-view-edition-resource__preview">
+          <% else %>
+            <span class="govuk-tag govuk-tag--green">Processing</span>
+          <% end %>
         </div>
         <% unless remove_alt_text_field %>
           <div class="govuk-grid-column-three-quarters">

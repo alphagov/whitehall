@@ -65,7 +65,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
   end
 
   test "renders default news image row if the organisation has a default news image" do
-    news_image = build_stubbed(:featured_image_data)
+    news_image = build(:featured_image_data)
     organisation = build_stubbed(:ministerial_department, default_news_image: news_image)
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))

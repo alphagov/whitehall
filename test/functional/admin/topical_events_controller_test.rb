@@ -119,6 +119,16 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     assert_select "input[name='#{expected_hidden_field_name}'][value='#{expected_hidden_field_value}']"
   end
 
+  view_test "GET :edit shows processing label if logo assets are not available" do
+    topical_event = build(:topical_event, :with_logo)
+    topical_event.logo.assets = []
+    topical_event.save!
+
+    get :edit, params: { id: topical_event }
+
+    assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
+  end
+
   test "PUT :update saves changes to the topical event" do
     topical_event = create(:topical_event, :with_logo)
     logo = topical_event.logo
