@@ -32,14 +32,14 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @asset_params, true)
   end
 
-  test "removes the file after it has been successfully uploaded" do
+  test "removes the local temp file after the file has been successfully uploaded" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
     @worker.perform(@file.path, @asset_params)
     assert_not File.exist?(@file.path)
   end
 
-  test "removes the directory after it has been successfully uploaded" do
+  test "removes the local temp directory after the file has been successfully uploaded" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
     @worker.perform(@file.path, @asset_params)
@@ -198,5 +198,16 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     FeaturedImageData.any_instance.expects(:republish_on_assets_ready).once
 
     @worker.perform(@file.path, asset_params, true, nil, nil)
+  end
+
+  test "should not process the file if the attachable has been deleted" do
+    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: true)
+    consultation.delete
+    consultation.save!(validate: false)
+
+    Sidekiq.logger.expects(:info).once
+    Services.asset_manager.expects(:create_asset).never
+
+    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 end

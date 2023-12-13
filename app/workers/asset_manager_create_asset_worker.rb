@@ -15,6 +15,10 @@ class AssetManagerCreateAssetWorker < WorkerBase
 
     return logger.info("Assetable #{assetable_type} of id #{assetable_id} does not exist") unless assetable_type.constantize.where(id: assetable_id).exists?
 
+    if attachable_model_class && attachable_model_id && !attachable_model_class.constantize.where(id: attachable_model_id).exists?
+      return logger.info("Attachable #{attachable_model_class} of id #{attachable_model_id} does not exist")
+    end
+
     asset_options = { file:, auth_bypass_ids:, draft: }
     authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
     asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
