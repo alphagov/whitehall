@@ -42,6 +42,36 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
     end
+
+    context "when a draft edition is present and invalid" do
+      let(:draft_edition) { build(:draft_edition, change_note: nil, minor_change: false) }
+
+      it "republishes the live edition, but doesn't republish the draft edition" do
+        Whitehall::PublishingApi
+        .expects(:patch_links)
+        .with(live_edition, bulk_publishing: false)
+
+        Whitehall::PublishingApi
+          .expects(:publish)
+          .with(live_edition, "republish", bulk_publishing: false)
+
+        ServiceListeners::PublishingApiHtmlAttachments
+          .expects(:process)
+          .with(live_edition, "republish")
+
+        Whitehall::PublishingApi
+          .expects(:save_draft)
+          .with(draft_edition, "republish", bulk_publishing: false)
+          .never
+
+        ServiceListeners::PublishingApiHtmlAttachments
+        .expects(:process)
+        .with(draft_edition, "republish")
+        .never
+
+        PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+      end
+    end
   end
 
   context "when the document is published with no draft" do
@@ -198,6 +228,42 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
         .in_sequence(unpublish_then_send_draft)
 
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    end
+
+    context "when a draft edition is invalid" do
+      let(:draft_edition) { build(:draft_edition, change_note: nil, minor_change: false) }
+
+      it "does not republish the draft edition" do
+        Whitehall::PublishingApi
+        .expects(:patch_links)
+        .with(document.latest_edition, bulk_publishing: false)
+
+        PublishingApiUnpublishingWorker
+          .expects(:new)
+          .returns(unpublishing_worker = mock)
+
+        unpublished_edition = document.editions.unpublished.last
+
+        unpublishing_worker
+          .expects(:perform)
+          .with(unpublished_edition.unpublishing.id, false)
+
+        ServiceListeners::PublishingApiHtmlAttachments
+          .expects(:process)
+          .with(unpublished_edition, "republish")
+
+        Whitehall::PublishingApi
+          .expects(:save_draft)
+          .with(draft_edition, "republish", bulk_publishing: false)
+          .never
+
+        ServiceListeners::PublishingApiHtmlAttachments
+          .expects(:process)
+          .with(draft_edition, "republish")
+          .never
+
+        PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+      end
     end
   end
 

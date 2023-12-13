@@ -13,6 +13,7 @@ class Admin::ConsultationResponsesController < Admin::BaseController
     @response = response_class.new(response_params)
     @response.consultation = @edition
     if @response.save
+      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} saved"
     else
       render :show
@@ -23,6 +24,7 @@ class Admin::ConsultationResponsesController < Admin::BaseController
 
   def update
     if @response.update(response_params)
+      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} updated"
     else
       render :edit

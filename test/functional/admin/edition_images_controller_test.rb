@@ -32,6 +32,8 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     edition = create(:news_article)
 
     file = upload_fixture("images/960x640_jpeg.jpg")
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id).once
+
     post admin_edition_images_path(edition), params: { image: { image_data: { file: } } }
 
     follow_redirect!
@@ -107,6 +109,8 @@ class Admin::EditionImagesControllerTest < ActionDispatch::IntegrationTest
     image2 = build(:image)
     edition = create(:draft_case_study, images: [image1, image2])
     create(:edition_lead_image, edition:, image: image1)
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id).once
 
     delete admin_edition_image_path(edition, image1), params: { edition_id: edition.id, id: image1.id }
 

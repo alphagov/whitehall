@@ -10,6 +10,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     membership = DocumentCollectionGroupMembership.new(document: @document, document_collection_group: @group)
     redirect_path = admin_document_collection_group_document_collection_group_memberships_path(@collection, @group)
     if membership.save
+      PublishingApiDocumentRepublishingWorker.perform_async(@collection.document_id)
       title = @document.latest_edition.title
       redirect_to redirect_path,
                   notice: "'#{title}' added to '#{@group.heading}'"
@@ -25,6 +26,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
       document_collection_group: @group,
     )
     if govuk_link.save
+      PublishingApiDocumentRepublishingWorker.perform_async(@collection.document_id)
       redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
                   notice: "'#{govuk_link.title}' added to '#{@group.heading}'"
     else
@@ -37,6 +39,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
 
   def destroy
     @membership.destroy!
+    PublishingApiDocumentRepublishingWorker.perform_async(@collection.document_id)
     redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection, @group),
                 notice: "Document has been removed from the group"
   end
@@ -45,6 +48,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
 
   def order
     @group.memberships.reorder!(order_params)
+    PublishingApiDocumentRepublishingWorker.perform_async(@collection.document_id)
 
     flash_message = "Document has been reordered"
     redirect_to admin_document_collection_group_document_collection_group_memberships_path(@collection), notice: flash_message

@@ -103,6 +103,8 @@ private
   end
 
   def send_draft_edition
+    return unless pre_publication_edition.valid?
+
     Whitehall::PublishingApi.save_draft(
       pre_publication_edition,
       "republish",

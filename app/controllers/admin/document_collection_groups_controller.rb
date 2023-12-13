@@ -20,6 +20,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   def create
     @group = @collection.groups.build(document_collection_group_params)
     if @group.save
+      PublishingApiDocumentRepublishingWorker.perform_async(@collection.document_id)
       flash_message = "New group has been created"
       redirect_to admin_document_collection_groups_path(@collection),
                   notice: flash_message
@@ -32,6 +33,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def update
     @group.update!(document_collection_group_params)
+    PublishingApiDocumentRepublishingWorker.perform_async(@collection.document_id)
     flash_message = "Group details have been updated"
     redirect_to admin_document_collection_groups_path(@collection),
                 notice: flash_message
@@ -43,6 +45,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def order
     @collection.groups.reorder!(order_params)
+    PublishingApiDocumentRepublishingWorker.perform_async(@collection.document_id)
 
     flash_message = "Group has been reordered"
     redirect_to admin_document_collection_groups_path(@collection), notice: flash_message
@@ -50,6 +53,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def destroy
     @group.destroy!
+    PublishingApiDocumentRepublishingWorker.perform_async(@collection.document_id)
     flash_message = "Group has been deleted"
     redirect_to admin_document_collection_groups_path(@collection),
                 notice: flash_message

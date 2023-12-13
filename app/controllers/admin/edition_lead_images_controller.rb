@@ -5,11 +5,11 @@ class Admin::EditionLeadImagesController < Admin::BaseController
     edition_lead_image = @edition.edition_lead_image || @edition.build_edition_lead_image
     edition_lead_image.assign_attributes(edition_lead_image_params)
 
-    if updater.can_perform? && edition_lead_image.save!
-      updater.perform!
+    if @edition.valid? && edition_lead_image.save!
+      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       redirect_to admin_edition_images_path(@edition), notice: "Lead image updated to #{@image.image_data.carrierwave_image}"
     else
-      redirect_to admin_edition_images_path(@edition), alert: updater.failure_reason
+      redirect_to admin_edition_images_path(@edition), alert: "This edition is invalid: #{@edition.errors.full_messages.to_sentence}"
     end
   end
 
@@ -36,9 +36,5 @@ private
         image_display_option: "custom_image",
       },
     }
-  end
-
-  def updater
-    @updater ||= Whitehall.edition_services.draft_updater(@edition)
   end
 end
