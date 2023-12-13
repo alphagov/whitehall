@@ -16,8 +16,8 @@
 rewhere_warning = "no longer maintain both conditions, and will be replaced by "\
 "the latter in Rails 6.2. To migrate to Rails 6.2's behavior, "\
 "use `relation.merge(other, rewhere: true)`."
-ActiveSupport::Deprecation.behavior = lambda do |msg, _stack|
+Rails.application.deprecators.behavior = lambda do |msg, _stack|
   unless msg.include?(rewhere_warning)
-    ActiveSupport::Deprecation.behavior = :stderr
+    Rails.application.deprecators.behavior = :stderr
   end
 end
