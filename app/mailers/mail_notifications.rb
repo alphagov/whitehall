@@ -4,6 +4,7 @@ class MailNotifications < ApplicationMailer
   include Admin::EditionRoutesHelper
 
   default from: "<winston@alphagov.co.uk>"
+  CONTENT_SECOND_LINE_EMAIL_ADDRESS = "second-line-content@digital.cabinet-office.gov.uk".freeze
 
   def fact_check_request(request, url_options)
     @fact_check_request = request
@@ -55,7 +56,7 @@ class MailNotifications < ApplicationMailer
     @user = user
     subject = "Account holder #{@user.name} (#{user.email}) has published to live"
     view_mail template_id,
-              to: content_second_line_email_address,
+              to: CONTENT_SECOND_LINE_EMAIL_ADDRESS,
               subject:
   end
 
@@ -107,33 +108,5 @@ class MailNotifications < ApplicationMailer
     view_mail template_id,
               to: recipient_address,
               subject: "#{edition.format_name.capitalize} '#{edition.title}' has reached its set review date"
-  end
-
-  helper_method :production?
-
-  def production?
-    GovukAdminTemplate.environment_style == "production"
-  end
-
-private
-
-  def no_reply_email_address
-    name = "GOV.UK publishing"
-    unless production?
-      name.prepend("[GOV.UK #{GovukAdminTemplate.environment_label}] ")
-    end
-
-    email_address = "inside-government@digital.cabinet-office.gov.uk"
-    unless production?
-      email_address = "inside-government+#{GovukAdminTemplate.environment_style}@digital.cabinet-office.gov.uk"
-    end
-
-    address = Mail::Address.new(email_address)
-    address.display_name = name
-    address.format
-  end
-
-  def content_second_line_email_address
-    "second-line-content@digital.cabinet-office.gov.uk"
   end
 end

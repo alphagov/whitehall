@@ -9,7 +9,7 @@ class NotificationsEditionPublishedByMonitoredUserTest < ActionMailer::TestCase
   end
 
   test "email should be sent to the content second line email address" do
-    assert_equal [MailNotifications.new.send(:content_second_line_email_address)], @mail.to
+    assert_equal [MailNotifications::CONTENT_SECOND_LINE_EMAIL_ADDRESS], @mail.to
   end
 
   test "email subject should include the name and email address of the user" do
