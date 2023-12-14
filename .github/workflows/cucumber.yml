@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        node_rake_task: ["cucumber:ok"]
     steps:
       - name: Setup MySQL
         id: setup-mysql
@@ -45,7 +43,7 @@ jobs:
         env:
           RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec rake ${{ matrix.node_rake_task }}
+        run: bundle exec rake cucumber
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
@@ -53,10 +51,3 @@ jobs:
         with:
           name: capybara-screenshots
           path: tmp/capybara/capybara-*.png
-
-  run-cucumber:
-    name: Run Cucumber
-    needs: feature-test-matrix
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "All feature tests have passed 🚀"
