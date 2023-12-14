@@ -1,6 +1,6 @@
 class LinkCheckerApiReport::Link < ApplicationRecord
-  serialize :check_errors, Array
-  serialize :check_warnings, Array
+  serialize :check_errors, coder: YAML, type: Array
+  serialize :check_warnings, coder: YAML, type: Array
 
   belongs_to :report, class_name: "LinkCheckerApiReport"
 

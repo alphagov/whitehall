@@ -23,7 +23,9 @@ module Whitehall
 
     require "whitehall"
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
+
+    # config.active_support.cache_format_version = 7.1
 
     # Disable rails 7.0+ button_to behaviour
     config.action_view.button_to_generates_button_tag = false
@@ -32,6 +34,24 @@ module Whitehall
     config.active_record.belongs_to_required_by_default = false
     # Support for inversing belongs_to -> has_many Active Record associations.
     config.active_record.has_many_inversing = false
+
+    # Run after_commit callbacks on the first of multiple Active Record
+    # instances to save changes to the same database row within a transaction.
+    # If false, run these callbacks on the instance most likely to have internal
+    # state which matches what was committed to the database, typically the last
+    # instance to save. This is the default in Rails 7.1, but breaks some Whitehall
+    # flows.
+    config.active_record.run_commit_callbacks_on_first_saved_instances_in_transaction = true
+
+    # Disable before_committed! callbacks on all enrolled records in a transaction.
+    # The new behavior is to only run the callbacks on the first copy of a record
+    # if there are multiple copies of the same record enrolled in the transaction.
+    # However, that causes problems for some of Whitehall's callback logic
+    config.active_record.before_committed_on_all_records = false
+
+    # Run `after_commit` and `after_*_commit` callbacks in the inverse order they are defined in a model.
+    # In versions >= 7.1 of Rails, they run in the order they are defined by default.
+    config.active_record.run_after_transaction_callbacks_in_order_defined = false
 
     config.action_controller.per_form_csrf_tokens = false
 
