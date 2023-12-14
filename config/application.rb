@@ -69,7 +69,7 @@ module Whitehall
     config.autoload_lib(ignore: %w[assets tasks])
 
     config.action_mailer.notify_settings = {
-      api_key: Rails.application.secrets.notify_api_key || "fake-test-api-key",
+      api_key: Rails.application.credentials.notify_api_key || "fake-test-api-key",
     }
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -117,10 +117,6 @@ module Whitehall
 
     # Serve error pages from app instead of static pages
     config.exceptions_app = routes
-
-    unless Rails.application.secrets.jwt_auth_secret
-      raise "JWT auth secret is not configured. See config/secrets.yml"
-    end
 
     # Before filter for Flipflop dashboard. Replace with a lambda or method name
     # defined in ApplicationController to implement access control.
