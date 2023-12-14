@@ -392,30 +392,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "table.mc-stacked.js-barchart-table.mc-negative.compact"
   end
 
-  test "will make a marked table sortable" do
-    input = <<~INPUT
-      |col|
-      |---|
-      |val|
-      {sortable}
-    INPUT
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "table.sortable"
-  end
-
-  test "will make a marked table sortable and a barchart" do
-    input = <<~INPUT
-      |col|
-      |---|
-      |val|
-      {sortable}
-      {barchart}
-    INPUT
-
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "table.sortable.js-barchart-table"
-  end
-
   test "fraction image paths include the public asset host and configured asset prefix" do
     prefix = Rails.application.config.assets.prefix
     path   = "#{Whitehall.public_root}#{prefix}/fractions/1_2.png"
