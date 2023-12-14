@@ -33,7 +33,6 @@ module Admin::OrganisationHelper
       "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
       "People" => admin_organisation_people_path(organisation),
       "Translations" => admin_organisation_translations_path(organisation),
-      "Financial Reports" => admin_organisation_financial_reports_path(organisation),
     }
     tabs
   end
@@ -101,12 +100,6 @@ module Admin::OrganisationHelper
       label: "Translations",
       href: admin_organisation_translations_path(organisation),
       current: current_path == admin_organisation_translations_path(organisation),
-    }
-
-    tabs << {
-      label: "Financial Reports",
-      href: admin_organisation_financial_reports_path(organisation),
-      current: current_path == admin_organisation_financial_reports_path(organisation),
     }
 
     tabs
