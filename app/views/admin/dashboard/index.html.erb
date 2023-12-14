@@ -1,7 +1,7 @@
 <% content_for :page_title, "Dashboard" %>
 <% content_for :title, "Dashboard" %>
 
-<div class="govuk-grid-row">
+<div class="govuk-grid-row govuk-!-margin-bottom-8">
   <div class="govuk-grid-column-one-third">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Writing and publishing",
@@ -9,29 +9,7 @@
       heading_level: 2,
       margin_bottom: 4,
     } %>
-  </div>
 
-  <div class="govuk-grid-column-one-third">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Product development",
-      font_size: "m",
-      heading_level: 2,
-      margin_bottom: 4,
-    } %>
-  </div>
-
-  <div class="govuk-grid-column-one-third">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Support",
-      font_size: "m",
-      heading_level: 2,
-      margin_bottom: 4,
-    } %>
-  </div>
-</div>
-
-<div class="govuk-grid-row govuk-!-margin-bottom-8">
-  <div class="govuk-grid-column-one-third">
     <%= render "govuk_publishing_components/components/list", {
       visible_counters: true,
       items: [
@@ -44,6 +22,13 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Product development",
+      font_size: "m",
+      heading_level: 2,
+      margin_bottom: 4,
+    } %>
+
     <%= render "govuk_publishing_components/components/list", {
       visible_counters: true,
       items: [
@@ -63,6 +48,13 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Support",
+      font_size: "m",
+      heading_level: 2,
+      margin_bottom: 4,
+    } %>
+
     <%= render "govuk_publishing_components/components/list", {
       visible_counters: true,
       items: [
