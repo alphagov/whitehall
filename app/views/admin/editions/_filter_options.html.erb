@@ -92,34 +92,33 @@
     <% end %>
 
     <% if filter_by.include?(:date) %>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Date (last updated)",
-        font_size: "s",
+      <%= render "govuk_publishing_components/components/fieldset", {
+        legend_text: "Last updated date",
         heading_level: 3,
-        margin_bottom: 2,
-      } %>
+        heading_size: "s",
+      } do %>
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "From",
+            bold: true,
+          },
+          name: "from_date",
+          id: "from_date",
+          value: params["from_date"],
+          hint: "For example, 23/07/2013",
+        } %>
 
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "From",
-          bold: true,
-        },
-        name: "from_date",
-        id: "from_date",
-        value: params["from_date"],
-        hint: "For example, 23/07/2013",
-      } %>
-
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "To",
-          bold: true,
-        },
-        name: "to_date",
-        id: "to_date",
-        value: params["to_date"],
-        hint: "For example, 23/08/2013",
-      } %>
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "To",
+            bold: true,
+          },
+          name: "to_date",
+          id: "to_date",
+          value: params["to_date"],
+          hint: "For example, 23/08/2013",
+        } %>
+      <% end %>
     <% end %>
 
     <% if filter_by.include?(:only_broken_links) %>
