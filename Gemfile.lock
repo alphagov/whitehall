@@ -278,7 +278,7 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (37.0.0)
+    govuk_publishing_components (36.1.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -286,7 +286,6 @@ GEM
       rails (>= 6)
       rouge
       sprockets (>= 3)
-      sprockets-rails
     govuk_schemas (4.7.0)
       json-schema (>= 2.8, < 4.2)
     govuk_sidekiq (7.1.5)
@@ -418,7 +417,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
-    net-imap (0.4.8)
+    net-imap (0.4.7)
       date
       net-protocol
     net-pop (0.1.2)
