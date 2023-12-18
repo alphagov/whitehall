@@ -1,12 +1,4 @@
 module Admin::TopicalEventHelper
-  def topical_event_tabs(topical_event)
-    {
-      "Details" => url_for([:admin, topical_event]),
-      "About page" => url_for([:admin, topical_event, :topical_event_about_pages]),
-      "Features" => url_for([:admin, topical_event, :topical_event_featurings]),
-    }
-  end
-
   def topical_event_nav_items(topical_event, current_path)
     [
       {
