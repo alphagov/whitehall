@@ -1,6 +1,6 @@
 ParameterType(
   name: "edition",
-  regexp: /the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page|call for evidence) "([^"]*)"/,
+  regexp: /the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page|call for evidence|editionable worldwide organisation) "([^"]*)"/,
   transformer: ->(document_type, title) { document_class(document_type).latest_edition.find_by!(title:) },
 )
 
@@ -102,8 +102,19 @@ module DocumentHelper
     begin_drafting_document options.merge(type: "document_collection", previously_published: false)
   end
 
+  def begin_drafting_worldwide_organisation(options)
+    create(:world_location, active: true)
+    begin_drafting_document options.merge(type: "editionable_worldwide_organisation", previously_published: false)
+
+    fill_in_worldwide_organisation_fields
+  end
+
   def pdf_attachment
     Rails.root.join("features/fixtures/attachment.pdf")
+  end
+
+  def fill_in_worldwide_organisation_fields
+    select "British Antarctic Territory", from: "World locations"
   end
 
   def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")

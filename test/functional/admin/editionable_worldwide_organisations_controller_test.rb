@@ -11,6 +11,8 @@ class Admin::EditionableWorldwideOrganisationsControllerTest < ActionController:
   should_allow_creating_of :editionable_worldwide_organisation
   should_allow_editing_of :editionable_worldwide_organisation
 
+  should_allow_association_between_world_locations_and :editionable_worldwide_organisation
+
   test "actions are forbidden when the editionable_worldwide_organisations feature flag is disabled" do
     feature_flags.switch! :editionable_worldwide_organisations, false
     worldwide_organisation = create(:editionable_worldwide_organisation)
@@ -18,5 +20,9 @@ class Admin::EditionableWorldwideOrganisationsControllerTest < ActionController:
     get :show, params: { id: worldwide_organisation.id }
 
     assert_response :forbidden
+  end
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.merge(world_location_ids: [create(:world_location).id])
   end
 end
