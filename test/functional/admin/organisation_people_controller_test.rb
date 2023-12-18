@@ -263,6 +263,19 @@ class Admin::OrganisationPeopleControllerTest < ActionController::TestCase
     assert_equal [organisation_senior_representative_role, organisation_junior_representative_role], assigns(:organisation_roles)
   end
 
+  test "GET on :reorder returns a not_found response if type param is invalid" do
+    junior_ministerial_role = create(:ministerial_role)
+    senior_ministerial_role = create(:ministerial_role)
+    organisation = create(:organisation)
+    create(:organisation_role, organisation:, role: junior_ministerial_role, ordering: 2)
+    create(:organisation_role, organisation:, role: senior_ministerial_role, ordering: 1)
+
+    get :reorder, params: { organisation_id: organisation, type: "invalid_type" }
+
+    assert_response :not_found
+    assert_template "admin/errors/not_found"
+  end
+
   test "PUT on :order reorders and saves the order of people" do
     organisation = create(:organisation)
 
