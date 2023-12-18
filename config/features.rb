@@ -20,6 +20,5 @@ Flipflop.configure do
   # feature :world_domination,
   #   default: true,
   #   description: "Take over the world."
-  feature :document_hub, description: "Enables the document summary as a hub design"
   feature :editionable_worldwide_organisations, description: "Enables editionable worldwide organisations", default: false
 end

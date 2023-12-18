@@ -3,7 +3,7 @@ When(/^the attachment has been uploaded to the asset-manager$/) do
 end
 
 When(/^I start editing the attachments from the .*? page$/) do
-  click_on Flipflop.document_hub? ? "Manage attachments" : "Add attachment"
+  click_on "Add attachment"
 end
 
 When(/^I upload a file attachment with the title "(.*?)" and the file "(.*?)"$/) do |title, fixture_file_name|
@@ -42,7 +42,7 @@ end
 
 When(/^I try and upload an attachment but there are validation errors$/) do
   ensure_path admin_publication_path(Publication.last)
-  click_on Flipflop.document_hub? ? "Manage attachments" : "Modify attachments"
+  click_on "Modify attachments"
   click_on "Upload new file attachment"
   attach_file "File", Rails.root.join("test/fixtures/greenpaper.pdf")
   click_on "Save"
