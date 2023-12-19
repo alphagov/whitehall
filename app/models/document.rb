@@ -86,6 +86,11 @@ class Document < ApplicationRecord
     candidate_slug = normalize_friendly_id(new_title)
     unless candidate_slug == slug
       update!(sluggable_string: new_title)
+      # when special characters or scipts are used from the non-latin alphabets
+      # friendly_id sets the documents slug to nil. This ensures that it
+      # retains the default behaviour id of the document as the slug rather than being nil
+      # as implemented in the #ensure_document_has_a_slug after_create callback
+      ensure_document_has_a_slug
     end
   end
 
