@@ -8,4 +8,3 @@
 //= require vendor/jquery/jquery.player.min
 //= require vendor/google-diff-match-patch.js
 //= require govuk_toolkit
-//= require_tree ./admin_legacy
