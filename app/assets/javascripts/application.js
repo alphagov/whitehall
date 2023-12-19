@@ -4,9 +4,6 @@
 //= require govuk_publishing_components/all_components
 //= require govuk_publishing_components/analytics
 
-//= require jquery
-//= require bootstrap
-
 //= require components/autocomplete
 //= require components/govspeak-editor
 //= require components/image-cropper
