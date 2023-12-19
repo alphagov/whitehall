@@ -6,6 +6,7 @@ module GovspeakHelper
   include AttachmentsHelper
 
   BARCHART_REGEXP = /{barchart(.*?)}/
+  SORTABLE_REGEXP = /{sortable}/
   FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/
 
   def govspeak_to_html(govspeak, options = {})
@@ -118,6 +119,7 @@ module GovspeakHelper
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = render_embedded_fractions(govspeak)
     govspeak = set_classes_for_charts(govspeak)
+    govspeak = set_classes_for_sortable_tables(govspeak)
 
     markup_to_nokogiri_doc(govspeak, images, attachments)
       .tap { |nokogiri_doc|
@@ -181,6 +183,12 @@ private
         ""
       end
     end
+  end
+
+  def set_classes_for_sortable_tables(govspeak)
+    return govspeak if govspeak.blank?
+
+    govspeak.gsub(GovspeakHelper::SORTABLE_REGEXP, "{:.sortable}")
   end
 
   def set_classes_for_charts(govspeak)
