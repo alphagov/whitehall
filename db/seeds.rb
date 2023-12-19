@@ -137,4 +137,25 @@ if WorldLocation.where(name: "Test International Delegation").blank?
       ended_at: nil,
     )
   end
+
+  if EditionableWorldwideOrganisation.where(title: "Test Editionable Worldwide Organisation").blank?
+    document = Document.create!(
+      content_id: SecureRandom.uuid,
+      document_type: "EditionableWorldwideOrganisation",
+      slug: "test-editionable-worldwide-organisation",
+    )
+
+    EditionableWorldwideOrganisation.create!(
+      body: "Some information about this worldwide organisation.",
+      creator: User.first,
+      document:,
+      lead_organisations: [Organisation.first],
+      locale: "en",
+      organisations: [],
+      previously_published: false,
+      summary: "An example worldwide organisation",
+      supporting_organisations: [],
+      title: "Test Editionable Worldwide Organisation",
+    )
+  end
 end
