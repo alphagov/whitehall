@@ -211,6 +211,9 @@ si:
       edition_with_appointment:
         one: පත්වීම සමඟ සංස්කරණය
         other: පත්වීම සමඟ සංස්කරණ
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: සමානාත්මතාවය සහ විවිධත්වය
         other: සමානාත්මතාවය සහ විවිධත්වය

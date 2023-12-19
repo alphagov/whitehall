@@ -235,6 +235,10 @@ lt:
         few:
         one: Leidimas su paskyrimu
         other: Leidimai su paskyrimu
+      editionable_worldwide_organisation:
+        few:
+        one:
+        other:
       equality_and_diversity:
         few:
         one: Lygybė ir įvairovė

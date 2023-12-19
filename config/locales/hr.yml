@@ -238,6 +238,10 @@ hr:
         few:
         one: Izdanje sa dogovorom
         other: Izdanja sa dogovorom
+      editionable_worldwide_organisation:
+        few:
+        one:
+        other:
       equality_and_diversity:
         few:
         one: Jednakost i raznolikost

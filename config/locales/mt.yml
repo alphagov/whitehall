@@ -261,6 +261,11 @@ mt:
         many:
         one: Edizzjoni b'appuntament
         other: Edizzjonijiet b'appuntament
+      editionable_worldwide_organisation:
+        few:
+        many:
+        one:
+        other:
       equality_and_diversity:
         few:
         many:

@@ -209,6 +209,9 @@ lv:
       edition_with_appointment:
         one: Izdevums ar tikšanos
         other: Izdevumi ar tikšanos
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Vienlīdzība un dažādība
         other: Vienlīdzība un dažādība

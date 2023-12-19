@@ -211,6 +211,9 @@ is:
       edition_with_appointment:
         one: Útgáfa með úthlutun
         other: Útgáfur með úthlutun
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Jafnrétti og fjölbreytni
         other: Jafnrétti og fjölbreytni

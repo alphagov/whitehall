@@ -209,6 +209,9 @@ yi:
       edition_with_appointment:
         one:
         other:
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one:
         other:

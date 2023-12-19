@@ -237,6 +237,10 @@ ro:
         few:
         one: Ediție cu programare
         other: Ediții cu programare
+      editionable_worldwide_organisation:
+        few:
+        one:
+        other:
       equality_and_diversity:
         few:
         one: Egalitate și diversitate

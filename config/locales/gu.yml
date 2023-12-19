@@ -211,6 +211,9 @@ gu:
       edition_with_appointment:
         one: નિમણૂક સાથે આવૃત્તિ
         other: નિમણૂક સાથે આવૃત્તિઓ
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: સમાનતા અને વિવિધતા
         other: સમાનતા અને વિવિધતા

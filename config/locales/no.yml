@@ -212,6 +212,9 @@
       edition_with_appointment:
         one: Utgave med avtale
         other: Utgaver med avtale
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Likestilling og mangfold
         other: Likestilling og mangfold

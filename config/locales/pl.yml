@@ -261,6 +261,11 @@ pl:
         many:
         one: Wydanie po uzgodnieniu terminu
         other: Wydania po uzgodnieniu terminu
+      editionable_worldwide_organisation:
+        few:
+        many:
+        one:
+        other:
       equality_and_diversity:
         few:
         many:

@@ -196,6 +196,9 @@ en:
       edition_with_appointment:
         one: Edition with appointment
         other: Editions with appointment
+      editionable_worldwide_organisation:
+        one: Worldwide organisation
+        other: Worldwide organisations
       equality_and_diversity:
         one: Equality and diversity
         other: Equality and diversity

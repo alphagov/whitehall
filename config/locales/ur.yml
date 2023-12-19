@@ -211,6 +211,9 @@ ur:
       edition_with_appointment:
         one: اپائنٹمنٹ کے ساتھ ایڈیشن
         other: اپائنٹمنٹ کے ساتھ ایڈیشنز
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: مساوات اور تنوع
         other: مساوات اور تنوع

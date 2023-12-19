@@ -212,6 +212,9 @@ pa:
       edition_with_appointment:
         one: ਨਿਯੁਕਤੀ ਦੇ ਨਾਲ ਸੰਸਕਰਣ
         other: ਨਿਯੁਕਤੀ ਦੇ ਨਾਲ ਸੰਸਕਰਣ
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: ਸਮਾਨਤਾ ਅਤੇ ਵਿਭਿੰਨਤਾ
         other: ਸਮਾਨਤਾ ਅਤੇ ਵਿਭਿੰਨਤਾ

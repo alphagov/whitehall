@@ -212,6 +212,9 @@ hy:
       edition_with_appointment:
         one: Խմբագրում ցուցումով
         other: Խմբագրումներ ցուցումով
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Հավասարություն և բազմազանություն
         other: Հավասարություն և բազմազանություն

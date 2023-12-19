@@ -209,6 +209,9 @@ es:
       edition_with_appointment:
         one: Edición con cita previa
         other: Ediciones con cita previa
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Igualdad y diversidad
         other: Igualdad y diversidad

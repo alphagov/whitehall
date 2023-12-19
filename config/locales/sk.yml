@@ -238,6 +238,10 @@ sk:
         few:
         one: Vydanie s dohodnutým termínom
         other: Vydania s dohodnutým termínom
+      editionable_worldwide_organisation:
+        few:
+        one:
+        other:
       equality_and_diversity:
         few:
         one: Rovnosť a rozmanitosť

@@ -212,6 +212,9 @@ ka:
       edition_with_appointment:
         one: გამოცემა დანიშვნით
         other: გამოცემა დანიშვნებით
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: თანასწორობა და მრავალფეროვნება
         other: თანასწორობა და მრავალფეროვნება

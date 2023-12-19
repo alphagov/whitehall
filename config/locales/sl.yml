@@ -264,6 +264,11 @@ sl:
         one: Izdaja s srečanjem
         other: Izdaje s srečanjem
         two:
+      editionable_worldwide_organisation:
+        few:
+        one:
+        other:
+        two:
       equality_and_diversity:
         few:
         one: Enakopravnost in raznolikost

@@ -212,6 +212,9 @@ az:
       edition_with_appointment:
         one: Təyinatlı buraxılış
         other: Təyinatlı buraxılışlar
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Bərabərlik və fərqlilik
         other: Bərabərlik və fərqlilik
