@@ -212,6 +212,9 @@ fr:
       edition_with_appointment:
         one: Édition sur rendez-vous
         other: Éditions sur rendez-vous
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Égalité et diversité
         other: Égalité et diversité

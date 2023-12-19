@@ -211,6 +211,9 @@ ne:
       edition_with_appointment:
         one: नियुक्ति सँग संस्करण
         other: नियुक्ति सँग संस्करणहरु
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: समानता र विविधता
         other: समानता र विविधता

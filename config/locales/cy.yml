@@ -315,6 +315,13 @@ cy:
         other: Argraffiadau gydag apwyntiad
         two:
         zero:
+      editionable_worldwide_organisation:
+        few:
+        many:
+        one:
+        other:
+        two:
+        zero:
       equality_and_diversity:
         few:
         many:

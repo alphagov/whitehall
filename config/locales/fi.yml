@@ -212,6 +212,9 @@ fi:
       edition_with_appointment:
         one: Painos ajanvarauksella
         other: Painokset ajanvarauksella
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Yhdenvertaisuus ja moninaisuus
         other: Yhdenvertaisuus ja moninaisuus

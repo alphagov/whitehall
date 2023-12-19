@@ -212,6 +212,9 @@ da:
       edition_with_appointment:
         one: Udgave med udnævnelse
         other: Udgaver med udnævnelse
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Lighed og mangfoldighed
         other: Lighed og mangfoldighed

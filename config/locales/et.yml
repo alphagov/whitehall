@@ -211,6 +211,9 @@ et:
       edition_with_appointment:
         one: Väljaanne kokkuleppel
         other: Väljaanded kokkuleppel
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Võrdsus ja mitmekesisus
         other: Võrdsus ja mitmekesisus

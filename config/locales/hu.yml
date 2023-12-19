@@ -211,6 +211,9 @@ hu:
       edition_with_appointment:
         one: Egyeztetett kiadás
         other: Egyeztetett kiadások
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Egyenlőség és sokszínűség
         other: Egyenlőség és sokszínűség

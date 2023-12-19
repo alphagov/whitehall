@@ -209,6 +209,9 @@ pa-pk:
       edition_with_appointment:
         one: شمارے دے نال تقرری
         other: شمارے دے نال تقرری
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: برابری تے فرق
         other: برابری تے فرق

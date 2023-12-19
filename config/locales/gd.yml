@@ -263,6 +263,11 @@ gd:
         one: Leagan áirithinte
         other: Leagan ceapacháin
         two:
+      editionable_worldwide_organisation:
+        few:
+        one:
+        other:
+        two:
       equality_and_diversity:
         few:
         one: Comhionannas agus éagsúlacht

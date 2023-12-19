@@ -212,6 +212,9 @@ sq:
       edition_with_appointment:
         one: Edicioni me takim
         other: Edicionet me takim
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Barazia dhe diversiteti
         other: Barazia dhe diversiteti

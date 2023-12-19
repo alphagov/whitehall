@@ -212,6 +212,9 @@ dr:
       edition_with_appointment:
         one: نسخه همراه با قرار ملاقات
         other: نسخه ها همراه با قرار ملاقات
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: برابری و تنوع
         other: برابری و تنوع

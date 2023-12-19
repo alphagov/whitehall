@@ -212,6 +212,9 @@ he:
       edition_with_appointment:
         one: מהדורה בתאום מראש
         other: מהדורות בתיאום מראש
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: שוויון וגיוון
         other: שוויון וגיוון

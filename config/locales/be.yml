@@ -261,6 +261,11 @@ be:
         many:
         one: Выданне з прызначэннем
         other: Выданні з прызначэннем
+      editionable_worldwide_organisation:
+        few:
+        many:
+        one:
+        other:
       equality_and_diversity:
         few:
         many:

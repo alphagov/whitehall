@@ -212,6 +212,9 @@ hi:
       edition_with_appointment:
         one: नियुक्ति के साथ संस्करण
         other: नियुक्ति के साथ संस्करण
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: समानता और विविधता
         other: समानता और विविधता

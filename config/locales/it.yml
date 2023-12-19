@@ -212,6 +212,9 @@ it:
       edition_with_appointment:
         one: Edizione con appuntamento
         other: Edizioni con appuntamento
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Uguaglianza e diversità
         other: Uguaglianza e diversità

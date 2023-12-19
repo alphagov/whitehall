@@ -211,6 +211,9 @@ tr:
       edition_with_appointment:
         one: Atamalı düzenleme
         other: Atamalı düzenlemeler
+      editionable_worldwide_organisation:
+        one:
+        other:
       equality_and_diversity:
         one: Eşitlik ve çeşitlilik
         other: Eşitlik ve çeşitlilik
