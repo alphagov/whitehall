@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_12_165213) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_19_154010) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -300,6 +300,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_12_165213) do
     t.integer "role_appointment_id"
     t.index ["edition_id"], name: "index_edition_role_appointments_on_edition_id"
     t.index ["role_appointment_id"], name: "index_edition_role_appointments_on_role_appointment_id"
+  end
+
+  create_table "edition_roles", id: false, charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "edition_id", null: false
+    t.bigint "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "edition_statistical_data_sets", id: :integer, charset: "utf8mb3", force: :cascade do |t|
