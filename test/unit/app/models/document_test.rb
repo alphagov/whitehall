@@ -350,4 +350,28 @@ class DocumentTest < ActiveSupport::TestCase
     assert_nil unpublished.document.live_edition
     assert_nil draft.document.live_edition
   end
+
+  test "#update_slug_if_possible updates the slug to the title passed maps to a diffrent slug" do
+    document = build(:document)
+    new_slug = "new_slug"
+    document.expects(:update!).with(sluggable_string: new_slug).once
+
+    document.update_slug_if_possible(new_slug)
+  end
+
+  test "#update_slug_if_possible does nothing to the slug if the title passed in maps to the current slug" do
+    document = build_stubbed(:document)
+    document.expects(:update!).never
+
+    document.update_slug_if_possible(document.slug)
+  end
+
+  test "#update_slug_if_possible ensures that the slug is set to the documents id if the new title contains special characters" do
+    document = create(:document, slug: nil)
+    slug_with_special_characters = "首次中英高级别安全"
+
+    document.update_slug_if_possible(slug_with_special_characters)
+
+    assert_equal document.id.to_s, document.reload.slug
+  end
 end
