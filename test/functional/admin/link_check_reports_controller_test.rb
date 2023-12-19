@@ -24,37 +24,27 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "AJAX POST :create saves a LinkCheckReport" do
-    post :create, params: { edition_id: @publication.id }, xhr: true
-
-    assert_response :success
-    assert_template :create
-
-    assert @publication.link_check_reports.last
-  end
-
   test "POST :create saves a LinkCheckReport and redirects back to the edition" do
     post :create, params: { edition_id: @publication.id }
-
     assert_redirected_to admin_publication_url(@publication)
-
     assert @publication.link_check_reports.last
   end
 
-  test "AJAX GET :show renders assigns the LinkCheckReport and renders the template" do
-    link_check_report = create(:link_checker_api_report, link_reportable: @publication)
-    get :show, params: { id: link_check_report, edition_id: @publication }, xhr: true
-
-    assert_response :success
+  test "POST :create JSON format creates and renders json template" do
+    post :create, params: { edition_id: @publication.id }, format: :json
     assert_template :show
-
-    assert_equal link_check_report, assigns(:report)
+    assert @publication.link_check_reports.last
   end
 
   test "GET :show redirects back to the edition" do
     link_check_report = create(:link_checker_api_report, link_reportable: @publication)
     get :show, params: { id: link_check_report, edition_id: @publication }
-
     assert_redirected_to admin_publication_url(@publication)
+  end
+
+  test "GET :show JSON format renders JSON template" do
+    link_check_report = create(:link_checker_api_report, link_reportable: @publication)
+    get :show, params: { id: link_check_report, edition_id: @publication }, format: :json
+    assert_template :show
   end
 end
