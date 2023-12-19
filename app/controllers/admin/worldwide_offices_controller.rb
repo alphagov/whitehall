@@ -1,6 +1,11 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
-  before_action :find_worldwide_office, only: %i[edit update confirm_destroy destroy add_to_home_page remove_from_home_page]
+  before_action :find_worldwide_office, only: %i[edit update confirm_destroy destroy]
+  extend Admin::HomePageListController
+  is_home_page_list_controller_for :offices,
+                                   item_type: WorldwideOffice,
+                                   redirect_to: ->(container, _item) { [:admin, container, WorldwideOffice] },
+                                   params_name: :worldwide_office
 
   def index; end
 
@@ -52,17 +57,15 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     end
   end
 
-  extend Admin::HomePageListController
-  is_home_page_list_controller_for :offices,
-                                   item_type: WorldwideOffice,
-                                   contained_by: :worldwide_organisation,
-                                   redirect_to: ->(container, _item) { [:admin, container, WorldwideOffice] },
-                                   params_name: :worldwide_office
+private
+
   def home_page_list_item
     @worldwide_office
   end
 
-private
+  def home_page_list_container
+    @worldwide_organisation
+  end
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])

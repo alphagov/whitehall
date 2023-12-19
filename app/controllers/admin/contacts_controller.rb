@@ -1,7 +1,11 @@
 class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
-  before_action :find_contact, only: %i[edit update destroy remove_from_home_page add_to_home_page confirm_destroy]
+  before_action :find_contact, only: %i[edit update destroy confirm_destroy]
   before_action :destroy_blank_contact_numbers, only: %i[create update]
+  extend Admin::HomePageListController
+  is_home_page_list_controller_for :contacts,
+                                   item_type: Contact,
+                                   redirect_to: ->(container, _item) { [:admin, container, Contact] }
 
   def index; end
 
@@ -50,13 +54,15 @@ class Admin::ContactsController < Admin::BaseController
 
   def reorder; end
 
-  extend Admin::HomePageListController
-  is_home_page_list_controller_for :contacts,
-                                   item_type: Contact,
-                                   contained_by: :contactable,
-                                   redirect_to: ->(container, _item) { [:admin, container, Contact] }
-
 private
+
+  def home_page_list_item
+    @contact
+  end
+
+  def home_page_list_container
+    @contactable
+  end
 
   def find_contactable
     @contactable = Organisation.friendly.find(params[:organisation_id])

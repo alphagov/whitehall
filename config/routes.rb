@@ -65,8 +65,6 @@ Whitehall::Application.routes.draw do
           end
           get :reorder, on: :collection
           member do
-            post :remove_from_home_page
-            post :add_to_home_page
             get :confirm_destroy
           end
           post :reorder_for_home_page, on: :collection
@@ -147,8 +145,6 @@ Whitehall::Application.routes.draw do
         resources :worldwide_offices, path: "offices", except: [:show] do
           member do
             get :confirm_destroy
-            post :remove_from_home_page
-            post :add_to_home_page
           end
           get :reorder, on: :collection
           post :reorder_for_home_page, on: :collection

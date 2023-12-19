@@ -228,29 +228,6 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_not Contact.exists?(contact.id)
   end
 
-  test "POST on :remove_from_home_page removes contact from the home page of the organisation" do
-    organisation = create(:organisation)
-    contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)
-    organisation.add_contact_to_home_page!(contact)
-
-    post :remove_from_home_page, params: { organisation_id: organisation, id: contact }
-
-    assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %("#{contact.title}" removed from home page successfully), flash[:notice]
-    assert_not organisation.contact_shown_on_home_page?(contact)
-  end
-
-  test "POST on :add_to_home_page adds contact to the home page of the organisation" do
-    organisation = create(:organisation)
-    contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)
-
-    post :add_to_home_page, params: { organisation_id: organisation, id: contact }
-
-    assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %("#{contact.title}" added to home page successfully), flash[:notice]
-    assert organisation.contact_shown_on_home_page?(contact)
-  end
-
   view_test "GET :should be able to visit reorder page" do
     organisation = create(:organisation)
 

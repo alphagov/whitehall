@@ -306,27 +306,6 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_not ContactNumber.exists?(contact_number.id)
   end
 
-  test "POST on :remove_from_home_page removes office from the home page of the worldwide organisation" do
-    worldwide_organisation, office = create_worldwide_organisation_and_office
-    worldwide_organisation.add_office_to_home_page!(office)
-
-    post :remove_from_home_page, params: { worldwide_organisation_id: worldwide_organisation, id: office }
-
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
-    assert_equal %("#{office.title}" removed from home page successfully), flash[:notice]
-    assert_not worldwide_organisation.reload.office_shown_on_home_page?(office)
-  end
-
-  test "POST on :add_to_home_page adds office to the home page of the worldwide organisation" do
-    worldwide_organisation, office = create_worldwide_organisation_and_office
-
-    post :add_to_home_page, params: { worldwide_organisation_id: worldwide_organisation, id: office }
-
-    assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
-    assert_equal %("#{office.title}" added to home page successfully), flash[:notice]
-    assert worldwide_organisation.office_shown_on_home_page?(office)
-  end
-
   test "POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this" do
     worldwide_organisation, office1 = create_worldwide_organisation_and_office
     office2 = worldwide_organisation.offices.create!(
