@@ -20,7 +20,7 @@
 <% if edition.can_be_associated_with_world_locations? %>
   <h2 class="govuk-heading-m">World locations</h2>
   <% if edition.world_locations.any? %>
-    <%= render "world_locations/list", world_locations: edition.world_locations %>
+    <%= render "admin/world_location_news/list", world_locations: edition.world_locations %>
   <% else %>
     <p class="govuk-body">This document isn’t assigned to any world locations.</p>
   <% end %>
