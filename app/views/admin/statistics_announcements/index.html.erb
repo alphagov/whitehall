@@ -28,7 +28,7 @@
     <%= render "filter_options" %>
   </div>
   <div class="govuk-grid-column-two-thirds">
-    <div class="app-view-edition-index__table">
+    <div class="app-view-edition-index__table" aria-label="Search results">
       <%= render "search_results", filter: @filter, paginator: @statistics_announcements, show_export: true %>
     </div>
   </div>
