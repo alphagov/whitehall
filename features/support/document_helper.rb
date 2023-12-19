@@ -105,14 +105,16 @@ module DocumentHelper
   def begin_drafting_worldwide_organisation(options)
     begin_drafting_document options.merge(type: "editionable_worldwide_organisation", previously_published: false)
 
-    fill_in_worldwide_organisation_fields
+    fill_in_worldwide_organisation_fields(**options.slice(:world_location))
   end
 
   def pdf_attachment
     Rails.root.join("features/fixtures/attachment.pdf")
   end
 
-  def fill_in_worldwide_organisation_fields; end
+  def fill_in_worldwide_organisation_fields(world_location: "United Kingdom")
+    select world_location, from: "World locations"
+  end
 
   def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")
     select announcement_type, from: "News article type"
