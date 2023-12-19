@@ -6,10 +6,8 @@ class Consultation < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
+  include Edition::HasOpeningAndClosingDates
 
-  validates :opening_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
-  validates :closing_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
-  validates :closing_at, comparison: { greater_than: :opening_at, message: "must be after the opening on date" }, if: proc { |record| record.opening_at && record.closing_at }
   validates :external_url, presence: true, if: :external?
   validates :external_url, uri: true, allow_blank: true
   validate :validate_consultation_principles, unless: ->(consultation) { Edition::PRE_PUBLICATION_STATES.include? consultation.state }
@@ -21,15 +19,6 @@ class Consultation < Publicationesque
 
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
 
-  scope :closed, -> { where("closing_at < ?", Time.zone.now) }
-  scope :closed_at_or_after, ->(time) { closed.where("closing_at >= ?", time) }
-  scope :closed_at_or_within_24_hours_of,
-        lambda { |time|
-          closed.where("? < closing_at AND closing_at <= ?", time - 24.hours, time)
-        }
-  scope :open, -> { where("closing_at >= ? AND opening_at <= ?", Time.zone.now, Time.zone.now) }
-  scope :opened_at_or_after, ->(time) { open.where("opening_at >= ?", time) }
-  scope :upcoming, -> { where("opening_at > ?", Time.zone.now) }
   scope :responded, -> { joins(:outcome) }
   scope :awaiting_response, -> { published.closed.where.not(id: responded.pluck(:id)) }
 
@@ -87,18 +76,6 @@ class Consultation < Publicationesque
 
   def allows_inline_attachments?
     false
-  end
-
-  def not_yet_open?
-    opening_at.nil? || (opening_at > Time.zone.now)
-  end
-
-  def open?
-    opening_at.present? && !closed? && opening_at <= Time.zone.now
-  end
-
-  def closed?
-    closing_at.nil? || (closing_at < Time.zone.now)
   end
 
   def outcome_published?
