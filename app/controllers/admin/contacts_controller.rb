@@ -64,6 +64,21 @@ private
     @contactable
   end
 
+  def publish_container_to_publishing_api
+    home_page_list_container.publish_to_publishing_api
+  end
+
+  def handle_show_on_home_page_param
+    if @show_on_home_page.present?
+      case @show_on_home_page
+      when "1"
+        home_page_list_container.add_contact_to_home_page!(home_page_list_item)
+      when "0"
+        home_page_list_container.remove_contact_from_home_page!(home_page_list_item)
+      end
+    end
+  end
+
   def find_contactable
     @contactable = Organisation.friendly.find(params[:organisation_id])
   end
@@ -77,12 +92,6 @@ private
       if attributes.except(:id).values.all?(&:blank?)
         attributes[:_destroy] = "1"
       end
-    end
-  end
-
-  def handle_show_on_home_page_param
-    if @contactable.respond_to?(:home_page_contacts)
-      super
     end
   end
 

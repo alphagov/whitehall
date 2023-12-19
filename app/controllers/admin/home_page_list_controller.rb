@@ -22,17 +22,6 @@ module Admin::HomePageListController
         @show_on_home_page = params[params_name].delete(:show_on_home_page)
       end
 
-      define_method(:handle_show_on_home_page_param) do
-        if @show_on_home_page.present?
-          case @show_on_home_page
-          when "1"
-            home_page_list_container.__send__(:"add_#{single_name}_to_home_page!", home_page_list_item)
-          when "0"
-            home_page_list_container.__send__(:"remove_#{single_name}_from_home_page!", home_page_list_item)
-          end
-        end
-      end
-
       define_method(:extract_items_from_ordering_params) do |ids_and_orderings|
         ids_and_orderings.permit!.to_h.
           # convert to useful forms
@@ -43,10 +32,6 @@ module Admin::HomePageListController
           map { |item, _| item }.
           # reject any blank contacts
           compact
-      end
-
-      define_method(:publish_container_to_publishing_api) do
-        home_page_list_container.try(:publish_to_publishing_api)
       end
     end
     include home_page_list_controller_methods
