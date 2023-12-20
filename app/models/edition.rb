@@ -383,6 +383,10 @@ EXISTS (
     false
   end
 
+  def can_be_associated_with_roles?
+    false
+  end
+
   def can_be_associated_with_role_appointments?
     false
   end

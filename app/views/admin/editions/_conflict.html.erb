@@ -26,6 +26,15 @@
   <% end %>
 <% end %>
 
+<% if edition.can_be_associated_with_roles? %>
+  <h2 class="govuk-heading-m">Roles</h2>
+  <% if edition.roles.any? %>
+    <%= render "admin/roles/list", roles: edition.roles %>
+  <% else %>
+    <p class="govuk-body">This document isn’t assigned to any roles.</p>
+  <% end %>
+<% end %>
+
 <% if edition.can_apply_to_subset_of_nations? %>
   <h2 class="govuk-heading-m">Excluded nations</h2>
   <% if edition.nation_inapplicabilities.any? %>

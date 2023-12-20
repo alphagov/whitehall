@@ -93,6 +93,14 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the taggable roles. Each element of the
+  # array consists of two values: the role name and its ID
+  def taggable_roles_container
+    Rails.cache.fetch(taggable_roles_cache_digest, expires_in: 1.day) do
+      Role.order(:name).map { |w| [w.name, w.id] }
+    end
+  end
+
   # Returns an Array that represents the taggable alternative format providers.
   # Each element of the array consists of two values: the label (organisation
   # and the email address if avaiable) and the ID of the organisation.
@@ -181,6 +189,12 @@ module Admin::TaggableContentHelper
   # change if any world locations are added or updated.
   def taggable_world_locations_cache_digest
     @taggable_world_locations_cache_digest ||= calculate_digest(WorldLocation.order(:id), "world-locations")
+  end
+
+  # Returns an MD5 digest representing the taggable roles. This will
+  # change if any world locations are added or updated.
+  def taggable_roles_cache_digest
+    @taggable_roles_cache_digest ||= calculate_digest(Role.order(:id), "roles")
   end
 
   # Returns an MD5 digest representing the taggable alternative format

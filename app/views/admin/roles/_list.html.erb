@@ -1,0 +1,7 @@
+<ul class="roles">
+  <% roles.each do |role| %>
+    <%= content_tag_for(:li, roles) do %>
+      <%= link_to role.name, admin_role_path(anchor: "role_#{role.id}"), class: "location-link" %>
+    <% end %>
+  <% end %>
+</ul>
