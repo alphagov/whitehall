@@ -164,7 +164,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { state: :published, type: :publication }
 
     assert_select ".govuk-table__row" do
-      assert_select ".govuk-table__cell:nth-child(1)", text: publication.title
+      assert_select ".govuk-table__header:nth-child(1)", text: publication.title
       assert_select ".govuk-table__cell:nth-child(3)", text: "Published"
     end
   end
@@ -174,7 +174,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { state: :published, type: :publication }
 
     assert_select ".govuk-table__row" do
-      assert_select ".govuk-table__cell:nth-child(1)", text: publication.title
+      assert_select ".govuk-table__header:nth-child(1)", text: publication.title
       assert_select ".govuk-table__cell:nth-child(3)", text: "Force published"
     end
   end
@@ -184,7 +184,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { state: :force_published, type: :publication }
 
     assert_select ".govuk-table__row" do
-      assert_select ".govuk-table__cell:nth-child(1)", text: publication.title
+      assert_select ".govuk-table__header:nth-child(1)", text: publication.title
       assert_select ".govuk-table__cell:nth-child(3)", text: "Force published"
     end
   end
@@ -198,25 +198,25 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { state: :active }
 
     assert_select ".govuk-table__row" do
-      assert_select ".govuk-table__cell:nth-child(1)", text: draft_edition.title do |cell|
+      assert_select ".govuk-table__header:nth-child(1)", text: draft_edition.title do |cell|
         cell.first.parent.xpath("td[3]").text.strip == "Draft"
       end
     end
 
     assert_select ".govuk-table__row" do
-      assert_select ".govuk-table__cell:nth-child(1)", text: submitted_edition.title do |cell|
+      assert_select ".govuk-table__header:nth-child(1)", text: submitted_edition.title do |cell|
         cell.first.parent.xpath("td[3]").text.strip == "Submitted"
       end
     end
 
     assert_select ".govuk-table__row" do
-      assert_select ".govuk-table__cell:nth-child(1)", text: rejected_edition.title do |cell|
+      assert_select ".govuk-table__header:nth-child(1)", text: rejected_edition.title do |cell|
         cell.first.parent.xpath("td[3]").text.strip == "Rejected"
       end
     end
 
     assert_select ".govuk-table__row" do
-      assert_select ".govuk-table__cell:nth-child(1)", text: published_edition.title do |cell|
+      assert_select ".govuk-table__header:nth-child(1)", text: published_edition.title do |cell|
         cell.first.parent.xpath("td[3]").text.strip == "Published"
       end
     end
@@ -236,9 +236,9 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { state: :active }
 
     accessible.each do |edition|
-      assert_select ".govuk-table__cell:nth-child(1)", text: edition.title
+      assert_select ".govuk-table__header:nth-child(1)", text: edition.title
     end
-    refute_select ".govuk-table__cell:nth-child(1)", text: inaccessible.title
+    refute_select ".govuk-table__header:nth-child(1)", text: inaccessible.title
   end
 
   view_test "index should indicate the protected status of limited access editions which I do have access to" do
@@ -249,7 +249,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { state: :active }
 
     assert_select ".govuk-table__row" do
-      assert_select ".govuk-table__cell:nth-child(1)", text: publication.title
+      assert_select ".govuk-table__header:nth-child(1)", text: publication.title
       assert_select ".govuk-table__cell:nth-child(3)", text: "Draft Limited access"
     end
   end
