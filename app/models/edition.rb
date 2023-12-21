@@ -670,7 +670,7 @@ EXISTS (
         "iat" => Time.zone.now.to_i,
         "exp" => 1.month.from_now.to_i,
       },
-      Rails.application.secrets.jwt_auth_secret,
+      Rails.application.credentials.jwt_auth_secret,
       "HS256",
     )
   end

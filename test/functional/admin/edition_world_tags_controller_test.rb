@@ -54,8 +54,8 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: @edition }
 
-    assert_select "input[value='#{world_child_taxon_content_id}'][checked='checked']"
-    assert_select "input[value='#{world_grandchild_taxon_content_id}'][checked='checked']"
+    assert_select "input[value='#{world_child_taxon_content_id}'][checked]"
+    assert_select "input[value='#{world_grandchild_taxon_content_id}'][checked]"
   end
 
   view_test "should check a parent taxon but not its children when only a parent taxon is selected" do
@@ -63,8 +63,8 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: @edition }
 
-    assert_select "input[value='#{world_child_taxon_content_id}'][checked='checked']"
-    refute_select "input[value='#{world_grandchild_taxon_content_id}'][checked='checked']"
+    assert_select "input[value='#{world_child_taxon_content_id}'][checked]"
+    refute_select "input[value='#{world_grandchild_taxon_content_id}'][checked]"
   end
 
   view_test "should render the correct title and miller columns" do
