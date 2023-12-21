@@ -9,7 +9,6 @@ class Admin::LinkCheckReportsController < Admin::BaseController
     )
 
     respond_to do |format|
-      format.js
       format.html { redirect_to [:admin, @reportable] }
       format.json { render :show }
     end
@@ -20,7 +19,6 @@ class Admin::LinkCheckReportsController < Admin::BaseController
     @allow_new_report = params[:allow_new_report] || false
 
     respond_to do |format|
-      format.js
       format.html { redirect_to [:admin, @reportable] }
       format.json
     end

@@ -2,4 +2,3 @@
 //= require vendor/jquery/jquery.player.min.js
 //= require vendor/jquery/jquery-debounce.js
 //= require vendor/google-diff-match-patch.js
-//= require_tree ./admin_legacy

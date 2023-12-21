@@ -12,7 +12,6 @@ module.exports = {
     es6: true
   },
   globals: {
-    GOVUK: 'readonly',
-    GOVUKAdmin: 'readonly'
+    GOVUK: 'readonly'
   }
 }
