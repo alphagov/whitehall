@@ -1,2 +1,38 @@
-<%= standard_edition_form(edition) do |form| %>
+<%= form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form| %>
+  <%= render("standard_fields", form:, edition:) %>
+  <%= render("settings_fields", form:, edition:) %>
+  <div class="publishing-controls">
+    <% if edition.change_note_required? %>
+      <%= render("change_notes", form:, edition:) %>
+    <% end %>
+
+    <div class="govuk-button-group">
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save",
+        value: "save",
+        name: "save",
+        data_attributes: {
+          module: "gem-track-click",
+          "track-category": "form-button",
+          "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
+          "track-label": "Save",
+        },
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save and go to document summary",
+        secondary_solid: true,
+        data_attributes: {
+          module: "gem-track-click",
+          "track-category": "form-button",
+          "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
+          "track-label": "Save and continue",
+        },
+      } %>
+
+      <% cancel_link_path = edition.new_record? ? polymorphic_path([:admin, edition.owning_organisation, CorporateInformationPage]) : admin_edition_path(edition) %>
+      <%= link_to "Cancel", cancel_link_path, class: "govuk-link govuk-link--no-visited-state" %>
+    </div>
+
+  </div>
 <% end %>
