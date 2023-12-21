@@ -29,6 +29,8 @@ class AuthorNotifierService
     end
   end
 
+private
+
   def authors_to_notify
     edition.authors.uniq - excluded_authors
   end
