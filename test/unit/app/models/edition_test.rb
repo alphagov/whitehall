@@ -997,7 +997,7 @@ class EditionTest < ActiveSupport::TestCase
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
-      Rails.application.credentials.jwt_auth_secret,
+      Rails.application.secrets.jwt_auth_secret,
       true,
       { algorithm: "HS256" },
     )

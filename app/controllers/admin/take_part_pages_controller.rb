@@ -57,7 +57,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   end
 
   def reorder
-    TakePartPage.reorder!(order_params.to_h, :ordering)
+    TakePartPage.reorder!(order_params, :ordering)
     TakePartPage.patch_getinvolved_page_links
     redirect_to admin_take_part_pages_path, notice: "Take part pages reordered!"
   end
@@ -75,7 +75,7 @@ private
   end
 
   def order_params
-    params.require(:take_part_pages).permit(ordering: {})["ordering"]
+    params.require(:take_part_pages)["ordering"]
   end
 
   def clean_take_part_page_params

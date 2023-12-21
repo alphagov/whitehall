@@ -31,14 +31,12 @@ private
   end
 
   def check_string_is_safe(attribute_name, string)
-    @record.errors.add(attribute_name, "cannot include invalid formatting or JavaScript") unless valid_govspeak?(string)
+    @record.errors.add(attribute_name, "cannot include invalid formatting or JavaScript") if unacceptable_govspeak?(string)
   end
 
-  def valid_govspeak?(string)
-    return true if string.blank?
-
+  def unacceptable_govspeak?(string)
     self.class.cache.fetch(string) do
-      Govspeak::HtmlValidator.new(string).valid?
+      !Govspeak::HtmlValidator.new(string).valid?
     end
   end
 end

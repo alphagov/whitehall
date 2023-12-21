@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :world_locations, through: :user_world_locations
   has_many :statistics_announcements, foreign_key: :creator_id
 
-  serialize :permissions, coder: YAML, type: Array
+  serialize :permissions, Array
 
   validates :name, presence: true
 
