@@ -1,4 +1,2 @@
 extends: stylelint-config-gds/scss
 ignoreFiles:
-  - app/assets/stylesheets/vendor/**/*
-  - app/assets/stylesheets/admin_legacy/**/*

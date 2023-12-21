@@ -59,22 +59,6 @@ This folder will also store any `view_component` css.
 
 In this folder, all of the CSS for internal application components will be stored. The files should follow the same standards as the GOVUK Publishing Components and should be created in a way that can be ported over to the shared library.
 
-### Legacy CSS
-
-Legacy files will remain in the following folders structures:
-
-```
-- app
-  - assets
-    - stylesheets
-      - admin_legacy
-        - ...
-      - vendor
-      admin_legacy.scss
-```
-
-More details about legacy css standards can be found [here](/docs/legacy_css.md).
-
 ## Styles
 
 With the exception of namespaces, follow the [GOV.UK Frontend CSS conventions](https://github.com/alphagov/govuk-frontend/blob/main/docs/contributing/coding-standards/css.md), which describes in more detail our approach to namespaces, linting and BEM (block, element, modifier) CSS naming methodology.
