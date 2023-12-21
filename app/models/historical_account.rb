@@ -14,7 +14,7 @@ class HistoricalAccount < ApplicationRecord
   after_save :republish_prime_ministers_index_page_to_publishing_api
   after_destroy :republish_prime_ministers_index_page_to_publishing_api
 
-  serialize :political_party_ids, coder: YAML, type: Array
+  serialize :political_party_ids, Array
 
   def self.for_role(role)
     includes(:historical_account_roles).where("historical_account_roles.role_id" => role)
@@ -23,10 +23,6 @@ class HistoricalAccount < ApplicationRecord
   def political_party_ids=(ids)
     ids ||= []
     super(ids.reject(&:blank?))
-  end
-
-  def political_party_ids
-    super || []
   end
 
   def political_parties

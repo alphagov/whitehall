@@ -17,8 +17,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "visiting unknown route should respond with 404 not found" do
-    get "/government/path-unknown-to-application"
-    assert_response :not_found
+    assert_raise(ActionController::RoutingError) do
+      get "/government/path-unknown-to-application"
+    end
   end
 
   test "routing to editions#show will redirect to correct edition type" do

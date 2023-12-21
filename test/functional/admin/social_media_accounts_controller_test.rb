@@ -41,8 +41,6 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
     assert_equal "#{social_media_account.service_name} account updated successfully", flash[:notice]
-
-    worldwide_organisation.reload
     assert_equal ["http://bar"], worldwide_organisation.social_media_accounts.map(&:url)
   end
 

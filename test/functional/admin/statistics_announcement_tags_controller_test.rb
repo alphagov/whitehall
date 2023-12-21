@@ -80,8 +80,8 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
 
     get :edit, params: { statistics_announcement_id: @announcement }
 
-    assert_select "input[value='#{parent_taxon_content_id}'][checked]"
-    assert_select "input[value='#{child_taxon_content_id}'][checked]"
+    assert_select "input[value='#{parent_taxon_content_id}'][checked='checked']"
+    assert_select "input[value='#{child_taxon_content_id}'][checked='checked']"
   end
 
   view_test "should check a parent taxon but not its children when only a parent taxon is returned" do
@@ -89,7 +89,7 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
 
     get :edit, params: { statistics_announcement_id: @announcement }
 
-    assert_select "input[value='#{parent_taxon_content_id}'][checked]"
-    refute_select "input[value='#{child_taxon_content_id}'][checked]"
+    assert_select "input[value='#{parent_taxon_content_id}'][checked='checked']"
+    refute_select "input[value='#{child_taxon_content_id}'][checked='checked']"
   end
 end

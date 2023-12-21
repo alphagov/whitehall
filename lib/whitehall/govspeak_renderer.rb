@@ -23,7 +23,7 @@ module Whitehall
     # instead of rendering a template.
     def helpers
       @helpers ||= begin
-        request = ActionDispatch::Request.new env_for_request
+        request = ActionDispatch::Request.new @env
         request.routes = controller._routes
 
         instance = controller.new
