@@ -6,7 +6,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
   end
 
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
-    worldwide_org = create(:editionable_worldwide_organisation)
+    worldwide_org = create(:editionable_worldwide_organisation, :with_role)
 
     public_path = worldwide_org.public_path
 
@@ -30,6 +30,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     }
 
     expected_links = {
+      roles: worldwide_org.roles.map(&:content_id),
       sponsoring_organisations: worldwide_org.organisations.map(&:content_id),
       world_locations: worldwide_org.world_locations.map(&:content_id),
     }

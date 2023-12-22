@@ -7,6 +7,7 @@
   } do %>
     <div class="govuk-!-margin-bottom-4">
       <%= render "world_location_fields", form: form, edition: edition %>
+      <%= render "role_fields", form: form, edition: edition %>
       <%= render "organisation_fields", form: form, edition: edition, required: true %>
     </div>
   <% end %>

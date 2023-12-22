@@ -16,3 +16,18 @@ end
 And(/^I should see it has been assigned to the "([^"]*)" world location$/) do |title|
   expect(@worldwide_organisation.world_locations.first.name).to eq(title)
 end
+
+Given(/^a role "([^"]*)" exists$/) do |name|
+  create(:role, name:)
+end
+
+And(/^I edit the worldwide organisation "([^"]*)" adding the role of "([^"]*)"$/) do |title, role|
+  begin_editing_document(title)
+  select role, from: "Roles"
+  click_button "Save and go to document summary"
+end
+
+Then(/^I should see the "([^"]*)" role has been assigned to the worldwide organisation "([^"]*)"$/) do |role, title|
+  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  expect(@worldwide_organisation.roles.first.name).to eq(role)
+end

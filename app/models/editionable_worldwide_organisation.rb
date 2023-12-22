@@ -1,5 +1,6 @@
 class EditionableWorldwideOrganisation < Edition
   include Edition::Organisations
+  include Edition::Roles
   include Edition::WorldLocations
 
   def display_type_key

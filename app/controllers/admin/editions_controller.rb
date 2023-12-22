@@ -234,6 +234,7 @@ private
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
         organisation_ids: [],
+        role_ids: [],
         world_location_ids: [],
         worldwide_organisation_ids: [],
         related_policy_ids: [],

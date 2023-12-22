@@ -13,6 +13,9 @@ class Role < ApplicationRecord
     super.reject { |column| %w[name responsibilities].include?(column.name) }
   end
 
+  has_many :edition_roles, inverse_of: :role
+  has_many :editions, through: :edition_roles
+
   has_many :role_appointments, -> { order(started_at: :desc) }
   has_many :people, through: :role_appointments
 
@@ -52,6 +55,8 @@ class Role < ApplicationRecord
   before_destroy :prevent_destruction_unless_destroyable
   after_update :touch_role_appointments
   after_save :republish_organisations_to_publishing_api, :republish_worldwide_organisations_to_publishing_api
+
+  accepts_nested_attributes_for :edition_roles
 
   extend FriendlyId
   friendly_id
