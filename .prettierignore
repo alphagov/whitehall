@@ -1,4 +1,2 @@
 app/assets/javascripts/vendor/
-app/assets/javascripts/admin_legacy
 app/assets/stylesheets/vendor/
-spec/javascripts/admin_legacy
