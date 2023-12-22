@@ -7,6 +7,12 @@ FactoryBot.define do
         news_article.world_locations << build(:world_location)
       end
     end
+
+    trait(:with_role) do
+      after :create do |organisation, _evaluator|
+        organisation.roles << create(:ambassador_role)
+      end
+    end
   end
 
   factory :draft_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:draft]

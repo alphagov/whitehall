@@ -35,6 +35,7 @@ module PublishingApi
 
     def links
       {
+        roles: item.roles.map(&:content_id),
         sponsoring_organisations: item.organisations.map(&:content_id),
         world_locations: item.world_locations.map(&:content_id),
       }
