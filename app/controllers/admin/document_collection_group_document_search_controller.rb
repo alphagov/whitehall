@@ -18,30 +18,17 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
 
   def add_by_title
     flash.now[:alert] = "Please enter a search query" if params[:title] && params[:title].empty?
-    @editions = filter.editions if params[:title].present?
+    if params[:title].present?
+      results = Edition.published.with_title_containing(params[:title].strip)
+      @editions = results
+                    .page(params[:page])
+                    .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
+    end
   end
 
   def add_by_url; end
 
 private
-
-  def filter
-    Admin::EditionFilter.new(edition_scope, current_user, edition_filter_options)
-  end
-
-  def edition_scope
-    Edition.with_translations(I18n.locale)
-  end
-
-  def edition_filter_options
-    params.slice(:title, :page)
-          .permit!
-          .to_h.reverse_merge("state" => "active")
-          .symbolize_keys
-          .merge(
-            per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
-          )
-  end
 
   def load_document_collection
     @collection = DocumentCollection.includes(document: :latest_edition).find(params[:document_collection_id])
