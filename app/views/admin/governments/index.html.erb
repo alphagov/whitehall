@@ -37,10 +37,10 @@
             text: tag.p(government.name, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
           },
           {
-            text: government.start_date.to_fs(:govuk_date),
+            text: government.start_date.to_fs(:long_ordinal),
           },
           {
-            text: (government.end_date.to_fs(:govuk_date) if government.end_date),
+            text: (government.end_date.to_fs(:long_ordinal) if government.end_date),
           },
           *([
             {
