@@ -29,6 +29,10 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       update_type: "major",
     }
 
+    expected_links = {
+      sponsoring_organisations: worldwide_org.organisations.map(&:content_id),
+    }
+
     presented_item = present(worldwide_org)
 
     assert_equal expected_hash, presented_item.content
@@ -38,5 +42,8 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     # TODO: uncomment the below assertion when the editionable_worldwide_organisation model is
     # finished and all content can be added to this presenter.
     # assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
+
+    assert_equal expected_links, presented_item.links
+    assert_valid_against_links_schema({ links: presented_item.links }, "worldwide_organisation")
   end
 end
