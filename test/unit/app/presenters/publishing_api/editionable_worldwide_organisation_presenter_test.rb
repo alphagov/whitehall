@@ -31,6 +31,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
 
     expected_links = {
       sponsoring_organisations: worldwide_org.organisations.map(&:content_id),
+      world_locations: worldwide_org.world_locations.map(&:content_id),
     }
 
     presented_item = present(worldwide_org)

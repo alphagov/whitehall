@@ -51,6 +51,7 @@ if WorldLocation.where(name: "Test World Location").blank?
   world_location = WorldLocation.create!(
     name: "Test World Location",
     world_location_type: "world_location",
+    active: true,
   )
 
   world_location_news = WorldLocationNews.create!(
@@ -156,6 +157,7 @@ if WorldLocation.where(name: "Test International Delegation").blank?
       summary: "An example worldwide organisation",
       supporting_organisations: [],
       title: "Test Editionable Worldwide Organisation",
+      world_locations: [WorldLocation.first],
     )
   end
 end

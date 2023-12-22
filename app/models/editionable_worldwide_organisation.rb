@@ -1,5 +1,6 @@
 class EditionableWorldwideOrganisation < Edition
   include Edition::Organisations
+  include Edition::WorldLocations
 
   def display_type_key
     "editionable_worldwide_organisation"
@@ -11,5 +12,9 @@ class EditionableWorldwideOrganisation < Edition
 
   def base_path
     "/editionable-world/organisations/#{slug}"
+  end
+
+  def skip_world_location_validation?
+    false
   end
 end
