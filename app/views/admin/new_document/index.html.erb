@@ -11,7 +11,7 @@
         items: new_document_type_list,
       } %>
       <%= render "govuk_publishing_components/components/inset_text", {
-        text: sanitize("Check the #{link_to("content types guidance", admin_whats_new_path, {class: "govuk-link"})}" +
+        text: sanitize("Check the #{link_to("content types guidance", "#{Plek.website_root}/guidance/content-design/content-types", class: "govuk-link")}" +
                          " if you need more help in choosing a content type."),
       } %>
 

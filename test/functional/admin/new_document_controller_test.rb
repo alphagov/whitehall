@@ -13,7 +13,9 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     radio_button_values.each do |value|
       assert_select_radio_button(value)
     end
-    assert_select ".govuk-inset-text", text: "Check the content types guidance if you need more help in choosing a content type."
+    assert_select ".govuk-inset-text", text: "Check the content types guidance if you need more help in choosing a content type." do
+      assert_select "a[href='#{Plek.website_root}/guidance/content-design/content-types']", text: "content types guidance"
+    end
   end
 
   view_test "GET #index renders Fatality Notice radio button when the user has GDS Editor permission and organisation is GDS" do
