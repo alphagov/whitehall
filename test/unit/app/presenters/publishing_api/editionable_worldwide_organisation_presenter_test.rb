@@ -14,7 +14,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       base_path: public_path,
       title: worldwide_org.title,
       schema_name: "worldwide_organisation",
-      document_type: "editionable_worldwide_organisation",
+      document_type: "worldwide_organisation",
       locale: "en",
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
