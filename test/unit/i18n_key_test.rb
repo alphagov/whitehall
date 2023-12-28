@@ -65,7 +65,7 @@ private
 
   def assert_translations(type_class, translation_prefix)
     failed_types = []
-    type_class.all.find_each do |type|
+    type_class.all.each do |type| # rubocop:disable Rails/FindEach
       I18n.t("#{translation_prefix}.#{type.key}", count: 1)
       I18n.t("#{translation_prefix}.#{type.key}", count: 2)
     rescue StandardError
