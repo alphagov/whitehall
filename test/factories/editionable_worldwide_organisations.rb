@@ -14,6 +14,12 @@ FactoryBot.define do
         organisation.roles << create(:ambassador_role)
       end
     end
+
+    trait(:with_social_media_account) do
+      after :create do |organisation, _evaluator|
+        create(:social_media_account, socialable: organisation, social_media_service: create(:social_media_service, name: "Blog"))
+      end
+    end
   end
 
   factory :draft_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:draft]
