@@ -11,6 +11,11 @@ on:
   pull_request:
 
 jobs:
+  snyk-security:
+    name: SNYK security analysis
+    uses: alphagov/govuk-infrastructure/.github/workflows/snyk-security.yml@main
+    secrets: inherit
+  
   codeql-sast:
     name: CodeQL SAST scan
     uses: alphagov/govuk-infrastructure/.github/workflows/codeql-analysis.yml@main
