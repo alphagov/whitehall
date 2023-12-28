@@ -24,6 +24,6 @@ private
   end
 
   def allowed_protocols
-    @allowed_protocols ||= [(options[:allowed_protocols] || %w[http https])].flatten
+    @allowed_protocols ||= [options[:allowed_protocols] || %w[http https]].flatten
   end
 end

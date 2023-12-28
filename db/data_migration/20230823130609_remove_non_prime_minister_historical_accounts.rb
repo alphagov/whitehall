@@ -6,8 +6,8 @@ HistoricalAccount
 .joins(:roles)
 .where
 .not(roles: { slug: "prime-minister" })
-.each(&:destroy!)
+.find_each(&:destroy!)
 
-Role.where(supports_historical_accounts: true).each do |role|
+Role.where(supports_historical_accounts: true).find_each do |role|
   role.update!(supports_historical_accounts: false) unless role.slug == "prime-minister"
 end

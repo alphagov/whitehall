@@ -16,7 +16,7 @@ namespace :search do
     if world_location
       content_ids = Edition.in_world_location(world_location.id).map(&:content_id)
 
-      Document.where(content_id: content_ids).each do |document|
+      Document.where(content_id: content_ids).find_each do |document|
         document.live_edition.try(:update_in_search_index)
       end
     else
@@ -74,7 +74,7 @@ namespace :search do
 
     desc "indexes all withdrawn content"
     task withdrawn: :environment do
-      Edition.where(state: "withdrawn").each do |ed|
+      Edition.where(state: "withdrawn").find_each do |ed|
         puts "Indexing: #{ed.content_id}"
         Whitehall::SearchIndex.add(ed)
       end
@@ -93,7 +93,7 @@ namespace :search do
 
       raise "#{model_name} doesn't seem to be searchable" unless model.respond_to? :search_index
 
-      model.all.each do |ed|
+      model.all.find_each do |ed|
         puts "Indexing: #{ed.content_id}"
         Whitehall::SearchIndex.add(ed)
       end

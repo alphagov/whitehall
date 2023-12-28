@@ -8,7 +8,7 @@ class Admin::UsersController < Admin::BaseController
   def show; end
 
   def edit
-    return head :forbidden unless @user.editable_by?(current_user)
+    head :forbidden unless @user.editable_by?(current_user)
   end
 
   def update

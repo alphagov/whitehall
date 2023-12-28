@@ -1,9 +1,9 @@
 Given(/^I am (?:a|an) (writer|editor|admin|GDS editor|GDS admin|importer|managing editor)(?: called "([^"]*)")?$/) do |role, name|
   @user = case role
           when "writer"
-            create(:writer, name: (name || "Wally Writer"))
+            create(:writer, name: name || "Wally Writer")
           when "editor"
-            create(:departmental_editor, name: (name || "Eddie Depteditor"))
+            create(:departmental_editor, name: name || "Eddie Depteditor")
           when "admin"
             create(:user)
           when "GDS editor"

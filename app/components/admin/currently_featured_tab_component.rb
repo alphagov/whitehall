@@ -12,7 +12,7 @@ class Admin::CurrentlyFeaturedTabComponent < ViewComponent::Base
 private
 
   def featured
-    @featured ||= (features.presence || featurings)
+    @featured ||= features.presence || featurings
   end
 
   def live

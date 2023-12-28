@@ -85,7 +85,7 @@ module PublishingApi
     end
 
     def public_updated_at
-      public_updated_at = (consultation.public_timestamp || consultation.updated_at)
+      public_updated_at = consultation.public_timestamp || consultation.updated_at
       public_updated_at.rfc3339
     end
 

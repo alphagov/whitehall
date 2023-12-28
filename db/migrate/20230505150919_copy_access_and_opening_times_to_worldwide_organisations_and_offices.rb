@@ -1,6 +1,6 @@
 class CopyAccessAndOpeningTimesToWorldwideOrganisationsAndOffices < ActiveRecord::Migration[7.0]
   def change
-    AccessAndOpeningTimes.all.each do |access|
+    AccessAndOpeningTimes.all.find_each do |access|
       model = access.accessible_type.constantize
       accessible = model.find(access.accessible_id)
 

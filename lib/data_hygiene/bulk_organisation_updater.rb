@@ -89,23 +89,21 @@ module DataHygiene
         pre_publication_edition = nil
       end
 
-      pre_publication_edition_updated = (
+      pre_publication_edition_updated =
         pre_publication_edition &&
         update_edition(
           pre_publication_edition,
           new_lead_organisations,
           new_supporting_organisations,
         )
-      )
 
-      published_edition_updated = (
+      published_edition_updated =
         published_edition &&
         update_edition(
           published_edition,
           new_lead_organisations,
           new_supporting_organisations,
         )
-      )
 
       if pre_publication_edition_updated || published_edition_updated
         puts "#{document.slug}: #{new_lead_organisations.map(&:slug).join(', ')} (#{new_supporting_organisations.map(&:slug).join(', ')})"

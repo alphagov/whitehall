@@ -8,7 +8,7 @@ module Whitehall::Authority::Rules
       elsif actor.world_editor? || actor.world_writer?
         false
       else
-        (actor.organisation && actor.organisation.handles_fatalities?)
+        actor.organisation && actor.organisation.handles_fatalities?
       end
     end
 

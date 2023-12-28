@@ -86,7 +86,7 @@ export_classes(classes_to_index, id_groups) do |klass, output, id_group|
   end
 
   if id_group
-    association.where(id: id_group).each do |obj|
+    association.where(id: id_group).find_each do |obj|
       output_es_line(obj, output)
     end
   else

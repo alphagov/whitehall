@@ -50,6 +50,6 @@ module CsvSampleHelpers
   end
 
   def sample_organisation
-    @sample_organisation ||= (Organisation.first || create(:organisation, :with_alternative_format_contact_email))
+    @sample_organisation ||= Organisation.first || create(:organisation, :with_alternative_format_contact_email)
   end
 end

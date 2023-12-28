@@ -16,7 +16,7 @@ module TranslatableModel
   end
 
   def remove_translations_for(locale)
-    translations.where(locale:).each(&:destroy)
+    translations.where(locale:).find_each(&:destroy)
 
     if respond_to?(:content_id)
       Whitehall::PublishingApi.discard_translation_async(self, locale:)

@@ -8,7 +8,7 @@ namespace :publishing_api do
       publishing_api: Services.publishing_api,
     )
 
-    SpecialRoute.all.each do |route|
+    SpecialRoute.all.find_each do |route|
       publisher.publish(
         {
           format: "special_route",
@@ -23,7 +23,7 @@ namespace :publishing_api do
 
   desc "Publish redirect routes (eg /government/world)"
   task publish_redirect_routes: :environment do
-    RedirectRoute.all.each do |route|
+    RedirectRoute.all.find_each do |route|
       Services.publishing_api.put_content(
         route[:content_id],
         base_path: route[:base_path],

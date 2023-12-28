@@ -84,7 +84,7 @@ module Whitehall
     end
 
     def text_area(method, *args)
-      options = (args.last || {})
+      options = args.last || {}
       label = options.delete(:label)
       add_class_to_options(options, "form-control")
 

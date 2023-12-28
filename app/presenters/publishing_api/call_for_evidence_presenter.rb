@@ -84,7 +84,7 @@ module PublishingApi
     end
 
     def public_updated_at
-      public_updated_at = (call_for_evidence.public_timestamp || call_for_evidence.updated_at)
+      public_updated_at = call_for_evidence.public_timestamp || call_for_evidence.updated_at
       public_updated_at.rfc3339
     end
 
