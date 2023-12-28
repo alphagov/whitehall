@@ -370,4 +370,23 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
 
     assert_equal expected_output, secondary_navigation_tabs_items(group, admin_document_collection_group_path(document_collection, group))
   end
+
+  test "#secondary_navigation_tabs_items for editionable worldwide organisations" do
+    edition = build_stubbed(:editionable_worldwide_organisation)
+
+    expected_output = [
+      {
+        label: "Document",
+        href: edit_admin_editionable_worldwide_organisation_path(edition),
+        current: true,
+      },
+      {
+        label: "Social media accounts",
+        href: admin_edition_social_media_accounts_path(edition),
+        current: false,
+      },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(edition, edit_admin_editionable_worldwide_organisation_path(edition))
+  end
 end
