@@ -1,0 +1,43 @@
+<% content_for :page_title, "Social media accounts for #{@edition.title}" %>
+<% content_for :title, "Social media accounts for for #{@edition.title}" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation",
+      items: secondary_navigation_tabs_items(@edition, request.path),
+    } %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Add new social media account",
+      margin_bottom: 2,
+      font_size: "l",
+    } %>
+
+    <p class="govuk-body">
+      <%= link_to "Add new social media account", "#", class: "govuk-link govuk-link--no-visited-state" %>
+    </p>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Social media accounts",
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
+
+    <% if @edition.social_media_accounts.any? %>
+      <% @edition.social_media_accounts.each do |social_media_account| %>
+        <%= render "components/summary_card", {
+          title: social_media_account.service_name,
+          rows: [
+            {
+              key: "Account",
+              value: social_media_account.title,
+            },
+          ],
+        } %>
+      <% end %>
+    <% else %>
+      <p class="govuk-body">There are no existing social media accounts.</p>
+    <% end %>
+  </div>
+</div>
