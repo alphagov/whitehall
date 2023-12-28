@@ -15,4 +15,31 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     assert_select "h2.govuk-summary-card__title", text: @edition.social_media_accounts.first.social_media_service.name
     assert_select "dd.govuk-summary-list__value", text: @edition.social_media_accounts.first.title
   end
+
+  view_test "GET :edit displays an existing social media account" do
+    get :edit, params: {
+      edition_id: @edition,
+      id: @edition.social_media_accounts.first,
+    }
+
+    assert_response :success
+    assert_select "select.govuk-select", value: @edition.social_media_accounts.first.social_media_service.name
+    assert_select "input.govuk-input", value: @edition.social_media_accounts.first.url
+    assert_select "input.govuk-input", value: @edition.social_media_accounts.first.title
+  end
+
+  test "PATCH :update updates an existing social media account" do
+    patch :update, params: {
+      edition_id: @edition,
+      id: @edition.social_media_accounts.first,
+      social_media_account: {
+        title: "New title",
+        url: "https://www.newurl.gov.uk",
+      },
+    }
+
+    assert_response :redirect
+    assert_equal "New title", @edition.social_media_accounts.first.title
+    assert_equal "https://www.newurl.gov.uk", @edition.social_media_accounts.first.url
+  end
 end

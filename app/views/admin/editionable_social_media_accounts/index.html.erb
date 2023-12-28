@@ -32,6 +32,12 @@
             {
               key: "Account",
               value: social_media_account.title,
+              actions: [
+                {
+                  label: "Edit",
+                  href: edit_admin_edition_social_media_account_path(@edition, social_media_account),
+                },
+              ],
             },
           ],
         } %>
