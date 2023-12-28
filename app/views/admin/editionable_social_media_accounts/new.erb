@@ -1,0 +1,8 @@
+<% content_for :page_title, "Add social media account for #{@edition.title}" %>
+<% content_for :title, "Add social media account for #{@edition.title}" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render("form", edition: @edition, social_media_account: SocialMediaAccount.new, destination: admin_edition_social_media_accounts_path(@edition)) %>
+  </div>
+</div>

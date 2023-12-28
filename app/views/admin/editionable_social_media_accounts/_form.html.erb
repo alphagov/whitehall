@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_for social_media_account, url: admin_edition_social_media_account_path(edition, social_media_account) do |form| %>
+    <%= form_for social_media_account, url: destination do |form| %>
       <%= render "components/select_with_search", {
         label: "Service (required)",
         id: "social_media_account_social_media_service_id",

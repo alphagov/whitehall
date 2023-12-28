@@ -223,7 +223,7 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
         resources :lead_images, controller: "edition_lead_images", only: %i[update]
-        resources :social_media_accounts, only: %i[edit index update], controller: "editionable_social_media_accounts"
+        resources :social_media_accounts, only: %i[create edit index new update], controller: "editionable_social_media_accounts"
       end
 
       get "/editions/:id" => "editions#show"

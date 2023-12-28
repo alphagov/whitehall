@@ -42,4 +42,19 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     assert_equal "New title", @edition.social_media_accounts.first.title
     assert_equal "https://www.newurl.gov.uk", @edition.social_media_accounts.first.url
   end
+
+  test "POST :create creates a social media account" do
+    post :create, params: {
+      edition_id: @edition,
+      social_media_account: {
+        social_media_service_id: SocialMediaService.first,
+        title: "Account title",
+        url: "https://www.social.gov.uk",
+      },
+    }
+
+    assert_response :redirect
+    assert_equal "Account title", @edition.social_media_accounts.last.title
+    assert_equal "https://www.social.gov.uk", @edition.social_media_accounts.last.url
+  end
 end
