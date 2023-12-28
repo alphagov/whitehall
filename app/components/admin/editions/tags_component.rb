@@ -38,7 +38,7 @@ private
 
     return create_tag("Broken links") if edition.link_check_reports.last.broken_links.any?
 
-    return create_tag("Link warnings") if edition.link_check_reports.last.caution_links.any?
+    create_tag("Link warnings") if edition.link_check_reports.last.caution_links.any?
   end
 
   def create_tag(label)

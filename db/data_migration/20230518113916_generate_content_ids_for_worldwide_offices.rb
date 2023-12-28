@@ -8,7 +8,7 @@ end
 
 puts "BEFORE: #{log_message}"
 
-WorldwideOffice.where(content_id: nil).each do |office|
+WorldwideOffice.where(content_id: nil).find_each do |office|
   office.update!(content_id: SecureRandom.uuid)
 end
 

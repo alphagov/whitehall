@@ -20,7 +20,7 @@ class PublishingApiRake < ActiveSupport::TestCase
           public_updated_at: Time.zone.now.iso8601,
         }
 
-        SpecialRoute.all.each do |route|
+        SpecialRoute.all.each do |route| # rubocop:disable Rails/FindEach
           GdsApi::PublishingApi::SpecialRoutePublisher
             .any_instance.expects(:publish).with(params.merge(route))
         end
@@ -35,7 +35,7 @@ class PublishingApiRake < ActiveSupport::TestCase
 
     test "publishes each redirect route" do
       Timecop.freeze do
-        RedirectRoute.all.each do |route|
+        RedirectRoute.all.each do |route| # rubocop:disable Rails/FindEach
           params = {
             base_path: route[:base_path],
             document_type: "redirect",

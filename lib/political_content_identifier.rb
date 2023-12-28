@@ -32,7 +32,7 @@ class PoliticalContentIdentifier
 private
 
   def stats_publication?
-    (edition.is_a?(Publication) && edition.statistics?)
+    edition.is_a?(Publication) && edition.statistics?
   end
 
   def associated_with_a_minister?

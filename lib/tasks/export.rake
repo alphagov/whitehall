@@ -97,7 +97,7 @@ namespace :export do
         "Analytics key",
       ]
 
-      Organisation.all.each do |org|
+      Organisation.all.find_each do |org|
         csv << [
           org.name,
           org.acronym,

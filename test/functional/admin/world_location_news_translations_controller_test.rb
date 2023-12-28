@@ -64,7 +64,7 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
 
     assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
-      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news")}/, view_links.first["href"])
+      assert_match(/#{Regexp.escape('https://www.test.gov.uk/world/france/news')}/, view_links.first["href"])
     end
   end
 
@@ -76,7 +76,7 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
     assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View/ }
       # Selects all and selects by REGEX of 'View' third index is for the view on the table.
-      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news.fr")}/, view_links.third["href"])
+      assert_match(/#{Regexp.escape('https://www.test.gov.uk/world/france/news.fr')}/, view_links.third["href"])
     end
   end
 
