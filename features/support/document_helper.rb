@@ -114,6 +114,7 @@ module DocumentHelper
 
   def fill_in_worldwide_organisation_fields(world_location: "United Kingdom")
     select world_location, from: "World locations"
+    fill_in "Logo formatted name", with: "Logo\r\nformatted\r\nname\r\n"
   end
 
   def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")
