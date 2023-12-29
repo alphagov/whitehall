@@ -72,6 +72,10 @@ class WorldwideOrganisation < ApplicationRecord
              content: :summary,
              format: "worldwide_organisation"
 
+  def title
+    name
+  end
+
   def display_name
     name
   end

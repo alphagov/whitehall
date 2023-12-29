@@ -382,4 +382,10 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     organisation.update!(name: "new name")
   end
+
+  test "#title returns the name of the organisation" do
+    organisation = create(:worldwide_organisation)
+
+    assert_equal organisation.name, organisation.title
+  end
 end
