@@ -57,4 +57,24 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     assert_equal "Account title", @edition.social_media_accounts.last.title
     assert_equal "https://www.social.gov.uk", @edition.social_media_accounts.last.url
   end
+
+  view_test "GET :confirm_destroy shows a confirmation before deletion" do
+    get :confirm_destroy, params: {
+      edition_id: @edition,
+      id: @edition.social_media_accounts.first,
+    }
+
+    assert_response :success
+    assert_select "p.govuk-body", text: "Are you sure you want to delete \"#{@edition.social_media_accounts.first.title}\"?"
+  end
+
+  test "DELETE :destroy creates a social media account" do
+    delete :destroy, params: {
+      edition_id: @edition,
+      id: @edition.social_media_accounts.first,
+    }
+
+    assert_response :redirect
+    assert_empty @edition.social_media_accounts
+  end
 end

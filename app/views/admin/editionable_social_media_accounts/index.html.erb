@@ -37,6 +37,11 @@
                   label: "Edit",
                   href: edit_admin_edition_social_media_account_path(@edition, social_media_account),
                 },
+                {
+                  label: "Delete",
+                  href: confirm_destroy_admin_edition_social_media_account_path(@edition, social_media_account),
+                  destructive: true,
+                },
               ],
             },
           ],

@@ -1,6 +1,8 @@
 class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
   before_action :find_edition
-  before_action :find_social_media_account, only: %i[edit update]
+  before_action :find_social_media_account, only: %i[confirm_destroy destroy edit update]
+
+  def confirm_destroy; end
 
   def create
     social_media_account = SocialMediaAccount.create(social_media_account_params)
@@ -9,6 +11,14 @@ class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
       redirect_to admin_edition_social_media_accounts_path(@edition), notice: "Social media account '#{social_media_account.title}' created"
     else
       render :new
+    end
+  end
+
+  def destroy
+    if @social_media_account.destroy
+      redirect_to admin_edition_social_media_accounts_path(@edition), notice: "#{@social_media_account.service_name} account deleted successfully"
+    else
+      render :edit
     end
   end
 
