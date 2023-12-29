@@ -228,6 +228,7 @@ private
       :read_consultation_principles,
       :all_nation_applicability,
       :speaker_radios,
+      :logo_formatted_name,
       {
         all_nation_applicability: [],
         secondary_specialist_sector_tags: [],
