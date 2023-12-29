@@ -2,6 +2,8 @@ module PublishingApi
   class EditionableWorldwideOrganisationPresenter
     include Rails.application.routes.url_helpers
     include ActionView::Helpers::UrlHelper
+    include ApplicationHelper
+    include OrganisationHelper
 
     attr_accessor :item, :update_type, :state
 
@@ -23,6 +25,7 @@ module PublishingApi
         details: {
           logo: {
             crest: "single-identity",
+            formatted_title: worldwide_organisation_logo_name(item),
           },
         },
         document_type: "worldwide_organisation",

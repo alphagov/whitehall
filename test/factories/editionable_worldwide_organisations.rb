@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :editionable_worldwide_organisation, class: EditionableWorldwideOrganisation, parent: :edition_with_organisations do
-    title { "editionable-worldwide-organisation-title" }
+    title { "Editionable worldwide organisation title" }
+    logo_formatted_name { title.to_s.split.join("\n") }
 
     after :build do |news_article, evaluator|
       if evaluator.world_locations.empty?
