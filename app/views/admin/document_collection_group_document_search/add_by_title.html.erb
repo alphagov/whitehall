@@ -20,19 +20,19 @@
     <% end %>
   </div>
 
-  <% unless @editions.nil? %>
+  <% unless @results.nil? %>
     <div class="govuk-grid-column-two-thirds app-view-document-collection-document-search-results">
 
-      <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@editions.total_count), "document") %></p>
+      <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@results.total_count), "document") %></p>
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-      <% if @editions.empty? %>
+      <% if @results.total_count == 0 %>
         <p class="govuk-body app-view-document-collection-document-search-results__no_documents">No results found. Search again using the <%= link_to "full URL", admin_document_collection_group_add_by_url_path(@collection, @group), class: "govuk-link govuk-link--no-visited-state" %>.</p>
       <% else %>
         <div class="govuk-table--with-actions app-view-document-collection-document-search-results__table">
           <%= render "govuk_publishing_components/components/table",
                      {
-                       rows: @editions.map do |edition|
+                       rows: @results.map do |edition|
                          title_span = tag.span(index_table_title_row(edition), class: "govuk-!-font-weight-bold")
                          view_link = link_to(sanitize("View #{tag.span(edition.title, class: "govuk-visually-hidden")}"), edition.public_url, class: "govuk-link")
                          add_button = button_to("Add",
@@ -57,7 +57,7 @@
                      } %>
         </div>
       <% end %>
-      <%= paginate(@editions, theme: "govuk_paginator") %>
+      <%= paginate(@results, theme: "govuk_paginator") %>
     </div>
   <% end %>
 </div>

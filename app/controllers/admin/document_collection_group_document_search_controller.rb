@@ -19,10 +19,12 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
   def add_by_title
     flash.now[:alert] = "Please enter a search query" if params[:title] && params[:title].empty?
     if params[:title].present?
-      results = Edition.published.with_title_containing(params[:title].strip)
-      @editions = results
-                    .page(params[:page])
-                    .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
+      @results = Edition
+                   .published
+                   .with_title_containing(params[:title].strip)
+                   .select([:id, :title, :slug, :primary_locale, :document_id])
+                   .page(params[:page])
+                   .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
     end
   end
 
@@ -31,7 +33,7 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
 private
 
   def load_document_collection
-    @collection = DocumentCollection.includes(document: :latest_edition).find(params[:document_collection_id])
+    @collection = DocumentCollection.find(params[:document_collection_id])
   end
 
   def load_document_collection_group
