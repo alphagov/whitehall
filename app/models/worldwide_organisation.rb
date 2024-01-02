@@ -32,6 +32,7 @@ class WorldwideOrganisation < ApplicationRecord
   translates :name
 
   alias_method :original_main_office, :main_office
+  alias_method :title, :name
 
   validates_with SafeHtmlValidator
   validates :name, presence: true
