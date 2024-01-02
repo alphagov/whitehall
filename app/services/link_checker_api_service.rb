@@ -45,7 +45,7 @@ class LinkCheckerApiService
   end
 
   def self.webhook_secret_token
-    Rails.application.secrets.link_checker_api_secret_token
+    Rails.application.credentials.link_checker_api_secret_token
   end
 
   def self.website_root
