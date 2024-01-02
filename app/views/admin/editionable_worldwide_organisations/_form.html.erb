@@ -1,4 +1,16 @@
 <%= standard_edition_form(edition) do |form| %>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Logo formatted name",
+      heading_size: "l",
+    },
+    name: "edition[logo_formatted_name]",
+    id: "edition_logo_formatted_name",
+    value: edition.logo_formatted_name,
+    error_items: errors_for(edition.errors, :logo_formatted_name),
+    rows: 4,
+  } %>
+
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 2,

@@ -14,7 +14,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       base_path: public_path,
       title: worldwide_org.title,
       schema_name: "worldwide_organisation",
-      document_type: "editionable_worldwide_organisation",
+      document_type: "worldwide_organisation",
       locale: "en",
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
@@ -24,6 +24,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       details: {
         logo: {
           crest: "single-identity",
+          formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
         },
       },
       update_type: "major",
@@ -41,11 +42,27 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     assert_equal "major", presented_item.update_type
     assert_equal worldwide_org.content_id, presented_item.content_id
 
-    # TODO: uncomment the below assertion when the editionable_worldwide_organisation model is
-    # finished and all content can be added to this presenter.
-    # assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
+    assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
 
     assert_equal expected_links, presented_item.links
     assert_valid_against_links_schema({ links: presented_item.links }, "worldwide_organisation")
+  end
+
+  test "uses the title for the formatted_title when the locale is not en" do
+    I18n.with_locale(:it) do
+      worldwide_org = create(:editionable_worldwide_organisation, title: "Consolato Generale Britannico Milano")
+
+      presented_item = present(worldwide_org)
+
+      assert_equal "Consolato Generale Britannico Milano", presented_item.content.dig(:details, :logo, :formatted_title)
+    end
+  end
+
+  test "uses the title for the formatted_title when the the logo_formatted_name is absent" do
+    worldwide_org = create(:editionable_worldwide_organisation, logo_formatted_name: nil)
+
+    presented_item = present(worldwide_org)
+
+    assert_equal "Editionable worldwide organisation title", presented_item.content.dig(:details, :logo, :formatted_title)
   end
 end
