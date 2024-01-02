@@ -29,6 +29,7 @@ module PublishingApi
             formatted_title: worldwide_organisation_logo_name(item),
           },
           social_media_links:,
+          world_location_names:,
         },
         document_type: "worldwide_organisation",
         public_updated_at: item.updated_at,
@@ -60,6 +61,17 @@ module PublishingApi
           href: social_media_account.url,
           service_type: social_media_account.service_name.parameterize,
           title: social_media_account.display_name,
+        }
+      end
+    end
+
+    def world_location_names
+      return [] unless item.world_locations.any?
+
+      item.world_locations.map do |world_location|
+        {
+          content_id: world_location.content_id,
+          name: world_location.name,
         }
       end
     end

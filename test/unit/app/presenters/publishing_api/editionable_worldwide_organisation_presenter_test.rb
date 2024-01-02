@@ -36,6 +36,12 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
             title: worldwide_org.social_media_accounts.first.display_name,
           },
         ],
+        world_location_names: [
+          {
+            content_id: worldwide_org.world_locations.first.content_id,
+            name: worldwide_org.world_locations.first.name,
+          },
+        ],
       },
       update_type: "major",
     }
