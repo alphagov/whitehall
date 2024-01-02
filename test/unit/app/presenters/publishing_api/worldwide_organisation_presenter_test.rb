@@ -43,7 +43,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         body: "<div class=\"govspeak\"><p>Some stuff</p>\n</div>",
         logo: {
           crest: "single-identity",
-          formatted_title: "Locationia\nEmbassy",
+          formatted_title: "Locationia<br/>Embassy",
         },
         ordered_corporate_information_pages: [
           {
@@ -158,5 +158,23 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         { path: "#{worldwide_organisation.base_path}.cy", type: "exact" },
       ], presented_item.content[:routes]
     end
+  end
+
+  test "uses the title for the formatted_title when the locale is not en" do
+    I18n.with_locale(:it) do
+      worldwide_org = create(:worldwide_organisation, name: "Consolato Generale Britannico Milano")
+
+      presented_item = present(worldwide_org)
+
+      assert_equal "Consolato Generale Britannico Milano", presented_item.content.dig(:details, :logo, :formatted_title)
+    end
+  end
+
+  test "uses the title for the formatted_title when the the logo_formatted_name is absent" do
+    worldwide_org = create(:worldwide_organisation)
+
+    presented_item = present(worldwide_org)
+
+    assert_equal worldwide_org.name, presented_item.content.dig(:details, :logo, :formatted_title)
   end
 end

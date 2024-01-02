@@ -2,6 +2,8 @@ module PublishingApi
   class WorldwideOrganisationPresenter
     include Rails.application.routes.url_helpers
     include ActionView::Helpers::UrlHelper
+    include ApplicationHelper
+    include OrganisationHelper
 
     attr_accessor :item, :update_type, :state
 
@@ -26,7 +28,7 @@ module PublishingApi
           body:,
           logo: {
             crest: "single-identity",
-            formatted_title: item.logo_formatted_name,
+            formatted_title: worldwide_organisation_logo_name(item),
           },
           ordered_corporate_information_pages:,
           secondary_corporate_information_pages:,
