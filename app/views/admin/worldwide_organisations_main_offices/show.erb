@@ -1,4 +1,4 @@
-<% content_for :page_title, "Set main office for #{@worldwide_organisation.name}" %>
+<% content_for :page_title, "Set main office for #{@worldwide_organisation.title}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @worldwide_organisation)) %>
 
 <div class="govuk-grid-row">
@@ -9,7 +9,7 @@
           name: "worldwide_organisation[main_office_id]",
           id: "worldwide_organisation_main_office_id",
           heading: "Set main office",
-          heading_caption: @worldwide_organisation.name,
+          heading_caption: @worldwide_organisation.title,
           heading_level: 1,
           items: @worldwide_organisation.offices.sort_by(&:title).map do |office|
             {

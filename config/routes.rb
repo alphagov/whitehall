@@ -131,8 +131,8 @@ Whitehall::Application.routes.draw do
 
       resources :worldwide_organisations do
         member do
-          get :choose_main_office
-          put :set_main_office
+          get :choose_main_office, to: "worldwide_organisations_main_offices#show"
+          put :set_main_office, to: "worldwide_organisations_main_offices#update"
           get :confirm_destroy
           get :about, to: "worldwide_organisations_about#show", as: :about
           get :history, to: "worldwide_organisations_history#index", as: :history
