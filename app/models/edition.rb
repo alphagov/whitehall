@@ -379,6 +379,10 @@ EXISTS (
   end
 
   # @group Overwritable permission methods
+  def can_be_associated_with_social_media_accounts?
+    false
+  end
+
   def can_be_associated_with_topical_events?
     false
   end

@@ -27,6 +27,7 @@ module PublishingApi
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
           },
+          social_media_links:,
         },
         document_type: "worldwide_organisation",
         public_updated_at: item.updated_at,
@@ -42,6 +43,20 @@ module PublishingApi
         sponsoring_organisations: item.organisations.map(&:content_id),
         world_locations: item.world_locations.map(&:content_id),
       }
+    end
+
+  private
+
+    def social_media_links
+      return [] unless item.social_media_accounts.any?
+
+      item.social_media_accounts.map do |social_media_account|
+        {
+          href: social_media_account.url,
+          service_type: social_media_account.service_name.parameterize,
+          title: social_media_account.display_name,
+        }
+      end
     end
   end
 end

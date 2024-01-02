@@ -159,5 +159,20 @@ if WorldLocation.where(name: "Test International Delegation").blank?
       title: "Test Editionable Worldwide Organisation",
       world_locations: [WorldLocation.first],
     )
+
+    if SocialMediaService.where(name: "Some social media service").blank?
+      SocialMediaService.create!(
+        name: "Some social media service",
+      )
+    end
+
+    if SocialMediaAccount.where(title: "Some social media account").blank?
+      SocialMediaAccount.create!(
+        title: "Some social media account",
+        url: "https://www.social.gov.uk",
+        social_media_service: SocialMediaService.first,
+        socialable: EditionableWorldwideOrganisation.first,
+      )
+    end
   end
 end

@@ -27,7 +27,7 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
   end
 
   test "renders url as the summary list key if a social media account doesn't have a title" do
-    social_media_account = build_stubbed(:social_media_account, socialable: @socialable)
+    social_media_account = build_stubbed(:social_media_account, socialable: @socialable, title: nil)
 
     render_inline(Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(
                     socialable: @socialable,
@@ -35,12 +35,12 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
                   ))
 
     assert_selector ".govuk-summary-list__key", text: "Account"
-    assert_selector ".govuk-summary-list__value", text: @social_media_account.url
+    assert_selector ".govuk-summary-list__value", text: social_media_account.url
   end
 
   test "renders the summary card with the correct values when the socialable has translations" do
     socialable = create(:organisation, translated_into: %i[es fr])
-    english_social_media_account = create(:social_media_account, translated_into: [:fr], socialable:)
+    english_social_media_account = create(:social_media_account, translated_into: [:fr], socialable:, title: nil)
     french_social_media_account_translation = english_social_media_account.translations.find_by(locale: "fr")
     french_social_media_account_translation.update!(title: "Tweeter", url: "http://example.fr")
 

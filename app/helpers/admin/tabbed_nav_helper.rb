@@ -20,6 +20,7 @@ module Admin::TabbedNavHelper
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
     nav_items << call_for_evidence_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(CallForEvidence)
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
+    nav_items << social_media_nav_items(edition, current_path) if edition.persisted? && edition.can_be_associated_with_social_media_accounts?
     nav_items.flatten
   end
 
@@ -106,6 +107,16 @@ module Admin::TabbedNavHelper
         label: "Group details",
         href: admin_document_collection_group_path(group.document_collection, group),
         current: current_path == admin_document_collection_group_path(group.document_collection, group),
+      },
+    ]
+  end
+
+  def social_media_nav_items(edition, current_path)
+    [
+      {
+        label: "Social media accounts",
+        href: admin_edition_social_media_accounts_path(edition),
+        current: current_path == admin_edition_social_media_accounts_path(edition),
       },
     ]
   end

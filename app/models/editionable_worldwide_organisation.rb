@@ -1,4 +1,5 @@
 class EditionableWorldwideOrganisation < Edition
+  include Edition::SocialMediaAccounts
   include Edition::Organisations
   include Edition::Roles
   include Edition::WorldLocations

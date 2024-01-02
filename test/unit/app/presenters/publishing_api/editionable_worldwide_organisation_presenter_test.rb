@@ -6,7 +6,9 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
   end
 
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
-    worldwide_org = create(:editionable_worldwide_organisation, :with_role)
+    worldwide_org = create(:editionable_worldwide_organisation,
+                           :with_role,
+                           :with_social_media_account)
 
     public_path = worldwide_org.public_path
 
@@ -26,6 +28,13 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
           crest: "single-identity",
           formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
         },
+        social_media_links: [
+          {
+            href: worldwide_org.social_media_accounts.first.url,
+            service_type: worldwide_org.social_media_accounts.first.service_name.parameterize,
+            title: worldwide_org.social_media_accounts.first.display_name,
+          },
+        ],
       },
       update_type: "major",
     }

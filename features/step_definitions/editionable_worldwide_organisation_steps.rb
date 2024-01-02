@@ -33,3 +33,42 @@ Then(/^I should see the "([^"]*)" role has been assigned to the worldwide organi
   @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
   expect(@worldwide_organisation.roles.first.name).to eq(role)
 end
+
+Given(/^a social media service "([^"]*)" exists$/) do |name|
+  create(:social_media_service, name:)
+end
+
+And(/^I edit the worldwide organisation "([^"]*)" adding the social media service of "([^"]*)" with title "([^"]*)" at URL "([^"]*)"$/) do |title, social_media_service_name, social_media_title, social_media_url|
+  begin_editing_document(title)
+  click_link "Social media accounts"
+  click_link "Add new social media account"
+  select social_media_service_name, from: "Service (required)"
+  fill_in "URL (required)", with: social_media_url
+  fill_in "Title", with: social_media_title
+  click_button "Save"
+end
+
+And(/^I edit the worldwide organisation "([^"]*)" changing the social media account with title "([^"]*)" to "([^"]*)"$/) do |title, _old_social_media_title, new_social_media_title|
+  begin_editing_document(title)
+  click_link "Social media accounts"
+  click_link "Edit"
+  fill_in "Title", with: new_social_media_title
+  click_button "Save"
+end
+
+And(/^I edit the worldwide organisation "([^"]*)" deleting the social media account with title "([^"]*)"$/) do |title, _social_media_title|
+  begin_editing_document(title)
+  click_link "Social media accounts"
+  click_link "Delete"
+  click_button "Delete"
+end
+
+Then(/^I should see the "([^"]*)" social media site has been assigned to the worldwide organisation "([^"]*)"$/) do |social_media_title, title|
+  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  expect(@worldwide_organisation.social_media_accounts.first.title).to eq(social_media_title)
+end
+
+Then(/^I should see the worldwide organisation "([^"]*)" has no social media accounts$/) do |title|
+  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  expect(@worldwide_organisation.social_media_accounts).to be_empty
+end
