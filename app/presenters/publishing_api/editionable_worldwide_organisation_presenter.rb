@@ -23,6 +23,7 @@ module PublishingApi
 
       content.merge!(
         details: {
+          body:,
           logo: {
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
@@ -46,6 +47,10 @@ module PublishingApi
     end
 
   private
+
+    def body
+      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+    end
 
     def social_media_links
       return [] unless item.social_media_accounts.any?

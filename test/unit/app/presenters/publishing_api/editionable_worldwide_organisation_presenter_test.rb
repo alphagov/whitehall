@@ -24,6 +24,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
       details: {
+        body: "<div class=\"govspeak\"><p>Information about the organisation with <em>italics</em>.</p>\n</div>",
         logo: {
           crest: "single-identity",
           formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
