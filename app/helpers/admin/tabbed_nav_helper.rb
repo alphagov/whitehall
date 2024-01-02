@@ -20,6 +20,7 @@ module Admin::TabbedNavHelper
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
     nav_items << call_for_evidence_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(CallForEvidence)
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
+    nav_items << editionable_worldwide_organisation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(EditionableWorldwideOrganisation)
     nav_items << social_media_nav_items(edition, current_path) if edition.persisted? && edition.can_be_associated_with_social_media_accounts?
     nav_items.flatten
   end
@@ -152,6 +153,16 @@ module Admin::TabbedNavHelper
         label: "Historical accounts",
         href: admin_person_historical_accounts_path(person),
         current: current_path == admin_person_historical_accounts_path(person),
+      },
+    ]
+  end
+
+  def editionable_worldwide_organisation_nav_items(worldwide_organisation, current_path)
+    [
+      {
+        label: "Offices",
+        href: admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation),
+        current: current_path == admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation),
       },
     ]
   end

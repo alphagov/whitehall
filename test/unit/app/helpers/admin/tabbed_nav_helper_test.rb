@@ -381,6 +381,11 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: true,
       },
       {
+        label: "Offices",
+        href: admin_worldwide_organisation_worldwide_offices_path(edition),
+        current: false,
+      },
+      {
         label: "Social media accounts",
         href: admin_edition_social_media_accounts_path(edition),
         current: false,
