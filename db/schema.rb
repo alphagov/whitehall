@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_163205) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_02_114732) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_163205) do
     t.string "assetable_type"
     t.bigint "assetable_id"
     t.string "filename"
+    t.index ["asset_manager_id"], name: "index_assets_on_asset_manager_id"
     t.index ["assetable_type", "assetable_id"], name: "index_assets_on_assetable"
   end
 
