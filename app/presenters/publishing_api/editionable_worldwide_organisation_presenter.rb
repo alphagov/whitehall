@@ -37,6 +37,7 @@ module PublishingApi
         schema_name: "worldwide_organisation",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
+      content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
 
     def links

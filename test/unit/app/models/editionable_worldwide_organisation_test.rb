@@ -1,6 +1,11 @@
 require "test_helper"
 
 class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
+  test "should set an analytics identifier on create" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    assert_equal "WO#{worldwide_organisation.id}", worldwide_organisation.analytics_identifier
+  end
+
   test "an ambassadorial role is a primary role and not a secondary one" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
 

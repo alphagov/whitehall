@@ -8,7 +8,8 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
     worldwide_org = create(:editionable_worldwide_organisation,
                            :with_role,
-                           :with_social_media_account)
+                           :with_social_media_account,
+                           analytics_identifier: "WO123")
 
     primary_role = create(:ambassador_role)
     ambassador = create(:person)
@@ -53,6 +54,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
           },
         ],
       },
+      analytics_identifier: "WO123",
       update_type: "major",
     }
 
