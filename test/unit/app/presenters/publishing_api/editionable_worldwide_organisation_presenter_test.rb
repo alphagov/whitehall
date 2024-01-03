@@ -9,6 +9,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     worldwide_org = create(:editionable_worldwide_organisation,
                            :with_role,
                            :with_social_media_account,
+                           :with_office,
                            analytics_identifier: "WO123")
 
     primary_role = create(:ambassador_role)
@@ -59,6 +60,10 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     }
 
     expected_links = {
+      main_office: [
+        worldwide_org.reload.offices.first.content_id,
+      ],
+      home_page_offices: [],
       office_staff: worldwide_org.office_staff_roles.map(&:current_person).map(&:content_id),
       primary_role_person: [
         ambassador.content_id,

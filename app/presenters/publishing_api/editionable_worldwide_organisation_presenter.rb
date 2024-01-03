@@ -43,6 +43,8 @@ module PublishingApi
     def links
       {
         office_staff:,
+        main_office:,
+        home_page_offices:,
         primary_role_person:,
         roles: item.roles.map(&:content_id),
         secondary_role_person:,
@@ -59,6 +61,18 @@ module PublishingApi
 
     def office_staff
       item.office_staff_roles.map(&:current_person).map(&:content_id)
+    end
+
+    def main_office
+      return [] unless item.main_office
+
+      [item.main_office.content_id]
+    end
+
+    def home_page_offices
+      return [] unless item.home_page_offices.any?
+
+      item.home_page_offices.map(&:content_id)
     end
 
     def primary_role_person
