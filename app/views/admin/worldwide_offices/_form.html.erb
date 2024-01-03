@@ -1,4 +1,7 @@
-<%= form_for [:admin, worldwide_organisation, worldwide_office] do |office_form| %>
+<%= form_for @worldwide_office, url:
+  @worldwide_office.persisted? ?
+    admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation, @worldwide_office) :
+    admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation) do |office_form| %>
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Title (required)",

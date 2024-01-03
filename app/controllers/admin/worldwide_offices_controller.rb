@@ -4,7 +4,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   extend Admin::HomePageListController
   is_home_page_list_controller_for :offices,
                                    item_type: WorldwideOffice,
-                                   redirect_to: ->(container, _item) { [:admin, container, WorldwideOffice] },
+                                   redirect_to: ->(container, _item) { admin_worldwide_organisation_worldwide_offices_path(container) },
                                    params_name: :worldwide_office
 
   def index; end
@@ -23,7 +23,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     worldwide_office_params[:service_ids] ||= []
     if @worldwide_office.update(worldwide_office_params)
       handle_show_on_home_page_param
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been edited"
+      redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been edited"
     else
       @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
       render :edit
@@ -34,7 +34,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     @worldwide_office = @worldwide_organisation.offices.build(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{@worldwide_office.title} has been added"
+      redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been added"
     else
       @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
       render :new
@@ -51,7 +51,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     title = @worldwide_office.title
 
     if @worldwide_office.destroy
-      redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "#{title} has been deleted"
+      redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{title} has been deleted"
     else
       render :edit
     end
@@ -68,7 +68,11 @@ private
   end
 
   def find_worldwide_organisation
-    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = if Flipflop.editionable_worldwide_organisations?
+                                Edition.find(params[:worldwide_organisation_id])
+                              else
+                                WorldwideOrganisation.find(params[:worldwide_organisation_id])
+                              end
   end
 
   def find_worldwide_office

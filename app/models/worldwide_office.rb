@@ -28,6 +28,10 @@ class WorldwideOffice < ApplicationRecord
   delegate(:non_english_translated_locales, to: :worldwide_organisation)
   delegate(:embassy_office?, to: :worldwide_office_type)
 
+  def worldwide_organisation
+    super || edition
+  end
+
   def worldwide_office_type
     WorldwideOfficeType.find_by_id(worldwide_office_type_id)
   end
