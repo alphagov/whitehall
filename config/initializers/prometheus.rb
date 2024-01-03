@@ -1,2 +1,4 @@
 require "govuk_app_config/govuk_prometheus_exporter"
-GovukPrometheusExporter.configure
+require "collectors/scheduled_publishing_overdue_collector"
+
+GovukPrometheusExporter.configure(collectors: [Collectors::ScheduledPublishingOverdueCollector])
