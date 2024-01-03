@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_02_114732) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -397,6 +397,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_114732) do
     t.string "mapped_specialist_topic_content_id"
     t.string "taxonomy_topic_email_override"
     t.string "logo_formatted_name"
+    t.string "analytics_identifier"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
