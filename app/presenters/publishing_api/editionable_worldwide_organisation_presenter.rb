@@ -23,11 +23,13 @@ module PublishingApi
 
       content.merge!(
         details: {
+          body:,
           logo: {
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
           },
           social_media_links:,
+          world_location_names:,
         },
         document_type: "worldwide_organisation",
         public_updated_at: item.updated_at,
@@ -39,13 +41,36 @@ module PublishingApi
 
     def links
       {
+        office_staff:,
+        primary_role_person:,
         roles: item.roles.map(&:content_id),
+        secondary_role_person:,
         sponsoring_organisations: item.organisations.map(&:content_id),
         world_locations: item.world_locations.map(&:content_id),
       }
     end
 
   private
+
+    def body
+      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+    end
+
+    def office_staff
+      item.office_staff_roles.map(&:current_person).map(&:content_id)
+    end
+
+    def primary_role_person
+      return [] unless item.primary_role
+
+      [item.primary_role.current_person.content_id]
+    end
+
+    def secondary_role_person
+      return [] unless item.secondary_role
+
+      [item.secondary_role.current_person.content_id]
+    end
 
     def social_media_links
       return [] unless item.social_media_accounts.any?
@@ -55,6 +80,17 @@ module PublishingApi
           href: social_media_account.url,
           service_type: social_media_account.service_name.parameterize,
           title: social_media_account.display_name,
+        }
+      end
+    end
+
+    def world_location_names
+      return [] unless item.world_locations.any?
+
+      item.world_locations.map do |world_location|
+        {
+          content_id: world_location.content_id,
+          name: world_location.name,
         }
       end
     end
