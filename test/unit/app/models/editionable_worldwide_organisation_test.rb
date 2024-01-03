@@ -2,7 +2,7 @@ require "test_helper"
 
 class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   test "an ambassadorial role is a primary role and not a secondary one" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     assert_nil worldwide_organisation.primary_role
 
@@ -14,7 +14,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "a high commissioner role is a primary role and not a secondary one" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     assert_nil worldwide_organisation.primary_role
 
@@ -26,7 +26,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "a governor role is a primary role and not a secondary one" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     assert_nil worldwide_organisation.primary_role
 
@@ -38,7 +38,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "a deputy head of mission is second in charge and not a primary one" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     assert_nil worldwide_organisation.secondary_role
 
@@ -50,7 +50,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "office_staff_roles returns worldwide office staff roles" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     assert_equal [], worldwide_organisation.office_staff_roles
 
@@ -65,7 +65,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "primary, secondary and office staff roles return occupied roles only" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     worldwide_organisation.roles << create(:ambassador_role, :vacant)
     worldwide_organisation.roles << create(:deputy_head_of_mission_role, :vacant)
