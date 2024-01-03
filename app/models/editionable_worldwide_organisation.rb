@@ -8,6 +8,9 @@ class EditionableWorldwideOrganisation < Edition
   include Edition::Roles
   include Edition::WorldLocations
 
+  include AnalyticsIdentifierPopulator
+  self.analytics_prefix = "WO"
+
   def base_path
     "/editionable-world/organisations/#{slug}"
   end
