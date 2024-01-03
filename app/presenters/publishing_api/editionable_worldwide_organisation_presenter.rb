@@ -41,7 +41,10 @@ module PublishingApi
 
     def links
       {
+        office_staff:,
+        primary_role_person:,
         roles: item.roles.map(&:content_id),
+        secondary_role_person:,
         sponsoring_organisations: item.organisations.map(&:content_id),
         world_locations: item.world_locations.map(&:content_id),
       }
@@ -51,6 +54,22 @@ module PublishingApi
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+    end
+
+    def office_staff
+      item.office_staff_roles.map(&:current_person).map(&:content_id)
+    end
+
+    def primary_role_person
+      return [] unless item.primary_role
+
+      [item.primary_role.current_person.content_id]
+    end
+
+    def secondary_role_person
+      return [] unless item.secondary_role
+
+      [item.secondary_role.current_person.content_id]
     end
 
     def social_media_links
