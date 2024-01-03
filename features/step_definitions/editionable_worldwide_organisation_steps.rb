@@ -5,13 +5,13 @@ end
 
 Given(/^an editionable worldwide organisation "([^"]*)"$/) do |title|
   worldwide_organisation = create(:editionable_worldwide_organisation, title:)
-  worldwide_organisation.main_office = create(:worldwide_office, edition: worldwide_organisation, title: "Main office for #{title}")
+  worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, title: "Main office for #{title}")
 end
 
 Given(/^an editionable worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/) do |title, contact_1_title, contact_2_title|
   worldwide_organisation = create(:editionable_worldwide_organisation, title:)
-  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, edition: worldwide_organisation, contact: create(:contact, title: contact_1_title)))
-  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, edition: worldwide_organisation, contact: create(:contact, title: contact_2_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, contact: create(:contact, title: contact_1_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, contact: create(:contact, title: contact_2_title)))
 end
 
 Given(/^An editionable worldwide organisation "([^"]*)" with home page offices "([^"]*)" and "([^"]*)"$/) do |title, office_1_title, office_2_title|

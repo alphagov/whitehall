@@ -5,6 +5,7 @@ class WorldwideOffice < ApplicationRecord
   has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_office
   has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
   validates :worldwide_organisation, :contact, :worldwide_office_type_id, presence: true
+  validate :worldwide_organisation_or_edition
 
   after_commit :republish_embassies_index_page_to_publishing_api
 
@@ -62,5 +63,13 @@ class WorldwideOffice < ApplicationRecord
 
   def publishing_api_presenter
     PublishingApi::WorldwideOfficePresenter
+  end
+
+private
+
+  def worldwide_organisation_or_edition
+    if worldwide_organisation_id && edition
+      errors.add(:associations, "Only worldwide organisation or edition allowed")
+    end
   end
 end

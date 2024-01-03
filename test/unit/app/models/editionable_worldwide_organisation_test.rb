@@ -3,8 +3,7 @@ require "test_helper"
 class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   test "can be associated with one or more worldwide offices" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
-    worldwide_office = create(:worldwide_office)
-    worldwide_organisation.offices << worldwide_office
+    worldwide_office = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation)
 
     assert_equal [worldwide_office], worldwide_organisation.offices
   end
@@ -135,11 +134,10 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_nil worldwide_organisation.main_office
 
-    office1 = create(:worldwide_office)
-    worldwide_organisation.offices << office1
+    office1 = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation)
     assert_equal office1, worldwide_organisation.main_office
 
-    office2 = create(:worldwide_office)
+    office2 = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation)
     worldwide_organisation.offices << office2
     assert_equal office1, worldwide_organisation.main_office
 
@@ -165,7 +163,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "knows if a given office is on its home page" do
     world_organisation = build(:editionable_worldwide_organisation)
-    office = build(:worldwide_office)
+    office = build(:worldwide_office, worldwide_organisation: nil)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
     h.expects(:shown_on_home_page?).with(office).returns :the_answer
@@ -175,8 +173,8 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "knows that the main office is on the home page, even if it's not explicitly in the list" do
     world_organisation = create(:editionable_worldwide_organisation)
-    office1 = create(:worldwide_office, edition: world_organisation)
-    office2 = create(:worldwide_office, edition: world_organisation)
+    office1 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
+    office2 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
     world_organisation.add_office_to_home_page!(office1)
     world_organisation.main_office = office2
 
@@ -194,9 +192,9 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "the list of offices that are on its home page excludes the main office" do
     world_organisation = create(:editionable_worldwide_organisation)
-    office1 = create(:worldwide_office, edition: world_organisation)
-    office2 = create(:worldwide_office, edition: world_organisation)
-    office3 = create(:worldwide_office, edition: world_organisation)
+    office1 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
+    office2 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
+    office3 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
     world_organisation.add_office_to_home_page!(office1)
     world_organisation.add_office_to_home_page!(office2)
     world_organisation.add_office_to_home_page!(office3)
