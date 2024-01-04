@@ -22,6 +22,34 @@ class EditionableWorldwideOrganisation < Edition
     "editionable_worldwide_organisation"
   end
 
+  alias_method :original_main_office, :main_office
+
+  extend HomePageList::Container
+  has_home_page_list_of :offices
+  def home_page_offices
+    super - [main_office]
+  end
+
+  def office_shown_on_home_page?(office)
+    super || is_main_office?(office)
+  end
+
+  def main_office
+    original_main_office || offices.first
+  end
+
+  def other_offices
+    offices - [main_office]
+  end
+
+  def is_main_office?(office)
+    main_office == office
+  end
+
+  def embassy_offices
+    offices.select(&:embassy_office?)
+  end
+
   def office_staff_roles
     roles.occupied.where(type: OFFICE_ROLES.map(&:name))
   end
