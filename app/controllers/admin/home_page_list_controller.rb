@@ -1,4 +1,6 @@
 module Admin::HomePageListController
+  include Rails.application.routes.url_helpers
+
   def is_home_page_list_controller_for(list_name, opts)
     before_action :extract_show_on_home_page_param, only: %i[create update]
     plural_name = list_name.to_s.downcase

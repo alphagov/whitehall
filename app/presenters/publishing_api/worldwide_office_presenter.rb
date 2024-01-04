@@ -12,7 +12,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         item,
-        title: item.worldwide_organisation.name,
+        title: item.worldwide_organisation.title,
         update_type:,
       ).base_attributes
 

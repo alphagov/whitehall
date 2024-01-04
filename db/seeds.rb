@@ -174,5 +174,21 @@ if WorldLocation.where(name: "Test International Delegation").blank?
         socialable: EditionableWorldwideOrganisation.first,
       )
     end
+
+    if Contact.where(title: "Some worldwide office").blank?
+      contact = Contact.create!(
+        title: "Some worldwide office",
+        contact_type: ContactType::General,
+        content_id: SecureRandom.uuid,
+      )
+
+      WorldwideOffice.create!(
+        access_and_opening_times: "Access and opening times",
+        edition: EditionableWorldwideOrganisation.find_by(title: "Test Editionable Worldwide Organisation"),
+        contact:,
+        worldwide_office_type_id: WorldwideOfficeType::Embassy.id,
+        content_id: SecureRandom.uuid,
+      )
+    end
   end
 end

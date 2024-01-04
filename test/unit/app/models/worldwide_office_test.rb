@@ -7,6 +7,15 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     end
   end
 
+  test "should not be valid with a worldwide organisation and editionable worldwide organisation" do
+    office = build(:worldwide_office, edition: create(:editionable_worldwide_organisation))
+
+    office.save!
+
+    assert office.invalid?
+    assert_includes office.errors[:associations], "Only worldwide organisation or edition allowed"
+  end
+
   test "delegates address-related methods to its contact" do
     contact = create(
       :contact_with_country,

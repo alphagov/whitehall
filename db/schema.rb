@@ -396,12 +396,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
     t.string "auth_bypass_id", null: false
     t.string "mapped_specialist_topic_content_id"
     t.string "taxonomy_topic_email_override"
+    t.integer "main_office_id"
     t.string "logo_formatted_name"
     t.string "analytics_identifier"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
     t.index ["first_published_at"], name: "index_editions_on_first_published_at"
+    t.index ["main_office_id"], name: "index_editions_on_main_office_id"
     t.index ["opening_at"], name: "index_editions_on_opening_at"
     t.index ["operational_field_id"], name: "index_editions_on_operational_field_id"
     t.index ["public_timestamp", "document_id"], name: "index_editions_on_public_timestamp_and_document_id"
@@ -1203,6 +1205,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
     t.string "slug"
     t.text "access_and_opening_times"
     t.string "content_id"
+    t.integer "edition_id"
+    t.index ["edition_id"], name: "index_worldwide_offices_on_edition_id"
     t.index ["slug"], name: "index_worldwide_offices_on_slug"
     t.index ["worldwide_organisation_id"], name: "index_worldwide_offices_on_worldwide_organisation_id"
   end
@@ -1259,4 +1263,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
   add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "worldwide_offices", "editions"
 end

@@ -48,13 +48,6 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     end
   end
 
-  def choose_main_office; end
-
-  def set_main_office
-    @worldwide_organisation.update!(main_office_params)
-    redirect_to [:admin, @worldwide_organisation, WorldwideOffice], notice: "Main office updated successfully"
-  end
-
   def confirm_destroy; end
 
   def destroy
@@ -86,9 +79,5 @@ private
     if worldwide_organisation_params.dig(:default_news_image_attributes, :file).present? && worldwide_organisation_params.dig(:default_news_image_attributes, :file_cache).present?
       worldwide_organisation_params[:default_news_image_attributes].delete(:file_cache)
     end
-  end
-
-  def main_office_params
-    params.require(:worldwide_organisation).permit(:main_office_id)
   end
 end

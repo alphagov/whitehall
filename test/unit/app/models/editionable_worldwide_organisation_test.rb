@@ -1,6 +1,23 @@
 require "test_helper"
 
 class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
+  test "can be associated with one or more worldwide offices" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_office = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation)
+
+    assert_equal [worldwide_office], worldwide_organisation.offices
+  end
+
+  test "destroys associated worldwide offices" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_office = create(:worldwide_office)
+    worldwide_organisation.offices << worldwide_office
+
+    worldwide_organisation.destroy!
+
+    assert_equal 0, worldwide_organisation.offices.count
+  end
+
   test "should set an analytics identifier on create" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
     assert_equal "WO#{worldwide_organisation.id}", worldwide_organisation.analytics_identifier
@@ -103,5 +120,123 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_equal published_worldwide_organisation.social_media_accounts.first.title, draft_worldwide_organisation.social_media_accounts.first.title
     assert_equal published_worldwide_organisation.social_media_accounts.first.url, draft_worldwide_organisation.social_media_accounts.first.url
+  end
+
+  test "when destroyed, will remove its home page list for storing offices" do
+    world_organisation = create(:editionable_worldwide_organisation)
+    h = world_organisation.__send__(:home_page_offices_list)
+    world_organisation.destroy!
+    assert_not HomePageList.exists?(h.id)
+  end
+
+  test "has an overridable default main office" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+
+    assert_nil worldwide_organisation.main_office
+
+    office1 = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation)
+    assert_equal office1, worldwide_organisation.main_office
+
+    office2 = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation)
+    worldwide_organisation.offices << office2
+    assert_equal office1, worldwide_organisation.main_office
+
+    worldwide_organisation.main_office = office2
+    assert_equal office2, worldwide_organisation.main_office
+  end
+
+  test "distinguishes between the main office and other offices" do
+    offices = [build(:worldwide_office), build(:worldwide_office)]
+    worldwide_organisation = build(:editionable_worldwide_organisation, offices:, main_office: offices.last)
+
+    assert worldwide_organisation.is_main_office?(offices.last)
+    assert_not worldwide_organisation.is_main_office?(offices.first)
+  end
+
+  test "can list other offices" do
+    offices = [build(:worldwide_office), build(:worldwide_office)]
+
+    assert_equal [], build(:editionable_worldwide_organisation, offices: []).other_offices
+    assert_equal [], build(:editionable_worldwide_organisation, offices: offices.take(1)).other_offices
+    assert_equal [offices.last], build(:editionable_worldwide_organisation, offices:, main_office: offices.first).other_offices
+  end
+
+  test "knows if a given office is on its home page" do
+    world_organisation = build(:editionable_worldwide_organisation)
+    office = build(:worldwide_office, worldwide_organisation: nil)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:shown_on_home_page?).with(office).returns :the_answer
+
+    assert_equal :the_answer, world_organisation.office_shown_on_home_page?(office)
+  end
+
+  test "knows that the main office is on the home page, even if it's not explicitly in the list" do
+    world_organisation = create(:editionable_worldwide_organisation)
+    office1 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
+    office2 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
+    world_organisation.add_office_to_home_page!(office1)
+    world_organisation.main_office = office2
+
+    assert world_organisation.office_shown_on_home_page?(office2)
+  end
+
+  test "has a list of offices that are on its home page" do
+    world_organisation = build(:editionable_worldwide_organisation)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:items).returns [:the_list_of_offices]
+
+    assert_equal [:the_list_of_offices], world_organisation.home_page_offices
+  end
+
+  test "the list of offices that are on its home page excludes the main office" do
+    world_organisation = create(:editionable_worldwide_organisation)
+    office1 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
+    office2 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
+    office3 = create(:worldwide_office, worldwide_organisation: nil, edition: world_organisation)
+    world_organisation.add_office_to_home_page!(office1)
+    world_organisation.add_office_to_home_page!(office2)
+    world_organisation.add_office_to_home_page!(office3)
+    world_organisation.main_office = office2
+
+    assert_equal [office1, office3], world_organisation.home_page_offices
+  end
+
+  test "can add a office to the list of those that are on its home page" do
+    world_organisation = build(:editionable_worldwide_organisation)
+    office = build(:worldwide_office)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:add_item).with(office).returns :a_result
+
+    assert_equal :a_result, world_organisation.add_office_to_home_page!(office)
+  end
+
+  test "can remove a office from the list of those that are on its home page" do
+    world_organisation = build(:editionable_worldwide_organisation)
+    office = build(:worldwide_office)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:remove_item).with(office).returns :a_result
+
+    assert_equal :a_result, world_organisation.remove_office_from_home_page!(office)
+  end
+
+  test "can reorder the contacts on the list" do
+    world_organisation = build(:editionable_worldwide_organisation)
+    office1 = build(:worldwide_office)
+    office2 = build(:worldwide_office)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:reorder_items!).with([office1, office2]).returns :a_result
+
+    assert_equal :a_result, world_organisation.reorder_offices_on_home_page!([office1, office2])
+  end
+
+  test "maintains a home page list for storing offices" do
+    world_organisation = build(:editionable_worldwide_organisation)
+    HomePageList.expects(:get).with(has_entries(owned_by: world_organisation, called: "offices")).returns :a_home_page_list_of_offices
+    assert_equal :a_home_page_list_of_offices, world_organisation.__send__(:home_page_offices_list)
   end
 end

@@ -1,9 +1,11 @@
 class WorldwideOffice < ApplicationRecord
   has_one :contact, as: :contactable, dependent: :destroy
   belongs_to :worldwide_organisation
+  belongs_to :edition
   has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_office
   has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
   validates :worldwide_organisation, :contact, :worldwide_office_type_id, presence: true
+  validate :worldwide_organisation_or_edition
 
   after_commit :republish_embassies_index_page_to_publishing_api
 
@@ -26,6 +28,10 @@ class WorldwideOffice < ApplicationRecord
   delegate(*contact_methods, to: :contact, allow_nil: true)
   delegate(:non_english_translated_locales, to: :worldwide_organisation)
   delegate(:embassy_office?, to: :worldwide_office_type)
+
+  def worldwide_organisation
+    super || edition
+  end
 
   def worldwide_office_type
     WorldwideOfficeType.find_by_id(worldwide_office_type_id)
@@ -57,5 +63,13 @@ class WorldwideOffice < ApplicationRecord
 
   def publishing_api_presenter
     PublishingApi::WorldwideOfficePresenter
+  end
+
+private
+
+  def worldwide_organisation_or_edition
+    if worldwide_organisation_id && edition
+      errors.add(:associations, "Only worldwide organisation or edition allowed")
+    end
   end
 end
