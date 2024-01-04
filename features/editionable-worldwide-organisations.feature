@@ -10,6 +10,11 @@ Feature: Editionable worldwide organisations
     And I should see it has been assigned to the "United Kingdom" world location
     And I should see the editionable worldwide organisation "Test Worldwide Organisation" in the list of draft documents
 
+  Scenario Outline: Adding a translation to an existing worldwide organisation
+    When I draft a new worldwide organisation "Test Worldwide Organisation" assigned to world location "United Kingdom"
+    And I add a Welsh translation of the worldwide organisation "Test Worldwide Organisation" named "Translated Name"
+    Then I should see the Welsh translated title "Translated Name" for the "Test Worldwide Organisation" worldwide organisation
+
   Scenario Outline: Assigning a role to a worldwide organisation
     Given a role "Prime Minister" exists
     When I draft a new worldwide organisation "Test Worldwide Organisation" assigned to world location "United Kingdom"

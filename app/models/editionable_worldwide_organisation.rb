@@ -69,4 +69,8 @@ class EditionableWorldwideOrganisation < Edition
   def skip_world_location_validation?
     false
   end
+
+  def translatable?
+    true
+  end
 end

@@ -98,6 +98,23 @@ And(/^I should see it has been assigned to the "([^"]*)" world location$/) do |t
   expect(@worldwide_organisation.world_locations.first.name).to eq(title)
 end
 
+And(/^I add a Welsh translation of the worldwide organisation "([^"]*)" named "([^"]*)"$/) do |title, translated_title|
+  visit_edition_admin(title)
+  click_link "Add translation"
+  select "Cymraeg (Welsh)", from: "Choose language"
+  click_button "Next"
+  fill_in "Translated title (required)", with: translated_title
+  click_button "Save"
+end
+
+Then(/^I should see the Welsh translated title "([^"]*)" for the "([^"]*)" worldwide organisation$/) do |translated_title, title|
+  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+
+  I18n.with_locale(:cy) do
+    expect(@worldwide_organisation.title).to eq(translated_title)
+  end
+end
+
 Given(/^a role "([^"]*)" exists$/) do |name|
   create(:role, name:)
 end
