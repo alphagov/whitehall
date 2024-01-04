@@ -22,7 +22,11 @@ class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    I18n.with_locale(params[:locale] || I18n.default_locale) do
+      render :edit
+    end
+  end
 
   def index
     @editionable_social_media_accounts_index_presenter = EditionableSocialMediaAccountsIndexPresenter.new(@edition)
@@ -52,6 +56,7 @@ private
 
   def social_media_account_params
     params.fetch(:social_media_account, {}).permit(
+      :locale,
       :social_media_service_id,
       :title,
       :url,

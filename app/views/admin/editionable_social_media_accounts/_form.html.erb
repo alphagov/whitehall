@@ -39,6 +39,8 @@
         error_items: errors_for(social_media_account.errors, :title),
       } %>
 
+      <%= form.hidden_field :locale, value: I18n.locale %>
+
       <div class="govuk-button-group govuk-!-margin-top-8">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",

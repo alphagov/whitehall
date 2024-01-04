@@ -40,6 +40,19 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     assert_select "input.govuk-input", value: @edition.social_media_accounts.first.title
   end
 
+  view_test "GET :edit displays an existing social media account translation" do
+    get :edit, params: {
+      edition_id: @edition,
+      id: @edition.social_media_accounts.first,
+      locale: "cy",
+    }
+
+    assert_response :success
+    assert_select "select.govuk-select", value: @edition.social_media_accounts.first.social_media_service.name
+    assert_select "input.govuk-input", value: "https://www.newurl.gov.cymru"
+    assert_select "input.govuk-input", value: "Translated title"
+  end
+
   test "PATCH :update updates an existing social media account" do
     patch :update, params: {
       edition_id: @edition,
@@ -53,6 +66,24 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     assert_response :redirect
     assert_equal "New title", @edition.social_media_accounts.first.title
     assert_equal "https://www.newurl.gov.uk", @edition.social_media_accounts.first.url
+  end
+
+  test "PATCH :update updates an existing social media account translation" do
+    patch :update, params: {
+      edition_id: @edition,
+      id: @edition.social_media_accounts.first,
+      social_media_account: {
+        title: "New translated title",
+        url: "https://www.newurl.gov.cymru",
+        locale: "cy",
+      },
+    }
+
+    assert_response :redirect
+    I18n.with_locale(:cy) do
+      assert_equal "New translated title", @edition.social_media_accounts.first.title
+      assert_equal "https://www.newurl.gov.cymru", @edition.social_media_accounts.first.url
+    end
   end
 
   test "POST :create creates a social media account" do
