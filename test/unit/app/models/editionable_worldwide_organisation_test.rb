@@ -1,6 +1,24 @@
 require "test_helper"
 
 class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
+  test "can be associated with one or more worldwide offices" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_office = create(:worldwide_office)
+    worldwide_organisation.offices << worldwide_office
+
+    assert_equal [worldwide_office], worldwide_organisation.offices
+  end
+
+  test "destroys associated worldwide offices" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_office = create(:worldwide_office)
+    worldwide_organisation.offices << worldwide_office
+
+    worldwide_organisation.destroy!
+
+    assert_equal 0, worldwide_organisation.offices.count
+  end
+
   test "should set an analytics identifier on create" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
     assert_equal "WO#{worldwide_organisation.id}", worldwide_organisation.analytics_identifier

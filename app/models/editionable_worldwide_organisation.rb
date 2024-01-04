@@ -8,6 +8,8 @@ class EditionableWorldwideOrganisation < Edition
   include Edition::Roles
   include Edition::WorldLocations
 
+  has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy
+
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"
 

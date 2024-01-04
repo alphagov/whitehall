@@ -1203,6 +1203,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
     t.string "slug"
     t.text "access_and_opening_times"
     t.string "content_id"
+    t.integer "edition_id"
+    t.index ["edition_id"], name: "index_worldwide_offices_on_edition_id"
     t.index ["slug"], name: "index_worldwide_offices_on_slug"
     t.index ["worldwide_organisation_id"], name: "index_worldwide_offices_on_worldwide_organisation_id"
   end
@@ -1259,4 +1261,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
   add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "worldwide_offices", "editions"
 end
