@@ -386,6 +386,11 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: false,
       },
       {
+        label: "Pages",
+        href: admin_worldwide_organisation_corporate_information_pages_path(edition),
+        current: false,
+      },
+      {
         label: "Social media accounts",
         href: admin_edition_social_media_accounts_path(edition),
         current: false,
