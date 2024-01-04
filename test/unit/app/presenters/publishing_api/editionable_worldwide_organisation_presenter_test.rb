@@ -35,6 +35,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       public_updated_at: worldwide_org.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
+      description: worldwide_org.summary,
       details: {
         body: "<div class=\"govspeak\"><p>Information about the organisation with <em>italics</em>.</p>\n</div>",
         logo: {
