@@ -12,6 +12,7 @@ class EditionableSocialMediaAccountsIndexPresenter
       {
         title: social_media_account.service_name,
         rows: social_media_account_rows(social_media_account),
+        summary_card_actions: summary_card_actions(social_media_account),
       }
     end
   end
@@ -28,13 +29,18 @@ private
             label: "Edit",
             href: edit_admin_edition_social_media_account_path(@edition, social_media_account, locale:),
           },
-          {
-            label: "Delete",
-            href: confirm_destroy_admin_edition_social_media_account_path(edition, social_media_account),
-            destructive: true,
-          },
         ],
       }
     end
+  end
+
+  def summary_card_actions(social_media_account)
+    [
+      {
+        label: "Delete",
+        href: confirm_destroy_admin_edition_social_media_account_path(@edition, social_media_account),
+        destructive: true,
+      },
+    ]
   end
 end

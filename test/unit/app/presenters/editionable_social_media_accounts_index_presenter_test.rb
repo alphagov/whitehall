@@ -21,11 +21,6 @@ class EditionableSocialMediaAccountsIndexPresenterTest < ActiveSupport::TestCase
                 label: "Edit",
                 href: edit_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_1, locale: :en),
               },
-              {
-                label: "Delete",
-                href: confirm_destroy_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_1),
-                destructive: true,
-              },
             ],
           },
           {
@@ -36,12 +31,14 @@ class EditionableSocialMediaAccountsIndexPresenterTest < ActiveSupport::TestCase
                 label: "Edit",
                 href: edit_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_1, locale: :cy),
               },
-              {
-                label: "Delete",
-                href: confirm_destroy_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_1),
-                destructive: true,
-              },
             ],
+          },
+        ],
+        summary_card_actions: [
+          {
+            label: "Delete",
+            href: confirm_destroy_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_1),
+            destructive: true,
           },
         ],
       },
@@ -56,11 +53,6 @@ class EditionableSocialMediaAccountsIndexPresenterTest < ActiveSupport::TestCase
                 label: "Edit",
                 href: edit_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_2, locale: :en),
               },
-              {
-                label: "Delete",
-                href: confirm_destroy_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_2),
-                destructive: true,
-              },
             ],
           },
           {
@@ -71,12 +63,14 @@ class EditionableSocialMediaAccountsIndexPresenterTest < ActiveSupport::TestCase
                 label: "Edit",
                 href: edit_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_2, locale: :cy),
               },
-              {
-                label: "Delete",
-                href: confirm_destroy_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_2),
-                destructive: true,
-              },
             ],
+          },
+        ],
+        summary_card_actions: [
+          {
+            label: "Delete",
+            href: confirm_destroy_admin_edition_social_media_account_path(editionable_worldwide_organisation, social_media_account_2),
+            destructive: true,
           },
         ],
       },
