@@ -24,7 +24,9 @@ class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
 
   def edit; end
 
-  def index; end
+  def index
+    @editionable_social_media_accounts_index_presenter = EditionableSocialMediaAccountsIndexPresenter.new(@edition)
+  end
 
   def new; end
 

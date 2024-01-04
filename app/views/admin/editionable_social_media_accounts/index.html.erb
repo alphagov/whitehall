@@ -25,26 +25,10 @@
     } %>
 
     <% if @edition.social_media_accounts.any? %>
-      <% @edition.social_media_accounts.each do |social_media_account| %>
+      <% @editionable_social_media_accounts_index_presenter.social_media_accounts.each do |social_media_account| %>
         <%= render "components/summary_card", {
-          title: social_media_account.service_name,
-          rows: [
-            {
-              key: "Account",
-              value: social_media_account.title,
-              actions: [
-                {
-                  label: "Edit",
-                  href: edit_admin_edition_social_media_account_path(@edition, social_media_account),
-                },
-                {
-                  label: "Delete",
-                  href: confirm_destroy_admin_edition_social_media_account_path(@edition, social_media_account),
-                  destructive: true,
-                },
-              ],
-            },
-          ],
+          title: social_media_account[:title],
+          rows: social_media_account[:rows],
         } %>
       <% end %>
     <% else %>
