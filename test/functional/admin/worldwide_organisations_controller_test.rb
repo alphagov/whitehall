@@ -7,6 +7,15 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+  test "actions are forbidden when the editionable_worldwide_organisations feature flag is enabled" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+    worldwide_organisation = create(:worldwide_organisation)
+
+    get :show, params: { id: worldwide_organisation.id }
+
+    assert_response :forbidden
+  end
+
   test "shows a list of worldwide organisations" do
     organisation = create(:worldwide_organisation)
     get :index
