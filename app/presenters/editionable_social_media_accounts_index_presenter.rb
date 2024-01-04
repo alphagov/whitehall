@@ -19,14 +19,14 @@ class EditionableSocialMediaAccountsIndexPresenter
 private
 
   def social_media_account_rows(social_media_account)
-    [
+    edition.translations.pluck(:locale).map do |locale|
       {
-        key: "Account",
-        value: social_media_account.title,
+        key: "#{Locale.new(locale).english_language_name} Account",
+        value: I18n.with_locale(locale) { social_media_account.title },
         actions: [
           {
             label: "Edit",
-            href: edit_admin_edition_social_media_account_path(edition, social_media_account),
+            href: edit_admin_edition_social_media_account_path(@edition, social_media_account, locale:),
           },
           {
             label: "Delete",
@@ -35,6 +35,6 @@ private
           },
         ],
       }
-    ]
+    end
   end
 end

@@ -5,7 +5,14 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
 
   setup do
     login_as :gds_editor
-    @edition = create(:editionable_worldwide_organisation, :with_social_media_account)
+    @edition = create(:editionable_worldwide_organisation, :with_social_media_account, translated_into: [:cy])
+
+    I18n.with_locale(:cy) do
+      @edition.social_media_accounts.first.update(
+        title: "Translated title",
+        url: "https://www.newurl.gov.cymru",
+      )
+    end
   end
 
   view_test "GET :index lists the existing social media accounts" do
@@ -13,7 +20,12 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
 
     assert_response :success
     assert_select "h2.govuk-summary-card__title", text: @edition.social_media_accounts.first.social_media_service.name
-    assert_select "dd.govuk-summary-list__value", text: @edition.social_media_accounts.first.title
+
+    assert_select "div.govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key", text: "English Account"
+    assert_select "div.govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value", text: @edition.social_media_accounts.first.title
+
+    assert_select "div.govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__key", text: "Welsh Account"
+    assert_select "div.govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value", text: "Translated title"
   end
 
   view_test "GET :edit displays an existing social media account" do
