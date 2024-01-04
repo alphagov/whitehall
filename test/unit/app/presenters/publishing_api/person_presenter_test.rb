@@ -118,4 +118,16 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
 
     assert_nil presented_item.content.dig(:details, :image)
   end
+
+  test "it raises if a carrierwave path is used for the image path" do
+    person = build(:person)
+
+    image = build(:featured_image_data)
+    image.expects(:url).twice.with(:s465).returns("/uploads/carrierwave-tmp/1704204355-973510646575090-0009-0387/s465_test-img.jpg")
+    person.image = image
+
+    assert_raises do
+      present(person).content
+    end
+  end
 end
