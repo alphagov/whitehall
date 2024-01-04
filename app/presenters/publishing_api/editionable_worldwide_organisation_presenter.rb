@@ -22,6 +22,7 @@ module PublishingApi
       ).base_attributes
 
       content.merge!(
+        description: item.summary,
         details: {
           body:,
           logo: {
