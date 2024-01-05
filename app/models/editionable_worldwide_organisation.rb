@@ -22,6 +22,10 @@ class EditionableWorldwideOrganisation < Edition
     "editionable_worldwide_organisation"
   end
 
+  def self.format_name
+    "worldwide organisation"
+  end
+
   alias_method :original_main_office, :main_office
 
   extend HomePageList::Container
