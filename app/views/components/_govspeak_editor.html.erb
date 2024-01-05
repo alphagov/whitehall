@@ -47,12 +47,21 @@
         hint_text: hint,
       }.merge(label.symbolize_keys) %>
     </div>
-    <div class="govuk-grid-column-one-quarter app-c-govspeak-editor__preview-button-wrapper">
       <%= render "govuk_publishing_components/components/button", {
         text: "Preview",
         secondary_quiet: true,
         margin_bottom: hint ? 5 : 2,
         classes: "js-app-c-govspeak-editor__preview-button",
+        data_attributes: preview_button_data_attributes,
+        aria_controls: preview_id,
+        aria_describedby: label_id,
+        type: "button",
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Back to edit",
+        secondary_quiet: true,
+        margin_bottom: hint ? 5 : 2,
+        classes: "js-app-c-govspeak-editor__back-button",
         data_attributes: preview_button_data_attributes,
         aria_controls: preview_id,
         aria_describedby: label_id,

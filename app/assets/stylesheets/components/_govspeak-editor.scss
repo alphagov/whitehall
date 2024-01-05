@@ -4,6 +4,9 @@
 
 .app-c-govspeak-editor__preview-button-wrapper {
   text-align: right;
+  display: flex;
+  justify-content: end;
+  gap: govuk-spacing(2);
 }
 
 .app-c-govspeak-editor__textarea--hidden {
@@ -11,19 +14,20 @@
 }
 
 .app-c-govspeak-editor__preview {
-  display: none;
   border: 1px solid $govuk-border-colour;
   padding: govuk-spacing(4);
 }
 
-.app-c-govspeak-editor__preview--show {
-  display: block;
-}
-
-.app-c-govspeak-editor__error {
+.app-c-govspeak-editor__preview,
+.app-c-govspeak-editor__error,
+.js-app-c-govspeak-editor__preview-button,
+.js-app-c-govspeak-editor__back-button {
   display: none;
 }
 
-.app-c-govspeak-editor__error--show {
+.app-c-govspeak-editor__preview--show,
+.app-c-govspeak-editor__error--show,
+.app-c-govspeak-editor__preview-button--show,
+.app-c-govspeak-editor__back-button--show {
   display: block;
 }

@@ -22,6 +22,20 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
     previewButton.setAttribute('data-content-target', '#textarea_id')
     previewButton.innerText = 'Preview'
 
+    const backButton = document.createElement('button')
+    backButton.classList.add('js-app-c-govspeak-editor__back-button')
+    backButton.setAttribute('data-preview-toggle-tracking', true)
+    backButton.setAttribute(
+      'data-preview-toggle-track-category',
+      'govspeak-editor'
+    )
+    backButton.setAttribute(
+      'data-preview-toggle-track-action',
+      'pressed-preview-button'
+    )
+    backButton.setAttribute('data-content-target', '#textarea_id')
+    backButton.innerText = 'Back to edit'
+
     // Textarea
     const textareaSection = document.createElement('div')
     textareaSection.classList.add('app-c-govspeak-editor__textarea')
@@ -41,6 +55,7 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
 
     // Append to component
     component.appendChild(previewButton)
+    component.appendChild(backButton)
     component.appendChild(textareaSection)
     component.appendChild(previewSection)
     component.appendChild(errorSection)
@@ -98,6 +113,9 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
     const previewButton = component.querySelector(
       '.js-app-c-govspeak-editor__preview-button'
     )
+    const backButton = component.querySelector(
+      '.js-app-c-govspeak-editor__back-button'
+    )
     const textareaSection = component.querySelector(
       '.app-c-govspeak-editor__textarea'
     )
@@ -118,12 +136,18 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
       'app-c-govspeak-editor__textarea--hidden'
     )
     expect(previewSection).toHaveClass('app-c-govspeak-editor__preview--show')
-    expect(previewButton.innerText).toEqual('Back to edit')
+    expect(previewButton).not.toHaveClass(
+      'app-c-govspeak-editor__preview-button--show'
+    )
+    expect(backButton).toHaveClass('app-c-govspeak-editor__back-button--show')
   })
 
   it('shows textarea section when you toggle back to edit', function () {
     const previewButton = component.querySelector(
       '.js-app-c-govspeak-editor__preview-button'
+    )
+    const backButton = component.querySelector(
+      '.js-app-c-govspeak-editor__back-button'
     )
     const textareaSection = component.querySelector(
       '.app-c-govspeak-editor__textarea'
@@ -146,9 +170,12 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
       'app-c-govspeak-editor__textarea--hidden'
     )
     expect(previewSection).toHaveClass('app-c-govspeak-editor__preview--show')
-    expect(previewButton.innerText).toEqual('Back to edit')
+    expect(previewButton).not.toHaveClass(
+      'app-c-govspeak-editor__preview-button--show'
+    )
+    expect(backButton).toHaveClass('app-c-govspeak-editor__back-button--show')
 
-    previewButton.dispatchEvent(new Event('click'))
+    backButton.dispatchEvent(new Event('click'))
 
     expect(textareaSection).not.toHaveClass(
       'app-c-govspeak-editor__textarea--hidden'
@@ -224,17 +251,16 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
   })
 
   it('hides the error message when the user returns to the editor view', function () {
-    const previewButton = component.querySelector(
-      '.js-app-c-govspeak-editor__preview-button'
+    const backButton = component.querySelector(
+      '.js-app-c-govspeak-editor__back-button'
     )
     const errorSection = component.querySelector(
       '.app-c-govspeak-editor__error'
     )
 
-    previewButton.innerText = 'Back to edit'
     errorSection.classList.add('app-c-govspeak-editor__error--show')
 
-    previewButton.dispatchEvent(new Event('click'))
+    backButton.dispatchEvent(new Event('click'))
 
     expect(errorSection.classList).not.toContain(
       'app-c-govspeak-editor__error--show'
@@ -320,7 +346,11 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
       { label: 'preview' }
     )
 
-    previewButton.dispatchEvent(new Event('click'))
+    const backButton = component.querySelector(
+      '.js-app-c-govspeak-editor__back-button'
+    )
+
+    backButton.dispatchEvent(new Event('click'))
 
     expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
       'govspeak-editor',
