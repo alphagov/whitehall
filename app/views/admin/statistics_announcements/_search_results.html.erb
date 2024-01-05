@@ -32,7 +32,7 @@
               text: statistics_announcement.organisations.map(&:name).to_sentence,
             },
             {
-              text: tag.p(statistics_announcement.release_date.to_date.strftime(sanitize("%e&nbsp;%B&nbsp;%Y")), class: "govuk-!-margin-0") +
+              text: tag.p(statistics_announcement.release_date.to_date.strftime("%e&nbsp;%B&nbsp;%Y").html_safe, class: "govuk-!-margin-0") +
                 tag.p(statistics_announcement.release_date.strftime("%l:%M%P"), class: "govuk-!-margin-0") +
                 "(#{statistics_announcement.confirmed? ? 'confirmed' : 'provisional'})",
             },
