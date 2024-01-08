@@ -43,6 +43,12 @@ module Admin::UrlHelper
     end
   end
 
+  def admin_emergency_banner_link
+    if can?(:administer, :emergency_banner)
+      admin_link "Emergency banner", admin_emergency_banner_path
+    end
+  end
+
   def admin_sitewide_settings_link
     if can?(:administer, :sitewide_settings_section)
       admin_link "Sitewide settings", admin_sitewide_settings_path

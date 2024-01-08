@@ -64,4 +64,24 @@ class Admin::MoreControllerTest < ActionController::TestCase
     assert_select ".govuk-list"
     refute_select "a.govuk-link", text: "Worldwide organisations"
   end
+
+  view_test "GET #index does not render Emergency Banner option when the user is not a GDS Admin." do
+    organisation = create(:organisation, name: "cabinet-minister")
+    login_as(:writer, organisation)
+
+    get :index
+
+    assert_select ".govuk-list"
+    refute_select "a.govuk-link", text: "Emergency banner"
+  end
+
+  view_test "GET #index renders Emergency Banner option when the user is a GDS Admin." do
+    organisation = create(:organisation, name: "government-digital-service")
+    login_as(:gds_admin, organisation)
+
+    get :index
+
+    assert_select ".govuk-list"
+    assert_select "a.govuk-link", text: "Emergency banner"
+  end
 end
