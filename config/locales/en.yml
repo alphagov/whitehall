@@ -364,7 +364,9 @@ en:
     updated: updated
   emergency_banner:
     actions:
+      confirm_destroy: Are you sure you want to remove the emergency banner?
       create: Deploy banner
+      destroy: Remove banner
       edit: Edit
     errors:
       campaign_class: Select a campaign class

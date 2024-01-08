@@ -11,12 +11,18 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  %i[edit show].each do |action_method|
+  %i[confirm_destroy edit show].each do |action_method|
     test "#{action_method} action is not permitted to non-GDS admins" do
       login_as :departmental_editor
       get action_method
       assert_response :forbidden
     end
+  end
+
+  test "destroy action is not permitted to non-GDS admins" do
+    login_as :departmental_editor
+    delete :destroy
+    assert_response :forbidden
   end
 
   test "update action is not permitted to non-GDS admins" do
@@ -136,6 +142,22 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
         link: "https://www.updated-emergency.gov.uk",
         link_text: "An updated link",
       }
+
+      assert_response :redirect
+      assert_equal expected_response, Redis.new.hgetall("emergency_banner").symbolize_keys
+    end
+
+    view_test "GET :confirm_destroy requests confirmation" do
+      get :confirm_destroy
+
+      assert_response :success
+      assert_select "p.govuk-body", text: "Are you sure you want to remove the emergency banner?"
+    end
+
+    view_test "DELETE :destroy removes the values" do
+      delete :destroy
+
+      expected_response = {}
 
       assert_response :redirect
       assert_equal expected_response, Redis.new.hgetall("emergency_banner").symbolize_keys

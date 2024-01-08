@@ -6,6 +6,14 @@ class Admin::EmergencyBannerController < Admin::BaseController
     enforce_permission!(:administer, :emergency_banner)
   end
 
+  def confirm_destroy; end
+
+  def destroy
+    redis_client.del(:emergency_banner)
+
+    redirect_to admin_emergency_banner_path
+  end
+
   def show; end
 
   def edit

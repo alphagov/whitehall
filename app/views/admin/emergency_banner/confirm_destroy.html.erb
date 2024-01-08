@@ -1,0 +1,24 @@
+<% content_for :page_title, "Remove emergency banner" %>
+<% content_for :title, "Remove emergency banner" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_emergency_banner_path, method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7"><%= I18n.t("emergency_banner.actions.confirm_destroy") %></p>
+
+      <%= render "govuk_publishing_components/components/warning_text", {
+        text: I18n.t("emergency_banner.update_information"),
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: I18n.t("emergency_banner.actions.destroy"),
+          destructive: true,
+        } %>
+
+        <%= link_to("Cancel", admin_emergency_banner_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>

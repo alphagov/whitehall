@@ -23,6 +23,12 @@
         text: I18n.t("emergency_banner.actions.edit"),
         href: edit_admin_emergency_banner_path,
       } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: I18n.t("emergency_banner.actions.destroy"),
+        href: confirm_destroy_admin_emergency_banner_path,
+        destructive: true,
+      } %>
     <% else %>
       <p class="govuk-body"><%= I18n.t("emergency_banner.status.not_deployed") %></p>
 
