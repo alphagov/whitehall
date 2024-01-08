@@ -3,7 +3,7 @@ module PublishingApi
     def featured_documents(featurable_item, document_limit)
       featurable_item
         .feature_list_for_locale(I18n.locale).current.limit(document_limit)
-        .select { |feature| feature.image.all_asset_variants_uploaded? }
+        .select { |feature| feature.image&.all_asset_variants_uploaded? }
         .map do |feature|
           if feature.document
             featured_documents_editioned(feature)
