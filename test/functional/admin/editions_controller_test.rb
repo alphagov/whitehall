@@ -254,6 +254,18 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET :index GDS Admins should be able to view all access limited documents" do
+    login_as create(:gds_admin)
+    publication = create(:draft_publication, access_limited: true)
+
+    get :index, params: { state: :active }
+
+    assert_select ".govuk-table__row" do
+      assert_select ".govuk-table__header:nth-child(1)", text: publication.title
+      assert_select ".govuk-table__cell:nth-child(3)", text: "Draft Limited access"
+    end
+  end
+
   test "prevents revising of access-limited editions" do
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)

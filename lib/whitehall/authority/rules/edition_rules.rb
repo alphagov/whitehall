@@ -134,6 +134,8 @@ module Whitehall::Authority::Rules
 
     def can_with_a_class?(action)
       case action
+      when :perform_administrative_tasks
+        actor.gds_admin?
       when :export, :confirm_export
         actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?
       when :create, :see
