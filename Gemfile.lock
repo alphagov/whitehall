@@ -196,6 +196,8 @@ GEM
       parslet
     factory_bot (6.4.5)
       activesupport (>= 5.0.0)
+    fakeredis (0.9.2)
+      redis (~> 4.8)
     faraday (2.7.12)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -969,6 +971,7 @@ DEPENDENCIES
   equivalent-xml
   erb_lint
   factory_bot
+  fakeredis
   flipflop
   fog-aws
   friendly_id

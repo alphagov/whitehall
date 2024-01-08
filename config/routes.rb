@@ -369,6 +369,7 @@ Whitehall::Application.routes.draw do
       end
 
       resources :sitewide_settings
+      resource :emergency_banner, controller: "emergency_banner"
       post "/link-checker-api-callback" => "link_checker_api#callback"
     end
   end

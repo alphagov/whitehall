@@ -1,0 +1,25 @@
+<% content_for :page_title, "Emergency banner settings" %>
+<% content_for :title, "Emergency banner settings" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <% if @current_banner.present? %>
+      <p class="govuk-body"><%= I18n.t("emergency_banner.status.deployed") %></p>
+
+      <%= render "govuk_publishing_components/components/table", {
+        head: [
+          {
+            text: "Key",
+          },
+          {
+            text: "Value",
+          },
+        ],
+        rows: EmergencyBannerPresenter.new(@current_banner).current_banner_rows,
+      } %>
+    <% else %>
+      <p class="govuk-body"><%= I18n.t("emergency_banner.status.not_deployed") %></p>
+    <% end %>
+  </div>
+</div>
