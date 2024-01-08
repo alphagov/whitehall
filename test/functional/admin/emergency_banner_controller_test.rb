@@ -11,12 +11,18 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  %i[show].each do |action_method|
+  %i[edit show].each do |action_method|
     test "#{action_method} action is not permitted to non-GDS admins" do
       login_as :departmental_editor
       get action_method
       assert_response :forbidden
     end
+  end
+
+  test "update action is not permitted to non-GDS admins" do
+    login_as :departmental_editor
+    patch :update
+    assert_response :forbidden
   end
 
   context "when the banner is disabled" do
@@ -25,6 +31,40 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_select "p.govuk-body", text: "The emergency banner is not currently deployed."
+    end
+
+    view_test "GET :edit shows a blank form" do
+      get :edit
+
+      assert_response :success
+      assert_select "#emergency_banner_campaign_class", value: nil
+      assert_select "#emergency_banner_heading", value: nil
+      assert_select "#emergency_banner_short_description", value: nil
+      assert_select "#emergency_banner_link", value: nil
+      assert_select "#emergency_banner_link_text", value: nil
+    end
+
+    view_test "PATCH :update saves the values" do
+      patch :update, params: {
+        emergency_banner: {
+          campaign_class: "national-emergency",
+          heading: "Some information",
+          short_description: "Something has happened",
+          link: "https://www.emergency.gov.uk",
+          link_text: "A link",
+        },
+      }
+
+      expected_response = {
+        campaign_class: "national-emergency",
+        heading: "Some information",
+        short_description: "Something has happened",
+        link: "https://www.emergency.gov.uk",
+        link_text: "A link",
+      }
+
+      assert_response :redirect
+      assert_equal expected_response, Redis.new.hgetall("emergency_banner").symbolize_keys
     end
   end
 
@@ -65,6 +105,40 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
 
       assert_select "tr.govuk-table__row:nth-of-type(5) td", text: "Link text (optional)"
       assert_select "tr.govuk-table__row:nth-of-type(5) td", text: "See more"
+    end
+
+    view_test "GET :edit shows a populated form" do
+      get :edit
+
+      assert_response :success
+      assert_select "#emergency_banner_campaign_class", value: "National emergency"
+      assert_select "#emergency_banner_heading", value: "Some important information"
+      assert_select "#emergency_banner_short_description", value: "Something important has happened"
+      assert_select "#emergency_banner_link", value: "https://www.emergency.gov.uk"
+      assert_select "#emergency_banner_link_text", value: "See more"
+    end
+
+    view_test "PATCH :update saves the values" do
+      patch :update, params: {
+        emergency_banner: {
+          campaign_class: "local-emergency",
+          heading: "Some updated information",
+          short_description: "An update has been made",
+          link: "https://www.updated-emergency.gov.uk",
+          link_text: "An updated link",
+        },
+      }
+
+      expected_response = {
+        campaign_class: "local-emergency",
+        heading: "Some updated information",
+        short_description: "An update has been made",
+        link: "https://www.updated-emergency.gov.uk",
+        link_text: "An updated link",
+      }
+
+      assert_response :redirect
+      assert_equal expected_response, Redis.new.hgetall("emergency_banner").symbolize_keys
     end
   end
 end

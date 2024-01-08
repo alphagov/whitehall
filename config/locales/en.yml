@@ -363,6 +363,12 @@ en:
         other: Written statements to Parliament
     updated: updated
   emergency_banner:
+    actions:
+      create: Deploy banner
+      edit: Edit
+    errors:
+      campaign_class: Select a campaign class
+      heading: Enter a heading
     keys:
       campaign_class: Campaign class
       campaign_classes:
@@ -376,6 +382,7 @@ en:
     status:
       deployed: The emergency banner is currently deployed with the following content.
       not_deployed: The emergency banner is not currently deployed.
+    update_information: Changes to the emergency banner appear instantly on the live site, subject to a cache period of 5 minutes per page.
   i18n:
     direction: ltr
   language_names:

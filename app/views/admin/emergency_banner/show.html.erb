@@ -18,8 +18,18 @@
         ],
         rows: EmergencyBannerPresenter.new(@current_banner).current_banner_rows,
       } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: I18n.t("emergency_banner.actions.edit"),
+        href: edit_admin_emergency_banner_path,
+      } %>
     <% else %>
       <p class="govuk-body"><%= I18n.t("emergency_banner.status.not_deployed") %></p>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: I18n.t("emergency_banner.actions.create"),
+        href: edit_admin_emergency_banner_path,
+      } %>
     <% end %>
   </div>
 </div>
