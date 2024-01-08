@@ -3,6 +3,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   respond_to :html
 
+  before_action :check_worldwide_organisation_feature_flag
   before_action :find_worldwide_organisation, except: %i[index new create]
   before_action :build_worldwide_organisation, only: %i[new create]
   before_action :clean_worldwide_organisation_params, only: %i[create update]
@@ -56,6 +57,10 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
 private
+
+  def check_worldwide_organisation_feature_flag
+    forbidden! if Flipflop.editionable_worldwide_organisations?
+  end
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])

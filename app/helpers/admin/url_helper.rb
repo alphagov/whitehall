@@ -16,7 +16,7 @@ module Admin::UrlHelper
   end
 
   def admin_worldwide_organisations_link
-    admin_link "Worldwide organisations", admin_worldwide_organisations_path
+    admin_link "Worldwide organisations", admin_worldwide_organisations_path unless Flipflop.editionable_worldwide_organisations?
   end
 
   def admin_world_location_news_link
