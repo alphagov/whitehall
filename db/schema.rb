@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_09_115405) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -327,6 +327,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
     t.datetime "updated_at", precision: nil
     t.index ["edition_id"], name: "index_edition_translations_on_edition_id"
     t.index ["locale"], name: "index_edition_translations_on_locale"
+    t.index ["title"], name: "index_edition_translations_on_title", type: :fulltext
   end
 
   create_table "edition_world_locations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
