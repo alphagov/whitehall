@@ -49,6 +49,8 @@ zh:
       unique_reference: 附件唯一参考
       unnumbered_hoc_paper: 未编号的下议院文件
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -296,6 +298,29 @@ zh:
       written_statement:
         other: 议会口头声明
     updated: 已更新
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

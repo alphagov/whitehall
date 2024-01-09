@@ -45,7 +45,7 @@ en:
             date: 19 October 2023
             body_govspeak: |
               The “Unpublish” document button no longer changes a published document back into a draft. Instead, the document is put into a new “Unpublished” state.
-              
+           
               This means that unpublished documents will no longer appear in your “My Draft Documents” area of the dashboard. You can also filter the documents list for unpublished documents.
           - heading: Pasting tables to markdown in the document body editor
             area: Creating and updating documents
@@ -53,7 +53,7 @@ en:
             date: 29 September 2023
             body_govspeak: |
               There is now experimental support for pasting tables from other applications into the body editor and having them automatically translated to markdown. Note that this feature may not always behave as expected, especially in cases where the table cells contain multiples lines of content, and you should check the table is rendered correctly using the preview before publishing. Please let us know if you encounter cases where the generated markdown could be improved.
-          - heading:  
+          - heading:
             area: Creating and updating documents
             type: new
             date: 8 September

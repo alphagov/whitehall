@@ -49,6 +49,8 @@ ta:
       unique_reference: தலைப்பு பிரத்யேகப் பார்வை
       unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -377,6 +379,29 @@ ta:
         one: பாராளுமன்றத்துக்கு எழுத்துப்பூர்வ அறிவிப்பு
         other: பாராளுமன்றத்துக்கு எழுத்துப்பூர்வ அறிவிப்புகள்
     updated: புதுப்பிக்கப்பட்டது
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

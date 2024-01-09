@@ -49,6 +49,8 @@ gd:
       unique_reference: Tagairt a bhaineann go sonrach le ceangaltán
       unnumbered_hoc_paper: Doiciméad gan uimhir Theach na dTeachtaí
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -539,6 +541,29 @@ gd:
         other: Ráitis i scríbhinn don Pharlaimint
         two:
     updated: arna chur suas
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:
