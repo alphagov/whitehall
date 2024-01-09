@@ -1,5 +1,19 @@
-.app-view-roles__page-list {
-  .govuk-table__header:last-child {
-    width: 10%;
-  }
+.app-view-roles-index__table .govuk-table__row .govuk-table__header:nth-child(1) {
+  width: 30%;
+}
+
+.app-view-roles-index__table .govuk-table__row .govuk-table__header:nth-child(2) {
+  width: 25%;
+}
+
+.app-view-roles-index__table .govuk-table__row .govuk-table__header:nth-child(3) {
+  width: 25%;
+}
+
+.app-view-roles-index__table .govuk-table__row .govuk-table__header:nth-child(4) {
+  width: 10%;
+}
+
+.app-view-roles-index__table .govuk-table__row .govuk-table__header:nth-child(5) {
+  width: 10%;
 }
