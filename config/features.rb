@@ -21,4 +21,5 @@ Flipflop.configure do
   #   default: true,
   #   description: "Take over the world."
   feature :editionable_worldwide_organisations, description: "Enables editionable worldwide organisations", default: false
+  feature :fulltext_document_search, description: "Enables true full text document search", default: false
 end

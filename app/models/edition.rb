@@ -76,9 +76,14 @@ class Edition < ApplicationRecord
           like_clause = "%#{escaped_like_expression}%"
 
           scope = in_default_locale.includes(:document)
-          scope
-            .where("edition_translations.title LIKE :like_clause", like_clause:)
-            .or(scope.where(document: { slug: keywords }))
+
+          if Flipflop.fulltext_document_search?
+            raise "Fulltext document search has not been implemented"
+          else
+            scope
+              .where("edition_translations.title LIKE :like_clause", like_clause:)
+              .or(scope.where(document: { slug: keywords }))
+          end
         }
 
   scope :in_pre_publication_state, -> { where(state: Edition::PRE_PUBLICATION_STATES) }
