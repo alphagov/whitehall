@@ -1,0 +1,8 @@
+name: Status information
+description: Displays information from the Status Page
+accessibility_criteria: |
+  The component must:
+examples:
+  default:
+    data:
+      text: Here is the Status information
