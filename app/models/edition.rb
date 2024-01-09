@@ -64,18 +64,17 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w[published superseded withdrawn unpublished].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
-
-
   scope :with_title_containing,
         lambda { |keywords|
-          escaped_like_expression = keywords.gsub(/([%_])/, "%" => '\\%', "_" => '\\_')
-          like_clause = "%#{escaped_like_expression}%"
-
           scope = in_default_locale.includes(:document)
 
           if Flipflop.fulltext_document_search?
-            raise "Fulltext document search has not been implemented"
+            scope
+              .where("MATCH(`edition_translations`.`title`) AGAINST (:keywords)", keywords:)
+              .or(scope.where(document: { slug: keywords }))
           else
+            escaped_like_expression = keywords.gsub(/([%_])/, "%" => '\\%', "_" => '\\_')
+            like_clause = "%#{escaped_like_expression}%"
             scope
               .where("edition_translations.title LIKE :like_clause", like_clause:)
               .or(scope.where(document: { slug: keywords }))

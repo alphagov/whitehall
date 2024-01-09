@@ -982,3 +982,44 @@ class EditionTest < ActiveSupport::TestCase
     payload
   end
 end
+
+# Using fulltext document search means we have to disable the automatic wrapping of tests in database transactions.
+# This is MySQL full text indexes are not written to unless the transaction is committed.
+# This also means we have to perform our own test cleanup
+class EditionTitleScopeTest < ActiveSupport::TestCase
+  self.use_transactional_tests = false
+
+  setup do
+    @feature_flags = Flipflop::FeatureSet.current.test!
+    @feature_flags.switch!(:fulltext_document_search, true)
+  end
+
+  teardown do
+    @feature_flags.switch!(:fulltext_document_search, false)
+    Edition.destroy_all
+  end
+
+  test "should find editions with title containing keyword" do
+    edition_with_first_keyword = create(:edition, title: "are klingons bad?")
+    _edition_without_first_keyword = create(:edition, title: "this document is about muppets")
+    assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons")
+  end
+
+  test "should find editions with slug containing keyword" do
+    edition_with_first_keyword = create(:edition, title: "klingons rule")
+    _edition_without_first_keyword = create(:edition, title: "this document is about muppets")
+    assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons-rule")
+  end
+
+  test "should only consider english titles for Edition.with_title_containing" do
+    translated_edition = build(:edition)
+    with_locale(:en) { translated_edition.title = "english title b" }
+    with_locale(:es) { translated_edition.title = "spanish title b" }
+    translated_edition.save!
+
+    with_locale(:es) { create(:edition, title: "spanish title a") }
+    with_locale(:en) { create(:edition, title: "english title a") }
+
+    assert_same_elements(["english title a", "english title b"], Edition.with_title_containing("title").map(&:title))
+  end
+end
