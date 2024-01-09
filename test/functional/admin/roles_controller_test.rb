@@ -27,17 +27,17 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "tr:nth-child(2)" do
         assert_select "td:nth-child(1).govuk-table__cell", "chief-professional-officer-role"
         assert_select "td:nth-child(2).govuk-table__cell", "org-one"
-        assert_select "td:nth-child(3).govuk-table__cell", ""
+        assert_select "td:nth-child(3).govuk-table__cell", "Vacant"
       end
       assert_select "tr:nth-child(3)" do
         assert_select "td:nth-child(1).govuk-table__cell", "management-role"
         assert_select "td:nth-child(2).govuk-table__cell", "org-one"
-        assert_select "td:nth-child(3).govuk-table__cell", ""
+        assert_select "td:nth-child(3).govuk-table__cell", "Vacant"
       end
       assert_select "tr:nth-child(4)" do
         assert_select "td:nth-child(1).govuk-table__cell", "military-role"
         assert_select "td:nth-child(2).govuk-table__cell", "org-two"
-        assert_select "td:nth-child(3).govuk-table__cell", ""
+        assert_select "td:nth-child(3).govuk-table__cell", "Vacant"
       end
     end
   end
