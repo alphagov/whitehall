@@ -318,4 +318,25 @@ module Admin::EditionsHelper
 
     filter_action + query_string_params + anchor
   end
+
+  def search_results_table_actions(edition)
+    actions = ""
+    if can?(:see, edition)
+      actions << link_to(
+        sanitize("View #{tag.span(edition.title, class: 'govuk-visually-hidden')}"),
+        admin_edition_path(edition),
+        class: "govuk-link",
+      )
+    end
+
+    if can?(:perform_administrative_tasks, Edition) && edition.access_limited
+      actions << link_to(
+        sanitize("Edit access #{tag.span("for #{edition.title}", class: 'govuk-visually-hidden')}"),
+        edit_access_limited_admin_edition_path(edition),
+        class: "govuk-link",
+      )
+    end
+
+    sanitize(actions)
+  end
 end

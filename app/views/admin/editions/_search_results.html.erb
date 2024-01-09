@@ -40,7 +40,7 @@
               text: render(Admin::Editions::TagsComponent.new(edition)),
             },
             {
-              text: link_to(sanitize("View #{tag.span(edition.title, class: 'govuk-visually-hidden')}"), admin_edition_path(edition), class: "govuk-link"),
+              text: search_results_table_actions(edition),
             },
           ]
         end,
