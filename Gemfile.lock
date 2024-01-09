@@ -101,7 +101,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.4)
+    bigdecimal (3.1.5)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
     bootsnap (1.17.0)
@@ -282,7 +282,7 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (37.1.1)
+    govuk_publishing_components (37.2.1)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -335,8 +335,8 @@ GEM
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     invalid_utf8_rejector (0.0.4)
-    io-console (0.6.0)
-    irb (1.10.0)
+    io-console (0.7.1)
+    irb (1.11.0)
       rdoc
       reline (>= 0.3.8)
     isbn_validation (1.2.2)
@@ -421,14 +421,14 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
-    net-imap (0.4.8)
+    net-imap (0.4.9.1)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-smtp (0.4.0)
+    net-smtp (0.4.0.1)
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.0)
@@ -692,7 +692,7 @@ GEM
       ruby-rc4
       ttfunk
     plek (5.0.0)
-    prometheus_exporter (2.0.8)
+    prometheus_exporter (2.1.0)
       webrick
     pry (0.14.2)
       coderay (~> 1.1)
@@ -702,11 +702,11 @@ GEM
       pry (>= 0.13, < 0.15)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    psych (5.1.1.1)
+    psych (5.1.2)
       stringio
     ptools (1.5.0)
     public_suffix (5.0.4)
-    puma (6.4.0)
+    puma (6.4.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.3)
@@ -765,7 +765,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.1.0)
-    rdoc (6.6.1)
+    rdoc (6.6.2)
       psych (>= 4.0.0)
     record_tag_helper (1.0.1)
       actionview (>= 5)
@@ -773,7 +773,7 @@ GEM
     redis-namespace (1.11.0)
       redis (>= 4)
     regexp_parser (2.8.3)
-    reline (0.4.1)
+    reline (0.4.2)
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
