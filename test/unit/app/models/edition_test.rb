@@ -583,17 +583,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [feb], Edition.published_after("2011-01-29").load
   end
 
-  test "should find editions with summary containing keyword" do
-    edition_with_first_keyword = create(:edition, summary: "klingons")
-    _edition_without_first_keyword = create(:edition, summary: "this document is about muppets")
-    assert_equal [edition_with_first_keyword], Edition.with_title_or_summary_containing("klingons")
-  end
-
-  test "should find editions with summary containing regular expression characters" do
-    edition_with_nasty_characters = create(:edition, summary: "summary with [stuff in brackets]")
-    assert_equal [edition_with_nasty_characters], Edition.with_title_or_summary_containing("[stuff")
-  end
-
   test "should find editions with title containing keyword" do
     edition_with_first_keyword = create(:edition, title: "klingons")
     _edition_without_first_keyword = create(:edition, title: "this document is about muppets")
@@ -660,17 +649,6 @@ class EditionTest < ActiveSupport::TestCase
     with_locale(:en) { create(:edition, title: "english-title-a") }
 
     assert_equal %w[english-title-a english-title-b], Edition.alphabetical.map(&:title)
-  end
-
-  test "should only consider english titles for Edition.with_title_or_summary_containing" do
-    edition = build(:edition)
-    with_locale(:en) { edition.title = "english-title-b" }
-    with_locale(:es) { edition.title = "spanish-title-b" }
-    edition.save!
-    with_locale(:es) { create(:edition, title: "spanish-title-a") }
-    with_locale(:en) { create(:edition, title: "english-title-a") }
-
-    assert_same_elements %w[english-title-a english-title-b], Edition.with_title_or_summary_containing("title").map(&:title)
   end
 
   test "should only consider english titles for Edition.with_title_containing" do

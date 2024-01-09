@@ -64,11 +64,7 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w[published superseded withdrawn unpublished].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
-  scope :with_title_or_summary_containing,
-        lambda { |*keywords|
-          pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-          in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern:)
-        }
+
 
   scope :with_title_containing,
         lambda { |keywords|
