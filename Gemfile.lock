@@ -706,7 +706,7 @@ GEM
       stringio
     ptools (1.5.0)
     public_suffix (5.0.4)
-    puma (6.4.0)
+    puma (6.4.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.3)
