@@ -49,6 +49,8 @@ vi:
       unique_reference: Tham chiếu duy nhất của tệp đính kèm
       unnumbered_hoc_paper: Văn kiện của Hạ viện không được đánh số
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -296,6 +298,29 @@ vi:
       written_statement:
         other: Tuyên bố bằng văn bản trước Quốc hội
     updated: đã cập nhật
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

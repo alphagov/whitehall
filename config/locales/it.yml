@@ -49,6 +49,8 @@ it:
       unique_reference: Riferimento univoco dell’allegato
       unnumbered_hoc_paper: Carta della Camera dei Comuni non numerata
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -378,6 +380,29 @@ it:
         one: Dichiarazione scritta al Parlamento
         other: Dichiarazioni scritte al Parlamento
     updated: aggiornato
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

@@ -49,6 +49,8 @@ bn:
       unique_reference: সংযুক্তির অনন্য সূত্র
       unnumbered_hoc_paper: নম্বরবিহীন হাউজ অব কমন্সের পেপার
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -377,6 +379,29 @@ bn:
         one: সংসদে লিখিত বিবৃতি
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: হালনাগাদ করা হয়েছে
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

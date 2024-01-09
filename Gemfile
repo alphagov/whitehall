@@ -78,6 +78,7 @@ group :test do
   gem "database_cleaner-active_record"
   gem "equivalent-xml"
   gem "factory_bot"
+  gem "fakeredis"
   gem "govuk_schemas"
   gem "i18n-coverage"
   gem "maxitest"

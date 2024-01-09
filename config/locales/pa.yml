@@ -49,6 +49,8 @@ pa:
       unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
       unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -378,6 +380,29 @@ pa:
         one: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ
         other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦਿੱਤੇ
     updated: ਅੱਪਡੇਟ ਕੀਤਾ
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

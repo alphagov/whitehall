@@ -49,6 +49,8 @@ de:
       unique_reference: Anhang eindeutige Referenz
       unnumbered_hoc_paper: Nicht nummeriertes Unterhauspapier
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -377,6 +379,29 @@ de:
         one: Schriftliche Erklärung vor dem Parlament
         other: Schriftliche Erklärungen vor dem Parlament
     updated: aktualisiert
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

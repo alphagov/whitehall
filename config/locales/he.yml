@@ -49,6 +49,8 @@ he:
       unique_reference: 'התייחסות ייחודית לקובץ המצורף '
       unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -378,6 +380,29 @@ he:
         one: הצהרה בכתב לפרלמנט
         other: הצהרות בכתב לפרלמנט
     updated: מעודכן
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: rtl
   language_names:

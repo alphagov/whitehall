@@ -1,0 +1,62 @@
+<% content_for :page_title, "Edit emergency banner" %>
+<% content_for :title, "Edit emergency banner" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: I18n.t("emergency_banner.update_information"),
+    } %>
+    <%= form_for [:admin, :emergency_banner], as: :emergency_banner, url: admin_emergency_banner_path, method: :patch do |form| %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+          <%= render "govuk_publishing_components/components/radio", {
+            heading: I18n.t("emergency_banner.keys.campaign_class"),
+            id: "emergency_banner_campaign_class",
+            name: "emergency_banner[campaign_class]",
+            items: [
+              {
+                value: "local-emergency",
+                text: I18n.t("emergency_banner.keys.campaign_classes.local_emergency"),
+                checked: @current_banner[:campaign_class] == "local-emergency",
+              },
+              {
+                value: "national-emergency",
+                text: I18n.t("emergency_banner.keys.campaign_classes.national_emergency"),
+                checked: @current_banner[:campaign_class] == "national-emergency",
+              },
+              {
+                value: "notable-death",
+                text: I18n.t("emergency_banner.keys.campaign_classes.notable_death"),
+                checked: @current_banner[:campaign_class] == "notable-death",
+              },
+            ],
+            error_message: @errors[:campaign_class],
+          } %>
+
+          <% %i[heading short_description link link_text].map do |key| %>
+            <%= render "govuk_publishing_components/components/input", {
+              label: {
+                text: I18n.t("emergency_banner.keys.#{key}"),
+              },
+              id: "emergency_banner_#{key}",
+              name: "emergency_banner[#{key}]",
+              value: @current_banner[key],
+              heading_size: "l",
+              error_message: @errors[key],
+            } %>
+          <% end %>
+
+          <div class="govuk-button-group">
+            <%= render "govuk_publishing_components/components/button", {
+              text: "Save",
+            } %>
+
+            <%= link_to("Cancel", admin_emergency_banner_path, class: "govuk-link govuk-link--no-visited-state") %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

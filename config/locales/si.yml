@@ -49,6 +49,8 @@ si:
       unique_reference: ඇමුණුමේ අද්විතීය යොමුව
       unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -377,6 +379,29 @@ si:
         one: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශය
         other: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශ
     updated: යාවත්කාලීන කෙරිණි
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

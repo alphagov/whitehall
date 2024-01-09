@@ -49,6 +49,8 @@ so:
       unique_reference: Tixraaca gaarka ah ee lifaaqa
       unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -377,6 +379,29 @@ so:
         one: Bayaan qoran oo loogu talogalay Baarlamaanka
         other: Bayaanada qoran ee loogu talogalay Baarlamaanka
     updated: la cusboonaysiiyay
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

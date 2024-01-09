@@ -49,6 +49,8 @@ fa:
       unique_reference: شناسه مرجع یکتای پیوست
       unnumbered_hoc_paper: سند بدون شماره مجلس عوام
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -377,6 +379,29 @@ fa:
         one: بیانیه کتبی به پارلمان
         other: بیانیه‌های کتبی به پارلمان
     updated: بروز شده
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: rtl
   language_names:

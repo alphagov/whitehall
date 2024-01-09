@@ -8,6 +8,10 @@ module Whitehall::Authority::Rules
       end
     end
 
+    def can_for_emergency_banner?(_action)
+      actor.gds_admin?
+    end
+
     def can_for_get_involved_section?(_action)
       actor.gds_editor?
     end

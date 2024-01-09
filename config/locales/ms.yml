@@ -49,6 +49,8 @@ ms:
       unique_reference: Rujukan unik lampiran
       unnumbered_hoc_paper: Kertas Dewan Rakyat tidak bernombor
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -297,6 +299,29 @@ ms:
       written_statement:
         other: Kenyataan bertulis kepada Parlimen
     updated: dikemas kini
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

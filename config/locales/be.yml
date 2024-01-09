@@ -49,6 +49,8 @@ be:
       unique_reference: Унікальная спасылка на дадатак
       unnumbered_hoc_paper: Ненумераваны дакумент Палаты абшчын
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -537,6 +539,29 @@ be:
         one: Пісьмовая заява ў парламенце
         other: Пісьмовыя заявы ў парламенце
     updated: Адноўлена
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:

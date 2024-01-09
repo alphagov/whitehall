@@ -362,6 +362,29 @@ en:
         one: Written statement to Parliament
         other: Written statements to Parliament
     updated: updated
+  emergency_banner:
+    actions:
+      confirm_destroy: Are you sure you want to remove the emergency banner?
+      create: Deploy banner
+      destroy: Remove banner
+      edit: Edit
+    errors:
+      campaign_class: Select a campaign class
+      heading: Enter a heading
+    keys:
+      campaign_class: Campaign class
+      campaign_classes:
+        local_emergency: Local emergency
+        national_emergency: National emergency
+        notable_death: Notable death
+      heading: Heading
+      link: Link URL (optional)
+      link_text: Link text (optional)
+      short_description: Short description (optional)
+    status:
+      deployed: The emergency banner is currently deployed with the following content.
+      not_deployed: The emergency banner is not currently deployed.
+    update_information: Changes to the emergency banner appear instantly on the live site, subject to a cache period of 5 minutes per page.
   i18n:
     direction: ltr
   language_names:

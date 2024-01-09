@@ -49,6 +49,8 @@ fi:
       unique_reference: Liitteen yksilöllinen viite
       unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
   admin:
+    feedback:
+      show_banner:
     whats_new:
       guidance:
         body_govspeak:
@@ -378,6 +380,29 @@ fi:
         one: Kirjallinen lausuma parlamentille
         other: Kirjallinen lausumat parlamentille
     updated: päivitetty
+  emergency_banner:
+    actions:
+      confirm_destroy:
+      create:
+      destroy:
+      edit:
+    errors:
+      campaign_class:
+      heading:
+    keys:
+      campaign_class:
+      campaign_classes:
+        local_emergency:
+        national_emergency:
+        notable_death:
+      heading:
+      link:
+      link_text:
+      short_description:
+    status:
+      deployed:
+      not_deployed:
+    update_information:
   i18n:
     direction: ltr
   language_names:
