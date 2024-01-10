@@ -77,9 +77,14 @@
       <% end %>
       <%= yield %>
     </main>
+
+    <%# render "components/status_information", {
+      text: "Here is the Status information"
+    } %>
   </div>
 
   <%= render "govuk_publishing_components/components/layout_footer", {
+    with_status_page: true,
     navigation: [
       {
         title: "Support and feedback",
