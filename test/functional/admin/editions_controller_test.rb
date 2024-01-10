@@ -254,6 +254,20 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET :index admin do not see a view link, but are given a link to edit acccess controls when an access limited edition doesn't belong to their org" do
+    login_as create(:gds_admin)
+    publication = create(:draft_publication, access_limited: true)
+
+    get :index, params: { state: :active }
+
+    assert_select ".govuk-table__row" do
+      assert_select ".govuk-table__header:nth-child(1)", text: publication.title
+      assert_select ".govuk-table__cell:nth-child(3)", text: "Draft Limited access"
+      assert_select ".govuk-table__cell:nth-child(4) a[href='#{edit_access_limited_admin_edition_path(publication)}']", text: "Edit access for #{publication.title}"
+      assert_select ".govuk-table__cell:nth-child(4) .govuk-link", text: "View #{publication.title}", count: 0
+    end
+  end
+
   test "prevents revising of access-limited editions" do
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)

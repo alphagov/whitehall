@@ -200,6 +200,8 @@ Whitehall::Application.routes.draw do
           patch :update_bypass_id
           patch :update_image_display_option, controller: "case_studies"
           get :confirm_destroy
+          get :edit_access_limited, to: "edition_access_limited#edit"
+          patch :update_access_limited, to: "edition_access_limited#update"
         end
         resources :link_check_reports
         resource :unpublishing, controller: "edition_unpublishing", only: %i[edit update]

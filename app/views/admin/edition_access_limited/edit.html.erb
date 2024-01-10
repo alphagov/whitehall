@@ -1,0 +1,39 @@
+<% content_for :page_title, "#{@edition.title}: Update access" %>
+<% content_for :context, @edition.title %>
+<% content_for :title, "Update access" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_editions_path,
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @edition, url: update_access_limited_admin_edition_path(@edition.id), as: :edition, method: :patch do |form| %>
+
+      <%= render "govuk_publishing_components/components/warning_text", {
+        text: "This page in only available to GDS Admins. Information in this document could be sensitive and access controls should only be changed at the request of the user.",
+      } %>
+
+      <%= render "admin/editions/organisation_fields", form: form, edition: @edition %>
+      <%= render "admin/editions/access_limiting_fields", form: form, edition: @edition %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Editorial remark (required)",
+          heading_size: "l",
+        },
+        name: "edition[editorial_remark]",
+        id: "edition_editorial_remark",
+        error_items: errors_for(@edition.errors, :editorial_remark),
+        hint: "Please explain why this change is required",
+        rows: 20,
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save",
+      } %>
+    <% end %>
+  </div>
+</div>

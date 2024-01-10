@@ -5,6 +5,32 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     @current_user = build(:gds_editor)
   end
 
+  test "should return limited access editions when the edition is published by the users organisation" do
+    user = create(:user)
+    edition = create(
+      :news_article,
+      access_limited: true,
+    )
+    edition.organisations.first.users << user
+
+    filter = Admin::EditionFilter.new(Edition, user)
+    assert_equal edition, filter.editions.first
+  end
+
+  test "should not return editions which have limited access for other orgs for non-gds admins" do
+    create(:news_article, access_limited: true)
+
+    filter = Admin::EditionFilter.new(Edition, build(:user))
+    assert_equal 0, filter.editions.count
+  end
+
+  test "should return limited access editions for GDS admins" do
+    edition = create(:news_article, access_limited: true)
+
+    filter = Admin::EditionFilter.new(Edition, build(:gds_admin))
+    assert_equal edition, filter.editions.first
+  end
+
   test "can preload unpublishing data if asked to" do
     news_article = create(:news_article)
     create(:unpublishing, edition: news_article)

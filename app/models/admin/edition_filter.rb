@@ -139,6 +139,8 @@ module Admin
     end
 
     def permitted_only(requested_editions)
+      return requested_editions if Whitehall::Authority::Enforcer.new(@current_user, Edition).can?(:perform_administrative_tasks)
+
       requested_editions.select do |edition|
         Whitehall::Authority::Enforcer.new(@current_user, edition).can?(:see)
       end
