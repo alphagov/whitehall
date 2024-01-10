@@ -3,9 +3,9 @@
     href: [:admin, @organisation.class],
   } %>
 <% end %>
-<% content_for :page_title, @organisation.name %>
+<% content_for :page_title, @organisation.title %>
 <% content_for :context, organisation_context_block(current_user, @organisation) %>
-<% content_for :title, @organisation.name %>
+<% content_for :title, @organisation.title %>
 <% content_for :title_margin_bottom, 4 %>
 
 <p class="govuk-body"><%= view_on_website_link_for @organisation, class: "govuk-link" %></p>

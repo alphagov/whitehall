@@ -1,5 +1,5 @@
-<% content_for :page_title, "New corporate information page for #{@organisation.name}" %>
-<% content_for :title, sanitize("Add new corporate information page to #{link_to(@organisation.name, [:admin, @organisation], class: 'govuk-link')}") %>
+<% content_for :page_title, "New corporate information page for #{@organisation.title}" %>
+<% content_for :title, sanitize("Add new corporate information page to #{link_to(@organisation.title, [:admin, @organisation], class: 'govuk-link')}") %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 
 <div class="govuk-grid-row">
