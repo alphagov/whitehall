@@ -1,8 +1,32 @@
 <% content_for :page_title, "Reorder Ministerial organisations ordering" %>
 <% content_for :context, "Ministerial organisations ordering" %>
+<% content_for :title, "Reorder list" %>
 
-<%= render "reorder",
-  list: @organisations,
-  form_url: order_ministerial_organisations_admin_cabinet_ministers_path,
-  cancel_path: admin_cabinet_ministers_path(anchor: "organisations"),
-  name: "ministerial_organisations[ordering]" %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: order_ministerial_organisations_admin_cabinet_ministers_path, method: :patch do %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Use the up and down buttons to reorder attachments, or select and hold on an attachment to reorder using drag and drop.",
+        margin_bottom: 4,
+      } %>
+
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: "ministerial_organisations[ordering]",
+        items: @organisations.map do |organisation|
+          {
+            id: organisation.id,
+            title: organisation.name,
+          }
+        end,
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update order",
+        } %>
+
+        <%= link_to("Cancel", admin_cabinet_ministers_path(anchor: "organisations"), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

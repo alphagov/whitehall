@@ -2,7 +2,7 @@
 <% content_for :context, "Whips ordering" %>
 
 <%= render "reorder",
-  list: @roles,
+  roles: @roles,
   form_url: order_cabinet_minister_roles_admin_cabinet_ministers_path,
   cancel_path: admin_cabinet_ministers_path(anchor: "whips"),
   name: "ministerial_roles[ordering]" %>

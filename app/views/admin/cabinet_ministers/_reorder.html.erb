@@ -10,10 +10,11 @@
 
       <%= render "govuk_publishing_components/components/reorderable_list", {
         input_name: name,
-        items: list.map do |item|
+        items: roles.map do |role|
           {
-            id: item.id,
-            title: item.name,
+            id: role.id,
+            title: role.name,
+            description: role.current_person&.name,
           }
         end,
       } %>
