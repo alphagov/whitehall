@@ -95,7 +95,7 @@ module ApplicationHelper
   end
 
   def corporate_information_page_types(organisation)
-    CorporateInformationPageType.all.map { |c| [c.title(organisation), c.id] }
+    CorporateInformationPageType.for(organisation).map { |c| [c.title(organisation), c.id] }
   end
 
   def is_external?(href)

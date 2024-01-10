@@ -57,4 +57,18 @@ class CorporateInformationPageTypeTest < ActiveSupport::TestCase
 
     assert_equal "Procurement at Department of Alphabet", corporate_information_page.title
   end
+
+  test ".for returns all corporate information types for organisations" do
+    organisation = build(:organisation)
+
+    assert_includes CorporateInformationPageType.for(organisation).map(&:slug), "about"
+    assert_includes CorporateInformationPageType.for(organisation).map(&:id), 20
+  end
+
+  test ".for returns all corporate information types for editionable worldwide organisations" do
+    organisation = build(:editionable_worldwide_organisation)
+
+    assert_not_includes CorporateInformationPageType.for(organisation).map(&:slug), "about"
+    assert_not_includes CorporateInformationPageType.for(organisation).map(&:id), 20
+  end
 end

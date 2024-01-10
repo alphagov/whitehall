@@ -8,6 +8,12 @@ class CorporateInformationPageType
     all.detect { |type| type.slug == slug } || raise(ActiveRecord::RecordNotFound)
   end
 
+  def self.for(organisation)
+    return all.reject { |page| page.slug == "about" } if organisation.is_a?(EditionableWorldwideOrganisation)
+
+    all
+  end
+
   def key
     # RegisterableEdition expects model_name_type instances to have a `key`
     # attribute: Publication and WorldLocation for example define this to have
