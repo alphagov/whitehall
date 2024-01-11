@@ -42,10 +42,16 @@ examples:
       field_name: first_published_at
       year:
         id: edition_first_published_year
+        name: Year
+        width: 4
       month:
         id: edition_first_published_month
+        name: Month
+        width: 2
       day:
         id: edition_first_published_day
+        name: Day
+        width: 2
       hour:
         id: edition_first_published_hour
       minute:
@@ -55,22 +61,21 @@ examples:
       prefix: edition
       field_name: first_published_at
       year:
+        name: Year
         value: 2022
+        width: 4
       month:
+        name: Month
         value: 1
+        width: 2
       day:
+        name: Day
         value: 1
+        width: 2
       hour:
         value: 9
       minute:
         value: 30
-  with_start_and_end_year:
-    data:
-      prefix: edition
-      field_name: first_published_at
-      year:
-        start_year: 2000
-        end_year: 2025
   with_error_items:
     data:
       prefix: edition

@@ -16,11 +16,14 @@
   time_hint = time_hint ||= nil
   time_hint_id = "time-hint-#{SecureRandom.hex(4)}"
 
-  year ||= {}
-
-  month ||= {}
-
-  day ||= {}
+  year ||= nil
+  month ||= nil
+  day ||= nil
+  date_input_items = []
+  date_input_items << year if year
+  date_input_items << month if month
+  date_input_items << day if day
+  date_input_items = nil unless date_input_items.any?
 
   hour ||= {}
   hour_value = hour[:value]
@@ -51,7 +54,7 @@
     id: date_id,
     hint: date_hint,
     error_items: error_items,
-    items: [day, month, year],
+    items: date_input_items,
   } %>
 
   <% unless date_only %>
