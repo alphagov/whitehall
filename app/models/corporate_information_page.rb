@@ -38,6 +38,8 @@ class CorporateInformationPage < Edition
   def republish_owning_organisation_to_publishing_api
     return if owning_organisation.blank?
 
+    return Whitehall::PublishingApi.republish_document_async(owning_organisation) if editionable_worldwide_organisation.present?
+
     edition_states = %w[draft submitted]
     if edition_states.include?(state) && worldwide_organisation.present?
       presenter = PublishingApi::WorldwideOrganisationPresenter.new(owning_organisation, state:)
@@ -48,6 +50,8 @@ class CorporateInformationPage < Edition
   end
 
   def republish_about_page_to_publishing_api
+    return if editionable_worldwide_organisation.present?
+
     about_us = if state == "draft"
                  owning_organisation&.about_us_for(state: "draft")
                else
@@ -100,7 +104,8 @@ class CorporateInformationPage < Edition
   end
 
   def only_one_organisation_or_worldwide_organisation
-    if organisation && worldwide_organisation
+    owning_organisations = [organisation, worldwide_organisation, editionable_worldwide_organisation]
+    unless owning_organisations.none? || owning_organisations.one?
       errors.add(:base, "Only one organisation or worldwide organisation allowed")
     end
   end
@@ -114,7 +119,7 @@ class CorporateInformationPage < Edition
   end
 
   def owning_organisation
-    organisation || worldwide_organisation
+    organisation || worldwide_organisation || editionable_worldwide_organisation
   end
 
   def organisations
@@ -205,7 +210,7 @@ class CorporateInformationPage < Edition
   def publishing_api_presenter
     if worldwide_organisation.present? && about_page?
       PublishingApi::RedirectPresenter
-    elsif worldwide_organisation.present?
+    elsif worldwide_organisation.present? || editionable_worldwide_organisation.present?
       PublishingApi::WorldwideCorporateInformationPagePresenter
     else
       PublishingApi::CorporateInformationPagePresenter

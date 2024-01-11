@@ -38,8 +38,13 @@ private
     @organisation =
       if params.key?(:organisation_id)
         Organisation.friendly.find(params[:organisation_id])
-      elsif params.key?(:worldwide_organisation_id)
-        WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
+      elsif params.key?(:worldwide_organisation_id) || params.key?(:editionable_worldwide_organisation_id)
+        id = params[:worldwide_organisation_id] || params[:editionable_worldwide_organisation_id]
+        if Flipflop.editionable_worldwide_organisations?
+          EditionableWorldwideOrganisation.find(id)
+        else
+          WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
+        end
       else
         raise ActiveRecord::RecordNotFound
       end

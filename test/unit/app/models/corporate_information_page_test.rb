@@ -22,6 +22,27 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page.destroy!
   end
 
+  test "creating a new corporate information page republishes the owning organisation when it's an editionable worldwide organisation" do
+    test_object = create(:editionable_worldwide_organisation)
+    Whitehall::PublishingApi.expects(:republish_document_async).with(test_object).once
+    create(:corporate_information_page, organisation: nil, editionable_worldwide_organisation: test_object)
+  end
+
+  test "updating an existing corporate information page republishes the owning organisation when it's an editionable worldwide organisation" do
+    test_object = create(:editionable_worldwide_organisation)
+    corporate_information_page = create(:corporate_information_page, organisation: nil, editionable_worldwide_organisation: test_object)
+    corporate_information_page.external = true
+    Whitehall::PublishingApi.expects(:republish_document_async).with(test_object).once
+    corporate_information_page.save!
+  end
+
+  test "deleting a corporate information page republishes the owning organisation when it's an editionable worldwide organisation" do
+    test_object = create(:editionable_worldwide_organisation)
+    corporate_information_page = create(:corporate_information_page, organisation: nil, editionable_worldwide_organisation: test_object)
+    Whitehall::PublishingApi.expects(:republish_document_async).with(test_object).once
+    corporate_information_page.destroy!
+  end
+
   test "corporate information pages cannot be previously published" do
     assert_not build(:corporate_information_page).previously_published
   end
@@ -175,6 +196,17 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       :corporate_information_page,
       organisation:,
       worldwide_organisation: worldwide_org,
+    )
+    assert_not corporate_information_page.valid?
+  end
+
+  test "should be invalid if has both organisation and editionable worldwide org" do
+    organisation = create(:organisation)
+    worldwide_org = create(:editionable_worldwide_organisation)
+    corporate_information_page = build(
+      :corporate_information_page,
+      organisation:,
+      editionable_worldwide_organisation: worldwide_org,
     )
     assert_not corporate_information_page.valid?
   end

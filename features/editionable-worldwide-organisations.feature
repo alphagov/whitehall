@@ -1,6 +1,6 @@
 Feature: Editionable worldwide organisations
   Background:
-    Given I am a writer
+    Given I am a GDS editor
     And The editionable worldwide organisations feature flag is enabled
     And a world location "United Kingdom" exists
 
@@ -67,3 +67,9 @@ Feature: Editionable worldwide organisations
     When I reorder the offices
     And I visit the reorder offices page
     Then I should see that the list of offices are ordered "Home page office 2" then "Home page office 1"
+
+  Scenario: Adding a corporate information page to a worldwide organisation
+    Given an editionable worldwide organisation "Test Worldwide Organisation"
+    When I add a "Terms of reference" corporate information page to the editionable worldwide organisation
+    And I force-publish the "Terms of reference" corporate information page for the editionable worldwide organisation "Test Worldwide Organisation"
+    Then I should see the corporate information on the editionable worldwide organisation corporate information pages page
