@@ -1,0 +1,53 @@
+<div class="govuk-width-container" id="status-page-alert">
+  <div class="alert-message">
+    <p class="govuk-body">GOV.UK status: publishing apps are working and there is no maintenance planned.</p>
+  </div>
+
+  <div class="alert-message">
+    <%= render "govuk_publishing_components/components/details", {
+      title: "GOV.UK status: there’s something happening right now that may affect you."
+    } do %>
+      <p class="govuk-!-font-weight-bold">Happening now</p>
+
+      <ul>
+        <li>Some publications can't be retrieved for GOV.UK frontend applications</li>
+      </ul>
+      
+      <p>To learn more visit the <a href="https://status.publishing.service.gov.uk/">GOV.UK status page</a></p>
+    <% end %>
+  </div>
+
+  <div class="alert-message">
+    <%= render "govuk_publishing_components/components/details", {
+      title: "GOV.UK status: there’s some maintenance coming up that may affect you."
+    } do %>
+      <p class="govuk-!-font-weight-bold">Happening soon</p>
+
+      <ul>
+        <li>Delayed publishing due to scheduled maintenance from [datetime] to [datetime]</li>
+      </ul>
+      
+      <p>To learn more visit the <a href="https://status.publishing.service.gov.uk/">GOV.UK status page</a></p>
+    <% end %>
+  </div>
+
+  <div class="alert-message">
+    <%= render "govuk_publishing_components/components/details", {
+      title: "GOV.UK status: there’s something happening right now that may affect you and there’s some maintenance coming up."
+    } do %>
+      <p class="govuk-!-font-weight-bold">Happening now</p>
+
+      <ul>
+        <li>Some publications can't be retrieved for GOV.UK frontend applications</li>
+      </ul>
+      
+      <p class="govuk-!-font-weight-bold">Happening soon</p>
+
+      <ul>
+        <li>Delayed publishing due to scheduled maintenance from [datetime] to [datetime]</li>
+      </ul>
+
+      <p>To learn more visit the <a href="https://status.publishing.service.gov.uk/">GOV.UK status page</a></p>
+    <% end %>
+  </div>
+</div>

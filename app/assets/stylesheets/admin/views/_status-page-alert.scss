@@ -1,0 +1,17 @@
+#status-page-alert {
+  .alert-message {
+    @include govuk-responsive-padding(3, "top");
+
+    display: none;
+
+    p {
+      @include govuk-responsive-margin(3, "bottom");
+    }
+
+    .govuk-details__text {
+      p:last-child {
+        margin: 0;
+      }
+    }
+  }
+}
