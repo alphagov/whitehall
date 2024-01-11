@@ -6,11 +6,13 @@ module Admin
     GOVUK_DESIGN_SYSTEM_PER_PAGE = 15
 
     attr_reader :options
+    attr_accessor :errors
 
     def initialize(source, current_user, options = {})
       @source = source
       @current_user = current_user
       @options = options
+      @errors = []
     end
 
     def editions(locale = nil)
@@ -67,11 +69,12 @@ module Admin
     end
 
     def valid?
-      author
-      organisation
-      true
-    rescue ActiveRecord::RecordNotFound
-      false
+      validate_author
+      validate_organisation
+      validate_date(:from_date)
+      validate_date(:to_date)
+
+      errors.empty?
     end
 
     def from_date
@@ -222,6 +225,23 @@ module Admin
 
     def author
       User.find(options[:author]) if options[:author].present?
+    end
+
+    def validate_organisation
+      organisation
+    rescue ActiveRecord::RecordNotFound
+      @errors << "Organisation not found"
+    end
+
+    def validate_author
+      author
+    rescue ActiveRecord::RecordNotFound
+      @errors << "Author not found"
+    end
+
+    def validate_date(field)
+      is_valid = !options[field] || Chronic.parse(options[field], endian_precedence: :little, guess: :begin)
+      @errors << "The '#{field.to_s.humanize}' is incorrect. It should be dd/mm/yyyy" unless is_valid
     end
 
     def topical_event
