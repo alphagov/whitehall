@@ -1201,4 +1201,10 @@ class OrganisationTest < ActiveSupport::TestCase
 
     organisation.republish_on_assets_ready
   end
+
+  test "#title returns the name of the organisation" do
+    organisation = create(:organisation)
+
+    assert_equal organisation.name, organisation.title
+  end
 end

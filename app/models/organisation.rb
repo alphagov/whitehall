@@ -225,6 +225,8 @@ class Organisation < ApplicationRecord
     end
   end
 
+  alias_method :title, :name
+
   def republish_how_government_works_page_to_publishing_api
     PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
   end
