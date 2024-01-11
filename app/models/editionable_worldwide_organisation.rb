@@ -3,14 +3,15 @@ class EditionableWorldwideOrganisation < Edition
   SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
   OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
 
+  has_many :edition_editionable_worldwide_organisations, dependent: :destroy, inverse_of: :editionable_worldwide_organisation
+  has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy
+  belongs_to :main_office, class_name: "WorldwideOffice"
+
   include Edition::SocialMediaAccounts
   include Edition::Organisations
   include Edition::Roles
   include Edition::WorldLocations
-  has_many :edition_editionable_worldwide_organisations, dependent: :destroy, inverse_of: :editionable_worldwide_organisation
-
-  has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy
-  belongs_to :main_office, class_name: "WorldwideOffice"
+  include Edition::CorporateInformationPages
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"

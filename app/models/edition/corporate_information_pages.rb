@@ -1,0 +1,17 @@
+module Edition::CorporateInformationPages
+  extend ActiveSupport::Concern
+
+  included do
+    has_many :corporate_information_pages, through: "edition_editionable_worldwide_organisations".to_sym, source: :edition, class_name: "CorporateInformationPage"
+  end
+
+  def build_corporate_information_page(params)
+    # The standard corporate_info_pages.build method does not correctly set the
+    # organisation|worldwide_organisation in the linking table.
+    CorporateInformationPage.new(params.merge(self.class.name.underscore => self))
+  end
+
+  def unused_corporate_information_page_types
+    CorporateInformationPageType.all - corporate_information_pages.map(&:corporate_information_page_type)
+  end
+end
