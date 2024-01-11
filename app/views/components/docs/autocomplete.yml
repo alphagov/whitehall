@@ -90,21 +90,28 @@ examples:
             - fr
             - de
 
-  autocomplete_narrow_width:
+  with_data_attributes:
     data:
-      id: autocomplete-narrow
-      name: autocomplete-narrow
+      id: autocomplete
+      name: autocomplete
+      data_attributes:
+        module: not-a-module
+        loose: moose
       label:
-        text: Status
-      width: narrow
+        text: Select your country
       select:
         options:
           -
-            - Draft
+            -
           -
-            - Published
+            - France
+            - fr
           -
-            - Removed
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
 
   autocomplete_with_configuration_options:
     data:
