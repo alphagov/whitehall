@@ -137,7 +137,6 @@ Whitehall::Application.routes.draw do
           get :about, to: "worldwide_organisations_about#show", as: :about
           get :history, to: "worldwide_organisations_history#index", as: :history
         end
-        resource :access_and_opening_time, path: "access_info", except: %i[index show new]
         resources :translations, controller: "worldwide_organisations_translations" do
           get :confirm_destroy, on: :member
         end
