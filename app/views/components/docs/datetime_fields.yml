@@ -77,6 +77,16 @@ examples:
         value: 9
       minute:
         value: 30
+  with_a_prepopulated_time:
+    data:
+      prefix: edition
+      field_name: first_published_at
+      hour:
+        value: 10
+        id: myhour
+      minute:
+        value: 51
+        id: myminute
   with_error_items:
     data:
       prefix: edition
