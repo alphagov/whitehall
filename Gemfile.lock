@@ -175,7 +175,7 @@ GEM
     diffy (3.4.2)
     dig_rb (1.0.1)
     docile (1.4.0)
-    domain_name (0.6.20231109)
+    domain_name (0.6.20240107)
     drb (2.2.0)
       ruby2_keywords
     equivalent-xml (0.6.0)
@@ -230,7 +230,7 @@ GEM
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (92.0.0)
+    gds-api-adapters (92.1.0)
       addressable
       link_header
       null_logger
