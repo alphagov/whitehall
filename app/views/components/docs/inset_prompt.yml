@@ -39,3 +39,8 @@ examples:
         tracking: GTM-123AB
       items:
       - text: Descriptive link to the question with an error 1
+  with_id_attribute:
+    data:
+      title: If you want an id on the component for some reason
+      id: myid
+
