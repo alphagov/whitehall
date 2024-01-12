@@ -317,3 +317,43 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     end
   end
 end
+
+class PublishingApiDocumentRepublishingWorkerHTTPTest < ActiveSupport::TestCase
+  test "unpublishes the document, then pushes the new draft" do
+    document = create(:document)
+    live_edition = create(:unpublished_publication, document:)
+    draft_edition = live_edition.create_draft(build(:user))
+    draft_edition.change_note = "change-note"
+    draft_edition.save!
+
+    presenter = PublishingApiPresenters.presenter_for(live_edition, update_type: "republish")
+    draft_presenter = PublishingApiPresenters.presenter_for(draft_edition, update_type: "republish")
+    attachment_presenter = PublishingApiPresenters.presenter_for(live_edition.attachments.first, update_type: "republish")
+    draft_attachment_presenter = PublishingApiPresenters.presenter_for(draft_edition.attachments.first, update_type: "republish")
+
+    WebMock.reset!
+
+    expected_requests = [
+      stub_publishing_api_unpublish(presenter.content_id, body: {
+        type: "gone",
+        locale: "en",
+        discard_drafts: true,
+      }),
+      stub_publishing_api_put_content(attachment_presenter.content_id, attachment_presenter.content),
+      stub_publishing_api_patch_links(attachment_presenter.content_id, links: attachment_presenter.links),
+      stub_publishing_api_publish(attachment_presenter.content_id, locale: presenter.content[:locale], update_type: nil),
+      stub_publishing_api_unpublish(attachment_presenter.content_id, body: {
+        type: "redirect",
+        alternative_path: live_edition.base_path,
+        discard_drafts: true,
+        locale: "en",
+      }),
+      stub_publishing_api_put_content(draft_presenter.content_id, draft_presenter.content),
+      stub_publishing_api_put_content(draft_attachment_presenter.content_id, draft_attachment_presenter.content),
+    ]
+
+    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+
+    assert_all_requested(expected_requests)
+  end
+end

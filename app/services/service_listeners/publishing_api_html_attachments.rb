@@ -95,7 +95,7 @@ module ServiceListeners
         if edition.withdrawn?
           withdraw
         else
-          unpublish(allow_draft: true)
+          unpublish(allow_draft: false)
         end
       end
     end
