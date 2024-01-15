@@ -126,7 +126,7 @@ module PublishingApi
     def corporate_information_pages
       return [] unless item.corporate_information_pages.any?
 
-      item.corporate_information_pages.map(&:content_id)
+      item.corporate_information_pages.published.map(&:content_id)
     end
 
     def ordered_corporate_information_pages
