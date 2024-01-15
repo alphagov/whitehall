@@ -36,6 +36,7 @@ module PublishingApi
           world_location_names:,
         },
         document_type: item.class.name.underscore,
+        links: edition_links,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_organisation",
@@ -44,7 +45,7 @@ module PublishingApi
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
 
-    def links
+    def edition_links
       {
         corporate_information_pages:,
         main_office:,
@@ -55,6 +56,20 @@ module PublishingApi
         sponsoring_organisations:,
         world_locations:,
         roles:,
+      }
+    end
+
+    def links
+      {
+        corporate_information_pages: [],
+        main_office: [],
+        home_page_offices: [],
+        primary_role_person: [],
+        secondary_role_person: [],
+        office_staff: [],
+        sponsoring_organisations: [],
+        world_locations: [],
+        roles: [],
       }
     end
 

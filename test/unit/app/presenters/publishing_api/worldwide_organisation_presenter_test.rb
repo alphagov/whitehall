@@ -70,39 +70,50 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           },
         ],
       },
+      links: {
+        corporate_information_pages: [
+          worldwide_org.corporate_information_pages[0].content_id,
+          worldwide_org.corporate_information_pages[1].content_id,
+          worldwide_org.corporate_information_pages[2].content_id,
+          worldwide_org.corporate_information_pages[3].content_id,
+          worldwide_org.corporate_information_pages[4].content_id,
+          worldwide_org.corporate_information_pages[5].content_id,
+        ],
+        main_office: [
+          worldwide_org.reload.offices.first.content_id,
+        ],
+        home_page_offices: [],
+        primary_role_person: [
+          ambassador.content_id,
+        ],
+        secondary_role_person: [
+          deputy_head_of_mission.content_id,
+        ],
+        office_staff: worldwide_org.reload.office_staff_roles.map(&:current_person).map(&:content_id),
+        sponsoring_organisations: [
+          worldwide_org.sponsoring_organisations.first.content_id,
+        ],
+        world_locations: [
+          worldwide_org.world_locations.first.content_id,
+        ],
+        roles: [
+          ambassador.roles.first.content_id, deputy_head_of_mission.roles.first.content_id
+        ],
+      },
       analytics_identifier: "WO123",
       update_type: "major",
     }
 
     expected_links = {
-      corporate_information_pages: [
-        worldwide_org.corporate_information_pages[0].content_id,
-        worldwide_org.corporate_information_pages[1].content_id,
-        worldwide_org.corporate_information_pages[2].content_id,
-        worldwide_org.corporate_information_pages[3].content_id,
-        worldwide_org.corporate_information_pages[4].content_id,
-        worldwide_org.corporate_information_pages[5].content_id,
-      ],
-      main_office: [
-        worldwide_org.reload.offices.first.content_id,
-      ],
+      corporate_information_pages: [],
+      main_office: [],
       home_page_offices: [],
-      primary_role_person: [
-        ambassador.content_id,
-      ],
-      secondary_role_person: [
-        deputy_head_of_mission.content_id,
-      ],
-      office_staff: worldwide_org.reload.office_staff_roles.map(&:current_person).map(&:content_id),
-      sponsoring_organisations: [
-        worldwide_org.sponsoring_organisations.first.content_id,
-      ],
-      world_locations: [
-        worldwide_org.world_locations.first.content_id,
-      ],
-      roles: [
-        ambassador.roles.first.content_id, deputy_head_of_mission.roles.first.content_id
-      ],
+      primary_role_person: [],
+      secondary_role_person: [],
+      office_staff: [],
+      sponsoring_organisations: [],
+      world_locations: [],
+      roles: [],
     }
 
     presented_item = present(worldwide_org)
