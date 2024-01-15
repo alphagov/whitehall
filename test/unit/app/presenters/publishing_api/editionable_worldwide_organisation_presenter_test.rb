@@ -56,25 +56,35 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
           },
         ],
       },
+      links: {
+        main_office: [
+          worldwide_org.reload.offices.first.content_id,
+        ],
+        home_page_offices: [],
+        office_staff: worldwide_org.office_staff_roles.map(&:current_person).map(&:content_id),
+        primary_role_person: [
+          ambassador.content_id,
+        ],
+        roles: worldwide_org.roles.map(&:content_id),
+        secondary_role_person: [
+          deputy_head_of_mission.content_id,
+        ],
+        sponsoring_organisations: worldwide_org.organisations.map(&:content_id),
+        world_locations: worldwide_org.world_locations.map(&:content_id),
+      },
       analytics_identifier: "WO123",
       update_type: "major",
     }
 
     expected_links = {
-      main_office: [
-        worldwide_org.reload.offices.first.content_id,
-      ],
+      main_office: [],
       home_page_offices: [],
-      office_staff: worldwide_org.office_staff_roles.map(&:current_person).map(&:content_id),
-      primary_role_person: [
-        ambassador.content_id,
-      ],
-      roles: worldwide_org.roles.map(&:content_id),
-      secondary_role_person: [
-        deputy_head_of_mission.content_id,
-      ],
-      sponsoring_organisations: worldwide_org.organisations.map(&:content_id),
-      world_locations: worldwide_org.world_locations.map(&:content_id),
+      primary_role_person: [],
+      secondary_role_person: [],
+      office_staff: [],
+      sponsoring_organisations: [],
+      world_locations: [],
+      roles: [],
     }
 
     presented_item = present(worldwide_org)
