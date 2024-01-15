@@ -80,3 +80,12 @@ examples:
         This is an attachment: !@1
 
         This is an image: !!1
+
+
+  with_visual_editor:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "with_visual_editor"
+      show_visual_editor: true
