@@ -462,7 +462,7 @@ module ServiceListeners
           attachment.content_id,
           "/government/another/page",
           "en",
-          true,
+          false,
         )
         call(publication)
       end
@@ -474,7 +474,7 @@ module ServiceListeners
           attachment.content_id,
           "/government/another/page",
           "en",
-          true,
+          false,
         )
         call(publication)
       end
@@ -486,7 +486,7 @@ module ServiceListeners
           attachment.content_id,
           publication.search_link,
           "en",
-          true,
+          false,
         )
         call(publication)
       end
