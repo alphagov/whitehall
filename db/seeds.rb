@@ -160,9 +160,9 @@ if WorldLocation.where(name: "Test International Delegation").blank?
       world_locations: [WorldLocation.first],
     )
 
-    if SocialMediaService.where(name: "Some social media service").blank?
+    if SocialMediaService.where(name: "Blog").blank?
       SocialMediaService.create!(
-        name: "Some social media service",
+        name: "Blog",
       )
     end
 
