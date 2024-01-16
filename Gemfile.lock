@@ -175,7 +175,7 @@ GEM
     diffy (3.4.2)
     dig_rb (1.0.1)
     docile (1.4.0)
-    domain_name (0.6.20231109)
+    domain_name (0.6.20240107)
     drb (2.2.0)
       ruby2_keywords
     equivalent-xml (0.6.0)
@@ -390,7 +390,7 @@ GEM
     matrix (0.4.2)
     maxitest (5.4.0)
       minitest (>= 5.14.0, < 5.21.0)
-    mechanize (2.9.1)
+    mechanize (2.9.2)
       addressable (~> 2.8)
       domain_name (~> 0.5, >= 0.5.20190701)
       http-cookie (~> 1.0, >= 1.0.3)
