@@ -33,12 +33,12 @@ module TaxonomyHelper
     "grandparent"
   end
 
-  def employment_taxon_content_id
-    "employment_content_id"
+  def work_taxon_content_id
+    "work_content_id"
   end
 
-  def employment_taxon_child_content_id
-    "employment_child_content_id"
+  def work_taxon_child_content_id
+    "work_child_content_id"
   end
 
   def world_taxon_content_id
@@ -58,7 +58,7 @@ module TaxonomyHelper
   end
 
   def stub_taxonomy_with_selected_taxons
-    redis_cache_has_taxons [root_taxon, employment_taxon_parent]
+    redis_cache_has_taxons [root_taxon, work_taxon_parent]
   end
 
   def stub_taxonomy_with_world_taxons
@@ -233,42 +233,42 @@ private
     )
   end
 
-  def employment_taxon_parent
+  def work_taxon_parent
     FactoryBot.build(
       :taxon_hash,
-      title: "Employment",
-      base_path: "/employment",
-      content_id: employment_taxon_content_id,
-      children: [employment_taxon_child],
+      title: "Work",
+      base_path: "/work",
+      content_id: work_taxon_content_id,
+      children: [work_taxon_child],
     )
   end
 
-  def employment_taxon_child
+  def work_taxon_child
     FactoryBot.build(
       :taxon_hash,
-      title: "Employment is good",
-      base_path: "/employment/is-good",
-      content_id: employment_taxon_child_content_id,
-      children: [employment_taxon_grandchild],
+      title: "Work is good",
+      base_path: "/work/is-good",
+      content_id: work_taxon_child_content_id,
+      children: [work_taxon_grandchild],
     )
   end
 
-  def employment_taxon_grandchild
+  def work_taxon_grandchild
     FactoryBot.build(
       :taxon_hash,
       title: "If you like your job",
-      base_path: "/employment/is-good/if-you-like-your-job",
-      content_id: employment_taxon_child_content_id,
-      children: [employment_taxon_greatgrandchild],
+      base_path: "/work/is-good/if-you-like-your-job",
+      content_id: work_taxon_child_content_id,
+      children: [work_taxon_greatgrandchild],
     )
   end
 
-  def employment_taxon_greatgrandchild
+  def work_taxon_greatgrandchild
     FactoryBot.build(
       :taxon_hash,
       title: "The end",
-      base_path: "/employment/the-end",
-      content_id: employment_taxon_child_content_id,
+      base_path: "/work/the-end",
+      content_id: work_taxon_child_content_id,
     )
   end
 
