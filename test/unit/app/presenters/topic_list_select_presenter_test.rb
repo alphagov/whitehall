@@ -5,31 +5,31 @@ class TopicListSelectPresenterTest < ActiveSupport::TestCase
 
   test ".grouped_options returns subtopics grouped by their parent topic" do
     stub_taxonomy_with_selected_taxons
-    #  this stubs a taxonomy with two taxons [Education, Employment]
-    #  only Employment is taggable, so Education is hidden from the select
+    #  this stubs a taxonomy with two taxons [Education, Work]
+    #  only Work is taggable, so Education is hidden from the select
 
     expected = [
       [
-        "Employment",
+        "Work",
         [
           {
-            text: "Employment",
-            value: employment_taxon_content_id,
+            text: "Work",
+            value: work_taxon_content_id,
             selected: false,
           },
           {
-            text: "Employment > Employment is good ",
-            value: employment_taxon_child_content_id,
+            text: "Work > Work is good ",
+            value: work_taxon_child_content_id,
             selected: false,
           },
           {
-            text: "Employment > Employment is good > If you like your job ",
-            value: employment_taxon_child_content_id,
+            text: "Work > Work is good > If you like your job ",
+            value: work_taxon_child_content_id,
             selected: false,
           },
           {
-            text: "Employment > Employment is good > If you like your job > The end ",
-            value: employment_taxon_child_content_id,
+            text: "Work > Work is good > If you like your job > The end ",
+            value: work_taxon_child_content_id,
             selected: false,
           },
         ],

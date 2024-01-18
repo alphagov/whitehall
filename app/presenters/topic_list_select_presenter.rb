@@ -3,7 +3,7 @@ class TopicListSelectPresenter
   #  We are only going to show the branches which the dept has told us they will need to tag to.
   TAGGABLE_BRANCHES = [
     "/business-and-industry",
-    "/employment",
+    "/work",
     "/money",
     "/society-and-culture",
     "/environment",

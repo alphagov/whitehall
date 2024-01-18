@@ -32,7 +32,7 @@ end
 
 And(/^I click "Save"/) do
   stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/content})
-  .to_return(body: { base_path: "/employment", content_id: "employment_taxon_content_id", title: "Employment" }.to_json)
+  .to_return(body: { base_path: "/work", content_id: "work_taxon_content_id", title: "Work" }.to_json)
   click_on("Save")
 end
 
