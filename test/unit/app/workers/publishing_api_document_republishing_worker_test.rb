@@ -290,16 +290,14 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   it "should ignore old superseded editions when doing bulk republishing" do
     document = create(:document, editions: [build(:superseded_edition)])
 
-    Whitehall::PublishingApi.stubs(:publish).raises
-    Whitehall::PublishingApi.stubs(:save_draft).raises
+    Whitehall::PublishingApi.expects(:publish).never
+    Whitehall::PublishingApi.expects(:save_draft).never
+    Whitehall::PublishingApi.expects(:locales_for).never
+    Whitehall::PublishingApi.expects(:patch_links).never
+    PublishingApiUnpublishingWorker.any_instance.expects(:perform).never
+    ServiceListeners::PublishingApiHtmlAttachments.expects(:process).never
 
-    raising_worker = mock
-    raising_worker.stubs(:perform).raises
-    PublishingApiUnpublishingWorker.stubs(:new).returns(raising_worker)
-
-    assert_nothing_raised do
-      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-    end
+    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
 end
 
