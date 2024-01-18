@@ -11,3 +11,9 @@ en:
               invalid_date: First published date is not in the correct format
               blank: Enter a first published date
               inclusion: First published date must be between 1/1/1900 and the present
+        operational_field:
+          attributes:
+            name:
+              format: "%{message}"
+              blank: Enter a name
+              taken: Name has already been taken
