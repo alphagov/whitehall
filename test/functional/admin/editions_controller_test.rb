@@ -150,6 +150,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     session[:document_filters] = { "state" => "submitted", "author" => current_user.to_param, "organisation" => organisation.to_param }
     get :index, params: { author: "invalid" }
     assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation:)
+    assert_equal "Author not found", flash[:alert]
   end
 
   test "index should redirect to department if logged in with no remembered filters" do
@@ -157,6 +158,15 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     login_as create(:departmental_editor, organisation:)
     get :index
     assert_redirected_to admin_editions_path(organisation: organisation.id, state: :active)
+  end
+
+  test "index should redirect to default filtered options if filter is invalid and there are no remembered filters" do
+    organisation = create(:organisation)
+    login_as create(:departmental_editor, organisation:)
+    get :index, params: { from_date: "45/22/2222", to_date: "45/22/2222" }
+    assert_redirected_to admin_editions_path(organisation: organisation.id, state: :active)
+    assert_includes flash[:alert], "The 'From date' is incorrect. It should be dd/mm/yyyy"
+    assert_includes flash[:alert], "The 'To date' is incorrect. It should be dd/mm/yyyy"
   end
 
   view_test "should not show published editions as force published" do

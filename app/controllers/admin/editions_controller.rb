@@ -48,8 +48,12 @@ class Admin::EditionsController < Admin::BaseController
       session[:document_filters] = params_filters
       render :index
     elsif session_filters.any?
+      flash[:html_safe] = true
+      flash[:alert] = filter.errors.join("<br>") if filter&.errors&.any?
       redirect_to session_filters
     else
+      flash[:html_safe] = true
+      flash[:alert] = filter.errors.join("<br>") if filter&.errors&.any?
       redirect_to default_filters
     end
   end

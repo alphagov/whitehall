@@ -281,11 +281,37 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should be invalid if author can't be found" do
     filter = Admin::EditionFilter.new(Edition, @current_user, author: "invalid")
     assert_not filter.valid?
+    assert_equal 1, filter.errors.count
+    assert_includes filter.errors, "Author not found"
   end
 
   test "should be invalid if organisation can't be found" do
     filter = Admin::EditionFilter.new(Edition, @current_user, organisation: "invalid")
     assert_not filter.valid?
+    assert_equal 1, filter.errors.count
+    assert_includes filter.errors, "Organisation not found"
+  end
+
+  test "should be invalid if organisation and author can't be found" do
+    filter = Admin::EditionFilter.new(Edition, @current_user, organisation: "invalid", author: "invalid")
+    assert_not filter.valid?
+    assert_equal 2, filter.errors.count
+    assert_includes filter.errors, "Author not found"
+    assert_includes filter.errors, "Organisation not found"
+  end
+
+  test "should be invalid if from_date is incorrect" do
+    filter = Admin::EditionFilter.new(Edition, @current_user, from_date: "33/33/3333")
+    assert_not filter.valid?
+    assert_equal 1, filter.errors.count
+    assert_includes filter.errors, "The 'From date' is incorrect. It should be dd/mm/yyyy"
+  end
+
+  test "should be invalid if to_date is incorrect" do
+    filter = Admin::EditionFilter.new(Edition, @current_user, to_date: "33/33/3333")
+    assert_not filter.valid?
+    assert_equal 1, filter.errors.count
+    assert_includes filter.errors, "The 'To date' is incorrect. It should be dd/mm/yyyy"
   end
 
   test "should generate page title when there are no filter options" do
