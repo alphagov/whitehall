@@ -21,4 +21,5 @@ Flipflop.configure do
   #   default: true,
   #   description: "Take over the world."
   feature :editionable_worldwide_organisations, description: "Enables editionable worldwide organisations", default: false
+  feature :govspeak_visual_editor, description: "Enables a visual editor for Govspeak fields", default: false
 end

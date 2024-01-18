@@ -6,7 +6,39 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
   }
 
   GovspeakEditor.prototype.init = function () {
-    this.initPreview()
+    this.previewButton = this.module.querySelector(
+      '.js-app-c-govspeak-editor__preview-button'
+    )
+    this.visualEditorButton = this.module.querySelector(
+      '.js-app-c-govspeak-editor__visual-editor-button'
+    )
+    this.backButton = this.module.querySelector(
+      '.js-app-c-govspeak-editor__back-button'
+    )
+    this.preview = this.module.querySelector('.app-c-govspeak-editor__preview')
+    this.error = this.module.querySelector('.app-c-govspeak-editor__error')
+    this.textareaWrapper = this.module.querySelector(
+      '.app-c-govspeak-editor__textarea'
+    )
+    this.textarea = this.module.querySelector(
+      this.previewButton.getAttribute('data-content-target')
+    )
+    this.shouldTrackToggle =
+      this.previewButton.getAttribute('data-preview-toggle-tracking') === 'true'
+
+    this.previewButton.classList.add(
+      'app-c-govspeak-editor__preview-button--show'
+    )
+    this.visualEditorButton?.classList.add(
+      'app-c-govspeak-editor__visual-editor-button--show'
+    )
+
+    this.previewButton.addEventListener('click', this.showPreview.bind(this))
+    this.visualEditorButton?.addEventListener(
+      'click',
+      this.showVisualEditor.bind(this)
+    )
+    this.backButton.addEventListener('click', this.hidePreview.bind(this))
   }
 
   GovspeakEditor.prototype.getCsrfToken = function () {
@@ -47,63 +79,94 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     return data
   }
 
-  GovspeakEditor.prototype.initPreview = function () {
-    const previewToggle = this.module.querySelector(
-      '.js-app-c-govspeak-editor__preview-button'
+  GovspeakEditor.prototype.maybeTrackEvent = function (label) {
+    if (this.shouldTrackToggle) {
+      GOVUK.analytics.trackEvent(
+        this.previewButton.getAttribute('data-preview-toggle-track-category'),
+        this.previewButton.getAttribute('data-preview-toggle-track-action'),
+        { label }
+      )
+    }
+  }
+
+  GovspeakEditor.prototype.showPreview = function (event) {
+    event.preventDefault()
+
+    this.backButton.classList.add('app-c-govspeak-editor__back-button--show')
+    this.previewButton.classList.remove(
+      'app-c-govspeak-editor__preview-button--show'
     )
-    const trackToggle =
-      previewToggle.getAttribute('data-preview-toggle-tracking') === 'true'
-    const preview = this.module.querySelector('.app-c-govspeak-editor__preview')
-    const error = this.module.querySelector('.app-c-govspeak-editor__error')
-    const textareaWrapper = this.module.querySelector(
-      '.app-c-govspeak-editor__textarea'
-    )
-    const textarea = this.module.querySelector(
-      previewToggle.getAttribute('data-content-target')
+    this.visualEditorButton?.classList.remove(
+      'app-c-govspeak-editor__visual-editor-button--show'
     )
 
-    previewToggle.addEventListener(
-      'click',
-      function (e) {
-        e.preventDefault()
-
-        const previewMode = previewToggle.innerText === 'Preview'
-
-        previewToggle.innerText = previewMode ? 'Back to edit' : 'Preview'
-        textareaWrapper.classList.toggle(
-          'app-c-govspeak-editor__textarea--hidden'
-        )
-
-        if (previewMode) {
-          preview.classList.add('app-c-govspeak-editor__preview--show')
-          this.getRenderedGovspeak(textarea.value, function (event) {
-            const response = event.currentTarget
-
-            if (response.readyState === 4) {
-              if (response.status === 200) {
-                preview.innerHTML = response.responseText
-              }
-
-              if (response.status === 403) {
-                error.classList.add('app-c-govspeak-editor__error--show')
-                preview.classList.remove('app-c-govspeak-editor__preview--show')
-              }
-            }
-          })
-        } else {
-          preview.classList.remove('app-c-govspeak-editor__preview--show')
-          error.classList.remove('app-c-govspeak-editor__error--show')
-        }
-
-        if (trackToggle) {
-          GOVUK.analytics.trackEvent(
-            previewToggle.getAttribute('data-preview-toggle-track-category'),
-            previewToggle.getAttribute('data-preview-toggle-track-action'),
-            { label: previewMode ? 'preview' : 'edit' }
-          )
-        }
-      }.bind(this)
+    this.preview.classList.add('app-c-govspeak-editor__preview--show')
+    this.textareaWrapper.classList.add(
+      'app-c-govspeak-editor__textarea--hidden'
     )
+
+    this.backButton.focus()
+
+    this.getRenderedGovspeak(this.textarea.value, (event) => {
+      const response = event.currentTarget
+
+      if (response.readyState !== 4) {
+        return
+      }
+
+      switch (response.status) {
+        case 200:
+          this.preview.innerHTML = response.responseText
+          break
+        case 403:
+          this.preview.classList.remove('app-c-govspeak-editor__preview--show')
+          this.error.classList.add('app-c-govspeak-editor__error--show')
+      }
+    })
+
+    this.maybeTrackEvent('preview')
+  }
+
+  GovspeakEditor.prototype.showVisualEditor = function (event) {
+    event.preventDefault()
+
+    this.backButton.classList.add('app-c-govspeak-editor__back-button--show')
+    this.previewButton.classList.remove(
+      'app-c-govspeak-editor__preview-button--show'
+    )
+    this.visualEditorButton?.classList.remove(
+      'app-c-govspeak-editor__visual-editor-button--show'
+    )
+
+    this.textareaWrapper.classList.add(
+      'app-c-govspeak-editor__textarea--hidden'
+    )
+
+    this.backButton.focus()
+
+    this.maybeTrackEvent('visual')
+  }
+
+  GovspeakEditor.prototype.hidePreview = function (event) {
+    event.preventDefault()
+
+    this.backButton.classList.remove('app-c-govspeak-editor__back-button--show')
+    this.previewButton.classList.add(
+      'app-c-govspeak-editor__preview-button--show'
+    )
+    this.visualEditorButton?.classList.add(
+      'app-c-govspeak-editor__visual-editor-button--show'
+    )
+
+    this.preview.classList.remove('app-c-govspeak-editor__preview--show')
+    this.error.classList.remove('app-c-govspeak-editor__error--show')
+    this.textareaWrapper.classList.remove(
+      'app-c-govspeak-editor__textarea--hidden'
+    )
+
+    this.textarea.focus()
+
+    this.maybeTrackEvent('edit')
   }
 
   GovspeakEditor.prototype.getImageIds = function () {

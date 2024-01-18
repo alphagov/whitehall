@@ -1,4 +1,6 @@
 <%
+  show_visual_editor ||= false
+
   id ||= "#{name}-#{SecureRandom.hex(4)}"
   preview_id = "#{id}-preview"
   error_id = "#{id}-error"
@@ -39,7 +41,7 @@
 
 <%= tag.div class: classes, data: data_attributes do %>
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters ">
+    <div class="govuk-grid-column-one-half ">
       <%= render "govuk_publishing_components/components/label", {
         id: label_id,
         html_for: id,
@@ -47,12 +49,29 @@
         hint_text: hint,
       }.merge(label.symbolize_keys) %>
     </div>
-    <div class="govuk-grid-column-one-quarter app-c-govspeak-editor__preview-button-wrapper">
+    <div class="govuk-grid-column-one-half app-c-govspeak-editor__preview-button-wrapper">
+      <%= render "govuk_publishing_components/components/button", {
+        text: sanitize("Visual Editor #{tag.span("Alpha", class: 'govuk-tag app-view-summary__tag')}"),
+        secondary_quiet: true,
+        margin_bottom: hint ? 5 : 2,
+        classes: "js-app-c-govspeak-editor__visual-editor-button",
+        type: "button",
+      } if show_visual_editor %>
       <%= render "govuk_publishing_components/components/button", {
         text: "Preview",
         secondary_quiet: true,
         margin_bottom: hint ? 5 : 2,
         classes: "js-app-c-govspeak-editor__preview-button",
+        data_attributes: preview_button_data_attributes,
+        aria_controls: preview_id,
+        aria_describedby: label_id,
+        type: "button",
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Back to edit",
+        secondary_quiet: true,
+        margin_bottom: hint ? 5 : 2,
+        classes: "js-app-c-govspeak-editor__back-button",
         data_attributes: preview_button_data_attributes,
         aria_controls: preview_id,
         aria_describedby: label_id,
