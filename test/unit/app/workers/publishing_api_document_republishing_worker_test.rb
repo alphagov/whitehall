@@ -287,18 +287,6 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
-  it "raises if an unknown combination is encountered" do
-    document = build(:document,
-                     live_edition: build(:edition, id: 2, unpublishing: build(:unpublishing, id: 4, unpublishing_reason_id: 100)),
-                     id: 1,
-                     pre_publication_edition: nil)
-
-    Document.stubs(:find).returns(document)
-    assert_raise "Document id: 1 has an unrecognised state for republishing" do
-      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-    end
-  end
-
   it "should ignore old superseded editions when doing bulk republishing" do
     document = create(:document, editions: [build(:superseded_edition)])
 

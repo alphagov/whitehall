@@ -46,20 +46,6 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
         patch_links
         send_live_edition
         send_draft_edition
-      else
-        error_message = <<-ERROR
-          Document id: #{document.id} has an unrecognised state for republishing.
-          the_document_has_been_unpublished? = #{the_document_has_been_unpublished?}
-          the_document_has_been_withdrawn? = #{the_document_has_been_withdrawn?}
-          there_is_only_a_draft? = #{there_is_only_a_draft?}
-          there_is_only_a_live_edition? = #{there_is_only_a_live_edition?}
-          there_is_a_newer_draft? = #{there_is_a_newer_draft?}
-          live_edition.id = #{live_edition.try(:id)}
-          pre_publication_edition.id = #{pre_publication_edition.try(:id)}
-          live_edition.unpublishing = #{live_edition.try(:unpublishing)}
-          pre_publication_edition.unpublishing = #{pre_publication_edition.try(:unpublishing)}
-        ERROR
-        raise error_message
       end
     end
   end
