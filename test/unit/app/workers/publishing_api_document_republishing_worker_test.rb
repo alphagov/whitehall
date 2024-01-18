@@ -299,10 +299,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     end
   end
 
-  it "completes silently if there are no editions to republish" do
-    # whitehall has a lot of old documents that only have superseded editions
-    # we want to ignore these and not have to try and avoid passing them in
-    # when doing bulk republishing
+  it "should ignore old superseded editions when doing bulk republishing" do
     document = create(:document, editions: [build(:superseded_edition)])
 
     Whitehall::PublishingApi.stubs(:publish).raises
