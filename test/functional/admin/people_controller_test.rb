@@ -349,6 +349,10 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     Whitehall::PublishingApi.expects(:republish_async).with(role_appointment2.organisations.first)
     Whitehall::PublishingApi.expects(:republish_async).with(role_appointment4.organisations.first)
     Whitehall::PublishingApi.expects(:republish_async).with(role_appointment5.organisations.first)
+    Whitehall::PublishingApi.expects(:republish_async).with(role_appointment1.role)
+    Whitehall::PublishingApi.expects(:republish_async).with(role_appointment2.role)
+    Whitehall::PublishingApi.expects(:republish_async).with(role_appointment4.role)
+    Whitehall::PublishingApi.expects(:republish_async).with(role_appointment5.role)
 
     put :update_order_role_appointments, params: {
       id: person.id,

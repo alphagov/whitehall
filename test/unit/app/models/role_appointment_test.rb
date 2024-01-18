@@ -532,6 +532,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     create(:worldwide_organisation_role, role:, worldwide_organisation:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation)
+    Whitehall::PublishingApi.expects(:republish_async).with(role)
 
     create(:role_appointment, role:)
   end
@@ -543,6 +544,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, role:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation)
+    Whitehall::PublishingApi.expects(:republish_async).with(role)
 
     role_appointment.update!(ended_at: Time.zone.now)
   end
@@ -554,7 +556,28 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, role:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation)
+    Whitehall::PublishingApi.expects(:republish_async).with(role)
 
+    role_appointment.destroy!
+  end
+
+  test "republishes a role when a role appointment is created" do
+    role = create(:role_without_organisations)
+    Whitehall::PublishingApi.expects(:republish_async).with(role)
+    create(:role_appointment, role:)
+  end
+
+  test "republishes a role when a role appointment is updated" do
+    role = create(:role_without_organisations)
+    role_appointment = create(:role_appointment, role:)
+    Whitehall::PublishingApi.expects(:republish_async).with(role)
+    role_appointment.update!(ended_at: Time.zone.now)
+  end
+
+  test "republishes a role when a role appointment is destroyed" do
+    role = create(:role_without_organisations)
+    role_appointment = create(:role_appointment, role:)
+    Whitehall::PublishingApi.expects(:republish_async).with(role)
     role_appointment.destroy!
   end
 end
