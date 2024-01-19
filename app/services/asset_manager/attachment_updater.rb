@@ -27,12 +27,4 @@ class AssetManager::AttachmentUpdater
       AssetManager::AssetUpdater.call(asset.asset_manager_id, { "replacement_id" => replacement_id })
     end
   end
-
-  def self.redirect(attachment_data)
-    return if attachment_data.deleted?
-
-    attachment_data.assets.each do |asset|
-      AssetManager::AssetUpdater.call(asset.asset_manager_id, { "redirect_url" => attachment_data.redirect_url })
-    end
-  end
 end

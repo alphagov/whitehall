@@ -197,22 +197,5 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         end
       end
     end
-
-    context "when the attachment's attachable is unpublished" do
-      it "updates redirect URL for all assets" do
-        edition = create(:unpublished_edition)
-        attachment = create(:file_attachment, attachable: edition)
-
-        expected_attribute_hash = {
-          "redirect_url" => edition.unpublishing.document_url,
-        }
-
-        attachment.attachment_data.assets.each do |asset|
-          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, expected_attribute_hash)
-        end
-
-        AssetManager::AttachmentUpdater.redirect(attachment.attachment_data)
-      end
-    end
   end
 end

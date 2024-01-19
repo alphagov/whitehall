@@ -1,17 +1,18 @@
 require "test_helper"
 
 class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCase
-  extend Minitest::Spec::DSL
+  test "it updates redirect url for all assets" do
+    edition = create(:unpublished_edition)
+    attachment = create(:file_attachment, attachable: edition)
 
-  describe AssetManagerAttachmentRedirectUrlUpdateWorker do
-    let(:file) { File.open(fixture_path.join("sample.rtf")) }
-    let(:attachment) { FactoryBot.create(:file_attachment, file:) }
-    let(:attachment_data) { attachment.attachment_data }
-    let(:worker) { AssetManagerAttachmentRedirectUrlUpdateWorker.new }
+    expected_attribute_hash = {
+      "redirect_url" => edition.unpublishing.document_url,
+    }
 
-    it "calls AssetManager::AttachmentRedirectUrlUpdater" do
-      AssetManager::AttachmentUpdater.expects(:redirect).with(attachment_data)
-      worker.perform(attachment_data.id)
+    attachment.attachment_data.assets.each do |asset|
+      AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, expected_attribute_hash)
     end
+
+    AssetManagerAttachmentRedirectUrlUpdateWorker.new.perform(attachment.attachment_data.id)
   end
 end
