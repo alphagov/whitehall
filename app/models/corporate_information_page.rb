@@ -149,7 +149,7 @@ class CorporateInformationPage < Edition
   end
 
   def title_prefix_organisation_name
-    [owning_organisation.name, title].join(" \u2013 ")
+    [owning_organisation.title, title].join(" \u2013 ")
   end
 
   def title(_locale = :en)
