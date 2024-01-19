@@ -284,13 +284,13 @@ class AttachableTest < ActiveSupport::TestCase
     assert draft.attachments[0].persisted?
   end
 
-  test "#delete_all_attachments soft-deletes any attachments that the edition has" do
+  test "#finalise_delete soft-deletes any attachments that the edition has" do
     publication = create(:draft_publication)
 
     publication.attachments << attachment1 = build(:file_attachment)
     publication.attachments << attachment2 = build(:html_attachment)
 
-    publication.delete_all_attachments
+    publication.finalise_delete
 
     assert Attachment.find(attachment1.id).deleted?
     assert Attachment.find(attachment2.id).deleted?
@@ -332,7 +332,7 @@ class AttachableTest < ActiveSupport::TestCase
       ],
     )
 
-    publication.delete_all_attachments
+    publication.finalise_delete
 
     assert_equal [attachment1, attachment2], publication.deleted_attachments
   end

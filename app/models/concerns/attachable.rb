@@ -176,7 +176,7 @@ module Attachable
     max ? max + 1 : 0
   end
 
-  def delete_all_attachments
+  def finalise_delete
     attachments.each(&:destroy)
   end
 
