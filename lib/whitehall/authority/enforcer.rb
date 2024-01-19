@@ -48,5 +48,6 @@ module Whitehall::Authority
     "Government" => Rules::GovernmentRules,
     "StatisticsAnnouncement" => Rules::StatisticsAnnouncementRules,
     "EditionableWorldwideOrganisation" => Rules::EditionableWorldwideOrganisationRules,
+    "CorporateInformationPage" => Rules::CorporateInformationPageRules,
   }.freeze
 end
