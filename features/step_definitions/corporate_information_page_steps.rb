@@ -66,7 +66,7 @@ When(/^I delete the draft "([^"]*)" corporate information page for the editionab
   click_link "Delete draft"
   click_button "Delete"
 
-  expect(page).to have_current_path(admin_editionable_worldwide_organisation_corporate_information_pages_path(organisation))
+  expect(page).to have_current_path(admin_editionable_worldwide_organisation_path(organisation))
   expect(page).to have_content("The document '#{page_type}' has been deleted")
 end
 

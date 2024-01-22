@@ -16,9 +16,14 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
     # stash it before the page is destroyed, as the join model between the page
     # and the organisation will no longer exist afterwards.
     title = @edition.title
+    redirect = if @organisation.is_a?(EditionableWorldwideOrganisation)
+                 admin_editionable_worldwide_organisation_path(@organisation)
+               else
+                 [:admin, @organisation, CorporateInformationPage]
+               end
     edition_deleter = Whitehall.edition_services.deleter(@edition)
     if edition_deleter.perform!
-      redirect_to [:admin, @organisation, CorporateInformationPage], notice: "The document '#{title}' has been deleted"
+      redirect_to redirect, notice: "The document '#{title}' has been deleted"
     else
       redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
     end
