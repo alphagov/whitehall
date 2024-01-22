@@ -174,8 +174,11 @@
                       class: "govuk-link") %>
         </p>
       <% end %>
-
-      <%= render "admin/editions/search_results", filter: @filter, paginator: @paginator, show_export: false %>
+      <% if @edition.corporate_information_pages.any? %>
+        <%= render "admin/editions/search_results_table", filter: @filter %>
+      <% else %>
+        <p class="govuk-body">No corporate information pages for this document</p>
+      <% end %>
     </section>
   <% end %>
 

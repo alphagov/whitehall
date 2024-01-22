@@ -1,0 +1,38 @@
+<div class="govuk-table--with-actions">
+  <%= render "govuk_publishing_components/components/table", {
+    head: [
+      {
+        text: "Title",
+      },
+      {
+        text: "Updated by",
+      },
+      {
+        text: "State",
+      },
+      {
+        text: tag.span("View", class: "govuk-visually-hidden"),
+      },
+    ],
+    rows:
+      filter.editions.map do |edition|
+        [
+          {
+            text: tag.span(index_table_title_row(edition), class: "govuk-!-font-weight-bold"),
+          },
+          {
+            text: tag.p("#{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-0") +
+              "by " +
+              linked_author(edition.last_author, class: "govuk-link"),
+          },
+          {
+            text: render(Admin::Editions::TagsComponent.new(edition)),
+          },
+          {
+            text: search_results_table_actions(edition),
+          },
+        ]
+      end,
+    first_cell_is_header: true,
+  } %>
+</div>

@@ -30,6 +30,7 @@ end
 When(/^I add a "([^"]*)" corporate information page to the editionable worldwide organisation$/) do |page_type|
   worldwide_organisation = EditionableWorldwideOrganisation.last
   visit admin_editionable_worldwide_organisation_path(worldwide_organisation)
+  expect(page).to have_content("No corporate information pages for this document")
   click_link "Add corporate information page"
   fill_in "Body", with: "This is a new #{page_type} page"
   select page_type, from: "Type"
@@ -105,6 +106,7 @@ Then(/^I should see the corporate information on the editionable worldwide organ
   visit admin_editionable_worldwide_organisation_path(worldwide_organisation)
 
   corporate_information_page = worldwide_organisation.corporate_information_pages.last
+  expect(page).to_not have_content("No corporate information pages for this document")
   expect(page).to have_content(corporate_information_page.title)
 
   click_link corporate_information_page.title
