@@ -12,7 +12,7 @@
 # and sending it again after republishing. This also changes the version
 # numbering and would probably appear in the version history.
 class PublishingApiDocumentRepublishingWorker < WorkerBase
-  attr_reader :live_edition, :pre_publication_edition, :unpublished_edition
+  attr_reader :live_edition, :pre_publication_edition, :latest_unpublished_edition
 
   sidekiq_options queue: "publishing_api"
 
@@ -23,26 +23,16 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     # this the latest edition in a visible state ie: withdrawn, published
     @live_edition = document.live_edition
 
-    # this is the latest edition in a non visible state - draft, scheduled
-    # unpublished editions (other than withdrawn) will be in draft state with
-    # an associated unpublishing
     @pre_publication_edition = document.pre_publication_edition
+    @latest_unpublished_edition = document.editions.unpublished.last
 
-    # the unpublished edition, if one exists
-    @unpublished_edition = document.editions.unpublished.last
-
-    return unless the_document_has_an_edition_to_check?
+    return unless the_document_has_non_superseded_editions_to_republish?
 
     Document.transaction do
-      # Lock the document to prevent other
-      # PublishingApiDocumentRepublishingWorker jobs from sending
-      # requests to the Publishing API at the same time, as this is
-      # unsafe, and the state in the Publishing API might end up being
-      # incorrect.
       document.lock!
 
       if the_document_has_been_unpublished?
-        send_unpublish(unpublished_edition)
+        send_unpublish(latest_unpublished_edition)
         send_draft_edition if pre_publication_edition.present?
       elsif the_document_has_been_withdrawn?
         send_published_and_withdraw
@@ -56,34 +46,18 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
         patch_links
         send_live_edition
         send_draft_edition
-      else
-        error_message = <<-ERROR
-          Document id: #{document.id} has an unrecognised state for republishing.
-          the_document_has_been_unpublished? = #{the_document_has_been_unpublished?}
-          the_document_has_been_withdrawn? = #{the_document_has_been_withdrawn?}
-          there_is_only_a_draft? = #{there_is_only_a_draft?}
-          there_is_only_a_live_edition? = #{there_is_only_a_live_edition?}
-          there_is_a_newer_draft? = #{there_is_a_newer_draft?}
-          live_edition.id = #{live_edition.try(:id)}
-          pre_publication_edition.id = #{pre_publication_edition.try(:id)}
-          live_edition.unpublishing = #{live_edition.try(:unpublishing)}
-          pre_publication_edition.unpublishing = #{pre_publication_edition.try(:unpublishing)}
-        ERROR
-        raise error_message
       end
     end
   end
 
 private
 
-  def the_document_has_an_edition_to_check?
-    # there are documents in the Whitehall DB with only superseded editions
-    # this is mostly legacy data
-    pre_publication_edition || live_edition || unpublished_edition
+  def the_document_has_non_superseded_editions_to_republish?
+    pre_publication_edition || live_edition || latest_unpublished_edition
   end
 
   def the_document_has_been_unpublished?
-    @unpublished_edition.present?
+    @latest_unpublished_edition.present?
   end
 
   def the_document_has_been_withdrawn?
