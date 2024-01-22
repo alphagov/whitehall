@@ -222,6 +222,30 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert corporate_information_page2.errors.full_messages.include?("Another 'About' page was already published for this worldwide organisation")
   end
 
+  test "should be invalid if a CIP of the same type already exists for the editionable worldwide organisation" do
+    editionable_worldwide_organisation = create(:editionable_worldwide_organisation)
+    corporate_information_page1 = build(
+      :corporate_information_page,
+      :published,
+      organisation: nil,
+      owning_organisation_document: editionable_worldwide_organisation.document,
+      corporate_information_page_type: CorporateInformationPageType::PersonalInformationCharter,
+      state: "published",
+      major_change_published_at: Time.zone.now,
+    )
+    corporate_information_page1.save!
+
+    corporate_information_page2 = build(
+      :corporate_information_page,
+      organisation: nil,
+      owning_organisation_document: editionable_worldwide_organisation.document,
+      corporate_information_page_type: CorporateInformationPageType::PersonalInformationCharter,
+    )
+    assert_not corporate_information_page2.valid?
+
+    assert corporate_information_page2.errors.full_messages.include?("Another 'Personal information charter' page was already published for this worldwide organisation")
+  end
+
   test "should be valid if it is a new draft of the same document" do
     organisation = create(:organisation)
     corporate_information_page1 = build(

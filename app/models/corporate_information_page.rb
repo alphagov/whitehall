@@ -16,6 +16,7 @@ class CorporateInformationPage < Edition
   delegate :slug, :display_type_key, to: :corporate_information_page_type
   validate :unique_organisation_and_page_type, on: :create, if: :organisation
   validate :unique_worldwide_organisation_and_page_type, on: :create, if: :worldwide_organisation
+  validate :unique_editionable_worldwide_organisation_and_page_type, on: :create, if: :editionable_worldwide_organisation
 
   add_trait do
     def process_associations_before_save(new_edition)
@@ -240,6 +241,22 @@ private
     if document_id
       duplicate_scope = duplicate_scope.where("document_id <> ?", document_id)
     end
+    if duplicate_scope.exists?
+      errors.add(:base, "Another '#{display_type_key.humanize}' page was already published for this worldwide organisation")
+    end
+  end
+
+  def unique_editionable_worldwide_organisation_and_page_type
+    duplicate_scope = CorporateInformationPage
+                        .joins(:document_corporate_information_page)
+                        .where("document_corporate_information_pages.owning_document_id = ?", document_corporate_information_page.owning_document_id)
+                        .where(corporate_information_page_type_id:)
+                        .where("state not like 'superseded'")
+
+    if document_id
+      duplicate_scope = duplicate_scope.where("document_id <> ?", document_id)
+    end
+
     if duplicate_scope.exists?
       errors.add(:base, "Another '#{display_type_key.humanize}' page was already published for this worldwide organisation")
     end
