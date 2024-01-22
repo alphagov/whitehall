@@ -42,6 +42,32 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
           crest: "single-identity",
           formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
         },
+        office_contact_associations: [
+          {
+            office_content_id: worldwide_org.reload.offices.first.content_id,
+            contact_content_id: worldwide_org.reload.offices.first.contact.content_id,
+          },
+        ],
+        people_role_associations: [
+          {
+            person_content_id: ambassador.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: ambassador.roles.first.current_role_appointment.content_id,
+                role_content_id: ambassador.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
+          },
+          {
+            person_content_id: deputy_head_of_mission.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: deputy_head_of_mission.roles.first.current_role_appointment.content_id,
+                role_content_id: deputy_head_of_mission.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
+          },
+        ],
         social_media_links: [
           {
             href: worldwide_org.social_media_accounts.first.url,
@@ -57,6 +83,9 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
         ],
       },
       links: {
+        contacts: [
+          worldwide_org.reload.offices.first.contact.content_id,
+        ],
         main_office: [
           worldwide_org.reload.offices.first.content_id,
         ],
@@ -64,6 +93,9 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
         office_staff: worldwide_org.office_staff_roles.map(&:current_person).map(&:content_id),
         primary_role_person: [
           ambassador.content_id,
+        ],
+        role_appointments: [
+          ambassador.roles.first.current_role_appointment.content_id, deputy_head_of_mission.roles.first.current_role_appointment.content_id
         ],
         roles: worldwide_org.roles.map(&:content_id),
         secondary_role_person: [
