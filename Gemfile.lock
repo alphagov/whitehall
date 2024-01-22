@@ -165,6 +165,9 @@ GEM
       railties (>= 5.2, < 8)
     cucumber-tag-expressions (5.0.6)
     dalli (3.2.6)
+    dartsass-rails (0.5.0)
+      railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     database_cleaner-active_record (2.1.0)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
@@ -849,14 +852,15 @@ GEM
     sanitize (6.1.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
+    sass-embedded (1.70.0)
+      google-protobuf (~> 3.25)
+      rake (>= 13.0.0)
+    sass-embedded (1.70.0-aarch64-linux-gnu)
+      google-protobuf (~> 3.25)
+    sass-embedded (1.70.0-arm64-darwin)
+      google-protobuf (~> 3.25)
+    sass-embedded (1.70.0-x86_64-linux-gnu)
+      google-protobuf (~> 3.25)
     selenium-webdriver (4.16.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -966,6 +970,7 @@ DEPENDENCIES
   cucumber
   cucumber-rails
   dalli
+  dartsass-rails
   database_cleaner-active_record
   diffy
   equivalent-xml
@@ -1026,7 +1031,6 @@ DEPENDENCIES
   rubocop-govuk
   ruby-progressbar
   rubyzip
-  sassc-rails
   sentry-sidekiq
   sidekiq-scheduler
   simplecov

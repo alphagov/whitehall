@@ -99,7 +99,6 @@ Whitehall::Application.configure do
   config.assets.raise_runtime_errors = true
 
   config.assets.cache_store = :null_store
-  config.sass.cache = false
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true

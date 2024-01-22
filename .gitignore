@@ -31,3 +31,6 @@
 /yarn-error.log
 .cache/
 .DS_Store
+/app/assets/builds/*
+!/app/assets/builds/.keep
+

@@ -27,10 +27,6 @@ Whitehall::Application.configure do
   # Can also use `Terser.new(mangle: false)` to disable name mangling
   config.assets.js_compressor = :terser
 
-  # Rather than use a CSS compressor, use the SASS style to perform compression
-  config.sass.style = :compressed
-  config.sass.line_comments = false
-
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
