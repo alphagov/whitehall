@@ -48,12 +48,10 @@ class Admin::EditionsController < Admin::BaseController
       session[:document_filters] = params_filters
       render :index
     elsif session_filters.any?
-      flash[:html_safe] = true
-      flash[:alert] = filter.errors.join("<br>") if filter&.errors&.any?
+      display_filter_error_message
       redirect_to session_filters
     else
-      flash[:html_safe] = true
-      flash[:alert] = filter.errors.join("<br>") if filter&.errors&.any?
+      display_filter_error_message
       redirect_to default_filters
     end
   end
@@ -182,6 +180,13 @@ class Admin::EditionsController < Admin::BaseController
   end
 
 private
+
+  def display_filter_error_message
+    if filter&.errors&.any?
+      flash["html_safe"] = true
+      flash[:alert] = filter.errors.join("<br>")
+    end
+  end
 
   def fetch_version_and_remark_trails
     @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
