@@ -1,3 +1,4 @@
+// TODO, but something like this: //= require govspeak-visual-editor/dist/editor.js
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
 ;(function (Modules) {
