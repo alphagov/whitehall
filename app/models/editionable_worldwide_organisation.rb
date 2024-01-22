@@ -7,6 +7,7 @@ class EditionableWorldwideOrganisation < Edition
   include Edition::Organisations
   include Edition::Roles
   include Edition::WorldLocations
+  include Edition::CorporateInformationPages
 
   has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy
   belongs_to :main_office, class_name: "WorldwideOffice"
