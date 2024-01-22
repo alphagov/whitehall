@@ -1,0 +1,391 @@
+<% content_for :page_title, t("admin.training.title") %>
+<% content_for :title, t("admin.training.title") %>
+<% content_for :title_margin_bottom, 0 %>
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "govuk_publishing_components/components/contents_list", {
+        contents: [
+          {
+            href: "##{t('admin.training.sections.navigating_whitehall.heading').parameterize(separator: '-')}",
+            text: t("admin.training.sections.navigating_whitehall.heading"),
+          },
+          {
+            href: "##{t('admin.training.sections.filtering_documents.heading').parameterize(separator: '-')}",
+            text: t("admin.training.sections.filtering_documents.heading"),
+          },
+          {
+            href: "##{t('admin.training.sections.creating_and_updating_documents.heading').parameterize(separator: '-')}",
+            text: t("admin.training.sections.creating_and_updating_documents.heading"),
+          },
+          {
+            href: "##{t('admin.training.sections.uploading_attachments.heading').parameterize(separator: '-')}",
+            text: t("admin.training.sections.uploading_attachments.heading"),
+          },
+          {
+            href: "##{t('admin.training.sections.using_markdown.heading').parameterize(separator: '-')}",
+            text: t("admin.training.sections.using_markdown.heading"),
+          },
+          {
+            href: "##{t('admin.training.sections.topic_tags.heading').parameterize(separator: '-')}",
+            text: t("admin.training.sections.topic_tags.heading"),
+          },
+          {
+            href: "##{t('admin.training.sections.publishing_content.heading').parameterize(separator: '-')}",
+            text: t("admin.training.sections.publishing_content.heading"),
+          },
+          {
+            href: "##{t('admin.training.sections.guidance.heading').parameterize(separator: '-')}",
+            text: t("admin.training.sections.guidance.heading"),
+          },
+        ].compact,
+      } %>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <section class="app-view-training__section" id="<%= t("admin.training.sections.navigating_whitehall.heading").parameterize(separator: "-") %>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.navigating_whitehall.heading"),
+          heading_level: 2,
+          margin_bottom: 4,
+        } %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render_govspeak(t("admin.training.sections.navigating_whitehall.body_govspeak")) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.navigating_whitehall.video_heading_1"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://www.youtube.com/watch?v=0jAic1JtrAQ">Signing in and accessing Whitehall Publisher</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.navigating_whitehall.video_transcript_1")) %>
+          </div>
+        </details>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.navigating_whitehall.video_heading_2"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://www.youtube.com/watch?v=YLkv8DJg93U">Navigating the Whitehall Publisher dashboard</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.navigating_whitehall.video_transcript_2")) %>
+          </div>
+        </details>
+      </section>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <section class="app-view-training__section" id="<%= t("admin.training.sections.filtering_documents.heading").parameterize(separator: "-") %>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.filtering_documents.heading"),
+          heading_level: 2,
+          margin_bottom: 4,
+        } %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render_govspeak(t("admin.training.sections.filtering_documents.body_govspeak")) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.filtering_documents.video_heading"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://youtu.be/wIYwRpVyXUI">Finding and filtering documents</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.filtering_documents.video_transcript")) %>
+          </div>
+        </details>
+      </section>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <section class="app-view-training__section" id="<%= t("admin.training.sections.creating_and_updating_documents.heading").parameterize(separator: "-") %>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.creating_and_updating_documents.heading"),
+          heading_level: 2,
+          margin_bottom: 4,
+        } %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render_govspeak(t("admin.training.sections.creating_and_updating_documents.body_govspeak")) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.creating_and_updating_documents.video_heading"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://youtu.be/ONyp3RXTkgM">How to create a new guidance publication</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.creating_and_updating_documents.video_transcript")) %>
+          </div>
+        </details>
+      </section>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <section class="app-view-training__section" id="<%= t("admin.training.sections.uploading_attachments.heading").parameterize(separator: "-") %>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.uploading_attachments.heading"),
+          heading_level: 2,
+          margin_bottom: 4,
+        } %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render_govspeak(t("admin.training.sections.uploading_attachments.body_govspeak")) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.uploading_attachments.video_heading_1"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://youtu.be/xfwqRu5BXs4">Upload a new file attachment</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.uploading_attachments.video_transcript_1")) %>
+          </div>
+        </details>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.uploading_attachments.video_heading_2"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://youtu.be/GtTsHYAPoCU">Upload a new HTML attachment</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.uploading_attachments.video_transcript_2")) %>
+          </div>
+        </details>
+      </section>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <section class="app-view-training__section" id="<%= t("admin.training.sections.using_markdown.heading").parameterize(separator: "-") %>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.using_markdown.heading"),
+          heading_level: 2,
+          margin_bottom: 4,
+        } %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render_govspeak(t("admin.training.sections.using_markdown.body_govspeak")) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.using_markdown.video_heading_1"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://www.youtube.com/watch?v=Ad_rfW5JNgw">Using markdown for text formatting</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.using_markdown.video_transcript_1")) %>
+          </div>
+        </details>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.using_markdown.video_heading_2"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://youtu.be/Bsc8_9c0KFs">Using markdown for tables</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.using_markdown.video_transcript_2")) %>
+          </div>
+        </details>
+      </section>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <section class="app-view-training__section" id="<%= t("admin.training.sections.topic_tags.heading").parameterize(separator: "-") %>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.topic_tags.heading"),
+          heading_level: 2,
+          margin_bottom: 4,
+        } %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render_govspeak(t("admin.training.sections.topic_tags.body_govspeak")) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.topic_tags.video_heading"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://www.youtube.com/watch?v=1_e-L_L9Eeg">Adding topic tags</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.topic_tags.video_transcript")) %>
+          </div>
+        </details>
+      </section>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <section class="app-view-training__section" id="<%= t("admin.training.sections.publishing_content.heading").parameterize(separator: "-") %>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.publishing_content.heading"),
+          heading_level: 2,
+          margin_bottom: 4,
+        } %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render_govspeak(t("admin.training.sections.publishing_content.body_govspeak")) %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.publishing_content.video_heading"),
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+        <div class="gem-c-govspeak__youtube-video">
+          <%= render "govuk_publishing_components/components/govspeak", {} do %>
+            <p><a href="https://www.youtube.com/watch?v=sv13Lkpz_LA">Submitting your content for 2i review</a></p>
+          <% end %>
+        </div>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <%= t("admin.training.transcript_label") %>
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= render_govspeak(t("admin.training.sections.publishing_content.video_transcript")) %>
+          </div>
+        </details>
+      </section>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <section class="app-view-training__section" id="<%= t("admin.training.sections.guidance.heading").parameterize(separator: "-") %>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t("admin.training.sections.guidance.heading"),
+          heading_level: 2,
+          margin_bottom: 4,
+        } %>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render_govspeak(t("admin.training.sections.guidance.body_govspeak")) %>
+      </div>
+    </section>
+  </div>
+</div>
