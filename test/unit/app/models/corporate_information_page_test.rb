@@ -592,4 +592,29 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
     assert_equal published_worldwide_organisation.document.corporate_information_pages.first.title, draft_worldwide_organisation.document.corporate_information_pages.first.title
   end
+
+  test "cannot publish a corporate information page without a published owning editionable worldwide organisation" do
+    draft_worldwide_organisation = create(
+      :editionable_worldwide_organisation,
+      :draft,
+    )
+
+    draft_corporate_information_page = create(:draft_corporate_information_page, corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id, owning_organisation_document: draft_worldwide_organisation.document, organisation: nil)
+
+    draft_worldwide_organisation.major_change_published_at = Time.zone.now
+    draft_worldwide_organisation.change_note = "change-note"
+    draft_worldwide_organisation.force_publish!
+
+    stub_publishing_api_has_links(
+      {
+        "content_id" => draft_corporate_information_page.content_id,
+        "links" => {
+          "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
+        },
+      },
+    )
+
+    assert draft_corporate_information_page.invalid?(:publish)
+    assert draft_corporate_information_page.errors.full_messages.include?("The owning organisation must be published before the corporate information page can be published")
+  end
 end

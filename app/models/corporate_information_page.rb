@@ -17,6 +17,7 @@ class CorporateInformationPage < Edition
   validate :unique_organisation_and_page_type, on: :create, if: :organisation
   validate :unique_worldwide_organisation_and_page_type, on: :create, if: :worldwide_organisation
   validate :unique_editionable_worldwide_organisation_and_page_type, on: :create, if: :editionable_worldwide_organisation
+  validate :owning_organisation_has_published_edition, on: :publish, if: :editionable_worldwide_organisation
 
   add_trait do
     def process_associations_before_save(new_edition)
@@ -273,6 +274,12 @@ private
 
     if duplicate_scope.exists?
       errors.add(:base, "Another '#{display_type_key.humanize}' page was already published for this worldwide organisation")
+    end
+  end
+
+  def owning_organisation_has_published_edition
+    if owning_organisation.document.live_edition.blank?
+      errors.add(:base, "The owning organisation must be published before the corporate information page can be published")
     end
   end
 end
