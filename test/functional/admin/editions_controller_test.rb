@@ -151,6 +151,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { author: "invalid" }
     assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation:)
     assert_equal "Author not found", flash[:alert]
+    assert flash["html_safe"]
   end
 
   test "index should redirect to department if logged in with no remembered filters" do
@@ -167,6 +168,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_editions_path(organisation: organisation.id, state: :active)
     assert_includes flash[:alert], "The 'From date' is incorrect. It should be dd/mm/yyyy"
     assert_includes flash[:alert], "The 'To date' is incorrect. It should be dd/mm/yyyy"
+    assert flash["html_safe"]
   end
 
   view_test "should not show published editions as force published" do
@@ -299,6 +301,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
            state: "active",
          }
     assert_equal "The document list is too large for export", flash[:alert]
+    assert_not flash["html_safe"]
   end
 
 private
