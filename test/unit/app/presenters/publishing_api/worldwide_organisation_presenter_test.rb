@@ -45,6 +45,12 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           crest: "single-identity",
           formatted_title: "Locationia<br/>Embassy",
         },
+        office_contact_associations: [
+          {
+            office_content_id: worldwide_org.reload.offices.first.content_id,
+            contact_content_id: worldwide_org.reload.offices.first.contact.content_id,
+          },
+        ],
         ordered_corporate_information_pages: [
           {
             content_id: worldwide_org.corporate_information_pages[1].content_id,
@@ -53,6 +59,26 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           {
             content_id: worldwide_org.corporate_information_pages[4].content_id,
             title: "Working for Locationia Embassy",
+          },
+        ],
+        people_role_associations: [
+          {
+            person_content_id: ambassador.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: ambassador.roles.first.current_role_appointment.content_id,
+                role_content_id: ambassador.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
+          },
+          {
+            person_content_id: deputy_head_of_mission.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: deputy_head_of_mission.roles.first.current_role_appointment.content_id,
+                role_content_id: deputy_head_of_mission.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
           },
         ],
         secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
@@ -71,6 +97,9 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         ],
       },
       links: {
+        contacts: [
+          worldwide_org.reload.offices.first.contact.content_id,
+        ],
         corporate_information_pages: [
           worldwide_org.corporate_information_pages[0].content_id,
           worldwide_org.corporate_information_pages[1].content_id,
@@ -98,6 +127,9 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         ],
         roles: [
           ambassador.roles.first.content_id, deputy_head_of_mission.roles.first.content_id
+        ],
+        role_appointments: [
+          ambassador.roles.first.current_role_appointment.content_id, deputy_head_of_mission.roles.first.current_role_appointment.content_id
         ],
       },
       analytics_identifier: "WO123",
