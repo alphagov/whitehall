@@ -29,6 +29,8 @@ module PublishingApi
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
           },
+          ordered_corporate_information_pages:,
+          secondary_corporate_information_pages:,
           social_media_links:,
           world_location_names:,
         },
@@ -43,6 +45,7 @@ module PublishingApi
 
     def links
       {
+        corporate_information_pages:,
         office_staff:,
         main_office:,
         home_page_offices:,
@@ -58,6 +61,81 @@ module PublishingApi
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+    end
+
+    def corporate_information_pages
+      return [] unless item.corporate_information_pages.any?
+
+      item.corporate_information_pages.map(&:content_id)
+    end
+
+    def ordered_corporate_information_pages
+      corporate_information_pages = item.corporate_information_pages&.published
+      return [] if corporate_information_pages.empty?
+
+      links = []
+
+      %i[our_information jobs_and_contracts].each do |page_type|
+        corporate_information_pages.by_menu_heading(page_type).each do |corporate_information_page|
+          links << {
+            content_id: corporate_information_page.content_id,
+            title: corporate_information_page.title,
+          }
+        end
+      end
+
+      links
+    end
+
+    def secondary_corporate_information_pages
+      corporate_information_pages = item.corporate_information_pages&.published
+      return [] unless corporate_information_pages
+
+      sentences = []
+
+      publication_scheme = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::PublicationScheme.id)
+      if publication_scheme.present?
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.publication_scheme_html",
+          link: t_corporate_information_page_link(item, "publication-scheme"),
+        )
+      end
+
+      welsh_language_scheme = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::WelshLanguageScheme.id)
+      if welsh_language_scheme.present?
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.welsh_language_scheme_html",
+          link: t_corporate_information_page_link(item, "welsh-language-scheme"),
+        )
+      end
+
+      personal_information_charter = corporate_information_pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::PersonalInformationCharter.id)
+      if personal_information_charter.present?
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.personal_information_charter_html",
+          link: t_corporate_information_page_link(item, "personal-information-charter"),
+        )
+      end
+
+      sentences.join(" ")
+    end
+
+    def t_corporate_information_page_type_link_text(page)
+      if I18n.exists?("corporate_information_page.type.link_text.#{page.display_type_key}")
+        I18n.t("corporate_information_page.type.link_text.#{page.display_type_key}")
+      else
+        I18n.t("corporate_information_page.type.title.#{page.display_type_key}")
+      end
+    end
+
+    def t_corporate_information_page_link(organisation, slug)
+      page = organisation.corporate_information_pages.published.for_slug(slug)
+      page.extend(UseSlugAsParam)
+      link_to(
+        t_corporate_information_page_type_link_text(page),
+        page.public_path,
+        class: "govuk-link",
+      )
     end
 
     def office_staff

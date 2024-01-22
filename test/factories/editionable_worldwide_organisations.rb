@@ -11,6 +11,16 @@ FactoryBot.define do
       end
     end
 
+    trait(:with_corporate_information_pages) do
+      after :create do |organisation, _evaluator|
+        FactoryBot.create(:complaints_procedure_corporate_information_page, organisation: nil, worldwide_organisation: nil, owning_organisation_document: organisation.document)
+        FactoryBot.create(:personal_information_charter_corporate_information_page, organisation: nil, worldwide_organisation: nil, owning_organisation_document: organisation.document)
+        FactoryBot.create(:publication_scheme_corporate_information_page, organisation: nil, worldwide_organisation: nil, owning_organisation_document: organisation.document)
+        FactoryBot.create(:recruitment_corporate_information_page, organisation: nil, worldwide_organisation: nil, owning_organisation_document: organisation.document)
+        FactoryBot.create(:welsh_language_scheme_corporate_information_page, organisation: nil, worldwide_organisation: nil, owning_organisation_document: organisation.document)
+      end
+    end
+
     trait(:with_role) do
       after :create do |organisation, _evaluator|
         organisation.roles << create(:ambassador_role)

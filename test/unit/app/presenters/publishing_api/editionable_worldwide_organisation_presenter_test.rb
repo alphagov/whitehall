@@ -7,6 +7,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
 
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
     worldwide_org = create(:editionable_worldwide_organisation,
+                           :with_corporate_information_pages,
                            :with_role,
                            :with_social_media_account,
                            :with_office,
@@ -42,6 +43,17 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
           crest: "single-identity",
           formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
         },
+        ordered_corporate_information_pages: [
+          {
+            content_id: worldwide_org.corporate_information_pages[0].content_id,
+            title: "Complaints procedure",
+          },
+          {
+            content_id: worldwide_org.corporate_information_pages[3].content_id,
+            title: "Working for Editionable worldwide organisation title",
+          },
+        ],
+        secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
         social_media_links: [
           {
             href: worldwide_org.social_media_accounts.first.url,
@@ -61,6 +73,13 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     }
 
     expected_links = {
+      corporate_information_pages: [
+        worldwide_org.corporate_information_pages[0].content_id,
+        worldwide_org.corporate_information_pages[1].content_id,
+        worldwide_org.corporate_information_pages[2].content_id,
+        worldwide_org.corporate_information_pages[3].content_id,
+        worldwide_org.corporate_information_pages[4].content_id,
+      ],
       main_office: [
         worldwide_org.reload.offices.first.content_id,
       ],
