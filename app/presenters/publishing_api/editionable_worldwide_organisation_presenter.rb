@@ -32,7 +32,7 @@ module PublishingApi
           social_media_links:,
           world_location_names:,
         },
-        document_type: "worldwide_organisation",
+        document_type:,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_organisation",
@@ -52,6 +52,10 @@ module PublishingApi
         sponsoring_organisations: item.organisations.map(&:content_id),
         world_locations: item.world_locations.map(&:content_id),
       }
+    end
+
+    def document_type
+      "worldwide_organisation"
     end
 
   private

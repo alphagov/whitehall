@@ -10,6 +10,17 @@ Feature: Editionable worldwide organisations
     And I should see it has been assigned to the "United Kingdom" world location
     And I should see the editionable worldwide organisation "Test Worldwide Organisation" in the list of draft documents
 
+  Scenario: Unpublishing a published worldwide organisation
+    Given a published editionable worldwide organisation "Test Worldwide Organisation"
+    When I unpublish the document and ask for a redirect to "https://www.test.gov.uk/example"
+    Then the unpublishing should redirect to "https://www.test.gov.uk/example"
+
+  Scenario: Withdrawing a published worldwide organisation
+    Given a published editionable worldwide organisation "Test Worldwide Organisation"
+    When I withdraw the worldwide organisation "Test Worldwide Organisation" with the explanation "Closed for business"
+    Then there should be an unpublishing explanation of "Closed for business" and a reason of "No longer current government policy/activity"
+    And the withdrawal date should be today
+
   Scenario: Adding a translation to an existing worldwide organisation
     When I draft a new worldwide organisation "Test Worldwide Organisation" assigned to world location "United Kingdom"
     And I add a Welsh translation of the worldwide organisation "Test Worldwide Organisation" named "Translated Name"
