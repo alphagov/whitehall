@@ -3,7 +3,7 @@ require "fileutils"
 
 namespace :export do
   desc "Export list of documents"
-  task document_list: :environment do
+  task :document_list, [:state] => :environment do | _t, args |
     path = "tmp/document_list-#{Time.zone.now.to_i}.csv"
     puts "generating csv in #{path}"
     CSV.open(path, "w") do |csv|
@@ -20,7 +20,13 @@ namespace :export do
         "Authors...",
       ]
       Document.find_each do |document|
-        document.editions.sort_by(&:id).each do |edition|
+        query = document.editions
+
+        if args[:state].present?
+          query = query.where(state: args[:state])
+        end
+
+        query.sort_by(&:id).each do |edition|
           csv << [
             document.id,
             document.slug,
