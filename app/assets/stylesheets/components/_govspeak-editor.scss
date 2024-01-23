@@ -1,3 +1,5 @@
+@import "govspeak-visual-editor/dist/style";
+
 .app-c-govspeak-editor {
   margin-bottom: govuk-spacing(6);
 }
@@ -13,13 +15,15 @@
   display: none;
 }
 
-.app-c-govspeak-editor__preview {
+.app-c-govspeak-editor__preview,
+.app-c-govspeak-editor__visual-editor {
   border: 1px solid $govuk-border-colour;
   padding: govuk-spacing(4);
 }
 
 .app-c-govspeak-editor__preview,
 .app-c-govspeak-editor__error,
+.app-c-govspeak-editor__visual-editor,
 .js-app-c-govspeak-editor__visual-editor-button,
 .js-app-c-govspeak-editor__preview-button,
 .js-app-c-govspeak-editor__back-button {
@@ -28,6 +32,7 @@
 
 .app-c-govspeak-editor__preview--show,
 .app-c-govspeak-editor__error--show,
+.app-c-govspeak-editor__visual-editor--show,
 .app-c-govspeak-editor__visual-editor-button--show,
 .app-c-govspeak-editor__preview-button--show,
 .app-c-govspeak-editor__back-button--show {
