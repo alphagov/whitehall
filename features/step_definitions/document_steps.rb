@@ -65,6 +65,10 @@ When(/^I visit the list of documents awaiting review$/) do
   visit admin_editions_path(state: :submitted)
 end
 
+When(/^I visit the list of published documents$/) do
+  visit admin_editions_path(state: :published)
+end
+
 When(/^I select the "([^"]*)" edition filter$/) do |edition_type|
   filter_editions_by :type, edition_type
 end

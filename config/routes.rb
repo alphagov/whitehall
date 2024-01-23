@@ -287,7 +287,9 @@ Whitehall::Application.routes.draw do
 
       resources :speeches, except: [:index]
       resources :statistical_data_sets, path: "statistical-data-sets", except: [:index]
-      resources :editionable_worldwide_organisations, path: "editionable-worldwide-organisations", except: [:index]
+      resources :editionable_worldwide_organisations, path: "editionable-worldwide-organisations", except: [:index] do
+        resources :corporate_information_pages, controller: "corporate_information_pages", except: [:index]
+      end
       resources :detailed_guides, path: "detailed-guides", except: [:index]
       resources :people do
         resources :translations, controller: "person_translations" do

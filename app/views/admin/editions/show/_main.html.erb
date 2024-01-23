@@ -158,6 +158,27 @@
     </section>
   <% end %>
 
+  <% if @edition.has_corporate_information_pages? %>
+    <section class="app-view-summary__section app-view-summary__section--corporate-information-pages">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Corporate information pages",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <% if @edition.unused_corporate_information_page_types.any? %>
+        <p class="govuk-body">
+          <%= link_to("Add corporate information page",
+                      new_admin_editionable_worldwide_organisation_corporate_information_page_path(@edition.id),
+                      class: "govuk-link") %>
+        </p>
+      <% end %>
+
+      <%= render "admin/editions/search_results", filter: @filter, paginator: @paginator, show_export: false %>
+    </section>
+  <% end %>
+
   <% if @edition.allows_image_attachments? %>
     <section class="app-view-summary__section app-view-summary__section--attachments">
       <%= render "govuk_publishing_components/components/heading", {

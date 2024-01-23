@@ -8,6 +8,11 @@ Given(/^an editionable worldwide organisation "([^"]*)"$/) do |title|
   worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, title: "Main office for #{title}")
 end
 
+Given(/^a published editionable worldwide organisation "([^"]*)"$/) do |title|
+  worldwide_organisation = create(:editionable_worldwide_organisation, :published, title:)
+  worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, title: "Main office for #{title}")
+end
+
 Given(/^an editionable worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/) do |title, contact_1_title, contact_2_title|
   worldwide_organisation = create(:editionable_worldwide_organisation, title:)
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, contact: create(:contact, title: contact_1_title)))
@@ -30,6 +35,30 @@ When(/^I choose "([^"]*)" to be the main office for the editionable worldwide or
   click_link "Set main office"
   choose contact_title
   click_button "Save"
+end
+
+When(/^I create a new draft for the "([^"]*)" editionable worldwide organisation/) do |title|
+  worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  visit admin_editionable_worldwide_organisation_path(worldwide_organisation)
+  click_button "Create new edition"
+end
+
+When(/^I create a new draft for the "([^"]*)" corporate information page/) do |_title|
+  corporate_information_page = CorporateInformationPage.last
+  worldwide_organisation = EditionableWorldwideOrganisation.last
+  visit admin_editionable_worldwide_organisation_corporate_information_page_path(worldwide_organisation, corporate_information_page)
+  click_button "Create new edition"
+end
+
+When(/^I delete the draft "([^"]*)" worldwide organisation$/) do |title|
+  worldwide_organisation = EditionableWorldwideOrganisation.last
+  visit admin_editionable_worldwide_organisation_path(worldwide_organisation)
+
+  click_link "Delete draft"
+  click_button "Delete"
+
+  expect(page).to have_current_path(admin_editions_path(state: :active))
+  expect(page).to have_content("The draft of '#{title}' has been deleted")
 end
 
 When(/^I visit the reorder offices page/) do

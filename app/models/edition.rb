@@ -451,6 +451,10 @@ EXISTS (
     false
   end
 
+  def has_corporate_information_pages?
+    false
+  end
+
   def is_associated_with_a_minister?
     false
   end
@@ -557,6 +561,10 @@ EXISTS (
 
   def is_latest_edition?
     document.latest_edition == self
+  end
+
+  def is_live_edition?
+    document.live_edition == self
   end
 
   def all_nation_applicability_selected?

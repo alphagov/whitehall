@@ -1,6 +1,6 @@
 Feature: Editionable worldwide organisations
   Background:
-    Given I am a writer
+    Given I am a GDS editor
     And The editionable worldwide organisations feature flag is enabled
     And a world location "United Kingdom" exists
 
@@ -67,3 +67,35 @@ Feature: Editionable worldwide organisations
     When I reorder the offices
     And I visit the reorder offices page
     Then I should see that the list of offices are ordered "Home page office 2" then "Home page office 1"
+
+  Scenario: Adding a corporate information page to a worldwide organisation
+    Given an editionable worldwide organisation "Test Worldwide Organisation"
+    When I add a "Terms of reference" corporate information page to the editionable worldwide organisation
+    Then I should see the corporate information on the editionable worldwide organisation document page
+    And I should see the corporate information page "Terms of reference" in the list of "draft" documents
+    When I force-publish the "Terms of reference" corporate information page for the editionable worldwide organisation "Test Worldwide Organisation"
+    Then I should see the corporate information on the editionable worldwide organisation document page
+    And I should see the corporate information page "Terms of reference" in the list of "published" documents
+    When I create a new draft of the "Terms of reference" corporate information page for the worldwide organisation "Test Worldwide Organisation"
+    Then I should see the corporate information page "Terms of reference" in the list of "draft" documents
+
+  Scenario: Deleting a corporate information page from a worldwide organisation
+    Given an editionable worldwide organisation "Test Worldwide Organisation"
+    When I add a "Terms of reference" corporate information page to the editionable worldwide organisation
+    And I delete the draft "Terms of reference" corporate information page for the editionable worldwide organisation "Test Worldwide Organisation"
+    Then I should not see the corporate information page "Terms of reference" in the list of "draft" documents
+
+  Scenario: Deleting a draft worldwide organisation that has not been published
+    Given an editionable worldwide organisation "Test Worldwide Organisation"
+    When I add a "Terms of reference" corporate information page to the editionable worldwide organisation
+    And I delete the draft "Test Worldwide Organisation" worldwide organisation
+    Then I should not see the editionable worldwide organisation "Test Worldwide Organisation" in the list of "draft" documents
+    And I should not see the corporate information page "Terms of reference" in the list of "draft" documents
+
+  Scenario: Deleting a draft worldwide organisation that was previously published
+    Given a published editionable worldwide organisation "Test Worldwide Organisation"
+    When I create a new draft for the "Test Worldwide Organisation" editionable worldwide organisation
+    When I add a "Terms of reference" corporate information page to the editionable worldwide organisation
+    And I delete the draft "Test Worldwide Organisation" worldwide organisation
+    And I visit the list of draft documents
+    And I should see the corporate information page "Terms of reference" in the list of "draft" documents

@@ -22,6 +22,27 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page.destroy!
   end
 
+  test "creating a new corporate information page republishes the owning organisation when it's an editionable worldwide organisation" do
+    test_object = create(:editionable_worldwide_organisation)
+    Whitehall::PublishingApi.expects(:republish_document_async).with(test_object.document).once
+    create(:corporate_information_page, organisation: nil, owning_organisation_document: test_object.document)
+  end
+
+  test "updating an existing corporate information page republishes the owning organisation when it's an editionable worldwide organisation" do
+    test_object = create(:editionable_worldwide_organisation)
+    corporate_information_page = create(:corporate_information_page, organisation: nil, owning_organisation_document: test_object.document)
+    corporate_information_page.external = true
+    Whitehall::PublishingApi.expects(:republish_document_async).with(test_object.document).once
+    corporate_information_page.save!
+  end
+
+  test "deleting a corporate information page republishes the owning organisation when it's an editionable worldwide organisation" do
+    test_object = create(:editionable_worldwide_organisation)
+    corporate_information_page = create(:corporate_information_page, organisation: nil, owning_organisation_document: test_object.document)
+    Whitehall::PublishingApi.expects(:republish_document_async).with(test_object.document).once
+    corporate_information_page.destroy!
+  end
+
   test "corporate information pages cannot be previously published" do
     assert_not build(:corporate_information_page).previously_published
   end
@@ -175,6 +196,17 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       :corporate_information_page,
       organisation:,
       worldwide_organisation: worldwide_org,
+    )
+    assert_not corporate_information_page.valid?
+  end
+
+  test "should be invalid if has both organisation and editionable worldwide org" do
+    organisation = create(:organisation)
+    worldwide_org = create(:editionable_worldwide_organisation)
+    corporate_information_page = build(
+      :corporate_information_page,
+      organisation:,
+      owning_organisation_document: worldwide_org.document,
     )
     assert_not corporate_information_page.valid?
   end
@@ -546,5 +578,18 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     )
     PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).never
     about_us.touch
+  end
+
+  test "a new draft of a published editionable worldwide organisation should associate with the previous document worldwide organisation" do
+    published_worldwide_organisation = create(
+      :editionable_worldwide_organisation,
+      :published,
+      :with_corporate_information_pages,
+    )
+
+    create(:draft_corporate_information_page, corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id, owning_organisation_document: published_worldwide_organisation.document, organisation: nil)
+
+    draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
+    assert_equal published_worldwide_organisation.document.corporate_information_pages.first.title, draft_worldwide_organisation.document.corporate_information_pages.first.title
   end
 end

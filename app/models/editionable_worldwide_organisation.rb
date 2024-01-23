@@ -63,6 +63,10 @@ class EditionableWorldwideOrganisation < Edition
     roles.occupied.find_by(type: PRIMARY_ROLES.map(&:name))
   end
 
+  def has_corporate_information_pages?
+    true
+  end
+
   def publishing_api_presenter
     PublishingApi::EditionableWorldwideOrganisationPresenter
   end

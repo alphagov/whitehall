@@ -18,6 +18,24 @@ When(/^I add a "([^"]*)" corporate information page to the worldwide organisatio
   click_button "Save"
 end
 
+When(/^I create a new draft of the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |page_type, org_name|
+  organisation = EditionableWorldwideOrganisation.find_by(title: org_name)
+  info_page = organisation.corporate_information_pages.last
+  stub_publishing_api_links_with_taxons(info_page.content_id, %w[a-taxon-content-id])
+  visit admin_editionable_worldwide_organisation_path(organisation)
+  click_link page_type
+  click_button "Create new edition"
+end
+
+When(/^I add a "([^"]*)" corporate information page to the editionable worldwide organisation$/) do |page_type|
+  worldwide_organisation = EditionableWorldwideOrganisation.last
+  visit admin_editionable_worldwide_organisation_path(worldwide_organisation)
+  click_link "Add corporate information page"
+  fill_in "Body", with: "This is a new #{page_type} page"
+  select page_type, from: "Type"
+  click_button "Save"
+end
+
 When(/^I force-publish the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |page_type, org_name|
   organisation = WorldwideOrganisation.find_by(name: org_name)
   info_page = organisation.corporate_information_pages.last
@@ -26,6 +44,48 @@ When(/^I force-publish the "([^"]*)" corporate information page for the worldwid
   click_link "Pages"
   click_link page_type
   publish(force: true)
+end
+
+When(/^I force-publish the "([^"]*)" corporate information page for the editionable worldwide organisation "([^"]*)"$/) do |page_type, org_name|
+  organisation = EditionableWorldwideOrganisation.find_by(title: org_name)
+  info_page = organisation.corporate_information_pages.last
+  stub_publishing_api_links_with_taxons(info_page.content_id, %w[a-taxon-content-id])
+  visit admin_editionable_worldwide_organisation_path(organisation)
+  click_link page_type
+  publish(force: true)
+end
+
+When(/^I delete the draft "([^"]*)" corporate information page for the editionable worldwide organisation "([^"]*)"$/) do |page_type, org_name|
+  organisation = EditionableWorldwideOrganisation.find_by(title: org_name)
+  info_page = organisation.corporate_information_pages.last
+  stub_publishing_api_links_with_taxons(info_page.content_id, %w[a-taxon-content-id])
+  visit admin_editionable_worldwide_organisation_path(organisation)
+
+  click_link page_type
+
+  click_link "Delete draft"
+  click_button "Delete"
+
+  expect(page).to have_current_path(admin_editionable_worldwide_organisation_corporate_information_pages_path(organisation))
+  expect(page).to have_content("The document '#{page_type}' has been deleted")
+end
+
+Then(/^I should not see the editionable worldwide organisation "([^"]*)" in the list of "([^"]*)" documents/) do |title, state|
+  visit admin_editions_path(state:)
+
+  expect(page).to_not have_content title
+end
+
+Then(/^I should see the corporate information page "([^"]*)" in the list of "([^"]*)" documents/) do |title, state|
+  visit admin_editions_path(state:)
+
+  expect(find(".govuk-table")).to have_content title
+end
+
+Then(/^I should not see the corporate information page "([^"]*)" in the list of "([^"]*)" documents/) do |title, state|
+  visit admin_editions_path(state:)
+
+  expect(page).to_not have_content title
 end
 
 Then(/^I should see the corporate information on the worldwide organisation corporate information pages page/) do
@@ -38,6 +98,22 @@ Then(/^I should see the corporate information on the worldwide organisation corp
 
   click_link corporate_information_page.title
   expect(page).to have_content(corporate_information_page.title)
+end
+
+Then(/^I should see the corporate information on the editionable worldwide organisation document page/) do
+  worldwide_organisation = EditionableWorldwideOrganisation.last
+  visit admin_editionable_worldwide_organisation_path(worldwide_organisation)
+
+  corporate_information_page = worldwide_organisation.corporate_information_pages.last
+  expect(page).to have_content(corporate_information_page.title)
+
+  click_link corporate_information_page.title
+  expect(page).to have_content(corporate_information_page.title)
+end
+
+Then(/^I should not see the worldwide corporate information page "([^"]*)"/) do |page_title|
+  expect(page).to_not have_content(page_title)
+  expect(CorporateInformationPage.count).to be 0
 end
 
 When(/^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |corp_page, worldwide_org|

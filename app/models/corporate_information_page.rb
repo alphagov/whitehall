@@ -24,6 +24,8 @@ class CorporateInformationPage < Edition
         new_edition.organisation = @edition.organisation
       elsif @edition.worldwide_organisation
         new_edition.worldwide_organisation = @edition.worldwide_organisation
+      elsif @edition.editionable_worldwide_organisation
+        new_edition.owning_organisation_document = @edition.owning_organisation_document
       end
     end
   end
@@ -38,6 +40,8 @@ class CorporateInformationPage < Edition
   def republish_owning_organisation_to_publishing_api
     return if owning_organisation.blank?
 
+    return Whitehall::PublishingApi.republish_document_async(owning_organisation.document) if editionable_worldwide_organisation.present?
+
     edition_states = %w[draft submitted]
     if edition_states.include?(state) && worldwide_organisation.present?
       presenter = PublishingApi::WorldwideOrganisationPresenter.new(owning_organisation, state:)
@@ -48,6 +52,8 @@ class CorporateInformationPage < Edition
   end
 
   def republish_about_page_to_publishing_api
+    return if editionable_worldwide_organisation.present?
+
     about_us = if state == "draft"
                  owning_organisation&.about_us_for(state: "draft")
                else
@@ -60,6 +66,12 @@ class CorporateInformationPage < Edition
       about_us.document_id,
       true,
     )
+  end
+
+  def editionable_worldwide_organisation
+    return unless owning_organisation_document
+
+    owning_organisation_document.live_edition || owning_organisation_document.latest_edition
   end
 
   def reindex_organisation_in_search_index
@@ -100,7 +112,9 @@ class CorporateInformationPage < Edition
   end
 
   def only_one_organisation_or_worldwide_organisation
-    if organisation && worldwide_organisation
+    owning_organisations = [organisation, worldwide_organisation, editionable_worldwide_organisation]
+
+    if owning_organisations.count(&:present?) > 1
       errors.add(:base, "Only one organisation or worldwide organisation allowed")
     end
   end
@@ -114,7 +128,7 @@ class CorporateInformationPage < Edition
   end
 
   def owning_organisation
-    organisation || worldwide_organisation
+    organisation || worldwide_organisation || editionable_worldwide_organisation
   end
 
   def organisations
@@ -205,7 +219,7 @@ class CorporateInformationPage < Edition
   def publishing_api_presenter
     if worldwide_organisation.present? && about_page?
       PublishingApi::RedirectPresenter
-    elsif worldwide_organisation.present?
+    elsif worldwide_organisation.present? || editionable_worldwide_organisation.present?
       PublishingApi::WorldwideCorporateInformationPagePresenter
     else
       PublishingApi::CorporateInformationPagePresenter
