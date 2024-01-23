@@ -8,6 +8,11 @@ Given(/^an editionable worldwide organisation "([^"]*)"$/) do |title|
   worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, title: "Main office for #{title}")
 end
 
+Given(/^a published editionable worldwide organisation "([^"]*)"$/) do |title|
+  worldwide_organisation = create(:editionable_worldwide_organisation, :published, title:)
+  worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, title: "Main office for #{title}")
+end
+
 Given(/^an editionable worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/) do |title, contact_1_title, contact_2_title|
   worldwide_organisation = create(:editionable_worldwide_organisation, title:)
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, contact: create(:contact, title: contact_1_title)))
@@ -30,6 +35,19 @@ When(/^I choose "([^"]*)" to be the main office for the editionable worldwide or
   click_link "Set main office"
   choose contact_title
   click_button "Save"
+end
+
+When(/^I withdraw the worldwide organisation "([^"]*)" with the explanation "([^"]*)"$/) do |org_name, explanation|
+  organisation = EditionableWorldwideOrganisation.find_by(title: org_name)
+  visit admin_editionable_worldwide_organisation_path(organisation)
+  click_on "Withdraw or unpublish"
+  choose "Withdraw: no longer current government policy/activity"
+  within ".js-app-view-unpublish-withdraw-form__withdrawal" do
+    fill_in "Public explanation", with: explanation
+    click_button "Withdraw"
+  end
+
+  expect(:withdrawn).to eq(organisation.reload.current_state)
 end
 
 When(/^I visit the reorder offices page/) do
