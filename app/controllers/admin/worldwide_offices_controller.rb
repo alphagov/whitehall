@@ -3,9 +3,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_office, only: %i[edit update confirm_destroy destroy]
   extend Admin::HomePageListController
   is_home_page_list_controller_for :offices,
-                                   item_type: WorldwideOffice,
                                    redirect_to: ->(container, _item) { admin_worldwide_organisation_worldwide_offices_path(container) }
-
   def index; end
 
   def new
@@ -81,10 +79,18 @@ private
     end
   end
 
+  def extract_items_from_ordering_params
+    item_ordering = params[:ordering] || {}
+    item_ordering.permit!.to_h
+      .map { |item_id, ordering| [WorldwideOffice.find_by(id: item_id), ordering.to_i] }
+      .sort_by { |_, ordering| ordering }
+      .map { |item, _| item }
+      .compact
+  end
+
   def extract_show_on_home_page_param
     @show_on_home_page = params[:worldwide_office].delete(:show_on_home_page)
   end
-
 
   def find_worldwide_organisation
     @worldwide_organisation = if Flipflop.editionable_worldwide_organisations?

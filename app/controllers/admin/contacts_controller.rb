@@ -4,7 +4,6 @@ class Admin::ContactsController < Admin::BaseController
   before_action :destroy_blank_contact_numbers, only: %i[create update]
   extend Admin::HomePageListController
   is_home_page_list_controller_for :contacts,
-                                   item_type: Contact,
                                    redirect_to: ->(container, _item) { [:admin, container, Contact] }
 
   def index; end
@@ -81,6 +80,15 @@ private
 
   def extract_show_on_home_page_param
     @show_on_home_page = params[:contact].delete(:show_on_home_page)
+  end
+
+  def extract_items_from_ordering_params
+    item_ordering = params[:ordering] || {}
+    item_ordering.permit!.to_h
+      .map { |item_id, ordering| [Contact.find_by(id: item_id), ordering.to_i] }
+      .sort_by { |_, ordering| ordering }
+      .map { |item, _| item }
+      .compact
   end
 
   def find_contactable
