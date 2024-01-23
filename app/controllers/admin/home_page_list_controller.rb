@@ -4,10 +4,8 @@ module Admin::HomePageListController
   def is_home_page_list_controller_for(list_name, opts)
     before_action :extract_show_on_home_page_param, only: %i[create update]
     plural_name = list_name.to_s.downcase
-    single_name = plural_name.singularize
     item_type = opts[:item_type]
     redirect_proc = opts[:redirect_to]
-    params_name = (opts[:params_name] || single_name).to_sym
     home_page_list_controller_methods = Module.new do
       define_method(:reorder_for_home_page) do
         reordered_items = extract_items_from_ordering_params(params[:ordering] || {})
@@ -17,10 +15,6 @@ module Admin::HomePageListController
       end
 
     protected
-
-      define_method(:extract_show_on_home_page_param) do
-        @show_on_home_page = params[params_name].delete(:show_on_home_page)
-      end
 
       define_method(:extract_items_from_ordering_params) do |ids_and_orderings|
         ids_and_orderings.permit!.to_h.

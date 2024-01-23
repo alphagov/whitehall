@@ -4,8 +4,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   extend Admin::HomePageListController
   is_home_page_list_controller_for :offices,
                                    item_type: WorldwideOffice,
-                                   redirect_to: ->(container, _item) { admin_worldwide_organisation_worldwide_offices_path(container) },
-                                   params_name: :worldwide_office
+                                   redirect_to: ->(container, _item) { admin_worldwide_organisation_worldwide_offices_path(container) }
 
   def index; end
 
@@ -81,6 +80,11 @@ private
       end
     end
   end
+
+  def extract_show_on_home_page_param
+    @show_on_home_page = params[:worldwide_office].delete(:show_on_home_page)
+  end
+
 
   def find_worldwide_organisation
     @worldwide_organisation = if Flipflop.editionable_worldwide_organisations?

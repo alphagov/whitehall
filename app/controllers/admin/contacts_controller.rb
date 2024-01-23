@@ -79,6 +79,10 @@ private
     end
   end
 
+  def extract_show_on_home_page_param
+    @show_on_home_page = params[:contact].delete(:show_on_home_page)
+  end
+
   def find_contactable
     @contactable = Organisation.friendly.find(params[:organisation_id])
   end
