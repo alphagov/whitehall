@@ -86,6 +86,19 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     end
   end
 
+  view_test "PATCH :update with invalid data shows errors" do
+    patch :update, params: {
+      edition_id: @edition,
+      id: @edition.social_media_accounts.first,
+      social_media_account: {
+        title: "New title",
+        url: "www.invalid.gov.uk",
+      },
+    }
+
+    assert_select ".govuk-error-summary"
+  end
+
   test "POST :create creates a social media account" do
     post :create, params: {
       edition_id: @edition,

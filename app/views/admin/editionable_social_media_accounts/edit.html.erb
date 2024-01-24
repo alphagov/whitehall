@@ -3,6 +3,8 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @social_media_account)) %>
+
     <%= render("form", edition: @edition, social_media_account: @social_media_account, destination: admin_edition_social_media_account_path(@edition, @social_media_account)) %>
   </div>
 </div>
