@@ -18,7 +18,7 @@ query parameters, we do it in the controllers:
 
 Create a JSON file in [lib/finders][finders-folder]. You can base it on one of the existing files in that folder.
 
-Double-check the filter format and document noun - the filter format is used for rummager to return the data, while the document noun is displayed to the user.
+Double-check the filter format and document noun - the filter format is used for search_api to return the data, while the document noun is displayed to the user.
 
 The default_documents_per_page key can be used to paginate very long finders (see [whitehall/lib/finders/case_studies.json][case-studies] for an example).
 

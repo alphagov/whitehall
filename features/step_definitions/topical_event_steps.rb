@@ -54,7 +54,7 @@ Then(/^I should be able to delete the topical event "([^"]*)"$/) do |name|
   expect { click_button "Delete" }.to change(TopicalEvent, :count).by(-1)
 end
 
-def rummager_response_of_single_edition(edition)
+def search_api_response_of_single_edition(edition)
   {
     "results" => [{
       "link" => "/foo/policy_paper",

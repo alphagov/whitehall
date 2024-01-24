@@ -267,7 +267,7 @@ EXISTS (
     concrete_descendants.map(&:search_format_type)
   end
 
-  # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only rummager index
+  # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only search_api index
   def self.with_topical_event(topical_event)
     joins("INNER JOIN topical_event_memberships ON topical_event_memberships.edition_id = editions.id")
       .where("topical_event_memberships.topical_event_id" => topical_event.id)

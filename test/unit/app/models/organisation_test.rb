@@ -367,7 +367,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "bobs-bike", organisation.slug
   end
 
-  test "should return search index data suitable for Rummageable" do
+  test "should return search index data suitable for Searchable" do
     organisation = create(
       :organisation,
       name: "Ministry of Funk",
@@ -389,7 +389,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [], organisation.search_index["organisations"]
   end
 
-  test "should return search index data suitable for Rummageable with a custom logo" do
+  test "should return search index data suitable for Searchable with a custom logo" do
     organisation = build(
       :organisation,
       slug: "ministry-of-funk",

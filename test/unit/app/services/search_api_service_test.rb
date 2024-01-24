@@ -1,10 +1,10 @@
 require "test_helper"
 require "gds_api/test_helpers/search"
-require "support/search_rummager_helper"
+require "support/search_api_helper"
 
-class SearchRummagerServiceTest < ActiveSupport::TestCase
+class SearchApiServiceTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::Search
-  include SearchRummagerHelper
+  include SearchApiHelper
 
   setup do
     @topical_event = create(:topical_event, :active)
@@ -13,21 +13,21 @@ class SearchRummagerServiceTest < ActiveSupport::TestCase
 
   test "returns a hash with two properties: 'results' and 'total" do
     stub_any_search_to_return_no_results
-    assert_equal %w[results total], SearchRummagerService.new.fetch_related_documents(topical_params).keys
+    assert_equal %w[results total], SearchApiService.new.fetch_related_documents(topical_params).keys
   end
 
   test "returns empty results array if topical event has no documents" do
     stub_any_search_to_return_no_results
-    assert_equal [], SearchRummagerService.new.fetch_related_documents(topical_params)["results"]
+    assert_equal [], SearchApiService.new.fetch_related_documents(topical_params)["results"]
   end
 
   test "fetches documents related to a topical event" do
-    stub_any_search.to_return(body: rummager_response)
-    results = SearchRummagerService.new.fetch_related_documents(topical_params)["results"]
+    stub_any_search.to_return(body: search_api_response)
+    results = SearchApiService.new.fetch_related_documents(topical_params)["results"]
 
-    assert_instance_of RummagerDocumentPresenter, results.first
+    assert_instance_of SearchApiDocumentPresenter, results.first
     assert_equal 4, results.count
-    assert_equal attributes(processed_rummager_documents),
+    assert_equal attributes(processed_search_api_documents),
                  attributes(results)
   end
 
@@ -54,7 +54,7 @@ class SearchRummagerServiceTest < ActiveSupport::TestCase
       .with(default_search_options.merge(params))
       .returns("results" => [])
 
-    SearchRummagerService.new.fetch_related_documents(params)
+    SearchApiService.new.fetch_related_documents(params)
   end
 
   def topical_params

@@ -1,4 +1,4 @@
-module RummagerPresenters
+module SearchApiPresenters
   # Present content for the government search index
   def self.present_all_government_content
     Enumerator.new do |yielder|

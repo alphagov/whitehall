@@ -1,9 +1,9 @@
 ##
-## RummagerDocumentPresenter serves as a wrapper for documents returned in results
-## provided by Rummager/Search API, in order to present documents in Finders.
+## SearchApiDocumentPresenter serves as a wrapper for documents returned in results
+## provided by Search API, in order to present documents in Finders.
 ##
 
-class RummagerDocumentPresenter < ActionView::Base
+class SearchApiDocumentPresenter < ActionView::Base
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
 

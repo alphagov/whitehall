@@ -36,7 +36,7 @@ class DetailedGuide < Edition
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
-  def rummager_index
+  def search_api_index
     :detailed_guides
   end
 

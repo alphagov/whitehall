@@ -136,7 +136,7 @@ class PublicationTest < ActiveSupport::TestCase
 
   test "#search_index detailed_format should be hard-coded for stats publication types" do
     # NationalStatistics and OfficialStatistics were renamed in Oct 2015 but
-    # their detailed_format in Rummager needs to stay the same
+    # their detailed_format in SearchApi needs to stay the same
     assert_equal "statistics-national-statistics", create(:published_national_statistics).search_index["detailed_format"]
     assert_equal "statistics", create(:published_statistics).search_index["detailed_format"]
   end

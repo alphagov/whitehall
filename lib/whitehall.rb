@@ -181,8 +181,8 @@ module Whitehall
     }[format]
   end
 
-  def self.rummager_work_queue_name
-    "rummager-delayed-indexing"
+  def self.search_api_work_queue_name
+    "search_api-delayed-indexing"
   end
 
   def self.edition_services

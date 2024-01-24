@@ -14,7 +14,7 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   def setup
-    RummagerPresenters.stubs(:searchable_classes).returns([SearchableTestTopic])
+    SearchApiPresenters.stubs(:searchable_classes).returns([SearchableTestTopic])
   end
 
   test "will not request indexing on save if it is not in searchable_instances" do
@@ -47,17 +47,17 @@ class SearchableTest < ActiveSupport::TestCase
     searchable_test_topic.destroy!
   end
 
-  test "will only request indexing of things that are included in the RummagerPresenters.searchable_classes property" do
+  test "will only request indexing of things that are included in the SearchApiPresenters.searchable_classes property" do
     non_existent_class = Class.new
-    RummagerPresenters.stubs(:searchable_classes).returns([non_existent_class])
+    SearchApiPresenters.stubs(:searchable_classes).returns([non_existent_class])
     searchable_test_topic = SearchableTestTopic.new(name: "woo", state: "published")
     Whitehall::SearchIndex.expects(:add).never
     searchable_test_topic.save!
   end
 
-  test "#reindex_all will not request indexing for an instance whose class is not in RummagerPresenters.searchable_classes" do
+  test "#reindex_all will not request indexing for an instance whose class is not in SearchApiPresenters.searchable_classes" do
     non_existent_class = Class.new
-    RummagerPresenters.stubs(:searchable_classes).returns([non_existent_class])
+    SearchApiPresenters.stubs(:searchable_classes).returns([non_existent_class])
     SearchableTestTopic.create!(name: "woo", state: "published")
     Whitehall::SearchIndex.expects(:add).never
     SearchableTestTopic.reindex_all

@@ -1,19 +1,19 @@
-module SearchRummagerHelper
-  def rummager_response
-    File.read(Rails.root.join("features/fixtures/rummager_response.json"))
+module SearchApiHelper
+  def search_api_response
+    File.read(Rails.root.join("features/fixtures/search_api_response.json"))
   end
 
-  def processed_rummager_documents
-    ActiveSupport::JSON.decode(rummager_response)["results"].map! do |res|
-      RummagerDocumentPresenter.new(res)
+  def processed_search_api_documents
+    ActiveSupport::JSON.decode(search_api_response)["results"].map! do |res|
+      SearchApiDocumentPresenter.new(res)
     end
   end
 
-  def search_rummager_service_stub(search_params)
+  def search_api_service_stub(search_params)
     results = {}
-    results["results"] = processed_rummager_documents
+    results["results"] = processed_search_api_documents
 
-    SearchRummagerService
+    SearchApiService
       .any_instance
       .expects(:fetch_related_documents)
       .with(search_params)

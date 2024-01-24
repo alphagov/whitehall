@@ -111,7 +111,7 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_equal 20, page2.ordering
   end
 
-  test "returns search index data suitable for Rummageable" do
+  test "returns search index data suitable for Searchable" do
     page = create(:take_part_page, title: "Build a new polling station", summary: "Help people vote!", ordering: 1)
 
     assert_equal "Build a new polling station", page.search_index["title"]

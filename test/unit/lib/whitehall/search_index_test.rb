@@ -15,8 +15,8 @@ module Whitehall
       assert_equal 10.seconds.from_now.to_i, job["at"]
     end
 
-    test "SearchIndex.delete queues a search index removal job for the instance based on its slug and rummager index" do
-      searchable_thing = stub(search_index: { "link" => "full_slug" }, rummager_index: :index_name)
+    test "SearchIndex.delete queues a search index removal job for the instance based on its slug and search_api index" do
+      searchable_thing = stub(search_index: { "link" => "full_slug" }, search_api_index: :index_name)
 
       SearchIndex.delete(searchable_thing)
       args = SearchIndexDeleteWorker.jobs.last["args"]

@@ -10,7 +10,7 @@ class SearchIndexAddWorker < WorkerBase
     elsif !searchable_instance.can_index_in_search?
       logger.warn("SearchIndexAddWorker: Was asked to index #{class_name} with id #{id}, but it was unindexable (#{Time.zone.now.utc}).")
     else
-      index = Whitehall::SearchIndex.for(searchable_instance.rummager_index, logger:)
+      index = Whitehall::SearchIndex.for(searchable_instance.search_api_index, logger:)
       index.add searchable_instance.search_index
     end
   end
@@ -30,6 +30,6 @@ private
   end
 
   def searchable_class_names
-    RummagerPresenters.searchable_classes.map(&:name)
+    SearchApiPresenters.searchable_classes.map(&:name)
   end
 end

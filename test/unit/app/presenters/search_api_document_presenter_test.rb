@@ -1,7 +1,7 @@
 require "test_helper"
 
-class RummagerDocumentPresenterTest < ActiveSupport::TestCase
-  def rummager_result
+class SearchApiDocumentPresenterTest < ActiveSupport::TestCase
+  def search_api_result
     {
       "link" => "/government/news/quiddich-world-cup-2018",
       "title" => "Quiddich World Cup 2018",
@@ -34,15 +34,15 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   end
 
   def presenter
-    RummagerDocumentPresenter.new rummager_result
+    SearchApiDocumentPresenter.new search_api_result
   end
 
   test "will provide access to document attributes required for Finders and Lists" do
-    assert_equal rummager_result["title"], presenter.title
-    assert_equal rummager_result["link"], presenter.link
-    assert_equal rummager_result["format"], presenter.type
-    assert_equal rummager_result["government_name"], presenter.government_name
-    assert_equal rummager_result["is_historic"], presenter.historic?
+    assert_equal search_api_result["title"], presenter.title
+    assert_equal search_api_result["link"], presenter.link
+    assert_equal search_api_result["format"], presenter.type
+    assert_equal search_api_result["government_name"], presenter.government_name
+    assert_equal search_api_result["is_historic"], presenter.historic?
   end
 
   test "will produce a humanized publication date required by Finders and Lists" do
@@ -62,7 +62,7 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
 
   test "will not return a document collection if title and link are not present" do
     search_result = { "document_collections" => [{ "title" => "A title" }] }
-    assert_nil RummagerDocumentPresenter.new(search_result).publication_collections
+    assert_nil SearchApiDocumentPresenter.new(search_result).publication_collections
   end
 
   test "will return acronyms for associated organisations" do
@@ -79,7 +79,7 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
       ],
     }
 
-    assert_equal search_result["organisations"].first["title"], RummagerDocumentPresenter.new(search_result).organisations
+    assert_equal search_result["organisations"].first["title"], SearchApiDocumentPresenter.new(search_result).organisations
   end
 
   test "will return formatted operational field" do
@@ -87,13 +87,13 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
     assert_equal expected_result, presenter.field_of_operation
   end
 
-  test "will return underscored display_type from Rummager if present" do
+  test "will return underscored display_type from SearchApi if present" do
     assert_equal "news_story", presenter.display_type_key
   end
 
   test "will return content_store_document_type if display_type is not present" do
     search_result = { "content_store_document_type" => "news_story" }
-    assert_equal "news_story", RummagerDocumentPresenter.new(search_result).display_type_key
+    assert_equal "news_story", SearchApiDocumentPresenter.new(search_result).display_type_key
   end
 
   test "will return humanized display_type_key" do

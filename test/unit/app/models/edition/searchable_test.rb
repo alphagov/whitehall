@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Edition::SearchableTest < ActiveSupport::TestCase
-  test "should return search index suitable for Rummageable when published" do
+  test "should return search index suitable for Searchable when published" do
     edition = create(:published_edition, title: "edition-title")
 
     assert_equal "edition-title", edition.search_index["title"]
@@ -21,7 +21,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     assert_equal false, edition.search_index["is_withdrawn"]
   end
 
-  test "should return search index suitable for Rummageable when withdrawn" do
+  test "should return search index suitable for Searchable when withdrawn" do
     edition = create(:withdrawn_edition, title: "edition-title")
 
     assert_equal "edition-title", edition.search_index["title"]
@@ -55,7 +55,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   test "should add edition to search index on publishing" do
     edition = create(:submitted_edition)
     stub_publishing_api_registration_for(edition)
-    RummagerPresenters.stubs(:searchable_classes).returns([edition.class])
+    SearchApiPresenters.stubs(:searchable_classes).returns([edition.class])
     Whitehall::SearchIndex.expects(:add).with(edition)
 
     Whitehall.edition_services.publisher(edition).perform!
@@ -68,7 +68,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
     edition.build_unpublishing(explanation: "Old policy", unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
-    RummagerPresenters.stubs(:searchable_classes).returns([edition.class])
+    SearchApiPresenters.stubs(:searchable_classes).returns([edition.class])
     Whitehall::SearchIndex.expects(:add).with(edition)
 
     Whitehall.edition_services.withdrawer(edition).perform!
@@ -90,7 +90,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     french_edition = create(:submitted_edition, title: "French Title", body: "French Body", primary_locale: :fr)
     stub_publishing_api_registration_for(french_edition)
     I18n.locale = I18n.default_locale
-    RummagerPresenters.stubs(:searchable_classes).returns([french_edition.class])
+    SearchApiPresenters.stubs(:searchable_classes).returns([french_edition.class])
     Whitehall::SearchIndex.expects(:add).with(french_edition).never
 
     Whitehall.edition_services.publisher(french_edition).perform!
