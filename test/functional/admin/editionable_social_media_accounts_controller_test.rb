@@ -101,6 +101,19 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     assert_equal "https://www.social.gov.uk", @edition.social_media_accounts.last.url
   end
 
+  view_test "POST :create with invalid data shows errors" do
+    post :create, params: {
+      edition_id: @edition,
+      social_media_account: {
+        social_media_service_id: SocialMediaService.first,
+        title: "Account title",
+        url: "www.invalid.gov.uk",
+      },
+    }
+
+    assert_select ".govuk-error-summary"
+  end
+
   view_test "GET :confirm_destroy shows a confirmation before deletion" do
     get :confirm_destroy, params: {
       edition_id: @edition,
