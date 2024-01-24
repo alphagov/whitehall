@@ -8,7 +8,7 @@ Whitehall (also known as 'Whitehall Admin' or 'Whitehall Publisher') is used by 
 
 ## Nomenclature
 
-.
+..
 
 - *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown) used throughout whitehall as the general publishing format
 
