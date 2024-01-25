@@ -1,0 +1,366 @@
+en:
+  admin:
+    training:
+      title: How to use Whitehall Publisher
+      transcript_label: View video transcript
+      sections:
+        navigating_whitehall:
+          heading: Access and navigating Whitehall Publisher
+          body_govspeak: |
+            You can access common sections of Whitehall Publisher through the navigation bar, for example creating a new document or accessing the list of documents.
+
+            You can use [Whitehall Publisher dashboard](/government/admin) to get guidance, resources, your draft documents and your organisation's force published documents.
+
+            Read more [guidance about accessing and navigating to Whitehall Publisher](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/introduction-and-access-to-whitehall-publisher).
+          video_heading_1: "Video: signing in and accessing Whitehall Publisher"
+          video_transcript_1: |
+            Enter your email and password to log in to Whitehall. 
+
+            If you have forgotten your password, select 'Forgot your password' and you will receive an email to reset your password.
+
+            Your account will be suspended if you don't use your account in 45 days.
+
+            Once you log in, you are taken to the log in dashboard where you will see all the applications you have access to. 
+
+            At the top banner, you have a series of links. Going from left to right, the GOV.UK Signon Integration logo, then the 'Dashboard' which is where I am now, your user account, and 'Sign out'. 
+
+            If you select your name, you will be able to change your email address and password, and set up your 2 step verification. You will also be able to view your role, organisation and your account activity.
+
+            To go back to the dashboard, select 'Dashboard'. 
+
+            Select 'Whitehall' to view your Whitehall dashboard.
+          video_heading_2: "Video: navigating the Whitehall Publisher dashboard"
+          video_transcript_2: |
+            When you select 'Whitehall', you'll be taken to the 'Whitehall' dashboard. 
+
+            Let's start with the header.
+
+            At the top, you have a series of links. Going from left to right, the GOV.UK Whitehall Integration logo.
+
+            Next to it is the link to the 'Dashboard', which is the page you see now. 
+
+            'View website' will take you to the live GOV.UK homepage.
+
+            'Switch app' will take you to the log in dashboard. 
+
+            Next you will see your name where you can view your details. 
+
+            The 'Logout' link will log you out of the system, and 'All users' will show a list of all the users in Whitehall.
+
+            Select 'Dashboard' to go back to the Whitehall dashboard.
+
+            Below the banner, you have a row of menu links. 
+
+            From left to right, 'New document' is what you select to create a new document. 
+            
+            When you select it, it will take you to a page with a list of all the document types with a brief description of each type.
+
+            Next is 'Documents'. This will show all of your department's documents on the main section of the page. 
+            
+            If your organisation has any statistics announcements which are only for official statistics governed by the UK Statistics Authority, you can see them by selecting 'Statistics announcements'.
+
+            Next is the 'Featured documents'. This will show all documents that are currently featured in your organisation homepage. 
+
+            The 'Corporate information' link will show you the content in your organisation's 'About us' page. 
+
+            The 'More' tab shows other content types such as 'World location news' and 'Topical events'. 
+
+            Below the menu row is the main section of the page. You will see links to helpful pages under three categories: 'Writing and publishing', 'Product development' and 'Support'. 
+            
+            Under 'Writing and publishing' you will find links to the guidance to help you plan, write and create content in Whitehall.
+            
+            Under 'Product development', you can see all the latest changes to the system.
+            
+            Under 'Support', you will be able to raise any support tickets if you are having problems with Whitehall. 
+
+            Under this section is the 'My draft documents' section. If you have any working documents, it will appear here. Select the 'View' link to go to the page. 
+            
+            Under your draft documents, you will see a list of any documents that have been force-published by your department. This means that the document has not been checked before going live.
+
+            If you'd like to view all the documents created by your department, select 'Documents' from the main menu bar.
+
+        filtering_documents:
+          heading: Filtering documents
+          body_govspeak: |
+            You can access the list of documents published using Whitehall Publisher through the 'Documents' link on the navigation bar.
+
+            You can filter documents, for example by using the title, organisation or author associated with the document.
+
+            Read more [guidance about filtering documents](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/
+            introduction-and-access-to-whitehall-publisher#filter-documents).
+          video_heading: "Video: finding and filtering documents"
+          video_transcript: |
+            When you select 'Documents' from the main menu bar, it will take you to the documents page, where it will show all the content from your organisation. You can use the filters to find the content you need easily.
+
+            On the left-hand side, from top to bottom, you can filter by title, author, organisation, world location, document type, state and last updated date. 
+
+            You can search by the full or partial title of a document. 
+
+            All the fields from 'Author' to 'State' are dropdown menus. For each, you select the dropdown menu and start typing in what you are looking for and select from the list. 
+
+            The 'Author' name field is to search by the person who created the content. 
+
+            Your organisation will be the default selection in the 'Organisation' field.  
+          
+            If you are looking for documents with a certain country tagged, use the 'World location' filter. 
+
+            If you need to look at all the documents in a  certain document type, use the 'Document type' filter. 
+
+            If you need to check the document by its published state, for example, published, withdrawn or submitted for 2i, use the 'State' field. . 
+
+            The 'Last updated date' field allows you to look at documents that were updated during a range of dates. 
+
+            To check for broken links, select the 'Only broken links' box. 
+
+            To find documents that are overdue a review, select the 'Review overdue' box
+
+            Use any of these fields that are relevant to you and select 'Search'. The filtered content will appear on the right-hand side. Select 'View' next to the page you want to see. 
+
+            To reset, select 'Reset all fields'.
+        creating_and_updating_documents:
+          heading: Creating and updating documents
+          body_govspeak: |
+            You can create documents in Whitehall Publisher by selecting 'New document' in the navigation bar.
+
+            You'll have to select a [content type](https://www.gov.uk/guidance/content-design/content-types) which relates to what your content is, for example a news story or a guidance publication. 
+
+            Read more [guidance about creating and updating pages](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages) and [guidance about uploading images](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos).
+          video_heading: "Video: how to create a new guidance publication"
+          video_transcript: |
+            To create a new document, select 'New document'. 
+
+            Select the document type you want to create. In this example, we will be creating a new publication guidance. Select 'Publication' then select 'Next'. 
+
+            If the content type has subtypes, there will be a dropdown menu. Select the arrow to expand the dropdown menu, and select the type. In this example, 'Guidance'.
+            Enter the title of the document in the 'Title' field. 
+
+            Enter a short summary of the document in the 'Summary' field. 
+
+            The 'Body' field is where the content of the document will be. In a publication guidance, you would enter a short description of the guidance. 
+
+            If your document has previously been published on another website, for example, your site is migrating to GOV.UK, you need to select the box under 'First published date' and enter the date of the first publication. This only applies to website content.
+            If the document has never been published before, leave the box blank.
+
+            If the document has any associations, use the 'Associations' section to add the relevant minister, statistical data sets, topical events, world locations, or organisation. These are all dropdown menus. Select the relevant field to expand the dropdown menu. 
+
+            The 'Excluded nations' is a mandatory field. This does not apply to all document types. 
+
+            You need to select which nations this document applies to. If it applies to all four nations, select 'Applies to all UK nations'. To exclude any nations, select the relevant nation then provide the URL of the corresponding content.  
+
+            You can add images and attachments once you've saved your document. 
+
+            If you have file attachments, you need to make sure you have the correct email address for ordering attachment files in an alternative format. It will default to your organisation email. If this is not the case, select the dropdown menu and select your organisation. 
+
+            If you select access limiting, no one outside of your organisation can see this document until you publish the content.
+
+            To schedule the publication of your document, select the 'Schedule for publication' box and enter the date and time. The document will be published on the selected date. 
+
+            If your document needs to be reviewed at a later date, you can do so by selecting the 'Review date' box. Enter the date and an email address for the reminder message. 
+
+            You now have three options. 
+
+            If you select 'Save', it will save the content and take you to the editing page which is the same page as now where you will be able to add attachments and images. 
+
+            If you select 'Save and go to document summary page', it will save your content and take you to the summary page where you will be able to add tags and preview your content on GOV.UK. 
+
+            If you select 'Cancel', it will ignore any changes you've made. 
+
+            From the document summary page, if you need to make more changes, select 'Edit draft'.
+
+        uploading_attachments:
+          heading: Uploading attachments to documents
+          body_govspeak: |
+            You can attach files, create a HTML attachment or add an external link attachment. 
+            What you can attach to your document depends on the content type you've selected.
+
+            Any attachments published must be accessible. You must publish an accessible version alongside a PDF - either HTML or OpenDocument. 
+
+            Read more guidance about:
+
+            - [formatting attachments](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#formatting-attachments)
+            - [adding file attachments](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#adding-attachments) - including information about the file types you can upload
+            - [HTML attachments](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#html-documents)
+            - [replacing, editing or deleting attachments](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#replace-edit-and-delete-attachments)
+            
+          video_heading_1: "Video: upload a new file attachment"
+          video_transcript_1: |
+            To add any attachment to your document, select the 'Attachments' tab from the editing page. Or from the 'Whitehall dashboard', go to 'Documents', enter your name in the 'Author' field and select 'Search'. Find your document and select 'View'. This will take you to the document summary page. Scroll down and select 'Add attachments'. 
+
+            You can upload a file attachment, bulk upload from a Zip file, add an html attachment which adds a webpage to your document, or an external attachment, which links to an external website. 
+
+            This video will show you how to upload a single file attachment. Make sure your file is as accessible as possible. You can find more information in the Publishing accessible documents guidance.
+
+            Select 'Upload new file attachment'. 
+
+            Add the title of the attachment in the 'Title' field. Complete any of these other fields if appropriate. Scroll down, select 'Choose file' and select the document you wish to attach. 
+
+            Leave the 'Attachment is accessible' box unticked. This means a user will be able to request the document in a different format.
+
+            Select the 'Save' button to complete the process. 
+
+            If there are multiple attachments, it will show in the order you upload them. If you need to reorder your attachments, select 'Reorder attachments' under 'Attachments'. Use the 'Up' or 'Down' buttons to reorder the attachments. Select 'Update order' to save the changes.
+          video_heading_2: "Video: upload a new HTML attachment"
+          video_transcript_2: |
+            If your document type has an HTML attachment option, you can do it by selecting the 'Attachments' tab from the editing page or from the 'Attachments' section in the document summary page. If there are no other attachments, you will select 'Add attachments'. If the document already has attachments, it will say 'Modify attachments'
+
+            Select 'Add new HTML attachment'. 
+
+            Add the title of the attachment in the 'Title' field.  Complete any of the other fields if appropriate. 
+
+            Scroll down to enter the body text. This is the same text editor as any other content type in the system. Make sure to use Markdown to format your text. 
+
+            There is a separate video on using Markdown. 
+
+            Using the correct heading levels is always important for accessibility and Search Engine Optimisation. It is also important in a publication as the headings will automatically create a left hand navigation menu as [shown in this example](https://www.gov.uk/government/publications/water-environment-grant-weg-handbooks-guidance-and-forms/guide-for-agreement-holders-water-environment-grant). If you do not use the correct heading levels, your users may have problems navigating your content. 
+            You can use the 'Preview' button to check your formatting. 
+            
+            If you select 'Cancel' it will ignore any changes you've made and take you to the attachments page. 
+            
+            If you select 'Save', it will save the changes and take you to the Attachments page. 
+            
+            To preview your HTML attachment, select the 'HTML attachment' link. 
+
+        using_markdown:  
+          heading: Using markdown
+          body_govspeak: |
+            Content on GOV.UK is formatted using Govspeak markdown. Use markdown to add formatting to your content, for example headings, links and bullet points.
+
+            You can either:
+
+            - copy a formatted document from text editing software like Word or Google Docs and paste it into the body field - Whitehall Publisher will attempt to convert it into Govspeak markdown
+            - manually add formatting with markdown in the body field
+
+            Read full [guidance on using markdown](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown), including examples.
+          video_heading_1: "Video: using markdown for text formatting"
+          video_transcript_1: |
+            There are two ways to add formatting to your text. 
+
+            If you are working off a formatted document, you can simply copy and paste the text. Once you copy it over, make sure the formatting is correct by selecting the Preview button. 
+
+            You can also add formatting in the text editor using markdown.  On the right hand side, under 'Formatting', you will find a link to the 'Guide using Markdown'. We strongly recommend you read through this guide to help you with Markdown. You will find out when to use a particular Markdown and how to insert one.
+
+            Under the guide link, you will find the most commonly used Markdown. Select each link to learn how to use each Markdown.
+
+            In this video, we will have a look at how to add headers, links and bullets 
+
+            To add a Heading level two, you put two hashtags followed by the heading title.
+            
+            Make sure you use the right heading level as it is important for both accessibility and Search engine optimisation.
+
+            To see if you've done it correctly, select the 'Preview' button at the top of the text editor. To go back, select 'Back to edit'.
+
+            Let's have a look at adding links. 
+
+            You can add a link to a document created in the publisher, content created under an organisation tab and an external site
+            
+            Copy the destination URL from the page itself. This will make sure you have the correct URL. 
+
+            Put the link text in square brackets. 
+
+            Then enter the full destination url in brackets. Make sure there is no space between the link text brackets and the destination URL brackets.
+
+            If you are adding a list of links, make sure there is a line space between the links. 
+
+            To add bullets, enter an asterisk or dash followed by a space, then your item. Repeat in a new line to add another item. An Asterisk or a dash, spce, then item. 
+
+            You can select the preview button above the text editor to check your formatting. Select back to edit to go back to editing.
+          video_heading_2: "Video: using markdown for tables"
+          video_transcript_2: |
+            To make a table, we use a series of dividers or pipes to create cells. 
+            
+            We are going to have a look at creating this table showing the production of three different fruits, apples, pears and plums from three different farms. Green Farm, Appledore and Woodchurch. 
+
+
+            ||Green Farm|Appledore|Woodchurch|
+            |---|---|---|---|
+            |# Apples|100|300|500|
+            |# Pears|650|300|200|
+            |# Plums|800|650|150|
+
+            This table has four columns and four rows. 
+            
+            To create the first row, put two dividers first as the first cell is empty, then enter Green Farm, followed by a divider, Appledore, then a divider then Woodchurch and a final divider. 
+            ||Green Farm|Appledore|Woodchurch|
+            
+            We want to make the first row a header row meaning it will be in bold and screenreaders will recognise it as a header row. 
+            
+            To do this, we put hyphens between the dividers in the next row. You need at least one hyphen between the dividers but putting more will make it easier for you to see the columns
+            |---|---|---|---|
+            The next row shows the number of apples produced in each farm. 
+            
+            The first column should also be a header, and we use the hash symbol to mark this. 
+            
+            So, a divider, followed by a hash, a space,then type Apples, then a divider, then the numbers for each farm with a divider between them.
+            |# Apples|100|300|500|
+            
+            We repeat for the other two fruits.
+            
+            A divider, a hash, a space, then the name of the fruit, a divider, the first number, a divider, the second number,  a divider, the third number followed by a final divider.
+            |# Pears|650|300|200|
+            
+            And we repeat for the final row. 
+            |# Plums|800|650|150|
+            
+            Make sure there is no line space between the rows. 
+            
+            To check your work, select Preview. 
+            
+            Select 'Back to edit' to continue editing. 
+
+
+        topic_tags:
+          heading: Adding topic tags
+          body_govspeak: |
+            All content on GOV.UK is grouped and organised using topics. You must add topic tags to your document before it's published.
+
+            Choose topic tags:
+
+            - based only on what the content is about
+            - from anywhere in the topic 'tree', not just the areas that your department uses the most
+
+            Read more [guidance about finding and adding topic tags](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#add-topic-tagging).
+          video_heading: "Video: adding topic tags"
+          video_transcript: |
+            Once you have finished adding all the content, you need to add 'Topics'. 
+
+            Topics group content based on what it's about.You can use the whole taxonomy. There's no limit to the number of topics you can choose.
+
+            You add topics from the document summary page. From the editing page, select the 'Save and go to document summary' button.  From the attachments page, select the 'Documents' tab, scroll down then select 'Save and go to document summary' page. 
+
+            Select 'Add tags' under 'Topic taxonomy tags'. 
+
+            Choose the topic or topics that best describe what this content is about.
+
+            You can use the search bar to look for your topic, or select from the list. The arrow means there are sub-topics, select it to expand. 
+
+            For example, my document is about applying for a visa to get married in the UK, so select 'Entering and staying in the UK', 'Visas and entry clearance', 'Visa applications'. This could also apply to 'Life circumstances', 'Marriage, civil partnership and divorce', and then 'Getting married'. 
+
+            Once you have selected all the topics, scroll down and select 'Save' and it will take you to the document summary page. 
+
+
+        publishing_content:
+          heading: Publishing content
+          body_govspeak: |
+            When your document is ready to be published, you can submit it for a second person to review it (also called a '2i review'). An editor or managing editor will then be able to publish the content. You'll need to let them know when you submit something for review - Whitehall Publisher does not notify anyone.
+
+            You can also [schedule content](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#schedule-publishing) if it needs to be published later.
+
+            Read more [guidance about reviewing and publishing content](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/reviewing-and-approving-content), including the workflow, the 2i checklist and if and when to 'force publish'.
+          video_heading: "Video: submitting your content for 2i review"
+          video_transcript: |
+            Once your content is ready for review, you need to submit it for 2i or 2nd eyes. This makes sure there are no mistakes in your content before it is published. 
+
+            From the document summary page, select 'Submit for 2nd eyes'. This button does not send a notification to anyone. It simply updates the document state to 'Submitted'. You will need to contact the person who will check your content. 
+
+            If the person checking your content doesn't have access to Whitehall, select the 'Share document preview' link and copy the provided link and send it to the person. 
+
+        guidance:
+          heading: Publishing guidance and support
+          body_govspeak: |
+            For support using Whitehall Publisher, read the guidance about:
+
+            - [how to publish content on GOV.UK](https://www.gov.uk/guidance/how-to-publish-on-gov-uk)
+            - [planning, writing and managing content](https://www.gov.uk/guidance/content-design)
+            - [how to contact the Government Digital Service (GDS) to request or report something](https://www.gov.uk/guidance/contact-the-government-digital-service)
+
+            The [GOV.UK style guide](https://www.gov.uk/guidance/style-guide) covers style, spelling and grammar conventions for content published on GOV.UK.

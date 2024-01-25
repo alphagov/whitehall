@@ -232,6 +232,7 @@ Whitehall::Application.routes.draw do
       get "/editions/:id" => "editions#show"
 
       get "/whats-new" => "whats_new#index", as: :whats_new
+      get "/how-to-use-whitehall-publisher" => "training#index", as: :training
 
       get "/new-document" => "new_document#index", as: :new_document
       get :new_document_options, to: "new_document#new_document_options_redirect"
