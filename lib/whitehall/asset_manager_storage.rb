@@ -1,14 +1,6 @@
 class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
   def store!(file)
-    original_file = file.to_file
-    temporary_location = ::File.join(
-      Whitehall.asset_manager_tmp_dir,
-      SecureRandom.uuid,
-      ::File.basename(original_file),
-    )
-
-    FileUtils.mkdir_p(::File.dirname(temporary_location))
-    FileUtils.cp(original_file, temporary_location)
+    temporary_location = TempDir.store!(file)
     draft = uploader.assets_protected?
 
     if uploader.model.respond_to?(:attachable)
@@ -79,6 +71,21 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     def get_asset
       asset_variant = @version ? Asset.variants[@version] : Asset.variants[:original]
       @model.assets.select { |a| a.variant == asset_variant }.first
+    end
+  end
+
+  class TempDir
+    def self.store!(carrierwave_file)
+      original_file = carrierwave_file.to_file
+      temporary_location = ::File.join(
+        Whitehall.asset_manager_tmp_dir,
+        SecureRandom.uuid,
+        ::File.basename(original_file),
+        )
+
+      FileUtils.mkdir_p(::File.dirname(temporary_location))
+      FileUtils.cp(original_file, temporary_location)
+      temporary_location
     end
   end
 end
