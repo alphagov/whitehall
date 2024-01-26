@@ -3,6 +3,10 @@ description: Displays an image with resizable crop function
 body: |
  This component uses Cropper.js - a JavaScript library for cropping image.
  Users can select an specific area of an image the image will then be cropped on browser-side and appended to the parent form on submission.
+accessibility_criteria: |
+  The component must:
+
+  - be usable with a keyboard
 examples:
   default:
     data:

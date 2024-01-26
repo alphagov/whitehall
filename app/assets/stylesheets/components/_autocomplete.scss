@@ -96,14 +96,6 @@ $app-focus-colour: $govuk-focus-colour;
   }
 }
 
-.app-c-autocomplete--narrow {
-  max-width: 200px;
-
-  @include govuk-media-query($from: tablet) {
-    max-width: 230px;
-  }
-}
-
 .js-enabled {
   .app-c-autocomplete {
     .govuk-select[multiple] {

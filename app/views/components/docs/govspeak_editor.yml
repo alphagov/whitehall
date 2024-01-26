@@ -24,6 +24,14 @@ examples:
         text: "Document content body"
         bold: true
       name: "default"
+  with_hint:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "default"
+      hint: Explain any acronyms
+      hint_id: this_is_optional
   with_tracking:
     data:
       label:
@@ -55,7 +63,33 @@ examples:
         ## What is Lorem Ipsum?
 
         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
+  with_textarea_rows:
+    description: Allows the number of rows in the textarea to be adjusted.
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "name"
+      rows: 2
+  right_to_left:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "name"
+      right_to_left: true
+      value: This is right to left
+  with_errors:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: default
+      error_items:
+        - text: there's nothing here
+          href: error1
+        - text: no really, there's nothing here
+          href: error2
   with_attachments_and_alternative_format_provider_id:
     data:
       label:
