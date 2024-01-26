@@ -32,6 +32,24 @@ class AssetManagerCreateAssetWorker < WorkerBase
     FileUtils.rmdir(File.dirname(file))
   end
 
+  def self.perform_async_upload(location, uploader)
+    assetable_id = uploader.model.id
+    assetable_type = uploader.model.class.to_s
+    asset_variant = uploader.version_name ? Asset.variants[uploader.version_name] : Asset.variants[:original]
+    asset_params = { assetable_id:, asset_variant:, assetable_type: }.deep_stringify_keys
+
+    if uploader.model.respond_to?(:attachable)
+      attachable_model_class = uploader.model.attachable && uploader.model.attachable.class.to_s
+      attachable_model_id = uploader.model.attachable && uploader.model.attachable.id
+    end
+
+    auth_bypass_ids = uploader.model.respond_to?(:auth_bypass_ids) ? uploader.model.auth_bypass_ids : []
+
+    logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model&.id || 'nil'}")
+
+    perform_async(location, asset_params, uploader.assets_protected?, attachable_model_class, attachable_model_id, auth_bypass_ids)
+  end
+
 private
 
   def create_asset(asset_options, asset_variant, assetable_id, assetable_type)
