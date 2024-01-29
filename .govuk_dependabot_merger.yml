@@ -12,7 +12,7 @@ auto_merge:
     allowed_semver_bumps:
       - patch
       - minor
- - dependency: govuk_ab_testing
+  - dependency: govuk_ab_testing
     allowed_semver_bumps:
       - patch
       - minor
