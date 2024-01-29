@@ -5,10 +5,10 @@ class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
   def confirm_destroy; end
 
   def create
-    social_media_account = SocialMediaAccount.create(social_media_account_params)
+    @social_media_account = SocialMediaAccount.new(social_media_account_params)
 
-    if social_media_account.persisted?
-      redirect_to admin_edition_social_media_accounts_path(@edition), notice: "Social media account '#{social_media_account.title}' created"
+    if @social_media_account.save
+      redirect_to admin_edition_social_media_accounts_path(@edition), notice: "Social media account '#{@social_media_account.title}' created"
     else
       render :new
     end
@@ -32,7 +32,9 @@ class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
     @editionable_social_media_accounts_index_presenter = EditionableSocialMediaAccountsIndexPresenter.new(@edition)
   end
 
-  def new; end
+  def new
+    @social_media_account = SocialMediaAccount.new
+  end
 
   def update
     @social_media_account.attributes = social_media_account_params
