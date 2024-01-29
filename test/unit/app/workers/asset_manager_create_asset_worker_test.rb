@@ -5,16 +5,18 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @file = Tempfile.new("asset", Dir.mktmpdir)
     @worker = AssetManagerCreateAssetWorker.new
     @asset_manager_id = "asset_manager_id"
-    @organisation = FactoryBot.create(:organisation)
-    @model_without_assets = FactoryBot.create(:attachment_data_with_no_assets)
     @asset_manager_response = {
       "id" => "http://asset-manager/assets/#{@asset_manager_id}",
       "name" => File.basename(@file),
     }
-    @asset_params = {
-      assetable_id: @model_without_assets.id,
+  end
+
+  def default_asset_params
+    default_assetable = FactoryBot.create(:attachment_data_with_no_assets)
+    {
+      assetable_id: default_assetable.id,
       asset_variant: Asset.variants[:original],
-      assetable_type: @model_without_assets.class.to_s,
+      assetable_type: default_assetable.class.to_s,
     }.deep_stringify_keys
   end
 
@@ -23,69 +25,91 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
       args[:file].path == @file.path
     }.returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params)
+    @worker.perform(@file.path, default_asset_params)
   end
 
   test "marks the asset as draft if instructed" do
     Services.asset_manager.expects(:create_asset).with(has_entry(draft: true)).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true)
+    @worker.perform(@file.path, default_asset_params, true)
   end
 
   test "removes the local temp file after the file has been successfully uploaded" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params)
+    @worker.perform(@file.path, default_asset_params)
     assert_not File.exist?(@file.path)
   end
 
   test "removes the local temp directory after the file has been successfully uploaded" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params)
+    @worker.perform(@file.path, default_asset_params)
     assert_not Dir.exist?(File.dirname(@file))
   end
 
   test "marks attachments belonging to consultations as access limited" do
-    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: true)
+    organisation = FactoryBot.create(:organisation)
+    consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
     attachment = FactoryBot.create(:file_attachment, attachable: consultation)
-    attachment.attachment_data.attachable = consultation
 
-    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
+    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id])).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
+
+    @worker.perform(@file.path, asset_params, true, consultation.class.to_s, consultation.id)
   end
 
   test "marks attachments belonging to consultation responses as access limited" do
-    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: true)
+    organisation = FactoryBot.create(:organisation)
+    consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
     response = FactoryBot.create(:consultation_outcome, consultation:)
     attachment = FactoryBot.create(:file_attachment, attachable: response)
-    attachment.attachment_data.attachable = consultation
 
-    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id])).returns(@asset_manager_response)
+
+    @worker.perform(@file.path, asset_params, true, consultation.class.to_s, consultation.id)
   end
 
   test "does not mark attachments belonging to policy groups as access limited" do
     policy_group = FactoryBot.create(:policy_group)
     attachment = FactoryBot.create(:file_attachment, attachable: policy_group)
-    attachment.attachment_data.attachable = policy_group
+
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
 
     Services.asset_manager.expects(:create_asset).with(Not(has_key(:access_limited))).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true, policy_group.class.to_s, policy_group.id)
+    @worker.perform(@file.path, asset_params, true, policy_group.class.to_s, policy_group.id)
   end
 
   test "sends auth bypass ids to asset manager when these are passed through in the params" do
     consultation = FactoryBot.create(:consultation)
     response = FactoryBot.create(:consultation_outcome, consultation:)
     attachment = FactoryBot.create(:file_attachment, attachable: response)
-    attachment.attachment_data.attachable = consultation
+
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
 
     Services.asset_manager.expects(:create_asset).with(has_entry(auth_bypass_ids: [consultation.auth_bypass_id])).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
+    @worker.perform(@file.path, asset_params, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
   end
 
   test "doesn't run if the file is missing (e.g. job ran twice)" do
@@ -94,13 +118,13 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).never
 
-    @worker.perform(path, @asset_params)
+    @worker.perform(path, default_asset_params)
   end
 
   test "stores corresponding asset_manager_id and filename for current file attachment" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params)
+    @worker.perform(@file.path, default_asset_params)
 
     assert_equal 1, Asset.where(asset_manager_id: @asset_manager_id, variant: Asset.variants[:original], filename: File.basename(@file)).count
   end
@@ -110,41 +134,70 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     # for the "update_draft" event triggered by the call to draft_updater.
 
     consultation = FactoryBot.create(:consultation)
+    attachment = FactoryBot.create(:file_attachment, attachable: consultation)
+
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
     ServiceListeners::AttachmentUpdater.expects(:call).with(attachable: consultation).once
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
+
+    @worker.perform(@file.path, asset_params, true, consultation.class.to_s, consultation.id)
 
     PublishingApiDraftUpdateWorker.drain
   end
 
   test "triggers an update to asset-manager for policy group" do
     policy_group = create(:policy_group, :with_file_attachment, description: "Description")
+    attachment = policy_group.attachments.first
+
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
 
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    AssetManagerAttachmentMetadataWorker.expects(:perform_async).with(@model_without_assets.id).once
+    AssetManagerAttachmentMetadataWorker.expects(:perform_async).with(attachment.attachment_data.id).once
 
-    @worker.perform(@file.path, @asset_params, true, policy_group.class.to_s, policy_group.id)
+    @worker.perform(@file.path, asset_params, true, policy_group.class.to_s, policy_group.id)
   end
 
   test "triggers an update to publishing api after asset has been saved" do
     consultation = FactoryBot.create(:consultation)
+    attachment = FactoryBot.create(:file_attachment, attachable: consultation)
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
+
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
     PublishingApiDraftUpdateWorker.expects(:perform_async).with(consultation.class.to_s, consultation.id)
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, asset_params, true, consultation.class.to_s, consultation.id)
   end
 
   test "does not trigger an update to publishing api if attachable is not an edition" do
     consultation_outcome = FactoryBot.create(:consultation_outcome)
+    attachment = FactoryBot.create(:file_attachment, attachable: consultation_outcome)
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
+
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
     Services.publishing_api.stubs(:put_content).never
 
-    @worker.perform(@file.path, @asset_params, true, consultation_outcome.class.to_s, consultation_outcome.id)
+    @worker.perform(@file.path, asset_params, true, consultation_outcome.class.to_s, consultation_outcome.id)
   end
 
   test "updates existing asset of same variant if it already exists" do
@@ -172,13 +225,19 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
 
   test "does not run if assetable (ImageData) has been deleted" do
     consultation = FactoryBot.create(:consultation)
-    @model_without_assets.delete
+    attachment = FactoryBot.create(:file_attachment, attachable: consultation)
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
+    attachment.attachment_data.destroy!
 
     Services.asset_manager.expects(:create_asset).never
     Services.publishing_api.expects(:put_content).never
     Sidekiq.logger.expects(:info).once
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, asset_params, true, consultation.class.to_s, consultation.id)
   end
 
   test "should enqueue republishing of assetable" do
@@ -201,13 +260,20 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
   end
 
   test "should not process the file if the attachable has been deleted" do
-    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: true)
+    organisation = FactoryBot.create(:organisation)
+    consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
+    attachment = FactoryBot.create(:file_attachment, attachable: consultation)
+    asset_params = {
+      assetable_id: attachment.attachment_data.id,
+      asset_variant: Asset.variants[:original],
+      assetable_type: attachment.attachment_data.class.to_s,
+    }.deep_stringify_keys
     consultation.delete
     consultation.save!(validate: false)
 
     Sidekiq.logger.expects(:info).once
     Services.asset_manager.expects(:create_asset).never
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @worker.perform(@file.path, asset_params, true, consultation.class.to_s, consultation.id)
   end
 end
