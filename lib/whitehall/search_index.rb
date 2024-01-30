@@ -14,7 +14,7 @@ module Whitehall
     end
 
     def self.delete(instance)
-      SearchIndexDeleteWorker.perform_async(instance.search_index["link"], instance.rummager_index.to_s)
+      SearchIndexDeleteWorker.perform_async(instance.search_index["link"], instance.search_api_index.to_s)
     end
 
     def self.for(type, options = {})
@@ -22,7 +22,7 @@ module Whitehall
         government: government_search_index_path,
         detailed_guides: detailed_search_index_path,
       }.fetch(type)
-      indexer_class.new(rummager_host, path, { logger: Rails.logger }.merge(options))
+      indexer_class.new(search_api_host, path, { logger: Rails.logger }.merge(options))
     end
 
     def self.government_search_index_path
@@ -35,19 +35,19 @@ module Whitehall
 
     def self.indexer_class
       if Rails.env.test?
-        FakeRummageableIndex
+        FakeSearchableIndex
       else
-        Rummageable::Index
+        Searchable::Index
       end
     end
 
-    def self.rummager_host
+    def self.search_api_host
       Plek.find("search-api")
     end
   end
 
-  unless defined?(FakeRummageableIndex)
-    class FakeRummageableIndex < Rummageable::Index
+  unless defined?(FakeSearchableIndex)
+    class FakeSearchableIndex < Searchable::Index
       class << self
         attr_accessor :store
       end
@@ -71,7 +71,7 @@ module Whitehall
       end
 
       def make_request(_method, *_args)
-        raise "Use the in memory index (rather than rummager) in tests"
+        raise "Use the in memory index (rather than search_api) in tests"
       end
 
     private

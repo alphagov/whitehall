@@ -3,7 +3,7 @@
 Whitehall interacts directly with the Search API, unlike other publishing apps which leave Publishing API to manage indexing.
 
 The Whitehall app relies on
-[Rummager](https://github.com/alphagov/rummager) for document
+[Search Api](https://github.com/alphagov/search-api) for document
 indexing, and the
 [GOV.UK frontend application](https://github.com/alphagov/frontend) to
 serve results. The Whitehall search index is called 'government'.
@@ -11,8 +11,8 @@ serve results. The Whitehall search index is called 'government'.
 ## Search indexing paths
 
 There are currently two paths through which Whitehall searchable classes are indexed.
-For a list of searchable classes, please refer to `RummagerPresenters.searchable_classes`
-(in [app/presenters/rummager_presenters.rb](../app/presenters/rummager_presenters.rb)).
+For a list of searchable classes, please refer to `SearchApiPresenters.searchable_classes`
+(in [app/presenters/search_api_presenters.rb](../app/presenters/search_api_presenters.rb)).
 Each of these searchable models includes the [Searchable](../app/models/searchable.rb) module,
 which provides the base search indexing behaviour. Bear in mind that some classes may override its methods.
 
@@ -67,9 +67,9 @@ search index, you will actually need to rebuild the search index.
 Rebuilding of the 'government' search index can now be done with a bulk data dump. This also supports
 construction of a new detached index and seamless switchover from the
 existing to the new index. There are two parts to this process, a
-`rummager_export.rb` script in Whitehall which dumps the data to
-STDOUT, and a `bulk_load` script in rummager which accepts that data on STDIN
-and loads it into rummager.
+`search_api_export.rb` script in Whitehall which dumps the data to
+STDOUT, and a `bulk_load` script in search_api which accepts that data on STDIN
+and loads it into search_api.
 
 The `bulk_load` script also takes care of constructing the new offline index,
 locking the index for writes (so that index write workers queue up waiting for
@@ -88,15 +88,15 @@ following task from the search-api repo:
 2. Run the bulk export and load:
 
     ```
-    bundle exec ./script/rummager_export.rb > government.dump
-    bundle exec ./script/rummager_export.rb --detailed > detailed.dump
+    bundle exec ./script/search_api_export.rb > government.dump
+    bundle exec ./script/search_api_export.rb --detailed > detailed.dump
     ```
 
     then
 
     ```
-    (cd ../rummager && bundle exec ./bin/bulk_load government) < government.dump
-    (cd ../rummager && bundle exec ./bin/bulk_load detailed) < detailed.dump
+    (cd ../search-api && bundle exec ./bin/bulk_load government) < government.dump
+    (cd ../search-api && bundle exec ./bin/bulk_load detailed) < detailed.dump
     ```
 
 

@@ -1,10 +1,10 @@
-class SearchRummagerService
+class SearchApiService
   def fetch_related_documents(filter_params = {})
     options = default_search_options.merge(filter_params)
 
     Rails.cache.fetch(options, expires_in: 5.minutes) do
       search_response = Whitehall.search_client.search(options)
-      search_response["results"].map! { |res| RummagerDocumentPresenter.new(res) }
+      search_response["results"].map! { |res| SearchApiDocumentPresenter.new(res) }
       {
         "results" => search_response["results"],
         "total" => search_response["total"],

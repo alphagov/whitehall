@@ -123,14 +123,14 @@ module Searchable
       Whitehall::SearchIndex.delete(self)
     end
 
-    def rummager_index
+    def search_api_index
       :government
     end
 
     module ClassMethods
       def reindex_all
         searchable_instances
-          .select { |instance| RummagerPresenters.searchable_classes.include?(instance.class) }
+          .select { |instance| SearchApiPresenters.searchable_classes.include?(instance.class) }
           .each { |instance| Whitehall::SearchIndex.add(instance) }
       end
 
@@ -149,6 +149,6 @@ module Searchable
   end
 
   def can_index_in_search?
-    self.class.searchable_instances.find_by(id:).present? && RummagerPresenters.searchable_classes.include?(self.class) && I18n.locale == :en
+    self.class.searchable_instances.find_by(id:).present? && SearchApiPresenters.searchable_classes.include?(self.class) && I18n.locale == :en
   end
 end

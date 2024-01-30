@@ -243,7 +243,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert corporate_information_page2.valid?
   end
 
-  test "should return search index data suitable for Rummageable" do
+  test "should return search index data suitable for Searchable" do
     organisation = create(:organisation)
     corporate_information_page = create(
       :corporate_information_page,

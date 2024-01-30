@@ -1,7 +1,7 @@
 require "test_helper"
 
 class TopicalEventAboutPageTest < ActiveSupport::TestCase
-  test "should return search index data suitable for Rummageable" do
+  test "should return search index data suitable for Searchable" do
     event = create(:topical_event)
     page = create(:topical_event_about_page, topical_event: event)
     assert_equal page.name, page.search_index["title"]

@@ -26,7 +26,7 @@ class SimpleWorkflowTest < ActiveSupport::TestCase
     assert_equal :deleted, topic.current_state
   end
 
-  test "should not call rummager if Searchable is not included" do
+  test "should not call search_api if Searchable is not included" do
     topic = create(:topical_event)
     TopicalEvent.any_instance.stubs(:remove_from_search_index).returns(NameError)
     Whitehall::SearchIndex.expects(:delete).never

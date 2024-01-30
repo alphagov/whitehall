@@ -424,7 +424,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [consultation], Edition.by_type("Consultation")
   end
 
-  test "should return search index suitable for Rummageable" do
+  test "should return search index suitable for Searchable" do
     government = create(:current_government)
     publication = create(:published_policy_paper, title: "publication-title", political: true, first_published_at: government.start_date)
     slug = publication.document.slug
@@ -444,7 +444,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [], publication.search_index["roles"]
   end
 
-  test "rummager topical_events include topical_events" do
+  test "search_api topical_events include topical_events" do
     government = create(:current_government)
     publication = create(:published_policy_paper, :with_topical_events, title: "publication-title", political: true, first_published_at: government.start_date)
 

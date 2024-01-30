@@ -5,7 +5,7 @@ require "null_logger"
 require "rest_client"
 
 module Whitehall
-  module Rummageable
+  module Searchable
     class Index
       def initialize(base_url, index_name, options = {})
         @index_url = [base_url, index_name.sub(%r{^/}, "")].join("/")
@@ -69,13 +69,13 @@ module Whitehall
       end
 
       def log_request(method, url, payload = nil)
-        log("Rummageable request", method, url, payload)
+        log("Searchable request", method, url, payload)
       end
 
       def log_response(method, call_time, response, url, payload = nil)
         time = sprintf("%.03f", call_time)
         result = response.length.positive? ? JSON.parse(response).fetch("result", "UNKNOWN") : "UNKNOWN"
-        log("Rummageable response", method, url, payload, time:, result:)
+        log("Searchable response", method, url, payload, time:, result:)
       end
 
       def log(message, method, url, payload = nil, fields = {})
@@ -95,7 +95,7 @@ module Whitehall
             *args,
             content_type: :json,
             accept: :json,
-            user_agent: "whitehall (rummageable)",
+            user_agent: "whitehall (searchable)",
             authorization: "Bearer #{ENV['RUMMAGER_BEARER_TOKEN'] || 'example'}",
           )
         end

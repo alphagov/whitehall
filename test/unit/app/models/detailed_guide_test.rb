@@ -10,13 +10,13 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal "detailed guidance", DetailedGuide.format_name
   end
 
-  test "should use detailed guidance as rummageable search index format" do
+  test "should use detailed guidance as searchable search index format" do
     guide = create(:detailed_guide)
     assert_equal "detailed_guidance", guide.search_index["format"]
   end
 
-  test "should be added to the detailed guides rummager index" do
-    assert_equal :detailed_guides, build(:detailed_guide).rummager_index
+  test "should be added to the detailed guides search_api index" do
+    assert_equal :detailed_guides, build(:detailed_guide).search_api_index
   end
 
   test "#published_related_detailed_guides returns latest published editions of related documents" do
