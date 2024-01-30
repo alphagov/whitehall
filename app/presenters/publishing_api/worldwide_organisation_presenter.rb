@@ -30,12 +30,15 @@ module PublishingApi
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
           },
+          office_contact_associations:,
           ordered_corporate_information_pages:,
+          people_role_associations:,
           secondary_corporate_information_pages:,
           social_media_links:,
           world_location_names:,
         },
         document_type: item.class.name.underscore,
+        links: edition_links,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_organisation",
@@ -44,17 +47,33 @@ module PublishingApi
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
 
-    def links
+    def edition_links
       {
+        contacts:,
         corporate_information_pages:,
         main_office:,
         home_page_offices:,
         primary_role_person:,
+        roles:,
+        role_appointments:,
         secondary_role_person:,
         office_staff:,
         sponsoring_organisations:,
         world_locations:,
-        roles:,
+      }
+    end
+
+    def links
+      {
+        corporate_information_pages: [],
+        main_office: [],
+        home_page_offices: [],
+        primary_role_person: [],
+        secondary_role_person: [],
+        office_staff: [],
+        sponsoring_organisations: [],
+        world_locations: [],
+        roles: [],
       }
     end
 
@@ -76,6 +95,10 @@ module PublishingApi
       end
     end
 
+    def contacts
+      [item.main_office&.contact&.content_id] + item.home_page_offices&.map(&:contact)&.map(&:content_id)
+    end
+
     def main_office
       return [] unless item.main_office
 
@@ -86,6 +109,17 @@ module PublishingApi
       return [] unless item.home_page_offices.any?
 
       item.home_page_offices.map(&:content_id)
+    end
+
+    def office_contact_associations
+      offices = [item.main_office] + item.home_page_offices
+
+      offices.compact.map do |office|
+        {
+          office_content_id: office.content_id,
+          contact_content_id: office.contact.content_id,
+        }
+      end
     end
 
     def primary_role_person
@@ -104,14 +138,33 @@ module PublishingApi
       item.office_staff_roles.map(&:current_person).map(&:content_id)
     end
 
+    def role_appointments
+      item.roles&.distinct&.map(&:current_role_appointment)&.compact&.map(&:content_id)
+    end
+
     def roles
       item.roles.distinct.pluck(:content_id)
+    end
+
+    def people_role_associations
+      people = [item.primary_role&.current_person] + [item.secondary_role&.current_person] + item.office_staff_roles.map(&:current_person)
+      people.compact.map do |person|
+        {
+          person_content_id: person.content_id,
+          role_appointments: person.role_appointments&.map do |role_appointment|
+            {
+              role_appointment_content_id: role_appointment.content_id,
+              role_content_id: role_appointment.role.content_id,
+            }
+          end,
+        }
+      end
     end
 
     def corporate_information_pages
       return [] unless item.corporate_information_pages.any?
 
-      item.corporate_information_pages.map(&:content_id)
+      item.corporate_information_pages.published.map(&:content_id)
     end
 
     def ordered_corporate_information_pages

@@ -29,10 +29,13 @@ module PublishingApi
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
           },
+          office_contact_associations:,
+          people_role_associations:,
           social_media_links:,
           world_location_names:,
         },
         document_type:,
+        links: edition_links,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_organisation",
@@ -41,12 +44,14 @@ module PublishingApi
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
 
-    def links
+    def edition_links
       {
+        contacts:,
         office_staff:,
         main_office:,
         home_page_offices:,
         primary_role_person:,
+        role_appointments: item.roles.map(&:current_role_appointment)&.compact&.map(&:content_id),
         roles: item.roles.map(&:content_id),
         secondary_role_person:,
         sponsoring_organisations: item.organisations.map(&:content_id),
@@ -56,6 +61,19 @@ module PublishingApi
 
     def document_type
       "worldwide_organisation"
+    end
+
+    def links
+      {
+        home_page_offices: [],
+        main_office: [],
+        office_staff: [],
+        primary_role_person: [],
+        roles: [],
+        secondary_role_person: [],
+        sponsoring_organisations: [],
+        world_locations: [],
+      }
     end
 
   private
@@ -78,6 +96,36 @@ module PublishingApi
       return [] unless item.home_page_offices.any?
 
       item.home_page_offices.map(&:content_id)
+    end
+
+    def contacts
+      [item.main_office&.contact&.content_id] + item.home_page_offices&.map(&:contact)&.map(&:content_id)
+    end
+
+    def office_contact_associations
+      offices = [item.main_office] + item.home_page_offices
+
+      offices.compact.map do |office|
+        {
+          office_content_id: office.content_id,
+          contact_content_id: office.contact.content_id,
+        }
+      end
+    end
+
+    def people_role_associations
+      people = [item.primary_role&.current_person] + [item.secondary_role&.current_person] + item.office_staff_roles.map(&:current_person)
+      people.compact.map do |person|
+        {
+          person_content_id: person.content_id,
+          role_appointments: person.role_appointments&.map do |role_appointment|
+            {
+              role_appointment_content_id: role_appointment.content_id,
+              role_content_id: role_appointment.role.content_id,
+            }
+          end,
+        }
+      end
     end
 
     def primary_role_person

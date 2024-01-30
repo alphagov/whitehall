@@ -45,6 +45,12 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           crest: "single-identity",
           formatted_title: "Locationia<br/>Embassy",
         },
+        office_contact_associations: [
+          {
+            office_content_id: worldwide_org.reload.offices.first.content_id,
+            contact_content_id: worldwide_org.reload.offices.first.contact.content_id,
+          },
+        ],
         ordered_corporate_information_pages: [
           {
             content_id: worldwide_org.corporate_information_pages[1].content_id,
@@ -53,6 +59,26 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           {
             content_id: worldwide_org.corporate_information_pages[4].content_id,
             title: "Working for Locationia Embassy",
+          },
+        ],
+        people_role_associations: [
+          {
+            person_content_id: ambassador.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: ambassador.roles.first.current_role_appointment.content_id,
+                role_content_id: ambassador.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
+          },
+          {
+            person_content_id: deputy_head_of_mission.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: deputy_head_of_mission.roles.first.current_role_appointment.content_id,
+                role_content_id: deputy_head_of_mission.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
           },
         ],
         secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/world/organisations/locationia-embassy/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
@@ -70,39 +96,56 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           },
         ],
       },
+      links: {
+        contacts: [
+          worldwide_org.reload.offices.first.contact.content_id,
+        ],
+        corporate_information_pages: [
+          worldwide_org.corporate_information_pages[0].content_id,
+          worldwide_org.corporate_information_pages[1].content_id,
+          worldwide_org.corporate_information_pages[2].content_id,
+          worldwide_org.corporate_information_pages[3].content_id,
+          worldwide_org.corporate_information_pages[4].content_id,
+          worldwide_org.corporate_information_pages[5].content_id,
+        ],
+        main_office: [
+          worldwide_org.reload.offices.first.content_id,
+        ],
+        home_page_offices: [],
+        primary_role_person: [
+          ambassador.content_id,
+        ],
+        secondary_role_person: [
+          deputy_head_of_mission.content_id,
+        ],
+        office_staff: worldwide_org.reload.office_staff_roles.map(&:current_person).map(&:content_id),
+        sponsoring_organisations: [
+          worldwide_org.sponsoring_organisations.first.content_id,
+        ],
+        world_locations: [
+          worldwide_org.world_locations.first.content_id,
+        ],
+        roles: [
+          ambassador.roles.first.content_id, deputy_head_of_mission.roles.first.content_id
+        ],
+        role_appointments: [
+          ambassador.roles.first.current_role_appointment.content_id, deputy_head_of_mission.roles.first.current_role_appointment.content_id
+        ],
+      },
       analytics_identifier: "WO123",
       update_type: "major",
     }
 
     expected_links = {
-      corporate_information_pages: [
-        worldwide_org.corporate_information_pages[0].content_id,
-        worldwide_org.corporate_information_pages[1].content_id,
-        worldwide_org.corporate_information_pages[2].content_id,
-        worldwide_org.corporate_information_pages[3].content_id,
-        worldwide_org.corporate_information_pages[4].content_id,
-        worldwide_org.corporate_information_pages[5].content_id,
-      ],
-      main_office: [
-        worldwide_org.reload.offices.first.content_id,
-      ],
+      corporate_information_pages: [],
+      main_office: [],
       home_page_offices: [],
-      primary_role_person: [
-        ambassador.content_id,
-      ],
-      secondary_role_person: [
-        deputy_head_of_mission.content_id,
-      ],
-      office_staff: worldwide_org.reload.office_staff_roles.map(&:current_person).map(&:content_id),
-      sponsoring_organisations: [
-        worldwide_org.sponsoring_organisations.first.content_id,
-      ],
-      world_locations: [
-        worldwide_org.world_locations.first.content_id,
-      ],
-      roles: [
-        ambassador.roles.first.content_id, deputy_head_of_mission.roles.first.content_id
-      ],
+      primary_role_person: [],
+      secondary_role_person: [],
+      office_staff: [],
+      sponsoring_organisations: [],
+      world_locations: [],
+      roles: [],
     }
 
     presented_item = present(worldwide_org)
