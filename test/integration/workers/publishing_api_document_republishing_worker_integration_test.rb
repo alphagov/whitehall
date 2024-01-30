@@ -156,11 +156,10 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
       }),
       stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
       stub_publishing_api_patch_links(html_attachment_presenter.content_id, links: html_attachment_presenter.links),
-      stub_publishing_api_publish(html_attachment_presenter.content_id, locale: html_attachment_presenter.content[:locale], update_type: nil),
       stub_publishing_api_unpublish(html_attachment_presenter.content_id, body: {
         type: "redirect",
         alternative_path: edition.base_path,
-        discard_drafts: true,
+        allow_draft: true,
         locale: "en",
       }),
     ]
@@ -199,11 +198,10 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
       }),
       stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
       stub_publishing_api_patch_links(html_attachment_presenter.content_id, links: html_attachment_presenter.links),
-      stub_publishing_api_publish(html_attachment_presenter.content_id, locale: html_attachment_presenter.content[:locale], update_type: nil),
       stub_publishing_api_unpublish(html_attachment_presenter.content_id, body: {
         type: "redirect",
         alternative_path: edition.base_path,
-        discard_drafts: true,
+        allow_draft: true,
         locale: "en",
       }),
       stub_publishing_api_put_content(draft_publication_presenter.content_id, with_locale(:en) { draft_publication_presenter.content }),
@@ -236,11 +234,10 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
       }),
       stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
       stub_publishing_api_patch_links(html_attachment_presenter.content_id, links: html_attachment_presenter.links),
-      stub_publishing_api_publish(html_attachment_presenter.content_id, locale: html_attachment_presenter.content[:locale], update_type: nil),
       stub_publishing_api_unpublish(html_attachment_presenter.content_id, body: {
         type: "redirect",
         alternative_path: edition.base_path,
-        discard_drafts: true,
+        allow_draft: true,
         locale: "en",
       }),
     ]
