@@ -64,17 +64,7 @@ module PublishingApi
     end
 
     def links
-      {
-        corporate_information_pages: [],
-        main_office: [],
-        home_page_offices: [],
-        primary_role_person: [],
-        secondary_role_person: [],
-        office_staff: [],
-        sponsoring_organisations: [],
-        world_locations: [],
-        roles: [],
-      }
+      {}
     end
 
     def description

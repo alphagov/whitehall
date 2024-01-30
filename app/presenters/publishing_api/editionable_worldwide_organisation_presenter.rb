@@ -64,16 +64,7 @@ module PublishingApi
     end
 
     def links
-      {
-        home_page_offices: [],
-        main_office: [],
-        office_staff: [],
-        primary_role_person: [],
-        roles: [],
-        secondary_role_person: [],
-        sponsoring_organisations: [],
-        world_locations: [],
-      }
+      {}
     end
 
   private
