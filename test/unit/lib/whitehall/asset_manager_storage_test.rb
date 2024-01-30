@@ -236,7 +236,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   end
 
   test "returns file url using asset_manager_id when the model has the original asset" do
-    model = build(:attachment_data_with_asset)
+    model = build(:attachment_data_with_asset, attachable: build(:draft_edition, id: 1))
     model.save!
     model.reload
 
@@ -244,7 +244,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   end
 
   test "returns file url using asset_manager_id when the model has an asset variant" do
-    model = build(:attachment_data)
+    model = build(:attachment_data, attachable: build(:draft_edition, id: 1))
     model.save!
     model.reload
 
@@ -252,7 +252,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   end
 
   test "returns nil when the model has assets but the requested variant is not available" do
-    model = build(:attachment_data_with_asset)
+    model = build(:attachment_data_with_asset, attachable: build(:draft_edition, id: 1))
     model.save!
     model.reload
 
@@ -260,7 +260,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   end
 
   test "returns store path when the model has no assets, although it should (still uploading or error has occurred)" do
-    model = build(:attachment_data_with_no_assets)
+    model = build(:attachment_data_with_no_assets, attachable: build(:draft_edition, id: 1))
     model.save!
     model.reload
 

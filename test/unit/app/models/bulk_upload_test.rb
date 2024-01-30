@@ -53,6 +53,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     paths = ["whitepaper.pdf", existing.filename].map { |name| file_fixture(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
     new_attachment_data = bulk_upload.attachments.last.attachment_data
+    new_attachment_data.attachable = edition
     new_attachment_data.save!
     assert_equal new_attachment_data, existing.attachment_data.reload.replaced_by
   end
@@ -73,7 +74,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     existing = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
     params = attachments_params(
-      [{ id: existing.id, title: "Title" }, { file: file_fixture(existing.filename) }],
+      [{ id: existing.id, title: "Title" }, { file: file_fixture(existing.filename), attachable: edition }],
     )
     bulk_upload.attachments_attributes = params
     bulk_upload.save_attachments
@@ -85,7 +86,10 @@ class BulkUploadTest < ActiveSupport::TestCase
     edition = create(:news_article, :with_file_attachment)
     attachment = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
-    bulk_upload.attachments_attributes = new_attachments_params
+    bulk_upload.attachments_attributes = attachments_params(
+      [{ title: "Title 1" }, { file: file_fixture("whitepaper.pdf"), attachable: edition }],
+      [{ title: "Title 2" }, { file: file_fixture("simple.pdf"), attachable: edition }],
+    )
 
     assert_difference("edition.attachments.count", 2) do
       assert bulk_upload.save_attachments, "should return true"
@@ -101,7 +105,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     new_title = "New title for existing attachment"
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.attachments_attributes = attachments_params(
-      [{ id: existing.id, title: new_title }, { file: file_fixture(existing.filename) }],
+      [{ id: existing.id, title: new_title }, { file: file_fixture(existing.filename), attachable: edition }],
     )
     bulk_upload.save_attachments
     assert_equal 1, edition.attachments.length

@@ -4,7 +4,8 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe AssetManagerAttachmentMetadataWorker do
-    let(:attachment_data) { create(:attachment_data) }
+    let(:edition) { create(:draft_publication) }
+    let(:attachment_data) { create(:attachment_data, attachable: edition) }
     let(:worker) { AssetManagerAttachmentMetadataWorker.new }
 
     it "calls both updater and deleter" do
@@ -18,7 +19,7 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
     end
 
     context "attachment data has missing assets" do
-      let(:attachment_data) { create(:attachment_data_with_no_assets) }
+      let(:attachment_data) { create(:attachment_data_with_no_assets, attachable: edition) }
 
       it "does not call updater" do
         AssetManager::AttachmentUpdater.expects(:call).never

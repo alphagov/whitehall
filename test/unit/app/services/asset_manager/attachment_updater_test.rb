@@ -6,7 +6,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
   describe AssetManager::AttachmentUpdater do
     context "when the attachment's attachable is a draft" do
       let(:edition) { create(:draft_news_article) }
-      let(:attachment) { create(:file_attachment, attachable: edition) }
+      let(:attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
 
       it "sets the expected attributes" do
         expected_attribute_hash = {
@@ -24,7 +24,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
       context "and the attachment has been replaced" do
         it "ensures replaced attachment data is still accessible for the publicly visible edition" do
-          replacement = create(:attachment_data)
+          replacement = create(:attachment_data, attachable: edition)
           replaced_attachment_data = attachment.attachment_data
 
           attachment.attachment_data.replace_with!(replacement)
@@ -50,7 +50,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
     context "when the attachment's attachable is a draft and is access limited" do
       it "sets the expected attributes for all assets" do
         edition = create(:draft_news_article, :access_limited)
-        attachment = create(:file_attachment, attachable: edition)
+        attachment = create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition))
 
         expected_attribute_hash = {
           "draft" => true,
@@ -68,7 +68,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     context "when attachment belongs to a scheduled edition" do
       let(:scheduled_edition) { create(:scheduled_edition) }
-      let(:attachment) { create(:file_attachment, attachable: scheduled_edition) }
+      let(:attachment) { create(:file_attachment, attachable: scheduled_edition, attachment_data: create(:attachment_data, attachable: scheduled_edition)) }
 
       it "sets the expected attributes for all assets" do
         expected_attribute_hash = {
@@ -87,7 +87,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     context "when attachment belongs to a submitted edition" do
       let(:submitted_edition) { create(:submitted_edition) }
-      let(:attachment) { create(:file_attachment, attachable: submitted_edition) }
+      let(:attachment) { create(:file_attachment, attachable: submitted_edition, attachment_data: create(:attachment_data, attachable: submitted_edition)) }
 
       it "sets the expected attributes for all assets" do
         expected_attribute_hash = {
@@ -106,7 +106,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     context "when attachment belongs to a rejected edition" do
       let(:rejected_edition) { create(:rejected_edition) }
-      let(:attachment) { create(:file_attachment, attachable: rejected_edition) }
+      let(:attachment) { create(:file_attachment, attachable: rejected_edition, attachment_data: create(:attachment_data, attachable: rejected_edition)) }
 
       it "sets the expected attributes for all assets" do
         expected_attribute_hash = {
@@ -125,7 +125,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     context "when attachment's attachable is published" do
       let(:edition) { create(:published_news_article) }
-      let(:attachment) { create(:file_attachment, attachable: edition) }
+      let(:attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
 
       it "sets the expected attributes for a published attachable" do
         expected_attribute_hash = {
@@ -144,11 +144,11 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     context "when the attachment data has been replaced" do
       let(:edition) { create(:draft_news_article) }
-      let(:attachment) { create(:file_attachment, attachable: edition) }
+      let(:attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
 
       context "and the attachment has been replaced with an attachment that has the same number of assets" do
         it "it updates asset with matching replacement IDs based on asset variant" do
-          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")))
+          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")), attachable: edition)
           replacement_original_asset = Asset.new(asset_manager_id: "replacement_original_asset_manager_id", variant: Asset.variants[:original], filename: "whitepaper.pdf")
           replacement_thumbnail_asset = Asset.new(asset_manager_id: "replacement_thumbnail_asset_manager_id", variant: Asset.variants[:thumbnail], filename: "thumbnail_whitepaper.pdf.png")
           replacement.assets = [replacement_original_asset, replacement_thumbnail_asset]
@@ -169,7 +169,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
       context "and the attachment has been replaced with an attachment that has a different number of assets" do
         it "updates all assets (of attachment to be updated) with original asset ID of replacement attachment" do
-          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")))
+          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")), attachable: edition)
           replacement_original_asset = Asset.new(asset_manager_id: "replacement_original_asset_manager_id", variant: Asset.variants[:original], filename: "whitepaper.pdf")
           replacement.assets = [replacement_original_asset]
 
@@ -186,7 +186,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
       context "and the attachment has been replaced with an attachment that has no assets" do
         it "does not update asset manager" do
-          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")))
+          replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")), attachable: edition)
           replacement.assets = []
 
           attachment.attachment_data.replace_with!(replacement)

@@ -6,7 +6,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
   let(:auth_bypass_id_attributes) do
     { "auth_bypass_ids" => [SecureRandom.uuid] }
   end
-  let(:attachment_data) { FactoryBot.create(:attachment_data) }
+  let(:attachment_data) { FactoryBot.create(:attachment_data, attachable: create(:draft_publication)) }
 
   test "updates an attachment and its variant" do
     AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_original", auth_bypass_id_attributes)
