@@ -3,7 +3,6 @@
 .github
 .gitignore
 Dockerfile
-Jenkinsfile
 Procfile
 README.md
 asset-manager-tmp
