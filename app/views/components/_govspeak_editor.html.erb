@@ -97,9 +97,11 @@
   <%= tag.div class: "app-c-govspeak-editor__preview js-locale-switcher-custom", 'aria-live': "polite", id: preview_id, dir: dir do %>
     <p class="govuk-body" dir="ltr">Generating preview, please wait.</p>
   <% end %>
+  <div class="app-c-govspeak-editor__visual-editor"></div>
   <%= tag.div class: "app-c-govspeak-editor__error js-locale-switcher-custom", 'aria-live': "polite", id: error_id, dir: dir do %>
     <p class="govuk-error-message" dir="ltr">There is an error in your Markdown. Select Back to edit and review your markdown.</p>
   <% end %>
 
+  <%= javascript_include_tag "components/govspeak-visual-editor-library", :type => "module" if show_visual_editor %>
   <%= javascript_include_tag "components/visual-editor", :type => "module" if show_visual_editor %>
 <% end %>

@@ -424,6 +424,9 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
       const textareaSection = component.querySelector(
         '.app-c-govspeak-editor__textarea'
       )
+      const visualEditor = component.querySelector(
+        '.app-c-govspeak-editor__visual-editor'
+      )
 
       expect(textareaSection).not.toHaveClass(
         'app-c-govspeak-editor__textarea--hidden'
@@ -438,6 +441,7 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
         'app-c-govspeak-editor__visual-editor--show'
       )
       expect(backButton).toHaveClass('app-c-govspeak-editor__back-button--show')
+      expect(visualEditor).toHaveClass('app-c-govspeak-editor__visual-editor--show')
     })
   })
 })

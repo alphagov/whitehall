@@ -12,6 +12,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.visualEditorButton = this.module.querySelector(
       '.js-app-c-govspeak-editor__visual-editor-button'
     )
+    this.visualEditor = this.module.querySelector(
+      '.app-c-govspeak-editor__visual-editor'
+    )
     this.backButton = this.module.querySelector(
       '.js-app-c-govspeak-editor__back-button'
     )
@@ -131,6 +134,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     event.preventDefault()
 
     this.backButton.classList.add('app-c-govspeak-editor__back-button--show')
+    this.visualEditor.classList.add('app-c-govspeak-editor__visual-editor--show')
     this.previewButton.classList.remove(
       'app-c-govspeak-editor__preview-button--show'
     )
@@ -163,6 +167,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.textareaWrapper.classList.remove(
       'app-c-govspeak-editor__textarea--hidden'
     )
+    this.visualEditor.classList.remove('app-c-govspeak-editor__visual-editor--show')
 
     this.textarea.focus()
 
