@@ -11,6 +11,10 @@ private
     Services.asset_manager
   end
 
+  def create_asset(asset_options)
+    AssetManager::CreateAssetResponse.new(asset_manager.create_asset(asset_options))
+  end
+
   def find_asset_by_id(asset_manager_id)
     asset_manager.asset(asset_manager_id).to_hash
   rescue GdsApi::HTTPNotFound
