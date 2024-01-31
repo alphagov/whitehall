@@ -1,14 +1,7 @@
 class Storage::DefaultStorage < CarrierWave::Storage::Abstract
-  def store!(file)
-    original_file = file.to_file
-    temporary_location = ::File.join(
-      Whitehall.asset_manager_tmp_dir,
-      SecureRandom.uuid,
-      ::File.basename(original_file),
-    )
-
-    FileUtils.mkdir_p(::File.dirname(temporary_location))
-    FileUtils.cp(original_file, temporary_location)
+  def store!(carrierwave_file)
+    original_file = carrierwave_file.to_file
+    temporary_location = Whitehall::AssetManagerStorage::TempStorage.store!(original_file)
 
     logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model.id}")
 

@@ -1,38 +1,16 @@
-class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
-  def store!(file)
-    original_file = file.to_file
-    temporary_location = ::File.join(
-      Whitehall.asset_manager_tmp_dir,
-      SecureRandom.uuid,
-      ::File.basename(original_file),
-    )
+class Whitehall::AssetManagerStorage
+  class TempStorage
+    def self.store!(file)
+      temporary_location = ::File.join(
+        Whitehall.asset_manager_tmp_dir,
+        SecureRandom.uuid,
+        ::File.basename(file),
+      )
 
-    FileUtils.mkdir_p(::File.dirname(temporary_location))
-    FileUtils.cp(original_file, temporary_location)
-    draft = uploader.assets_protected?
-
-    if uploader.model.respond_to?(:attachable)
-      attachable_model_class = uploader.model.attachable && uploader.model.attachable.class.to_s
-      attachable_model_id = uploader.model.attachable && uploader.model.attachable.id
+      FileUtils.mkdir_p(::File.dirname(temporary_location))
+      FileUtils.cp(file, temporary_location)
+      temporary_location
     end
-
-    auth_bypass_ids = uploader.model.respond_to?(:auth_bypass_ids) ? uploader.model.auth_bypass_ids : []
-
-    logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model&.id || 'nil'}")
-
-    assetable_id = uploader.model.id
-    assetable_type = uploader.model.class.to_s
-    asset_variant = uploader.version_name ? Asset.variants[uploader.version_name] : Asset.variants[:original]
-    asset_params = { assetable_id:, asset_variant:, assetable_type: }.deep_stringify_keys
-
-    AssetManagerCreateAssetWorker.perform_async(temporary_location, asset_params, draft, attachable_model_class, attachable_model_id, auth_bypass_ids)
-
-    File.new(uploader.store_path, uploader.model, uploader.version_name)
-  end
-
-  def retrieve!(identifier)
-    asset_path = uploader.store_path(identifier)
-    File.new(asset_path, uploader.model, uploader.version_name)
   end
 
   class File
