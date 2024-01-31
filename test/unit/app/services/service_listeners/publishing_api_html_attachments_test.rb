@@ -436,7 +436,7 @@ module ServiceListeners
         end
       end
 
-      test "for a withdrawn publicaton with an attachment withdraws the attachment" do
+      test "for a withdrawn publication with an attachment withdraws the attachment" do
         publication = create(:withdrawn_publication)
         attachment = publication.html_attachments.first
         PublishingApiWorker.any_instance.expects(:perform).with(
@@ -462,7 +462,7 @@ module ServiceListeners
           attachment.content_id,
           "/government/another/page",
           "en",
-          false,
+          true,
         )
         call(publication)
       end
@@ -474,7 +474,7 @@ module ServiceListeners
           attachment.content_id,
           "/government/another/page",
           "en",
-          false,
+          true,
         )
         call(publication)
       end
@@ -486,8 +486,14 @@ module ServiceListeners
           attachment.content_id,
           publication.search_link,
           "en",
-          false,
+          true,
         )
+        call(publication)
+      end
+
+      test "for a publication that has been unpublished does not publish the attachment in order to unpublish again" do
+        publication = create(:unpublished_publication_in_error_no_redirect)
+        PublishingApiWorker.any_instance.expects(:perform).never
         call(publication)
       end
     end

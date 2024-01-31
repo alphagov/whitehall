@@ -18,8 +18,20 @@ module ServiceListeners
     alias_method :unwithdraw, :publish
 
     def republish
-      update_publishing_api_content
-      unpublish_if_required
+      if Edition::PRE_PUBLICATION_STATES.include?(edition.state)
+        update_draft(update_type: "republish")
+      elsif edition.unpublishing && edition.withdrawn?
+        do_publish("republish")
+        discard_drafts(deleted_html_attachments)
+        withdraw
+      elsif edition.unpublishing
+        update_draft(update_type: "republish")
+        patch_links
+        unpublish(allow_draft: true)
+      else
+        do_publish("republish")
+        discard_drafts(deleted_html_attachments)
+      end
     end
 
     def update_draft(update_type: nil)
@@ -32,7 +44,6 @@ module ServiceListeners
       end
       discard_drafts(deleted_html_attachments)
     end
-
     # We don't care whether this is a translation or the main
     # document, we just send the correct html attachments regardless.
     alias_method :update_draft_translation, :update_draft
@@ -81,22 +92,9 @@ module ServiceListeners
       end
     end
 
-    def update_publishing_api_content
-      if Edition::PRE_PUBLICATION_STATES.include?(edition.state)
-        update_draft(update_type: "republish")
-      else
-        do_publish("republish")
-        discard_drafts(deleted_html_attachments)
-      end
-    end
-
-    def unpublish_if_required
-      if edition.unpublishing
-        if edition.withdrawn?
-          withdraw
-        else
-          unpublish(allow_draft: false)
-        end
+    def patch_links
+      current_html_attachments.each do |html_attachment|
+        Whitehall::PublishingApi.patch_links(html_attachment, bulk_publishing: false)
       end
     end
 
