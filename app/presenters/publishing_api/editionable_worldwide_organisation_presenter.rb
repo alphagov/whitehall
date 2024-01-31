@@ -90,9 +90,9 @@ module PublishingApi
     end
 
     def contacts
-      return [] unless item.main_office&.contact || item.home_page_offices&.map(&:contact)&.any?
+      return [] unless item.main_office_contact || item.home_page_office_contacts&.any?
 
-      [item.main_office&.contact&.content_id] + item.home_page_offices&.map(&:contact)&.map(&:content_id)
+      [item.main_office_contact&.content_id] + item.home_page_office_contacts&.map(&:content_id)
     end
 
     def office_contact_associations
