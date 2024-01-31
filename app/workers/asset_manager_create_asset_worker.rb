@@ -23,7 +23,8 @@ class AssetManagerCreateAssetWorker < WorkerBase
     authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
     asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
 
-    create_asset(asset_options, asset_variant, assetable_id, assetable_type)
+    response = create_asset(asset_options)
+    save_asset(assetable_id, assetable_type, asset_variant, response.asset_manager_id, response.filename)
 
     enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
 
@@ -33,13 +34,6 @@ class AssetManagerCreateAssetWorker < WorkerBase
   end
 
 private
-
-  def create_asset(asset_options, asset_variant, assetable_id, assetable_type)
-    response = asset_manager.create_asset(asset_options)
-    asset_manager_id = get_asset_id(response)
-    filename = get_filename(response)
-    save_asset(assetable_id, assetable_type, asset_variant, asset_manager_id, filename)
-  end
 
   def enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
     assetable = assetable_type.constantize.find(assetable_id)
@@ -68,16 +62,5 @@ private
     asset.asset_manager_id = asset_manager_id
     asset.filename = filename
     asset.save!
-  end
-
-  def get_asset_id(response)
-    attributes = response.to_hash
-    url = attributes["id"]
-    url[/\/assets\/(.*)/, 1]
-  end
-
-  def get_filename(response)
-    attributes = response.to_hash
-    attributes["name"]
   end
 end
