@@ -57,6 +57,10 @@ class WorldwideOrganisation < ApplicationRecord
     super - [main_office]
   end
 
+  def home_page_office_contacts
+    home_page_offices&.map(&:contact)
+  end
+
   def office_shown_on_home_page?(office)
     super || is_main_office?(office)
   end
@@ -83,6 +87,10 @@ class WorldwideOrganisation < ApplicationRecord
 
   def main_office
     original_main_office || offices.first
+  end
+
+  def main_office_contact
+    main_office&.contact
   end
 
   def other_offices
