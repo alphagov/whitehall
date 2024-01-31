@@ -139,4 +139,12 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
 
     assert_equal "Editionable worldwide organisation title", presented_item.content.dig(:details, :logo, :formatted_title)
   end
+
+  test "includes an empty array when there are no contacts" do
+    worldwide_org = create(:editionable_worldwide_organisation)
+
+    presented_item = present(worldwide_org)
+
+    assert_equal [], presented_item.content.dig(:links, :contacts)
+  end
 end

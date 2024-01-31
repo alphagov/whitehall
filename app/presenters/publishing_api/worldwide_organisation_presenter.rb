@@ -86,6 +86,8 @@ module PublishingApi
     end
 
     def contacts
+      return [] unless item.main_office&.contact || item.home_page_offices&.map(&:contact)&.any?
+
       [item.main_office&.contact&.content_id] + item.home_page_offices&.map(&:contact)&.map(&:content_id)
     end
 
