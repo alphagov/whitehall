@@ -12,8 +12,8 @@ class ImageUploaderTest < ActiveSupport::TestCase
     ImageUploader.enable_processing = false
   end
 
-  test "uses the asset manager and quarantined file storage engine" do
-    assert_equal Whitehall::AssetManagerStorage, ImageUploader.storage
+  test "uses the previewable asset manager storage engine" do
+    assert_equal Storage::PreviewableStorage, ImageUploader.storage
   end
 
   test "should only allow JPG, GIF, PNG or SVG images" do

@@ -5,6 +5,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   class AssetManagerUploader < CarrierWave::Uploader::Base
+    storage Whitehall::AssetManagerStorage
     attr_writer :assets_protected
 
     def assets_protected?
