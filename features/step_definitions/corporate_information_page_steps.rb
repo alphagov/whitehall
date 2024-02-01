@@ -28,6 +28,14 @@ When(/^I force-publish the "([^"]*)" corporate information page for the worldwid
   publish(force: true)
 end
 
+When(/^I unpublish the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |cip_title, org_name|
+  edition = WorldwideOrganisation.find_by(name: org_name).corporate_information_pages.find_by(title: cip_title)
+  unpublish_edition(edition) do
+    fill_in "published_in_error_alternative_url", with: "https://www.gov.uk/somewhere-else"
+    check "Redirect to URL automatically?"
+  end
+end
+
 Then(/^I should see the corporate information on the worldwide organisation corporate information pages page/) do
   worldwide_organisation = WorldwideOrganisation.last
   visit admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation)
@@ -38,6 +46,13 @@ Then(/^I should see the corporate information on the worldwide organisation corp
 
   click_link corporate_information_page.title
   expect(page).to have_content(corporate_information_page.title)
+end
+
+Then(/^I should not see the corporate information page "([^"]*)" on the worldwide organisation corporate information pages page/) do |cip_title|
+  worldwide_organisation = WorldwideOrganisation.last
+  visit admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation)
+
+  expect(page).to_not have_content(cip_title)
 end
 
 When(/^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |corp_page, worldwide_org|

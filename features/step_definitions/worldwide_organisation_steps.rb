@@ -50,6 +50,11 @@ Given(/^a worldwide organisation "([^"]*)" exists for the world location "([^"]*
   create(:worldwide_organisation, name:, world_locations: [country])
 end
 
+Given(/^a worldwide organisation "([^"]*)" with a published "([^"]*)" corporate information page$/) do |worldwide_organisation_name, cip_title|
+  worldwide_organisation = create(:worldwide_organisation, name: worldwide_organisation_name)
+  create(:published_worldwide_organisation_corporate_information_page, worldwide_organisation:, title: cip_title)
+end
+
 When(/^I add an "([^"]*)" office for the home page with address, phone number, and some services$/) do |description|
   service1 = create(:worldwide_service, name: "Dance lessons")
   _service2 = create(:worldwide_service, name: "Courses in advanced sword fighting")
