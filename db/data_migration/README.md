@@ -60,5 +60,4 @@ or up to a specific version:
 
 ### At deploy time
 
-We have a Jenkins job for convenience to save you having to ssh onto a box to
-run the rake task. Here's the job on deploy.integration: [Run_Whitehall_Data_Migrations](https://deploy.integration.publishing.service.gov.uk/job/Run_Whitehall_Data_Migrations/)
+Follow the instructions [for running a rake task](https://docs.publishing.service.gov.uk/manual/running-rake-tasks.html).
