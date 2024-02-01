@@ -172,8 +172,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_file_attachment_params
     model_type = AttachmentData.to_s
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id]).once
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:thumbnail], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAttachmentAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), @edition.class.to_s, @edition.id, anything, [@edition.auth_bypass_id]).once
+    AssetManagerCreateAttachmentAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:thumbnail], "assetable_type" => model_type), @edition.class.to_s, @edition.id, anything, [@edition.auth_bypass_id])
 
     post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
@@ -349,8 +349,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:file_attachment, attachable: @edition)
     model_type = attachment.attachment_data.class.to_s
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:thumbnail], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAttachmentAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), @edition.class.to_s, @edition.id, anything, [@edition.auth_bypass_id])
+    AssetManagerCreateAttachmentAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:thumbnail], "assetable_type" => model_type), @edition.class.to_s, @edition.id, anything, [@edition.auth_bypass_id])
 
     put :update,
         params: {
@@ -421,8 +421,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
     whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf, attachable: @edition)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(2)
+    AssetManagerCreateAttachmentAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAttachmentAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(2)
 
     post :create,
          params: {
@@ -442,8 +442,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
     whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(2)
+    AssetManagerCreateAttachmentAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAttachmentAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(2)
 
     put :update,
         params: {

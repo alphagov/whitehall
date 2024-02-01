@@ -5,7 +5,7 @@ class Storage::PreviewableStorage < CarrierWave::Storage::Abstract
 
     logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model.id}")
 
-    AssetManagerCreateAssetWorker.perform_async(temporary_location, uploader.asset_params, false, nil, nil, uploader.model.auth_bypass_ids)
+    AssetManagerCreateAssetWorker.perform_async(temporary_location, uploader.asset_params, uploader.model.auth_bypass_ids)
 
     Whitehall::AssetManagerStorage::File.new(uploader.store_path(::File.basename(original_file)), uploader.model, uploader.version_name)
   end

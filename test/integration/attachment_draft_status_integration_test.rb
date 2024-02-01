@@ -101,7 +101,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
         visit admin_policy_group_attachments_path(policy_group)
         add_attachment(filename)
 
-        AssetManagerCreateAssetWorker.drain
+        AssetManagerCreateAttachmentAssetWorker.drain
 
         assert_sets_draft_status_in_asset_manager_to false
       end

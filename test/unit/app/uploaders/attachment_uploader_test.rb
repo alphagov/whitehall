@@ -224,7 +224,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
     expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAttachmentAssetWorker.drain
   end
 
   test "should scale the thumbnail down proportionally to A4" do
@@ -232,7 +232,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
     expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAttachmentAssetWorker.drain
   end
 
   test "should use a generic thumbnail if conversion fails" do
@@ -241,7 +241,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
     expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAttachmentAssetWorker.drain
   end
 
   test "should use a generic thumbnail if conversion takes longer than 10 seconds to complete" do
@@ -250,7 +250,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
     expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAttachmentAssetWorker.drain
   end
 
   def expect_fallback_thumbnail_to_be_uploaded_to_asset_manager

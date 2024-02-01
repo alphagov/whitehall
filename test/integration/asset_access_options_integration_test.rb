@@ -91,7 +91,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             ),
           ).returns(asset_manager_response)
 
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAttachmentAssetWorker.drain
         end
       end
 
@@ -148,7 +148,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             ),
           ).returns(asset_manager_response)
 
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAttachmentAssetWorker.drain
         end
       end
     end
@@ -195,7 +195,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               params[:auth_bypass_ids] == [edition.auth_bypass_id]
           }.returns(asset_manager_response)
 
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAttachmentAssetWorker.drain
         end
       end
     end
@@ -225,7 +225,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               auth_bypass_ids: [edition.auth_bypass_id],
             ),
           ).returns(asset_manager_response)
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAttachmentAssetWorker.drain
         end
       end
 
