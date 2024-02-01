@@ -1,34 +1,50 @@
-<%= form.hidden_field :id %>
+<div class="govuk-accordion__section">
+  <div class="govuk-accordion__section-header">
+    <h2 class="govuk-accordion__section-heading">
+      <span class="govuk-accordion__section-button">
+        <%= page.corporate_information_page_type&.title(@edition) %>
+      </span>
+    </h2>
+  </div>
 
-<%= render "components/select_with_search", {
-  id: "edition_corporate_information_page_type_id",
-  name: form.field_name(:corporate_information_page_type_id),
-  label: "Type",
-  heading_size: "l",
-  error_message: errors_for_input(@edition.errors, :corporate_information_page_type_id),
-  include_blank: true,
-  options: corporate_information_page_types(@organisation).map do |type, value|
-    {
-      text: type,
-      value: value,
-      selected: value == page.corporate_information_page_type_id,
-    }
-  end,
-  value: page.corporate_information_page_type_id
-} %>
+  <div class="govuk-accordion__section-content">
+    <p class="govuk-body">This is the content for Writing well for the web.</p>
 
-<%= render "govuk_publishing_components/components/textarea", {
-  label: {
-    text: "Summary",
-  },
-  name: form.field_name(:summary),
-  value: page.summary
-} %>
+    <%= form.fields_for :worldwide_organisation_pages, page do |pages_form| %>
+      <%= pages_form.hidden_field :id %>
 
-<%= render "govuk_publishing_components/components/textarea", {
-  label: {
-    text: "Body",
-  },
-  name: form.field_name(:body),
-  value: page.body
-} %>
+      <%= render "components/select_with_search", {
+        id: "edition_corporate_information_page_type_id",
+        name: pages_form.field_name(:corporate_information_page_type_id),
+        label: "Type",
+        heading_size: "l",
+        error_message: errors_for_input(@edition.errors, :corporate_information_page_type_id),
+        include_blank: true,
+        options: corporate_information_page_types(@organisation).map do |type, value|
+          {
+            text: type,
+            value: value,
+            selected: value == page.corporate_information_page_type_id,
+          }
+        end,
+        value: page.corporate_information_page_type_id
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Summary",
+        },
+        name: pages_form.field_name(:summary),
+        value: page.summary
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Body",
+        },
+        name: pages_form.field_name(:body),
+        value: page.body
+      } %>
+    <% end %>
+  </div>
+</div>

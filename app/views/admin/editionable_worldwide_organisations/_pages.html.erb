@@ -5,39 +5,25 @@
   margin_bottom: 2,
 } %>
 
-<% @edition.worldwide_organisation_pages.each do |page| %>
-  <%= form.fields_for :worldwide_organisation_pages, page do |pages_form| %>
-    <%= render partial: "admin/editionable_worldwide_organisations/page", locals: { page: page, form: pages_form } %>
-  <% end %>
-<% end %>
+<div class="parts-wrapper" data-module="parts">
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Parts (govspeak available)",
+    heading_size: "m",
+  } do %>
+    <div class="govuk-accordion" data-module="govuk-accordion" id="parts">
+      <div class="govuk-accordion__wrapper">
+        <% @edition.worldwide_organisation_pages.each do |page| %>
+          <%= render "page", page:, form: %>
+        <% end %>
+      </div>
+    </div>
 
-<%= form.fields_for :worldwide_organisation_pages, WorldwideOrganisationPage.new do |pages_form| %>
-    <%= render "components/select_with_search", {
-      id: "edition_corporate_information_page_type_id",
-      name: pages_form.field_name(:corporate_information_page_type_id),
-      label: "Type",
-      heading_size: "l",
-      error_message: errors_for_input(@edition.errors, :corporate_information_page_type_id),
-      include_blank: true,
-      options: corporate_information_page_types(@organisation).map do |type, value|
-        {
-          text: type,
-          value: value,
-        }
-      end,
+    <%= render "page_template", form: %>
+
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Add new part",
+      secondary_solid: true,
+      classes: "js-add-new-part",
     } %>
-
-  <%= render "govuk_publishing_components/components/textarea", {
-    label: {
-      text: "Body",
-    },
-    name: pages_form.field_name(:body)
-  } %>
-
-  <%= render "govuk_publishing_components/components/textarea", {
-    label: {
-      text: "Summary",
-    },
-    name: pages_form.field_name(:summary)
-  } %>
-<% end %>
+  <% end %>
+</div>
