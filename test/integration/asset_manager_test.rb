@@ -31,7 +31,7 @@ class AssetManagerIntegrationTest
       end
     end
 
-    test "sends the user ids of authorised users to Asset Manager" do
+    test "sends the user ids of authorised organisations to Asset Manager for attachment assets" do
       organisation = FactoryBot.create(:organisation)
       consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
       @attachment.attachable = consultation
@@ -41,7 +41,7 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id]))
               .returns(@asset_manager_response)
 
-      AssetManagerCreateAssetWorker.drain
+      AssetManagerCreateAttachmentAssetWorker.drain
     end
   end
 

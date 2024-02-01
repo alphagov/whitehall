@@ -163,7 +163,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
     assert second_attempt_attachment.save
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAttachmentAssetWorker.drain
   end
 
   test "should return nil file extension when no uploader present" do

@@ -54,7 +54,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
                   .at_least_once
                   .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
 
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAttachmentAssetWorker.drain
           PublishingApiDraftUpdateWorker.drain
           AssetManagerAttachmentMetadataWorker.drain
         end
@@ -83,7 +83,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         # asset is marked as replaced, because the replacement is not yet
         # visible to the user.
         it "updates replacement_id for attachment in Asset Manager" do
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAttachmentAssetWorker.drain
 
           Services.asset_manager.expects(:update_asset)
                   .at_least_once
