@@ -1,0 +1,34 @@
+<%= form.hidden_field :id %>
+
+<%= render "components/select_with_search", {
+  id: "edition_corporate_information_page_type_id",
+  name: form.field_name(:corporate_information_page_type_id),
+  label: "Type",
+  heading_size: "l",
+  error_message: errors_for_input(@edition.errors, :corporate_information_page_type_id),
+  include_blank: true,
+  options: corporate_information_page_types(@organisation).map do |type, value|
+    {
+      text: type,
+      value: value,
+      selected: value == page.corporate_information_page_type_id,
+    }
+  end,
+  value: page.corporate_information_page_type_id
+} %>
+
+<%= render "govuk_publishing_components/components/textarea", {
+  label: {
+    text: "Summary",
+  },
+  name: form.field_name(:summary),
+  value: page.summary
+} %>
+
+<%= render "govuk_publishing_components/components/textarea", {
+  label: {
+    text: "Body",
+  },
+  name: form.field_name(:body),
+  value: page.body
+} %>

@@ -3,6 +3,9 @@ class EditionableWorldwideOrganisation < Edition
   SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
   OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
 
+  has_many :worldwide_organisation_pages
+
+  include Edition::Parted
   include Edition::SocialMediaAccounts
   include Edition::Organisations
   include Edition::Roles
@@ -10,6 +13,8 @@ class EditionableWorldwideOrganisation < Edition
 
   has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy
   belongs_to :main_office, class_name: "WorldwideOffice"
+
+  accepts_nested_attributes_for :worldwide_organisation_pages
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_25_165910) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -1209,6 +1209,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
     t.index ["edition_id"], name: "index_worldwide_offices_on_edition_id"
     t.index ["slug"], name: "index_worldwide_offices_on_slug"
     t.index ["worldwide_organisation_id"], name: "index_worldwide_offices_on_worldwide_organisation_id"
+  end
+
+  create_table "worldwide_organisation_pages", charset: "utf8mb3", force: :cascade do |t|
+    t.string "summary"
+    t.text "body"
+    t.integer "editionable_worldwide_organisation_id"
+    t.integer "corporate_information_page_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "worldwide_organisation_roles", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|

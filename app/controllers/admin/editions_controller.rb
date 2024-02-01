@@ -255,6 +255,12 @@ private
         statistical_data_set_document_ids: [],
         policy_group_ids: [],
         document_collection_group_ids: [],
+        worldwide_organisation_pages_attributes: [
+          :id,
+          :summary,
+          :body,
+          :corporate_information_page_type_id,
+        ],
         consultation_participation_attributes: [
           :id,
           :link_url,

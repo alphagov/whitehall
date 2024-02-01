@@ -11,7 +11,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <p class="govuk-body">This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
+    <p class="govuk-body">This page shows changes to the title, summary and body in this edition. It does not show
+      changes to attachments or associations.</p>
 
     <div class="govuk-!-margin-bottom-5">
       <%= render "govuk_publishing_components/components/heading", {
@@ -45,5 +46,49 @@
         <%= diff_html(@audit_trail_entry.body, @edition.body) %>
       </div>
     </div>
+
+    <% if @edition.worldwide_organisation_pages.any? %>
+      <div class="govuk-!-margin-bottom-5">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Pages",
+          margin_bottom: 3,
+        } %>
+      </div>
+
+      <% @edition.worldwide_organisation_pages.each do |page| %>
+        <% previous_page = @audit_trail_entry.worldwide_organisation_pages.first { |audit_page| audit_page.corporate_information_page_type_id == page.corporate_information_page_type_id } %>
+
+        <div class="govuk-!-margin-bottom-5">
+          <%= render "govuk_publishing_components/components/heading", {
+            text: page.corporate_information_page_type&.title(@edition),
+            margin_bottom: 3,
+          } %>
+        </div>
+
+        <div class="govuk-!-margin-bottom-5">
+          <%= render "govuk_publishing_components/components/heading", {
+            font_size: "s",
+            text: "Summary",
+            margin_bottom: 3,
+          } %>
+        </div>
+
+        <div class="govuk-body app-view-audit-trail__history-comparison">
+          <%= diff_html(previous_page.summary, page.summary) %>
+        </div>
+
+        <div class="govuk-!-margin-bottom-5">
+          <%= render "govuk_publishing_components/components/heading", {
+            font_size: "s",
+            text: "Body",
+            margin_bottom: 3,
+          } %>
+        </div>
+
+        <div class="govuk-body app-view-audit-trail__history-comparison">
+          <%= diff_html(previous_page.body, page.body) %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

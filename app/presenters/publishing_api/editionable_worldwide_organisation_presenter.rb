@@ -46,16 +46,16 @@ module PublishingApi
 
     def edition_links
       {
-        contacts:,
-        office_staff:,
-        main_office:,
-        home_page_offices:,
-        primary_role_person:,
-        role_appointments: item.roles.map(&:current_role_appointment)&.compact&.map(&:content_id),
-        roles: item.roles.map(&:content_id),
-        secondary_role_person:,
-        sponsoring_organisations: item.organisations.map(&:content_id),
-        world_locations: item.world_locations.map(&:content_id),
+        # contacts:,
+        # office_staff:,
+        # main_office:,
+        # home_page_offices:,
+        # primary_role_person:,
+        # role_appointments: item.roles.map(&:current_role_appointment)&.compact&.map(&:content_id),
+        # roles: item.roles.map(&:content_id),
+        # secondary_role_person:,
+        # sponsoring_organisations: item.organisations.map(&:content_id),
+        # world_locations: item.world_locations.map(&:content_id),
       }
     end
 
