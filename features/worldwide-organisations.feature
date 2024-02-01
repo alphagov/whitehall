@@ -59,6 +59,12 @@ Feature: Administering worldwide organisation
     And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     Then I should see the corporate information on the worldwide organisation corporate information pages page
 
+  Scenario: Unpublishing a corporate information page from a worldwide organisation
+    Given I am a managing editor
+    Given a worldwide organisation "Department of Beards in France" with a published "Personal information charter" corporate information page
+    When I unpublish the "Personal information charter" corporate information page for the worldwide organisation "Department of Beards in France"
+    Then I should not see the corporate information page "Personal information charter" on the worldwide organisation corporate information pages page
+
   Scenario: Adding a new translation
     Given a worldwide organisation "Department of Beards in France" exists for the world location "France" with translations into "Français"
     When I add a new translation to the worldwide organisation "Department of Beards in France" with:

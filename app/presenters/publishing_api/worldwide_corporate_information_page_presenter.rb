@@ -22,7 +22,7 @@ module PublishingApi
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
 
       content.merge!(
-        document_type: item.display_type_key,
+        document_type:,
         schema_name: "worldwide_corporate_information_page",
       )
     end
@@ -32,6 +32,10 @@ module PublishingApi
         parent: [item.worldwide_organisation.content_id],
         worldwide_organisation: [item.worldwide_organisation.content_id],
       }
+    end
+
+    def document_type
+      item.display_type_key
     end
   end
 end
