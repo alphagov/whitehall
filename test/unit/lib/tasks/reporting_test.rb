@@ -16,15 +16,15 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it prints the content IDs of the matching documents from published editions" do
-      assert_output(/#{@document_1.document.content_id}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/#{@document_1.document.content_id},#{@document_1.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
     test "it does not print the content IDs of the matching documents from draft editions" do
-      assert_output(/^(?!.*#{@document_2.document.content_id}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/^(?!.*#{@document_2.document.content_id},#{@document_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
     test "it does not print the content IDs of the non-matching documents from published editions" do
-      assert_output(/^(?!.*#{@document_3.document.content_id}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/^(?!.*#{@document_3.document.content_id},#{@document_3.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -50,11 +50,11 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it prints the content IDs of the matching documents from people" do
-      assert_output(/#{@person_1.content_id}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/#{@person_1.content_id},#{@person_1.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
     test "it does not print the content IDs of the non-matching documents from people" do
-      assert_output(/^(?!.*#{@person_2.content_id}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/^(?!.*#{@person_2.content_id},#{@person_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -65,11 +65,11 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it prints the content IDs of the matching documents from policy groups" do
-      assert_output(/#{@policy_group_1.content_id}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/#{@policy_group_1.content_id},#{@policy_group_1.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
     test "it does not print the content IDs of the non-matching documents from policy groups" do
-      assert_output(/^(?!.*#{@policy_group_2.content_id}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/^(?!.*#{@policy_group_2.content_id},#{@policy_group_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -80,11 +80,11 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it prints the content IDs of the matching documents from world location news" do
-      assert_output(/#{@world_location_news_1.content_id}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/#{@world_location_news_1.content_id},#{@world_location_news_1.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
     test "it does not print the content IDs of the non-matching documents from world location news" do
-      assert_output(/^(?!.*#{@world_location_news_2.content_id}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/^(?!.*#{@world_location_news_2.content_id},#{@world_location_news_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -95,11 +95,11 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it prints the content IDs of the matching documents from worldwide offices" do
-      assert_output(/#{@worldwide_office_1.content_id}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/#{@worldwide_office_1.content_id},#{@worldwide_office_1.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
     test "it does not print the content IDs of the non-matching documents from worldwide offices" do
-      assert_output(/^(?!.*#{@worldwide_office_2.content_id}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      assert_output(/^(?!.*#{@worldwide_office_2.content_id},#{@worldwide_office_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 end

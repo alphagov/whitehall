@@ -20,33 +20,33 @@ namespace :reporting do
     Document.where.not(live_edition_id: nil).find_each do |object|
       next unless object.editions.published.any?
 
-      document_includes_regex(regex, object.content_id, object.class.name, object.editions.published.last.body)
+      document_includes_regex(regex, object.editions.published.last, object.editions.published.last.body)
     end
 
     HtmlAttachment.find_each do |object|
       next unless object.govspeak_content
 
-      document_includes_regex(regex, object.content_id, object.class.name, object.govspeak_content.body)
+      document_includes_regex(regex, object, object.govspeak_content.body)
     end
 
     Person.find_each do |object|
-      document_includes_regex(regex, object.content_id, object.class.name, object.biography)
+      document_includes_regex(regex, object, object.biography)
     end
 
     PolicyGroup.find_each do |object|
-      document_includes_regex(regex, object.content_id, object.class.name, object.description)
+      document_includes_regex(regex, object, object.description)
     end
 
     WorldLocationNews.find_each do |object|
-      document_includes_regex(regex, object.content_id, object.class.name, object.mission_statement)
+      document_includes_regex(regex, object, object.mission_statement)
     end
 
     WorldwideOffice.find_each do |object|
-      document_includes_regex(regex, object.content_id, object.class.name, object.access_and_opening_times)
+      document_includes_regex(regex, object, object.access_and_opening_times)
     end
   end
 end
 
-def document_includes_regex(regex, content_id, class_name, text)
-  puts "#{class_name}: #{content_id}" if text && text.match?(regex)
+def document_includes_regex(regex, object, text)
+  puts "#{object.class.name},#{object.content_id},#{object.base_path}" if text && text.match?(regex)
 end
