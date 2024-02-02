@@ -1,6 +1,4 @@
 <%
-  show_visual_editor ||= false
-
   id ||= "#{name}-#{SecureRandom.hex(4)}"
   preview_id = "#{id}-preview"
   error_id = "#{id}-error"
@@ -51,13 +49,6 @@
     </div>
     <div class="govuk-grid-column-one-half app-c-govspeak-editor__preview-button-wrapper">
       <%= render "govuk_publishing_components/components/button", {
-        text: sanitize("Visual Editor #{tag.span("Alpha", class: 'govuk-tag app-view-summary__tag')}"),
-        secondary_quiet: true,
-        margin_bottom: hint ? 5 : 2,
-        classes: "js-app-c-govspeak-editor__visual-editor-button",
-        type: "button",
-      } if show_visual_editor %>
-      <%= render "govuk_publishing_components/components/button", {
         text: "Preview",
         secondary_quiet: true,
         margin_bottom: hint ? 5 : 2,
@@ -100,6 +91,4 @@
   <%= tag.div class: "app-c-govspeak-editor__error js-locale-switcher-custom", 'aria-live': "polite", id: error_id, dir: dir do %>
     <p class="govuk-error-message" dir="ltr">There is an error in your Markdown. Select Back to edit and review your markdown.</p>
   <% end %>
-
-  <%= javascript_include_tag "components/visual-editor", :type => "module" if show_visual_editor %>
 <% end %>

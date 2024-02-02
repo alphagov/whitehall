@@ -162,16 +162,4 @@ class GovspeakeditorComponentTest < ComponentTestCase
     assert_select ".app-c-govspeak-editor[data-alternative-format-provider-id='123'][data-image-ids='[1,2,3]'][data-attachment-ids='[3,4,5]']"
     assert_select ".govuk-textarea", text: "This is an attachment: !@1 This is an image: !!1"
   end
-
-  test "includes visual editor button" do
-    render_component({
-      name: "my-name",
-      label: {
-        text: "my-label",
-      },
-      show_visual_editor: true,
-    })
-
-    assert_select ".js-app-c-govspeak-editor__visual-editor-button", text: "Visual Editor Alpha"
-  end
 end

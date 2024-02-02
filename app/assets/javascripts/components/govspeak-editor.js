@@ -9,9 +9,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.previewButton = this.module.querySelector(
       '.js-app-c-govspeak-editor__preview-button'
     )
-    this.visualEditorButton = this.module.querySelector(
-      '.js-app-c-govspeak-editor__visual-editor-button'
-    )
     this.backButton = this.module.querySelector(
       '.js-app-c-govspeak-editor__back-button'
     )
@@ -29,15 +26,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.previewButton.classList.add(
       'app-c-govspeak-editor__preview-button--show'
     )
-    this.visualEditorButton?.classList.add(
-      'app-c-govspeak-editor__visual-editor-button--show'
-    )
 
     this.previewButton.addEventListener('click', this.showPreview.bind(this))
-    this.visualEditorButton?.addEventListener(
-      'click',
-      this.showVisualEditor.bind(this)
-    )
     this.backButton.addEventListener('click', this.hidePreview.bind(this))
   }
 
@@ -96,9 +86,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.previewButton.classList.remove(
       'app-c-govspeak-editor__preview-button--show'
     )
-    this.visualEditorButton?.classList.remove(
-      'app-c-govspeak-editor__visual-editor-button--show'
-    )
 
     this.preview.classList.add('app-c-govspeak-editor__preview--show')
     this.textareaWrapper.classList.add(
@@ -127,35 +114,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.maybeTrackEvent('preview')
   }
 
-  GovspeakEditor.prototype.showVisualEditor = function (event) {
-    event.preventDefault()
-
-    this.backButton.classList.add('app-c-govspeak-editor__back-button--show')
-    this.previewButton.classList.remove(
-      'app-c-govspeak-editor__preview-button--show'
-    )
-    this.visualEditorButton?.classList.remove(
-      'app-c-govspeak-editor__visual-editor-button--show'
-    )
-
-    this.textareaWrapper.classList.add(
-      'app-c-govspeak-editor__textarea--hidden'
-    )
-
-    this.backButton.focus()
-
-    this.maybeTrackEvent('visual')
-  }
-
   GovspeakEditor.prototype.hidePreview = function (event) {
     event.preventDefault()
 
     this.backButton.classList.remove('app-c-govspeak-editor__back-button--show')
     this.previewButton.classList.add(
       'app-c-govspeak-editor__preview-button--show'
-    )
-    this.visualEditorButton?.classList.add(
-      'app-c-govspeak-editor__visual-editor-button--show'
     )
 
     this.preview.classList.remove('app-c-govspeak-editor__preview--show')
