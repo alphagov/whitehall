@@ -60,6 +60,14 @@ module AdminEditionControllerTestHelpers
         assert_select(".js-app-c-govspeak-editor__preview-button")
       end
 
+      view_test "new form has visual editor when enabled" do
+        feature_flags.switch!(:govspeak_visual_editor, true)
+
+        get :new
+
+        assert_select(".app-c-visual-editor__container")
+      end
+
       view_test "new form has cancel link which takes the user to the list of drafts" do
         get :new
         assert_select "a[href=?]", admin_editions_path, text: /cancel/i
@@ -177,6 +185,16 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select(".js-app-c-govspeak-editor__preview-button")
+      end
+
+      view_test "edit form has visual editor when enabled" do
+        feature_flags.switch!(:govspeak_visual_editor, true)
+
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+
+        get :edit, params: { id: edition }
+
+        assert_select(".app-c-visual-editor__container")
       end
 
       view_test "edit form has cancel link which takes the user back to edition" do
