@@ -33,6 +33,7 @@ module PublishingApi
           people_role_associations:,
           social_media_links:,
           world_location_names:,
+          parts:
         },
         document_type:,
         links: edition_links,
@@ -40,22 +41,22 @@ module PublishingApi
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_organisation",
       )
-      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
+      content.merge!(PayloadBuilder::PolymorphicPath.for(item, additional_paths:))
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
 
     def edition_links
       {
-        # contacts:,
-        # office_staff:,
-        # main_office:,
-        # home_page_offices:,
-        # primary_role_person:,
-        # role_appointments: item.roles.map(&:current_role_appointment)&.compact&.map(&:content_id),
-        # roles: item.roles.map(&:content_id),
-        # secondary_role_person:,
-        # sponsoring_organisations: item.organisations.map(&:content_id),
-        # world_locations: item.world_locations.map(&:content_id),
+        contacts:,
+        office_staff:,
+        main_office:,
+        home_page_offices:,
+        primary_role_person:,
+        role_appointments: item.roles.map(&:current_role_appointment)&.compact&.map(&:content_id),
+        roles: item.roles.map(&:content_id),
+        secondary_role_person:,
+        sponsoring_organisations: item.organisations.map(&:content_id),
+        world_locations: item.world_locations.map(&:content_id),
       }
     end
 
@@ -71,6 +72,32 @@ module PublishingApi
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+    end
+
+    def additional_paths
+      item.worldwide_organisation_pages.map do |page|
+        page.corporate_information_page_type.try(:slug)
+      end
+    end
+
+    def parts
+      # Main page
+      parts = [{
+        title: item.title,
+        slug: "about",
+        summary: item.summary,
+        body: body
+      }]
+
+      # CIPs
+      item.worldwide_organisation_pages.each_with_object(parts) do |page|
+        parts.push({
+          title: page.title,
+          slug: page.corporate_information_page_type.try(:slug),
+          summary: page.summary,
+          body: page.body
+        })
+      end
     end
 
     def office_staff

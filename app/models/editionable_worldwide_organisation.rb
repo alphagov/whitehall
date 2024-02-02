@@ -19,6 +19,8 @@ class EditionableWorldwideOrganisation < Edition
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"
 
+  alias_method :name, :title
+
   def base_path
     "/editionable-world/organisations/#{slug}"
   end

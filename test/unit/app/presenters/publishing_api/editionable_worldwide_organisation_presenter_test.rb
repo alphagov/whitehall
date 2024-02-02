@@ -37,6 +37,11 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       redirects: [],
       description: worldwide_org.summary,
       details: {
+        parts: [
+          { title: "Editionable worldwide organisation title",
+            slug: "about",
+            summary: "Basic information about the organisation.",
+            body: "<div class=\"govspeak\"><p>Information about the organisation with <em>italics</em>.</p>\n</div>" }],
         body: "<div class=\"govspeak\"><p>Information about the organisation with <em>italics</em>.</p>\n</div>",
         logo: {
           crest: "single-identity",
@@ -146,5 +151,40 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     presented_item = present(worldwide_org)
 
     assert_equal [], presented_item.content.dig(:links, :contacts)
+  end
+
+  test "includes parts" do
+    pages = [create(:worldwide_organisation_page)]
+    worldwide_org = create(:editionable_worldwide_organisation, worldwide_organisation_pages: pages)
+
+    presented_item = present(worldwide_org)
+
+    assert_equal [
+                   {
+                     title: "Editionable worldwide organisation title",
+                     slug: "about",
+                     summary: "Basic information about the organisation.",
+                     body: "<div class=\"govspeak\"><p>Information about the organisation with <em>italics</em>.</p>\n</div>"
+                   },
+                   {
+                     title: "Working for Editionable worldwide organisation title",
+                     slug: "recruitment",
+                     summary: "Some summary",
+                     body: "Some body"
+                   }
+                 ], presented_item.content.dig(:details, :parts)
+
+    assert_equal [
+                   {
+                     path: "/editionable-world/organisations/editionable-worldwide-organisation-title",
+                     type: "exact",
+                   },
+                   {
+                     path: "/editionable-world/organisations/editionable-worldwide-organisation-title/recruitment",
+                     type: "exact",
+                   }
+                 ], presented_item.content.dig(:routes)
+
+    assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
   end
 end
