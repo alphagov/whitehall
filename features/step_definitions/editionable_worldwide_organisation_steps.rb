@@ -26,6 +26,11 @@ Given(/^An editionable worldwide organisation "([^"]*)" with home page offices "
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, contact: create(:contact, title: office_2_title)))
 end
 
+Given(/^an editionable worldwide organisation in draft with a translation in French$/) do
+  worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: :fr)
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, contact: create(:contact, title: "Main office")))
+end
+
 When(/^I choose "([^"]*)" to be the main office for the editionable worldwide organisation$/) do |contact_title|
   WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
   visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
@@ -53,6 +58,11 @@ end
 When(/^I visit the reorder offices page/) do
   visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
   click_link "Reorder"
+end
+
+When(/^I visit the Offices tab/) do
+  visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
+  click_link "Offices"
 end
 
 When(/^I reorder the offices/) do
@@ -131,6 +141,17 @@ Then(/^I should see the Welsh translated title "([^"]*)" for the "([^"]*)" world
   I18n.with_locale(:cy) do
     expect(@worldwide_organisation.title).to eq(translated_title)
   end
+end
+
+And(/^I add a new translation with a title of "([^"]*)"$/) do |title|
+  click_link "Add translation"
+  click_button "Next"
+  fill_in "Title (required)", with: title
+  click_button "Save"
+end
+
+Then(/^I should see the "Translated" subheading in the "Offices" tab with my new translation$/) do
+  expect(page).to have_text("Translated")
 end
 
 Given(/^a role "([^"]*)" exists$/) do |name|

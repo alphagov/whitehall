@@ -26,6 +26,12 @@ Feature: Editionable worldwide organisations
     And I add a Welsh translation of the worldwide organisation "Test Worldwide Organisation" named "Translated Name"
     Then I should see the Welsh translated title "Translated Name" for the "Test Worldwide Organisation" worldwide organisation
 
+  Scenario: Adding a translation to an existing worldwide office
+    Given an editionable worldwide organisation in draft with a translation in French
+    When I visit the Offices tab
+    And I add a new translation with a title of "French Title"
+    Then I should see the "Translated" subheading in the "Offices" tab with my new translation
+
   Scenario: Assigning a role to a worldwide organisation
     Given a role "Prime Minister" exists
     When I draft a new worldwide organisation "Test Worldwide Organisation" assigned to world location "United Kingdom"
