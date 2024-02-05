@@ -64,24 +64,36 @@
   </div>
 
   <div class="govuk-!-margin-bottom-8 js-locale-switcher-field">
-    <%= render "components/govspeak_editor", {
-      show_visual_editor: Flipflop.govspeak_visual_editor?,
-      label: {
-        text: "Body" + "#{' (required)' if form.object.body_required?}",
-        heading_size: "m",
-      },
-      name: "edition[body]",
-      id: "edition_body",
-      value: edition.body,
-      rows: 20,
-      error_items: errors_for(edition.errors, :body),
-      right_to_left: form.object.translation_rtl?,
-      data_attributes: {
-        image_ids: edition.images.map { |img| img[:id] }.to_json,
-        attachment_ids: edition.allows_inline_attachments? ? edition.attachments.map(&:id) : [],
-        alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-      },
-    } %>
+    <% if Flipflop.govspeak_visual_editor? %>
+      <%= render "components/visual_editor", {
+        label: {
+          text: "Body" + "#{' (required)' if form.object.body_required?}",
+          heading_size: "m",
+        },
+        name: "edition[body]",
+        value: edition.body,
+        error_items: errors_for(edition.errors, :body),
+        right_to_left: form.object.translation_rtl?,
+      } %>
+    <% else %>
+      <%= render "components/govspeak_editor", {
+        label: {
+          text: "Body" + "#{' (required)' if form.object.body_required?}",
+          heading_size: "m",
+        },
+        name: "edition[body]",
+        id: "edition_body",
+        value: edition.body,
+        rows: 20,
+        error_items: errors_for(edition.errors, :body),
+        right_to_left: form.object.translation_rtl?,
+        data_attributes: {
+          image_ids: edition.images.map { |img| img[:id] }.to_json,
+          attachment_ids: edition.allows_inline_attachments? ? edition.attachments.map(&:id) : [],
+          alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+        },
+      } %>
+    <% end %>
   </div>
 
   <% if !edition.new_record? && @edition.versioning_completed? %>
