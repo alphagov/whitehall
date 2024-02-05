@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :editionable_worldwide_organisation, class: EditionableWorldwideOrganisation, parent: :edition_with_organisations do
+  factory :editionable_worldwide_organisation, class: EditionableWorldwideOrganisation, parent: :edition_with_organisations, traits: [:translated] do
     title { "Editionable worldwide organisation title" }
     logo_formatted_name { title.to_s.split.join("\n") }
     summary { "Basic information about the organisation." }
