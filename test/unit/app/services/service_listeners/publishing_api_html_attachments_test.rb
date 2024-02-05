@@ -311,6 +311,19 @@ module ServiceListeners
         call(publication)
       end
 
+      test "for a publication that has been unpublished with an external redirect publishes a redirect to the alternative url" do
+        external_url = "https://test.ukri.org/some-page"
+        publication = create(:unpublished_publication, { unpublishing: build(:unpublishing, { redirect: true, alternative_url: external_url }) })
+        attachment = publication.html_attachments.first
+        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+          attachment.content_id,
+          external_url,
+          "en",
+          false,
+        )
+        call(publication)
+      end
+
       test "for a publication that has been unpublished without a redirect publishes a redirect to the parent document" do
         publication = create(:unpublished_publication_in_error_no_redirect)
         attachment = publication.html_attachments.first

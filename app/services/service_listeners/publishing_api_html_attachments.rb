@@ -50,7 +50,7 @@ module ServiceListeners
 
     def unpublish(allow_draft: false)
       destination = if edition.unpublishing.redirect?
-                      Addressable::URI.parse(edition.unpublishing.alternative_url).path
+                      edition.unpublishing.alternative_path
                     else
                       edition.public_path
                     end
