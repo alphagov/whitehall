@@ -30,16 +30,21 @@ class ReportingRake < ActiveSupport::TestCase
 
   context "for HTML attachments" do
     setup do
-      @html_attachment_1 = create(:html_attachment, body: "Some text")
-      @html_attachment_2 = create(:html_attachment, body: "Some other text")
+      @html_attachment_1 = create(:html_attachment, body: "Some text on a published edition", attachable: create(:published_edition))
+      @html_attachment_2 = create(:html_attachment, body: "Some other text on a published edition", attachable: create(:published_edition))
+      @html_attachment_3 = create(:html_attachment, body: "Some text on a draft edition", attachable: create(:draft_edition))
     end
 
-    test "it prints the content IDs of the matching documents from HTML attachments" do
-      assert_output(/#{@html_attachment_1.content_id}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+    test "it prints the content IDs of the matching documents from published HTML attachments" do
+      assert_output(/#{@html_attachment_1.content_id},#{@html_attachment_1.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
-    test "it does not print the content IDs of the non-matching documents from HTML attachments" do
-      assert_output(/^(?!.*#{@html_attachment_2.content_id}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+    test "it does not print the content IDs of the non-matching documents from published HTML attachments" do
+      assert_output(/^(?!.*#{@html_attachment_2.content_id},#{@html_attachment_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+    end
+
+    test "it does not print the content IDs of the matching documents from draft HTML attachments" do
+      assert_output(/^(?!.*#{@html_attachment_3.content_id},#{@html_attachment_3.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 

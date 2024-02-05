@@ -15,38 +15,55 @@ namespace :reporting do
 
   desc "Prints a list of content IDs for documents whose govspeak content contains a given regular expression"
   task :matching_docs, [:regex] => :environment do |_, args|
-    regex = Regexp.new(/#{args[:regex]}/)
+    regex = Regexp.new(/#{args[:regex]}/).to_s
 
-    Document.where.not(live_edition_id: nil).find_each do |object|
-      next unless object.editions.published.any?
-
-      document_includes_regex(regex, object.editions.published.last, object.editions.published.last.body)
+    Edition
+    .where(state: "published")
+    .joins("RIGHT JOIN edition_translations ON edition_translations.edition_id = editions.id")
+    .where("body REGEXP ?", regex)
+    .find_each do |object|
+      print_result(object)
     end
 
-    HtmlAttachment.find_each do |object|
-      next unless object.govspeak_content
+    HtmlAttachment
+    .joins(:govspeak_content)
+    .where(deleted: false)
+    .where.not(attachable: nil)
+    .where("govspeak_contents.body REGEXP ?", regex)
+    .find_each do |object|
+      next unless object.attachable.state == "published"
 
-      document_includes_regex(regex, object, object.govspeak_content.body)
+      print_result(object)
     end
 
-    Person.find_each do |object|
-      document_includes_regex(regex, object, object.biography)
+    Person
+    .joins("RIGHT JOIN person_translations ON person_translations.person_id = people.id")
+    .where("biography REGEXP ?", regex)
+    .find_each do |object|
+      print_result(object)
     end
 
-    PolicyGroup.find_each do |object|
-      document_includes_regex(regex, object, object.description)
+    PolicyGroup
+    .where("description REGEXP ?", regex)
+    .find_each do |object|
+      print_result(object)
     end
 
-    WorldLocationNews.find_each do |object|
-      document_includes_regex(regex, object, object.mission_statement)
+    WorldLocationNews
+    .joins("RIGHT JOIN world_location_news_translations ON world_location_news_translations.world_location_news_id = world_location_news.id")
+    .where("mission_statement REGEXP ?", regex)
+    .find_each do |object|
+      print_result(object)
     end
 
-    WorldwideOffice.find_each do |object|
-      document_includes_regex(regex, object, object.access_and_opening_times)
+    WorldwideOffice
+    .where("access_and_opening_times REGEXP ?", regex)
+    .find_each do |object|
+      print_result(object)
     end
   end
 end
 
-def document_includes_regex(regex, object, text)
-  puts "#{object.class.name},#{object.content_id},#{object.base_path}" if text && text.match?(regex)
+def print_result(object)
+  puts "#{object.class.name},#{object.content_id},#{object.base_path}"
 end
