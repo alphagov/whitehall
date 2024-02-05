@@ -1,6 +1,7 @@
 Flipflop.configure do
   # Strategies will be used in the order listed here.
-  strategy :active_record
+  strategy :active_record, hidden: !Rails.env.development?
+  strategy :cookie
   strategy :default
 
   # Other strategies:
