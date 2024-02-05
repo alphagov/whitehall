@@ -28,9 +28,6 @@ jobs:
     uses: alphagov/govuk-infrastructure/.github/workflows/build-and-push-image.yml@main
     with:
       gitRef: ${{ inputs.gitRef || github.event.release.tag_name }}
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_GOVUK_ECR_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_GOVUK_ECR_SECRET_ACCESS_KEY }}
     permissions:
       id-token: write
   trigger-deploy:
