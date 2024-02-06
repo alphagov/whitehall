@@ -4,7 +4,6 @@ class Admin::ContactsController < Admin::BaseController
   before_action :destroy_blank_contact_numbers, only: %i[create update]
   extend Admin::HomePageListController
   is_home_page_list_controller_for :contacts,
-                                   item_type: Contact,
                                    redirect_to: ->(container, _item) { [:admin, container, Contact] }
 
   def index; end
@@ -64,6 +63,34 @@ private
     @contactable
   end
 
+  def publish_container_to_publishing_api
+    home_page_list_container.publish_to_publishing_api
+  end
+
+  def handle_show_on_home_page_param
+    if @show_on_home_page.present?
+      case @show_on_home_page
+      when "1"
+        home_page_list_container.add_contact_to_home_page!(home_page_list_item)
+      when "0"
+        home_page_list_container.remove_contact_from_home_page!(home_page_list_item)
+      end
+    end
+  end
+
+  def extract_show_on_home_page_param
+    @show_on_home_page = params[:contact].delete(:show_on_home_page)
+  end
+
+  def extract_items_from_ordering_params
+    item_ordering = params[:ordering] || {}
+    item_ordering.permit!.to_h
+      .map { |item_id, ordering| [Contact.find_by(id: item_id), ordering.to_i] }
+      .sort_by { |_, ordering| ordering }
+      .map { |item, _| item }
+      .compact
+  end
+
   def find_contactable
     @contactable = Organisation.friendly.find(params[:organisation_id])
   end
@@ -77,12 +104,6 @@ private
       if attributes.except(:id).values.all?(&:blank?)
         attributes[:_destroy] = "1"
       end
-    end
-  end
-
-  def handle_show_on_home_page_param
-    if @contactable.respond_to?(:home_page_contacts)
-      super
     end
   end
 
