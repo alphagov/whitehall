@@ -8,8 +8,20 @@ class EditionableWorldwideOrganisation < Edition
   include Edition::Roles
   include Edition::WorldLocations
 
-  has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy
+  has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy, autosave: true
   belongs_to :main_office, class_name: "WorldwideOffice"
+
+  class CloneOfficesTrait < Edition::Traits::Trait
+    def process_associations_before_save(new_edition)
+      @edition.offices.each do |office|
+        new_office = new_edition.offices.build(office.attributes.except("id", "edition_id"))
+
+        new_office.build_contact(office.contact.attributes.except("id"))
+      end
+    end
+  end
+
+  add_trait CloneOfficesTrait
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"

@@ -122,6 +122,23 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal published_worldwide_organisation.social_media_accounts.first.url, draft_worldwide_organisation.social_media_accounts.first.url
   end
 
+  test "should clone office and contact associations when new draft of published edition is created" do
+    published_worldwide_organisation = create(
+      :editionable_worldwide_organisation,
+      :published,
+      :with_office,
+    )
+
+    draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
+
+    assert_equal published_worldwide_organisation.offices.first.attributes.except("id", "edition_id"),
+                 draft_worldwide_organisation.reload.offices.first.attributes.except("id", "edition_id")
+    assert_equal published_worldwide_organisation.offices.first.contact.attributes.except("id", "contactable_id"),
+                 draft_worldwide_organisation.reload.offices.first.contact.attributes.except("id", "contactable_id")
+    assert_equal published_worldwide_organisation.main_office.attributes.except("id", "edition_id"),
+                 draft_worldwide_organisation.reload.main_office.attributes.except("id", "edition_id")
+  end
+
   test "when destroyed, will remove its home page list for storing offices" do
     world_organisation = create(:editionable_worldwide_organisation)
     h = world_organisation.__send__(:home_page_offices_list)
