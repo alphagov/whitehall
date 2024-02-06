@@ -1,5 +1,4 @@
 //= require govspeak-visual-editor/dist/govspeak-visual-editor.js
-import GovspeakVisualEditor from './visual-editor.js'
 
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
@@ -17,7 +16,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
   VisualEditor.prototype.init = function () {
     this.textarea.classList.add('app-c-visual-editor__textarea--hidden')
 
-    new GovspeakVisualEditor(this.content, this.container, this.textarea) // eslint-disable-line no-new
+    new window.GovspeakVisualEditor(this.content, this.container, this.textarea) // eslint-disable-line no-new
   }
 
   Modules.VisualEditor = VisualEditor
