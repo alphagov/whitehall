@@ -123,20 +123,23 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "should clone office and contact associations when new draft of published edition is created" do
-    published_worldwide_organisation = create(
-      :editionable_worldwide_organisation,
-      :published,
-      :with_office,
-    )
+    contact = create(:contact, translated_into: [:es])
+    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published)
+    create(:worldwide_office, worldwide_organisation: nil, edition: published_worldwide_organisation, contact:)
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
+    published_worldwide_organisation.reload
 
     assert_equal published_worldwide_organisation.offices.first.attributes.except("id", "edition_id"),
-                 draft_worldwide_organisation.reload.offices.first.attributes.except("id", "edition_id")
+                 draft_worldwide_organisation.offices.first.attributes.except("id", "edition_id")
     assert_equal published_worldwide_organisation.offices.first.contact.attributes.except("id", "contactable_id"),
-                 draft_worldwide_organisation.reload.offices.first.contact.attributes.except("id", "contactable_id")
+                 draft_worldwide_organisation.offices.first.contact.attributes.except("id", "contactable_id")
     assert_equal published_worldwide_organisation.main_office.attributes.except("id", "edition_id"),
-                 draft_worldwide_organisation.reload.main_office.attributes.except("id", "edition_id")
+                 draft_worldwide_organisation.main_office.attributes.except("id", "edition_id")
+    assert_equal published_worldwide_organisation.offices.first.contact.translations.find_by(locale: :es).attributes.except("id", "contact_id"),
+                 draft_worldwide_organisation.offices.first.contact.translations.find_by(locale: :es).attributes.except("id", "contact_id")
+    assert_equal published_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id"),
+                 draft_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id")
   end
 
   test "when destroyed, will remove its home page list for storing offices" do

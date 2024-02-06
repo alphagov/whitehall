@@ -16,7 +16,7 @@ class EditionableWorldwideOrganisation < Edition
       @edition.offices.each do |office|
         new_office = new_edition.offices.build(office.attributes.except("id", "edition_id"))
 
-        new_office.build_contact(office.contact.attributes.except("id"))
+        new_office.contact = office.contact.dup
       end
     end
   end
