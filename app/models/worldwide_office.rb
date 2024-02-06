@@ -33,6 +33,10 @@ class WorldwideOffice < ApplicationRecord
     super || edition
   end
 
+  def translatable?
+    true
+  end
+
   def worldwide_office_type
     WorldwideOfficeType.find_by_id(worldwide_office_type_id)
   end
