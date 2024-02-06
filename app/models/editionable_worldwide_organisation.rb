@@ -90,6 +90,14 @@ class EditionableWorldwideOrganisation < Edition
     roles.occupied.find_by(type: SECONDARY_ROLES.map(&:name))
   end
 
+  def previously_published
+    false
+  end
+
+  def can_set_previously_published?
+    false
+  end
+
   def skip_world_location_validation?
     false
   end
