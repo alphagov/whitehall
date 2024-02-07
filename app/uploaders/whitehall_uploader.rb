@@ -11,4 +11,12 @@ class WhitehallUploader < CarrierWave::Uploader::Base
   def assets_protected?
     false
   end
+
+  def asset_params
+    {
+      assetable_id: model.id,
+      asset_variant: version_name ? Asset.variants[version_name] : Asset.variants[:original],
+      assetable_type: model.class.to_s,
+    }.deep_stringify_keys
+  end
 end

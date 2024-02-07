@@ -6,7 +6,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker = AssetManagerCreateAssetWorker.new
     @asset_manager_id = "asset_manager_id"
     @organisation = FactoryBot.create(:organisation)
-    @model_without_assets = FactoryBot.create(:attachment_data_with_no_assets)
+    @model_without_assets = FactoryBot.create(:attachment_data_with_no_assets, attachable: create(:draft_publication))
     @asset_manager_response = {
       "id" => "http://asset-manager/assets/#{@asset_manager_id}",
       "name" => File.basename(@file),

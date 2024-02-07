@@ -1,7 +1,7 @@
 require "test_helper"
 
 class LogoUploaderTest < ActiveSupport::TestCase
-  test "uses the asset manager storage engine" do
-    assert_equal Whitehall::AssetManagerStorage, LogoUploader.storage
+  test "uses the default storage engine" do
+    assert_equal Storage::DefaultStorage, LogoUploader.storage
   end
 end

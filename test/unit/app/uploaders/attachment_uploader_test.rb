@@ -3,12 +3,13 @@ require "test_helper"
 class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test "uses the asset manager storage engine" do
-    assert_equal Whitehall::AssetManagerStorage, AttachmentUploader.storage
+  setup do
+    edition = build(:draft_publication, id: 1)
+    @attachment_data = build(:attachment_data, attachable: edition)
   end
 
-  test "indicates that assets are protected" do
-    assert AttachmentUploader.new.assets_protected?
+  test "uses the attachment storage engine" do
+    assert_equal Storage::AttachmentStorage, AttachmentUploader.storage
   end
 
   test "should allow whitelisted file extensions" do
@@ -21,11 +22,11 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     templates = %w[dot xlt xslt]
 
     allowed_attachments = graphics + documents + document_support + spreadsheets + markup + containers + templates
-    assert_equal allowed_attachments.sort, AttachmentUploader.new.extension_allowlist.sort
+    assert_equal allowed_attachments.sort, AttachmentUploader.new(@attachment_data).extension_allowlist.sort
   end
 
   test "non-whitelisted file extensions are rejected" do
-    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
 
     exception = assert_raise CarrierWave::IntegrityError do
       uploader.store!(file_fixture("dodgy.exe"))
@@ -35,14 +36,14 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "should store uploads in a directory that persists across deploys" do
-    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     assert_match %r{^system}, uploader.store_dir
   end
 
   test "should not generate thumbnail versions of non pdf files" do
     AttachmentUploader.enable_processing = true
 
-    uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
 
     assert_nil uploader.thumbnail.path
@@ -53,7 +54,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test "should be able to attach a xsd file" do
     AttachmentUploader.enable_processing = true
 
-    uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     uploader.store!(file_fixture("sample.xsd"))
     assert uploader.file.present?
 
@@ -61,20 +62,20 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "should be able to attach a zip file" do
-    uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     uploader.store!(file_fixture("sample_attachment.zip"))
     assert uploader.file.present?
   end
 
   test "zip file containing a non-whitelisted format should be rejected" do
-    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(file_fixture("sample_attachment_containing_exe.zip"))
     end
   end
 
   test "zip file containing SHOUTED whitelisted format files should not be rejected" do
-    uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(["README.TXT", "ImportantDocument.PDF", "dIRE-sTRAITS.jPG"])
     assert_nothing_raised do
       uploader.store!(file_fixture("sample_attachment.zip"))
@@ -83,14 +84,14 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "zip file containing a zip file should be rejected" do
-    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(file_fixture("sample_attachment_containing_zip.zip"))
     end
   end
 
   test "zip file containing files with non-UTF-8 filenames should be rejected" do
-    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).raises(AttachmentUploader::ZipFile::NonUTF8ContentsError)
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(file_fixture("sample_attachment.zip"))
@@ -98,7 +99,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "zip file that looks like a minimal ArcGIS file should be allowed" do
-    uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(required_arcgis_file_list)
     assert_nothing_raised do
       uploader.store!(file_fixture("sample_attachment.zip"))
@@ -107,7 +108,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "zip file that looks like a comprehensive ArcGIS file should be allowed" do
-    uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list)
     assert_nothing_raised do
       uploader.store!(file_fixture("sample_attachment.zip"))
@@ -116,7 +117,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "zip file that is missing all the required ArcGIS files is not allowed" do
-    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(broken_arcgis_file_list)
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(file_fixture("sample_attachment.zip"))
@@ -124,7 +125,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "zip file that looks like an ArcGIS file, but has extra files in it is not allowed" do
-    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list + ["readme.txt", "london.jpg", "map-printout.pdf"])
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(file_fixture("sample_attachment.zip"))
@@ -132,7 +133,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "zip file that looks like an ArcGIS file with multiple sets of shapes is allowed" do
-    uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(multiple_shape_arcgis_file_list)
     assert_nothing_raised do
       uploader.store!(file_fixture("sample_attachment.zip"))
@@ -141,7 +142,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "zip file that looks like an ArcGIS file with multiple sets of shapes is not allowed if one set of shapes is incomplete" do
-    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(complete_and_broken_shape_arcgis_file_list)
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(file_fixture("sample_attachment.zip"))
@@ -196,7 +197,8 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
   setup do
     AttachmentUploader.enable_processing = true
-    @uploader = AttachmentUploader.new(AttachmentData.new, "mounted-as")
+    @edition = create(:draft_publication, id: 1)
+    @uploader = AttachmentUploader.new(AttachmentData.new(attachable: @edition), "mounted-as")
   end
 
   teardown do
@@ -218,7 +220,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   test "should store an actual PNG as thumbnail" do
-    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"))
+    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
 
     expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
 
@@ -226,7 +228,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   test "should scale the thumbnail down proportionally to A4" do
-    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"))
+    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
 
     expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
 
@@ -235,7 +237,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
   test "should use a generic thumbnail if conversion fails" do
     AttachmentUploader.any_instance.stubs(:pdf_thumbnail_command).returns("false")
-    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"))
+    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
 
     expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
 
@@ -244,7 +246,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
   test "should use a generic thumbnail if conversion takes longer than 10 seconds to complete" do
     AttachmentUploader.any_instance.stubs(:pdf_thumbnail_command).raises(Timeout::Error)
-    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"))
+    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
 
     expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
 

@@ -240,7 +240,7 @@ class CallForEvidenceTest < ActiveSupport::TestCase
       call_for_evidence:,
       summary: "",
       attachments: [
-        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf") }),
+        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf"), attachable: call_for_evidence }),
       ],
     )
 

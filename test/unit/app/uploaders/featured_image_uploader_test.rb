@@ -5,8 +5,8 @@ class FeaturedImageUploaderTest < ActiveSupport::TestCase
   setup { FeaturedImageUploader.enable_processing = true }
   teardown { FeaturedImageUploader.enable_processing = false }
 
-  test "uses the asset manager and quarantined file storage engine" do
-    assert_equal Whitehall::AssetManagerStorage, FeaturedImageUploader.storage
+  test "uses the default asset manager storage engine" do
+    assert_equal Storage::DefaultStorage, FeaturedImageUploader.storage
   end
 
   test "should only allow JPG, GIF, PNG images" do
@@ -15,7 +15,7 @@ class FeaturedImageUploaderTest < ActiveSupport::TestCase
   end
 
   test "should send correctly resized versions of a bitmap image to asset manager" do
-    uploader = FeaturedImageUploader.new(FactoryBot.create(:person), "mounted-as")
+    uploader = FeaturedImageUploader.new(create(:featured_image_data), "mounted-as")
     response = { "id" => "http://asset-manager/assets/asset-id", "name" => "minister-of-funk.960x640.jpg" }
     Services.asset_manager.stubs(:create_asset)
     Services.asset_manager.expects(:create_asset).with { |value|
@@ -29,7 +29,7 @@ class FeaturedImageUploaderTest < ActiveSupport::TestCase
   end
 
   test "should store uploads in a directory that persists across deploys" do
-    uploader = FeaturedImageUploader.new(Person.new(id: 1), "mounted-as")
+    uploader = FeaturedImageUploader.new(create(:featured_image_data), "mounted-as")
     assert_match %r{^system}, uploader.store_dir
   end
 

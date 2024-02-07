@@ -8,9 +8,7 @@ class AttachmentUploader < WhitehallUploader
 
   before :cache, :validate_zipfile_contents!
 
-  def assets_protected?
-    true
-  end
+  storage Storage::AttachmentStorage
 
   process :set_content_type
   def set_content_type

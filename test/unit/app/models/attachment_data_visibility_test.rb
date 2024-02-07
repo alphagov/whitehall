@@ -12,7 +12,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
     let(:anonymous_user) { nil }
 
     context "given an attachment" do
-      let(:attachment) { create(:file_attachment, attachable:) }
+      let(:attachment) { create(:file_attachment, attachment_data: create(:attachment_data, attachable:)) }
       let(:attachment_data) { attachment.attachment_data }
 
       before do
@@ -116,7 +116,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
         context "when attachment is replaced" do
           before do
-            replacement_attachment_data = build(:attachment_data_with_asset, to_replace_id: attachment_data.id)
+            replacement_attachment_data = build(:attachment_data_with_asset, to_replace_id: attachment_data.id, attachable:)
             attachment.update!(attachment_data: replacement_attachment_data)
           end
 
@@ -242,7 +242,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
               before do
                 attributes = attributes_for(:attachment_data)
                 attributes[:to_replace_id] = attachment_data.id
-                new_attachment.update!(attachment_data_attributes: attributes)
+                new_attachment.update!(attachment_data_attributes: attributes.merge!(attachable:))
               end
 
               it "is not deleted" do

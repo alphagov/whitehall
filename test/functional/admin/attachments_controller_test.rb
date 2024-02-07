@@ -285,7 +285,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :edit renders the file upload field when the attachment is a base Attachment" do
-    attachment = create(:file_attachment, attachable: @edition, attachment_data: create(:attachment_data))
+    attachment = create(:file_attachment, attachable: @edition, attachment_data: create(:attachment_data, attachable: @edition))
     get :edit, params: { edition_id: @edition, id: attachment }
     assert_select "input[type=file]"
   end
@@ -419,7 +419,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "POST :discards file_cache when a file is provided" do
     greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
     whitepaper_pdf = upload_fixture("whitepaper.pdf", "application/pdf")
-    whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf)
+    whitepaper_attachment_data = build(:attachment_data, file: whitepaper_pdf, attachable: @edition)
 
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/whitepaper/), anything, anything, anything, anything, anything).never
     AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(2)

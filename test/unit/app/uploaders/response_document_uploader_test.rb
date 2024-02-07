@@ -12,7 +12,7 @@ class ResponseDocumentUploaderTest < ActiveSupport::TestCase
     assert_match %r{^system}, uploader.store_dir
   end
 
-  test "uses the asset manager storage engine" do
-    assert_equal Whitehall::AssetManagerStorage, ResponseDocumentUploader.storage
+  test "uses the previewable asset manager storage engine" do
+    assert_equal Storage::PreviewableStorage, ResponseDocumentUploader.storage
   end
 end

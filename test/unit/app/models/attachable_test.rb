@@ -25,7 +25,7 @@ class AttachableTest < ActiveSupport::TestCase
       ],
     )
 
-    attachment3 = FileAttachment.new(title: "Title", attachment_data: build(:attachment_data, file: file_fixture("sample.rtf")))
+    attachment3 = FileAttachment.new(title: "Title", attachment_data: build(:attachment_data, file: file_fixture("sample.rtf"), attachable: publication))
     publication.attachments << attachment3
 
     assert_equal [attachment1, attachment2, attachment3], publication.attachments.reload
@@ -244,8 +244,8 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "re-editioned editions deep-clones attachments" do
-    file_attachment = build(:file_attachment, attachable: nil, ordering: 0)
-    html_attachment = build(:html_attachment, attachable: nil, ordering: 1)
+    file_attachment = build(:file_attachment, ordering: 0)
+    html_attachment = build(:html_attachment, ordering: 1)
     publication = create(
       :published_publication,
       :with_alternative_format_provider,
@@ -375,7 +375,7 @@ class AttachableTest < ActiveSupport::TestCase
     publication.attachments << new_html = build(:html_attachment)
 
     # Replace the file on an attachment
-    changed_file.update!(attachment_data: build(:attachment_data, file: rtf_file))
+    changed_file.update!(attachment_data: build(:attachment_data, file: rtf_file, attachable: publication))
 
     # Change title of an attachment
     changed_title.update!(title: "This attachment's title has been changed")
