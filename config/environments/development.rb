@@ -58,9 +58,6 @@ Whitehall::Application.configure do
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
 
-  # Suppress logger output for asset requests.
-  config.assets.quiet = true
-
   config.active_record.verbose_query_logs = true
 
   # Tell Active Support which deprecation messages to disallow.
@@ -88,10 +85,13 @@ Whitehall::Application.configure do
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+  config.assets.digest = false
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+
+  # Dartsass' default watch doesn't work with GOVUK Docker, so poll for changes instead
+  config.dartsass.build_options << " --poll"
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
