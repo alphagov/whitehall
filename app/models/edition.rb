@@ -639,6 +639,10 @@ EXISTS (
     @previously_published
   end
 
+  def can_set_previously_published?
+    true
+  end
+
   def government
     @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
   end

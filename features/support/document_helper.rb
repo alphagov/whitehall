@@ -103,7 +103,7 @@ module DocumentHelper
   end
 
   def begin_drafting_worldwide_organisation(options)
-    begin_drafting_document options.merge(type: "editionable_worldwide_organisation", previously_published: false)
+    begin_drafting_document options.merge(type: "editionable_worldwide_organisation")
 
     fill_in_worldwide_organisation_fields(**options.slice(:world_location))
   end

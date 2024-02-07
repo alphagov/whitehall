@@ -92,6 +92,10 @@ class Consultation < Publicationesque
     true
   end
 
+  def can_set_previously_published?
+    false
+  end
+
   def has_consultation_participation?
     consultation_participation.present?
   end

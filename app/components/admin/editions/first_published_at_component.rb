@@ -12,7 +12,7 @@ class Admin::Editions::FirstPublishedAtComponent < ViewComponent::Base
   end
 
   def render?
-    !edition.is_a?(Consultation)
+    edition.can_set_previously_published?
   end
 
 private
