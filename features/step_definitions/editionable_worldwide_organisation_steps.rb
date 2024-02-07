@@ -111,6 +111,25 @@ When(/^I delete the "([^"]*)" office for the worldwide organisation$/) do |_offi
   click_button "Delete"
 end
 
+When(/^I remove the French translation from the main document$/) do
+  visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
+  click_link "Delete"
+  click_button "Delete translation"
+end
+
+And(/^I navigate to the Offices tab/) do
+  visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
+  click_link "Offices"
+end
+
+And(/^I add an associated office, also with a translation in French$/) do
+  visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
+  click_link "Add translation"
+  click_button "Next"
+  fill_in "Title (required)", with: "French title"
+  click_button "Save"
+end
+
 And(/^I should see it has been assigned to the "([^"]*)" world location$/) do |title|
   expect(@worldwide_organisation.world_locations.first.name).to eq(title)
 end
@@ -160,6 +179,14 @@ And(/^I edit the worldwide organisation "([^"]*)" deleting the social media acco
   click_link "Social media accounts"
   click_link "Delete"
   click_button "Delete"
+end
+
+Then(/^I should see the main document translation is gone$/) do
+  expect(page).to have_text("No translations for this document")
+end
+
+Then(/^I should see that the translated office is gone$/) do
+  expect(page).not_to have_text("Translated")
 end
 
 Then(/^I should be able to remove all services from the editionable worldwide organisation "(.*?)" office$/) do |description|

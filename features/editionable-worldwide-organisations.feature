@@ -27,6 +27,14 @@ Feature: Editionable worldwide organisations
     And I add a Welsh translation of the worldwide organisation "Test Worldwide Organisation" named "Translated Name"
     Then I should see the Welsh translated title "Translated Name" for the "Test Worldwide Organisation" worldwide organisation
 
+  Scenario: Removing a translation to an existing worldwide organisation
+    Given an editionable worldwide organisation in draft with a translation in French
+    And I add an associated office, also with a translation in French
+    When I remove the French translation from the main document
+    Then I should see the main document translation is gone
+    And I navigate to the Offices tab
+    Then I should see that the translated office is gone
+
   Scenario: Adding a translation to an existing worldwide office
     Given an editionable worldwide organisation in draft with a translation in French
     When I visit the Offices tab
