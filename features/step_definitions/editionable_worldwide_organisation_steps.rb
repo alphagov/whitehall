@@ -31,6 +31,14 @@ Given(/^an editionable worldwide organisation in draft with a translation in Fre
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, contact: create(:contact, title: "Main office")))
 end
 
+Given(/^a role "([^"]*)" exists$/) do |name|
+  create(:role, name:)
+end
+
+Given(/^a social media service "([^"]*)" exists$/) do |name|
+  create(:social_media_service, name:)
+end
+
 When(/^I choose "([^"]*)" to be the main office for the editionable worldwide organisation$/) do |contact_title|
   WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
   visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
@@ -103,25 +111,6 @@ When(/^I delete the "([^"]*)" office for the worldwide organisation$/) do |_offi
   click_button "Delete"
 end
 
-Then(/^I should be able to remove all services from the editionable worldwide organisation "(.*?)" office$/) do |description|
-  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: description }).first
-  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: EditionableWorldwideOrganisation.last.id, id: worldwide_office.id)
-  available_services = worldwide_office.services.each { |service| uncheck "worldwide_office_service_ids_#{service.id}" }
-  click_on "Save"
-
-  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: EditionableWorldwideOrganisation.last.id, id: worldwide_office.id)
-  available_services.each do |service|
-    expect(page).to have_field("worldwide_office_service_ids_#{service.id}", checked: false)
-  end
-end
-
-Then(/^the worldwide organisation "([^"]*)" should have been created$/) do |title|
-  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
-
-  expect(@worldwide_organisation).to be_present
-  expect(@worldwide_organisation.logo_formatted_name).to eq("Logo\r\nformatted\r\nname\r\n")
-end
-
 And(/^I should see it has been assigned to the "([^"]*)" world location$/) do |title|
   expect(@worldwide_organisation.world_locations.first.name).to eq(title)
 end
@@ -135,14 +124,6 @@ And(/^I add a Welsh translation of the worldwide organisation "([^"]*)" named "(
   click_button "Save"
 end
 
-Then(/^I should see the Welsh translated title "([^"]*)" for the "([^"]*)" worldwide organisation$/) do |translated_title, title|
-  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
-
-  I18n.with_locale(:cy) do
-    expect(@worldwide_organisation.title).to eq(translated_title)
-  end
-end
-
 And(/^I add a new translation with a title of "([^"]*)"$/) do |title|
   click_link "Add translation"
   click_button "Next"
@@ -150,27 +131,10 @@ And(/^I add a new translation with a title of "([^"]*)"$/) do |title|
   click_button "Save"
 end
 
-Then(/^I should see the "Translated" subheading in the "Offices" tab with my new translation$/) do
-  expect(page).to have_text("Translated")
-end
-
-Given(/^a role "([^"]*)" exists$/) do |name|
-  create(:role, name:)
-end
-
 And(/^I edit the worldwide organisation "([^"]*)" adding the role of "([^"]*)"$/) do |title, role|
   begin_editing_document(title)
   select role, from: "Roles"
   click_button "Save and go to document summary"
-end
-
-Then(/^I should see the "([^"]*)" role has been assigned to the worldwide organisation "([^"]*)"$/) do |role, title|
-  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
-  expect(@worldwide_organisation.roles.first.name).to eq(role)
-end
-
-Given(/^a social media service "([^"]*)" exists$/) do |name|
-  create(:social_media_service, name:)
 end
 
 And(/^I edit the worldwide organisation "([^"]*)" adding the social media service of "([^"]*)" with title "([^"]*)" at URL "([^"]*)"$/) do |title, social_media_service_name, social_media_title, social_media_url|
@@ -196,6 +160,42 @@ And(/^I edit the worldwide organisation "([^"]*)" deleting the social media acco
   click_link "Social media accounts"
   click_link "Delete"
   click_button "Delete"
+end
+
+Then(/^I should be able to remove all services from the editionable worldwide organisation "(.*?)" office$/) do |description|
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: description }).first
+  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: EditionableWorldwideOrganisation.last.id, id: worldwide_office.id)
+  available_services = worldwide_office.services.each { |service| uncheck "worldwide_office_service_ids_#{service.id}" }
+  click_on "Save"
+
+  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: EditionableWorldwideOrganisation.last.id, id: worldwide_office.id)
+  available_services.each do |service|
+    expect(page).to have_field("worldwide_office_service_ids_#{service.id}", checked: false)
+  end
+end
+
+Then(/^the worldwide organisation "([^"]*)" should have been created$/) do |title|
+  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+
+  expect(@worldwide_organisation).to be_present
+  expect(@worldwide_organisation.logo_formatted_name).to eq("Logo\r\nformatted\r\nname\r\n")
+end
+
+Then(/^I should see the Welsh translated title "([^"]*)" for the "([^"]*)" worldwide organisation$/) do |translated_title, title|
+  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+
+  I18n.with_locale(:cy) do
+    expect(@worldwide_organisation.title).to eq(translated_title)
+  end
+end
+
+Then(/^I should see the "Translated" subheading in the "Offices" tab with my new translation$/) do
+  expect(page).to have_text("Translated")
+end
+
+Then(/^I should see the "([^"]*)" role has been assigned to the worldwide organisation "([^"]*)"$/) do |role, title|
+  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  expect(@worldwide_organisation.roles.first.name).to eq(role)
 end
 
 Then(/^I should see the "([^"]*)" social media site has been assigned to the worldwide organisation "([^"]*)"$/) do |social_media_title, title|
