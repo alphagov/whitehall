@@ -9,52 +9,38 @@ class AssetManagerCreateAttachmentAssetWorker < WorkerBase
   def perform(temporary_location, asset_params, attachable_model_class, attachable_model_id, draft = false, auth_bypass_ids = [])
     return unless File.exist?(temporary_location)
 
-    file = File.open(temporary_location)
+    attachment_data = AttachmentData.where(id: asset_params["assetable_id"]).first
 
-    assetable_id, assetable_type, asset_variant = asset_params.values_at("assetable_id", "assetable_type", "asset_variant")
+    return logger.info("Assetable AttachmentData of id #{asset_params["assetable_id"]} does not exist") if attachment_data.nil?
 
-    return logger.info("Assetable #{assetable_type} of id #{assetable_id} does not exist") unless assetable_type.constantize.where(id: assetable_id).exists?
-
-    if !attachable_model_class.constantize.where(id: attachable_model_id).exists?
+    attachable = attachable_model_class.constantize.where(id: attachable_model_id).first
+    if attachable.nil?
       return logger.info("Attachable #{attachable_model_class} of id #{attachable_model_id} does not exist")
     end
 
+    file = File.open(temporary_location)
+
     asset_options = { file:, auth_bypass_ids:, draft: }
-    authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
-    asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
+    if attachable.respond_to?(:access_limited?) && attachable.access_limited?
+      asset_options[:access_limited_organisation_ids] = AssetManagerAccessLimitation.for(attachable)
+    end
 
     response = create_asset(asset_options)
-    save_asset(assetable_id, assetable_type, asset_variant, response.asset_manager_id, response.filename)
-
-    enqueue_downstream_service_updates(assetable_id, attachable_model_class, attachable_model_id)
 
     file.close
     FileUtils.rm(file)
     FileUtils.rmdir(File.dirname(file))
-  end
 
-  private
-
-  def enqueue_downstream_service_updates(assetable_id, attachable_model_class, attachable_model_id)
-    if attachable_model_class.constantize.ancestors.include?(Edition)
-      PublishingApiDraftUpdateWorker.perform_async(attachable_model_class, attachable_model_id)
-    else
-      AssetManagerAttachmentMetadataWorker.perform_async(assetable_id)
-    end
-  end
-
-  def get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
-    attachable_model = attachable_model_class.constantize.find(attachable_model_id)
-    if attachable_model.respond_to?(:access_limited?) && attachable_model.access_limited?
-      AssetManagerAccessLimitation.for(attachable_model)
-    end
-  end
-
-  def save_asset(assetable_id, assetable_type, variant, asset_manager_id, filename)
-    asset = Asset.where(assetable_id:, assetable_type:, variant:).first_or_initialize
-    asset.asset_manager_id = asset_manager_id
-    asset.filename = filename
+    asset = attachment_data.assets.where(variant: asset_params["asset_variant"]).first_or_initialize
+    asset.asset_manager_id = response.asset_manager_id
+    asset.filename = response.filename
     asset.save!
+
+    if attachable.is_a?(Edition)
+      PublishingApiDraftUpdateWorker.perform_async(attachable.class.to_s, attachable.id)
+    else
+      AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id)
+    end
   end
 end
 
