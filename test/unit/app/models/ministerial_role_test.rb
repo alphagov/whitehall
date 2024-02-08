@@ -86,4 +86,28 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     role = create(:ministerial_role, name: "Minister of Importance", people: [])
     assert_equal "Minister of Importance", role.current_person_name
   end
+
+  test "should send the ministers index pages to publishing api when a ministerial role is updated" do
+    role = create(:ministerial_role)
+    create(:ministerial_role_appointment, role:)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      role.update(name: "New name")
+    end
+  end
+
+  test "does not send the ministerial index pages to publishing api when a non-ministerial role is updated" do
+    role = create(:non_ministerial_role_without_organisations)
+    create(:role_appointment, role:)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
+
+    Sidekiq::Testing.inline! do
+      role.update(name: "New name")
+    end
+  end
 end
