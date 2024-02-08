@@ -239,4 +239,56 @@ class PersonTest < ActiveSupport::TestCase
 
     assert_equal 1, FeaturedImageData.count
   end
+
+  test "should send the ministers index pages to publishing api when a person holding a ministerial role is updated" do
+    person = create(:person)
+    create(:ministerial_role_appointment, person:)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      person.update(forename: "New first name")
+    end
+  end
+
+  test "does not send the ministerial index pages to publishing api when a person holding only non-ministerial roles is updated" do
+    person = create(:person)
+    role = create(:non_ministerial_role_without_organisations)
+    create(:role_appointment, person:, role:)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
+
+    Sidekiq::Testing.inline! do
+      person.update(forename: "New first name")
+    end
+  end
+
+  test "should republish the past prime ministers page if the current prime minister is updated" do
+    historical_account = build(:historical_account)
+    person = create(:pm, historical_account:)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      person.update(forename: "New first name")
+    end
+  end
+
+  test "should republish the past prime ministers page if a past prime minister is updated" do
+    role = create(:prime_minister_role)
+    person = create(:person)
+    create(:historic_role_appointment, person:, role:, started_at: 2.years.ago, ended_at: 1.year.ago)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      person.update(forename: "New first name")
+    end
+  end
 end

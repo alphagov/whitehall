@@ -188,36 +188,6 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  test "PUT :update republishes the past prime ministers page & the persons historical account if the person is or has been the prime minister" do
-    login_as :gds_admin
-    historical_account = build(:historical_account)
-    person = create(:pm, historical_account:)
-
-    service = mock
-
-    PresentPageToPublishingApi
-    .expects(:new)
-    .once
-    .returns(service)
-
-    service
-    .expects(:publish)
-    .once
-    .with(PublishingApi::HistoricalAccountsIndexPresenter)
-
-    HistoricalAccount
-    .any_instance
-    .expects(:republish_to_publishing_api_async)
-    .once
-
-    Sidekiq::Testing.inline! do
-      put :update, params: {
-        id: person.id,
-        person: attributes_for(:person),
-      }
-    end
-  end
-
   test "should be able to destroy a destroyable person" do
     person = create(:person, forename: "Dave")
     delete :destroy, params: { id: person.id }

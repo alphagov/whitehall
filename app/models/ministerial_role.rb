@@ -6,6 +6,8 @@ class MinisterialRole < Role
   has_many :news_articles, -> { where("editions.type" => "NewsArticle").distinct }, through: :role_appointments
   has_many :speeches, through: :role_appointments
 
+  after_save :republish_ministerial_pages_to_publishing_api
+
   def published_speeches(options = {})
     speeches
       .live_edition.published
@@ -36,5 +38,10 @@ private
 
   def default_person_name
     name
+  end
+
+  def republish_ministerial_pages_to_publishing_api
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
+    PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter")
   end
 end
