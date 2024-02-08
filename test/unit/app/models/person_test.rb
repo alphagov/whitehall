@@ -239,4 +239,29 @@ class PersonTest < ActiveSupport::TestCase
 
     assert_equal 1, FeaturedImageData.count
   end
+
+  test "should send the ministers index pages to publishing api when a person holding a ministerial role is updated" do
+    person = create(:person)
+    create(:ministerial_role_appointment, person:)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+
+    Sidekiq::Testing.inline! do
+      person.update(forename: "New first name")
+    end
+  end
+
+  test "does not send the ministerial index pages to publishing api when a person holding only non-ministerial roles is updated" do
+    person = create(:person)
+    role = create(:non_ministerial_role_without_organisations)
+    create(:role_appointment, person:, role:)
+
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter).never
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
+
+    Sidekiq::Testing.inline! do
+      person.update(forename: "New first name")
+    end
+  end
 end

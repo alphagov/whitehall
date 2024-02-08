@@ -37,7 +37,7 @@ class Person < ApplicationRecord
   translates :biography
 
   before_destroy :prevent_destruction_if_appointed
-  after_update :touch_role_appointments
+  after_update :touch_role_appointments, :republish_ministerial_pages_to_publishing_api
 
   def biography_without_markup
     Govspeak::Document.new(biography).to_text
@@ -154,5 +154,12 @@ private
 
   def truncated_biography
     biography&.split(/\n/)&.first
+  end
+
+  def republish_ministerial_pages_to_publishing_api
+    if role_appointments.any?(&:ministerial?)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter")
+    end
   end
 end
