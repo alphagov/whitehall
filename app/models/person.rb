@@ -161,5 +161,10 @@ private
       PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
       PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter")
     end
+
+    if current_or_previous_prime_minister?
+      historical_account.republish_to_publishing_api_async if historical_account.present?
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter")
+    end
   end
 end
