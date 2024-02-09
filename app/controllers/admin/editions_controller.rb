@@ -73,7 +73,11 @@ class Admin::EditionsController < Admin::BaseController
   def show
     fetch_version_and_remark_trails
 
-    @edition_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch
+    @edition_taxons = if @edition.requires_taxon?
+                        EditionTaxonsFetcher.new(@edition.content_id).fetch
+                      else
+                        []
+                      end
 
     if @edition.can_be_tagged_to_worldwide_taxonomy?
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
@@ -316,7 +320,7 @@ private
   end
 
   def saved_confirmation_notice
-    if params[:save].present? || @edition.has_been_tagged?
+    if params[:save].present? || @edition.has_been_tagged? || !@edition.requires_taxon?
       notice = "Your document has been saved"
       html_safe = false
     else
