@@ -39,6 +39,12 @@ class AssetManagerCreateAttachmentAssetWorker < WorkerBase
     if attachable.is_a?(Edition)
       PublishingApiDraftUpdateWorker.perform_async(attachable.class.to_s, attachable.id)
     else
+      # At present we can only reach this branch when the attachable is a PolicyGroup. No other non-editionable models have attachments.
+      # Unlike for attachments, we don't need to update the PolicyGroup in Publishing API because policy groups don't have drafts.
+      # However, initially, this worker stores the assets as drafts because you can only add an attachment to a draft edition. That's not the correct
+      # behaviour for policy groups though, which are always live.
+      # We therefore immediately call the metadata worker which will change the state of the asset in Asset Manager to live.
+      # TODO: Pass appropriate draft parameter into this worker for a Policy Group rather than update Asset Manager again
       AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id)
     end
   end
