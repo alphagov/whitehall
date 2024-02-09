@@ -942,27 +942,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [org_with_announcement], Organisation.with_statistics_announcements
   end
 
-  test "#has_services_and_information_link? returns true if slug is in the whitelist" do
-    org = create(:organisation)
-
-    list = [
-      org.slug,
-    ]
-    org.stubs(:organisations_with_services_and_information_link).returns(list)
-
-    assert org.has_services_and_information_link?
-  end
-
-  test "#has_services_and_information_link? returns false if slug is not in the whitelist" do
-    list = %w[
-      a-slug
-    ]
-    org = create(:organisation)
-    org.stubs(:organisations_with_services_and_information_link).returns(list)
-
-    assert_not org.has_services_and_information_link?
-  end
-
   test "#jobs_url defaults to the default jobs url" do
     organisation = build(:organisation)
     assert_equal Organisation::DEFAULT_JOBS_URL, organisation.jobs_url

@@ -489,7 +489,7 @@ class Organisation < ApplicationRecord
   end
 
   def has_services_and_information_link?
-    organisations_with_services_and_information_link.include?(slug)
+    false
   end
 
   def has_scoped_search?
@@ -522,13 +522,6 @@ class Organisation < ApplicationRecord
 
   def visible_featured_links
     featured_links.limit(visible_featured_links_count)
-  end
-
-  def organisations_with_services_and_information_link
-    %w[
-      charity-commission
-      hm-revenue-customs
-    ]
   end
 
   def base_path
