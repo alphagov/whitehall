@@ -4,7 +4,6 @@ module PublishingApi
     include ActionView::Helpers::UrlHelper
     include ApplicationHelper
     include OrganisationHelper
-    include DefaultNewsImageHelper
 
     attr_accessor :item, :update_type, :state
 
@@ -31,7 +30,6 @@ module PublishingApi
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
           },
-          default_news_image:,
           office_contact_associations:,
           ordered_corporate_information_pages:,
           people_role_associations:,
