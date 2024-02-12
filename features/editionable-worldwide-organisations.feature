@@ -8,7 +8,8 @@ Feature: Editionable worldwide organisations
     When I draft a new worldwide organisation "Test Worldwide Organisation" assigned to world location "United Kingdom"
     Then the worldwide organisation "Test Worldwide Organisation" should have been created
     And I should see it has been assigned to the "United Kingdom" world location
-    And I should see the editionable worldwide organisation "Test Worldwide Organisation" in the list of draft documents
+    When I select the "Worldwide organisations" edition filter
+    Then I should see the editionable worldwide organisation "Test Worldwide Organisation" in the list of draft documents
 
   Scenario: Unpublishing a published worldwide organisation
     Given a published editionable worldwide organisation "Test Worldwide Organisation"
