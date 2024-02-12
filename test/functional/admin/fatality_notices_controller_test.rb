@@ -13,7 +13,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_allow_creating_of :fatality_notice
   should_allow_editing_of :fatality_notice
 
-  should_allow_organisations_for :fatality_notice
+  should_allow_lead_and_supporting_organisations_for :fatality_notice
   should_allow_role_appointments_for :fatality_notice
   should_prevent_modification_of_unmodifiable :fatality_notice
   should_allow_overriding_of_first_published_at_for :fatality_notice

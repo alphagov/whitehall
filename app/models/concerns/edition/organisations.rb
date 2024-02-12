@@ -74,6 +74,10 @@ module Edition::Organisations
     true
   end
 
+  def can_have_supporting_organisations?
+    true
+  end
+
   def skip_organisation_validation?
     false
   end

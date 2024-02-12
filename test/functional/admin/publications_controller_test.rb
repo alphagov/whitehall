@@ -15,7 +15,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_creating_of :publication
   should_allow_editing_of :publication
 
-  should_allow_organisations_for :publication
+  should_allow_lead_and_supporting_organisations_for :publication
   should_allow_references_to_statistical_data_sets_for :publication
   should_allow_association_between_world_locations_and :publication
   should_prevent_modification_of_unmodifiable :publication

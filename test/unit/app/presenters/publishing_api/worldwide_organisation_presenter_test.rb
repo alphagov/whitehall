@@ -218,4 +218,15 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
 
     assert_equal [], presented_item.content.dig(:links, :contacts)
   end
+
+  test "maintains the user specified order of sponsoring organisations" do
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
+
+    worldwide_org = create(:worldwide_organisation, sponsoring_organisations: [organisation_2, organisation_1])
+
+    presented_item = present(worldwide_org)
+
+    assert_equal [organisation_2.content_id, organisation_1.content_id], presented_item.content.dig(:links, :sponsoring_organisations)
+  end
 end

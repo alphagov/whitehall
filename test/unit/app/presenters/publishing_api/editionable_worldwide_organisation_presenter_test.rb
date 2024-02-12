@@ -147,4 +147,15 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
 
     assert_equal [], presented_item.content.dig(:links, :contacts)
   end
+
+  test "maintains the user specified order of lead organisations" do
+    lead_organisation_1 = create(:organisation)
+    lead_organisation_2 = create(:organisation)
+
+    worldwide_org = create(:editionable_worldwide_organisation, lead_organisations: [lead_organisation_2, lead_organisation_1])
+
+    presented_item = present(worldwide_org)
+
+    assert_equal [lead_organisation_2.content_id, lead_organisation_1.content_id], presented_item.content.dig(:links, :sponsoring_organisations)
+  end
 end

@@ -11,7 +11,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_allow_creating_of :statistical_data_set
   should_allow_editing_of :statistical_data_set
 
-  should_allow_organisations_for :statistical_data_set
+  should_allow_lead_and_supporting_organisations_for :statistical_data_set
   should_prevent_modification_of_unmodifiable :statistical_data_set
   should_allow_alternative_format_provider_for :statistical_data_set
   should_allow_overriding_of_first_published_at_for :statistical_data_set
