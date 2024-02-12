@@ -10,7 +10,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_creating_of :news_article
   should_allow_editing_of :news_article
 
-  should_allow_organisations_for :news_article
+  should_allow_lead_and_supporting_organisations_for :news_article
   should_allow_role_appointments_for :news_article
   should_allow_association_between_world_locations_and :news_article
   should_prevent_modification_of_unmodifiable :news_article

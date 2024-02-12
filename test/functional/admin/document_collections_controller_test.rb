@@ -9,7 +9,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_allow_organisations_for :document_collection
+  should_allow_lead_and_supporting_organisations_for :document_collection
 
   view_test "GET #show displays the document collection" do
     collection = create(

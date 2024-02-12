@@ -54,7 +54,7 @@ module PublishingApi
         role_appointments: item.roles.map(&:current_role_appointment)&.compact&.map(&:content_id),
         roles: item.roles.map(&:content_id),
         secondary_role_person:,
-        sponsoring_organisations: item.organisations.map(&:content_id),
+        sponsoring_organisations: item.lead_organisations.map(&:content_id),
         world_locations: item.world_locations.map(&:content_id),
       }
     end

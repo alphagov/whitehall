@@ -94,6 +94,10 @@ class EditionableWorldwideOrganisation < Edition
     false
   end
 
+  def can_have_supporting_organisations?
+    false
+  end
+
   def can_set_previously_published?
     false
   end

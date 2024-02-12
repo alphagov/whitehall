@@ -9,7 +9,7 @@ class Admin::EditionableWorldwideOrganisationsControllerTest < ActionController:
   should_be_an_admin_controller
   should_allow_creating_of :editionable_worldwide_organisation
   should_allow_editing_of :editionable_worldwide_organisation
-  should_allow_organisations_for :editionable_worldwide_organisation
+  should_allow_only_lead_organisations_for :editionable_worldwide_organisation
   should_prevent_modification_of_unmodifiable :editionable_worldwide_organisation
   should_allow_scheduled_publication_of :editionable_worldwide_organisation
   should_allow_access_limiting_of :editionable_worldwide_organisation
