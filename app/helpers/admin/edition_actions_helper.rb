@@ -173,7 +173,7 @@ private
   def type_options_container(user)
     Whitehall.edition_classes.map do |edition_type|
       unless edition_type == FatalityNotice && !user.can_handle_fatalities?
-        [edition_type.model_name.human.pluralize, edition_type.model_name.singular]
+        [edition_type.format_name.humanize.pluralize, edition_type.model_name.singular]
       end
     end
   end

@@ -31,4 +31,10 @@ FactoryBot.define do
   end
 
   factory :draft_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:draft]
+  factory :submitted_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:submitted]
+  factory :rejected_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:rejected]
+  factory :published_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:published]
+  factory :deleted_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:deleted]
+  factory :superseded_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:superseded]
+  factory :scheduled_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:scheduled]
 end
