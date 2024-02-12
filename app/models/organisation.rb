@@ -488,10 +488,6 @@ class Organisation < ApplicationRecord
     published_editions.where(publication_type_id: publication_type.id).any?
   end
 
-  def has_services_and_information_link?
-    false
-  end
-
   def has_scoped_search?
     organisations_with_scoped_search.include?(slug)
   end

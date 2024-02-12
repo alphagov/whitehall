@@ -16,7 +16,6 @@ class Admin::OrganisationsController < Admin::BaseController
     @organisation.assign_attributes(organisation_params)
 
     if @organisation.save
-      publish_services_and_information_page
       redirect_to admin_organisations_path, notice: "Organisation created successfully."
     else
       build_dependencies
@@ -57,7 +56,6 @@ class Admin::OrganisationsController < Admin::BaseController
   def update
     delete_absent_topical_event_organisations
     if @organisation.update(organisation_params)
-      publish_services_and_information_page
       redirect_to admin_organisation_path(@organisation), notice: "Organisation updated successfully."
     else
       build_dependencies
@@ -149,10 +147,6 @@ private
 
   def load_organisation
     @organisation = Organisation.friendly.find(params[:id])
-  end
-
-  def publish_services_and_information_page
-    Whitehall::PublishingApi.publish_services_and_information_async(@organisation.id)
   end
 
   def build_dependencies
