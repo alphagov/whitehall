@@ -13,7 +13,8 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
                            :with_sponsorships,
                            :with_world_location,
                            name: "Locationia Embassy",
-                           analytics_identifier: "WO123")
+                           analytics_identifier: "WO123",
+                           default_news_image: create(:featured_image_data))
 
     primary_role = create(:ambassador_role)
     ambassador = create(:person)
@@ -44,6 +45,10 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         logo: {
           crest: "single-identity",
           formatted_title: "Locationia<br/>Embassy",
+        },
+        default_news_image: {
+          url: worldwide_org.default_news_image.file.url(:s300),
+          high_resolution_url: worldwide_org.default_news_image.file.url(:s960),
         },
         office_contact_associations: [
           {
@@ -217,5 +222,14 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     presented_item = present(worldwide_org)
 
     assert_equal [], presented_item.content.dig(:links, :contacts)
+  end
+
+  test "should ignore the default news image if all variants are not uploaded" do
+    featured_image = build(:featured_image_data)
+    featured_image.assets.destroy_all
+    worldwide_organisation = build(:worldwide_organisation, default_news_image: featured_image)
+    presenter = PublishingApi::WorldwideOrganisationPresenter.new(worldwide_organisation)
+
+    assert_nil presenter.content.dig(:details, :default_news_image)
   end
 end
