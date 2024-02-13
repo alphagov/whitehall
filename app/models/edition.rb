@@ -463,6 +463,10 @@ EXISTS (
     false
   end
 
+  def can_be_marked_political?
+    true
+  end
+
   def path_name
     to_model.class.name.underscore
   end
