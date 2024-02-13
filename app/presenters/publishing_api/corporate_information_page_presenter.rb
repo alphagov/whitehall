@@ -1,6 +1,6 @@
 module PublishingApi
   class CorporateInformationPagePresenter
-    include UpdateTypeHelper
+    include Presenters::PublishingApi::UpdateTypeHelper
 
     SCHEMA_NAME = "corporate_information_page".freeze
 

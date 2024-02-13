@@ -1,6 +1,6 @@
 module PublishingApi
   class DocumentCollectionPresenter
-    include UpdateTypeHelper
+    include Presenters::PublishingApi::UpdateTypeHelper
 
     attr_reader :update_type
 

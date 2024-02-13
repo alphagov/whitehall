@@ -1,6 +1,6 @@
 module PublishingApi
   class BaseItemPresenter
-    include UpdateTypeHelper
+    include Presenters::PublishingApi::UpdateTypeHelper
 
     attr_accessor :item, :title, :locale, :update_type
 

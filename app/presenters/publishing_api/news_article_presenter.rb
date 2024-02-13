@@ -1,6 +1,6 @@
 module PublishingApi
   class NewsArticlePresenter
-    include UpdateTypeHelper
+    include Presenters::PublishingApi::UpdateTypeHelper
 
     SCHEMA_NAME = "news_article".freeze
 

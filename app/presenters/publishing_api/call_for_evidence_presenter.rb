@@ -1,6 +1,6 @@
 module PublishingApi
   class CallForEvidencePresenter
-    include UpdateTypeHelper
+    include Presenters::PublishingApi::UpdateTypeHelper
 
     SCHEMA_NAME = "call_for_evidence".freeze
 
