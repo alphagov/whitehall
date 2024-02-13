@@ -7,7 +7,7 @@ module PublishingApi
     # This is a hack to get the OrganisationHelper to work in this context
     include ActionView::Helpers::UrlHelper
     include FeaturedDocumentsPresenter
-    include DefaultNewsImageHelper
+    include Presenters::PublishingApi::DefaultNewsImageHelper
 
     attr_accessor :item, :update_type
 

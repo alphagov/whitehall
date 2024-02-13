@@ -4,7 +4,7 @@ module PublishingApi
     include ActionView::Helpers::UrlHelper
     include ApplicationHelper
     include OrganisationHelper
-    include DefaultNewsImageHelper
+    include Presenters::PublishingApi::DefaultNewsImageHelper
 
     attr_accessor :item, :update_type, :state
 

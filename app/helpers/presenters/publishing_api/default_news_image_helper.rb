@@ -1,4 +1,4 @@
-module PublishingApi::DefaultNewsImageHelper
+module Presenters::PublishingApi::DefaultNewsImageHelper
 private
 
   def present_default_news_image(item)
