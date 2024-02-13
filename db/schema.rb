@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_13_162812) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_112519) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.integer "replaced_by_id"
+    t.string "access_limited_organisation_ids"
     t.index ["replaced_by_id"], name: "index_attachment_data_on_replaced_by_id"
   end
 

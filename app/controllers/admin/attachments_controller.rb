@@ -32,7 +32,6 @@ class Admin::AttachmentsController < Admin::BaseController
     attachment.attributes = attachment_params
     message = "Attachment '#{attachment.title}' updated"
     if attachment.is_a?(FileAttachment)
-      attachment.attachment_data.attachable = attachable
       if attachment.filename_changed? && attachable.allows_inline_attachments?
         message += ". You must replace the attachment markdown with the new markdown below."
       end
@@ -99,7 +98,9 @@ private
   def build_file_attachment
     FileAttachment.new(attachment_params).tap do |file_attachment|
       file_attachment.build_attachment_data unless file_attachment.attachment_data
-      file_attachment.attachment_data.attachable = attachable
+      if attachable_is_an_edition? && attachable.access_limited?
+        file_attachment.attachment_data.access_limited_organisation_ids = attachable.organisations.pluck(:content_id).uniq
+      end
     end
   end
 

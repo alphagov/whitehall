@@ -5,7 +5,7 @@ class Storage::AttachmentStorage < CarrierWave::Storage::Abstract
 
     logger.info("Saving to Asset Manager for model AttachmentData with ID #{uploader.model&.id || 'nil'}")
 
-    AssetManagerCreateAssetWorker.perform_async(temporary_location, uploader.asset_params, true, uploader.model.attachable.class.to_s, uploader.model.attachable.id, uploader.model.auth_bypass_ids || [])
+    AssetManagerCreateAssetWorker.perform_async(temporary_location, uploader.asset_params, true, nil, nil, uploader.model.auth_bypass_ids || [])
 
     Whitehall::AssetManagerStorage::File.new(uploader.store_path(::File.basename(original_file)), uploader.model, uploader.version_name)
   end

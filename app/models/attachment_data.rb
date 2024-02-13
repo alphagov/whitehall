@@ -22,6 +22,8 @@ class AttachmentData < ApplicationRecord
   validate :cant_be_replaced_by_self
   after_save :handle_to_replace_id
 
+  serialize :access_limited_organisation_ids, coder: YAML, type: Array
+
   OPENDOCUMENT_EXTENSIONS = %w[ODT ODP ODS].freeze
 
   def filename
@@ -195,9 +197,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def access_limitation
-    return [] unless access_limited?
-
-    AssetManagerAccessLimitation.for(access_limited_object)
+    access_limited_organisation_ids
   end
 
 private

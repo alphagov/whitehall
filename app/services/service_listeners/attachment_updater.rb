@@ -9,6 +9,13 @@ module ServiceListeners
       Attachment.where(attachable: attachable.attachables).find_each do |attachment|
         next unless attachment.attachment_data
 
+        if attachable.access_limited?
+          attachment.attachment_data.access_limited_organisation_ids = attachable.organisations.pluck(:content_id).uniq
+        else
+          attachment.attachment_data.access_limited_organisation_ids = []
+        end
+        attachment.attachment_data.save!
+
         update_attachment_data! attachment.attachment_data
       end
     end
