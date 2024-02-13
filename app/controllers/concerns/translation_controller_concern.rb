@@ -26,6 +26,7 @@ module TranslationControllerConcern
 
   def destroy
     translatable_item.remove_translations_for(translation_locale.code)
+    translatable_item.destroy_associated(translation_locale.code)
     redirect_to destroy_redirect_path, notice: notice_message("deleted")
   end
 

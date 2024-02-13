@@ -57,6 +57,12 @@ class EditionableWorldwideOrganisation < Edition
     "worldwide organisation"
   end
 
+  def destroy_associated(locale)
+    offices.each do |office|
+      office.contact.remove_translations_for(locale)
+    end
+  end
+
   alias_method :original_main_office, :main_office
 
   extend HomePageList::Container
