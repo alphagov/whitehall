@@ -13,7 +13,8 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
                            :with_sponsorships,
                            :with_world_location,
                            name: "Locationia Embassy",
-                           analytics_identifier: "WO123")
+                           analytics_identifier: "WO123",
+                           default_news_image: create(:featured_image_data))
 
     primary_role = create(:ambassador_role)
     ambassador = create(:person)
@@ -44,6 +45,10 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         logo: {
           crest: "single-identity",
           formatted_title: "Locationia<br/>Embassy",
+        },
+        default_news_image: {
+          url: worldwide_org.default_news_image.file.url(:s300),
+          high_resolution_url: worldwide_org.default_news_image.file.url(:s960),
         },
         office_contact_associations: [
           {
@@ -228,5 +233,30 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     presented_item = present(worldwide_org)
 
     assert_equal [organisation_2.content_id, organisation_1.content_id], presented_item.content.dig(:links, :sponsoring_organisations)
+  end
+
+  test "is valid against the schema when there is no default_news_image" do
+    worldwide_organisation = build(:worldwide_organisation, updated_at: Time.zone.now)
+    worldwide_organisation.default_news_image = nil
+
+    presented_item = present(worldwide_organisation)
+
+    assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
+  end
+
+  test "default_news_image is not present when there is no image" do
+    worldwide_organisation = build(:worldwide_organisation, default_news_image: nil)
+    presenter = PublishingApi::WorldwideOrganisationPresenter.new(worldwide_organisation)
+
+    assert_not presenter.content[:details].key? :default_news_image
+  end
+
+  test "default_news_image is not present when variants are not uploaded" do
+    featured_image = build(:featured_image_data)
+    featured_image.assets.destroy_all
+    worldwide_organisation = build(:worldwide_organisation, default_news_image: featured_image)
+    presenter = PublishingApi::WorldwideOrganisationPresenter.new(worldwide_organisation)
+
+    assert_not presenter.content[:details].key? :default_news_image
   end
 end
