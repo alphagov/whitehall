@@ -561,6 +561,41 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment.destroy!
   end
 
+  test "republishes an editionable worldwide organisation when a role appointment is created" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    role = create(:role_without_organisations)
+    create(:edition_role, role:, edition: worldwide_organisation)
+    role.reload
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id)
+
+    create(:role_appointment, role:)
+  end
+
+  test "republishes an editionable worldwide organisation when a role appointment is updated" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    role = create(:role_without_organisations)
+    create(:edition_role, role:, edition: worldwide_organisation)
+    role_appointment = create(:role_appointment, role:)
+    role.reload
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id)
+
+    role_appointment.update!(ended_at: Time.zone.now)
+  end
+
+  test "republishes an editionable worldwide organisation when a role appointment is destroyed" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    role = create(:role_without_organisations)
+    create(:edition_role, role:, edition: worldwide_organisation)
+    role_appointment = create(:role_appointment, role:)
+    role.reload
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id)
+
+    role_appointment.destroy!
+  end
+
   test "republishes a role when a role appointment is created" do
     role = create(:role_without_organisations)
     Whitehall::PublishingApi.expects(:republish_async).with(role)

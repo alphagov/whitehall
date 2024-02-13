@@ -73,8 +73,14 @@ class RoleAppointment < ApplicationRecord
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
-  after_save :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_ministerial_pages_to_publishing_api, :republish_role_to_publishing_api
-  after_destroy :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
+  after_save :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_ministerial_pages_to_publishing_api, :republish_role_to_publishing_api
+  after_destroy :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
+
+  def republish_associated_editions_to_publishing_api
+    role.edition_roles.each do |edition_role|
+      PublishingApiDocumentRepublishingWorker.perform_async(edition_role.edition.document_id)
+    end
+  end
 
   def republish_organisation_to_publishing_api
     organisations.each do |organisation|
