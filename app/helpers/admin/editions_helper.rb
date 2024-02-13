@@ -9,34 +9,6 @@ module Admin::EditionsHelper
     [type, edition.display_type].compact.uniq.join(": ")
   end
 
-  def nested_attribute_destroy_checkbox_options(form, html_args = {})
-    checked_value = "0"
-    unchecked_value = "1"
-    checked = form.object[:_destroy].present? ? (form.object[:_destroy] == checked_value) : form.object.persisted?
-    [html_args.merge(checked:), checked_value, unchecked_value]
-  end
-
-  def admin_documents_header_link
-    admin_header_link "Documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(editions|publications|news_articles|consultations|speeches|collections)/
-  end
-
-  def link_to_filter(link, options, filter, html_options = {})
-    tag.li(link_to(link, url_for(filter.options.slice("state", "type", "author", "organisation", "title", "world_location").merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
-  end
-
-  def active_filter_if_options_match_class(filter, options)
-    current = options.keys.all? do |key|
-      options[key].to_param == filter.options[key].to_param
-    end
-
-    "active" if current
-  end
-
-  def active_filter_unless_values_match_class(filter, key, *disallowed_values)
-    filter_value = filter.options[key]
-    "active" if filter_value && disallowed_values.none? { |disallowed_value| filter_value == disallowed_value }
-  end
-
   def admin_organisation_filter_options(selected_organisation)
     organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
     closed_organisations = Organisation.with_translations(:en).closed || []
@@ -97,38 +69,12 @@ module Admin::EditionsHelper
     ]
   end
 
-  def admin_edition_state_text(edition)
-    edition.withdrawn? ? "Withdrawn" : edition.state.humanize
-  end
-
   def admin_world_location_filter_options(current_user)
     options = [["All locations", ""]]
     if current_user.world_locations.any?
       options << ["My locations", "user"]
     end
     options + WorldLocation.ordered_by_name.map { |l| [l.name, l.id] }
-  end
-
-  def viewing_all_active_editions?
-    params[:state] == "active"
-  end
-
-  def speech_type_label_data
-    label_data = SpeechType.all.inject({}) do |hash, speech_type|
-      hash.merge(speech_type.id => {
-        ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
-        publishedExternallyLabel: t_delivered_on(speech_type),
-        locationRelevant: speech_type.location_relevant,
-      })
-    end
-
-    # copy default values from Transcript SpeechType for '' select option
-    default_type = SpeechType.find_by_name("Transcript")
-    label_data.merge("" => {
-      ownerGroup: I18n.t("document.speech.#{default_type.owner_key_group}"),
-      publishedExternallyLabel: t_delivered_on(default_type),
-      locationRelevant: default_type.location_relevant,
-    })
   end
 
   # Because of the unusual way lead organisations and supporting organisations
@@ -140,13 +86,6 @@ module Admin::EditionsHelper
     edition.edition_organisations
             .select(&:lead?)
             .sort_by(&:lead_ordering)[index].try(:organisation_id)
-  end
-
-  # As above for the lead_organisation_id_at_index helper, this helper is
-  # required to identify the selected supporting organisation at a given index
-  # in the list supporting organisations for the edition.
-  def supporting_organisation_id_at_index(edition, index)
-    edition.edition_organisations.reject(&:lead?)[index].try(:organisation_id)
   end
 
   def standard_edition_form(edition)
@@ -186,27 +125,6 @@ module Admin::EditionsHelper
     end
   end
 
-  def default_edition_tabs(edition)
-    { "Document" => tab_url_for_edition(edition) }.tap do |tabs|
-      if edition.allows_attachments? && edition.persisted?
-        text = if edition.attachments.count.positive?
-                 "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
-               else
-                 "Attachments"
-               end
-        tabs[text] = admin_edition_attachments_path(edition)
-      end
-
-      if edition.is_a?(DocumentCollection) && !edition.new_record?
-        tabs["Collection documents"] = admin_document_collection_groups_path(edition)
-      end
-
-      if edition.is_a?(DocumentCollection) && current_user.can_edit_email_overrides?
-        tabs["Email notifications"] = admin_document_collection_edit_email_subscription_path(edition)
-      end
-    end
-  end
-
   def standard_edition_publishing_controls(form, edition)
     tag.div(class: "publishing-controls") do
       if edition.change_note_required?
@@ -225,45 +143,12 @@ module Admin::EditionsHelper
     end
   end
 
-  def attachment_metadata_tag(attachment)
-    labels = {
-      isbn: "ISBN",
-      unique_reference: "Unique reference",
-      command_paper_number: "Command paper number",
-      hoc_paper_number: "House of Commons paper number",
-      parliamentary_session: "Parliamentary session",
-    }
-    parts = []
-    labels.each do |attribute, label|
-      value = attachment.send(attribute)
-      parts << "#{label}: #{value}" if value.present?
-    end
-    tag.p(parts.join(", ")) if parts.any?
-  end
-
-  def translation_preview_links(edition)
-    links = []
-
-    if edition.available_in_english?
-      links << [edition.public_url(draft: true), "Language: English"]
-    end
-
-    links + edition.non_english_translated_locales.map do |locale|
-      [edition.public_url(locale: locale.code, draft: true),
-       "Language: #{locale.native_and_english_language_name}"]
-    end
-  end
-
   def withdrawal_or_unpublishing(edition)
     edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Withdrawn.id ? "withdrawal" : "unpublishing"
   end
 
   def specialist_sector_options_for_select
     @specialist_sector_options_for_select ||= LinkableTopics.new.raw_topics.sort
-  end
-
-  def legacy_specialist_sector_options_for_select
-    @legacy_specialist_sector_options_for_select ||= LinkableTopics.new.topics
   end
 
   def specialist_sector_names(sector_content_ids)

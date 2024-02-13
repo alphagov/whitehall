@@ -35,23 +35,6 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     assert warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: NewsArticleType::PressRelease))
   end
 
-  test "default_edition_tabs includes document collection tab for a persisted document collection" do
-    document_collection = build(:document_collection)
-    assert_not_includes default_edition_tabs(document_collection).keys, "Collection documents"
-    document_collection = create(:document_collection)
-    assert_includes default_edition_tabs(document_collection).keys, "Collection documents"
-  end
-
-  test "default_edition_tabs includes email notifications tab when the user has the appropriate permission" do
-    document_collection = create(:document_collection)
-
-    @user = create(:user)
-    assert_not_includes default_edition_tabs(document_collection).keys, "Email notifications"
-
-    @user = create(:user, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR])
-    assert_includes default_edition_tabs(document_collection).keys, "Email notifications"
-  end
-
   test "#admin_author_filter_options excludes disabled users" do
     current_user, _another_user = *create_list(:user, 2)
     disabled_user = create(:disabled_user)
