@@ -388,12 +388,28 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     end
   end
 
-  test "should ignore the default news image if all variants are not uploaded" do
+  test "is valid against the schema when there is no default_news_image" do
+    organisation = build(:organisation, updated_at: Time.zone.now)
+    organisation.default_news_image = nil
+
+    presented_item = present(organisation)
+
+    assert_valid_against_publisher_schema(presented_item.content, "organisation")
+  end
+
+  test "default_news_image is not present when there is no image" do
+    organisation = build(:organisation, default_news_image: nil)
+    presenter = PublishingApi::OrganisationPresenter.new(organisation)
+
+    assert_not presenter.content[:details].key? :default_news_image
+  end
+
+  test "default_news_image is not present when variants are not uploaded" do
     featured_image = build(:featured_image_data)
     featured_image.assets.destroy_all
     organisation = build(:organisation, default_news_image: featured_image)
     presenter = PublishingApi::OrganisationPresenter.new(organisation)
 
-    assert_nil presenter.content.dig(:details, :default_news_image)
+    assert_not presenter.content[:details].key? :default_news_image
   end
 end

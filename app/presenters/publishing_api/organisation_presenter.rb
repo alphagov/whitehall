@@ -7,6 +7,7 @@ module PublishingApi
     # This is a hack to get the OrganisationHelper to work in this context
     include ActionView::Helpers::UrlHelper
     include FeaturedDocumentsPresenter
+    include DefaultNewsImageHelper
 
     attr_accessor :item, :update_type
 
@@ -96,7 +97,7 @@ module PublishingApi
         organisation_political:,
         social_media_links:,
       }
-      details[:default_news_image] = default_news_image if default_news_image
+      details[:default_news_image] = present_default_news_image(item) if present_default_news_image(item)
       details
     end
 
@@ -409,19 +410,6 @@ module PublishingApi
 
     def roles_links
       item.roles.distinct.pluck(:content_id)
-    end
-
-    def default_news_image
-      return unless item.default_news_image && item.default_news_image.all_asset_variants_uploaded?
-
-      {
-        url: default_news_image_url(:s300),
-        high_resolution_url: default_news_image_url(:s960),
-      }
-    end
-
-    def default_news_image_url(size = nil)
-      size ? item.default_news_image.url(size) : item.default_news_image.url
     end
   end
 end

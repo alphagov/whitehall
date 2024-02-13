@@ -4,6 +4,7 @@ module PublishingApi
     include ActionView::Helpers::UrlHelper
     include ApplicationHelper
     include OrganisationHelper
+    include DefaultNewsImageHelper
 
     attr_accessor :item, :update_type, :state
 
@@ -24,19 +25,7 @@ module PublishingApi
 
       content.merge!(
         description:,
-        details: {
-          body:,
-          logo: {
-            crest: "single-identity",
-            formatted_title: worldwide_organisation_logo_name(item),
-          },
-          office_contact_associations:,
-          ordered_corporate_information_pages:,
-          people_role_associations:,
-          secondary_corporate_information_pages:,
-          social_media_links:,
-          world_location_names:,
-        },
+        details:,
         document_type: item.class.name.underscore,
         links: edition_links,
         public_updated_at: item.updated_at,
@@ -261,6 +250,26 @@ module PublishingApi
           name: world_location.name,
         }
       end
+    end
+
+  private
+
+    def details
+      details = {
+        body:,
+        logo: {
+          crest: "single-identity",
+          formatted_title: worldwide_organisation_logo_name(item),
+        },
+        office_contact_associations:,
+        ordered_corporate_information_pages:,
+        people_role_associations:,
+        secondary_corporate_information_pages:,
+        social_media_links:,
+        world_location_names:,
+      }
+      details[:default_news_image] = present_default_news_image(item) if present_default_news_image(item).present?
+      details
     end
   end
 end
