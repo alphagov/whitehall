@@ -113,24 +113,6 @@ module Admin::EditionsHelper
     params[:state] == "active"
   end
 
-  def speech_type_label_data
-    label_data = SpeechType.all.inject({}) do |hash, speech_type|
-      hash.merge(speech_type.id => {
-        ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
-        publishedExternallyLabel: t_delivered_on(speech_type),
-        locationRelevant: speech_type.location_relevant,
-      })
-    end
-
-    # copy default values from Transcript SpeechType for '' select option
-    default_type = SpeechType.find_by_name("Transcript")
-    label_data.merge("" => {
-      ownerGroup: I18n.t("document.speech.#{default_type.owner_key_group}"),
-      publishedExternallyLabel: t_delivered_on(default_type),
-      locationRelevant: default_type.location_relevant,
-    })
-  end
-
   # Because of the unusual way lead organisations and supporting organisations
   # are managed through the single has_many through :organisations association,
   # We have to go through the join model to identify selected organisations
