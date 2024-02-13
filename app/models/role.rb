@@ -54,7 +54,7 @@ class Role < ApplicationRecord
 
   before_destroy :prevent_destruction_unless_destroyable
   after_update :touch_role_appointments
-  after_save :republish_organisations_to_publishing_api, :republish_worldwide_organisations_to_publishing_api
+  after_save :republish_associated_editions_to_publishing_api, :republish_organisations_to_publishing_api, :republish_worldwide_organisations_to_publishing_api
 
   accepts_nested_attributes_for :edition_roles
 
@@ -66,6 +66,12 @@ class Role < ApplicationRecord
 
   def self.prime_minister_role
     find_by(slug: "prime-minister")
+  end
+
+  def republish_associated_editions_to_publishing_api
+    edition_roles.each do |edition_role|
+      PublishingApiDocumentRepublishingWorker.perform_async(edition_role.edition.document_id)
+    end
   end
 
   def republish_organisations_to_publishing_api

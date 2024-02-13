@@ -266,4 +266,15 @@ class RoleTest < ActiveSupport::TestCase
 
     role.update!(name: "New role name")
   end
+
+  test "republishes an editionable worldwide organisation when a role is updated" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    role = create(:role_without_organisations)
+    create(:edition_role, role:, edition: worldwide_organisation)
+    role.reload
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id)
+
+    role.update!(name: "New role name")
+  end
 end
