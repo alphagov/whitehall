@@ -1,6 +1,6 @@
 module PublishingApi
   class CaseStudyPresenter
-    include UpdateTypeHelper
+    include Presenters::PublishingApi::UpdateTypeHelper
 
     attr_accessor :item, :update_type
 

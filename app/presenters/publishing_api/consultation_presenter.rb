@@ -1,6 +1,6 @@
 module PublishingApi
   class ConsultationPresenter
-    include UpdateTypeHelper
+    include Presenters::PublishingApi::UpdateTypeHelper
 
     SCHEMA_NAME = "consultation".freeze
 

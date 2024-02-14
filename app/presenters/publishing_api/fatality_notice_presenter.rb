@@ -1,6 +1,6 @@
 module PublishingApi
   class FatalityNoticePresenter
-    include UpdateTypeHelper
+    include Presenters::PublishingApi::UpdateTypeHelper
 
     attr_reader :update_type
 
