@@ -8,7 +8,8 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
     worldwide_org = create(:worldwide_organisation,
                            :with_corporate_information_pages,
-                           :with_office,
+                           :with_main_office,
+                           :with_home_page_offices,
                            :with_social_media_accounts,
                            :with_sponsorships,
                            :with_world_location,
@@ -52,8 +53,12 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
         },
         office_contact_associations: [
           {
-            office_content_id: worldwide_org.reload.offices.first.content_id,
-            contact_content_id: worldwide_org.reload.offices.first.contact.content_id,
+            office_content_id: worldwide_org.reload.main_office.content_id,
+            contact_content_id: worldwide_org.reload.main_office.contact.content_id,
+          },
+          {
+            office_content_id: worldwide_org.reload.home_page_offices.first.content_id,
+            contact_content_id: worldwide_org.reload.home_page_offices.first.contact.content_id,
           },
         ],
         ordered_corporate_information_pages: [
@@ -103,7 +108,8 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       },
       links: {
         contacts: [
-          worldwide_org.reload.offices.first.contact.content_id,
+          worldwide_org.reload.main_office.contact.content_id,
+          worldwide_org.reload.home_page_offices.first.contact.content_id,
         ],
         corporate_information_pages: [
           worldwide_org.corporate_information_pages[0].content_id,
@@ -114,9 +120,11 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           worldwide_org.corporate_information_pages[5].content_id,
         ],
         main_office: [
-          worldwide_org.reload.offices.first.content_id,
+          worldwide_org.reload.main_office.content_id,
         ],
-        home_page_offices: [],
+        home_page_offices: [
+          worldwide_org.reload.home_page_offices.first.content_id,
+        ],
         primary_role_person: [
           ambassador.content_id,
         ],
