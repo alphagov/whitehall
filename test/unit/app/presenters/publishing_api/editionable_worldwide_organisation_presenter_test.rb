@@ -9,7 +9,8 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     worldwide_org = create(:editionable_worldwide_organisation,
                            :with_role,
                            :with_social_media_account,
-                           :with_office,
+                           :with_main_office,
+                           :with_home_page_offices,
                            analytics_identifier: "WO123")
 
     primary_role = create(:ambassador_role)
@@ -44,8 +45,12 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
         },
         office_contact_associations: [
           {
-            office_content_id: worldwide_org.reload.offices.first.content_id,
-            contact_content_id: worldwide_org.reload.offices.first.contact.content_id,
+            office_content_id: worldwide_org.reload.main_office.content_id,
+            contact_content_id: worldwide_org.reload.main_office.contact.content_id,
+          },
+          {
+            office_content_id: worldwide_org.reload.home_page_offices.first.content_id,
+            contact_content_id: worldwide_org.reload.home_page_offices.first.contact.content_id,
           },
         ],
         people_role_associations: [
@@ -84,12 +89,15 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       },
       links: {
         contacts: [
-          worldwide_org.reload.offices.first.contact.content_id,
+          worldwide_org.reload.main_office.contact.content_id,
+          worldwide_org.reload.home_page_offices.first.contact.content_id,
         ],
         main_office: [
-          worldwide_org.reload.offices.first.content_id,
+          worldwide_org.reload.main_office.content_id,
         ],
-        home_page_offices: [],
+        home_page_offices: [
+          worldwide_org.reload.home_page_offices.first.content_id,
+        ],
         office_staff: worldwide_org.office_staff_roles.map(&:current_person).map(&:content_id),
         primary_role_person: [
           ambassador.content_id,

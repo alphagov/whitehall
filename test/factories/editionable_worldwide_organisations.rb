@@ -17,9 +17,16 @@ FactoryBot.define do
       end
     end
 
-    trait(:with_office) do
+    trait(:with_main_office) do
       after :create do |organisation, _evaluator|
         FactoryBot.create(:worldwide_office, worldwide_organisation: nil, edition: organisation)
+      end
+    end
+
+    trait(:with_home_page_offices) do
+      after :create do |organisation, _evaluator|
+        worldwide_office = create(:worldwide_office, worldwide_organisation: nil, edition: organisation)
+        organisation.add_office_to_home_page!(worldwide_office)
       end
     end
 
