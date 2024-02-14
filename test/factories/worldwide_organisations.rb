@@ -16,13 +16,21 @@ FactoryBot.define do
 
     trait(:with_main_office) do
       after :create do |organisation, _evaluator|
-        FactoryBot.create(:worldwide_office, worldwide_organisation: organisation)
+        FactoryBot.create(
+          :worldwide_office,
+          worldwide_organisation: organisation,
+          access_and_opening_times: "our main office opening times",
+        )
       end
     end
 
     trait(:with_home_page_offices) do
       after :create do |organisation, _evaluator|
-        worldwide_office = create(:worldwide_office, worldwide_organisation: organisation)
+        worldwide_office = create(
+          :worldwide_office,
+          worldwide_organisation: organisation,
+          access_and_opening_times: "our office opening times",
+        )
         organisation.add_office_to_home_page!(worldwide_office)
       end
     end
