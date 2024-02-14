@@ -179,6 +179,7 @@ Then(/^the worldwide organisation "([^"]*)" should have been created$/) do |titl
 
   expect(@worldwide_organisation).to be_present
   expect(@worldwide_organisation.logo_formatted_name).to eq("Logo\r\nformatted\r\nname\r\n")
+  expect(page).not_to have_text("Topic taxonomy tags")
 end
 
 Then(/^I should see the Welsh translated title "([^"]*)" for the "([^"]*)" worldwide organisation$/) do |translated_title, title|

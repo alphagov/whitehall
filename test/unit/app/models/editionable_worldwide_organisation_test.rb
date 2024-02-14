@@ -18,6 +18,11 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal 0, worldwide_organisation.offices.count
   end
 
+  test "should be be valid without taxons" do
+    worldwide_organisation = build(:draft_editionable_worldwide_organisation)
+    assert worldwide_organisation.valid?
+  end
+
   test "should set an analytics identifier on create" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
     assert_equal "WO#{worldwide_organisation.id}", worldwide_organisation.analytics_identifier

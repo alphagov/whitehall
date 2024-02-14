@@ -117,4 +117,8 @@ class EditionableWorldwideOrganisation < Edition
   def translatable?
     true
   end
+
+  def requires_taxon?
+    false
+  end
 end

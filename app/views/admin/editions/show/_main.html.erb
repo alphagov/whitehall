@@ -51,83 +51,87 @@
     </section>
   <% end %>
 
-  <section class="app-view-summary__section app-view-summary__taxonomy-topics">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Topic taxonomy tags",
-      heading_level: 2,
-      font_size: "l",
-      margin_bottom: 3,
-    } %>
-
-    <p class="govuk-body">
-      <%= link_to(@edition_taxons.any? ? "Change tags" : "Add tags",
-                  edit_admin_edition_tags_path(@edition.id), class: "govuk-link") %>
-    </p>
-
-    <% @edition_taxons.map(&:full_path).each do | tag_path | %>
-      <div class="govuk-breadcrumbs">
-        <ol class="govuk-breadcrumbs__list app-view-summary__topic-tag-list">
-          <% tag_path.each do | path | %>
-            <li class="govuk-breadcrumbs__list-item app-view-summary__topic-tag-list-item"><%= path[:title] %></li>
-          <% end %>
-        </ol>
-      </div>
-    <% end %>
-    <% unless @edition_taxons.any? %>
-      <%= render "govuk_publishing_components/components/warning_text", {
-        text: "You need to add topic tags before you can publish this document.",
+  <% if @edition.requires_taxon? %>
+    <section class="app-view-summary__section app-view-summary__taxonomy-topics">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Topic taxonomy tags",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
       } %>
-    <% end %>
-  </section>
 
-  <section class="app-view-summary__section">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Specialist topic tags",
-      heading_level: 2,
-      font_size: "l",
-      margin_bottom: 3,
-    } %>
-
-    <% if @edition.editable? %>
       <p class="govuk-body">
-        <%= link_to(@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags",
-                    edit_admin_edition_legacy_associations_path(@edition.id), class: "govuk-link") %>
+        <%= link_to(@edition_taxons.any? ? "Change tags" : "Add tags",
+                    edit_admin_edition_tags_path(@edition.id), class: "govuk-link") %>
       </p>
-    <% end %>
 
-    <% if @edition.has_legacy_tags? %>
-      <% if @edition.has_primary_sector? %>
-        <%= render "govuk_publishing_components/components/heading", {
-          text: "Primary specialist topics",
-          font_size: "m",
-          heading_level: 3,
-          margin_bottom: 3,
-        } %>
-        <div class="app-view-summary__primary-specialist-sector">
-          <%= render "govuk_publishing_components/components/list", {
-            visible_counters: true,
-            items: [specialist_sector_name(@edition.primary_specialist_sector_tag)],
-          } %>
+      <% @edition_taxons.map(&:full_path).each do | tag_path | %>
+        <div class="govuk-breadcrumbs">
+          <ol class="govuk-breadcrumbs__list app-view-summary__topic-tag-list">
+            <% tag_path.each do | path | %>
+              <li class="govuk-breadcrumbs__list-item app-view-summary__topic-tag-list-item"><%= path[:title] %></li>
+            <% end %>
+          </ol>
         </div>
       <% end %>
-      <% if @edition.has_secondary_sectors? %>
-        <%= render "govuk_publishing_components/components/heading", {
-          text: "Secondary specialist topics",
-          font_size: "m",
-          heading_level: 3,
-          margin_bottom: 3,
+      <% unless @edition_taxons.any? %>
+        <%= render "govuk_publishing_components/components/warning_text", {
+          text: "You need to add topic tags before you can publish this document.",
         } %>
-        <div class="app-view-summary__secondary-specialist-sectors">
-          <%= render "govuk_publishing_components/components/list", {
-            visible_counters: true,
-            items: specialist_sector_names(@edition.secondary_specialist_sector_tags),
-          } %>
-        </div>
       <% end %>
-    <% else %>
-      <p class="govuk-body">No specialist topic tags for this document</p>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
+
+  <% if @edition.requires_taxon? %>
+    <section class="app-view-summary__section">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Specialist topic tags",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <% if @edition.editable? %>
+        <p class="govuk-body">
+          <%= link_to(@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags",
+                      edit_admin_edition_legacy_associations_path(@edition.id), class: "govuk-link") %>
+        </p>
+      <% end %>
+
+      <% if @edition.has_legacy_tags? %>
+        <% if @edition.has_primary_sector? %>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Primary specialist topics",
+            font_size: "m",
+            heading_level: 3,
+            margin_bottom: 3,
+          } %>
+          <div class="app-view-summary__primary-specialist-sector">
+            <%= render "govuk_publishing_components/components/list", {
+              visible_counters: true,
+              items: [specialist_sector_name(@edition.primary_specialist_sector_tag)],
+            } %>
+          </div>
+        <% end %>
+        <% if @edition.has_secondary_sectors? %>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Secondary specialist topics",
+            font_size: "m",
+            heading_level: 3,
+            margin_bottom: 3,
+          } %>
+          <div class="app-view-summary__secondary-specialist-sectors">
+            <%= render "govuk_publishing_components/components/list", {
+              visible_counters: true,
+              items: specialist_sector_names(@edition.secondary_specialist_sector_tags),
+            } %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="govuk-body">No specialist topic tags for this document</p>
+      <% end %>
+    </section>
+  <% end %>
 
   <% if @edition.can_be_tagged_to_worldwide_taxonomy? %>
     <section class="app-view-summary__section app-view-summary__world-taxonomy">
