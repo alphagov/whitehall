@@ -1,5 +1,7 @@
 module PublishingApi
   class WorldwideOfficePresenter
+    include Presenters::PublishingApi::WorldwideOfficeHelper
+
     attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
@@ -17,11 +19,7 @@ module PublishingApi
       ).base_attributes
 
       content.merge!(
-        details: {
-          access_and_opening_times:,
-          services:,
-          type: item.worldwide_office_type.name,
-        },
+        details: worldwide_office_details(item),
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
@@ -45,21 +43,6 @@ module PublishingApi
       return [] if item.contact.blank?
 
       [item.contact.content_id]
-    end
-
-    def access_and_opening_times
-      return if item.access_and_opening_times.blank?
-
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.access_and_opening_times)
-    end
-
-    def services
-      item.services.map do |service|
-        {
-          title: service.name,
-          type: service.service_type.name,
-        }
-      end
     end
   end
 end
