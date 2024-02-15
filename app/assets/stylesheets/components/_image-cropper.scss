@@ -25,43 +25,43 @@ $app-cropper-point-size: 20px;
   }
 
   .cropper-point.point-n {
-    top: -$app-cropper-point-size / 2;
-    margin-left: -$app-cropper-point-size / 2;
+    top: calc(-1 * $app-cropper-point-size / 2);
+    margin-left: calc(-1 * $app-cropper-point-size / 2);
   }
 
   .cropper-point.point-ne {
-    top: -$app-cropper-point-size / 2;
-    right: -$app-cropper-point-size / 2;
+    top: calc(-1 * $app-cropper-point-size / 2);
+    right: calc(-1 * $app-cropper-point-size / 2);
   }
 
   .cropper-point.point-e {
-    right: -$app-cropper-point-size / 2;
-    margin-top: -$app-cropper-point-size / 2;
+    right: calc(-1 * $app-cropper-point-size / 2);
+    margin-top: calc(-1 * $app-cropper-point-size / 2);
   }
 
   .cropper-point.point-se {
-    right: -$app-cropper-point-size / 2;
-    bottom: -$app-cropper-point-size / 2;
+    right: calc(-1 * $app-cropper-point-size / 2);
+    bottom: calc(-1 * $app-cropper-point-size / 2);
   }
 
   .cropper-point.point-s {
-    bottom: -$app-cropper-point-size / 2;
-    margin-left: -$app-cropper-point-size / 2;
+    bottom: calc(-1 * $app-cropper-point-size / 2);
+    margin-left: calc(-1 * $app-cropper-point-size / 2);
   }
 
   .cropper-point.point-sw {
-    bottom: -$app-cropper-point-size / 2;
-    left: -$app-cropper-point-size / 2;
+    bottom: calc(-1 * $app-cropper-point-size / 2);
+    left: calc(-1 * $app-cropper-point-size / 2);
   }
 
   .cropper-point.point-w {
-    left: -$app-cropper-point-size / 2;
-    margin-top: -$app-cropper-point-size / 2;
+    left: calc(-1 * $app-cropper-point-size / 2);
+    margin-top: calc(-1 * $app-cropper-point-size / 2);
   }
 
   .cropper-point.point-nw {
-    top: -$app-cropper-point-size / 2;
-    left: -$app-cropper-point-size / 2;
+    top: calc(-1 * $app-cropper-point-size / 2);
+    left: calc(-1 * $app-cropper-point-size / 2);
   }
 
   &:focus {
