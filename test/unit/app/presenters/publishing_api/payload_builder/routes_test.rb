@@ -17,14 +17,14 @@ module PublishingApi
 
       test "returns a routes payload with additional routes" do
         base_path = "some/base/path"
-        additional_routes = %w[atom rss]
+        suffixes = %w[atom rss]
         expected_routes = [
           { path: base_path, type: "exact" },
           { path: "#{base_path}.atom", type: "exact" },
           { path: "#{base_path}.rss", type: "exact" },
         ]
 
-        assert_equal({ routes: expected_routes }, Routes.for(base_path, additional_routes:))
+        assert_equal({ routes: expected_routes }, Routes.for(base_path, suffixes:))
       end
     end
   end
