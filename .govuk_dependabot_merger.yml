@@ -27,7 +27,6 @@ auto_merge:
   - dependency: govuk_publishing_components
     allowed_semver_bumps:
       - patch
-      - minor
   - dependency: govuk_schemas
     allowed_semver_bumps:
       - patch
