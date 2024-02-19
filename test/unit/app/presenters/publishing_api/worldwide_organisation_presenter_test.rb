@@ -78,6 +78,13 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
             type: worldwide_org.reload.main_office.worldwide_office_type.name,
           },
         ],
+        page_parts: [
+          { title: "Complaints procedure", slug: "about/complaints-procedure", summary: "edition-summary", body: [{ "content_type" => "text/govspeak", "content" => "Some stuff" }] },
+          { title: "Personal information charter", slug: "about/personal-information-charter", summary: "edition-summary", body: [{ "content_type" => "text/govspeak", "content" => "Some stuff" }] },
+          { title: "Publication scheme", slug: "about/publication-scheme", summary: "edition-summary", body: [{ "content_type" => "text/govspeak", "content" => "Some stuff" }] },
+          { title: "Working for Locationia Embassy", slug: "about/recruitment", summary: "edition-summary", body: [{ "content_type" => "text/govspeak", "content" => "Some stuff" }] },
+          { title: "Welsh language scheme", slug: "about/welsh-language-scheme", summary: "edition-summary", body: [{ "content_type" => "text/govspeak", "content" => "Some stuff" }] },
+        ],
         office_contact_associations: [
           {
             office_content_id: worldwide_org.reload.main_office.content_id,

@@ -272,6 +272,7 @@ module PublishingApi
         world_location_names:,
       }
       details[:default_news_image] = present_default_news_image(item) if present_default_news_image(item).present?
+      details[:page_parts] = page_parts if page_parts.present?
       details
     end
 
@@ -285,6 +286,21 @@ module PublishingApi
       return [] unless item.main_office
 
       worldwide_office_parts([item.main_office])
+    end
+
+    def page_parts
+      return unless item.corporate_information_pages.any?
+
+      item.corporate_information_pages.published.reject(&:about_page?).map do |page|
+        {
+          title: page.title,
+          slug: page.base_path.gsub("#{page.worldwide_organisation.base_path}/", ""),
+          summary: page.summary,
+          body: [
+            { "content_type" => "text/govspeak", "content" => page.body },
+          ],
+        }
+      end
     end
   end
 end
