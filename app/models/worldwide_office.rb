@@ -54,7 +54,7 @@ class WorldwideOffice < ApplicationRecord
   end
 
   def base_path
-    "/world/organisations/#{worldwide_organisation.slug}/office/#{slug}"
+    "#{worldwide_organisation.base_path}/office/#{slug}"
   end
 
   def public_path(options = {})
