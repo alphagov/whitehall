@@ -44,7 +44,7 @@ class WorldwideOrganisation < ApplicationRecord
   extend FriendlyId
   friendly_id
 
-  after_commit :republish_embassies_index_page_to_publishing_api, :republish_worldwide_offices
+  after_commit :republish_embassies_index_page_to_publishing_api
 
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
@@ -138,12 +138,6 @@ class WorldwideOrganisation < ApplicationRecord
 
   def republish_embassies_index_page_to_publishing_api
     PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
-  end
-
-  def republish_worldwide_offices
-    return if offices.blank?
-
-    offices.each { |office| Whitehall::PublishingApi.republish_async(office) }
   end
 
   def search_index
