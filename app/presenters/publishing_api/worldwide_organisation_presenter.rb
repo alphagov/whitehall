@@ -160,6 +160,7 @@ module PublishingApi
           links << {
             content_id: corporate_information_page.content_id,
             title: corporate_information_page.title,
+            path: corporate_information_page.base_path.gsub("#{corporate_information_page.worldwide_organisation.base_path}/", ""),
           }
         end
       end

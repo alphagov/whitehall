@@ -99,10 +99,12 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           {
             content_id: worldwide_org.corporate_information_pages[1].content_id,
             title: "Complaints procedure",
+            path: "about/complaints-procedure",
           },
           {
             content_id: worldwide_org.corporate_information_pages[4].content_id,
             title: "Working for Locationia Embassy",
+            path: "about/recruitment",
           },
         ],
         people_role_associations: [
