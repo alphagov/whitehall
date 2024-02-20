@@ -15,7 +15,7 @@ module PublishingApi
 
       def call
         { base_path: }.merge(
-          PayloadBuilder::Routes.for(base_path, prefix:, suffixes:),
+          PayloadBuilder::Routes.for(base_path, prefix:, suffixes:, additional_routes:),
         )
       end
 
@@ -23,6 +23,12 @@ module PublishingApi
 
       def base_path
         @base_path ||= item.public_path(locale: I18n.locale)
+      end
+
+      def additional_routes
+        return [] unless item.respond_to?(:multipart_content_paths)
+
+        item.multipart_content_paths
       end
     end
   end
