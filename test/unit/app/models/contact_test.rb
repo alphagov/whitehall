@@ -188,57 +188,28 @@ class ContactTest < ActiveSupport::TestCase
     end
   end
 
-  test "republishes worldwide organisation on creation of related contact through a worldwide office" do
+  test "republishes worldwide office on creation of related contact" do
     worldwide_office = create(:worldwide_office)
 
-    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office.worldwide_organisation).once
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
 
     Sidekiq::Testing.inline! do
       create(:contact, contactable: worldwide_office)
     end
   end
 
-  test "republishes worldwide organsation on update of related contact through a worldwide office" do
+  test "republishes worldwide office on update of related contact" do
     worldwide_office = create(:worldwide_office)
 
-    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office.worldwide_organisation).once
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
 
     worldwide_office.contact.update!(locality: "new-locality")
   end
 
-  test "republishes worldwide organisation on deletion of related contact through a worldwide office" do
+  test "republishes worldwide office on deletion of related contact" do
     worldwide_office = create(:worldwide_office)
 
-    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office.worldwide_organisation).once
-
-    worldwide_office.contact.destroy!
-  end
-
-  test "republishes editionable worldwide organisation on creation of related contact through a worldwide office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
-    worldwide_office = create(:worldwide_office, edition: worldwide_organisation, worldwide_organisation: nil)
-
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id).once
-
-    Sidekiq::Testing.inline! do
-      create(:contact, contactable: worldwide_office)
-    end
-  end
-
-  test "republishes editionable worldwide organsation on update of related contact through a worldwide office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
-    worldwide_office = create(:worldwide_office, edition: worldwide_organisation, worldwide_organisation: nil)
-
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id).once
-
-    worldwide_office.contact.update!(locality: "new-locality")
-  end
-
-  test "republishes editionable worldwide organisation on deletion of related contact through a worldwide office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
-    worldwide_office = create(:worldwide_office, edition: worldwide_organisation, worldwide_organisation: nil)
-
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id).once
+    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
 
     worldwide_office.contact.destroy!
   end

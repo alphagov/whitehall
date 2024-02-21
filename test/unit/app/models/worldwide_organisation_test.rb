@@ -366,6 +366,23 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     end
   end
 
+  test "republishes related offices on change" do
+    organisation = create(:worldwide_organisation, :with_main_office)
+    organisation.reload
+
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation.offices.first).once
+
+    organisation.update!(name: "new name")
+  end
+
+  test "does not try to republish offices when there are none" do
+    organisation = create(:worldwide_organisation)
+
+    Whitehall::PublishingApi.expects(:republish_async).never
+
+    organisation.update!(name: "new name")
+  end
+
   test "#title returns the name of the organisation" do
     organisation = create(:worldwide_organisation)
 

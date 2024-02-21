@@ -38,13 +38,6 @@ class EditionableWorldwideOrganisation < Edition
     "worldwide organisation"
   end
 
-  def multipart_content_paths
-    ([main_office] + home_page_offices)
-      .compact
-      .select { |office| office.contact.available_in_locale?(I18n.locale) }
-      .map { |office| office.public_path(locale: I18n.locale) }
-  end
-
   alias_method :original_main_office, :main_office
 
   extend HomePageList::Container

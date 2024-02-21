@@ -44,7 +44,7 @@ class WorldwideOrganisation < ApplicationRecord
   extend FriendlyId
   friendly_id
 
-  after_commit :republish_embassies_index_page_to_publishing_api
+  after_commit :republish_embassies_index_page_to_publishing_api, :republish_worldwide_offices
 
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
@@ -129,15 +129,14 @@ class WorldwideOrganisation < ApplicationRecord
     Plek.website_root + public_path(options)
   end
 
-  def multipart_content_paths
-    ([main_office] + home_page_offices)
-      .compact
-      .select { |office| office.contact.available_in_locale?(I18n.locale) }
-      .map { |office| office.public_path(locale: I18n.locale) }
-  end
-
   def republish_embassies_index_page_to_publishing_api
     PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
+  end
+
+  def republish_worldwide_offices
+    return if offices.blank?
+
+    offices.each { |office| Whitehall::PublishingApi.republish_async(office) }
   end
 
   def search_index
