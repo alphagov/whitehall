@@ -11,8 +11,6 @@ class WorldwideOffice < ApplicationRecord
 
   accepts_nested_attributes_for :contact
 
-  include PublishesToPublishingApi
-
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :worldwide_organisation
 
@@ -63,10 +61,6 @@ class WorldwideOffice < ApplicationRecord
 
   def public_url(options = {})
     Plek.website_root + public_path(options)
-  end
-
-  def publishing_api_presenter
-    PublishingApi::WorldwideOfficePresenter
   end
 
 private
