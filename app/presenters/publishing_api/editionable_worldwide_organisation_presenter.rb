@@ -51,8 +51,8 @@ module PublishingApi
       {
         contacts:,
         office_staff:,
-        main_office:,
-        home_page_offices:,
+        main_office: [],
+        home_page_offices: [],
         primary_role_person:,
         role_appointments: item.roles.map(&:current_role_appointment)&.compact&.map(&:content_id),
         roles: item.roles.map(&:content_id),
@@ -78,18 +78,6 @@ module PublishingApi
 
     def office_staff
       item.office_staff_roles.map(&:current_person).map(&:content_id)
-    end
-
-    def main_office
-      return [] unless item.main_office
-
-      [item.main_office.content_id]
-    end
-
-    def home_page_offices
-      return [] unless item.home_page_offices.any?
-
-      item.home_page_offices.map(&:content_id)
     end
 
     def contacts

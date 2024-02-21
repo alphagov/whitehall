@@ -41,8 +41,8 @@ module PublishingApi
       {
         contacts:,
         corporate_information_pages:,
-        main_office:,
-        home_page_offices:,
+        main_office: [],
+        home_page_offices: [],
         primary_role_person:,
         roles:,
         role_appointments:,
@@ -79,18 +79,6 @@ module PublishingApi
       return [] unless item.main_office_contact || item.home_page_office_contacts&.any?
 
       [item.main_office_contact&.content_id] + item.home_page_office_contacts&.map(&:content_id)
-    end
-
-    def main_office
-      return [] unless item.main_office
-
-      [item.main_office.content_id]
-    end
-
-    def home_page_offices
-      return [] unless item.home_page_offices.any?
-
-      item.home_page_offices.map(&:content_id)
     end
 
     def office_contact_associations

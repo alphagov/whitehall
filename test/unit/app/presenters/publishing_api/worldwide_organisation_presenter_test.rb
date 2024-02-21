@@ -146,12 +146,8 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           worldwide_org.corporate_information_pages[4].content_id,
           worldwide_org.corporate_information_pages[5].content_id,
         ],
-        main_office: [
-          worldwide_org.reload.main_office.content_id,
-        ],
-        home_page_offices: [
-          worldwide_org.reload.home_page_offices.first.content_id,
-        ],
+        main_office: [],
+        home_page_offices: [],
         primary_role_person: [
           ambassador.content_id,
         ],

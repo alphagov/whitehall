@@ -119,12 +119,8 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
           worldwide_org.reload.main_office.contact.content_id,
           worldwide_org.reload.home_page_offices.first.contact.content_id,
         ],
-        main_office: [
-          worldwide_org.reload.main_office.content_id,
-        ],
-        home_page_offices: [
-          worldwide_org.reload.home_page_offices.first.content_id,
-        ],
+        main_office: [],
+        home_page_offices: [],
         office_staff: worldwide_org.office_staff_roles.map(&:current_person).map(&:content_id),
         primary_role_person: [
           ambassador.content_id,
