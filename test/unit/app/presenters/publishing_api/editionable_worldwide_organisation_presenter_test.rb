@@ -36,7 +36,11 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
       public_updated_at: worldwide_org.updated_at,
-      routes: [{ path: public_path, type: "exact" }],
+      routes: [
+        { path: public_path, type: "exact" },
+        { path: worldwide_org.reload.main_office.base_path, type: "exact" },
+        { path: worldwide_org.reload.home_page_offices.first.base_path, type: "exact" },
+      ],
       redirects: [],
       description: worldwide_org.summary,
       details: {
@@ -192,5 +196,56 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     presented_item = present(worldwide_org)
 
     assert_equal [lead_organisation_2.content_id, lead_organisation_1.content_id], presented_item.content.dig(:links, :sponsoring_organisations)
+  end
+
+  test "presents correct routes when the worldwide organisation and its office are translated" do
+    worldwide_organisation = create(
+      :editionable_worldwide_organisation,
+      translated_into: %i[fr es],
+    )
+
+    contact = create(:contact, translated_into: [:fr])
+    main_office = create(:worldwide_office, contact:, edition: worldwide_organisation, worldwide_organisation: nil)
+
+    I18n.with_locale(:en) do
+      presented_item = present(worldwide_organisation)
+      expected_routes = [
+        {
+          path: worldwide_organisation.reload.base_path,
+          type: "exact",
+        },
+        {
+          path: main_office.base_path,
+          type: "exact",
+        },
+      ]
+      assert_equal expected_routes, presented_item.content[:routes]
+    end
+
+    I18n.with_locale(:fr) do
+      presented_item = present(worldwide_organisation)
+      expected_routes = [
+        {
+          path: "#{worldwide_organisation.base_path}.fr",
+          type: "exact",
+        },
+        {
+          path: "#{worldwide_organisation.main_office.base_path}.fr",
+          type: "exact",
+        },
+      ]
+      assert_equal expected_routes, presented_item.content[:routes]
+    end
+
+    I18n.with_locale(:es) do
+      presented_item = present(worldwide_organisation)
+      expected_routes = [
+        {
+          path: "#{worldwide_organisation.base_path}.es",
+          type: "exact",
+        },
+      ]
+      assert_equal expected_routes, presented_item.content[:routes]
+    end
   end
 end
