@@ -41,8 +41,6 @@ module PublishingApi
       {
         contacts:,
         corporate_information_pages:,
-        main_office: [],
-        home_page_offices: [],
         primary_role_person:,
         roles:,
         role_appointments:,
