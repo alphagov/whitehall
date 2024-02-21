@@ -3,8 +3,6 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :limit_edition_access!
 
-  def edit; end
-
   def update
     @edition.assign_attributes(edition_params)
     if updater.can_perform? && @edition.save_as(current_user)

@@ -9,47 +9,6 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
 
   should_be_an_admin_controller
 
-  view_test "should render edit form correctly populated" do
-    stub_publishing_api_has_linkables(
-      [
-        {
-          "content_id" => "WELLS",
-          "internal_name" => "Oil and Gas / Wells",
-          "publication_state" => "published",
-        },
-        {
-          "content_id" => "FIELDS",
-          "internal_name" => "Oil and Gas / Fields",
-          "publication_state" => "published",
-        },
-        {
-          "content_id" => "OFFSHORE",
-          "internal_name" => "Oil and Gas / Offshore",
-          "publication_state" => "published",
-        },
-        {
-          "content_id" => "DISTILL",
-          "internal_name" => "Oil and Gas / Distillation",
-          "publication_state" => "draft",
-        },
-      ],
-      document_type: "topic",
-    )
-    @edition = create(
-      :publication,
-      title: "the edition",
-      primary_specialist_sector_tag: "WELLS",
-      secondary_specialist_sector_tags: %w[FIELDS OFFSHORE],
-    )
-    get :edit, params: { edition_id: @edition.id }
-    assert_select "#edition_primary_specialist_sector_tag option[value='WELLS'][selected='selected']", "Oil and Gas: Wells"
-    assert_select "#edition_secondary_specialist_sector_tags option[value='FIELDS'][selected='selected']", "Oil and Gas: Fields"
-    assert_select "#edition_secondary_specialist_sector_tags option[value='OFFSHORE'][selected='selected']", "Oil and Gas: Offshore"
-    assert_select "#edition_secondary_specialist_sector_tags option[value='DISTILL']", "Oil and Gas: Distillation (draft)"
-    refute_select "#edition_secondary_specialist_sector_tags option[value='DISTILL'][selected='selected']"
-    assert_select ".govuk-button-group  a:contains('Cancel')[href='#{@controller.admin_edition_path(@edition)}']"
-  end
-
   test "should update the edition with the selected legacy tags" do
     @edition = create(:publication, title: "the edition")
 
