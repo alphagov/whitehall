@@ -728,10 +728,6 @@ EXISTS (
     website_root + public_path(options)
   end
 
-  def multipart_content_paths
-    []
-  end
-
   def force_scheduled?
     force_published? && state == "scheduled"
   end

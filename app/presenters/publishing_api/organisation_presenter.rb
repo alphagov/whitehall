@@ -33,7 +33,7 @@ module PublishingApi
         schema_name:,
       )
       content.merge!(
-        PayloadBuilder::PolymorphicPath.for(item, prefix: use_prefix_route?, suffixes:),
+        PayloadBuilder::PolymorphicPath.for(item, prefix: use_prefix_route?, additional_routes:),
       )
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
@@ -67,7 +67,7 @@ module PublishingApi
       !court_or_tribunal?
     end
 
-    def suffixes
+    def additional_routes
       return [] if court_or_tribunal?
 
       %w[atom]
