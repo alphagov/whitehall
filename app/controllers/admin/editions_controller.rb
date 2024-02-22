@@ -19,7 +19,6 @@ class Admin::EditionsController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
   before_action :redirect_to_controller_for_type, only: [:show]
-  before_action :deduplicate_specialist_sectors, only: %i[create update]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
 
   def enforce_permissions!
@@ -235,7 +234,6 @@ private
       :create_foreign_language_only,
       :related_mainstream_content_url,
       :additional_related_mainstream_content_url,
-      :primary_specialist_sector_tag,
       :corporate_information_page_type_id,
       :political,
       :read_consultation_principles,
@@ -244,7 +242,6 @@ private
       :logo_formatted_name,
       {
         all_nation_applicability: [],
-        secondary_specialist_sector_tags: [],
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
         organisation_ids: [],
@@ -516,12 +513,4 @@ private
     @force_scheduler ||= Whitehall.edition_services.force_scheduler(@edition)
   end
   helper_method :force_scheduler
-
-  def deduplicate_specialist_sectors
-    return if edition_params.empty?
-
-    if edition_params[:secondary_specialist_sector_tags] && edition_params[:primary_specialist_sector_tag]
-      edition_params[:secondary_specialist_sector_tags] -= [edition_params[:primary_specialist_sector_tag]]
-    end
-  end
 end
