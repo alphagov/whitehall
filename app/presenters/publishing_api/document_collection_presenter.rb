@@ -40,7 +40,7 @@ module PublishingApi
 
     def edition_links
       links = LinksPresenter.new(item).extract(
-        %i[organisations topics parent government],
+        %i[organisations government],
       )
       links[:documents] = item.content_ids.uniq
       links[:taxonomy_topic_email_override] = [item.taxonomy_topic_email_override] if item.taxonomy_topic_email_override

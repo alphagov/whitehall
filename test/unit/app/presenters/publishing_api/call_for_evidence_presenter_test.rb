@@ -80,8 +80,6 @@ module PublishingApi::CallForEvidencePresenterTest
     test "base links" do
       expected_link_keys = %i[
         organisations
-        parent
-        topics
         government
       ]
 
@@ -111,8 +109,6 @@ module PublishingApi::CallForEvidencePresenterTest
     test "edition links" do
       expected_links = {
         organisations: call_for_evidence.organisations.map(&:content_id),
-        parent: [],
-        topics: [],
       }
 
       assert_hash_includes presented_content[:links], expected_links

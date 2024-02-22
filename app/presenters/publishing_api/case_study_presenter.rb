@@ -32,8 +32,6 @@ module PublishingApi
       LinksPresenter.new(item).extract(
         %i[
           organisations
-          parent
-          topics
           world_locations
           worldwide_organisations
         ],

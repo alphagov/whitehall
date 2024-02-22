@@ -31,14 +31,13 @@ module PublishingApi
     end
 
     def links
-      LinksPresenter.new(item).extract([:topics])
+      {}
     end
 
     def edition_links
       LinksPresenter.new(item).extract(
         %i[
           organisations
-          parent
           government
         ],
       ).merge(

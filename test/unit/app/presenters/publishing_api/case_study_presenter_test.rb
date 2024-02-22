@@ -44,15 +44,12 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
         ],
         tags: {
           browse_pages: [],
-          topics: [],
         },
         emphasised_organisations: case_study.lead_organisations.map(&:content_id),
       },
     }
     expected_links = {
       organisations: case_study.lead_organisations.map(&:content_id),
-      topics: [],
-      parent: [],
       world_locations: [],
       worldwide_organisations: [],
     }
@@ -136,17 +133,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
-  test "links hash includes topics and parent if set" do
-    edition = create(:published_case_study)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: true)
-    create(:specialist_sector, topic_content_id: "content_id_2", edition:, primary: false)
-
-    links = present(edition).links
-
-    assert_equal links[:topics], %w[content_id_1 content_id_2]
-    assert_equal links[:parent], %w[content_id_1]
-  end
-
   test "links hash includes lead and supporting organisations in correct order" do
     lead_org1 = create(:organisation)
     lead_org2 = create(:organisation)
@@ -159,8 +145,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     presented_item = present(case_study)
     expected_links_hash = {
       organisations: [lead_org1.content_id, lead_org2.content_id, supporting_org.content_id],
-      topics: [],
-      parent: [],
       world_locations: [],
       worldwide_organisations: [],
     }

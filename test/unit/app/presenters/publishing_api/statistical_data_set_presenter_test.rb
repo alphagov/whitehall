@@ -146,13 +146,6 @@ class PublishingApi::PublishedStatisticalDataSetPresenterLinksTest < ActiveSuppo
     )
   end
 
-  test "it presents the topic content_ids as links, topics" do
-    assert_equal(
-      @statistical_data_set.specialist_sectors.map(&:content_id),
-      @presented_links[:topics],
-    )
-  end
-
   test "it presents the primary_specialist_sector content_ids as links, parent" do
     assert_equal(
       @statistical_data_set.primary_specialist_sectors.map(&:content_id),

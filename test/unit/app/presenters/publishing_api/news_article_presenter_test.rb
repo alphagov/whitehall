@@ -83,8 +83,6 @@ module PublishingApi::NewsArticlePresenterTest
     test "base links" do
       expected_link_keys = %i[
         organisations
-        parent
-        topics
         world_locations
         worldwide_organisations
         government
