@@ -209,13 +209,6 @@ class PublishingApi::PublishedDocumentCollectionPresenterLinksTest < ActiveSuppo
       @presented_links[:organisations],
     )
   end
-
-  test "it presents the primary_specialist_sector content_id as links, parent" do
-    assert_equal(
-      @document_collection.primary_specialist_sectors.map(&:content_id),
-      @presented_links[:parent],
-    )
-  end
 end
 
 class PublishingApi::PublishedDocumentCollectionPresenterEditionLinksTest < ActiveSupport::TestCase
@@ -243,13 +236,6 @@ class PublishingApi::PublishedDocumentCollectionPresenterEditionLinksTest < Acti
     assert_equal(
       @document_collection.topical_events.map(&:content_id),
       @presented_links[:topical_events],
-    )
-  end
-
-  test "it presentes the primary_specialist_sector content_ids as links, parent" do
-    assert_equal(
-      @document_collection.primary_specialist_sectors.map(&:content_id),
-      @presented_links[:parent],
     )
   end
 end

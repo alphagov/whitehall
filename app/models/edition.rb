@@ -21,9 +21,6 @@ class Edition < ApplicationRecord
   include Edition::ActiveEditors
   include Edition::Translatable
 
-  # Add support for specialist sector tagging.
-  include Edition::SpecialistSectors
-
   include Dependable
 
   extend Edition::FindableByOrganisation
