@@ -38,7 +38,7 @@ module Reports
 
             organisation.corporate_information_pages.where(state: :published).find_each do |page|
               csv << skip_columns(3) + [organisation.name, translation.locale] + skip_columns(3) + [
-                page.title,
+                page.slug,
                 human_bool(page.translations.map(&:locale).include?(translation.locale)),
               ] + skip_columns(1)
 
@@ -48,7 +48,7 @@ module Reports
 
               cip_only_translations.each do |cip_only_translation|
                 csv << skip_columns(3) + [organisation.name, cip_only_translation] + skip_columns(3) + [
-                  page.title,
+                  page.slug,
                   human_bool(true),
                   human_bool(false),
                 ]
