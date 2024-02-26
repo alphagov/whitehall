@@ -23,16 +23,15 @@ module Reports
         worldwide_corporate_information_pages_count(csv)
 
         organisations = WorldwideOrganisation.all.includes(:translations, offices: [contact: [:translations]])
-        with_foreign_translations = organisations.select { |organisation| organisation.non_english_translations.present? }
 
-        with_foreign_translations.each do |organisation|
-          organisation.non_english_translations.each do |translation|
+        organisations.each do |organisation|
+          organisation.translations.each do |translation|
             organisation.offices.each do |office|
               csv << skip_columns(3) + [
                 organisation.name,
                 translation.locale,
                 office.title,
-                human_bool(false),
+                human_bool(translation.locale == :en),
                 human_bool(office.contact.translations.map(&:locale).include?(translation.locale)),
               ]
             end
@@ -43,12 +42,12 @@ module Reports
                 human_bool(page.translations.map(&:locale).include?(translation.locale)),
               ] + skip_columns(1)
 
-              page.non_english_translations&.each do |page_translation|
-                organisation_has_translation = page.worldwide_organisation.translations.map(&:locale).include?(page_translation.locale)
+              cip_only_translations = page.translations.map(&:locale) - organisation.translations.map(&:locale)
 
-                next if organisation_has_translation
+              next if translation.locale != :en || cip_only_translations.empty?
 
-                csv << skip_columns(3) + [organisation.name, page_translation.locale] + skip_columns(3) + [
+              cip_only_translations.each do |cip_only_translation|
+                csv << skip_columns(3) + [organisation.name, cip_only_translation] + skip_columns(3) + [
                   page.title,
                   human_bool(true),
                   human_bool(false),

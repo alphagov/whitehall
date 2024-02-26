@@ -44,22 +44,32 @@ class Reports::WorldwideOrganisationTranslationsReportTest < ActiveSupport::Test
       assert_equal "Worldwide organisation", csv[0][3]
       assert_equal "Worldwide organisation name", csv[4][3]
       assert_equal "Worldwide organisation name", csv[5][3]
+      assert_equal "Worldwide organisation name", csv[6][3]
+      assert_equal "Worldwide organisation name", csv[7][3]
 
       assert_equal "Translation", csv[0][4]
-      assert_equal "es", csv[4][4]
-      assert_equal "es", csv[5][4]
+      assert_equal "en", csv[4][4]
+      assert_equal "en", csv[5][4]
+      assert_equal "es", csv[6][4]
+      assert_equal "es", csv[7][4]
 
       assert_equal "Office", csv[0][5]
       assert_equal "Contact description", csv[4][5]
       assert_equal "Contact description", csv[5][5]
+      assert_equal "Contact description", csv[6][5]
+      assert_equal "Contact description", csv[7][5]
 
       assert_equal "Office has translation", csv[0][6]
-      assert_equal "No", csv[4][6] # Offices (access and opening times) cannot be translated currently
-      assert_equal "No", csv[5][6] # Offices (access and opening times) cannot be translated currently
+      assert_equal "Yes", csv[4][6]
+      assert_equal "Yes", csv[5][6]
+      assert_equal "No", csv[6][6] # Offices (access and opening times) cannot be translated currently
+      assert_equal "No", csv[7][6] # Offices (access and opening times) cannot be translated currently
 
       assert_equal "Contact has translation", csv[0][7]
       assert_equal "Yes", csv[4][7]
-      assert_equal "No", csv[5][7]
+      assert_equal "Yes", csv[5][7]
+      assert_equal "Yes", csv[6][7]
+      assert_equal "No", csv[7][7]
 
       File.delete(path)
     end
@@ -88,30 +98,45 @@ class Reports::WorldwideOrganisationTranslationsReportTest < ActiveSupport::Test
       assert_equal "Worldwide organisation name", csv[5][3]
       assert_equal "Worldwide organisation name", csv[6][3]
       assert_equal "Worldwide organisation name", csv[7][3]
+      assert_equal "Worldwide organisation name", csv[8][3]
+      assert_equal "Worldwide organisation name", csv[9][3]
+      assert_equal "Worldwide organisation name", csv[10][3]
 
       assert_equal "Translation", csv[0][4]
-      assert_equal "es", csv[4][4]
-      assert_equal "es", csv[5][4]
-      assert_equal "es", csv[6][4]
+      assert_equal "en", csv[4][4]
+      assert_equal "en", csv[5][4]
+      assert_equal "en", csv[6][4]
       assert_equal "fr", csv[7][4]
+      assert_equal "es", csv[8][4]
+      assert_equal "es", csv[9][4]
+      assert_equal "es", csv[10][4]
 
       assert_equal "Corporate information page", csv[0][8]
       assert_equal "Publication scheme", csv[4][8]
       assert_equal "Personal information charter", csv[5][8]
       assert_equal "Our governance", csv[6][8]
       assert_equal "Our governance", csv[7][8]
+      assert_equal "Publication scheme", csv[8][8]
+      assert_equal "Personal information charter", csv[9][8]
+      assert_equal "Our governance", csv[10][8]
 
       assert_equal "Corporate information page has translation", csv[0][9]
       assert_equal "Yes", csv[4][9]
-      assert_equal "No", csv[5][9]
-      assert_equal "No", csv[6][9]
+      assert_equal "Yes", csv[5][9]
+      assert_equal "Yes", csv[6][9]
       assert_equal "Yes", csv[7][9]
+      assert_equal "Yes", csv[8][9]
+      assert_equal "No", csv[9][9]
+      assert_equal "No", csv[10][9]
 
       assert_equal "Worldwide organisation has translation", csv[0][10]
       assert_equal "", csv[4][10]
       assert_equal "", csv[5][10]
       assert_equal "", csv[6][10]
       assert_equal "No", csv[7][10]
+      assert_equal "", csv[8][10]
+      assert_equal "", csv[9][10]
+      assert_equal "", csv[10][10]
 
       File.delete(path)
     end
