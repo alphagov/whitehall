@@ -67,9 +67,10 @@ class Reports::WorldwideOrganisationTranslationsReportTest < ActiveSupport::Test
 
   test "returns a report containing published corporate information pages and their translations" do
     corporate_information_page_with_translation = build(:published_corporate_information_page, translated_into: [:es])
+    corporate_information_page_with_other_translation = build(:published_corporate_information_page, translated_into: [:fr], corporate_information_page_type: CorporateInformationPageType::OurGovernance)
     corporate_information_page_without_translation = build(:personal_information_charter_corporate_information_page)
     corporate_information_page_draft = build(:draft_corporate_information_page, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
-    create(:worldwide_organisation, name: "Worldwide organisation name", translated_into: [:es], corporate_information_pages: [corporate_information_page_with_translation, corporate_information_page_without_translation, corporate_information_page_draft])
+    create(:worldwide_organisation, name: "Worldwide organisation name", translated_into: [:es], corporate_information_pages: [corporate_information_page_with_translation, corporate_information_page_without_translation, corporate_information_page_draft, corporate_information_page_with_other_translation])
 
     Timecop.freeze do
       path = Rails.root.join("tmp/worldwide-organisation-translations_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
@@ -85,18 +86,32 @@ class Reports::WorldwideOrganisationTranslationsReportTest < ActiveSupport::Test
       assert_equal "Worldwide organisation", csv[0][3]
       assert_equal "Worldwide organisation name", csv[4][3]
       assert_equal "Worldwide organisation name", csv[5][3]
+      assert_equal "Worldwide organisation name", csv[6][3]
+      assert_equal "Worldwide organisation name", csv[7][3]
 
       assert_equal "Translation", csv[0][4]
       assert_equal "es", csv[4][4]
       assert_equal "es", csv[5][4]
+      assert_equal "es", csv[6][4]
+      assert_equal "fr", csv[7][4]
 
       assert_equal "Corporate information page", csv[0][8]
       assert_equal "Publication scheme", csv[4][8]
       assert_equal "Personal information charter", csv[5][8]
+      assert_equal "Our governance", csv[6][8]
+      assert_equal "Our governance", csv[7][8]
 
       assert_equal "Corporate information page has translation", csv[0][9]
       assert_equal "Yes", csv[4][9]
       assert_equal "No", csv[5][9]
+      assert_equal "No", csv[6][9]
+      assert_equal "Yes", csv[7][9]
+
+      assert_equal "Worldwide organisation has translation", csv[0][10]
+      assert_equal "", csv[4][10]
+      assert_equal "", csv[5][10]
+      assert_equal "", csv[6][10]
+      assert_equal "No", csv[7][10]
 
       File.delete(path)
     end

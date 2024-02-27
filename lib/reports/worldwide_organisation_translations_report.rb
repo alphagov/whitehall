@@ -11,6 +11,7 @@ module Reports
       "Contact has translation",
       "Corporate information page",
       "Corporate information page has translation",
+      "Worldwide organisation has translation",
     ].freeze
 
     def report
@@ -40,7 +41,19 @@ module Reports
               csv << skip_columns(3) + [organisation.name, translation.locale] + skip_columns(3) + [
                 page.title,
                 human_bool(page.translations.map(&:locale).include?(translation.locale)),
-              ]
+              ] + skip_columns(1)
+
+              page.non_english_translations&.each do |page_translation|
+                organisation_has_translation = page.worldwide_organisation.translations.map(&:locale).include?(page_translation.locale)
+
+                next if organisation_has_translation
+
+                csv << skip_columns(3) + [organisation.name, page_translation.locale] + skip_columns(3) + [
+                  page.title,
+                  human_bool(true),
+                  human_bool(false),
+                ]
+              end
             end
           end
         end
