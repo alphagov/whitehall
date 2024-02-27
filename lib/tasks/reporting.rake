@@ -13,6 +13,11 @@ namespace :reporting do
     Reports::PublishedAttachmentsReport.new.report
   end
 
+  desc "A CSV report of worldwide organisation translations"
+  task worldwide_organisation_translations_report: :environment do
+    Reports::WorldwideOrganisationTranslationsReport.new.report
+  end
+
   desc "Prints a list of content IDs for documents whose govspeak content contains a given regular expression"
   task :matching_docs, [:regex] => :environment do |_, args|
     regex = Regexp.new(/#{args[:regex]}/).to_s
