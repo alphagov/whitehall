@@ -27,7 +27,6 @@ class DocumentListExportPresenter
       "Content sub-type",
       "State",
       "Attachments",
-      "Specialist sectors",
       "Collections",
       "Can have history-mode",
       "History-mode applied",
@@ -52,7 +51,6 @@ class DocumentListExportPresenter
       sub_content_type,
       state,
       attachment_types,
-      specialist_sectors,
       collections,
       edition.political?,
       edition.historic?,
@@ -111,10 +109,6 @@ class DocumentListExportPresenter
     else
       edition.state
     end
-  end
-
-  def specialist_sectors
-    edition.specialist_sectors.pluck(:tag)
   end
 
   def attachment_types
