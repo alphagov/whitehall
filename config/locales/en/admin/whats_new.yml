@@ -3,11 +3,11 @@ en:
     feedback:
       show_banner: true
     whats_new:
-      show_banner: false
+      show_banner: true
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates from the GOV.UK publishing teams on Whitehall Publisher, the roadmap, and getting involved
-      last_updated: Last updated 7 November 2023
+      last_updated: Last updated 29 February 2024
       introduction:
         heading: Our roadmap
         body_govspeak: |
@@ -30,6 +30,12 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Specialist topic tags removed
+            area: Creating and updating documents
+            type: change
+            date: 29 February 2024
+            body_govspeak: |
+              All specialist topic pages have now been archived and we have removed the step to tag content to specialist topics. Find out more about [why we’ve retired specialist topic pages](https://3.basecamp.com/4322319/buckets/15005645/messages/5444046751).
           - heading: Changes to adding lead images in Whitehall
             area: Creating and updating documents
             type: improvement
@@ -45,7 +51,7 @@ en:
             date: 19 October 2023
             body_govspeak: |
               The “Unpublish” document button no longer changes a published document back into a draft. Instead, the document is put into a new “Unpublished” state.
-           
+
               This means that unpublished documents will no longer appear in your “My Draft Documents” area of the dashboard. You can also filter the documents list for unpublished documents.
           - heading: Pasting tables to markdown in the document body editor
             area: Creating and updating documents
