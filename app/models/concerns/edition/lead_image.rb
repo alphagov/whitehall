@@ -6,6 +6,10 @@ module Edition::LeadImage
     has_one :lead_image, through: :edition_lead_image, source: :image
   end
 
+  def using_default_lead_image?
+    has_lead_image? && !lead_image
+  end
+
   def has_lead_image?
     !image_data.nil?
   end

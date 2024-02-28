@@ -57,4 +57,32 @@ class Edition::LeadImageTest < ActiveSupport::TestCase
 
     assert model.lead_image_has_all_assets?
   end
+
+  test "#using_default_lead_image? returns true if the lead image is retrieved from an associated lead organisation" do
+    organisation = create(:organisation, :with_default_news_image)
+    model = stub("Target", lead_image: nil, lead_organisations: [organisation], organisations: []).extend(Edition::LeadImage)
+
+    assert model.using_default_lead_image?
+  end
+
+  test "#using_default_lead_image? returns true if the lead image is retrieved from an associated organisation" do
+    organisation = create(:organisation, :with_default_news_image)
+    model = stub("Target", lead_image: nil, lead_organisations: [], organisations: [organisation]).extend(Edition::LeadImage)
+
+    assert model.using_default_lead_image?
+  end
+
+  test "#using_default_lead_image? returns true if the lead image is retrieved from an associated worldwide organisation" do
+    worldwide_organisation = create(:worldwide_organisation, :with_default_news_image)
+    model = stub("Target", lead_image: nil, lead_organisations: [], organisations: [], worldwide_organisations: [worldwide_organisation]).extend(Edition::LeadImage)
+
+    assert model.using_default_lead_image?
+  end
+
+  test "#using_default_lead_image? returns false if the model has a lead image" do
+    lead_image = build(:generic_image)
+    model = stub("Target", lead_image:, lead_organisations: [], organisations: []).extend(Edition::LeadImage)
+
+    assert_not model.using_default_lead_image?
+  end
 end
