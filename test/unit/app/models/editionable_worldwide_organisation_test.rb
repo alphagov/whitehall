@@ -8,6 +8,12 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal [worldwide_office], worldwide_organisation.offices
   end
 
+  test "can have a default news article image" do
+    image = build(:featured_image_data)
+    worldwide_organisation = build(:editionable_worldwide_organisation, default_news_image: image)
+    assert_equal image, worldwide_organisation.default_news_image
+  end
+
   test "destroys associated worldwide offices" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
     worldwide_office = create(:worldwide_office)
