@@ -2,7 +2,6 @@ class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseControl
   include Admin::DocumentCollectionEmailOverrideHelper
   before_action :load_document_collection
   before_action :authorise_user
-  layout "design_system"
 
   def edit
     @topic_list_select_presenter = TopicListSelectPresenter.new(@collection.taxonomy_topic_email_override)

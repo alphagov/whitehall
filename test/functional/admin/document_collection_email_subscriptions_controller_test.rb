@@ -24,7 +24,7 @@ class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionControll
     login_as @user_with_permission
     get :edit, params: { document_collection_id: @collection.id }
     assert_response :ok
-    assert_select "div", /Choose the type of email updates users will get if they sign up for notifications./
+    assert_select "div", /You cannot change the email notifications for this document collection/
   end
 
   test "GET #edit redirects to the edit page when the user does not have permission" do

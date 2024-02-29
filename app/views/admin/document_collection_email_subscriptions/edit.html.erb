@@ -18,12 +18,6 @@
     } %>
 
     <h2 class="govuk-heading-l">Email notifications</h2>
-
-    <% if taxonomy_topic_cannot_be_set?(@collection) %>
-      <%= render partial: "email_override_summary_page" %>
-    <% else %>
-      <p class="govuk-body">Choose the type of email updates users will get if they sign up for notifications.</p>
-      <%= render partial: "form" %>
-    <% end %>
+    <%= render partial: "email_override_summary_page" %>
   </div>
 </div>
