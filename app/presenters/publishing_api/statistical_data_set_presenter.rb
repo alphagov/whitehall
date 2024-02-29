@@ -31,7 +31,7 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        %i[organisations topics parent government],
+        %i[organisations government],
       )
     end
 

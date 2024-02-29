@@ -42,7 +42,7 @@ module PublishingApi
     def edition_links
       LinksPresenter
         .new(call_for_evidence)
-        .extract(%i[organisations parent topics government])
+        .extract(%i[organisations government])
         .merge(PayloadBuilder::People.for(call_for_evidence))
         .merge(PayloadBuilder::Roles.for(call_for_evidence))
         .merge(PayloadBuilder::TopicalEvents.for(call_for_evidence))

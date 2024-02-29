@@ -16,49 +16,10 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
   test "returns a links hash derived from the edition" do
     edition = create(:edition)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: false)
-
-    links = links_for(edition, %i[topics parent organisations])
+    links = links_for(edition, %i[organisations])
 
     assert_equal(
       {
-        topics: %w[content_id_1],
-        parent: [],
-        organisations: [],
-        primary_publishing_organisation: [],
-        original_primary_publishing_organisation: [],
-      },
-      links,
-    )
-  end
-
-  test "it treats the primary specialist sector of the item as the parent" do
-    edition = create(:edition)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: true)
-    create(:specialist_sector, topic_content_id: "content_id_2", edition:, primary: false)
-
-    links = links_for(edition, %i[topics parent organisations])
-
-    assert_equal(
-      {
-        topics: %w[content_id_1 content_id_2],
-        parent: %w[content_id_1],
-        organisations: [],
-        primary_publishing_organisation: [],
-        original_primary_publishing_organisation: [],
-      },
-      links,
-    )
-  end
-
-  test "correctly sets blank topic and parent values if no specialist sectors are specified" do
-    edition = create(:edition)
-    links = links_for(edition, %i[topics parent organisations])
-
-    assert_equal(
-      {
-        topics: [],
-        parent: [],
         organisations: [],
         primary_publishing_organisation: [],
         original_primary_publishing_organisation: [],

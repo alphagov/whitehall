@@ -39,7 +39,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         tags: {
           browse_pages: [],
-          topics: [],
         },
         documents: Whitehall::GovspeakRenderer.new.block_attachments(publication.attachments),
         first_public_at: publication.first_public_at,
@@ -56,8 +55,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     publication.topical_event_memberships.create!(topical_event_id: topical_event.id)
     expected_links = {
-      topics: [],
-      parent: [],
       government: [publication.government.content_id],
       primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       original_primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
@@ -86,22 +83,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_hash_includes presented_item.links, expected_links
     assert_equal expected_links, presented_item.content[:links]
     assert_equal publication.document.content_id, presented_item.content_id
-  end
-
-  test "links hash includes topics and parent if set" do
-    edition = create(:published_publication)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: true)
-    create(:specialist_sector, topic_content_id: "content_id_2", edition:, primary: false)
-
-    presented = present(edition)
-    links = presented.links
-    edition_links = presented.content[:links]
-
-    assert_equal links[:topics], %w[content_id_1 content_id_2]
-    assert_equal links[:parent], %w[content_id_1]
-
-    assert_equal edition_links[:topics], %w[content_id_1 content_id_2]
-    assert_equal edition_links[:parent], %w[content_id_1]
   end
 
   test "links hash includes lead and supporting organisations in correct order" do

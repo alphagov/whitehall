@@ -147,22 +147,6 @@ module Admin::EditionsHelper
     edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Withdrawn.id ? "withdrawal" : "unpublishing"
   end
 
-  def specialist_sector_options_for_select
-    @specialist_sector_options_for_select ||= LinkableTopics.new.raw_topics.sort
-  end
-
-  def specialist_sector_names(sector_content_ids)
-    raw_specialist_sectors.select { |pair| sector_content_ids.include? pair.last }.map(&:first)
-  end
-
-  def raw_specialist_sectors
-    @raw_specialist_sectors ||= LinkableTopics.new.raw_topics
-  end
-
-  def specialist_sector_name(sector_content_id)
-    raw_specialist_sectors.select { |pair| pair.last == sector_content_id }.first.try(:first)
-  end
-
   def show_similar_slugs_warning?(edition)
     !edition.document.live? && edition.document.similar_slug_exists?
   end

@@ -884,25 +884,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [], non_attachable_edition.attachables
   end
 
-  test "when no specialist sectors" do
-    edition = create(:edition)
-    assert_not edition.has_primary_sector?
-    assert_not edition.has_secondary_sectors?
-    assert_not edition.has_legacy_tags?
-  end
-
-  test "when a primary specialist sector exists" do
-    edition = create(:edition, primary_specialist_sector_tag: "primary")
-    assert edition.has_primary_sector?
-    assert edition.has_legacy_tags?
-  end
-
-  test "when a secondary specialist sector exists" do
-    edition = create(:edition, secondary_specialist_sector_tags: %w[secondary])
-    assert edition.has_secondary_sectors?
-    assert edition.has_legacy_tags?
-  end
-
   test "republishes a linked Topical Event when the edition is changed" do
     edition = create(:edition, :draft)
     topical_event = create(:topical_event, :active)

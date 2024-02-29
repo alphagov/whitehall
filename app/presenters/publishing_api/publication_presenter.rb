@@ -39,8 +39,6 @@ module PublishingApi
     def edition_links
       LinksPresenter.new(item).extract(
         %i[
-          topics
-          parent
           organisations
           world_locations
           government

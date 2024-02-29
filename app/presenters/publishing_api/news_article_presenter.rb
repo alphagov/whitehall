@@ -34,8 +34,6 @@ module PublishingApi
     def links
       link_keys = %i[
         organisations
-        parent
-        topics
         world_locations
         worldwide_organisations
         government

@@ -14,8 +14,6 @@ module PublishingApi
         :news_article,
         title: "The title",
         summary: "The summary",
-        primary_specialist_sector_tag: "oil-and-gas/taxation",
-        secondary_specialist_sector_tags: ["oil-and-gas/licensing"],
       )
 
       public_path = edition.public_path
@@ -39,24 +37,12 @@ module PublishingApi
         details: {
           tags: {
             browse_pages: [],
-            topics: ["oil-and-gas/taxation", "oil-and-gas/licensing"],
           },
         },
       }
 
       presented_item = present(edition)
       assert_equal expected_hash, presented_item.content
-    end
-
-    test "links hash includes topics and parent if set" do
-      news_article = create(:news_article)
-      create(:specialist_sector, topic_content_id: "content_id_1", edition: news_article, primary: true)
-      create(:specialist_sector, topic_content_id: "content_id_2", edition: news_article, primary: false)
-
-      links = present(news_article).links
-
-      assert_equal links[:topics], %w[content_id_1 content_id_2]
-      assert_equal links[:parent], %w[content_id_1]
     end
 
     test 'minor changes are a "minor" update type' do

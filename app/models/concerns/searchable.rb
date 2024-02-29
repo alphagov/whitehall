@@ -50,9 +50,6 @@ module Searchable
     superseded_organisations
     superseding_organisations
     title
-
-    specialist_sectors
-
     world_locations
   ].freeze
 

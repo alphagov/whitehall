@@ -59,7 +59,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         change_history: [],
         tags: {
           browse_pages: [],
-          topics: [],
         },
         political: false,
         related_mainstream_content: [],
@@ -74,16 +73,13 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         original_primary_publishing_organisation: [
           detailed_guide.document.editions.first.lead_organisations.first.content_id,
         ],
-        parent: [],
         related_guides: [],
         related_mainstream_content: [],
         government: [government.content_id],
         topical_events: [topical_event.content_id],
       },
     }
-    expected_links = {
-      topics: [],
-    }
+    expected_links = {}
     presented_item = present(detailed_guide)
 
     assert_equal expected_content.except(:details), presented_item.content.except(:details)
@@ -91,18 +87,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal expected_content[:details], presented_item.content[:details].except(:body)
     assert_hash_includes presented_item.links, expected_links
     assert_equal detailed_guide.document.content_id, presented_item.content_id
-  end
-
-  test "links hash includes topics and parent if set" do
-    edition = create(:detailed_guide)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: true)
-    create(:specialist_sector, topic_content_id: "content_id_2", edition:, primary: false)
-
-    links = present(edition).links
-    edition_links = present(edition).edition_links
-
-    assert_equal links[:topics], %w[content_id_1 content_id_2]
-    assert_equal edition_links[:parent], %w[content_id_1]
   end
 
   test "DetailedGuide presents related mainstream in links and details" do
