@@ -5,6 +5,7 @@ class NewsArticle < Announcement
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::WorldwideOrganisations
+  include Edition::EditionableWorldwideOrganisations
   include Edition::FactCheckable
   include Edition::CustomLeadImage
   include Edition::LeadImage
