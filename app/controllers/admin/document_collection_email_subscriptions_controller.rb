@@ -3,9 +3,7 @@ class Admin::DocumentCollectionEmailSubscriptionsController < Admin::BaseControl
   before_action :load_document_collection
   before_action :authorise_user
 
-  def edit
-    @topic_list_select_presenter = TopicListSelectPresenter.new(@collection.taxonomy_topic_email_override)
-  end
+  def edit; end
 
 private
 
