@@ -127,6 +127,7 @@ GEM
       ssrf_filter (~> 1.0)
     carrierwave-i18n (3.0.0)
       carrierwave (>= 3.0.0, < 4)
+    childprocess (5.0.0)
     chronic (0.10.2)
     climate_control (1.2.0)
     coderay (1.1.3)
@@ -368,8 +369,9 @@ GEM
     kramdown (2.4.0)
       rexml
     language_server-protocol (3.17.0.3)
-    launchy (2.5.2)
+    launchy (3.0.0)
       addressable (~> 2.8)
+      childprocess (~> 5.0)
     link_header (0.0.8)
     logstasher (2.1.5)
       activesupport (>= 5.2)
