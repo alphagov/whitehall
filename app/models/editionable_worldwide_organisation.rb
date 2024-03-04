@@ -124,4 +124,16 @@ class EditionableWorldwideOrganisation < Edition
   def requires_taxon?
     false
   end
+
+  def republish_dependent_documents
+    documents = NewsArticle
+      .joins(:edition_editionable_worldwide_organisations)
+      .where(edition_editionable_worldwide_organisations: { document: })
+      .includes(:images)
+      .where(images: { id: nil })
+      .map(&:document)
+      .uniq(&:id)
+
+    documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
+  end
 end
