@@ -14,6 +14,21 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal image, worldwide_organisation.default_news_image
   end
 
+  test "republishes news articles after commit when using default news image" do
+    worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_default_news_image)
+    news_article = create(:news_article_world_news_story, :published, editionable_worldwide_organisations: [worldwide_organisation])
+    draft_news_article = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [worldwide_organisation])
+    other_organisation_news_article = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [create(:published_editionable_worldwide_organisation, :with_default_news_image)])
+    news_article_with_image = create(:news_article_world_news_story, images: [create(:image)], editionable_worldwide_organisations: [worldwide_organisation])
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(draft_news_article.document).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(other_organisation_news_article.document).never
+    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article_with_image.document).never
+
+    worldwide_organisation.create_draft(create(:writer))
+  end
+
   test "destroys associated worldwide offices" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
     worldwide_office = create(:worldwide_office)

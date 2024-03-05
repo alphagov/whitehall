@@ -14,6 +14,8 @@ class EditionableWorldwideOrganisation < Edition
   has_one :default_news_image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
+  after_commit :republish_dependent_documents
+
   class CloneOfficesTrait < Edition::Traits::Trait
     def process_associations_before_save(new_edition)
       @edition.offices.each do |office|
