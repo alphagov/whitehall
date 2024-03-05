@@ -39,6 +39,8 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
 private
 
   def content_item
+    raise "No content ID found for URL #{@url}" if @content_item.nil? && content_id.nil?
+
     @content_item ||= Services.publishing_api.get_content(content_id).to_h
   end
 
