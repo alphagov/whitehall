@@ -20,9 +20,9 @@
   month ||= nil
   day ||= nil
   date_input_items = []
-  date_input_items << year if year
-  date_input_items << month if month
   date_input_items << day if day
+  date_input_items << month if month
+  date_input_items << year if year
   date_input_items = nil unless date_input_items.any?
 
   hour ||= {}
