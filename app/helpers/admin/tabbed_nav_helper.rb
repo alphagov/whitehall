@@ -90,11 +90,7 @@ module Admin::TabbedNavHelper
       href: admin_document_collection_edit_email_subscription_path(edition),
       current: current_path == admin_document_collection_edit_email_subscription_path(edition),
     }
-    if current_user.can_edit_email_overrides?
-      [collection_documents_element, email_notifications_element]
-    else
-      [collection_documents_element]
-    end
+    [collection_documents_element, email_notifications_element]
   end
 
   def document_collection_group_nav_items(group, current_path)
