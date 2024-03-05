@@ -28,6 +28,20 @@ class EditionableWorldwideOrganisation < Edition
 
   add_trait CloneOfficesTrait
 
+  class CloneDefaultImageTrait < Edition::Traits::Trait
+    def process_associations_before_save(new_edition)
+      return if @edition.default_news_image.blank?
+
+      new_edition.build_default_news_image(@edition.default_news_image.attributes.except("id"))
+
+      @edition.default_news_image.assets.each do |asset|
+        new_edition.default_news_image.assets << asset.dup
+      end
+    end
+  end
+
+  add_trait CloneDefaultImageTrait
+
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"
 
