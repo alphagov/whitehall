@@ -90,7 +90,11 @@ module Admin::TabbedNavHelper
       href: admin_document_collection_edit_email_subscription_path(edition),
       current: current_path == admin_document_collection_edit_email_subscription_path(edition),
     }
-    [collection_documents_element, email_notifications_element]
+    if edition.has_topic_level_notifications?
+      [collection_documents_element, email_notifications_element]
+    else
+      [collection_documents_element]
+    end
   end
 
   def document_collection_group_nav_items(group, current_path)

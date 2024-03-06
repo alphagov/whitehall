@@ -153,4 +153,9 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     doc = create(:document_collection, mapped_specialist_topic_content_id: "123")
     assert doc.specialist_topic_conversion?
   end
+
+  test "#has_topic_level_notifications? returns true if taxonomy topic email override is present" do
+    doc = create(:document_collection, taxonomy_topic_email_override: "some_content_id")
+    assert doc.has_topic_level_notifications?
+  end
 end
