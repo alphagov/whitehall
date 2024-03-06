@@ -286,6 +286,7 @@ private
             ],
           },
         ],
+        default_news_image_attributes: %i[file file_cache id],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
         document_attributes: [

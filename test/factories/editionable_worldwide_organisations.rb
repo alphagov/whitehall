@@ -45,6 +45,12 @@ FactoryBot.define do
         create(:social_media_account, socialable: organisation, social_media_service: create(:social_media_service, name: "Blog"))
       end
     end
+
+    trait(:with_default_news_image) do
+      after :build do |organisation|
+        organisation.default_news_image = build(:featured_image_data)
+      end
+    end
   end
 
   factory :draft_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:draft]

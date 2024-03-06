@@ -11,6 +11,24 @@
     rows: 4,
   } %>
 
+  <%= form.fields_for :default_news_image do |_image_fields| %>
+    <%= render "components/single_image_upload", {
+      title: "Default news image",
+      name: "edition[default_news_image_attributes]",
+      id: "edition_default_news_image",
+      image_id: "edition_default_news_image_file",
+      image_name: "edition[default_news_image_attributes][file]",
+      remove_alt_text_field: true,
+      filename: edition.default_news_image.file.identifier,
+      page_errors: edition.errors.any?,
+      error_items: errors_for(edition.errors, :"default_news_image.file"),
+      image_src: edition.default_news_image.url,
+      image_cache_name: "edition[default_news_image_attributes][file_cache]",
+      image_cache: edition.default_news_image.file_cache.presence,
+      image_uploaded: edition.default_news_image.all_asset_variants_uploaded?,
+    } %>
+  <% end %>
+
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 2,
