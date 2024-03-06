@@ -14,9 +14,25 @@ module Edition::EditionableWorldwideOrganisations
     has_many :published_editionable_worldwide_organisations, through: :editionable_worldwide_organisation_documents, source: :live_edition, class_name: "EditionableWorldwideOrganisation"
 
     add_trait Trait
+
+    validate :at_least_one_editionable_worldwide_organisations
   end
 
   def editionable_worldwide_organisations=(editionable_worldwide_organisations)
     self.editionable_worldwide_organisation_documents = editionable_worldwide_organisations.map(&:document)
+  end
+
+  def can_be_associated_with_worldwide_organisations?
+    true
+  end
+
+  def skip_worldwide_organisations_validation?
+    true
+  end
+
+  def at_least_one_editionable_worldwide_organisations
+    return unless Flipflop.editionable_worldwide_organisations? && !skip_worldwide_organisations_validation?
+
+    errors.add(:editionable_worldwide_organisations, "at least one required") if editionable_worldwide_organisation_document_ids.empty?
   end
 end

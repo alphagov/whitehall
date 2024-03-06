@@ -18,9 +18,15 @@
 
       <%= render "topical_event_fields", form: form, edition: edition %>
 
-      <div class="app-view-edit-edition__world-organisation-fields govuk-!-margin-bottom-4">
-        <%= render "worldwide_organisation_fields", form: form, edition: edition %>
-      </div>
+      <% if Flipflop.editionable_worldwide_organisations? %>
+        <div class="app-view-edit-edition__editionable-world-organisation-fields govuk-!-margin-bottom-4">
+          <%= render "editionable_worldwide_organisation_fields", form: form, edition: edition, required: true %>
+        </div>
+      <% else %>
+        <div class="app-view-edit-edition__world-organisation-fields govuk-!-margin-bottom-4">
+          <%= render "worldwide_organisation_fields", form: form, edition: edition %>
+        </div>
+      <% end %>
 
       <%= render "world_location_fields", form: form, edition: edition %>
 

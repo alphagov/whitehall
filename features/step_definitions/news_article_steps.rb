@@ -24,6 +24,17 @@ When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do
   click_button "Save"
 end
 
+When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)" associated with an editionable worldwide organisation$/) do |news_type, title|
+  create(:published_editionable_worldwide_organisation, title: "Afghanistan embassy")
+  create(:world_location, name: "Afghanistan", active: true)
+  begin_drafting_news_article(title:, first_published: Time.zone.today.to_s, announcement_type: news_type)
+  select "Afghanistan embassy", from: "Worldwide organisations"
+  select "Afghanistan", from: "World locations"
+  select "", from: "edition_lead_organisation_ids_1"
+
+  click_button "Save"
+end
+
 Then(/^the news article "([^"]*)" should have been created$/) do |title|
   @news_article = NewsArticle.find_by(title:)
   expect(@news_article).to be_present
