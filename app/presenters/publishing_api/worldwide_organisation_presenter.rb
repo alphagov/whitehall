@@ -133,7 +133,7 @@ module PublishingApi
       people.compact.map do |person|
         {
           person_content_id: person.content_id,
-          role_appointments: person.role_appointments&.map do |role_appointment|
+          role_appointments: person.current_role_appointments&.map do |role_appointment|
             {
               role_appointment_content_id: role_appointment.content_id,
               role_content_id: role_appointment.role.content_id,
