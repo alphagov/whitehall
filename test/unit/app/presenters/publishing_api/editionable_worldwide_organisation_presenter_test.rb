@@ -25,6 +25,10 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     create(:deputy_head_of_mission_role_appointment, role: secondary_role, person: deputy_head_of_mission)
     worldwide_org.roles << secondary_role
 
+    former_role = create(:ambassador_role)
+    create(:ambassador_role_appointment, :ended, role: former_role, person: deputy_head_of_mission)
+    worldwide_org.roles << former_role
+
     public_path = worldwide_org.public_path
 
     expected_hash = {

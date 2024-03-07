@@ -29,6 +29,10 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     create(:deputy_head_of_mission_role_appointment, role: secondary_role, person: deputy_head_of_mission)
     FactoryBot.create(:worldwide_organisation_role, worldwide_organisation: worldwide_org, role: secondary_role)
 
+    former_role = create(:ambassador_role)
+    create(:ambassador_role_appointment, :ended, role: former_role, person: deputy_head_of_mission)
+    FactoryBot.create(:worldwide_organisation_role, worldwide_organisation: worldwide_org, role: secondary_role)
+
     public_path = worldwide_org.public_path
 
     expected_hash = {
