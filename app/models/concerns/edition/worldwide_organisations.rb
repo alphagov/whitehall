@@ -27,8 +27,8 @@ module Edition::WorldwideOrganisations
   end
 
   def at_least_one_worldwide_organisations
-    if !skip_worldwide_organisations_validation? && worldwide_organisations.empty?
-      errors.add(:worldwide_organisations, "at least one required")
-    end
+    return if Flipflop.editionable_worldwide_organisations? || skip_worldwide_organisations_validation?
+
+    errors.add(:worldwide_organisations, "at least one required") if worldwide_organisations.empty?
   end
 end

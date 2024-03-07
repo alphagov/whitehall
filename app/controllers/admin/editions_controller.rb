@@ -254,6 +254,7 @@ private
         related_detailed_guide_ids: [],
         role_appointment_ids: [],
         statistical_data_set_document_ids: [],
+        editionable_worldwide_organisation_document_ids: [],
         policy_group_ids: [],
         document_collection_group_ids: [],
         consultation_participation_attributes: [
@@ -286,6 +287,7 @@ private
             ],
           },
         ],
+        default_news_image_attributes: %i[file file_cache id],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
         document_attributes: [

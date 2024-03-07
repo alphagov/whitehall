@@ -11,6 +11,11 @@ class EditionableWorldwideOrganisation < Edition
   has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy, autosave: true
   belongs_to :main_office, class_name: "WorldwideOffice"
 
+  has_one :default_news_image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+  accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
+
+  after_commit :republish_dependent_documents
+
   class CloneOfficesTrait < Edition::Traits::Trait
     def process_associations_before_save(new_edition)
       @edition.offices.each do |office|
@@ -22,6 +27,20 @@ class EditionableWorldwideOrganisation < Edition
   end
 
   add_trait CloneOfficesTrait
+
+  class CloneDefaultImageTrait < Edition::Traits::Trait
+    def process_associations_before_save(new_edition)
+      return if @edition.default_news_image.blank?
+
+      new_edition.build_default_news_image(@edition.default_news_image.attributes.except("id"))
+
+      @edition.default_news_image.assets.each do |asset|
+        new_edition.default_news_image.assets << asset.dup
+      end
+    end
+  end
+
+  add_trait CloneDefaultImageTrait
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"
@@ -120,5 +139,17 @@ class EditionableWorldwideOrganisation < Edition
 
   def requires_taxon?
     false
+  end
+
+  def republish_dependent_documents
+    documents = NewsArticle
+      .joins(:edition_editionable_worldwide_organisations)
+      .where(edition_editionable_worldwide_organisations: { document: })
+      .includes(:images)
+      .where(images: { id: nil })
+      .map(&:document)
+      .uniq(&:id)
+
+    documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
   end
 end

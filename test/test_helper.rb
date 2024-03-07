@@ -47,6 +47,8 @@ class ActiveSupport::TestCase
 
   parallelize(workers: :number_of_processors)
 
+  attr_reader :feature_flags
+
   # Fix the merging of coverage reports from parallel processes when using
   # Rails 6 parallelization rather than parallel_tests
   # from https://github.com/simplecov-ruby/simplecov/issues/718#issuecomment-538201587
@@ -61,6 +63,7 @@ class ActiveSupport::TestCase
   end
 
   setup do
+    @feature_flags = Flipflop::FeatureSet.current.test!
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
     Sidekiq::Worker.clear_all
     stub_any_publishing_api_call

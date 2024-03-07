@@ -8,6 +8,27 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal [worldwide_office], worldwide_organisation.offices
   end
 
+  test "can have a default news article image" do
+    image = build(:featured_image_data)
+    worldwide_organisation = build(:editionable_worldwide_organisation, default_news_image: image)
+    assert_equal image, worldwide_organisation.default_news_image
+  end
+
+  test "republishes news articles after commit when using default news image" do
+    worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_default_news_image)
+    news_article = create(:news_article_world_news_story, :published, editionable_worldwide_organisations: [worldwide_organisation])
+    draft_news_article = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [worldwide_organisation])
+    other_organisation_news_article = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [create(:published_editionable_worldwide_organisation, :with_default_news_image)])
+    news_article_with_image = create(:news_article_world_news_story, images: [create(:image)], editionable_worldwide_organisations: [worldwide_organisation])
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(draft_news_article.document).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(other_organisation_news_article.document).never
+    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article_with_image.document).never
+
+    worldwide_organisation.create_draft(create(:writer))
+  end
+
   test "destroys associated worldwide offices" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
     worldwide_office = create(:worldwide_office)
@@ -145,6 +166,21 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
                  draft_worldwide_organisation.offices.first.contact.translations.find_by(locale: :es).attributes.except("id", "contact_id")
     assert_equal published_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id"),
                  draft_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id")
+  end
+
+  test "should clone default news image when new draft of published edition is created" do
+    published_worldwide_organisation = create(
+      :editionable_worldwide_organisation,
+      :published,
+      :with_default_news_image,
+    )
+
+    draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
+
+    assert_equal published_worldwide_organisation.default_news_image.attributes.except("id", "featured_imageable_id"), draft_worldwide_organisation.default_news_image.attributes.except("id", "featured_imageable_id")
+    published_worldwide_organisation.default_news_image.assets.each_with_index do |asset, index|
+      assert_equal asset.attributes.except("id", "assetable_id"), draft_worldwide_organisation.default_news_image.assets[index].attributes.except("id", "assetable_id")
+    end
   end
 
   test "when destroyed, will remove its home page list for storing offices" do

@@ -132,6 +132,15 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the taggable worldwide organisations.
+  # Each element of the array consists of two values: the name of the worldwide
+  # organisation and its ID.
+  def taggable_editionable_worldwide_organisations_container
+    Rails.cache.fetch(taggable_editionable_worldwide_organisations_cache_digest, expires_in: 1.day) do
+      EditionableWorldwideOrganisation.with_translations.latest_edition.map { |wo| [wo.title, wo.document.id] }
+    end
+  end
+
   # Returns an MD5 digest representing the current set of taggable topical
   # events. This will change if any of the Topics should change or if a new
   # topic event is added.
@@ -215,6 +224,12 @@ module Admin::TaggableContentHelper
   # This will change if any worldwide organisations are added or updated.
   def taggable_worldwide_organisations_cache_digest
     @taggable_worldwide_organisations_cache_digest ||= calculate_digest(WorldwideOrganisation.order(:id), "worldwide-organisations")
+  end
+
+  # Returns an MD5 digest representing the taggable editionable worldwide organisations. This
+  # will change if any editionable worldwide organisation is added or updated.
+  def taggable_editionable_worldwide_organisations_cache_digest
+    @taggable_editionable_worldwide_organisations_cache_digest ||= calculate_digest(Document.where(document_type: "EditionableWorldwideOrganisation").order(:id), "editionable-worldwide-organisations")
   end
 
 private

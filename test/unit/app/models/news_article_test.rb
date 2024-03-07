@@ -110,8 +110,21 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
   test "is invalid when not associating a worldwide organisation" do
     news_article = build(:news_article_world_news_story)
     news_article.worldwide_organisations = []
+
     assert_not news_article.valid?
     assert news_article.errors[:worldwide_organisations].include?("at least one required")
+    assert_not news_article.errors[:editionable_worldwide_organisations].present?
+  end
+
+  test "is invalid when not associating an editionable worldwide organisation" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+    news_article = build(:news_article_world_news_story)
+
+    news_article.editionable_worldwide_organisations = []
+
+    assert_not news_article.valid?
+    assert news_article.errors[:editionable_worldwide_organisations].include?("at least one required")
+    assert_not news_article.errors[:worldwide_organisations].present?
   end
 
   test "are invalid if associated with a minister" do
