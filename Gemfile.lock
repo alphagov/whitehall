@@ -287,7 +287,7 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (37.5.1)
+    govuk_publishing_components (37.6.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -319,9 +319,8 @@ GEM
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.14.3)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
-      racc (~> 1.7)
     i18n-coverage (0.2.0)
     i18n-tasks (1.0.13)
       activesupport (>= 4.0.2)
@@ -342,7 +341,7 @@ GEM
       nokogiri (>= 1.6)
     invalid_utf8_rejector (0.0.4)
     io-console (0.7.2)
-    irb (1.11.2)
+    irb (1.12.0)
       rdoc
       reline (>= 0.4.2)
     isbn_validation (1.2.2)
@@ -391,7 +390,7 @@ GEM
       activesupport (>= 5.2.4.6)
       notifications-ruby-client (~> 5.1)
       rack (>= 2.1.4.1)
-    marcel (1.0.3)
+    marcel (1.0.4)
     matrix (0.4.2)
     maxitest (5.4.0)
       minitest (>= 5.14.0, < 5.21.0)
