@@ -13,8 +13,6 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
                            :with_home_page_offices,
                            analytics_identifier: "WO123")
 
-    main_office_service = create(:worldwide_office_worldwide_service, worldwide_office: worldwide_org.reload.main_office)
-
     primary_role = create(:ambassador_role)
     ambassador = create(:person)
     create(:ambassador_role_appointment, role: primary_role, person: ambassador)
@@ -45,35 +43,10 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       description: worldwide_org.summary,
       details: {
         body: "<div class=\"govspeak\"><p>Information about the organisation with <em>italics</em>.</p>\n</div>",
-        home_page_office_parts: [
-          {
-            access_and_opening_times: Whitehall::GovspeakRenderer.new.govspeak_to_html(worldwide_org.reload.home_page_offices.first.access_and_opening_times),
-            contact_content_id: worldwide_org.reload.home_page_offices.first.contact.content_id,
-            services: [],
-            slug: "office/#{worldwide_org.reload.home_page_offices.first.slug}",
-            title: worldwide_org.reload.home_page_offices.first.title,
-            type: worldwide_org.reload.home_page_offices.first.worldwide_office_type.name,
-          },
-        ],
         logo: {
           crest: "single-identity",
           formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
         },
-        main_office_parts: [
-          {
-            access_and_opening_times: Whitehall::GovspeakRenderer.new.govspeak_to_html(worldwide_org.reload.main_office.access_and_opening_times),
-            contact_content_id: worldwide_org.reload.main_office.contact.content_id,
-            services: [
-              {
-                title: main_office_service.worldwide_service.name,
-                type: main_office_service.worldwide_service.service_type.name,
-              },
-            ],
-            slug: "office/#{worldwide_org.reload.main_office.slug}",
-            title: worldwide_org.reload.main_office.title,
-            type: worldwide_org.reload.main_office.worldwide_office_type.name,
-          },
-        ],
         office_contact_associations: [
           {
             office_content_id: worldwide_org.reload.main_office.content_id,

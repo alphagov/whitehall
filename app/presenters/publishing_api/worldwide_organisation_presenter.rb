@@ -5,7 +5,6 @@ module PublishingApi
     include ApplicationHelper
     include OrganisationHelper
     include Presenters::PublishingApi::DefaultNewsImageHelper
-    include Presenters::PublishingApi::WorldwideOfficeHelper
 
     attr_accessor :item, :update_type, :state
 
@@ -258,12 +257,10 @@ module PublishingApi
     def details
       details = {
         body:,
-        home_page_office_parts:,
         logo: {
           crest: "single-identity",
           formatted_title: worldwide_organisation_logo_name(item),
         },
-        main_office_parts:,
         office_contact_associations:,
         ordered_corporate_information_pages:,
         people_role_associations:,
@@ -273,18 +270,6 @@ module PublishingApi
       }
       details[:default_news_image] = present_default_news_image(item) if present_default_news_image(item).present?
       details
-    end
-
-    def home_page_office_parts
-      return [] unless item.home_page_offices.any?
-
-      worldwide_office_parts(item.home_page_offices)
-    end
-
-    def main_office_parts
-      return [] unless item.main_office
-
-      worldwide_office_parts([item.main_office])
     end
   end
 end

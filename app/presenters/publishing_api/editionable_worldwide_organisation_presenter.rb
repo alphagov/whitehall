@@ -4,7 +4,6 @@ module PublishingApi
     include ActionView::Helpers::UrlHelper
     include ApplicationHelper
     include OrganisationHelper
-    include Presenters::PublishingApi::WorldwideOfficeHelper
 
     attr_accessor :item, :update_type, :state
 
@@ -26,12 +25,10 @@ module PublishingApi
         description: item.summary,
         details: {
           body:,
-          home_page_office_parts:,
           logo: {
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
           },
-          main_office_parts:,
           office_contact_associations:,
           people_role_associations:,
           social_media_links:,
@@ -157,18 +154,6 @@ module PublishingApi
           name: world_location.name,
         }
       end
-    end
-
-    def home_page_office_parts
-      return [] unless item.home_page_offices.any?
-
-      worldwide_office_parts(item.home_page_offices)
-    end
-
-    def main_office_parts
-      return [] unless item.main_office
-
-      worldwide_office_parts([item.main_office])
     end
   end
 end
