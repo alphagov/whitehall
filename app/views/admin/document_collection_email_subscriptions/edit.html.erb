@@ -3,13 +3,6 @@
 <% content_for :page_class, "document-collection-email-groups edit" %>
 <% errors = errors_from_flash(flash) %>
 
-  <% if errors.present? %>
-  <%= render "govuk_publishing_components/components/error_summary", {
-    id: "error-summary",
-    title: "There are some problems",
-    items: errors,
-  } %>
-<% end %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "components/secondary_navigation", {
@@ -18,6 +11,17 @@
     } %>
 
     <h2 class="govuk-heading-l">Email notifications</h2>
-    <%= render partial: "email_override_summary_page" %>
+      <p class="govuk-body-m">
+      You cannot change the email notifications for this document collection.
+      If you have any questions about this, contact the managing editor at HMRC.
+    </p>
+    <p class="govuk-body-m"> Users who sign up to notifications on this document collection get an email alert when:</p>
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: [
+        "there’s a major change to any content tagged to the topic #{link_to taxonomy_topic_email_override_title(@collection), taxonomy_topic_email_override_base_path(@collection)}",
+      "the page is unpublished",
+      ],
+    } %>
   </div>
 </div>

@@ -1,8 +1,4 @@
 module Admin::DocumentCollectionEmailOverrideHelper
-  def has_page_level_notifications?(collection)
-    collection.taxonomy_topic_email_override.nil?
-  end
-
   def taxonomy_topic_email_override_title(collection)
     taxonomy_topic_content_item(collection).fetch("title", "")
   end

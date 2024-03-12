@@ -3,8 +3,8 @@ require "test_helper"
 class Admin::DocumentCollectionEmailSubscriptionsControllerTest < ActionController::TestCase
   include TaxonomyHelper
   setup do
-    @collection = create(:draft_document_collection, :with_group)
     login_as :writer
+    @collection = create(:draft_document_collection, :with_group, taxonomy_topic_email_override: root_taxon_content_id)
     stub_publishing_api_has_item(content_id: root_taxon_content_id, title: root_taxon["title"])
     stub_taxonomy_with_all_taxons
   end
