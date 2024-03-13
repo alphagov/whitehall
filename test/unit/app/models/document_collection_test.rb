@@ -154,9 +154,8 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert doc.specialist_topic_conversion?
   end
 
-  test "taxonomy_topic_email_override cannot be changed when doc is in UNMODIFIABLE_STATE" do
-    doc = create(:published_document_collection, taxonomy_topic_email_override: "a-content-id")
-    exception = assert_raises(Exception) { doc.update!(taxonomy_topic_email_override: "foo") }
-    assert_equal("Validation failed: Taxonomy topic email override cannot be modified when edition is in the published state", exception.message)
+  test "#has_topic_level_notifications? returns true if taxonomy topic email override is present" do
+    doc = create(:document_collection, taxonomy_topic_email_override: "some_content_id")
+    assert doc.has_topic_level_notifications?
   end
 end

@@ -1,12 +1,4 @@
 module Admin::DocumentCollectionEmailOverrideHelper
-  def taxonomy_topic_cannot_be_set?(collection)
-    collection.document.live_edition_id.present?
-  end
-
-  def has_page_level_notifications?(collection)
-    collection.taxonomy_topic_email_override.nil?
-  end
-
   def taxonomy_topic_email_override_title(collection)
     taxonomy_topic_content_item(collection).fetch("title", "")
   end
@@ -21,9 +13,5 @@ module Admin::DocumentCollectionEmailOverrideHelper
                                              .to_h
   rescue GdsApi::HTTPNotFound
     {}
-  end
-
-  def emails_about_this_topic_checked?(collection, params)
-    collection.taxonomy_topic_email_override.present? || (params["override_email_subscriptions"] == "true")
   end
 end

@@ -64,6 +64,10 @@ class DocumentCollection < Edition
     PublishingApi::DocumentCollectionPresenter
   end
 
+  def has_topic_level_notifications?
+    taxonomy_topic_email_override.present?
+  end
+
 private
 
   def string_for_slug

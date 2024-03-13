@@ -116,7 +116,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     assert_equal expected_output, secondary_navigation_tabs_items(consultation, admin_consultation_outcome_path(consultation))
   end
 
-  test "#secondary_navigation_tabs_items for persisted document collections" do
+  test "#secondary_navigation_tabs_items for persisted document collections with page level notifications" do
     document_collection = build_stubbed(:document_collection)
 
     expected_output = [
@@ -135,9 +135,8 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     assert_equal expected_output, secondary_navigation_tabs_items(document_collection, admin_document_collection_groups_path(document_collection))
   end
 
-  test "#secondary_navigation_tabs_items contains email notifications tab when the current user has the relevant permission" do
-    document_collection = build_stubbed(:document_collection)
-    @user = create(:user, permissions: [User::Permissions::EMAIL_OVERRIDE_EDITOR])
+  test "#secondary_navigation_tabs_items for persisted document collections with topic level notifications" do
+    document_collection = build_stubbed(:document_collection, taxonomy_topic_email_override: "some-content-id")
 
     expected_output = [
       {
