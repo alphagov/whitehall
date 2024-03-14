@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_29_163850) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_145552) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -949,16 +949,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_163850) do
     t.string "name"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-  end
-
-  create_table "specialist_sectors", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
-    t.integer "edition_id", null: false
-    t.string "tag"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.boolean "primary", default: false
-    t.string "topic_content_id"
-    t.index ["edition_id", "tag"], name: "index_specialist_sectors_on_edition_id_and_tag", unique: true
   end
 
   create_table "sponsorships", id: :integer, charset: "utf8mb3", force: :cascade do |t|
