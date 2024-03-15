@@ -101,7 +101,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.6)
+    bigdecimal (3.1.7)
     binding_of_caller (1.0.1)
       debug_inspector (>= 1.2.0)
     bootsnap (1.18.3)
@@ -287,7 +287,7 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (37.7.1)
+    govuk_publishing_components (37.8.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
