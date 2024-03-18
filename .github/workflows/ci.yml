@@ -14,6 +14,10 @@ jobs:
     name: SNYK security analysis
     uses: alphagov/govuk-infrastructure/.github/workflows/snyk-security.yml@main
     secrets: inherit
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
   
   codeql-sast:
     name: CodeQL SAST scan
