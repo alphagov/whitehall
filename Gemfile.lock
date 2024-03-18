@@ -257,7 +257,7 @@ GEM
     google-protobuf (3.25.3-aarch64-linux)
     google-protobuf (3.25.3-arm64-darwin)
     google-protobuf (3.25.3-x86_64-linux)
-    googleapis-common-protos-types (1.13.0)
+    googleapis-common-protos-types (1.14.0)
       google-protobuf (~> 3.18)
     govspeak (8.3.4)
       actionview (>= 6)
@@ -287,7 +287,7 @@ GEM
     govuk_personalisation (0.15.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (37.8.0)
+    govuk_publishing_components (37.8.1)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -809,7 +809,7 @@ GEM
       netrc (~> 0.8)
     rexml (3.2.6)
     rinku (2.0.6)
-    rouge (4.2.0)
+    rouge (4.2.1)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
       rspec-expectations (~> 3.12.0)
