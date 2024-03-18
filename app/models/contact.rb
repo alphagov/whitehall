@@ -40,7 +40,7 @@ class Contact < ApplicationRecord
   end
 
   def republish_worldwide_office_to_publishing_api
-    Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(WorldwideOffice)
+    Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(WorldwideOffice) && !contactable.edition
   end
 
   def contactable_name

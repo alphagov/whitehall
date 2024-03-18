@@ -118,4 +118,24 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
       office.destroy!
     end
   end
+
+  test "is published to Publishing API on update if associated with a non-editionable worldwide organisation" do
+    office = create(:worldwide_office)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(office)
+
+    Sidekiq::Testing.inline! do
+      office.contact.update!(title: "New title")
+    end
+  end
+
+  test "is not published to Publishing API on update if associated with an editionable worldwide organisation" do
+    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(office).never
+
+    Sidekiq::Testing.inline! do
+      office.contact.update!(title: "New title")
+    end
+  end
 end
