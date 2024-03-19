@@ -158,4 +158,8 @@ class EditionableWorldwideOrganisation < Edition
 
     documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
   end
+
+  def associated_documents
+    (offices + offices.map(&:contact)).compact.flatten
+  end
 end

@@ -38,7 +38,7 @@ module ServiceListeners
       current_associated_documents.each do |associated_document|
         Whitehall::PublishingApi.save_draft_translation(
           associated_document,
-          associated_document.locale || I18n.default_locale.to_s,
+          locale_for_document(associated_document),
           update_type || (edition.minor_change? ? "minor" : "major"),
         )
       end
@@ -59,7 +59,7 @@ module ServiceListeners
         PublishingApiRedirectWorker.new.perform(
           associated_document.content_id,
           destination,
-          associated_document.locale || I18n.default_locale.to_s,
+          locale_for_document(associated_document),
           allow_draft,
         )
       end
@@ -70,7 +70,7 @@ module ServiceListeners
         PublishingApiWithdrawalWorker.new.perform(
           associated_document.content_id,
           edition.unpublishing.explanation,
-          associated_document.locale || I18n.default_locale.to_s,
+          locale_for_document(associated_document),
           false,
           edition.unpublishing.unpublished_at.to_s,
         )
@@ -82,6 +82,14 @@ module ServiceListeners
     end
 
   private
+
+    def locale_for_document(document)
+      if document.respond_to?(:locale) && document.locale
+        document.locale
+      else
+        I18n.default_locale.to_s
+      end
+    end
 
     def discard_drafts(associated_documents)
       associated_documents.each do |associated_document|
@@ -140,7 +148,7 @@ module ServiceListeners
           associated_document.class.name,
           associated_document.id,
           update_type,
-          associated_document.locale || I18n.default_locale.to_s,
+          locale_for_document(associated_document),
         )
       end
     end
