@@ -30,6 +30,23 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
     assert url.valid?
   end
 
+  test "should be valid when a mainstream guide sub-page url is used" do
+    content_id = SecureRandom.uuid
+    stub_publishing_api_has_lookups("/foo" => content_id)
+    stub_publishing_api_has_item(content_id:,
+                                 title: "Foo Bar",
+                                 base_path: "/foo",
+                                 document_type: "guide",
+                                 publishing_app: "content-publisher")
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/foo/subpage",
+      document_collection_group: build(:document_collection_group),
+    )
+
+    assert url.valid?
+  end
+
   test "should be invalid without a url" do
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: nil,
@@ -88,6 +105,23 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
 
     assert_not url.valid?
     assert url.errors.full_messages.include?("Url must reference a GOV.UK page")
+  end
+
+  test "should be invalid when a non-mainstream guide sub-page url is used" do
+    content_id = SecureRandom.uuid
+    stub_publishing_api_has_lookups("/foo" => content_id)
+    stub_publishing_api_has_item(content_id:,
+                                 title: "Foo Bar",
+                                 base_path: "/foo",
+                                 document_type: "other",
+                                 publishing_app: "content-publisher")
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/foo/subpage",
+      document_collection_group: build(:document_collection_group),
+    )
+
+    assert_not url.valid?
   end
 
   test "should be invalid when Publishing API is down" do

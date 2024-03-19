@@ -5,7 +5,6 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
 
   validates :url, presence: true
   validates :document_collection_group, presence: true
-  validate :is_internal_url?
   validates_with GovUkUrlValidator
 
   def initialize(url:, document_collection_group:)
@@ -27,36 +26,29 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
     content_item["title"]
   end
 
-  def is_internal_url?
-    message = "must be a valid GOV.UK URL"
-    unless govuk_url?
-      errors.add(:url, message)
-    end
-  rescue URI::InvalidURIError
-    errors.add(:url, message)
+  def parsed_url
+    @parsed_url ||= URI.parse(url)
   end
 
-private
-
   def content_item
-    raise "No content ID found for URL #{@url}" if @content_item.nil? && content_id.nil?
-
     @content_item ||= Services.publishing_api.get_content(content_id).to_h
   end
 
   def content_id
     @content_id ||= Services.publishing_api.lookup_content_id(base_path: parsed_url.path, with_drafts: true)
-  end
 
-  def govuk_url?
-    govuk_url_regex.match?(parsed_url.host)
-  end
+    if @content_id.blank?
+      toplevel_path_segment = parsed_url.path.split("/").second
+      @content_id = Services.publishing_api.lookup_content_id(base_path: "/#{toplevel_path_segment}", with_drafts: true)
+      if @content_id.blank?
+        raise GdsApi::HTTPNotFound, 404
+      else
+        unless content_item["document_type"] == "guide"
+          raise GdsApi::HTTPNotFound, 404
+        end
+      end
+    end
 
-  def govuk_url_regex
-    /(publishing.service|www).gov.uk\Z/
-  end
-
-  def parsed_url
-    URI.parse(url)
+    @content_id
   end
 end
