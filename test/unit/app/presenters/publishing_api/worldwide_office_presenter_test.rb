@@ -33,18 +33,23 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
         type: worldwide_office.worldwide_office_type.name,
       },
       update_type: "major",
+      links: {
+        contact: [
+          worldwide_office.contact.content_id,
+        ],
+        parent: [
+          worldwide_office.worldwide_organisation.content_id,
+        ],
+        worldwide_organisation: [
+          worldwide_office.worldwide_organisation.content_id,
+        ],
+      },
     }
 
     expected_links = {
-      contact: [
-        worldwide_office.contact.content_id,
-      ],
-      parent: [
-        worldwide_office.worldwide_organisation.content_id,
-      ],
-      worldwide_organisation: [
-        worldwide_office.worldwide_organisation.content_id,
-      ],
+      contact: [],
+      parent: [],
+      worldwide_organisation: [],
     }
 
     presented_item = present(worldwide_office)
