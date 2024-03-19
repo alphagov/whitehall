@@ -41,11 +41,7 @@ module PublishingApi
     end
 
     def links
-      {
-        contact: [],
-        parent: [],
-        worldwide_organisation: [],
-      }
+      {}
     end
 
   private
