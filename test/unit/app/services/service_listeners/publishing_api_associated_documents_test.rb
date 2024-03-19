@@ -1,13 +1,13 @@
 require "test_helper"
 
 module ServiceListeners
-  class PublishingApiHtmlAttachmentsTest < ActiveSupport::TestCase
+  class PublishingApiAssociatedDocumentsTest < ActiveSupport::TestCase
     def call(edition)
       event = self.class.name.demodulize.underscore
-      PublishingApiHtmlAttachments.process(edition, event)
+      PublishingApiAssociatedDocuments.process(edition, event)
     end
 
-    class Publish < PublishingApiHtmlAttachmentsTest
+    class Publish < PublishingApiAssociatedDocumentsTest
       test "for something that can't have html attachments doesn't publish" do
         call(create(:published_news_article))
       end
@@ -204,7 +204,7 @@ module ServiceListeners
       end
     end
 
-    class UpdateDraft < PublishingApiHtmlAttachmentsTest
+    class UpdateDraft < PublishingApiAssociatedDocumentsTest
       test "for something that can't have html attachments doesn't save draft" do
         call(create(:published_news_article))
       end
@@ -280,7 +280,7 @@ module ServiceListeners
       end
     end
 
-    class Unpublish < PublishingApiHtmlAttachmentsTest
+    class Unpublish < PublishingApiAssociatedDocumentsTest
       test "for something that can't have html attachments doesn't publish a redirect" do
         edition = create(:unpublished_edition)
         assert_equal edition.attachments.count, 0
@@ -336,7 +336,7 @@ module ServiceListeners
         call(publication)
       end
 
-      class Withdraw < PublishingApiHtmlAttachmentsTest
+      class Withdraw < PublishingApiAssociatedDocumentsTest
         test "for something that can't have html attachments doesn't publish a withdrawal" do
           call(create(:published_news_article))
         end
@@ -378,7 +378,7 @@ module ServiceListeners
         end
       end
 
-      class Delete < PublishingApiHtmlAttachmentsTest
+      class Delete < PublishingApiAssociatedDocumentsTest
         test "for something that can't have html attachments doesn't discard any drafts" do
           call(create(:published_news_article))
         end
@@ -412,7 +412,7 @@ module ServiceListeners
       end
     end
 
-    class Republish < PublishingApiHtmlAttachmentsTest
+    class Republish < PublishingApiAssociatedDocumentsTest
       test "for a draft publication with an attachment saves the draft" do
         publication = create(:draft_publication)
         attachment = publication.html_attachments.first
@@ -511,7 +511,7 @@ module ServiceListeners
       end
     end
 
-    class Unwithdraw < PublishingApiHtmlAttachmentsTest
+    class Unwithdraw < PublishingApiAssociatedDocumentsTest
       test "with an html attachment on a new document publishes the attachment" do
         publication = create(:published_publication)
         attachment = publication.html_attachments.first

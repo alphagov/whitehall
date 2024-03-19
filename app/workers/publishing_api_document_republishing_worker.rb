@@ -120,7 +120,7 @@ private
   end
 
   def handle_attachments_for(edition)
-    ServiceListeners::PublishingApiHtmlAttachments.process(
+    ServiceListeners::PublishingApiAssociatedDocuments.process(
       edition,
       "republish",
     )
