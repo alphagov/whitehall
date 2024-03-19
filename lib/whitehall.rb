@@ -166,7 +166,7 @@ module Whitehall
       Publication,
       Speech,
       StatisticalDataSet,
-      *(EditionableWorldwideOrganisation if Flipflop.editionable_worldwide_organisations?),
+      EditionableWorldwideOrganisation,
     ]
   end
 
