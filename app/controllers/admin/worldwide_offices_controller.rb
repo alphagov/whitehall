@@ -50,6 +50,11 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     title = @worldwide_office.title
 
     if @worldwide_office.destroy
+      if @worldwide_office.edition
+        PublishingApiDiscardDraftWorker.perform_async(@worldwide_office.content_id, I18n.default_locale.to_s)
+        PublishingApiDiscardDraftWorker.perform_async(@worldwide_office.contact.content_id, I18n.default_locale.to_s)
+      end
+
       republish_draft_worldwide_organisation
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{title} has been deleted"
     else

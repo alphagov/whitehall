@@ -440,6 +440,23 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
            }
   end
 
+  test "DELETE :destroy for an office attached to an editionable worldwide organisation discards draft of the office and the contact" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
+    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.content_id, "en")
+    PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.contact.content_id, "en")
+
+    Sidekiq::Testing.inline! do
+      delete :destroy,
+             params: {
+               id: office,
+               worldwide_organisation_id: office.edition,
+             }
+    end
+  end
+
 private
 
   def create_worldwide_organisation_and_office
