@@ -20,6 +20,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     worldwide_office_params[:service_ids] ||= []
     if @worldwide_office.update(worldwide_office_params)
       handle_show_on_home_page_param
+      republish_draft_worldwide_organisation
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been edited"
     else
       @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
@@ -31,6 +32,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     @worldwide_office = @worldwide_organisation.offices.build(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
+      republish_draft_worldwide_organisation
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been added"
     else
       @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
@@ -48,6 +50,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     title = @worldwide_office.title
 
     if @worldwide_office.destroy
+      republish_draft_worldwide_organisation
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{title} has been deleted"
     else
       render :edit
@@ -125,5 +128,9 @@ private
                     :contact_form_url,
                     { contact_numbers_attributes: %i[id label number _destroy] },
                   ])
+  end
+
+  def republish_draft_worldwide_organisation
+    Whitehall.edition_services.draft_updater(@worldwide_office.edition).perform! if @worldwide_office.edition
   end
 end
