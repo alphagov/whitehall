@@ -223,7 +223,36 @@ class ContactTest < ActiveSupport::TestCase
     assert_nil Contact.find_by(id: contact.id)
   end
 
-  test "publishes to the publishing api" do
-    assert Contact.included_modules.include? PublishesToPublishingApi
+  test "is published to Publishing API on update when associated with an organisation" do
+    contact = create(:contact, contactable: create(:organisation))
+
+    Whitehall::PublishingApi.expects(:patch_links).with(contact)
+    Whitehall::PublishingApi.expects(:publish).with(contact)
+
+    Sidekiq::Testing.inline! do
+      contact.update!(title: "New title")
+    end
+  end
+
+  test "is published to Publishing API on update when associated with a worldwide office that has a non-editionable worldwide organisation" do
+    office = create(:worldwide_office)
+
+    Whitehall::PublishingApi.expects(:patch_links).with(office.contact)
+    Whitehall::PublishingApi.expects(:publish).with(office.contact)
+
+    Sidekiq::Testing.inline! do
+      office.contact.update!(title: "New title")
+    end
+  end
+
+  test "is not published to Publishing API on update when associated with a worldwide office that has an editionable worldwide organisation" do
+    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:patch_links).with(office.contact).never
+    Whitehall::PublishingApi.expects(:publish).with(office.contact).never
+
+    Sidekiq::Testing.inline! do
+      office.contact.update!(title: "New title")
+    end
   end
 end
