@@ -46,11 +46,7 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
       },
     }
 
-    expected_links = {
-      contact: [],
-      parent: [],
-      worldwide_organisation: [],
-    }
+    expected_links = {}
 
     presented_item = present(worldwide_office)
 
