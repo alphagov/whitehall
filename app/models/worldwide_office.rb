@@ -35,6 +35,12 @@ class WorldwideOffice < ApplicationRecord
     super
   end
 
+  def can_publish_gone_to_publishing_api?
+    return false if edition
+
+    super
+  end
+
   def worldwide_organisation
     super || edition
   end

@@ -4,12 +4,16 @@ module PublishesToPublishingApi
 
   included do
     after_commit :publish_to_publishing_api, if: :can_publish_to_publishing_api?
-    after_commit :publish_gone_to_publishing_api, on: :destroy
+    after_commit :publish_gone_to_publishing_api, on: :destroy, if: :can_publish_gone_to_publishing_api?
     define_callbacks :published, :published_gone
   end
 
   def can_publish_to_publishing_api?
     persisted?
+  end
+
+  def can_publish_gone_to_publishing_api?
+    true
   end
 
   def republish_to_publishing_api_async

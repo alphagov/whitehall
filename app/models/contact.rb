@@ -41,6 +41,12 @@ class Contact < ApplicationRecord
     super
   end
 
+  def can_publish_gone_to_publishing_api?
+    return false if contactable.is_a?(WorldwideOffice) && contactable.edition
+
+    super
+  end
+
   def republish_organisation_to_publishing_api
     Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(Organisation)
   end

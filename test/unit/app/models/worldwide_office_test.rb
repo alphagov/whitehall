@@ -138,4 +138,26 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
       office.contact.update!(title: "New title")
     end
   end
+
+  test "is deleted from Publishing API on destroy when associated with a non-editionable worldwide organisation" do
+    office = create(:worldwide_office)
+
+    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.content_id, nil, nil)
+    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.contact.content_id, nil, nil)
+
+    Sidekiq::Testing.inline! do
+      office.destroy!
+    end
+  end
+
+  test "is not deleted from Publishing API on destroy when associated with an editionable worldwide organisation" do
+    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.content_id, nil, nil).never
+    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.contact.content_id, nil, nil).never
+
+    Sidekiq::Testing.inline! do
+      office.destroy!
+    end
+  end
 end
