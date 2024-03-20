@@ -23,6 +23,7 @@ module PublishingApi
           type: item.worldwide_office_type.name,
         },
         document_type: item.class.name.underscore,
+        links: edition_links,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_office",
@@ -31,11 +32,19 @@ module PublishingApi
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
-    def links
+    def edition_links
       {
         contact:,
         parent: [item.worldwide_organisation.content_id],
         worldwide_organisation: [item.worldwide_organisation.content_id],
+      }
+    end
+
+    def links
+      {
+        contact: [],
+        parent: [],
+        worldwide_organisation: [],
       }
     end
 
