@@ -284,10 +284,10 @@ GEM
       statsd-ruby (~> 1.5)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
-    govuk_personalisation (0.15.0)
+    govuk_personalisation (0.16.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (37.8.1)
+    govuk_publishing_components (37.9.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -441,7 +441,7 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     netrc (0.11.0)
-    nio4r (2.7.0)
+    nio4r (2.7.1)
     nkf (0.2.0)
     nokogiri (1.16.3)
       mini_portile2 (~> 2.8.2)
@@ -664,7 +664,7 @@ GEM
       opentelemetry-helpers-sql-obfuscation
       opentelemetry-instrumentation-base (~> 0.22.1)
       opentelemetry-semantic_conventions (>= 1.8.0)
-    opentelemetry-registry (0.3.0)
+    opentelemetry-registry (0.3.1)
       opentelemetry-api (~> 1.1)
     opentelemetry-sdk (1.4.0)
       opentelemetry-api (~> 1.1)
@@ -787,7 +787,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.1.0)
-    rdoc (6.6.2)
+    rdoc (6.6.3.1)
       psych (>= 4.0.0)
     record_tag_helper (1.0.1)
       actionview (>= 5)
