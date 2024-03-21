@@ -46,7 +46,7 @@ module ServiceListeners
   private
 
     def handle_associated_documents(event)
-      if edition.respond_to?(:html_attachments)
+      if edition.respond_to?(:associated_documents) || edition.respond_to?(:deleted_associated_documents)
         PublishingApiAssociatedDocuments.process(edition, event)
       end
     end

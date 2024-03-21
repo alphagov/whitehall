@@ -103,13 +103,13 @@ module ServiceListeners
     end
 
     def current_associated_documents
-      edition.attachables.flat_map(&:html_attachments)
+      edition.associated_documents
     end
 
     def previous_associated_documents
       return [] unless previous_edition
 
-      previous_edition.attachables.flat_map(&:html_attachments)
+      previous_edition.associated_documents
     end
 
     def content_ids_to_remove
@@ -123,7 +123,7 @@ module ServiceListeners
     end
 
     def deleted_associated_documents
-      edition.attachables.flat_map(&:deleted_html_attachments)
+      edition.deleted_associated_documents
     end
 
     def do_publish(update_type)
