@@ -181,6 +181,22 @@ module PublishingApi::NewsArticlePresenterTest
     end
   end
 
+  class WorldNewsStory < TestCase
+    def setup
+      self.news_article = create(:news_article_world_news_story)
+    end
+
+    test "includes worldwide organisation links" do
+      assert_equal news_article.worldwide_organisations.first.content_id, presented_news_article.links[:worldwide_organisations].first
+    end
+
+    test "includes editionable worldwide organisations as worldwide organisation links when the editionable_worldwide_organisations is enabled" do
+      news_article.editionable_worldwide_organisations = [create(:editionable_worldwide_organisation)]
+
+      assert_equal news_article.editionable_worldwide_organisations.first.content_id, presented_news_article.links[:worldwide_organisations].first
+    end
+  end
+
   class GovernmentResponseTest < TestCase
     def setup
       self.news_article = create(:news_article_government_response)
