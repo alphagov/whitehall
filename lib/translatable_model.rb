@@ -48,6 +48,8 @@ module TranslatableModel
     Locale.new(translation.locale)
   end
 
+  def destroy_associated(locale); end
+
 private
 
   def non_english_translated_locale_codes
