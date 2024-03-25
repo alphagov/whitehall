@@ -19,7 +19,7 @@ module PublishingApi
           description: nil,
           details:,
           document_type: schema_name,
-          public_updated_at: item.updated_at,
+          public_updated_at: public_timestamp,
           rendering_app: item.rendering_app,
           schema_name:,
           links: edition_links,
