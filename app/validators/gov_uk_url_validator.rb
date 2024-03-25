@@ -13,7 +13,7 @@ class GovUkUrlValidator < ActiveModel::Validator
   end
 
   def validate_must_be_valid_govuk_host(record)
-    if record.parsed_url.host.present? && !govuk_url_regex.match?(record.parsed_url.host)
+    if record.parsed_url.host.present? && !GOVUK_URL_REGEX.match?(record.parsed_url.host)
       raise URI::InvalidURIError
     end
   end
@@ -22,9 +22,6 @@ class GovUkUrlValidator < ActiveModel::Validator
     record.content_item.present?
   end
 
-private
-
-  def govuk_url_regex
-    /(publishing\.service|www)\.gov\.uk\z/
-  end
+  GOVUK_URL_REGEX = /(publishing\.service|www)\.gov\.uk\z/
+  private_constant :GOVUK_URL_REGEX
 end
