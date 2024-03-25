@@ -25,6 +25,6 @@ class GovUkUrlValidator < ActiveModel::Validator
 private
 
   def govuk_url_regex
-    /(publishing.service|www).gov.uk\Z/
+    /(publishing\.service|www)\.gov\.uk\z/
   end
 end
