@@ -107,7 +107,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
     assert url.errors.full_messages.include?("Url must reference a GOV.UK page")
   end
 
-  test "should be valid when a non-mainstream guide sub-page url is used" do
+  test "should be invalid when a non-mainstream guide sub-page url is used" do
     content_id = SecureRandom.uuid
     stub_publishing_api_has_lookups("/foo" => content_id)
     stub_publishing_api_has_item(content_id:,
