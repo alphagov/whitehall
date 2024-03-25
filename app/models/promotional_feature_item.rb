@@ -1,5 +1,5 @@
 class PromotionalFeatureItem < ApplicationRecord
-  VALID_YOUTUBE_URL_FORMAT = /\A(?:(?:https:\/\/youtu\.be\/)(.+)|(?:https:\/\/www.youtube\.com\/watch\?v=)(.*?)(?:&|#|$).*)\Z/
+  VALID_YOUTUBE_URL_FORMAT = /\A(?:(?:https:\/\/youtu\.be\/)(.+)|(?:https:\/\/www\.youtube\.com\/watch\?v=)(.*?)(?:&|#|$).*)\Z/
 
   belongs_to :promotional_feature, inverse_of: :promotional_feature_items
   has_one :organisation, through: :promotional_feature
