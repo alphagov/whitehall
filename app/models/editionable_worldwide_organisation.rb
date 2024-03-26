@@ -8,6 +8,8 @@ class EditionableWorldwideOrganisation < Edition
   include Edition::Roles
   include Edition::WorldLocations
 
+  has_many :pages, class_name: "WorldwideOrganisationPage", foreign_key: :edition_id, dependent: :destroy, autosave: true
+
   has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy, autosave: true
   belongs_to :main_office, class_name: "WorldwideOffice"
 
