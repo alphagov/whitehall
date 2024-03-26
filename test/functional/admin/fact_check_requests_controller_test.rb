@@ -264,7 +264,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     @attributes[:email_address] = "not-an-email"
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
-    assert_match "There was a problem: Email address does not appear to be a valid e-mail address", flash[:alert]
+    assert_match "There was a problem: Email address does not appear to be a valid email address", flash[:alert]
   end
 
   view_test "should display an apology if requesting a fact check for an edition that has been deleted" do
