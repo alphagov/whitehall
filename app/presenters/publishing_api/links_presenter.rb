@@ -65,6 +65,8 @@ module PublishingApi
     end
 
     def worldwide_organisation_ids
+      return (item.try(:editionable_worldwide_organisations) || []).map(&:content_id) if item.try(:editionable_worldwide_organisations)&.any?
+
       (item.try(:worldwide_organisations) || []).map(&:content_id)
     end
 
