@@ -18,6 +18,8 @@ class EditionableWorldwideOrganisation < Edition
 
   after_commit :republish_dependent_documents
 
+  alias_method :name, :title
+
   class CloneOfficesTrait < Edition::Traits::Trait
     def process_associations_before_save(new_edition)
       @edition.offices.each do |office|
