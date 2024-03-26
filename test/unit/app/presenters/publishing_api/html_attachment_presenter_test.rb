@@ -27,7 +27,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       schema_name: "html_publication",
       document_type: "html_publication",
       locale: "en",
-      public_updated_at: html_attachment.updated_at,
+      public_updated_at: edition.public_timestamp,
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "government-frontend",
       routes: [
