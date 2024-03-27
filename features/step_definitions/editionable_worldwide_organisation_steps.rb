@@ -111,10 +111,30 @@ When(/^I delete the "([^"]*)" office for the worldwide organisation$/) do |_offi
   click_button "Delete"
 end
 
+When(/^I visit the pages tab for the worldwide organisation$/) do
+  visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
+  click_link "Edit draft"
+  click_link "Pages"
+end
+
 When(/^I remove the French translation from the main document$/) do
   visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
   click_link "Delete"
   click_button "Delete translation"
+end
+
+When(/^I click the link to create a new page$/) do
+  visit admin_editionable_worldwide_organisation_pages_path(EditionableWorldwideOrganisation.last)
+  click_link "Create new page"
+end
+
+When(/^I correctly fill out the worldwide organisation page fields for a "([^"]*)" with:$/) do |type, table|
+  select type, from: "Type"
+  table.rows_hash.each do |field, value|
+    fill_in field, with: value
+  end
+
+  click_on "Save"
 end
 
 And(/^I navigate to the Offices tab/) do
@@ -254,6 +274,24 @@ end
 Then(/^I should see that the list of offices for the worldwide organisation is empty$/) do
   expect(page).to have_current_path(admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last))
   expect(page).to have_text("No offices.")
+end
+
+Then(/^I should see that the list of pages for the worldwide organisation is empty$/) do
+  expect(page).to have_current_path(admin_editionable_worldwide_organisation_pages_path(EditionableWorldwideOrganisation.last))
+  expect(page).to have_text("No pages.")
+end
+
+Then(/^I should see the "([^"]*)" page on the list of pages with the details:$/) do |type, table|
+  expect(page).to have_current_path(admin_editionable_worldwide_organisation_pages_path(EditionableWorldwideOrganisation.last))
+  expect(page).to_not have_text("No pages.")
+
+  page_component = find("h2", text: type).ancestor(".govuk-summary-card")
+  within page_component do
+    table.rows_hash.each do |field, value|
+      description = find("dt", text: field).sibling("dd")
+      expect(description).to have_text(value)
+    end
+  end
 end
 
 Then(/^I should see that the list of offices are ordered "([^"]*)" then "([^"]*)"$/) do |first_office, second_office|
