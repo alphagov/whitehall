@@ -1,4 +1,7 @@
-<%= form_for worldwide_organisation_page, url: admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation) do |form| %>
+<%= form_for worldwide_organisation_page, url:
+  @worldwide_organisation_page.persisted? ?
+    admin_editionable_worldwide_organisation_page_path(@worldwide_organisation, @worldwide_organisation_page) :
+    admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation) do |form| %>
 
   <% unless form.object.persisted? %>
     <%= render "components/select_with_search", {

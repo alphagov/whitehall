@@ -97,6 +97,20 @@ Feature: Editionable worldwide organisations
       | Summary | Some summary |
       | Body | Some body |
 
+  Scenario: Editing an existing worldwide organisation page
+    Given an editionable worldwide organisation "Test Worldwide Organisation" with a "Personal information charter" page
+    When I visit the pages tab for the worldwide organisation
+    Then I should see the "Personal information charter" page on the list of pages with the details:
+      | Summary | Some summary |
+      | Body | Some body |
+    When I click the "Edit" link for the "Personal information charter" page
+    And I correctly fill out the worldwide organisation page fields for a "Personal information charter" with:
+      | Summary | Some updated summary |
+      | Body (required) | Some updated body |
+    Then I should see the "Personal information charter" page on the list of pages with the details:
+      | Summary | Some updated summary |
+      | Body | Some updated body |
+
   @javascript
   Scenario: Reordering home page offices for a worldwide organisation
     Given An editionable worldwide organisation "Test Worldwide Organisation" with home page offices "Home page office 1" and "Home page office 2"

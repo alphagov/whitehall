@@ -31,6 +31,11 @@ Given(/^an editionable worldwide organisation in draft with a translation in Fre
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: nil, edition: worldwide_organisation, contact: create(:contact, title: "Main office")))
 end
 
+Given(/^an editionable worldwide organisation "([^"]*)" with a "([^"]*)" page$/) do |title, type|
+  worldwide_organisation = create(:editionable_worldwide_organisation, title:)
+  create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType.find(type.parameterize))
+end
+
 Given(/^a role "([^"]*)" exists$/) do |name|
   create(:role, name:)
 end
@@ -128,8 +133,16 @@ When(/^I click the link to create a new page$/) do
   click_link "Create new page"
 end
 
+When(/^I click the "([^"]*)" link for the "([^"]*)" page$/) do |link, type|
+  visit admin_editionable_worldwide_organisation_pages_path(EditionableWorldwideOrganisation.last)
+  page_component = find("h2", text: type).ancestor(".govuk-summary-card__title-wrapper")
+  within page_component do
+    click_link link
+  end
+end
+
 When(/^I correctly fill out the worldwide organisation page fields for a "([^"]*)" with:$/) do |type, table|
-  select type, from: "Type"
+  select type, from: "Type" if has_select?("Type")
   table.rows_hash.each do |field, value|
     fill_in field, with: value
   end
