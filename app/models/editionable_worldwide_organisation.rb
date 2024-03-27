@@ -119,6 +119,10 @@ class EditionableWorldwideOrganisation < Edition
     roles.occupied.find_by(type: SECONDARY_ROLES.map(&:name))
   end
 
+  def corporate_information_page_types
+    CorporateInformationPageType.all.reject { |page| page.slug == "about" }
+  end
+
   def previously_published
     false
   end

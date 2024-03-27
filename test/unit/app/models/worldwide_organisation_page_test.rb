@@ -14,6 +14,13 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
     assert page.errors[:edition].include?("can't be blank")
   end
 
+  test "should not be valid when corporate information page type is `about us`" do
+    page = build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::AboutUs)
+
+    assert_not page.valid?
+    assert page.errors[:corporate_information_page_type_id].include?("Type cannot be `About us`")
+  end
+
   test "should derive title from type" do
     page = build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
     assert_equal "Terms of reference", page.title

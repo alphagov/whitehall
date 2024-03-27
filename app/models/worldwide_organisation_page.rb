@@ -3,7 +3,9 @@ class WorldwideOrganisationPage < ApplicationRecord
 
   validates :body, presence: true
   validates :edition, presence: true
-  validates :corporate_information_page_type_id, presence: true
+  validates :corporate_information_page_type_id,
+            presence: true,
+            exclusion: { in: [CorporateInformationPageType::AboutUs.id], message: "Type cannot be `About us`" }
 
   def title(_locale = :en)
     corporate_information_page_type.title(edition)
