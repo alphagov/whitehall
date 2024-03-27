@@ -212,7 +212,7 @@ GEM
     flipflop (2.7.1)
       activesupport (>= 4.0)
       terminal-table (>= 1.8)
-    fog-aws (3.21.1)
+    fog-aws (3.22.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
       fog-xml (~> 0.1)
