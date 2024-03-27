@@ -35,6 +35,12 @@ Feature: Administering world location news information
       And I feature "Featured document"
       Then I see that "Featured document" has been featured
 
+    Scenario: Featuring a topical event
+      Given there is an active topical event with the name "Featured topical event"
+      When I visit the world location news page
+      And I feature "Featured topical event"
+      Then I see that "Featured topical event" has been featured
+
     Scenario: Featuring a non-GOV.UK link
       Given the world location has an offsite link with the title "Featured link"
       When I visit the world location news page
