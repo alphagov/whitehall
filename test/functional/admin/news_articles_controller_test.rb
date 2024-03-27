@@ -13,6 +13,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_lead_and_supporting_organisations_for :news_article
   should_allow_role_appointments_for :news_article
   should_allow_association_between_world_locations_and :news_article
+  should_allow_association_with_editionable_worldwide_organisations :news_article, required: true
   should_prevent_modification_of_unmodifiable :news_article
   should_allow_overriding_of_first_published_at_for :news_article
   should_have_summary :news_article

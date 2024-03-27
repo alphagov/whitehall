@@ -1198,6 +1198,67 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_association_with_editionable_worldwide_organisations(edition_type, required: false)
+      edition_class = class_for(edition_type)
+
+      view_test "new should display editionable worldwide organisations field" do
+        feature_flags.switch! :editionable_worldwide_organisations, true
+
+        get :new
+
+        assert_select "form#new_edition" do
+          text = required ? "Worldwide organisations (required)" : "Worldwide organisations"
+          assert_select("label[for=edition_editionable_worldwide_organisation_document_ids]", text:)
+
+          assert_select "#edition_editionable_worldwide_organisation_document_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_worldwide_organisations(
+              element: elements.first,
+              track_label: new_edition_path(edition_type),
+            )
+          end
+        end
+      end
+
+      view_test "edit should display editionable worldwide organisations field" do
+        feature_flags.switch! :editionable_worldwide_organisations, true
+
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+        get :edit, params: { id: edition }
+
+        assert_select "form#edit_edition" do
+          text = required ? "Worldwide organisations (required)" : "Worldwide organisations"
+          assert_select("label[for=edition_editionable_worldwide_organisation_document_ids]", text:)
+
+          assert_select "#edition_editionable_worldwide_organisation_document_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_worldwide_organisations(
+              element: elements.first,
+              track_label: edit_edition_path(edition_type),
+            )
+          end
+        end
+      end
+
+      test "create should associate editionable worldwide organisations with the edition" do
+        feature_flags.switch! :editionable_worldwide_organisations, true
+
+        first_world_organisation = create(:editionable_worldwide_organisation, document: create(:document))
+        second_world_organisation = create(:editionable_worldwide_organisation, document: create(:document))
+        attributes = controller_attributes_for(edition_type)
+
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 editionable_worldwide_organisation_document_ids: [first_world_organisation.document.id, second_world_organisation.document.id],
+               ),
+             }
+
+        edition = edition_class.last!
+        assert_equal [first_world_organisation, second_world_organisation], edition.editionable_worldwide_organisations
+      end
+    end
+
     def should_render_govspeak_history_and_fact_checking_tabs_for(edition_type)
       view_test "GET :show renders a side nav bar with history and fact checking" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
