@@ -1,6 +1,6 @@
 class Admin::WorldwideOrganisationPagesController < Admin::BaseController
   before_action :find_worldwide_organisation
-  before_action :find_worldwide_organisation_page, only: %i[edit update]
+  before_action :find_worldwide_organisation_page, only: %i[edit update confirm_destroy destroy]
 
   def index; end
 
@@ -25,6 +25,18 @@ class Admin::WorldwideOrganisationPagesController < Admin::BaseController
 
     if @worldwide_organisation_page.save
       redirect_to admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), notice: "#{@worldwide_organisation_page.title} has been updated"
+    else
+      render :edit
+    end
+  end
+
+  def confirm_destroy; end
+
+  def destroy
+    title = @worldwide_organisation_page.title
+
+    if @worldwide_organisation_page.destroy
+      redirect_to admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), notice: "#{title} has been deleted"
     else
       render :edit
     end

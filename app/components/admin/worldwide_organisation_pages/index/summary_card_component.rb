@@ -37,6 +37,7 @@ private
   def summary_card_actions
     [
       edit_action,
+      confirm_destroy_action,
     ].compact
   end
 
@@ -44,6 +45,14 @@ private
     {
       label: "Edit",
       href: edit_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+    }
+  end
+
+  def confirm_destroy_action
+    {
+      label: "Delete",
+      href: confirm_destroy_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+      destructive: true,
     }
   end
 end

@@ -88,4 +88,28 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
     assert_equal "Some updated summary", worldwide_organisation_page.summary
     assert_equal "Some updated body", worldwide_organisation_page.body
   end
+
+  view_test "GET :confirm_destroy requests confirmation" do
+    worldwide_organisation_page = create(:worldwide_organisation_page)
+
+    get :confirm_destroy, params: { editionable_worldwide_organisation_id: worldwide_organisation_page.edition, id: worldwide_organisation_page }
+
+    assert_response :success
+    assert_template :confirm_destroy
+
+    assert_select "p.govuk-body", text: "Are you sure you want to delete \"Publication scheme\"?"
+  end
+
+  test "DELETE :destroy removes the worldwide organisation page" do
+    worldwide_organisation_page = create(:worldwide_organisation_page)
+    worldwide_organisation = worldwide_organisation_page.edition
+
+    delete :destroy, params: {
+      editionable_worldwide_organisation_id: worldwide_organisation_page.edition.id,
+      id: worldwide_organisation_page.id,
+    }
+
+    assert_redirected_to admin_editionable_worldwide_organisation_pages_path(worldwide_organisation_page.edition)
+    assert_equal 0, worldwide_organisation.pages.count
+  end
 end

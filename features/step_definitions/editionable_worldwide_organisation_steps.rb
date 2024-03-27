@@ -141,6 +141,14 @@ When(/^I click the "([^"]*)" link for the "([^"]*)" page$/) do |link, type|
   end
 end
 
+When(/^I submit the confirmation form to delete the "([^"]*)" page$/) do |type|
+  worldwide_organisation_page = WorldwideOrganisationPage.last
+  expect(page).to have_current_path(confirm_destroy_admin_editionable_worldwide_organisation_page_path(worldwide_organisation_page.edition, worldwide_organisation_page))
+  expect(page).to have_content "Are you sure you want to delete \"#{type}\"?"
+
+  click_button "Delete"
+end
+
 When(/^I correctly fill out the worldwide organisation page fields for a "([^"]*)" with:$/) do |type, table|
   select type, from: "Type" if has_select?("Type")
   table.rows_hash.each do |field, value|

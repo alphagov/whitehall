@@ -12,6 +12,7 @@ class Admin::WorldwideOrganisationPages::Index::SummaryCardComponentTest < ViewC
 
     assert_selector ".govuk-summary-card__title", text: "Publication scheme"
     assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{edit_admin_editionable_worldwide_organisation_page_path(page.edition, page)}']"
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{confirm_destroy_admin_editionable_worldwide_organisation_page_path(page.edition, page)}']"
 
     assert_selector ".govuk-summary-list__row", count: 2
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Summary"
