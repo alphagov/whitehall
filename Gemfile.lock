@@ -234,11 +234,12 @@ GEM
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (94.0.0)
+    gds-api-adapters (95.0.0)
       addressable
       link_header
       null_logger
       plek (>= 1.9.0)
+      rack (>= 2.2.0)
       rest-client (~> 2.0)
     gds-sso (19.0.0)
       oauth2 (~> 2.0)
