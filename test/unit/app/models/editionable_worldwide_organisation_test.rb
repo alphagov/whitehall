@@ -300,4 +300,11 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     HomePageList.expects(:get).with(has_entries(owned_by: world_organisation, called: "offices")).returns :a_home_page_list_of_offices
     assert_equal :a_home_page_list_of_offices, world_organisation.__send__(:home_page_offices_list)
   end
+
+  test "#corporate_information_page_types does not return `About Us` pages" do
+    organisation = build(:editionable_worldwide_organisation)
+
+    assert_not_includes organisation.corporate_information_page_types.map(&:slug), "about"
+    assert_not_includes organisation.corporate_information_page_types.map(&:id), 20
+  end
 end

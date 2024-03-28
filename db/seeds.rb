@@ -190,5 +190,14 @@ if WorldLocation.where(name: "Test International Delegation").blank?
         content_id: SecureRandom.uuid,
       )
     end
+
+    if WorldwideOrganisationPage.where(edition: EditionableWorldwideOrganisation.find_by(title: "Test Editionable Worldwide Organisation"), corporate_information_page_type_id: 1).blank?
+      WorldwideOrganisationPage.create!(
+        summary: "Some summary",
+        body: "Some body",
+        edition: EditionableWorldwideOrganisation.find_by(title: "Test Editionable Worldwide Organisation"),
+        corporate_information_page_type_id: 1,
+      )
+    end
   end
 end

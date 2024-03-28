@@ -1,0 +1,72 @@
+<%= form_for worldwide_organisation_page, url:
+  @worldwide_organisation_page.persisted? ?
+    admin_editionable_worldwide_organisation_page_path(@worldwide_organisation, @worldwide_organisation_page) :
+    admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation) do |form| %>
+
+  <% unless form.object.persisted? %>
+    <%= render "components/select_with_search", {
+      id: "worldwide_organisation_page_corporate_information_page_type_id",
+      name: "worldwide_organisation_page[corporate_information_page_type_id]",
+      label: "Type",
+      heading_size: "l",
+      error_message: errors_for_input(worldwide_organisation_page.errors, :corporate_information_page_type_id),
+      include_blank: true,
+      options: corporate_information_page_types(@worldwide_organisation).map do |type, value|
+        {
+          text: type,
+          value: value,
+        }
+      end,
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+      label: {
+        text: "Summary",
+        heading_size: "l",
+      },
+      name: "worldwide_organisation_page[summary]",
+      id: "worldwide_organisation_page_summary",
+      value: form.object.summary,
+      rows: 4,
+      error_items: errors_for(form.object.errors, :summary),
+  } %>
+
+  <% if Flipflop.govspeak_visual_editor? %>
+    <%= render "components/visual_editor", {
+      label: {
+        text: "Body (required)",
+        heading_size: "l",
+      },
+      name: "worldwide_organisation_page[body]",
+      value: form.object.body,
+      error_items: errors_for(form.object.errors, :body),
+    } %>
+  <% else %>
+    <%= render "components/govspeak_editor", {
+      label: {
+        text: "Body (required)",
+        heading_size: "l",
+      },
+      name: "worldwide_organisation_page[body]",
+      id: "worldwide_organisation_page_body",
+      value: form.object.body,
+      rows: 20,
+      error_items: errors_for(form.object.errors, :body),
+    } %>
+  <% end %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "worldwide-organisation-page-button",
+        "track-label": "Save",
+      },
+    } %>
+
+    <%= link_to "Cancel", admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state" %>
+  </div>
+<% end %>

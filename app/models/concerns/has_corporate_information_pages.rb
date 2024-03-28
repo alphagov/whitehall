@@ -16,8 +16,12 @@ module HasCorporateInformationPages
     about_us.body if about_us.present?
   end
 
+  def corporate_information_page_types
+    CorporateInformationPageType.all
+  end
+
   def unused_corporate_information_page_types
-    CorporateInformationPageType.all - corporate_information_pages.map(&:corporate_information_page_type)
+    corporate_information_page_types - corporate_information_pages.map(&:corporate_information_page_type)
   end
 
   def build_corporate_information_page(params)
