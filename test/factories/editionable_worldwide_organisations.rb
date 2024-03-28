@@ -50,4 +50,9 @@ FactoryBot.define do
   factory :deleted_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:deleted]
   factory :superseded_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:superseded]
   factory :scheduled_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:scheduled]
+  factory :unpublished_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:unpublished]
+  factory :unpublished_editionable_worldwide_organisation_consolidated, parent: :editionable_worldwide_organisation, traits: [:consolidated_redirect]
+  factory :unpublished_editionable_worldwide_organisation_in_error_redirect, parent: :editionable_worldwide_organisation, traits: [:published_in_error_redirect]
+  factory :unpublished_editionable_worldwide_organisation_in_error_no_redirect, parent: :editionable_worldwide_organisation, traits: [:published_in_error_no_redirect]
+  factory :withdrawn_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:withdrawn]
 end

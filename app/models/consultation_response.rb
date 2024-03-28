@@ -38,6 +38,14 @@ class ConsultationResponse < ApplicationRecord
     true
   end
 
+  def associated_documents
+    attachables.flat_map(&:html_attachments)
+  end
+
+  def deleted_associated_documents
+    attachables.flat_map(&:deleted_html_attachments)
+  end
+
   def path_name
     to_model.class.name.underscore
   end

@@ -31,6 +31,7 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     TestObject.stubs(:after_commit).with(
       :publish_gone_to_publishing_api,
       on: :destroy,
+      if: :can_publish_gone_to_publishing_api?,
     )
   end
 
@@ -46,6 +47,7 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     TestObject.expects(:after_commit).with(
       :publish_gone_to_publishing_api,
       on: :destroy,
+      if: :can_publish_gone_to_publishing_api?,
     )
     include_module(TestObject.new)
   end

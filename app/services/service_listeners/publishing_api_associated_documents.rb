@@ -1,5 +1,5 @@
 module ServiceListeners
-  class PublishingApiHtmlAttachments
+  class PublishingApiAssociatedDocuments
     attr_reader :edition
 
     def self.process(edition, event)
@@ -22,7 +22,7 @@ module ServiceListeners
         update_draft(update_type: "republish")
       elsif edition.unpublishing && edition.withdrawn?
         do_publish("republish")
-        discard_drafts(deleted_html_attachments)
+        discard_drafts(deleted_associated_documents)
         withdraw
       elsif edition.unpublishing
         update_draft(update_type: "republish")
@@ -30,19 +30,19 @@ module ServiceListeners
         unpublish(allow_draft: true)
       else
         do_publish("republish")
-        discard_drafts(deleted_html_attachments)
+        discard_drafts(deleted_associated_documents)
       end
     end
 
     def update_draft(update_type: nil)
-      current_html_attachments.each do |html_attachment|
+      current_associated_documents.each do |associated_document|
         Whitehall::PublishingApi.save_draft_translation(
-          html_attachment,
-          html_attachment.locale || I18n.default_locale.to_s,
+          associated_document,
+          locale_for_document(associated_document),
           update_type || (edition.minor_change? ? "minor" : "major"),
         )
       end
-      discard_drafts(deleted_html_attachments)
+      discard_drafts(deleted_associated_documents)
     end
     # We don't care whether this is a translation or the main
     # document, we just send the correct html attachments regardless.
@@ -55,22 +55,22 @@ module ServiceListeners
                       edition.public_path
                     end
 
-      current_html_attachments.each do |html_attachment|
+      current_associated_documents.each do |associated_document|
         PublishingApiRedirectWorker.new.perform(
-          html_attachment.content_id,
+          associated_document.content_id,
           destination,
-          html_attachment.locale || I18n.default_locale.to_s,
+          locale_for_document(associated_document),
           allow_draft,
         )
       end
     end
 
     def withdraw
-      current_html_attachments.each do |html_attachment|
+      current_associated_documents.each do |associated_document|
         PublishingApiWithdrawalWorker.new.perform(
-          html_attachment.content_id,
+          associated_document.content_id,
           edition.unpublishing.explanation,
-          html_attachment.locale || I18n.default_locale.to_s,
+          locale_for_document(associated_document),
           false,
           edition.unpublishing.unpublished_at.to_s,
         )
@@ -78,23 +78,31 @@ module ServiceListeners
     end
 
     def delete
-      discard_drafts(current_html_attachments + deleted_html_attachments)
+      discard_drafts(current_associated_documents + deleted_associated_documents)
     end
 
   private
 
-    def discard_drafts(html_attachments)
-      html_attachments.each do |html_attachment|
+    def locale_for_document(document)
+      if document.respond_to?(:locale) && document.locale
+        document.locale
+      else
+        I18n.default_locale.to_s
+      end
+    end
+
+    def discard_drafts(associated_documents)
+      associated_documents.each do |associated_document|
         PublishingApiDiscardDraftWorker.perform_async(
-          html_attachment.content_id,
+          associated_document.content_id,
           edition.primary_locale,
         )
       end
     end
 
     def patch_links
-      current_html_attachments.each do |html_attachment|
-        Whitehall::PublishingApi.patch_links(html_attachment, bulk_publishing: false)
+      current_associated_documents.each do |associated_document|
+        Whitehall::PublishingApi.patch_links(associated_document, bulk_publishing: false)
       end
     end
 
@@ -102,28 +110,28 @@ module ServiceListeners
       @previous_edition ||= edition.previous_edition
     end
 
-    def current_html_attachments
-      edition.attachables.flat_map(&:html_attachments)
+    def current_associated_documents
+      edition.associated_documents
     end
 
-    def previous_html_attachments
+    def previous_associated_documents
       return [] unless previous_edition
 
-      previous_edition.attachables.flat_map(&:html_attachments)
+      previous_edition.associated_documents
     end
 
     def content_ids_to_remove
       return Set[] unless previous_edition
 
-      deleted_content_ids = deleted_html_attachments.map(&:content_id).to_set
-      old_content_ids = previous_html_attachments.map(&:content_id).to_set
-      new_content_ids = current_html_attachments.map(&:content_id).to_set
+      deleted_content_ids = deleted_associated_documents.map(&:content_id).to_set
+      old_content_ids = previous_associated_documents.map(&:content_id).to_set
+      new_content_ids = current_associated_documents.map(&:content_id).to_set
 
       deleted_content_ids + old_content_ids - new_content_ids
     end
 
-    def deleted_html_attachments
-      edition.attachables.flat_map(&:deleted_html_attachments)
+    def deleted_associated_documents
+      edition.deleted_associated_documents
     end
 
     def do_publish(update_type)
@@ -135,12 +143,12 @@ module ServiceListeners
         )
       end
 
-      current_html_attachments.each do |html_attachment|
+      current_associated_documents.each do |associated_document|
         PublishingApiWorker.new.perform(
-          html_attachment.class.name,
-          html_attachment.id,
+          associated_document.class.name,
+          associated_document.id,
           update_type,
-          html_attachment.locale || I18n.default_locale.to_s,
+          locale_for_document(associated_document),
         )
       end
     end

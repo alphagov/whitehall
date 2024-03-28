@@ -29,6 +29,18 @@ class WorldwideOffice < ApplicationRecord
   delegate(:non_english_translated_locales, to: :worldwide_organisation)
   delegate(:embassy_office?, to: :worldwide_office_type)
 
+  def can_publish_to_publishing_api?
+    return false if edition
+
+    super
+  end
+
+  def can_publish_gone_to_publishing_api?
+    return false if edition
+
+    super
+  end
+
   def worldwide_organisation
     super || edition
   end

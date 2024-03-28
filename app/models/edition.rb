@@ -742,6 +742,14 @@ EXISTS (
     names.uniq.length == names.length
   end
 
+  def associated_documents
+    []
+  end
+
+  def deleted_associated_documents
+    []
+  end
+
 private
 
   def date_for_government

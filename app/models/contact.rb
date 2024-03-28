@@ -35,12 +35,24 @@ class Contact < ApplicationRecord
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists
 
+  def can_publish_to_publishing_api?
+    return false if contactable.is_a?(WorldwideOffice) && contactable.edition
+
+    super
+  end
+
+  def can_publish_gone_to_publishing_api?
+    return false if contactable.is_a?(WorldwideOffice) && contactable.edition
+
+    super
+  end
+
   def republish_organisation_to_publishing_api
     Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(Organisation)
   end
 
   def republish_worldwide_office_to_publishing_api
-    Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(WorldwideOffice)
+    Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(WorldwideOffice) && !contactable.edition
   end
 
   def contactable_name

@@ -10,7 +10,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:locales_for).never
     Whitehall::PublishingApi.expects(:patch_links).never
     PublishingApiUnpublishingWorker.any_instance.expects(:perform).never
-    ServiceListeners::PublishingApiHtmlAttachments.expects(:process).never
+    ServiceListeners::PublishingApiAssociatedDocuments.expects(:process).never
 
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end

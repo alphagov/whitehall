@@ -389,6 +389,74 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal [office1, office2], assigns(:reorderable_offices)
   end
 
+  test "POST :create for an office attached to an editionable worldwide organisation republishes the draft of the editionable worldwide organisation" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
+    worldwide_organisation = create(:draft_editionable_worldwide_organisation)
+
+    Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation)
+
+    post :create,
+         params: {
+           worldwide_office: {
+             worldwide_office_type_id: WorldwideOfficeType::Other.id,
+             contact_attributes: {
+               title: "Main office",
+               contact_type_id: ContactType::General.id,
+             },
+           },
+           worldwide_organisation_id: worldwide_organisation,
+         }
+  end
+
+  test "PUT :update for an office attached to an editionable worldwide organisation republishes the draft of the editionable worldwide organisation" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
+    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
+
+    put :update,
+        params: {
+          worldwide_office: {
+            access_and_opening_times: "New times",
+          },
+          id: office,
+          worldwide_organisation_id: office.edition,
+        }
+  end
+
+  test "DELETE :destroy for an office attached to an editionable worldwide organisation republishes the draft of the editionable worldwide organisation" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
+    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
+
+    delete :destroy,
+           params: {
+             id: office,
+             worldwide_organisation_id: office.edition,
+           }
+  end
+
+  test "DELETE :destroy for an office attached to an editionable worldwide organisation discards draft of the office and the contact" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
+    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.content_id, "en")
+    PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.contact.content_id, "en")
+
+    Sidekiq::Testing.inline! do
+      delete :destroy,
+             params: {
+               id: office,
+               worldwide_organisation_id: office.edition,
+             }
+    end
+  end
+
 private
 
   def create_worldwide_organisation_and_office

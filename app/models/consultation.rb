@@ -141,6 +141,14 @@ class Consultation < Publicationesque
     true
   end
 
+  def associated_documents
+    attachables.flat_map(&:html_attachments)
+  end
+
+  def deleted_associated_documents
+    attachables.flat_map(&:deleted_html_attachments)
+  end
+
   def previously_published
     false
   end
