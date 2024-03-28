@@ -71,6 +71,10 @@ Given(/^there is a published document with the tile "([^"]*)"$/) do |title|
   create(:edition, :published, title:)
 end
 
+Given(/^there is an active topical event with the name "([^"]*)"$/) do |name|
+  create(:topical_event, :active, name:)
+end
+
 And(/^filter documents by all organisations$/) do
   select "All locations"
   click_button "Search"
