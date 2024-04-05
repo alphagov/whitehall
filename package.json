@@ -37,6 +37,7 @@
     "stylelint-config-gds": "^2.0.0"
   },
   "resolutions": {
+    "selenium-webdriver": "4.17.0",
     "string-width": "4.2.3"
   }
 }
