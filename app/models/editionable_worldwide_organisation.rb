@@ -8,6 +8,8 @@ class EditionableWorldwideOrganisation < Edition
   include Edition::Roles
   include Edition::WorldLocations
 
+  has_many :pages, class_name: "WorldwideOrganisationPage", foreign_key: :edition_id, dependent: :destroy, autosave: true
+
   has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy, autosave: true
   belongs_to :main_office, class_name: "WorldwideOffice"
 
@@ -15,6 +17,8 @@ class EditionableWorldwideOrganisation < Edition
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
   after_commit :republish_dependent_documents
+
+  alias_method :name, :title
 
   class CloneOfficesTrait < Edition::Traits::Trait
     def process_associations_before_save(new_edition)
@@ -113,6 +117,10 @@ class EditionableWorldwideOrganisation < Edition
 
   def secondary_role
     roles.occupied.find_by(type: SECONDARY_ROLES.map(&:name))
+  end
+
+  def corporate_information_page_types
+    CorporateInformationPageType.all.reject { |page| page.slug == "about" }
   end
 
   def previously_published
