@@ -22,6 +22,8 @@ Whitehall::Application.routes.draw do
 
       resources :users, only: %i[index show edit update]
 
+      get "republishing" => "republishing#index", as: :republishing_index
+
       resources :documents, only: [] do
         resources :review_reminders, only: %i[new create edit update]
       end
