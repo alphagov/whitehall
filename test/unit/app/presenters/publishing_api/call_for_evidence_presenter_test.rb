@@ -126,7 +126,7 @@ module PublishingApi::CallForEvidencePresenterTest
 
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
 
-      PublishingApi::CallForEvidencePresenter::Documents.stubs(:for).returns({})
+      PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::CallForEvidencePresenter::Outcome.stubs(:for).returns({})
 
       assert_details_attribute :body, body_double
@@ -354,7 +354,7 @@ module PublishingApi::CallForEvidencePresenterTest
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
 
       PublishingApi::CallForEvidencePresenter.any_instance.stubs(:body)
-      PublishingApi::CallForEvidencePresenter::Documents.stubs(:for).returns({})
+      PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
 
       assert_details_attribute :outcome_detail,
                                outcome_detail_double
@@ -379,7 +379,7 @@ module PublishingApi::CallForEvidencePresenterTest
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
 
       PublishingApi::CallForEvidencePresenter.any_instance.stubs(:body)
-      PublishingApi::CallForEvidencePresenter::Documents.stubs(:for).returns({})
+      PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
 
       assert_details_attribute :outcome_documents, [attachments_double]
       assert_details_attribute :outcome_attachments,
