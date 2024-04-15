@@ -39,7 +39,7 @@ module PublishingApi
     end
 
     def edition_links
-      links = LinksPresenter.new(item).extract(
+      links = PayloadBuilder::Links.for(item).extract(
         %i[organisations government],
       )
       links[:documents] = item.content_ids.uniq

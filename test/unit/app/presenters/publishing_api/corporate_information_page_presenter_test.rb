@@ -89,11 +89,11 @@ module PublishingApi::CorporateInformationPagePresenterTest
         link_three: "link_three",
       }
 
-      PublishingApi::LinksPresenter
+      PublishingApi::PayloadBuilder::Links
         .expects(:new)
         .with(corporate_information_page)
         .returns(
-          mock("PublishingApi::LinksPresenter").tap do |m|
+          mock("PublishingApi::PayloadBuilder::Links").tap do |m|
             m.expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
@@ -146,11 +146,11 @@ module PublishingApi::CorporateInformationPagePresenterTest
         link_three: "link_three",
       }
 
-      PublishingApi::LinksPresenter
+      PublishingApi::PayloadBuilder::Links
         .stubs(:new)
         .with(corporate_information_page)
         .returns(
-          mock("PublishingApi::LinksPresenter").tap do |m|
+          mock("PublishingApi::PayloadBuilder::Links").tap do |m|
             m.stubs(:extract)
               .with(expected_link_keys)
               .returns(links_double)

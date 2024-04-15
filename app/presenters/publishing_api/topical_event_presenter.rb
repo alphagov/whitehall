@@ -28,7 +28,7 @@ module PublishingApi
     end
 
     def links
-      LinksPresenter.new(item).extract([:organisations])
+      PayloadBuilder::Links.for(item).extract([:organisations])
     end
 
   private

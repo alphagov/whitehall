@@ -37,7 +37,7 @@ module PublishingApi
     end
 
     def edition_links
-      LinksPresenter.new(item).extract(
+      PayloadBuilder::Links.for(item).extract(
         %i[
           organisations
           world_locations
