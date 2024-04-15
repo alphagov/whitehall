@@ -72,7 +72,7 @@ module PublishingApi
     def details
       base_details
         .merge(PayloadBuilder::ChangeHistory.for(consultation))
-        .merge(Documents.for(consultation))
+        .merge(PayloadBuilder::Documents.for(consultation))
         .merge(PayloadBuilder::ExternalUrl.for(consultation))
         .merge(FinalOutcome.for(consultation))
         .merge(PayloadBuilder::NationalApplicability.for(consultation))
@@ -87,41 +87,6 @@ module PublishingApi
     def public_updated_at
       public_updated_at = consultation.public_timestamp || consultation.updated_at
       public_updated_at.rfc3339
-    end
-
-    class Documents
-      def self.for(consultation)
-        new(consultation).call
-      end
-
-      def initialize(consultation, renderer: Whitehall::GovspeakRenderer.new)
-        self.consultation = consultation
-        self.renderer = renderer
-      end
-
-      def call
-        return {} if consultation.attachments.blank?
-
-        {
-          documents:,
-          featured_attachments:,
-        }
-      end
-
-    private
-
-      attr_accessor :consultation, :renderer
-
-      def documents
-        renderer.block_attachments(
-          consultation.attachments,
-          consultation.alternative_format_contact_email,
-        )
-      end
-
-      def featured_attachments
-        consultation.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
-      end
     end
 
     class FinalOutcome

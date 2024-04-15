@@ -126,7 +126,7 @@ module PublishingApi::ConsultationPresenterTest
 
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
 
-      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
@@ -360,7 +360,7 @@ module PublishingApi::ConsultationPresenterTest
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
 
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
-      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
 
       assert_details_attribute :public_feedback_detail,
@@ -386,7 +386,7 @@ module PublishingApi::ConsultationPresenterTest
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
 
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
-      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
 
       assert_details_attribute :public_feedback_documents, [attachments_double]
@@ -429,7 +429,7 @@ module PublishingApi::ConsultationPresenterTest
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
 
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
-      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
       assert_details_attribute :final_outcome_detail,
@@ -455,7 +455,7 @@ module PublishingApi::ConsultationPresenterTest
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
 
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
-      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
       assert_details_attribute :final_outcome_documents, [attachments_double]

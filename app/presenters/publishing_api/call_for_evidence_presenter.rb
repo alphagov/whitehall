@@ -72,7 +72,7 @@ module PublishingApi
     def details
       base_details
         .merge(PayloadBuilder::ChangeHistory.for(call_for_evidence))
-        .merge(Documents.for(call_for_evidence))
+        .merge(PayloadBuilder::Documents.for(call_for_evidence))
         .merge(PayloadBuilder::ExternalUrl.for(call_for_evidence))
         .merge(Outcome.for(call_for_evidence))
         .merge(PayloadBuilder::NationalApplicability.for(call_for_evidence))
@@ -86,41 +86,6 @@ module PublishingApi
     def public_updated_at
       public_updated_at = call_for_evidence.public_timestamp || call_for_evidence.updated_at
       public_updated_at.rfc3339
-    end
-
-    class Documents
-      def self.for(call_for_evidence)
-        new(call_for_evidence).call
-      end
-
-      def initialize(call_for_evidence, renderer: Whitehall::GovspeakRenderer.new)
-        self.call_for_evidence = call_for_evidence
-        self.renderer = renderer
-      end
-
-      def call
-        return {} if call_for_evidence.attachments.blank?
-
-        {
-          documents:,
-          featured_attachments:,
-        }
-      end
-
-    private
-
-      attr_accessor :call_for_evidence, :renderer
-
-      def documents
-        renderer.block_attachments(
-          call_for_evidence.attachments,
-          call_for_evidence.alternative_format_contact_email,
-        )
-      end
-
-      def featured_attachments
-        call_for_evidence.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
-      end
     end
 
     class Outcome
