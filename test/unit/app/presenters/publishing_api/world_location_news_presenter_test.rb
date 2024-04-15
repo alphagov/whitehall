@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
-  include PublishingApi::FeaturedDocumentsPresenter
+  include Presenters::PublishingApi::FeaturedDocumentsHelper
 
   def present(...)
     PublishingApi::WorldLocationNewsPresenter.new(...)

@@ -1,7 +1,7 @@
 require "test_helper"
 
-class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
-  include PublishingApi::FeaturedDocumentsPresenter
+class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::TestCase
+  include Presenters::PublishingApi::FeaturedDocumentsHelper
 
   test("determines ordered featured documents in different locales for editions") do
     case_study = create(:published_case_study)
