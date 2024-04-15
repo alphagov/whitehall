@@ -71,7 +71,7 @@ module PublishingApi
 
     def details
       base_details
-        .merge(ChangeHistory.for(call_for_evidence))
+        .merge(PayloadBuilder::ChangeHistory.for(call_for_evidence))
         .merge(Documents.for(call_for_evidence))
         .merge(PayloadBuilder::ExternalUrl.for(call_for_evidence))
         .merge(Outcome.for(call_for_evidence))
@@ -86,26 +86,6 @@ module PublishingApi
     def public_updated_at
       public_updated_at = call_for_evidence.public_timestamp || call_for_evidence.updated_at
       public_updated_at.rfc3339
-    end
-
-    class ChangeHistory
-      def self.for(call_for_evidence)
-        new(call_for_evidence).call
-      end
-
-      def initialize(call_for_evidence)
-        self.call_for_evidence = call_for_evidence
-      end
-
-      def call
-        return {} if call_for_evidence.change_history.blank?
-
-        { change_history: call_for_evidence.change_history.as_json }
-      end
-
-    private
-
-      attr_accessor :call_for_evidence
     end
 
     class Documents
