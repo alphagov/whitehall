@@ -39,6 +39,7 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
         redirects: [],
         update_type: "major",
         base_path: "/government/ministers",
+        description: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business.",
         details: {
           body: "Read biographies and responsibilities of <a href=\"#cabinet-ministers\" class=\"govuk-link\">Cabinet ministers</a> and all <a href=\"#ministers-by-department\" class=\"govuk-link\">ministers by department</a>, as well as the <a href=\"#whips\" class=\"govuk-link\">whips</a> who help co-ordinate parliamentary business.",
         },

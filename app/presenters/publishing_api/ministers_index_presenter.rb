@@ -21,6 +21,7 @@ module PublishingApi
 
       content.merge!(
         base_path:,
+        description: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business.",
         details:,
         document_type: "ministers_index",
         rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
