@@ -81,6 +81,6 @@ class PolicyGroup < ApplicationRecord
              description: :summary
 
   def publishing_api_presenter
-    PublishingApi::WorkingGroupPresenter
+    PublishingApi::PolicyGroupPresenter
   end
 end

@@ -1,5 +1,5 @@
 module PublishingApi
-  class WorkingGroupPresenter
+  class PolicyGroupPresenter
     attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
