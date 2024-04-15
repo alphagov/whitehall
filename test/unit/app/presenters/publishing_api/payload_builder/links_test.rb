@@ -7,7 +7,7 @@ class PublishingApi::PayloadBuilder::LinksTest < ActionView::TestCase
     PublishingApi::PayloadBuilder::Links.for(item).extract(filter_links)
   end
 
-  test "extracts content_ids from a detailed guide" do
+  test "extracts content_i'ds from a detailed guide" do
     document = create(:detailed_guide)
     links = links_for(document)
 
