@@ -94,11 +94,11 @@ module PublishingApi::NewsArticlePresenterTest
         link_three: "link_three",
       }
 
-      PublishingApi::LinksPresenter
+      PublishingApi::PayloadBuilder::Links
         .expects(:new)
         .with(news_article)
         .returns(
-          mock("PublishingApi::LinksPresenter").tap do |m|
+          mock("PublishingApi::PayloadBuilder::Links").tap do |m|
             m.expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)

@@ -53,7 +53,7 @@ module PublishingApi
     end
 
     def links
-      links = LinksPresenter.new(item).extract(
+      links = PayloadBuilder::Links.for(item).extract(
         %i[
           organisations
           world_locations

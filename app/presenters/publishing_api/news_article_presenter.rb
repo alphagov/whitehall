@@ -39,8 +39,8 @@ module PublishingApi
         government
       ]
 
-      LinksPresenter
-        .new(news_article)
+      PayloadBuilder::Links
+        .for(news_article)
         .extract(link_keys)
         .merge(PayloadBuilder::TopicalEvents.for(news_article))
         .merge(PayloadBuilder::Roles.for(news_article))

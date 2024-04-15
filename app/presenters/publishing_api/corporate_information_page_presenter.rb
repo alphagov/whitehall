@@ -63,7 +63,7 @@ module PublishingApi
     end
 
     def links_presenter
-      @links_presenter ||= LinksPresenter.new(corporate_information_page)
+      @links_presenter ||= PayloadBuilder::Links.for(corporate_information_page)
     end
 
     def change_history

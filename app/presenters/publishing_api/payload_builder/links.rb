@@ -1,5 +1,5 @@
-module PublishingApi
-  class LinksPresenter
+module PublishingApi::PayloadBuilder
+  class Links
     LINK_NAMES_TO_METHODS_MAP = {
       organisations: :organisation_ids,
       primary_publishing_organisation: :primary_publishing_organisation_id,
@@ -9,6 +9,10 @@ module PublishingApi
       worldwide_organisations: :worldwide_organisation_ids,
       government: :government_id,
     }.freeze
+
+    def self.for(item)
+      new(item)
+    end
 
     def initialize(item)
       @item = item
