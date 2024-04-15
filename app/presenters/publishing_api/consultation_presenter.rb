@@ -73,7 +73,7 @@ module PublishingApi
       base_details
         .merge(ChangeHistory.for(consultation))
         .merge(Documents.for(consultation))
-        .merge(ExternalURL.for(consultation))
+        .merge(PayloadBuilder::ExternalUrl.for(consultation))
         .merge(FinalOutcome.for(consultation))
         .merge(NationalApplicability.for(consultation))
         .merge(PublicFeedback.for(consultation))
@@ -142,26 +142,6 @@ module PublishingApi
       def featured_attachments
         consultation.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
-    end
-
-    class ExternalURL
-      def self.for(consultation)
-        new(consultation).call
-      end
-
-      def initialize(consultation)
-        self.consultation = consultation
-      end
-
-      def call
-        return {} unless consultation.external?
-
-        { held_on_another_website_url: consultation.external_url }
-      end
-
-    private
-
-      attr_accessor :consultation
     end
 
     class FinalOutcome
