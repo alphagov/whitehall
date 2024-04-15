@@ -75,7 +75,7 @@ module PublishingApi
         .merge(Documents.for(call_for_evidence))
         .merge(PayloadBuilder::ExternalUrl.for(call_for_evidence))
         .merge(Outcome.for(call_for_evidence))
-        .merge(NationalApplicability.for(call_for_evidence))
+        .merge(PayloadBuilder::NationalApplicability.for(call_for_evidence))
         .merge(WaysToRespond.for(call_for_evidence))
         .merge(PayloadBuilder::FirstPublicAt.for(call_for_evidence))
         .merge(PayloadBuilder::PoliticalDetails.for(call_for_evidence))
@@ -185,26 +185,6 @@ module PublishingApi
       def outcome_attachments
         outcome.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
-    end
-
-    class NationalApplicability
-      def self.for(call_for_evidence)
-        new(call_for_evidence).call
-      end
-
-      def initialize(call_for_evidence)
-        self.call_for_evidence = call_for_evidence
-      end
-
-      def call
-        return {} if call_for_evidence.nation_inapplicabilities.blank?
-
-        { national_applicability: call_for_evidence.national_applicability }
-      end
-
-    private
-
-      attr_accessor :call_for_evidence
     end
 
     class WaysToRespond

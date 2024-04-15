@@ -75,7 +75,7 @@ module PublishingApi
         .merge(Documents.for(consultation))
         .merge(PayloadBuilder::ExternalUrl.for(consultation))
         .merge(FinalOutcome.for(consultation))
-        .merge(NationalApplicability.for(consultation))
+        .merge(PayloadBuilder::NationalApplicability.for(consultation))
         .merge(PublicFeedback.for(consultation))
         .merge(WaysToRespond.for(consultation))
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
@@ -186,26 +186,6 @@ module PublishingApi
       def final_outcome_attachments
         outcome.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
-    end
-
-    class NationalApplicability
-      def self.for(consultation)
-        new(consultation).call
-      end
-
-      def initialize(consultation)
-        self.consultation = consultation
-      end
-
-      def call
-        return {} if consultation.nation_inapplicabilities.blank?
-
-        { national_applicability: consultation.national_applicability }
-      end
-
-    private
-
-      attr_accessor :consultation
     end
 
     class PublicFeedback
