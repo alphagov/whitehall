@@ -1,7 +1,7 @@
 {
   "base_path": "/government/people",
   "title": "All ministers and senior officials on GOV.UK",
-  "description": "",
+  "description": "Find information about a minister or senior official.",
   "locale": "en",
   "document_type": "finder",
   "schema_name": "finder",

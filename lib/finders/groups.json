@@ -1,7 +1,7 @@
 {
   "base_path": "/government/groups",
   "title": "Groups",
-  "description": "",
+  "description": "Find information about a public sector group.",
   "locale": "en",
   "document_type": "finder",
   "schema_name": "finder",
