@@ -46,6 +46,16 @@ class EditionableWorldwideOrganisation < Edition
 
   add_trait CloneDefaultImageTrait
 
+  class ClonePagesTrait < Edition::Traits::Trait
+    def process_associations_before_save(new_edition)
+      @edition.pages.each do |page|
+        new_edition.pages << page.dup
+      end
+    end
+  end
+
+  add_trait ClonePagesTrait
+
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"
 
