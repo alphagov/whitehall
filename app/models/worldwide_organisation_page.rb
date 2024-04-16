@@ -10,6 +10,8 @@ class WorldwideOrganisationPage < ApplicationRecord
 
   delegate :display_type_key, to: :corporate_information_page_type
 
+  include Attachable
+
   def title(_locale = :en)
     corporate_information_page_type.title(edition)
   end
@@ -20,6 +22,14 @@ class WorldwideOrganisationPage < ApplicationRecord
 
   def corporate_information_page_type=(type)
     self.corporate_information_page_type_id = type && type.id
+  end
+
+  def publicly_visible?
+    true
+  end
+
+  def access_limited?
+    false
   end
 
 private

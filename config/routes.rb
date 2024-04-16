@@ -292,6 +292,12 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
       end
+      resources :worldwide_organisation_pages, only: [] do
+        resources :attachments, except: [:show] do
+          get :confirm_destroy, on: :member
+        end
+      end
+
       resources :detailed_guides, path: "detailed-guides", except: [:index]
       resources :people do
         resources :translations, controller: "person_translations" do

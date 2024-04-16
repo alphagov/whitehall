@@ -398,4 +398,23 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
 
     assert_equal expected_output, secondary_navigation_tabs_items(edition, edit_admin_editionable_worldwide_organisation_path(edition))
   end
+
+  test "#secondary_navigation_tabs_items for worldwide organisation pages" do
+    page = build_stubbed(:worldwide_organisation_page)
+
+    expected_output = [
+      {
+        label: "Page",
+        href: edit_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+        current: true,
+      },
+      {
+        label: "Attachments ",
+        href: admin_worldwide_organisation_page_attachments_path(page),
+        current: false,
+      },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(page, edit_admin_editionable_worldwide_organisation_page_path(page.edition, page))
+  end
 end
