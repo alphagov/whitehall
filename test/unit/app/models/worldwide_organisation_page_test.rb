@@ -21,6 +21,16 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
     assert page.errors[:corporate_information_page_type_id].include?("Type cannot be `About us`")
   end
 
+  test "should not be valid when a worldwide organisation page of that type already exists for the worldwide organisation" do
+    organisation = create(:editionable_worldwide_organisation)
+    create(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference, edition: organisation)
+
+    page = build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference, edition: organisation.reload)
+
+    assert_not page.valid?
+    assert page.errors[:base].include?("Another 'Terms of reference' page already exists for this worldwide organisation")
+  end
+
   test "should derive title from type" do
     page = build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
     assert_equal "Terms of reference", page.title
