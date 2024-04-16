@@ -85,7 +85,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     policy_group = PolicyGroup.new
     presenter = PublishingApiPresenters.presenter_for(policy_group)
 
-    assert_equal PublishingApi::WorkingGroupPresenter, presenter.class
+    assert_equal PublishingApi::PolicyGroupPresenter, presenter.class
   end
 
   test ".presenter_for returns TopicalEvent placeholder for a TopicalEvent" do
