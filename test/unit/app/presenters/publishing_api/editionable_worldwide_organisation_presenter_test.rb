@@ -63,7 +63,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
             title: "Working for Editionable worldwide organisation title",
           },
         ],
-        secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
+        secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/world/organisations/editionable-worldwide-organisation-title/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/world/organisations/editionable-worldwide-organisation-title/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/world/organisations/editionable-worldwide-organisation-title/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
         office_contact_associations: [
           {
             office_content_id: worldwide_org.reload.main_office.content_id,
