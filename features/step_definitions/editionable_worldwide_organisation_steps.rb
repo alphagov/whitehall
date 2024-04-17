@@ -241,6 +241,11 @@ Then(/^I should see that the translated office is gone$/) do
   expect(page).not_to have_text("Translated")
 end
 
+Then(/^I should see that the translated page with body "([^"]*)" is gone$/) do |body|
+  expect(page).not_to have_text("Translated")
+  expect(page).not_to have_text(body)
+end
+
 Then(/^I should be able to remove all services from the editionable worldwide organisation "(.*?)" office$/) do |description|
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: description }).first
   visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: EditionableWorldwideOrganisation.last.id, id: worldwide_office.id)

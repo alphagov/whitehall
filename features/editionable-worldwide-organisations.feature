@@ -136,6 +136,15 @@ Feature: Editionable worldwide organisations
     And I add a new page translation with a body of "French Body"
     Then I should see the "Translated" subheading in the "Offices" tab with my new translation
 
+  Scenario: Removing a translation to an existing worldwide organisation with pages
+    Given an editionable worldwide organisation "Test Worldwide Organisation" with a "Personal information charter" page and a translation in French
+    When I visit the "Pages" tab
+    And I add a new page translation with a body of "French Body"
+    When I remove the French translation from the main document
+    Then I should see the main document translation is gone
+    And I visit the "Pages" tab
+    Then I should see that the translated page with body "French Body" is gone
+
   @javascript
   Scenario: Reordering home page offices for a worldwide organisation
     Given An editionable worldwide organisation "Test Worldwide Organisation" with home page offices "Home page office 1" and "Home page office 2"
