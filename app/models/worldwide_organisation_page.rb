@@ -16,6 +16,9 @@ class WorldwideOrganisationPage < ApplicationRecord
   include HasContentId
   include Attachable
 
+  include TranslatableModel
+  translates :title, :summary, :body
+
   def title(_locale = :en)
     corporate_information_page_type.title(edition)
   end
@@ -43,6 +46,10 @@ class WorldwideOrganisationPage < ApplicationRecord
     if (type = CorporateInformationPageType.find(slug))
       find_by!(corporate_information_page_type_id: type.id)
     end
+  end
+
+  def missing_translations
+    super & edition.non_english_translated_locales
   end
 
   def publicly_visible?
