@@ -21,6 +21,12 @@ class CorporateInformationPageType
     I18n.t("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name(organisation))
   end
 
+  def default_locale_title(organisation)
+    I18n.with_locale(:en) do
+      title(organisation)
+    end
+  end
+
   def title_lang(organisation)
     translation_key = slug.tr("-", "_")
     t_lang("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name(organisation))

@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 class Admin::WorldwideOrganisationPages::Index::SummaryCardComponent < ViewComponent::Base
-  attr_reader :page
+  attr_reader :page, :worldwide_organisation
 
-  def initialize(page:)
+  def initialize(page:, worldwide_organisation:)
     @page = page
+    @worldwide_organisation = worldwide_organisation
   end
 
 private
+
+  def title
+    non_english_translation? ? "#{page.default_locale_title} - #{page.translation_locale.native_and_english_language_name}" : page.title
+  end
 
   def rows
     [
@@ -37,22 +42,48 @@ private
   def summary_card_actions
     [
       edit_action,
+      add_translation_action,
       confirm_destroy_action,
     ].compact
   end
 
   def edit_action
+    href = if non_english_translation?
+             edit_admin_editionable_worldwide_organisation_page_translation_path(worldwide_organisation, page, page.translation_locale)
+           else
+             edit_admin_editionable_worldwide_organisation_page_path(page.edition, page)
+           end
+
     {
       label: "Edit",
-      href: edit_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+      href:,
+    }
+  end
+
+  def add_translation_action
+    return if page.missing_translations.blank? || non_english_translation?
+
+    {
+      label: "Add translation",
+      href: admin_editionable_worldwide_organisation_page_translations_path(worldwide_organisation, page, page.translation_locale),
     }
   end
 
   def confirm_destroy_action
+    href = if non_english_translation?
+             confirm_destroy_admin_editionable_worldwide_organisation_page_translation_path(worldwide_organisation, page, page.translation_locale)
+           else
+             confirm_destroy_admin_editionable_worldwide_organisation_page_path(worldwide_organisation, page)
+           end
+
     {
       label: "Delete",
-      href: confirm_destroy_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+      href:,
       destructive: true,
     }
+  end
+
+  def non_english_translation?
+    page.translation_locale.code != :en
   end
 end

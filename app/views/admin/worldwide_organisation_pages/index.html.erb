@@ -49,7 +49,7 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @worldwide_organisation.pages.any? %>
       <% @worldwide_organisation.pages.each do |page| %>
-        <%= render Admin::WorldwideOrganisationPages::Index::SummaryCardComponent.new(page:) %>
+        <%= render Admin::WorldwideOrganisationPages::Index::SummaryCardComponent.new(page:, worldwide_organisation: @worldwide_organisation) %>
       <% end %>
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
