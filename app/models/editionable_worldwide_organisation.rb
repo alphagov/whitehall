@@ -49,7 +49,12 @@ class EditionableWorldwideOrganisation < Edition
   class ClonePagesTrait < Edition::Traits::Trait
     def process_associations_before_save(new_edition)
       @edition.pages.each do |page|
-        new_edition.pages << page.dup
+        new_page = page.dup
+
+        page.attachments.each do |attachment|
+          new_page.attachments << attachment.deep_clone
+        end
+        new_edition.pages << new_page
       end
     end
   end
