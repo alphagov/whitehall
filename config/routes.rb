@@ -23,6 +23,8 @@ Whitehall::Application.routes.draw do
       resources :users, only: %i[index show edit update]
 
       get "republishing" => "republishing#index", as: :republishing_index
+      get "republishing/:document_slug/confirm" => "republishing#confirm", as: :confirm_republishing
+      post "republishing/republish-past-prime-ministers" => "republishing#republish_past_prime_ministers_index"
 
       resources :documents, only: [] do
         resources :review_reminders, only: %i[new create edit update]

@@ -34,7 +34,7 @@
         },
         {
           text: link_to(sanitize("Republish #{tag.span('\'' + document[:title] + '\' page', class: 'govuk-visually-hidden')}"),
-              "#",
+              admin_confirm_republishing_path(document[:slug]),
               id: "republish-past-prime-ministers-index",
               class: "govuk-link",
             ),
