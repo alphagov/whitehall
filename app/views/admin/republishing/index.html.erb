@@ -4,18 +4,33 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <p class="govuk-body">
-      Sometimes it may be necessary to republish content to the Publishing API. This will refresh the content on the website.
-    </p>
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Guidance on republishing content
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <p class="govuk-body">
+          Sometimes it may be necessary to republish content to the Publishing API. This will refresh the content on the website.
+        </p>
+
+        <p class="govuk-body">
+          For example, if we make an update to govspeak and a publishing application pre-renders that content prior to its submission to Publishing API, that would require us to re-render and save new HTML for content.
+        </p>
+
+        <p class="govuk-body">
+          The following actions will allow you to schedule the republishing of content that was originally published in this application.
+          Any linked editions will also be republished through dependency resolution.
+          Try to pick the republishing task most focused to the scope of what you need to republish to avoid unnecessary server load.
+        </p>
+      </div>
+    </details>
+
+    <h2>Individual pages</h2>
 
     <p class="govuk-body">
-      For example, if we make an update to govspeak and a publishing application pre-renders that content prior to its submission to Publishing API, that would require us to re-render and save new HTML for content.
-    </p>
-
-    <p class="govuk-body">
-      The following actions will allow you to schedule the republishing of content that was originally published in this application.
-      Any linked editions will also be republished through dependency resolution.
-      Try to pick the republishing task most focused to the scope of what you need to republish to avoid unnecessary server load.
+      You can republish a selection of individual pages using the links below. If the page you wish to republish is not listed below, you may be able to use the 'Document' link in the next section.
     </p>
 
     <%= render "govuk_publishing_components/components/table", {
@@ -41,6 +56,41 @@
         },
       ]
       end,
+    } %>
+
+    <h2>Other individual content</h2>
+
+    <p class="govuk-body">
+      You can republish certain types of other indidivual content using the following actions.
+    </p>
+
+    <p class="govuk-body">
+      You'll need to provide the slug for the specific content you want to republish. Instructions for how to find this are provided on each page.
+    </p>
+
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Content type",
+        },
+        {
+          text: "Action",
+        },
+      ],
+      rows: [
+        [
+          {
+            text: "Organisation",
+          },
+          {
+            text: link_to(sanitize("Republish #{tag.span('an organisation', class: 'govuk-visually-hidden')}"),
+                '#',
+                id: "republish-organisation",
+                class: "govuk-link",
+              ),
+          },
+        ],
+      ],
     } %>
   </section>
 </div>

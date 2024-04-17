@@ -11,8 +11,11 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   view_test "GDS Admin users should be able to acess the GET :index and see links to republishable content" do
     get :index
 
-    assert_select ".govuk-table__cell:nth-child(1) a[href='https://www.test.gov.uk/government/history/past-prime-ministers']", text: "Past Prime Ministers"
-    assert_select ".govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/page/past-prime-ministers/confirm']", text: "Republish 'Past Prime Ministers' page"
+    assert_select ".govuk-table:nth-of-type(1) .govuk-table__cell:nth-child(1) a[href='https://www.test.gov.uk/government/history/past-prime-ministers']", text: "Past Prime Ministers"
+    assert_select ".govuk-table:nth-of-type(1) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/page/past-prime-ministers/confirm']", text: "Republish 'Past Prime Ministers' page"
+
+    assert_select ".govuk-table:nth-of-type(2) .govuk-table__cell:nth-child(2) a[href='#']", text: "Republish an organisation"
+
     assert_response :ok
   end
 
