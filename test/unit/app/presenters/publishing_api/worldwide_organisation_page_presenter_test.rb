@@ -12,11 +12,9 @@ module PublishingApi::WorldwideOrganisationPagePresenterTest
     end
 
     class BasicWorldwideOrganisationPageTest < TestCase
-      setup do
-        self.page = create(:worldwide_organisation_page)
-      end
-
       test "presents a Worldwide Organisation Page ready for adding to the publishing API" do
+        self.page = create(:worldwide_organisation_page)
+
         public_path = page.public_path
 
         expected_hash = {
@@ -59,6 +57,30 @@ module PublishingApi::WorldwideOrganisationPagePresenterTest
 
         assert_valid_against_publisher_schema(presented_item.content, "worldwide_corporate_information_page")
         assert_valid_against_links_schema({ links: presented_item.edition_links }, "worldwide_corporate_information_page")
+      end
+
+      test "presents the correct routes for a Worldwide Organisation Page with a translation" do
+        self.page = create(:worldwide_organisation_page, translated_into: [:fr])
+
+        I18n.with_locale(:en) do
+          presented_item = PublishingApi::WorldwideOrganisationPagePresenter.new(page)
+
+          assert_equal page.base_path, presented_item.content[:base_path]
+
+          assert_equal [
+            { path: page.base_path, type: "exact" },
+          ], presented_item.content[:routes]
+        end
+
+        I18n.with_locale(:fr) do
+          presented_item = PublishingApi::WorldwideOrganisationPagePresenter.new(page)
+
+          assert_equal "#{page.base_path}.fr", presented_item.content[:base_path]
+
+          assert_equal [
+            { path: "#{page.base_path}.fr", type: "exact" },
+          ], presented_item.content[:routes]
+        end
       end
     end
   end
