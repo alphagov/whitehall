@@ -40,21 +40,28 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to trigger the PresentPageToPublishingWorker job with the HistoricalAccountsIndexPresenter" do
+  test "GDS Admin users should be able to access POST :republish_page with a republishable page slug" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").once
 
-    post :republish_past_prime_ministers_index
+    post :republish_page, params: { page_slug: "past-prime-ministers" }
 
     assert_redirected_to admin_republishing_index_path
     assert_equal "'Past Prime Ministers' page has been scheduled for republishing", flash[:notice]
   end
 
-  test "Non-GDS Admin users should not be able to republish the page" do
+  test "GDS Admin users should see a 404 page when trying to POST :republish_page with an unregistered page slug" do
+    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
+
+    get :republish_page, params: { page_slug: "not-republishable" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to access POST :republish_page" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
 
     login_as :writer
 
-    post :republish_past_prime_ministers_index
+    post :republish_page, params: { page_slug: "past-prime-ministers" }
     assert_response :forbidden
   end
 end

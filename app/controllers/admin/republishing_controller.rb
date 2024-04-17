@@ -5,9 +5,13 @@ class Admin::RepublishingController < Admin::BaseController
     @republishable_pages = republishable_pages
   end
 
-  def republish_past_prime_ministers_index
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter")
-    flash[:notice] = "'Past Prime Ministers' page has been scheduled for republishing"
+  def republish_page
+    page_to_republish = republishable_pages.find { |page| page[:slug] == params[:page_slug] }
+
+    return render "admin/errors/not_found", status: :not_found unless page_to_republish
+
+    PresentPageToPublishingApiWorker.perform_async(page_to_republish[:presenter])
+    flash[:notice] = "'#{page_to_republish[:title]}' page has been scheduled for republishing"
     redirect_to(admin_republishing_index_path)
   end
 
@@ -17,7 +21,7 @@ class Admin::RepublishingController < Admin::BaseController
     return render "admin/errors/not_found", status: :not_found unless page_to_republish
 
     @title = page_to_republish[:title]
-    @republishing_path = page_to_republish[:republishing_path]
+    @republishing_path = admin_republish_page_path(page_to_republish[:slug])
   end
 
 private
@@ -32,8 +36,8 @@ private
     [{
       title: historical_accounts_index_presenter.content[:title],
       public_path: historical_accounts_index_presenter.base_path,
-      republishing_path: admin_republishing_republish_past_prime_ministers_path,
       slug: historical_accounts_index_presenter.base_path.split("/").last,
+      presenter: "PublishingApi::HistoricalAccountsIndexPresenter",
     }]
   end
 end

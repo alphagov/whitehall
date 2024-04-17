@@ -24,7 +24,7 @@ Whitehall::Application.routes.draw do
 
       get "republishing" => "republishing#index", as: :republishing_index
       get "republishing/:page_slug/confirm" => "republishing#confirm_page", as: :confirm_page_republishing
-      post "republishing/republish-past-prime-ministers" => "republishing#republish_past_prime_ministers_index"
+      post "republishing/:page_slug/republish" => "republishing#republish_page", as: :republish_page
 
       resources :documents, only: [] do
         resources :review_reminders, only: %i[new create edit update]
