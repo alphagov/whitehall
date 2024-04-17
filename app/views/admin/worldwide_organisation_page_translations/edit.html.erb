@@ -1,0 +1,66 @@
+<% content_for :page_title, "#{@translated_page.translation.persisted? ? "Edit" : "New"} translation for #{@worldwide_page.title}" %>
+<% content_for :title, "#{@translated_page.translation.persisted? ? "Edit" : "New"} translation" %>
+<% content_for :context, @worldwide_page.title %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @translated_page)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @worldwide_page, as: :contact, url: admin_editionable_worldwide_organisation_page_translation_path(@worldwide_organisation, @worldwide_page, translation_locale), method: :put do |form| %>
+      <%= render "components/translated_textarea", {
+        textarea: {
+          label: {
+            heading_size: "l",
+            text: "Translated summary",
+          },
+          name: "page[summary]",
+          id: "page_summary",
+          value: @translated_page.summary,
+          rows: 2,
+          error_items: errors_for(form.object.errors, :summary),
+          right_to_left: @translated_page.translation_locale.rtl?,
+          right_to_left_help: false,
+        },
+        details: {
+          text: @worldwide_page.summary,
+        },
+      } %>
+
+      <%= render "components/translated_textarea", {
+        textarea: {
+          label: {
+            heading_size: "l",
+            text: "Translated body (required)",
+          },
+          name: "page[body]",
+          id: "page_body",
+          value: @translated_page.body,
+          rows: 20,
+          error_items: errors_for(form.object.errors, :body),
+          right_to_left: @translated_page.translation_locale.rtl?,
+          right_to_left_help: false,
+        },
+        details: {
+          text: @worldwide_page.body,
+        },
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-top-8">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "worldwide-office-translation-button",
+            "track-label": "Save",
+          },
+        } %>
+
+        <% if @translated_page.translation.persisted? %>
+          <%= link_to("Cancel", admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
+        <% else %>
+          <%= link_to("Cancel", admin_editionable_worldwide_organisation_page_translations_path(@worldwide_organisation, @worldwide_page), class: "govuk-link govuk-link--no-visited-state") %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

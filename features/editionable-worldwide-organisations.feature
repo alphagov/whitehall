@@ -32,12 +32,12 @@ Feature: Editionable worldwide organisations
     And I add an associated office, also with a translation in French
     When I remove the French translation from the main document
     Then I should see the main document translation is gone
-    And I navigate to the Offices tab
+    And I visit the "Offices" tab
     Then I should see that the translated office is gone
 
   Scenario: Adding a translation to an existing worldwide office
     Given an editionable worldwide organisation in draft with a translation in French
-    When I visit the Offices tab
+    When I visit the "Offices" tab
     And I add a new translation with a title of "French Title"
     Then I should see the "Translated" subheading in the "Offices" tab with my new translation
 
@@ -129,6 +129,12 @@ Feature: Editionable worldwide organisations
     And I click the Attachments tab
     And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
     Then The "Beard Length Statistics 2014" attachment should have uploaded successfully
+
+  Scenario: Adding a translation to an existing worldwide organisation page
+    Given an editionable worldwide organisation "Test Worldwide Organisation" with a "Personal information charter" page and a translation in French
+    When I visit the "Pages" tab
+    And I add a new page translation with a body of "French Body"
+    Then I should see the "Translated" subheading in the "Offices" tab with my new translation
 
   @javascript
   Scenario: Reordering home page offices for a worldwide organisation
