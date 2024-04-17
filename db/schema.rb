@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_10_133547) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_12_103303) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -1208,6 +1208,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_133547) do
     t.index ["edition_id"], name: "index_worldwide_offices_on_edition_id"
     t.index ["slug"], name: "index_worldwide_offices_on_slug"
     t.index ["worldwide_organisation_id"], name: "index_worldwide_offices_on_worldwide_organisation_id"
+  end
+
+  create_table "worldwide_organisation_page_translations", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "worldwide_organisation_page_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.text "summary"
+    t.text "body"
+    t.index ["locale"], name: "index_worldwide_organisation_page_translations_on_locale"
+    t.index ["worldwide_organisation_page_id"], name: "index_bbd0fc4436b2d97c8b36796e9089468751fc0f2e"
   end
 
   create_table "worldwide_organisation_pages", charset: "utf8mb3", force: :cascade do |t|
