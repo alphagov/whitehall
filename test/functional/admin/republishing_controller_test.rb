@@ -12,7 +12,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".govuk-table__cell:nth-child(1) a[href='https://www.test.gov.uk/government/history/past-prime-ministers']", text: "Past Prime Ministers"
-    assert_select ".govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/past-prime-ministers/confirm']", text: "Republish 'Past Prime Ministers' page"
+    assert_select ".govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/page/past-prime-ministers/confirm']", text: "Republish 'Past Prime Ministers' page"
     assert_response :ok
   end
 

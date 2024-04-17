@@ -21,7 +21,7 @@ class Admin::RepublishingController < Admin::BaseController
     return render "admin/errors/not_found", status: :not_found unless page_to_republish
 
     @title = page_to_republish[:title]
-    @republishing_path = admin_republish_page_path(page_to_republish[:slug])
+    @republishing_path = admin_republishing_page_republish_path(page_to_republish[:slug])
   end
 
 private
