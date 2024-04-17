@@ -22,6 +22,13 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
     page.destroy!
   end
 
+  test "deleting a page discards the draft page" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    page = create(:worldwide_organisation_page, edition: worldwide_organisation)
+    PublishingApiDiscardDraftWorker.expects(:perform_async).with(page.content_id, "en").once
+    page.destroy!
+  end
+
   %w[body corporate_information_page_type_id].each do |param|
     test "should not be valid without a #{param}" do
       assert_not build(:worldwide_organisation_page, param.to_sym => nil).valid?
