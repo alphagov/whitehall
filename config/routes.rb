@@ -298,6 +298,10 @@ Whitehall::Application.routes.draw do
       resources :editionable_worldwide_organisations, path: "editionable-worldwide-organisations", except: [:index] do
         resources :pages, controller: "worldwide_organisation_pages" do
           get :confirm_destroy, on: :member
+
+          resources :translations, controller: "worldwide_organisation_page_translations", only: %i[create edit update destroy index] do
+            get :confirm_destroy, on: :member
+          end
         end
       end
       resources :worldwide_organisation_pages, only: [] do
