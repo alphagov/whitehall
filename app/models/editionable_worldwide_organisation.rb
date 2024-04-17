@@ -162,6 +162,10 @@ class EditionableWorldwideOrganisation < Edition
     false
   end
 
+  def body_required?
+    false
+  end
+
   def translatable?
     true
   end
