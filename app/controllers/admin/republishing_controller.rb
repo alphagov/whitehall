@@ -23,7 +23,7 @@ class Admin::RepublishingController < Admin::BaseController
 private
 
   def enforce_permissions!
-    enforce_permission!(:administer, :republish_documents)
+    enforce_permission!(:administer, :republish_content)
   end
 
   def republishable_pages

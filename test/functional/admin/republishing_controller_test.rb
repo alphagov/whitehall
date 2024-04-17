@@ -8,7 +8,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  view_test "GDS Admin users should be able to acess the GET :index and see links to republishable pages" do
+  view_test "GDS Admin users should be able to acess the GET :index and see links to republishable content" do
     get :index
 
     assert_select ".govuk-table__cell:nth-child(1) a[href='https://www.test.gov.uk/government/history/past-prime-ministers']", text: "Past Prime Ministers"
