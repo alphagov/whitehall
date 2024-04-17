@@ -8,7 +8,7 @@ class WorldwideOrganisationPage < ApplicationRecord
             exclusion: { in: [CorporateInformationPageType::AboutUs.id], message: "Type cannot be `About us`" }
   validate :unique_worldwide_organisation_and_page_type, on: :create, if: :edition
 
-  delegate :display_type_key, to: :corporate_information_page_type
+  delegate :slug, :display_type_key, to: :corporate_information_page_type
 
   include Attachable
 
@@ -24,12 +24,33 @@ class WorldwideOrganisationPage < ApplicationRecord
     self.corporate_information_page_type_id = type && type.id
   end
 
+  def self.by_menu_heading(menu_heading)
+    type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
+    where(corporate_information_page_type_id: type_ids)
+  end
+
   def publicly_visible?
     true
   end
 
   def access_limited?
     false
+  end
+
+  def publishing_api_presenter
+    PublishingApi::WorldwideOrganisationPagePresenter
+  end
+
+  def base_path
+    "#{edition.base_path}/about/#{slug}"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options)
   end
 
 private

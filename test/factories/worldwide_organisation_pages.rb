@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :worldwide_organisation_page do
+    content_id { SecureRandom.uuid }
     summary { "Some summary" }
     body { "Some body" }
     corporate_information_page_type_id { CorporateInformationPageType::PublicationScheme.id }
