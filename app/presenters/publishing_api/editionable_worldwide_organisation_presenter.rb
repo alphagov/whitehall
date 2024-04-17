@@ -29,6 +29,8 @@ module PublishingApi
             crest: "single-identity",
             formatted_title: worldwide_organisation_logo_name(item),
           },
+          ordered_corporate_information_pages:,
+          secondary_corporate_information_pages:,
           office_contact_associations:,
           people_role_associations:,
           social_media_links:,
@@ -56,6 +58,7 @@ module PublishingApi
         secondary_role_person:,
         sponsoring_organisations: item.lead_organisations.map(&:content_id),
         world_locations: item.world_locations.map(&:content_id),
+        corporate_information_pages: pages,
       }
     end
 
@@ -153,6 +156,79 @@ module PublishingApi
           content_id: world_location.content_id,
           name: world_location.name,
         }
+      end
+    end
+
+    def pages
+      return [] unless item.pages.any?
+
+      item.pages.map(&:content_id)
+    end
+
+    def ordered_corporate_information_pages
+      return [] unless item.pages
+
+      links = []
+
+      %i[our_information jobs_and_contracts].each do |page_type|
+        item.pages.by_menu_heading(page_type).each do |page|
+          links << {
+            content_id: page.content_id,
+            title: page.title,
+          }
+        end
+      end
+
+      links
+    end
+
+    def secondary_corporate_information_pages
+      return [] unless item.pages
+
+      sentences = []
+
+      publication_scheme = item.pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::PublicationScheme.id)
+      if publication_scheme.present?
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.publication_scheme_html",
+          link: t_corporate_information_page_link(item, "publication-scheme"),
+        )
+      end
+
+      welsh_language_scheme = item.pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::WelshLanguageScheme.id)
+      if welsh_language_scheme.present?
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.welsh_language_scheme_html",
+          link: t_corporate_information_page_link(item, "welsh-language-scheme"),
+        )
+      end
+
+      personal_information_charter = item.pages.find_by(corporate_information_page_type_id: CorporateInformationPageType::PersonalInformationCharter.id)
+      if personal_information_charter.present?
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.personal_information_charter_html",
+          link: t_corporate_information_page_link(item, "personal-information-charter"),
+        )
+      end
+
+      sentences.join(" ")
+    end
+
+    def t_corporate_information_page_link(organisation, slug)
+      page = organisation.pages.for_slug(slug)
+      page.extend(UseSlugAsParam)
+      link_to(
+        t_corporate_information_page_type_link_text(page),
+        page.public_path,
+        class: "govuk-link",
+      )
+    end
+
+    def t_corporate_information_page_type_link_text(page)
+      if I18n.exists?("corporate_information_page.type.link_text.#{page.display_type_key}")
+        I18n.t("corporate_information_page.type.link_text.#{page.display_type_key}")
+      else
+        I18n.t("corporate_information_page.type.title.#{page.display_type_key}")
       end
     end
   end

@@ -11,6 +11,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
                            :with_social_media_account,
                            :with_main_office,
                            :with_home_page_offices,
+                           :with_pages,
                            analytics_identifier: "WO123")
 
     primary_role = create(:ambassador_role)
@@ -47,6 +48,17 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
           crest: "single-identity",
           formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
         },
+        ordered_corporate_information_pages: [
+          {
+            content_id: worldwide_org.pages[0].content_id,
+            title: "Complaints procedure",
+          },
+          {
+            content_id: worldwide_org.pages[3].content_id,
+            title: "Working for Editionable worldwide organisation title",
+          },
+        ],
+        secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/editionable-world/organisations/editionable-worldwide-organisation-title/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
         office_contact_associations: [
           {
             office_content_id: worldwide_org.reload.main_office.content_id,
@@ -115,6 +127,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
         ],
         sponsoring_organisations: worldwide_org.organisations.map(&:content_id),
         world_locations: worldwide_org.world_locations.map(&:content_id),
+        corporate_information_pages: worldwide_org.pages.map(&:content_id),
       },
       analytics_identifier: "WO123",
       update_type: "major",

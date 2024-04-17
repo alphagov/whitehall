@@ -29,6 +29,18 @@ class WorldwideOrganisationPage < ApplicationRecord
     where(corporate_information_page_type_id: type_ids)
   end
 
+  def self.for_slug(slug)
+    if (type = CorporateInformationPageType.find(slug))
+      find_by(corporate_information_page_type_id: type.id)
+    end
+  end
+
+  def self.for_slug!(slug)
+    if (type = CorporateInformationPageType.find(slug))
+      find_by!(corporate_information_page_type_id: type.id)
+    end
+  end
+
   def publicly_visible?
     true
   end
