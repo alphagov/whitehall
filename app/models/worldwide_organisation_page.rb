@@ -10,6 +10,8 @@ class WorldwideOrganisationPage < ApplicationRecord
 
   delegate :slug, :display_type_key, to: :corporate_information_page_type
 
+  after_commit :republish_worldwide_organisation_draft
+
   include HasContentId
   include Attachable
 
@@ -67,6 +69,10 @@ class WorldwideOrganisationPage < ApplicationRecord
   end
 
 private
+
+  def republish_worldwide_organisation_draft
+    Whitehall.edition_services.draft_updater(edition).perform! if edition.present?
+  end
 
   def unique_worldwide_organisation_and_page_type
     current_page_types = edition.pages.map(&:corporate_information_page_type_id).flatten
