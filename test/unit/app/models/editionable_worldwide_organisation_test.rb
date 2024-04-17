@@ -183,6 +183,30 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     end
   end
 
+  test "should clone pages when a new draft of published edition is created" do
+    published_worldwide_organisation = create(
+      :editionable_worldwide_organisation,
+      :published,
+      :with_pages,
+    )
+
+    draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
+
+    assert_equal published_worldwide_organisation.pages.first.attributes.except("id", "edition_id"), draft_worldwide_organisation.pages.first.attributes.except("id", "edition_id")
+  end
+
+  test "should clone page attachments when a new draft of published edition is created" do
+    page = create(:worldwide_organisation_page)
+    attachment = build(:file_attachment)
+    page.attachments << attachment
+    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, pages: [page])
+
+    draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
+
+    cloned_attachment = draft_worldwide_organisation.pages.first.attachments.first
+    assert_equal cloned_attachment.attributes.except("id", "attachable_id", "safely_resluggable"), attachment.attributes.except("id", "attachable_id", "safely_resluggable")
+  end
+
   test "when destroyed, will remove its home page list for storing offices" do
     world_organisation = create(:editionable_worldwide_organisation)
     h = world_organisation.__send__(:home_page_offices_list)

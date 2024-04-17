@@ -141,6 +141,10 @@ When(/^I click the "([^"]*)" link for the "([^"]*)" page$/) do |link, type|
   end
 end
 
+When(/^I click the Attachments tab$/) do
+  click_link "Attachments"
+end
+
 When(/^I submit the confirmation form to delete the "([^"]*)" page$/) do |type|
   worldwide_organisation_page = WorldwideOrganisationPage.last
   expect(page).to have_current_path(confirm_destroy_admin_editionable_worldwide_organisation_page_path(worldwide_organisation_page.edition, worldwide_organisation_page))
@@ -331,4 +335,8 @@ Then(/^I should see that the list of offices are ordered "([^"]*)" then "([^"]*)
   expect(last_item).to have_text(second_office)
   expect(last_item).to have_button("Up")
   expect(last_item).not_to have_button("Down")
+end
+
+Then(/^The "(.*?)" attachment should have uploaded successfully$/) do |attachment_title|
+  expect(page).to have_content("Attachment '#{attachment_title}' uploaded")
 end

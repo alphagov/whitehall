@@ -171,4 +171,19 @@ module Admin::TabbedNavHelper
       },
     ]
   end
+
+  def worldwide_organisation_page_nav_items(page, current_path)
+    [
+      {
+        label: "Page",
+        href: edit_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+        current: current_path == edit_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+      },
+      {
+        label: sanitize("Attachments #{tag.span(page.attachments.count, class: 'govuk-tag govuk-tag--grey') if page.attachments.count.positive?}"),
+        href: admin_worldwide_organisation_page_attachments_path(page),
+        current: current_path == admin_worldwide_organisation_page_attachments_path(page),
+      },
+    ]
+  end
 end

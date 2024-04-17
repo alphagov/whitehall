@@ -15,21 +15,25 @@
         {
           text: type,
           value: value,
+          selected: form.object.corporate_information_page_type_id == value,
         }
       end,
     } %>
   <% end %>
 
-  <%= render "govuk_publishing_components/components/textarea", {
+  <%= render "govuk_publishing_components/components/character_count", {
+    textarea: {
       label: {
         text: "Summary",
         heading_size: "l",
       },
       name: "worldwide_organisation_page[summary]",
-      id: "worldwide_organisation_page_summary",
       value: form.object.summary,
       rows: 4,
       error_items: errors_for(form.object.errors, :summary),
+    },
+    id: "worldwide_organisation_page_summary",
+    maxlength: 160,
   } %>
 
   <% if Flipflop.govspeak_visual_editor? %>

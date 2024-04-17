@@ -41,6 +41,12 @@ FactoryBot.define do
         organisation.default_news_image = build(:featured_image_data)
       end
     end
+
+    trait(:with_pages) do
+      after :create do |organisation|
+        create(:worldwide_organisation_page, edition: organisation)
+      end
+    end
   end
 
   factory :draft_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:draft]

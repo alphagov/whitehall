@@ -5,6 +5,11 @@
     <% content_for :context, @worldwide_organisation.title %>
     <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @worldwide_organisation_page)) %>
 
+    <%= render "components/secondary_navigation", {
+      aria_label: "Worldwide organisation page navigation",
+      items: secondary_navigation_tabs_items(@worldwide_organisation_page, request.path),
+    } %>
+
     <%= render partial: "form", locals: {worldwide_organisation_page: @worldwide_organisation_page} %>
   </div>
 
