@@ -10,6 +10,7 @@ class WorldwideOrganisationPage < ApplicationRecord
 
   delegate :slug, :display_type_key, to: :corporate_information_page_type
 
+  include HasContentId
   include Attachable
 
   def title(_locale = :en)
