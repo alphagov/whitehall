@@ -21,20 +21,20 @@
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {
-          text: "Document",
+          text: "Page",
         },
         {
           text: "Action",
         },
       ],
-      rows: @republishable_documents.map do |document|
+      rows: @republishable_pages.map do |page|
       [
         {
-          text: link_to(document[:title], Plek.website_root + document[:public_path], class:"govuk-link"),
+          text: link_to(page[:title], Plek.website_root + page[:public_path], class:"govuk-link"),
         },
         {
-          text: link_to(sanitize("Republish #{tag.span('\'' + document[:title] + '\' page', class: 'govuk-visually-hidden')}"),
-              admin_confirm_republishing_path(document[:slug]),
+          text: link_to(sanitize("Republish #{tag.span('\'' + page[:title] + '\' page', class: 'govuk-visually-hidden')}"),
+              admin_confirm_page_republishing_path(page[:slug]),
               id: "republish-past-prime-ministers-index",
               class: "govuk-link",
             ),

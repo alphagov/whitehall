@@ -2,7 +2,7 @@ class Admin::RepublishingController < Admin::BaseController
   before_action :enforce_permissions!
 
   def index
-    @republishable_documents = republishable_documents
+    @republishable_pages = republishable_pages
   end
 
   def republish_past_prime_ministers_index
@@ -11,13 +11,13 @@ class Admin::RepublishingController < Admin::BaseController
     redirect_to(admin_republishing_index_path)
   end
 
-  def confirm
-    republishable_document = republishable_documents.find { |document| document[:slug] == params[:document_slug] }
+  def confirm_page
+    page_to_republish = republishable_pages.find { |page| page[:slug] == params[:page_slug] }
 
-    return render "admin/errors/not_found", status: :not_found unless republishable_document
+    return render "admin/errors/not_found", status: :not_found unless page_to_republish
 
-    @document_title = republishable_document[:title]
-    @republishing_path = republishable_document[:republishing_path]
+    @title = page_to_republish[:title]
+    @republishing_path = page_to_republish[:republishing_path]
   end
 
 private
@@ -26,7 +26,7 @@ private
     enforce_permission!(:administer, :republish_documents)
   end
 
-  def republishable_documents
+  def republishable_pages
     historical_accounts_index_presenter = PublishingApi::HistoricalAccountsIndexPresenter.new
 
     [{
