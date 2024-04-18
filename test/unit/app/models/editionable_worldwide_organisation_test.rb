@@ -187,7 +187,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     published_worldwide_organisation = create(
       :editionable_worldwide_organisation,
       :published,
-      :with_pages,
+      :with_page,
     )
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))

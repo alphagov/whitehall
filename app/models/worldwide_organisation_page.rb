@@ -8,8 +8,12 @@ class WorldwideOrganisationPage < ApplicationRecord
             exclusion: { in: [CorporateInformationPageType::AboutUs.id], message: "Type cannot be `About us`" }
   validate :unique_worldwide_organisation_and_page_type, on: :create, if: :edition
 
-  delegate :display_type_key, to: :corporate_information_page_type
+  delegate :slug, :display_type_key, to: :corporate_information_page_type
 
+  after_commit :republish_worldwide_organisation_draft
+  after_destroy :discard_draft
+
+  include HasContentId
   include Attachable
 
   def title(_locale = :en)
@@ -24,6 +28,23 @@ class WorldwideOrganisationPage < ApplicationRecord
     self.corporate_information_page_type_id = type && type.id
   end
 
+  def self.by_menu_heading(menu_heading)
+    type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
+    where(corporate_information_page_type_id: type_ids)
+  end
+
+  def self.for_slug(slug)
+    if (type = CorporateInformationPageType.find(slug))
+      find_by(corporate_information_page_type_id: type.id)
+    end
+  end
+
+  def self.for_slug!(slug)
+    if (type = CorporateInformationPageType.find(slug))
+      find_by!(corporate_information_page_type_id: type.id)
+    end
+  end
+
   def publicly_visible?
     true
   end
@@ -32,7 +53,31 @@ class WorldwideOrganisationPage < ApplicationRecord
     false
   end
 
+  def publishing_api_presenter
+    PublishingApi::WorldwideOrganisationPagePresenter
+  end
+
+  def base_path
+    "#{edition.base_path}/about/#{slug}"
+  end
+
+  def public_path(options = {})
+    append_url_options(base_path, options)
+  end
+
+  def public_url(options = {})
+    Plek.website_root + public_path(options)
+  end
+
 private
+
+  def republish_worldwide_organisation_draft
+    Whitehall.edition_services.draft_updater(edition).perform! if edition.present?
+  end
+
+  def discard_draft
+    PublishingApiDiscardDraftWorker.perform_async(content_id, I18n.default_locale.to_s)
+  end
 
   def unique_worldwide_organisation_and_page_type
     current_page_types = edition.pages.map(&:corporate_information_page_type_id).flatten

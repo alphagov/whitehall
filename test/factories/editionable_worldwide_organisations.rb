@@ -42,9 +42,21 @@ FactoryBot.define do
       end
     end
 
+    trait(:with_page) do
+      after :create do |organisation, _evaluator|
+        organisation.pages = [build(:worldwide_organisation_page)]
+      end
+    end
+
     trait(:with_pages) do
-      after :create do |organisation|
-        create(:worldwide_organisation_page, edition: organisation)
+      after :create do |organisation, _evaluator|
+        organisation.pages = [
+          build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::ComplaintsProcedure, edition: organisation),
+          build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::PersonalInformationCharter, edition: organisation),
+          build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::PublicationScheme, edition: organisation),
+          build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::Recruitment, edition: organisation),
+          build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme, edition: organisation),
+        ]
       end
     end
   end

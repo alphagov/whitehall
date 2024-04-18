@@ -1,6 +1,34 @@
 require "test_helper"
 
 class WorldwideOrganisationPageTest < ActiveSupport::TestCase
+  test "creating a new page republishes the associated worldwide organisation" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation).once
+    create(:worldwide_organisation_page, edition: worldwide_organisation)
+  end
+
+  test "updating an existing page republishes the associated worldwide organisation" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    page = create(:worldwide_organisation_page, edition: worldwide_organisation)
+    page.body = "updated"
+    Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation).once
+    page.save!
+  end
+
+  test "deleting a page republishes the associated worldwide organisation" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    page = create(:worldwide_organisation_page, edition: worldwide_organisation)
+    Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation).once
+    page.destroy!
+  end
+
+  test "deleting a page discards the draft page" do
+    worldwide_organisation = create(:editionable_worldwide_organisation)
+    page = create(:worldwide_organisation_page, edition: worldwide_organisation)
+    PublishingApiDiscardDraftWorker.expects(:perform_async).with(page.content_id, "en").once
+    page.destroy!
+  end
+
   %w[body corporate_information_page_type_id].each do |param|
     test "should not be valid without a #{param}" do
       assert_not build(:worldwide_organisation_page, param.to_sym => nil).valid?

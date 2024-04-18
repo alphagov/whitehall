@@ -183,6 +183,6 @@ class EditionableWorldwideOrganisation < Edition
   end
 
   def associated_documents
-    (offices + offices.map(&:contact)).compact.flatten
+    [offices, offices.map(&:contact), pages].compact.flatten
   end
 end
