@@ -1,0 +1,18 @@
+<% content_for :page_title, "Republish '#{@document_title}'" %>
+<% content_for :title, "Are you sure you want to republish '#{@document_title}'?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">
+      This will schedule the page to be republished.
+    </p>
+    <%= form_with(url: @republishing_path, method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
+        render("govuk_publishing_components/components/button", {
+          text: "Confirm republishing",
+        })
+      end %>
+  </section>
+</div>

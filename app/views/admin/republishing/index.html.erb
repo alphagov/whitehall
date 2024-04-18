@@ -1,0 +1,46 @@
+<% content_for :page_title, "Republish documents" %>
+<% content_for :title, "Republish documents" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">
+      Sometimes it may be necessary to republish content to the Publishing API. This will refresh the content on the website.
+    </p>
+
+    <p class="govuk-body">
+      For example, if we make an update to govspeak and a publishing application pre-renders that content prior to its submission to Publishing API, that would require us to re-render and save new HTML for content.
+    </p>
+
+    <p class="govuk-body">
+      The following actions will allow you to schedule the republishing of content that was originally published in this application.
+      Any linked editions will also be republished through dependency resolution.
+      Try to pick the document type most focused to the scope of what you need to republish to avoid unnecessary server load.
+    </p>
+
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Document",
+        },
+        {
+          text: "Action",
+        },
+      ],
+      rows: @republishable_documents.map do |document|
+      [
+        {
+          text: link_to(document[:title], Plek.website_root + document[:public_path], class:"govuk-link"),
+        },
+        {
+          text: link_to(sanitize("Republish #{tag.span('\'' + document[:title] + '\' page', class: 'govuk-visually-hidden')}"),
+              admin_confirm_republishing_path(document[:slug]),
+              id: "republish-past-prime-ministers-index",
+              class: "govuk-link",
+            ),
+        },
+      ]
+      end,
+    } %>
+  </section>
+</div>
