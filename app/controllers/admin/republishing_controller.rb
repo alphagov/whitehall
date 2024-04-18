@@ -24,6 +24,8 @@ class Admin::RepublishingController < Admin::BaseController
     redirect_to(admin_republishing_index_path)
   end
 
+  def find_organisation; end
+
 private
 
   def enforce_permissions!

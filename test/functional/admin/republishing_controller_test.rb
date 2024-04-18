@@ -14,7 +14,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_select ".govuk-table:nth-of-type(1) .govuk-table__cell:nth-child(1) a[href='https://www.test.gov.uk/government/history/past-prime-ministers']", text: "Past Prime Ministers"
     assert_select ".govuk-table:nth-of-type(1) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/page/past-prime-ministers/confirm']", text: "Republish 'Past Prime Ministers' page"
 
-    assert_select ".govuk-table:nth-of-type(2) .govuk-table__cell:nth-child(2) a[href='#']", text: "Republish an organisation"
+    assert_select ".govuk-table:nth-of-type(2) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/organisation/find']", text: "Republish an organisation"
 
     assert_response :ok
   end
@@ -65,6 +65,19 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     login_as :writer
 
     post :republish_page, params: { page_slug: "past-prime-ministers" }
+    assert_response :forbidden
+  end
+
+  view_test "GDS Admin users should be able to GET :find_organisation" do
+    get :find_organisation
+
+    assert_response :ok
+  end
+
+  test "Non-GDS Admin users should not be able to GET :find_organisation" do
+    login_as :writer
+
+    get :find_organisation
     assert_response :forbidden
   end
 end
