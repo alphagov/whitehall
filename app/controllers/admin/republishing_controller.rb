@@ -44,6 +44,17 @@ class Admin::RepublishingController < Admin::BaseController
     end
   end
 
+  def republish_organisation
+    unless @organisation&.slug == params[:organisation_slug]
+      @organisation = Organisation.find_by(slug: params[:organisation_slug])
+      return render "admin/errors/not_found", status: :not_found unless @organisation
+    end
+
+    @organisation.publish_to_publishing_api
+    flash[:notice] = "The '#{@organisation.name}' organisation has been scheduled for republishing"
+    redirect_to(admin_republishing_index_path)
+  end
+
 private
 
   def enforce_permissions!

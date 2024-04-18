@@ -125,4 +125,33 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     get :confirm_organisation, params: { organisation_slug: "an-existing-organisation" }
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to POST :republish_organisation with an existing organisation slug" do
+    create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation")
+
+    Organisation.any_instance.expects(:publish_to_publishing_api).once
+
+    post :republish_organisation, params: { organisation_slug: "an-existing-organisation" }
+
+    assert_redirected_to admin_republishing_index_path
+    assert_equal "The 'An Existing Organisation' organisation has been scheduled for republishing", flash[:notice]
+  end
+
+  test "GDS Admin users should see a 404 page when trying to POST :republish_organisation with a nonexistent organisation slug" do
+    Organisation.any_instance.expects(:publish_to_publishing_api).never
+
+    get :republish_organisation, params: { organisation_slug: "not-an-existing-organisation" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to POST :republish_organisation" do
+    create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation")
+
+    Organisation.any_instance.expects(:publish_to_publishing_api).never
+
+    login_as :writer
+
+    post :republish_organisation, params: { organisation_slug: "an-existing-organisation" }
+    assert_response :forbidden
+  end
 end
