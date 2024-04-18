@@ -26,6 +26,17 @@ class Admin::RepublishingController < Admin::BaseController
 
   def find_organisation; end
 
+  def search_organisation
+    organisation = Organisation.find_by(slug: params[:organisation_slug])
+
+    unless organisation
+      flash[:alert] = "Organisation with slug '#{params[:organisation_slug]}' not found"
+      return redirect_to(admin_republishing_organisation_find_path)
+    end
+
+    redirect_to("#")
+  end
+
 private
 
   def enforce_permissions!
