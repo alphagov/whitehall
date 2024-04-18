@@ -86,7 +86,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     post :search_organisation, params: { organisation_slug: "an-existing-organisation" }
 
-    assert_redirected_to "#"
+    assert_redirected_to admin_republishing_organisation_confirm_path("an-existing-organisation")
   end
 
   test "GDS Admin users should be redirected back to :find_organisation when trying to POST :search_organisation with a nonexistent organisation slug" do
@@ -102,6 +102,27 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     login_as :writer
 
     post :search_organisation, params: { organisation_slug: "an-existing-organisation" }
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to GET :confirm_organisation with an existing organisation slug" do
+    create(:organisation, slug: "an-existing-organisation")
+
+    get :confirm_organisation, params: { organisation_slug: "an-existing-organisation" }
+    assert_response :ok
+  end
+
+  test "GDS Admin users should see a 404 page when trying to GET :confirm_organisation with a nonexistent organisation slug" do
+    get :confirm_organisation, params: { organisation_slug: "not-an-existing-organisation" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to GET :confirm_organisation" do
+    create(:organisation, slug: "an-existing-organisation")
+
+    login_as :writer
+
+    get :confirm_organisation, params: { organisation_slug: "an-existing-organisation" }
     assert_response :forbidden
   end
 end

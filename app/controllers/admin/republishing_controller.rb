@@ -27,14 +27,21 @@ class Admin::RepublishingController < Admin::BaseController
   def find_organisation; end
 
   def search_organisation
-    organisation = Organisation.find_by(slug: params[:organisation_slug])
+    @organisation = Organisation.find_by(slug: params[:organisation_slug])
 
-    unless organisation
+    unless @organisation
       flash[:alert] = "Organisation with slug '#{params[:organisation_slug]}' not found"
       return redirect_to(admin_republishing_organisation_find_path)
     end
 
-    redirect_to("#")
+    redirect_to(admin_republishing_organisation_confirm_path(params[:organisation_slug]))
+  end
+
+  def confirm_organisation
+    unless @organisation&.slug == params[:organisation_slug]
+      @organisation = Organisation.find_by(slug: params[:organisation_slug])
+      render "admin/errors/not_found", status: :not_found unless @organisation
+    end
   end
 
 private

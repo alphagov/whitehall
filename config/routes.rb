@@ -31,6 +31,7 @@ Whitehall::Application.routes.draw do
         scope :organisation do
           get "/find" => "republishing#find_organisation", as: :republishing_organisation_find
           post "/search" => "republishing#search_organisation", as: :republishing_organisation_search
+          get "/:organisation_slug/confirm" => "republishing#confirm_organisation", as: :republishing_organisation_confirm
         end
       end
 
