@@ -8,11 +8,11 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  view_test "GDS Admin users should be able to acess the GET :index and see links to republishable documents" do
+  view_test "GDS Admin users should be able to acess the GET :index and see links to republishable content" do
     get :index
 
     assert_select ".govuk-table__cell:nth-child(1) a[href='https://www.test.gov.uk/government/history/past-prime-ministers']", text: "Past Prime Ministers"
-    assert_select ".govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/past-prime-ministers/confirm']", text: "Republish 'Past Prime Ministers' page"
+    assert_select ".govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/page/past-prime-ministers/confirm']", text: "Republish 'Past Prime Ministers' page"
     assert_response :ok
   end
 
@@ -23,38 +23,45 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to access GET :confirm with a republishable document slug" do
-    get :confirm, params: { document_slug: "past-prime-ministers" }
+  test "GDS Admin users should be able to access GET :confirm_page with a republishable page slug" do
+    get :confirm_page, params: { page_slug: "past-prime-ministers" }
     assert_response :ok
   end
 
-  test "GDS Admin users should see a 404 page when trying to republish a document with an unregistered document slug" do
-    get :confirm, params: { document_slug: "not-republishable" }
+  test "GDS Admin users should see a 404 page when trying to GET :confirm_page with an unregistered page slug" do
+    get :confirm_page, params: { page_slug: "not-republishable" }
     assert_response :not_found
   end
 
-  test "Non-GDS Admin users should not be able to access GET :confirm" do
+  test "Non-GDS Admin users should not be able to access GET :confirm_page" do
     login_as :writer
 
-    get :confirm, params: { document_slug: "past-prime-ministers" }
+    get :confirm_page, params: { page_slug: "past-prime-ministers" }
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to trigger the PresentPageToPublishingWorker job with the HistoricalAccountsIndexPresenter" do
+  test "GDS Admin users should be able to access POST :republish_page with a republishable page slug" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").once
 
-    post :republish_past_prime_ministers_index
+    post :republish_page, params: { page_slug: "past-prime-ministers" }
 
     assert_redirected_to admin_republishing_index_path
     assert_equal "'Past Prime Ministers' page has been scheduled for republishing", flash[:notice]
   end
 
-  test "Non-GDS Admin users should not be able to republish the page" do
+  test "GDS Admin users should see a 404 page when trying to POST :republish_page with an unregistered page slug" do
+    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
+
+    get :republish_page, params: { page_slug: "not-republishable" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to access POST :republish_page" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
 
     login_as :writer
 
-    post :republish_past_prime_ministers_index
+    post :republish_page, params: { page_slug: "past-prime-ministers" }
     assert_response :forbidden
   end
 end

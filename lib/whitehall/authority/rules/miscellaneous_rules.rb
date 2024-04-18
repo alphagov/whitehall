@@ -8,7 +8,7 @@ module Whitehall::Authority::Rules
       end
     end
 
-    def can_for_republish_documents?(_action)
+    def can_for_republish_content?(_action)
       actor.gds_admin?
     end
 

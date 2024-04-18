@@ -1,5 +1,5 @@
-<% content_for :page_title, "Republish documents" %>
-<% content_for :title, "Republish documents" %>
+<% content_for :page_title, "Republish content" %>
+<% content_for :title, "Republish content" %>
 <% content_for :title_margin_bottom, 6 %>
 
 <div class="govuk-grid-row">
@@ -15,27 +15,27 @@
     <p class="govuk-body">
       The following actions will allow you to schedule the republishing of content that was originally published in this application.
       Any linked editions will also be republished through dependency resolution.
-      Try to pick the document type most focused to the scope of what you need to republish to avoid unnecessary server load.
+      Try to pick the republishing task most focused to the scope of what you need to republish to avoid unnecessary server load.
     </p>
 
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {
-          text: "Document",
+          text: "Page",
         },
         {
           text: "Action",
         },
       ],
-      rows: @republishable_documents.map do |document|
+      rows: @republishable_pages.map do |page|
       [
         {
-          text: link_to(document[:title], Plek.website_root + document[:public_path], class:"govuk-link"),
+          text: link_to(page[:title], Plek.website_root + page[:public_path], class:"govuk-link"),
         },
         {
-          text: link_to(sanitize("Republish #{tag.span('\'' + document[:title] + '\' page', class: 'govuk-visually-hidden')}"),
-              admin_confirm_republishing_path(document[:slug]),
-              id: "republish-past-prime-ministers-index",
+          text: link_to(sanitize("Republish #{tag.span('\'' + page[:title] + '\' page', class: 'govuk-visually-hidden')}"),
+              admin_republishing_page_confirm_path(page[:slug]),
+              id: "republish-" + page[:slug],
               class: "govuk-link",
             ),
         },
