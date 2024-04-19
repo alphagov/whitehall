@@ -8,7 +8,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  view_test "GDS Admin users should be able to acess the GET :index and see links to republishable content" do
+  view_test "GDS Admin users should be able to GET :index and see links to republishable content" do
     get :index
 
     assert_select ".govuk-table:nth-of-type(1) .govuk-table__cell:nth-child(1) a[href='https://www.test.gov.uk/government/history/past-prime-ministers']", text: "Past Prime Ministers"
@@ -19,14 +19,14 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :ok
   end
 
-  test "Non-GDS Admin users should not be able to access the GET :index" do
+  test "Non-GDS Admin users should not be able to GET :index" do
     login_as :writer
 
     get :index
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to access GET :confirm_page with a republishable page slug" do
+  test "GDS Admin users should be able to GET :confirm_page with a republishable page slug" do
     get :confirm_page, params: { page_slug: "past-prime-ministers" }
     assert_response :ok
   end
@@ -36,14 +36,14 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "Non-GDS Admin users should not be able to access GET :confirm_page" do
+  test "Non-GDS Admin users should not be able to GET :confirm_page" do
     login_as :writer
 
     get :confirm_page, params: { page_slug: "past-prime-ministers" }
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to access POST :republish_page with a republishable page slug" do
+  test "GDS Admin users should be able to POST :republish_page with a republishable page slug" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").once
 
     post :republish_page, params: { page_slug: "past-prime-ministers" }
@@ -59,7 +59,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "Non-GDS Admin users should not be able to access POST :republish_page" do
+  test "Non-GDS Admin users should not be able to POST :republish_page" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
 
     login_as :writer
