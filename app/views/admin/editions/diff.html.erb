@@ -11,7 +11,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <p class="govuk-body">This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
+    <% if @edition.is_a?(EditionableWorldwideOrganisation) %>
+      <p class="govuk-body">This page shows changes to the title, summary, body, and pages in this edition. It does not show changes to attachments.</p>
+    <% else %>
+      <p class="govuk-body">This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
+    <% end %>
 
     <div class="govuk-!-margin-bottom-5">
       <%= render "govuk_publishing_components/components/heading", {
@@ -45,5 +49,9 @@
         <%= diff_html(@audit_trail_entry.body, @edition.body) %>
       </div>
     </div>
+
+    <% if @edition.is_a?(EditionableWorldwideOrganisation) %>
+      <%= render "admin/editionable_worldwide_organisations/pages_diff" %>
+    <% end %>
   </div>
 </div>
