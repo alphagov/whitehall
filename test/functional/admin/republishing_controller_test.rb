@@ -49,7 +49,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     post :republish_page, params: { page_slug: "past-prime-ministers" }
 
     assert_redirected_to admin_republishing_index_path
-    assert_equal "'Past Prime Ministers' page has been scheduled for republishing", flash[:notice]
+    assert_equal "The 'Past Prime Ministers' page has been scheduled for republishing", flash[:notice]
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_page with an unregistered page slug" do

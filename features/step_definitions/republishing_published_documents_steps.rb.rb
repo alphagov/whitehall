@@ -9,5 +9,5 @@ When(/^I request a republish of the "Past prime ministers" page$/) do
 end
 
 Then(/^I can see the "Past prime ministers" page has been scheduled for republishing/) do
-  expect(page).to have_selector(".gem-c-success-alert", text: "'Past Prime Ministers' page has been scheduled for republishing")
+  expect(page).to have_selector(".gem-c-success-alert", text: "The 'Past Prime Ministers' page has been scheduled for republishing")
 end

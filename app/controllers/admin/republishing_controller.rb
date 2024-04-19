@@ -20,7 +20,7 @@ class Admin::RepublishingController < Admin::BaseController
     return render "admin/errors/not_found", status: :not_found unless page_to_republish
 
     PresentPageToPublishingApiWorker.perform_async(page_to_republish[:presenter])
-    flash[:notice] = "'#{page_to_republish[:title]}' page has been scheduled for republishing"
+    flash[:notice] = "The '#{page_to_republish[:title]}' page has been scheduled for republishing"
     redirect_to(admin_republishing_index_path)
   end
 
