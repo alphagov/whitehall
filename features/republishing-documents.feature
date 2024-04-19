@@ -11,3 +11,9 @@ Feature: Republishing published documents
     And the "Past prime ministers" page can be republished
     When I request a republish of the "Past prime ministers" page
     Then I can see the "Past prime ministers" page has been scheduled for republishing
+
+  Scenario: Republish an organisation
+    Given a published organisation "An Existing Organisation" exists
+    And the "An Existing Organisation" organisation can be republished
+    When I request a republish of the "An Existing Organisation" organisation
+    Then I can see the "An Existing Organisation" organisation has been scheduled for republishing
