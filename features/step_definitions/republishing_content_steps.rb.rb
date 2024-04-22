@@ -32,6 +32,26 @@ Then(/^I can see the "An Existing Organisation" organisation has been scheduled 
   expect(page).to have_selector(".gem-c-success-alert", text: "The 'An Existing Organisation' organisation has been scheduled for republishing")
 end
 
+Given(/^a published person "Existing Person" exists$/) do
+  create(:person, forename: "Existing", surname: "Person", slug: "existing-person")
+end
+
+Given(/^the "Existing Person" person can be republished$/) do
+  create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
+end
+
+When(/^I request a republish of the "Existing Person" person$/) do
+  visit admin_republishing_index_path
+  find("#republish-person").click
+  fill_in "Enter the slug for the person", with: "existing-person"
+  click_button("Continue")
+  click_button("Confirm republishing")
+end
+
+Then(/^I can see the "Existing Person" person has been scheduled for republishing/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "The 'Existing Person' person has been scheduled for republishing")
+end
+
 def republishing_link_id_from_page_title(page_title)
   link_id = "#republish-"
 
