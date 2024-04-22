@@ -58,14 +58,21 @@ class Admin::RepublishingController < Admin::BaseController
   def find_person; end
 
   def search_person
-    person = Person.find_by(slug: params[:person_slug])
+    @person = Person.find_by(slug: params[:person_slug])
 
-    unless person
+    unless @person
       flash[:alert] = "Person with slug '#{params[:person_slug]}' not found"
       return redirect_to(admin_republishing_person_find_path)
     end
 
-    redirect_to("#")
+    redirect_to(admin_republishing_person_confirm_path(params[:person_slug]))
+  end
+
+  def confirm_person
+    unless @person&.slug == params[:person_slug]
+      @person = Person.find_by(slug: params[:person_slug])
+      render "admin/errors/not_found", status: :not_found unless @person
+    end
   end
 
 private
