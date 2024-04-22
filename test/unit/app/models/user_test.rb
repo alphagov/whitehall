@@ -145,6 +145,11 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_preview_next_release?
   end
 
+  test "can see the visual editor if given permission" do
+    user = build(:user, permissions: [User::Permissions::VISUAL_EDITOR_PRIVATE_BETA])
+    assert user.can_see_visual_editor_private_beta?
+  end
+
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?

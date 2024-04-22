@@ -27,6 +27,7 @@ class User < ApplicationRecord
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
     PREVIEW_NEXT_RELEASE = "Preview next release".freeze
     SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
+    VISUAL_EDITOR_PRIVATE_BETA = "Visual editor private beta".freeze
   end
 
   def role
@@ -90,6 +91,10 @@ class User < ApplicationRecord
 
   def can_preview_next_release?
     has_permission?(Permissions::PREVIEW_NEXT_RELEASE)
+  end
+
+  def can_see_visual_editor_private_beta?
+    has_permission?(Permissions::VISUAL_EDITOR_PRIVATE_BETA)
   end
 
   def organisation_name
