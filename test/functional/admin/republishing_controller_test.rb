@@ -146,7 +146,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "Non-GDS Admin users should not be able to POST :republish_organisation" do
-    create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation")
+    create(:organisation, slug: "an-existing-organisation")
 
     Organisation.any_instance.expects(:publish_to_publishing_api).never
 
