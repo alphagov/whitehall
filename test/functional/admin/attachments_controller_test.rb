@@ -272,6 +272,16 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
   end
 
+  view_test "GET :new shows visual editor if permission and feature flag are enabled" do
+    feature_flags.switch!(:govspeak_visual_editor, true)
+    current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
+
+    publication = create(:publication)
+    get :new, params: { edition_id: publication, type: "html" }
+
+    assert_select(".app-c-visual-editor__container")
+  end
+
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
     post :create, params: { edition_id: @edition, attachment: { attachment_data_attributes: {} } }
     assert_template :new
@@ -288,6 +298,16 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:file_attachment, attachable: @edition, attachment_data: create(:attachment_data, attachable: @edition))
     get :edit, params: { edition_id: @edition, id: attachment }
     assert_select "input[type=file]"
+  end
+
+  view_test "GET :edit shows visual editor if permission and feature flag are enabled" do
+    feature_flags.switch!(:govspeak_visual_editor, true)
+    current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
+
+    attachment = create(:html_attachment, attachable: @edition)
+    get :edit, params: { edition_id: @edition, id: attachment }
+
+    assert_select(".app-c-visual-editor__container")
   end
 
   test "PUT :update for HTML attachment updates the attachment" do
