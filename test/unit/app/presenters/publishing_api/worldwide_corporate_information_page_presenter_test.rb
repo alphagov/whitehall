@@ -46,10 +46,7 @@ module PublishingApi::WorldwideCorporateInformationPagePresenterTest
           },
         }
 
-        expected_links = {
-          parent: [],
-          worldwide_organisation: [],
-        }
+        expected_links = {}
 
         presented_item = presented_corporate_information_page
 
