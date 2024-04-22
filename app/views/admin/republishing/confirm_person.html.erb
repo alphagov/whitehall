@@ -7,7 +7,7 @@
     <p class="govuk-body govuk-!-margin-bottom-7">
       This will schedule the <%= link_to @person.name, @person.public_url, { class: "govuk-link" } %> person to be republished.
     </p>
-    <%= form_with(url: "#", method: :post, data: {
+    <%= form_with(url: admin_republishing_person_republish_path(@person.slug), method: :post, data: {
         module: "prevent-multiple-form-submissions",
       }) do
         render("govuk_publishing_components/components/button", {

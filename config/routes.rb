@@ -38,6 +38,7 @@ Whitehall::Application.routes.draw do
           get "/find" => "republishing#find_person", as: :republishing_person_find
           post "/search" => "republishing#search_person", as: :republishing_person_search
           get "/:person_slug/confirm" => "republishing#confirm_person", as: :republishing_person_confirm
+          post "/:person_slug/republish" => "republishing#republish_person", as: :republishing_person_republish
         end
       end
 

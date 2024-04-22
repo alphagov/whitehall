@@ -213,4 +213,33 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     get :confirm_person, params: { person_slug: "existing-person" }
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to POST :republish_person with an existing person slug" do
+    create(:person, slug: "existing-person", forename: "Existing", surname: "Person")
+
+    Person.any_instance.expects(:publish_to_publishing_api).once
+
+    post :republish_person, params: { person_slug: "existing-person" }
+
+    assert_redirected_to admin_republishing_index_path
+    assert_equal "The 'Existing Person' person has been scheduled for republishing", flash[:notice]
+  end
+
+  test "GDS Admin users should see a 404 page when trying to POST :republish_person with a nonexistent person slug" do
+    Person.any_instance.expects(:publish_to_publishing_api).never
+
+    get :republish_person, params: { person_slug: "nonexistent-person" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to POST :republish_person" do
+    create(:person, slug: "existing-person")
+
+    Person.any_instance.expects(:publish_to_publishing_api).never
+
+    login_as :writer
+
+    post :republish_person, params: { person_slug: "existing-person" }
+    assert_response :forbidden
+  end
 end
