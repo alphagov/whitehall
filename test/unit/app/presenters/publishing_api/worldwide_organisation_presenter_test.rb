@@ -116,7 +116,6 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           worldwide_org.reload.home_page_offices.first.contact.content_id,
         ],
         corporate_information_pages: [
-          worldwide_org.corporate_information_pages[0].content_id,
           worldwide_org.corporate_information_pages[1].content_id,
           worldwide_org.corporate_information_pages[2].content_id,
           worldwide_org.corporate_information_pages[3].content_id,
