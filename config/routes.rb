@@ -36,6 +36,7 @@ Whitehall::Application.routes.draw do
         end
         scope :person do
           get "/find" => "republishing#find_person", as: :republishing_person_find
+          post "/search" => "republishing#search_person", as: :republishing_person_search
         end
       end
 

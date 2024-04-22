@@ -57,6 +57,17 @@ class Admin::RepublishingController < Admin::BaseController
 
   def find_person; end
 
+  def search_person
+    person = Person.find_by(slug: params[:person_slug])
+
+    unless person
+      flash[:alert] = "Person with slug '#{params[:person_slug]}' not found"
+      return redirect_to(admin_republishing_person_find_path)
+    end
+
+    redirect_to("#")
+  end
+
 private
 
   def enforce_permissions!

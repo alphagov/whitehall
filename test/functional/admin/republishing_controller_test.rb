@@ -168,4 +168,28 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     get :find_person
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to POST :search_person with an existing person slug" do
+    create(:person, slug: "existing-person")
+
+    post :search_person, params: { person_slug: "existing-person" }
+
+    assert_redirected_to "#"
+  end
+
+  test "GDS Admin users should be redirected back to :find_person when trying to POST :search_person with a nonexistent person slug" do
+    get :search_person, params: { person_slug: "nonexistent-person" }
+
+    assert_redirected_to admin_republishing_person_find_path
+    assert_equal "Person with slug 'nonexistent-person' not found", flash[:alert]
+  end
+
+  test "Non-GDS Admin users should not be able to POST :search_person" do
+    create(:person, slug: "existing-person")
+
+    login_as :writer
+
+    post :search_person, params: { person_slug: "existing-person" }
+    assert_response :forbidden
+  end
 end
