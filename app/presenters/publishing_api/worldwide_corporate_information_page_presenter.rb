@@ -32,10 +32,7 @@ module PublishingApi
     end
 
     def links
-      {
-        parent: [],
-        worldwide_organisation: [],
-      }
+      {}
     end
 
     def document_type
