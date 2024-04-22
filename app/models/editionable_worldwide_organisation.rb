@@ -77,8 +77,8 @@ class EditionableWorldwideOrganisation < Edition
   end
 
   def destroy_associated(locale)
-    offices.each do |office|
-      office.contact.remove_translations_for(locale)
+    [offices.map(&:contact), pages].flatten.each do |association|
+      association.remove_translations_for(locale)
     end
   end
 

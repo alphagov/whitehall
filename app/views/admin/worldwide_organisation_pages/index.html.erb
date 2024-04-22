@@ -49,8 +49,23 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @worldwide_organisation.pages.any? %>
       <% @worldwide_organisation.pages.each do |page| %>
-        <%= render Admin::WorldwideOrganisationPages::Index::SummaryCardComponent.new(page:) %>
+        <%= render Admin::WorldwideOrganisationPages::Index::SummaryCardComponent.new(page:, worldwide_organisation: @worldwide_organisation) %>
       <% end %>
+
+      <% if @worldwide_organisation.pages.any? { |page| page.non_english_localised_models.present? } %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Translated",
+          font_size: "m",
+          margin_bottom: 6,
+        } %>
+
+        <% @worldwide_organisation.pages.each do |page| %>
+          <% page.non_english_localised_models.each do |translation| %>
+            <%= render Admin::WorldwideOrganisationPages::Index::SummaryCardComponent.new(page: translation, worldwide_organisation: @worldwide_organisation) %>
+          <% end %>
+        <% end %>
+      <% end %>
+
     <% else %>
       <%= render "govuk_publishing_components/components/inset_text", {
         text: "No pages.",

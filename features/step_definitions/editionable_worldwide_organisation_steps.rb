@@ -36,6 +36,11 @@ Given(/^an editionable worldwide organisation "([^"]*)" with a "([^"]*)" page$/)
   create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType.find(type.parameterize))
 end
 
+Given(/^an editionable worldwide organisation "([^"]*)" with a "([^"]*)" page and a translation in French$/) do |title, type|
+  worldwide_organisation = create(:editionable_worldwide_organisation, title:, translated_into: :fr)
+  create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType.find(type.parameterize))
+end
+
 Given(/^a role "([^"]*)" exists$/) do |name|
   create(:role, name:)
 end
@@ -73,9 +78,9 @@ When(/^I visit the reorder offices page/) do
   click_link "Reorder"
 end
 
-When(/^I visit the Offices tab/) do
+When(/^I visit the "([^"]*)" tab/) do |tab|
   visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
-  click_link "Offices"
+  click_link tab
 end
 
 When(/^I reorder the offices/) do
@@ -162,9 +167,11 @@ When(/^I correctly fill out the worldwide organisation page fields for a "([^"]*
   click_on "Save"
 end
 
-And(/^I navigate to the Offices tab/) do
-  visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
-  click_link "Offices"
+When(/^I add a new page translation with a body of "([^"]*)"$/) do |body|
+  click_link "Add translation"
+  click_button "Next"
+  fill_in "Translated body (required)", with: body
+  click_button "Save"
 end
 
 And(/^I add an associated office, also with a translation in French$/) do
@@ -232,6 +239,11 @@ end
 
 Then(/^I should see that the translated office is gone$/) do
   expect(page).not_to have_text("Translated")
+end
+
+Then(/^I should see that the translated page with body "([^"]*)" is gone$/) do |body|
+  expect(page).not_to have_text("Translated")
+  expect(page).not_to have_text(body)
 end
 
 Then(/^I should be able to remove all services from the editionable worldwide organisation "(.*?)" office$/) do |description|

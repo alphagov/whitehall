@@ -184,15 +184,16 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "should clone pages when a new draft of published edition is created" do
-    published_worldwide_organisation = create(
-      :editionable_worldwide_organisation,
-      :published,
-      :with_page,
-    )
+    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, translated_into: [:fr])
+    create(:worldwide_organisation_page, edition: published_worldwide_organisation, translated_into: [:fr])
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
 
-    assert_equal published_worldwide_organisation.pages.first.attributes.except("id", "edition_id"), draft_worldwide_organisation.pages.first.attributes.except("id", "edition_id")
+    assert_equal published_worldwide_organisation.reload.pages.first.attributes.except("id", "edition_id"), draft_worldwide_organisation.pages.first.attributes.except("id", "edition_id")
+    assert_equal published_worldwide_organisation.pages.first.translations.find_by(locale: :fr).attributes.except("id", "worldwide_organisation_page_id"),
+                 draft_worldwide_organisation.pages.first.translations.find_by(locale: :fr).attributes.except("id", "worldwide_organisation_page_id")
+    assert_equal published_worldwide_organisation.pages.first.translations.find_by(locale: :en).attributes.except("id", "worldwide_organisation_page_id"),
+                 draft_worldwide_organisation.pages.first.translations.find_by(locale: :en).attributes.except("id", "worldwide_organisation_page_id")
   end
 
   test "should clone page attachments when a new draft of published edition is created" do

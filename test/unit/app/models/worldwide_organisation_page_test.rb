@@ -77,4 +77,12 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
     page = build(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)
     assert_equal "Working for British Antarctic Territory", page.title
   end
+
+  test "#missing_translations should only include worldwide organisation translations" do
+    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
+    page = create(:worldwide_organisation_page, edition: worldwide_organisation, translated_into: [:es])
+
+    expected_locales = %i[de fr].map { |l| Locale.new(l) }
+    assert_equal expected_locales, page.missing_translations
+  end
 end
