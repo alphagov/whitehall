@@ -1,0 +1,47 @@
+<% if @edition.pages.any? %>
+  <div class="govuk-!-margin-bottom-5">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Pages",
+      margin_bottom: 3,
+      font_size: "xl",
+    } %>
+  </div>
+
+  <% @edition.pages.each do |page| %>
+    <% previous_page = @audit_trail_entry.pages.find_by(corporate_information_page_type_id: page.corporate_information_page_type_id) %>
+
+    <div class="app-view-audit-trail__page-comparison">
+      <div class="govuk-!-margin-bottom-5">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: page.corporate_information_page_type&.title(@edition),
+          margin_bottom: 3,
+          font_size: "l",
+        } %>
+      </div>
+
+      <div class="govuk-!-margin-bottom-5">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Summary",
+          margin_bottom: 3,
+          font_size: "m",
+        } %>
+      </div>
+
+      <div class="govuk-body app-view-audit-trail__history-comparison">
+        <%= diff_html(previous_page.try(:summary), page.summary) %>
+      </div>
+
+      <div class="govuk-!-margin-bottom-5">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Body",
+          margin_bottom: 3,
+          font_size: "m",
+        } %>
+      </div>
+
+      <div class="govuk-body app-view-audit-trail__history-comparison">
+        <%= diff_html(previous_page.try(:body), page.body) %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

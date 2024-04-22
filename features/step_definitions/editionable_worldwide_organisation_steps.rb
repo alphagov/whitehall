@@ -41,12 +41,23 @@ Given(/^an editionable worldwide organisation "([^"]*)" with a "([^"]*)" page an
   create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType.find(type.parameterize))
 end
 
+Given(/^a published editionable worldwide organisation "([^"]*)" with a "([^"]*)" page$/) do |title, type|
+  worldwide_organisation = create(:published_editionable_worldwide_organisation, title:)
+  create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType.find(type.parameterize))
+end
+
 Given(/^a role "([^"]*)" exists$/) do |name|
   create(:role, name:)
 end
 
 Given(/^a social media service "([^"]*)" exists$/) do |name|
   create(:social_media_service, name:)
+end
+
+When(/^I create a new edition of the "([^"]*)" worldwide organisation$/) do |name|
+  worldwide_organisation = EditionableWorldwideOrganisation.latest_edition.find_by!(title: name)
+  visit admin_edition_path(worldwide_organisation)
+  click_button "Create new edition"
 end
 
 When(/^I choose "([^"]*)" to be the main office for the editionable worldwide organisation$/) do |contact_title|
@@ -351,4 +362,26 @@ end
 
 Then(/^The "(.*?)" attachment should have uploaded successfully$/) do |attachment_title|
   expect(page).to have_content("Attachment '#{attachment_title}' uploaded")
+end
+
+Then(/^The audit history for the pages should be displayed on the document history page with:$/) do |table|
+  visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
+  click_link("See what’s changed")
+  expect(page).to have_text("This page shows changes to the title, summary, body, and pages in this edition. It does not show changes to attachments.")
+
+  page_histories = page.all(".app-view-audit-trail__page-comparison")
+  expect(page_histories.count).to be table.raw.count
+
+  table.raw.each_with_index do |row, index|
+    page = page_histories[index]
+    page_title, previous_summary, new_summary, previous_body, new_body = row
+
+    expect(page).to have_text(page_title)
+
+    expect(page).to have_selector("del", text: previous_summary) if previous_summary.present?
+    expect(page).to have_selector("ins", text: new_summary)
+
+    expect(page).to have_selector("del", text: previous_body) if previous_body.present?
+    expect(page).to have_selector("ins", text: new_body)
+  end
 end

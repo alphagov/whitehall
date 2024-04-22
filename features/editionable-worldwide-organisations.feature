@@ -145,6 +145,22 @@ Feature: Editionable worldwide organisations
     And I visit the "Pages" tab
     Then I should see that the translated page with body "French Body" is gone
 
+  Scenario: Viewing audit history for the worldwide organisation and associated pages
+    Given a published editionable worldwide organisation "Test Worldwide Organisation" with a "Personal information charter" page
+    When I create a new edition of the "Test Worldwide Organisation" worldwide organisation
+    And I visit the pages tab for the worldwide organisation
+    And I click the "Edit" link for the "Personal information charter" page
+    And I correctly fill out the worldwide organisation page fields for a "Personal information charter" with:
+      | Summary | Some updated summary |
+      | Body (required) | Some updated body |
+    And I click the link to create a new page
+    And I correctly fill out the worldwide organisation page fields for a "Complaints procedure" with:
+      | Summary | An interesting summary |
+      | Body (required) | An interesting body |
+    Then The audit history for the pages should be displayed on the document history page with:
+      | Personal information charter | Some summary | Some updated summary | Some body | Some updated body |
+      | Complaints procedure | | An interesting summary | | An interesting body |
+
   @javascript
   Scenario: Reordering home page offices for a worldwide organisation
     Given An editionable worldwide organisation "Test Worldwide Organisation" with home page offices "Home page office 1" and "Home page office 2"
