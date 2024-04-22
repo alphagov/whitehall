@@ -1,6 +1,7 @@
 class CorporateInformationPage < Edition
   include ::Attachable
   include Searchable
+  include HasCorporateInformationPageType
 
   after_commit :republish_owning_organisation_to_publishing_api
   after_commit :republish_about_page_to_publishing_api, unless: :about_page?
@@ -11,7 +12,6 @@ class CorporateInformationPage < Edition
   has_one :edition_worldwide_organisation, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy
   has_one :worldwide_organisation, through: :edition_worldwide_organisation, autosave: false
 
-  delegate :slug, :display_type_key, to: :corporate_information_page_type
   validate :unique_organisation_and_page_type, on: :create, if: :organisation
   validate :unique_worldwide_organisation_and_page_type, on: :create, if: :worldwide_organisation
 
@@ -128,26 +128,6 @@ class CorporateInformationPage < Edition
     worldwide_organisation.public_path(locale: I18n.locale)
   end
 
-  def self.for_slug(slug)
-    if (type = CorporateInformationPageType.find(slug))
-      find_by(corporate_information_page_type_id: type.id)
-    end
-  end
-
-  def self.for_slug!(slug)
-    if (type = CorporateInformationPageType.find(slug))
-      find_by!(corporate_information_page_type_id: type.id)
-    end
-  end
-
-  def corporate_information_page_type
-    CorporateInformationPageType.find_by_id(corporate_information_page_type_id)
-  end
-
-  def corporate_information_page_type=(type)
-    self.corporate_information_page_type_id = type && type.id
-  end
-
   def title_prefix_organisation_name
     [owning_organisation.name, title].join(" \u2013 ")
   end
@@ -158,11 +138,6 @@ class CorporateInformationPage < Edition
 
   def title_lang
     corporate_information_page_type.title_lang(owning_organisation)
-  end
-
-  def self.by_menu_heading(menu_heading)
-    type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
-    where(corporate_information_page_type_id: type_ids)
   end
 
   def summary_required?

@@ -8,13 +8,12 @@ class WorldwideOrganisationPage < ApplicationRecord
             exclusion: { in: [CorporateInformationPageType::AboutUs.id], message: "Type cannot be `About us`" }
   validate :unique_worldwide_organisation_and_page_type, on: :create, if: :edition
 
-  delegate :slug, :display_type_key, to: :corporate_information_page_type
-
   after_commit :republish_worldwide_organisation_draft
   after_destroy :discard_draft
 
   include HasContentId
   include Attachable
+  include HasCorporateInformationPageType
 
   include TranslatableModel
   translates :title, :summary, :body
@@ -25,31 +24,6 @@ class WorldwideOrganisationPage < ApplicationRecord
 
   def default_locale_title
     corporate_information_page_type.default_locale_title(edition)
-  end
-
-  def corporate_information_page_type
-    CorporateInformationPageType.find_by_id(corporate_information_page_type_id)
-  end
-
-  def corporate_information_page_type=(type)
-    self.corporate_information_page_type_id = type && type.id
-  end
-
-  def self.by_menu_heading(menu_heading)
-    type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
-    where(corporate_information_page_type_id: type_ids)
-  end
-
-  def self.for_slug(slug)
-    if (type = CorporateInformationPageType.find(slug))
-      find_by(corporate_information_page_type_id: type.id)
-    end
-  end
-
-  def self.for_slug!(slug)
-    if (type = CorporateInformationPageType.find(slug))
-      find_by!(corporate_information_page_type_id: type.id)
-    end
   end
 
   def missing_translations
