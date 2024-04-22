@@ -90,6 +90,18 @@
               ),
           },
         ],
+        [
+          {
+            text: "Person",
+          },
+          {
+            text: link_to(sanitize("Republish #{tag.span('a person', class: 'govuk-visually-hidden')}"),
+                "#",
+                id: "republish-person",
+                class: "govuk-link",
+              ),
+          },
+        ],
       ],
     } %>
   </section>
