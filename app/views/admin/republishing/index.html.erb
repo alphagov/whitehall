@@ -48,7 +48,7 @@
           text: link_to(page[:title], Plek.website_root + page[:public_path], class:"govuk-link"),
         },
         {
-          text: link_to(sanitize("Republish #{tag.span('\'' + page[:title] + '\' page', class: 'govuk-visually-hidden')}"),
+          text: link_to(sanitize("Republish #{tag.span('the \'' + page[:title] + '\' page', class: 'govuk-visually-hidden')}"),
               admin_republishing_page_confirm_path(page[:slug]),
               id: "republish-" + page[:slug],
               class: "govuk-link",
