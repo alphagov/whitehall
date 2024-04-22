@@ -62,13 +62,23 @@ private
   end
 
   def republishable_pages
-    historical_accounts_index_presenter = PublishingApi::HistoricalAccountsIndexPresenter.new
+    [
+      "PublishingApi::HistoricalAccountsIndexPresenter",
+      "PublishingApi::HowGovernmentWorksPresenter",
+      "PublishingApi::OperationalFieldsIndexPresenter",
+      "PublishingApi::MinistersIndexPresenter",
+      "PublishingApi::EmbassiesIndexPresenter",
+      "PublishingApi::WorldIndexPresenter",
+      "PublishingApi::OrganisationsIndexPresenter",
+    ].map do |presenter_class_string|
+      presenter_instance = presenter_class_string.constantize.new
 
-    [{
-      title: historical_accounts_index_presenter.content[:title],
-      public_path: historical_accounts_index_presenter.base_path,
-      slug: historical_accounts_index_presenter.base_path.split("/").last,
-      presenter: "PublishingApi::HistoricalAccountsIndexPresenter",
-    }]
+      {
+        title: presenter_instance.content[:title],
+        public_path: presenter_instance.base_path,
+        slug: presenter_instance.base_path.split("/").last,
+        presenter: presenter_class_string,
+      }
+    end
   end
 end
