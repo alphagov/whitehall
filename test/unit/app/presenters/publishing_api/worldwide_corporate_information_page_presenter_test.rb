@@ -36,15 +36,19 @@ module PublishingApi::WorldwideCorporateInformationPagePresenterTest
             body: "<div class=\"govspeak\"><p>Some stuff</p>\n</div>",
           },
           update_type: "major",
+          links: {
+            parent: [
+              corporate_information_page.owning_organisation.content_id,
+            ],
+            worldwide_organisation: [
+              corporate_information_page.owning_organisation.content_id,
+            ],
+          },
         }
 
         expected_links = {
-          parent: [
-            corporate_information_page.owning_organisation.content_id,
-          ],
-          worldwide_organisation: [
-            corporate_information_page.owning_organisation.content_id,
-          ],
+          parent: [],
+          worldwide_organisation: [],
         }
 
         presented_item = presented_corporate_information_page

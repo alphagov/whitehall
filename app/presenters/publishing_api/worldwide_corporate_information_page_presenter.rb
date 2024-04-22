@@ -24,13 +24,17 @@ module PublishingApi
       content.merge!(
         document_type:,
         schema_name: "worldwide_corporate_information_page",
+        links: {
+          parent: [item.worldwide_organisation.content_id],
+          worldwide_organisation: [item.worldwide_organisation.content_id],
+        },
       )
     end
 
     def links
       {
-        parent: [item.worldwide_organisation.content_id],
-        worldwide_organisation: [item.worldwide_organisation.content_id],
+        parent: [],
+        worldwide_organisation: [],
       }
     end
 
