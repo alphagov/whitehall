@@ -136,13 +136,29 @@ private
   end
 
   def attachable_class
-    if attachable_param
-      attachable_param.sub(/_id$/, "").classify.constantize
+    # Note - this case statement needs to include a clause for every resource
+    # in the routes.rb file which has resources :attachments nested under it.
+    # For example, if we have the following in routes.rb:
+    #
+    #  resources :consultation_responses do
+    #    resources :attachments
+    #  end
+    #
+    # We need to add a clause like:
+    #
+    #   when "consultation_response_id" then ConsultationResponse
+    #
+    case attachable_param
+    when "edition_id" then Edition
+    when "consultation_response_id" then ConsultationResponse
+    when "call_for_evidence_response_id" then CallForEvidenceResponse
+    when "worldwide_organisation_page_id" then WorldwideOrganisationPage
+    when "corporate_information_page_id" then CorporateInformationPage
+    when "policy_group_id" then PolicyGroup
     else
+      logger.warn("Unexpected attachable_param name #{attachable_param}")
       raise ActiveRecord::RecordNotFound
     end
-  rescue NameError
-    raise ActiveRecord::RecordNotFound
   end
 
   def attachable_id
