@@ -156,6 +156,7 @@ private
     when "corporate_information_page_id" then CorporateInformationPage
     when "policy_group_id" then PolicyGroup
     else
+      logger.warn("Unexpected attachable_param name #{attachable_param}")
       raise ActiveRecord::RecordNotFound
     end
   end
