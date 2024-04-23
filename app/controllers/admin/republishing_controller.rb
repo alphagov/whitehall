@@ -106,6 +106,17 @@ class Admin::RepublishingController < Admin::BaseController
     end
   end
 
+  def republish_role
+    unless @role&.slug == params[:role_slug]
+      @role = Role.find_by(slug: params[:role_slug])
+      return render "admin/errors/not_found", status: :not_found unless @role
+    end
+
+    @role.publish_to_publishing_api
+    flash[:notice] = "The '#{@role.name}' role has been scheduled for republishing"
+    redirect_to(admin_republishing_index_path)
+  end
+
 private
 
   def enforce_permissions!

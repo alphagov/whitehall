@@ -301,4 +301,33 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     get :confirm_role, params: { role_slug: "an-existing-role" }
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to POST :republish_role with an existing role slug" do
+    create(:role, slug: "an-existing-role", name: "An Existing Role")
+
+    Role.any_instance.expects(:publish_to_publishing_api).once
+
+    post :republish_role, params: { role_slug: "an-existing-role" }
+
+    assert_redirected_to admin_republishing_index_path
+    assert_equal "The 'An Existing Role' role has been scheduled for republishing", flash[:notice]
+  end
+
+  test "GDS Admin users should see a 404 page when trying to POST :republish_role with a nonexistent role slug" do
+    Role.any_instance.expects(:publish_to_publishing_api).never
+
+    get :republish_role, params: { role_slug: "not-an-existing-role" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to POST :republish_role" do
+    create(:role, slug: "an-existing-role")
+
+    Role.any_instance.expects(:publish_to_publishing_api).never
+
+    login_as :writer
+
+    post :republish_role, params: { role_slug: "an-existing-role" }
+    assert_response :forbidden
+  end
 end
