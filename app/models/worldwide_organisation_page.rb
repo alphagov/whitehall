@@ -18,6 +18,11 @@ class WorldwideOrganisationPage < ApplicationRecord
   include TranslatableModel
   translates :title, :summary, :body
 
+  delegate :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
+  def sponsoring_organisation
+    edition.lead_organisations.first
+  end
+
   def title(_locale = :en)
     corporate_information_page_type.title(edition)
   end

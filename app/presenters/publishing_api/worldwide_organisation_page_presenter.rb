@@ -18,7 +18,7 @@ module PublishingApi
 
       content.merge!(
         details: {
-          body: Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.body, item.attachments),
+          body: Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.body, item.attachments, item.alternative_format_contact_email),
         },
         description: item.summary,
         public_updated_at: item.updated_at.rfc3339,
