@@ -1,0 +1,38 @@
+<% content_for :page_title, "Republish a role" %>
+<% content_for :title, "Which role would you like to republish?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Guidance on finding the slug for a role
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <ol class="govuk-list govuk-list--number">
+          <li>Visit the <a href="<%= admin_roles_path %>" class="govuk-link">roles</a> page.</li>
+          <li>Find the role you'd like to republish.</li>
+          <li>Click on either the 'Manage' link under 'Translations' or the 'Edit' link.</li>
+          <li>The role slug is the penultimate part of the URL - everything between '/government/admin/roles/' and the next '/'.</li>
+        </ol>
+      </div>
+    </details>
+
+    <%= form_with(url: "#", method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do %>
+      <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Enter the slug for the role",
+          },
+          hint: "Guidance on how to find the slug is provided above.",
+          name: "role_slug",
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Continue",
+      } %>
+    <% end %>
+  </section>
+</div>

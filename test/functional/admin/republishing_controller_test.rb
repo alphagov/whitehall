@@ -16,7 +16,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/organisation/find']", text: "Republish an organisation"
     assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(2) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/person/find']", text: "Republish a person"
-    assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(3) .govuk-table__cell:nth-child(2) a[href='#']", text: "Republish a role"
+    assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(3) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/role/find']", text: "Republish a role"
 
     assert_response :ok
   end
@@ -241,6 +241,19 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     login_as :writer
 
     post :republish_person, params: { person_slug: "existing-person" }
+    assert_response :forbidden
+  end
+
+  view_test "GDS Admin users should be able to GET :find_role" do
+    get :find_role
+
+    assert_response :ok
+  end
+
+  test "Non-GDS Admin users should not be able to GET :find_role" do
+    login_as :writer
+
+    get :find_role
     assert_response :forbidden
   end
 end

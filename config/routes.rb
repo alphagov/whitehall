@@ -40,6 +40,9 @@ Whitehall::Application.routes.draw do
           get "/:person_slug/confirm" => "republishing#confirm_person", as: :republishing_person_confirm
           post "/:person_slug/republish" => "republishing#republish_person", as: :republishing_person_republish
         end
+        scope :role do
+          get "/find" => "republishing#find_role", as: :republishing_role_find
+        end
       end
 
       resources :documents, only: [] do
