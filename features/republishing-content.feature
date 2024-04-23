@@ -59,3 +59,9 @@ Feature: Republishing published documents
     And the "Existing Person" person can be republished
     When I request a republish of the "Existing Person" person
     Then I can see the "Existing Person" person has been scheduled for republishing
+
+  Scenario: Republish a role
+    Given a published role "An Existing Role" exists
+    And the "An Existing Role" role can be republished
+    When I request a republish of the "An Existing Role" role
+    Then I can see the "An Existing Role" role has been scheduled for republishing
