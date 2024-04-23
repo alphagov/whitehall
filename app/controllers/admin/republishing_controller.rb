@@ -89,14 +89,21 @@ class Admin::RepublishingController < Admin::BaseController
   def find_role; end
 
   def search_role
-    role = Role.find_by(slug: params[:role_slug])
+    @role = Role.find_by(slug: params[:role_slug])
 
-    unless role
+    unless @role
       flash[:alert] = "Role with slug '#{params[:role_slug]}' not found"
       return redirect_to(admin_republishing_role_find_path)
     end
 
-    redirect_to("#")
+    redirect_to(admin_republishing_role_confirm_path(params[:role_slug]))
+  end
+
+  def confirm_role
+    unless @role&.slug == params[:role_slug]
+      @role = Role.find_by(slug: params[:role_slug])
+      render "admin/errors/not_found", status: :not_found unless @role
+    end
   end
 
 private

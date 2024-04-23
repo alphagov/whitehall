@@ -1,0 +1,22 @@
+<% content_for :page_title, "Republish '#{@role.name}'" %>
+<% content_for :title, "Are you sure you want to republish '#{@role.name}'?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">
+      <% if @role.public_url %>
+        This will schedule the <%= link_to @role.name, @role.public_url, { class: "govuk-link" } %> role to be republished.
+      <% else %>
+        This will schedule the '<%= @role.name %>' role to be republished.
+      <% end %>
+    </p>
+    <%= form_with(url: "#", method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
+        render("govuk_publishing_components/components/button", {
+          text: "Confirm republishing",
+        })
+      end %>
+  </section>
+</div>

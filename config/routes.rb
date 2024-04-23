@@ -43,6 +43,7 @@ Whitehall::Application.routes.draw do
         scope :role do
           get "/find" => "republishing#find_role", as: :republishing_role_find
           post "/search" => "republishing#search_role", as: :republishing_role_search
+          get "/:role_slug/confirm" => "republishing#confirm_role", as: :republishing_role_confirm
         end
       end
 

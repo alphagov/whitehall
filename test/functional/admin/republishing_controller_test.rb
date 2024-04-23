@@ -262,7 +262,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     post :search_role, params: { role_slug: "an-existing-role" }
 
-    assert_redirected_to "#"
+    assert_redirected_to admin_republishing_role_confirm_path("an-existing-role")
   end
 
   test "GDS Admin users should be redirected back to :find_role when trying to POST :search_role with a nonexistent role slug" do
@@ -278,6 +278,27 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     login_as :writer
 
     post :search_role, params: { role_slug: "an-existing-role" }
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to GET :confirm_role with an existing role slug" do
+    create(:role, slug: "an-existing-role")
+
+    get :confirm_role, params: { role_slug: "an-existing-role" }
+    assert_response :ok
+  end
+
+  test "GDS Admin users should see a 404 page when trying to GET :confirm_role with a nonexistent role slug" do
+    get :confirm_role, params: { role_slug: "not-an-existing-role" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to GET :confirm_role" do
+    create(:role, slug: "an-existing-role")
+
+    login_as :writer
+
+    get :confirm_role, params: { role_slug: "an-existing-role" }
     assert_response :forbidden
   end
 end
