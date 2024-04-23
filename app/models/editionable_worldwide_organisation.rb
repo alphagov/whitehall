@@ -7,6 +7,7 @@ class EditionableWorldwideOrganisation < Edition
   include Edition::Organisations
   include Edition::Roles
   include Edition::WorldLocations
+  include Attachable
 
   has_many :pages, class_name: "WorldwideOrganisationPage", foreign_key: :edition_id, dependent: :destroy, autosave: true
 
@@ -63,6 +64,11 @@ class EditionableWorldwideOrganisation < Edition
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"
+
+  delegate :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
+  def sponsoring_organisation
+    lead_organisations.first
+  end
 
   def base_path
     "/editionable-world/organisations/#{slug}"

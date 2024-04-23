@@ -380,6 +380,11 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: true,
       },
       {
+        label: "Attachments ",
+        href: admin_edition_attachments_path(edition),
+        current: false,
+      },
+      {
         label: "Offices",
         href: admin_worldwide_organisation_worldwide_offices_path(edition),
         current: false,
