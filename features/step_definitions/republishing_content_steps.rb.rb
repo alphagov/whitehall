@@ -1,15 +1,15 @@
-Given(/^the "Past prime ministers" page can be republished$/) do
+Given(/^the "([^"]*)" page can be republished$/) do |_page_title|
   create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
 end
 
-When(/^I request a republish of the "Past prime ministers" page$/) do
+When(/^I request a republish of the "([^"]*)" page$/) do |page_title|
   visit admin_republishing_index_path
-  find("#republish-past-prime-ministers").click
+  find(republishing_link_id_from_page_title(page_title)).click
   click_button("Confirm republishing")
 end
 
-Then(/^I can see the "Past prime ministers" page has been scheduled for republishing/) do
-  expect(page).to have_selector(".gem-c-success-alert", text: "The 'Past Prime Ministers' page has been scheduled for republishing")
+Then(/^I can see the "([^"]*)" page has been scheduled for republishing/) do |page_title|
+  expect(page).to have_selector(".gem-c-success-alert", text: "The '#{page_title}' page has been scheduled for republishing")
 end
 
 Given(/^a published organisation "An Existing Organisation" exists$/) do
@@ -30,4 +30,21 @@ end
 
 Then(/^I can see the "An Existing Organisation" organisation has been scheduled for republishing/) do
   expect(page).to have_selector(".gem-c-success-alert", text: "The 'An Existing Organisation' organisation has been scheduled for republishing")
+end
+
+def republishing_link_id_from_page_title(page_title)
+  link_id = "#republish-"
+
+  link_id += case page_title
+             when "Find a British embassy, high commission or consulate"
+               "embassies"
+             when "Help and services around the world"
+               "world"
+             when "Departments, agencies and public bodies"
+               "organisations"
+             else
+               page_title.downcase.gsub(" ", "-")
+             end
+
+  link_id
 end
