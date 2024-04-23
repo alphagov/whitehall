@@ -256,4 +256,28 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     get :find_role
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to POST :search_role with an existing role slug" do
+    create(:role, slug: "an-existing-role")
+
+    post :search_role, params: { role_slug: "an-existing-role" }
+
+    assert_redirected_to "#"
+  end
+
+  test "GDS Admin users should be redirected back to :find_role when trying to POST :search_role with a nonexistent role slug" do
+    get :search_role, params: { role_slug: "not-an-existing-role" }
+
+    assert_redirected_to admin_republishing_role_find_path
+    assert_equal "Role with slug 'not-an-existing-role' not found", flash[:alert]
+  end
+
+  test "Non-GDS Admin users should not be able to POST :search_role" do
+    create(:role, slug: "an-existing-role")
+
+    login_as :writer
+
+    post :search_role, params: { role_slug: "an-existing-role" }
+    assert_response :forbidden
+  end
 end
