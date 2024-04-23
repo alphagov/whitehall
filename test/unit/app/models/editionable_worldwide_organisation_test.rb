@@ -332,4 +332,9 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     assert_not_includes organisation.corporate_information_page_types.map(&:slug), "about"
     assert_not_includes organisation.corporate_information_page_types.map(&:id), 20
   end
+
+  test "should support attachments" do
+    organisation = build(:editionable_worldwide_organisation)
+    organisation.attachments << build(:file_attachment)
+  end
 end
