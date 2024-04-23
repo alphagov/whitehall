@@ -183,11 +183,11 @@ class Role < ApplicationRecord
   end
 
   def public_path(options = {})
-    append_url_options(base_path, options)
+    append_url_options(base_path, options) if type == "MinisterialRole"
   end
 
   def public_url(options = {})
-    Plek.website_root + public_path(options)
+    Plek.website_root + public_path(options) if type == "MinisterialRole"
   end
 
   def publishing_api_presenter
