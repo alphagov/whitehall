@@ -1,0 +1,18 @@
+<% content_for :page_title, "Republish '#{@organisation.name}'" %>
+<% content_for :title, "Are you sure you want to republish '#{@organisation.name}'?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">
+      This will schedule the <%= link_to @organisation.name, @organisation.public_url, { class: "govuk-link" } %> organisation to be republished.
+    </p>
+    <%= form_with(url: admin_republishing_organisation_republish_path(@organisation.slug), method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
+        render("govuk_publishing_components/components/button", {
+          text: "Confirm republishing",
+        })
+      end %>
+  </section>
+</div>

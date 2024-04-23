@@ -29,11 +29,11 @@ module PublishingApi
       { parent: [WORLD_INDEX_CONTENT_ID] }
     end
 
-  private
-
     def base_path
       "/world/embassies"
     end
+
+  private
 
     def details
       {

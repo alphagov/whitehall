@@ -28,6 +28,12 @@ Whitehall::Application.routes.draw do
           get "/:page_slug/confirm" => "republishing#confirm_page", as: :republishing_page_confirm
           post "/:page_slug/republish" => "republishing#republish_page", as: :republishing_page_republish
         end
+        scope :organisation do
+          get "/find" => "republishing#find_organisation", as: :republishing_organisation_find
+          post "/search" => "republishing#search_organisation", as: :republishing_organisation_search
+          get "/:organisation_slug/confirm" => "republishing#confirm_organisation", as: :republishing_organisation_confirm
+          post "/:organisation_slug/republish" => "republishing#republish_organisation", as: :republishing_organisation_republish
+        end
       end
 
       resources :documents, only: [] do
