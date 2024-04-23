@@ -25,7 +25,7 @@ module PublishingApi::WorldwideOrganisationPagePresenterTest
           locale: "en",
           publishing_app: Whitehall::PublishingApp::WHITEHALL,
           rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
-          public_updated_at: page.updated_at,
+          public_updated_at: page.updated_at.rfc3339,
           routes: [{ path: public_path, type: "exact" }],
           redirects: [],
           description: "Some summary",

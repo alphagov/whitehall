@@ -21,7 +21,7 @@ module PublishingApi
           body: Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.body, item.attachments),
         },
         description: item.summary,
-        public_updated_at: item.updated_at,
+        public_updated_at: item.updated_at.rfc3339,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_corporate_information_page",
         document_type:,
