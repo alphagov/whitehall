@@ -16,6 +16,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/organisation/find']", text: "Republish an organisation"
     assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(2) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/person/find']", text: "Republish a person"
+    assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(3) .govuk-table__cell:nth-child(2) a[href='#']", text: "Republish a role"
 
     assert_response :ok
   end
