@@ -128,4 +128,20 @@ class HistoricalAccountTest < ActiveSupport::TestCase
       end
     end
   end
+
+  context "for a historical account for a non-prime ministerial role" do
+    let(:historical_account) do
+      build(:historical_account,
+            role: create(:non_ministerial_role_without_organisations),
+            person: create(:person))
+    end
+
+    test "public_path returns `nil``" do
+      assert_nil historical_account.public_path
+    end
+
+    test "public_url returns `nil`" do
+      assert_nil historical_account.public_url
+    end
+  end
 end
