@@ -34,34 +34,22 @@
     maxlength: 160,
   } %>
 
-  <% if Flipflop.govspeak_visual_editor? %>
-    <%= render "components/visual_editor", {
-      label: {
-        text: "Body (required)",
-        heading_size: "l",
-      },
-      name: "edition[body]",
-      value: edition.body,
-      error_items: errors_for(form.object.errors, :body),
-    } %>
-  <% else %>
-    <%= render "components/govspeak_editor", {
-      label: {
-        text: "Body (required)",
-        heading_size: "l",
-      },
-      name: "edition[body]",
-      id: "edition_body",
-      value: edition.body,
-      rows: 20,
-      error_items: errors_for(form.object.errors, :body),
-      data_attributes: {
-        image_ids: edition.images.map { |img| img[:id] }.to_json,
-        attachment_ids: edition.allows_attachments? ? edition.attachments.map(&:id) : [],
-        alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-      },
-    } %>
-  <% end %>
+  <%= render "components/govspeak_editor", {
+    label: {
+      text: "Body (required)",
+      heading_size: "l",
+    },
+    name: "edition[body]",
+    id: "edition_body",
+    value: edition.body,
+    rows: 20,
+    error_items: errors_for(form.object.errors, :body),
+    data_attributes: {
+      image_ids: edition.images.map { |img| img[:id] }.to_json,
+      attachment_ids: edition.allows_attachments? ? edition.attachments.map(&:id) : [],
+      alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+    },
+  } %>
 
   <%= render "additional_significant_fields", form: form, edition: form.object %>
 </div>
