@@ -1,0 +1,24 @@
+<% content_for :page_title, "Republish a person" %>
+<% content_for :title, "Which person would you like to republish?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with(url: admin_republishing_person_search_path, method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do %>
+
+      <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Enter the slug for the person",
+          },
+          hint: "You can get the slug from the last part of the public URL - everything after '/government/people/'.",
+          name: "person_slug",
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Continue",
+      } %>
+    <% end %>
+  </section>
+</div>
