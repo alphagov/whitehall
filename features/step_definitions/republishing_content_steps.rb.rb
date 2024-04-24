@@ -72,6 +72,27 @@ Then(/^I can see the "An Existing Role" role has been scheduled for republishing
   expect(page).to have_selector(".gem-c-success-alert", text: "The 'An Existing Role' role has been scheduled for republishing")
 end
 
+Given(/^a document with slug "an-existing-document" exists$/) do
+  edition = build(:published_edition)
+  create(:document, slug: "an-existing-document", editions: [edition])
+end
+
+Given(/^the "an-existing-document" document's editions can be republished$/) do
+  create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
+end
+
+When(/^I request a republish of the "an-existing-document" document's editions$/) do
+  visit admin_republishing_index_path
+  find("#republish-document").click
+  fill_in "Enter the slug for the document", with: "an-existing-document"
+  click_button("Continue")
+  click_button("Confirm republishing")
+end
+
+Then(/^I can see the "an-existing-document" document's editions have been scheduled for republishing/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "Editions for the document with slug 'an-existing-document' have been scheduled for republishing")
+end
+
 def republishing_link_id_from_page_title(page_title)
   link_id = "#republish-"
 
