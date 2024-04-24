@@ -102,6 +102,18 @@
               ),
           },
         ],
+        [
+          {
+            text: "Role",
+          },
+          {
+            text: link_to(sanitize("Republish #{tag.span('a role', class: 'govuk-visually-hidden')}"),
+                admin_republishing_role_find_path,
+                id: "republish-role",
+                class: "govuk-link",
+              ),
+          },
+        ],
       ],
     } %>
   </section>

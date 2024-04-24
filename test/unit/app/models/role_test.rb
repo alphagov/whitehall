@@ -1,6 +1,8 @@
 require "test_helper"
 
 class RoleTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   should_protect_against_xss_and_content_attacks_on :role, :responsibilities
 
   %w[name responsibilities].each do |column_name|
@@ -196,24 +198,36 @@ class RoleTest < ActiveSupport::TestCase
     assert_not_includes Role.occupied, vacant
   end
 
-  test "public_path returns the correct path for ministerial role" do
-    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
-    assert_equal "/government/ministers/prime-minister-cabinet-office", role.public_path
+  context "for a ministerial role" do
+    let(:role) { create(:ministerial_role, name: "Prime Minister, Cabinet Office") }
+
+    test "public_path returns the correct path for ministerial role" do
+      assert_equal "/government/ministers/prime-minister-cabinet-office", role.public_path
+    end
+
+    test "public_path returns the correct path with options" do
+      assert_equal "/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_path(cachebust: "123")
+    end
+
+    test "public_url returns the correct path for a Ministerial role" do
+      assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office", role.public_url
+    end
+
+    test "public_url returns the correct path for a Ministerial Role with options" do
+      assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_url(cachebust: "123")
+    end
   end
 
-  test "public_path returns the correct path with options" do
-    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
-    assert_equal "/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_path(cachebust: "123")
-  end
+  context "for a non-ministerial role" do
+    let(:role) { create(:board_member_role) }
 
-  test "public_url returns the correct path for a Ministerial role" do
-    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
-    assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office", role.public_url
-  end
+    test "public_path returns `nil``" do
+      assert_nil role.public_path
+    end
 
-  test "public_url returns the correct path for a Ministerial Role with options" do
-    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
-    assert_equal "https://www.test.gov.uk/government/ministers/prime-minister-cabinet-office?cachebust=123", role.public_url(cachebust: "123")
+    test "public_url returns `nil`" do
+      assert_nil role.public_url
+    end
   end
 
   test "has removeable translations" do

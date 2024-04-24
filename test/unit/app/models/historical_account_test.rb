@@ -72,46 +72,44 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   should_not_accept_footnotes_in(:body)
 
   context "for a previous prime minister" do
-    let(:object) do
+    let(:role) { create(:prime_minister_role) }
+    let(:person) { create(:person, slug: "foo") }
+    let(:historical_account) do
       build(:historical_account,
-            role: create(:prime_minister_role),
-            person: create(:person, slug: "foo"))
+            role:,
+            person:)
+    end
+
+    setup do
+      create(:historic_role_appointment, person:, role:)
     end
 
     test "public_path returns the correct path" do
-      assert_equal "/government/history/past-prime-ministers/foo", object.public_path
+      assert_equal "/government/history/past-prime-ministers/foo", historical_account.public_path
     end
 
     test "public_path returns the correct path with options" do
-      assert_equal "/government/history/past-prime-ministers/foo?cachebust=123", object.public_path(cachebust: "123")
+      assert_equal "/government/history/past-prime-ministers/foo?cachebust=123", historical_account.public_path(cachebust: "123")
     end
 
     test "public_url returns the correct path" do
-      assert_equal "https://www.test.gov.uk/government/history/past-prime-ministers/foo", object.public_url
+      assert_equal "https://www.test.gov.uk/government/history/past-prime-ministers/foo", historical_account.public_url
     end
 
     test "public_url returns the correct path with options" do
-      assert_equal "https://www.test.gov.uk/government/history/past-prime-ministers/foo?cachebust=123", object.public_url(cachebust: "123")
-    end
-  end
-
-  context "for a person who was a prime minister" do
-    setup do
-      @pm_role = create(:prime_minister_role)
-      @person = create(:person)
-      create(:historic_role_appointment, person: @person, role: @pm_role)
+      assert_equal "https://www.test.gov.uk/government/history/past-prime-ministers/foo?cachebust=123", historical_account.public_url(cachebust: "123")
     end
 
     test "republishes the past prime ministers page on create" do
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
       Sidekiq::Testing.inline! do
-        create(:historical_account, person: @person, role: @pm_role)
+        create(:historical_account, person:, role:)
       end
     end
 
     test "republishes the past prime ministers page on update" do
-      account = create(:historical_account, person: @person, role: @pm_role)
+      account = create(:historical_account, person:, role:)
 
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
@@ -121,13 +119,29 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     end
 
     test "republishes the past prime ministers page on destroy" do
-      account = create(:historical_account, person: @person, role: @pm_role)
+      account = create(:historical_account, person:, role:)
 
       PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
       Sidekiq::Testing.inline! do
         account.destroy!
       end
+    end
+  end
+
+  context "for a historical account for a non-prime ministerial role" do
+    let(:historical_account) do
+      build(:historical_account,
+            role: create(:non_ministerial_role_without_organisations),
+            person: create(:person))
+    end
+
+    test "public_path returns `nil``" do
+      assert_nil historical_account.public_path
+    end
+
+    test "public_url returns `nil`" do
+      assert_nil historical_account.public_url
     end
   end
 end

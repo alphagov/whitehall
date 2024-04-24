@@ -16,6 +16,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/organisation/find']", text: "Republish an organisation"
     assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(2) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/person/find']", text: "Republish a person"
+    assert_select ".govuk-table:nth-of-type(2) .govuk-table__body .govuk-table__row:nth-child(3) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/role/find']", text: "Republish a role"
 
     assert_response :ok
   end
@@ -240,6 +241,93 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     login_as :writer
 
     post :republish_person, params: { person_slug: "existing-person" }
+    assert_response :forbidden
+  end
+
+  view_test "GDS Admin users should be able to GET :find_role" do
+    get :find_role
+
+    assert_response :ok
+  end
+
+  test "Non-GDS Admin users should not be able to GET :find_role" do
+    login_as :writer
+
+    get :find_role
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to POST :search_role with an existing role slug" do
+    create(:role, slug: "an-existing-role")
+
+    post :search_role, params: { role_slug: "an-existing-role" }
+
+    assert_redirected_to admin_republishing_role_confirm_path("an-existing-role")
+  end
+
+  test "GDS Admin users should be redirected back to :find_role when trying to POST :search_role with a nonexistent role slug" do
+    get :search_role, params: { role_slug: "not-an-existing-role" }
+
+    assert_redirected_to admin_republishing_role_find_path
+    assert_equal "Role with slug 'not-an-existing-role' not found", flash[:alert]
+  end
+
+  test "Non-GDS Admin users should not be able to POST :search_role" do
+    create(:role, slug: "an-existing-role")
+
+    login_as :writer
+
+    post :search_role, params: { role_slug: "an-existing-role" }
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to GET :confirm_role with an existing role slug" do
+    create(:role, slug: "an-existing-role")
+
+    get :confirm_role, params: { role_slug: "an-existing-role" }
+    assert_response :ok
+  end
+
+  test "GDS Admin users should see a 404 page when trying to GET :confirm_role with a nonexistent role slug" do
+    get :confirm_role, params: { role_slug: "not-an-existing-role" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to GET :confirm_role" do
+    create(:role, slug: "an-existing-role")
+
+    login_as :writer
+
+    get :confirm_role, params: { role_slug: "an-existing-role" }
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to POST :republish_role with an existing role slug" do
+    create(:role, slug: "an-existing-role", name: "An Existing Role")
+
+    Role.any_instance.expects(:publish_to_publishing_api).once
+
+    post :republish_role, params: { role_slug: "an-existing-role" }
+
+    assert_redirected_to admin_republishing_index_path
+    assert_equal "The 'An Existing Role' role has been scheduled for republishing", flash[:notice]
+  end
+
+  test "GDS Admin users should see a 404 page when trying to POST :republish_role with a nonexistent role slug" do
+    Role.any_instance.expects(:publish_to_publishing_api).never
+
+    get :republish_role, params: { role_slug: "not-an-existing-role" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to POST :republish_role" do
+    create(:role, slug: "an-existing-role")
+
+    Role.any_instance.expects(:publish_to_publishing_api).never
+
+    login_as :writer
+
+    post :republish_role, params: { role_slug: "an-existing-role" }
     assert_response :forbidden
   end
 end
