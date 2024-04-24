@@ -60,8 +60,9 @@ module AdminEditionControllerTestHelpers
         assert_select(".js-app-c-govspeak-editor__preview-button")
       end
 
-      view_test "new form has visual editor when enabled" do
+      view_test "new form has visual editor when flip flop enabled and user has permission" do
         feature_flags.switch!(:govspeak_visual_editor, true)
+        current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
 
         get :new
 
@@ -191,8 +192,9 @@ module AdminEditionControllerTestHelpers
         assert_select(".js-app-c-govspeak-editor__preview-button")
       end
 
-      view_test "edit form has visual editor when enabled" do
+      view_test "edit form has visual editor when enabled and user has permission" do
         feature_flags.switch!(:govspeak_visual_editor, true)
+        current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
 
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
 

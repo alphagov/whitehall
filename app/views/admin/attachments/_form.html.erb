@@ -42,6 +42,18 @@
       </div>
 
       <div class="govuk-!-margin-bottom-8 app-view-attachments__form-body js-locale-switcher-field">
+        <% if Flipflop.govspeak_visual_editor? && current_user.can_see_visual_editor_private_beta? %>
+          <%= render "components/visual_editor", {
+            label: {
+              text: "Body (required)",
+              heading_size: "l",
+            },
+            name: "attachment[govspeak_content_attributes][body]",
+            value: form.object.govspeak_content.body,
+            error_items: errors_for(attachment.errors, :"govspeak_content.body"),
+            right_to_left:  form.object.rtl_locale?,
+          } %>
+        <% else %>
         <%= render "components/govspeak_editor", {
           label: {
             heading_size: "l",
@@ -58,6 +70,7 @@
             attachment_ids: [], # HTML attachments cannot embed Attachments from their parent Edition
           },
         } %>
+          <% end %>
       </div>
 
       <% if !attachment.new_record? %>

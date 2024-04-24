@@ -64,7 +64,7 @@
   </div>
 
   <div class="govuk-!-margin-bottom-8 js-locale-switcher-field">
-    <% if Flipflop.govspeak_visual_editor? %>
+    <% if Flipflop.govspeak_visual_editor? && current_user.can_see_visual_editor_private_beta? %>
       <%= render "components/visual_editor", {
         label: {
           text: "Body" + "#{' (required)' if form.object.body_required?}",
