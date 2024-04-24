@@ -344,4 +344,28 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     get :find_document
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to POST :search_document with an existing document slug" do
+    create(:document, slug: "an-existing-document")
+
+    post :search_document, params: { document_slug: "an-existing-document" }
+
+    assert_redirected_to "#"
+  end
+
+  test "GDS Admin users should be redirected back to :find_document when trying to POST :search_document with a nonexistent document slug" do
+    post :search_document, params: { document_slug: "not-an-existing-document" }
+
+    assert_redirected_to admin_republishing_document_find_path
+    assert_equal "Document with slug 'not-an-existing-document' not found", flash[:alert]
+  end
+
+  test "Non-GDS Admin users should not be able to POST :search_document" do
+    create(:document, slug: "an-existing-document")
+
+    login_as :writer
+
+    post :search_document, params: { document_slug: "an-existing-document" }
+    assert_response :forbidden
+  end
 end

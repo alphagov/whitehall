@@ -119,6 +119,17 @@ class Admin::RepublishingController < Admin::BaseController
 
   def find_document; end
 
+  def search_document
+    document = Document.find_by(slug: params[:document_slug])
+
+    unless document
+      flash[:alert] = "Document with slug '#{params[:document_slug]}' not found"
+      return redirect_to(admin_republishing_document_find_path)
+    end
+
+    redirect_to("#")
+  end
+
 private
 
   def enforce_permissions!

@@ -48,6 +48,7 @@ Whitehall::Application.routes.draw do
         end
         scope :document do
           get "/find" => "republishing#find_document", as: :republishing_document_find
+          post "/search" => "republishing#search_document", as: :republishing_document_search
         end
       end
 
