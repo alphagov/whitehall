@@ -121,7 +121,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           worldwide_org.corporate_information_pages[3].content_id,
           worldwide_org.corporate_information_pages[4].content_id,
           worldwide_org.corporate_information_pages[5].content_id,
-        ],
+        ].sort,
         main_office: [
           worldwide_org.reload.main_office.content_id,
         ],
