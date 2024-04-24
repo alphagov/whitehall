@@ -168,6 +168,16 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
                  draft_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id")
   end
 
+  test "should retain home page lists for offices when new draft of published edition is created" do
+    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, :with_main_office, :with_home_page_offices)
+
+    draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
+    published_worldwide_organisation.reload
+
+    assert_equal published_worldwide_organisation.home_page_offices.first.attributes.except("id", "edition_id"),
+                 draft_worldwide_organisation.home_page_offices.first.attributes.except("id", "edition_id")
+  end
+
   test "should clone default news image when new draft of published edition is created" do
     published_worldwide_organisation = create(
       :editionable_worldwide_organisation,
