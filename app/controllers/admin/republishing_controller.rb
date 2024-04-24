@@ -137,6 +137,17 @@ class Admin::RepublishingController < Admin::BaseController
     end
   end
 
+  def republish_document
+    unless @document&.slug == params[:document_slug]
+      @document = Document.find_by(slug: params[:document_slug])
+      return render "admin/errors/not_found", status: :not_found unless @document
+    end
+
+    PublishingApiDocumentRepublishingWorker.new.perform(@document.id)
+    flash[:notice] = "Editions for the document with slug '#{@document.slug}' have been scheduled for republishing"
+    redirect_to(admin_republishing_index_path)
+  end
+
 private
 
   def enforce_permissions!

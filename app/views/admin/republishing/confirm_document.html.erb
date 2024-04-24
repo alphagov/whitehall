@@ -30,7 +30,7 @@
         end,
     } %>
 
-    <%= form_with(url: "#", method: :post, data: {
+    <%= form_with(url: admin_republishing_document_republish_path(@document.slug), method: :post, data: {
         module: "prevent-multiple-form-submissions",
       }) do
         render("govuk_publishing_components/components/button", {

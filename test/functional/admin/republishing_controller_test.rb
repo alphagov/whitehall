@@ -389,4 +389,33 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     get :confirm_document, params: { document_slug: "an-existing-document" }
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to POST :republish_document with an existing document slug" do
+    document = create(:document, slug: "an-existing-document")
+
+    PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id).once
+
+    post :republish_document, params: { document_slug: "an-existing-document" }
+
+    assert_redirected_to admin_republishing_index_path
+    assert_equal "Editions for the document with slug 'an-existing-document' have been scheduled for republishing", flash[:notice]
+  end
+
+  test "GDS Admin users should see a 404 page when trying to POST :republish_document with a nonexistent document slug" do
+    PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).never
+
+    post :republish_document, params: { document_slug: "not-an-existing-document" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to POST :republish_document" do
+    document = create(:document, slug: "an-existing-document")
+
+    PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id).never
+
+    login_as :writer
+
+    post :republish_document, params: { document_slug: "an-existing-document" }
+    assert_response :forbidden
+  end
 end
