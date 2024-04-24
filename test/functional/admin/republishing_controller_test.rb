@@ -58,7 +58,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "GDS Admin users should see a 404 page when trying to POST :republish_page with an unregistered page slug" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
 
-    get :republish_page, params: { page_slug: "not-republishable" }
+    post :republish_page, params: { page_slug: "not-republishable" }
     assert_response :not_found
   end
 
@@ -93,7 +93,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be redirected back to :find_organisation when trying to POST :search_organisation with a nonexistent organisation slug" do
-    get :search_organisation, params: { organisation_slug: "not-an-existing-organisation" }
+    post :search_organisation, params: { organisation_slug: "not-an-existing-organisation" }
 
     assert_redirected_to admin_republishing_organisation_find_path
     assert_equal "Organisation with slug 'not-an-existing-organisation' not found", flash[:alert]
@@ -143,7 +143,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "GDS Admin users should see a 404 page when trying to POST :republish_organisation with a nonexistent organisation slug" do
     Organisation.any_instance.expects(:publish_to_publishing_api).never
 
-    get :republish_organisation, params: { organisation_slug: "not-an-existing-organisation" }
+    post :republish_organisation, params: { organisation_slug: "not-an-existing-organisation" }
     assert_response :not_found
   end
 
@@ -180,7 +180,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be redirected back to :find_person when trying to POST :search_person with a nonexistent person slug" do
-    get :search_person, params: { person_slug: "nonexistent-person" }
+    post :search_person, params: { person_slug: "nonexistent-person" }
 
     assert_redirected_to admin_republishing_person_find_path
     assert_equal "Person with slug 'nonexistent-person' not found", flash[:alert]
@@ -230,7 +230,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "GDS Admin users should see a 404 page when trying to POST :republish_person with a nonexistent person slug" do
     Person.any_instance.expects(:publish_to_publishing_api).never
 
-    get :republish_person, params: { person_slug: "nonexistent-person" }
+    post :republish_person, params: { person_slug: "nonexistent-person" }
     assert_response :not_found
   end
 
@@ -267,7 +267,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be redirected back to :find_role when trying to POST :search_role with a nonexistent role slug" do
-    get :search_role, params: { role_slug: "not-an-existing-role" }
+    post :search_role, params: { role_slug: "not-an-existing-role" }
 
     assert_redirected_to admin_republishing_role_find_path
     assert_equal "Role with slug 'not-an-existing-role' not found", flash[:alert]
@@ -317,7 +317,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "GDS Admin users should see a 404 page when trying to POST :republish_role with a nonexistent role slug" do
     Role.any_instance.expects(:publish_to_publishing_api).never
 
-    get :republish_role, params: { role_slug: "not-an-existing-role" }
+    post :republish_role, params: { role_slug: "not-an-existing-role" }
     assert_response :not_found
   end
 
