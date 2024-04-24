@@ -135,17 +135,30 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal [c], worldwide_organisation.office_staff_roles
   end
 
-  test "should clone social media associations when new draft of published edition is created" do
+  test "should clone social media associations and their translations when new draft of published edition is created" do
     published_worldwide_organisation = create(
       :editionable_worldwide_organisation,
       :published,
       :with_social_media_account,
+      translated_into: [:cy],
     )
+
+    I18n.with_locale(:cy) do
+      published_worldwide_organisation.social_media_accounts.first.update!(
+        title: "Title in Welsh",
+        url: "https://www.gov.cymru",
+      )
+    end
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
 
     assert_equal published_worldwide_organisation.social_media_accounts.first.title, draft_worldwide_organisation.social_media_accounts.first.title
     assert_equal published_worldwide_organisation.social_media_accounts.first.url, draft_worldwide_organisation.social_media_accounts.first.url
+
+    I18n.with_locale(:cy) do
+      assert_equal "Title in Welsh", draft_worldwide_organisation.social_media_accounts.first.title
+      assert_equal "https://www.gov.cymru", draft_worldwide_organisation.social_media_accounts.first.url
+    end
   end
 
   test "should clone office and contact associations when new draft of published edition is created" do
