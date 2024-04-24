@@ -270,4 +270,54 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
 
     assert_not presenter.content[:details].key? :default_news_image
   end
+
+  test "includes the draft corporate information pages when state is set to draft" do
+    worldwide_organisation = build(:worldwide_organisation)
+    published_cip = FactoryBot.create(:complaints_procedure_corporate_information_page, organisation: nil, worldwide_organisation:)
+    draft_cip = FactoryBot.create(:personal_information_charter_corporate_information_page, :draft, organisation: nil, worldwide_organisation:)
+
+    presented_item = present(worldwide_organisation, state: "draft")
+
+    assert_equal [published_cip.content_id, draft_cip.content_id].sort, presented_item.content.dig(:links, :corporate_information_pages)
+  end
+
+  test "does not include the draft corporate information pages when state is not set to draft" do
+    worldwide_organisation = build(:worldwide_organisation)
+    published_cip = FactoryBot.create(:complaints_procedure_corporate_information_page, organisation: nil, worldwide_organisation:)
+    FactoryBot.create(:personal_information_charter_corporate_information_page, :draft, organisation: nil, worldwide_organisation:)
+
+    presented_item = present(worldwide_organisation)
+
+    assert_equal [published_cip.content_id], presented_item.content.dig(:links, :corporate_information_pages)
+  end
+
+  test "uses the updated_at date for a draft corporate information pages when state is set to draft and the CIP was updated most recently when state is set to draft" do
+    worldwide_organisation = build(:worldwide_organisation, updated_at: 3.days.ago)
+    FactoryBot.create(:complaints_procedure_corporate_information_page, organisation: nil, worldwide_organisation:, updated_at: 2.days.ago)
+    draft_cip = FactoryBot.create(:personal_information_charter_corporate_information_page, :draft, organisation: nil, worldwide_organisation:, updated_at: 1.day.ago)
+
+    presented_item = present(worldwide_organisation, state: "draft")
+
+    assert_equal draft_cip.updated_at, presented_item.content[:public_updated_at]
+  end
+
+  test "uses the updated_at date for the worldwide organisation when a CIP has a draft state and the worldwide organsation was updated most recently when state is set to draft" do
+    worldwide_organisation = build(:worldwide_organisation, updated_at: 1.day.ago)
+    FactoryBot.create(:complaints_procedure_corporate_information_page, organisation: nil, worldwide_organisation:, updated_at: 2.days.ago)
+    FactoryBot.create(:personal_information_charter_corporate_information_page, :draft, organisation: nil, worldwide_organisation:, updated_at: 3.days.ago)
+
+    presented_item = present(worldwide_organisation, state: "draft")
+
+    assert_equal worldwide_organisation.updated_at, presented_item.content[:public_updated_at]
+  end
+
+  test "uses the updated_at date for the worldwide organisation when state is not set to draft" do
+    worldwide_organisation = build(:worldwide_organisation, updated_at: 3.days.ago)
+    FactoryBot.create(:complaints_procedure_corporate_information_page, organisation: nil, worldwide_organisation:, updated_at: 2.days.ago)
+    FactoryBot.create(:personal_information_charter_corporate_information_page, :draft, organisation: nil, worldwide_organisation:, updated_at: 1.day.ago)
+
+    presented_item = present(worldwide_organisation)
+
+    assert_equal worldwide_organisation.updated_at, presented_item.content[:public_updated_at]
+  end
 end
