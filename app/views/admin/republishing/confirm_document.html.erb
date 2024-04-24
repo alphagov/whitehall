@@ -1,0 +1,41 @@
+<% content_for :page_title, "Republish '#{@document.slug}'" %>
+<% content_for :title, "Are you sure you want to republish '#{@document.slug}'?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">
+      This will schedule the following editions to be republished.
+    </p>
+
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Edition",
+        },
+        {
+          text: "State",
+        },
+      ],
+      rows:
+        @document.republishable_editions.map do |edition|
+          [
+            {
+              text: edition.public_url ? sanitize(link_to(edition.title, edition.public_url, { class: "govuk-link" })) : edition.title,
+            },
+            {
+              text: edition.state.humanize,
+            },
+          ]
+        end,
+    } %>
+
+    <%= form_with(url: "#", method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do
+        render("govuk_publishing_components/components/button", {
+          text: "Confirm republishing",
+        })
+      end %>
+  </section>
+</div>

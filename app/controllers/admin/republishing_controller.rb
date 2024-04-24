@@ -120,14 +120,21 @@ class Admin::RepublishingController < Admin::BaseController
   def find_document; end
 
   def search_document
-    document = Document.find_by(slug: params[:document_slug])
+    @document = Document.find_by(slug: params[:document_slug])
 
-    unless document
+    unless @document
       flash[:alert] = "Document with slug '#{params[:document_slug]}' not found"
       return redirect_to(admin_republishing_document_find_path)
     end
 
-    redirect_to("#")
+    redirect_to(admin_republishing_document_confirm_path(params[:document_slug]))
+  end
+
+  def confirm_document
+    unless @document&.slug == params[:document_slug]
+      @document = Document.find_by(slug: params[:document_slug])
+      render "admin/errors/not_found", status: :not_found unless @document
+    end
   end
 
 private

@@ -350,7 +350,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     post :search_document, params: { document_slug: "an-existing-document" }
 
-    assert_redirected_to "#"
+    assert_redirected_to admin_republishing_document_confirm_path("an-existing-document")
   end
 
   test "GDS Admin users should be redirected back to :find_document when trying to POST :search_document with a nonexistent document slug" do
@@ -366,6 +366,27 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     login_as :writer
 
     post :search_document, params: { document_slug: "an-existing-document" }
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to GET :confirm_document with an existing document slug" do
+    create(:document, slug: "an-existing-document")
+
+    get :confirm_document, params: { document_slug: "an-existing-document" }
+    assert_response :ok
+  end
+
+  test "GDS Admin users should see a 404 page when trying to GET :confirm_document with a nonexistent document slug" do
+    get :confirm_document, params: { document_slug: "not-an-existing-document" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to GET :confirm_document" do
+    create(:document, slug: "an-existing-document")
+
+    login_as :writer
+
+    get :confirm_document, params: { document_slug: "an-existing-document" }
     assert_response :forbidden
   end
 end
