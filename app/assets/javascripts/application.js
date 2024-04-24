@@ -3,6 +3,7 @@
 //= require govuk_publishing_components/dependencies
 //= require govuk_publishing_components/all_components
 //= require govuk_publishing_components/analytics
+//= require govuk_publishing_components/analytics-ga4
 
 //= require components/autocomplete
 //= require components/govspeak-editor
@@ -26,3 +27,6 @@
 //= require admin/views/track-selected-taxons
 //= require admin/views/unpublish-display-conditions
 //= require admin/views/unpublish-tracking
+
+window.GOVUK.approveAllCookieTypes()
+window.GOVUK.cookie('cookies_preferences_set', 'true', { days: 365 })
