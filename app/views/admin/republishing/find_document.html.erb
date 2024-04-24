@@ -1,0 +1,22 @@
+<% content_for :page_title, "Republish a document" %>
+<% content_for :title, "Which document would you like to republish?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with(url: "#", method: :post, data: {
+        module: "prevent-multiple-form-submissions",
+      }) do %>
+      <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Enter the slug for the document",
+          },
+          hint: "You can get the slug from the last part of the public URL. For example, for a publication, everything after '/government/publications/'.",
+          name: "document_slug",
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Continue",
+      } %>
+    <% end %>
+  </section>
+</div>
