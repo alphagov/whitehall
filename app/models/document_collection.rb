@@ -56,10 +56,6 @@ class DocumentCollection < Edition
     "/government/collections/#{slug}"
   end
 
-  def specialist_topic_conversion?
-    mapped_specialist_topic_content_id.present?
-  end
-
   def publishing_api_presenter
     PublishingApi::DocumentCollectionPresenter
   end
