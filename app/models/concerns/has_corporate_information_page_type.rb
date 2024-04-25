@@ -14,7 +14,7 @@ module HasCorporateInformationPageType
 
     def self.by_menu_heading(menu_heading)
       type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
-      where(corporate_information_page_type_id: type_ids)
+      where(corporate_information_page_type_id: type_ids).sort_by(&:title)
     end
 
     def self.for_slug(slug)
