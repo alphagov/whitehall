@@ -162,7 +162,7 @@ module PublishingApi
     def pages
       return [] unless item.pages.any?
 
-      item.pages.map(&:content_id)
+      item.pages.map(&:content_id).sort
     end
 
     def ordered_corporate_information_pages

@@ -127,7 +127,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
         ],
         sponsoring_organisations: worldwide_org.organisations.map(&:content_id),
         world_locations: worldwide_org.world_locations.map(&:content_id),
-        corporate_information_pages: worldwide_org.pages.map(&:content_id),
+        corporate_information_pages: worldwide_org.pages.map(&:content_id).sort,
       },
       analytics_identifier: "WO123",
       update_type: "major",
