@@ -57,7 +57,7 @@ private
   end
 
   def the_document_has_been_unpublished?
-    @latest_unpublished_edition.present?
+    latest_unpublished_edition.present?
   end
 
   def the_document_has_been_withdrawn?
