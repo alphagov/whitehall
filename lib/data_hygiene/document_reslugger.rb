@@ -14,7 +14,7 @@ module DataHygiene
       @document = document
       @published_edition = published_edition
       @current_user = current_user
-      @new_slug = new_slug
+      @new_slug = new_slug.strip
     end
 
     def run!
