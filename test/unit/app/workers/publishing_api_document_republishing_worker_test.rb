@@ -7,7 +7,6 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:publish).never
     Whitehall::PublishingApi.expects(:save_draft).never
-    Whitehall::PublishingApi.expects(:locales_for).never
     Whitehall::PublishingApi.expects(:patch_links).never
     PublishingApiUnpublishingWorker.any_instance.expects(:perform).never
     ServiceListeners::PublishingApiAssociatedDocuments.expects(:process).never

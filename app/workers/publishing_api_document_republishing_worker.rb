@@ -113,12 +113,6 @@ private
     handle_attachments_for(edition)
   end
 
-  def locales_for(edition)
-    Whitehall::PublishingApi.locales_for(edition).each do |locale|
-      yield locale.to_s
-    end
-  end
-
   def handle_attachments_for(edition)
     ServiceListeners::PublishingApiAssociatedDocuments.process(
       edition,
