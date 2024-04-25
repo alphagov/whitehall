@@ -22,11 +22,15 @@ class EditionableWorldwideOrganisation < Edition
   alias_method :name, :title
 
   class CloneOfficesTrait < Edition::Traits::Trait
-    def process_associations_before_save(new_edition)
+    def process_associations_after_save(new_edition)
       @edition.offices.each do |office|
         new_office = new_edition.offices.build(office.attributes.except("id", "edition_id"))
 
         new_office.contact = office.contact.dup
+
+        if @edition.office_shown_on_home_page?(office)
+          new_edition.add_office_to_home_page!(new_office)
+        end
       end
     end
   end
