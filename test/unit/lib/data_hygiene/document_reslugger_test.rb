@@ -47,6 +47,15 @@ class DocumentResluggerTest < ActiveSupport::TestCase
     assert_equal "new-slug", @document.slug
   end
 
+  test "updates the slug when the new slug has trailing spaces" do
+    create(:document, slug: "new-slug", document_type: "publication")
+
+    reslugger = DataHygiene::DocumentReslugger.new(@document, @published_edition, @user, "new-slug   ")
+    reslugger.run!
+
+    assert_equal "new-slug", @document.slug
+  end
+
   test "returns false and the adds an error to the document when new_slug starts with a slash" do
     reslugger = DataHygiene::DocumentReslugger.new(@document, @published_edition, @user, "/invalid slug")
     assert_equal false, reslugger.run!
