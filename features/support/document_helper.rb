@@ -77,6 +77,20 @@ module DocumentHelper
     fill_in_publication_fields(**options.slice(:first_published, :publication_type))
   end
 
+  def draft_publication_with_visual_editor(title, organisation_name)
+    select "Policy paper", from: "edition_publication_type_id"
+
+    within "form" do
+      set_lead_organisation_on_document(Organisation.find_by(name: organisation_name))
+      fill_in "edition_title", with: title
+      find(".ProseMirror").base.send_keys("Any old iron")
+      fill_in "edition_summary", with: "one plus one equals two!"
+      fill_in_change_note_if_required
+      check "Applies to all UK nations"
+      uncheck "This document has previously been published on another website"
+    end
+  end
+
   def begin_drafting_statistical_data_set(options)
     begin_drafting_document options.merge(type: "statistical_data_set", previously_published: false)
   end

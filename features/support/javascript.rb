@@ -77,7 +77,7 @@ module Capybara::DSL
     return if select_has_value_as_text || select.value == value
 
     choices_option = div.find(
-      "div[role='option'][class='choices__item choices__item--choice choices__item--selectable']",
+      "div[role='treeitem'][class='choices__item choices__item--choice choices__item--selectable'], div[role='option'][class='choices__item choices__item--choice choices__item--selectable']",
       text: value,
       visible: false,
     )
