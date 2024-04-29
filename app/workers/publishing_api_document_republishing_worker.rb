@@ -57,7 +57,7 @@ private
   end
 
   def the_document_has_been_unpublished?
-    @latest_unpublished_edition.present?
+    latest_unpublished_edition.present?
   end
 
   def the_document_has_been_withdrawn?
@@ -111,12 +111,6 @@ private
   def send_unpublish(edition)
     PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, edition.draft?)
     handle_attachments_for(edition)
-  end
-
-  def locales_for(edition)
-    Whitehall::PublishingApi.locales_for(edition).each do |locale|
-      yield locale.to_s
-    end
   end
 
   def handle_attachments_for(edition)
