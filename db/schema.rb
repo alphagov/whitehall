@@ -403,7 +403,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_091946) do
     t.boolean "all_nation_applicability", default: true
     t.string "image_display_option"
     t.string "auth_bypass_id", null: false
-    t.string "mapped_specialist_topic_content_id"
     t.string "taxonomy_topic_email_override"
     t.integer "main_office_id"
     t.string "logo_formatted_name"
