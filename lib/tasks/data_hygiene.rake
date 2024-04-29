@@ -32,4 +32,16 @@ namespace :data_hygiene do
       speech.save!(validate: false)
     end
   end
+
+  desc "Restore a deleted document by creating a new edition from its latest deleted draft"
+  task :restore_deleted_document, %i[document_id user_email] => :environment do |_, args|
+    deleted_document_restorer = DataHygiene::DeletedDocumentRestorer.new(args[:document_id], args[:user_email])
+
+    begin
+      deleted_document_restorer.run!
+      puts "Created a new draft for document with ID #{args[:document_id]}"
+    rescue DataHygiene::DeletedDocumentRestorer::RestoreDocumentError => e
+      puts e.message
+    end
+  end
 end
