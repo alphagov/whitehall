@@ -62,7 +62,11 @@ module PublishingApi
   private
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+      if item.body.present?
+        Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+      else
+        ""
+      end
     end
 
     def details

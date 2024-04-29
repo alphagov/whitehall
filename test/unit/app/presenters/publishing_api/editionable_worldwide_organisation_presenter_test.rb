@@ -212,4 +212,28 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
 
     assert_not presented_item.content[:details].key? :default_news_image
   end
+
+  test "does not convert an absent body to govspeak" do
+    worldwide_org = create(:editionable_worldwide_organisation)
+
+    # rubocop:disable Rails/SkipsModelValidations
+    worldwide_org.update_attribute(:body, nil)
+    # rubocop:enable Rails/SkipsModelValidations
+
+    presented_item = present(worldwide_org.reload)
+
+    assert_equal "", presented_item.content.dig(:details, :body)
+  end
+
+  test "does not convert an empty body to govspeak" do
+    worldwide_org = create(:editionable_worldwide_organisation)
+
+    # rubocop:disable Rails/SkipsModelValidations
+    worldwide_org.update_attribute(:body, "")
+    # rubocop:enable Rails/SkipsModelValidations
+
+    presented_item = present(worldwide_org.reload)
+
+    assert_equal "", presented_item.content.dig(:details, :body)
+  end
 end
