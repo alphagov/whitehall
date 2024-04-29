@@ -19,12 +19,13 @@ class EmailOverrideTest < ActiveSupport::TestCase
     stub_publishing_api_expanded_links_with_taxons(@document_collection.content_id, [taxons])
     stub_publishing_api_has_links({ content_id: @document_collection.content_id, links: })
 
-    email_overrider = EmailOveride::EmailOverride.new(document_collection_id: @document_collection.id, taxon_content_id: root_taxon_content_id, dry_run: false)
+    email_overrider = EmailOveride::EmailOverride.new(document_collection_id: @document_collection.id, taxon_content_id: work_taxon_content_id, dry_run: false)
 
     # Rake.application.invoke_task("set_email_override:real[#{document_collection.id},#{root_taxon_content_id}]")
     email_overrider.call
     puts @document_collection.taxonomy_topic_email_override
-    assert_equal root_taxon_content_id, @document_collection.taxonomy_topic_email_override
+
+    assert_equal work_taxon_content_id, DocumentCollection.find(@document_collection.id).taxonomy_topic_email_override
   end
 
   test "shows an error if the taxon does not exist" do
