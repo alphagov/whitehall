@@ -164,10 +164,6 @@ class EditionableWorldwideOrganisation < Edition
     false
   end
 
-  def skip_world_location_validation?
-    false
-  end
-
   def summary_required?
     false
   end

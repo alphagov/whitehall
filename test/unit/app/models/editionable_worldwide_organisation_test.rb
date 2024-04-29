@@ -360,4 +360,11 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     organisation = build(:editionable_worldwide_organisation)
     organisation.attachments << build(:file_attachment)
   end
+
+  test "does not require a world location" do
+    organisation = build(:editionable_worldwide_organisation)
+    organisation.world_locations = []
+
+    assert_valid organisation
+  end
 end
