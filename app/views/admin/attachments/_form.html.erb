@@ -52,6 +52,7 @@
             value: form.object.govspeak_content.body,
             error_items: errors_for(attachment.errors, :"govspeak_content.body"),
             right_to_left:  form.object.rtl_locale?,
+            id: "attachment_govspeak_content_body",
           } %>
         <% else %>
         <%= render "components/govspeak_editor", {
