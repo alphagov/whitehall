@@ -28,7 +28,7 @@ module PublishingApi
         details:,
         document_type: item.class.name.underscore,
         links: edition_links,
-        public_updated_at: item.updated_at,
+        public_updated_at:,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_organisation",
       )
@@ -39,7 +39,7 @@ module PublishingApi
     def edition_links
       {
         contacts:,
-        corporate_information_pages:,
+        corporate_information_pages: corporate_information_pages.map(&:content_id).sort,
         main_office:,
         home_page_offices:,
         primary_role_person:,
@@ -66,11 +66,25 @@ module PublishingApi
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(about_us) || ""
     end
 
-    def about_us
-      if %w[draft submitted].include?(state)
-        item.about_us_for(state:)
+    def public_updated_at
+      if state == "published"
+        item.updated_at
       else
+        ([item.updated_at, about_us&.updated_at] + corporate_information_pages.map(&:updated_at)).compact.max
+      end
+    end
+
+    def about_us
+      if state == "published"
         item.about_us
+      else
+        about_us_cips = item.corporate_information_pages.where(corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+
+        if about_us_cips.where(state:).any?
+          about_us_cips.find_by(state:)
+        else
+          about_us_cips.find_by(state: "published")
+        end
       end
     end
 
@@ -145,12 +159,27 @@ module PublishingApi
     def corporate_information_pages
       return [] unless item.corporate_information_pages.any?
 
-      item.corporate_information_pages.published.where.not(corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id).map(&:content_id).sort
+      if state == "published"
+        item.corporate_information_pages.published.where.not(corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+      else
+        cips_to_include = []
+
+        all_cips = item.corporate_information_pages.where(state: ["published", state]).where.not(corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+
+        all_cips.pluck(:corporate_information_page_type_id).each do |corporate_information_page_type_id|
+          cips_to_include << if all_cips.where(corporate_information_page_type_id:, state:).any?
+                               all_cips.find_by(corporate_information_page_type_id:, state:).id
+                             else
+                               all_cips.find_by(corporate_information_page_type_id:, state: "published").id
+                             end
+        end
+
+        item.corporate_information_pages.where(id: cips_to_include)
+      end
     end
 
     def ordered_corporate_information_pages
-      corporate_information_pages = item.corporate_information_pages&.published
-      return [] unless corporate_information_pages
+      return [] unless corporate_information_pages.any?
 
       links = []
 
@@ -167,8 +196,7 @@ module PublishingApi
     end
 
     def secondary_corporate_information_pages
-      corporate_information_pages = item.corporate_information_pages&.published
-      return [] unless corporate_information_pages
+      return "" unless corporate_information_pages.any?
 
       sentences = []
 
@@ -176,7 +204,7 @@ module PublishingApi
       if publication_scheme.present?
         sentences << I18n.t(
           "worldwide_organisation.corporate_information.publication_scheme_html",
-          link: t_corporate_information_page_link(item, "publication-scheme"),
+          link: t_corporate_information_page_link("publication-scheme"),
         )
       end
 
@@ -184,7 +212,7 @@ module PublishingApi
       if welsh_language_scheme.present?
         sentences << I18n.t(
           "worldwide_organisation.corporate_information.welsh_language_scheme_html",
-          link: t_corporate_information_page_link(item, "welsh-language-scheme"),
+          link: t_corporate_information_page_link("welsh-language-scheme"),
         )
       end
 
@@ -192,7 +220,7 @@ module PublishingApi
       if personal_information_charter.present?
         sentences << I18n.t(
           "worldwide_organisation.corporate_information.personal_information_charter_html",
-          link: t_corporate_information_page_link(item, "personal-information-charter"),
+          link: t_corporate_information_page_link("personal-information-charter"),
         )
       end
 
@@ -207,8 +235,8 @@ module PublishingApi
       end
     end
 
-    def t_corporate_information_page_link(organisation, slug)
-      page = organisation.corporate_information_pages.published.for_slug(slug)
+    def t_corporate_information_page_link(slug)
+      page = corporate_information_pages.for_slug(slug)
       page.extend(UseSlugAsParam)
       link_to(
         t_corporate_information_page_type_link_text(page),
