@@ -15,8 +15,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
 
   VisualEditor.prototype.init = function () {
     this.textarea.classList.add('app-c-visual-editor__textarea--hidden')
+    const id = this.textarea.getAttribute('id')
+    this.textarea.removeAttribute('id')
 
     new window.GovspeakVisualEditor(this.content, this.container, this.textarea) // eslint-disable-line no-new
+
+    this.container
+      .querySelector('div[contenteditable="true"]')
+      .setAttribute('id', id)
   }
 
   Modules.VisualEditor = VisualEditor

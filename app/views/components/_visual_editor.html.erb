@@ -1,15 +1,23 @@
 <%
+  id ||= "#{name}-#{SecureRandom.hex(4)}"
   error_items ||= nil
   right_to_left ||= false
   rows ||= 20
   value ||= nil
+
+  data_attributes ||= {}
+  data_attributes[:module] ||= ""
+  data_attributes[:module] << "visual-editor"
+
+  error_class = "govuk-form-group--error" if error_items
 %>
 
-<div data-module="visual-editor">
+<%= tag.div class: error_class, data: data_attributes do %>
   <div class="app-c-visual-editor__textarea-wrapper">
     <%= render "govuk_publishing_components/components/textarea", {
-      label: label,
       name: name,
+      id: id,
+      label: label,
       rows: rows,
       value: value,
       error_items: error_items,
@@ -24,6 +32,6 @@
   </div>
 
   <div class="app-c-visual-editor__container"></div>
-</div>
+<% end %>
 
 <%= javascript_include_tag "components/visual-editor", :type => "module" %>

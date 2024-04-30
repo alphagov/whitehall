@@ -74,6 +74,7 @@
         value: edition.body,
         error_items: errors_for(edition.errors, :body),
         right_to_left: form.object.translation_rtl?,
+        id: "edition_body",
       } %>
     <% else %>
       <%= render "components/govspeak_editor", {
