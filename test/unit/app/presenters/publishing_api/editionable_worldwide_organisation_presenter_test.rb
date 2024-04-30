@@ -12,6 +12,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
                            :with_main_office,
                            :with_home_page_offices,
                            :with_pages,
+                           :with_default_news_image,
                            analytics_identifier: "WO123")
 
     primary_role = create(:ambassador_role)
@@ -44,6 +45,10 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
       description: worldwide_org.summary,
       details: {
         body: "<div class=\"govspeak\"><p>Information about the organisation with <em>italics</em>.</p>\n</div>",
+        default_news_image: {
+          url: worldwide_org.default_news_image.file.url(:s300),
+          high_resolution_url: worldwide_org.default_news_image.file.url(:s960),
+        },
         logo: {
           crest: "single-identity",
           formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
@@ -182,5 +187,29 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     presented_item = present(worldwide_org)
 
     assert_equal [lead_organisation_2.content_id, lead_organisation_1.content_id], presented_item.content.dig(:links, :sponsoring_organisations)
+  end
+
+  test "is valid against the schema when there is no default_news_image" do
+    worldwide_organisation = create(:editionable_worldwide_organisation, default_news_image: nil)
+
+    presented_item = present(worldwide_organisation)
+
+    assert_valid_against_publisher_schema(presented_item.content, "worldwide_organisation")
+  end
+
+  test "default_news_image is not present when there is no image" do
+    worldwide_organisation = create(:editionable_worldwide_organisation, default_news_image: nil)
+    presented_item = present(worldwide_organisation)
+
+    assert_not presented_item.content[:details].key? :default_news_image
+  end
+
+  test "default_news_image is not present when variants are not uploaded" do
+    featured_image = build(:featured_image_data)
+    featured_image.assets.destroy_all
+    worldwide_organisation = create(:editionable_worldwide_organisation, default_news_image: featured_image)
+    presented_item = present(worldwide_organisation)
+
+    assert_not presented_item.content[:details].key? :default_news_image
   end
 end

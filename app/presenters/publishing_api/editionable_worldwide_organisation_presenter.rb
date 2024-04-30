@@ -4,6 +4,7 @@ module PublishingApi
     include ActionView::Helpers::UrlHelper
     include ApplicationHelper
     include OrganisationHelper
+    include Presenters::PublishingApi::DefaultNewsImageHelper
 
     attr_accessor :item, :update_type, :state
 
@@ -23,19 +24,7 @@ module PublishingApi
 
       content.merge!(
         description: item.summary,
-        details: {
-          body:,
-          logo: {
-            crest: "single-identity",
-            formatted_title: worldwide_organisation_logo_name(item),
-          },
-          ordered_corporate_information_pages:,
-          secondary_corporate_information_pages:,
-          office_contact_associations:,
-          people_role_associations:,
-          social_media_links:,
-          world_location_names:,
-        },
+        details:,
         document_type:,
         links: edition_links,
         public_updated_at: item.updated_at,
@@ -74,6 +63,24 @@ module PublishingApi
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+    end
+
+    def details
+      details = {
+        body:,
+        logo: {
+          crest: "single-identity",
+          formatted_title: worldwide_organisation_logo_name(item),
+        },
+        ordered_corporate_information_pages:,
+        secondary_corporate_information_pages:,
+        office_contact_associations:,
+        people_role_associations:,
+        social_media_links:,
+        world_location_names:,
+      }
+      details[:default_news_image] = present_default_news_image(item) if present_default_news_image(item).present?
+      details
     end
 
     def office_staff
