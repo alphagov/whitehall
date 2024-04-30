@@ -15,11 +15,10 @@ Feature: Save edition content with visual editor
     
   @javascript
   Scenario: I create a new HTML attachment
-    When I start creating a new HTML attachment for a publication
+    When I start creating a new HTML attachment for publication "Publication with HTML attachments and visual editor"
     Then I should see the visual editor instead of the govspeak editor
+    When I fill in the required fields for HTML attachment "HTML Attachment with visual editor"
+    And I save the HTML attachment
+    Then I see the visual editor on subsequent edits of the HTML attachment
+    And I force publish the publication "Publication with HTML attachments and visual editor"
 
-  @javascript
-  Scenario: I edit an existing HTML attachment
-    Given a draft publication with an HTML attachment "HTML Attachment with visual editor" exists
-    When I edit the HTML attachment "HTML Attachment with visual editor"
-    Then I should see the visual editor instead of the govspeak editor

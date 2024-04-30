@@ -38,17 +38,24 @@ Then(/^I see the visual editor on subsequent edits of the publication$/) do
   expect(page).to have_content("Any old iron")
 end
 
-When(/^I start creating a new HTML attachment for a publication$/) do
-  publication = create(:publication)
-  visit new_admin_edition_attachment_path(publication, type: "html")
+When(/^I start creating a new HTML attachment for publication "(.*?)"$/) do |title|
+  @publication = create(:publication, title:, attachments: [])
+  visit new_admin_edition_attachment_path(@publication, type: "html")
 end
 
-Given(/^a draft publication with an HTML attachment "(.*?)" exists$/) do |title|
-  html_attachment = create(:html_attachment, title:)
-  @publication = create(:publication, attachments: [html_attachment])
+When(/^I fill in the required fields for HTML attachment "(.*?)"$/) do |title|
+  fill_in "Title", with: title
+  find(".ProseMirror").base.send_keys("Any old iron")
+  check "Use manually numbered headings"
 end
 
-When(/^I edit the HTML attachment "(.*?)"$/) do |title|
-  html_attachment = Attachment.find_by(title:)
-  visit edit_admin_edition_attachment_path(@publication, html_attachment)
+And(/^I save the HTML attachment$/) do
+  click_on "Save"
+end
+
+Then(/^I see the visual editor on subsequent edits of the HTML attachment$/) do
+  click_link "Edit attachment"
+  expect(page).to have_selector(".app-c-visual-editor__container")
+  expect(page).not_to have_selector(".app-c-govspeak-editor")
+  expect(page).to have_content("Any old iron")
 end
