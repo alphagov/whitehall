@@ -105,6 +105,7 @@ private
       "beisgovuk.citizenspace.com",
       "nhs.uk",
       "royal.uk",
+      "victimandwitnessinformation.org.uk",
     ]
 
     permitted_hosts.any? { |permitted_host| host =~ /(?:^|\.)#{permitted_host}$/ }
