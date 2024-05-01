@@ -26,7 +26,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     @pre_publication_edition = document.pre_publication_edition
     @latest_unpublished_edition = document.editions.unpublished.last
 
-    return unless the_document_has_non_superseded_editions_to_republish?
+    return unless document_has_republishable_editions?
 
     Document.transaction do
       document.lock!
@@ -52,8 +52,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
 
 private
 
-  def the_document_has_non_superseded_editions_to_republish?
-    pre_publication_edition || live_edition || latest_unpublished_edition
+  def document_has_republishable_editions?
+    (pre_publication_edition || live_edition || latest_unpublished_edition).present?
   end
 
   def the_document_has_been_unpublished?
