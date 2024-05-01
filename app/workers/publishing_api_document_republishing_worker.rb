@@ -23,18 +23,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     Document.transaction do
       document.lock!
 
-      if document.latest_unpublished_edition.present?
-        refresh_latest_unpublished_edition
-        refresh_pre_publication_edition if document.pre_publication_edition&.valid?
-        return
-      elsif document.withdrawn_edition.present?
-        refresh_withdrawn_edition
-        return
-      end
-
-      patch_links
-      refresh_published_edition if document.published_edition.present?
-      refresh_pre_publication_edition if document.pre_publication_edition&.valid?
+      document.republishing_actions.each { |action| send(action) }
     end
   end
 
