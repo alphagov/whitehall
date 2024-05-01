@@ -100,6 +100,37 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
             PublishingApiDocumentRepublishingWorker.new.perform(document.id)
           end
 
+          it "allows for bulk publishing" do
+            sequence = sequence("unpublish; handle unpublished attachments; save draft; handle draft attachments")
+
+            PublishingApiUnpublishingWorker
+              .any_instance
+              .expects(:perform)
+              .with(unpublished_edition_b.unpublishing.id, unpublished_edition_b.draft?)
+              .once
+              .in_sequence(sequence)
+            ServiceListeners::PublishingApiAssociatedDocuments
+              .expects(:process)
+              .with(unpublished_edition_b, "republish")
+              .once
+              .in_sequence(sequence)
+            Whitehall::PublishingApi
+              .expects(:save_draft)
+              .with(draft_edition, "republish", bulk_publishing: true)
+              .once
+              .in_sequence(sequence)
+            ServiceListeners::PublishingApiAssociatedDocuments
+              .expects(:process)
+              .with(draft_edition, "republish")
+              .once
+              .in_sequence(sequence)
+
+            Whitehall::PublishingApi.expects(:publish).never
+            Whitehall::PublishingApi.expects(:patch_links).never
+
+            PublishingApiDocumentRepublishingWorker.new.perform(document.id, true)
+          end
+
           context "but the draft edition is invalid" do
             setup { draft_edition.stubs(:valid?).returns(false) }
 
@@ -165,6 +196,37 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
           PublishingApiDocumentRepublishingWorker.new.perform(document.id)
         end
+
+        it "allows for bulk publishing" do
+          sequence = sequence("republish; handle attachments; unpublish; handle attachments")
+
+          Whitehall::PublishingApi
+            .expects(:publish)
+            .with(withdrawn_edition, "republish", bulk_publishing: true)
+            .once
+            .in_sequence(sequence)
+          ServiceListeners::PublishingApiAssociatedDocuments
+            .expects(:process)
+            .with(withdrawn_edition, "republish")
+            .once
+            .in_sequence(sequence)
+          PublishingApiUnpublishingWorker
+            .any_instance
+            .expects(:perform)
+            .with(withdrawn_edition.unpublishing.id, withdrawn_edition.draft?)
+            .once
+            .in_sequence(sequence)
+          ServiceListeners::PublishingApiAssociatedDocuments
+            .expects(:process)
+            .with(withdrawn_edition, "republish")
+            .once
+            .in_sequence(sequence)
+
+          Whitehall::PublishingApi.expects(:save_draft).never
+          Whitehall::PublishingApi.expects(:patch_links).never
+
+          PublishingApiDocumentRepublishingWorker.new.perform(document.id, true)
+        end
       end
 
       context "none of which are unpublished or withdrawn" do
@@ -197,6 +259,31 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
             PublishingApiUnpublishingWorker.any_instance.expects(:perform).never
 
             PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+          end
+
+          it "allows for bulk publishing" do
+            sequence = sequence("patch links; save; handle attachments")
+
+            Whitehall::PublishingApi
+              .expects(:patch_links)
+              .with(draft_edition, bulk_publishing: true)
+              .once
+              .in_sequence(sequence)
+            Whitehall::PublishingApi
+              .expects(:save_draft)
+              .with(draft_edition, "republish", bulk_publishing: true)
+              .once
+              .in_sequence(sequence)
+            ServiceListeners::PublishingApiAssociatedDocuments
+              .expects(:process)
+              .with(draft_edition, "republish")
+              .once
+              .in_sequence(sequence)
+
+            Whitehall::PublishingApi.expects(:publish).never
+            PublishingApiUnpublishingWorker.any_instance.expects(:perform).never
+
+            PublishingApiDocumentRepublishingWorker.new.perform(document.id, true)
           end
 
           context "but the draft edition is invalid" do
@@ -248,6 +335,31 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
             PublishingApiDocumentRepublishingWorker.new.perform(document.id)
           end
+
+          it "allows for bulk publishing" do
+            sequence = sequence("patch links; republish; handle attachments")
+
+            Whitehall::PublishingApi
+              .expects(:patch_links)
+              .with(published_edition, bulk_publishing: true)
+              .once
+              .in_sequence(sequence)
+            Whitehall::PublishingApi
+              .expects(:publish)
+              .with(published_edition, "republish", bulk_publishing: true)
+              .once
+              .in_sequence(sequence)
+            ServiceListeners::PublishingApiAssociatedDocuments
+              .expects(:process)
+              .with(published_edition, "republish")
+              .once
+              .in_sequence(sequence)
+
+            Whitehall::PublishingApi.expects(:save_draft).never
+            PublishingApiUnpublishingWorker.any_instance.expects(:perform).never
+
+            PublishingApiDocumentRepublishingWorker.new.perform(document.id, true)
+          end
         end
 
         context "and there's both a published and draft edition" do
@@ -288,6 +400,40 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
             PublishingApiUnpublishingWorker.any_instance.expects(:perform).never
 
             PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+          end
+
+          it "allows for bulk publishing" do
+            sequence = sequence("patch links; republish live edition; handle live attachments; save draft; handle draft attachments")
+
+            Whitehall::PublishingApi
+              .expects(:patch_links)
+              .with(published_edition, bulk_publishing: true)
+              .once
+              .in_sequence(sequence)
+            Whitehall::PublishingApi
+              .expects(:publish)
+              .with(published_edition, "republish", bulk_publishing: true)
+              .once
+              .in_sequence(sequence)
+            ServiceListeners::PublishingApiAssociatedDocuments
+              .expects(:process)
+              .with(published_edition, "republish")
+              .once
+              .in_sequence(sequence)
+            Whitehall::PublishingApi
+              .expects(:save_draft)
+              .with(draft_edition, "republish", bulk_publishing: true)
+              .once
+              .in_sequence(sequence)
+            ServiceListeners::PublishingApiAssociatedDocuments
+              .expects(:process)
+              .with(draft_edition, "republish")
+              .once
+              .in_sequence(sequence)
+
+            PublishingApiUnpublishingWorker.any_instance.expects(:perform).never
+
+            PublishingApiDocumentRepublishingWorker.new.perform(document.id, true)
           end
 
           context "but the draft edition is invalid" do
