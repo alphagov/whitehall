@@ -170,6 +170,18 @@ class Document < ApplicationRecord
     ].compact
   end
 
+  def republishable_editions
+    republishing_actions.map { |action|
+      {
+        patch_links: nil,
+        refresh_latest_unpublished_edition: latest_unpublished_edition,
+        refresh_pre_publication_edition: pre_publication_edition,
+        refresh_published_edition: published_edition,
+        refresh_withdrawn_edition: withdrawn_edition,
+      }[action]
+    }.compact
+  end
+
   def latest_unpublished_edition
     editions.unpublished.last
   end
