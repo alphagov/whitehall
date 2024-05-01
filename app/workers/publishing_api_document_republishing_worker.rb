@@ -12,111 +12,79 @@
 # and sending it again after republishing. This also changes the version
 # numbering and would probably appear in the version history.
 class PublishingApiDocumentRepublishingWorker < WorkerBase
-  attr_reader :live_edition, :pre_publication_edition, :latest_unpublished_edition
-
   sidekiq_options queue: "publishing_api"
 
   def perform(document_id, bulk_publishing = false)
+    @document = Document.find(document_id)
     @bulk_publishing = bulk_publishing
-    document = Document.find(document_id)
 
-    # this the latest edition in a visible state ie: withdrawn, published
-    @live_edition = document.live_edition
-
-    @pre_publication_edition = document.pre_publication_edition
-    @latest_unpublished_edition = document.editions.unpublished.last
-
-    return unless document_has_republishable_editions?
+    return unless document.has_republishable_editions?
 
     Document.transaction do
       document.lock!
 
-      if the_document_has_been_unpublished?
-        send_unpublish(latest_unpublished_edition)
-        send_draft_edition if pre_publication_edition.present?
-      elsif the_document_has_been_withdrawn?
-        send_published_and_withdraw
-      elsif there_is_only_a_draft?
-        patch_links
-        send_draft_edition
-      elsif there_is_only_a_live_edition?
-        patch_links
-        send_live_edition
-      elsif there_is_a_newer_draft?
-        patch_links
-        send_live_edition
-        send_draft_edition
+      if document.latest_unpublished_edition.present?
+        refresh_latest_unpublished_edition
+        refresh_pre_publication_edition if document.pre_publication_edition&.valid?
+        return
+      elsif document.withdrawn_edition.present?
+        refresh_withdrawn_edition
+        return
       end
+
+      patch_links
+      refresh_published_edition if document.published_edition.present?
+      refresh_pre_publication_edition if document.pre_publication_edition&.valid?
     end
   end
 
 private
 
-  def document_has_republishable_editions?
-    (pre_publication_edition || live_edition || latest_unpublished_edition).present?
+  attr_reader :bulk_publishing, :document
+
+  ## Edition-specific refresh wrapper methods
+
+  def refresh_latest_unpublished_edition
+    unpublish_edition
   end
 
-  def the_document_has_been_unpublished?
-    latest_unpublished_edition.present?
+  def refresh_pre_publication_edition
+    Whitehall::PublishingApi.save_draft(document.pre_publication_edition, "republish", bulk_publishing:)
+    handle_attachments_for(document.pre_publication_edition)
   end
 
-  def the_document_has_been_withdrawn?
-    live_edition && live_edition.unpublishing
+  def refresh_published_edition
+    refresh_live_edition
   end
 
-  def there_is_only_a_draft?
-    pre_publication_edition && live_edition.nil?
+  def refresh_withdrawn_edition
+    refresh_live_edition
+    unpublish_edition
   end
 
-  def there_is_only_a_live_edition?
-    live_edition && pre_publication_edition.nil?
-  end
+  ## Helper methods that aren't edition-specific and interact with external
+  ## classes
 
-  def there_is_a_newer_draft?
-    pre_publication_edition && live_edition
-  end
-
-  def send_draft_edition
-    return unless pre_publication_edition.valid?
-
-    Whitehall::PublishingApi.save_draft(
-      pre_publication_edition,
-      "republish",
-      bulk_publishing: @bulk_publishing,
-    )
-    handle_attachments_for(pre_publication_edition)
-  end
-
-  def send_published_and_withdraw
-    send_live_edition
-    send_unpublish(live_edition)
-  end
-
-  def send_live_edition
-    Whitehall::PublishingApi.publish(
-      live_edition,
-      "republish",
-      bulk_publishing: @bulk_publishing,
-    )
-    handle_attachments_for(live_edition)
+  def handle_attachments_for(edition)
+    ServiceListeners::PublishingApiAssociatedDocuments.process(edition, "republish")
   end
 
   def patch_links
-    Whitehall::PublishingApi.patch_links(
-      live_edition || pre_publication_edition,
-      bulk_publishing: @bulk_publishing,
-    )
+    edition = document.published_edition || document.pre_publication_edition
+
+    return unless edition
+
+    Whitehall::PublishingApi.patch_links(edition, bulk_publishing:)
   end
 
-  def send_unpublish(edition)
+  def refresh_live_edition
+    Whitehall::PublishingApi.publish(document.live_edition, "republish", bulk_publishing:)
+    handle_attachments_for(document.live_edition)
+  end
+
+  def unpublish_edition
+    edition = document.latest_unpublished_edition || document.withdrawn_edition
     PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, edition.draft?)
     handle_attachments_for(edition)
-  end
-
-  def handle_attachments_for(edition)
-    ServiceListeners::PublishingApiAssociatedDocuments.process(
-      edition,
-      "republish",
-    )
   end
 end
