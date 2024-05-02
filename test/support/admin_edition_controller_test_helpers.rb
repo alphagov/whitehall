@@ -192,15 +192,37 @@ module AdminEditionControllerTestHelpers
         assert_select(".js-app-c-govspeak-editor__preview-button")
       end
 
-      view_test "edit form has visual editor when enabled and user has permission" do
+      view_test "edit form renders visual editor when feature flag is enabled, user has permission, and edition has been saved with visual editor" do
         feature_flags.switch!(:govspeak_visual_editor, true)
         current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
 
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+        edition = create(edition_type, visual_editor: true)
 
         get :edit, params: { id: edition }
 
         assert_select(".app-c-visual-editor__container")
+      end
+
+      view_test "edit form does not render visual editor for exited editions" do
+        feature_flags.switch!(:govspeak_visual_editor, true)
+        current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
+
+        edition = create(edition_type, visual_editor: false)
+
+        get :edit, params: { id: edition }
+
+        assert_select ".app-c-visual-editor__container", count: 0
+      end
+
+      view_test "edit form does not render visual editor for pre-existing editions" do
+        feature_flags.switch!(:govspeak_visual_editor, true)
+        current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
+
+        edition = create(edition_type, visual_editor: nil)
+
+        get :edit, params: { id: edition }
+
+        assert_select ".app-c-visual-editor__container", count: 0
       end
 
       view_test "edit form has cancel link which takes the user back to edition" do

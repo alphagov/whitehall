@@ -17,9 +17,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.textareaWrapper = this.module.querySelector(
       '.app-c-govspeak-editor__textarea'
     )
-    this.textarea = this.module.querySelector(
-      this.previewButton.getAttribute('data-content-target')
-    )
+    this.textarea = this.textareaWrapper.querySelector('textarea')
     this.shouldTrackToggle =
       this.previewButton.getAttribute('data-preview-toggle-tracking') === 'true'
 

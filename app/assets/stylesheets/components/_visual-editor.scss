@@ -1,6 +1,11 @@
 @import "govspeak-visual-editor/dist/style";
 
 .app-c-visual-editor__content,
-.app-c-visual-editor__textarea--hidden {
+.app-c-visual-editor__visual-editor-wrapper,
+.app-c-visual-editor__govspeak-editor-wrapper--hidden {
   display: none;
+}
+
+.app-c-visual-editor__visual-editor-wrapper--show {
+  display: block;
 }

@@ -1,37 +1,54 @@
 <%
   id ||= "#{name}-#{SecureRandom.hex(4)}"
-  error_items ||= nil
-  right_to_left ||= false
-  rows ||= 20
+  label_id = "#{id}-label"
   value ||= nil
-
-  data_attributes ||= {}
-  data_attributes[:module] ||= ""
-  data_attributes[:module] << "visual-editor"
+  error_items ||= nil
 
   error_class = "govuk-form-group--error" if error_items
 %>
 
-<%= tag.div class: error_class, data: data_attributes do %>
-  <div class="app-c-visual-editor__textarea-wrapper">
-    <%= render "govuk_publishing_components/components/textarea", {
-      name: name,
-      id: id,
-      label: label,
-      rows: rows,
-      value: value,
-      error_items: error_items,
-      margin_bottom: 0,
-      right_to_left: right_to_left,
-      right_to_left_help: false,
+<%= tag.div class: error_class, "data-module": "visual-editor" do %>
+  <div class="app-c-visual-editor__govspeak-editor-wrapper">
+    <%= render "components/govspeak_editor", {
+      label:,
+      name:,
+      id:,
+      value:,
+      rows:,
+      error_items:,
+      right_to_left:,
+      data_attributes:,
     } %>
   </div>
 
-  <div class="app-c-visual-editor__content">
-    <%= govspeak_to_admin_html value, [], [], nil %>
+  <div class="app-c-visual-editor__visual-editor-wrapper">
+    <%= render "govuk_publishing_components/components/label", {
+        id: label_id,
+        html_for: id,
+      }.merge(label.symbolize_keys) %>
+    <div class="js-app-c-visual-editor__inset-text">
+    <%= render "govuk_publishing_components/components/inset_text", {
+    } do %>
+      <p class="govuk-body">Thanks for being part of the beta trial to experiment the visual editor. This is an early version and does not support all content design and formatting needs.</p>
+      <p class="govuk-body">If you are blocked you can save your work so far and continue with the markdown editor.</p>
+      <p class="govuk-body">Note that you will not be able switch back to the visual editor only for this document. Visual editor will be available on a new document.</p>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Continue in markdown editor",
+        secondary_solid: true,
+        type: "button",
+        classes: "js-app-c-visual-editor__exit-button",
+      } %>
+    <% end %>
+    </div>
+
+    <div class="app-c-visual-editor__content">
+      <%= govspeak_to_admin_html value, [], [], nil %>
+    </div>
+
+    <div class="app-c-visual-editor__container"></div>
   </div>
 
-  <div class="app-c-visual-editor__container"></div>
+  <%= hidden_field_tag hidden_field_name, false, {class: "app-c-visual-editor__hidden-field"} %>
 <% end %>
 
 <%= javascript_include_tag "components/visual-editor", :type => "module" %>

@@ -396,6 +396,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     post :create, params: { edition: attributes }
   end
 
+  test "saves the visual editor flag" do
+    attributes = controller_attributes_for(
+      :consultation,
+      visual_editor: true,
+    )
+
+    post :create, params: { edition: attributes }
+
+    assert_equal true, Consultation.last.visual_editor
+  end
+
 private
 
   def controller_attributes_for(edition_type, attributes = {})
