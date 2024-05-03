@@ -148,6 +148,13 @@ class ContactTest < ActiveSupport::TestCase
     contact.destroy!
   end
 
+  test "updating a contact republishes the organisation" do
+    test_object = create(:organisation)
+    contact = create(:contact, contactable: test_object)
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    contact.update!(title: "A new name")
+  end
+
   test "updating a contact republishes dependent policy groups" do
     contact = create(:contact)
     policy_group = create(
