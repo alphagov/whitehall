@@ -131,6 +131,15 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_not_nil(Attachment.find_by(title: attachment[:title]))
   end
 
+  test "POST :create saves an html attachment with a visual editor flag" do
+    attachment = valid_html_attachment_params.merge(title: SecureRandom.uuid, visual_editor: true)
+
+    post :create, params: { edition_id: @edition.id, type: "html", attachment: }
+
+    attachment = Attachment.find_by(title: attachment[:title])
+    assert_equal true, attachment.visual_editor
+  end
+
   test "POST :create for an HtmlAttachment updates the publishing api" do
     attachment = valid_html_attachment_params
 
@@ -300,14 +309,34 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "input[type=file]"
   end
 
-  view_test "GET :edit shows visual editor if permission and feature flag are enabled" do
+  view_test "GET :edit shows visual editor if permission and feature flag are enabled, and attachment has been saved with visual editor" do
     feature_flags.switch!(:govspeak_visual_editor, true)
     current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
 
-    attachment = create(:html_attachment, attachable: @edition)
+    attachment = create(:html_attachment, attachable: @edition, visual_editor: true)
     get :edit, params: { edition_id: @edition, id: attachment }
 
     assert_select(".app-c-visual-editor__container")
+  end
+
+  view_test "edit form does not render visual editor for exited attachments" do
+    feature_flags.switch!(:govspeak_visual_editor, true)
+    current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
+
+    attachment = create(:html_attachment, attachable: @edition, visual_editor: false)
+    get :edit, params: { edition_id: @edition, id: attachment }
+
+    assert_select ".app-c-visual-editor__container", count: 0
+  end
+
+  view_test "edit form does not render visual editor for pre-existing attachments" do
+    feature_flags.switch!(:govspeak_visual_editor, true)
+    current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
+
+    attachment = create(:html_attachment, attachable: @edition, visual_editor: nil)
+    get :edit, params: { edition_id: @edition, id: attachment }
+
+    assert_select ".app-c-visual-editor__container", count: 0
   end
 
   test "PUT :update for HTML attachment updates the attachment" do

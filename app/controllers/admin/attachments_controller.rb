@@ -89,6 +89,9 @@ private
   def build_html_attachment
     HtmlAttachment.new(attachment_params).tap do |attachment|
       attachment.build_govspeak_content if attachment.govspeak_content.blank?
+      if attachment.visual_editor.nil?
+        attachment.visual_editor = Flipflop.govspeak_visual_editor? && current_user.can_see_visual_editor_private_beta?
+      end
     end
   end
 
@@ -116,6 +119,7 @@ private
       :parliamentary_session,
       :accessible,
       :external_url,
+      :visual_editor,
       govspeak_content_attributes: %i[id body manually_numbered_headings],
       attachment_data_attributes: %i[file to_replace_id file_cache],
     ).merge(attachable:)

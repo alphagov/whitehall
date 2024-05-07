@@ -47,6 +47,15 @@ Then(/^I should see the govspeak editor on subsequent edits of the publication$/
   expect(page).to have_content("Any old iron")
 end
 
+Then(/^I should see the govspeak editor on subsequent edits of the HTML attachment$/) do
+  click_link "Edit attachment"
+  expect(page).to have_selector(".app-c-govspeak-editor")
+  # When the document is marked as exited the visual editor is not rendered at all
+  expect(page).not_to have_selector(".app-c-visual-editor__visual-editor-wrapper")
+  expect(page).not_to have_selector(".app-c-visual-editor__govspeak-editor-wrapper")
+  expect(page).to have_content("Any old iron")
+end
+
 When(/^I fill in the required fields for publication "(.*?)" in organisation "(.*?)"$/) do |title, organisation_name|
   draft_publication_with_visual_editor(title, organisation_name)
 end
@@ -79,11 +88,25 @@ When(/^I edit a pre-existing publication$/) do
   visit edit_admin_publication_path(publication)
 end
 
+When(/^I edit a pre-existing HTML attachment$/) do
+  publication = create(:publication, attachments: [], visual_editor: nil)
+  attachment = create(:html_attachment, attachable: publication, visual_editor: nil)
+  visit edit_admin_edition_attachment_path(publication.id, attachment.id)
+end
+
 When(/^I update the publication in the govspeak editor$/) do
   fill_in "edition_body", with: "Any old iron"
 end
 
+When(/^I update the HTML attachment in the govspeak editor$/) do
+  fill_in "attachment_govspeak_content_body", with: "Any old iron"
+end
+
 When(/^I update the publication in the visual editor$/) do
+  find(".ProseMirror").base.send_keys("Any old iron")
+end
+
+When(/^I update the HTML attachment in the visual editor$/) do
   find(".ProseMirror").base.send_keys("Any old iron")
 end
 
@@ -92,7 +115,19 @@ When(/^I edit a publication saved with visual editor$/) do
   visit edit_admin_publication_path(publication)
 end
 
+When(/^I edit an HTML attachment saved with visual editor$/) do
+  publication = create(:publication, attachments: [], visual_editor: nil)
+  attachment = create(:html_attachment, attachable: publication, visual_editor: true)
+  visit edit_admin_edition_attachment_path(publication.id, attachment.id)
+end
+
 When(/^I edit a publication that has been previously exited$/) do
   publication = create(:publication, visual_editor: false)
   visit edit_admin_publication_path(publication)
+end
+
+When(/^I edit an HTML attachment that has been previously exited$/) do
+  publication = create(:publication, attachments: [], visual_editor: nil)
+  attachment = create(:html_attachment, attachable: publication, visual_editor: false)
+  visit edit_admin_edition_attachment_path(publication.id, attachment.id)
 end
