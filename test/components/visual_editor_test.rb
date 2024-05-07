@@ -17,6 +17,10 @@ class VisualeditorComponentTest < ComponentTestCase
       label: {
         text: "my-label",
       },
+      rows: 10,
+      right_to_left: false,
+      data_attributes: {},
+      hidden_field_name: "object[name]",
     })
 
     assert_select "div[data-module='visual-editor']"
