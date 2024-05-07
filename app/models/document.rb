@@ -143,6 +143,22 @@ class Document < ApplicationRecord
     )
   end
 
+  def has_republishable_editions?
+    (latest_unpublished_edition || live_edition || pre_publication_edition).present?
+  end
+
+  def latest_unpublished_edition
+    editions.unpublished.last
+  end
+
+  def published_edition
+    live_edition if live_edition&.state == "published"
+  end
+
+  def withdrawn_edition
+    live_edition if live_edition&.state == "withdrawn"
+  end
+
 private
 
   def destroy_all_editions

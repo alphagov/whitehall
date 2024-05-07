@@ -374,4 +374,65 @@ class DocumentTest < ActiveSupport::TestCase
 
     assert_equal document.id.to_s, document.reload.slug
   end
+
+  ["unpublished", Edition::PUBLICLY_VISIBLE_STATES, Edition::PRE_PUBLICATION_STATES].flatten.each do |edition_state|
+    test "#has_republishable_editions? returns true when there's an #{edition_state} edition" do
+      document = create(:document, editions: [build(:"#{edition_state}_edition")])
+      assert_equal document.has_republishable_editions?, true
+    end
+  end
+
+  Edition::FROZEN_STATES.each do |edition_state|
+    test "#has_republishable_editions? returns false when there are only editions with a state #{edition_state}" do
+      document = create(:document, editions: [build(:"#{edition_state}_edition")])
+      assert_equal document.has_republishable_editions?, false
+    end
+  end
+
+  test "#has_republishable_editions? returns false when there are no editions" do
+    document = create(:document, editions: [])
+    assert_equal document.has_republishable_editions?, false
+  end
+
+  test "#latest_unpublished_edition returns the latest unpublished edition when one exists" do
+    unpublished_edition_2 = build(:unpublished_edition)
+
+    document = create(:document, editions: [build(:unpublished_edition), unpublished_edition_2, build(:draft_edition)])
+
+    assert_equal document.latest_unpublished_edition, unpublished_edition_2
+  end
+
+  test "#latest_unpublished_edition returns nil when there are no unpublished editions" do
+    document = create(:document, editions: [build(:draft_edition)])
+
+    assert_nil document.latest_unpublished_edition
+  end
+
+  test "#published_edition returns the published edition when one exists" do
+    published_edition = build(:published_edition)
+
+    document = create(:document, editions: [published_edition, build(:draft_edition)])
+
+    assert_equal document.published_edition, published_edition
+  end
+
+  test "#published_edition returns nil when there is no published edition" do
+    document = create(:document, editions: [build(:draft_edition)])
+
+    assert_nil document.published_edition
+  end
+
+  test "#withdrawn_edition returns the withdrawn edition when one exists" do
+    withdrawn_edition = build(:withdrawn_edition)
+
+    document = create(:document, editions: [withdrawn_edition, build(:draft_edition)])
+
+    assert_equal document.withdrawn_edition, withdrawn_edition
+  end
+
+  test "#withdrawn_edition returns nil when there is no withdrawn edition" do
+    document = create(:document, editions: [build(:draft_edition)])
+
+    assert_nil document.withdrawn_edition
+  end
 end
