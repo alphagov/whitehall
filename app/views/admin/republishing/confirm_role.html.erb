@@ -6,9 +6,9 @@
   <section class="govuk-grid-column-two-thirds">
     <p class="govuk-body govuk-!-margin-bottom-7">
       <% if @role.public_url %>
-        This will schedule the <%= link_to @role.name, @role.public_url, { class: "govuk-link" } %> role to be republished.
+        This will republish the role <%= link_to @role.name, @role.public_url, { class: "govuk-link" } %>.
       <% else %>
-        This will schedule the '<%= @role.name %>' role to be republished.
+        This will republish the role '<%= @role.name %>'.
       <% end %>
     </p>
     <%= form_with(url: admin_republishing_role_republish_path(@role.slug), method: :post, data: {

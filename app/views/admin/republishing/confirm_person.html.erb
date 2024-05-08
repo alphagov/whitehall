@@ -5,7 +5,7 @@
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <p class="govuk-body govuk-!-margin-bottom-7">
-      This will schedule the <%= link_to @person.name, @person.public_url, { class: "govuk-link" } %> person to be republished.
+      This will republish the person <%= link_to @person.name, @person.public_url, { class: "govuk-link" } %>.
     </p>
     <%= form_with(url: admin_republishing_person_republish_path(@person.slug), method: :post, data: {
         module: "prevent-multiple-form-submissions",
