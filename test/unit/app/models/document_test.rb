@@ -1,6 +1,7 @@
 require "test_helper"
 
 class DocumentTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
   include GdsApi::TestHelpers::PublishingApi
 
   test "should return documents that have live editions" do
@@ -434,5 +435,164 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:document, editions: [build(:draft_edition)])
 
     assert_nil document.withdrawn_edition
+  end
+
+  describe "republishing editions" do
+    let(:unpublished_edition_a) { build(:unpublished_edition) }
+    let(:unpublished_edition_b) { build(:unpublished_edition) }
+    let(:withdrawn_edition) { build(:withdrawn_edition) }
+    let(:published_edition) { build(:published_edition) }
+    let(:draft_edition) { build(:draft_edition) }
+
+    let(:document) { build(:document, live_edition:, pre_publication_edition:) }
+
+    setup do
+      Document.stubs(:find).returns(document)
+    end
+
+    context "when the document only has superseded editions" do
+      let(:live_edition) { nil }
+      let(:pre_publication_edition) { nil }
+
+      setup { document.editions.stubs(:unpublished).returns([]) }
+
+      it "#republishing_actions returns no actions" do
+        assert_equal document.republishing_actions, []
+      end
+
+      it "#republishable_editions returns no editions" do
+        assert_equal document.republishable_editions, []
+      end
+    end
+
+    context "when the document has one or more non-superseded editions" do
+      context "that are unpublished" do
+        let(:live_edition) { nil }
+        let(:pre_publication_edition) { nil }
+
+        setup { document.editions.stubs(:unpublished).returns([unpublished_edition_a, unpublished_edition_b]) }
+
+        it "#republishing_actions returns an action for republishing the latest unpublished edition" do
+          assert_equal document.republishing_actions, [:republish_latest_unpublished_edition]
+        end
+
+        it "#republishable_editions returns the latest unpublished edition" do
+          assert_equal document.republishable_editions, [unpublished_edition_b]
+        end
+
+        context "and there's also a pre-publication edition" do
+          let(:live_edition) { nil }
+          let(:pre_publication_edition) { draft_edition }
+
+          setup { document.editions.stubs(:unpublished).returns([unpublished_edition_a, unpublished_edition_b]) }
+
+          it "#republishing_actions returns actions for republishing both the latest unpublished and pre-publication editions" do
+            assert_equal document.republishing_actions, %i[republish_latest_unpublished_edition republish_pre_publication_edition]
+          end
+
+          it "#republishable_editions returns the latest unpublished and pre-publication editions" do
+            assert_equal document.republishable_editions, [unpublished_edition_b, pre_publication_edition]
+          end
+
+          context "but the pre-publication edition is invalid" do
+            setup { draft_edition.stubs(:valid?).returns(false) }
+
+            it "#republishing_actions returns an action for republishing the latest unpublished edition but not the pre-publication edition" do
+              assert_equal document.republishing_actions, [:republish_latest_unpublished_edition]
+            end
+
+            it "#republishable_editions returns the latest unpublished edition but not the pre-publication edition" do
+              assert_equal document.republishable_editions, [unpublished_edition_b]
+            end
+          end
+        end
+      end
+
+      context "and the live edition is withdrawn" do
+        let(:live_edition) { withdrawn_edition }
+        let(:pre_publication_edition) { nil }
+
+        setup { document.editions.stubs(:unpublished).returns([]) }
+
+        it "#republishing_actions returns an action for republishing the withdrawn edition" do
+          assert_equal document.republishing_actions, [:republish_withdrawn_edition]
+        end
+
+        it "#republishable_editions returns the withdrawn edition" do
+          assert_equal document.republishable_editions, [withdrawn_edition]
+        end
+      end
+
+      context "none of which are unpublished or withdrawn" do
+        let(:live_edition) { nil }
+        let(:pre_publication_edition) { draft_edition }
+
+        context "and there's only a pre-publication edition" do
+          setup { document.editions.stubs(:unpublished).returns([]) }
+
+          it "#republishing_actions returns actions for patching links then republishing the pre-publication edition" do
+            assert_equal document.republishing_actions, %i[patch_links republish_pre_publication_edition]
+          end
+
+          it "#republishable_editions returns the pre-publication edition" do
+            assert_equal document.republishable_editions, [pre_publication_edition]
+          end
+
+          context "but the pre-publication edition is invalid" do
+            setup { draft_edition.stubs(:valid?).returns(false) }
+
+            it "#republishing_actions returns an action for patching links but not republishing the pre-publication edition" do
+              assert_equal document.republishing_actions, [:patch_links]
+            end
+
+            it "#republishable_editions returns no editions" do
+              assert_equal document.republishable_editions, []
+            end
+          end
+        end
+
+        context "and there's only a published edition" do
+          let(:live_edition) { published_edition }
+          let(:pre_publication_edition) { nil }
+
+          setup { document.editions.stubs(:unpublished).returns([]) }
+
+          it "#republishing_actions returns actions for patching links then republishing the published edition" do
+            assert_equal document.republishing_actions, %i[patch_links republish_published_edition]
+          end
+
+          it "#republishable_editions returns the published edition" do
+            assert_equal document.republishable_editions, [published_edition]
+          end
+        end
+
+        context "and there's both a published and pre-publication edition" do
+          let(:live_edition) { published_edition }
+          let(:pre_publication_edition) { draft_edition }
+
+          setup { document.editions.stubs(:unpublished).returns([]) }
+
+          it "#republishing_actions returns actions for patching links then republishing the published then pre-publication editions" do
+            assert_equal document.republishing_actions, %i[patch_links republish_published_edition republish_pre_publication_edition]
+          end
+
+          it "#republishable_editions returns the published and pre-publication editions" do
+            assert_equal document.republishable_editions, [published_edition, pre_publication_edition]
+          end
+
+          context "but the draft edition is invalid" do
+            setup { draft_edition.stubs(:valid?).returns(false) }
+
+            it "#republishing_actions returns actions for patching links then republishing the published edition but not the pre-publication edition" do
+              assert_equal document.republishing_actions, %i[patch_links republish_published_edition]
+            end
+
+            it "#republishable_editions returns the published but not pre-publication edition" do
+              assert_equal document.republishable_editions, [published_edition]
+            end
+          end
+        end
+      end
+    end
   end
 end

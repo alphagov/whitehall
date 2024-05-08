@@ -147,6 +147,41 @@ class Document < ApplicationRecord
     (latest_unpublished_edition || live_edition || pre_publication_edition).present?
   end
 
+  def republishing_actions
+    # Returns a list of actions required to republish the document. The
+    # implementation logic for these is the responsibility of the
+    # `PublishingApiDocumentRepublishingWorker`
+
+    return [] unless has_republishable_editions?
+
+    if latest_unpublished_edition.present?
+      return [
+        :republish_latest_unpublished_edition,
+        (:republish_pre_publication_edition if pre_publication_edition&.valid?),
+      ].compact
+    elsif withdrawn_edition.present?
+      return [:republish_withdrawn_edition]
+    end
+
+    [
+      :patch_links,
+      (:republish_published_edition if published_edition.present?),
+      (:republish_pre_publication_edition if pre_publication_edition&.valid?),
+    ].compact
+  end
+
+  def republishable_editions
+    republishing_actions.map { |action|
+      {
+        patch_links: nil,
+        republish_latest_unpublished_edition: latest_unpublished_edition,
+        republish_pre_publication_edition: pre_publication_edition,
+        republish_published_edition: published_edition,
+        republish_withdrawn_edition: withdrawn_edition,
+      }[action]
+    }.compact
+  end
+
   def latest_unpublished_edition
     editions.unpublished.last
   end

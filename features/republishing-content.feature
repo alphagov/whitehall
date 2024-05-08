@@ -65,3 +65,9 @@ Feature: Republishing published documents
     And the "An Existing Role" role can be republished
     When I request a republish of the "An Existing Role" role
     Then I can see the "An Existing Role" role has been scheduled for republishing
+
+  Scenario: Republish a document
+    Given a document with slug "an-existing-document" exists
+    And the "an-existing-document" document's editions can be republished
+    When I request a republish of the "an-existing-document" document's editions
+    Then I can see the "an-existing-document" document's editions have been scheduled for republishing

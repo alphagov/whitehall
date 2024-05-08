@@ -46,6 +46,12 @@ Whitehall::Application.routes.draw do
           get "/:role_slug/confirm" => "republishing#confirm_role", as: :republishing_role_confirm
           post "/:role_slug/republish" => "republishing#republish_role", as: :republishing_role_republish
         end
+        scope :document do
+          get "/find" => "republishing#find_document", as: :republishing_document_find
+          post "/search" => "republishing#search_document", as: :republishing_document_search
+          get "/:document_slug/confirm" => "republishing#confirm_document", as: :republishing_document_confirm
+          post "/:document_slug/republish" => "republishing#republish_document", as: :republishing_document_republish
+        end
       end
 
       resources :documents, only: [] do

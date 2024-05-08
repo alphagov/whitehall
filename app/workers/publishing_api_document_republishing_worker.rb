@@ -23,18 +23,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     Document.transaction do
       document.lock!
 
-      if document.latest_unpublished_edition.present?
-        refresh_latest_unpublished_edition
-        refresh_pre_publication_edition if document.pre_publication_edition&.valid?
-        return
-      elsif document.withdrawn_edition.present?
-        refresh_withdrawn_edition
-        return
-      end
-
-      patch_links
-      refresh_published_edition if document.published_edition.present?
-      refresh_pre_publication_edition if document.pre_publication_edition&.valid?
+      document.republishing_actions.each { |action| send(action) }
     end
   end
 
@@ -44,21 +33,21 @@ private
 
   ## Edition-specific refresh wrapper methods
 
-  def refresh_latest_unpublished_edition
+  def republish_latest_unpublished_edition
     unpublish_edition
   end
 
-  def refresh_pre_publication_edition
+  def republish_pre_publication_edition
     Whitehall::PublishingApi.save_draft(document.pre_publication_edition, "republish", bulk_publishing:)
     handle_attachments_for(document.pre_publication_edition)
   end
 
-  def refresh_published_edition
-    refresh_live_edition
+  def republish_published_edition
+    republish_live_edition
   end
 
-  def refresh_withdrawn_edition
-    refresh_live_edition
+  def republish_withdrawn_edition
+    republish_live_edition
     unpublish_edition
   end
 
@@ -77,7 +66,7 @@ private
     Whitehall::PublishingApi.patch_links(edition, bulk_publishing:)
   end
 
-  def refresh_live_edition
+  def republish_live_edition
     Whitehall::PublishingApi.publish(document.live_edition, "republish", bulk_publishing:)
     handle_attachments_for(document.live_edition)
   end
