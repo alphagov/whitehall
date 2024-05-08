@@ -75,7 +75,7 @@ class EditionableWorldwideOrganisation < Edition
   end
 
   def base_path
-    "/editionable-world/organisations/#{slug}"
+    "/world/organisations/#{slug}"
   end
 
   def display_type_key
