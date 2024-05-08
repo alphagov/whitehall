@@ -2,7 +2,7 @@
   <h4 class="govuk-heading-s govuk-!-margin-bottom-1">Internal note</h4>
 
   <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-0">
-    <%= editorial_remark.body %>
+    <%= sanitize(editorial_remark.body, tags: %w[a]) %>
   </p>
 
   <p class="app-view-editions-editorial-remark__list-item-datetime govuk-body govuk-body-s govuk-!-margin-bottom-0 govuk-!-margin-top-0">
