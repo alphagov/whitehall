@@ -52,7 +52,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     post :republish_page, params: { page_slug: "past-prime-ministers" }
 
     assert_redirected_to admin_republishing_index_path
-    assert_equal "The 'Past Prime Ministers' page has been scheduled for republishing", flash[:notice]
+    assert_equal "The page 'Past Prime Ministers' has been scheduled for republishing", flash[:notice]
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_page with an unregistered page slug" do
@@ -137,7 +137,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     post :republish_organisation, params: { organisation_slug: "an-existing-organisation" }
 
     assert_redirected_to admin_republishing_index_path
-    assert_equal "The 'An Existing Organisation' organisation has been scheduled for republishing", flash[:notice]
+    assert_equal "The organisation 'An Existing Organisation' has been republished", flash[:notice]
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_organisation with a nonexistent organisation slug" do
@@ -224,7 +224,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     post :republish_person, params: { person_slug: "existing-person" }
 
     assert_redirected_to admin_republishing_index_path
-    assert_equal "The 'Existing Person' person has been scheduled for republishing", flash[:notice]
+    assert_equal "The person 'Existing Person' has been republished", flash[:notice]
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_person with a nonexistent person slug" do
@@ -311,7 +311,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     post :republish_role, params: { role_slug: "an-existing-role" }
 
     assert_redirected_to admin_republishing_index_path
-    assert_equal "The 'An Existing Role' role has been scheduled for republishing", flash[:notice]
+    assert_equal "The role 'An Existing Role' has been republished", flash[:notice]
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_role with a nonexistent role slug" do
@@ -398,7 +398,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     post :republish_document, params: { document_slug: "an-existing-document" }
 
     assert_redirected_to admin_republishing_index_path
-    assert_equal "Editions for the document with slug 'an-existing-document' have been scheduled for republishing", flash[:notice]
+    assert_equal "Editions for the document with slug 'an-existing-document' have been republished", flash[:notice]
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_document with a nonexistent document slug" do

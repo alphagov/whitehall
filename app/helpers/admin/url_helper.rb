@@ -74,6 +74,14 @@ module Admin::UrlHelper
     end
   end
 
+  def admin_republish_content_link
+    if can?(:administer, :republish_content)
+      admin_link "Republish content", admin_republishing_index_path
+    end
+  end
+
+private
+
   def active_link_class(path_matcher)
     request.path.match?(path_matcher) ? "active" : ""
   end

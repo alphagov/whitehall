@@ -52,22 +52,22 @@ Feature: Republishing published documents
     Given a published organisation "An Existing Organisation" exists
     And the "An Existing Organisation" organisation can be republished
     When I request a republish of the "An Existing Organisation" organisation
-    Then I can see the "An Existing Organisation" organisation has been scheduled for republishing
+    Then I can see the "An Existing Organisation" organisation has been republished
 
   Scenario: Republish a person
     Given a published person "Existing Person" exists
     And the "Existing Person" person can be republished
     When I request a republish of the "Existing Person" person
-    Then I can see the "Existing Person" person has been scheduled for republishing
+    Then I can see the "Existing Person" person has been republished
 
   Scenario: Republish a role
     Given a published role "An Existing Role" exists
     And the "An Existing Role" role can be republished
     When I request a republish of the "An Existing Role" role
-    Then I can see the "An Existing Role" role has been scheduled for republishing
+    Then I can see the "An Existing Role" role has been republished
 
   Scenario: Republish a document
     Given a document with slug "an-existing-document" exists
     And the "an-existing-document" document's editions can be republished
     When I request a republish of the "an-existing-document" document's editions
-    Then I can see the "an-existing-document" document's editions have been scheduled for republishing
+    Then I can see the "an-existing-document" document's editions have been republished

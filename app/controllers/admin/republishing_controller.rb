@@ -20,7 +20,7 @@ class Admin::RepublishingController < Admin::BaseController
     return render "admin/errors/not_found", status: :not_found unless page_to_republish
 
     PresentPageToPublishingApiWorker.perform_async(page_to_republish[:presenter])
-    flash[:notice] = "The '#{page_to_republish[:title]}' page has been scheduled for republishing"
+    flash[:notice] = "The page '#{page_to_republish[:title]}' has been scheduled for republishing"
     redirect_to(admin_republishing_index_path)
   end
 
@@ -51,7 +51,7 @@ class Admin::RepublishingController < Admin::BaseController
     end
 
     @organisation.publish_to_publishing_api
-    flash[:notice] = "The '#{@organisation.name}' organisation has been scheduled for republishing"
+    flash[:notice] = "The organisation '#{@organisation.name}' has been republished"
     redirect_to(admin_republishing_index_path)
   end
 
@@ -82,7 +82,7 @@ class Admin::RepublishingController < Admin::BaseController
     end
 
     @person.publish_to_publishing_api
-    flash[:notice] = "The '#{@person.name}' person has been scheduled for republishing"
+    flash[:notice] = "The person '#{@person.name}' has been republished"
     redirect_to(admin_republishing_index_path)
   end
 
@@ -113,7 +113,7 @@ class Admin::RepublishingController < Admin::BaseController
     end
 
     @role.publish_to_publishing_api
-    flash[:notice] = "The '#{@role.name}' role has been scheduled for republishing"
+    flash[:notice] = "The role '#{@role.name}' has been republished"
     redirect_to(admin_republishing_index_path)
   end
 
@@ -144,7 +144,7 @@ class Admin::RepublishingController < Admin::BaseController
     end
 
     PublishingApiDocumentRepublishingWorker.new.perform(@document.id)
-    flash[:notice] = "Editions for the document with slug '#{@document.slug}' have been scheduled for republishing"
+    flash[:notice] = "Editions for the document with slug '#{@document.slug}' have been republished"
     redirect_to(admin_republishing_index_path)
   end
 

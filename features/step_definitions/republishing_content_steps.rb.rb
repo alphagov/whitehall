@@ -9,7 +9,7 @@ When(/^I request a republish of the "([^"]*)" page$/) do |page_title|
 end
 
 Then(/^I can see the "([^"]*)" page has been scheduled for republishing/) do |page_title|
-  expect(page).to have_selector(".gem-c-success-alert", text: "The '#{page_title}' page has been scheduled for republishing")
+  expect(page).to have_selector(".gem-c-success-alert", text: "The page '#{page_title}' has been scheduled for republishing")
 end
 
 Given(/^a published organisation "An Existing Organisation" exists$/) do
@@ -28,8 +28,8 @@ When(/^I request a republish of the "An Existing Organisation" organisation$/) d
   click_button("Confirm republishing")
 end
 
-Then(/^I can see the "An Existing Organisation" organisation has been scheduled for republishing/) do
-  expect(page).to have_selector(".gem-c-success-alert", text: "The 'An Existing Organisation' organisation has been scheduled for republishing")
+Then(/^I can see the "An Existing Organisation" organisation has been republished/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "The organisation 'An Existing Organisation' has been republished")
 end
 
 Given(/^a published person "Existing Person" exists$/) do
@@ -48,8 +48,8 @@ When(/^I request a republish of the "Existing Person" person$/) do
   click_button("Confirm republishing")
 end
 
-Then(/^I can see the "Existing Person" person has been scheduled for republishing/) do
-  expect(page).to have_selector(".gem-c-success-alert", text: "The 'Existing Person' person has been scheduled for republishing")
+Then(/^I can see the "Existing Person" person has been republished/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "The person 'Existing Person' has been republished")
 end
 
 Given(/^a published role "An Existing Role" exists$/) do
@@ -68,8 +68,8 @@ When(/^I request a republish of the "An Existing Role" role$/) do
   click_button("Confirm republishing")
 end
 
-Then(/^I can see the "An Existing Role" role has been scheduled for republishing/) do
-  expect(page).to have_selector(".gem-c-success-alert", text: "The 'An Existing Role' role has been scheduled for republishing")
+Then(/^I can see the "An Existing Role" role has been republished/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "The role 'An Existing Role' has been republished")
 end
 
 Given(/^a document with slug "an-existing-document" exists$/) do
@@ -89,8 +89,8 @@ When(/^I request a republish of the "an-existing-document" document's editions$/
   click_button("Confirm republishing")
 end
 
-Then(/^I can see the "an-existing-document" document's editions have been scheduled for republishing/) do
-  expect(page).to have_selector(".gem-c-success-alert", text: "Editions for the document with slug 'an-existing-document' have been scheduled for republishing")
+Then(/^I can see the "an-existing-document" document's editions have been republished/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "Editions for the document with slug 'an-existing-document' have been republished")
 end
 
 def republishing_link_id_from_page_title(page_title)
