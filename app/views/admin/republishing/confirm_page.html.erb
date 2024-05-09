@@ -9,10 +9,19 @@
     </p>
     <%= form_with(url: @republishing_path, method: :post, data: {
         module: "prevent-multiple-form-submissions",
-      }) do
-        render("govuk_publishing_components/components/button", {
+      }) do %>
+        <%= render("govuk_publishing_components/components/textarea", {
+          label: {
+            text: "What is the reason for republishing this page?",
+            heading_size: "m",
+          },
+          name: "reason",
+          id: "reason",
+        }) %>
+
+        <%= render("govuk_publishing_components/components/button", {
           text: "Confirm republishing",
-        })
-      end %>
+        }) %>
+   <% end %>
   </section>
 </div>

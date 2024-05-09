@@ -21,6 +21,13 @@ class Admin::RepublishingController < Admin::BaseController
 
     PresentPageToPublishingApiWorker.perform_async(page_to_republish[:presenter])
     flash[:notice] = "The '#{page_to_republish[:title]}' page has been scheduled for republishing"
+
+    RepublishingEvent.create!(
+      action: "Republished page: #{page_to_republish[:title]}",
+      reason: params[:reason],
+      user: current_user
+    )
+
     redirect_to(admin_republishing_index_path)
   end
 
