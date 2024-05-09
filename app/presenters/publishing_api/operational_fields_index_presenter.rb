@@ -9,7 +9,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         nil,
-        title: "Fields of operation",
+        title:,
         update_type:,
       ).base_attributes
 
@@ -31,6 +31,10 @@ module PublishingApi
 
     def content_id
       "53c8e227-3778-4c85-a569-384457c0a281"
+    end
+
+    def title
+      "Fields of operation"
     end
 
     def base_path

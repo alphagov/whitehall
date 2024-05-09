@@ -15,7 +15,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         nil,
-        title: "Ministers",
+        title:,
         update_type:,
       ).base_attributes
 
@@ -44,6 +44,10 @@ module PublishingApi
         ordered_house_lords_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseofLords),
         ordered_baronesses_and_lords_in_waiting_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::BaronessAndLordsInWaiting),
       }
+    end
+
+    def title
+      "Ministers"
     end
 
     def base_path

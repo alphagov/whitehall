@@ -7,7 +7,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         nil,
-        title: "Departments, agencies and public bodies",
+        title:,
         update_type: "minor",
         locale: "en", # NOTE: the organisations index page is only available in english
       ).base_attributes
@@ -23,6 +23,10 @@ module PublishingApi
       )
 
       content.merge!(PayloadBuilder::Routes.for(base_path))
+    end
+
+    def title
+      "Departments, agencies and public bodies"
     end
 
     def base_path
