@@ -70,6 +70,18 @@
       } %>
     </div>
   </div>
+  <% if Flipflop.govspeak_visual_editor? && current_user.can_see_visual_editor_private_beta? %>
+    <%= render "govuk_publishing_components/components/inset_text", {
+    } do %>
+      <p class="govuk-body">Visual Editor is not available for this document due to one of the following reasons. The visual editor will be available for new documents.</p>
+      <ul>
+        <li>You or someone else chose to stop using the visual editor for this document</li>
+        <li>You or someone else edited this document using the markdown editor</li>
+        <li>This document was created before the launch of the visual editor</li>
+        <li class="app-no-js">You have JavaScript disabled</li>
+      </ul>
+    <% end %>
+  <% end %>
   <div class="app-c-govspeak-editor__textarea">
     <%= render "govuk_publishing_components/components/textarea", {
       name: name,

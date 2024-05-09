@@ -10,11 +10,13 @@ end
 Then(/^I should see the visual editor instead of the govspeak editor$/) do
   expect(page).to have_selector(".app-c-visual-editor__visual-editor-wrapper", visible: true)
   expect(page).to have_selector(".app-c-visual-editor__govspeak-editor-wrapper", visible: false)
+  expect(page).to have_selector(".app-c-govspeak-editor .govuk-inset-text", visible: false)
 end
 
 Then(/^I should see the govspeak editor instead of the visual editor$/) do
   expect(page).to have_selector(".app-c-visual-editor__govspeak-editor-wrapper", visible: true)
   expect(page).to have_selector(".app-c-visual-editor__visual-editor-wrapper", visible: false)
+  expect(page).to have_selector(".app-c-govspeak-editor .govuk-inset-text", visible: true)
 end
 
 Then(/^I should see the govspeak editor$/) do
