@@ -9,7 +9,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         nil,
-        title: "Help and services around the world",
+        title:,
         update_type:,
       ).base_attributes
 
@@ -38,6 +38,10 @@ module PublishingApi
 
     def content_id
       "369729ba-7776-4123-96be-2e3e98e153e1"
+    end
+
+    def title
+      "Help and services around the world"
     end
 
     def base_path

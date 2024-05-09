@@ -10,7 +10,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         nil,
-        title: I18n.t("organisation.embassies.find_an_embassy_title"),
+        title:,
         update_type: "minor",
       ).base_attributes
 
@@ -27,6 +27,10 @@ module PublishingApi
 
     def links
       { parent: [WORLD_INDEX_CONTENT_ID] }
+    end
+
+    def title
+      I18n.t("organisation.embassies.find_an_embassy_title")
     end
 
     def base_path

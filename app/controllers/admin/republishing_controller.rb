@@ -167,7 +167,7 @@ private
       presenter_instance = presenter_class_string.constantize.new
 
       {
-        title: presenter_instance.content[:title],
+        title: presenter_instance.title,
         public_path: presenter_instance.base_path,
         slug: presenter_instance.base_path.split("/").last,
         presenter: presenter_class_string,

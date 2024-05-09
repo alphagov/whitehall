@@ -15,7 +15,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         nil,
-        title: "Past Prime Ministers",
+        title:,
         update_type:,
       ).base_attributes
 
@@ -37,6 +37,10 @@ module PublishingApi
       role = Role.friendly.find("prime-minister")
       people_to_present = (role.role_appointments.historic.map(&:person) - HistoricalAccount.all.map(&:person)).uniq
       people_to_present.map { |person| compose_person person, role }
+    end
+
+    def title
+      "Past Prime Ministers"
     end
 
     def base_path

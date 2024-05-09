@@ -13,7 +13,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         nil,
-        title: "How government works",
+        title:,
         update_type:,
       ).base_attributes
 
@@ -28,6 +28,10 @@ module PublishingApi
       )
 
       content.merge!(PayloadBuilder::Routes.for(base_path))
+    end
+
+    def title
+      "How government works"
     end
 
     def base_path
