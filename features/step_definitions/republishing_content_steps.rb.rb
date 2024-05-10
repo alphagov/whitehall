@@ -5,6 +5,7 @@ end
 When(/^I request a republish of the "([^"]*)" page$/) do |page_title|
   visit admin_republishing_index_path
   find(republishing_link_id_from_page_title(page_title)).click
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 

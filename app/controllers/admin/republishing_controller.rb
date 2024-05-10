@@ -10,18 +10,30 @@ class Admin::RepublishingController < Admin::BaseController
 
     return render "admin/errors/not_found", status: :not_found unless page_to_republish
 
+    @republishing_event = RepublishingEvent.new
     @title = page_to_republish[:title]
     @republishing_path = admin_republishing_page_republish_path(page_to_republish[:slug])
   end
 
   def republish_page
     page_to_republish = republishable_pages.find { |page| page[:slug] == params[:page_slug] }
-
     return render "admin/errors/not_found", status: :not_found unless page_to_republish
 
-    PresentPageToPublishingApiWorker.perform_async(page_to_republish[:presenter])
-    flash[:notice] = "The page '#{page_to_republish[:title]}' has been scheduled for republishing"
-    redirect_to(admin_republishing_index_path)
+    action = "The page '#{page_to_republish[:title]}' has been scheduled for republishing"
+
+    @republishing_event = build_republishing_event(action)
+
+    if @republishing_event.save
+      PresentPageToPublishingApiWorker.perform_async(page_to_republish[:presenter])
+      flash[:notice] = action
+
+      redirect_to(admin_republishing_index_path)
+    else
+      @title = page_to_republish[:title]
+      @republishing_path = admin_republishing_page_republish_path(page_to_republish[:slug])
+
+      render "confirm_page"
+    end
   end
 
   def find_organisation; end
@@ -173,5 +185,9 @@ private
         presenter: presenter_class_string,
       }
     end
+  end
+
+  def build_republishing_event(action)
+    RepublishingEvent.new(user: current_user, reason: params.fetch(:reason), action:)
   end
 end
