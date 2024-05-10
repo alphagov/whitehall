@@ -290,11 +290,10 @@ module ServiceListeners
       test "with an html attachment on a new document saves it as a draft" do
         publication = create(:draft_publication)
         attachment = publication.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           attachment,
-          "en",
           "major",
-        )
+        ).once
         call(publication)
       end
 
@@ -303,11 +302,10 @@ module ServiceListeners
         new_edition = publication.create_draft(create(:writer))
 
         attachment = new_edition.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           attachment,
-          "en",
           "major",
-        )
+        ).once
 
         call(new_edition)
       end
@@ -328,11 +326,10 @@ module ServiceListeners
         new_edition.attachments = [build(:html_attachment)]
 
         new_attachment = new_edition.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           new_attachment,
-          "en",
           "major",
-        )
+        ).once
 
         call(new_edition)
       end
@@ -355,17 +352,15 @@ module ServiceListeners
       test "with an office on a new editionable worldwide organisation saves the office as draft" do
         worldwide_organisation = create(:editionable_worldwide_organisation, :with_main_office)
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office,
-          "en",
           "major",
-        )
+        ).once
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office.contact,
-          "en",
           "major",
-        )
+        ).once
 
         call(worldwide_organisation)
       end
@@ -668,34 +663,30 @@ module ServiceListeners
       test "for a draft publication with an attachment saves the draft" do
         publication = create(:draft_publication)
         attachment = publication.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           attachment,
-          "en",
           "republish",
-        )
+        ).once
         call(publication)
       end
 
       test "for a draft editionable worldwide organisation with an office and page publishes the draft office and page" do
         worldwide_organisation = create(:draft_editionable_worldwide_organisation, :with_main_office, :with_page)
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office,
-          "en",
           "republish",
-        )
+        ).once
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office.contact,
-          "en",
           "republish",
-        )
+        ).once
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.pages.first,
-          "en",
           "republish",
-        )
+        ).once
 
         call(worldwide_organisation)
       end

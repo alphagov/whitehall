@@ -395,6 +395,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:draft_editionable_worldwide_organisation)
 
     Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation)
+    Whitehall::PublishingApi.expects(:save_draft).with(instance_of(WorldwideOffice), "major").at_least_once
+    Whitehall::PublishingApi.expects(:save_draft).with(instance_of(Contact), "major").at_least_once
 
     post :create,
          params: {
@@ -415,6 +417,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation), worldwide_organisation: nil)
 
     Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
+    Whitehall::PublishingApi.expects(:save_draft).with(office, "major")
+    Whitehall::PublishingApi.expects(:save_draft).with(office.contact, "major")
 
     put :update,
         params: {

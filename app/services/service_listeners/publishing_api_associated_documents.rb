@@ -36,9 +36,8 @@ module ServiceListeners
 
     def update_draft(update_type: nil)
       current_associated_documents.each do |associated_document|
-        Whitehall::PublishingApi.save_draft_translation(
+        Whitehall::PublishingApi.save_draft(
           associated_document,
-          locale_for_document(associated_document),
           update_type || (edition.minor_change? ? "minor" : "major"),
         )
       end
