@@ -320,4 +320,28 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
 
     assert_equal worldwide_organisation.updated_at, presented_item.content[:public_updated_at]
   end
+
+  test "does not convert an absent body to govspeak" do
+    worldwide_org = create(:worldwide_organisation)
+    create(:about_corporate_information_page,
+           organisation: nil,
+           body: nil,
+           worldwide_organisation: worldwide_org)
+
+    presented_item = present(worldwide_org.reload)
+
+    assert_equal "", presented_item.content.dig(:details, :body)
+  end
+
+  test "does not convert an empty body to govspeak" do
+    worldwide_org = create(:worldwide_organisation)
+    create(:about_corporate_information_page,
+           organisation: nil,
+           body: "",
+           worldwide_organisation: worldwide_org)
+
+    presented_item = present(worldwide_org.reload)
+
+    assert_equal "", presented_item.content.dig(:details, :body)
+  end
 end

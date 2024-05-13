@@ -63,7 +63,11 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(about_us) || ""
+      if about_us&.body.present?
+        Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(about_us)
+      else
+        ""
+      end
     end
 
     def public_updated_at
