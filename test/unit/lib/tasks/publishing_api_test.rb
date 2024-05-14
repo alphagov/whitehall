@@ -61,48 +61,6 @@ class PublishingApiRake < ActiveSupport::TestCase
     end
   end
 
-  describe "republish" do
-    describe "#document_by_slug" do
-      let(:task) { Rake::Task["publishing_api:republish:document_by_slug"] }
-
-      test "republishes document by slug" do
-        document = create(:document)
-        PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id)
-        capture_io { task.invoke(document.slug) }
-      end
-    end
-
-    describe "#organisation_by_slug" do
-      let(:task) { Rake::Task["publishing_api:republish:organisation_by_slug"] }
-
-      test "Republishes organisation by slug" do
-        record = create(:organisation)
-        Organisation.any_instance.expects(:publish_to_publishing_api)
-        capture_io { task.invoke(record.slug) }
-      end
-    end
-
-    describe "#person_by_slug" do
-      let(:task) { Rake::Task["publishing_api:republish:person_by_slug"] }
-
-      test "Republishes person by slug" do
-        record = create(:person)
-        Person.any_instance.expects(:publish_to_publishing_api)
-        capture_io { task.invoke(record.slug) }
-      end
-    end
-
-    describe "#role_by_slug" do
-      let(:task) { Rake::Task["publishing_api:republish:role_by_slug"] }
-
-      test "Republishes role by slug" do
-        record = create(:role)
-        Role.any_instance.expects(:publish_to_publishing_api)
-        capture_io { task.invoke(record.slug) }
-      end
-    end
-  end
-
   describe "patch_links" do
     describe "#organisations" do
       let(:task) { Rake::Task["publishing_api:patch_links:organisations"] }
