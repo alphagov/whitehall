@@ -47,22 +47,22 @@ class Admin::MoreControllerTest < ActionController::TestCase
     refute_select "a.govuk-link", text: "Sitewide settings"
   end
 
-  view_test "GET #index renders Worldwide Organisations when the editionable_worldwide_organisations feature flag is switched off" do
+  view_test "GET #index renders Worldwide Organisations with link to non-editionable index when the editionable_worldwide_organisations feature flag is switched off" do
     feature_flags.switch! :editionable_worldwide_organisations, false
 
     get :index
 
     assert_select ".govuk-list"
-    assert_select "a.govuk-link", text: "Worldwide organisations"
+    assert_select "a.govuk-link[href=?]", "/government/admin/worldwide_organisations", text: "Worldwide organisations"
   end
 
-  view_test "GET #index does not render Worldwide Organisations when the editionable_worldwide_organisations feature flag is switched on" do
+  view_test "GET #index renders Worldwide Organisations with link to editions index when the editionable_worldwide_organisations feature flag is switched on" do
     feature_flags.switch! :editionable_worldwide_organisations, true
 
     get :index
 
     assert_select ".govuk-list"
-    refute_select "a.govuk-link", text: "Worldwide organisations"
+    assert_select "a.govuk-link[href=?]", "/government/admin/editions?type=editionable_worldwide_organisation", text: "Worldwide organisations"
   end
 
   view_test "GET #index does not render Emergency Banner option when the user is not a GDS Admin." do
