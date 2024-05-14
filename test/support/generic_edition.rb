@@ -1,5 +1,6 @@
 class GenericEdition < Edition
   include Attachable
+  include Edition::Organisations
 
   class << self
     attr_accessor :translatable
