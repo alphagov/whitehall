@@ -281,7 +281,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
   end
 
-  view_test "GET :new shows visual editor if permission and feature flag are enabled" do
+  view_test "GET :new shows visual editor and no markdown help if permission and feature flag are enabled" do
     feature_flags.switch!(:govspeak_visual_editor, true)
     current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
 
@@ -289,6 +289,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :new, params: { edition_id: publication, type: "html" }
 
     assert_select(".app-c-visual-editor__container")
+    assert_select ".govspeak-help", visible: false, count: 1
   end
 
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
@@ -309,7 +310,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "input[type=file]"
   end
 
-  view_test "GET :edit shows visual editor if permission and feature flag are enabled, and attachment has been saved with visual editor" do
+  view_test "GET :edit shows visual editor and no markdown help if permission and feature flag are enabled, and attachment has been saved with visual editor" do
     feature_flags.switch!(:govspeak_visual_editor, true)
     current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
 
@@ -317,9 +318,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :edit, params: { edition_id: @edition, id: attachment }
 
     assert_select(".app-c-visual-editor__container")
+    assert_select ".govspeak-help", visible: false, count: 1
   end
 
-  view_test "edit form does not render visual editor for exited attachments" do
+  view_test "edit form does not render visual editor, and renders the markdown help, for exited attachments" do
     feature_flags.switch!(:govspeak_visual_editor, true)
     current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
 
@@ -327,9 +329,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :edit, params: { edition_id: @edition, id: attachment }
 
     assert_select ".app-c-visual-editor__container", count: 0
+    assert_select ".govspeak-help", count: 1
   end
 
-  view_test "edit form does not render visual editor for pre-existing attachments" do
+  view_test "edit form does not render visual editor, and renders the markdown help, for pre-existing attachments" do
     feature_flags.switch!(:govspeak_visual_editor, true)
     current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
 
@@ -337,6 +340,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :edit, params: { edition_id: @edition, id: attachment }
 
     assert_select ".app-c-visual-editor__container", count: 0
+    assert_select ".govspeak-help", count: 1
   end
 
   test "PUT :update for HTML attachment updates the attachment" do
