@@ -449,15 +449,31 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to POST :republish_document with an existing document slug" do
+  test "GDS Admin users should be able to POST :republish_document with an existing document slug, creating a RepublishingEvent for the current user" do
     document = create(:document, slug: "an-existing-document")
 
     PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id).once
 
-    post :republish_document, params: { document_slug: "an-existing-document" }
+    post :republish_document, params: { document_slug: "an-existing-document", reason: "this needs republishing" }
+
+    newly_created_event = RepublishingEvent.last
+    assert_equal newly_created_event.user, current_user
+    assert_equal newly_created_event.reason, "this needs republishing"
+    assert_equal newly_created_event.action, "Editions for the document with slug 'an-existing-document' have been republished"
 
     assert_redirected_to admin_republishing_index_path
     assert_equal "Editions for the document with slug 'an-existing-document' have been republished", flash[:notice]
+  end
+
+  test "GDS Admin users should encounter an error on POST :republish_document without a `reason` and be sent back to the confirm page" do
+    document = create(:document, slug: "an-existing-document")
+
+    PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id).never
+
+    post :republish_document, params: { document_slug: "an-existing-document", reason: "" }
+
+    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_template "confirm_document"
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_document with a nonexistent document slug" do

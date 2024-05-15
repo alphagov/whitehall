@@ -174,6 +174,8 @@ class Admin::RepublishingController < Admin::BaseController
       @document = Document.find_by(slug: params[:document_slug])
       render "admin/errors/not_found", status: :not_found unless @document
     end
+
+    @republishing_event = RepublishingEvent.new
   end
 
   def republish_document
@@ -182,9 +184,16 @@ class Admin::RepublishingController < Admin::BaseController
       return render "admin/errors/not_found", status: :not_found unless @document
     end
 
-    PublishingApiDocumentRepublishingWorker.new.perform(@document.id)
-    flash[:notice] = "Editions for the document with slug '#{@document.slug}' have been republished"
-    redirect_to(admin_republishing_index_path)
+    action = "Editions for the document with slug '#{@document.slug}' have been republished"
+    @republishing_event = build_republishing_event(action)
+
+    if @republishing_event.save
+      PublishingApiDocumentRepublishingWorker.new.perform(@document.id)
+      flash[:notice] = action
+      redirect_to(admin_republishing_index_path)
+    else
+      render "confirm_document"
+    end
   end
 
 private

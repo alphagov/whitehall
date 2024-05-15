@@ -90,6 +90,7 @@ When(/^I request a republish of the "an-existing-document" document's editions$/
   find("#republish-document").click
   fill_in "Enter the slug for the document", with: "an-existing-document"
   click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 
