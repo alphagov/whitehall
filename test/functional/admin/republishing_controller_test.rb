@@ -46,13 +46,27 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to POST :republish_page with a republishable page slug" do
+  test "GDS Admin users should be able to POST :republish_page with a republishable page slug, creating a RepublishingEvent for the current user" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").once
 
-    post :republish_page, params: { page_slug: "past-prime-ministers" }
+    post :republish_page, params: { page_slug: "past-prime-ministers", reason: "this needs republishing" }
+
+    newly_created_event = RepublishingEvent.last
+    assert_equal newly_created_event.user, current_user
+    assert_equal newly_created_event.reason, "this needs republishing"
+    assert_equal newly_created_event.action, "The page 'Past Prime Ministers' has been scheduled for republishing"
 
     assert_redirected_to admin_republishing_index_path
     assert_equal "The page 'Past Prime Ministers' has been scheduled for republishing", flash[:notice]
+  end
+
+  test "GDS Admin users should encounter an error on POST :republish page without a `reason` and be sent back to the confirm page" do
+    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
+
+    post :republish_page, params: { page_slug: "past-prime-ministers", reason: "" }
+
+    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_template "confirm_page"
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_page with an unregistered page slug" do
