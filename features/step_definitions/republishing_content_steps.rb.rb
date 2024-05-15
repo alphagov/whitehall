@@ -68,6 +68,7 @@ When(/^I request a republish of the "An Existing Role" role$/) do
   find("#republish-role").click
   fill_in "Enter the slug for the role", with: "an-existing-role"
   click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 

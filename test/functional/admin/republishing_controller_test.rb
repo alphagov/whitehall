@@ -347,15 +347,30 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to POST :republish_role with an existing role slug" do
+  test "GDS Admin users should be able to POST :republish_role with an existing role slug, creating a RepublishingEvent for the current user" do
     create(:role, slug: "an-existing-role", name: "An Existing Role")
 
     Role.any_instance.expects(:publish_to_publishing_api).once
 
-    post :republish_role, params: { role_slug: "an-existing-role" }
+    post :republish_role, params: { role_slug: "an-existing-role", reason: "this needs republishing" }
 
+    newly_created_event = RepublishingEvent.last
+    assert_equal newly_created_event.user, current_user
+    assert_equal newly_created_event.reason, "this needs republishing"
+    assert_equal newly_created_event.action, "The role 'An Existing Role' has been republished"
     assert_redirected_to admin_republishing_index_path
     assert_equal "The role 'An Existing Role' has been republished", flash[:notice]
+  end
+
+  test "GDS Admin users should encounter an error on POST :republish_role without a `reason` and be sent back to the confirm page" do
+    create(:role, slug: "an-existing-role", name: "An Existing Role")
+
+    Role.any_instance.expects(:publish_to_publishing_api).never
+
+    post :republish_role, params: { role_slug: "an-existing-role", reason: "" }
+
+    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_template "confirm_role"
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_role with a nonexistent role slug" do

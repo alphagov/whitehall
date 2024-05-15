@@ -1,6 +1,7 @@
 <% content_for :page_title, "Republish '#{@role.name}'" %>
 <% content_for :title, "Are you sure you want to republish '#{@role.name}'?" %>
 <% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @republishing_event)) %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
@@ -11,12 +12,6 @@
         This will republish the role '<%= @role.name %>'.
       <% end %>
     </p>
-    <%= form_with(url: admin_republishing_role_republish_path(@role.slug), method: :post, data: {
-        module: "prevent-multiple-form-submissions",
-      }) do
-        render("govuk_publishing_components/components/button", {
-          text: "Confirm republishing",
-        })
-      end %>
+    <%= render "form", republishing_url: admin_republishing_role_republish_path(@role.slug) %>
   </section>
 </div>
