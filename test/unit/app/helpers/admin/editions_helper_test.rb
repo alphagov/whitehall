@@ -74,4 +74,16 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     assert_equal expected_result, reset_search_fields_query_string_params(user, admin_editions_path, "#anchor")
   end
+
+  test "#edition_type returns a concatenated string where an edition has a parent type" do
+    edition = build(:news_article)
+
+    assert_equal "News article: Press release", edition_type(edition)
+  end
+
+  test "#edition_type returns a single string where an edition does not have a parent type" do
+    edition = build(:editionable_worldwide_organisation)
+
+    assert_equal "Worldwide organisation", edition_type(edition)
+  end
 end

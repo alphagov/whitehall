@@ -577,6 +577,10 @@ EXISTS (
     self.class.format_name
   end
 
+  def has_parent_type?
+    true
+  end
+
   def display_type
     I18n.t("document.type.#{display_type_key}", count: 1)
   end

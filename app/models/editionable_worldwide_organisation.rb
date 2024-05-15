@@ -82,6 +82,10 @@ class EditionableWorldwideOrganisation < Edition
     "editionable_worldwide_organisation"
   end
 
+  def has_parent_type?
+    false
+  end
+
   def self.format_name
     "worldwide organisation"
   end
