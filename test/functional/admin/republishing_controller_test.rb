@@ -143,15 +143,30 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to POST :republish_organisation with an existing organisation slug" do
+  test "GDS Admin users should be able to POST :republish_organisation with an existing organisation slug, creating a RepublishingEvent for the current user" do
     create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation")
 
     Organisation.any_instance.expects(:publish_to_publishing_api).once
 
-    post :republish_organisation, params: { organisation_slug: "an-existing-organisation" }
+    post :republish_organisation, params: { organisation_slug: "an-existing-organisation", reason: "this needs republishing" }
 
+    newly_created_event = RepublishingEvent.last
+    assert_equal newly_created_event.user, current_user
+    assert_equal newly_created_event.reason, "this needs republishing"
+    assert_equal newly_created_event.action, "The organisation 'An Existing Organisation' has been republished"
     assert_redirected_to admin_republishing_index_path
     assert_equal "The organisation 'An Existing Organisation' has been republished", flash[:notice]
+  end
+
+  test "GDS Admin users should encounter an error on POST :republish_organisation without a `reason` and be sent back to the confirm page" do
+    create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation")
+
+    Organisation.any_instance.expects(:publish_to_publishing_api).never
+
+    post :republish_organisation, params: { organisation_slug: "an-existing-organisation", reason: "" }
+
+    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_template "confirm_organisation"
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_organisation with a nonexistent organisation slug" do

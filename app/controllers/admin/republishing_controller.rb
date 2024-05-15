@@ -54,6 +54,8 @@ class Admin::RepublishingController < Admin::BaseController
       @organisation = Organisation.find_by(slug: params[:organisation_slug])
       render "admin/errors/not_found", status: :not_found unless @organisation
     end
+
+    @republishing_event = RepublishingEvent.new
   end
 
   def republish_organisation
@@ -62,9 +64,16 @@ class Admin::RepublishingController < Admin::BaseController
       return render "admin/errors/not_found", status: :not_found unless @organisation
     end
 
-    @organisation.publish_to_publishing_api
-    flash[:notice] = "The organisation '#{@organisation.name}' has been republished"
-    redirect_to(admin_republishing_index_path)
+    action = "The organisation '#{@organisation.name}' has been republished"
+    @republishing_event = build_republishing_event(action)
+
+    if @republishing_event.save
+      @organisation.publish_to_publishing_api
+      flash[:notice] = action
+      redirect_to(admin_republishing_index_path)
+    else
+      render "confirm_organisation"
+    end
   end
 
   def find_person; end

@@ -26,6 +26,7 @@ When(/^I request a republish of the "An Existing Organisation" organisation$/) d
   find("#republish-organisation").click
   fill_in "Enter the slug for the organisation", with: "an-existing-organisation"
   click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 
