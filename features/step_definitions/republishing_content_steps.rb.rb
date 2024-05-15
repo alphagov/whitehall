@@ -47,6 +47,7 @@ When(/^I request a republish of the "Existing Person" person$/) do
   find("#republish-person").click
   fill_in "Enter the slug for the person", with: "existing-person"
   click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 

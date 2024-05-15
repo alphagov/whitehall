@@ -94,6 +94,8 @@ class Admin::RepublishingController < Admin::BaseController
       @person = Person.find_by(slug: params[:person_slug])
       render "admin/errors/not_found", status: :not_found unless @person
     end
+
+    @republishing_event = RepublishingEvent.new
   end
 
   def republish_person
@@ -102,9 +104,16 @@ class Admin::RepublishingController < Admin::BaseController
       return render "admin/errors/not_found", status: :not_found unless @person
     end
 
-    @person.publish_to_publishing_api
-    flash[:notice] = "The person '#{@person.name}' has been republished"
-    redirect_to(admin_republishing_index_path)
+    action = "The person '#{@person.name}' has been republished"
+    @republishing_event = build_republishing_event(action)
+
+    if @republishing_event.save
+      @person.publish_to_publishing_api
+      flash[:notice] = action
+      redirect_to(admin_republishing_index_path)
+    else
+      render "confirm_person"
+    end
   end
 
   def find_role; end

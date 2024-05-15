@@ -1,18 +1,13 @@
 <% content_for :page_title, "Republish '#{@person.name}'" %>
 <% content_for :title, "Are you sure you want to republish '#{@person.name}'?" %>
 <% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @republishing_event)) %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <p class="govuk-body govuk-!-margin-bottom-7">
       This will republish the person <%= link_to @person.name, @person.public_url, { class: "govuk-link" } %>.
     </p>
-    <%= form_with(url: admin_republishing_person_republish_path(@person.slug), method: :post, data: {
-        module: "prevent-multiple-form-submissions",
-      }) do
-        render("govuk_publishing_components/components/button", {
-          text: "Confirm republishing",
-        })
-      end %>
+    <%= render "form", republishing_url: admin_republishing_person_republish_path(@person.slug) %>
   </section>
 </div>
