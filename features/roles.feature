@@ -1,8 +1,9 @@
 Feature: Administering Roles
-  tHis feature allows the administration of the various different roles in the system
+  This feature allows the administration of the various different roles in the system
 
   Background:
     Given I am an admin
+    And the editionable worldwide organisation feature flag is disabled
 
   Scenario: Adding a traffic commissioner role
     Given the organisation "Department for Transport" exists
@@ -13,6 +14,14 @@ Feature: Administering Roles
   Scenario: Adding a chief scientist
     Given the organisation "Foreign Office" exists
     And a person called "Susan Scientist"
+    When I add a new "Chief scientific advisor" role named "Chief Scientific Advisor to the FCO" to the "Foreign Office"
+    Then I should be able to appoint "Susan Scientist" to the new role
+
+  Scenario: Adding a new role with the editionable worldwide organisation feature flag enabled
+    Given the organisation "Foreign Office" exists
+    And a person called "Susan Scientist"
+    And the editionable worldwide organisation feature flag is enabled
+    Then I should not see the woldwide organisation input field
     When I add a new "Chief scientific advisor" role named "Chief Scientific Advisor to the FCO" to the "Foreign Office"
     Then I should be able to appoint "Susan Scientist" to the new role
 

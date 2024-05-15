@@ -1,3 +1,8 @@
+When(/^the editionable worldwide organisation feature flag is (enabled|disabled)$/) do |flag|
+  @test_strategy ||= Flipflop::FeatureSet.current.test!
+  @test_strategy.switch!(:editionable_worldwide_organisations, flag == "enabled")
+end
+
 Given(/^an ambassador role named "([^"]*)" in the "([^"]*)" worldwide organisation$/) do |role_name, worldwide_organisation_name|
   worldwide_organisation = WorldwideOrganisation.find_by!(name: worldwide_organisation_name)
   create(:ambassador_role, name: role_name, worldwide_organisations: [worldwide_organisation])
@@ -34,6 +39,12 @@ When(/^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" worldwide org
   select role_type, from: "Role type"
   select worldwide_organisation_name, from: "Worldwide organisations"
   click_on "Save"
+end
+
+Then(/^I should not see the woldwide organisation input field$/) do
+  visit admin_roles_path
+  click_on "Create new role"
+  expect(page).to_not have_selector("input[id=role_worldwide_organisation_ids]")
 end
 
 When(/^I add a new "([^"]*)" translation to the role "([^"]*)" with:$/) do |locale_name, role_name, table|
