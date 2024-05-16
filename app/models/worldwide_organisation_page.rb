@@ -7,6 +7,7 @@ class WorldwideOrganisationPage < ApplicationRecord
             presence: true,
             exclusion: { in: [CorporateInformationPageType::AboutUs.id], message: "Type cannot be `About us`" }
   validate :unique_worldwide_organisation_and_page_type, on: :create, if: :edition
+  validate :parent_edition_has_locales, if: :edition
 
   after_commit :republish_worldwide_organisation_draft
   after_destroy :discard_draft
@@ -75,6 +76,14 @@ private
 
     if duplicate_page
       errors.add(:base, "Another '#{display_type_key.humanize}' page already exists for this worldwide organisation")
+    end
+  end
+
+  def parent_edition_has_locales
+    non_existent_translations = non_english_translated_locales - edition.non_english_translated_locales
+
+    unless non_existent_translations.empty?
+      errors.add(:base, "Translations '#{non_existent_translations.map(&:code).join(', ')}' do not exist for this worldwide organisation")
     end
   end
 end

@@ -85,4 +85,19 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
     expected_locales = %i[de fr].map { |l| Locale.new(l) }
     assert_equal expected_locales, page.missing_translations
   end
+
+  test "should be valid when translated into a language that the worldwide organisation has" do
+    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
+    page = create(:worldwide_organisation_page, edition: worldwide_organisation, translated_into: %i[fr])
+
+    assert page.valid?
+  end
+
+  test "should not be valid when translated into a language that the worldwide organisation does not have" do
+    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
+    page = create(:worldwide_organisation_page, edition: worldwide_organisation, translated_into: %i[cy es-419])
+
+    assert_not page.valid?
+    assert page.errors[:base].include?("Translations 'cy, es-419' do not exist for this worldwide organisation")
+  end
 end
