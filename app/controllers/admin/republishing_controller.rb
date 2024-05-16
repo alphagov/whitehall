@@ -54,6 +54,8 @@ class Admin::RepublishingController < Admin::BaseController
       @organisation = Organisation.find_by(slug: params[:organisation_slug])
       render "admin/errors/not_found", status: :not_found unless @organisation
     end
+
+    @republishing_event = RepublishingEvent.new
   end
 
   def republish_organisation
@@ -62,9 +64,16 @@ class Admin::RepublishingController < Admin::BaseController
       return render "admin/errors/not_found", status: :not_found unless @organisation
     end
 
-    @organisation.publish_to_publishing_api
-    flash[:notice] = "The organisation '#{@organisation.name}' has been republished"
-    redirect_to(admin_republishing_index_path)
+    action = "The organisation '#{@organisation.name}' has been republished"
+    @republishing_event = build_republishing_event(action)
+
+    if @republishing_event.save
+      @organisation.publish_to_publishing_api
+      flash[:notice] = action
+      redirect_to(admin_republishing_index_path)
+    else
+      render "confirm_organisation"
+    end
   end
 
   def find_person; end
@@ -85,6 +94,8 @@ class Admin::RepublishingController < Admin::BaseController
       @person = Person.find_by(slug: params[:person_slug])
       render "admin/errors/not_found", status: :not_found unless @person
     end
+
+    @republishing_event = RepublishingEvent.new
   end
 
   def republish_person
@@ -93,9 +104,16 @@ class Admin::RepublishingController < Admin::BaseController
       return render "admin/errors/not_found", status: :not_found unless @person
     end
 
-    @person.publish_to_publishing_api
-    flash[:notice] = "The person '#{@person.name}' has been republished"
-    redirect_to(admin_republishing_index_path)
+    action = "The person '#{@person.name}' has been republished"
+    @republishing_event = build_republishing_event(action)
+
+    if @republishing_event.save
+      @person.publish_to_publishing_api
+      flash[:notice] = action
+      redirect_to(admin_republishing_index_path)
+    else
+      render "confirm_person"
+    end
   end
 
   def find_role; end
@@ -116,6 +134,8 @@ class Admin::RepublishingController < Admin::BaseController
       @role = Role.find_by(slug: params[:role_slug])
       render "admin/errors/not_found", status: :not_found unless @role
     end
+
+    @republishing_event = RepublishingEvent.new
   end
 
   def republish_role
@@ -124,9 +144,16 @@ class Admin::RepublishingController < Admin::BaseController
       return render "admin/errors/not_found", status: :not_found unless @role
     end
 
-    @role.publish_to_publishing_api
-    flash[:notice] = "The role '#{@role.name}' has been republished"
-    redirect_to(admin_republishing_index_path)
+    action = "The role '#{@role.name}' has been republished"
+    @republishing_event = build_republishing_event(action)
+
+    if @republishing_event.save
+      @role.publish_to_publishing_api
+      flash[:notice] = action
+      redirect_to(admin_republishing_index_path)
+    else
+      render "confirm_role"
+    end
   end
 
   def find_document; end
@@ -147,6 +174,8 @@ class Admin::RepublishingController < Admin::BaseController
       @document = Document.find_by(slug: params[:document_slug])
       render "admin/errors/not_found", status: :not_found unless @document
     end
+
+    @republishing_event = RepublishingEvent.new
   end
 
   def republish_document
@@ -155,9 +184,16 @@ class Admin::RepublishingController < Admin::BaseController
       return render "admin/errors/not_found", status: :not_found unless @document
     end
 
-    PublishingApiDocumentRepublishingWorker.new.perform(@document.id)
-    flash[:notice] = "Editions for the document with slug '#{@document.slug}' have been republished"
-    redirect_to(admin_republishing_index_path)
+    action = "Editions for the document with slug '#{@document.slug}' have been republished"
+    @republishing_event = build_republishing_event(action)
+
+    if @republishing_event.save
+      PublishingApiDocumentRepublishingWorker.new.perform(@document.id)
+      flash[:notice] = action
+      redirect_to(admin_republishing_index_path)
+    else
+      render "confirm_document"
+    end
   end
 
 private

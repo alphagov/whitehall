@@ -26,6 +26,7 @@ When(/^I request a republish of the "An Existing Organisation" organisation$/) d
   find("#republish-organisation").click
   fill_in "Enter the slug for the organisation", with: "an-existing-organisation"
   click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 
@@ -46,6 +47,7 @@ When(/^I request a republish of the "Existing Person" person$/) do
   find("#republish-person").click
   fill_in "Enter the slug for the person", with: "existing-person"
   click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 
@@ -66,6 +68,7 @@ When(/^I request a republish of the "An Existing Role" role$/) do
   find("#republish-role").click
   fill_in "Enter the slug for the role", with: "an-existing-role"
   click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 
@@ -87,6 +90,7 @@ When(/^I request a republish of the "an-existing-document" document's editions$/
   find("#republish-document").click
   fill_in "Enter the slug for the document", with: "an-existing-document"
   click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
 end
 
