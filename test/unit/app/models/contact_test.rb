@@ -292,4 +292,21 @@ class ContactTest < ActiveSupport::TestCase
       office.contact.destroy!
     end
   end
+
+  test "when associated with a WorldwideOffice should be valid when translated into a language that the worldwide office's associated organisation has" do
+    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
+    office = create(:worldwide_office, edition: worldwide_organisation, worldwide_organisation: nil)
+    contact = create(:contact, contactable: office, translated_into: %i[fr])
+
+    assert contact.valid?
+  end
+
+  test "when associated with a WorldwideOffice should not be valid when translated into a language that the worldwide office's associated organisation does not have" do
+    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
+    office = create(:worldwide_office, edition: worldwide_organisation, worldwide_organisation: nil)
+    contact = create(:contact, contactable: office, translated_into: %i[cy es-419])
+
+    assert_not contact.valid?
+    assert contact.errors[:base].include?("Translations 'cy, es-419' do not exist for this worldwide organisation")
+  end
 end

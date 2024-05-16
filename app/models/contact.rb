@@ -14,6 +14,8 @@ class Contact < ApplicationRecord
   validates :street_address, :country_id, presence: true, if: ->(r) { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
+  validate :parent_edition_has_locales, if: :attached_to_editionable_worldwide_organisation?
+
   after_update :republish_dependent_editions
   after_update :republish_dependent_policy_groups
   after_update :republish_organisation_to_publishing_api
@@ -101,5 +103,17 @@ class Contact < ApplicationRecord
 
   def publishing_api_presenter
     PublishingApi::ContactPresenter
+  end
+
+  def attached_to_editionable_worldwide_organisation?
+    contactable.is_a?(WorldwideOffice) && contactable.edition
+  end
+
+  def parent_edition_has_locales
+    non_existent_translations = non_english_translated_locales - contactable.edition.non_english_translated_locales
+
+    unless non_existent_translations.empty?
+      errors.add(:base, "Translations '#{non_existent_translations.map(&:code).join(', ')}' do not exist for this worldwide organisation")
+    end
   end
 end
