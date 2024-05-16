@@ -179,7 +179,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "should clone office and contact associations when new draft of published edition is created" do
     contact = create(:contact, translated_into: [:es])
-    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published)
+    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, translated_into: [:es])
     create(:worldwide_office, worldwide_organisation: nil, edition: published_worldwide_organisation, contact:)
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
