@@ -10,15 +10,6 @@ on:
   pull_request:
 
 jobs:
-  snyk-security:
-    name: SNYK security analysis
-    uses: alphagov/govuk-infrastructure/.github/workflows/snyk-security.yml@main
-    secrets: inherit
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
-  
   codeql-sast:
     name: CodeQL SAST scan
     uses: alphagov/govuk-infrastructure/.github/workflows/codeql-analysis.yml@main
