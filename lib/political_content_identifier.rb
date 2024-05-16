@@ -1,5 +1,6 @@
 class PoliticalContentIdentifier
   POTENTIALLY_POLITICAL_FORMATS = [
+    CallForEvidence,
     Consultation,
     Speech,
     NewsArticle,
