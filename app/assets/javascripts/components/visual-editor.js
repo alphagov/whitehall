@@ -33,6 +33,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.contentEditable = this.container.querySelector(
       'div[contenteditable="true"]'
     )
+    this.markdownHelp = document.querySelector('.govspeak-help')
 
     this.exitButton.addEventListener('click', this.hideVisualEditor.bind(this))
     this.showVisualEditor()
@@ -44,6 +45,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     )
     this.visualEditorWrapper.classList.add(
       'app-c-visual-editor__visual-editor-wrapper--show'
+    )
+    this.markdownHelp.classList.add(
+      'app-c-visual-editor__markdown-help--hidden'
     )
     this.visual_editor_flag.value = true
 
@@ -57,6 +61,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     )
     this.visualEditorWrapper.classList.remove(
       'app-c-visual-editor__visual-editor-wrapper--show'
+    )
+    this.markdownHelp.classList.remove(
+      'app-c-visual-editor__markdown-help--hidden'
     )
     this.visual_editor_flag.value = false
 
