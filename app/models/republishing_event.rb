@@ -22,6 +22,22 @@ class RepublishingEvent < ApplicationRecord
     worldwide_corporate_information_pages_by_states
   ]
 
+  def self.humanised_bulk_content_type(bulk_content_type)
+    {
+      all_about_us_pages: "all about us pages",
+      all_documents: "all documents",
+      all_documents_with_pre_publication_editions: "all documents with pre-publication editions",
+      all_documents_with_pre_publication_editions_with_html_attachments: "all documents with pre-publication editions with HTML attachments",
+      all_documents_with_publicly_visible_editions_with_attachments: "all documents with publicly-visible editions with attachments",
+      all_documents_with_publicly_visible_editions_with_html_attachments: "all documents with publicly-visible editions with HTML attachments",
+      documents_by_content_ids: "documents by content IDs",
+      documents_by_content_ids_from_csv: "documents by content IDs from CSV",
+      documents_by_organisation: "documents by organisation",
+      documents_by_type: "documents by type",
+      worldwide_corporate_information_pages_by_states: "worldwide corporate information pages by states",
+    }[bulk_content_type]
+  end
+
   ## prevent duplicate scheduling of the same job - about us example
   # if Time.now - RepublishingEvent.all_about_us_pages.last.created_at < 1 hour
   # - show warning text "This republishing job was last added to the queue at

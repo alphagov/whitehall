@@ -52,6 +52,11 @@ Whitehall::Application.routes.draw do
           get "/:document_slug/confirm" => "republishing#confirm_document", as: :republishing_document_confirm
           post "/:document_slug/republish" => "republishing#republish_document", as: :republishing_document_republish
         end
+        scope :bulk do
+          # the by/non-all types should come first since they'll need dedicated confirm or pre-confirm actions
+          get "/:bulk_content_type/confirm" => "bulk_republishing#confirm_all", as: :bulk_republishing_all_confirm
+          post "/all-about-us-pages/republish" => "bulk_republishing#republish_all_about_us_pages", as: :bulk_republishing_all_about_us_pages_republish
+        end
       end
 
       resources :documents, only: [] do
