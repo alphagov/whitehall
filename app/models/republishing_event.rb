@@ -38,6 +38,15 @@ class RepublishingEvent < ApplicationRecord
     }[bulk_content_type]
   end
 
+  def self.last_of_type(bulk_content_type)
+    # should we add an index to this field in order to improve performance of this query?
+    order(created_at: :desc).find_by(bulk_content_type:)
+  end
+
+  def recently_queued?
+    created_at > Time.zone.now.ago(1.hour)
+  end
+
   ## prevent requeueing individual (index) pages too?
 
   ## capture these to support checking for recent matching jobs?
