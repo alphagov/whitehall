@@ -8,6 +8,6 @@
     <p class="govuk-body govuk-!-margin-bottom-7">
       This will schedule the page to be republished.
     </p>
-    <%= render "form", republishing_url: @republishing_path %>
+    <%= render partial: "shared/republishing_form", locals: { republishing_url: @republishing_path } %>
   </section>
 </div>
