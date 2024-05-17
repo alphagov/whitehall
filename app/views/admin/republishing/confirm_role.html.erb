@@ -12,6 +12,9 @@
         This will republish the role '<%= @role.name %>'.
       <% end %>
     </p>
-    <%= render partial: "shared/republishing_form", locals: { republishing_url: admin_republishing_role_republish_path(@role.slug) } %>
+    <%= render partial: "shared/republishing_form", locals: {
+      republishing_event: @republishing_event,
+      republishing_path: admin_republishing_role_republish_path(@role.slug)
+    } %>
   </section>
 </div>

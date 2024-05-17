@@ -8,6 +8,12 @@
     <p class="govuk-body govuk-!-margin-bottom-7">
       This will schedule <%= @bulk_content_type_string %> to be republished.
     </p>
-    <%= render partial: "shared/republishing_form", locals: { republishing_url: @republishing_path } %>
+
+    <%= render partial: "shared/republishing_form", locals: {
+      republishing_event: @republishing_event,
+      republishing_path: @republishing_path,
+      recently_queued_job_time: @recently_queued_job_time,
+      suggested_requeue_time: @suggested_requeue_time
+    } %>
   </section>
 </div>

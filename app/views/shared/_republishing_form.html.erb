@@ -1,4 +1,4 @@
-<%= form_with(url: republishing_url, method: :post, data: {
+<%= form_with(url: republishing_path, method: :post, data: {
     module: "prevent-multiple-form-submissions",
   }) do %>
     <%= render("govuk_publishing_components/components/textarea", {
@@ -8,8 +8,25 @@
       },
       name: "reason",
       id: "republishing_event_reason",
-      error_items: errors_for(@republishing_event.errors, :reason),
+      value: republishing_event.reason,
+      error_items: errors_for(republishing_event.errors, :reason),
     }) %>
+
+    <% if local_assigns.fetch(:recently_queued_job_time, nil) %>
+      <%= render "govuk_publishing_components/components/warning_text", {
+        text: "This republishing job was last added to the queue at #{recently_queued_job_time} and might still be processing. Recheck the relevant content after #{suggested_requeue_time}, then try again. If you still wish to queue the job now, check the box below."
+      } %>
+
+      <%= render("govuk_publishing_components/components/checkboxes", {
+        name: "confirm_repeat_job",
+        items: [
+          {
+            label: "I confirm that I wish to requeue this recently queued job",
+            value: "1"
+          },
+        ],
+      }) %>
+    <% end %>
 
     <%= render("govuk_publishing_components/components/button", {
       text: "Confirm republishing",
