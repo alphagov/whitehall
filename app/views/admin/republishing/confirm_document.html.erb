@@ -30,6 +30,6 @@
           ]
         end,
     } %>
-    <%= render "form", republishing_url: admin_republishing_document_republish_path(@document.slug) %>
+    <%= render partial: "shared/republishing_form", locals: { republishing_url: admin_republishing_document_republish_path(@document.slug) } %>
   </section>
 </div>

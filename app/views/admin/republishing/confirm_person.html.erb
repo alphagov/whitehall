@@ -8,6 +8,6 @@
     <p class="govuk-body govuk-!-margin-bottom-7">
       This will republish the person <%= link_to @person.name, @person.public_url, { class: "govuk-link" } %>.
     </p>
-    <%= render "form", republishing_url: admin_republishing_person_republish_path(@person.slug) %>
+    <%= render partial: "shared/republishing_form", locals: { republishing_url: admin_republishing_person_republish_path(@person.slug) } %>
   </section>
 </div>
