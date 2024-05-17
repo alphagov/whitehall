@@ -21,4 +21,23 @@ class RepublishingEvent < ApplicationRecord
     documents_by_type
     worldwide_corporate_information_pages_by_states
   ]
+
+  ## prevent duplicate scheduling of the same job - about us example
+  # if Time.now - RepublishingEvent.all_about_us_pages.last.created_at < 1 hour
+  # - show warning text "This republishing job was last added to the queue at
+  #   [TIME] and might still be processing. To avoid increased server load and
+  #   potential duplication of work, we suggest waiting until [TIME + 1 hour]
+  #   then rechecking the content before trying again."
+  # - show extra confirmation checkbox "I acknowledge that the republishing job
+  #   was last queued at [TIME] but still wish to requeue it"
+  # - show error if user doesn't confirm
+
+  ## prevent requeueing individual (index) pages too?
+
+  ## capture these to support checking for recent matching jobs?
+  # documents_by_content_ids_from_csv: file_name
+  # documents_by_content_ids: content_ids
+  # documents_by_organisation: organisation_id/slug
+  # documents_by_type: type
+  # worldwide_corporate_information_pages_by_states: states
 end
