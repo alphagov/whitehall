@@ -59,4 +59,25 @@ namespace :election do
       puts e.message
     end
   end
+
+  desc "
+  Mark all documents of a given organisation as political
+  Usage:
+    rake election:mark_documents_as_political_for[organisation_slug]
+  "
+  task :mark_documents_as_political_for, [:slug] => :environment do |_t, args|
+    org = Organisation.find_by!(slug: args[:slug])
+    puts "Marking all documents as political for #{org.name}..."
+
+    editions = org.editions
+    editions.published.update_all(political: true)
+    editions.in_pre_publication_state.update_all(political: true)
+
+    org.editions.published.map(&:document_id).each do |document_id|
+      PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+    end
+    puts "Done"
+  rescue ActiveRecord::RecordNotFound => _e
+    puts "There is no Organisation with slug [\"#{args[:slug]}\"]"
+  end
 end
