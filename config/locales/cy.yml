@@ -439,8 +439,8 @@ cy:
       national_statistics:
         few:
         many:
-        one: Ystadegau Gwladol
-        other: Ystadegau Gwladol
+        one: Ystadegau swyddogol achrededig
+        other: Ystadegau swyddogol achrededig
         two:
         zero:
       news_article:
