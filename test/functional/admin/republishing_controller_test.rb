@@ -55,6 +55,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_equal newly_created_event.user, current_user
     assert_equal newly_created_event.reason, "this needs republishing"
     assert_equal newly_created_event.action, "The page 'Past Prime Ministers' has been scheduled for republishing"
+    assert_equal newly_created_event.content_id, PublishingApi::HistoricalAccountsIndexPresenter.new.content_id
 
     assert_redirected_to admin_republishing_index_path
     assert_equal "The page 'Past Prime Ministers' has been scheduled for republishing", flash[:notice]
@@ -144,7 +145,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be able to POST :republish_organisation with an existing organisation slug, creating a RepublishingEvent for the current user" do
-    create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation")
+    create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation", content_id: "6de2fd22-4a87-49b7-be49-915f12dfe6fe")
 
     Organisation.any_instance.expects(:publish_to_publishing_api).once
 
@@ -154,6 +155,8 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_equal newly_created_event.user, current_user
     assert_equal newly_created_event.reason, "this needs republishing"
     assert_equal newly_created_event.action, "The organisation 'An Existing Organisation' has been republished"
+    assert_equal newly_created_event.content_id, "6de2fd22-4a87-49b7-be49-915f12dfe6fe"
+
     assert_redirected_to admin_republishing_index_path
     assert_equal "The organisation 'An Existing Organisation' has been republished", flash[:notice]
   end
@@ -246,7 +249,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be able to POST :republish_person with an existing person slug, creating a RepublishingEvent for the current user" do
-    create(:person, slug: "existing-person", forename: "Existing", surname: "Person")
+    create(:person, slug: "existing-person", forename: "Existing", surname: "Person", content_id: "6de2fd22-4a87-49b7-be49-915f12dfe6fe")
 
     Person.any_instance.expects(:publish_to_publishing_api).once
 
@@ -256,6 +259,8 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_equal newly_created_event.user, current_user
     assert_equal newly_created_event.reason, "this needs republishing"
     assert_equal newly_created_event.action, "The person 'Existing Person' has been republished"
+    assert_equal newly_created_event.content_id, "6de2fd22-4a87-49b7-be49-915f12dfe6fe"
+
     assert_redirected_to admin_republishing_index_path
     assert_equal "The person 'Existing Person' has been republished", flash[:notice]
   end
@@ -348,7 +353,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be able to POST :republish_role with an existing role slug, creating a RepublishingEvent for the current user" do
-    create(:role, slug: "an-existing-role", name: "An Existing Role")
+    create(:role, slug: "an-existing-role", name: "An Existing Role", content_id: "6de2fd22-4a87-49b7-be49-915f12dfe6fe")
 
     Role.any_instance.expects(:publish_to_publishing_api).once
 
@@ -358,6 +363,8 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_equal newly_created_event.user, current_user
     assert_equal newly_created_event.reason, "this needs republishing"
     assert_equal newly_created_event.action, "The role 'An Existing Role' has been republished"
+    assert_equal newly_created_event.content_id, "6de2fd22-4a87-49b7-be49-915f12dfe6fe"
+
     assert_redirected_to admin_republishing_index_path
     assert_equal "The role 'An Existing Role' has been republished", flash[:notice]
   end
@@ -450,7 +457,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be able to POST :republish_document with an existing document slug, creating a RepublishingEvent for the current user" do
-    document = create(:document, slug: "an-existing-document")
+    document = create(:document, slug: "an-existing-document", content_id: "6de2fd22-4a87-49b7-be49-915f12dfe6fe")
 
     PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id).once
 
@@ -460,6 +467,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_equal newly_created_event.user, current_user
     assert_equal newly_created_event.reason, "this needs republishing"
     assert_equal newly_created_event.action, "Editions for the document with slug 'an-existing-document' have been republished"
+    assert_equal newly_created_event.content_id, "6de2fd22-4a87-49b7-be49-915f12dfe6fe"
 
     assert_redirected_to admin_republishing_index_path
     assert_equal "Editions for the document with slug 'an-existing-document' have been republished", flash[:notice]
