@@ -224,6 +224,6 @@ private
   end
 
   def build_republishing_event(action:, content_id:)
-    RepublishingEvent.new(user: current_user, reason: params.fetch(:reason), action:, content_id:)
+    RepublishingEvent.new(user: current_user, reason: params.fetch(:reason), action:, content_id:, bulk: false)
   end
 end
