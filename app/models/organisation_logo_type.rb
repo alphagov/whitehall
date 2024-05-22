@@ -52,7 +52,7 @@ class OrganisationLogoType
   DepartmentForBusinessAndTrade = create!(
     id: 15, title: "Department for Business & Trade", class_name: "dbt",
   )
-  PrimeMinistersOffice10DowningStread = create!(
+  PrimeMinistersOffice10DowningStreet = create!(
     id: 16, title: "Prime Minister's Office, 10 Downing Street", class_name: "no10",
   )
 end
