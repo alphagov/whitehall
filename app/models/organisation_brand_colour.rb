@@ -167,4 +167,9 @@ class OrganisationBrandColour
     title: "Department for Science, Innovation & Technology",
     class_name: "department-for-science-innovation-and-technology",
   )
+  PrimeMinistersOffice10DowningStreet = create!(
+    id: 33,
+    title: "Prime Minister's Office, 10 Downing Street",
+    class_name: "prime-ministers-office-10-downing-street",
+  )
 end
