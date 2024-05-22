@@ -1516,8 +1516,8 @@ gopd@^1.0.1:
     get-intrinsic "^1.1.3"
 
 govspeak-visual-editor@alphagov/govspeak-visual-editor:
-  version "1.0.4"
-  resolved "https://codeload.github.com/alphagov/govspeak-visual-editor/tar.gz/030519ca8010cff4c80c2afe13d35e86ae3c750e"
+  version "1.0.5"
+  resolved "https://codeload.github.com/alphagov/govspeak-visual-editor/tar.gz/626370c4755298736840e4d3493da5a881763199"
   dependencies:
     govuk-frontend "^4.8.0"
     prosemirror-example-setup "^1.2.2"
