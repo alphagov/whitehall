@@ -21,7 +21,7 @@ class Admin::RepublishingController < Admin::BaseController
 
     action = "The page '#{page_to_republish[:title]}' has been scheduled for republishing"
 
-    @republishing_event = build_republishing_event(action)
+    @republishing_event = build_republishing_event(action:, content_id: page_to_republish[:presenter].constantize.new.content_id)
 
     if @republishing_event.save
       PresentPageToPublishingApiWorker.perform_async(page_to_republish[:presenter])
@@ -65,7 +65,7 @@ class Admin::RepublishingController < Admin::BaseController
     end
 
     action = "The organisation '#{@organisation.name}' has been republished"
-    @republishing_event = build_republishing_event(action)
+    @republishing_event = build_republishing_event(action:, content_id: @organisation.content_id)
 
     if @republishing_event.save
       @organisation.publish_to_publishing_api
@@ -105,7 +105,7 @@ class Admin::RepublishingController < Admin::BaseController
     end
 
     action = "The person '#{@person.name}' has been republished"
-    @republishing_event = build_republishing_event(action)
+    @republishing_event = build_republishing_event(action:, content_id: @person.content_id)
 
     if @republishing_event.save
       @person.publish_to_publishing_api
@@ -145,7 +145,7 @@ class Admin::RepublishingController < Admin::BaseController
     end
 
     action = "The role '#{@role.name}' has been republished"
-    @republishing_event = build_republishing_event(action)
+    @republishing_event = build_republishing_event(action:, content_id: @role.content_id)
 
     if @republishing_event.save
       @role.publish_to_publishing_api
@@ -185,7 +185,7 @@ class Admin::RepublishingController < Admin::BaseController
     end
 
     action = "Editions for the document with slug '#{@document.slug}' have been republished"
-    @republishing_event = build_republishing_event(action)
+    @republishing_event = build_republishing_event(action:, content_id: @document.content_id)
 
     if @republishing_event.save
       PublishingApiDocumentRepublishingWorker.new.perform(@document.id)
@@ -223,7 +223,7 @@ private
     end
   end
 
-  def build_republishing_event(action)
-    RepublishingEvent.new(user: current_user, reason: params.fetch(:reason), action:)
+  def build_republishing_event(action:, content_id:)
+    RepublishingEvent.new(user: current_user, reason: params.fetch(:reason), action:, content_id:)
   end
 end

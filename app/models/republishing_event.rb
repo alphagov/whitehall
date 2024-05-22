@@ -3,4 +3,5 @@ class RepublishingEvent < ApplicationRecord
 
   validates :action, presence: true
   validates :reason, presence: true
+  validates :content_id, presence: true
 end
