@@ -75,13 +75,13 @@ namespace :election do
       .published
       .where("first_published_at >= ?", date)
 
-    puts "Updating #{published.size} published editions..."
+    puts "Marking #{published.size} published editions as political..."
     published.update_all(political: true)
 
-    pre_published = editions.in_pre_publication_state
+    pre_published_editions = Edition.in_pre_publication_state.where(document_id: published.map(&:document_id))
 
-    puts "Updating #{pre_published.size} Draft editions..."
-    pre_published.update_all(political: true)
+    puts "Updating #{pre_published_editions.size} pre-publication editions as political..."
+    pre_published_editions.update_all(political: true)
 
     puts "Done"
   rescue Date::Error => _e
