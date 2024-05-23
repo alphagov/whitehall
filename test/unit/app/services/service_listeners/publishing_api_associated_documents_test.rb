@@ -203,6 +203,27 @@ module ServiceListeners
         call(new_edition)
       end
 
+      test "with a page with a translation both the page and its translation are published" do
+        worldwide_organisation = create(:editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+        page = worldwide_organisation.pages.first
+
+        PublishingApiWorker.any_instance.expects(:perform).with(
+          "WorldwideOrganisationPage",
+          page.id,
+          "major",
+          "en",
+        )
+
+        PublishingApiWorker.any_instance.expects(:perform).with(
+          "WorldwideOrganisationPage",
+          page.id,
+          "major",
+          "fr",
+        )
+
+        call(worldwide_organisation)
+      end
+
       test "with an office on a new editionable worldwide organisation publishes the office, it's contact and it's page" do
         worldwide_organisation = create(:editionable_worldwide_organisation, :with_main_office, :with_page)
 
@@ -383,6 +404,27 @@ module ServiceListeners
           false,
         )
         call(publication)
+      end
+
+      test "for an editionable worldwide organisation that has been unpublished publishes a redirect to the alternative url for all the page translations" do
+        worldwide_organisation = create(:unpublished_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+        page = worldwide_organisation.pages.first
+
+        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+          page.content_id,
+          "/world/organisations/editionable-worldwide-organisation-title",
+          "en",
+          false,
+        )
+
+        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+          page.content_id,
+          "/world/organisations/editionable-worldwide-organisation-title",
+          "fr",
+          false,
+        )
+
+        call(worldwide_organisation)
       end
 
       test "for an editionable worldwide organisation that has been consolidated publishes a redirect to the alternative url" do
@@ -585,6 +627,29 @@ module ServiceListeners
           call(worldwide_organisation)
         end
 
+        test "for a translated editionable worldwide organisation that has been withdrawn publishes a withdrawal for pages in all languages" do
+          worldwide_organisation = create(:withdrawn_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+          page = worldwide_organisation.pages.first
+
+          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+            page.content_id,
+            "content was withdrawn",
+            "en",
+            false,
+            worldwide_organisation.unpublishing.unpublished_at.to_s,
+          )
+
+          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+            page.content_id,
+            "content was withdrawn",
+            "fr",
+            false,
+            worldwide_organisation.unpublishing.unpublished_at.to_s,
+          )
+
+          call(worldwide_organisation)
+        end
+
         test "for a publication with a translated HTML attachment publishes a withdrawal with the expected locale for each attachment" do
           en_attachment = build(:html_attachment)
           cy_attachment = build(:html_attachment, locale: "cy")
@@ -640,6 +705,23 @@ module ServiceListeners
           PublishingApiDiscardDraftWorker.expects(:perform_async).with(
             worldwide_organisation.pages.first.content_id,
             "en",
+          )
+
+          call(worldwide_organisation)
+        end
+
+        test "for a draft editionable worldwide organisation with pages in multiple languages discards the drafts for all languages" do
+          worldwide_organisation = create(:draft_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+          page = worldwide_organisation.pages.first
+
+          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+            page.content_id,
+            "en",
+          )
+
+          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+            page.content_id,
+            "fr",
           )
 
           call(worldwide_organisation)

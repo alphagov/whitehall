@@ -55,24 +55,47 @@ module ServiceListeners
                     end
 
       current_associated_documents.each do |associated_document|
-        PublishingApiRedirectWorker.new.perform(
-          associated_document.content_id,
-          destination,
-          locale_for_document(associated_document),
-          allow_draft,
-        )
+        if associated_document.respond_to?(:translations)
+          associated_document.translations.each do |translation|
+            PublishingApiRedirectWorker.new.perform(
+              associated_document.content_id,
+              destination,
+              translation.locale.to_s,
+              allow_draft,
+            )
+          end
+        else
+          PublishingApiRedirectWorker.new.perform(
+            associated_document.content_id,
+            destination,
+            locale_for_document(associated_document).to_s,
+            allow_draft,
+          )
+        end
       end
     end
 
     def withdraw
       current_associated_documents.each do |associated_document|
-        PublishingApiWithdrawalWorker.new.perform(
-          associated_document.content_id,
-          edition.unpublishing.explanation,
-          locale_for_document(associated_document),
-          false,
-          edition.unpublishing.unpublished_at.to_s,
-        )
+        if associated_document.respond_to?(:translations)
+          associated_document.translations.each do |translation|
+            PublishingApiWithdrawalWorker.new.perform(
+              associated_document.content_id,
+              edition.unpublishing.explanation,
+              translation.locale.to_s,
+              false,
+              edition.unpublishing.unpublished_at.to_s,
+            )
+          end
+        else
+          PublishingApiWithdrawalWorker.new.perform(
+            associated_document.content_id,
+            edition.unpublishing.explanation,
+            locale_for_document(associated_document).to_s,
+            false,
+            edition.unpublishing.unpublished_at.to_s,
+          )
+        end
       end
     end
 
@@ -92,10 +115,19 @@ module ServiceListeners
 
     def discard_drafts(associated_documents)
       associated_documents.each do |associated_document|
-        PublishingApiDiscardDraftWorker.perform_async(
-          associated_document.content_id,
-          edition.primary_locale,
-        )
+        if associated_document.respond_to?(:translations)
+          associated_document.translations.each do |translation|
+            PublishingApiDiscardDraftWorker.perform_async(
+              associated_document.content_id,
+              translation.locale.to_s,
+            )
+          end
+        else
+          PublishingApiDiscardDraftWorker.perform_async(
+            associated_document.content_id,
+            locale_for_document(associated_document).to_s,
+          )
+        end
       end
     end
 
@@ -134,21 +166,34 @@ module ServiceListeners
     end
 
     def do_publish(update_type)
-      content_ids_to_remove.each do |content_id|
-        PublishingApiRedirectWorker.new.perform(
-          content_id,
-          edition.public_path,
-          I18n.default_locale.to_s,
-        )
+      edition.translations.each do |translation|
+        content_ids_to_remove.each do |content_id|
+          PublishingApiRedirectWorker.new.perform(
+            content_id,
+            edition.public_path,
+            translation.locale.to_s,
+          )
+        end
       end
 
       current_associated_documents.each do |associated_document|
-        PublishingApiWorker.new.perform(
-          associated_document.class.name,
-          associated_document.id,
-          update_type,
-          locale_for_document(associated_document),
-        )
+        if associated_document.respond_to?(:translations)
+          associated_document.translations.each do |translation|
+            PublishingApiWorker.new.perform(
+              associated_document.class.name,
+              associated_document.id,
+              update_type,
+              translation.locale.to_s,
+            )
+          end
+        else
+          PublishingApiWorker.new.perform(
+            associated_document.class.name,
+            associated_document.id,
+            update_type,
+            locale_for_document(associated_document).to_s,
+          )
+        end
       end
     end
   end
