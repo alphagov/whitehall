@@ -128,5 +128,23 @@
         ],
       ],
     } %>
+
+    <h2>Bulk republishing</h2>
+
+    <p class="govuk-body">
+      You can schedule multiple pieces of content for republishing using the links below. Note that this might take some time to take effect since bulk republishing jobs are added to a low priority queue.
+    </p>
+
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Content type",
+        },
+        {
+          text: "Action",
+        },
+      ],
+      rows: republishing_index_bulk_republishing_rows,
+    } %>
   </section>
 </div>

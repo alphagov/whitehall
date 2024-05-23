@@ -1,4 +1,6 @@
 class Admin::RepublishingController < Admin::BaseController
+  include Admin::RepublishingHelper
+
   before_action :enforce_permissions!
 
   def index
