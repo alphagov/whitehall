@@ -62,19 +62,26 @@ namespace :election do
 
   desc "
   Mark all documents of a given organisation as political
-  Usage:
+    Usage:
     rake election:mark_documents_as_political_for[organisation_slug, '30-12-2024']
-  "
+    "
   task :mark_documents_as_political_for, %i[slug date] => :environment do |_t, args|
     date = Date.parse(args[:date])
     org = Organisation.find_by!(slug: args[:slug])
     puts "Marking all documents as political for #{org.name}..."
 
     editions = org.editions
-    editions
+    published = editions
       .published
       .where("first_published_at >= ?", date)
-      .update_all(political: true)
+
+    puts "Updating #{published.size} published editions..."
+    published.update_all(political: true)
+
+    pre_published = editions.in_pre_publication_state
+
+    puts "Updating #{pre_published.size} Draft editions..."
+    pre_published.update_all(political: true)
 
     puts "Done"
   rescue Date::Error => _e

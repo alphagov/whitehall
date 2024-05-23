@@ -11,10 +11,11 @@ class MarkDocumentsAsPoliticalFor < ActiveSupport::TestCase
     let(:organisation) { create(:organisation) }
     let(:document) { create(:document) }
     let(:published_edition) { create(:edition, :published, document:, first_published_at: "01-01-2023") }
+    let(:draft_edition) { create(:edition, :draft, document: ) }
     let(:date) { "31-12-2022" }
 
     setup do
-      organisation.editions = [published_edition]
+      organisation.editions = [published_edition, draft_edition]
       organisation.save!
     end
 
@@ -31,6 +32,8 @@ class MarkDocumentsAsPoliticalFor < ActiveSupport::TestCase
     it "marks published and draft editions as political" do
       capture_io { task.invoke(organisation.slug, date) }
       assert published_edition.reload.political
+      assert draft_edition.reload.political
     end
+
   end
 end
