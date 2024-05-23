@@ -63,20 +63,22 @@ namespace :election do
   desc "
   Mark all documents of a given organisation as political
   Usage:
-    rake election:mark_documents_as_political_for[organisation_slug]
+    rake election:mark_documents_as_political_for[organisation_slug, '30-12-2024']
   "
-  task :mark_documents_as_political_for, [:slug] => :environment do |_t, args|
+  task :mark_documents_as_political_for, %i[slug date] => :environment do |_t, args|
+    date = Date.parse(args[:date])
     org = Organisation.find_by!(slug: args[:slug])
     puts "Marking all documents as political for #{org.name}..."
 
     editions = org.editions
-    editions.published.update_all(political: true)
-    editions.in_pre_publication_state.update_all(political: true)
+    editions
+      .published
+      .where("first_published_at >= ?", date)
+      .update_all(political: true)
 
-    org.editions.published.map(&:document_id).each do |document_id|
-      PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
-    end
     puts "Done"
+  rescue Date::Error => _e
+    puts "The date is not on the right format [\"#{args[:date]}\"]"
   rescue ActiveRecord::RecordNotFound => _e
     puts "There is no Organisation with slug [\"#{args[:slug]}\"]"
   end

@@ -10,28 +10,27 @@ class MarkDocumentsAsPoliticalFor < ActiveSupport::TestCase
     let(:task) { Rake::Task["election:mark_documents_as_political_for"] }
     let(:organisation) { create(:organisation) }
     let(:document) { create(:document) }
-    let(:published_edition) { create(:edition, :published, document:) }
-    let(:draft_edition) { create(:edition, :draft, document:) }
+    let(:published_edition) { create(:edition, :published, document:, first_published_at: "01-01-2023") }
+    let(:date) { "31-12-2022" }
 
     setup do
-      organisation.editions = [published_edition, draft_edition]
+      organisation.editions = [published_edition]
       organisation.save!
     end
 
     it "raises an error if organisation does not exist" do
-      out, _err = capture_io { task.invoke("non-existent-slug") }
+      out, _err = capture_io { task.invoke("non-existent-slug", date) }
       assert_equal 'There is no Organisation with slug ["non-existent-slug"]', out.strip
     end
 
-    it "marks published and draft editions as political" do
-      capture_io { task.invoke(organisation.slug) }
-      assert published_edition.reload.political
-      assert draft_edition.reload.political
+    it "raises an error if date is not right format" do
+      out, _err = capture_io { task.invoke(organisation.slug, "not a date") }
+      assert_equal 'The date is not on the right format ["not a date"]', out.strip
     end
 
-    it "triggers a bulk republishing of published documents" do
-      PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", published_edition.document_id, true)
-      capture_io { task.invoke(organisation.slug) }
+    it "marks published and draft editions as political" do
+      capture_io { task.invoke(organisation.slug, date) }
+      assert published_edition.reload.political
     end
   end
 end
