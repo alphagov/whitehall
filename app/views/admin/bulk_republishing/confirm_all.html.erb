@@ -8,6 +8,6 @@
     <p class="govuk-body govuk-!-margin-bottom-7">
       This will schedule <%= @bulk_content_type_metadata[:name] %> to be republished.
     </p>
-    <%= render partial: "shared/republishing_form", locals: { republishing_url: @bulk_content_type_metadata[:republishing_path] } %>
+    <%= render partial: "shared/republishing_form", locals: { republishing_path: @bulk_content_type_metadata[:republishing_path] } %>
   </section>
 </div>
