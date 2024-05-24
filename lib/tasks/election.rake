@@ -59,4 +59,34 @@ namespace :election do
       puts e.message
     end
   end
+
+  desc "
+  Mark all documents of a given organisation as political
+    Usage:
+    rake election:mark_documents_as_political_for[organisation_slug, '30-12-2024']
+    "
+  task :mark_documents_as_political_for, %i[slug date] => :environment do |_t, args|
+    date = Date.parse(args[:date])
+    org = Organisation.find_by!(slug: args[:slug])
+    puts "Marking all documents as political for #{org.name}..."
+
+    editions = org.editions
+    published = editions
+      .published
+      .where("first_published_at >= ?", date)
+
+    puts "Marking #{published.size} published editions as political..."
+    published.update_all(political: true)
+
+    pre_published_editions = Edition.in_pre_publication_state.where(document_id: published.map(&:document_id))
+
+    puts "Updating #{pre_published_editions.size} pre-publication editions as political..."
+    pre_published_editions.update_all(political: true)
+
+    puts "Done"
+  rescue Date::Error => _e
+    puts "The date is not on the right format [\"#{args[:date]}\"]"
+  rescue ActiveRecord::RecordNotFound => _e
+    puts "There is no Organisation with slug [\"#{args[:slug]}\"]"
+  end
 end
