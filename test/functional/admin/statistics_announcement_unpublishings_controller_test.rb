@@ -13,13 +13,13 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
   test "GDS Editor permission required to unpublish" do
     login_as :departmental_editor
     get :new, params: { statistics_announcement_id: @announcement.id }
-    assert_response 403
+    assert_response :forbidden
   end
 
   test "Managing Editor permission allowed to unpublish" do
     login_as :managing_editor
     get :new, params: { statistics_announcement_id: @announcement.id }
-    assert_response 200
+    assert_response :ok
   end
 
   view_test "GET :new renders a form with cancel a release" do

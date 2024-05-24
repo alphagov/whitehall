@@ -11,14 +11,14 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
   %i[new edit prepare_to_close].each do |action_method|
     test "GDS admin permission required to access #{action_method}" do
       get action_method, params: { id: @government.id }
-      assert_response 403
+      assert_response :forbidden
     end
   end
 
   %i[create update close].each do |action_method|
     test "GDS admin permission required to access #{action_method}" do
       post action_method, params: { id: @government.id }
-      assert_response 403
+      assert_response :forbidden
     end
   end
 
