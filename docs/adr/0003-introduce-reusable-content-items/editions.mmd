@@ -1,0 +1,101 @@
+erDiagram
+DOCUMENTS {
+   datetime created_at
+   datetime updated_at
+   varchar(255) state
+   %% state only includes draft/reviewed/submitted/published %%
+   varchar(255) slug
+   varchar(255) content_id
+   datetime major_change_published_at
+   datetime first_published_at
+   datetime scheduled_publication
+   int published_major_version
+   int published_minor_version
+   tinyint(1) access_limited
+   tinyint(1) political
+   varchar(255) auth_bypass_id
+   int id
+}
+%% Editions can be separated later on to separate tables  %%
+EDITIONS {
+   int document_id
+   int role_appointment_id
+   varchar(255) type
+   varchar(255) location
+   datetime delivered_on
+   int speech_type_id
+   tinyint(1) stub
+   int publication_type_id
+   varchar(255) related_mainstream_content_url
+   varchar(255) related_mainstream_content_title
+   varchar(255) additional_related_mainstream_content_url
+   varchar(255) additional_related_mainstream_content_title
+   int alternative_format_provider_id
+   tinyint(1) replaces_businesslink
+   int operational_field_id
+   text roll_call_introduction
+   int news_article_type_id
+   tinyint(1) relevant_to_local_government
+   varchar(255) person_override
+   tinyint(1) external
+   varchar(255) external_url
+   datetime opening_at
+   datetime closing_at
+   int corporate_information_page_type_id
+   varchar(255) primary_locale
+   varchar(255) logo_url
+   tinyint(1) read_consultation_principles
+   tinyint(1) all_nation_applicability
+   varchar(255) image_display_option
+   varchar(255) mapped_specialist_topic_content_id
+   int id
+}
+%% Refactored concerns allow sharing behaviour with documents %%
+REUSABLE_CONTENT_ITEMS {
+   datetime created_at
+   datetime updated_at
+   varchar(255) content_id
+   datetime major_change_published_at
+   datetime first_published_at
+   datetime scheduled_publication
+   int published_major_version
+   int published_minor_version
+   tinyint(1) access_limited
+   int id
+}
+EMAILS {
+   string email
+   int reusable_content_item_id
+   int id
+}
+
+VERSIONS {
+   int versionable_id
+   int versionable_type
+   varchar(255) content_id
+   tinyint(1) force_published
+   datetime published_at
+   datetime public_timestamp
+   tinyint(1) minor_change
+   int major_version
+   int minor_version
+   int unpublishing_id
+   text change_note
+   datetime created_at
+   datetime updated_at
+   json content
+}
+
+%% Users can be either related to published item and deleted for each version, or maintained across versions %%
+USERS {}
+ATTACHMENTS {}
+UNPUBLISHINGS {}
+
+DOCUMENTS  ||--|| EDITIONS : HAS_ONE
+DOCUMENTS  ||--|{ VERSIONS : HAS_MANY
+DOCUMENTS  }|--|{ USERS: AUTHORED_BY
+DOCUMENTS  }|--|{ ORGANISATIONS: RELATED_TO
+EDITIONS   ||--|{ ATTACHMENTS: HAS_MANY
+REUSABLE_CONTENT_ITEMS  ||--|{ VERSIONS : HAS_MANY
+REUSABLE_CONTENT_ITEMS ||--|| EMAILS : HAS_ONE
+VERSIONS ||--o| UNPUBLISHINGS : MAY_HAVE_AN
