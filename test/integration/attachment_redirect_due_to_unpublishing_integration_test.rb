@@ -80,6 +80,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
         assert_redirected_in_publishing_api(edition.html_attachments.first.content_id, redirect_path)
 
         unpublish_document_published_in_error
+        assert_sets_redirect_url_in_asset_manager_to redirect_url
       end
 
       it "sets redirect URL for attachment in Asset Manager when document is consolidated" do
@@ -97,6 +98,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       it "does not redirect new attachments added after a document is unpublished" do
         visit admin_publication_path(edition)
         unpublish_document_published_in_error
+        assert_sets_redirect_url_in_asset_manager_to redirect_url
 
         file = File.open(path_to_attachment("sample.csv"))
         new_attachment = build(:file_attachment, attachable:, file:)
@@ -204,7 +206,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
 
     def refute_sets_redirect_url_in_asset_manager
       Services.asset_manager.expects(:update_asset)
-              .with(asset_manager_id, "redirect_url" => anything)
+              .with(asset_manager_id, { "redirect_url" => anything })
               .never
       AssetManagerAttachmentRedirectUrlUpdateWorker.drain
     end
