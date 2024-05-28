@@ -377,7 +377,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     organisation2 = create(:organisation)
     get :edit, params: { id: organisation2 }
-    assert_response 403
+    assert_response :forbidden
 
     organisation2.parent_organisations << organisation1
     get :edit, params: { id: organisation2 }

@@ -14,7 +14,7 @@ module ControllerTestHelpers
         login_as :writer
         actions.each do |action|
           get action, params: { id: edition.id }
-          assert_response 403
+          assert_response :forbidden
         end
       end
     end

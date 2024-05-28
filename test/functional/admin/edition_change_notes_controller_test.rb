@@ -17,7 +17,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
 
     get :index, params: { edition_id: @current_edition.id }
 
-    assert_response 403
+    assert_response :forbidden
   end
 
   view_test "index lists all the published major changes" do
@@ -61,7 +61,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
 
       get action_method, params: { edition_id: @current_edition.id, id: @second_edition.id }
 
-      assert_response 403
+      assert_response :forbidden
     end
   end
 
