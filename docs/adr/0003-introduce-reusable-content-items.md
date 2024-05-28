@@ -13,7 +13,9 @@ We are therefore planning to refactor the `Edition` and `Document` models to ena
 
 ## Decision
 
-We will aim to migrate Whitehall towards ![a data schema like this](0003-introduce-reusable-content-items/editions.mmd). Note that tables which are less relevant to the proposed changes are omitted from the diagram. There are two key differences between the proposed schema and the current schema.
+We will aim to migrate Whitehall towards ![a data schema like this](0003-introduce-reusable-content-items/editions.mmd). Note that tables which are less relevant to the proposed changes are omitted from the diagram. Note also that we would have to rename the existing `versions` table to something more appropriate, such as `auditable_events`.
+
+There are two key differences between the proposed schema and the current schema.
 
 Firstly, documents no longer have multiple editions. Instead, they have multiple versions. Each version stores all the information relating to a document's publishing state, including its denormalised content. All metadata relating to a specific version of a document, such as the change note and the version number, are stored with the version. A version closely relates to an edition on Publishing API.
 
@@ -65,11 +67,19 @@ There are also a number of technical advantages:
 
 We'll have yet another copy of the content data, namely the version data, to keep in sync with the true content data while the document is in the draft state. However this should be fairly easy to manage because we are not synchronising data across a network partition. Once the document has been published, then the version data becomes the source of truth for the published document.
 
-This will also be quite a costly undertaking. In order to keep costs to a minimum and avoid service interruptions, we're planning to follow an expand and contract approach. Essentially the process will be:
+This will also be quite a costly undertaking. In order to keep costs to a minimum and avoid service interruptions, we're planning to follow a strangler fig approach. Essentially the process will be:
 
-1. Set up a feature flag for the new document workflow
-2. Add the new `versions` table and add the new columns, all set to nullable, to the `documents` table
-3. Develop document resources and workers which match the behaviour of the existing edition resources and workers. Hopefully we will be able to copy and paste a substantial amount of our tests and code
-4. Test our new workflows, thoroughly
-5. Cut over the links in Whitehall to point to our new document resources, using our feature flag toggle
+1. Set up a feature flag for the new document workflow.
+2. Rename existing `versions` table.
+3. Add the new `versions` table and add the new columns, all set to nullable, to the `documents` table.
+4. Modify the current edition-related code so that it persists the data we want in the new columns on the `documents` table and in the `versions` table, in addition to the current behaviour. We don't need to be too precise about how we do this, because we will get a chance to redesign the code in step 6.
+5. Migrate any documents that haven't been edited recently so that the new columns on the `documents` table and the `versions` table have the correct data.
+6. Write the document-based routes to perform only the data operations required for the new schema, introducing one new endpoint at a time. Introduce each route into production using the feature flag, testing each one thoroughly. Once each document route is live, we can remove the corresponding edition route. During this step it will be important to ensure that code is designed to enable easy sharing of versionable behaviour.
+7. Once all the routes have been replaced, we can remove any unused code, data and schema items relating to the previous edition model. We can also introduce not null constraints on the documents table where appropriate.
+
+I'd imagine the time required to do this will be somewhere between a quarter and two quarters, depending on resource available. It's a lot of resource, but given Whitehall has been around for over a decade with the current model, this isn't surprising.
+
+Despite the cost, I think this will be worth doing. Approximately 15% of the development tickets worked on by the Whitehall Experience team since the start of Q2 2023 have related to or been impacted by the edition model in some way. If we could reduce the time taken to deliver such tickets by, say, a third, that would free up a lot of time to spend on other priorities.
+
+This doesn't include the large effort conducted by the Publishing Platform team to make Worldwide Organisations editionable, which would have been a much smaller effort if the suggested schema has existed, as there would have been no need to do a full migration into the `editions` table. We also know we're about to start work on reusable content items, which is likely to be a big investment in its own right and could be significantly reduced in cost if the proposed model is in place.
 
