@@ -17,8 +17,17 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
   def update
-    worldwide_office_params[:service_ids] ||= []
-    if @worldwide_office.update(worldwide_office_params)
+    update_params = worldwide_office_params
+
+    update_params[:service_ids] ||= []
+
+    if update_params.dig(:contact_attributes, :contact_numbers_attributes)
+      update_params.dig(:contact_attributes, :contact_numbers_attributes).each do |_id, contact_number_attribute|
+        contact_number_attribute[:_destroy] = true if contact_number_attribute[:label].empty? && contact_number_attribute[:number].empty?
+      end
+    end
+
+    if @worldwide_office.update(update_params)
       handle_show_on_home_page_param
       republish_draft_worldwide_organisation
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been edited"

@@ -279,7 +279,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal ["Main phone: 5678"], actual_numbers
   end
 
-  test "PUT :update deletes contact numbers that have only blank fields" do
+  test "PUT :update deletes contact numbers that are marked as to be destroyed" do
     worldwide_organisation, office = create_worldwide_organisation_and_office
     contact_number = office.contact.contact_numbers.create!(label: "Phone", number: "1234")
 
@@ -295,6 +295,32 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   label: contact_number.label,
                   number: contact_number.number,
                   _destroy: "true",
+                },
+              },
+            },
+          },
+          id: office,
+          worldwide_organisation_id: worldwide_organisation,
+        }
+
+    assert_not ContactNumber.exists?(contact_number.id)
+  end
+
+  test "PUT :update deletes contact numbers that have only blank fields" do
+    worldwide_organisation, office = create_worldwide_organisation_and_office
+    contact_number = office.contact.contact_numbers.create!(label: "Phone", number: "1234")
+
+    put :update,
+        params: {
+          worldwide_office: {
+            contact_attributes: {
+              id: office.contact.id,
+              title: "Head office",
+              contact_numbers_attributes: {
+                "0" => {
+                  id: contact_number.id,
+                  label: "",
+                  number: "",
                 },
               },
             },
