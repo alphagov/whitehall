@@ -8,6 +8,9 @@
     <p class="govuk-body govuk-!-margin-bottom-7">
       This will republish the organisation <%= link_to @organisation.name, @organisation.public_url, { class: "govuk-link" } %>.
     </p>
-    <%= render partial: "shared/republishing_form", locals: { republishing_path: admin_republishing_organisation_republish_path(@organisation.slug) } %>
+    <%= render partial: "shared/republishing_form", locals: {
+      republishing_event: @republishing_event,
+      republishing_path: admin_republishing_organisation_republish_path(@organisation.slug),
+    } %>
   </section>
 </div>
