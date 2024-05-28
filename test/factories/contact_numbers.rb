@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :contact_number do
+  factory :contact_number, traits: [:translated] do
     contact
     label { "fax" }
     number { "123" }

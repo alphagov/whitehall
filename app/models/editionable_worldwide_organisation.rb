@@ -28,6 +28,12 @@ class EditionableWorldwideOrganisation < Edition
 
         new_office.contact = office.contact.dup
 
+        office.contact.contact_numbers.each do |contact_number|
+          new_office.contact.contact_numbers << contact_number.dup
+        end
+
+        new_office.save!
+
         if @edition.office_shown_on_home_page?(office)
           new_edition.add_office_to_home_page!(new_office)
         end

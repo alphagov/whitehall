@@ -179,6 +179,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "should clone office and contact associations when new draft of published edition is created" do
     contact = create(:contact, translated_into: [:es])
+    create(:contact_number, translated_into: [:es], contact:)
     published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, translated_into: [:es])
     create(:worldwide_office, worldwide_organisation: nil, edition: published_worldwide_organisation, contact:)
 
@@ -187,12 +188,22 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_equal published_worldwide_organisation.offices.first.attributes.except("id", "edition_id"),
                  draft_worldwide_organisation.offices.first.attributes.except("id", "edition_id")
+
     assert_equal published_worldwide_organisation.offices.first.contact.attributes.except("id", "contactable_id"),
                  draft_worldwide_organisation.offices.first.contact.attributes.except("id", "contactable_id")
+
+    assert_equal published_worldwide_organisation.offices.first.contact.contact_numbers.first.attributes.except("id", "contact_id"),
+                 draft_worldwide_organisation.offices.first.contact.contact_numbers.first.attributes.except("id", "contact_id")
+
+    assert_equal published_worldwide_organisation.offices.first.contact.contact_numbers.first.translations.find_by(locale: :es).attributes.except("id", "contact_number_id", "contact_id"),
+                 draft_worldwide_organisation.offices.first.contact.contact_numbers.first.translations.find_by(locale: :es).attributes.except("id", "contact_number_id", "contact_id")
+
     assert_equal published_worldwide_organisation.main_office.attributes.except("id", "edition_id"),
                  draft_worldwide_organisation.main_office.attributes.except("id", "edition_id")
+
     assert_equal published_worldwide_organisation.offices.first.contact.translations.find_by(locale: :es).attributes.except("id", "contact_id"),
                  draft_worldwide_organisation.offices.first.contact.translations.find_by(locale: :es).attributes.except("id", "contact_id")
+
     assert_equal published_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id"),
                  draft_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id")
   end
