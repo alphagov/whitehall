@@ -203,6 +203,27 @@ module ServiceListeners
         call(new_edition)
       end
 
+      test "with a page with a translation both the page and its translation are published" do
+        worldwide_organisation = create(:editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+        page = worldwide_organisation.pages.first
+
+        PublishingApiWorker.any_instance.expects(:perform).with(
+          "WorldwideOrganisationPage",
+          page.id,
+          "major",
+          "en",
+        )
+
+        PublishingApiWorker.any_instance.expects(:perform).with(
+          "WorldwideOrganisationPage",
+          page.id,
+          "major",
+          "fr",
+        )
+
+        call(worldwide_organisation)
+      end
+
       test "with an office on a new editionable worldwide organisation publishes the office, it's contact and it's page" do
         worldwide_organisation = create(:editionable_worldwide_organisation, :with_main_office, :with_page)
 
@@ -290,11 +311,10 @@ module ServiceListeners
       test "with an html attachment on a new document saves it as a draft" do
         publication = create(:draft_publication)
         attachment = publication.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           attachment,
-          "en",
           "major",
-        )
+        ).once
         call(publication)
       end
 
@@ -303,11 +323,10 @@ module ServiceListeners
         new_edition = publication.create_draft(create(:writer))
 
         attachment = new_edition.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           attachment,
-          "en",
           "major",
-        )
+        ).once
 
         call(new_edition)
       end
@@ -328,11 +347,10 @@ module ServiceListeners
         new_edition.attachments = [build(:html_attachment)]
 
         new_attachment = new_edition.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           new_attachment,
-          "en",
           "major",
-        )
+        ).once
 
         call(new_edition)
       end
@@ -355,17 +373,15 @@ module ServiceListeners
       test "with an office on a new editionable worldwide organisation saves the office as draft" do
         worldwide_organisation = create(:editionable_worldwide_organisation, :with_main_office)
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office,
-          "en",
           "major",
-        )
+        ).once
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office.contact,
-          "en",
           "major",
-        )
+        ).once
 
         call(worldwide_organisation)
       end
@@ -388,6 +404,27 @@ module ServiceListeners
           false,
         )
         call(publication)
+      end
+
+      test "for an editionable worldwide organisation that has been unpublished publishes a redirect to the alternative url for all the page translations" do
+        worldwide_organisation = create(:unpublished_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+        page = worldwide_organisation.pages.first
+
+        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+          page.content_id,
+          "/world/organisations/editionable-worldwide-organisation-title",
+          "en",
+          false,
+        )
+
+        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+          page.content_id,
+          "/world/organisations/editionable-worldwide-organisation-title",
+          "fr",
+          false,
+        )
+
+        call(worldwide_organisation)
       end
 
       test "for an editionable worldwide organisation that has been consolidated publishes a redirect to the alternative url" do
@@ -590,6 +627,29 @@ module ServiceListeners
           call(worldwide_organisation)
         end
 
+        test "for a translated editionable worldwide organisation that has been withdrawn publishes a withdrawal for pages in all languages" do
+          worldwide_organisation = create(:withdrawn_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+          page = worldwide_organisation.pages.first
+
+          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+            page.content_id,
+            "content was withdrawn",
+            "en",
+            false,
+            worldwide_organisation.unpublishing.unpublished_at.to_s,
+          )
+
+          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+            page.content_id,
+            "content was withdrawn",
+            "fr",
+            false,
+            worldwide_organisation.unpublishing.unpublished_at.to_s,
+          )
+
+          call(worldwide_organisation)
+        end
+
         test "for a publication with a translated HTML attachment publishes a withdrawal with the expected locale for each attachment" do
           en_attachment = build(:html_attachment)
           cy_attachment = build(:html_attachment, locale: "cy")
@@ -650,6 +710,23 @@ module ServiceListeners
           call(worldwide_organisation)
         end
 
+        test "for a draft editionable worldwide organisation with pages in multiple languages discards the drafts for all languages" do
+          worldwide_organisation = create(:draft_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+          page = worldwide_organisation.pages.first
+
+          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+            page.content_id,
+            "en",
+          )
+
+          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+            page.content_id,
+            "fr",
+          )
+
+          call(worldwide_organisation)
+        end
+
         test "for a draft publication with deleted html attachments discards the deleted attachment drafts" do
           publication = create(:draft_publication)
           attachment = publication.html_attachments.first
@@ -668,34 +745,30 @@ module ServiceListeners
       test "for a draft publication with an attachment saves the draft" do
         publication = create(:draft_publication)
         attachment = publication.html_attachments.first
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           attachment,
-          "en",
           "republish",
-        )
+        ).once
         call(publication)
       end
 
       test "for a draft editionable worldwide organisation with an office and page publishes the draft office and page" do
         worldwide_organisation = create(:draft_editionable_worldwide_organisation, :with_main_office, :with_page)
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office,
-          "en",
           "republish",
-        )
+        ).once
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office.contact,
-          "en",
           "republish",
-        )
+        ).once
 
-        Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.pages.first,
-          "en",
           "republish",
-        )
+        ).once
 
         call(worldwide_organisation)
       end

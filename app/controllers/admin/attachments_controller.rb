@@ -201,13 +201,11 @@ private
   def save_attachment
     result = attachment.save(context: :user_input)
 
-    if result && attachment.is_a?(HtmlAttachment)
-      Whitehall::PublishingApi.save_draft(attachment)
-    end
-
     if attachable_is_an_edition?
       draft_updater = Whitehall.edition_services.draft_updater(attachable)
       draft_updater.perform!
+    elsif result && attachment.is_a?(HtmlAttachment)
+      Whitehall::PublishingApi.save_draft(attachment)
     end
 
     result

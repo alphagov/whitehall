@@ -4,7 +4,9 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   test "creating a new page republishes the associated worldwide organisation" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
     Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation).once
-    create(:worldwide_organisation_page, edition: worldwide_organisation)
+    page = build(:worldwide_organisation_page, edition: worldwide_organisation)
+    Whitehall::PublishingApi.expects(:save_draft).with(page, "major").once
+    page.save!
   end
 
   test "updating an existing page republishes the associated worldwide organisation" do
@@ -12,6 +14,7 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
     page = create(:worldwide_organisation_page, edition: worldwide_organisation)
     page.body = "updated"
     Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation).once
+    Whitehall::PublishingApi.expects(:save_draft).with(page, "major").once
     page.save!
   end
 

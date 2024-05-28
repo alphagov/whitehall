@@ -48,6 +48,12 @@ FactoryBot.define do
       end
     end
 
+    trait(:with_translated_page) do
+      after :create do |organisation, _evaluator|
+        organisation.pages = [build(:worldwide_organisation_page, translated_into: :fr)]
+      end
+    end
+
     trait(:with_pages) do
       after :create do |organisation, _evaluator|
         organisation.pages = [

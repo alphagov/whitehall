@@ -149,7 +149,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     Whitehall::PublishingApi
       .expects(:save_draft)
-      .with(instance_of(HtmlAttachment))
+      .with(instance_of(HtmlAttachment), "major")
 
     post :create, params: { edition_id: @edition.id, type: "html", attachment: }
   end
@@ -368,7 +368,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     Whitehall::PublishingApi
       .expects(:save_draft)
-      .with(attachment)
+      .with(attachment, "major")
 
     put :update,
         params: {
