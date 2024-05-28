@@ -13,7 +13,7 @@ We are therefore planning to refactor the `Edition` and `Document` models to ena
 
 ## Decision
 
-We will aim to migrate Whitehall towards ![a data schema like this](0003-introduce-reusable-content-items/editions.mmd). Note that tables which are less relevant to the proposed changes are omitted from the diagram. Note also that we would have to rename the existing `versions` table to something more appropriate, such as `auditable_events`.
+We will aim to migrate Whitehall towards [a data schema like this](0003-introduce-reusable-content-items/editions.mmd). Note that tables which are less relevant to the proposed changes are omitted from the diagram. Note also that we would have to rename the existing `versions` table to something more appropriate, such as `auditable_events`.
 
 There are two key differences between the proposed schema and the current schema.
 
@@ -27,8 +27,6 @@ Finally, you will have noticed that there are now two tables for implementing an
 
 The flow for creating and editing a document would look something like the below. Note that all operations that involve creating or updating a version should be transactional and should rollback if any part of the model is invalid or if Publishing API rejects the related request:
 
-[//]: # (TODO: Turn the list below into a sequence diagram)
-
 1. The user will select a document type and complete the document editing form as they do at present.
 2. When the user submits the form, it will save a document, the edition belonging to the document, and a version. The document will be put into the draft state.
 3. The version data will be sent to Publishing API so that it can be accessed on the draft content stack.
@@ -38,6 +36,8 @@ The flow for creating and editing a document would look something like the below
 7. The user publishes the document. The document state is updated to `published` and the `published_at` column is set on the related version.
 8. The publishing request for the version is sent to Publishing API
 9. When a user wants to create a new version of the document, they click on the `Create new edition` button as usual. The document state is set to `draft` and a new record is created in the `versions` table. The process continues from step 3 above.
+
+[Here is the above flow as a sequence diagram](0003-introduce-reusable-content-items/document-lifecycle-sequence.mmd)
 
 The flow for reusable content items could be very similar, as they will be able to share much of the behaviour with the document model.
 

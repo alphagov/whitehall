@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant Editor
+    participant Reviewer
+    participant Whitehall
+    participant Database
+    participant Publishing API
+    Editor->>Whitehall: New document type
+    Whitehall->>Editor: Edit document form
+    Editor->>Whitehall: Submit editing form
+    Whitehall->>Database: Save document (state: draft)
+    Whitehall->>Database: Save edition
+    Whitehall->>Database: Save version
+    Whitehall->>Publishing API: PUT draft version
+    Whitehall->>Editor: Success
+    Editor->>Whitehall: Update draft
+    Whitehall->>Database: Save edition
+    Whitehall->>Database: Save version
+    Whitehall->>Publishing API: PUT draft version
+    Whitehall->>Editor: Success
+    Editor->>Whitehall: Submit document for review
+    Whitehall->>Database: Save document (state: submitted)
+    Whitehall->>Editor: Success
+    Reviewer->>Whitehall: Document approved
+    Whitehall->>Database: Save document (state: reviewed)
+    Whitehall->>Reviewer: Success
+    Editor->>Whitehall: Publish document
+    Whitehall->>Database: Save document (state: published)
+    Whitehall->>Database: Save version (mark published)
+    Whitehall->>Publishing API: POST publish version
+    Whitehall->>Editor: Success
