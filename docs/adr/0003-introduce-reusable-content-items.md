@@ -7,19 +7,19 @@ Status: Draft
 
 We are currently investigating how best to afford Whitehall users the ability to create reusable content items which can be included in other content pages. The reusable content items should share the same lifecycle as normal Whitehall documents, i.e. they have drafts, should be reviewed, and are then published and possibly unpublished.
 
-We would like to share as much behaviour as appropriate between our existing `Edition` model and the new reusable content item. However, currently that is impossible to do without making reusable content items a subclass of `Edition` because of the coupling between the `Edition` and `Document` models. We would like to avoid making reusable content items a subclass of `Edition` if we can because reusable content items should not have many of the behaviours of the edition, such as having attachments or being searchable.
+We would like to share as much behaviour as appropriate between our existing `Edition` model and the new reusable content item. However, that is impossible to do without making reusable content items a subclass of `Edition` because of the coupling between the `Edition` and `Document` models. We would like to avoid making reusable content items a subclass of `Edition` if we can because reusable content items should not have many of the behaviours of the edition, such as having attachments or being searchable.
 
-We are therefore planning to refactor the `Edition` and `Document` models to decouple the various `Edition` subclasses from each other and enable easy sharing of useful `Edition` behaviour with the new reusable content item types.
+We are therefore planning to refactor the `Edition` and `Document` models to enable easy sharing of useful `Edition` behaviour with the new reusable content item types.
 
 ## Decision
 
 We will aim to migrate Whitehall towards ![a data schema like this](0003-introduce-reusable-content-items/editions.mmd). Note that tables which are less relevant to the proposed changes are omitted from the diagram. There are two key differences between the proposed schema and the current schema.
 
-Firstly, documents no longer have multiple editions. Instead, they have multiple versions. Each version stores all the information relating to a document as it exists on Publishing API, including its denormalised content. All metadata relating to a specific version of a document, such as the change note and the version number, are stored with the version.
+Firstly, documents no longer have multiple editions. Instead, they have multiple versions. Each version stores all the information relating to a document's publishing state, including its denormalised content. All metadata relating to a specific version of a document, such as the change note and the version number, are stored with the version. A version closely relates to an edition on Publishing API.
 
-Secondly, all of the document metadata that is unlikely to change between versions, such as the original publication date, access limiting, and its political status, is stored against the document. This means that editions are merely a catch all for the various types of content data that exist on Whitehall. The document and edition together represent the next version of a document. Some fields on the document, such as the scheduled publication date and the state, will be reset once a new version of the document is created.
+Secondly, all of the document metadata that is unlikely to change between versions, such as the original publication date, access limiting, and the political status, is stored against the document. This means that editions are merely a catch all for the various types of content data that exist on Whitehall, and could be separated into its many types in the future. The document and edition together represent the next version of a document. Some fields on the document, such as the scheduled publication date and the state, will be reset once a new version of the document is created.
 
-Finally, you will have noticed that there are now two tables for implementing an email reusable content item. The reusable content items are versionable and will be able to share the behaviour with the document model via a concern.
+Finally, you will have noticed that there are now two tables for implementing an email type reusable content item. The reusable content items are versionable and will be able to share the behaviour with the document model via a concern, without having to adopot all of the behaviours of the edition.
 
 ### Workflow
 
@@ -34,7 +34,7 @@ The flow for creating and editing a document would look something like the below
 5. The user submits the document for review as they usually would. The document state is updated to `submitted`.
 6. Once the document has been reviewed, its state is updated to `reviewed`.
 7. The user publishes the document. The document state is updated to `published` and the `published_at` column is set on the related version.
-8. The publishing request is sent to Publishing API
+8. The publishing request for the version is sent to Publishing API
 9. When a user wants to create a new version of the document, they click on the `Create new edition` button as usual. The document state is set to `draft` and a new record is created in the `versions` table. The process continues from step 3 above.
 
 The flow for reusable content items could be very similar, as they will be able to share much of the behaviour with the document model.
@@ -55,11 +55,11 @@ It also has some user-facing benefits within the scope of Whitehall:
 There are also a number of technical advantages:
 
 - It will decouple content data (editions/emails), content metadata (documents/reusable content items), and workflow (versions). 
-- It will allow separation of edition types into separate database tables in the future
-- It will allow the easy sharing of the existing edition workflow with reusable content items, without coupling them together tightly
-- It will remove the necessity to copy data from the previous edition of a document to the new version, as the data is snapshotted each time the document is sent to Publishing API instead
-- Having a snapshot of the data sent to Publishing API will make it easy to republish previous editions
-- The document is responsible for storing metadata about an edition, making it easier to perform operations such as "get me all the documents belonging to an organisation" or "tell me what version this document is on"
+- It will allow separation of edition types into separate database tables in the future.
+- It will allow the easy sharing of the existing edition workflow with reusable content items, without coupling them together tightly.
+- It will remove the necessity to copy data from the previous edition of a document to the new version, as the data is versioned each time the document is saved instead.
+- Having a snapshot of the data sent to Publishing API will make it easy to republish previous versions.
+- The document is responsible for storing metadata about an edition, making it easier to perform operations such as "get me all the documents belonging to an organisation" or "tell me what version this document is on". Previously we would often start from an `Edition` when answering these questions, making the query awkward to write.
 
 ## Consequences
 
