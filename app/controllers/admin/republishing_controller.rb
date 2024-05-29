@@ -1,4 +1,6 @@
 class Admin::RepublishingController < Admin::BaseController
+  include Admin::RepublishingHelper
+
   before_action :enforce_permissions!
 
   def index
@@ -224,6 +226,6 @@ private
   end
 
   def build_republishing_event(action:, content_id:)
-    RepublishingEvent.new(user: current_user, reason: params.fetch(:reason), action:, content_id:)
+    RepublishingEvent.new(user: current_user, reason: params.fetch(:reason), action:, content_id:, bulk: false)
   end
 end
