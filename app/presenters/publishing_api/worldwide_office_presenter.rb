@@ -29,6 +29,7 @@ module PublishingApi
         schema_name: "worldwide_office",
       )
 
+      content.merge!(auth_bypass_ids: [item.edition.auth_bypass_id]) if item.edition
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
