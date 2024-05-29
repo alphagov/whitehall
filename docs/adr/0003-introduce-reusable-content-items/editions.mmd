@@ -17,7 +17,7 @@ DOCUMENTS {
    int id
 }
 %% Editions can be separated later on to separate tables  %%
-EDITIONS {
+DOCUMENT_CONTENTS {
    int document_id
    int role_appointment_id
    varchar(255) type
@@ -69,10 +69,11 @@ EMAILS {
    int id
 }
 
-VERSIONS {
+EDITIONS {
    int versionable_id
    int versionable_type
    varchar(255) content_id
+   text base_path
    tinyint(1) force_published
    datetime published_at
    datetime public_timestamp
@@ -91,11 +92,11 @@ USERS {}
 ATTACHMENTS {}
 UNPUBLISHINGS {}
 
-DOCUMENTS  ||--|| EDITIONS : HAS_ONE
-DOCUMENTS  ||--|{ VERSIONS : HAS_MANY
+DOCUMENTS  ||--|| DOCUMENT_CONTENTS : HAS_ONE
+DOCUMENTS  ||--|{ EDITIONS : HAS_MANY
 DOCUMENTS  }|--|{ USERS: AUTHORED_BY
 DOCUMENTS  }|--|{ ORGANISATIONS: RELATED_TO
-EDITIONS   ||--|{ ATTACHMENTS: HAS_MANY
-REUSABLE_CONTENT_ITEMS  ||--|{ VERSIONS : HAS_MANY
+DOCUMENT_CONTENTS   ||--|{ ATTACHMENTS: HAS_MANY
+REUSABLE_CONTENT_ITEMS  ||--|{ EDITIONS : HAS_MANY
 REUSABLE_CONTENT_ITEMS ||--|| EMAILS : HAS_ONE
-VERSIONS ||--o| UNPUBLISHINGS : MAY_HAVE_AN
+EDITIONS ||--o| UNPUBLISHINGS : MAY_HAVE_AN
