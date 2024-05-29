@@ -1,5 +1,8 @@
 en:
   activerecord:
+    attributes:
+      publication/nation_inapplicabilities:
+        alternative_url: "Alternative URL for excluded nation"
     errors:
       messages:
         invalid_date: "is not in the correct format"
@@ -11,3 +14,7 @@ en:
               invalid_date: First published date is not in the correct format
               blank: Enter a first published date
               inclusion: First published date must be between 1/1/1900 and the present
+        nation_inapplicability:
+          attributes:
+            alternative_url:
+              too_long: "is too long. Please shorten the URL to less than 255 characters."

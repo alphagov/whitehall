@@ -10,6 +10,7 @@ class NationInapplicability < ApplicationRecord
 
   validates :nation_id, inclusion: { in: Nation.potentially_inapplicable.map(&:id) }
   validates :alternative_url, uri: true, allow_blank: true
+  validates :alternative_url, length: { maximum: 255 }
 
   attr_accessor :excluded
 
