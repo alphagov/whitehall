@@ -12,6 +12,6 @@ Feature: Bulk republishing content
     Then I can see that all documents have been queued for republishing
 
   Scenario: Republish all Organisation "About Us" pages
-    Given Published Organisation "About Us" pages exist
+    Given Organisation "About Us" pages exist
     When I request a bulk republishing of the Organisation "About Us" pages
     Then I can see the Organisation "About Us" pages have been queued for republishing

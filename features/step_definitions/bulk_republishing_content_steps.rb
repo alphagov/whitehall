@@ -13,7 +13,7 @@ Then(/^I can see that all documents have been queued for republishing$/) do
   expect(page).to have_selector(".gem-c-success-alert", text: "All documents have been queued for republishing")
 end
 
-Given(/^Published Organisation "About Us" pages exist$/) do
+Given(/^Organisation "About Us" pages exist$/) do
   2.times { create(:about_corporate_information_page) }
 end
 
