@@ -11,6 +11,11 @@ Feature: Bulk republishing content
     When I request a bulk republishing of all documents
     Then I can see that all documents have been queued for republishing
 
+  Scenario: Republish all documents with pre-publication editions
+    Given Documents with pre-publication editions exist
+    When I request a bulk republishing of all documents with pre-publication editions
+    Then I can see that all documents with pre-publication editions have been queued for republishing
+
   Scenario: Republish all Organisation "About Us" pages
     Given Organisation "About Us" pages exist
     When I request a bulk republishing of the Organisation "About Us" pages
