@@ -16,7 +16,7 @@ Feature: Bulk republishing content
     When I request a bulk republishing of all documents with pre-publication editions
     Then I can see that all documents with pre-publication editions have been queued for republishing
 
-  Scenario: Republish all Organisation "About us" pages
-    Given Organisation "About us" pages exist
-    When I request a bulk republishing of the Organisation "About us" pages
-    Then I can see the Organisation "About us" pages have been queued for republishing
+  Scenario: Republish all published Organisation "About us" pages
+    Given Published organisation "About us" pages exist
+    When I request a bulk republishing of all published organisation "About us" pages
+    Then I can see all published organisation "About us" pages have been queued for republishing
