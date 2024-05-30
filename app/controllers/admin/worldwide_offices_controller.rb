@@ -21,8 +21,8 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
     update_params[:service_ids] ||= []
 
-    if update_params.dig(:contact_attributes, :contact_numbers_attributes)
-      update_params.dig(:contact_attributes, :contact_numbers_attributes).each do |_id, contact_number_attribute|
+    if (contact_numbers_attributes = update_params.dig(:contact_attributes, :contact_numbers_attributes))
+      contact_numbers_attributes.each do |_id, contact_number_attribute|
         contact_number_attribute[:_destroy] = true if contact_number_attribute[:label].empty? && contact_number_attribute[:number].empty?
       end
     end
