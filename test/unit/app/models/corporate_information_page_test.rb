@@ -449,7 +449,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corp_page.update_in_search_index
   end
 
-  test "re-indexes the organisation after the 'About Us' CIP is saved" do
+  test "re-indexes the organisation after the 'About us' CIP is saved" do
     org = create(:organisation, govuk_status: "live")
     corp_page = create(
       :corporate_information_page,
@@ -462,7 +462,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corp_page.save!
   end
 
-  test "re-indexes the worldwide organisation after the 'About Us' CIP is saved" do
+  test "re-indexes the worldwide organisation after the 'About us' CIP is saved" do
     worldwide_org = create(:worldwide_organisation)
     about_us = create(
       :corporate_information_page,
@@ -495,7 +495,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     other_page.save!
   end
 
-  test "republishes the 'About Us' CIP if another CIP is saved" do
+  test "republishes the 'About us' CIP if another CIP is saved" do
     org = create(:organisation, govuk_status: "live")
     about_us = create(
       :corporate_information_page,
@@ -512,7 +512,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     other_page.touch
   end
 
-  test "does not republish the 'About Us' CIP if it is saved" do
+  test "does not republish the 'About us' CIP if it is saved" do
     org = create(:organisation, govuk_status: "live")
     about_us = create(
       :corporate_information_page,

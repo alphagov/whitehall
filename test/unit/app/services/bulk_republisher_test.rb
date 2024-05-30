@@ -4,7 +4,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe "#republish_all_organisation_about_us_pages" do
-    test "queues Organisation 'About Us' pages for republishing" do
+    test "queues Organisation 'About us' pages for republishing" do
       queue_sequence = sequence("queue")
 
       2.times do

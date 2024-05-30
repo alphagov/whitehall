@@ -32,12 +32,12 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
     newly_created_event = RepublishingEvent.last
     assert_equal newly_created_event.user, current_user
     assert_equal newly_created_event.reason, "this needs republishing"
-    assert_equal newly_created_event.action, "All organisation 'About Us' pages have been queued for republishing"
+    assert_equal newly_created_event.action, "All organisation 'About us' pages have been queued for republishing"
     assert_equal newly_created_event.bulk, true
     assert_equal newly_created_event.bulk_content_type, "all_organisation_about_us_pages"
 
     assert_redirected_to admin_republishing_index_path
-    assert_equal "All organisation 'About Us' pages have been queued for republishing", flash[:notice]
+    assert_equal "All organisation 'About us' pages have been queued for republishing", flash[:notice]
   end
 
   test "GDS Admin users should encounter an error on POST :republish_all without a `reason` and be sent back to the confirm_all page" do
