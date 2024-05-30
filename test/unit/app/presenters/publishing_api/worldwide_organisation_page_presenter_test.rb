@@ -18,6 +18,7 @@ module PublishingApi::WorldwideOrganisationPagePresenterTest
         public_path = page.public_path
 
         expected_hash = {
+          auth_bypass_ids: [page.edition.auth_bypass_id],
           base_path: public_path,
           title: page.title,
           schema_name: "worldwide_corporate_information_page",

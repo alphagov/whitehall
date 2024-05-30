@@ -32,6 +32,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     public_path = worldwide_org.public_path
 
     expected_hash = {
+      auth_bypass_ids: [worldwide_org.auth_bypass_id],
       base_path: public_path,
       title: worldwide_org.title,
       schema_name: "worldwide_organisation",
