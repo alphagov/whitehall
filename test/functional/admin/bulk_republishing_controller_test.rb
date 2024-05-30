@@ -24,10 +24,10 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to POST :republish_all_organisation_about_us_pages, creating a RepublishingEvent for the current user" do
+  test "GDS Admin users should be able to POST :republish_all with a valid bulk content type and a reason, creating a RepublishingEvent for the current user" do
     BulkRepublisher.any_instance.expects(:republish_all_organisation_about_us_pages).once
 
-    post :republish_all_organisation_about_us_pages, params: { reason: "this needs republishing" }
+    post :republish_all, params: { bulk_content_type: "all-organisation-about-us-pages", reason: "this needs republishing" }
 
     newly_created_event = RepublishingEvent.last
     assert_equal newly_created_event.user, current_user
@@ -40,19 +40,28 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
     assert_equal "All organisation 'About Us' pages have been queued for republishing", flash[:notice]
   end
 
-  test "GDS Admin users should encounter an error on POST :republish_all_organisation_about_us_pages without a `reason` and be sent back to the confirm_all page" do
-    BulkRepublisher.any_instance.expects(:republish_all_organisation_about_us_pages).never
+  test "GDS Admin users should encounter an error on POST :republish_all without a `reason` and be sent back to the confirm_all page" do
+    BulkRepublisher.expects(:new).never
 
-    post :republish_all_organisation_about_us_pages, params: { reason: "" }
+    post :republish_all, params: { bulk_content_type: "all-organisation-about-us-pages", reason: "" }
 
     assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_all"
   end
 
-  test "Non-GDS Admin users should not be able to POST :republish_all_organisation_about_us_pages" do
+  test "GDS Admin users should see a 404 page when trying to POST :republish_all with an invalid bulk content type" do
+    BulkRepublisher.expects(:new).never
+
+    post :republish_all, params: { bulk_content_type: "not-a-bulk-content-type", reason: "this needs republishing" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to POST :republish_all" do
+    BulkRepublisher.expects(:new).never
+
     login_as :writer
 
-    post :republish_all_organisation_about_us_pages, params: { reason: "this needs republishing" }
+    post :republish_all, params: { bulk_content_type: "all-organisation-about-us-pages", reason: "this needs republishing" }
     assert_response :forbidden
   end
 end
