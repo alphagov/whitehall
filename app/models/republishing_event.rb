@@ -11,5 +11,6 @@ class RepublishingEvent < ApplicationRecord
   enum :bulk_content_type, %i[
     all_documents
     all_organisation_about_us_pages
+    all_documents_with_pre_publication_editions
   ]
 end

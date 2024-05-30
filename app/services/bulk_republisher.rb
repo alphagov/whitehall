@@ -16,4 +16,12 @@ class BulkRepublisher
       PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document.id, true)
     end
   end
+
+  def republish_all_documents_with_pre_publication_editions
+    editions = Edition.in_pre_publication_state.includes(:document)
+
+    editions.find_each do |edition|
+      PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", edition.document.id, true)
+    end
+  end
 end
