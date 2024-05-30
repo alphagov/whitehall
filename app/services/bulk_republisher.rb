@@ -10,4 +10,10 @@ class BulkRepublisher
       )
     end
   end
+
+  def republish_all_documents
+    Document.find_each do |document|
+      PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document.id, true)
+    end
+  end
 end
