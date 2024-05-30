@@ -15,15 +15,14 @@ module Govspeak
       assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "that"
     end
 
-    test "unpublished edition links are replaced with plain text" do
+    test "rewrites admin links to draft origin links for draft editions" do
       draft_speech = create(:draft_speech)
-      _admin_path  = admin_speech_path(draft_speech)
+      public_url = draft_speech.public_url(draft: true)
       fragment     = govspeak_to_nokogiri_fragment("this is an [unpublished thing](/government/admin/speeches/#{draft_speech.id})")
 
       AdminLinkReplacer.new(fragment).replace!
 
-      refute_select_within_html fragment.to_html, "a"
-      assert_select_within_html fragment.to_html, "p", text: "this is an unpublished thing"
+      assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "unpublished thing"
     end
 
     test "rewrites admin links to published corporate information pages" do

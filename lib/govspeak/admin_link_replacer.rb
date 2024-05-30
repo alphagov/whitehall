@@ -20,11 +20,9 @@ module Govspeak
     def replacement_html_for_admin_link(anchor)
       edition = Whitehall::AdminLinkLookup.find_edition(anchor["href"])
 
-      if edition.present? && edition.linkable?
-        public_url = edition.public_url
+      if edition.present?
+        public_url = edition.public_url(draft: !edition.linkable?)
         new_html = convert_link(anchor, public_url)
-      else
-        new_html = anchor.inner_text
       end
 
       block_given? ? yield(new_html, edition) : new_html
