@@ -9,6 +9,7 @@ class RepublishingEvent < ApplicationRecord
   validates :bulk_content_type, presence: true, if: -> { bulk }
 
   enum :bulk_content_type, %i[
+    all_documents
     all_organisation_about_us_pages
   ]
 end

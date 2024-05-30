@@ -3,6 +3,13 @@ module Admin::RepublishingHelper
 
   def bulk_content_type_metadata
     @bulk_content_type_metadata ||= {
+      all_documents: {
+        id: "all-documents",
+        name: "all documents",
+        republishing_path: admin_bulk_republishing_all_republish_path("all-documents"),
+        confirmation_path: admin_bulk_republishing_all_confirm_path("all-documents"),
+        republish_method: -> { BulkRepublisher.new.republish_all_documents },
+      },
       all_organisation_about_us_pages: {
         id: "all-organisation-about-us-pages",
         name: "all organisation 'About Us' pages",
