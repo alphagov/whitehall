@@ -1,0 +1,6 @@
+email_address:
+  properties:
+    email_address:
+      type: string
+  required:
+    - email_address
