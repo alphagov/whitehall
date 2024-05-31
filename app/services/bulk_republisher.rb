@@ -23,6 +23,15 @@ class BulkRepublisher
     republish_by_document_ids(document_ids)
   end
 
+  def republish_all_documents_with_publicly_visible_editions_with_attachments
+    document_ids = Edition
+      .publicly_visible
+      .where(id: Attachment.where(attachable_type: "Edition").select(:attachable_id))
+      .pluck(:document_id)
+
+    republish_by_document_ids(document_ids)
+  end
+
   def republish_all_documents_with_publicly_visible_editions_with_html_attachments
     document_ids = Edition
       .publicly_visible

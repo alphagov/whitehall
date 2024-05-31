@@ -47,6 +47,24 @@ Then(/^I can see that all documents with pre-publication editions with HTML atta
   expect(page).to have_selector(".gem-c-success-alert", text: "All documents with pre-publication editions with HTML attachments have been queued for republishing")
 end
 
+Given(/^Documents with publicly-visible editions with attachments exist$/) do
+  2.times do
+    document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
+    create(:attachment, attachable_type: "Edition", attachable_id: document.live_edition.id)
+  end
+end
+
+When(/^I request a bulk republishing of all documents with publicly-visible editions with attachments$/) do
+  visit admin_republishing_index_path
+  find("#all-documents-with-publicly-visible-editions-with-attachments").click
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
+  click_button("Confirm republishing")
+end
+
+Then(/^I can see that all documents with publicly-visible editions with attachments have been queued for republishing$/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "All documents with publicly-visible editions with attachments have been queued for republishing")
+end
+
 Given(/^Documents with publicly-visible editions with HTML attachments exist$/) do
   2.times do
     document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
