@@ -407,6 +407,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_104148) do
     t.string "logo_formatted_name"
     t.string "analytics_identifier"
     t.boolean "visual_editor"
+    t.json "details"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
