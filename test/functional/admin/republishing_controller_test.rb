@@ -21,7 +21,8 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(1) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/all-documents/confirm']", text: "Republish all documents"
     assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(2) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/all-documents-with-pre-publication-editions/confirm']", text: "Republish all documents with pre-publication editions"
-    assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(3) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/all-published-organisation-about-us-pages/confirm']", text: "Republish all published organisation 'About us' pages"
+    assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(3) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/all-documents-with-pre-publication-editions-with-html-attachments/confirm']", text: "Republish all documents with pre-publication editions with HTML attachments"
+    assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(4) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/all-published-organisation-about-us-pages/confirm']", text: "Republish all published organisation 'About us' pages"
 
     assert_response :ok
   end

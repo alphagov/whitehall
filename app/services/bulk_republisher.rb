@@ -24,4 +24,15 @@ class BulkRepublisher
       PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", edition.document.id, true)
     end
   end
+
+  def republish_all_documents_with_pre_publication_editions_with_html_attachments
+    document_ids = Edition
+      .in_pre_publication_state
+      .where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
+      .pluck(:document_id)
+
+    document_ids.each do |document_id|
+      PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+    end
+  end
 end
