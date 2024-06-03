@@ -117,4 +117,46 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       BulkRepublisher.new.republish_all_documents_with_pre_publication_editions_with_html_attachments
     end
   end
+
+  describe "#republish_all_documents_with_publicly_visible_editions_with_html_attachments" do
+    test "queues all documents with publicly-visible editions with HTML attachments for republishing" do
+      queue_sequence = sequence("queue")
+
+      2.times do
+        document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
+        create(:html_attachment, attachable_type: "Edition", attachable_id: document.live_edition.id)
+
+        PublishingApiDocumentRepublishingWorker
+          .expects(:perform_async_in_queue)
+          .with("bulk_republishing", document.id, true)
+          .in_sequence(queue_sequence)
+      end
+
+      BulkRepublisher.new.republish_all_documents_with_publicly_visible_editions_with_html_attachments
+    end
+
+    test "doesn't queue documents for republishing if the editions with HTML attachments aren't publicly-visible editions" do
+      draft_edition = build(:draft_edition)
+      document = create(:document, editions: [draft_edition])
+      create(:html_attachment, attachable_type: "Edition", attachable_id: draft_edition.id)
+
+      PublishingApiDocumentRepublishingWorker
+        .expects(:perform_async_in_queue)
+        .with("bulk_republishing", document.id, true)
+        .never
+
+      BulkRepublisher.new.republish_all_documents_with_publicly_visible_editions_with_html_attachments
+    end
+
+    test "doesn't queue documents republishing when there are publicly-visible editions but none have HTML attachments" do
+      document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
+
+      PublishingApiDocumentRepublishingWorker
+        .expects(:perform_async_in_queue)
+        .with("bulk_republishing", document.id, true)
+        .never
+
+      BulkRepublisher.new.republish_all_documents_with_publicly_visible_editions_with_html_attachments
+    end
+  end
 end
