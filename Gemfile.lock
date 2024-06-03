@@ -396,8 +396,8 @@ GEM
       rack (>= 2.1.4.1)
     marcel (1.0.4)
     matrix (0.4.2)
-    maxitest (5.4.0)
-      minitest (>= 5.14.0, < 5.21.0)
+    maxitest (5.5.0)
+      minitest (>= 5.14.0, < 5.24.0)
     mechanize (2.10.0)
       addressable (~> 2.8)
       base64
