@@ -385,7 +385,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal :a_home_page_list_of_offices, world_organisation.__send__(:home_page_offices_list)
   end
 
-  test "#corporate_information_page_types does not return `About Us` pages" do
+  test "#corporate_information_page_types does not return `About us` pages" do
     organisation = build(:editionable_worldwide_organisation)
 
     assert_not_includes organisation.corporate_information_page_types.map(&:slug), "about"
