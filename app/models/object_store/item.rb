@@ -4,6 +4,10 @@ module ObjectStore
 
     after_initialize :add_field_accessors
 
+    validates :item_type, presence: true, on: :create
+    validate :item_type_cannot_change
+    validates :item_type, inclusion: { in: ObjectStore.item_types }
+
     def summary_required?
       false
     end
@@ -28,6 +32,12 @@ module ObjectStore
       end
     rescue UnknownItemType
       # Ignored
+    end
+
+    def item_type_cannot_change
+      if persisted? && item_type_changed?
+        errors.add :item_type, "cannot be changed after creation"
+      end
     end
   end
 end
