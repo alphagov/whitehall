@@ -424,6 +424,12 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy
       end
       post "/link-checker-api-callback" => "link_checker_api#callback"
+
+      namespace :object_store do
+        scope "/:item_type", constraints: { item_type: Regexp.compile(ObjectStore.item_types.join("|")) } do
+          resources :items, path: "/"
+        end
+      end
     end
   end
 

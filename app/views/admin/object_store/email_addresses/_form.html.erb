@@ -1,0 +1,21 @@
+<%= object_store_item_form(email_address) do |form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Title",
+    },
+    heading_size: "m",
+    value: form.object.title,
+    name: "edition[title]",
+    id: "edition_title",
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Email address",
+    },
+    heading_size: "m",
+    value: form.object.email_address,
+    name: "edition[email_address]",
+    id: "edition_email_address",
+  } %>
+<% end %>
