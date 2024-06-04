@@ -292,8 +292,6 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
               contact_numbers_attributes: {
                 "0" => {
                   id: contact_number.id,
-                  label: contact_number.label,
-                  number: contact_number.number,
                   _destroy: "true",
                 },
               },
@@ -304,6 +302,60 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
         }
 
     assert_not ContactNumber.exists?(contact_number.id)
+  end
+
+  view_test "PUT :update gives validation error when contact number has blank label" do
+    worldwide_organisation, office = create_worldwide_organisation_and_office
+    contact_number = office.contact.contact_numbers.create!(label: "Phone", number: "1234")
+
+    put :update,
+        params: {
+          worldwide_office: {
+            contact_attributes: {
+              id: office.contact.id,
+              title: "Head office",
+              contact_numbers_attributes: {
+                "0" => {
+                  id: contact_number.id,
+                  label: "",
+                  number: contact_number.number,
+                },
+              },
+            },
+          },
+          id: office,
+          worldwide_organisation_id: worldwide_organisation,
+        }
+
+    assert_select ".gem-c-error-summary", text: /There is a problem/
+    assert ContactNumber.exists?(contact_number.id)
+  end
+
+  view_test "PUT :update gives validation error when contact number has blank number" do
+    worldwide_organisation, office = create_worldwide_organisation_and_office
+    contact_number = office.contact.contact_numbers.create!(label: "Phone", number: "1234")
+
+    put :update,
+        params: {
+          worldwide_office: {
+            contact_attributes: {
+              id: office.contact.id,
+              title: "Head office",
+              contact_numbers_attributes: {
+                "0" => {
+                  id: contact_number.id,
+                  label: contact_number.label,
+                  number: "",
+                },
+              },
+            },
+          },
+          id: office,
+          worldwide_organisation_id: worldwide_organisation,
+        }
+
+    assert_select ".gem-c-error-summary", text: /There is a problem/
+    assert ContactNumber.exists?(contact_number.id)
   end
 
   test "PUT :update deletes contact numbers that have only blank fields" do

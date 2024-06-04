@@ -23,7 +23,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
     if (contact_numbers_attributes = update_params.dig(:contact_attributes, :contact_numbers_attributes))
       contact_numbers_attributes.each do |_id, contact_number_attribute|
-        contact_number_attribute[:_destroy] = true if contact_number_attribute[:label].empty? && contact_number_attribute[:number].empty?
+        contact_number_attribute[:_destroy] = true unless contact_number_attribute[:label].present? || contact_number_attribute[:number].present?
       end
     end
 
