@@ -7,27 +7,27 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "GDS Admin users should be able to GET :confirm_all with a valid parameterless bulk content type" do
-    get :confirm_all, params: { bulk_content_type: "all-published-organisation-about-us-pages" }
+  test "GDS Admin users should be able to GET :confirm with a valid parameterless bulk content type" do
+    get :confirm, params: { bulk_content_type: "all-published-organisation-about-us-pages" }
     assert_response :ok
   end
 
-  test "GDS Admin users should see a 404 page when trying to GET :confirm_all with an invalid parameterless bulk content type" do
-    get :confirm_all, params: { bulk_content_type: "fish" }
+  test "GDS Admin users should see a 404 page when trying to GET :confirm with an invalid parameterless bulk content type" do
+    get :confirm, params: { bulk_content_type: "fish" }
     assert_response :not_found
   end
 
-  test "Non-GDS Admin users should not be able to GET :confirm_all" do
+  test "Non-GDS Admin users should not be able to GET :confirm" do
     login_as :writer
 
-    get :confirm_all, params: { bulk_content_type: "all-published-organisation-about-us-pages" }
+    get :confirm, params: { bulk_content_type: "all-published-organisation-about-us-pages" }
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to POST :republish_all with a valid bulk content type and a reason, creating a RepublishingEvent for the current user" do
+  test "GDS Admin users should be able to POST :republish with a valid bulk content type and a reason, creating a RepublishingEvent for the current user" do
     BulkRepublisher.any_instance.expects(:republish_all_published_organisation_about_us_pages).once
 
-    post :republish_all, params: { bulk_content_type: "all-published-organisation-about-us-pages", reason: "this needs republishing" }
+    post :republish, params: { bulk_content_type: "all-published-organisation-about-us-pages", reason: "this needs republishing" }
 
     newly_created_event = RepublishingEvent.last
     assert_equal newly_created_event.user, current_user
@@ -40,28 +40,28 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
     assert_equal "All published organisation 'About us' pages have been queued for republishing", flash[:notice]
   end
 
-  test "GDS Admin users should encounter an error on POST :republish_all without a `reason` and be sent back to the confirm_all page" do
+  test "GDS Admin users should encounter an error on POST :republish without a `reason` and be sent back to the confirm page" do
     BulkRepublisher.expects(:new).never
 
-    post :republish_all, params: { bulk_content_type: "all-published-organisation-about-us-pages", reason: "" }
+    post :republish, params: { bulk_content_type: "all-published-organisation-about-us-pages", reason: "" }
 
     assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
-    assert_template "confirm_all"
+    assert_template "confirm"
   end
 
-  test "GDS Admin users should see a 404 page when trying to POST :republish_all with an invalid bulk content type" do
+  test "GDS Admin users should see a 404 page when trying to POST :republish with an invalid bulk content type" do
     BulkRepublisher.expects(:new).never
 
-    post :republish_all, params: { bulk_content_type: "not-a-bulk-content-type", reason: "this needs republishing" }
+    post :republish, params: { bulk_content_type: "not-a-bulk-content-type", reason: "this needs republishing" }
     assert_response :not_found
   end
 
-  test "Non-GDS Admin users should not be able to POST :republish_all" do
+  test "Non-GDS Admin users should not be able to POST :republish" do
     BulkRepublisher.expects(:new).never
 
     login_as :writer
 
-    post :republish_all, params: { bulk_content_type: "all-published-organisation-about-us-pages", reason: "this needs republishing" }
+    post :republish, params: { bulk_content_type: "all-published-organisation-about-us-pages", reason: "this needs republishing" }
     assert_response :forbidden
   end
 end
