@@ -22,7 +22,13 @@
             name: "world_location_news[world_location_attributes][world_location_type]",
             label: "Type (required)",
             heading_size: "l",
-            options: WorldLocation.world_location_types.keys.map { |location_type| { text: I18n.t("world_location.type.#{location_type}", count: 1), value: location_type } },
+            options: WorldLocation.world_location_types.keys.map do |location_type|
+              {
+                text: I18n.t("world_location.type.#{location_type}", count: 1),
+                value: location_type,
+                selected: location_type == @world_location_news.world_location.world_location_type,
+              }
+            end,
             full_width: true,
           } %>
 

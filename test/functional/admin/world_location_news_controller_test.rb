@@ -24,11 +24,13 @@ class Admin::WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "should allow modification of existing world location data" do
-    world_location = create(:world_location)
+    world_location = create(:world_location, world_location_type: "international_delegation")
 
     get :edit, params: { id: world_location.world_location_news }
 
     assert_template "world_location_news/edit"
+    assert_select "select[name='world_location_news[world_location_attributes][world_location_type]']"
+    assert_select "option[value='international_delegation'][selected='selected']"
     assert_select "input[name='world_location_news[title]']"
     assert_select "textarea[name='world_location_news[mission_statement]']"
     assert_select "input[name='world_location_news[featured_links_attributes][0][title]']"
