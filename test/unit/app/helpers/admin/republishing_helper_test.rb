@@ -54,6 +54,7 @@ def content_types
                     Government
                     HistoricalAccount
                     NewsArticle
+                    ObjectStore::Item
                     OperationalField
                     Organisation
                     Person
