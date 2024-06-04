@@ -5,6 +5,8 @@ class CreateEmailTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   setup do
+    feature_flags = Flipflop::FeatureSet.current.test!
+    feature_flags.switch!(:object_store, true)
     login_as_admin
   end
 

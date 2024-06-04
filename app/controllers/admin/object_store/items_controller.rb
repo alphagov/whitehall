@@ -1,6 +1,12 @@
 module Admin::ObjectStore
   class ItemsController < Admin::EditionsController
+    before_action :check_object_store_feature_flag
+
   private
+
+    def check_object_store_feature_flag
+      forbidden! unless Flipflop.object_store?
+    end
 
     def edition_class
       ObjectStore::Item
