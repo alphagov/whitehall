@@ -48,6 +48,18 @@ module Admin::RepublishingHelper
     }
   end
 
+  def republishable_content_types
+    document_types = Edition.descendants.select { |descendant|
+      next(false) if descendant == EditionableWorldwideOrganisation && !Flipflop.editionable_worldwide_organisations?
+
+      descendant.descendants.count.zero?
+    }.map(&:to_s)
+
+    includes_publish_to_publishing_api = ApplicationRecord.subclasses.select { |subclass| subclass.included_modules.include? PublishesToPublishingApi }.map(&:to_s)
+
+    [document_types, includes_publish_to_publishing_api].flatten.sort
+  end
+
   def republishing_index_bulk_republishing_rows
     bulk_content_type_metadata.values.map do |content_type|
       [
