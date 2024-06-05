@@ -19,8 +19,6 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   test "delegates address-related methods to its contact" do
     contact = create(
       :contact_with_country,
-      latitude: "67890",
-      longitude: "12345",
       email: "email@email.com",
       contact_form_url: "http://contact.com/form",
       title: "Consulate General's Office",
@@ -36,8 +34,6 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     office = create(:worldwide_office, contact:)
 
     # attributes
-    assert_equal contact.latitude, office.latitude
-    assert_equal contact.longitude, office.longitude
     assert_equal contact.email, office.email
     assert_equal contact.contact_form_url, office.contact_form_url
     assert_equal contact.title, office.title
