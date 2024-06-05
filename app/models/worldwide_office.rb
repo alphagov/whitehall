@@ -19,11 +19,24 @@ class WorldwideOffice < ApplicationRecord
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists
 
-  # WorldOffice quacks like a Contact
-  contact_methods = Contact.column_names +
-    Contact::Translation.column_names +
-    %w[contact_numbers country country_code country_name has_postal_address?] -
-    %w[id contactable_id contactable_type contact_id locale created_at updated_at content_id]
+  contact_methods = %w[
+    comments
+    contact_form_url
+    contact_numbers
+    contact_type_id
+    country
+    country_code
+    country_id
+    country_name
+    email
+    has_postal_address?
+    locality
+    postal_code
+    recipient
+    region
+    street_address
+    title
+  ]
 
   delegate(*contact_methods, to: :contact, allow_nil: true)
   delegate(:non_english_translated_locales, to: :worldwide_organisation)

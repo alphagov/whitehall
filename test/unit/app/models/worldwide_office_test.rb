@@ -33,23 +33,22 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     )
     office = create(:worldwide_office, contact:)
 
-    # attributes
-    assert_equal contact.email, office.email
-    assert_equal contact.contact_form_url, office.contact_form_url
-    assert_equal contact.title, office.title
     assert_equal contact.comments, office.comments
-    assert_equal contact.recipient, office.recipient
-    assert_equal contact.street_address, office.street_address
-    assert_equal contact.locality, office.locality
-    assert_equal contact.region, office.region
-    assert_equal contact.postal_code, office.postal_code
-    # associations
-    assert_equal contact.country, office.country
+    assert_equal contact.contact_form_url, office.contact_form_url
     assert_equal contact.contact_numbers, office.contact_numbers
-    # methods
+    assert_equal contact.contact_type_id, office.contact_type_id
+    assert_equal contact.country, office.country
     assert_equal contact.country_code, office.country_code
+    assert_equal contact.country_id, office.country_id
     assert_equal contact.country_name, office.country_name
+    assert_equal contact.email, office.email
     assert_equal contact.has_postal_address?, office.has_postal_address?
+    assert_equal contact.locality, office.locality
+    assert_equal contact.postal_code, office.postal_code
+    assert_equal contact.recipient, office.recipient
+    assert_equal contact.region, office.region
+    assert_equal contact.street_address, office.street_address
+    assert_equal contact.title, office.title
   end
 
   test "sets a slug based on the title" do
