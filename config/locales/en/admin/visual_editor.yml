@@ -1,0 +1,11 @@
+en:
+  admin:
+    visual_editor:
+      exit:
+        description: |
+          Continue to edit in markdown if you have to add or format content that is not available.
+          </br></br>
+          Visual Editor can only be used once per document and subsequent editing needs to be done in markdown.
+          </br></br>
+          All changes made in Visual Editor will be saved when you press save and exit to markdown.
+        button: Continue editing in markdown

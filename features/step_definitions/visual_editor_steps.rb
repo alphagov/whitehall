@@ -82,7 +82,7 @@ And(/^I save the HTML attachment$/) do
 end
 
 And(/^I exit the visual editor experience$/) do
-  click_on "Continue editing in markdown"
+  click_on I18n.t("admin.visual_editor.exit.button")
 end
 
 When(/^I edit a pre-existing publication$/) do

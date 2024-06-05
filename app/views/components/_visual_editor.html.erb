@@ -2,6 +2,7 @@
   id ||= "#{name}-#{SecureRandom.hex(4)}"
   label_id = "#{id}-label"
   value ||= nil
+  ga4_tracking_section ||= nil
   error_items ||= nil
 
   error_class = "govuk-form-group--error" if error_items
@@ -29,15 +30,23 @@
     <div class="js-app-c-visual-editor__inset-text">
     <%= render "govuk_publishing_components/components/inset_text", {
     } do %>
-      <p class="govuk-body">Continue to edit in markdown if you have to add or format content that is not available.</p>
-      <p class="govuk-body">Visual Editor can only be used once per document and subsequent editing needs to be done in markdown.</p>
-      <p class="govuk-body">All changes made in Visual Editor will be saved when you press save and exit to markdown.</p>
+      <p class="govuk-body"><%= I18n.t("admin.visual_editor.exit.description").html_safe %></p>
       <%= render "govuk_publishing_components/components/button", {
-        text: "Continue editing in markdown",
+        text: I18n.t("admin.visual_editor.exit.button"),
         secondary_solid: true,
         type: "button",
         classes: "js-app-c-visual-editor__exit-button",
         destructive: true,
+        data_attributes: {
+          "ga4-event": {
+            event_name: "visual_editor_exit",
+            type: "tabs",
+            text: I18n.t("admin.visual_editor.exit.button"),
+            section: ga4_tracking_section,
+            action: I18n.t("admin.visual_editor.exit.button"),
+            tool_name: "Visual Editor",
+          }.to_json,
+        },
       } %>
     <% end %>
     </div>
