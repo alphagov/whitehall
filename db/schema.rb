@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_154757) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_05_104148) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -181,8 +181,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_154757) do
   end
 
   create_table "contacts", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
-    t.decimal "latitude", precision: 15, scale: 10
-    t.decimal "longitude", precision: 15, scale: 10
     t.integer "contactable_id"
     t.string "contactable_type"
     t.string "postal_code"
