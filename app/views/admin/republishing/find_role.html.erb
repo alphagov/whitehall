@@ -20,9 +20,7 @@
       </div>
     </details>
 
-    <%= form_with(url: admin_republishing_role_search_path, method: :post, data: {
-        module: "prevent-multiple-form-submissions",
-      }) do %>
+    <%= form_with(url: admin_republishing_role_search_path, method: :post) do %>
       <%= render "govuk_publishing_components/components/input", {
           label: {
             text: "Enter the slug for the role",
