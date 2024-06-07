@@ -29,14 +29,15 @@
     <div class="js-app-c-visual-editor__inset-text">
     <%= render "govuk_publishing_components/components/inset_text", {
     } do %>
-      <p class="govuk-body">Thanks for being part of the beta trial to experiment the visual editor. This is an early version and does not support all content design and formatting needs.</p>
-      <p class="govuk-body">If you are blocked you can save your work so far and continue with the markdown editor.</p>
-      <p class="govuk-body">Note that you will not be able switch back to the visual editor only for this document. Visual editor will be available on a new document.</p>
+      <p class="govuk-body">Continue to edit in markdown if you have to add or format content that is not available.</p>
+      <p class="govuk-body">Visual Editor can only be used once per document and subsequent editing needs to be done in markdown.</p>
+      <p class="govuk-body">All changes made in Visual Editor will be saved when you press save and exit to markdown.</p>
       <%= render "govuk_publishing_components/components/button", {
-        text: "Continue in markdown editor",
+        text: "Continue editing in markdown",
         secondary_solid: true,
         type: "button",
         classes: "js-app-c-visual-editor__exit-button",
+        destructive: true,
       } %>
     <% end %>
     </div>

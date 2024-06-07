@@ -82,7 +82,7 @@ And(/^I save the HTML attachment$/) do
 end
 
 And(/^I exit the visual editor experience$/) do
-  click_on "Continue in markdown editor"
+  click_on "Continue editing in markdown"
 end
 
 When(/^I edit a pre-existing publication$/) do
