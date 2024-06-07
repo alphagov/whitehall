@@ -66,6 +66,9 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
     assert unpublishing.valid?
 
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.independent-inquiry.uk/about-the-independent-inquiry/")
+    assert unpublishing.valid?
+
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.judiciary.uk/about-the-judiciary/")
     assert unpublishing.valid?
 
