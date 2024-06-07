@@ -3,6 +3,7 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
   EXTERNAL_HOST_ALLOW_LIST = %w[
     .caa.co.uk
     .gov.uk
+    .independent-inquiry.uk
     .judiciary.uk
     .nationalhighways.co.uk
     .nhs.uk
