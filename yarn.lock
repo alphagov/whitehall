@@ -1514,10 +1514,10 @@ gopd@^1.0.1:
   dependencies:
     get-intrinsic "^1.1.3"
 
-govspeak-visual-editor@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/govspeak-visual-editor/-/govspeak-visual-editor-1.1.0.tgz#01e9ba2e7c8cc17376d823f7c79a1bcb9461de26"
-  integrity sha512-55mGl5DJWDD7uvitiwnJ6alNPWcrgv312T+PYxOKCN+viT8N/wgs71Vg6mRkeWUTDnV3yB7//9q35Cp4/iEghw==
+govspeak-visual-editor@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/govspeak-visual-editor/-/govspeak-visual-editor-1.2.0.tgz#3d083df0134bfc6e4fc6cbf5bb9747fa86719ce7"
+  integrity sha512-IEyUwu2vbSWaPkqKEOsEShVyjH8wrPLAMPTrfiOFwitRFFAcOW9khmqhpKm7hToo6PGMDBuCfQeshVWw/5B+yg==
   dependencies:
     govuk-frontend "^4.8.0"
     prosemirror-example-setup "^1.2.2"
