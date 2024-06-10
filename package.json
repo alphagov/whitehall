@@ -17,7 +17,7 @@
     "accessible-autocomplete": "alphagov/accessible-autocomplete-multiselect",
     "choices.js": "^10.2.0",
     "cropperjs": "^1.6.2",
-    "govspeak-visual-editor": "^1.1.0",
+    "govspeak-visual-editor": "^1.2.0",
     "miller-columns-element": "^2.0.0",
     "paste-html-to-govspeak": "^0.4.0"
   },
