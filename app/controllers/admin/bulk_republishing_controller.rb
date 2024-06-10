@@ -3,7 +3,7 @@ class Admin::BulkRepublishingController < Admin::BaseController
 
   before_action :enforce_permissions!
 
-  def confirm_all
+  def confirm
     bulk_content_type_key = params[:bulk_content_type].underscore.to_sym
     @bulk_content_type_metadata = bulk_content_type_metadata[bulk_content_type_key]
     return render "admin/errors/not_found", status: :not_found unless @bulk_content_type_metadata
@@ -11,7 +11,7 @@ class Admin::BulkRepublishingController < Admin::BaseController
     @republishing_event = RepublishingEvent.new
   end
 
-  def republish_all
+  def republish
     bulk_content_type_key = params[:bulk_content_type].underscore.to_sym
     @bulk_content_type_metadata = bulk_content_type_metadata.fetch(bulk_content_type_key, nil)
     return render "admin/errors/not_found", status: :not_found unless @bulk_content_type_metadata
@@ -26,7 +26,7 @@ class Admin::BulkRepublishingController < Admin::BaseController
       flash[:notice] = action
       redirect_to(admin_republishing_index_path)
     else
-      render "confirm_all"
+      render "confirm"
     end
   end
 

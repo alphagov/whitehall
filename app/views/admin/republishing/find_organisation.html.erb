@@ -4,9 +4,7 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <%= form_with(url: admin_republishing_organisation_search_path, method: :post, data: {
-        module: "prevent-multiple-form-submissions",
-      }) do %>
+    <%= form_with(url: admin_republishing_organisation_search_path, method: :post) do %>
 
       <%= render "govuk_publishing_components/components/input", {
           label: {

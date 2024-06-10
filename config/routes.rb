@@ -53,8 +53,8 @@ Whitehall::Application.routes.draw do
           post "/:document_slug/republish" => "republishing#republish_document", as: :republishing_document_republish
         end
         scope :bulk do
-          get "/:bulk_content_type/confirm" => "bulk_republishing#confirm_all", as: :bulk_republishing_all_confirm
-          post "/:bulk_content_type/republish" => "bulk_republishing#republish_all", as: :bulk_republishing_all_republish
+          get "/:bulk_content_type/confirm" => "bulk_republishing#confirm", as: :bulk_republishing_confirm
+          post "/:bulk_content_type/republish" => "bulk_republishing#republish", as: :bulk_republishing_republish
         end
       end
 
