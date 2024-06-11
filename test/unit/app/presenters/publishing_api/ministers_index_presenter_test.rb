@@ -114,7 +114,16 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
         },
       }
 
-      expected_links = {}
+      expected_links = {
+        ordered_cabinet_ministers: [],
+        ordered_also_attends_cabinet: [],
+        ordered_ministerial_departments: [],
+        ordered_house_of_commons_whips: [],
+        ordered_junior_lords_of_the_treasury_whips: [],
+        ordered_assistant_whips: [],
+        ordered_house_lords_whips: [],
+        ordered_baronesses_and_lords_in_waiting_whips: [],
+      }
 
       assert_equal expected_details, presented_item.content[:details]
       assert_valid_against_publisher_schema(presented_item.content, "ministers_index")

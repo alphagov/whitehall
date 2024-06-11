@@ -32,18 +32,29 @@ module PublishingApi
     end
 
     def links
-      return {} if reshuffle_in_progress?
-
-      {
-        ordered_cabinet_ministers: ordered_cabinet_ministers_content_ids,
-        ordered_also_attends_cabinet: ordered_also_attends_cabinet_content_ids,
-        ordered_ministerial_departments: ordered_ministerial_departments_content_ids,
-        ordered_house_of_commons_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseOfCommons),
-        ordered_junior_lords_of_the_treasury_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::JuniorLordsoftheTreasury),
-        ordered_assistant_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::AssistantWhips),
-        ordered_house_lords_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseofLords),
-        ordered_baronesses_and_lords_in_waiting_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::BaronessAndLordsInWaiting),
-      }
+      if reshuffle_in_progress?
+        {
+          ordered_cabinet_ministers: [],
+          ordered_also_attends_cabinet: [],
+          ordered_ministerial_departments: [],
+          ordered_house_of_commons_whips: [],
+          ordered_junior_lords_of_the_treasury_whips: [],
+          ordered_assistant_whips: [],
+          ordered_house_lords_whips: [],
+          ordered_baronesses_and_lords_in_waiting_whips: [],
+        }
+      else
+        {
+          ordered_cabinet_ministers: ordered_cabinet_ministers_content_ids,
+          ordered_also_attends_cabinet: ordered_also_attends_cabinet_content_ids,
+          ordered_ministerial_departments: ordered_ministerial_departments_content_ids,
+          ordered_house_of_commons_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseOfCommons),
+          ordered_junior_lords_of_the_treasury_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::JuniorLordsoftheTreasury),
+          ordered_assistant_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::AssistantWhips),
+          ordered_house_lords_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::WhipsHouseofLords),
+          ordered_baronesses_and_lords_in_waiting_whips: ordered_whips_content_ids(Whitehall::WhipOrganisation::BaronessAndLordsInWaiting),
+        }
+      end
     end
 
     def title
