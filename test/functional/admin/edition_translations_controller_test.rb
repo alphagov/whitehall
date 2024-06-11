@@ -187,9 +187,9 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     assert_select ".govuk-error-summary"
   end
 
-  view_test "#update puts the translation to the publishing API" do
+  view_test "#update puts all translations to the publishing API" do
     Sidekiq::Testing.inline! do
-      edition = create(:draft_edition)
+      edition = create(:draft_edition, translated_into: [:cy])
 
       put :update,
           params: { edition_id: edition,
@@ -206,6 +206,20 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
           title: "translated-title",
           description: "translated-summary",
           locale: "fr",
+        ),
+      )
+
+      assert_publishing_api_put_content(
+        edition.content_id,
+        request_json_includes(
+          locale: "en",
+        ),
+      )
+
+      assert_publishing_api_put_content(
+        edition.content_id,
+        request_json_includes(
+          locale: "cy",
         ),
       )
     end

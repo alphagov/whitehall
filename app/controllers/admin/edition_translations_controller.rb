@@ -61,7 +61,7 @@ private
   end
 
   def save_draft_translation
-    Whitehall.edition_services.draft_translation_updater(translatable_item, locale: translation_locale.code).perform!
+    Whitehall.edition_services.draft_updater(@edition).perform!
   end
 
   def send_downstream?
