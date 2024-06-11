@@ -19,10 +19,6 @@ class EditionServiceCoordinator
     ::DraftEditionUpdater.new(edition, options.merge(notifier: self))
   end
 
-  def draft_translation_updater(edition, options = {})
-    ::DraftTranslationUpdater.new(edition, options.merge(notifier: self))
-  end
-
   def scheduler(edition, options = {})
     ::EditionScheduler.new(edition, options.merge(notifier: self))
   end
