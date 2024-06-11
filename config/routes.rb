@@ -424,6 +424,8 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy
       end
       post "/link-checker-api-callback" => "link_checker_api#callback"
+
+      mount ObjectStore::Engine, at: "/object-store"
     end
   end
 
