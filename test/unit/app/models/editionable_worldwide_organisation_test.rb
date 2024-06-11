@@ -396,4 +396,8 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     organisation = build(:editionable_worldwide_organisation)
     organisation.attachments << build(:file_attachment)
   end
+
+  test "should not be valid without a summary" do
+    assert_not build(:editionable_worldwide_organisation, summary: nil).valid?
+  end
 end

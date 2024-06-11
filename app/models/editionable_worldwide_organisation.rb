@@ -182,10 +182,6 @@ class EditionableWorldwideOrganisation < Edition
     false
   end
 
-  def summary_required?
-    false
-  end
-
   def translatable?
     true
   end
