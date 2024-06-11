@@ -1,6 +1,7 @@
 class Organisation < ApplicationRecord
   include DateValidation
   include PublishesToPublishingApi
+  include ReshuffleMode
   include Searchable
   include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
@@ -206,8 +207,10 @@ class Organisation < ApplicationRecord
 
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
-  after_save :republish_how_government_works_page_to_publishing_api, :republish_ministers_index_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
-  after_destroy :republish_ministers_index_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
+  after_save :republish_how_government_works_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
+  after_save :republish_ministers_index_page_to_publishing_api, if: :ministerial_department?
+  after_destroy :republish_organisations_index_page_to_publishing_api
+  after_destroy :republish_ministers_index_page_to_publishing_api, if: :ministerial_department?
 
   after_save do
     # If the organisation has an about us page and the chart URL changes we need
@@ -223,14 +226,6 @@ class Organisation < ApplicationRecord
       documents = Document.live.where(editions: { alternative_format_provider_id: self })
       documents.find_each { |d| Whitehall::PublishingApi.republish_document_async(d, bulk: true) }
     end
-  end
-
-  def republish_how_government_works_page_to_publishing_api
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
-  end
-
-  def republish_ministers_index_page_to_publishing_api
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter") if ministerial_department?
   end
 
   def republish_organisations_index_page_to_publishing_api
