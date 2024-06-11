@@ -18,7 +18,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 rails assets:precompile && rm -fr log
 
 
 FROM --platform=$TARGETPLATFORM $base_image
-RUN install_packages ghostscript imagemagick unzip
+RUN install_packages ghostscript imagemagick unzip zip
 
 ENV GOVUK_APP_NAME=whitehall
 
