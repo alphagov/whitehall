@@ -1,5 +1,6 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
+  include ReshuffleMode
 
   has_many :role_appointments,
            lambda {
@@ -37,7 +38,8 @@ class Person < ApplicationRecord
   translates :biography
 
   before_destroy :prevent_destruction_if_appointed
-  after_update :touch_role_appointments, :republish_ministerial_pages_to_publishing_api
+  after_update :touch_role_appointments, :republish_past_prime_ministers_page_to_publishing_api
+  after_update :republish_ministerial_pages_to_publishing_api, if: :has_ministerial_appointments?
 
   def biography_without_markup
     Govspeak::Document.new(biography).to_text
@@ -156,12 +158,11 @@ private
     biography&.split(/\n/)&.first
   end
 
-  def republish_ministerial_pages_to_publishing_api
-    if role_appointments.any?(&:ministerial?)
-      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
-      PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter")
-    end
+  def has_ministerial_appointments?
+    role_appointments.any?(&:ministerial?)
+  end
 
+  def republish_past_prime_ministers_page_to_publishing_api
     if current_or_previous_prime_minister?
       historical_account.republish_to_publishing_api_async if historical_account.present?
       PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter")
