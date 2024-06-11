@@ -15,6 +15,11 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Require all Engines inside the `packages` directory
+Dir.glob("packages/**/engine.rb", base: Rails.root).each do |path|
+  require_relative "../#{path}"
+end
+
 module Whitehall
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
