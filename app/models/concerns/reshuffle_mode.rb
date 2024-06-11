@@ -21,9 +21,6 @@ module ReshuffleMode
   end
 
   def update_live?
-    # should be false when reshuffle mode is on - we'll reuse
-    # https://github.com/alphagov/whitehall/blob/685e3ce1687872ed5567bc1d907b822fbd77035e/app/presenters/publishing_api/ministers_index_presenter.rb#L71-L73
-    # in a future commit
-    true
+    !reshuffle_in_progress?
   end
 end

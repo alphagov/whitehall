@@ -27,6 +27,15 @@ class ReshuffleModeTest < ActiveSupport::TestCase
 
       ClassThatIncludesReshuffleMode.new.republish_ministerial_pages_to_publishing_api
     end
+
+    it "only saves to the draft stack when reshuffle mode is switched on" do
+      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter", false).once
+      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexPresenter", false).once
+
+      reshuffle_mode = ClassThatIncludesReshuffleMode.new
+      reshuffle_mode.stubs(:reshuffle_in_progress?).returns(true)
+      reshuffle_mode.republish_ministerial_pages_to_publishing_api
+    end
   end
 
   describe "#republish_ministers_index_page_to_publishing_api" do
@@ -35,6 +44,14 @@ class ReshuffleModeTest < ActiveSupport::TestCase
 
       ClassThatIncludesReshuffleMode.new.republish_ministers_index_page_to_publishing_api
     end
+
+    it "only saves to the draft stack when reshuffle mode is switched on" do
+      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexPresenter", false).once
+
+      reshuffle_mode = ClassThatIncludesReshuffleMode.new
+      reshuffle_mode.stubs(:reshuffle_in_progress?).returns(true)
+      reshuffle_mode.republish_ministers_index_page_to_publishing_api
+    end
   end
 
   describe "#republish_how_government_works_page_to_publishing_api" do
@@ -42,6 +59,14 @@ class ReshuffleModeTest < ActiveSupport::TestCase
       PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter", true).once
 
       ClassThatIncludesReshuffleMode.new.republish_how_government_works_page_to_publishing_api
+    end
+
+    it "only saves to the draft stack when reshuffle mode is switched on" do
+      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter", false).once
+
+      reshuffle_mode = ClassThatIncludesReshuffleMode.new
+      reshuffle_mode.stubs(:reshuffle_in_progress?).returns(true)
+      reshuffle_mode.republish_how_government_works_page_to_publishing_api
     end
   end
 end
