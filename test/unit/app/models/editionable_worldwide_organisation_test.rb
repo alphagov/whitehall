@@ -396,4 +396,10 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     organisation = build(:editionable_worldwide_organisation)
     organisation.attachments << build(:file_attachment)
   end
+
+  %w[body summary title].each do |param|
+    test "should not be valid without a #{param}" do
+      assert_not build(:editionable_worldwide_organisation, param.to_sym => nil).valid?
+    end
+  end
 end

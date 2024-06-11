@@ -32,7 +32,7 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
     page.destroy!
   end
 
-  %w[body corporate_information_page_type_id].each do |param|
+  %w[body corporate_information_page_type_id summary].each do |param|
     test "should not be valid without a #{param}" do
       assert_not build(:worldwide_organisation_page, param.to_sym => nil).valid?
     end

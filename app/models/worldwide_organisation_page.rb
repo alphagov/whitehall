@@ -6,6 +6,7 @@ class WorldwideOrganisationPage < ApplicationRecord
   validates :corporate_information_page_type_id,
             presence: true,
             exclusion: { in: [CorporateInformationPageType::AboutUs.id], message: "Type cannot be `About us`" }
+  validates :summary, presence: true
   validate :unique_worldwide_organisation_and_page_type, on: :create, if: :edition
   validate :parent_edition_has_locales, if: :edition
 
