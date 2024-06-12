@@ -1,11 +1,25 @@
-Given(/^there are multiple Cabinet minister roles$/) do
-  organisation = create(:organisation)
-  create(:ministerial_role, name: "Role 1", cabinet_member: true, organisations: [organisation], seniority: 0)
-  create(:ministerial_role, name: "Role 2", cabinet_member: true, organisations: [organisation], seniority: 1)
+Given(/^reshuffle mode is (on|off)$/) do |on_or_off|
+  create(:sitewide_setting, key: :minister_reshuffle_mode, on: on_or_off == "on")
 end
 
 When(/^I visit the Cabinet ministers order page$/) do
   visit admin_cabinet_ministers_path
+end
+
+Then(/^I (should|should not) see a preview to the ministers index page$/) do |should_or_should_not|
+  selector = ".govuk-details__summary-text"
+  text = "Share ministers page preview"
+  if should_or_should_not == "should"
+    expect(page).to have_selector(selector, text:)
+  else
+    expect(page).to_not have_selector(selector, text:)
+  end
+end
+
+Given(/^there are multiple Cabinet minister roles$/) do
+  organisation = create(:organisation)
+  create(:ministerial_role, name: "Role 1", cabinet_member: true, organisations: [organisation], seniority: 0)
+  create(:ministerial_role, name: "Role 2", cabinet_member: true, organisations: [organisation], seniority: 1)
 end
 
 When(/^I click the reorder link in the "([^"]*)" tab$/) do |tab|

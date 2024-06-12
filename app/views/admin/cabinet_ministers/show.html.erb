@@ -1,6 +1,29 @@
 <% content_for :page_title, "Cabinet ministers ordering" %>
 <% content_for :title, "Cabinet ministers ordering" %>
 
+<% if SitewideSetting.find_by(key: :minister_reshuffle_mode)&.on %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Preview ministers page in reshuffle mode",
+    heading_level: 2,
+    font_size: "l",
+    margin_bottom: 3,
+  } %>
+
+  <section class="app-view-summary__section">
+    <%= render "govuk_publishing_components/components/details", {
+      title: "Share ministers page preview",
+    } do %>
+      <% capture do %>
+        <%= render "govuk_publishing_components/components/copy_to_clipboard", {
+          label: "Copy and send this link to someone and they’ll be able to preview your draft on GOV.UK.",
+          copyable_content: "#{Plek.external_url_for('draft-origin')}/government/ministers",
+          button_text: "Copy link",
+        } %>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>
+
 <%= render "govuk_publishing_components/components/tabs", {
   tabs: [
     {
