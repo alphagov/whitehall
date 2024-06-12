@@ -2,6 +2,8 @@ class Admin::CabinetMinistersController < Admin::BaseController
   include ReshuffleMode
   before_action :enforce_permissions!
 
+  helper_method :reshuffle_in_progress?
+
   def show
     @cabinet_minister_roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)
     @also_attends_cabinet_roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
