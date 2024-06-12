@@ -108,6 +108,7 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
   view_test "GET :add_by_title with search value only returns published and unpublished editions" do
     create(:published_edition, title: "Something published")
     create(:edition, title: "Something unpublished")
+    create(:superseded_edition, title: "Something superseded")
     @request_params[:title] = "Something "
 
     get :add_by_title, params: @request_params
