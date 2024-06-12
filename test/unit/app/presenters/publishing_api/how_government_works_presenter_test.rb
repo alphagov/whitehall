@@ -76,39 +76,10 @@ class PublishingApi::HowGovernmentWorksPresenterTest < ActiveSupport::TestCase
       create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
     end
 
-    test "presents a valid content item without any details or links" do
-      expected_hash = {
-        base_path: "/government/how-government-works",
-        publishing_app: Whitehall::PublishingApp::WHITEHALL,
-        rendering_app: "government-frontend",
-        schema_name: "how_government_works",
-        document_type: "how_government_works",
-        title: "How government works",
-        description: "About the UK system of government. Understand who runs government, and how government is run.",
-        locale: "en",
-        routes: [
-          {
-            path: "/government/how-government-works",
-            type: "exact",
-          },
-        ],
-        update_type: "major",
-        redirects: [],
-        public_updated_at: Time.zone.now,
-        details: {
-          reshuffle_in_progress: true,
-        },
-      }
-
-      expected_links = {}
-
+    test "sets 'reshuffle_in_progress' to true" do
       presenter = PublishingApi::HowGovernmentWorksPresenter.new
 
-      assert_equal expected_hash, presenter.content
-      assert_valid_against_publisher_schema(presenter.content, "how_government_works")
-
-      assert_equal expected_links, presenter.links
-      assert_valid_against_links_schema({ links: presenter.links }, "how_government_works")
+      assert_equal true, presenter.content[:details][:reshuffle_in_progress]
     end
   end
 end

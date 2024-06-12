@@ -40,25 +40,17 @@ module PublishingApi
     end
 
     def links
-      return {} if reshuffle_in_progress?
-
       {
         current_prime_minister: [MinisterialRole.find_by(slug: "prime-minister")&.current_person&.content_id],
       }
     end
 
     def details
-      if reshuffle_in_progress?
-        {
-          reshuffle_in_progress: reshuffle_in_progress?,
-        }
-      else
-        {
-          department_counts:,
-          ministerial_role_counts:,
-          reshuffle_in_progress: reshuffle_in_progress?,
-        }
-      end
+      {
+        department_counts:,
+        ministerial_role_counts:,
+        reshuffle_in_progress: reshuffle_in_progress?,
+      }
     end
 
     def department_counts
