@@ -1,23 +1,15 @@
 require "test_helper"
 require "rake"
 
-class MarkDocumentsAsPoliticalFor < ActiveSupport::TestCase
+class IdentifyPoliticalContentFor < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   teardown { task.reenable }
 
-  describe "#mark_as_political" do
-    let(:task) { Rake::Task["election:mark_documents_as_political_for"] }
-    let(:organisation) { create(:organisation) }
-    let(:document) { create(:document) }
-    let(:published_edition) { create(:edition, :published, document:, first_published_at: "01-01-2023") }
-    let(:draft_edition) { create(:edition, :draft, document:) }
+  describe "#identify_political_content" do
+    let(:task) { Rake::Task["election:identify_political_content_for"] }
+    let(:organisation) { create(:organisation, political: true) }
     let(:date) { "31-12-2022" }
-
-    setup do
-      organisation.editions = [published_edition, draft_edition]
-      organisation.save!
-    end
 
     it "raises an error if organisation does not exist" do
       out, _err = capture_io { task.invoke("non-existent-slug", date) }
@@ -29,7 +21,13 @@ class MarkDocumentsAsPoliticalFor < ActiveSupport::TestCase
       assert_equal 'The date is not on the right format ["not a date"]', out.strip
     end
 
-    it "marks published editions of documents first published after the specified date and any associated drafts as political" do
+    it "marks eligible published editions of documents first published after the specified date and any associated drafts as political" do
+      document = create(:document)
+      published_edition = create(:news_article, :published, document:, first_published_at: "01-01-2023")
+      draft_edition = create(:news_article, :draft, document:)
+      organisation.editions = [published_edition, draft_edition]
+      organisation.save!
+
       capture_io { task.invoke(organisation.slug, date) }
       assert published_edition.reload.political
       assert draft_edition.reload.political
@@ -37,11 +35,23 @@ class MarkDocumentsAsPoliticalFor < ActiveSupport::TestCase
 
     it "does not mark editions unrelated to documents first published before the specified date as political" do
       non_political_document = create(:document)
-      create(:edition, :published, document: non_political_document, first_published_at: "30-12-2022")
-      create(:edition, :draft, document: non_political_document)
+      published_edition = create(:news_article, :published, document: non_political_document, political: false, first_published_at: "30-12-2022")
+      draft_edition = create(:news_article, :draft, document: non_political_document, political: false)
+      organisation.editions = [published_edition, draft_edition]
+      organisation.save!
+
       capture_io { task.invoke(organisation.slug, date) }
       assert_not non_political_document.reload.live_edition.political
       assert_not non_political_document.reload.latest_edition.political
+    end
+
+    it "does not mark editions that are ineligible as political content as political" do
+      fatality_notice = create(:fatality_notice, :published)
+      organisation.editions = [fatality_notice]
+      organisation.save!
+
+      capture_io { task.invoke(organisation.slug, date) }
+      assert_not fatality_notice.reload.political
     end
   end
 end
