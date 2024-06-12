@@ -201,4 +201,51 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       BulkRepublisher.new.republish_all_published_organisation_about_us_pages
     end
   end
+
+  describe "#republish_all_by_type" do
+    setup do
+      BulkRepublisher.any_instance.stubs(:non_editionable_content_types).returns(%w[Contact])
+      BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[Contact CaseStudy])
+    end
+
+    context "for editionable content types, like CaseStudy" do
+      test "republishes all content of the specified type via the PublishingApiDocumentRepublishingWorker" do
+        2.times do
+          case_study = create(:case_study)
+          PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+            "bulk_republishing",
+            case_study.document_id,
+            true,
+          )
+        end
+        BulkRepublisher.new.republish_all_by_type("CaseStudy")
+      end
+    end
+
+    context "for non-editionable content types, like Contact" do
+      test "republishes all content of the specified type via the Whitehall::Publishing API" do
+        2.times do
+          contact = create(:contact)
+          Whitehall::PublishingApi.expects(:bulk_republish_async).with(contact)
+        end
+        BulkRepublisher.new.republish_all_by_type("Contact")
+      end
+    end
+
+    context "for non-republishable model types" do
+      test "it raises an error" do
+        assert_raises(StandardError, match: "Unknown content type User") do
+          BulkRepublisher.new.republish_all_by_type("User")
+        end
+      end
+    end
+
+    context "for non-existent content types" do
+      test "it raises an error" do
+        assert_raises(StandardError, match: "Unknown content type SomeDocumentTypeThatDoesntExist") do
+          BulkRepublisher.new.republish_all_by_type("SomeDocumentTypeThatDoesntExist")
+        end
+      end
+    end
+  end
 end
