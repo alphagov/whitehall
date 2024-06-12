@@ -19,7 +19,7 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
   def add_by_title
     flash.now[:alert] = "Please enter a search query" if params[:title] && params[:title].empty?
     if params[:title].present?
-      results = Edition.with_title_containing(params[:title].strip)
+      results = Edition.active.with_title_containing(params[:title].strip)
       @editions = results
                     .page(params[:page])
                     .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
