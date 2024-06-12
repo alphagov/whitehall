@@ -1,5 +1,6 @@
 module PublishingApi
   class HowGovernmentWorksPresenter
+    include ReshuffleMode
     attr_accessor :update_type
 
     def initialize(update_type: nil)
@@ -78,10 +79,6 @@ module PublishingApi
     end
 
   private
-
-    def reshuffle_in_progress?
-      SitewideSetting.find_by(key: :minister_reshuffle_mode)&.on || false
-    end
 
     def prime_minister
       1

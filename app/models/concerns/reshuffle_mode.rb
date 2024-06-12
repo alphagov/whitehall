@@ -14,5 +14,9 @@ module ReshuffleMode
     def republish_how_government_works_page_to_publishing_api
       PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
     end
+
+    def reshuffle_in_progress?
+      SitewideSetting.find_by(key: :minister_reshuffle_mode)&.on || false
+    end
   end
 end

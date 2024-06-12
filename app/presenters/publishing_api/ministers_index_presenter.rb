@@ -1,6 +1,7 @@
 module PublishingApi
   class MinistersIndexPresenter
     include GovspeakHelper
+    include ReshuffleMode
 
     attr_accessor :update_type
 
@@ -77,10 +78,6 @@ module PublishingApi
           body: "Read biographies and responsibilities of <a href=\"#cabinet-ministers\" class=\"govuk-link\">Cabinet ministers</a> and all <a href=\"#ministers-by-department\" class=\"govuk-link\">ministers by department</a>, as well as the <a href=\"#whips\" class=\"govuk-link\">whips</a> who help co-ordinate parliamentary business.",
         }
       end
-    end
-
-    def reshuffle_in_progress?
-      SitewideSetting.find_by(key: :minister_reshuffle_mode)&.on || false
     end
 
     def ordered_cabinet_ministers_content_ids
