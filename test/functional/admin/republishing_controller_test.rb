@@ -78,8 +78,6 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   def enable_reshuffle_mode!
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksEnableReshufflePresenter", true).once
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexEnableReshufflePresenter", true).once
     create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
   end
 
