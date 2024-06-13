@@ -4,8 +4,12 @@
 # defined in .github/workflows/minitest.yml.
 # It splits the MiniTest suite into randomly-allocated groups
 # which are executed across multiple GitHub Actions 'matrix' nodes.
+test_files = [
+  Dir["test/**/*_test.rb"],
+  Dir["packages/**/test/**/*_test.rb"],
+].flatten
 
-tests = Dir["test/**/*_test.rb"].
+tests = test_files.
   sort.
   shuffle(random: Random.new(ENV['GITHUB_SHA'].to_i(16))).
   select.
