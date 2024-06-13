@@ -15,6 +15,11 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Require all Engines inside the `packages` directory
+Dir.glob("packages/*/lib/*/engine.rb").each do |engine_path|
+  require_relative "../#{engine_path}"
+end
+
 module Whitehall
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -125,5 +130,10 @@ module Whitehall
     # By default, when set to `nil`, strategy loading errors are suppressed in test
     # mode. Set to `true` to always raise errors, or `false` to always warn.
     config.flipflop.raise_strategy_errors = nil
+
+    # Include all routes included in packages
+    Dir[Rails.root.join("packages/**/config/routes/*.rb")].each do |route_file|
+      config.paths["config/routes"].push(route_file)
+    end
   end
 end
