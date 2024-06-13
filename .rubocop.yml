@@ -43,3 +43,8 @@ Style/OptionalBooleanParameter:
 Lint/MissingSuper:
   Exclude:
     - 'app/components/**/*.rb'
+    - 'packages/**/app/components/**/*.rb'
+
+Rails/SaveBang:
+  Exclude:
+    - 'Rakefile'
