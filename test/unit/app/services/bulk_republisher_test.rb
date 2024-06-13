@@ -248,4 +248,50 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "#republish_all_documents_by_organisation" do
+    context "with a given organisation" do
+      test "republishes each of the organisation's documents" do
+        organisation = create(:organisation)
+        documents = create_list(:document, 3)
+
+        documents.each do |document|
+          create(:published_news_article, document:, organisations: [organisation])
+
+          PublishingApiDocumentRepublishingWorker
+            .expects(:perform_async_in_queue)
+            .with("bulk_republishing", document.id, true)
+        end
+
+        BulkRepublisher.new.republish_all_documents_by_organisation(organisation)
+      end
+
+      test "doesn't republish editions for other organisations" do
+        organisation = create(:organisation)
+        other_organisation = create(:organisation)
+        documents = create_list(:document, 3)
+
+        documents.each do |document|
+          create(:published_news_article, document:, organisations: [other_organisation])
+
+          PublishingApiDocumentRepublishingWorker
+            .expects(:perform_async_in_queue)
+            .with("bulk_republishing", document.id, true)
+            .never
+        end
+
+        BulkRepublisher.new.republish_all_documents_by_organisation(organisation)
+      end
+    end
+
+    context "when the organisation argument is not an organisation" do
+      test "raises an error" do
+        edition = create(:edition)
+
+        assert_raises(StandardError, match: "Argument must be an organisation") do
+          BulkRepublisher.new.republish_all_documents_by_organisation(edition)
+        end
+      end
+    end
+  end
 end
