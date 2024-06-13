@@ -1,6 +1,28 @@
 <% content_for :page_title, "Cabinet ministers ordering" %>
 <% content_for :title, "Cabinet ministers ordering" %>
 
+<% if reshuffle_in_progress? %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Preview ministers page in reshuffle mode",
+    heading_level: 2,
+    font_size: "m",
+    margin_bottom: 3,
+  } %>
+
+  <p class="govuk-body govuk-!-margin-bottom-9">
+    <%= link_to("Preview on website (opens in new tab)",
+      "#{Plek.external_url_for('draft-origin')}/government/ministers",
+      class: "govuk-link",
+      target: "_blank",
+      data: {
+        module: "gem-track-click",
+        "track-category": "button-clicked",
+        "track-action": "ministers-index-page-button",
+        "track-label": "Preview on website",
+      }, rel: "noopener") %>. Requires Signon access.
+  </p>
+<% end %>
+
 <%= render "govuk_publishing_components/components/tabs", {
   tabs: [
     {

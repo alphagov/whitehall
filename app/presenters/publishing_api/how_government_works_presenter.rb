@@ -1,5 +1,6 @@
 module PublishingApi
   class HowGovernmentWorksPresenter
+    include ReshuffleMode
     attr_accessor :update_type
 
     def initialize(update_type: nil)
@@ -39,25 +40,17 @@ module PublishingApi
     end
 
     def links
-      return {} if reshuffle_in_progress?
-
       {
         current_prime_minister: [MinisterialRole.find_by(slug: "prime-minister")&.current_person&.content_id],
       }
     end
 
     def details
-      if reshuffle_in_progress?
-        {
-          reshuffle_in_progress: reshuffle_in_progress?,
-        }
-      else
-        {
-          department_counts:,
-          ministerial_role_counts:,
-          reshuffle_in_progress: reshuffle_in_progress?,
-        }
-      end
+      {
+        department_counts:,
+        ministerial_role_counts:,
+        reshuffle_in_progress: reshuffle_in_progress?,
+      }
     end
 
     def department_counts
@@ -78,10 +71,6 @@ module PublishingApi
     end
 
   private
-
-    def reshuffle_in_progress?
-      SitewideSetting.find_by(key: :minister_reshuffle_mode)&.on || false
-    end
 
     def prime_minister
       1

@@ -1,5 +1,6 @@
 class Admin::RepublishingController < Admin::BaseController
   include Admin::RepublishingHelper
+  include ReshuffleMode
 
   before_action :enforce_permissions!
 
@@ -20,6 +21,11 @@ class Admin::RepublishingController < Admin::BaseController
   def republish_page
     page_to_republish = republishable_pages.find { |page| page[:slug] == params[:page_slug] }
     return render "admin/errors/not_found", status: :not_found unless page_to_republish
+
+    if reshuffle_in_progress? && %w[how-government-works ministers].include?(params[:page_slug])
+      flash[:alert] = "Cannot republish #{params[:page_slug]} page while in reshuffle mode"
+      return redirect_to(admin_republishing_index_path)
+    end
 
     action = "The page '#{page_to_republish[:title]}' has been scheduled for republishing"
 

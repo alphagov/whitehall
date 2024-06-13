@@ -2,6 +2,7 @@ class RoleAppointment < ApplicationRecord
   include DateValidation
   include HasContentId
   include PublishesToPublishingApi
+  include ReshuffleMode
 
   date_attributes(:started_at, :ended_at)
 
@@ -73,7 +74,8 @@ class RoleAppointment < ApplicationRecord
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
-  after_save :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_ministerial_pages_to_publishing_api, :republish_role_to_publishing_api
+  after_save :republish_ministerial_pages_to_publishing_api, if: :ministerial?
+  after_save :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
   after_destroy :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
 
   def republish_associated_editions_to_publishing_api
@@ -91,13 +93,6 @@ class RoleAppointment < ApplicationRecord
   def republish_worldwide_organisations_to_publishing_api
     worldwide_organisations.each do |worldwide_organisation|
       Whitehall::PublishingApi.republish_async(worldwide_organisation)
-    end
-  end
-
-  def republish_ministerial_pages_to_publishing_api
-    if ministerial?
-      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
-      PresentPageToPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter")
     end
   end
 

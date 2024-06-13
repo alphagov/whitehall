@@ -6,6 +6,16 @@ Feature: Reordering of Cabinet ministers and Organisations
   Background:
     Given I am a GDS editor
 
+  Scenario: Previewing changes to the ministers index page during reshuffle
+    Given reshuffle mode is on
+    When I visit the Cabinet ministers order page
+    Then I should see a preview link to the ministers index page
+
+  Scenario: No preview to the ministers index page when not in reshuffle mode
+    Given reshuffle mode is off
+    When I visit the Cabinet ministers order page
+    Then I should not see a preview link to the ministers index page
+
   Scenario: Reordering Cabinet ministers
     Given there are multiple Cabinet minister roles
     When I visit the Cabinet ministers order page
