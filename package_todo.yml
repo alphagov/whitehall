@@ -19,3 +19,68 @@ packages/get_involved:
     - app/presenters/search_api_presenters.rb
     - features/step_definitions/take_part_pages_steps.rb
     - test/unit/app/presenters/publishing_api_presenters_test.rb
+packages/topical_events:
+  "::PublishingApi::PayloadBuilder::TopicalEvents":
+    violations:
+    - dependency
+    files:
+    - app/presenters/publishing_api/call_for_evidence_presenter.rb
+    - app/presenters/publishing_api/consultation_presenter.rb
+    - app/presenters/publishing_api/detailed_guide_presenter.rb
+    - app/presenters/publishing_api/document_collection_presenter.rb
+    - app/presenters/publishing_api/news_article_presenter.rb
+    - app/presenters/publishing_api/publication_presenter.rb
+    - test/unit/app/presenters/publishing_api/document_collection_presenter_test.rb
+    - test/unit/app/presenters/publishing_api/payload_builder/topical_events_test.rb
+  "::PublishingApi::TopicalEventPresenter":
+    violations:
+    - dependency
+    files:
+    - test/unit/app/presenters/publishing_api_presenters_test.rb
+  "::TopicalEvent":
+    violations:
+    - dependency
+    files:
+    - app/controllers/admin/features_controller.rb
+    - app/controllers/admin/offsite_links_controller.rb
+    - app/controllers/admin/organisations_controller.rb
+    - app/controllers/admin/world_location_news_controller.rb
+    - app/helpers/admin/taggable_content_helper.rb
+    - app/models/admin/edition_filter.rb
+    - app/models/concerns/edition/topical_events.rb
+    - app/models/feature.rb
+    - app/models/organisation.rb
+    - app/presenters/search_api_presenters.rb
+    - app/views/admin/editions/_topical_event_fields.html.erb
+    - app/views/admin/offsite_links/confirm_destroy.html.erb
+    - app/views/admin/organisations/_form.html.erb
+    - db/data_migration/20230411085954_restore_coronation_topical_event.rb
+    - features/step_definitions/topical_event_featurings_steps.rb
+    - features/step_definitions/topical_event_steps.rb
+    - features/support/topical_events_helper.rb
+    - lib/tasks/reslugging.rake
+    - lib/tasks/search.rake
+    - test/unit/app/models/edition/topical_events_test.rb
+    - test/unit/app/models/simple_workflow_test.rb
+    - test/unit/app/models/speech_test.rb
+    - test/unit/app/presenters/publishing_api_presenters_test.rb
+  "::TopicalEventFeaturing":
+    violations:
+    - dependency
+    files:
+    - app/models/concerns/edition/topical_events.rb
+    - app/models/edition.rb
+    - test/unit/app/models/edition/topical_events_test.rb
+  "::TopicalEventMembership":
+    violations:
+    - dependency
+    files:
+    - app/models/concerns/edition/topical_events.rb
+    - test/unit/app/models/edition/topical_events_test.rb
+  "::TopicalEventOrganisation":
+    violations:
+    - dependency
+    files:
+    - app/models/organisation.rb
+    - db/data_migration/20230518160200_reinstate_independent_agricultural_appeals_panel_organisation.rb
+    - test/unit/app/models/organisation_test.rb

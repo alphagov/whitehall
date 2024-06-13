@@ -1,0 +1,239 @@
+# This file contains a list of dependencies that are not part of the long term plan for the
+# 'packages/topical_events' package.
+# We should generally work to reduce this list over time.
+#
+# You can regenerate this file using the following command:
+#
+# bin/packwerk update-todo
+---
+".":
+  "::Admin::EditionFilter":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/controllers/admin/topical_event_featurings_controller.rb
+  "::Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/controllers/admin/topical_event_featurings_controller.rb
+  "::Admin::EditionRoutesHelper":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/components/admin/topical_events/featurings/featured_documents_table_component.rb
+    - packages/topical_events/test/components/admin/topical_events/featurings/featured_documents_table_component_test.rb
+  "::Announcement":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_membership.rb
+  "::Asset":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event_featuring_image_data.rb
+    - packages/topical_events/test/factories/topical_event_featuring_image_data.rb
+  "::AssetManagerCreateAssetWorker":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/test/functional/admin/topical_events_controller_test.rb
+  "::CallForEvidence":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_membership.rb
+  "::Consultation":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_membership.rb
+  "::DateValidation":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+  "::DetailedGuide":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_membership.rb
+  "::Edition":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/controllers/admin/topical_event_featurings_controller.rb
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_featuring.rb
+    - packages/topical_events/app/models/topical_event_membership.rb
+  "::Feature":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+  "::FeaturedImageData":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/test/functional/admin/topical_events_controller_test.rb
+  "::FeaturedImageUploader":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event_featuring_image_data.rb
+  "::FeaturedLink::DEFAULT_SET_SIZE":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/presenters/publishing_api/topical_event_presenter.rb
+    - packages/topical_events/test/unit/app/presenters/topical_event_presenter_test.rb
+  "::ImageValidator":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event_featuring_image_data.rb
+  "::NewsArticle":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_membership.rb
+  "::NoFootnotesInGovspeakValidator":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_about_page.rb
+  "::OffsiteLink":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/controllers/admin/topical_event_featurings_controller.rb
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_featuring.rb
+  "::Organisation":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_organisation.rb
+  "::Publication":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_membership.rb
+  "::PublishesToPublishingApi":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_about_page.rb
+  "::PublishingApi::BaseItemPresenter":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/presenters/publishing_api/topical_event_about_page_presenter.rb
+    - packages/topical_events/app/presenters/publishing_api/topical_event_presenter.rb
+  "::PublishingApi::PayloadBuilder::Links":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/presenters/publishing_api/topical_event_presenter.rb
+  "::PublishingApi::PayloadBuilder::PolymorphicPath":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/presenters/publishing_api/topical_event_presenter.rb
+  "::PublishingApi::PayloadBuilder::Routes":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/presenters/publishing_api/topical_event_about_page_presenter.rb
+  "::PublishingApiPresenters":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/test/integration/topical_event_about_page_test.rb
+  "::SafeHtmlValidator":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_about_page.rb
+  "::Searchable":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_about_page.rb
+  "::SimpleWorkflow":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+  "::SocialMediaAccount":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/test/functional/admin/topical_events_controller_test.rb
+  "::SocialMediaService":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/views/admin/topical_events/_form.html.erb
+  "::Speech":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+    - packages/topical_events/app/models/topical_event_membership.rb
+  "::UserOrderableExtension":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/models/topical_event.rb
+  "::Whitehall::GovspeakRenderer":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/presenters/publishing_api/topical_event_about_page_presenter.rb
+    - packages/topical_events/app/presenters/publishing_api/topical_event_presenter.rb
+    - packages/topical_events/test/unit/app/presenters/topical_event_presenter_test.rb
+  "::Whitehall::PublishingApi":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/controllers/admin/topical_event_featurings_controller.rb
+    - packages/topical_events/app/controllers/admin/topical_event_organisations_controller.rb
+    - packages/topical_events/app/models/topical_event_about_page.rb
+    - packages/topical_events/app/models/topical_event_featuring.rb
+    - packages/topical_events/test/functional/admin/topical_event_featurings_controller_test.rb
+    - packages/topical_events/test/functional/admin/topical_event_organisations_controller_test.rb
+    - packages/topical_events/test/unit/app/models/topical_event_about_page_test.rb
+    - packages/topical_events/test/unit/app/models/topical_event_featuring_image_data_test.rb
+    - packages/topical_events/test/unit/app/models/topical_event_featuring_test.rb
+    - packages/topical_events/test/unit/app/models/topical_event_test.rb
+  "::Whitehall::PublishingApp::WHITEHALL":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/test/unit/app/presenters/topical_event_about_page_presenter_test.rb
+    - packages/topical_events/test/unit/app/presenters/topical_event_presenter_test.rb
+  "::Whitehall::RenderingApp::COLLECTIONS_FRONTEND":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/presenters/publishing_api/topical_event_presenter.rb
+  "::Whitehall::RenderingApp::GOVERNMENT_FRONTEND":
+    violations:
+    - dependency
+    files:
+    - packages/topical_events/app/presenters/publishing_api/topical_event_about_page_presenter.rb

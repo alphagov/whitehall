@@ -29,12 +29,6 @@
     - dependency
     files:
     - packages/base/test/components/admin/currently_featured_tab_component_test.rb
-  "::Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent":
-    violations:
-    - dependency
-    files:
-    - packages/base/app/components/admin/currently_featured_tab_component.rb
-    - packages/base/test/components/admin/currently_featured_tab_component_test.rb
   "::ApplicationHelper":
     violations:
     - dependency
@@ -80,3 +74,10 @@
     - dependency
     files:
     - packages/base/app/controllers/application_controller.rb
+packages/topical_events:
+  "::Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/components/admin/currently_featured_tab_component.rb
+    - packages/base/test/components/admin/currently_featured_tab_component_test.rb
