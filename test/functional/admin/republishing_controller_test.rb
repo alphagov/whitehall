@@ -77,6 +77,32 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_template "confirm_page"
   end
 
+  def enable_reshuffle_mode!
+    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksEnableReshufflePresenter", true).once
+    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexEnableReshufflePresenter", true).once
+    create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
+  end
+
+  test "GDS Admin users should encounter an error when trying to POST :republish page with the ministers index page when in reshuffle mode" do
+    enable_reshuffle_mode!
+    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexPresenter").never
+
+    post :republish_page, params: { page_slug: "ministers", reason: "Foo" }
+
+    assert_equal "Cannot republish ministers page while in reshuffle mode", flash[:alert]
+    assert_redirected_to admin_republishing_index_path
+  end
+
+  test "GDS Admin users should encounter an error when trying to POST :republish page with the 'how government works' page when in reshuffle mode" do
+    enable_reshuffle_mode!
+    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter").never
+
+    post :republish_page, params: { page_slug: "how-government-works", reason: "Foo" }
+
+    assert_equal "Cannot republish how-government-works page while in reshuffle mode", flash[:alert]
+    assert_redirected_to admin_republishing_index_path
+  end
+
   test "GDS Admin users should see a 404 page when trying to POST :republish_page with an unregistered page slug" do
     PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
 
