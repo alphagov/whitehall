@@ -59,7 +59,6 @@
               attachment_ids: [], # HTML attachments cannot embed Attachments from their parent Edition
             },
             hidden_field_name: "attachment[visual_editor]",
-            ga4_tracking_section: "#{@edition.new_record? ? "New" : "Editing"} #{@edition.format_name.titleize}",
           } %>
         <% else %>
         <%= render "components/govspeak_editor", {
