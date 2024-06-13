@@ -86,7 +86,7 @@ class TopicalEvent < ApplicationRecord
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false } # rubocop:disable Rails/UniqueValidationWithoutIndex
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :description, presence: true
   validates :summary, presence: true
   validate :start_and_end_dates
