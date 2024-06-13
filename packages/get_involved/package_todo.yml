@@ -7,23 +7,6 @@
 # bin/packwerk update-todo
 ---
 ".":
-  "::Admin::BaseController":
-    violations:
-    - dependency
-    files:
-    - packages/get_involved/app/controllers/admin/get_involved_controller.rb
-    - packages/get_involved/app/controllers/admin/take_part_pages_controller.rb
-  "::Admin::ErrorSummaryComponent":
-    violations:
-    - dependency
-    files:
-    - packages/get_involved/app/views/admin/take_part_pages/edit.html.erb
-    - packages/get_involved/app/views/admin/take_part_pages/new.html.erb
-  "::ApplicationRecord":
-    violations:
-    - dependency
-    files:
-    - packages/get_involved/app/models/take_part_page.rb
   "::AssetManagerCreateAssetWorker":
     violations:
     - dependency

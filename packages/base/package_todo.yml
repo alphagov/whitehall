@@ -1,0 +1,82 @@
+# This file contains a list of dependencies that are not part of the long term plan for the
+# 'packages/base' package.
+# We should generally work to reduce this list over time.
+#
+# You can regenerate this file using the following command:
+#
+# bin/packwerk update-todo
+---
+".":
+  "::Admin::AnalyticsHelper":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/components/admin/error_summary_component.rb
+  "::Admin::EditionRoutesHelper":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/admin/base_controller.rb
+    - packages/base/test/components/admin/currently_featured_tab_component_test.rb
+  "::Admin::Features::FeaturedDocumentsTableComponent":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/components/admin/currently_featured_tab_component.rb
+    - packages/base/test/components/admin/currently_featured_tab_component_test.rb
+  "::Admin::OrganisationHelper":
+    violations:
+    - dependency
+    files:
+    - packages/base/test/components/admin/currently_featured_tab_component_test.rb
+  "::Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/components/admin/currently_featured_tab_component.rb
+    - packages/base/test/components/admin/currently_featured_tab_component_test.rb
+  "::ApplicationHelper":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/components/admin/audit_trail_entry_component.rb
+  "::CallForEvidenceResponse":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/admin/base_controller.rb
+  "::ConsultationResponse":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/admin/base_controller.rb
+  "::Current":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/application_controller.rb
+  "::Edition":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/admin/base_controller.rb
+  "::PermissionsCheckerConcern":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/admin/base_controller.rb
+  "::Whitehall::Authority::Errors::InvalidAction":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/admin/base_controller.rb
+  "::Whitehall::Authority::Errors::PermissionDenied":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/admin/base_controller.rb
+  "::WorldwideOrganisation":
+    violations:
+    - dependency
+    files:
+    - packages/base/app/controllers/application_controller.rb
