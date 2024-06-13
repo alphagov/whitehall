@@ -10,6 +10,9 @@ class RepublishingEvent < ApplicationRecord
   validates :content_type, presence: true, if: -> { bulk_content_type == "all_by_type" }
   validates :content_type, absence: true, unless: -> { bulk_content_type == "all_by_type" }
 
+  validates :organisation_id, presence: true, if: -> { bulk_content_type == "all_documents_by_organisation" }
+  validates :organisation_id, absence: true, unless: -> { bulk_content_type == "all_documents_by_organisation" }
+
   enum :bulk_content_type, %i[
     all_documents
     all_documents_with_pre_publication_editions
@@ -18,5 +21,6 @@ class RepublishingEvent < ApplicationRecord
     all_documents_with_publicly_visible_editions_with_html_attachments
     all_published_organisation_about_us_pages
     all_by_type
+    all_documents_by_organisation
   ]
 end
