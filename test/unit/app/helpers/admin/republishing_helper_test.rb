@@ -47,6 +47,33 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
 
     assert_equal first_link, expected_link
   end
+
+  test "#republishing_index_bulk_republishing_rows creates a link to the 'new' path for the 'all_by_type' section" do
+    all_by_type_link = republishing_index_bulk_republishing_rows.flatten.find { |column|
+                         column[:text].include?('Republish <span class="govuk-visually-hidden">all by type</span>')
+                       }[:text]
+
+    expected_link = '<a id="all-by-type" class="govuk-link" href="/government/admin/republishing/bulk/by-type/new">Republish <span class="govuk-visually-hidden">all by type</span></a>'
+
+    assert_equal expected_link, all_by_type_link
+  end
+
+  test "#republishable_content_types_select_options creates select options from republishable_content_types" do
+    # we need to eager load here to ensure we have all the models
+    Rails.application.eager_load!
+
+    options = republishable_content_types_select_options
+
+    assert_includes options, {
+      text: "CallForEvidence",
+      value: "call-for-evidence",
+    }
+
+    assert_includes options, {
+      text: "Contact",
+      value: "contact",
+    }
+  end
 end
 
 def omnipresent_content_types

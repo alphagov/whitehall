@@ -1,0 +1,16 @@
+<% content_for :page_title, "Republish #{@bulk_content_type_metadata[:name]} '#{@content_type}'" %>
+<% content_for :title, "Are you sure you want to republish #{@bulk_content_type_metadata[:name]} '#{@content_type}'?" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @republishing_event)) %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">
+      This will queue <%= @bulk_content_type_metadata[:name] %> '<%= @content_type %>' to be republished.
+    </p>
+    <%= render partial: "shared/republishing_form", locals: {
+      republishing_event: @republishing_event,
+      republishing_path: admin_bulk_republishing_by_type_republish_path(@content_type.underscore.dasherize),
+    } %>
+  </section>
+</div>

@@ -45,6 +45,12 @@ module Admin::RepublishingHelper
         confirmation_path: admin_bulk_republishing_confirm_path("all-published-organisation-about-us-pages"),
         republish_method: -> { BulkRepublisher.new.republish_all_published_organisation_about_us_pages },
       },
+      all_by_type: {
+        id: "all-by-type",
+        name: "all by type",
+        new_path: admin_bulk_republishing_by_type_new_path,
+        republish_method: ->(type) { BulkRepublisher.new.republish_all_by_type(type) },
+      },
     }
   end
 
@@ -58,6 +64,15 @@ module Admin::RepublishingHelper
     [editionable_content_types, non_editionable_content_types].flatten.sort
   end
 
+  def republishable_content_types_select_options
+    republishable_content_types.map do |type|
+      {
+        text: type,
+        value: type.underscore.dasherize,
+      }
+    end
+  end
+
   def republishing_index_bulk_republishing_rows
     bulk_content_type_metadata.values.map do |content_type|
       [
@@ -66,7 +81,7 @@ module Admin::RepublishingHelper
         },
         {
           text: link_to(sanitize("Republish #{tag.span(content_type[:name], class: 'govuk-visually-hidden')}"),
-                        content_type[:confirmation_path],
+                        content_type[:new_path] || content_type[:confirmation_path],
                         id: content_type[:id],
                         class: "govuk-link"),
         },
