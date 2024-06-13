@@ -290,7 +290,7 @@ GEM
     govuk_personalisation (0.16.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (38.4.2)
+    govuk_publishing_components (39.0.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -804,7 +804,7 @@ GEM
     redis-namespace (1.11.0)
       redis (>= 4)
     regexp_parser (2.9.2)
-    reline (0.5.8)
+    reline (0.5.9)
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
