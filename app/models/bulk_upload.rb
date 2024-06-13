@@ -135,7 +135,17 @@ private
     def extract_contents
       unzip = Whitehall.system_binaries[:unzip]
       destination = File.join(temp_dir, "extracted")
-      @extract_contents ||= `#{unzip} -o -d #{destination} #{temp_location.shellescape}`
+      @extract_contents ||= begin
+        escaped_temp_location = Shellwords.escape(temp_location)
+        command = "#{unzip} -o -d #{destination} #{escaped_temp_location}"
+        stdout, stderr, status = Open3.capture3(command)
+
+        unless status.success?
+          raise "Unzip command failed: #{stderr}"
+        end
+
+        stdout
+      end
     end
 
     def must_be_a_zip_file
@@ -146,8 +156,12 @@ private
 
     def is_a_zip?
       zipinfo = Whitehall.system_binaries[:zipinfo]
-      _, _, errs = Open3.popen3("#{zipinfo} -1 #{temp_location.shellescape} > /dev/null")
-      errs.read.empty?
+      escaped_temp_location = Shellwords.escape(temp_location)
+      command = "#{zipinfo} -1 #{escaped_temp_location} > /dev/null"
+
+      Open3.popen3(command) do |_stdin, _stdout, stderr, wait_thr|
+        [stderr.read.empty?, wait_thr.value.success?].all?
+      end
     end
 
   private

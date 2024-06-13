@@ -48,10 +48,9 @@ class AttachmentUploader < WhitehallUploader
 
   def get_first_page_as_png(width, height)
     output, exit_status = Timeout.timeout(THUMBNAIL_GENERATION_TIMEOUT) do
-      [
-        `#{pdf_thumbnail_command(width, height)}`,
-        $CHILD_STATUS.exitstatus,
-      ]
+      command = pdf_thumbnail_command(path, width, height)
+      stdout, stderr, status = Open3.capture3(command)
+      [stdout + stderr, status.exitstatus]
     end
 
     unless exit_status.zero?
@@ -73,8 +72,8 @@ class AttachmentUploader < WhitehallUploader
     use_fallback_pdf_thumbnail
   end
 
-  def pdf_thumbnail_command(width, height)
-    %(gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage -dUseCropBox #{path} 2>&1)
+  def pdf_thumbnail_command(path, width, height)
+    "gs -o #{Shellwords.escape(path)} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{Shellwords.escape(width.to_s)} -dDEVICEHEIGHTPOINTS=#{Shellwords.escape(height.to_s)} -dPDFFitPage -dUseCropBox #{Shellwords.escape(path)} 2>&1"
   end
 
   def extension_allowlist
@@ -90,12 +89,23 @@ class AttachmentUploader < WhitehallUploader
 
     def filenames
       unless @filenames
-        zipinfo_output = `#{Whitehall.system_binaries[:zipinfo]} -1 "#{@zip_path}" | grep -v /$ | while read -r line ; do basename "$line"; done`
-        @filenames = zipinfo_output.split(/[\r\n]+/)
+        zipinfo = Whitehall.system_binaries[:zipinfo]
+        escaped_zip_path = Shellwords.escape(@zip_path)
+        command = "#{zipinfo} -1 #{escaped_zip_path} | grep -v /$ | while read -r line ; do basename \"$line\"; done"
+
+        stdout, stderr, status = Open3.capture3(command)
+
+        if status.success?
+          @filenames = stdout.split(/[\r\n]+/)
+        else
+          Rails.logger.warn "Error extracting filenames from zip: #{stderr}"
+          raise ArgumentError, "Error extracting filenames from zip"
+        end
       end
+
       @filenames
     rescue ArgumentError
-      raise NonUTF8ContentsError, "Some filenames in zip aren't UTF-8: #{zipinfo_output}"
+      raise NonUTF8ContentsError, "Some filenames in zip aren't UTF-8: #{stdout}"
     end
 
     def extensions
