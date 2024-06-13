@@ -97,3 +97,24 @@ end
 Then(/^I can see all published organisation "About us" pages have been queued for republishing$/) do
   expect(page).to have_selector(".gem-c-success-alert", text: "All published organisation 'About us' pages have been queued for republishing")
 end
+
+Given(/Contacts exist$/) do
+  2.times { create(:contact) }
+end
+
+Given(/Case Studies exist$/) do
+  2.times { create(:case_study) }
+end
+
+When(/^I select all of type "([^"]*)" for republishing$/) do |content_type|
+  visit admin_republishing_index_path
+  find("#all-by-type").click
+  select content_type, from: "content_type"
+  click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
+  click_button("Confirm republishing")
+end
+
+Then(/^I can see all of type "([^"]*)" have been queued for republishing$/) do |content_type|
+  expect(page).to have_selector(".gem-c-success-alert", text: "All by type '#{content_type}' have been queued for republishing")
+end

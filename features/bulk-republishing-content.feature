@@ -35,3 +35,13 @@ Feature: Bulk republishing content
     Given Published organisation "About us" pages exist
     When I request a bulk republishing of all published organisation "About us" pages
     Then I can see all published organisation "About us" pages have been queued for republishing
+
+  Scenario: Republish non-editionable content types
+    Given Contacts exist
+    When I select all of type "Contact" for republishing
+    Then I can see all of type "Contact" have been queued for republishing
+
+  Scenario: Republish editionable content types
+    Given Case Studies exist
+    When I select all of type "CaseStudy" for republishing
+    Then I can see all of type "CaseStudy" have been queued for republishing
