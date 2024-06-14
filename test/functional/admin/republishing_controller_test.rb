@@ -119,7 +119,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GDS Admin users should be able to GET :find_organisation" do
+  test "GDS Admin users should be able to GET :find_organisation" do
     get :find_organisation
 
     assert_response :ok
@@ -223,7 +223,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GDS Admin users should be able to GET :find_person" do
+  test "GDS Admin users should be able to GET :find_person" do
     get :find_person
 
     assert_response :ok
@@ -327,7 +327,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GDS Admin users should be able to GET :find_role" do
+  test "GDS Admin users should be able to GET :find_role" do
     get :find_role
 
     assert_response :ok
@@ -431,7 +431,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GDS Admin users should be able to GET :find_document" do
+  test "GDS Admin users should be able to GET :find_document" do
     get :find_document
 
     assert_response :ok
