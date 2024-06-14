@@ -66,6 +66,10 @@ class Consultation < Publicationesque
     end
   end
 
+  def translatable?
+    true
+  end
+
   def attachables
     [self, outcome, public_feedback].compact
   end
