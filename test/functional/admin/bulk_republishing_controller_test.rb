@@ -147,4 +147,109 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
     post :republish_by_type, params: { content_type: "organisation", reason: "this needs republishing" }
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to GET :new_documents_by_organisation" do
+    get :new_documents_by_organisation
+    assert_response :ok
+  end
+
+  test "Non-GDS Admin users should not be able to GET :new_documents_by_organisation" do
+    login_as :writer
+
+    get :new_documents_by_organisation
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to POST :search_documents_by_organisation with an existing organisation slug" do
+    create(:organisation, slug: "an-existing-organisation")
+
+    post :search_documents_by_organisation, params: { organisation_slug: "an-existing-organisation" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_organisation_confirm_path("an-existing-organisation")
+  end
+
+  test "GDS Admin users should be redirected back to :new_documents_by_organisation when trying to POST :search_documents_by_organisation with a nonexistent organisation slug" do
+    post :search_documents_by_organisation, params: { organisation_slug: "not-an-existing-organisation" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_organisation_new_path
+    assert_equal "Organisation with slug 'not-an-existing-organisation' not found", flash[:alert]
+  end
+
+  test "Non-GDS Admin users should not be able to POST :search_documents_by_organisation" do
+    create(:organisation, slug: "an-existing-organisation")
+
+    login_as :writer
+
+    post :search_documents_by_organisation, params: { organisation_slug: "an-existing-organisation" }
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to GET :confirm_documents_by_organisation with an existing organisation slug" do
+    create(:organisation, slug: "an-existing-organisation")
+
+    get :confirm_documents_by_organisation, params: { organisation_slug: "an-existing-organisation" }
+    assert_response :ok
+  end
+
+  test "GDS Admin users should see a 404 page when trying to GET :confirm_documents_by_organisation with a nonexistent organisation slug" do
+    get :confirm_documents_by_organisation, params: { organisation_slug: "not-an-existing-organisation" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to access :confirm_documents_by_organisation" do
+    create(:organisation, slug: "an-existing-organisation")
+
+    login_as :writer
+
+    get :confirm_documents_by_organisation, params: { organisation_slug: "organisation" }
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to POST :republish_documents_by_organisation with an existing organisation slug, creating a RepublishingEvent for the current user" do
+    organisation = create(:organisation, id: "1234", slug: "an-existing-organisation", name: "An Existing Organisation")
+
+    BulkRepublisher.any_instance.expects(:republish_all_documents_by_organisation).with(organisation).once
+
+    post :republish_documents_by_organisation, params: { organisation_slug: "an-existing-organisation", reason: "this needs republishing" }
+
+    newly_created_event = RepublishingEvent.last
+    assert_equal current_user, newly_created_event.user
+    assert_equal "this needs republishing", newly_created_event.reason
+    assert_equal "All documents by organisation 'An Existing Organisation' have been queued for republishing", newly_created_event.action
+    assert_equal true, newly_created_event.bulk
+    assert_equal "all_documents_by_organisation", newly_created_event.bulk_content_type
+    assert_equal "1234", newly_created_event.organisation_id
+
+    assert_redirected_to admin_republishing_index_path
+    assert_equal "All documents by organisation 'An Existing Organisation' have been queued for republishing", flash[:notice]
+  end
+
+  test "GDS Admin users should encounter an error on POST :republish_documents_by_organisation without a `reason` and be sent back to the confirm page" do
+    organisation = create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation")
+
+    BulkRepublisher.any_instance.expects(:republish_all_documents_by_organisation).with(organisation).never
+
+    post :republish_documents_by_organisation, params: { organisation_slug: "an-existing-organisation", reason: "" }
+
+    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_template "confirm_documents_by_organisation"
+  end
+
+  test "GDS Admin users should see a 404 page when trying to POST :republish_documents_by_organisation with a nonexistent organisation slug" do
+    BulkRepublisher.any_instance.expects(:republish_all_documents_by_organisation).never
+
+    post :republish_documents_by_organisation, params: { organisation_slug: "not-an-existing-organisation" }
+    assert_response :not_found
+  end
+
+  test "Non-GDS Admin users should not be able to POST :republish_documents_by_organisation" do
+    organisation = create(:organisation, slug: "an-existing-organisation", name: "An Existing Organisation")
+
+    BulkRepublisher.any_instance.expects(:republish_all_documents_by_organisation).with(organisation).never
+
+    login_as :writer
+
+    post :republish_documents_by_organisation, params: { organisation_slug: "an-existing-organisation" }
+    assert_response :forbidden
+  end
 end

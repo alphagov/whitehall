@@ -59,6 +59,12 @@ Whitehall::Application.routes.draw do
             get "/:content_type/confirm" => "bulk_republishing#confirm_by_type", as: :bulk_republishing_by_type_confirm
             post "/:content_type/republish" => "bulk_republishing#republish_by_type", as: :bulk_republishing_by_type_republish
           end
+          scope "documents-by-organisation" do
+            get "/new" => "bulk_republishing#new_documents_by_organisation", as: :bulk_republishing_documents_by_organisation_new
+            post "/search" => "bulk_republishing#search_documents_by_organisation", as: :bulk_republishing_documents_by_organisation_search
+            get "/:organisation_slug/confirm" => "bulk_republishing#confirm_documents_by_organisation", as: :bulk_republishing_documents_by_organisation_confirm
+            post "/:organisation_slug/republish" => "bulk_republishing#republish_documents_by_organisation", as: :bulk_republishing_documents_by_organisation_republish
+          end
           get "/:bulk_content_type/confirm" => "bulk_republishing#confirm", as: :bulk_republishing_confirm
           post "/:bulk_content_type/republish" => "bulk_republishing#republish", as: :bulk_republishing_republish
         end
