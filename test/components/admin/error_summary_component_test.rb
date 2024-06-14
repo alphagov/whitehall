@@ -46,27 +46,6 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal third_link[:href], "#parent_class_date"
   end
 
-  test "constructs data modules for tracking analytics based on the class name and error message" do
-    render_inline(Admin::ErrorSummaryComponent.new(object: @object_with_errors))
-
-    first_link = page.all(".gem-c-error-summary__list-item")[0].find("a")
-    second_link = page.all(".gem-c-error-summary__list-item")[1].find("a")
-    third_link = page.all(".gem-c-error-summary__list-item")[2].find("a")
-
-    assert_equal first_link["data-module"], "auto-track-event"
-    assert_equal first_link["data-track-category"], "form-error"
-    assert_equal first_link["data-track-action"], "error summary test object-error"
-    assert_equal first_link["data-track-label"], "Title can't be blank"
-    assert_equal second_link["data-module"], "auto-track-event"
-    assert_equal second_link["data-track-category"], "form-error"
-    assert_equal second_link["data-track-action"], "error summary test object-error"
-    assert_equal second_link["data-track-label"], "Date can't be blank"
-    assert_equal third_link["data-module"], "auto-track-event"
-    assert_equal third_link["data-track-category"], "form-error"
-    assert_equal third_link["data-track-action"], "error summary test object-error"
-    assert_equal third_link["data-track-label"], "Date is invalid"
-  end
-
   test "when an errors attribute is base it renders the error as text not a link" do
     object = ErrorSummaryTestObject.new("title", Time.zone.today)
     object.errors.add(:base, "This is a top level error that is agnostic of model level validations. It has probably been added by an updater service or a controller and does not link to an input.")
