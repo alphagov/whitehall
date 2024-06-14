@@ -118,3 +118,16 @@ end
 Then(/^I can see all of type "([^"]*)" have been queued for republishing$/) do |content_type|
   expect(page).to have_selector(".gem-c-success-alert", text: "All by type '#{content_type}' have been queued for republishing")
 end
+
+When(/^I request a bulk republishing of all documents associated with "An Existing Organisation"$/) do
+  visit admin_republishing_index_path
+  find("#all-documents-by-organisation").click
+  fill_in "Enter the slug for the organisation", with: "an-existing-organisation"
+  click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
+  click_button("Confirm republishing")
+end
+
+Then(/^I can see all documents associated with "An Existing Organisation" have been queued for republishing$/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "All documents by organisation 'An Existing Organisation' have been queued for republishing")
+end

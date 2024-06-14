@@ -45,3 +45,8 @@ Feature: Bulk republishing content
     Given Case Studies exist
     When I select all of type "CaseStudy" for republishing
     Then I can see all of type "CaseStudy" have been queued for republishing
+
+  Scenario: Republish all documents by organisation
+    Given a published organisation "An Existing Organisation" exists
+    When I request a bulk republishing of all documents associated with "An Existing Organisation"
+    Then I can see all documents associated with "An Existing Organisation" have been queued for republishing
