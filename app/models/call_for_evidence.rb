@@ -148,6 +148,10 @@ class CallForEvidence < Publicationesque
     true
   end
 
+  def translatable?
+    true
+  end
+
   def string_for_slug
     title
   end
