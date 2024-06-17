@@ -227,25 +227,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
     AssetManagerCreateAssetWorker.drain
   end
 
-  test "should scale the thumbnail down proportionally to A4" do
-    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
-
-    expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
-
-    AssetManagerCreateAssetWorker.drain
-  end
-
-  test "should use a generic thumbnail if conversion fails" do
-    AttachmentUploader.any_instance.stubs(:pdf_thumbnail_command).returns("false")
-    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
-
-    expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
-
-    AssetManagerCreateAssetWorker.drain
-  end
-
-  test "should use a generic thumbnail if conversion takes longer than 10 seconds to complete" do
-    AttachmentUploader.any_instance.stubs(:pdf_thumbnail_command).raises(Timeout::Error)
+  test "should always use the generic thumbnail for PDFs" do
     AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
 
     expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
@@ -271,20 +253,6 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
       if value[:file].path.ends_with?(".png")
         type = `file -b --mime-type "#{value[:file].path}"`
         assert_equal "image/png", type.strip
-      end
-    }.returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
-  end
-
-  def expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
-    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
-    Services.asset_manager.expects(:create_asset).with { |value|
-      if value[:file].path.ends_with?(".png")
-        identify_details = `identify "#{Rails.root.join("public", value[:file].path)}"`
-
-        _path, _type, geometry, _rest = identify_details.split
-        width, height = geometry.split("x")
-
-        assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"
       end
     }.returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
   end

@@ -134,11 +134,6 @@ that manage the successes and failures of the file uploads.
 > Whitehall creates up to 7 image sizes of each uploaded image. Urls to these images are published as part of the content
 > so that rendering applications can then show the best image size for the use case. 
 
-#### *Members of the public* want to see a thumbnail of pdfs where an embedded link to the pdf is provided
-
-> Whitehall generates thumbnails for pdf file attachments. Urls to both the pdf and its thumbnail are 
-> published as part of the content and then used by the rendering applications.
-
 #### *Members of the public* should see document content with working image and attachment urls
 
 > For *Editionable Content* types, such as **News Articles** or **Publication** - Publishing is prevented for documents

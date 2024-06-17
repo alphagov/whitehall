@@ -39,42 +39,11 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def generate_thumbnail
-    get_first_page_as_png(105, 140)
+    FileUtils.cp(FALLBACK_PDF_THUMBNAIL, path)
   end
 
   def pdf?(file)
     file.content_type == PDF_CONTENT_TYPE
-  end
-
-  def get_first_page_as_png(width, height)
-    output, exit_status = Timeout.timeout(THUMBNAIL_GENERATION_TIMEOUT) do
-      [
-        `#{pdf_thumbnail_command(width, height)}`,
-        $CHILD_STATUS.exitstatus,
-      ]
-    end
-
-    unless exit_status.zero?
-      Rails.logger.warn "Error thumbnailing PDF. Exit status: #{exit_status}; Output: #{output}"
-      use_fallback_pdf_thumbnail
-    end
-  rescue Timeout::Error => e
-    message = "PDF thumbnail generation took longer than #{THUMBNAIL_GENERATION_TIMEOUT} seconds. Using fallback pdf thumbnail: #{FALLBACK_PDF_THUMBNAIL}."
-    Rails.logger.warn message
-
-    GovukError.notify(
-      e,
-      extra: {
-        error_message: message,
-        path: relative_path,
-      },
-    )
-
-    use_fallback_pdf_thumbnail
-  end
-
-  def pdf_thumbnail_command(width, height)
-    %(gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage -dUseCropBox #{path} 2>&1)
   end
 
   def extension_allowlist
@@ -239,11 +208,5 @@ class AttachmentUploader < WhitehallUploader
     ]
     problem = examiners.detect { |examiner| !examiner.valid? }
     raise CarrierWave::IntegrityError, problem.failure_message if problem
-  end
-
-private
-
-  def use_fallback_pdf_thumbnail
-    FileUtils.cp(FALLBACK_PDF_THUMBNAIL, path)
   end
 end
