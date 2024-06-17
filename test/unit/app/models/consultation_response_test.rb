@@ -142,6 +142,16 @@ class ConsultationResponseTest < ActiveSupport::TestCase
     assert_equal [], response.organisations
   end
 
+  test "delegates lead_organisations and supporting_organisations to the parent" do
+    lead_organisation = create(:organisation)
+    supporting_organisation = create(:organisation)
+    consultation = create(:consultation, lead_organisations: [lead_organisation], supporting_organisations: [supporting_organisation])
+    response = build(:consultation_outcome, consultation:)
+
+    assert_equal [lead_organisation], response.lead_organisations
+    assert_equal [supporting_organisation], response.supporting_organisations
+  end
+
   test "allows HTML attachments" do
     outcome = build(:consultation_outcome)
     assert outcome.allows_html_attachments?

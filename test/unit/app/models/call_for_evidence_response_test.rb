@@ -141,4 +141,14 @@ class CallForEvidenceResponseTest < ActiveSupport::TestCase
 
     assert_equal [], response.organisations
   end
+
+  test "delegates lead_organisations and supporting_organisations to the parent" do
+    lead_organisation = create(:organisation)
+    supporting_organisation = create(:organisation)
+    call_for_evidence = create(:call_for_evidence, lead_organisations: [lead_organisation], supporting_organisations: [supporting_organisation])
+    response = build(:call_for_evidence_outcome, call_for_evidence:)
+
+    assert_equal [lead_organisation], response.lead_organisations
+    assert_equal [supporting_organisation], response.supporting_organisations
+  end
 end
