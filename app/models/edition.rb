@@ -1,26 +1,13 @@
 # The base class for almost all editoral content.
 # @abstract Using STI should not create editions directly.
 class Edition < ApplicationRecord
-  include Edition::Traits
+  include Edition::LiteEdition
 
   include Edition::NullImages
   include Edition::NullWorldLocations
 
-  include Edition::Identifiable
-  include Edition::LimitedAccess
-
-  # Adds a statemachine for the publishing workflow. States and methods like
-  # `publish` and `withdraw` are defined here.
-  include Edition::Workflow
-
   # Adds support for `unpublishing`, change notes and version numbers.
   include Edition::Publishing
-
-  include AuditTrail
-
-  include Edition::ActiveEditors
-  include Edition::Translatable
-
   include Dependable
 
   extend Edition::FindableByOrganisation
@@ -33,8 +20,6 @@ class Edition < ApplicationRecord
   date_attributes :scheduled_publication, :first_published_at, :delivered_on, :opening_at, :closing_at
 
   has_many :editorial_remarks, dependent: :destroy
-  has_many :edition_authors, dependent: :destroy
-  has_many :authors, through: :edition_authors, source: :user
   has_many :topical_event_featurings, inverse_of: :edition
   has_many :link_check_reports, as: :link_reportable, class_name: "LinkCheckerApiReport"
 
@@ -47,7 +32,6 @@ class Edition < ApplicationRecord
   validates_with TaxonValidator, on: :publish, if: :requires_taxon?
 
   validates :creator, presence: true
-  validates :title, presence: true, if: :title_required?, length: { maximum: 255 }
   validates :body, presence: true, if: :body_required?, length: { maximum: 16_777_215 }
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
   validates :previously_published, inclusion: { in: [true, false], message: "You must specify whether the document has been published before" }
@@ -55,7 +39,6 @@ class Edition < ApplicationRecord
   validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: :draft?, allow_blank: true
   validates :scheduled_publication, inclusion: { in: proc { Time.zone.now.. }, message: "must be in the future" }, if: :draft?, allow_blank: true
 
-  UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
   PRE_PUBLICATION_STATES = %w[draft submitted rejected scheduled].freeze
   POST_PUBLICATION_STATES = %w[published superseded withdrawn unpublished].freeze
@@ -106,7 +89,6 @@ class Edition < ApplicationRecord
         }
 
   # @!group Callbacks
-  before_create :set_auth_bypass_id
   before_save :set_public_timestamp
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
@@ -175,10 +157,6 @@ class Edition < ApplicationRecord
 
   def self.without_editions_of_type(*edition_classes)
     where(arel_table[:type].not_in(edition_classes.map(&:name)))
-  end
-
-  def self.format_name
-    @format_name ||= model_name.human.downcase
   end
 
   def self.authored_by(user)
@@ -280,16 +258,8 @@ EXISTS (
     document && document.scheduled_edition
   end
 
-  def attachables
-    []
-  end
-
   def skip_main_validation?
     FROZEN_STATES.include?(state)
-  end
-
-  def unmodifiable?
-    persisted? && UNMODIFIABLE_STATES.include?(state_was)
   end
 
   def clear_slug
@@ -352,19 +322,6 @@ EXISTS (
     end
   end
 
-  def creator
-    edition_authors.first&.user
-  end
-
-  def creator=(user)
-    if new_record?
-      edition_author = edition_authors.first || edition_authors.build
-      edition_author.user = user
-    else
-      raise "author can only be set on new records"
-    end
-  end
-
   def publicly_visible?
     PUBLICLY_VISIBLE_STATES.include?(state)
   end
@@ -401,10 +358,6 @@ EXISTS (
   end
 
   def can_be_related_to_mainstream_content?
-    false
-  end
-
-  def can_be_related_to_organisations?
     false
   end
 
@@ -552,10 +505,6 @@ EXISTS (
     end
   end
 
-  def previous_edition
-    document.ever_published_editions.where.not(id:).last
-  end
-
   def is_latest_edition?
     document.latest_edition == self
   end
@@ -573,24 +522,8 @@ EXISTS (
     end
   end
 
-  def format_name
-    self.class.format_name
-  end
-
   def has_parent_type?
     true
-  end
-
-  def display_type
-    I18n.t("document.type.#{display_type_key}", count: 1)
-  end
-
-  def display_type_key
-    format_name.tr(" ", "_")
-  end
-
-  def first_public_at
-    first_published_at
   end
 
   def make_public_at(date)
@@ -617,10 +550,6 @@ EXISTS (
                             end
   end
 
-  def set_auth_bypass_id
-    self.auth_bypass_id = SecureRandom.uuid
-  end
-
   def title_required?
     true
   end
@@ -633,37 +562,8 @@ EXISTS (
     true
   end
 
-  # 'previously_published' is a transient attribute populated
-  # by request parameters, and because it's not persisted it's
-  # not converted to a boolean, hence this manual attr writer method.
-  # NOTE: This method isn't called when the user fails to select an
-  # option for this field and so the value remains nil.
-  def previously_published=(value)
-    @previously_published = value.to_s == "true"
-  end
-
-  def previously_published
-    return first_published_at.present? unless new_record?
-
-    @previously_published
-  end
-
-  def can_set_previously_published?
-    true
-  end
-
-  def government
-    @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
-  end
-
   def search_government_name
     government.name if government
-  end
-
-  def historic?
-    return false unless government
-
-    political? && !government.current?
   end
 
   def withdrawn?
@@ -705,18 +605,6 @@ EXISTS (
     @attributes.keys
   end
 
-  def base_path
-    url_slug = slug || id.to_param
-    "/government/generic-editions/#{url_slug}"
-  end
-
-  def public_path(options = {})
-    return if base_path.nil?
-
-    options[:locale] ||= primary_locale
-    append_url_options(base_path, options)
-  end
-
   def public_url(options = {})
     return if base_path.nil?
 
@@ -731,10 +619,6 @@ EXISTS (
 
   def force_scheduled?
     force_published? && state == "scheduled"
-  end
-
-  def publishing_api_presenter
-    PublishingApi::GenericEditionPresenter
   end
 
   def can_have_custom_lead_image?
@@ -755,12 +639,6 @@ EXISTS (
   end
 
 private
-
-  def date_for_government
-    published_edition_date = first_public_at.try(:to_date)
-    draft_edition_date = updated_at.try(:to_date)
-    published_edition_date || draft_edition_date
-  end
 
   def enforcer(user)
     Whitehall::Authority::Enforcer.new(user, self)
