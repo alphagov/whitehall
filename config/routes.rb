@@ -420,10 +420,9 @@ Whitehall::Application.routes.draw do
       end
 
       resources :sitewide_settings
-      resource :emergency_banner, controller: "emergency_banner" do
-        get :confirm_destroy
-      end
       post "/link-checker-api-callback" => "link_checker_api#callback"
+
+      draw(:emergency_banner)
     end
   end
 

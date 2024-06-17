@@ -1,5 +1,5 @@
-require "fakeredis/minitest"
 require "test_helper"
+require "fakeredis/minitest"
 
 class Admin::EmergencyBannerControllerTest < ActionController::TestCase
   extend Minitest::Spec::DSL
