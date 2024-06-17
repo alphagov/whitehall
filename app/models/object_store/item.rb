@@ -1,5 +1,7 @@
 module ObjectStore
-  class Item < Edition
+  class Item < ApplicationRecord
+    include Edition::LiteEdition
+
     store_accessor :details, :item_type
 
     after_initialize :add_field_accessors
@@ -8,16 +10,8 @@ module ObjectStore
     validate :item_type_cannot_change
     validates :item_type, inclusion: { in: ObjectStore.item_types }
 
-    def summary_required?
-      false
-    end
-
-    def body_required?
-      false
-    end
-
-    def previously_published
-      false
+    def title_required?
+      true
     end
 
   private

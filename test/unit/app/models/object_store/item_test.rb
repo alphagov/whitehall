@@ -16,18 +16,6 @@ class ObjectStore::ItemTest < ActiveSupport::TestCase
     assert @item.errors[:email_address].any?
   end
 
-  test "#summary_required? returns false" do
-    assert_equal @item.summary_required?, false
-  end
-
-  test "#body_required? returns false" do
-    assert_equal @item.body_required?, false
-  end
-
-  test "#previously_published returns false" do
-    assert_equal @item.previously_published, false
-  end
-
   test "item_type is required" do
     item = build(:object_store_item, item_type: nil)
     assert_not item.valid?

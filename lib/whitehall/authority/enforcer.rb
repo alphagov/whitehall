@@ -40,6 +40,7 @@ module Whitehall::Authority
     "Symbol" => Rules::MiscellaneousRules,
     "Document" => Rules::DocumentRules,
     "Edition" => Rules::EditionRules,
+    "Edition::LiteEdition" => Rules::EditionRules,
     "FatalityNotice" => Rules::FatalityNoticeRules,
     "MinisterialRole" => Rules::MinisterialRoleRules,
     "Person" => Rules::PersonRules,
