@@ -868,7 +868,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_104148) do
     t.index ["user_id"], name: "index_republishing_events_on_user_id"
   end
 
-  create_table "review_reminders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "review_reminders", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.integer "document_id"
     t.integer "creator_id"
     t.string "email_address"
@@ -1161,14 +1161,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_104148) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  create_table "world_location_news", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "world_location_news", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.integer "world_location_id"
     t.string "content_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "world_location_news_translations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "world_location_news_translations", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.integer "world_location_news_id"
     t.string "locale"
     t.string "title"
