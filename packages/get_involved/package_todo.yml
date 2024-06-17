@@ -1,0 +1,91 @@
+# This file contains a list of dependencies that are not part of the long term plan for the
+# 'packages/get_involved' package.
+# We should generally work to reduce this list over time.
+#
+# You can regenerate this file using the following command:
+#
+# bin/packwerk update-todo
+---
+".":
+  "::AssetManagerCreateAssetWorker":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/test/functional/admin/take_part_pages_controller_test.rb
+  "::FeaturedImageData":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/models/take_part_page.rb
+  "::NoFootnotesInGovspeakValidator":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/models/take_part_page.rb
+  "::PublishesToPublishingApi":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/models/take_part_page.rb
+  "::PublishingApi::BaseItemPresenter":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/presenters/publishing_api/take_part_presenter.rb
+  "::PublishingApi::PayloadBuilder::PolymorphicPath":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/presenters/publishing_api/take_part_presenter.rb
+  "::PublishingApiPresenters":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/test/integration/take_part_page_test.rb
+  "::SafeHtmlValidator":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/models/take_part_page.rb
+  "::Searchable":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/models/take_part_page.rb
+  "::Services":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/models/take_part_page.rb
+    - packages/get_involved/test/functional/admin/take_part_pages_controller_test.rb
+    - packages/get_involved/test/integration/take_part_page_test.rb
+  "::UserOrderable":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/models/take_part_page.rb
+  "::Whitehall":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/presenters/publishing_api/take_part_presenter.rb
+  "::Whitehall::GovspeakRenderer":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/presenters/publishing_api/take_part_presenter.rb
+  "::Whitehall::PublishingApp::WHITEHALL":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/test/presenters/take_part_presenter_test.rb
+  "::Whitehall::RenderingApp::GOVERNMENT_FRONTEND":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/app/presenters/publishing_api/take_part_presenter.rb
+  "::Whitehall::SearchIndex":
+    violations:
+    - dependency
+    files:
+    - packages/get_involved/test/models/take_part_page_test.rb

@@ -1,0 +1,21 @@
+# This file contains a list of dependencies that are not part of the long term plan for the
+# '.' package.
+# We should generally work to reduce this list over time.
+#
+# You can regenerate this file using the following command:
+#
+# bin/packwerk update-todo
+---
+packages/get_involved:
+  "::PublishingApi::TakePartPresenter":
+    violations:
+    - dependency
+    files:
+    - test/unit/app/presenters/publishing_api_presenters_test.rb
+  "::TakePartPage":
+    violations:
+    - dependency
+    files:
+    - app/presenters/search_api_presenters.rb
+    - features/step_definitions/take_part_pages_steps.rb
+    - test/unit/app/presenters/publishing_api_presenters_test.rb
