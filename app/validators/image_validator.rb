@@ -18,8 +18,9 @@ class ImageValidator < ActiveModel::Validator
     return if file_for(record).file.content_type.match?(/svg/)
 
     begin
-      image = MiniMagick::Image.open file_for(record).path
-      validate_mime_type(record, image)
+      image_path = file_for(record).path
+      validate_mime_type(record, image_path)
+      image = MiniMagick::Image.open(image_path)
       validate_size(record, image)
     rescue MiniMagick::Error, MiniMagick::Invalid
       record.errors.add(@method, "could not be read. The file may not be an image or may be corrupt")
@@ -28,11 +29,12 @@ class ImageValidator < ActiveModel::Validator
 
 private
 
-  def validate_mime_type(record, image)
-    if @mime_types[image.mime_type].nil?
+  def validate_mime_type(record, file_path)
+    mime_type = Marcel::MimeType.for(Pathname.new(file_path))
+    if @mime_types[mime_type].nil?
       record.errors.add(@method, "is not of an allowed type")
-    elsif !file_for(record).path.downcase.match?(@mime_types[image.mime_type])
-      record.errors.add(@method, "is of type '#{image.mime_type}', but has the extension '.#{file_for(record).path.split('.').last}'.")
+    elsif !file_path.downcase.match?(@mime_types[mime_type])
+      record.errors.add(@method, "is of type '#{mime_type}', but has the extension '.#{file_path.rpartition('.').last}'.")
     end
   end
 
