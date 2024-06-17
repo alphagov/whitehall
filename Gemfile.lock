@@ -1043,6 +1043,7 @@ DEPENDENCIES
   launchy
   link_header
   mail-notify
+  marcel
   maxitest
   mechanize
   mime-types
