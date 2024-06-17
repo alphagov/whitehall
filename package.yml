@@ -1,2 +1,5 @@
-enforce_dependencies: false
+enforce_dependencies: true
+dependencies:
+  - packages/base
+
 
