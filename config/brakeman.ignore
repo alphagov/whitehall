@@ -171,29 +171,6 @@
     {
       "warning_type": "Command Injection",
       "warning_code": 14,
-      "fingerprint": "82dea23cb472eca9cd5c4217767e59cab37e956a57572095a7f225d47aff2db8",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/uploaders/attachment_uploader.rb",
-      "line": 54,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`#{pdf_thumbnail_command(width, height)}`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "AttachmentUploader",
-        "method": "get_first_page_as_png"
-      },
-      "user_input": "pdf_thumbnail_command(width, height)",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
       "fingerprint": "83cb07b23845591c7f6f25cf9670c4d48c87e8a7fd77abce67a88f2ca3912733",
       "check_name": "Execute",
       "message": "Possible command injection",

@@ -17,12 +17,10 @@ jobs:
       - name: Setup Redis
         uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
 
-      - name: Install additional system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ghostscript
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          show-progress: false
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

@@ -29,16 +29,12 @@ jobs:
       - name: Setup Redis
         uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
 
-      - name: Install additional system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ghostscript
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           repository: alphagov/whitehall
           ref: ${{ inputs.ref || github.ref }}
+          show-progress: false
 
       - name: Checkout Publishing API (for Content Schemas)
         uses: actions/checkout@v4
@@ -46,6 +42,7 @@ jobs:
           repository: alphagov/publishing-api
           ref: ${{ inputs.publishingApiRef }}
           path: vendor/publishing-api
+          show-progress: false
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -80,4 +77,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "All MiniTest tests have passed 🚀"
-
