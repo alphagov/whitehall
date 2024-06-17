@@ -29,6 +29,10 @@ jobs:
       security-events: write
       actions: read
 
+  packwerk-check:
+    name: Packwerk check
+    uses: ./.github/workflows/packwerk.yml
+
   lint-scss:
     name: Lint SCSS
     uses: ./.github/workflows/lintscss.yml
