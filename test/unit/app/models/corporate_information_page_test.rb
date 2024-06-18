@@ -91,7 +91,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       organisation:,
     )
 
-    assert_raises(RuntimeError, "only worldwide about pages should redirect") { corporate_information_page.api_presenter_redirect_to }
+    assert_raises(RuntimeError, match: "only worldwide about pages should redirect") { corporate_information_page.api_presenter_redirect_to }
   end
 
   test "republishes owning organisation after commit when present" do

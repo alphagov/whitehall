@@ -37,11 +37,11 @@ class ClonePublishedHtmlAttachmentToDraftEditionRake < ActiveSupport::TestCase
   end
 
   (STATES - %w[published superseded]).each do |state|
-    test "it raises an error if the html attachments edition is in the #{state} state" do
-      edition = create(:edition, state)
+    test "it raises an error if the html attachment's edition is in the #{state} state" do
+      edition = create(:edition, state:)
       html_attachment = create(:html_attachment, attachable: edition, body: "test")
 
-      assert_raises(StandardError, "The HTML attachment must belong to a published or superseded edition") do
+      assert_raises(StandardError, match: "The HTML attachment must belong to a published or superseded edition") do
         Rake.application.invoke_task("clone_published_html_attachment_to_draft_edition[#{html_attachment.id}]")
       end
     end
@@ -58,7 +58,7 @@ class ClonePublishedHtmlAttachmentToDraftEditionRake < ActiveSupport::TestCase
         major_change_published_at: state == "published" ? Time.zone.now : nil,
       )
 
-      assert_raises(StandardError, "The HTML attachments associated document must have an edition in a pre-published state.") do
+      assert_raises(StandardError, match: "The HTML attachments associated document must have an edition in a pre-published state.") do
         Rake.application.invoke_task("clone_published_html_attachment_to_draft_edition[#{html_attachment.id}]")
       end
     end
