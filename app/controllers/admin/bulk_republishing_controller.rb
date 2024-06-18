@@ -54,10 +54,8 @@ class Admin::BulkRepublishingController < Admin::BaseController
   end
 
   def confirm_documents_by_organisation
-    unless @organisation&.slug == params[:organisation_slug]
-      @organisation = Organisation.find_by(slug: params[:organisation_slug])
-      render "admin/errors/not_found", status: :not_found unless @organisation
-    end
+    @organisation = Organisation.find_by(slug: params[:organisation_slug])
+    render "admin/errors/not_found", status: :not_found unless @organisation
 
     @bulk_content_type_metadata = bulk_content_type_metadata.fetch(:all_documents_by_organisation)
     @republishing_event = RepublishingEvent.new
