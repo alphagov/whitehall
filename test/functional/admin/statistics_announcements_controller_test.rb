@@ -95,7 +95,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     post :create, params: { statistics_announcement: { title: "", summary: "Summary text" } }
 
     assert_response :success
-    assert_select "ul.govuk-error-summary__list a[data-track-action='statistics announcement-error'][data-track-label=\"Title can't be blank\"]", text: "Title can't be blank"
+    assert_select "ul.govuk-error-summary__list a", text: "Title can't be blank"
     assert_not StatisticsAnnouncement.any?
   end
 
@@ -129,7 +129,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     put :update, params: { id: announcement.id, statistics_announcement: { title: "" } }
 
     assert_response :success
-    assert_select "ul.govuk-error-summary__list a[data-track-action='statistics announcement-error'][data-track-label=\"Title can't be blank\"]", text: "Title can't be blank"
+    assert_select "ul.govuk-error-summary__list a", text: "Title can't be blank"
   end
 
   test "POST :publish_cancellation cancels the announcement" do
@@ -156,7 +156,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template :cancel
-    assert_select "ul.govuk-error-summary__list a[data-track-action='statistics announcement-error'][data-track-label=\"Cancellation reason must be provided when cancelling an announcement\"]", text: "Cancellation reason must be provided when cancelling an announcement"
+    assert_select "ul.govuk-error-summary__list a", text: "Cancellation reason must be provided when cancelling an announcement"
   end
 
   test "PATCH :update_cancel_reason updates the cancellation message" do
@@ -182,7 +182,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template :cancel_reason
-    assert_select "ul.govuk-error-summary__list a[data-track-action='statistics announcement-error'][data-track-label=\"Cancellation reason must be provided when cancelling an announcement\"]", text: "Cancellation reason must be provided when cancelling an announcement"
+    assert_select "ul.govuk-error-summary__list a", text: "Cancellation reason must be provided when cancelling an announcement"
   end
 
   test "cancelled announcements cannot be cancelled" do

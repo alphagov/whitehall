@@ -53,18 +53,33 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     second_link = page.all(".gem-c-error-summary__list-item")[1].find("a")
     third_link = page.all(".gem-c-error-summary__list-item")[2].find("a")
 
-    assert_equal first_link["data-module"], "auto-track-event"
-    assert_equal first_link["data-track-category"], "form-error"
-    assert_equal first_link["data-track-action"], "error summary test object-error"
-    assert_equal first_link["data-track-label"], "Title can't be blank"
-    assert_equal second_link["data-module"], "auto-track-event"
-    assert_equal second_link["data-track-category"], "form-error"
-    assert_equal second_link["data-track-action"], "error summary test object-error"
-    assert_equal second_link["data-track-label"], "Date can't be blank"
-    assert_equal third_link["data-module"], "auto-track-event"
-    assert_equal third_link["data-track-category"], "form-error"
-    assert_equal third_link["data-track-action"], "error summary test object-error"
-    assert_equal third_link["data-track-label"], "Date is invalid"
+    first_link_data = JSON.parse(first_link["data-ga4-auto"])
+    second_link_data = JSON.parse(second_link["data-ga4-auto"])
+    third_link_data = JSON.parse(third_link["data-ga4-auto"])
+
+    assert_equal first_link["data-module"], "ga4-auto-tracker"
+    assert_equal first_link_data["event_name"], "form_error"
+    assert_equal first_link_data["type"], "Editing Error Summary Test Object"
+    assert_equal first_link_data["text"], "Title can't be blank"
+    assert_equal first_link_data["section"], "Title"
+    assert_equal first_link_data["action"], "error"
+    assert_equal first_link_data["tool_name"], "Whitehall"
+
+    assert_equal second_link["data-module"], "ga4-auto-tracker"
+    assert_equal second_link_data["event_name"], "form_error"
+    assert_equal second_link_data["type"], "Editing Error Summary Test Object"
+    assert_equal second_link_data["text"], "Date can't be blank"
+    assert_equal second_link_data["section"], "Date"
+    assert_equal second_link_data["action"], "error"
+    assert_equal second_link_data["tool_name"], "Whitehall"
+
+    assert_equal third_link["data-module"], "ga4-auto-tracker"
+    assert_equal third_link_data["event_name"], "form_error"
+    assert_equal third_link_data["type"], "Editing Error Summary Test Object"
+    assert_equal third_link_data["text"], "Date is invalid"
+    assert_equal third_link_data["section"], "Date"
+    assert_equal third_link_data["action"], "error"
+    assert_equal third_link_data["tool_name"], "Whitehall"
   end
 
   test "when an errors attribute is base it renders the error as text not a link" do
