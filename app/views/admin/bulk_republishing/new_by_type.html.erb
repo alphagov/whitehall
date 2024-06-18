@@ -1,0 +1,18 @@
+<% content_for :page_title, "Republish all by type" %>
+<% content_for :title, "What type of content would you like to republish?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with(url: admin_bulk_republishing_by_type_new_redirect_path, method: :post) do %>
+      <%= render "govuk_publishing_components/components/select", {
+        id: "content_type",
+        label: "Choose a content type",
+        options: @republishable_content_types_select_options,
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Continue",
+      } %>
+    <% end %>
+  </section>
+</div>

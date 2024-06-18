@@ -53,6 +53,12 @@ Whitehall::Application.routes.draw do
           post "/:document_slug/republish" => "republishing#republish_document", as: :republishing_document_republish
         end
         scope :bulk do
+          scope "by-type" do
+            get "/new" => "bulk_republishing#new_by_type", as: :bulk_republishing_by_type_new
+            post "/new" => "bulk_republishing#new_by_type_redirect", as: :bulk_republishing_by_type_new_redirect
+            get "/:content_type/confirm" => "bulk_republishing#confirm_by_type", as: :bulk_republishing_by_type_confirm
+            post "/:content_type/republish" => "bulk_republishing#republish_by_type", as: :bulk_republishing_by_type_republish
+          end
           get "/:bulk_content_type/confirm" => "bulk_republishing#confirm", as: :bulk_republishing_confirm
           post "/:bulk_content_type/republish" => "bulk_republishing#republish", as: :bulk_republishing_republish
         end

@@ -8,7 +8,7 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     feature_flags.switch! :editionable_worldwide_organisations, true
 
     expected_content_types = [
-      content_types[:omnipresent],
+      omnipresent_content_types,
       content_types[:editionable_worldwide_organisations_enabled],
     ].flatten.sort
     result_minus_test_types = republishable_content_types.reject { |type| content_types[:test_specific].include? type }
@@ -22,10 +22,17 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
 
     feature_flags.switch! :editionable_worldwide_organisations, false
 
-    expected_document_types = content_types[:omnipresent]
+    expected_content_types = omnipresent_content_types.sort
     result_minus_test_types = republishable_content_types.reject { |type| content_types[:test_specific].include? type }
 
-    assert_equal expected_document_types, result_minus_test_types
+    assert_equal expected_content_types, result_minus_test_types
+  end
+
+  test "#non_editionable_content_types returns a list of non-editionable content types" do
+    # we need to eager load here to ensure we have all the models
+    Rails.application.eager_load!
+
+    assert_equal content_types[:omnipresent_non_editionable], non_editionable_content_types.sort
   end
 
   test "#republishing_index_bulk_republishing_rows capitalises the first letter of the bulk content type" do
@@ -40,36 +47,67 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
 
     assert_equal first_link, expected_link
   end
+
+  test "#republishing_index_bulk_republishing_rows creates a link to the 'new' path for the 'all_by_type' section" do
+    all_by_type_link = republishing_index_bulk_republishing_rows.flatten.find { |column|
+                         column[:text].include?('Republish <span class="govuk-visually-hidden">all by type</span>')
+                       }[:text]
+
+    expected_link = '<a id="all-by-type" class="govuk-link" href="/government/admin/republishing/bulk/by-type/new">Republish <span class="govuk-visually-hidden">all by type</span></a>'
+
+    assert_equal expected_link, all_by_type_link
+  end
+
+  test "#republishable_content_types_select_options creates select options from republishable_content_types" do
+    # we need to eager load here to ensure we have all the models
+    Rails.application.eager_load!
+
+    options = republishable_content_types_select_options
+
+    assert_includes options, {
+      text: "CallForEvidence",
+      value: "call-for-evidence",
+    }
+
+    assert_includes options, {
+      text: "Contact",
+      value: "contact",
+    }
+  end
+end
+
+def omnipresent_content_types
+  content_types[:omnipresent_editionable].concat(content_types[:omnipresent_non_editionable])
 end
 
 def content_types
-  { omnipresent: %w[CallForEvidence
-                    CaseStudy
-                    Consultation
-                    Contact
-                    CorporateInformationPage
-                    DetailedGuide
-                    DocumentCollection
-                    FatalityNotice
-                    Government
-                    HistoricalAccount
-                    NewsArticle
-                    OperationalField
-                    Organisation
-                    Person
-                    PolicyGroup
-                    Publication
-                    Role
-                    RoleAppointment
-                    Speech
-                    StatisticalDataSet
-                    StatisticsAnnouncement
-                    TakePartPage
-                    TopicalEvent
-                    TopicalEventAboutPage
-                    WorldLocationNews
-                    WorldwideOffice
-                    WorldwideOrganisation],
+  { omnipresent_editionable: %w[CallForEvidence
+                                CaseStudy
+                                Consultation
+                                CorporateInformationPage
+                                DetailedGuide
+                                DocumentCollection
+                                FatalityNotice
+                                NewsArticle
+                                Publication
+                                Speech
+                                StatisticalDataSet],
+    omnipresent_non_editionable: %w[Contact
+                                    Government
+                                    HistoricalAccount
+                                    OperationalField
+                                    Organisation
+                                    Person
+                                    PolicyGroup
+                                    Role
+                                    RoleAppointment
+                                    StatisticsAnnouncement
+                                    TakePartPage
+                                    TopicalEvent
+                                    TopicalEventAboutPage
+                                    WorldLocationNews
+                                    WorldwideOffice
+                                    WorldwideOrganisation],
     test_specific: %w[GenericEdition
                       Edition::AlternativeFormatProviderTest::EditionWithAlternativeFormat
                       Edition::AppointmentTest::EditionWithAppointment
