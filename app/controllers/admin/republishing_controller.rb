@@ -58,19 +58,15 @@ class Admin::RepublishingController < Admin::BaseController
   end
 
   def confirm_organisation
-    unless @organisation&.slug == params[:organisation_slug]
-      @organisation = Organisation.find_by(slug: params[:organisation_slug])
-      render "admin/errors/not_found", status: :not_found unless @organisation
-    end
+    @organisation = Organisation.find_by(slug: params[:organisation_slug])
+    render "admin/errors/not_found", status: :not_found unless @organisation
 
     @republishing_event = RepublishingEvent.new
   end
 
   def republish_organisation
-    unless @organisation&.slug == params[:organisation_slug]
-      @organisation = Organisation.find_by(slug: params[:organisation_slug])
-      return render "admin/errors/not_found", status: :not_found unless @organisation
-    end
+    @organisation = Organisation.find_by(slug: params[:organisation_slug])
+    return render "admin/errors/not_found", status: :not_found unless @organisation
 
     action = "The organisation '#{@organisation.name}' has been republished"
     @republishing_event = build_republishing_event(action:, content_id: @organisation.content_id)
@@ -98,19 +94,15 @@ class Admin::RepublishingController < Admin::BaseController
   end
 
   def confirm_person
-    unless @person&.slug == params[:person_slug]
-      @person = Person.find_by(slug: params[:person_slug])
-      render "admin/errors/not_found", status: :not_found unless @person
-    end
+    @person = Person.find_by(slug: params[:person_slug])
+    render "admin/errors/not_found", status: :not_found unless @person
 
     @republishing_event = RepublishingEvent.new
   end
 
   def republish_person
-    unless @person&.slug == params[:person_slug]
-      @person = Person.find_by(slug: params[:person_slug])
-      return render "admin/errors/not_found", status: :not_found unless @person
-    end
+    @person = Person.find_by(slug: params[:person_slug])
+    return render "admin/errors/not_found", status: :not_found unless @person
 
     action = "The person '#{@person.name}' has been republished"
     @republishing_event = build_republishing_event(action:, content_id: @person.content_id)
@@ -138,19 +130,15 @@ class Admin::RepublishingController < Admin::BaseController
   end
 
   def confirm_role
-    unless @role&.slug == params[:role_slug]
-      @role = Role.find_by(slug: params[:role_slug])
-      render "admin/errors/not_found", status: :not_found unless @role
-    end
+    @role = Role.find_by(slug: params[:role_slug])
+    render "admin/errors/not_found", status: :not_found unless @role
 
     @republishing_event = RepublishingEvent.new
   end
 
   def republish_role
-    unless @role&.slug == params[:role_slug]
-      @role = Role.find_by(slug: params[:role_slug])
-      return render "admin/errors/not_found", status: :not_found unless @role
-    end
+    @role = Role.find_by(slug: params[:role_slug])
+    return render "admin/errors/not_found", status: :not_found unless @role
 
     action = "The role '#{@role.name}' has been republished"
     @republishing_event = build_republishing_event(action:, content_id: @role.content_id)
@@ -178,19 +166,15 @@ class Admin::RepublishingController < Admin::BaseController
   end
 
   def confirm_document
-    unless @document&.slug == params[:document_slug]
-      @document = Document.find_by(slug: params[:document_slug])
-      render "admin/errors/not_found", status: :not_found unless @document
-    end
+    @document = Document.find_by(slug: params[:document_slug])
+    render "admin/errors/not_found", status: :not_found unless @document
 
     @republishing_event = RepublishingEvent.new
   end
 
   def republish_document
-    unless @document&.slug == params[:document_slug]
-      @document = Document.find_by(slug: params[:document_slug])
-      return render "admin/errors/not_found", status: :not_found unless @document
-    end
+    @document = Document.find_by(slug: params[:document_slug])
+    return render "admin/errors/not_found", status: :not_found unless @document
 
     action = "Editions for the document with slug '#{@document.slug}' have been republished"
     @republishing_event = build_republishing_event(action:, content_id: @document.content_id)
