@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "7.1.3.4"
 
 gem "activemodel-serializers-xml"
+gem "activerecord_json_validator", "~> 3.0.0"
 gem "addressable"
 gem "after_commit_everywhere"
 gem "babosa"
