@@ -193,7 +193,7 @@ GEM
       rainbow
       rubocop
       smart_properties
-    erubi (1.12.0)
+    erubi (1.13.0)
     et-orbi (1.2.7)
       tzinfo
     excon (0.110.0)
@@ -301,9 +301,10 @@ GEM
       sprockets-rails
     govuk_schemas (5.0.2)
       json-schema (>= 2.8, < 4.4)
-    govuk_sidekiq (7.1.5)
+    govuk_sidekiq (8.0.1)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
+      redis (< 5)
       redis-namespace (~> 1.6)
       sidekiq (~> 6.5, >= 6.5.12)
     govuk_test (4.1.0)
@@ -344,7 +345,7 @@ GEM
       nokogiri (>= 1.6)
     invalid_utf8_rejector (0.0.4)
     io-console (0.7.2)
-    irb (1.13.1)
+    irb (1.13.2)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     isbn_validation (1.2.2)
@@ -735,7 +736,7 @@ GEM
     psych (5.1.2)
       stringio
     ptools (1.5.0)
-    public_suffix (5.0.5)
+    public_suffix (5.1.1)
     puma (6.4.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
@@ -804,7 +805,7 @@ GEM
     redis-namespace (1.11.0)
       redis (>= 4)
     regexp_parser (2.9.2)
-    reline (0.5.8)
+    reline (0.5.9)
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
@@ -935,7 +936,7 @@ GEM
       sprockets (>= 3.0.0)
     ssrf_filter (1.1.2)
     statsd-ruby (1.5.0)
-    stringio (3.1.0)
+    stringio (3.1.1)
     strscan (3.1.0)
     sync (0.5.0)
     sys-uname (1.2.3)
@@ -989,7 +990,7 @@ GEM
       chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.15)
+    zeitwerk (2.6.16)
 
 PLATFORMS
   aarch64-linux
