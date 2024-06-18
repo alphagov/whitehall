@@ -47,9 +47,7 @@ class Admin::RepublishingController < Admin::BaseController
   def find_organisation; end
 
   def search_organisation
-    @organisation = Organisation.find_by(slug: params[:organisation_slug])
-
-    unless @organisation
+    unless Organisation.find_by(slug: params[:organisation_slug])
       flash[:alert] = "Organisation with slug '#{params[:organisation_slug]}' not found"
       return redirect_to(admin_republishing_organisation_find_path)
     end
@@ -83,9 +81,7 @@ class Admin::RepublishingController < Admin::BaseController
   def find_person; end
 
   def search_person
-    @person = Person.find_by(slug: params[:person_slug])
-
-    unless @person
+    unless Person.find_by(slug: params[:person_slug])
       flash[:alert] = "Person with slug '#{params[:person_slug]}' not found"
       return redirect_to(admin_republishing_person_find_path)
     end
@@ -119,9 +115,7 @@ class Admin::RepublishingController < Admin::BaseController
   def find_role; end
 
   def search_role
-    @role = Role.find_by(slug: params[:role_slug])
-
-    unless @role
+    unless Role.find_by(slug: params[:role_slug])
       flash[:alert] = "Role with slug '#{params[:role_slug]}' not found"
       return redirect_to(admin_republishing_role_find_path)
     end
@@ -155,9 +149,7 @@ class Admin::RepublishingController < Admin::BaseController
   def find_document; end
 
   def search_document
-    @document = Document.find_by(slug: params[:document_slug])
-
-    unless @document
+    unless Document.find_by(slug: params[:document_slug])
       flash[:alert] = "Document with slug '#{params[:document_slug]}' not found"
       return redirect_to(admin_republishing_document_find_path)
     end

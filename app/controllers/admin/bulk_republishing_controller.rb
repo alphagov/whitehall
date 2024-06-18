@@ -43,9 +43,7 @@ class Admin::BulkRepublishingController < Admin::BaseController
   def new_documents_by_organisation; end
 
   def search_documents_by_organisation
-    @organisation = Organisation.find_by(slug: params[:organisation_slug])
-
-    unless @organisation
+    unless Organisation.find_by(slug: params[:organisation_slug])
       flash[:alert] = "Organisation with slug '#{params[:organisation_slug]}' not found"
       return redirect_to(admin_bulk_republishing_documents_by_organisation_new_path)
     end
