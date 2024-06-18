@@ -1033,6 +1033,7 @@ DEPENDENCIES
   invalid_utf8_rejector
   isbn_validation
   jbuilder
+  json-schema
   kaminari
   launchy
   link_header
