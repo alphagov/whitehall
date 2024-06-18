@@ -28,7 +28,9 @@ module PublishingApi
     end
 
     def links
-      {}
+      {
+        organisations: [],
+      }
     end
 
     def details

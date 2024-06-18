@@ -53,7 +53,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
     presented_item = present(person.reload)
 
     assert_equal expected_hash, presented_item.content
-    assert_equal presented_item.links, {}
+    assert_equal presented_item.links, { organisations: [] }
     assert_equal "major", presented_item.update_type
     assert_equal person.content_id, presented_item.content_id
 
