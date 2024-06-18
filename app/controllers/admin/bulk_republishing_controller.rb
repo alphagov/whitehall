@@ -40,33 +40,6 @@ class Admin::BulkRepublishingController < Admin::BaseController
     end
   end
 
-  def confirm
-    bulk_content_type_key = params[:bulk_content_type].underscore.to_sym
-    @bulk_content_type_metadata = bulk_content_type_metadata[bulk_content_type_key]
-    return render "admin/errors/not_found", status: :not_found unless @bulk_content_type_metadata
-
-    @republishing_event = RepublishingEvent.new
-  end
-
-  def republish
-    bulk_content_type_key = params[:bulk_content_type].underscore.to_sym
-    @bulk_content_type_metadata = bulk_content_type_metadata.fetch(bulk_content_type_key, nil)
-    return render "admin/errors/not_found", status: :not_found unless @bulk_content_type_metadata
-
-    action = "#{@bulk_content_type_metadata[:name].upcase_first} have been queued for republishing"
-    bulk_content_type_value = RepublishingEvent.bulk_content_types.fetch(bulk_content_type_key)
-    @republishing_event = build_republishing_event(action:, bulk_content_type: bulk_content_type_value)
-
-    if @republishing_event.save
-      @bulk_content_type_metadata[:republish_method].call
-
-      flash[:notice] = action
-      redirect_to(admin_republishing_index_path)
-    else
-      render "confirm"
-    end
-  end
-
   def new_documents_by_organisation; end
 
   def search_documents_by_organisation
@@ -107,6 +80,33 @@ class Admin::BulkRepublishingController < Admin::BaseController
       redirect_to(admin_republishing_index_path)
     else
       render "confirm_documents_by_organisation"
+    end
+  end
+
+  def confirm
+    bulk_content_type_key = params[:bulk_content_type].underscore.to_sym
+    @bulk_content_type_metadata = bulk_content_type_metadata[bulk_content_type_key]
+    return render "admin/errors/not_found", status: :not_found unless @bulk_content_type_metadata
+
+    @republishing_event = RepublishingEvent.new
+  end
+
+  def republish
+    bulk_content_type_key = params[:bulk_content_type].underscore.to_sym
+    @bulk_content_type_metadata = bulk_content_type_metadata.fetch(bulk_content_type_key, nil)
+    return render "admin/errors/not_found", status: :not_found unless @bulk_content_type_metadata
+
+    action = "#{@bulk_content_type_metadata[:name].upcase_first} have been queued for republishing"
+    bulk_content_type_value = RepublishingEvent.bulk_content_types.fetch(bulk_content_type_key)
+    @republishing_event = build_republishing_event(action:, bulk_content_type: bulk_content_type_value)
+
+    if @republishing_event.save
+      @bulk_content_type_metadata[:republish_method].call
+
+      flash[:notice] = action
+      redirect_to(admin_republishing_index_path)
+    else
+      render "confirm"
     end
   end
 
