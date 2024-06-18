@@ -16,7 +16,7 @@ class RemoveAccessLimitingTest < ActiveSupport::TestCase
   end
 
   test "raises error if edition cannot be found" do
-    assert_raises(StandardError, "Cannot find edition of ID 12345.") do
+    assert_raises(StandardError, match: "Cannot find edition of ID 12345.") do
       Rake.application.invoke_task("remove_access_limiting[12345]")
     end
   end

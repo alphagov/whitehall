@@ -71,7 +71,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
   test "#youtube_video_id raises an exception when an youtube_video_id cannot be parsed form the youtube_video_url" do
     promotional_feature_item = build(:promotional_feature_item_with_youtube_video_url, youtube_video_url: "https://www.gov.uk/government/organisations/government-digital-service")
 
-    assert_raises "youtube_video_url: #{promotional_feature_item.youtube_video_url} is invalid for PromotionalFeatureItem id: #{promotional_feature_item.id}" do
+    assert_raises StandardError, match: "youtube_video_url: #{promotional_feature_item.youtube_video_url} is invalid for PromotionalFeatureItem id: #{promotional_feature_item.id}" do
       promotional_feature_item.youtube_video_id
     end
   end

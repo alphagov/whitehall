@@ -314,7 +314,7 @@ class PublishingApiRake < ActiveSupport::TestCase
       describe "for non-existent document types" do
         test "it returns an error" do
           document_type = "SomeDocumentTypeThatDoesntExist"
-          assert_raises(SystemExit, /Unknown document type #{document_type}/) do
+          assert_raises(SystemExit, match: /Unknown document type #{document_type}/) do
             capture_io { task.invoke(document_type) }
           end
         end
