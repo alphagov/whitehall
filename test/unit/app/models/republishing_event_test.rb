@@ -26,4 +26,28 @@ class RepublishingEventTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "organisation_id" do
+    context "for an `all_documents_by_organisation` bulk republishing event" do
+      test "should be valid with an organisation ID" do
+        event = build(:republishing_event, :bulk, bulk_content_type: "all_documents_by_organisation", organisation_id: "1234")
+        assert event.valid?
+      end
+
+      test "should be invalid without a content type" do
+        event = build(:republishing_event, :bulk, bulk_content_type: "all_documents_by_organisation", organisation_id: nil)
+        assert_not event.valid?
+      end
+    end
+
+    context "for any other republishing event" do
+      test "must not be present" do
+        bulk_event = build(:republishing_event, :bulk, bulk_content_type: "all_documents", organisation_id: "1234")
+        assert_not bulk_event.valid?
+
+        non_bulk_event = build(:republishing_event, organisation_id: "1234")
+        assert_not non_bulk_event.valid?
+      end
+    end
+  end
 end

@@ -1,0 +1,16 @@
+<% content_for :page_title, "Republish #{@bulk_content_type_metadata[:name]} '#{@organisation.name}'" %>
+<% content_for :title, "Are you sure you want to republish #{@bulk_content_type_metadata[:name]} '#{@organisation.name}'?" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @republishing_event)) %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">
+      This will queue all documents associated with the organisation <%= link_to @organisation.name, @organisation.public_url, { class: "govuk-link" } %> to be republished.
+    </p>
+    <%= render partial: "shared/republishing_form", locals: {
+      republishing_event: @republishing_event,
+      republishing_path: admin_bulk_republishing_documents_by_organisation_republish_path(@organisation.slug),
+    } %>
+  </section>
+</div>

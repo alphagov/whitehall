@@ -51,6 +51,12 @@ module Admin::RepublishingHelper
         new_path: admin_bulk_republishing_by_type_new_path,
         republish_method: ->(type) { BulkRepublisher.new.republish_all_by_type(type) },
       },
+      all_documents_by_organisation: {
+        id: "all-documents-by-organisation",
+        name: "all documents by organisation",
+        new_path: admin_bulk_republishing_documents_by_organisation_new_path,
+        republish_method: ->(organisation) { BulkRepublisher.new.republish_all_documents_by_organisation(organisation) },
+      },
     }
   end
 

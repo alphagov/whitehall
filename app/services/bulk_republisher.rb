@@ -58,6 +58,17 @@ class BulkRepublisher
     end
   end
 
+  def republish_all_documents_by_organisation(organisation)
+    raise "Argument must be an organisation" unless organisation.is_a?(Organisation)
+
+    document_ids = Edition
+      .latest_edition
+      .in_organisation(organisation)
+      .pluck(:document_id)
+
+    republish_by_document_ids(document_ids)
+  end
+
 private
 
   def republish_by_document_ids(document_ids)

@@ -1,4 +1,4 @@
-Given(/^the "([^"]*)" page can be republished$/) do |_page_title|
+Given(/^the "Past Prime Ministers" page can be republished$/) do
   create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
 end
 
@@ -15,10 +15,6 @@ end
 
 Given(/^a published organisation "An Existing Organisation" exists$/) do
   create(:organisation, name: "An Existing Organisation", slug: "an-existing-organisation")
-end
-
-Given(/^the "An Existing Organisation" organisation can be republished$/) do
-  create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
 end
 
 When(/^I request a republish of the "An Existing Organisation" organisation$/) do
@@ -38,10 +34,6 @@ Given(/^a published person "Existing Person" exists$/) do
   create(:person, forename: "Existing", surname: "Person", slug: "existing-person")
 end
 
-Given(/^the "Existing Person" person can be republished$/) do
-  create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
-end
-
 When(/^I request a republish of the "Existing Person" person$/) do
   visit admin_republishing_index_path
   find("#republish-person").click
@@ -57,10 +49,6 @@ end
 
 Given(/^a published role "An Existing Role" exists$/) do
   create(:role, name: "An Existing Role", slug: "an-existing-role")
-end
-
-Given(/^the "An Existing Role" role can be republished$/) do
-  create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
 end
 
 When(/^I request a republish of the "An Existing Role" role$/) do
@@ -79,10 +67,6 @@ end
 Given(/^a document with slug "an-existing-document" exists$/) do
   edition = build(:published_edition)
   create(:document, slug: "an-existing-document", editions: [edition])
-end
-
-Given(/^the "an-existing-document" document's editions can be republished$/) do
-  create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
 end
 
 When(/^I request a republish of the "an-existing-document" document's editions$/) do

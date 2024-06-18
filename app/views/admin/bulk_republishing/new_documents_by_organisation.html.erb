@@ -1,0 +1,20 @@
+<% content_for :page_title, "Republish all by organisation" %>
+<% content_for :title, "What organisation's documents would you like to republish?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with(url: admin_bulk_republishing_documents_by_organisation_search_path, method: :post) do %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Enter the slug for the organisation",
+        },
+        hint: "You can get the slug from the last part of the public URL - everything after '/government/organisations/'.",
+        name: "organisation_slug",
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Continue",
+      } %>
+    <% end %>
+  </section>
+</div>

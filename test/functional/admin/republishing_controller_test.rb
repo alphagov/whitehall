@@ -26,6 +26,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(5) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/all-documents-with-publicly-visible-editions-with-html-attachments/confirm']", text: "Republish all documents with publicly-visible editions with HTML attachments"
     assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(6) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/all-published-organisation-about-us-pages/confirm']", text: "Republish all published organisation 'About us' pages"
     assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(7) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/by-type/new']", text: "Republish all by type"
+    assert_select ".govuk-table:nth-of-type(3) .govuk-table__body .govuk-table__row:nth-child(8) .govuk-table__cell:nth-child(2) a[href='/government/admin/republishing/bulk/documents-by-organisation/new']", text: "Republish all documents by organisation"
 
     assert_response :ok
   end
@@ -118,7 +119,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GDS Admin users should be able to GET :find_organisation" do
+  test "GDS Admin users should be able to GET :find_organisation" do
     get :find_organisation
 
     assert_response :ok
@@ -222,7 +223,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GDS Admin users should be able to GET :find_person" do
+  test "GDS Admin users should be able to GET :find_person" do
     get :find_person
 
     assert_response :ok
@@ -326,7 +327,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GDS Admin users should be able to GET :find_role" do
+  test "GDS Admin users should be able to GET :find_role" do
     get :find_role
 
     assert_response :ok
@@ -430,7 +431,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GDS Admin users should be able to GET :find_document" do
+  test "GDS Admin users should be able to GET :find_document" do
     get :find_document
 
     assert_response :ok

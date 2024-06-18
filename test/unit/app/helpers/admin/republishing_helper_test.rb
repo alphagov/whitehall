@@ -41,17 +41,20 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     assert_equal first_bulk_content_type, "All documents"
   end
 
-  test "#republishing_index_bulk_republishing_rows creates a link to the specific bulk republishing confirmation page" do
-    first_link = republishing_index_bulk_republishing_rows.first[1][:text]
+  test "#republishing_index_bulk_republishing_rows creates a link to the confirmation page for content types that don't require extra input" do
+    all_documents_link = republishing_index_bulk_republishing_rows.flatten.find { |column|
+      column[:text].include?('Republish <span class="govuk-visually-hidden">all documents</span>')
+    }[:text]
+
     expected_link = '<a id="all-documents" class="govuk-link" href="/government/admin/republishing/bulk/all-documents/confirm">Republish <span class="govuk-visually-hidden">all documents</span></a>'
 
-    assert_equal first_link, expected_link
+    assert_equal expected_link, all_documents_link
   end
 
-  test "#republishing_index_bulk_republishing_rows creates a link to the 'new' path for the 'all_by_type' section" do
+  test "#republishing_index_bulk_republishing_rows creates a link to the new page for content types that require extra input" do
     all_by_type_link = republishing_index_bulk_republishing_rows.flatten.find { |column|
-                         column[:text].include?('Republish <span class="govuk-visually-hidden">all by type</span>')
-                       }[:text]
+      column[:text].include?('Republish <span class="govuk-visually-hidden">all by type</span>')
+    }[:text]
 
     expected_link = '<a id="all-by-type" class="govuk-link" href="/government/admin/republishing/bulk/by-type/new">Republish <span class="govuk-visually-hidden">all by type</span></a>'
 

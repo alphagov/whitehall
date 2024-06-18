@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_17_110912) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_18_123401) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -866,6 +866,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_17_110912) do
     t.boolean "bulk", null: false
     t.integer "bulk_content_type"
     t.string "content_type"
+    t.string "organisation_id"
     t.index ["user_id"], name: "index_republishing_events_on_user_id"
   end
 
