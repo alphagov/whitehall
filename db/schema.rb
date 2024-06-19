@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_18_164903) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_19_101531) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -189,6 +189,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_164903) do
     t.string "content_id", null: false
     t.index ["contact_type_id"], name: "index_contacts_on_contact_type_id"
     t.index ["contactable_id", "contactable_type"], name: "index_contacts_on_contactable_id_and_contactable_type"
+  end
+
+  create_table "content_blocks", charset: "utf8mb3", force: :cascade do |t|
+    t.string "title"
+    t.string "block_type"
+    t.json "properties"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "data_migration_records", id: :integer, charset: "utf8mb3", force: :cascade do |t|
