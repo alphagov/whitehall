@@ -69,13 +69,13 @@ class BulkRepublisher
     republish_all_documents_by_ids(document_ids)
   end
 
-private
-
   def republish_all_documents_by_ids(ids)
     ids.each do |id|
       PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", id, true)
     end
   end
+
+private
 
   def republish_all_by_non_editionable_type(content_type_klass)
     content_type_klass.find_each do |record|

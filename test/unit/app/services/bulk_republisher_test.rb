@@ -294,4 +294,21 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "#republish_all_documents_by_ids" do
+    test "republishes documents with the given IDs" do
+      ids = [1, 2, 3, 4, 5]
+
+      ids.each do |id|
+        create(:document, id:)
+
+        PublishingApiDocumentRepublishingWorker
+          .expects(:perform_async_in_queue)
+          .with("bulk_republishing", id, true)
+          .once
+      end
+
+      BulkRepublisher.new.republish_all_documents_by_ids(ids)
+    end
+  end
 end
