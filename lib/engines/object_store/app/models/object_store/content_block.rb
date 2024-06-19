@@ -1,8 +1,5 @@
-class ObjectStore::ContentBlock
-  include ActiveModel::API
-  include ActiveRecord::Store
-
-  attr_accessor :title
+class ObjectStore::ContentBlock < ApplicationRecord
+  attr_accessor :title, :block_type
 
   store_accessor :properties
 end
