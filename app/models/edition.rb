@@ -5,6 +5,7 @@ class Edition < ApplicationRecord
 
   include Edition::NullImages
   include Edition::NullWorldLocations
+  include Edition::BasePermissionMethods
 
   include Edition::Identifiable
   include Edition::LimitedAccess
@@ -141,91 +142,6 @@ class Edition < ApplicationRecord
     change_note.present? || minor_change
   end
 
-  # @group Overwritable permission methods
-  def can_be_associated_with_social_media_accounts?
-    false
-  end
-
-  def can_be_associated_with_topical_events?
-    false
-  end
-
-  def can_be_associated_with_roles?
-    false
-  end
-
-  def can_be_associated_with_role_appointments?
-    false
-  end
-
-  def can_be_associated_with_worldwide_organisations?
-    false
-  end
-
-  def can_be_fact_checked?
-    false
-  end
-
-  def can_be_related_to_mainstream_content?
-    false
-  end
-
-  def can_be_related_to_organisations?
-    false
-  end
-
-  def can_apply_to_subset_of_nations?
-    false
-  end
-
-  def allows_attachments?
-    false
-  end
-
-  def allows_attachment_references?
-    false
-  end
-
-  def allows_inline_attachments?
-    false
-  end
-
-  def can_be_grouped_in_collections?
-    false
-  end
-
-  def has_operational_field?
-    false
-  end
-
-  def image_disallowed_in_body_text?(_index)
-    false
-  end
-
-  def can_apply_to_local_government?
-    false
-  end
-
-  def national_statistic?
-    false
-  end
-
-  def has_consultation_participation?
-    false
-  end
-
-  def is_associated_with_a_minister?
-    false
-  end
-
-  def statistics?
-    false
-  end
-
-  def can_be_tagged_to_worldwide_taxonomy?
-    false
-  end
-
   def can_be_marked_political?
     true
   end
@@ -249,8 +165,6 @@ class Edition < ApplicationRecord
   def included_in_statistics_feed?
     search_format_types.include?("publicationesque-statistics")
   end
-
-  # @!endgroup
 
   def create_draft(user, allow_creating_draft_from_deleted_edition: false)
     ActiveRecord::Base.transaction do
@@ -284,6 +198,10 @@ class Edition < ApplicationRecord
 
   def author_names
     edition_authors.map(&:user).map(&:name).uniq
+  end
+
+  def image_disallowed_in_body_text?(_index)
+    false
   end
 
   def rejected_by
