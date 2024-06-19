@@ -25,17 +25,6 @@ module Edition::Scopes
     scope :detailed_guides, -> { where(type: "DetailedGuide") }
     scope :corporate_information_pages, -> { where(type: "CorporateInformationPage") }
 
-
-    scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
-    scope :live_edition, -> { joins(:document).where("documents.live_edition_id = editions.id") }
-
-    scope :review_overdue,
-          lambda {
-            joins(document: :review_reminder)
-              .where(document: { review_reminders: { review_at: ..Time.zone.today } })
-              .where.not(first_published_at: nil)
-          }
-
     scope :alphabetical, lambda { |locale = I18n.locale|
       with_translations(locale).order("edition_translations.title ASC")
     }
