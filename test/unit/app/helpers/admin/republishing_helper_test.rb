@@ -77,6 +77,21 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
       value: "contact",
     }
   end
+
+  [
+    { condition: "an empty string", input: "", expected_output: [] },
+    { condition: "commas, space, and new lines with no IDs", input: "  \r ,  \r\n  ", expected_output: [] },
+    { condition: "single IDs", input: "abc-123", expected_output: %w[abc-123] },
+    { condition: "comma-separated IDs", input: "abc-123,def-456,ghi-789", expected_output: %w[abc-123 def-456 ghi-789] },
+    { condition: "space-separated IDs", input: "abc-123 def-456  ghi-789", expected_output: %w[abc-123 def-456 ghi-789] },
+    { condition: "new-line-separated IDs", input: "abc-123\ndef-456\n\rghi-789", expected_output: %w[abc-123 def-456 ghi-789] },
+    { condition: "a mixture of comma-, space-, and new-line-separated IDs", input: "abc-123,def-456\n\rghi-789, jkl-012  \r  mno-345  , \n\r  , pqr-678", expected_output: %w[abc-123 def-456 ghi-789 jkl-012 mno-345 pqr-678] },
+    { condition: "IDs with leading and trailing commas, space, and new lines", input: "\r\n , abc-123, def-456, ghi-789 \r, ", expected_output: %w[abc-123 def-456 ghi-789] },
+  ].each do |test_config|
+    test "#content_ids_string_to_array handles #{test_config[:condition]}" do
+      assert_equal test_config[:expected_output], content_ids_string_to_array(test_config[:input])
+    end
+  end
 end
 
 def omnipresent_content_types

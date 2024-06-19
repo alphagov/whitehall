@@ -98,4 +98,10 @@ module Admin::RepublishingHelper
   def non_editionable_content_types
     ApplicationRecord.subclasses.select { |subclass| subclass.included_modules.include? PublishesToPublishingApi }.map(&:to_s)
   end
+
+  def content_ids_string_to_array(content_ids_string)
+    content_ids_string
+      .split(Regexp.union([/\s+/, /\s*,+\s*/]))
+      .reject(&:empty?)
+  end
 end
