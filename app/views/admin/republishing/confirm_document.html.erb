@@ -22,7 +22,7 @@
         @document.republishable_editions.map do |edition|
           [
             {
-              text: edition.public_url ? sanitize(link_to(edition.title, edition.public_url, { class: "govuk-link" })) : edition.title,
+              text: edition_title_link_or_edition_title(edition),
             },
             {
               text: edition.state.humanize,
