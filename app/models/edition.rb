@@ -5,6 +5,8 @@ class Edition < ApplicationRecord
 
   include Edition::NullImages
   include Edition::NullWorldLocations
+  include Edition::NullAttachables
+
   include Edition::BasePermissionMethods
 
   include Edition::Identifiable
@@ -93,10 +95,6 @@ class Edition < ApplicationRecord
   def self.scheduled_for_publication_as(slug)
     document = Document.at_slug(document_type, slug)
     document && document.scheduled_edition
-  end
-
-  def attachables
-    []
   end
 
   def skip_main_validation?
