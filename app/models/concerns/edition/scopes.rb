@@ -19,11 +19,6 @@ module Edition::Scopes
               .or(scope.where(document: { slug: keywords }))
           }
 
-    scope :in_pre_publication_state, -> { where(state: Edition::PRE_PUBLICATION_STATES) }
-    scope :force_published, -> { where(state: "published", force_published: true) }
-    scope :not_published, -> { where(state: %w[draft submitted rejected]) }
-    scope :without_not_published, -> { where.not(state: %w[draft submitted rejected]) }
-
     scope :announcements, -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
     scope :consultations, -> { where(type: "Consultation") }
     scope :call_for_evidence, -> { where(type: "CallForEvidence") }
@@ -32,9 +27,7 @@ module Edition::Scopes
     scope :non_statistical_publications, -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
     scope :corporate_publications, -> { where(publication_type_id: PublicationType::CorporateReport.id) }
     scope :corporate_information_pages, -> { where(type: "CorporateInformationPage") }
-    scope :publicly_visible, -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) }
 
-    scope :future_scheduled_editions, -> { scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now)) }
 
     scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
     scope :live_edition, -> { joins(:document).where("documents.live_edition_id = editions.id") }
@@ -150,9 +143,5 @@ module Edition::Scopes
         .where("topical_event_memberships.topical_event_id" => topical_event.id)
     }
 
-    scope :due_for_publication, lambda { |within_time = 0|
-      cutoff = Time.zone.now + within_time
-      scheduled.where(arel_table[:scheduled_publication].lteq(cutoff))
-    }
   end
 end

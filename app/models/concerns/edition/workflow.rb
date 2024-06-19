@@ -81,6 +81,19 @@ module Edition::Workflow
     end
 
     validate :edition_has_no_unpublished_editions, on: :create
+
+    scope :in_pre_publication_state, -> { where(state: Edition::PRE_PUBLICATION_STATES) }
+    scope :force_published, -> { where(state: "published", force_published: true) }
+    scope :not_published, -> { where(state: %w[draft submitted rejected]) }
+    scope :without_not_published, -> { where.not(state: %w[draft submitted rejected]) }
+    scope :publicly_visible, -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) }
+    scope :scheduled, -> { where(state: "scheduled") }
+
+    scope :future_scheduled_editions, -> { scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now)) }
+    scope :due_for_publication, lambda { |within_time = 0|
+      cutoff = Time.zone.now + within_time
+      scheduled.where(arel_table[:scheduled_publication].lteq(cutoff))
+    }
   end
 
   def pre_publication?
