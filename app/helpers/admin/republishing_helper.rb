@@ -1,5 +1,6 @@
 module Admin::RepublishingHelper
   include Rails.application.routes.url_helpers
+  include Admin::EditionsHelper
 
   def bulk_content_type_metadata
     @bulk_content_type_metadata ||= {
@@ -115,5 +116,17 @@ module Admin::RepublishingHelper
     )
 
     "'#{central_string}'"
+  end
+
+  def confirm_documents_by_content_ids_edition_rows(documents)
+    documents.map { |document|
+      document.republishable_editions.map do |edition|
+        [
+          { text: edition_title_link_or_edition_title(edition) },
+          { text: edition.state.humanize },
+          { text: document.content_id },
+        ]
+      end
+    }.flatten(1)
   end
 end

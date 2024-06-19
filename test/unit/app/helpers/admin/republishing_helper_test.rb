@@ -106,6 +106,42 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
   test "#content_ids_array_to_string throws an error if no IDs are provided" do
     assert_raises(StandardError, match: "No IDs provided") { content_ids_array_to_string([]) }
   end
+
+  test "#confirm_documents_by_content_ids_edition_rows returns rows containing the title/link, state, and content ID for given documents' republishable editions" do
+    document_a = create(:document, content_id: "abc-123")
+    document_b = create(:document, content_id: "def-456")
+
+    edition_with_url_1 = create(:published_edition, title: "I belong to the first document")
+    edition_with_url_2 = create(:published_edition, title: "I belong to the second document")
+    edition_without_url = create(:draft_edition, title: "I belong to the first document and I'm new and cool")
+
+    document_a.stubs(:republishable_editions).returns([edition_with_url_1, edition_without_url])
+    document_b.stubs(:republishable_editions).returns([edition_with_url_2])
+
+    edition_with_url_1.stubs(:public_url).returns("https://gov.uk/url-1")
+    edition_with_url_2.stubs(:public_url).returns("https://gov.uk/url-2")
+    edition_without_url.stubs(:public_url).returns(nil)
+
+    expected_rows = [
+      [
+        { text: '<a class="govuk-link" href="https://gov.uk/url-1">I belong to the first document</a>' },
+        { text: "Published" },
+        { text: "abc-123" },
+      ],
+      [
+        { text: "I belong to the first document and I'm new and cool" },
+        { text: "Draft" },
+        { text: "abc-123" },
+      ],
+      [
+        { text: '<a class="govuk-link" href="https://gov.uk/url-2">I belong to the second document</a>' },
+        { text: "Published" },
+        { text: "def-456" },
+      ],
+    ]
+
+    assert_equal expected_rows, confirm_documents_by_content_ids_edition_rows([document_a, document_b])
+  end
 end
 
 def omnipresent_content_types
