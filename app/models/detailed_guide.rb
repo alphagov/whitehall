@@ -1,4 +1,6 @@
 class DetailedGuide < Edition
+  include Edition::Searchable
+
   include Edition::Images
   include Edition::NationalApplicability
 

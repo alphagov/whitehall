@@ -3,10 +3,13 @@ class EditionableWorldwideOrganisation < Edition
   SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
   OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
 
+  include Edition::Searchable
+
   include Edition::SocialMediaAccounts
   include Edition::Organisations
   include Edition::Roles
   include Edition::WorldLocations
+
   include Attachable
 
   has_many :pages, class_name: "WorldwideOrganisationPage", foreign_key: :edition_id, dependent: :destroy, autosave: true

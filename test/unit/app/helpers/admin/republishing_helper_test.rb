@@ -112,6 +112,7 @@ def content_types
                                     WorldwideOffice
                                     WorldwideOrganisation],
     test_specific: %w[GenericEdition
+                      SearchableEdition
                       Edition::AlternativeFormatProviderTest::EditionWithAlternativeFormat
                       Edition::AppointmentTest::EditionWithAppointment
                       Edition::EditionableWorldwideOrganisationTest::EditionWithWorldwideOrganisations

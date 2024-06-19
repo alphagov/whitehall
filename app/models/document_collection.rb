@@ -1,4 +1,6 @@
 class DocumentCollection < Edition
+  include Edition::Searchable
+
   include Edition::Organisations
   include Edition::TaggableOrganisations
 

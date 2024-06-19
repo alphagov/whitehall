@@ -5,6 +5,7 @@ class Edition < ApplicationRecord
 
   include Edition::NullImages
   include Edition::NullWorldLocations
+  include Edition::BasePermissionMethods
 
   include Edition::Identifiable
   include Edition::LimitedAccess
@@ -20,13 +21,12 @@ class Edition < ApplicationRecord
 
   include Edition::ActiveEditors
   include Edition::Translatable
+  include Edition::Scopes
 
   include Dependable
 
   extend Edition::FindableByOrganisation
   extend Edition::FindableByWorldwideOrganisation
-
-  include Searchable
 
   include DateValidation
 
@@ -61,50 +61,6 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w[published superseded withdrawn unpublished].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
-  scope :with_title_or_summary_containing,
-        lambda { |*keywords|
-          pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-          in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern:)
-        }
-
-  scope :with_title_containing,
-        lambda { |keywords|
-          escaped_like_expression = keywords.gsub(/([%_])/, "%" => '\\%', "_" => '\\_')
-          like_clause = "%#{escaped_like_expression}%"
-
-          scope = in_default_locale.includes(:document)
-          scope
-            .where("edition_translations.title LIKE :like_clause", like_clause:)
-            .or(scope.where(document: { slug: keywords }))
-        }
-
-  scope :in_pre_publication_state, -> { where(state: Edition::PRE_PUBLICATION_STATES) }
-  scope :force_published, -> { where(state: "published", force_published: true) }
-  scope :not_published, -> { where(state: %w[draft submitted rejected]) }
-  scope :without_not_published, -> { where.not(state: %w[draft submitted rejected]) }
-
-  scope :announcements, -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
-  scope :consultations, -> { where(type: "Consultation") }
-  scope :call_for_evidence, -> { where(type: "CallForEvidence") }
-  scope :detailed_guides, -> { where(type: "DetailedGuide") }
-  scope :statistical_publications, -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
-  scope :non_statistical_publications, -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
-  scope :corporate_publications, -> { where(publication_type_id: PublicationType::CorporateReport.id) }
-  scope :corporate_information_pages, -> { where(type: "CorporateInformationPage") }
-  scope :publicly_visible, -> { where(state: PUBLICLY_VISIBLE_STATES) }
-
-  scope :future_scheduled_editions, -> { scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now)) }
-
-  scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
-  scope :live_edition, -> { joins(:document).where("documents.live_edition_id = editions.id") }
-
-  scope :review_overdue,
-        lambda {
-          joins(document: :review_reminder)
-            .where(document: { review_reminders: { review_at: ..Time.zone.today } })
-            .where.not(first_published_at: nil)
-        }
-
   # @!group Callbacks
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
@@ -116,140 +72,10 @@ class Edition < ApplicationRecord
 
   accepts_nested_attributes_for :document
 
-  class UnmodifiableValidator < ActiveModel::Validator
-    def validate(record)
-      significant_changed_attributes(record).each do |attribute|
-        record.errors.add(attribute, "cannot be modified when edition is in the #{record.state} state")
-      end
-    end
-
-    def significant_changed_attributes(record)
-      record.changed - modifiable_attributes(record.state_was, record.state)
-    end
-
-    def modifiable_attributes(previous_state, current_state)
-      modifiable = %w[state updated_at force_published]
-      if previous_state == "scheduled"
-        modifiable += %w[major_change_published_at first_published_at access_limited]
-      end
-      if PRE_PUBLICATION_STATES.include?(previous_state) || being_unpublished?(previous_state, current_state)
-        modifiable += %w[published_major_version published_minor_version]
-      end
-      modifiable
-    end
-
-    def being_unpublished?(previous_state, current_state)
-      previous_state == "published" && %w[unpublished withdrawn].include?(current_state)
-    end
-  end
-
   validates_with UnmodifiableValidator, if: :unmodifiable?
-
-  def self.alphabetical(locale = I18n.locale)
-    with_translations(locale).order("edition_translations.title ASC")
-  end
-
-  def self.published_before(date)
-    where(arel_table[:public_timestamp].lteq(date))
-  end
-
-  def self.published_after(date)
-    where(arel_table[:public_timestamp].gteq(date))
-  end
-
-  def self.in_chronological_order
-    order(arel_table[:public_timestamp].asc, arel_table[:document_id].asc)
-  end
-
-  def self.in_reverse_chronological_order
-    ids = pluck(:id)
-    Edition
-      .unscoped
-      .where(id: ids)
-      .order(
-        arel_table[:public_timestamp].desc,
-        arel_table[:document_id].desc,
-        arel_table[:id].desc,
-      )
-  end
-
-  def self.without_editions_of_type(*edition_classes)
-    where(arel_table[:type].not_in(edition_classes.map(&:name)))
-  end
 
   def self.format_name
     @format_name ||= model_name.human.downcase
-  end
-
-  def self.authored_by(user)
-    if user && user.id
-      where(
-        "EXISTS (
-        SELECT * FROM edition_authors ea_authorship_check
-        WHERE
-          ea_authorship_check.edition_id=editions.id
-          AND ea_authorship_check.user_id=?
-        )",
-        user.id,
-      )
-    end
-  end
-
-  def self.by_type_or_subtypes(type, subtypes)
-    if subtypes.nil?
-      by_type(type)
-    elsif subtypes.empty?
-      none
-    else
-      by_subtypes(type, subtypes.pluck(:id))
-    end
-  end
-
-  def self.by_type(type)
-    where(type: type.to_s)
-  end
-
-  def self.by_subtype(type, subtype)
-    merge(type.by_subtype(subtype))
-  end
-
-  def self.by_subtypes(type, subtype_ids)
-    merge(type.by_subtypes(subtype_ids))
-  end
-
-  def self.in_world_location(world_location)
-    joins(:world_locations).where("world_locations.id" => world_location)
-  end
-
-  def self.from_date(date)
-    where("editions.updated_at >= ?", date)
-  end
-
-  def self.to_date(date)
-    where("editions.updated_at <= ?", date)
-  end
-
-  def self.only_broken_links
-    joins(
-      "
-LEFT JOIN (
-  SELECT id, link_reportable_type, link_reportable_id
-  FROM link_checker_api_reports
-  GROUP BY link_reportable_type, link_reportable_id
-  ORDER BY id DESC
-) AS latest_link_checker_api_reports
-  ON latest_link_checker_api_reports.link_reportable_type = 'Edition'
- AND latest_link_checker_api_reports.link_reportable_id = editions.id
- AND latest_link_checker_api_reports.id = (SELECT MAX(id) FROM link_checker_api_reports WHERE link_checker_api_reports.link_reportable_type = 'Edition' AND link_checker_api_reports.link_reportable_id = editions.id)",
-    ).where(
-      "
-EXISTS (
-  SELECT 1
-  FROM link_checker_api_report_links
-  WHERE link_checker_api_report_id = latest_link_checker_api_reports.id
-    AND link_checker_api_report_links.status IN ('broken', 'caution')
-)",
-    )
   end
 
   def self.search_format_type
@@ -262,17 +88,6 @@ EXISTS (
 
   def self.concrete_descendant_search_format_types
     concrete_descendants.map(&:search_format_type)
-  end
-
-  # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only search_api index
-  def self.with_topical_event(topical_event)
-    joins("INNER JOIN topical_event_memberships ON topical_event_memberships.edition_id = editions.id")
-      .where("topical_event_memberships.topical_event_id" => topical_event.id)
-  end
-
-  def self.due_for_publication(within_time = 0)
-    cutoff = Time.zone.now + within_time
-    scheduled.where(arel_table[:scheduled_publication].lteq(cutoff))
   end
 
   def self.scheduled_for_publication_as(slug)
@@ -296,60 +111,12 @@ EXISTS (
     document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
   end
 
-  searchable(
-    id: :id,
-    title: :search_title,
-    link: :search_link,
-    format: ->(d) { d.format_name.tr(" ", "_") },
-    content: :indexable_content,
-    description: :summary,
-    people: nil,
-    roles: nil,
-    display_type: :display_type,
-    detailed_format: :detailed_format,
-    public_timestamp: :public_timestamp,
-    relevant_to_local_government: :relevant_to_local_government?,
-    world_locations: nil,
-    only: :search_only,
-    index_after: [],
-    unindex_after: [],
-    search_format_types: :search_format_types,
-    attachments: nil,
-    operational_field: nil,
-    latest_change_note: :most_recent_change_note,
-    is_political: :political?,
-    is_historic: :historic?,
-    is_withdrawn: :withdrawn?,
-    government_name: :search_government_name,
-    content_store_document_type: :content_store_document_type,
-  )
-
-  def search_title
-    title
-  end
-
-  def search_link
-    base_path
-  end
-
-  def search_format_types
-    [Edition.search_format_type]
-  end
-
   def self.publicly_visible_and_available_in_english
     with_translations(:en).publicly_visible
   end
 
   def self.search_only
     publicly_visible_and_available_in_english
-  end
-
-  def refresh_index_if_required
-    if document.editions.published.any?
-      document.editions.published.last.update_in_search_index
-    else
-      remove_from_search_index
-    end
   end
 
   def creator
@@ -375,93 +142,12 @@ EXISTS (
     change_note.present? || minor_change
   end
 
-  # @group Overwritable permission methods
-  def can_be_associated_with_social_media_accounts?
-    false
-  end
-
-  def can_be_associated_with_topical_events?
-    false
-  end
-
-  def can_be_associated_with_roles?
-    false
-  end
-
-  def can_be_associated_with_role_appointments?
-    false
-  end
-
-  def can_be_associated_with_worldwide_organisations?
-    false
-  end
-
-  def can_be_fact_checked?
-    false
-  end
-
-  def can_be_related_to_mainstream_content?
-    false
-  end
-
-  def can_be_related_to_organisations?
-    false
-  end
-
-  def can_apply_to_subset_of_nations?
-    false
-  end
-
-  def allows_attachments?
-    false
-  end
-
-  def allows_attachment_references?
-    false
-  end
-
-  def allows_inline_attachments?
-    false
-  end
-
-  def can_be_grouped_in_collections?
-    false
-  end
-
-  def has_operational_field?
-    false
-  end
-
-  def image_disallowed_in_body_text?(_index)
-    false
-  end
-
-  def can_apply_to_local_government?
-    false
-  end
-
-  def national_statistic?
-    false
-  end
-
-  def has_consultation_participation?
-    false
-  end
-
-  def is_associated_with_a_minister?
-    false
-  end
-
-  def statistics?
-    false
-  end
-
-  def can_be_tagged_to_worldwide_taxonomy?
-    false
-  end
-
   def can_be_marked_political?
     true
+  end
+
+  def can_index_in_search?
+    false
   end
 
   def path_name
@@ -479,8 +165,6 @@ EXISTS (
   def included_in_statistics_feed?
     search_format_types.include?("publicationesque-statistics")
   end
-
-  # @!endgroup
 
   def create_draft(user, allow_creating_draft_from_deleted_edition: false)
     ActiveRecord::Base.transaction do
@@ -514,6 +198,10 @@ EXISTS (
 
   def author_names
     edition_authors.map(&:user).map(&:name).uniq
+  end
+
+  def image_disallowed_in_body_text?(_index)
+    false
   end
 
   def rejected_by

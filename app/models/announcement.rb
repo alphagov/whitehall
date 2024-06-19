@@ -1,5 +1,7 @@
 # @abstract
 class Announcement < Edition
+  include Edition::Searchable
+
   include Edition::Images
   include Edition::Organisations
   include Edition::TaggableOrganisations

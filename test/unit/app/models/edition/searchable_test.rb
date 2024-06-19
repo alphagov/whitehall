@@ -2,12 +2,12 @@ require "test_helper"
 
 class Edition::SearchableTest < ActiveSupport::TestCase
   test "should return search index suitable for Searchable when published" do
-    edition = create(:published_edition, title: "edition-title")
+    edition = create(:published_searchable_edition, title: "edition-title")
 
     assert_equal "edition-title", edition.search_index["title"]
     assert_equal edition.public_path, edition.search_index["link"]
     assert_equal edition.body, edition.search_index["indexable_content"]
-    assert_equal "generic_edition", edition.search_index["format"]
+    assert_equal "searchable_edition", edition.search_index["format"]
     assert_equal edition.summary, edition.search_index["description"]
     assert_equal edition.id, edition.search_index["id"]
     assert_nil edition.search_index["latest_change_note"]
@@ -22,12 +22,12 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   end
 
   test "should return search index suitable for Searchable when withdrawn" do
-    edition = create(:withdrawn_edition, title: "edition-title")
+    edition = create(:withdrawn_searchable_edition, title: "edition-title")
 
     assert_equal "edition-title", edition.search_index["title"]
     assert_equal edition.public_path, edition.search_index["link"]
     assert_equal edition.body, edition.search_index["indexable_content"]
-    assert_equal "generic_edition", edition.search_index["format"]
+    assert_equal "searchable_edition", edition.search_index["format"]
     assert_equal edition.summary, edition.search_index["description"]
     assert_equal edition.id, edition.search_index["id"]
     assert_nil edition.search_index["latest_change_note"]
@@ -42,18 +42,18 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   end
 
   test "#indexable_content should return the body without markup by default" do
-    edition = create(:published_edition, body: "# header\n\nsome text")
+    edition = create(:published_searchable_edition, body: "# header\n\nsome text")
     assert_equal "header some text", edition.indexable_content
   end
 
   test "should use the result of #indexable_content for the content of #search_index" do
-    edition = create(:published_edition, title: "edition-title")
+    edition = create(:published_searchable_edition, title: "edition-title")
     edition.stubs(:indexable_content).returns("some augmented searchable content")
     assert_equal "some augmented searchable content", edition.search_index["indexable_content"]
   end
 
   test "should add edition to search index on publishing" do
-    edition = create(:submitted_edition)
+    edition = create(:submitted_searchable_edition)
     stub_publishing_api_registration_for(edition)
     SearchApiPresenters.stubs(:searchable_classes).returns([edition.class])
     Whitehall::SearchIndex.expects(:add).with(edition)
@@ -62,7 +62,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   end
 
   test "should add edition to search index on withdrawing" do
-    edition = create(:published_edition)
+    edition = create(:published_searchable_edition)
 
     Whitehall::PublishingApi.stubs(:publish_withdrawal_async)
 
@@ -76,7 +76,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should add latest change note to search index" do
     user  = create(:gds_editor)
-    first = create(:published_edition)
+    first = create(:published_searchable_edition)
 
     major = first.create_draft(user)
     major.change_note = "This was a major change"
@@ -87,7 +87,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should not add edition to search index if it is not available in English" do
     I18n.locale = :fr
-    french_edition = create(:submitted_edition, title: "French Title", body: "French Body", primary_locale: :fr)
+    french_edition = create(:submitted_searchable_edition, title: "French Title", body: "French Body", primary_locale: :fr)
     stub_publishing_api_registration_for(french_edition)
     I18n.locale = I18n.default_locale
     SearchApiPresenters.stubs(:searchable_classes).returns([french_edition.class])
@@ -97,7 +97,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   end
 
   test "should not remove edition from search index when a new edition is published" do
-    edition = create(:published_edition)
+    edition = create(:published_searchable_edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition).never
 
@@ -107,7 +107,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   end
 
   test "should not remove edition from search index when a published edition is withdran" do
-    edition = create(:published_edition)
+    edition = create(:published_searchable_edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition).never
 
@@ -117,7 +117,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   end
 
   test "should remove published edition from search index when it's unpublished" do
-    edition = create(:published_edition)
+    edition = create(:published_searchable_edition)
     create(:unpublishing, edition:)
 
     Whitehall::SearchIndex.expects(:delete).with(edition)
