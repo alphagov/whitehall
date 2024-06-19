@@ -2,6 +2,7 @@ require "test_helper"
 
 class Edition::AppointmentTest < ActiveSupport::TestCase
   class EditionWithAppointment < Edition
+    include ::Edition::Searchable
     include ::Edition::Appointment
 
     def search_link

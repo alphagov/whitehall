@@ -313,6 +313,9 @@ en:
       research:
         one: Research
         other: Research
+      searchable_edition:
+        one: Searchable edition
+        other: Searchable editions
       service:
         one: Service
         other: Services

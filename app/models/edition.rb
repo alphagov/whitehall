@@ -27,8 +27,6 @@ class Edition < ApplicationRecord
   extend Edition::FindableByOrganisation
   extend Edition::FindableByWorldwideOrganisation
 
-  include Searchable
-
   include DateValidation
 
   date_attributes :scheduled_publication, :first_published_at, :delivered_on, :opening_at, :closing_at
@@ -112,60 +110,12 @@ class Edition < ApplicationRecord
     document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
   end
 
-  searchable(
-    id: :id,
-    title: :search_title,
-    link: :search_link,
-    format: ->(d) { d.format_name.tr(" ", "_") },
-    content: :indexable_content,
-    description: :summary,
-    people: nil,
-    roles: nil,
-    display_type: :display_type,
-    detailed_format: :detailed_format,
-    public_timestamp: :public_timestamp,
-    relevant_to_local_government: :relevant_to_local_government?,
-    world_locations: nil,
-    only: :search_only,
-    index_after: [],
-    unindex_after: [],
-    search_format_types: :search_format_types,
-    attachments: nil,
-    operational_field: nil,
-    latest_change_note: :most_recent_change_note,
-    is_political: :political?,
-    is_historic: :historic?,
-    is_withdrawn: :withdrawn?,
-    government_name: :search_government_name,
-    content_store_document_type: :content_store_document_type,
-  )
-
-  def search_title
-    title
-  end
-
-  def search_link
-    base_path
-  end
-
-  def search_format_types
-    [Edition.search_format_type]
-  end
-
   def self.publicly_visible_and_available_in_english
     with_translations(:en).publicly_visible
   end
 
   def self.search_only
     publicly_visible_and_available_in_english
-  end
-
-  def refresh_index_if_required
-    if document.editions.published.any?
-      document.editions.published.last.update_in_search_index
-    else
-      remove_from_search_index
-    end
   end
 
   def creator
@@ -278,6 +228,10 @@ class Edition < ApplicationRecord
 
   def can_be_marked_political?
     true
+  end
+
+  def can_index_in_search?
+    false
   end
 
   def path_name

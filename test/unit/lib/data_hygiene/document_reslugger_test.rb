@@ -5,7 +5,7 @@ class DocumentResluggerTest < ActiveSupport::TestCase
     stub_any_publishing_api_call
     @user = create(:user)
     @document = create(:document, slug: "old-slug", document_type: "news_article")
-    @published_edition = create(:edition, :published)
+    @published_edition = create(:searchable_edition, :published)
   end
 
   test "updates the slug to the new slug, updated the publishing API, reindexes the slug on search index and creates an EditorialRemark" do

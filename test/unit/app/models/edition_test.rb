@@ -454,7 +454,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "search_format_types tags the edtion as an edition" do
-    edition = build(:edition)
+    edition = build(:searchable_edition)
     assert edition.search_format_types.include?("edition")
   end
 
@@ -501,7 +501,10 @@ class EditionTest < ActiveSupport::TestCase
     )
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
-    result_titles = Edition.search_index.to_a.map { |r| r["title"] }
+    result_titles = [
+      NewsArticle.search_index.to_a,
+      Publication.search_index.to_a,
+    ].flatten.map { |r| r["title"] }
 
     assert_equal %w[news_article-title publication-title], result_titles
   end

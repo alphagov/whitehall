@@ -87,7 +87,9 @@ FactoryBot.define do
       force_published { false }
       published_major_version { 1 }
       published_minor_version { 0 }
-      after :create, &:refresh_index_if_required
+      after :create do |edition|
+        edition.refresh_index_if_required if edition.can_index_in_search?
+      end
     end
 
     trait(:non_english) { primary_locale { "cy" } }
@@ -99,7 +101,9 @@ FactoryBot.define do
       force_published { true }
       published_major_version { 1 }
       published_minor_version { 0 }
-      after :create, &:refresh_index_if_required
+      after :create do |edition|
+        edition.refresh_index_if_required if edition.can_index_in_search?
+      end
     end
 
     trait(:deleted) { state { "deleted" } }

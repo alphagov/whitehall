@@ -8,6 +8,8 @@
 #
 # @abstract
 class Publicationesque < Edition
+  include Edition::Searchable
+
   include Edition::HasDocumentCollections
   include Edition::Organisations
   include Edition::TaggableOrganisations
