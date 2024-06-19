@@ -14,10 +14,13 @@ Then(/^I should not see a preview link to the ministers index page$/) do
   expect(page).to_not have_selector(".govuk-link[data-track-action=ministers-index-page-button]")
 end
 
-Given(/^there are multiple Cabinet minister roles$/) do
+Given(/^there are multiple Cabinet minister roles with appointments$/) do
   organisation = create(:organisation)
-  create(:ministerial_role, name: "Role 1", cabinet_member: true, organisations: [organisation], seniority: 0)
-  create(:ministerial_role, name: "Role 2", cabinet_member: true, organisations: [organisation], seniority: 1)
+  person = create(:person, forename: "Tony")
+  minister_role1 = create(:ministerial_role, name: "Role 1", cabinet_member: true, organisations: [organisation], seniority: 0)
+  minister_role2 = create(:ministerial_role, name: "Role 2", cabinet_member: true, organisations: [organisation], seniority: 1)
+  create(:role_appointment, role: minister_role1, person:)
+  create(:role_appointment, role: minister_role2, person:)
 end
 
 When(/^I click the reorder link in the "([^"]*)" tab$/) do |tab|
