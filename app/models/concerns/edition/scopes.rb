@@ -23,9 +23,6 @@ module Edition::Scopes
     scope :consultations, -> { where(type: "Consultation") }
     scope :call_for_evidence, -> { where(type: "CallForEvidence") }
     scope :detailed_guides, -> { where(type: "DetailedGuide") }
-    scope :statistical_publications, -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
-    scope :non_statistical_publications, -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
-    scope :corporate_publications, -> { where(publication_type_id: PublicationType::CorporateReport.id) }
     scope :corporate_information_pages, -> { where(type: "CorporateInformationPage") }
 
 
