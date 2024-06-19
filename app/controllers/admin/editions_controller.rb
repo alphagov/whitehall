@@ -493,7 +493,7 @@ private
   end
 
   def construct_similar_slug_warning_error
-    @edition.errors.add(:title, "is already used on GOV.UK. Please create a unique title") if show_similar_slugs_warning?(@edition)
+    @edition.errors.add(:title, "has been used before on GOV.UK, although the page may no longer exist. Please use another title") if show_similar_slugs_warning?(@edition)
   end
 
   def updater

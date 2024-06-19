@@ -21,7 +21,7 @@
   <% end %>
   <% if show_similar_slugs_warning?(@edition) %>
     <%= render "components/inset_prompt", {
-      description: "This title is already used on GOV.UK. Please create a unique title.",
+      description: "This title has been used before on GOV.UK, although the page may no longer exist. Please use another title.",
       error: true,
     } %>
   <% end %>
