@@ -87,9 +87,32 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     html_attachment = HtmlAttachment.last
     # if an organisation has multiple translations, pluck returns
     # duplicate content_ids because it constructs a left outer join
-    html_attachment.attachable.organisations.expects(:pluck).with(:content_id).returns(%w[abcdef abcdef])
+    lead_orgs = mock
+    lead_orgs.expects(:pluck).with(:content_id).returns(%w[abcdef])
+    html_attachment.attachable.expects(:lead_organisations).returns(lead_orgs).twice
+
+    supporting_orgs = mock
+    supporting_orgs.expects(:pluck).with(:content_id).returns(%w[abcdef])
+    html_attachment.attachable.expects(:supporting_organisations).returns(supporting_orgs)
 
     assert_equal %w[abcdef], present(html_attachment).links[:organisations]
+  end
+
+  test "HtmlAttachment presents lead organisation content_ids before supporting organisation content_ids" do
+    create(:publication, :with_html_attachment, :published)
+
+    html_attachment = HtmlAttachment.last
+    # if an organisation has multiple translations, pluck returns
+    # duplicate content_ids because it constructs a left outer join
+    lead_orgs = mock
+    lead_orgs.expects(:pluck).with(:content_id).returns(%w[abcdef])
+    html_attachment.attachable.expects(:lead_organisations).returns(lead_orgs).twice
+
+    supporting_orgs = mock
+    supporting_orgs.expects(:pluck).with(:content_id).returns(%w[bcdefg])
+    html_attachment.attachable.expects(:supporting_organisations).returns(supporting_orgs)
+
+    assert_equal %w[abcdef bcdefg], present(html_attachment).links[:organisations]
   end
 
   test "HtmlAttachment presents primary_publishing_organisation" do
