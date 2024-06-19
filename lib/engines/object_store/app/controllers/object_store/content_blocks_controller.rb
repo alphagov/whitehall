@@ -35,7 +35,8 @@ class ObjectStore::ContentBlocksController < ApplicationController
     else
       render json: @content_block.errors, status: :unprocessable_entity
     end
-  rescue JSON::Schema::ValidationError => e
+  rescue StandardError => e
+    # TODO: catch specific invalid json error
     render json: { error: e.message }, status: :unprocessable_entity
   end
 
