@@ -252,4 +252,143 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
     post :republish_documents_by_organisation, params: { organisation_slug: "an-existing-organisation" }
     assert_response :forbidden
   end
+
+  test "GDS Admin users should be able to GET :new_documents_by_content_ids" do
+    get :new_documents_by_content_ids
+    assert_response :ok
+  end
+
+  test "Non-GDS Admin users should not be able to GET :new_documents_by_content_ids" do
+    login_as :writer
+
+    get :new_documents_by_content_ids
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to POST :search_documents_by_content_ids with valid document content IDs" do
+    create(:document, id: 1, content_id: "abc-123")
+    create(:document, id: 2, content_id: "def-456")
+
+    post :search_documents_by_content_ids, params: { content_ids: "abc-123, def-456" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_content_ids_confirm_path("abc-123, def-456")
+  end
+
+  test "GDS Admin users should be redirected back to :new_documents_by_content_ids when trying to POST :search_documents_by_content_ids with no content IDs" do
+    post :search_documents_by_content_ids, params: { content_ids: "" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_content_ids_new_path
+    assert_equal "No content IDs provided", flash[:alert]
+  end
+
+  test "GDS Admin users should be redirected back to :new_documents_by_content_ids when trying to POST :search_documents_by_content_ids with invalid content IDs" do
+    post :search_documents_by_content_ids, params: { content_ids: "this is not valid" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_content_ids_new_path
+    assert_equal "Unable to find document(s) with the following content IDs: 'this', 'is', 'not', and 'valid'", flash[:alert]
+  end
+
+  test "Non-GDS Admin users should not be able to POST :search_documents_by_content_ids" do
+    create(:document, id: 1, content_id: "abc-123")
+    create(:document, id: 2, content_id: "def-456")
+
+    login_as :writer
+
+    post :search_documents_by_content_ids, params: { content_ids: "abc-123, def-456" }
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to GET :confirm_documents_by_content_ids with valid document content IDs" do
+    create(:document, id: 1, content_id: "abc-123")
+    create(:document, id: 2, content_id: "def-456")
+
+    post :confirm_documents_by_content_ids, params: { content_ids: "abc-123, def-456" }
+
+    assert_response :ok
+  end
+
+  test "GDS Admin users should be redirected back to :new_documents_by_content_ids when trying to GET :confirm_documents_by_content_ids with no content IDs" do
+    post :confirm_documents_by_content_ids, params: { content_ids: "" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_content_ids_new_path
+    assert_equal "No content IDs provided", flash[:alert]
+  end
+
+  test "GDS Admin users should be redirected back to :new_documents_by_content_ids when trying to GET :confirm_documents_by_content_ids with invalid content IDs" do
+    post :confirm_documents_by_content_ids, params: { content_ids: "this is not valid" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_content_ids_new_path
+    assert_equal "Unable to find document(s) with the following content IDs: 'this', 'is', 'not', and 'valid'", flash[:alert]
+  end
+
+  test "Non-GDS Admin users should not be able to GET :confirm_documents_by_content_ids" do
+    create(:document, id: 1, content_id: "abc-123")
+    create(:document, id: 2, content_id: "def-456")
+
+    login_as :writer
+
+    post :confirm_documents_by_content_ids, params: { content_ids: "abc-123, def-456" }
+
+    assert_response :forbidden
+  end
+
+  test "GDS Admin users should be able to POST :republish_documents_by_content_ids with valid document content IDs and a reason, creating a RepublishingEvent for the current user" do
+    create(:document, id: 1, content_id: "abc-123")
+    create(:document, id: 2, content_id: "def-456")
+
+    BulkRepublisher.any_instance.expects(:republish_all_documents_by_ids).with([1, 2]).once
+
+    post :republish_documents_by_content_ids, params: { content_ids: "abc-123, def-456", reason: "this needs republishing" }
+
+    newly_created_event = RepublishingEvent.last
+    assert_equal current_user, newly_created_event.user
+    assert_equal "this needs republishing", newly_created_event.reason
+    assert_equal "All documents by content IDs 'abc-123' and 'def-456' have been queued for republishing", newly_created_event.action
+    assert_equal true, newly_created_event.bulk
+    assert_equal "all_documents_by_content_ids", newly_created_event.bulk_content_type
+    assert_equal %w[abc-123 def-456], newly_created_event.content_ids
+
+    assert_redirected_to admin_republishing_index_path
+    assert_equal "All documents by content IDs 'abc-123' and 'def-456' have been queued for republishing", flash[:notice]
+  end
+
+  test "GDS Admin users should encounter an error on POST :republish_documents_by_content_ids without a reason and be sent back to the confirm page" do
+    create(:document, id: 1, content_id: "abc-123")
+    create(:document, id: 2, content_id: "def-456")
+
+    BulkRepublisher.any_instance.expects(:republish_all_documents_by_ids).with([1, 2]).never
+
+    post :republish_documents_by_content_ids, params: { content_ids: "abc-123, def-456", reason: "" }
+
+    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_template "confirm_documents_by_content_ids"
+  end
+
+  test "GDS Admin users should be redirected back to :new_documents_by_content_ids when trying to POST :republish_documents_by_content_ids with no content IDs" do
+    BulkRepublisher.any_instance.expects(:republish_all_documents_by_ids).with([1, 2]).never
+
+    post :republish_documents_by_content_ids, params: { content_ids: "", reason: "this needs republishing" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_content_ids_new_path
+    assert_equal "No content IDs provided", flash[:alert]
+  end
+
+  test "GDS Admin users should be redirected back to :new_documents_by_content_ids when trying to POST :republish_documents_by_content_ids with invalid content IDs" do
+    post :republish_documents_by_content_ids, params: { content_ids: "this is not valid", reason: "this needs republishing" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_content_ids_new_path
+    assert_equal "Unable to find document(s) with the following content IDs: 'this', 'is', 'not', and 'valid'", flash[:alert]
+  end
+
+  test "Non-GDS Admin users should not be able to POST :republish_documents_by_content_ids" do
+    create(:document, id: 1, content_id: "abc-123")
+    create(:document, id: 2, content_id: "def-456")
+
+    BulkRepublisher.any_instance.expects(:republish_all_documents_by_ids).with([1, 2]).never
+
+    login_as :writer
+
+    post :republish_documents_by_content_ids, params: { content_ids: "abc-123, def-456", reason: "this needs republishing" }
+    assert_response :forbidden
+  end
 end

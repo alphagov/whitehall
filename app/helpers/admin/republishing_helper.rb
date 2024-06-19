@@ -58,6 +58,12 @@ module Admin::RepublishingHelper
         new_path: admin_bulk_republishing_documents_by_organisation_new_path,
         republish_method: ->(organisation) { BulkRepublisher.new.republish_all_documents_by_organisation(organisation) },
       },
+      all_documents_by_content_ids: {
+        id: "all-documents-by-content-ids",
+        name: "all documents by content IDs",
+        new_path: admin_bulk_republishing_documents_by_content_ids_new_path,
+        republish_method: ->(document_ids) { BulkRepublisher.new.republish_all_documents_by_ids(document_ids) },
+      },
     }
   end
 
