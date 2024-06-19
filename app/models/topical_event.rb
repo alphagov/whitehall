@@ -83,10 +83,6 @@ class TopicalEvent < ApplicationRecord
   scope :order_by_start_date, -> { order("start_date DESC") }
   scope :for_edition, ->(id) { joins(:topical_event_memberships).where(topical_event_memberships: { edition_id: id }) }
 
-  scope :statistical_publications, -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
-  scope :non_statistical_publications, -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
-  scope :corporate_publications, -> { where(publication_type_id: PublicationType::CorporateReport.id) }
-
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 

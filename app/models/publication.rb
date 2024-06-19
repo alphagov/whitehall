@@ -26,6 +26,11 @@ class Publication < Publicationesque
   after_create :assign_statistics_announcement
 
   after_save :touch_statistics_announcement
+
+  scope :statistical_publications, -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
+  scope :non_statistical_publications, -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
+  scope :corporate_publications, -> { where(publication_type_id: PublicationType::CorporateReport.id) }
+
   def touch_statistics_announcement
     if published? && !statistics_announcement.nil?
       statistics_announcement.reload.touch
