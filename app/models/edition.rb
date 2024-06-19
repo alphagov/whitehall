@@ -23,7 +23,15 @@ class Edition < ApplicationRecord
 
   include Edition::ActiveEditors
   include Edition::Translatable
-  include Edition::Scopes
+
+  include Edition::Scopes::Orderable
+  include Edition::Scopes::SearchableByTitle
+  include Edition::Scopes::FilterableByAuthor
+  include Edition::Scopes::FilterableByBrokenLinks
+  include Edition::Scopes::FilterableByDate
+  include Edition::Scopes::FilterableByTopicalEvent
+  include Edition::Scopes::FilterableByType
+  include Edition::Scopes::FilterableByWorldLocation
 
   include Dependable
 
