@@ -205,7 +205,7 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "GDS Admin users should be able to POST :republish_documents_by_organisation with an existing organisation slug, creating a RepublishingEvent for the current user" do
+  test "GDS Admin users should be able to POST :republish_documents_by_organisation with an existing organisation slug and a reason, creating a RepublishingEvent for the current user" do
     organisation = create(:organisation, id: "1234", slug: "an-existing-organisation", name: "An Existing Organisation")
 
     BulkRepublisher.any_instance.expects(:republish_all_documents_by_organisation).with(organisation).once
