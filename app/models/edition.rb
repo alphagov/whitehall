@@ -5,6 +5,8 @@ class Edition < ApplicationRecord
 
   include Edition::NullImages
   include Edition::NullWorldLocations
+  include Edition::NullAttachables
+
   include Edition::BasePermissionMethods
 
   include Edition::Identifiable
@@ -21,12 +23,19 @@ class Edition < ApplicationRecord
 
   include Edition::ActiveEditors
   include Edition::Translatable
-  include Edition::Scopes
+
+  include Edition::Scopes::Orderable
+  include Edition::Scopes::SearchableByTitle
+  include Edition::Scopes::FilterableByAuthor
+  include Edition::Scopes::FilterableByBrokenLinks
+  include Edition::Scopes::FilterableByDate
+  include Edition::Scopes::FilterableByTopicalEvent
+  include Edition::Scopes::FilterableByType
+  include Edition::Scopes::FilterableByWorldLocation
+  include Edition::Scopes::FindableByOrganisation
+  include Edition::Scopes::FindableByWorldwideOrganisation
 
   include Dependable
-
-  extend Edition::FindableByOrganisation
-  extend Edition::FindableByWorldwideOrganisation
 
   include DateValidation
 
@@ -93,10 +102,6 @@ class Edition < ApplicationRecord
   def self.scheduled_for_publication_as(slug)
     document = Document.at_slug(document_type, slug)
     document && document.scheduled_edition
-  end
-
-  def attachables
-    []
   end
 
   def skip_main_validation?

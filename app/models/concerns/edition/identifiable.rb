@@ -7,6 +7,16 @@ module Edition::Identifiable
     before_validation :ensure_presence_of_document, on: :create
     before_validation :update_document_slug, on: :update
     before_validation :propagate_type_to_document
+
+    scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
+    scope :live_edition, -> { joins(:document).where("documents.live_edition_id = editions.id") }
+
+    scope :review_overdue,
+          lambda {
+            joins(document: :review_reminder)
+              .where(document: { review_reminders: { review_at: ..Time.zone.today } })
+              .where.not(first_published_at: nil)
+          }
   end
 
   delegate :slug, :change_history, :content_id, to: :document

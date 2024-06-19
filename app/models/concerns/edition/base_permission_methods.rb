@@ -12,9 +12,6 @@ module Edition::BasePermissionMethods
     can_be_related_to_mainstream_content?
     can_be_related_to_organisations?
     can_apply_to_subset_of_nations?
-    allows_attachments?
-    allows_attachment_references?
-    allows_inline_attachments?
     can_be_grouped_in_collections?
     has_operational_field?
     can_apply_to_local_government?
