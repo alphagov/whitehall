@@ -6,8 +6,8 @@ class Admin::CabinetMinistersController < Admin::BaseController
 
   def show
     @cabinet_minister_roles = MinisterialRole.ministerial_roles_with_current_appointments
-    @also_attends_cabinet_roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
-    @whip_roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
+    @also_attends_cabinet_roles = MinisterialRole.also_attends_cabinet_roles
+    @whip_roles = MinisterialRole.whip_roles
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
   end
 
