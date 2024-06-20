@@ -92,6 +92,20 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
       assert_equal test_config[:expected_output], content_ids_string_to_array(test_config[:input])
     end
   end
+
+  [
+    { condition: "one ID", input: %w[abc-123], expected_output: "'abc-123'" },
+    { condition: "two IDs", input: %w[abc-123 def-456], expected_output: "'abc-123' and 'def-456'" },
+    { condition: "three or more IDs", input: %w[abc-123 def-456 ghi-789], expected_output: "'abc-123', 'def-456', and 'ghi-789'" },
+  ].each do |test_config|
+    test "#content_ids_array_to_string handles #{test_config[:condition]}" do
+      assert_equal test_config[:expected_output], content_ids_array_to_string(test_config[:input])
+    end
+  end
+
+  test "#content_ids_array_to_string throws an error if no IDs are provided" do
+    assert_raises(StandardError, match: "No IDs provided") { content_ids_array_to_string([]) }
+  end
 end
 
 def omnipresent_content_types

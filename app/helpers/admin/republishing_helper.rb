@@ -104,4 +104,16 @@ module Admin::RepublishingHelper
       .split(Regexp.union([/\s+/, /\s*,+\s*/]))
       .reject(&:empty?)
   end
+
+  def content_ids_array_to_string(content_ids_array)
+    raise "No IDs provided" if content_ids_array.empty?
+
+    central_string = content_ids_array.to_sentence(
+      words_connector: "', '",
+      two_words_connector: "' and '",
+      last_word_connector: "', and '",
+    )
+
+    "'#{central_string}'"
+  end
 end
