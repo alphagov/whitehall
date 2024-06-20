@@ -45,10 +45,10 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     assert_response :redirect
   end
 
-  view_test "doesn't let managing editors edit historic documents" do
+  view_test "lets managing editors edit historic documents" do
     login_as :managing_editor
     edit_historic_document
-    assert_response :redirect
+    assert_response :success
   end
 
   view_test "lets GDS editors edit historic documents" do
