@@ -1120,7 +1120,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "should send related pages to publishing api when a ministerial department is created" do
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
     Sidekiq::Testing.inline! do
@@ -1132,7 +1132,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
     Sidekiq::Testing.inline! do
@@ -1143,7 +1143,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "should send related pages to publishing api when a ministerial department is deleted" do
     organisation = create(:ministerial_department)
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::OrganisationsIndexPresenter)
 
     Sidekiq::Testing.inline! do

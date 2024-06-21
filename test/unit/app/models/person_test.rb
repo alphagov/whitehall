@@ -245,7 +245,7 @@ class PersonTest < ActiveSupport::TestCase
     create(:ministerial_role_appointment, person:)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       person.update(forename: "New first name")
@@ -258,7 +258,7 @@ class PersonTest < ActiveSupport::TestCase
     create(:role_appointment, person:, role:)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter).never
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter).never
 
     Sidekiq::Testing.inline! do
       person.update(forename: "New first name")
@@ -271,7 +271,7 @@ class PersonTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       person.update(forename: "New first name")
@@ -285,7 +285,7 @@ class PersonTest < ActiveSupport::TestCase
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       person.update(forename: "New first name")

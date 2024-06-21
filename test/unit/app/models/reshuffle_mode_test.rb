@@ -20,19 +20,11 @@ class ReshuffleModeTest < ActiveSupport::TestCase
     end
   end
 
-  describe "#republish_ministers_index_page_to_publishing_api" do
-    it "republishes the 'Ministers Index' page" do
-      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexPresenter", true).once
+  describe "#patch_links_ministers_index_page_to_publishing_api" do
+    it "patches links on the 'Ministers Index' page" do
+      PatchLinksPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexPresenter").once
 
-      ClassThatIncludesReshuffleMode.new.republish_ministers_index_page_to_publishing_api
-    end
-
-    it "only saves to the draft stack when reshuffle mode is switched on" do
-      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexPresenter", false).once
-
-      reshuffle_mode = ClassThatIncludesReshuffleMode.new
-      reshuffle_mode.stubs(:reshuffle_in_progress?).returns(true)
-      reshuffle_mode.republish_ministers_index_page_to_publishing_api
+      ClassThatIncludesReshuffleMode.new.patch_links_ministers_index_page_to_publishing_api
     end
   end
 

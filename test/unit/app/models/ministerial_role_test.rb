@@ -92,7 +92,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     create(:ministerial_role_appointment, role:)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       role.update(name: "New name")

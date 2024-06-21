@@ -440,7 +440,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, person: create(:person), role:)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter)
 
     Sidekiq::Testing.inline! do
@@ -452,7 +452,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:prime_minister_role)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
     Sidekiq::Testing.inline! do
@@ -472,7 +472,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
                                  role:)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
     Sidekiq::Testing.inline! do
@@ -485,7 +485,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     create(:prime_minister_role)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HistoricalAccountsIndexPresenter).never
 
     Sidekiq::Testing.inline! do
@@ -497,7 +497,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:prime_minister_role)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       create(:role_appointment, person: create(:person), role:)
@@ -508,7 +508,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:ministerial_role)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       create(:role_appointment, person: create(:person), role:)
@@ -519,7 +519,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:non_ministerial_role_without_organisations)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter).never
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::MinistersIndexPresenter).never
+    PresentPageToPublishingApi.any_instance.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter).never
 
     Sidekiq::Testing.inline! do
       create(:role_appointment, person: create(:person), role:)

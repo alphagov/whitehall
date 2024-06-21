@@ -39,7 +39,7 @@ class Person < ApplicationRecord
 
   before_destroy :prevent_destruction_if_appointed
   after_update :touch_role_appointments, :republish_past_prime_ministers_page_to_publishing_api
-  after_update :republish_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api, if: :has_ministerial_appointments?
+  after_update :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api, if: :has_ministerial_appointments?
 
   def biography_without_markup
     Govspeak::Document.new(biography).to_text
