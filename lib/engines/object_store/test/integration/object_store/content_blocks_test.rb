@@ -4,6 +4,11 @@ require "capybara/rails"
 class ContentBlocksTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
+  setup do
+    feature_flags = Flipflop::FeatureSet.current.test!
+    feature_flags.switch!(:object_store, true)
+  end
+
   test "successfully create a new email address" do
     visit new_object_store_content_blocks_path(block_type: "email_address")
 

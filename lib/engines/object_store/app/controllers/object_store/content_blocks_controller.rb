@@ -1,6 +1,7 @@
 class ObjectStore::ContentBlocksController < ApplicationController
   include Whitehall::Application.routes.url_helpers
 
+  before_action :check_object_store_feature_flag
   before_action :set_content_block, only: %i[show update destroy]
 
   def info
@@ -56,5 +57,9 @@ private
 
   def content_block_params
     params.require(:content_block).permit("block_type", "properties" => {})
+  end
+
+  def check_object_store_feature_flag
+    forbidden! unless Flipflop.object_store?
   end
 end
