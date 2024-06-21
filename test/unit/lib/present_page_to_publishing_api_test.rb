@@ -27,6 +27,16 @@ class PresentPageToPublishingApiTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#patch_links" do
+    it "patches links" do
+      presenter_class = PublishingApi::OperationalFieldsIndexPresenter
+
+      Services.publishing_api.expects(:patch_links).with(presenter_class.new.content_id, links: presenter_class.new.links)
+
+      PresentPageToPublishingApi.new.patch_links(presenter_class)
+    end
+  end
+
   describe "#save_draft" do
     it "saves the operation index page to publishing api draft stack" do
       assert_content_is_presented_to_publishing_api_draft_stack(PublishingApi::OperationalFieldsIndexPresenter)
