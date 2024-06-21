@@ -7,9 +7,6 @@ class MinisterialRole < Role
   has_many :news_articles, -> { where("editions.type" => "NewsArticle").distinct }, through: :role_appointments
   has_many :speeches, through: :role_appointments
 
-  scope :cabinet_members,
-        -> { where(cabinet_member: true) }
-
   after_save :republish_ministerial_pages_to_publishing_api
 
   def published_speeches(options = {})
@@ -28,18 +25,6 @@ class MinisterialRole < Role
 
   def self.cabinet
     where(cabinet_member: true).alphabetical_by_person
-  end
-
-  def self.ministerial_roles_with_current_appointments
-    includes(:translations).cabinet_members.order(:seniority).joins(:role_appointments)
-  end
-
-  def self.also_attends_cabinet_roles
-    includes(:translations).also_attends_cabinet.order(:seniority)
-  end
-
-  def self.whip_roles
-    includes(:translations).whip.order(:whip_ordering)
   end
 
   def ministerial?
