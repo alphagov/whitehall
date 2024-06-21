@@ -108,13 +108,9 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_redirected_to admin_cabinet_ministers_path(anchor: "organisations")
   end
 
-  view_test "should list appointed cabinet ministers and ministerial organisations in separate tabs, in the correct order, with reorder links" do
-    person = create(:person, forename: "Tony")
+  view_test "should list cabinet ministers and ministerial organisations in separate tabs, in the correct order, with reorder links" do
     minister1 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation], seniority: 1)
     minister2 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation], seniority: 0)
-    # roles without a current appointment will not show in the list
-    create(:role_appointment, role: minister1, person:)
-    create(:role_appointment, role: minister2, person:)
 
     also_attends_cabinet1 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation], seniority: 1)
     also_attends_cabinet2 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation], seniority: 0)
@@ -134,11 +130,8 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
   end
 
   view_test "GET :reorder_cabinet_minister_roles should assign roles correctly and the cancel_path should have the correct anchor" do
-    person = create(:person, forename: "Tony")
     minister1 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation], seniority: 1)
     minister2 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation], seniority: 0)
-    create(:role_appointment, role: minister1, person:)
-    create(:role_appointment, role: minister2, person:)
 
     get :reorder_cabinet_minister_roles
 

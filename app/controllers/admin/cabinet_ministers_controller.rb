@@ -5,14 +5,14 @@ class Admin::CabinetMinistersController < Admin::BaseController
   helper_method :reshuffle_in_progress?
 
   def show
-    @cabinet_minister_roles = MinisterialRole.ministerial_roles_with_current_appointments
-    @also_attends_cabinet_roles = MinisterialRole.also_attends_cabinet_roles
-    @whip_roles = MinisterialRole.whip_roles
+    @cabinet_minister_roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)
+    @also_attends_cabinet_roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
+    @whip_roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
   end
 
   def reorder_cabinet_minister_roles
-    @roles = MinisterialRole.ministerial_roles_with_current_appointments
+    @roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)
   end
 
   def order_cabinet_minister_roles
