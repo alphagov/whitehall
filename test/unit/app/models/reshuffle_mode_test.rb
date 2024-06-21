@@ -30,13 +30,13 @@ class ReshuffleModeTest < ActiveSupport::TestCase
 
   describe "#republish_how_government_works_page_to_publishing_api" do
     it "republishes the 'How Government Works' page" do
-      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter", true).once
+      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter").once
 
       ClassThatIncludesReshuffleMode.new.republish_how_government_works_page_to_publishing_api
     end
 
-    it "only saves to the draft stack when reshuffle mode is switched on" do
-      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter", false).once
+    it "publishes the 'reshuffle presenter' version when reshuffle mode is on" do
+      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksEnableReshufflePresenter").once
 
       reshuffle_mode = ClassThatIncludesReshuffleMode.new
       reshuffle_mode.stubs(:reshuffle_in_progress?).returns(true)

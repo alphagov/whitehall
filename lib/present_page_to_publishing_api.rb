@@ -10,10 +10,4 @@ class PresentPageToPublishingApi
     payload = presenter_class.new
     Services.publishing_api.patch_links(payload.content_id, links: payload.links)
   end
-
-  def save_draft(presenter_class)
-    payload = presenter_class.new
-    Services.publishing_api.put_content(payload.content_id, payload.content)
-    Services.publishing_api.patch_links(payload.content_id, links: payload.links)
-  end
 end

@@ -37,12 +37,6 @@ class PresentPageToPublishingApiTest < ActiveSupport::TestCase
     end
   end
 
-  describe "#save_draft" do
-    it "saves the operation index page to publishing api draft stack" do
-      assert_content_is_presented_to_publishing_api_draft_stack(PublishingApi::OperationalFieldsIndexPresenter)
-    end
-  end
-
   def assert_content_is_presented_to_publishing_api(presenter_class, locale: "en")
     presenter = presenter_class.new
     expected_content = presenter.content
@@ -52,16 +46,5 @@ class PresentPageToPublishingApiTest < ActiveSupport::TestCase
     Services.publishing_api.expects(:publish).with(presenter.content_id, nil, locale:)
 
     PresentPageToPublishingApi.new.publish(presenter_class)
-  end
-
-  def assert_content_is_presented_to_publishing_api_draft_stack(presenter_class, locale: "en")
-    presenter = presenter_class.new
-    expected_content = presenter.content
-
-    Services.publishing_api.expects(:put_content).with(presenter.content_id, expected_content).once
-    Services.publishing_api.expects(:patch_links).with(presenter.content_id, links: presenter.links).once
-    Services.publishing_api.expects(:publish).with(presenter.content_id, nil, locale:).never
-
-    PresentPageToPublishingApi.new.save_draft(presenter_class)
   end
 end
