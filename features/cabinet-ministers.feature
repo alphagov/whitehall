@@ -17,7 +17,7 @@ Feature: Reordering of Cabinet ministers and Organisations
     Then I should not see a preview link to the ministers index page
 
   Scenario: Reordering Cabinet ministers
-    Given there are multiple Cabinet minister roles
+    Given there are multiple Cabinet minister roles with active appointments
     When I visit the Cabinet ministers order page
     And I click the reorder link in the "#cabinet_minister" tab
     And I set the order of the roles to:

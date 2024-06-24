@@ -9,6 +9,9 @@ class MinisterialRole < Role
 
   after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api
 
+  scope :cabinet_members,
+        -> { where(cabinet_member: true) }
+
   def published_speeches(options = {})
     speeches
       .live_edition.published
