@@ -9,7 +9,7 @@ class MinisterialRole < Role
 
   after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api
 
-  scope :cabinet_members,
+  scope :cabinet_member,
         -> { where(cabinet_member: true) }
 
   def published_speeches(options = {})
@@ -31,7 +31,7 @@ class MinisterialRole < Role
   end
 
   def self.ministerial_roles_with_current_appointments
-    includes(:translations).cabinet_members.order(:seniority).joins(:current_role_appointments)
+    includes(:translations).cabinet_member.occupied.order(:seniority)
   end
 
   def self.also_attends_cabinet_roles
