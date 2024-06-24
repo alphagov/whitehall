@@ -32,21 +32,20 @@ We want to ensure that we are 'good neighbours' and can create this service in a
 repo. We also want to build with a view to this service being used outside of Whitehall. It makes sense therefore to put 
 the code in an engine separate from the rest of the repo.
 
-### 3. We will inherit from Editions
+### 3. We will make Edition-like behaviour into a concern
 
-There is a lot of legacy code within Whitehall, and while sharing behaviour with Editions within Whitehall will save a 
-lot of time around handling the publishing / approvals process, there is a lot of logic we either don’t want or need.
+We think that Content Blocks will need some behaviour that belongs to Editions, such as being related to a Document and 
+having versions/2i. But we are aware that inheriting from [Editions may cause dependency issues](https://github.com/alphagov/whitehall/pull/9180#discussion_r1650538039) as it would mean integrating with an already 
+very complex and wide-ranging model and system. 
+We will plan to add a new Editionable Concern that's private to us only that (for now):
 
-We did look into refactoring the Editions model to allow the concept of a “mini-edition” which would give us the minimum 
-possible functionality, but this turned out to be a much larger job than we envisaged. With this in mind we will:
+* Specifies editions as the table we want to use (with self.table_name)
+* Includes the Edition::Identifiable concern (which sets up the relation between the Editions and the Document)
 
-* We will Override / disable functionality we don’t need (such as search indexing) within our own model
-* Add new functionality only to our model, rather than adding additional complexity to the inherited model and related concerns
-
-#### 3a. We will put everything Content Block related into a JSON blob
-
-To ensure extendability for Content Library Items, we're adding a new JSON field to Editions, which ensures we can make 
-the schemas for Content Items as flexible as we can without having to add lots of extra fields to the table.
+As we progress we can then identify the behaviours we need and import them into our Edtionable concern. This will also 
+have the side effect of separating out the stuff that makes our model editionable from the stuff that is specific to it 
+being a content block (i.e. the JSON columns, validation etc) and will also help us identify the bare minimum of behaviour 
+required to make a model behave like an edition.
 
 ### 4. The source of truth for published Blocks will be the Publishing API
 
