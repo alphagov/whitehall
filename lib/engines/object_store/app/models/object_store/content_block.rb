@@ -1,4 +1,6 @@
 class ObjectStore::ContentBlock < ApplicationRecord
+  include HasContentId
+
   attr_accessor :title, :block_type
 
   store_accessor :properties

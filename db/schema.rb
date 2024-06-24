@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_101531) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_24_101531) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -197,6 +197,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_101531) do
     t.json "properties"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "content_id"
   end
 
   create_table "data_migration_records", id: :integer, charset: "utf8mb3", force: :cascade do |t|
@@ -415,6 +416,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_101531) do
     t.string "logo_formatted_name"
     t.string "analytics_identifier"
     t.boolean "visual_editor"
+    t.json "details"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
