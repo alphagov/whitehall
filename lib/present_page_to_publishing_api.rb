@@ -6,9 +6,8 @@ class PresentPageToPublishingApi
     Services.publishing_api.publish(payload.content_id, nil, locale: payload.content[:locale])
   end
 
-  def save_draft(presenter_class)
+  def patch_links(presenter_class)
     payload = presenter_class.new
-    Services.publishing_api.put_content(payload.content_id, payload.content)
     Services.publishing_api.patch_links(payload.content_id, links: payload.links)
   end
 end

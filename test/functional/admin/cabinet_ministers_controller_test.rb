@@ -11,13 +11,13 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     @organisation ||= create(:organisation)
   end
 
-  test "PATCH :order_cabinet_minister_roles should reorder ministerial roles and republish the ministers index page" do
+  test "PATCH :order_cabinet_minister_roles should reorder ministerial roles and patches the ministers index page" do
     role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
 
     service = mock
     PresentPageToPublishingApi.expects(:new).returns(service)
-    service.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    service.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       patch :order_cabinet_minister_roles,
@@ -35,13 +35,13 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_redirected_to admin_cabinet_ministers_path(anchor: "cabinet_minister")
   end
 
-  test "PATCH :order_also_attends_cabinet_roles should reorder people who also attend cabinet and republish the ministers index page" do
+  test "PATCH :order_also_attends_cabinet_roles should reorder people who also attend cabinet and patches the ministers index page" do
     role2 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", attends_cabinet_type_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Minister without Portfolio", attends_cabinet_type_id: 1, organisations: [organisation])
 
     service = mock
     PresentPageToPublishingApi.expects(:new).returns(service)
-    service.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    service.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       patch :order_also_attends_cabinet_roles,
@@ -59,13 +59,13 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_redirected_to admin_cabinet_ministers_path(anchor: "also_attends_cabinet")
   end
 
-  test "PATCH :order_whip_roles should reorder whips and republish the ministers index page" do
+  test "PATCH :order_whip_roles should reorder whips and patches the ministers index page" do
     role2 = create(:ministerial_role, name: "Whip 1", whip_organisation_id: 2, organisations: [organisation])
     role1 = create(:ministerial_role, name: "Whip 2", whip_organisation_id: 2, organisations: [organisation])
 
     service = mock
     PresentPageToPublishingApi.expects(:new).returns(service)
-    service.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    service.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       patch :order_whip_roles,
@@ -84,13 +84,13 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_redirected_to admin_cabinet_ministers_path(anchor: "whips")
   end
 
-  test "PATCH :order_ministerial_organisations should reorder ministerial organisations and republish the ministers index page" do
+  test "PATCH :order_ministerial_organisations should reorder ministerial organisations and patches the ministers index page" do
     org2 = create(:organisation)
     org1 = create(:organisation)
 
     service = mock
     PresentPageToPublishingApi.expects(:new).returns(service)
-    service.expects(:publish).with(PublishingApi::MinistersIndexPresenter)
+    service.expects(:patch_links).with(PublishingApi::MinistersIndexPresenter)
 
     Sidekiq::Testing.inline! do
       put :order_ministerial_organisations,

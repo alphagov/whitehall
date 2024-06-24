@@ -7,7 +7,7 @@ class MinisterialRole < Role
   has_many :news_articles, -> { where("editions.type" => "NewsArticle").distinct }, through: :role_appointments
   has_many :speeches, through: :role_appointments
 
-  after_save :republish_ministerial_pages_to_publishing_api
+  after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api
 
   def published_speeches(options = {})
     speeches
