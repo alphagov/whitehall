@@ -42,11 +42,13 @@ class Admin::GovernmentsController < Admin::BaseController
   def close
     government = Government.find(params[:id])
 
-    government.update!(end_date: Time.zone.today) unless government.end_date
+    ActiveRecord::Base.transaction do
+      government.update!(end_date: Time.zone.today) unless government.end_date
 
-    current_active_ministerial_appointments.each do |appointment|
-      appointment.ended_at = government.end_date
-      appointment.save!(validate: false)
+      current_active_ministerial_appointments.each do |appointment|
+        appointment.ended_at = government.end_date
+        appointment.save!(validate: false)
+      end
     end
 
     redirect_to edit_admin_government_path(government), notice: "Government closed"
