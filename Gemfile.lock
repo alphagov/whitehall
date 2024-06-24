@@ -80,8 +80,8 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    addressable (2.8.6)
-      public_suffix (>= 2.0.2, < 6.0)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
     afm (0.2.2)
     after_commit_everywhere (1.4.0)
       activerecord (>= 4.2)
@@ -737,7 +737,7 @@ GEM
     psych (5.1.2)
       stringio
     ptools (1.5.0)
-    public_suffix (5.1.1)
+    public_suffix (6.0.0)
     puma (6.4.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
