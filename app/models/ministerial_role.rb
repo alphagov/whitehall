@@ -9,6 +9,9 @@ class MinisterialRole < Role
 
   after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api
 
+  scope :cabinet_members,
+        -> { where(cabinet_member: true) }
+
   def published_speeches(options = {})
     speeches
       .live_edition.published
@@ -25,6 +28,18 @@ class MinisterialRole < Role
 
   def self.cabinet
     where(cabinet_member: true).alphabetical_by_person
+  end
+
+  def self.ministerial_roles_with_current_appointments
+    includes(:translations).cabinet_members.order(:seniority).joins(:current_role_appointments)
+  end
+
+  def self.also_attends_cabinet_roles
+    includes(:translations).also_attends_cabinet.order(:seniority)
+  end
+
+  def self.whip_roles
+    includes(:translations).whip.order(:whip_ordering)
   end
 
   def ministerial?

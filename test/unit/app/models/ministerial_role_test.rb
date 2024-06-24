@@ -110,4 +110,16 @@ class MinisterialRoleTest < ActiveSupport::TestCase
       role.update(name: "New name")
     end
   end
+
+  test ".ministerial_roles_with_current_appointments only returns roles with active appointments" do
+    person = create(:person, forename: "Tony")
+    minister1 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: true, seniority: 1)
+    minister2 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, seniority: 0)
+    minister3 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, seniority: 0)
+    create(:role_appointment, role: minister1, person:)
+    create(:role_appointment, role: minister2, person:)
+    create(:role_appointment, :ended, role: minister3, person:)
+
+    assert_equal MinisterialRole.ministerial_roles_with_current_appointments, [minister2, minister1]
+  end
 end
