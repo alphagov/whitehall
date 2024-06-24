@@ -212,4 +212,8 @@ module Admin::EditionsHelper
 
     sanitize(actions)
   end
+
+  def edition_title_link_or_edition_title(edition)
+    edition.public_url ? sanitize(link_to(edition.title, edition.public_url, { class: "govuk-link" })) : edition.title
+  end
 end

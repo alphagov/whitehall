@@ -50,3 +50,9 @@ Feature: Bulk republishing content
     Given a published organisation "An Existing Organisation" exists
     When I request a bulk republishing of all documents associated with "An Existing Organisation"
     Then I can see all documents associated with "An Existing Organisation" have been queued for republishing
+
+  Scenario: Republish all documents by content IDs
+    Given a document with content ID "abc-123" exists
+    Given a document with content ID "def-456" exists
+    When I request a bulk republishing of all documents with content IDs "abc-123" and "def-456"
+    Then I can see all documents with content IDs "abc-123" and "def-456" have been queued for republishing

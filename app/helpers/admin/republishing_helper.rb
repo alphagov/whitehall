@@ -1,5 +1,6 @@
 module Admin::RepublishingHelper
   include Rails.application.routes.url_helpers
+  include Admin::EditionsHelper
 
   def bulk_content_type_metadata
     @bulk_content_type_metadata ||= {
@@ -57,6 +58,12 @@ module Admin::RepublishingHelper
         new_path: admin_bulk_republishing_documents_by_organisation_new_path,
         republish_method: ->(organisation) { BulkRepublisher.new.republish_all_documents_by_organisation(organisation) },
       },
+      all_documents_by_content_ids: {
+        id: "all-documents-by-content-ids",
+        name: "all documents by content IDs",
+        new_path: admin_bulk_republishing_documents_by_content_ids_new_path,
+        republish_method: ->(document_ids) { BulkRepublisher.new.republish_all_documents_by_ids(document_ids) },
+      },
     }
   end
 
@@ -97,5 +104,35 @@ module Admin::RepublishingHelper
 
   def non_editionable_content_types
     ApplicationRecord.subclasses.select { |subclass| subclass.included_modules.include? PublishesToPublishingApi }.map(&:to_s)
+  end
+
+  def content_ids_string_to_array(content_ids_string)
+    content_ids_string
+      .split(Regexp.union([/\s+/, /\s*,+\s*/]))
+      .reject(&:empty?)
+  end
+
+  def content_ids_array_to_string(content_ids_array)
+    raise "No IDs provided" if content_ids_array.empty?
+
+    central_string = content_ids_array.to_sentence(
+      words_connector: "', '",
+      two_words_connector: "' and '",
+      last_word_connector: "', and '",
+    )
+
+    "'#{central_string}'"
+  end
+
+  def confirm_documents_by_content_ids_edition_rows(documents)
+    documents.map { |document|
+      document.republishable_editions.map do |edition|
+        [
+          { text: edition_title_link_or_edition_title(edition) },
+          { text: edition.state.humanize },
+          { text: document.content_id },
+        ]
+      end
+    }.flatten(1)
   end
 end

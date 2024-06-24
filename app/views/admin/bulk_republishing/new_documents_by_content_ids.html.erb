@@ -1,0 +1,20 @@
+<% content_for :page_title, "Republish all documents by content IDs" %>
+<% content_for :title, "Which documents would you like to republish?" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_with(url: admin_bulk_republishing_documents_by_content_ids_search_path, method: :post) do %>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Enter the content IDs for the documents",
+        },
+        hint: "Use commas and/or new lines to separate each content ID.",
+        name: "content_ids",
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Continue",
+      } %>
+    <% end %>
+  </section>
+</div>

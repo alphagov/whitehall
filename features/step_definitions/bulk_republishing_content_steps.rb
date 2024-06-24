@@ -131,3 +131,16 @@ end
 Then(/^I can see all documents associated with "An Existing Organisation" have been queued for republishing$/) do
   expect(page).to have_selector(".gem-c-success-alert", text: "All documents by organisation 'An Existing Organisation' have been queued for republishing")
 end
+
+When(/^I request a bulk republishing of all documents with content IDs "abc-123" and "def-456"$/) do
+  visit admin_republishing_index_path
+  find("#all-documents-by-content-ids").click
+  fill_in "Enter the content IDs for the documents", with: "abc-123, def-456"
+  click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
+  click_button("Confirm republishing")
+end
+
+Then(/^I can see all documents with content IDs "abc-123" and "def-456" have been queued for republishing$/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "All documents by content IDs 'abc-123' and 'def-456' have been queued for republishing")
+end

@@ -86,4 +86,19 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     assert_equal "Worldwide organisation", edition_type(edition)
   end
+
+  test "#edition_title_link_or_edition_title returns a link to the edition with its title as the text when the edition has a public URL" do
+    edition = build(:published_edition, title: "It's my title!")
+    public_url = "https://gov.uk/my-public-url"
+    edition.stubs(:public_url).returns(public_url)
+
+    assert_equal '<a class="govuk-link" href="https://gov.uk/my-public-url">It\'s my title!</a>', edition_title_link_or_edition_title(edition)
+  end
+
+  test "#edition_title_link_or_edition_title returns the edition title when the edition has no public URL" do
+    edition = build(:published_edition, title: "It's my title!")
+    edition.stubs(:public_url).returns(nil)
+
+    assert_equal "It's my title!", edition_title_link_or_edition_title(edition)
+  end
 end

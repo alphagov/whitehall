@@ -1,4 +1,5 @@
 class Admin::RepublishingController < Admin::BaseController
+  include Admin::EditionsHelper
   include Admin::RepublishingHelper
   include ReshuffleMode
 

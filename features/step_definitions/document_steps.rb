@@ -19,6 +19,10 @@ Given(/^a published document "([^"]*)" exists$/) do |title|
   create(:published_publication, title:)
 end
 
+Given(/^a document with content ID "([^"]*)" exists$/) do |content_id|
+  create(:document, content_id:)
+end
+
 Given(/^a draft (publication|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title:, organisations: [organisation])

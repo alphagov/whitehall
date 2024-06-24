@@ -1,0 +1,25 @@
+<% content_for :page_title, "Republish all documents by given content IDs" %>
+<% content_for :title, "Are you sure you want to republish all documents with the given content IDs?" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @republishing_event)) %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">
+      This will queue the following editions to be republished.
+    </p>
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        { text: "Edition" },
+        { text: "State" },
+        { text: "Content ID" },
+      ],
+      rows: confirm_documents_by_content_ids_edition_rows(@matching_documents),
+    } %>
+
+    <%= render partial: "shared/republishing_form", locals: {
+      republishing_event: @republishing_event,
+      republishing_path: admin_bulk_republishing_documents_by_content_ids_republish_path(@content_ids_string),
+    } %>
+  </section>
+</div>
