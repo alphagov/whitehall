@@ -30,6 +30,18 @@ class MinisterialRole < Role
     where(cabinet_member: true).alphabetical_by_person
   end
 
+  def self.ministerial_roles_with_current_appointments
+    includes(:translations).cabinet_members.order(:seniority).joins(:current_role_appointments)
+  end
+
+  def self.also_attends_cabinet_roles
+    includes(:translations).also_attends_cabinet.order(:seniority)
+  end
+
+  def self.whip_roles
+    includes(:translations).whip.order(:whip_ordering)
+  end
+
   def ministerial?
     true
   end

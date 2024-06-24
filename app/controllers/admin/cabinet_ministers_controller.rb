@@ -6,8 +6,8 @@ class Admin::CabinetMinistersController < Admin::BaseController
 
   def show
     @cabinet_minister_roles = MinisterialRole.ministerial_roles_with_current_appointments
-    @also_attends_cabinet_roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
-    @whip_roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
+    @also_attends_cabinet_roles = MinisterialRole.also_attends_cabinet_roles
+    @whip_roles = MinisterialRole.whip_roles
     @organisations = Organisation.ministerial_departments.excluding_govuk_status_closed.order(:ministerial_ordering)
   end
 
@@ -23,7 +23,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
   def reorder_also_attends_cabinet_roles
-    @roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
+    @roles = MinisterialRole.also_attends_cabinet_roles
   end
 
   def order_also_attends_cabinet_roles
@@ -34,7 +34,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
   def reorder_whip_roles
-    @roles = MinisterialRole.includes(:translations).whip.order(:whip_ordering)
+    @roles = MinisterialRole.whip_roles
   end
 
   def order_whip_roles
