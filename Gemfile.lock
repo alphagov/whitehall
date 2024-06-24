@@ -299,7 +299,7 @@ GEM
       rouge
       sprockets (>= 3)
       sprockets-rails
-    govuk_schemas (5.0.2)
+    govuk_schemas (5.0.3)
       json-schema (>= 2.8, < 4.4)
     govuk_sidekiq (8.0.1)
       gds-api-adapters (>= 19.1.0)
