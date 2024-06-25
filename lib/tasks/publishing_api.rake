@@ -197,7 +197,7 @@ namespace :publishing_api do
       puts "Enqueueing #{documents.count} documents"
       documents.find_each do |document|
         if document.respond_to?(:publish_to_publishing_api)
-          Whitehall::PublishingApi.bulk_republish_async(document)
+          Whitehall::PublishingApi.bulk_republish_async(document) if document.can_publish_to_publishing_api?
         else
           PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document.document_id, true)
         end
