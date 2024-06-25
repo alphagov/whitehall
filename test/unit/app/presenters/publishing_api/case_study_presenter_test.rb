@@ -33,6 +33,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         format_display_type: "case_study",
+        political: false,
         image: {
           url: "",
           caption: nil,

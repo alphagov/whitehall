@@ -58,6 +58,7 @@ module PublishingApi
                                { url: "", caption: nil, alt_text: "" }
                              end
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
+      details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
     end
 
     def first_public_at
