@@ -1,8 +1,8 @@
-class ObjectStore::ContentBlocksController < ApplicationController
+class ObjectStore::ContentBlockEditionsController < ApplicationController
   include ObjectStore::Engine.routes.url_helpers
 
   before_action :check_object_store_feature_flag
-  before_action :set_content_block, only: %i[show update destroy]
+  before_action :set_content_block_edition, only: %i[show update destroy]
 
   def info
     block_type = params.require(:block_type)
@@ -11,30 +11,30 @@ class ObjectStore::ContentBlocksController < ApplicationController
   end
 
   def index
-    @content_blocks = ObjectStore::ContentBlock.all
+    @content_block_editions = ObjectStore::ContentBlockEdition.all
   end
 
   def show
-    render json: @content_block
+    render json: @content_block_edition
   end
 
   def new
     block_type = params.require(:block_type)
     properties = block_properties(block_type)
 
-    @content_block = ObjectStore::ContentBlock.new(block_type:, properties:)
+    @content_block_edition = ObjectStore::ContentBlockEdition.new(block_type:, properties:)
   end
 
   def create
     block_type = params.require(:content_block).require(:block_type)
     properties = content_block_params["properties"]
 
-    @content_block = ObjectStore::ContentBlock.new(block_type:, properties:)
+    @content_block_edition = ObjectStore::ContentBlockEdition.new(block_type:, properties:)
 
-    if @content_block.save
-      render json: @content_block, status: :created
+    if @content_block_edition.save
+      render json: @content_block_edition, status: :created
     else
-      render json: @content_block.errors, status: :unprocessable_entity
+      render json: @content_block_edition.errors, status: :unprocessable_entity
     end
   rescue StandardError => e
     # TODO: catch specific invalid json error
@@ -51,8 +51,8 @@ private
     ObjectStore::ContentBlockValidator.default_properties(block_type).merge(permitted_params.to_h.except(:block_type))
   end
 
-  def set_content_block
-    @content_block = ContentBlock.find(params[:id])
+  def set_content_block_edition
+    @content_block_edition = ContentBlockEdition.find(params[:id])
   end
 
   def content_block_params

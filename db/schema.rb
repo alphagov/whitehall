@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_24_101531) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_161301) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -189,6 +189,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_101531) do
     t.string "content_id", null: false
     t.index ["contact_type_id"], name: "index_contacts_on_contact_type_id"
     t.index ["contactable_id", "contactable_type"], name: "index_contacts_on_contactable_id_and_contactable_type"
+  end
+
+  create_table "content_block_documents", charset: "utf8mb3", force: :cascade do |t|
+    t.string "content_id"
+    t.string "title"
+    t.string "block_type"
+    t.integer "latest_content_block_edition_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "content_block_editions", charset: "utf8mb3", force: :cascade do |t|
+    t.string "content_id"
+    t.string "title"
+    t.string "block_type"
+    t.json "properties"
+    t.bigint "content_block_document_id"
+    t.datetime "created_at", precision: nil
+    t.index ["content_block_document_id"], name: "index_content_block_editions_on_content_block_document_id"
   end
 
   create_table "content_blocks", charset: "utf8mb3", force: :cascade do |t|
@@ -1303,6 +1322,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_101531) do
     t.datetime "updated_at", precision: nil
   end
 
+  add_foreign_key "content_block_editions", "content_block_documents"
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
