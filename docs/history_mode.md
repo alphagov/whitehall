@@ -16,9 +16,8 @@ When an edition is sent to Publishing API, the political status of the edition i
 
 There are some content types for which political details are not added to the payload, meaning that **history mode cannot be applied to documents of these types**.
 
-At time of writing, the content types excluded from history mode are:
+At time of writing, the only content type excluded from history mode is:
 
-- Case studies ([presenter](../app/presenters/publishing_api/case_study_presenter.rb))
 - Fatality notices ([presenter](../app/presenters/publishing_api/fatality_notice_presenter.rb))
 
 In the future, it would seem desirable that we re-apply the logic from the [Political Content Identifier](../lib/political_content_identifier.rb) within the [political details payload builder](../app/presenters/publishing_api/payload_builder/political_details.rb), if the eligibility rules are the same. Having the logic all in one place would make the behaviour of history mode easier to understand.
