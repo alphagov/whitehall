@@ -47,4 +47,8 @@ class FatalityNotice < Announcement
   def publishing_api_presenter
     PublishingApi::FatalityNoticePresenter
   end
+
+  def can_be_marked_political?
+    false
+  end
 end
