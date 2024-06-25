@@ -67,6 +67,7 @@ module PublishingApi
         roll_call_introduction: item.roll_call_introduction,
       }
       details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
+      details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
     end
   end
 end

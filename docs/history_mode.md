@@ -10,23 +10,10 @@ Publishers cannot set the political flag on the first edition of a document. Ins
 
 After the first edition is published, publishers can override the political flag on subsequent editions via the edition editing form. Overriding the flag requires that the publisher has managing editor or GDS editor permissions. The flag can be overridden on any type of document via the user interface, irrespective of its eligibility as determined by the [Political Content Identifier](../lib/political_content_identifier.rb). Note, however, that this doesn't necessarily mean history mode can be applied to the document ([see exclusions](#exclusions)).
 
-## Exclusions
-
-When an edition is sent to Publishing API, the political status of the edition is merged into the `details` object using the [political details payload builder](../app/presenters/publishing_api/payload_builder/political_details.rb).
-
-There are some content types for which political details are not added to the payload, meaning that **history mode cannot be applied to documents of these types**.
-
-At time of writing, the only content type excluded from history mode is:
-
-- Fatality notices ([presenter](../app/presenters/publishing_api/fatality_notice_presenter.rb))
-
-In the future, it would seem desirable that we re-apply the logic from the [Political Content Identifier](../lib/political_content_identifier.rb) within the [political details payload builder](../app/presenters/publishing_api/payload_builder/political_details.rb), if the eligibility rules are the same. Having the logic all in one place would make the behaviour of history mode easier to understand.
+It's important to note that the `political` status of the edition has to be sent by the presenter. This is usually, [but not always](../app/presenters/publishing_api/html_attachment_presenter.rb#L62), achieved by merged the [political details payload builder](../app/presenters/publishing_api/payload_builder/political_details.rb (`PoliticalDetails`) into the `details` object. In the future, it would seem desirable to consolidate all 'political' knowledge in one place, e.g. re-apply the logic from the [Political Content Identifier](../lib/political_content_identifier.rb) within `PoliticalDetails`.
 
 ## Applying History Mode
 
 When the government changes, it will be "closed" via the Whitehall user interface by a member of the GOV.UK content team. This will publish an update to the government content item. The content item will have its "current" value set to false, as specified in the [GovernmentPresenter](../app/presenters/publishing_api/government_presenter.rb).
 
 Next, a developer will run the `election:republish_political_content` rake task. This task republishes all documents that have been marked as political. All documents have a link to their associated government, so Publishing API's [link expansion](https://docs.publishing.service.gov.uk/repos/publishing-api/link-expansion.html) feature will ensure that the linked government is "closed" for each document when it is re-presented to the content store. This will result in [government-frontend](https://github.com/alphagov/government-frontend) rendering the historical content banner on the documents. The banner is controlled in government frontend's [political content presenter](https://github.com/alphagov/government-frontend/blob/a643a4a9175af953e5683ee2ca5464ec384ed28e/app/presenters/content_item/political.rb#L19).
-
-
-
