@@ -1,5 +1,5 @@
 class ObjectStore::ContentBlocksController < ApplicationController
-  include Whitehall::Application.routes.url_helpers
+  include ObjectStore::Engine.routes.url_helpers
 
   before_action :check_object_store_feature_flag
   before_action :set_content_block, only: %i[show update destroy]

@@ -1,6 +1,6 @@
 <h1>New <%= @content_block.block_type %></h1>
 
-<%= form_with(model: @content_block, local: true) do |form| %>
+<%= form_with(model: @content_block, local: true, url: "/object-store/content_blocks") do |form| %>
   <%= hidden_field_tag "content_block[block_type]", @content_block.block_type %>
   <% @content_block.properties.each do |name, value| %>
     <div class="field">

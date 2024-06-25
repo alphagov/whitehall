@@ -1,4 +1,4 @@
-Whitehall::Application.routes.draw do
+ObjectStore::Engine.routes.draw do
   namespace :object_store, path: "/" do
     root to: "content_blocks#index", via: :get
 
