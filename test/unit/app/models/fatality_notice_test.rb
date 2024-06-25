@@ -42,6 +42,11 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     assert_equal operational_field.slug, fatality_notice.search_index["operational_field"]
   end
 
+  test "is not able to be marked political" do
+    fatality_notice = build(:fatality_notice)
+    assert_not fatality_notice.can_be_marked_political?
+  end
+
   test "is rendered by government-frontend" do
     assert FatalityNotice.new.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
