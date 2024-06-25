@@ -6,9 +6,22 @@ The `political` flag is stored as a boolean column on the `editions` database ta
 
 ## The Impact of Edition Workflow on History Mode
 
-Publishers cannot set the political flag on the first edition of a document. Instead, the political flag is set to a default value when the first edition is published based on several criteria such as the type of the document, whether it is associated with a political organisation, and whether it is associated with a government minister. This is done in the [Edition Publisher](../app/services/edition_publisher.rb). The criteria are specified in the [Political Content Identifier](../lib/political_content_identifier.rb). 
+Publishers cannot set the political flag on the first edition of a document. Instead, the political flag is set to a default value when the first edition is published based on several criteria such as the type of the document, whether it is associated with a political organisation, and whether it is associated with a government minister. This is done in the [Edition Publisher](../app/services/edition_publisher.rb). The criteria are specified in the [Political Content Identifier](../lib/political_content_identifier.rb).
 
-After the first edition is published, publishers can override the political flag on subsequent editions via the edition editing form. Overriding the flag requires that the publisher has managing editor or GDS editor permissions. The flag can be overridden on any type of document, irrespective of its eligibility as determined by the [Political Content Identifier](../lib/political_content_identifier.rb).
+After the first edition is published, publishers can override the political flag on subsequent editions via the edition editing form. Overriding the flag requires that the publisher has managing editor or GDS editor permissions. The flag can be overridden on any type of document via the user interface, irrespective of its eligibility as determined by the [Political Content Identifier](../lib/political_content_identifier.rb). Note, however, that this doesn't necessarily mean history mode can be applied to the document ([see exclusions](#exclusions)).
+
+## Exclusions
+
+When an edition is sent to Publishing API, the political status of the edition is merged into the `details` object using the [political details payload builder](../app/presenters/publishing_api/payload_builder/political_details.rb).
+
+There are some content types for which political details are not added to the payload, meaning that **history mode cannot be applied to documents of these types**.
+
+At time of writing, the content types excluded from history mode are:
+
+- Case studies ([presenter](../app/presenters/publishing_api/case_study_presenter.rb))
+- Fatality notices ([presenter](../app/presenters/publishing_api/fatality_notice_presenter.rb))
+
+In the future, it would seem desirable that we re-apply the logic from the [Political Content Identifier](../lib/political_content_identifier.rb) within the [political details payload builder](../app/presenters/publishing_api/payload_builder/political_details.rb), if the eligibility rules are the same. Having the logic all in one place would make the behaviour of history mode easier to understand.
 
 ## Applying History Mode
 
