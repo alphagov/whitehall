@@ -18,6 +18,7 @@
 //= require admin/modules/document-history-paginator
 //= require admin/modules/ga4-button-setup
 //= require admin/modules/ga4-visual-editor-event-handlers
+//= require admin/modules/ga4-page-view-tracking
 //= require admin/modules/locale-switcher
 //= require admin/modules/navbar-toggle
 //= require admin/modules/paste-html-to-govspeak

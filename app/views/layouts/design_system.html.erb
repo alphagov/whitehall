@@ -9,13 +9,16 @@
   <% end %>
 <% end %>
 
+<% sanitized_title = sanitize((yield(:page_title).presence || yield(:title))) %>
+
 <%= render "govuk_publishing_components/components/layout_for_admin",
            product_name: "Whitehall Publisher",
            environment: environment,
-           browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitize((yield(:page_title).presence || yield(:title))) do %>
+           browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitized_title do %>
 
   <!-- This element exists to initialise the JS module that configures custom Universal Analytics behaviour -->
   <div data-module="app-analytics"></div>
+  <div data-module="GA4PageViewTracking" data-attributes='<%= track_analytics_data_on_load(sanitized_title) %>'></div>
 
   <%= render "govuk_publishing_components/components/skip_link" %>
 
