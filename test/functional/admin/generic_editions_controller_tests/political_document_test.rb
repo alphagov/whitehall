@@ -57,14 +57,3 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     assert_response :success
   end
 end
-
-class Admin::GenericEditionsController::PolticalDocumentsTestWhenCannotBeMarkedPolitical < ActionController::TestCase
-  tests Admin::EditionableWorldwideOrganisationsController
-
-  view_test "does not display the political checkbox for editions which cannot be marked political" do
-    published_edition = create(:published_editionable_worldwide_organisation)
-    new_draft = create(:editionable_worldwide_organisation, document: published_edition.document)
-    get :edit, params: { id: new_draft }
-    assert_select "#edition_political", count: 0
-  end
-end

@@ -129,7 +129,7 @@
 
   <%= render "additional_significant_fields", form: form, edition: form.object %>
 
-  <% if edition.document&.live? && edition.can_be_marked_political? && can?(:mark_political, edition) %>
+  <% if edition.document&.live? && can?(:mark_political, edition) %>
     <div class="govuk-!-margin-bottom-8">
       <%= form.hidden_field :political, value: "0" %>
 

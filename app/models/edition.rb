@@ -147,10 +147,6 @@ class Edition < ApplicationRecord
     change_note.present? || minor_change
   end
 
-  def can_be_marked_political?
-    true
-  end
-
   def can_index_in_search?
     false
   end

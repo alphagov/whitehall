@@ -177,10 +177,6 @@ class EditionableWorldwideOrganisation < Edition
     false
   end
 
-  def can_be_marked_political?
-    false
-  end
-
   def skip_world_location_validation?
     false
   end
