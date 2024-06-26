@@ -17,7 +17,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
 
   def order_cabinet_minister_roles
     MinisterialRole.reorder_without_callbacks!(order_ministerial_roles_params, :seniority)
-    patch_links_ministers_index_page_to_publishing_api
+    republish_ministers_index_page_to_publishing_api
 
     redirect_to admin_cabinet_ministers_path(anchor: "cabinet_minister")
   end
@@ -28,7 +28,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
 
   def order_also_attends_cabinet_roles
     MinisterialRole.reorder_without_callbacks!(order_ministerial_roles_params, :seniority)
-    patch_links_ministers_index_page_to_publishing_api
+    republish_ministers_index_page_to_publishing_api
 
     redirect_to admin_cabinet_ministers_path(anchor: "also_attends_cabinet")
   end
@@ -39,7 +39,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
 
   def order_whip_roles
     MinisterialRole.reorder_without_callbacks!(order_ministerial_roles_params, :whip_ordering)
-    patch_links_ministers_index_page_to_publishing_api
+    republish_ministers_index_page_to_publishing_api
 
     redirect_to admin_cabinet_ministers_path(anchor: "whips")
   end
@@ -50,7 +50,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
 
   def order_ministerial_organisations
     Organisation.reorder_without_callbacks!(order_ministerial_organisations_params, :ministerial_ordering)
-    patch_links_ministers_index_page_to_publishing_api
+    republish_ministers_index_page_to_publishing_api
 
     redirect_to admin_cabinet_ministers_path(anchor: "organisations")
   end

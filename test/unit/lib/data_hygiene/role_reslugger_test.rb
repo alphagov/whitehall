@@ -41,7 +41,9 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
       stub_publishing_api_put_content(PublishingApi::HowGovernmentWorksPresenter.new.content_id, PublishingApi::HowGovernmentWorksPresenter.new.content),
       stub_publishing_api_patch_links(PublishingApi::HowGovernmentWorksPresenter.new.content_id, links: PublishingApi::HowGovernmentWorksPresenter.new.links),
       stub_publishing_api_publish(PublishingApi::HowGovernmentWorksPresenter.new.content_id, locale: "en", update_type: nil),
+      stub_publishing_api_put_content(PublishingApi::MinistersIndexPresenter.new.content_id, PublishingApi::MinistersIndexPresenter.new.content),
       stub_publishing_api_patch_links(PublishingApi::MinistersIndexPresenter.new.content_id, links: PublishingApi::MinistersIndexPresenter.new.links),
+      stub_publishing_api_publish(PublishingApi::MinistersIndexPresenter.new.content_id, locale: "en", update_type: nil),
     ]
 
     Sidekiq::Testing.inline! do

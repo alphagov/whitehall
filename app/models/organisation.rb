@@ -208,9 +208,9 @@ class Organisation < ApplicationRecord
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
   after_save :republish_how_government_works_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
-  after_save :patch_links_ministers_index_page_to_publishing_api, if: :ministerial_department?
+  after_save :republish_ministers_index_page_to_publishing_api, if: :ministerial_department?
   after_destroy :republish_organisations_index_page_to_publishing_api
-  after_destroy :patch_links_ministers_index_page_to_publishing_api, if: :ministerial_department?
+  after_destroy :republish_ministers_index_page_to_publishing_api, if: :ministerial_department?
 
   after_save do
     # If the organisation has an about us page and the chart URL changes we need
