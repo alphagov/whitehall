@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "email_address": {
+      "type": "string",
+      "minLength": 2,
+      "default": null
+    }
+  },
+  "required": [
+    "email_address"
+  ]
+}

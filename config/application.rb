@@ -15,6 +15,11 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Require all Engines inside the `lib/engines` directory
+Dir.glob("lib/engines/**/engine.rb", base: Rails.root).each do |path|
+  require_relative "../#{path}"
+end
+
 module Whitehall
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -61,12 +66,13 @@ module Whitehall
     # Custom directories with classes and modules you want to be autoloadable.
     config.eager_load_paths += %W[
       #{config.root}/lib
+      #{config.root}/lib/engines/**
     ]
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w[assets tasks])
+    config.autoload_lib(ignore: %w[assets tasks engines])
 
     config.action_mailer.notify_settings = {
       api_key: ENV["GOVUK_NOTIFY_API_KEY"] || "fake-test-api-key",
