@@ -16,7 +16,7 @@ describe('GOVUK.Modules.Ga4ButtonSetup', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"generic_link","text":"Button","section":"Title","action":"Button","tool_name":"Title"}'
+      '{"event_name":"navigation","type":"generic_link","text":"Button","section":"Title","action":"Button"}'
     )
   })
 
@@ -27,7 +27,7 @@ describe('GOVUK.Modules.Ga4ButtonSetup', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"form_response","type":"generic_link","text":"Button","section":"Title","action":"Button","tool_name":"Title"}'
+      '{"event_name":"form_response","type":"generic_link","text":"Button","section":"Title","action":"Button"}'
     )
   })
 
@@ -40,7 +40,7 @@ describe('GOVUK.Modules.Ga4ButtonSetup', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"custom_event_name","type":"generic_link","text":"Button","section":"Title","action":"Button","tool_name":"Title"}'
+      '{"event_name":"custom_event_name","type":"generic_link","text":"Button","section":"Title","action":"Button"}'
     )
   })
 
@@ -54,7 +54,7 @@ describe('GOVUK.Modules.Ga4ButtonSetup', function () {
     ga4ButtonSetup.init()
 
     expect(link.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"generic_link","text":"Link","section":"Title","action":"Link","tool_name":"Title"}'
+      '{"event_name":"navigation","type":"generic_link","text":"Link","section":"Title","action":"Link"}'
     )
   })
 })
