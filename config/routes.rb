@@ -472,4 +472,6 @@ Whitehall::Application.routes.draw do
   mount Flipflop::Engine => "/flipflop"
 
   mount GovukPublishingComponents::Engine, at: "/component-guide" unless Rails.env.production?
+
+  mount ContentObjectStore::Engine, at: "government/admin/content-object-store"
 end
