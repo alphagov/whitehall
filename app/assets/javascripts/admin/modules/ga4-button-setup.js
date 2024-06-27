@@ -13,8 +13,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         type: 'generic_link',
         text: button.textContent,
         section: document.title.split(' - ')[0],
-        action: button.textContent,
-        tool_name: document.title.split(' - ')[0]
+        action: button.textContent
       }
       if (button.dataset.ga4Event) {
         Object.assign(event, JSON.parse(button.dataset.ga4Event))
