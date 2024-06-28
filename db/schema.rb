@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_27_142613) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_28_082636) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -197,6 +197,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_142613) do
     t.string "block_type"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+  end
+
+  create_table "content_block_editions", charset: "utf8mb3", force: :cascade do |t|
+    t.json "details", null: false
+    t.bigint "content_block_document_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["content_block_document_id"], name: "index_content_block_editions_on_content_block_document_id"
   end
 
   create_table "data_migration_records", id: :integer, charset: "utf8mb3", force: :cascade do |t|
@@ -1301,6 +1309,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_142613) do
     t.datetime "updated_at", precision: nil
   end
 
+  add_foreign_key "content_block_editions", "content_block_documents"
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
