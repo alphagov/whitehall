@@ -1,0 +1,25 @@
+@startuml object_store_models
+allowmixing
+hide empty description
+
+together {
+    class ContentBlockDocument {
+        content_id
+        block_type
+        title
+    }
+    database content_block_documents
+    ContentBlockDocument .> content_block_documents
+}
+
+together {
+    class ContentBlockEdition {
+        details
+    }
+    database content_block_editions
+    ContentBlockEdition .> content_block_editions
+}
+
+ContentBlockDocument *-r- ContentBlockEdition : "has_many"
+
+@enduml
