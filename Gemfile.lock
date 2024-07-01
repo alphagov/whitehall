@@ -275,7 +275,7 @@ GEM
       rinku (~> 2.0)
       sanitize (~> 6)
     govuk_ab_testing (2.4.3)
-    govuk_app_config (9.12.0)
+    govuk_app_config (9.13.0)
       logstasher (~> 2.1)
       opentelemetry-exporter-otlp (>= 0.25, < 0.29)
       opentelemetry-instrumentation-all (>= 0.39.1, < 0.62.0)
