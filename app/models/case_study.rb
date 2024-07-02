@@ -8,7 +8,6 @@ class CaseStudy < Edition
   include Edition::Organisations
   include Edition::TaggableOrganisations
   include Edition::WorldLocations
-  include Edition::WorldwideOrganisations
   include Edition::EditionableWorldwideOrganisations
   include Edition::LeadImage
 
