@@ -17,4 +17,8 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
   test "it returns all fields" do
     assert_equal schema.fields, %w[foo bar]
   end
+
+  test "it returns a block type" do
+    assert_equal schema.block_type, "email_address"
+  end
 end
