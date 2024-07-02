@@ -13,7 +13,7 @@ module PublishingApi::WorldwideCorporateInformationPagePresenterTest
 
     class BasicCorporateInformationPageTest < TestCase
       setup do
-        worldwide_organisation = create(:worldwide_organisation)
+        worldwide_organisation = create(:editionable_worldwide_organisation)
         self.corporate_information_page = create(:corporate_information_page, worldwide_organisation:, organisation: nil)
       end
 

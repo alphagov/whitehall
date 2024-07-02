@@ -1210,8 +1210,8 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should associate worldwide organisations with the edition" do
-        first_world_organisation = create(:worldwide_organisation)
-        second_world_organisation = create(:worldwide_organisation)
+        first_world_organisation = create(:editionable_worldwide_organisation)
+        second_world_organisation = create(:editionable_worldwide_organisation)
         attributes = controller_attributes_for(edition_type)
 
         post :create,

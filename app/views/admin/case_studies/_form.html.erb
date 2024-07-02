@@ -10,11 +10,7 @@
     id: "associations",
   } do %>
     <div class="govuk-!-margin-bottom-4">
-      <% if Flipflop.editionable_worldwide_organisations? %>
-        <%= render "editionable_worldwide_organisation_fields", form: form, edition: edition %>
-      <% else %>
-        <%= render "worldwide_organisation_fields", form: form, edition: edition %>
-      <% end %>
+      <%= render "editionable_worldwide_organisation_fields", form: form, edition: edition %>
 
       <%= render "world_location_fields", form: form, edition: edition %>
       <%= render "organisation_fields", form: form, edition: edition %>

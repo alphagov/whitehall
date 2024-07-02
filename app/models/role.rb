@@ -31,8 +31,12 @@ class Role < ApplicationRecord
   has_many :organisations, through: :organisation_roles,
                            after_remove: :republish_organisation_to_publishing_api
 
-  has_many :worldwide_organisation_roles, inverse_of: :role
-  has_many :worldwide_organisations, through: :worldwide_organisation_roles
+  has_many :role_worldwide_organisations,
+           -> { where(editions: { type: "editionable_worldwide_organisation" }).includes(:edition) },
+           class_name: "EditionRole"
+  has_many :worldwide_organisations,
+           through: :edition_roles,
+           source: :edition
 
   has_one :historical_account_role, inverse_of: :role
   has_one :historical_account, through: :historical_account_role

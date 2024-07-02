@@ -405,7 +405,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   end
 
   test "#secondary_navigation_tabs_items for worldwide organisation pages" do
-    page = build_stubbed(:worldwide_organisation_page)
+    page = build_stubbed(:editionable_worldwide_organisation_page)
 
     expected_output = [
       {

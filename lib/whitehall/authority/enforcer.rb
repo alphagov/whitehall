@@ -47,6 +47,5 @@ module Whitehall::Authority
     "Organisation" => Rules::OrganisationRules,
     "Government" => Rules::GovernmentRules,
     "StatisticsAnnouncement" => Rules::StatisticsAnnouncementRules,
-    "EditionableWorldwideOrganisation" => Rules::EditionableWorldwideOrganisationRules,
   }.freeze
 end

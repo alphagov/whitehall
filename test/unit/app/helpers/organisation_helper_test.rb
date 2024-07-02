@@ -19,7 +19,7 @@ class OrganisationHelperTest < ActionView::TestCase
   end
 
   test "returns the name of a worldwide organisation" do
-    organisation = build(:worldwide_organisation, name: "British Embassy, Atlantis")
+    organisation = build(:editionable_worldwide_organisation, title: "British Embassy, Atlantis")
     assert_equal "British Embassy, Atlantis", organisation_display_name(organisation)
   end
 

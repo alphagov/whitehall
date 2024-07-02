@@ -106,9 +106,6 @@ class Organisation < ApplicationRecord
            as: :socialable,
            dependent: :destroy
 
-  has_many :sponsorships, dependent: :destroy
-  has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :worldwide_organisation
-
   has_and_belongs_to_many :superseding_organisations, class_name: "Organisation", foreign_key: :superseded_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseding_organisation_id
   has_and_belongs_to_many :superseded_organisations, class_name: "Organisation", foreign_key: :superseding_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseded_organisation_id
 

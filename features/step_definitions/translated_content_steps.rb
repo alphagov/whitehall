@@ -118,7 +118,7 @@ Then(/^I should see on the admin organisation contacts page that "(.*?)" has a w
 end
 
 Given(/^the world organisation "(.*?)" is translated into French and has an office "(.*?)"$/) do |organisation_name, office_name|
-  organisation = create(:worldwide_organisation, name: organisation_name, translated_into: :fr)
+  organisation = create(:editionable_worldwide_organisation, title: organisation_name, translated_into: :fr)
   contact = create(
     :contact,
     title: office_name,
@@ -126,7 +126,7 @@ Given(/^the world organisation "(.*?)" is translated into French and has an offi
     street_address: "123 The Avenue",
   )
   create(:contact_number, contact:, label: "English phone", number: "0123456789")
-  create(:worldwide_office, worldwide_organisation: organisation, contact:)
+  create(:worldwide_office, edition: organisation, contact:)
 end
 
 When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_title, english_title|

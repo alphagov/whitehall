@@ -7,8 +7,6 @@ FactoryBot.define do
     after(:create) do |corporate_information_page, _evaluator|
       corporate_information_page.organisation
         .try(:corporate_information_pages).try(:reload)
-      corporate_information_page.worldwide_organisation
-        .try(:corporate_information_pages).try(:reload)
     end
   end
 
@@ -87,11 +85,6 @@ FactoryBot.define do
     corporate_information_page_type_id do
       CorporateInformationPageType::WelshLanguageScheme.id
     end
-  end
-
-  factory :published_worldwide_organisation_corporate_information_page, parent: :corporate_information_page, traits: [:published] do
-    organisation { nil }
-    association :worldwide_organisation, factory: :worldwide_organisation
   end
 
   factory :accessible_documents_policy_corporate_information_page,

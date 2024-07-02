@@ -18,8 +18,6 @@ private
   end
 
   def page_owner_identifier_for(organisation)
-    organisation = organisation.is_a?(WorldwideOrganisation) ? organisation.sponsoring_organisation : organisation
-
     if organisation && organisation.acronym.present?
       organisation.acronym.downcase.parameterize.underscore
     end

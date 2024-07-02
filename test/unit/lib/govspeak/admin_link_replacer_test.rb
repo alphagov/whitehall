@@ -38,7 +38,7 @@ module Govspeak
     end
 
     test "handles cips on world orgs" do
-      world_org  = create(:worldwide_organisation)
+      world_org  = create(:editionable_worldwide_organisation)
       cip        = create(:published_corporate_information_page, organisation: nil, worldwide_organisation: world_org)
       admin_path = polymorphic_path([:admin, world_org, cip])
       public_url = cip.public_url

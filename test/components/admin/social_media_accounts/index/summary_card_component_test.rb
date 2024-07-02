@@ -69,7 +69,7 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
   end
 
   test "renders the correct links when the socialable is a world news organisation" do
-    socialable = build_stubbed(:worldwide_organisation)
+    socialable = build_stubbed(:editionable_worldwide_organisation)
     social_media_account = build_stubbed(:social_media_account, socialable:)
 
     render_inline(Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(

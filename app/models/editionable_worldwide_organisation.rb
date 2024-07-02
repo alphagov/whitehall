@@ -87,6 +87,8 @@ class EditionableWorldwideOrganisation < Edition
     lead_organisations.first
   end
 
+  alias_method :sponsoring_organisations, :organisations
+
   def base_path
     "/world/organisations/#{slug}"
   end
