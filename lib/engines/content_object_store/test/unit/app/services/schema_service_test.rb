@@ -27,7 +27,8 @@ class ContentObjectStore::SchemaServiceTest < ActiveSupport::TestCase
 
       schema = ContentObjectStore::SchemaService.schema_for_block_type(block_type)
 
-      assert_equal schema, response["definitions"]["details"]
+      assert_equal schema.id, "content_block_#{block_type}"
+      assert_equal schema.fields, %w[email_address]
     end
 
     test "it throws an error when the block type is not valid" do
@@ -57,8 +58,31 @@ class ContentObjectStore::SchemaServiceTest < ActiveSupport::TestCase
       {
         "something" => {},
         "something_else" => {},
-        "content_block_foo" => {},
-        "content_block_bar" => {},
+        "content_block_foo" => {
+          "definitions" => {
+            "details" => {
+              "properties" => {
+                "foo_field" => {
+                  "type" => "string",
+                },
+              },
+            },
+          },
+        },
+        "content_block_bar" => {
+          "definitions" => {
+            "details" => {
+              "properties" => {
+                "bar_field" => {
+                  "type" => "string",
+                },
+                "bar_field2" => {
+                  "type" => "string",
+                },
+              },
+            },
+          },
+        },
       }
     end
 
@@ -70,6 +94,7 @@ class ContentObjectStore::SchemaServiceTest < ActiveSupport::TestCase
     it "returns a list of schemas with the content block prefix" do
       schemas = ContentObjectStore::SchemaService.valid_schemas
       assert_equal schemas.map(&:id), %w[content_block_foo content_block_bar]
+      assert_equal schemas.map(&:fields), [%w[foo_field], %w[bar_field bar_field2]]
     end
 
     it "memoizes the result" do
