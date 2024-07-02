@@ -195,7 +195,6 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
   test "it includes a link to worldwide organisations for international delegation" do
     world_location_news = build(:world_location_news)
     world_location = create(:international_delegation, :with_worldwide_organisations, world_location_news:)
-    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: world_location.worldwide_organisations.first)
 
     presented_links = present(world_location_news).links
 
