@@ -11,11 +11,7 @@ class Admin::WorldwideOrganisationsMainOfficesController < Admin::BaseController
 private
 
   def find_worldwide_organisation
-    @worldwide_organisation = if Flipflop.editionable_worldwide_organisations?
-                                Edition.find(params[:id])
-                              else
-                                WorldwideOrganisation.find(params[:id])
-                              end
+    @worldwide_organisation = Edition.find(params[:id])
   end
 
   def main_office_params
