@@ -173,8 +173,7 @@ def content_types
                                     TakePartPage
                                     TopicalEvent
                                     TopicalEventAboutPage
-                                    WorldLocationNews
-                                    WorldwideOrganisation],
+                                    WorldLocationNews],
     test_specific: %w[GenericEdition
                       SearchableEdition
                       Edition::AlternativeFormatProviderTest::EditionWithAlternativeFormat
