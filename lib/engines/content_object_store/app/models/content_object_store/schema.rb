@@ -3,8 +3,9 @@ class ContentObjectStore::Schema
 
   attr_reader :id
 
-  def initialize(id)
+  def initialize(id, body)
     @id = id
+    @body = body
   end
 
   def name
@@ -13,6 +14,10 @@ class ContentObjectStore::Schema
 
   def parameter
     id_without_prefix.dasherize
+  end
+
+  def fields
+    @body["properties"].keys
   end
 
 private
