@@ -173,7 +173,6 @@ private
   def type_options_container(user)
     Whitehall.edition_classes.map { |edition_type|
       next if edition_type == FatalityNotice && !user.can_handle_fatalities?
-      next if edition_type == EditionableWorldwideOrganisation && !Flipflop.editionable_worldwide_organisations?
 
       [edition_type.format_name.humanize.pluralize, edition_type.model_name.singular]
     }.compact
