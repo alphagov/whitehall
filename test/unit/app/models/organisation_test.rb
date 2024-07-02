@@ -787,14 +787,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_nil SocialMediaAccount.find_by(id: social_media_account.id)
   end
 
-  test "can sponsor worldwide offices" do
-    organisation = create(:organisation)
-    world_organisation = create(:editionable_worldwide_organisation)
-    organisation.sponsored_worldwide_organisations << world_organisation
-
-    assert_equal [world_organisation], organisation.reload.sponsored_worldwide_organisations
-  end
-
   test "can provide a list of all its FOI contacts" do
     organisation = create(:organisation)
     contact1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
