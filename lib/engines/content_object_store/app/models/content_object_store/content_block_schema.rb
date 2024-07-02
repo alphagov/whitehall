@@ -8,6 +8,16 @@ class ContentObjectStore::ContentBlockSchema
   end
 
   def name
-    id.delete_prefix(SCHEMA_PREFIX).humanize
+    id_without_prefix.humanize
+  end
+
+  def parameter
+    id_without_prefix.dasherize
+  end
+
+private
+
+  def id_without_prefix
+    @id_without_prefix ||= id.delete_prefix("#{SCHEMA_PREFIX}_")
   end
 end
