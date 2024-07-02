@@ -9,20 +9,18 @@ class ContentObjectStore::ContentBlockSchema
   end
 
   def name
-    id_without_prefix.humanize
+    block_type.humanize
   end
 
   def parameter
-    id_without_prefix.dasherize
+    block_type.dasherize
   end
 
   def fields
     @body["properties"].keys
   end
 
-private
-
-  def id_without_prefix
-    @id_without_prefix ||= id.delete_prefix("#{SCHEMA_PREFIX}_")
+  def block_type
+    @block_type ||= id.delete_prefix("#{SCHEMA_PREFIX}_")
   end
 end
