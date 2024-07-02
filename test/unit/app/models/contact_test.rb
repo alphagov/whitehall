@@ -195,32 +195,6 @@ class ContactTest < ActiveSupport::TestCase
     end
   end
 
-  test "republishes worldwide office on creation of related contact" do
-    worldwide_office = create(:worldwide_office)
-
-    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
-
-    Sidekiq::Testing.inline! do
-      create(:contact, contactable: worldwide_office)
-    end
-  end
-
-  test "republishes worldwide office on update of related contact" do
-    worldwide_office = create(:worldwide_office)
-
-    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
-
-    worldwide_office.contact.update!(locality: "new-locality")
-  end
-
-  test "republishes worldwide office on deletion of related contact" do
-    worldwide_office = create(:worldwide_office)
-
-    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_office).once
-
-    worldwide_office.contact.destroy!
-  end
-
   test "destroy deletes related contacts" do
     # This test uses organisations as a candidate, but any object with this module
     # can be used here. Ideally a seperate stub ActiveRecord object would be used.
@@ -241,19 +215,8 @@ class ContactTest < ActiveSupport::TestCase
     end
   end
 
-  test "is published to Publishing API on update when associated with a worldwide office that has a non-editionable worldwide organisation" do
-    office = create(:worldwide_office)
-
-    Whitehall::PublishingApi.expects(:patch_links).with(office.contact)
-    Whitehall::PublishingApi.expects(:publish).with(office.contact)
-
-    Sidekiq::Testing.inline! do
-      office.contact.update!(title: "New title")
-    end
-  end
-
   test "is not published to Publishing API on update when associated with a worldwide office that has an editionable worldwide organisation" do
-    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation), worldwide_organisation: nil)
+    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation))
 
     Whitehall::PublishingApi.expects(:patch_links).with(office.contact).never
     Whitehall::PublishingApi.expects(:publish).with(office.contact).never
@@ -273,18 +236,8 @@ class ContactTest < ActiveSupport::TestCase
     end
   end
 
-  test "is deleted from Publishing API on destroy when associated with a worldwide office that has a non-editionable worldwide organisation" do
-    office = create(:worldwide_office)
-
-    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.contact.content_id, nil, nil)
-
-    Sidekiq::Testing.inline! do
-      office.contact.destroy!
-    end
-  end
-
   test "is not deleted from Publishing API on destroy when associated with a worldwide office that has an editionable worldwide organisation" do
-    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation), worldwide_organisation: nil)
+    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation))
 
     Whitehall::PublishingApi.expects(:publish_gone_async).with(office.contact.content_id, nil, nil).never
 
@@ -295,7 +248,7 @@ class ContactTest < ActiveSupport::TestCase
 
   test "when associated with a WorldwideOffice should be valid when translated into a language that the worldwide office's associated organisation has" do
     worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
-    office = create(:worldwide_office, edition: worldwide_organisation, worldwide_organisation: nil)
+    office = create(:worldwide_office, edition: worldwide_organisation)
     contact = create(:contact, contactable: office, translated_into: %i[fr])
 
     assert contact.valid?
@@ -303,7 +256,7 @@ class ContactTest < ActiveSupport::TestCase
 
   test "when associated with a WorldwideOffice should not be valid when translated into a language that the worldwide office's associated organisation does not have" do
     worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
-    office = create(:worldwide_office, edition: worldwide_organisation, worldwide_organisation: nil)
+    office = create(:worldwide_office, edition: worldwide_organisation)
     contact = create(:contact, contactable: office, translated_into: %i[cy es-419])
 
     assert_not contact.valid?

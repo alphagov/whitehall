@@ -16,7 +16,7 @@ class Admin::SuggestionsControllerTest < ActionController::TestCase
 
     create(
       :worldwide_office,
-      worldwide_organisation:,
+      edition: worldwide_organisation,
       contact: contact2,
     )
 
