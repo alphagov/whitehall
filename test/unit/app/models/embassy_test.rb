@@ -182,7 +182,7 @@ class EmbassyTest < ActiveSupport::TestCase
     before do
       organisation = create(:editionable_worldwide_organisation,
                             world_locations: [world_location],
-                            name: "org-name",
+                            title: "org-name",
                             slug: "org-slug")
       second_location_contact = create(:contact_with_country, country: second_location)
       third_location_contact = create(:contact_with_country, country: third_location)

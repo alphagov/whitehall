@@ -118,7 +118,7 @@ Then(/^I should see on the admin organisation contacts page that "(.*?)" has a w
 end
 
 Given(/^the world organisation "(.*?)" is translated into French and has an office "(.*?)"$/) do |organisation_name, office_name|
-  organisation = create(:editionable_worldwide_organisation, name: organisation_name, translated_into: :fr)
+  organisation = create(:editionable_worldwide_organisation, title: organisation_name, translated_into: :fr)
   contact = create(
     :contact,
     title: office_name,

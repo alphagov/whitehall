@@ -99,7 +99,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
   test "populates the csv only with details about broken links on editions associated with the specified organisation" do
     hmrc = create(:organisation, name: "HM Revenue & Customs")
-    embassy_paris = create(:editionable_worldwide_organisation, name: "British Embassy Paris")
+    embassy_paris = create(:editionable_worldwide_organisation, title: "British Embassy Paris")
     detailed_guide = create(
       :published_detailed_guide,
       lead_organisations: [hmrc],
