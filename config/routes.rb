@@ -473,5 +473,5 @@ Whitehall::Application.routes.draw do
 
   mount GovukPublishingComponents::Engine, at: "/component-guide" unless Rails.env.production?
 
-  mount ContentObjectStore::Engine, at: "government/admin/content-object-store"
+  mount ContentObjectStore::Engine, at: "government/admin/content-object-store", as: "content_object_store"
 end
