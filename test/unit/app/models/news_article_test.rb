@@ -110,7 +110,6 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
   end
 
   test "is invalid when not associating an editionable worldwide organisation" do
-    feature_flags.switch! :editionable_worldwide_organisations, true
     news_article = build(:news_article_world_news_story)
 
     news_article.editionable_worldwide_organisations = []

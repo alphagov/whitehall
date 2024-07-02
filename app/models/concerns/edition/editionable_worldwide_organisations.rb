@@ -31,7 +31,7 @@ module Edition::EditionableWorldwideOrganisations
   end
 
   def at_least_one_editionable_worldwide_organisation
-    return unless Flipflop.editionable_worldwide_organisations? && !skip_worldwide_organisations_validation?
+    return if skip_worldwide_organisations_validation?
 
     errors.add(:editionable_worldwide_organisations, "at least one required") if editionable_worldwide_organisation_document_ids.empty?
   end
