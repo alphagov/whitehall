@@ -43,7 +43,7 @@
           },
           day: {
             id: "government_start_date_3i",
-            value: params.dig("government", "start_date(3i)") || government.start_date&.month,
+            value: params.dig("government", "start_date(3i)") || government.start_date&.day,
             name: "government[start_date(3i)]",
             label: "Day",
             width: 2,
@@ -76,7 +76,7 @@
           },
           day: {
             id: "government_end_date_3i",
-            value: params.dig("government", "end_date(3i)") || government.end_date&.month,
+            value: params.dig("government", "end_date(3i)") || government.end_date&.day,
             name: "government[end_date(3i)]",
             label: "Day",
             width: 2,

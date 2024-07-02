@@ -23,18 +23,14 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
   end
 
   view_test "new should have the correct form fields and default start date of today" do
+    Timecop.freeze(2020, 4, 17)
     login_as :gds_admin
     get :new
     assert_select "input[name='government[name]']"
-    assert_select "input[name='government[start_date(1i)]']" do |element|
-      element.attr("value").value == @government.start_date.year.to_s
-    end
-    assert_select "input[name='government[start_date(2i)]']" do |element|
-      element.attr("value").value == @government.start_date.month.to_s
-    end
-    assert_select "input[name='government[start_date(3i)]']" do |element|
-      element.attr("value").value == @government.start_date.day.to_s
-    end
+    assert_select "input[name='government[start_date(1i)]'][value='2020']"
+    assert_select "input[name='government[start_date(2i)]'][value='4']"
+    assert_select "input[name='government[start_date(3i)]'][value='17']"
+
     assert_select "input[name='government[end_date(1i)]']"
     assert_select "input[name='government[end_date(2i)]']"
     assert_select "input[name='government[end_date(3i)]']"
@@ -73,19 +69,29 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
     get :edit, params: { id: @government.id }
 
     assert_select "input[name='government[name]'][value='#{@government.name}']"
-    assert_select "input[name='government[start_date(1i)]']" do |element|
-      element.attr("value").value == @government.start_date.year.to_s
-    end
-    assert_select "input[name='government[start_date(2i)]']" do |element|
-      element.attr("value").value == @government.start_date.month.to_s
-    end
-    assert_select "input[name='government[start_date(3i)]']" do |element|
-      element.attr("value").value == @government.start_date.day.to_s
-    end
+    assert_select "input[name='government[start_date(1i)]'][value='#{@government.start_date.year}']"
+    assert_select "input[name='government[start_date(2i)]'][value='#{@government.start_date.month}']"
+    assert_select "input[name='government[start_date(3i)]'][value='#{@government.start_date.day}']"
     assert_select "input[name='government[end_date(1i)]']"
     assert_select "input[name='government[end_date(2i)]']"
     assert_select "input[name='government[end_date(3i)]']"
     assert_select "a[href='#{prepare_to_close_admin_government_path(@government)}']", text: "Prepare to close this government"
+  end
+
+  view_test "edit renders the correct fields when editing a past government" do
+    @government = FactoryBot.build(:government, end_date: "2011-12-13")
+    @government.save!(validate: false) # fiddly making a past government that doesn't cause an 'overlap' validation error
+
+    login_as :gds_admin
+    get :edit, params: { id: @government.id }
+
+    assert_select "input[name='government[name]'][value='#{@government.name}']"
+    assert_select "input[name='government[start_date(1i)]'][value='#{@government.start_date.year}']"
+    assert_select "input[name='government[start_date(2i)]'][value='#{@government.start_date.month}']"
+    assert_select "input[name='government[start_date(3i)]'][value='#{@government.start_date.day}']"
+    assert_select "input[name='government[end_date(1i)]'][value='2011']"
+    assert_select "input[name='government[end_date(2i)]'][value='12']"
+    assert_select "input[name='government[end_date(3i)]'][value='13']"
   end
 
   view_test "edit does not render the prepare to close link when editing a previous government" do
