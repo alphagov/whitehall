@@ -174,8 +174,7 @@ def content_types
                                     TopicalEvent
                                     TopicalEventAboutPage
                                     WorldLocationNews
-                                    WorldwideOffice
-                                    WorldwideOrganisation],
+                                    WorldwideOffice],
     test_specific: %w[GenericEdition
                       SearchableEdition
                       Edition::AlternativeFormatProviderTest::EditionWithAlternativeFormat

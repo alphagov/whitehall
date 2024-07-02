@@ -126,15 +126,6 @@ module Admin::TaggableContentHelper
   # Returns an Array that represents the taggable worldwide organisations.
   # Each element of the array consists of two values: the name of the worldwide
   # organisation and its ID.
-  def taggable_worldwide_organisations_container
-    Rails.cache.fetch(taggable_worldwide_organisations_cache_digest, expires_in: 1.day) do
-      WorldwideOrganisation.with_translations(:en).map { |wo| [wo.name, wo.id] }
-    end
-  end
-
-  # Returns an Array that represents the taggable worldwide organisations.
-  # Each element of the array consists of two values: the name of the worldwide
-  # organisation and its ID.
   def taggable_editionable_worldwide_organisations_container
     Rails.cache.fetch(taggable_editionable_worldwide_organisations_cache_digest, expires_in: 1.day) do
       EditionableWorldwideOrganisation.with_translations.latest_edition.map { |wo| [wo.title, wo.document.id] }

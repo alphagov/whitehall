@@ -99,21 +99,4 @@ module OrganisationResluggerTest
       reslugger.run!
     end
   end
-
-  class WorldwideOrganisationTest < ActiveSupport::TestCase
-    include SharedTests
-
-    def create_org_and_stub_content_store
-      create(:worldwide_organisation, name: "Old slug")
-    end
-
-    def base_path
-      "/world/organisations"
-    end
-
-    test "calls update_editions" do
-      @reslugger.expects(:update_editions).once
-      @reslugger.run!
-    end
-  end
 end

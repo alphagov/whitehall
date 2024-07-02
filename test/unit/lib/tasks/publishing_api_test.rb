@@ -298,8 +298,7 @@ class PublishingApiRake < ActiveSupport::TestCase
                             StatisticsAnnouncement
                             TakePartPage
                             TopicalEventAboutPage
-                            TopicalEvent
-                            WorldwideOrganisation]
+                            TopicalEvent]
 
         document_types.each do |document_type|
           test "republishes all #{document_type} documents" do
@@ -335,7 +334,7 @@ class PublishingApiRake < ActiveSupport::TestCase
           corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id,
         )
 
-        create(:corporate_information_page, :draft, worldwide_organisation: create(:worldwide_organisation), organisation: nil)
+        create(:corporate_information_page, :draft, worldwide_organisation: create(:editionable_worldwide_organisation), organisation: nil)
 
         create(
           :published_corporate_information_page,

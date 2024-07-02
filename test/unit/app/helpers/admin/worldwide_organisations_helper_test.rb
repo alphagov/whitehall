@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::WorldwideOrganisationsHelperTest < ActionView::TestCase
   test "#worldwide_organisation_nav_items returns an array of hashes with the correct items" do
-    worldwide_organisation = build_stubbed(:worldwide_organisation)
+    worldwide_organisation = build_stubbed(:editionable_worldwide_organisation)
     current_path = admin_worldwide_organisation_path(worldwide_organisation)
 
     expected_output = [

@@ -527,7 +527,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "republishes a worldwide organisation when a role appointment is created" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     role = create(:role_without_organisations)
     create(:worldwide_organisation_role, role:, worldwide_organisation:)
 
@@ -538,7 +538,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "republishes a worldwide organisation when a role appointment is updated" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     role = create(:role_without_organisations)
     create(:worldwide_organisation_role, role:, worldwide_organisation:)
     role_appointment = create(:role_appointment, role:)
@@ -550,7 +550,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "republishes a worldwide organisation when a role appointment is destroyed" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     role = create(:role_without_organisations)
     create(:worldwide_organisation_role, role:, worldwide_organisation:)
     role_appointment = create(:role_appointment, role:)

@@ -31,7 +31,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
   context "when there are organisations with embassy offices in the world location" do
     before do
-      organisation = create(:worldwide_organisation, world_locations: [world_location])
+      organisation = create(:editionable_worldwide_organisation, world_locations: [world_location])
       contact = create(:contact_with_country, country: world_location)
       create(:worldwide_office,
              contact:,
@@ -58,7 +58,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
   context "when there are organisations with embassy offices in unspecified countries" do
     before do
-      organisation = create(:worldwide_organisation, world_locations: [world_location])
+      organisation = create(:editionable_worldwide_organisation, world_locations: [world_location])
       contact = create(:contact, country: nil)
       create(:worldwide_office,
              contact:,
@@ -112,7 +112,7 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:other_location) { create(:world_location) }
 
     before do
-      organisation = create(:worldwide_organisation,
+      organisation = create(:editionable_worldwide_organisation,
                             world_locations: [world_location],
                             name: "org-name",
                             slug: "org-slug")
@@ -149,7 +149,7 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:other_location) { create(:world_location) }
 
     before do
-      organisation = create(:worldwide_organisation,
+      organisation = create(:editionable_worldwide_organisation,
                             world_locations: [world_location],
                             name: "org-name",
                             slug: "org-slug")
@@ -180,7 +180,7 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:third_location) { create(:world_location) }
 
     before do
-      organisation = create(:worldwide_organisation,
+      organisation = create(:editionable_worldwide_organisation,
                             world_locations: [world_location],
                             name: "org-name",
                             slug: "org-slug")

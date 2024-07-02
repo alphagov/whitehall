@@ -74,13 +74,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::WorldLocationPresenter, presenter.class
   end
 
-  test ".presenter_for returns a WorldwideOrganisation presenter for a worldwide organisation" do
-    worldwide_organisation = WorldwideOrganisation.new
-    presenter = PublishingApiPresenters.presenter_for(worldwide_organisation)
-
-    assert_equal PublishingApi::WorldwideOrganisationPresenter, presenter.class
-  end
-
   test ".presenter_for returns a WorkingGroup presenter for a policy group" do
     policy_group = PolicyGroup.new
     presenter = PublishingApiPresenters.presenter_for(policy_group)
@@ -155,7 +148,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
       .presenter_for(
         build(
           :corporate_information_page,
-          worldwide_organisation: build(:worldwide_organisation),
+          worldwide_organisation: build(:editionable_worldwide_organisation),
           organisation: nil,
           corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
         ),
@@ -173,7 +166,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
                   .presenter_for(
                     build(
                       :corporate_information_page,
-                      worldwide_organisation: build(:worldwide_organisation),
+                      worldwide_organisation: build(:editionable_worldwide_organisation),
                     ),
                   )
 

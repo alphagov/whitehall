@@ -12,7 +12,7 @@ class WorldwideOrganisationRoleTest < ActiveSupport::TestCase
   end
 
   test "creating a new worldwide organisation role republished the linked worldwide orgaisation" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     role = create(:role)
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once
@@ -21,7 +21,7 @@ class WorldwideOrganisationRoleTest < ActiveSupport::TestCase
   end
 
   test "updating an existing worldwide organisation role republished the linked worldwide orgaisation" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     worldwide_organisation_role = create(:worldwide_organisation_role, worldwide_organisation:)
     new_role = create(:role)
 
@@ -31,7 +31,7 @@ class WorldwideOrganisationRoleTest < ActiveSupport::TestCase
   end
 
   test "deleting a worldwide organisation role republished the linked worldwide orgaisation" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     worldwide_organisation_role = create(:worldwide_organisation_role, worldwide_organisation:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once

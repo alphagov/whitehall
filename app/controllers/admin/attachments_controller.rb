@@ -156,7 +156,6 @@ private
     when "edition_id" then Edition
     when "consultation_response_id" then ConsultationResponse
     when "call_for_evidence_response_id" then CallForEvidenceResponse
-    when "worldwide_organisation_page_id" then WorldwideOrganisationPage
     when "corporate_information_page_id" then CorporateInformationPage
     when "policy_group_id" then PolicyGroup
     else

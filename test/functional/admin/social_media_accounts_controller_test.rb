@@ -9,7 +9,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "POST on :create creates social media account" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     post :create,
          params: {
            social_media_account: {
@@ -26,7 +26,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   end
 
   test "PUT on :update updates a social media account" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     social_media_account = worldwide_organisation.social_media_accounts.create!(social_media_service_id: @social_media_service.id, url: "http://foo")
 
     put :update,
@@ -47,7 +47,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   end
 
   test ":create and :update strip whitespace from urls" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     post :create,
          params: { worldwide_organisation_id: worldwide_organisation,
                    social_media_account: {
@@ -82,7 +82,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   end
 
   view_test "GET on :confirm_destroy has the correct action and cancel links when socialable is a worldwide organisation" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
     social_media_account = create(:social_media_account, socialable: worldwide_organisation)
 
     get :confirm_destroy, params: { worldwide_organisation_id: worldwide_organisation, id: social_media_account }
@@ -93,7 +93,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   end
 
   test "DELETE on :destroy destroys the social media account" do
-    organisation = create(:worldwide_organisation)
+    organisation = create(:editionable_worldwide_organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
 
     delete :destroy, params: { worldwide_organisation_id: organisation, id: social_media_account }
@@ -114,7 +114,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   end
 
   test "PUT on :update with a locale updates only the translation of the social media account" do
-    worldwide_organisation = create(:worldwide_organisation, translated_into: [:cy])
+    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: [:cy])
     social_media_account = worldwide_organisation.social_media_accounts.create!(social_media_service_id: @social_media_service.id, url: "http://english-url.com", title: "Title in English")
 
     put :update,

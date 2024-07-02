@@ -19,7 +19,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "post create creates worldwide office" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     post :create,
          params: {
@@ -104,7 +104,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   test "post create creates worldwide office with services" do
     service1 = create(:worldwide_service)
     service2 = create(:worldwide_service)
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     post :create,
          params: {
@@ -124,7 +124,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "post create creates associated phone numbers" do
-    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation = create(:editionable_worldwide_organisation)
 
     post :create,
          params: {

@@ -162,7 +162,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "world news stories render the worldwide organisations default_lead_image no lead image has been selected" do
-    organisation = build(:worldwide_organisation, :with_default_news_image)
+    organisation = build(:editionable_worldwide_organisation, :with_default_news_image)
     edition = create(:news_article_world_news_story, :draft, worldwide_organisations: [organisation])
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 

@@ -23,7 +23,7 @@ module Whitehall
     end
 
     test "finds worldwide corporate information page" do
-      world_org = create(:worldwide_organisation)
+      world_org = create(:editionable_worldwide_organisation)
       cip = create(:published_corporate_information_page, organisation: nil, worldwide_organisation: world_org)
       admin_path = polymorphic_path([:admin, world_org, cip])
 

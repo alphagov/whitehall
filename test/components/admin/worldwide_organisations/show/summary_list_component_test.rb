@@ -6,7 +6,7 @@ class Admin::WorldwideOrganisations::Show::SummaryListComponentTest < ViewCompon
   include Rails.application.routes.url_helpers
 
   test "renders the correct default items" do
-    worldwide_organisation = build_stubbed(:worldwide_organisation, logo_formatted_name: nil)
+    worldwide_organisation = build_stubbed(:editionable_worldwide_organisation, logo_formatted_name: nil)
     render_inline(Admin::WorldwideOrganisations::Show::SummaryListComponent.new(worldwide_organisation:))
 
     assert_selector ".govuk-summary-list__row", count: 1
