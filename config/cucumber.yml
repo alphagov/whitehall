@@ -3,7 +3,8 @@ rerun = File.file?('rerun.txt') ? IO.read('rerun.txt') : ""
 rerun = rerun.strip.gsub /\s/, ' '
 rerun_opts = rerun.empty? ? "--format #{ENV['CUCUMBER_FORMAT'] || 'progress'} features" : "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} #{rerun}"
 std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'progress'} --strict --tags 'not @wip'"
+dirs = ["features", Dir.glob("lib/engines/**/features")].flatten.join(" ")
 %>
-default: <%= std_opts %> features --publish-quiet
-wip: --tags @wip:3 --wip features --publish-quiet
+default: <%= std_opts %> <%= dirs %> --publish-quiet
+wip: --tags @wip:3 --wip <%= dirs %> --publish-quiet
 rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags 'not @wip' --publish-quiet
