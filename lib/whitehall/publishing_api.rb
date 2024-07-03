@@ -40,9 +40,7 @@ module Whitehall
         end
       end
     rescue GdsApi::HTTPUnprocessableEntity => e
-      if model_instance.instance_of?(WorldwideOrganisation) && e.message =~ /conflicts with content_id/
-        nil
-      elsif e.message =~ /conflicts with content_id/
+      if e.message =~ /conflicts with content_id/
         raise UnpublishableInstanceError, e.message
       else
         raise
