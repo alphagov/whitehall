@@ -15,7 +15,7 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
       details: '"email_address":"example@example.com"',
       content_block_document_id: content_block_document.id,
     )
-    visit "/government/admin/content-object-store/content-block-editions"
+    visit content_object_store.content_object_store_content_block_editions_path
     assert_text '"email_address":"example@example.com"'
   end
 
