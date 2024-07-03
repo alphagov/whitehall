@@ -178,6 +178,19 @@
     ],
   } %>
 
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Custom contextual banner (optional)",
+      heading_size: "l",
+    },
+    hint: "Displays a banner on live organisations (e.g. during a reshuffle) or overrides the default banner displayed on closed organisations.",
+    name: "organisation[custom_contextual_banner]",
+    id: "organisation_custom_contextual_banner",
+    value: organisation.custom_contextual_banner,
+    rows: 4,
+    error_items: errors_for(organisation.errors, :custom_contextual_banner),
+  } %>
+
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Organisation’s URL",

@@ -98,6 +98,7 @@ module PublishingApi
         social_media_links:,
       }
       details[:default_news_image] = present_default_news_image(item) if present_default_news_image(item)
+      details[:custom_contextual_banner] = item.custom_contextual_banner if item.custom_contextual_banner
       details
     end
 
