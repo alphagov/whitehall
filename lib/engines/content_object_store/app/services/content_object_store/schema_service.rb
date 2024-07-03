@@ -8,5 +8,9 @@ module ContentObjectStore
     rescue GdsApi::HTTPNotFound
       raise ArgumentError, "Invalid block_type: #{block_type}"
     end
+
+    def self.valid_schemas
+      @valid_schemas ||= Services.publishing_api.get_schemas.keys.select { |s| s.start_with?(SCHEMA_PREFIX) }
+    end
   end
 end

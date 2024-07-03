@@ -51,4 +51,34 @@ class ContentObjectStore::SchemaServiceTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "valid schemas" do
+    let(:response) do
+      {
+        "something" => {},
+        "something_else" => {},
+        "content_block_foo" => {},
+        "content_block_bar" => {},
+      }
+    end
+
+    before(:all) do
+      Services.publishing_api.expects(:get_schemas)
+              .once.returns(response)
+    end
+
+    it "returns a list of schemas with the content block prefix" do
+      schemas = ContentObjectStore::SchemaService.valid_schemas
+      assert_equal schemas, %w[content_block_foo content_block_bar]
+    end
+
+    it "memoizes the result" do
+      # Mocha won't let us assert how many times something was called, so
+      # given that we only expect Publishing API to be called once, let's
+      # call our service method twice and assert that no errors were raised
+      assert_nothing_raised do
+        2.times { ContentObjectStore::SchemaService.valid_schemas }
+      end
+    end
+  end
 end
