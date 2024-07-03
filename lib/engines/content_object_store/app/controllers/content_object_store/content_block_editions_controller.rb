@@ -1,7 +1,11 @@
 class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
-  include ContentObjectStore::Engine.routes.url_helpers
-  include Whitehall::Application.routes.url_helpers
   def index
     @content_block_editions = ContentObjectStore::ContentBlockEdition.all
+  end
+
+  def new
+    if params[:block_type].blank?
+      @schemas = ContentObjectStore::SchemaService.valid_schemas
+    end
   end
 end
