@@ -17,14 +17,6 @@ module OrganisationHelper
     end
   end
 
-  def worldwide_organisation_logo_name(organisation)
-    if I18n.locale == :en && organisation.logo_formatted_name.present?
-      format_with_html_line_breaks(ERB::Util.html_escape(organisation.logo_formatted_name))
-    else
-      organisation.title
-    end
-  end
-
   def organisation_type_name(organisation)
     ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
   end
