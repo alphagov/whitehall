@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: [:admin, @organisation, PromotionalFeature],
+    href: admin_organisation_promotional_features_path(@organisation),
   } %>
 <% end %>
 <% content_for :page_title, "Promotional feature: #{@promotional_feature.title}" %>
