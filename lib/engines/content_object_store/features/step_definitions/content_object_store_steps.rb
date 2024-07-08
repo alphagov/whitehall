@@ -1,8 +1,8 @@
-Given("a schema {string} exists with the following fields:") do |schema_id, table|
+Given("a schema {string} exists with the following fields:") do |block_type, table|
   data = table.raw
   @schemas ||= {}
   properties = data.flatten.index_with { |_field| {} }
-  @schemas[schema_id] = ContentObjectStore::ContentBlockSchema.new(schema_id, { "properties" => properties })
+  @schemas[block_type] = build(:content_block_schema, block_type:, body: { "properties" => properties })
   ContentObjectStore::ContentBlockSchema.stubs(:all).returns(@schemas.values)
 end
 

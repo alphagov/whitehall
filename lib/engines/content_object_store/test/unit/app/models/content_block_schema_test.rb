@@ -4,7 +4,7 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:body) { { "properties" => { "foo" => {}, "bar" => {} } } }
-  let(:schema) { ContentObjectStore::ContentBlockSchema.new("content_block_email_address", body) }
+  let(:schema) { build(:content_block_schema, block_type: "email_address", body:) }
 
   test "it generates a human-readable name" do
     assert_equal schema.name, "Email address"
@@ -93,8 +93,8 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
 
     setup do
       ContentObjectStore::ContentBlockSchema.stubs(:all).returns([
-        ContentObjectStore::ContentBlockSchema.new("content_block_#{block_type}", body),
-        ContentObjectStore::ContentBlockSchema.new("content_block_something_else", {}),
+        build(:content_block_schema, block_type:, body:),
+        build(:content_block_schema, block_type: "something_else", body: {}),
       ])
     end
 
