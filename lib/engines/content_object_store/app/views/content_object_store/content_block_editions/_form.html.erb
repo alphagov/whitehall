@@ -1,0 +1,40 @@
+<%= form_for content_block_edition, url: content_object_store.content_object_store_content_block_editions_path do |f| %>
+  <%= f.hidden_field :block_type, value: schema.block_type %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Title",
+    },
+    name: "content_object_store_content_block_edition[document_title]",
+    id: "content_object_store_content_block_edition_document_title",
+    value: content_block_edition.document_title,
+    error_items: errors_for(content_block_edition.errors, :document_title),
+  } %>
+
+  <% @schema.fields.each do |field| %>
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: field.humanize,
+      },
+      name: "content_object_store_content_block_edition[details[#{field}]]",
+      id: "content_object_store_content_block_edition_details_#{field}",
+      value: content_block_edition.details&.fetch(field),
+    } %>
+  <% end %>
+
+  <div class="govuk-button-group govuk-!-margin-bottom-6">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save and continue",
+      name: "save_and_continue",
+      value: "Save and continue",
+      type: "submit",
+      data_attributes: {
+        module: "gem-track-click",
+        "track-category": "form-button",
+        "track-action": "#{f.object.class.name.demodulize.underscore.dasherize}-button",
+        "track-label": "Save and continue",
+      },
+    } %>
+    <%= link_to("Cancel", content_object_store.content_object_store_content_block_editions_path, class: "govuk-link") %>
+  </div>
+<% end %>

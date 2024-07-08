@@ -1,7 +1,31 @@
-class ContentObjectStore::ContentBlockEditionsController < ApplicationController
-  include ContentObjectStore::Engine.routes.url_helpers
-  include Whitehall::Application.routes.url_helpers
+class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
   def index
     @content_block_editions = ContentObjectStore::ContentBlockEdition.all
+  end
+
+  def new
+    if params[:block_type].blank?
+      @schemas = ContentObjectStore::SchemaService.valid_schemas
+    else
+      @schema = ContentObjectStore::SchemaService.schema_for_block_type(params[:block_type].underscore)
+      @content_block_edition = ContentObjectStore::ContentBlockEdition.new(block_type: @schema.block_type)
+    end
+  end
+
+  def create
+    @schema = ContentObjectStore::SchemaService.schema_for_block_type(root_params[:block_type])
+    @content_block_edition = ContentObjectStore::ContentBlockEdition.create!(edition_params)
+
+    redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
+  end
+
+private
+
+  def root_params
+    params.require(:content_object_store_content_block_edition)
+  end
+
+  def edition_params
+    root_params.permit(:document_title, :block_type, details: @schema.fields)
   end
 end

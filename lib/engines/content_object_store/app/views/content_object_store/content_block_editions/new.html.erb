@@ -1,0 +1,9 @@
+<% content_for :context, "Object store" %>
+
+<% if @schemas %>
+  <% content_for :title, "Select a block type" %>
+  <%= render partial: "schemas", locals: { schemas: @schemas} %>
+<% else %>
+  <% content_for :title, "Create #{@schema.name}" %>
+  <%= render partial: "form", locals: { content_block_edition: @content_block_edition, schema: @schema} %>
+<% end %>

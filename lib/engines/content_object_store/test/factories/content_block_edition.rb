@@ -3,5 +3,6 @@ FactoryBot.define do
     details { "{}" }
     created_at { Time.zone.now.utc }
     updated_at { Time.zone.now.utc }
+    block_type { "email_address" }
   end
 end
