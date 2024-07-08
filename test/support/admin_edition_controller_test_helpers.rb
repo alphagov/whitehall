@@ -1203,19 +1203,19 @@ module AdminEditionControllerTestHelpers
       test "create should associate editionable worldwide organisations with the edition" do
         feature_flags.switch! :editionable_worldwide_organisations, true
 
-        first_world_organisation = create(:editionable_worldwide_organisation, document: create(:document))
-        second_world_organisation = create(:editionable_worldwide_organisation, document: create(:document))
+        first_worldwide_organisation = create(:editionable_worldwide_organisation, document: create(:document))
+        second_worldwide_organisation = create(:editionable_worldwide_organisation, document: create(:document))
         attributes = controller_attributes_for(edition_type)
 
         post :create,
              params: {
                edition: attributes.merge(
-                 editionable_worldwide_organisation_document_ids: [first_world_organisation.document.id, second_world_organisation.document.id],
+                 editionable_worldwide_organisation_document_ids: [first_worldwide_organisation.document.id, second_worldwide_organisation.document.id],
                ),
              }
 
         edition = edition_class.last!
-        assert_equal [first_world_organisation, second_world_organisation], edition.editionable_worldwide_organisations
+        assert_equal [first_worldwide_organisation, second_worldwide_organisation], edition.editionable_worldwide_organisations
       end
     end
 
