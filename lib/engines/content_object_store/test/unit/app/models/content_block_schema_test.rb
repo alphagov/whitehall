@@ -76,4 +76,41 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe ".find_by_block_type" do
+    let(:block_type) { "email_address" }
+    let(:body) do
+      {
+        "properties" => {
+          "email_address" => {
+            "type" => "string",
+            "format" => "email",
+          },
+        },
+      }
+    end
+
+    setup do
+      ContentObjectStore::ContentBlockSchema.stubs(:all).returns([
+        ContentObjectStore::ContentBlockSchema.new("content_block_#{block_type}", body),
+        ContentObjectStore::ContentBlockSchema.new("content_block_something_else", {}),
+      ])
+    end
+
+    test "it returns the schema when the block_type is valid" do
+      schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type)
+
+      assert_equal schema.id, "content_block_#{block_type}"
+      assert_equal schema.block_type, block_type
+      assert_equal schema.fields, %w[email_address]
+    end
+
+    test "it throws an error when the schema  cannot be found for the block type" do
+      block_type = "other_thing"
+
+      assert_raises ArgumentError, "Cannot find schema for #{block_type}" do
+        ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type)
+      end
+    end
+  end
 end

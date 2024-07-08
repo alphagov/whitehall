@@ -31,4 +31,8 @@ class ContentObjectStore::ContentBlockSchema
       full_schema.dig("definitions", "details")&.yield_self { |schema| new(id, schema) }
     }.compact
   end
+
+  def self.find_by_block_type(block_type)
+    all.find { |schema| schema.block_type == block_type } || raise(ArgumentError, "Cannot find schema for #{block_type}")
+  end
 end
