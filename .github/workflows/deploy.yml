@@ -31,6 +31,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      packages: write
   trigger-deploy:
     name: Trigger deploy to ${{ inputs.environment || 'integration' }}
     needs: build-and-publish-image
