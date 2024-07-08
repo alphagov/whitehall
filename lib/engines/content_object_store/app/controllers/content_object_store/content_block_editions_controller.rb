@@ -16,6 +16,14 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
     @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(root_params[:block_type])
     @content_block_edition = ContentObjectStore::ContentBlockEdition.create!(edition_params)
 
+    result = Services.publishing_api.put_content(@content_block_edition.document.content_id, {
+      schema_name: @schema.id,
+      document_type: @schema.id,
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
+      title: edition_params[:document_title],
+      details: edition_params[:details].to_h,
+    })
+
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
   end
 
