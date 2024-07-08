@@ -23,4 +23,12 @@ class ContentObjectStore::ContentBlockSchema
   def block_type
     @block_type ||= id.delete_prefix("#{SCHEMA_PREFIX}_")
   end
+
+  def self.all
+    @all ||= Services.publishing_api.get_schemas.select { |k, _v|
+      k.start_with?(SCHEMA_PREFIX)
+    }.map { |id, full_schema|
+      full_schema.dig("definitions", "details")&.yield_self { |schema| new(id, schema) }
+    }.compact
+  end
 end
