@@ -1,6 +1,8 @@
 require "test_helper"
 
 class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   test "content_block_document exists with required data" do
     content_block_document = create(
       :content_block_document,
