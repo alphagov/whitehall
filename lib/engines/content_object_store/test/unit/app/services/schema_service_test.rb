@@ -69,7 +69,7 @@ class ContentObjectStore::SchemaServiceTest < ActiveSupport::TestCase
 
     it "returns a list of schemas with the content block prefix" do
       schemas = ContentObjectStore::SchemaService.valid_schemas
-      assert_equal schemas, %w[content_block_foo content_block_bar]
+      assert_equal schemas.map(&:id), %w[content_block_foo content_block_bar]
     end
 
     it "memoizes the result" do
