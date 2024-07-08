@@ -1,8 +1,9 @@
-<span class="govuk-caption-xl">Object Store</span>
-<h1 class="govuk-heading-xl">Select a block type</h1>
+<% content_for :context, "Object store" %>
 
-<ul class="govuk-list">
-<% @schemas.each do |schema| %>
-  <li><%= link_to_new_block_type(schema) %></li>
+<% if @schemas %>
+  <% content_for :title, "Select a block type" %>
+  <%= render partial: "schemas", locals: { schemas: @schemas} %>
+<% else %>
+  <% content_for :title, "Create #{@schema.name}" %>
+  <%= render partial: "form", locals: { content_block_edition: @content_block_edition, schema: @schema} %>
 <% end %>
-</ul>
