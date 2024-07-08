@@ -1,4 +1,4 @@
-class ContentObjectStore::ContentBlockEditionsController < ApplicationController
+class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
   include ContentObjectStore::Engine.routes.url_helpers
   include Whitehall::Application.routes.url_helpers
   def index

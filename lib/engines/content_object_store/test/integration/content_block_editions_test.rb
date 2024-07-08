@@ -4,6 +4,10 @@ require "capybara/rails"
 class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
+  setup do
+    login_as_admin
+  end
+
   test "#index returns all Content Block Editions" do
     content_block_document = create(:content_block_document)
     create(
